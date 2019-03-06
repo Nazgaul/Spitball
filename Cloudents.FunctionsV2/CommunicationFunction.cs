@@ -55,29 +55,29 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("finish sending email");
         }
 
-        [FunctionName("FunctionEmailTest")]
-        public static async Task EmailFunctionTimerAsync(
-            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
-            IAsyncCollector<SendGridMessage> emailProvider,
+        //[FunctionName("FunctionEmailTest")]
+        //public static async Task EmailFunctionTimerAsync(
+        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
+        //    IAsyncCollector<SendGridMessage> emailProvider,
 
-            [Inject] ILifetimeScope lifetimeScope,
-            IBinder binder,
-            ILogger log,
-            CancellationToken token)
-        {
+        //    [Inject] ILifetimeScope lifetimeScope,
+        //    IBinder binder,
+        //    ILogger log,
+        //    CancellationToken token)
+        //{
 
 
-            var message = new DocumentPurchasedMessage(Guid.Parse("9D4463F7-CD2C-4091-87AA-A9C8008D922E"));
+        //    var message = new DocumentPurchasedMessage(Guid.Parse("9D4463F7-CD2C-4091-87AA-A9C8008D922E"));
 
-            var handlerType =
-                typeof(ISystemOperation<>).MakeGenericType(message.GetType());
-            using (var child = lifetimeScope.BeginLifetimeScope())
-            {
-                dynamic operation = child.Resolve(handlerType);
-                await operation.DoOperationAsync((dynamic)message, binder, token);
-            }
-        }
+        //    var handlerType =
+        //        typeof(ISystemOperation<>).MakeGenericType(message.GetType());
+        //    using (var child = lifetimeScope.BeginLifetimeScope())
+        //    {
+        //        dynamic operation = child.Resolve(handlerType);
+        //        await operation.DoOperationAsync((dynamic)message, binder, token);
+        //    }
+        //}
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
