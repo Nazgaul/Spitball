@@ -12,7 +12,7 @@
                     <white-board></white-board>
                 </v-tab-item>
                 <v-tab-item :key="2" >
-                    <codeEditor></codeEditor>
+                    <codeEditor v-show="isRoomCreated"></codeEditor>
                 </v-tab-item>
             </v-tabs>
         </v-flex>

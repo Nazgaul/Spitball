@@ -105,7 +105,7 @@
             '$route': 'createChat'
         },
         methods: {
-            ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus']),
+            ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus', 'updateRoomID']),
             biggerLocalVideo() {
                 let video = document.querySelectorAll("#localTrack video")[0];
                 video.requestFullscreen()
@@ -127,6 +127,7 @@
                 videoService.generateRoom().then(data => {
                     self.roomLink = data.data.name;
                     self.$router.push({name: 'tutoring', params: {id: self.roomLink}});
+                    self.updateRoomID(self.roomLink)
                 })
 
             },

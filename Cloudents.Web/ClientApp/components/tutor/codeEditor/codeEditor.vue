@@ -10,6 +10,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import { syntaxEnum } from './syntaxEnums.js'
 
     export default {
@@ -28,6 +29,9 @@
 
             }
         },
+        computed: {
+            ...mapGetters(['roomLinkID'])
+        },
         methods: {
             changeLanguageSyntax(codeSyntax) {
                 let self = this;
@@ -44,6 +48,7 @@
             loadFirePad() {
                 let self = this;
                 let loadCodeLang = this.defaultSyntax;
+                let roomId = self.roomLinkID || '';
                 //load vue recaptha
                 self.$loadScript(`https://www.gstatic.com/firebasejs/5.8.5/firebase.js`).then(
                     (data) => {
@@ -51,7 +56,9 @@
                         var config = {
                             apiKey: "AIzaSyASxWQgsnGpwngB3TOWfS49Nkbs_gSQhh4",
                             authDomain: "codeeditor-44dab.firebaseapp.com",
-                            databaseURL: "https://codeeditor-44dab.firebaseio.com",
+                            //init unique room by room id
+                            // databaseURL: "https://codeeditor-44dab.firebaseio.com/"+roomId,
+                            databaseURL: "https://codeeditor-44dab.firebaseio.com/",
                             projectId: "codeeditor-44dab",
                             storageBucket: "codeeditor-44dab.appspot.com",
                             messagingSenderId: "895562016590"

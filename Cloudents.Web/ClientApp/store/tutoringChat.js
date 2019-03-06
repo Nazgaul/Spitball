@@ -3,15 +3,20 @@ import chatService from '../components/tutor/chat/chatService';
 const state = {
     messages: [],
     identity: '',
-    isRoom: false
+    isRoom: false,
+    roomId: ''
 };
 const getters = {
     getChatMessages: state => state.messages,
     userIdentity: state => state.identity,
-    isRoomCreated : state => state.isRoom
+    isRoomCreated : state => state.isRoom,
+    roomLinkID: state => state.roomId,
 };
 
 const mutations = {
+    setRoomId(state, val){
+        state.roomId = val
+    },
     setRoomStatus(state, val){
         state.isRoom = val;
     },
@@ -24,6 +29,9 @@ const mutations = {
 };
 
 const actions = {
+    updateRoomID({commit, state}, val){
+        commit('setRoomId', val)
+    },
     updateRoomStatus({commit, state}, val) {
         commit('setRoomStatus', val)
     },
