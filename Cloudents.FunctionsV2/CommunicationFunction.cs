@@ -1,8 +1,10 @@
+using Autofac;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Binders;
+using Cloudents.FunctionsV2.System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -22,6 +24,7 @@ using System.Threading.Tasks;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
+using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
@@ -52,29 +55,29 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("finish sending email");
         }
 
-        //[FunctionName("FunctionEmailTest")]
-        //public static async Task EmailFunctionTimerAsync(
-        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
-        //    IAsyncCollector<SendGridMessage> emailProvider,
+        [FunctionName("FunctionEmailTest")]
+        public static async Task EmailFunctionTimerAsync(
+            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
+            IAsyncCollector<SendGridMessage> emailProvider,
 
-        //    [Inject] ILifetimeScope lifetimeScope,
-        //    IBinder binder,
-        //    ILogger log,
-        //    CancellationToken token)
-        //{
+            [Inject] ILifetimeScope lifetimeScope,
+            IBinder binder,
+            ILogger log,
+            CancellationToken token)
+        {
 
 
-        //    var message = new AnswerAcceptedMessage(Guid.Parse("AD796D3F-734D-4987-AA1F-A9C700C88DD1"));
+            var message = new DocumentPurchasedMessage(Guid.Parse("9D4463F7-CD2C-4091-87AA-A9C8008D922E"));
 
-        //    var handlerType =
-        //        typeof(ISystemOperation<>).MakeGenericType(message.GetType());
-        //    using (var child = lifetimeScope.BeginLifetimeScope())
-        //    {
-        //        dynamic operation = child.Resolve(handlerType);
-        //        await operation.DoOperationAsync((dynamic)message, binder, token);
-        //    }
-        //}
+            var handlerType =
+                typeof(ISystemOperation<>).MakeGenericType(message.GetType());
+            using (var child = lifetimeScope.BeginLifetimeScope())
+            {
+                dynamic operation = child.Resolve(handlerType);
+                await operation.DoOperationAsync((dynamic)message, binder, token);
+            }
+        }
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
@@ -285,29 +288,29 @@ namespace Cloudents.FunctionsV2
     }
 
 
-    public class EmailObject
-    {
-        public string Id { get; set; }
-        public bool SocialShare { get; set; }
-        public string Event { get; set; }
+    //public class EmailObject
+    //{
+    //    public string Id { get; set; }
+    //    public bool SocialShare { get; set; }
+    //    public string Event { get; set; }
 
-        public string Subject { get; set; }
+    //    public string Subject { get; set; }
 
-        public CultureInfo CultureInfo { get; set; }
+    //    public CultureInfo CultureInfo { get; set; }
 
-        public IEnumerable<EmailBlock> Blocks { get; set; }
+    //    public IEnumerable<EmailBlock> Blocks { get; set; }
 
-    }
+    //}
 
 
 
-    public class EmailBlock
-    {
-        public string Title { get; set; }
-        public string Subtitle { get; set; }
-        public string Body { get; set; }
-        public string Cta { get; set; }
-        public string MinorTitle { get; set; }
-    }
+    //public class EmailBlock
+    //{
+    //    public string Title { get; set; }
+    //    public string Subtitle { get; set; }
+    //    public string Body { get; set; }
+    //    public string Cta { get; set; }
+    //    public string MinorTitle { get; set; }
+    //}
 
 }
