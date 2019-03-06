@@ -1,4 +1,5 @@
 import {createPointsByOption, createShape} from '../utils/factories'
+import whiteBoardService from '../whiteBoardService';
 
 const OPTION_TYPE = 'imageDraw';
 
@@ -18,6 +19,7 @@ const imageXDefaultPosition = 100;
 const imageYDefaultPosition = 75;
 
 let imageDictionary = {};
+const submitElm = document.getElementById('imageUploadSubmit');
 
 const init = function(){
     let imageElm = document.getElementById('imageUpload');
@@ -56,9 +58,13 @@ const handleImage = function(e){
     let mouseY = imageYDefaultPosition;
     this.methods.hideColorPicker();
 
-    let reader = new FileReader();
+    let formData = new FormData();
+    let fileData = e.target.files[0];
+    //name ned to be added
+    formData.append(fileData.name, fileData);
     let self = this;
-    reader.onload = (event)=>{
+    //apiCall
+    whiteBoardService.uploadImage(formData).then(url=>{
         let img = new Image();
         img.onload = function(){
             let imgObj = createPointsByOption({
@@ -79,9 +85,35 @@ const handleImage = function(e){
             liveDraw.bind(self, imgObj)();
             self.methods.addShape(localShape, clearLocalShape);
         }
-        img.src = event.target.result;
-    }
-    reader.readAsDataURL(e.target.files[0]);
+        img.src = url;
+    })
+
+    // let reader = new FileReader();
+    // let self = this;
+    // reader.onload = (event)=>{
+    //     let img = new Image();
+    //     img.onload = function(){
+    //         let imgObj = createPointsByOption({
+    //             mouseX,
+    //             mouseY,
+    //             width:img.width,
+    //             height: img.height,
+    //             option: OPTION_TYPE,
+    //             eventName: 'start',
+    //             src: img.src
+    //         })
+    //         let dictionaryImage = {
+    //             imgObj,
+    //             img
+    //         }
+    //         imageDictionary[imgObj.id] = dictionaryImage;
+    //         localShape.points.push(imgObj);
+    //         liveDraw.bind(self, imgObj)();
+    //         self.methods.addShape(localShape, clearLocalShape);
+    //     }
+    //     img.src = event.target.result;
+    // }
+    // reader.readAsDataURL(e.target.files[0]);
 }
 
 const mousedown = function(e){

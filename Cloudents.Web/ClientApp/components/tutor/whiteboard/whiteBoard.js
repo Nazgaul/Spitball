@@ -47,7 +47,7 @@ export default {
                 select: 'selectShape'
             },
             currentOptionSelected: whiteBoardService.init('liveDraw'),
-            selectedOptionString: '',
+            selectedOptionString: 'liveDraw',
             canvasData: {
                 shapesSelected: {},
                 shouldPaint: false,

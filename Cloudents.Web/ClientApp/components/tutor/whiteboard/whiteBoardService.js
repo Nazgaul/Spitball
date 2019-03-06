@@ -85,6 +85,10 @@ const undo = function(canvasData){
     }
 }
 
+const uploadImage = function(data){
+    return store.dispatch('uploadImage', data);
+}
+
 const cleanCanvas = function(ctx){
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
 }
@@ -93,5 +97,6 @@ export default {
     init,
     undo,
     redraw,
-    getDragData
+    getDragData,
+    uploadImage
 }

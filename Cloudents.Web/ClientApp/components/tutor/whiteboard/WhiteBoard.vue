@@ -93,6 +93,8 @@
 
             <!--Upload Image-->
             <input class="nav-action" type="file" name="Image Upload" id="imageUpload" v-show="false"/>
+                
+            
             <v-tooltip right>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.image}"
