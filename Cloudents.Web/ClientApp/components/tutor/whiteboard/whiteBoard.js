@@ -125,6 +125,9 @@ export default {
             };
             let normalizedData = JSON.stringify(transferDataObj);
             dataTrack.send(normalizedData);
+            if(!dragObj.isGhost && this.selectedOptionString !== this.enumOptions.draw){
+                this.selectDefaultTool(); //case SPITBALL-647
+            }
         },
         undo(){
             let transferDataObj = {

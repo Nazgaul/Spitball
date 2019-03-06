@@ -58,8 +58,9 @@
             flex-direction: row;
             &.own-message{
                 justify-items: flex-start;
-                color: white;
-                background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+                background: #f6f6f6;
+                font-size: 12px;
+                color: rgba(0, 0, 0, 0.87);
                 background-attachment: fixed;
                 padding: 6px 12px;
                 border-radius: 16px;
@@ -70,8 +71,9 @@
             }
             &.not-own-message{
                 justify-items: flex-end;
-                background-color: #eee;
-                color: #000000;
+                background-color: #e1e1e1;
+                font-size: 12px;
+                color: rgba(0, 0, 0, 0.87);
                 padding: 6px 12px;
                 border-radius: 16px;
                 .message-text{

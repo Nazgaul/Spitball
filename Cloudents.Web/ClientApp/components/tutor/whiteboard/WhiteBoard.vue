@@ -2,7 +2,7 @@
     <div class="canvas-container" :style="`max-width:${canvasWidth}px;`" id="canvasDiv">
         <div class="powered-by">
             <div>
-                <h4 class="text-sm-center text-md-center">Powered by</h4>
+                <h5 class="text-sm-center text-md-center">Powered by</h5>
                 <AppLogo></AppLogo>
             </div>
             <div>
@@ -37,7 +37,8 @@
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': showPickColorInterface}" class="nav-action"
                             @click="showColorPicker">
-                        <span class="selected-color" :style="{ backgroundColor: canvasData.color.hex}"></span>
+                        <v-icon class="selected-color"  :style="{ color: canvasData.color.hex}">sbf-color-picked</v-icon>
+                        <!--<span class="selected-color" :style="{ backgroundColor: canvasData.color.hex}"></span>-->
                     </button>
                 </template>
                 <span >Color Picker</span>
@@ -73,7 +74,7 @@
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.circle}"
                             class="nav-action" @click="setOptionType(enumOptions.circle)">
-                        <v-icon>sbf-eclipse</v-icon>
+                        <v-icon>sbf-elipse-stroke</v-icon>
                     </button>
                 </template>
                 <span>Circle</span>
@@ -84,7 +85,7 @@
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.rectangle}"
                             class="nav-action" @click="setOptionType(enumOptions.rectangle)">
-                        <v-icon>sbf-square</v-icon>
+                        <v-icon>sbf-rectangle-stroke</v-icon>
                     </button>
                 </template>
                 <span>Square</span>
@@ -110,7 +111,7 @@
             <!--Undo-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" class="nav-action" @click="undo();">
+                    <button v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo();">
                         <v-icon>sbf-undo</v-icon>
                     </button>
                 </template>
@@ -192,6 +193,12 @@
                 .v-icon {
                     color: #000000;
                 }
+                &.disabled{
+                    pointer-events: none;
+                    .v-icon {
+                        color: gray;
+                    }
+                }
                 &.active-tool{
                     .v-icon {
                         color:#2a79ff;
@@ -205,10 +212,7 @@
                 }
             }
             .selected-color {
-                display: inline-flex;
-                width: 28px;
-                height: 28px;
-                border-radius: 28px;
+                font-size: 26px;
                 cursor: pointer;
             }
             .color-picker {
