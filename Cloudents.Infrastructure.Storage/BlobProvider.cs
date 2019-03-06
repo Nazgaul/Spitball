@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Storage
             {
                 SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
                 Permissions = SharedAccessBlobPermissions.Read,
-                SharedAccessExpiryTime = new DateTimeOffset(DateTime.UtcNow, expirationTime)
+                SharedAccessExpiryTime = DateTimeOffset.UtcNow + expirationTime
 
             });
             var url = new Uri(blob.Uri, signedUrl);
