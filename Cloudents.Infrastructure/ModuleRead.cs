@@ -56,17 +56,17 @@ namespace Cloudents.Infrastructure
 
             #endregion
 
-            #region Job
+            //#region Job
 
-            builder.RegisterAssemblyTypes(currentAssembly)
-                .Where(w => typeof(IJobProvider).IsAssignableFrom(w))
-                .As<IJobProvider>()
-                .EnableInterfaceInterceptors().InterceptedBy(typeof(CacheResultInterceptor), typeof(LogInterceptor));
-            builder.RegisterType<JobSearch>().As<IJobSearch>()
-                .EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(BuildLocalUrlInterceptor));
+            //builder.RegisterAssemblyTypes(currentAssembly)
+            //    .Where(w => typeof(IJobProvider).IsAssignableFrom(w))
+            //    .As<IJobProvider>()
+            //    .EnableInterfaceInterceptors().InterceptedBy(typeof(CacheResultInterceptor), typeof(LogInterceptor));
+            //builder.RegisterType<JobSearch>().As<IJobSearch>()
+            //    .EnableInterfaceInterceptors()
+            //    .InterceptedBy(typeof(BuildLocalUrlInterceptor));
 
-            #endregion
+            //#endregion
 
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
