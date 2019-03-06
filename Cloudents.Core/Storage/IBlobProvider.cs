@@ -10,8 +10,8 @@ namespace Cloudents.Core.Storage
 
     public interface IBlobProvider
     {
-        Uri GeneratePreviewLink(Uri blobUrl, double expirationTimeInMinutes);
-        Uri GenerateDownloadLink(Uri blobUrl, double expirationTimeInMinutes,
+        Uri GeneratePreviewLink(Uri blobUrl, TimeSpan expirationTime);
+        Uri GenerateDownloadLink(Uri blobUrl, TimeSpan expirationTime,
             string contentDisposition);
     }
 

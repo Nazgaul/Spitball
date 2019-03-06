@@ -159,7 +159,7 @@ namespace Cloudents.Query
 
             var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
             await Task.WhenAll(dtoTask, filesTask);
-            var files = filesTask.Result.Select(s => _blobProvider2.GeneratePreviewLink(s, 20));
+            var files = filesTask.Result.Select(s => _blobProvider2.GeneratePreviewLink(s, TimeSpan.FromMinutes(20)));
             var dto = dtoTask.Result;
 
             if (dto == null)
