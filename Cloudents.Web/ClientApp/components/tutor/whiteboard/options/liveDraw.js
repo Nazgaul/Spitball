@@ -7,8 +7,6 @@ let localShape = createShape({
     points: []
 });
 
-
-
 const clearLocalShape = function(){
     localShape = createShape({
         type: OPTION_TYPE,

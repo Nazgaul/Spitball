@@ -19,7 +19,6 @@ const imageXDefaultPosition = 100;
 const imageYDefaultPosition = 75;
 
 let imageDictionary = {};
-const submitElm = document.getElementById('imageUploadSubmit');
 
 const init = function(){
     let imageElm = document.getElementById('imageUpload');
