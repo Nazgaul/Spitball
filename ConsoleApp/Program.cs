@@ -25,7 +25,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Extension;
 using Cloudents.Query.Query.Sync;
 using Cloudents.Search.Question;
 
@@ -143,7 +145,10 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
 
-
+            var someText = "hi ram ram hi hi ram ram hi";
+            var x = someText.Encrypt(ImageProperties.ImageHashKey);
+            var y = someText.Encrypt(ImageProperties.ImageHashKey);
+            someText = x.Decrypt(ImageProperties.ImageHashKey);
             var queryBus = _container.Resolve<ICommandBus>();
 
             var command = new ChangeOnlineStatusCommand(638L,true);
@@ -616,7 +621,7 @@ namespace ConsoleApp
                         t = RandomString(3) + t;
                     }
 
-                    if ($"/spitball-files/files/{id}/" + t != textBlobItem.Uri.LocalPath.ToString().Replace(" ", ""))
+                    if ($"/spitball-files/files/{id}/" + t != textBlobItem.Uri.LocalPath.Replace(" ", ""))
                     {
                         var dirToRemove = blob.Parent;
                         string dirToRemoveStr = dirToRemove.Uri.ToString().Split('/')[dirToRemove.Uri.ToString().Split('/').Length - 2];
@@ -735,7 +740,7 @@ namespace ConsoleApp
                                 group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
         						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
         						 order by i.itemid
-                        ", new { itemId = itemId })).ToList();
+                        ", new {itemId })).ToList();
                 }, default);
 
                 //if (z.Count() == 0)
@@ -884,7 +889,7 @@ namespace ConsoleApp
             {
                 const string sql = @"select id from sb.[user] where email = @email;
 select top 1 id from sb.[user] where Fictive = 1 and country = @country order by newid()";
-                using (var multi = connection.QueryMultiple(sql, new { email = email, country = country }))
+                using (var multi = connection.QueryMultiple(sql, new {email, country = country }))
                 {
                     var val = multi.ReadFirstOrDefault<long?>();
                     if (val.HasValue)

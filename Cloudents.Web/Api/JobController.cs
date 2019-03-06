@@ -1,5 +1,4 @@
-﻿using Cloudents.Web.Extensions;
-using Cloudents.Web.Models;
+﻿using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
@@ -9,7 +8,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Web.Api
 {
@@ -36,7 +34,6 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Query to get jobs vertical
         /// </summary>
-        /// <param name="model">The model to transfer</param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]

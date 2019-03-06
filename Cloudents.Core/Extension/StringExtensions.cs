@@ -154,66 +154,55 @@ namespace Cloudents.Core.Extension
             return RegEx.RemoveHtmlTags.Replace(text, string.Empty).DecodeHtmlEntities();
         }
 
-        public static string Encrypt(this string text, string keyString)
+        public static string Encrypt(this string text, string keyStr)
         {
-            var key = Encoding.UTF8.GetBytes(keyString);
+           // byte[] key = { }; //Encryption Key   
+            byte[] IV = Encoding.UTF8.GetBytes(keyStr.Substring(0,8));
+            byte[] inputByteArray;
 
-            using (var aesAlg = Aes.Create())
+            try
             {
-                using (var encryptor = aesAlg.CreateEncryptor(key, aesAlg.IV))
-                {
-                    using (var msEncrypt = new MemoryStream())
-                    {
-                        using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                        using (var swEncrypt = new StreamWriter(csEncrypt))
-                        {
-                            swEncrypt.Write(text);
-                        }
+               var key = Encoding.UTF8.GetBytes(keyStr.Substring(0,8));
+                // DESCryptoServiceProvider is a cryptography class defind in c#.  
+                DESCryptoServiceProvider ObjDES = new DESCryptoServiceProvider();
+                inputByteArray = Encoding.UTF8.GetBytes(text);
+                MemoryStream Objmst = new MemoryStream();
+                CryptoStream Objcs = new CryptoStream(Objmst, ObjDES.CreateEncryptor(key, IV), CryptoStreamMode.Write);
+                Objcs.Write(inputByteArray, 0, inputByteArray.Length);
+                Objcs.FlushFinalBlock();
 
-                        var iv = aesAlg.IV;
-
-                        var decryptedContent = msEncrypt.ToArray();
-
-                        var result = new byte[iv.Length + decryptedContent.Length];
-
-                        Buffer.BlockCopy(iv, 0, result, 0, iv.Length);
-                        Buffer.BlockCopy(decryptedContent, 0, result, iv.Length, decryptedContent.Length);
-
-                        return Convert.ToBase64String(result);
-                    }
-                }
+                var z =System.Net.WebUtility.UrlEncodeToBytes(Objmst.ToArray(), 0, Objmst.ToArray().Count());
+                return Convert.ToBase64String(z);//encrypted string  
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
             }
         }
 
-        public static string Decrypt(this string cipherText, string keyString)
+        public static string Decrypt(this string encryptedText, string keyStr)
         {
-            var fullCipher = Convert.FromBase64String(cipherText);
+            byte[] key = { };// Key   
+            byte[] IV = Encoding.UTF8.GetBytes(keyStr.Substring(0, 8));
+            byte[] inputByteArray = new byte[encryptedText.Length];
 
-            var iv = new byte[16];
-            var cipher = new byte[16];
-
-            Buffer.BlockCopy(fullCipher, 0, iv, 0, iv.Length);
-            Buffer.BlockCopy(fullCipher, iv.Length, cipher, 0, iv.Length);
-            var key = Encoding.UTF8.GetBytes(keyString);
-
-            using (var aesAlg = Aes.Create())
+            try
             {
-                using (var decryptor = aesAlg.CreateDecryptor(key, iv))
-                {
-                    string result;
-                    using (var msDecrypt = new MemoryStream(cipher))
-                    {
-                        using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                        {
-                            using (var srDecrypt = new StreamReader(csDecrypt))
-                            {
-                                result = srDecrypt.ReadToEnd();
-                            }
-                        }
-                    }
+                key = Encoding.UTF8.GetBytes(keyStr.Substring(0,8));
+                DESCryptoServiceProvider ObjDES = new DESCryptoServiceProvider();
+                inputByteArray = Convert.FromBase64String(encryptedText);
 
-                    return result;
-                }
+                MemoryStream Objmst = new MemoryStream();
+                CryptoStream Objcs = new CryptoStream(Objmst, ObjDES.CreateDecryptor(key, IV), CryptoStreamMode.Write);
+                Objcs.Write(inputByteArray, 0, inputByteArray.Length);
+                Objcs.FlushFinalBlock();
+
+                Encoding encoding = Encoding.UTF8;
+                return encoding.GetString(Objmst.ToArray());
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
             }
         }
     }
