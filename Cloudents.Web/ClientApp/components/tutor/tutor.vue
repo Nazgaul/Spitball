@@ -1,5 +1,5 @@
 <template>
-    <v-layout row class="tutoring-page" :class="{'gridBackground': $route.name === 'tutoring'}">
+    <v-layout row class="tutoring-page" :class="{'gridBackground': $route.name === 'tutoring'} ">
         <v-flex>
             <v-tabs v-model="activeTab">
                 <v-tab v-for="n in tabs"
@@ -12,7 +12,7 @@
                     <white-board></white-board>
                 </v-tab-item>
                 <v-tab-item :key="2" >
-                    <codeEditor v-show="isRoomCreated"></codeEditor>
+                    <codeEditor></codeEditor>
                 </v-tab-item>
             </v-tabs>
         </v-flex>
@@ -42,7 +42,7 @@
         data() {
             return {
                 activeTab: '',
-                tabs: [ {name: 'Whiteboard'}, {name:'Code Collaboration'}]
+                tabs: [ {name: 'Whiteboard'}, {name:'Code Collaboration'}],
             }
         },
         props: {
@@ -61,24 +61,4 @@
     }
 </script>
 
-<style lang="less">
-    .tutoring-page{
-        .tutoring-tab{
-            .v-tabs__item{
-                text-transform: capitalize;
-            }
-        }
-
-        /*rtl:ignore*/
-        direction: ltr;
-        height: 100%;
-        &.gridBackground{
-            background-color:  #F8F8F8;
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
-            background-repeat: initial;
-            background-blend-mode: color-burn;
-        }
-    }
-
-</style>
+<style lang="less" src="./tutor.less"></style>

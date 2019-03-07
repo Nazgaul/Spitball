@@ -26,7 +26,6 @@
                     value: 'text/x-csharp',
                     link: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.44.0/mode/clike/clike.min.js'
                 },
-
             }
         },
         computed: {
@@ -74,7 +73,7 @@
                                         lineNumbers: true,
                                         matchBrackets: true,
                                         styleActiveLine: true,
-                                        // theme: 'dracula',
+                                        theme: "monokai",
                                         mode: `${loadCodeLang.value}`
                                     });
                                     self.$loadScript(`https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js`).then(
@@ -82,7 +81,6 @@
                                             self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror)
                                         })
                                 })
-
                             });
                     });
             }
@@ -96,6 +94,7 @@
 
 <style lang="less">
     @import '../../../styles/mixin.less';
+    @import './themes/monokai.less';
 
     .firepad {
         margin-top: 24px;
