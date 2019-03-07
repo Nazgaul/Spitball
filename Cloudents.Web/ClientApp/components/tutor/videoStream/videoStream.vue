@@ -9,7 +9,11 @@
         </v-layout>
         <v-layout>
             <v-flex>
-                <v-btn class="create-session" color="primary" @click="generateRoom()" v-if="!id">Initiate tutoring session</v-btn>
+                <v-btn v-if="!isSharing" @click="showScreen">Share Screen</v-btn>
+                <v-btn v-else @click="stopSharing">Stop Sharing</v-btn>
+                <v-btn class="create-session" color="primary" @click="generateRoom()" v-if="!id">Initiate tutoring
+                    session
+                </v-btn>
             </v-flex>
         </v-layout>
 
@@ -33,12 +37,18 @@
                 </v-flex>
                 <v-flex v-show="visible.remote_player">
                     <div class="row remote_video_container">
-                        <div id="remoteTrack" ref='remote_player'></div>
+                        <div id="remoteTrack"></div>
                     </div>
                 </v-flex>
+                <!--<v-flex >-->
+                <!--<div class="row remote_video_container">-->
+                <!--<div id="remoteScreenShareVideo"></div>-->
+                <!--</div>-->
+                <!--</v-flex>-->
+
             </div>
             <div class="video-holder">
-                <v-flex class="px-3 video-con-controls"  @click="minimize('local_player')">
+                <v-flex class="px-3 video-con-controls" @click="minimize('local_player')">
                     <div style="display: flex; align-items: center;">
                         <span :class="[localOffline ? 'local-offline' : 'local-online']"></span>
                         <span class="user-badge ml-2">You</span>
@@ -77,11 +87,13 @@
         data() {
             return {
                 loading: false,
-                loaded : false,
+                loaded: false,
                 data: {},
                 isCopied: false,
                 localTrackAval: false,
                 remoteTrack: '',
+                screenShareTrack: null,
+                isSharing: false,
                 activeRoom: '',
                 previewTracks: '',
                 identity: '',
@@ -106,6 +118,82 @@
         },
         methods: {
             ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus', 'updateRoomID']),
+            stopSharing() {
+                this.activeRoom.localParticipant.unpublishTrack(this.screenShareTrack);
+                this.screenShareTrack = null;
+                this.isSharing = false;
+
+
+            }
+            ,
+            showScreen() {
+                let self = this;
+                this.getUserScreen()
+                    .then(function (stream) {
+                            self.screenShareTrack = stream.getVideoTracks()[0];
+                            self.activeRoom.localParticipant.publishTrack(self.screenShareTrack);
+                            self.isSharing = true;
+                        },
+                        (error) => {
+                            console.log('error sharing screen')
+                        }
+                    );
+            },
+
+            getUserScreen() {
+                function isFirefox() {
+                    var mediaSourceSupport = !!navigator.mediaDevices.getSupportedConstraints().mediaSource;
+                    var matchData = navigator.userAgent.match('/Firefox/(d) /');
+                    var firefoxVersion = 0;
+                    if (matchData && matchData[1]) {
+                        firefoxVersion = parseInt(matchData[1], 10);
+                    }
+                    return mediaSourceSupport && firefoxVersion >= 52;
+                }
+
+                function isChrome() {
+                    return 'chrome' in window;
+                }
+
+                function canScreenShare() {
+                    return isFirefox() || isChrome();
+                }
+
+                var extensionId = 'chombcfbjenobkieohgkjlmmhehfgomf';
+                if (!canScreenShare()) {
+                    return;
+                }
+                if (isChrome()) {
+                    return new Promise((resolve, reject) => {
+                        const request = {
+                            sources: ['screen']
+                        };
+                        chrome.runtime.sendMessage(extensionId, request, response => {
+                            if (response && response.type === 'success') {
+                                resolve({streamId: response.streamId});
+                            } else {
+                                reject(new Error('Could not get stream'));
+                            }
+                        });
+                    }).then(response => {
+                        return navigator.mediaDevices.getUserMedia({
+                            video: {
+                                mandatory: {
+                                    chromeMediaSource: 'desktop',
+                                    chromeMediaSourceId: response.streamId
+                                }
+                            }
+                        });
+                    });
+                } else if (isFirefox()) {
+                    return navigator.mediaDevices.getUserMedia({
+                        video: {
+                            mediaSource: 'screen'
+                        }
+                    });
+                }
+            },
+
             biggerLocalVideo() {
                 let video = document.querySelectorAll("#localTrack video")[0];
                 video.requestFullscreen()
@@ -269,6 +357,7 @@
                             });
                             // When a Participant adds a Track, attach it to the DOM.
                             room.on('trackSubscribed', (track, participant) => {
+                                let previewContainer = document.getElementById('remoteTrack');
                                 if (track.kind === 'data') {
                                     track.on('message', transferObj => {
                                         // console.log(`Mouse coordinates: (${transferObj})`);
@@ -285,7 +374,12 @@
                                         }
                                     });
                                 }
-                                let previewContainer = document.getElementById('remoteTrack');
+                                // else if(track.kind === 'video'){
+                                //     if(previewContainer &&  previewContainer.innerHTML.length > 1){
+                                //         previewContainer =  document.getElementById('remoteScreenShareVideo');
+                                //     }
+                                // }
+
                                 console.log('track attached', " added track: " + track.kind);
                                 self.attachTracks([track], previewContainer);
                             });
