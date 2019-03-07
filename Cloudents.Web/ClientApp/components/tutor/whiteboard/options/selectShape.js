@@ -23,6 +23,7 @@ const startingMousePosition = {
 }
 
 let startShapes = {}
+let topOffset = null;
 
 let currentX = null;
 let currentY = null;
@@ -73,7 +74,7 @@ const markShapes = function(){
         }
     })
     let rectangleBoundries = canvasFinder.getBoundriesPoints(points);
-    let helperObj = getHelperObj.bind(this, rectangleBoundries.startX, rectangleBoundries.startY, rectangleBoundries.endX, rectangleBoundries.endY)();
+    let helperObj = getHelperObj.bind(this, rectangleBoundries.startX, rectangleBoundries.startY - topOffset, rectangleBoundries.endX, rectangleBoundries.endY - topOffset)();
         
     liveDraw.bind(this, helperObj)();
 }
@@ -85,11 +86,12 @@ const clearMark = function(){
 }
 
 const mousedown = function(e){
+    topOffset = e.target.getBoundingClientRect().top;
     startingMousePosition.x = e.clientX;
-    startingMousePosition.y = e.clientY;
+    startingMousePosition.y = e.clientY - topOffset;
     this.methods.hideColorPicker();
     let mouseX = currentX - e.target.offsetLeft;
-    let mouseY = currentY - e.target.getBoundingClientRect().top;
+    let mouseY = currentY;
     this.shouldPaint = true;
     if(!currentHelperObj){
         this.shapesSelected = canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData());
@@ -157,7 +159,7 @@ const moveShapes = function(){
 
 const mousemove = function(e){
     currentX = e.clientX;
-    currentY = e.clientY;
+    currentY = e.clientY - topOffset;
     if(this.shouldPaint){
         if(mouseInsideSelectedRectangle){
             //move shape

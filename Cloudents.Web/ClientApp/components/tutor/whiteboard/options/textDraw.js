@@ -70,7 +70,7 @@ const hideHelperObj = function(){
 
 const setHelperObj = function(e, selectedHelper){
     let currentX = selectedHelper ? selectedHelper.mouseX + e.target.offsetLeft : e.clientX;
-    let currentY = selectedHelper ? selectedHelper.mouseY + e.target.getBoundingClientRect().top : e.clientY;
+    let currentY = selectedHelper ? selectedHelper.mouseY : e.clientY - e.target.getBoundingClientRect().top;
     let helperObj = {
         currentX,
         currentY,
