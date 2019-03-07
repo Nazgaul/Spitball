@@ -69,7 +69,7 @@ const mousedown = function(e){
     this.methods.hideColorPicker();
 
     startingMousePosition.x = e.clientX;
-    startingMousePosition.y = e.clientY;
+    startingMousePosition.y = e.clientY - e.target.getBoundingClientRect().top;
 
     let dragObj = createPointsByOption({
         mouseX: e.pageX - e.target.offsetLeft,
@@ -88,7 +88,7 @@ const mousedown = function(e){
 const mousemove = function(e){
     if(this.shouldPaint){
     let x = e.pageX;
-    let y = e.pageY;
+    let y = e.pageY - e.target.getBoundingClientRect().top;
     let startX = startingMousePosition.x;
     let startY = startingMousePosition.y;
     let radiusX = (x - startX) * 0.5;

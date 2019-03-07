@@ -65,7 +65,7 @@ const mousedown = function(e){
     //Set Click Position
     this.methods.hideColorPicker();
     startingMousePosition.x = e.clientX;
-    startingMousePosition.y = e.clientY;
+    startingMousePosition.y = e.clientY - e.target.getBoundingClientRect().top;
     let dragObj = createPointsByOption({
         mouseX: e.pageX - e.target.offsetLeft,
         mouseY: e.pageY - e.target.getBoundingClientRect().top,
@@ -84,7 +84,7 @@ const mousemove = function(e){
     if(this.shouldPaint){
         
         let currentX = e.clientX;
-        let currentY = e.clientY;
+        let currentY = e.clientY - e.target.getBoundingClientRect().top;
         let helperObj = {
             startPositionLeft: startingMousePosition.x,
             startPositionTop: startingMousePosition.y,
