@@ -144,7 +144,7 @@ export default {
             if ((e.which == 90 || e.keyCode == 90) && e.ctrlKey) {
                 this.undo();
             }
-            if((e.which == 46 || e.keyCode == 46) && this.selectedOptionString === this.enumOptions.select){
+            if(((e.which == 46 || e.keyCode == 46)||(e.which == 8 || e.keyCode == 8)) && this.selectedOptionString === this.enumOptions.select){
                 this.currentOptionSelected.deleteSelectedShape.bind(this.canvasData)();
             }
             if(((e.which == 13 || e.keyCode == 13) || (e.which == 27 || e.keyCode == 27)) && this.selectedOptionString === this.enumOptions.text){
