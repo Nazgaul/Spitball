@@ -75,7 +75,7 @@
                                         styleActiveLine: true,
                                         smartIndent: true,
                                         theme: "monokai",
-                                        tabSize: 2,
+                                        tabSize: 3,
                                         mode: `${loadCodeLang.value}`
                                     });
                                     self.codeMirror.focus();
@@ -99,7 +99,7 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
     @import './themes/monokai.less';
-
+    /*rtl:begin:ignore*/
     .firepad {
         margin-top: 24px;
         -webkit-box-sizing: border-box;
@@ -1051,5 +1051,5 @@
     span.CodeMirror-selectedtext {
         background: none;
     }
-
+    /*rtl:end:ignore*/
 </style>
