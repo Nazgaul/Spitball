@@ -169,26 +169,59 @@ export default {
         registerCanvasEvents(canvas){
             let self = this;
             global.addEventListener('resize', this.resizeCanvas, false);
-            canvas.addEventListener('mousedown', (e) => {
+            canvas.addEventListener('mousedown' && 'pointerdown', (e) => {
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
                     self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
                 }
             });
-            canvas.addEventListener('mouseup', (e) => {
+            canvas.addEventListener('mouseup' && 'pointerup', (e) => {
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mouseup) {
                     self.currentOptionSelected.mouseup.bind(self.canvasData, e)()
                 }
             });
-            canvas.addEventListener('mouseleave', (e) => {
+            canvas.addEventListener('mouseleave' && 'pointerleave', (e) => {
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mouseleave) {
                     self.currentOptionSelected.mouseleave.bind(self.canvasData, e)()
                 }
             });
-            canvas.addEventListener('mousemove', (e) => {
+            canvas.addEventListener('mousemove' && 'pointermove', (e) => {
                     if (!!self.currentOptionSelected && self.currentOptionSelected.mousemove) {
                         self.currentOptionSelected.mousemove.bind(self.canvasData, e)()
                     }
-            });      
+            });
+            canvas.addEventListener("touchstart", function (e) {
+                if (e.target == canvas) {
+                    e.preventDefault();
+                }
+                let touch = e.touches[0];
+                let mouseEvent = new MouseEvent("mousedown", {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }, false);
+            canvas.addEventListener("touchend", function (e) {
+                if (e.target == canvas) {
+                    e.preventDefault();
+                }
+                let touch = e.changedTouches[0];
+                let mouseEvent = new MouseEvent("mouseup", {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }, false);
+            canvas.addEventListener("touchmove", function (e) {
+                if (e.target == canvas) {
+                    e.preventDefault();
+                }
+                let touch = e.touches[0];
+                let mouseEvent = new MouseEvent("mousemove", {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }, false);
         }
     },
     mounted() {
