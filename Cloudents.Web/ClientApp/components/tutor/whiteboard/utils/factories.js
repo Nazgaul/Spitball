@@ -90,6 +90,7 @@ function GhostShape(objInit){
     this.id = createGuid('Ghost');
     this.type = objInit.type;
     this.shapesObj = objInit.shapesObj;
+    this.newShapes = objInit.newShapes
     this.isGhost = true;
 }
 

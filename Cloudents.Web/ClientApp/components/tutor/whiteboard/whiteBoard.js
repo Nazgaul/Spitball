@@ -117,10 +117,10 @@ export default {
             callback();
             let data = {
                 canvasContext: this.canvasData,
-                dataContext: this.dragData
+                dataContext: dragObj
             }
             let transferDataObj = {
-                type: "redrawData",
+                type: "passData",
                 data: data
             };
             let normalizedData = JSON.stringify(transferDataObj);

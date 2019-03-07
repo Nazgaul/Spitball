@@ -43,9 +43,7 @@ const getContext = function(){
     return canvas.getContext("2d");
 }
 
-const redraw = function(canvasData, changedDragData){
-    let newdragData = changedDragData ? changedDragData : dragData;
-    store.dispatch('replaceDragData', newdragData)
+const redraw = function(canvasData){
     dragData = store.getters['getDragData'];
     if(Object.keys(canvasData.context).length === 0){
         canvasData.context = getContext();
@@ -93,10 +91,27 @@ const cleanCanvas = function(ctx){
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
 }
 
+const passData = function(canvasData, changedDragData){
+    if(changedDragData.isGhost){
+        dragData = store.getters['getDragData'];
+        Object.keys(changedDragData.newShapes).forEach((newShapeId)=>{
+            dragData.forEach((currentShape, index)=>{
+                //replace shape
+                if(currentShape.id === newShapeId){
+                    dragData[index] = createShape(changedDragData.newShapes[newShapeId])
+                }
+            })
+        })
+    }
+    store.dispatch('updateDragData', changedDragData)
+    redraw(canvasData);
+}
+
 export default {
     init,
     undo,
     redraw,
     getDragData,
-    uploadImage
+    uploadImage,
+    passData
 }

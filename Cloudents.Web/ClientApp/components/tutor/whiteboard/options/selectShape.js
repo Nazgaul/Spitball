@@ -7,13 +7,15 @@ const OPTION_TYPE = 'selectShape';
 
 let localShape = createGhostShape({
     type: OPTION_TYPE,
-    shapesObj: {}
+    shapesObj: {},
+    newShapes: {}
 });
 
 const clearLocalShape = function(){
     localShape = createGhostShape({
         type: OPTION_TYPE,
-        shapesObj: {}
+        shapesObj: {},
+        newShapes: {}
     });
 }
 
@@ -175,8 +177,9 @@ const mousemove = function(e){
     
 }
 
-const addShape = function(){
+const addShape = function(newShapes){
     localShape.shapesObj = startShapes;
+    localShape.newShapes = newShapes;
     this.methods.addShape(localShape, clearLocalShape);
     startShapes = {};
 }
@@ -213,7 +216,7 @@ const defineEndPosition = function(e){
             }
         }else{
             // object was just moved
-            addShape.bind(this)();
+            addShape.bind(this, this.shapesSelected)();
         }
     }
 }
@@ -231,7 +234,7 @@ const deleteSelectedShape = function(e){
             startShapes[shapeId] = createShape(this.shapesSelected[shapeId])
             this.shapesSelected[shapeId].visible = false;
         })
-        addShape.bind(this)();
+        addShape.bind(this,  this.shapesSelected)();
         whiteBoardService.redraw(this);
         clearMark();
     }

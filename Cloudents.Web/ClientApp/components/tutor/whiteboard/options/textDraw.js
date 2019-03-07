@@ -21,13 +21,15 @@ const clearLocalShape = function(){
 
 let ghostLocalShape = createGhostShape({
     type: OPTION_TYPE,
-    shapesObj: {}
+    shapesObj: {},
+    newShapes: {}
 });
 
 const clearGhostLocalShape = function(){
     ghostLocalShape = createGhostShape({
         type: OPTION_TYPE,
-        shapesObj: {}
+        shapesObj: {},
+        newShapes: {}
     });
 }
 
@@ -82,8 +84,9 @@ const setHelperObj = function(e, selectedHelper){
     helper.showHelper();
 }
 
-const addGhostLocalShape = function(){
+const addGhostLocalShape = function(newShape){
     ghostLocalShape.shapesObj[startShapes.id] = startShapes;
+    ghostLocalShape.shapesObj[newShape.id] = newShape;
     this.methods.addShape(ghostLocalShape, clearGhostLocalShape);
     startShapes = {};
 }
@@ -154,7 +157,7 @@ const mousedown = function(e){
                 currentId = hasShape[prop].id;
                 setHelperObj.bind(this, e, hasShape[prop].points[0])();
                 startShapes = createShape(hasShape[prop]);
-                addGhostLocalShape.bind(this)();
+                addGhostLocalShape.bind(this, hasShape[prop])();
             }else{
                 startingMousePosition.x = e.pageX - e.target.offsetLeft;
                 startingMousePosition.y = e.pageY - e.target.getBoundingClientRect().top;

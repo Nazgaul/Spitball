@@ -274,8 +274,8 @@
                                         // console.log(`Mouse coordinates: (${transferObj})`);
                                         let Data = JSON.parse(transferObj);
                                         let parsedData = Data.data;
-                                        if (Data.type === 'redrawData') {
-                                            whiteBoardService.redraw(parsedData.canvasContext, parsedData.dataContext);
+                                        if (Data.type === 'passData') {
+                                            whiteBoardService.passData(parsedData.canvasContext, parsedData.dataContext);
                                         } else if (Data.type === 'undoData') {
                                             whiteBoardService.undo(parsedData);
                                         }
