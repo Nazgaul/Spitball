@@ -116,10 +116,10 @@
     #firepad {
         width: 70%;
         height: 88vh;
-        overflow-y: hidden;
-        margin-left: 90px;
+        overflow-y: hidden  /*rtl:ignore*/;
+        margin-left: 90px /*rtl:ignore*/;
         margin-top: 36px;
-        .scrollBarStyle(3px, #0085D1);
+        .scrollBarStyle(3px, #0085D1) ;
 
     }
 
