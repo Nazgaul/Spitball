@@ -348,6 +348,7 @@
         },
         created() {
             if (this.id) {
+                this.updateRoomID(this.id)
                 this.startChat();
             }
         }
