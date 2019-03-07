@@ -115,7 +115,7 @@
 
     #firepad {
         width: 70%;
-        height: 88vh;
+        height: 80vh;
         overflow-y: hidden  /*rtl:ignore*/;
         margin-left: 90px /*rtl:ignore*/;
         margin-top: 36px;
