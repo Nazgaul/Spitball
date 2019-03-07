@@ -73,8 +73,8 @@ const findImageDraw = function(pointX, pointY, shapeObj){
     let boundries= {
         startX: shapeObj.points[0].mouseX,
         startY: shapeObj.points[0].mouseY,
-        endX: shapeObj.points[0].width + shapeObj.points[0].mouseX,
-        endY: shapeObj.points[0].height + shapeObj.points[0].mouseY
+        endX: shapeObj.points[0].width,
+        endY: shapeObj.points[0].height
     }
     let rect = {
         startX: boundries.startX,

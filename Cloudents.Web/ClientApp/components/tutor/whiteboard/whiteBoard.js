@@ -117,8 +117,12 @@ export default {
             if(callback){
                 callback();
             }
+            let canvasData = {
+                context: this.canvasData.context,
+                metaData: this.canvasData.metaData
+            }
             let data = {
-                canvasContext: this.canvasData,
+                canvasContext: canvasData,
                 dataContext: dragObj
             }
             let transferDataObj = {
