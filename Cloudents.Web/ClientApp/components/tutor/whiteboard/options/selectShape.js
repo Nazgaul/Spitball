@@ -91,7 +91,7 @@ const mousedown = function(e){
     startingMousePosition.y = e.clientY - topOffset;
     this.methods.hideColorPicker();
     let mouseX = currentX - e.target.offsetLeft;
-    let mouseY = currentY - e.target.getBoundingClientRect().top;
+    let mouseY = currentY;
     this.shouldPaint = true;
     if(!currentHelperObj){
         this.shapesSelected = canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData());
