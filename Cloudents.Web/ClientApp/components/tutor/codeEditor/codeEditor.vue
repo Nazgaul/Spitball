@@ -45,6 +45,7 @@
                 let loadCodeLang = codeSyntax;
                 self.$loadScript(`${loadCodeLang.link}`).then((loaded) => {
                     self.codeMirror.setOption("mode", `${loadCodeLang.value}`);
+                    // self.firepad.fromCodeMirror(self.firepadRef, self.codeMirror);
                     // self.firepadRef = firebase.database().ref(self.roomLinkID);
                     // let currentVal = self.codeMirror.getValue();
                     // self.codeMirror.doc.setValue('');
@@ -107,7 +108,8 @@
         width: 100%;
         height: 100%;
         position: relative;
-        text-align: left;
+        text-align: left /*rtl:ignore*/;
+        direction: ltr  /*rtl:ignore*/;
         line-height: normal;
     }
 
