@@ -47,8 +47,8 @@
                     if( self.codeMirror){
                         self.codeMirror.setOption("mode", `${loadCodeLang.value}`);
                     }
-                    // self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror, defaultText: self.codeMirror.doc.getValue());
-                    console.log(self.codeMirror)
+                    // self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror, self.codeMirror.doc.getValue());
+                    // console.log(self.codeMirror)
                 })
             },
 
