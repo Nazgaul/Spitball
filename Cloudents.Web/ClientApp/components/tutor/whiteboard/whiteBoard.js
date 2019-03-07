@@ -114,7 +114,9 @@ export default {
         },
         addShape(dragObj, callback) {
             this.updateDragData(dragObj);
-            callback();
+            if(callback){
+                callback();
+            }
             let data = {
                 canvasContext: this.canvasData,
                 dataContext: dragObj

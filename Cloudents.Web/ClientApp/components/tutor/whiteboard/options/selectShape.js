@@ -5,20 +5,6 @@ import canvasFinder from '../utils/canvasFinder'
 
 const OPTION_TYPE = 'selectShape';
 
-let localShape = createGhostShape({
-    type: OPTION_TYPE,
-    shapesObj: {},
-    newShapes: {}
-});
-
-const clearLocalShape = function(){
-    localShape = createGhostShape({
-        type: OPTION_TYPE,
-        shapesObj: {},
-        newShapes: {}
-    });
-}
-
 const startingMousePosition = {
     x:null,
     y:null
@@ -27,6 +13,8 @@ const startingMousePosition = {
 let startShapes = {}
 let topOffset = null;
 
+let dragoffx = 0;
+let dragoffy = 0;
 let currentX = null;
 let currentY = null;
 
@@ -36,6 +24,8 @@ let multiSelectActive = false;
 
 const init = function(){
     startShapes = {};
+    dragoffx = 0;
+    dragoffy = 0;   
     clearMark();
 }
 
@@ -148,8 +138,8 @@ const moveShapes = function(){
     Object.keys(this.shapesSelected).forEach(shapeId=>{
         let shape = this.shapesSelected[shapeId];
         shape.points.forEach((point, index)=>{
-            let dragoffx =  (currentX - startingMousePosition.x);
-            let dragoffy =  (currentY - startingMousePosition.y);
+            dragoffx =  (currentX - startingMousePosition.x);
+            dragoffy =  (currentY - startingMousePosition.y);
             point.mouseX = startShapes[shapeId].points[index].mouseX + dragoffx
             point.mouseY = startShapes[shapeId].points[index].mouseY + dragoffy
         })
@@ -177,10 +167,23 @@ const mousemove = function(e){
     
 }
 
-const addShape = function(newShapes){
-    localShape.shapesObj = startShapes;
-    localShape.newShapes = newShapes;
-    this.methods.addShape(localShape, clearLocalShape);
+const moveObjAction = function(ids, distanceX, distanceY){
+    this.distanceX = distanceX;
+    this.distanceY = distanceY;
+    this.ids = ids
+}
+
+const deleteObjAction = function(ids){
+    this.ids = ids;
+}
+
+const addShape = function(actionType, actionObj){
+    let localShape = createGhostShape({
+        type: OPTION_TYPE,
+        actionType: actionType, // move, delete
+        actionObj: actionObj
+    });
+    this.methods.addShape(localShape);
     startShapes = {};
 }
 
@@ -216,7 +219,8 @@ const defineEndPosition = function(e){
             }
         }else{
             // object was just moved
-            addShape.bind(this, this.shapesSelected)();
+            let moveAction = new moveObjAction(Object.keys(this.shapesSelected), dragoffx, dragoffy)
+            addShape.bind(this, "move", moveAction)();
         }
     }
 }
@@ -228,13 +232,15 @@ const mouseleave = function(e){
     defineEndPosition.bind(this, e)()
 }
 
+
 const deleteSelectedShape = function(e){
     if(Object.keys(this.shapesSelected).length> 0){
         Object.keys(this.shapesSelected).forEach(shapeId=>{
             startShapes[shapeId] = createShape(this.shapesSelected[shapeId])
             this.shapesSelected[shapeId].visible = false;
         })
-        addShape.bind(this,  this.shapesSelected)();
+        let deleteAction = new deleteObjAction(Object.keys(this.shapesSelected));
+        addShape.bind(this, "delete" ,deleteAction)();
         whiteBoardService.redraw(this);
         clearMark();
     }

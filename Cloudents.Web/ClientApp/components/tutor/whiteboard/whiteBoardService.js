@@ -27,6 +27,43 @@ const optionsEnum = {
     textDraw
 }
 
+const ghostMoveData = function(actionObj, fromUndo){
+    dragData = store.getters['getDragData'];
+    dragData.forEach(shape=>{
+        if(actionObj.ids.indexOf(shape.id) > -1){
+            shape.points.forEach(point=>{
+                point.mouseX = fromUndo ? point.mouseX - actionObj.distanceX : point.mouseX + actionObj.distanceX;
+                point.mouseY = fromUndo ? point.mouseY - actionObj.distanceY : point.mouseY + actionObj.distanceY;
+            })
+        }
+    })
+}
+
+const ghostDeleteData = function(actionObj, fromUndo){
+    dragData = store.getters['getDragData'];
+    dragData.forEach(shape=>{
+        if(actionObj.ids.indexOf(shape.id) > -1){
+            shape.visible = fromUndo ? true : false;
+        }
+    })
+}
+
+const ghostChangeText = function(actionObj, fromUndo){
+    dragData = store.getters['getDragData'];
+    dragData.forEach(shape=>{
+        if(actionObj.id.indexOf(shape.id) > -1){
+            shape.points[0].text = fromUndo ? actionObj.oldText : actionObj.newText;
+            shape.points[0].width = fromUndo ? actionObj.oldWidth : actionObj.newWidth;
+        }
+    })
+}
+
+const ghostByAction = {
+    move: ghostMoveData,
+    delete: ghostDeleteData,
+    changeText: ghostChangeText
+}
+
 const init = function(optionName){
     if(!optionsEnum[optionName]){
         console.log(`no such options ${optionName}`);
@@ -66,17 +103,9 @@ const undo = function(canvasData){
     if(dragData.length > 0){
         store.dispatch('popDragData').then((lastAction)=>{
             if(lastAction.isGhost){
-                console.log("ghost action")
-                Object.keys(lastAction.shapesObj).forEach((shapeId)=>{
-                    dragData.forEach((currentShape, index)=>{
-                        //replace shape
-                        if(currentShape.id === shapeId){
-                            dragData[index] = createShape(lastAction.shapesObj[shapeId])
-                            helper.hideHelper();
-                            helper.resetHelperObj();
-                        }
-                    })
-                })
+                ghostByAction[lastAction.actionType](lastAction.actionObj, true)  
+                helper.hideHelper();
+                helper.resetHelperObj(); 
             }
             redraw(canvasData);
         });
@@ -93,15 +122,7 @@ const cleanCanvas = function(ctx){
 
 const passData = function(canvasData, changedDragData){
     if(changedDragData.isGhost){
-        dragData = store.getters['getDragData'];
-        Object.keys(changedDragData.newShapes).forEach((newShapeId)=>{
-            dragData.forEach((currentShape, index)=>{
-                //replace shape
-                if(currentShape.id === newShapeId){
-                    dragData[index] = createShape(changedDragData.newShapes[newShapeId])
-                }
-            })
-        })
+        ghostByAction[changedDragData.actionType](changedDragData.actionObj)        
     }
     store.dispatch('updateDragData', changedDragData)
     redraw(canvasData);
