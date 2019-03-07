@@ -306,29 +306,6 @@
                                 }
                                 self.detachParticipantTracks(participant);
                             });
-                            //do we need this ???? creating local track before on connect
-                            // if local preview is not active, create it
-                            // if (!self.localTrackAval) {
-                            //     let localTracksOptions = {
-                            //         logLevel: 'debug',
-                            //         audio: self.availableDevices.includes('audioinput'),
-                            //         // video: self.availableDevices.includes('videoinput'),
-                            //         video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : false,
-                            //     };
-                            //     createLocalTracks(localTracksOptions)
-                            //         .then(tracks => {
-                            //                 let localMediaContainer = document.getElementById('localTrack');
-                            //                 tracks.forEach((track) => {
-                            //                     localMediaContainer.appendChild(track.attach());
-                            //                     self.localTrackAval = true;
-                            //                 })
-                            //             },
-                            //             (error) => {
-                            //                 console.error('Unable to access local media video and audio', error);
-                            //             }
-                            //         );
-                            // }
-
                         },
                         (error) => {
                             console.log(error, 'error cant connect')

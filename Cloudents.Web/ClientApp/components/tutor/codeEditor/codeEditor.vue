@@ -17,6 +17,14 @@
         name: "codeEditor",
         data() {
             return {
+                fireBaseConfig: {
+                    apiKey: "AIzaSyASxWQgsnGpwngB3TOWfS49Nkbs_gSQhh4",
+                    authDomain: "codeeditor-44dab.firebaseapp.com",
+                    databaseURL: "https://codeeditor-44dab.firebaseio.com",
+                    projectId: "codeeditor-44dab",
+                    storageBucket: "codeeditor-44dab.appspot.com",
+                    messagingSenderId: "895562016590"
+                },
                 codeSet: syntaxEnum,
                 codeItem: {},
                 firepad: {},
@@ -37,10 +45,12 @@
                 let loadCodeLang = codeSyntax;
                 self.$loadScript(`${loadCodeLang.link}`).then((loaded) => {
                     self.codeMirror.setOption("mode", `${loadCodeLang.value}`);
-                    // self.$loadScript(`https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js`).then(
-                    //     () => {
-                    //         self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror)
-                    //     })
+                    // self.firepad.fromCodeMirror(self.firepadRef, self.codeMirror);
+                    // self.firepadRef = firebase.database().ref(self.roomLinkID);
+                    // let currentVal = self.codeMirror.getValue();
+                    // self.codeMirror.doc.setValue('');
+                    // self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror)
+                    // self.codeMirror.doc.setValue(currentVal)
                 })
             },
 
@@ -52,17 +62,7 @@
                 self.$loadScript(`https://www.gstatic.com/firebasejs/5.8.5/firebase.js`).then(
                     (data) => {
                         // Initialize Firebase
-                        var config = {
-                            apiKey: "AIzaSyASxWQgsnGpwngB3TOWfS49Nkbs_gSQhh4",
-                            authDomain: "codeeditor-44dab.firebaseapp.com",
-                            //init unique room by room id
-                            databaseURL: "https://codeeditor-44dab.firebaseio.com",
-                            // databaseURL: "https://codeeditor-44dab.firebaseio.com/",
-                            projectId: "codeeditor-44dab",
-                            storageBucket: "codeeditor-44dab.appspot.com",
-                            messagingSenderId: "895562016590"
-                        };
-                        firebase.initializeApp(config);
+                        firebase.initializeApp(self.fireBaseConfig);
                         // Get Firebase Database reference.
                         self.firepadRef = firebase.database().ref(roomId);
                         self.$loadScript(`https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js`)
@@ -73,7 +73,9 @@
                                         lineNumbers: true,
                                         matchBrackets: true,
                                         styleActiveLine: true,
+                                        smartIndent: true,
                                         theme: "monokai",
+                                        tabSize: 3,
                                         mode: `${loadCodeLang.value}`
                                     });
                                     self.codeMirror.focus();
@@ -97,7 +99,7 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
     @import './themes/monokai.less';
-
+    /*rtl:begin:ignore*/
     .firepad {
         margin-top: 24px;
         -webkit-box-sizing: border-box;
@@ -106,17 +108,18 @@
         width: 100%;
         height: 100%;
         position: relative;
-        text-align: left;
+        text-align: left /*rtl:ignore*/;
+        direction: ltr  /*rtl:ignore*/;
         line-height: normal;
     }
 
     #firepad {
         width: 70%;
         height: 88vh;
-        overflow-y: hidden;
-        margin-left: 90px;
+        overflow-y: hidden  /*rtl:ignore*/;
+        margin-left: 90px /*rtl:ignore*/;
         margin-top: 36px;
-        .scrollBarStyle(3px, #0085D1);
+        .scrollBarStyle(3px, #0085D1) ;
 
     }
 
@@ -1048,5 +1051,5 @@
     span.CodeMirror-selectedtext {
         background: none;
     }
-
+    /*rtl:end:ignore*/
 </style>
