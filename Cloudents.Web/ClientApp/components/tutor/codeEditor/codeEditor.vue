@@ -44,13 +44,11 @@
                 let self = this;
                 let loadCodeLang = codeSyntax;
                 self.$loadScript(`${loadCodeLang.link}`).then((loaded) => {
-                    self.codeMirror.setOption("mode", `${loadCodeLang.value}`);
-                    // self.firepad.fromCodeMirror(self.firepadRef, self.codeMirror);
-                    // self.firepadRef = firebase.database().ref(self.roomLinkID);
-                    // let currentVal = self.codeMirror.getValue();
-                    // self.codeMirror.doc.setValue('');
-                    // self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror)
-                    // self.codeMirror.doc.setValue(currentVal)
+                    if( self.codeMirror){
+                        self.codeMirror.setOption("mode", `${loadCodeLang.value}`);
+                    }
+                    // self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror, defaultText: self.codeMirror.doc.getValue());
+                    console.log(self.codeMirror)
                 })
             },
 
@@ -72,14 +70,16 @@
                                     self.codeMirror = CodeMirror(document.getElementById('firepad'), {
                                         lineNumbers: true,
                                         matchBrackets: true,
-                                        styleActiveLine: true,
+                                        styleActiveLine: false,
                                         smartIndent: true,
                                         theme: "monokai",
+                                        direction: "ltr",
                                         tabSize: 3,
                                         mode: `${loadCodeLang.value}`
                                     });
                                     self.codeMirror.focus();
-                                    self.codeMirror.setCursor(self.codeMirror.lineCount(), 0);
+                                    self.codeMirror.refresh();
+                                    self.codeMirror.setCursor(self.codeMirror.lineCount(), 1);
                                     self.$loadScript(`https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js`).then(
                                         () => {
                                             self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror)
@@ -115,7 +115,7 @@
 
     #firepad {
         width: 70%;
-        height: 88vh;
+        height: 80vh;
         overflow-y: hidden  /*rtl:ignore*/;
         margin-left: 90px /*rtl:ignore*/;
         margin-top: 36px;
