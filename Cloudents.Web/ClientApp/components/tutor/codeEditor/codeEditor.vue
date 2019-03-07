@@ -17,6 +17,14 @@
         name: "codeEditor",
         data() {
             return {
+                fireBaseConfig: {
+                    apiKey: "AIzaSyASxWQgsnGpwngB3TOWfS49Nkbs_gSQhh4",
+                    authDomain: "codeeditor-44dab.firebaseapp.com",
+                    databaseURL: "https://codeeditor-44dab.firebaseio.com",
+                    projectId: "codeeditor-44dab",
+                    storageBucket: "codeeditor-44dab.appspot.com",
+                    messagingSenderId: "895562016590"
+                },
                 codeSet: syntaxEnum,
                 codeItem: {},
                 firepad: {},
@@ -37,10 +45,11 @@
                 let loadCodeLang = codeSyntax;
                 self.$loadScript(`${loadCodeLang.link}`).then((loaded) => {
                     self.codeMirror.setOption("mode", `${loadCodeLang.value}`);
-                    // self.$loadScript(`https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js`).then(
-                    //     () => {
-                    //         self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror)
-                    //     })
+                    // self.firepadRef = firebase.database().ref(self.roomLinkID);
+                    // let currentVal = self.codeMirror.getValue();
+                    // self.codeMirror.doc.setValue('');
+                    // self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror)
+                    // self.codeMirror.doc.setValue(currentVal)
                 })
             },
 
@@ -52,17 +61,7 @@
                 self.$loadScript(`https://www.gstatic.com/firebasejs/5.8.5/firebase.js`).then(
                     (data) => {
                         // Initialize Firebase
-                        var config = {
-                            apiKey: "AIzaSyASxWQgsnGpwngB3TOWfS49Nkbs_gSQhh4",
-                            authDomain: "codeeditor-44dab.firebaseapp.com",
-                            //init unique room by room id
-                            databaseURL: "https://codeeditor-44dab.firebaseio.com",
-                            // databaseURL: "https://codeeditor-44dab.firebaseio.com/",
-                            projectId: "codeeditor-44dab",
-                            storageBucket: "codeeditor-44dab.appspot.com",
-                            messagingSenderId: "895562016590"
-                        };
-                        firebase.initializeApp(config);
+                        firebase.initializeApp(self.fireBaseConfig);
                         // Get Firebase Database reference.
                         self.firepadRef = firebase.database().ref(roomId);
                         self.$loadScript(`https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js`)
@@ -73,7 +72,9 @@
                                         lineNumbers: true,
                                         matchBrackets: true,
                                         styleActiveLine: true,
+                                        smartIndent: true,
                                         theme: "monokai",
+                                        tabSize: 2,
                                         mode: `${loadCodeLang.value}`
                                     });
                                     self.codeMirror.focus();
