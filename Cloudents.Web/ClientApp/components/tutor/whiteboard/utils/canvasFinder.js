@@ -60,12 +60,12 @@ const findLineDraw = function(pointX, pointY, shapeObj, ctx){
 }
 
 const findRectangleDraw = function(pointX, pointY, shapeObj, ctx){
-    let path = shapeObj.path.stroke;
+    let path = new Path2D(shapeObj.path.stroke);
     return ctx.isPointInStroke(path, pointX, pointY);
 }
 
 const findEllipseDraw = function(pointX, pointY, shapeObj, ctx){
-    let path = shapeObj.path.stroke;
+    let path = new Path2D(shapeObj.path.stroke);
     return ctx.isPointInStroke(path, pointX, pointY);
 }
 
