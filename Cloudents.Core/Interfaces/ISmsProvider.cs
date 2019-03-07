@@ -7,4 +7,11 @@ namespace Cloudents.Core.Interfaces
     {
         Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, CancellationToken token);
     }
+
+    public interface IVideoProvider
+    {
+        Task CreateRoomAsync(string id);
+        Task CloseRoomAsync(string id);
+        Task<string> ConnectToRoomAsync(string roomName, string name);
+    }
 }

@@ -5,14 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Storage;
 using Twilio;
+using Twilio.Jwt.AccessToken;
+using Twilio.Rest.Video.V1;
 
 //using Twilio;
 //using Twilio.Rest.Lookups.V1;
 
 namespace Cloudents.Infrastructure.Mail
 {
-    public class SmsProvider : ISmsProvider
+    public class SmsProvider : ISmsProvider , IVideoProvider
     {
 
 
@@ -115,5 +118,91 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
+        public  Task CreateRoomAsync(string id)
+        {
+            return RoomResource.CreateAsync(
+                uniqueName: id,
+                maxParticipants: 2,
+                recordParticipantsOnConnect: true);
+        }
+
+        public Task CloseRoomAsync(string id)
+        {
+            return RoomResource.UpdateAsync(id, RoomResource.RoomStatusEnum.Completed);
+        }
+
+        private const string ApiKey = "SKa10d29f12eb338d91351795847b35883";
+        private const string SecretVideo = "sJBB0TVjomROMH2vj3VwuxvPN9CNHETj";
+        public async Task<string> ConnectToRoomAsync(string roomName, string name)
+        {
+      
+        var room = await RoomResource.FetchAsync(roomName);
+
+            var grant = new VideoGrant
+            {
+                Room = room.UniqueName,
+            };
+            var grants = new HashSet<IGrant> { grant };
+
+           // var name = identityName;
+            if (string.IsNullOrEmpty(name))
+            {
+                name = GetName();
+            }
+
+            // Create an Access Token generator
+            var token = new Token(
+                AccountSid,
+                ApiKey,
+                SecretVideo,
+                identity: name,
+                grants: grants);
+
+            return token.ToJwt();
+
+        }
+
+
+        #region Borrowed from https://github.com/twilio/video-quickstart-js/blob/1.x/server/randomname.js
+
+        readonly string[] _adjectives =
+        {
+            "Abrasive", "Brash", "Callous", "Daft", "Eccentric", "Feisty", "Golden",
+            "Holy", "Ignominious", "Luscious", "Mushy", "Nasty",
+            "OldSchool", "Pompous", "Quiet", "Rowdy", "Sneaky", "Tawdry",
+            "Unique", "Vivacious", "Wicked", "Xenophobic", "Yawning", "Zesty"
+        };
+
+        readonly string[] _firstNames =
+        {
+            "Anna", "Bobby", "Cameron", "Danny", "Emmett", "Frida", "Gracie", "Hannah",
+            "Isaac", "Jenova", "Kendra", "Lando", "Mufasa", "Nate", "Owen", "Penny",
+            "Quincy", "Roddy", "Samantha", "Tammy", "Ulysses", "Victoria", "Wendy",
+            "Xander", "Yolanda", "Zelda"
+        };
+
+        readonly string[] _lastNames =
+        {
+            "Anchorage", "Berlin", "Cucamonga", "Davenport", "Essex", "Fresno",
+            "Gunsight", "Hanover", "Indianapolis", "Jamestown", "Kane", "Liberty",
+            "Minneapolis", "Nevis", "Oakland", "Portland", "Quantico", "Raleigh",
+            "SaintPaul", "Tulsa", "Utica", "Vail", "Warsaw", "XiaoJin", "Yale",
+            "Zimmerman"
+        };
+
+      
+
+        string GetName() => $"{_adjectives.Random()} {_firstNames.Random()} {_lastNames.Random()}";
+
+        #endregion
+
+      
+    }
+
+    static class StringArrayExtensions
+    {
+        static readonly Random _random = new Random((int)DateTime.Now.Ticks);
+
+        internal static string Random(this IReadOnlyList<string> array) => array[_random.Next(array.Count)];
     }
 }
