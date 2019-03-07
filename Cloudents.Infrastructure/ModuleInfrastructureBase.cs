@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TextClassifierAnalysis>().As<ITextClassifier>().SingleInstance();
             builder.RegisterType<TextTranslatorProvider>().As<ITextTranslator>().SingleInstance();
 
-            builder.RegisterType<SmsProvider>().As<ISmsProvider>().SingleInstance();
+            builder.RegisterType<SmsProvider>().As<ISmsProvider>().As<IVideoProvider>().SingleInstance();
 
         }
     }

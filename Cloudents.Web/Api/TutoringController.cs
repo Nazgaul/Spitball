@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Storage;
+﻿using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,9 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Twilio;
-using Twilio.Jwt.AccessToken;
-using Twilio.Rest.Video.V1;
+using Cloudents.Core.Interfaces;
+
 
 namespace Cloudents.Web.Api
 {
@@ -17,16 +17,17 @@ namespace Cloudents.Web.Api
     public class TutoringController : ControllerBase
     {
 
-
-        private const string AccountSid = "AC1796f09281da07ec03149db53b55db8d";
-        private const string AccountSecret = "c4cdf14c4f6ca25c345c3600a72e8b49";
-        private const string SecretVideo = "sJBB0TVjomROMH2vj3VwuxvPN9CNHETj";
-        private const string ApiKey = "SKa10d29f12eb338d91351795847b35883";
+        private readonly IQueueProvider _queueProvider;
+        private readonly IVideoProvider _videoProvider;
+       
 
 
-        static TutoringController()
+       
+
+        public TutoringController(IQueueProvider queueProvider, IVideoProvider videoProvider)
         {
-            TwilioClient.Init(AccountSid, AccountSecret);
+            _queueProvider = queueProvider;
+            _videoProvider = videoProvider;
         }
 
 
@@ -35,16 +36,17 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <returns></returns>
         [HttpPost("create")]
-        public IActionResult CreateAsync()
+        public async Task<IActionResult> CreateAsync(CancellationToken token)
         {
-            var room = RoomResource.Create(
-                uniqueName: Guid.NewGuid().ToString(),
-                maxParticipants: 2,
-                recordParticipantsOnConnect: true);
+            var roomName = Guid.NewGuid().ToString();
+            var t1 = _videoProvider.CreateRoomAsync(roomName);
 
+            var t2 = _queueProvider.InsertMessageAsync(new EndTutoringSessionMessage(roomName), TimeSpan.FromMinutes(90), token);
+            await Task.WhenAll(t1, t2);
+            //RoomResource.Update(room.UniqueName,RoomResource.RoomStatusEnum.Completed)
             return Ok(new
             {
-                name = room.UniqueName
+                name = roomName
             });
         }
 
@@ -52,33 +54,10 @@ namespace Cloudents.Web.Api
         [HttpGet("join")]
         public async Task<IActionResult> ConnectAsync(string roomName, string identityName)
         {
-
-            var room = await RoomResource.FetchAsync(roomName);
-
-            var grant = new VideoGrant
-            {
-                Room = room.UniqueName,
-            };
-            var grants = new HashSet<IGrant> { grant };
-
-            var name = identityName;
-            if (string.IsNullOrEmpty(name))
-            {
-                name = GetName();
-            }
-
-            // Create an Access Token generator
-            var token = new Token(
-                AccountSid,
-                ApiKey,
-                SecretVideo,
-                identity: name,
-                grants: grants);
-
-
+            var token = await _videoProvider.ConnectToRoomAsync(roomName, identityName);
             return Ok(new
             {
-                token = token.ToJwt()
+                token
             }
             );
         }
@@ -102,43 +81,9 @@ namespace Cloudents.Web.Api
             });
 
         }
-        #region Borrowed from https://github.com/twilio/video-quickstart-js/blob/1.x/server/randomname.js
-
-        readonly string[] _adjectives =
-        {
-            "Abrasive", "Brash", "Callous", "Daft", "Eccentric", "Feisty", "Golden",
-            "Holy", "Ignominious", "Luscious", "Mushy", "Nasty",
-            "OldSchool", "Pompous", "Quiet", "Rowdy", "Sneaky", "Tawdry",
-            "Unique", "Vivacious", "Wicked", "Xenophobic", "Yawning", "Zesty"
-        };
-
-        readonly string[] _firstNames =
-        {
-            "Anna", "Bobby", "Cameron", "Danny", "Emmett", "Frida", "Gracie", "Hannah",
-            "Isaac", "Jenova", "Kendra", "Lando", "Mufasa", "Nate", "Owen", "Penny",
-            "Quincy", "Roddy", "Samantha", "Tammy", "Ulysses", "Victoria", "Wendy",
-            "Xander", "Yolanda", "Zelda"
-        };
-
-        readonly string[] _lastNames =
-        {
-            "Anchorage", "Berlin", "Cucamonga", "Davenport", "Essex", "Fresno",
-            "Gunsight", "Hanover", "Indianapolis", "Jamestown", "Kane", "Liberty",
-            "Minneapolis", "Nevis", "Oakland", "Portland", "Quantico", "Raleigh",
-            "SaintPaul", "Tulsa", "Utica", "Vail", "Warsaw", "XiaoJin", "Yale",
-            "Zimmerman"
-        };
-
-        string GetName() => $"{_adjectives.Random()} {_firstNames.Random()} {_lastNames.Random()}";
-
-        #endregion
+       
     }
 
 
-    static class StringArrayExtensions
-    {
-        static readonly Random _random = new Random((int)DateTime.Now.Ticks);
-
-        internal static string Random(this IReadOnlyList<string> array) => array[_random.Next(array.Count)];
-    }
+    
 }
