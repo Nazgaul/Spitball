@@ -32,7 +32,7 @@
 
         filters:{
             renderUrl(val){
-                var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+                let urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
                 return val.replace(urlRegex, function(url) {
                     return '<a href="' + url + '" target="_blank">' + url + '</a>';
                 });

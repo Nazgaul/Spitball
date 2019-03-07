@@ -73,6 +73,7 @@
                 container.scrollTop = container.scrollHeight;
             },
             send() {
+                if(!this.messageText)return
                 let messageObj = {
                     "text": this.messageText,
                     "type": 'tutoringChatMessage',
