@@ -89,8 +89,8 @@ function GhostShape(objInit){
     //ghost shape will be called when undo occures
     this.id = createGuid('Ghost');
     this.type = objInit.type;
-    this.shapesObj = objInit.shapesObj;
-    this.newShapes = objInit.newShapes
+    this.actionType = objInit.actionType;
+    this.actionObj = objInit.actionObj;
     this.isGhost = true;
 }
 

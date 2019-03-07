@@ -3,8 +3,9 @@
         <div class="message" :class="[isMine ? 'own-message' : 'not-own-message' ]">
             <!--<div class="username">{{message.data ? message.data.identity : ''}}</div>-->
             <div class="chat-message-wrap-text" :class="[isMine ? 'own-message' : 'not-own-message' ]">
-                <div class="message-text">
-                    {{message.data ? message.data.text : ''}}
+                <div class="message-text"
+                    v-html="$options.filters.renderUrl(message.data ? message.data.text : '')">
+                    <!--{{message.data ? message.data.text : ''}}-->
                 </div>
 
             </div>
@@ -28,6 +29,15 @@
                 return this.userIdentity === this.message.data.identity
             }
         },
+
+        filters:{
+            renderUrl(val){
+                let urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+                return val.replace(urlRegex, function(url) {
+                    return '<a href="' + url + '" target="_blank">' + url + '</a>';
+                });
+            }
+        }
 
     }
 </script>
