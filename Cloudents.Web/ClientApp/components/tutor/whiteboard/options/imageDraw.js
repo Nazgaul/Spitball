@@ -44,6 +44,9 @@ const draw = function (imgObj) {
         let img = new Image();
         let self = this;
         img.onload = function () {
+            let imageSize = imgSizeFit(img.width, img.height, 600, 800);
+            img.width = imageSize.width;
+            img.height = imageSize.height;
             let dictionaryImage = {
                 imgObj,
                 img
