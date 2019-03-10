@@ -13,6 +13,8 @@
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.2.0" />
     <PackageReference Include="Dapper" Version="1.50.7" />
+    <PackageReference Include="Google.Apis.Docs.v1" Version="1.38.0.1523" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.38.0.1512" />
     <PackageReference Include="IBM.WatsonDeveloperCloud.LanguageTranslator.v3" Version="2.16.0" />
     <PackageReference Include="IBM.WatsonDeveloperCloud.NaturalLanguageUnderstanding.v1" Version="2.16.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" />

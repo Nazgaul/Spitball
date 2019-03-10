@@ -74,7 +74,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
 
-            builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
+            builder.RegisterType<GoogleAuth>().As<IGoogleDocument>().As<IGoogleAuth>().SingleInstance();
 
 
             builder.RegisterType<BingSuggest>()
