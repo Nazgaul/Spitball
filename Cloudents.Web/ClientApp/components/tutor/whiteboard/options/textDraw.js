@@ -19,20 +19,6 @@ const clearLocalShape = function(){
     });
 }
 
-let ghostLocalShape = createGhostShape({
-    type: OPTION_TYPE,
-    shapesObj: {},
-    newShapes: {}
-});
-
-const clearGhostLocalShape = function(){
-    ghostLocalShape = createGhostShape({
-        type: OPTION_TYPE,
-        shapesObj: {},
-        newShapes: {}
-    });
-}
-
 const startingMousePosition = {
     x:null,
     y:null
@@ -84,10 +70,21 @@ const setHelperObj = function(e, selectedHelper){
     helper.showHelper();
 }
 
-const addGhostLocalShape = function(newShape){
-    ghostLocalShape.shapesObj[startShapes.id] = startShapes;
-    ghostLocalShape.shapesObj[newShape.id] = newShape;
-    this.methods.addShape(ghostLocalShape, clearGhostLocalShape);
+const changeTextActionObj = function(id, oldShapePoint, newShapePoint){
+    this.id = id;
+    this.oldText = oldShapePoint.text;
+    this.oldWidth = oldShapePoint.width;
+    this.newText = newShapePoint.text;
+    this.newWidth = newShapePoint.width;
+}
+
+const addGhostLocalShape = function(actionType, actionObj){
+    let ghostLocalShape = createGhostShape({
+        type: OPTION_TYPE,
+        actionType: actionType, // changeText
+        actionObj: actionObj
+    });
+    this.methods.addShape(ghostLocalShape);
     startShapes = {};
 }
 
@@ -135,6 +132,8 @@ const mousedown = function(e){
                 let meassureText = this.context.measureText(text.value);
                 currentShapeEditing.points[0].text = text.value;
                 currentShapeEditing.points[0].width = meassureText.width;
+                let textGhostObj = new changeTextActionObj(currentShapeEditing.id, startShapes.points[0], currentShapeEditing.points[0]);
+                addGhostLocalShape.bind(this, "changeText", textGhostObj)();
                 whiteBoardService.redraw(this);
                 moveToSelectTool.bind(this)();
             }
@@ -157,7 +156,7 @@ const mousedown = function(e){
                 currentId = hasShape[prop].id;
                 setHelperObj.bind(this, e, hasShape[prop].points[0])();
                 startShapes = createShape(hasShape[prop]);
-                addGhostLocalShape.bind(this, hasShape[prop])();
+                
             }else{
                 startingMousePosition.x = e.pageX - e.target.offsetLeft;
                 startingMousePosition.y = e.pageY - e.target.getBoundingClientRect().top;

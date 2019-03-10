@@ -1,4 +1,7 @@
-import {createPointsByOption, createShape} from '../utils/factories'
+import {
+    createPointsByOption,
+    createShape
+} from '../utils/factories'
 import whiteBoardService from '../whiteBoardService';
 
 const OPTION_TYPE = 'imageDraw';
@@ -8,7 +11,7 @@ let localShape = createShape({
     points: []
 });
 
-const clearLocalShape = function(){
+const clearLocalShape = function () {
     localShape = createShape({
         type: OPTION_TYPE,
         points: []
@@ -20,38 +23,48 @@ const imageYDefaultPosition = 75;
 
 let imageDictionary = {};
 
-const init = function(){
+const init = function () {
     let imageElm = document.getElementById('imageUpload');
     imageElm.removeEventListener('change', handleImage.bind(this), false);
     imageElm.addEventListener('change', handleImage.bind(this), false);
 }
 
-const draw = function(imgObj){
-    if(!!imageDictionary[imgObj.id]){
+const imgSizeFit = function(imgWidth, imgHeight, maxWidth, maxHeight) {
+    let ratio = Math.min(1, maxWidth / imgWidth, maxHeight / imgHeight);
+    let width = imgWidth * ratio;
+    let height = imgHeight * ratio;
+    return {width, height};
+}
+
+const draw = function (imgObj) {
+    if (!!imageDictionary[imgObj.id]) {
         let img = imageDictionary[imgObj.id].img;
-        this.context.drawImage(img, imgObj.mouseX, imgObj.mouseY, imgObj.width, imgObj.height);
-    }else{
+        this.context.drawImage(img, imgObj.mouseX, imgObj.mouseY, img.width, img.height);
+    } else {
         let img = new Image();
         let self = this;
-        img.onload = function(){
+        img.onload = function () {
+            let imageSize = imgSizeFit(img.width, img.height, 600, 800);
+            img.width = imageSize.width;
+            img.height = imageSize.height;
             let dictionaryImage = {
                 imgObj,
                 img
             }
             imageDictionary[imgObj.id] = dictionaryImage;
-            self.context.drawImage(img, imgObj.mouseX, imgObj.mouseY, imgObj.width, imgObj.height);
+            self.context.drawImage(img, imgObj.mouseX, imgObj.mouseY, img.width, img.height);
         }
         img.src = imgObj.src;
     }
 }
-const liveDraw = function(imgObj){
+const liveDraw = function (imgObj) {
     // this.context.beginPath();
     draw.bind(this, imgObj)();
     // this.context.closePath();
     // this.context.stroke();
 }
 
-const handleImage = function(e){
+const handleImage = function (e) {
     //Set Click Position
     let mouseX = imageXDefaultPosition;
     let mouseY = imageYDefaultPosition;
@@ -62,13 +75,16 @@ const handleImage = function(e){
     formData.append("file", fileData);
     let self = this;
     //apiCall
-    whiteBoardService.uploadImage(formData).then(url=>{
+    whiteBoardService.uploadImage(formData).then(url => {
         let img = new Image();
-        img.onload = function(){
+        img.onload = function () {
+            let imageSize = imgSizeFit(img.width, img.height, 600, 800);
+            img.width = imageSize.width;
+            img.height = imageSize.height;
             let imgObj = createPointsByOption({
                 mouseX,
                 mouseY,
-                width:img.width,
+                width: img.width,
                 height: img.height,
                 option: OPTION_TYPE,
                 eventName: 'start',
@@ -87,28 +103,28 @@ const handleImage = function(e){
     })
 }
 
-const mousedown = function(e){
+const mousedown = function (e) {
     return;
 }
-const mousemove = function(e){
-    return;
-}
-
-const defineEndPosition = function(e){
+const mousemove = function (e) {
     return;
 }
 
-const mouseup = function(e){
+const defineEndPosition = function (e) {
+    return;
+}
+
+const mouseup = function (e) {
     console.log('mouseUp')
     defineEndPosition.bind(this, e)()
 }
 
-const mouseleave = function(e){
-    console.log('mouseLeave') 
+const mouseleave = function (e) {
+    console.log('mouseLeave')
     defineEndPosition.bind(this, e)()
 }
 
-export default{
+export default {
     mousedown,
     mouseup,
     mousemove,

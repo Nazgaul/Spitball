@@ -1,8 +1,9 @@
 <template>
     <v-layout row class="tutoring-page" :class="{'gridBackground': $route.name === 'tutoring'} ">
         <v-flex>
-            <v-tabs v-model="activeTab">
+            <v-tabs v-model="activeTab" touchless>
                 <v-tab v-for="n in tabs"
+                       touchless
                        class="tutoring-tab"
                        :key="n.name"
                        ripple>

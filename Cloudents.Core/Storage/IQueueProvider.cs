@@ -17,6 +17,7 @@ namespace Cloudents.Core.Storage
         Task InsertMessageAsync(ISystemQueueMessage obj, CancellationToken token);
 
         Task InsertBlobReprocessAsync(long id);
+        Task InsertMessageAsync(ISystemQueueMessage endTutoringSessionMessage, TimeSpan delay, CancellationToken token);
     }
 
     public interface IServiceBusProvider
