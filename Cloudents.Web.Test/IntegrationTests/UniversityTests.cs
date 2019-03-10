@@ -37,6 +37,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             id.Should().NotBeNull();
             name.Should().NotBeNull();
             country.Should().NotBeNull();
+            uni.Should().HaveCountGreaterThan(5);
         }
 
         
