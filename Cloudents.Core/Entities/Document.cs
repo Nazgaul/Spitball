@@ -56,7 +56,7 @@ namespace Cloudents.Core.Entities
 
         public virtual University University { get; protected set; }
 
-        public virtual Course Course { get; protected set; }
+        public virtual Course Course { get; set; }
 
         public virtual string Type { get; protected set; }
 
