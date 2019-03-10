@@ -63,7 +63,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; set; }
 
         public virtual ISet<RegularUser> Users { get; protected set; }
-        public virtual ISet<Document> Documents { get; protected set; }
-        public virtual ISet<Question> Questions { get; protected set; }
+        public virtual IList<Document> Documents { get; protected set; }
+        public virtual IList<Question> Questions { get; protected set; }
     }
 }
