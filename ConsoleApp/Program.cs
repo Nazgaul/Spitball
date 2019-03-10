@@ -142,7 +142,6 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
 
-            GoogleDocs.Main();
             Console.WriteLine("done");
 
         }

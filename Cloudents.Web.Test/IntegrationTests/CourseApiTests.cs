@@ -13,7 +13,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("api/course/search")]
+        [InlineData("api/course/search?term=his")]
         public async Task Get_SomeCourse_ReturnResult(string url)
         {
             // Arrange
