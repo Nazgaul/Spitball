@@ -23,8 +23,11 @@ namespace Cloudents.Persistance.Maps
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Unread).Not.Nullable();
-            References(x => x.ChatRoom).Not.Nullable().Column("ChatRoomId").ForeignKey("fChatUserChatRoom");
-            References(x => x.User).Not.Nullable().Column("UserId").ForeignKey("fChatUserUser");
+            References(x => x.ChatRoom)
+                .Not.Nullable().Column("ChatRoomId").ForeignKey("fChatUserChatRoom");
+            References(x => x.User)
+                .Not.Nullable().Column("UserId")
+                .ForeignKey("fChatUserUser");
             SchemaAction.Update();
         }
     }

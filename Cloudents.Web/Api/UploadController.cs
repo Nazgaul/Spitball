@@ -106,7 +106,11 @@ namespace Cloudents.Web.Api
         {
             if (model.Phase == UploadPhase.Start)
             {
-                string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg","jpeg",
+                string[] supportedFiles = { "doc",
+                    "docx", "xls",
+                    "xlsx", "PDF",
+                    "png", "jpg",
+                    "jpeg",
                     "ppt", "pptx","tiff","tif","bmp" };
 
                 var extension = Path.GetExtension(model.Name)?.TrimStart('.');

@@ -51,7 +51,8 @@ namespace Cloudents.Persistance.Maps
     {
         public ItemStateMap()
         {
-            Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
+            Map(x => x.State)
+                .CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
             Map(m => m.DeletedOn).Nullable();
             Map(m => m.FlagReason).Nullable();
             References(x => x.FlaggedUser).Column("FlaggedUserId");

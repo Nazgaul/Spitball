@@ -1,10 +1,10 @@
+using Cloudents.Core.DTOs;
 using Cloudents.FunctionsV2.Di;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage.Blob;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -13,8 +13,6 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Microsoft.AspNetCore.WebUtilities;
 using static Cloudents.Core.TimeConst;
 
 namespace Cloudents.FunctionsV2
@@ -48,7 +46,7 @@ namespace Cloudents.FunctionsV2
                 return new BadRequestResult();
             }
 
-            using (var sr = await binder.BindAsync<Stream>(new BlobAttribute($"spitball-files/files/{properties.Id}/preview-{properties.Page}.jpg"), token))
+            using (var sr = await binder.BindAsync<Stream>(new BlobAttribute($"spitball-files/files/{properties.Id}/preview-{properties.Page}.jpg", FileAccess.Read), token))
             {
                 var image = Image.Load<Rgba32>(sr);
                 image.Mutate(x => x.Resize(new ResizeOptions()
