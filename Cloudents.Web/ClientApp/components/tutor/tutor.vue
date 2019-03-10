@@ -15,6 +15,9 @@
                 <v-tab-item :key="2" >
                     <codeEditor v-if="isRoomCreated"></codeEditor>
                 </v-tab-item>
+                <v-tab-item :key="3">
+                    <shared-document :key="sharedDocUrl" v-if="isRoomCreated"></shared-document>
+                </v-tab-item>
             </v-tabs>
         </v-flex>
         <v-layout column align-start style="position: fixed; right: 0; top: 44px;">
@@ -37,22 +40,24 @@
     import whiteBoard from './whiteboard/WhiteBoard.vue';
     import codeEditor from './codeEditor/codeEditor.vue'
     import chat from './chat/chat.vue';
+    import sharedDocument from './sharedDocument/sharedDocument.vue';
+    import {passSharedDocLink} from './tutorService'
     export default {
-        components:{videoStream, whiteBoard, codeEditor, chat},
+        components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument},
         name: "tutor",
         data() {
             return {
                 activeTab: '',
-                tabs: [ {name: 'Whiteboard'}, {name:'Code Collaboration'}],
+                tabs: [ {name: 'Whiteboard'}, {name:'Code Collaboration'}, {name: 'Document'}],
             }
         },
+
         props: {
             id: ''
         },
         computed: {
-            ...mapGetters(['isRoomCreated']),
+            ...mapGetters(['isRoomCreated', 'isRoomFull', 'sharedDocUrl']),
         },
-
         created() {
             console.log('ID Tutor!!',this.id);
             global.onbeforeunload = function(){
