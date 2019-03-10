@@ -34,7 +34,7 @@ namespace Cloudents.Admin2.Api
             return retVal;
         }
 
-        [HttpPost]
+        [HttpPost("courses")]
         public async Task<IActionResult> MigrateCourse([FromBody] MigrateCourseRequest model, 
             CancellationToken token)
         {
