@@ -1,4 +1,6 @@
 import whiteBoardService from "../whiteBoardService";
+import store from "../../../../store/index";
+
 let lastX=null;
 let lastY=null;
 let scaleFactor = null;
@@ -51,7 +53,7 @@ const zoom = function(clicks){
     //if we want to limit zoom
     // let maxLimit = 2;
     // let minLimit = 0.5;
-    // let {a, b, c, d, e, f} = this.context.getTransform();
+    
     // if(a > maxLimit){
     //     this.context.setTransform(maxLimit,b,c,maxLimit,e,f);
     //     return;
@@ -70,6 +72,8 @@ const zoom = function(clicks){
     this.context.scale(factor, factor);
     this.context.translate(-pt.x, -pt.y);
     whiteBoardService.redraw(this);
+    let {a} = this.context.getTransform();
+    store.dispatch('updateZoom', a*100);
 }
 
 const mouseScroll = function(evt){

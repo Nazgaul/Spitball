@@ -7,13 +7,15 @@ import { dataTrack } from '../tutorService';
 import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
 import AppLogo from "../../../../wwwroot/Images/logo-spitball.svg";
 import { mapGetters, mapActions } from "vuex";
-import canvasFinder from "./utils/canvasFinder"
+import canvasFinder from "./utils/canvasFinder";
+import panIcon from "./images/pan.svg";
 
 export default {
     components: {
         'sliderPicker': Compact,
          shareRoomBtn,
-         AppLogo
+         AppLogo,
+         panIcon
     },
     data() {
         return {
@@ -73,7 +75,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['isRoomCreated', 'getDragData']),
+        ...mapGetters(['isRoomCreated', 'getDragData','getZoom']),
         helperStyle(){
             return helperUtil.HelperObj.style
         },
@@ -85,8 +87,10 @@ export default {
         },
         dragData(){
             return this.getDragData;
+        },
+        zoom(){
+            return this.getZoom.toFixed();
         }
-        
     },
     methods: {
         ...mapActions(['resetDragData', 'updateDragData']),
