@@ -18,8 +18,8 @@ namespace Cloudents.Persistance.Maps
             HasManyToMany(x => x.Tags)
                 .ParentKeyColumn("DocumentId")
                 .ChildKeyColumn("TagId")
-                .ForeignKeyConstraintNames("Document_Tags2", "Tags_Documents2")
-                .Table("DocumentsTags2").AsSet();
+                .ForeignKeyConstraintNames("Document_Tags", "Tags_Documents")
+                .Table("DocumentsTags").AsSet();
 
             
             Component(x => x.TimeStamp);

@@ -92,6 +92,7 @@ namespace Cloudents.Search.Question
                     new ScoringParameter(
                         QuestionSearchWrite.TagsTagsParameter,
                         AzureDocumentSearch.GenerateScoringParameterValues(query.UserProfile.Tags)
+                        
                         ),
 
                 }
