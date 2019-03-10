@@ -30,9 +30,13 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var uni = d["universities"].Value<JArray>();
 
-            response.EnsureSuccessStatusCode();
+            var id = uni[0]["id"]?.Value<string>();
+            var name = uni[0]["name"]?.Value<string>();
+            var country = uni[0]["country"]?.Value<string>();
 
-            d.Should().NotBeNull();
+            id.Should().NotBeNull();
+            name.Should().NotBeNull();
+            country.Should().NotBeNull();
         }
 
         
