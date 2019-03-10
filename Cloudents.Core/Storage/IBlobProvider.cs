@@ -13,10 +13,7 @@ namespace Cloudents.Core.Storage
         Uri GeneratePreviewLink(Uri blobUrl, double expirationTimeInMinutes);
         Uri GenerateDownloadLink(Uri blobUrl, double expirationTimeInMinutes,
             string contentDisposition);
-    }
 
-    public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
-    {
         Task UploadStreamAsync(string blobName, Stream fileContent,
             string mimeType = null, bool fileGziped = false, int? cacheControlSeconds = null, CancellationToken token = default);
 
@@ -24,10 +21,9 @@ namespace Cloudents.Core.Storage
         Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token);
 
 
-        //string GenerateDownloadLink(string blobName, double expirationTimeInMinutes,
-        //    string contentDisposition);
 
-        Uri GetBlobUrl(string blobName, bool cdn = false);
+
+        //Uri GetBlobUrl(string blobName, bool cdn = false);
 
         Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
 
@@ -46,4 +42,19 @@ namespace Cloudents.Core.Storage
 
         Task DeleteDirectoryAsync(string id, CancellationToken token);
     }
+
+    public interface IDocumentDirectoryBlobProvider : IBlobProvider
+    {
+
+    }
+
+    public interface IQuestionsDirectoryBlobProvider : IBlobProvider
+    {
+
+    }
+
+    //public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
+    //{
+        
+    //}
 }

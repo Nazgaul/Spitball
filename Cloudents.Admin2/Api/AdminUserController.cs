@@ -21,12 +21,12 @@ namespace Cloudents.Admin2.Api
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
-        private readonly IBlobProvider<DocumentContainer> _blobProvider;
+        private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IQueueProvider _queueProvider;
 
 
         public AdminUserController(ICommandBus commandBus, IQueryBus queryBus,
-            IBlobProvider<DocumentContainer> blobProvider, IQueueProvider queueProvider)
+            IDocumentDirectoryBlobProvider blobProvider, IQueueProvider queueProvider)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;

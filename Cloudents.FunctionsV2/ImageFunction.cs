@@ -10,6 +10,8 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 using System;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Microsoft.AspNetCore.WebUtilities;
@@ -21,10 +23,10 @@ namespace Cloudents.FunctionsV2
     {
         [FunctionName("ImageFunction")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/{id}/{hash}")]
-            HttpRequest req, string hash, long id,
-            [Blob("spitball-files/files/{id}")] CloudBlobDirectory directory,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/{hash}")]
+            HttpRequest req, string hash,
+            IBinder binder,
+            CancellationToken token)
         {
 
             if (string.IsNullOrEmpty(hash))
@@ -34,12 +36,6 @@ namespace Cloudents.FunctionsV2
 
             var hashBytes = Base64UrlTextEncoder.Decode(hash);
             var properties = ImageProperties.Decrypt(hashBytes);
-
-
-            if (properties.Id != id)
-            {
-                return new BadRequestResult();
-            }
 
             int.TryParse(req.Query["width"], out var width);
             int.TryParse(req.Query["height"], out var height);
@@ -52,8 +48,7 @@ namespace Cloudents.FunctionsV2
                 return new BadRequestResult();
             }
 
-            var blob = directory.GetBlobReference($"preview-{properties.Page}.jpg");
-            using (var sr = await blob.OpenReadAsync())
+            using (var sr = await binder.BindAsync<Stream>(new BlobAttribute($"spitball-files/files/{properties.Id}/preview-{properties.Page}.jpg"), token))
             {
                 var image = Image.Load<Rgba32>(sr);
                 image.Mutate(x => x.Resize(new ResizeOptions()

@@ -20,18 +20,20 @@ namespace Cloudents.Web.Api
 {
     //DO NOT ADD API CONTROLLER - UPLOAD WILL NOT WORK
     [Route("api/[controller]")]
-    [ApiExplorerSettings(IgnoreApi = true)]
+    //[ApiExplorerSettings(IgnoreApi = true)]
     [Produces("application/json")]
     [Authorize]
     public class UploadController : Controller
     {
-        private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
-        private readonly IBlobProvider<DocumentContainer> _documentBlobProvider;
+        private readonly IQuestionsDirectoryBlobProvider _blobProvider;
+        private readonly IDocumentDirectoryBlobProvider _documentBlobProvider;
         private readonly IStringLocalizer<UploadController> _localizer;
 
 
 
-        public UploadController(IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider<DocumentContainer> documentBlobProvider, IStringLocalizer<UploadController> localizer)
+        public UploadController(IQuestionsDirectoryBlobProvider blobProvider,
+            IDocumentDirectoryBlobProvider documentBlobProvider, 
+            IStringLocalizer<UploadController> localizer)
         {
             _blobProvider = blobProvider;
             _documentBlobProvider = documentBlobProvider;
@@ -79,7 +81,8 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("file"), FormContentType]
-        public async Task<ActionResult<UploadResponse>> Upload([FromForm] UploadRequest2 model, CancellationToken token)
+        public async Task<ActionResult<UploadResponse>> Upload([FromForm] UploadRequest2 model, 
+            CancellationToken token)
         {
             if (!ModelState.IsValid)
             {
@@ -95,15 +98,14 @@ namespace Cloudents.Web.Api
             return new UploadResponse();
         }
 
-        [HttpPost("file")]
-        public async Task<ActionResult<UploadResponse>> Upload([FromBody] UploadRequest model, CancellationToken token)
+        [HttpPost("file/{**type}")]
+        public async Task<ActionResult<UploadResponse>> Upload(
+            [FromRoute] Cloudents.Core.Enum.TransactionType t,
+            [FromBody] UploadRequestFirstStage model,
+            CancellationToken token)
         {
-
-
             if (model.Phase == UploadPhase.Start)
             {
-                //we remove mime type check because if user doesn't have an application installed in the computer the mime type is empty
-                //'doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx', 'tiff', 'tif', 'bmp', 'bmpf'
                 string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg","jpeg",
                     "ppt", "pptx","tiff","tif","bmp" };
 
@@ -141,12 +143,13 @@ namespace Cloudents.Web.Api
             return new UploadResponse(tempData2.BlobName);
         }
 
-        private static Random random = new Random();
-        public static string RandomString(int length)
+        private static readonly Random Random = new Random();
+
+        private static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+              .Select(s => s[Random.Next(s.Length)]).ToArray());
         }
 
         private static string BlobFileName(Guid sessionId, string name)
@@ -157,7 +160,7 @@ namespace Cloudents.Web.Api
             {
                 name = RandomString(3) + name;
             }
-            return $"file-{sessionId}-{name.Replace("/",string.Empty)}";
+            return $"file-{sessionId}-{name.Replace("/", string.Empty)}";
         }
 
 

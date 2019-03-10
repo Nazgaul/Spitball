@@ -8,46 +8,55 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using static Cloudents.Core.TimeConst;
 
 namespace Cloudents.Infrastructure.Storage
 {
-    public class BlobProviderContainer<T> : IBlobProvider<T> where T : IStorageContainer, new()
+    public class BlobProviderContainer : IBlobProvider,
+        IDocumentDirectoryBlobProvider,
+        IQuestionsDirectoryBlobProvider
+        
     {
         private readonly CloudBlobDirectory _blobDirectory;
         private readonly CloudBlobContainer _cloudContainer;
-        private readonly T _container = new T();
-
-        private const string CdnHostEndpoint = "az32006.vo.msecnd.net";
+        private readonly StorageContainer _container;
+        private readonly CloudBlobClient _client;
+        //private const string CdnHostEndpoint = "az32006.vo.msecnd.net";
 
 
         public BlobProviderContainer(ICloudStorageProvider storageProvider)
         {
-            var client = storageProvider.GetBlobClient(/*_container*/);
-            _cloudContainer = client.GetContainerReference(_container.Container.Name.ToLowerInvariant());
+            _client = storageProvider.GetBlobClient();
+            //_cloudContainer = client.GetContainerReference(_container.Container.Name.ToLowerInvariant());
 
-            _blobDirectory = _cloudContainer.GetDirectoryReference(_container.Container.RelativePath ?? string.Empty);
+            //_blobDirectory = _cloudContainer.GetDirectoryReference(_container.Container.RelativePath ?? string.Empty);
         }
 
-        //public BlobProvider(StorageContainer container, ICloudStorageProvider storageProvider)
+        public BlobProviderContainer(ICloudStorageProvider storageProvider, StorageContainer container)
+        {
+
+            _client = storageProvider.GetBlobClient();
+            _cloudContainer = _client.GetContainerReference(container.Name.ToLowerInvariant());
+            _container = container;
+            _blobDirectory = _cloudContainer.GetDirectoryReference(container.RelativePath ?? string.Empty);
+        }
+
+        //public Uri GetBlobUrl(string blobName, bool cdn = false)
         //{
-        //    _blobDirectory = storageProvider.GetBlobClient(container);
-        //    _storageProvider = storageProvider;
+        //    var blob = _blobDirectory.GetBlockBlobReference(blobName);
+        //    var uri = blob.Uri;
+        //    if (cdn)
+        //    {
+        //        uri = uri.ChangeHost(CdnHostEndpoint);
+        //    }
+        //    return uri;
         //}
 
-
-
-        public Uri GetBlobUrl(string blobName, bool cdn = false)
+        private CloudBlockBlob GetBlob(Uri blobUrl)
         {
-            var blob = _blobDirectory.GetBlockBlobReference(blobName);
-            var uri = blob.Uri;
-            if (cdn)
-            {
-                uri = uri.ChangeHost(CdnHostEndpoint);
-            }
-            return uri;
+            
+            return new CloudBlockBlob(blobUrl, _client.Credentials);
         }
 
         private CloudBlockBlob GetBlob(string blobName)
@@ -192,7 +201,7 @@ namespace Cloudents.Infrastructure.Storage
 
         public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token)
         {
-            var path = $"{_container.Container.RelativePath}/{directory}/{prefix}";
+            var path = $"{_container.RelativePath}/{directory}/{prefix}";
             var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true, 
                 BlobListingDetails.None, 1000, null, null, null, token);
             return result.Results.Select(s => s.Uri);
@@ -207,6 +216,40 @@ namespace Cloudents.Infrastructure.Storage
             return ms;
         }
 
+
+
+        public Uri GeneratePreviewLink(Uri blobUrl, double expirationTimeInMinutes)
+        {
+            var blob = GetBlob(blobUrl);
+            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
+
+            });
+            var url = new Uri(blob.Uri, signedUrl);
+            return url;
+        }
+
+        public Uri GenerateDownloadLink(Uri blobUrl, double expirationTimeInMinutes, string fileName)
+        {
+            var blob = GetBlob(blobUrl);
+            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
+
+            }, new SharedAccessBlobHeaders
+            {
+                ContentDisposition = "attachment; filename=\"" + WebUtility.UrlEncode(fileName ?? blob.Name) + "\""
+            });
+
+
+            var url = new Uri(blob.Uri, signedUrl);
+            return url;
+        }
 
     }
 }

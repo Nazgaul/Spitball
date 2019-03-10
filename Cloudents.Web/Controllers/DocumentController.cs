@@ -24,7 +24,7 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class DocumentController : Controller
     {
-        private readonly IBlobProvider<DocumentContainer> _blobProvider;
+        private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly UserManager<RegularUser> _userManager;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly IStringLocalizer<DocumentController> _localizer;
@@ -34,7 +34,7 @@ namespace Cloudents.Web.Controllers
 
 
         public DocumentController(
-            IBlobProvider<DocumentContainer> blobProvider,
+            IDocumentDirectoryBlobProvider blobProvider,
             IStringLocalizer<SharedResource> sharedLocalizer,
             IStringLocalizer<DocumentController> localizer,
             IQueryBus queryBus, IQueueProvider queueProvider, UserManager<RegularUser> userManager)

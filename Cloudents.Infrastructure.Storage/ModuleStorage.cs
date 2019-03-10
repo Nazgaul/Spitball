@@ -16,9 +16,16 @@ namespace Cloudents.Infrastructure.Storage
                 return new CloudStorageProvider(key);
             }).SingleInstance().AsImplementedInterfaces();
 
-            builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
+            //builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
+            builder.RegisterType<BlobProviderContainer>().As<IBlobProvider>();
+            
+            builder.RegisterType<BlobProviderContainer>().As<IDocumentDirectoryBlobProvider>()
+                .WithParameter("container",StorageContainer.Document);
+            builder.RegisterType<BlobProviderContainer>().As<IQuestionsDirectoryBlobProvider>()
+                .WithParameter("container", StorageContainer.QuestionsAndAnswers);
+
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
-            builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();
+            //builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();
             builder.RegisterType<ServiceBusProvider>().As<IServiceBusProvider>();
         }
     }

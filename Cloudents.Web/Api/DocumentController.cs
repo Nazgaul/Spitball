@@ -42,7 +42,7 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
         private readonly UserManager<RegularUser> _userManager;
-        private readonly IBlobProvider<DocumentContainer> _blobProvider;
+        private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
         //private readonly IProfileUpdater _profileUpdater;
 
@@ -50,7 +50,7 @@ namespace Cloudents.Web.Api
 
         public DocumentController(IQueryBus queryBus,
              ICommandBus commandBus, UserManager<RegularUser> userManager,
-            IBlobProvider<DocumentContainer> blobProvider,
+             IDocumentDirectoryBlobProvider blobProvider,
             IStringLocalizer<DocumentController> localizer
             )
         {

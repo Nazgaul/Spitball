@@ -45,7 +45,7 @@ namespace Cloudents.Web.Models
         public double EndOffset => BlockSize;
     }
 
-    public class UploadRequest
+    public class UploadRequestFirstStage
     {
         public UploadPhase Phase { get; set; }
 
