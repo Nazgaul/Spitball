@@ -27,7 +27,8 @@ namespace Cloudents.Query.Admin
             var sql = @"with cte as (
                         Select  Name from sb.Course where name like N'%[א-ת]%' and  Created > GETUTCDATE()-15)
                         select cte.Name as NewCourse, c.Name as OldCourse from cte, sb.Course c
-                        where (c.Name like REPLACE(cte.Name,' ','%') or cte.Name like REPLACE(c.Name,' ','%'))
+                        where (c.Name like '%' + REPLACE(cte.Name,' ','%')  + '%' or cte.Name like '%' + REPLACE(c.Name,' ','%') + '%') 
+						and len(c.Name) > 3 and len(cte.Name) > 3 
                         and c.Name <> cte.Name;";
             using (var connection = new SqlConnection(_provider.Db.Db))
             {

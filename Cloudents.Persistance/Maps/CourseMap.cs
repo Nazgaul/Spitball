@@ -12,16 +12,16 @@ namespace Cloudents.Persistance.Maps
             Id(e => e.Name).GeneratedBy.Assigned().Length(150);
             Map(x => x.Count).Not.Nullable();
             Map(x => x.Created);
-            /*HasMany(x => x.Users)
-               .KeyColumn("Id")
-               .LazyLoad()
-               .Inverse()
-               .ForeignKeyCascadeOnDelete();*/
+            //HasMany(x => x.Users)
+            //   .KeyColumn("Id")
+            //   .LazyLoad()
+            //   .Inverse()
+            //   .ForeignKeyCascadeOnDelete();
 
             HasManyToMany(x => x.Users)
-             .ParentKeyColumn("CourseId")
-             .ChildKeyColumn("UserId")
-             .ForeignKeyConstraintNames("User_Courses", "Courses_User")
+                .ParentKeyColumn("CourseId")
+                .ChildKeyColumn("UserId")
+                .ForeignKeyConstraintNames("Courses_User", "User_Courses")
              .Table("UsersCourses").AsSet();
 
             HasMany(x => x.Documents)
@@ -31,11 +31,14 @@ namespace Cloudents.Persistance.Maps
                 .ForeignKeyCascadeOnDelete();
 
 
-            HasMany(x => x.Questions)
-                .KeyColumn("CourseId")
-                .LazyLoad()
-                .Inverse()
-                .ForeignKeyCascadeOnDelete();
+            //HasMany(x => x.Questions)
+            //    .KeyColumn("CourseId")
+            //    .LazyLoad()
+            //    .Inverse()
+            //    .ForeignKeyCascadeOnDelete();
+
+            HasMany(x => x.Questions).Cascade.None();
+           // HasMany(x => x.Users).Cascade.None();
 
             SchemaAction.None();
         }

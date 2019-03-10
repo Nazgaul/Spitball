@@ -12,7 +12,9 @@ namespace Cloudents.Core.DTOs.Admin
 
     public class NewUniversitiesDto
     {
+        public Guid NewId{ get; set; }
         public string NewUniversity { get; set; }
+        public Guid OldId { get; set; }
         public string OldUniversity { get; set; }
 
     }
