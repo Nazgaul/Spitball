@@ -109,24 +109,7 @@ namespace Cloudents.Web.Api
                 return new Uri(uri);
             });
 
-
-
-            //var prefix = "preview-";
-            //if (!model.IsPurchased)
-            //{
-            //    prefix = "blur-";
-            //}
-
-
-            // var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
-
             await Task.WhenAll(tQueue, textTask);
-            //var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
-            //if (!filesTask.Result.Any())
-            //{
-            //    await queueProvider.InsertBlobReprocessAsync(id);
-            //}
-
             return new DocumentPreviewResponse(model, files, textTask.Result);
         }
 
