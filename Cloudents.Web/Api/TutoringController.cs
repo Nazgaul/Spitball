@@ -1,13 +1,13 @@
-﻿using Cloudents.Core.Message.Email;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+using Cloudents.Web.Models;
 
 
 namespace Cloudents.Web.Api
@@ -16,18 +16,14 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class TutoringController : ControllerBase
     {
-
         private readonly IQueueProvider _queueProvider;
         private readonly IVideoProvider _videoProvider;
-       
-
-
-       
-
-        public TutoringController(IQueueProvider queueProvider, IVideoProvider videoProvider)
+        private readonly IGoogleDocument _googleDocument;
+        public TutoringController(IQueueProvider queueProvider, IVideoProvider videoProvider, IGoogleDocument googleDocument)
         {
             _queueProvider = queueProvider;
             _videoProvider = videoProvider;
+            _googleDocument = googleDocument;
         }
 
 
@@ -43,13 +39,11 @@ namespace Cloudents.Web.Api
 
             var t2 = _queueProvider.InsertMessageAsync(new EndTutoringSessionMessage(roomName), TimeSpan.FromMinutes(90), token);
             await Task.WhenAll(t1, t2);
-            //RoomResource.Update(room.UniqueName,RoomResource.RoomStatusEnum.Completed)
             return Ok(new
             {
                 name = roomName
             });
         }
-
 
         [HttpGet("join")]
         public async Task<IActionResult> ConnectAsync(string roomName, string identityName)
@@ -81,9 +75,15 @@ namespace Cloudents.Web.Api
             });
 
         }
-       
+
+        [HttpPost("document")]
+        public async Task<IActionResult> CreateOnlineDocument([FromBody] OnlineDocumentRequest model, CancellationToken token)
+        {
+            var url = await _googleDocument.CreateOnlineDocAsync(model.Name, token);
+            return Ok(new
+            {
+                link = url
+            });
+        }
     }
-
-
-    
 }
