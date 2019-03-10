@@ -12,7 +12,6 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    import { getSharedDoc } from '../tutorService';
     export default {
         name: "sharedDocument",
         data() {
