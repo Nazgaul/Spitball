@@ -1,4 +1,5 @@
 import {createPointsByOption, createShape} from '../utils/factories'
+import canvasFinder from '../utils/canvasFinder';
 
 const OPTION_TYPE = 'liveDraw';
 
@@ -39,10 +40,9 @@ const liveDraw = function(dragObj){
 
 const mousedown = function(e){
     //Set Click Position
-    let mouseX = e.pageX - e.target.offsetLeft;
-    let mouseY = e.pageY - e.target.getBoundingClientRect().top;
+    let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
     this.methods.hideColorPicker();
-
+    
     let dragObj = createPointsByOption({
         mouseX,
         mouseY,
@@ -58,8 +58,7 @@ const mousedown = function(e){
 }
 const mousemove = function(e){
     if(this.shouldPaint){
-        let mouseX = e.pageX - e.target.offsetLeft;
-        let mouseY = e.pageY - e.target.getBoundingClientRect().top;
+        let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
         let dragObj = createPointsByOption({
             mouseX,
             mouseY,

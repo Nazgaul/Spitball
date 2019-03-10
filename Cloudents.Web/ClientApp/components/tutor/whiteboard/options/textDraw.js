@@ -158,14 +158,16 @@ const mousedown = function(e){
                 startShapes = createShape(hasShape[prop]);
                 
             }else{
-                startingMousePosition.x = e.pageX - e.target.offsetLeft;
-                startingMousePosition.y = e.pageY - e.target.getBoundingClientRect().top;
+                let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
+                startingMousePosition.x = mouseX;
+                startingMousePosition.y = mouseY;
                 currentId = createGuid('text');
                 setHelperObj.bind(this, e)();
             }
         }else{
-            startingMousePosition.x = e.pageX - e.target.offsetLeft;
-            startingMousePosition.y = e.pageY - e.target.getBoundingClientRect().top;
+            let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
+            startingMousePosition.x = mouseX;
+            startingMousePosition.y = mouseY;
             currentId = createGuid('text');
             setHelperObj.bind(this, e)();
         }

@@ -1,5 +1,6 @@
 import {createPointsByOption, createShape} from '../utils/factories'
 import helper from '../utils/helper'
+import canvasFinder from '../utils/canvasFinder'
 
 const OPTION_TYPE = 'lineDraw';
 
@@ -52,9 +53,10 @@ const liveDraw = function(dragObj){
 }
 const defineEndPosition = function(e){
     if(this.shouldPaint){
+        let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
         let dragObj = createPointsByOption({
-            mouseX: e.pageX - e.target.offsetLeft,
-            mouseY: e.pageY - e.target.getBoundingClientRect().top,
+            mouseX: mouseX,
+            mouseY: mouseY,
             isDragging: true,
             strokeStyle: this.color.hex,
             option: OPTION_TYPE,
@@ -79,11 +81,12 @@ const defineEndPosition = function(e){
 }
 const mousedown = function(e){
     //Set Click Position
-    mouseState.mouseX = e.pageX - e.target.offsetLeft;
-    mouseState.mouseY = e.pageY - e.target.getBoundingClientRect().top;
-
-    startingMousePosition.x = e.clientX;
-    startingMousePosition.y = e.clientY - e.target.getBoundingClientRect().top;
+    let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
+    mouseState.mouseX = mouseX;
+    mouseState.mouseY = mouseY;
+    //helper obj
+    startingMousePosition.x = e.pageX;
+    startingMousePosition.y = e.pageY - e.target.getBoundingClientRect().top;
 
     this.methods.hideColorPicker();
 
@@ -103,8 +106,8 @@ const mousedown = function(e){
 }
 const mousemove = function(e){
     if(this.shouldPaint){
-        let currentX = e.clientX;
-        let currentY = e.clientY - e.target.getBoundingClientRect().top;
+        let currentX = e.pageX;
+        let currentY = e.pageY - e.target.getBoundingClientRect().top;
         let helperObj = {
             startPositionLeft: startingMousePosition.x,
             startPositionTop: startingMousePosition.y,

@@ -13,6 +13,17 @@
             <!--Select-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
+                    <button v-on="on" :class="{'active-tool-svg': selectedOptionString === enumOptions.pan}"
+                            class="nav-action" @click="setOptionType(enumOptions.pan)">
+                        <pan-icon></pan-icon>
+                    </button>
+                </template>
+                <span >Pan</span>
+            </v-tooltip>
+
+            <!--Select-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.select}"
                             class="nav-action" @click="setOptionType(enumOptions.select)">
                         <v-icon>sbf-mouse-pointer</v-icon>
@@ -121,6 +132,17 @@
             </v-tooltip>
 
         </div>
+        <div class="nav-container bottom-nav elevation-2">
+            <!--Select-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <span v-on="on" class="nav-action">
+                        {{zoom}}%
+                    </span>
+                </template>
+                <span>zoom</span>
+            </v-tooltip>
+        </div>
         <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
         <!-- <svg class="helper"  v-if="helperShow"> -->
         <svg class="helper" width="100%" height="100%" v-if="helperShow">
@@ -189,6 +211,9 @@
             flex-direction: column;
             width: auto;
             margin-top: 70px;
+            &.bottom-nav{
+                top: 575px;
+            }
             .nav-action {
                 padding: 12px 16px;
                 outline: none!important;
@@ -204,6 +229,11 @@
                 &.active-tool{
                     .v-icon {
                         color:#2a79ff;
+                    }
+                }
+                &.active-tool-svg{
+                    svg {
+                        fill:#2a79ff;
                     }
                 }
                 &:hover {
