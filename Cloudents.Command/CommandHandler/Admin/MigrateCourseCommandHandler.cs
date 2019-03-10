@@ -52,8 +52,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                 await _regularUserRepository.UpdateAsync(user, token);
             }
             
-
-            await _courseRepository.DeleteAsync(CourseToRemove, token);
+            //await _courseRepository.DeleteAsync(CourseToRemove, token);
         }
     }
 }

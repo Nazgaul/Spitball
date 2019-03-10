@@ -39,7 +39,9 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
             var command = new MigrateCourseCommand(model.CourseToKeep, model.CourseToRemove);
+            var deleteCommand = new DeleteCourseCommand(model.CourseToRemove);
             await _commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(deleteCommand, token);
             return Ok();
         }
 
@@ -49,6 +51,15 @@ namespace Cloudents.Admin2.Api
             var query = new AdminEmptyQuery();
             var retVal = await _queryBus.QueryAsync<IList<NewUniversitiesDto>> (query, token);
             return retVal;
+        }
+
+        [HttpPost("universities")]
+        public async Task<IActionResult> MigrateUniversity([FromBody] MigrateUniversityRequest model,
+            CancellationToken token)
+        {
+            var command = new MigrateUniversityCommand(model.UniversityToKeep, model.UniversityToRemove);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
     }
 }
