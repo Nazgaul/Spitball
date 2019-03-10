@@ -38,7 +38,6 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
 
-
         public AccountController(UserManager<RegularUser> userManager,
             SignInManager<RegularUser> signInManager, IConfiguration configuration, ICommandBus commandBus, IQueryBus queryBus)
         {
