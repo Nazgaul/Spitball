@@ -1,5 +1,4 @@
 using Cloudents.FunctionsV2.Di;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -13,9 +12,7 @@ using SixLabors.Primitives;
 using System;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.WebUtilities;
-using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using static Cloudents.Core.TimeConst;
 
 namespace Cloudents.FunctionsV2

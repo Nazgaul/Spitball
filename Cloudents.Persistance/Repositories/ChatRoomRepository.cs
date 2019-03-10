@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate;
-using NHibernate.Criterion;
 using NHibernate.Linq;
 
 namespace Cloudents.Persistance.Repositories

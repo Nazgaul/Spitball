@@ -3,7 +3,6 @@ using Autofac.Extras.DynamicProxy;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Book;
-using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Question;
 using Cloudents.Infrastructure.Search.Tutor;
 using JetBrains.Annotations;

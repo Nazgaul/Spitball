@@ -19,17 +19,17 @@ namespace Cloudents.Web.Api
     public class JobController : ControllerBase
     {
         //private readonly IJobSearch _jobSearch;
-        private readonly IStringLocalizer<QuestionController> _questionLocalizer;
+        //private readonly IStringLocalizer<QuestionController> _questionLocalizer;
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="questionLocalizer"></param>
-        public JobController( IStringLocalizer<QuestionController> questionLocalizer)
-        {
-            _questionLocalizer = questionLocalizer;
-        }
+        ///// <inheritdoc />
+        ///// <summary>
+        ///// Constructor
+        ///// </summary>
+        ///// <param name="questionLocalizer"></param>
+        //public JobController( IStringLocalizer<QuestionController> questionLocalizer)
+        //{
+        //    _questionLocalizer = questionLocalizer;
+        //}
 
         /// <summary>
         /// Query to get jobs vertical
@@ -38,7 +38,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet]
 
-        public async Task<WebResponseWithFacet<JobDto>> GetAsync(/*[FromQuery]JobRequest model,*/ CancellationToken token)
+        public WebResponseWithFacet<JobDto> GetAsync(/*[FromQuery]JobRequest model,*/ CancellationToken token)
         {
             //var result = await _jobSearch.SearchAsync(model.Term,
             //    model.Sort.GetValueOrDefault(JobRequestSort.Relevance),

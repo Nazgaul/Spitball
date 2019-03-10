@@ -65,7 +65,7 @@ namespace Cloudents.FunctionsV2.System
         }
 
         public static async Task<EmailObjectDto> GetEmail(string @event, 
-            Language language,IQueryBus _queryBus, CancellationToken token)
+            Language language,IQueryBus queryBus, CancellationToken token)
         {
             //var template2 = await binder.BindAsync<IEnumerable<EmailObject>>(new CosmosDBAttribute("Zbox", "Email")
             //{
@@ -74,7 +74,7 @@ namespace Cloudents.FunctionsV2.System
             //}, token);
 
             var query = new GetEmailByEventQuery(@event);
-            var template2 = await _queryBus.QueryAsync(query, token);
+            var template2 = await queryBus.QueryAsync(query, token);
 
             if (template2 == null)
             {

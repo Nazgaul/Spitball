@@ -3,7 +3,6 @@ using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
@@ -50,12 +49,14 @@ namespace Cloudents.Query.Email
                             WHERE JSON_VALUE(template, '$.eventName') = @e";
             using (var connection = new SqlConnection(_provider.Db.Db))
             {
-                List <EmailObjectDto> Result = new List<EmailObjectDto>();
+              
                 var flatRes = await connection.QueryAsync<FlatEmailObject>(sql,
                     new
                     {
                         e = query.Event,
                     });
+
+                List<EmailObjectDto> result = new List<EmailObjectDto>();
                 foreach (var res in flatRes)
                 {
                     var t = new EmailObjectDto()
@@ -85,9 +86,9 @@ namespace Cloudents.Query.Email
                             MinorTitle = res.MinorTitle1
                         });
                     }
-                    Result.Add(t);
+                    result.Add(t);
                 }
-                return Result;
+                return result;
             }
         }
 
