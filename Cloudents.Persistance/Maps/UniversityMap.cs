@@ -14,6 +14,8 @@ namespace Cloudents.Persistance.Maps
             Component(x => x.RowDetail);
 
             HasMany(x => x.Documents).Cascade.None();
+            HasMany(x => x.Questions).Cascade.None();
+            HasMany(x => x.Users).Cascade.None();
 
 
         }

@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -94,6 +96,40 @@ namespace Cloudents.Web.Test.IntegrationTests
             var status = d["status"]?.Value<int?>();
 
             status.Should().Be(404);
+        }
+
+        [Theory]
+        [InlineData("{\"subjectId\":\"mathematics\",\"text\":\"Unit testing question\",\"price\":3,\"course\":\"psychology\"}")]
+        [InlineData("{\"subjectId\":\"\",\"text\":\"Unit testing question\",\"price\":3,\"course\":\"psychology\"}")]
+        public async Task PostAsync_New_OK(string question)
+        {
+            var client = _factory.CreateClient();
+
+            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
+
+            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
+
+            response = await client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Theory]
+        [InlineData("{\"subjectId\":\"mathematics\",\"text\":\"Unit testing question\",\"price\":0,\"course\":\"psychology\"}")]
+        [InlineData("{\"subjectId\":\"mathematics\",\"text\":\"Unit testing question\",\"price\":3,\"course\":\"\"}")]
+        [InlineData("{\"subjectId\":\"mathematics\",\"text\":\"Unit testing q\",\"price\":3,\"course\":\"psychology\"}")]
+        [InlineData("{\"subjectId\":\"mathematics\",\"text\":\"\",\"price\":3,\"course\":\"psychology\"}")]
+        public async Task PostAsync_New_Bad_Request(string question)
+        {
+            var client = _factory.CreateClient();
+
+            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
+
+            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
+
+            response = await client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
+
+            response.StatusCode.Should().Be(400);
         }
     }
 }

@@ -4,16 +4,21 @@ const state = {
     messages: [],
     identity: '',
     isRoom: false,
-    roomId: ''
+    roomId: '',
+    isRoomFull : false
 };
 const getters = {
     getChatMessages: state => state.messages,
     userIdentity: state => state.identity,
     isRoomCreated : state => state.isRoom,
     roomLinkID: state => state.roomId,
+    isRoomFull: state => state.isRoomFull
 };
 
 const mutations = {
+    setRoomIsFull(state, val){
+        state.isRoomFull =val
+    },
     setRoomId(state, val){
         state.roomId = val
     },
@@ -29,6 +34,9 @@ const mutations = {
 };
 
 const actions = {
+    updateRoomIsFull({commit, state}, val){
+        commit('setRoomIsFull', val)
+    },
     updateRoomID({commit, state}, val){
         commit('setRoomId', val)
     },

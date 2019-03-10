@@ -10,4 +10,10 @@ namespace Cloudents.Core.Interfaces
         [ItemCanBeNull]
         Task<ExternalAuthDto> LogInAsync(string token, CancellationToken cancellationToken);
     }
+
+
+    public interface IGoogleDocument
+    {
+        Task<string> CreateOnlineDocAsync(string documentName, CancellationToken token);
+    }
 }
