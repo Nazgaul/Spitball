@@ -7,6 +7,7 @@ import { dataTrack } from '../tutorService';
 import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
 import AppLogo from "../../../../wwwroot/Images/logo-spitball.svg";
 import { mapGetters, mapActions } from "vuex";
+import canvasFinder from "./utils/canvasFinder"
 
 export default {
     components: {
@@ -44,7 +45,8 @@ export default {
                 image: 'imageDraw',
                 eraser: 'eraser',
                 text: 'textDraw',
-                select: 'selectShape'
+                select: 'selectShape',
+                pan: 'panTool',
             },
             currentOptionSelected: whiteBoardService.init('liveDraw'),
             selectedOptionString: 'liveDraw',
@@ -169,25 +171,35 @@ export default {
         registerCanvasEvents(canvas){
             let self = this;
             global.addEventListener('resize', this.resizeCanvas, false);
-            canvas.addEventListener('mousedown' && 'pointerdown', (e) => {
+            canvas.addEventListener('mousedown', (e) => {
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
                     self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
                 }
             });
-            canvas.addEventListener('mouseup' && 'pointerup', (e) => {
+            canvas.addEventListener('mouseup', (e) => {
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mouseup) {
                     self.currentOptionSelected.mouseup.bind(self.canvasData, e)()
                 }
             });
-            canvas.addEventListener('mouseleave' && 'pointerleave', (e) => {
+            canvas.addEventListener('mouseleave', (e) => {
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mouseleave) {
                     self.currentOptionSelected.mouseleave.bind(self.canvasData, e)()
                 }
             });
-            canvas.addEventListener('mousemove' && 'pointermove', (e) => {
+            canvas.addEventListener('mousemove', (e) => {
                     if (!!self.currentOptionSelected && self.currentOptionSelected.mousemove) {
                         self.currentOptionSelected.mousemove.bind(self.canvasData, e)()
                     }
+            });
+            canvas.addEventListener('DOMMouseScroll', (e) => {
+                if (!!self.currentOptionSelected && self.currentOptionSelected.mouseScroll) {
+                    self.currentOptionSelected.mouseScroll.bind(self.canvasData, e)()
+                }
+            });
+            canvas.addEventListener('mousewheel', (e) => {
+                if (!!self.currentOptionSelected && self.currentOptionSelected.mouseScroll) {
+                    self.currentOptionSelected.mouseScroll.bind(self.canvasData, e)()
+                }
             });
             canvas.addEventListener("touchstart", function (e) {
                 if (e.target == canvas) {
@@ -232,7 +244,9 @@ export default {
         this.canvasData.context.font = '16px Open Sans';
         this.canvasData.context.lineJoin = this.canvasData.lineJoin;
         this.canvasData.context.lineWidth = this.canvasData.lineWidth;
+        canvasFinder.trackTransforms(this.canvasData.context);
         this.registerCanvasEvents(canvas);
         global.document.addEventListener("keydown", this.keyPressed);
+        
     }
 }

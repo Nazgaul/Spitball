@@ -5,6 +5,7 @@ import drawRectangle from './options/drawRectangle'
 import imageDraw from './options/imageDraw'
 import eraser from './options/eraser'
 import textDraw from './options/textDraw'
+import panTool from './options/panTool'
 import selectShape from './options/selectShape'
 import {createShape} from './utils/factories'
 import helper from './utils/helper'
@@ -24,7 +25,8 @@ const optionsEnum = {
     imageDraw,
     eraser,
     selectShape,
-    textDraw
+    textDraw,
+    panTool
 }
 
 const ghostMoveData = function(actionObj, fromUndo){
@@ -117,6 +119,9 @@ const uploadImage = function(data){
 }
 
 const cleanCanvas = function(ctx){
+    let p1 = ctx.transformedPoint(0,0);
+    let p2 = ctx.transformedPoint(ctx.canvas.width, ctx.canvas.height);
+    ctx.clearRect(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
 }
 

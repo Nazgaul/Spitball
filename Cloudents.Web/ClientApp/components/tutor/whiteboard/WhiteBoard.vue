@@ -13,6 +13,17 @@
             <!--Select-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
+                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.pan}"
+                            class="nav-action" @click="setOptionType(enumOptions.pan)">
+                        <v-icon>sbf-close</v-icon>
+                    </button>
+                </template>
+                <span >Pan</span>
+            </v-tooltip>
+
+            <!--Select-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.select}"
                             class="nav-action" @click="setOptionType(enumOptions.select)">
                         <v-icon>sbf-mouse-pointer</v-icon>
