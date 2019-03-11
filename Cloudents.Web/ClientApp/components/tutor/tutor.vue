@@ -1,5 +1,5 @@
 <template>
-    <v-layout row class="tutoring-page" :style="{'background-size': zoom}" :class="{'gridBackground': $route.name === 'tutoring'} ">
+    <v-layout row class="tutoring-page" :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}" :class="{'gridBackground': $route.name === 'tutoring'} ">
         <v-flex>
             
             <v-tabs class="tutoring-navigation" v-model="activeTab" touchless hide-slider>
@@ -59,11 +59,17 @@
             id: ''
         },
         computed: {
-            ...mapGetters(['isRoomCreated', 'isRoomFull', 'sharedDocUrl', 'getZoom']),
+            ...mapGetters(['isRoomCreated', 'isRoomFull', 'sharedDocUrl', 'getZoom', 'getPanX', 'getPanY']),
             zoom(){
                 let gridSize = 40 * Number(this.getZoom.toFixed())/100;
                 return  `${gridSize}px ${gridSize}px`;
-            }
+            },
+            panX(){
+                return `${this.getPanX}px`
+            },
+            panY(){
+                return `${this.getPanY}px`
+            },
         },
         created() {
             console.log('ID Tutor!!',this.id);

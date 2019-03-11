@@ -44,6 +44,8 @@ const mousemove = function(evt){
     if (dragStart){
       var pt = this.context.transformedPoint(lastX,lastY);
       this.context.translate(pt.x-dragStart.x, pt.y-dragStart.y);
+      let transform = this.context.getTransform();
+      store.dispatch('updatePan', transform);
       draw.bind(this)();
     }
 }
@@ -72,8 +74,9 @@ const zoom = function(clicks){
     this.context.scale(factor, factor);
     this.context.translate(-pt.x, -pt.y);
     whiteBoardService.redraw(this);
-    let {a} = this.context.getTransform();
-    store.dispatch('updateZoom', a*100);
+    let transform = this.context.getTransform();
+    store.dispatch('updateZoom', transform.a*100);
+    store.dispatch('updatePan', transform);
 }
 
 const mouseScroll = function(evt){
