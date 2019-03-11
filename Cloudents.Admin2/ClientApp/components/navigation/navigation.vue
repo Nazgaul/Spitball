@@ -92,6 +92,16 @@
                     },
                     {
                         setting: {
+                            title: 'Management Actions',
+                            path: '/management'
+                        },
+                        childrens: [
+                            { name: 'Course', link: '/management/courseMigration', icon: 'people_outline' },
+                            { name: 'University', link: '/management/universityMigration', icon: 'people_outline' },
+                        ]
+                    },
+                    {
+                        setting: {
                             title: 'Dev Actions',
                             path: '/dev'
                         },
