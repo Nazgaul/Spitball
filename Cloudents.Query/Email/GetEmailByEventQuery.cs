@@ -22,11 +22,11 @@ namespace Cloudents.Query.Email
     internal sealed class GetEmailByEventQueryHandler :
         IQueryHandler<GetEmailByEventQuery, IEnumerable<EmailObjectDto>>
     {
-        private readonly IConfigurationKeys _provider;
+        private readonly DapperRepository _dapperRepository;
 
-        public GetEmailByEventQueryHandler(IConfigurationKeys provider)
+        public GetEmailByEventQueryHandler(DapperRepository dapperRepository)
         {
-            _provider = provider;
+            _dapperRepository = dapperRepository;
         }
 
         public async Task<IEnumerable<EmailObjectDto>> GetAsync(GetEmailByEventQuery query, CancellationToken token)
@@ -35,80 +35,39 @@ namespace Cloudents.Query.Email
 	                            JSON_VALUE(template, '$.eventName') as Event,
 	                            JSON_VALUE(template, '$.subject') as Subject,
 	                            JSON_VALUE(template, '$.cultureInfo') as CultureInfo,
-	                            JSON_VALUE(template, '$.blocks[0].title') as Title0,
-	                            JSON_VALUE(template, '$.blocks[0].subtitle') as Subtitle0,
-	                            JSON_VALUE(template, '$.blocks[0].body') as Body0,
-	                            JSON_VALUE(template, '$.blocks[0].cta') as Cta0,
-	                            JSON_VALUE(template, '$.blocks[0].minorTitle') as MinorTitle0,
-	                            JSON_VALUE(template, '$.blocks[1].title') as Title1,
-	                            JSON_VALUE(template, '$.blocks[1].subtitle') as Subtitle1,
-	                            JSON_VALUE(template, '$.blocks[1].body') as Body1,
-	                            JSON_VALUE(template, '$.blocks[1].cta') as Cta1,
-	                            JSON_VALUE(template, '$.blocks[1].minorTitle') as MinorTitle1
+	                            JSON_VALUE(template, '$.blocks[0].title') as Title,
+	                            JSON_VALUE(template, '$.blocks[0].subtitle') as Subtitle,
+	                            JSON_VALUE(template, '$.blocks[0].body') as Body,
+	                            JSON_VALUE(template, '$.blocks[0].cta') as Cta,
+	                            JSON_VALUE(template, '$.blocks[0].minorTitle') as MinorTitle,
+	                            JSON_VALUE(template, '$.blocks[1].title') as Title,
+	                            JSON_VALUE(template, '$.blocks[1].subtitle') as Subtitle,
+	                            JSON_VALUE(template, '$.blocks[1].body') as Body,
+	                            JSON_VALUE(template, '$.blocks[1].cta') as Cta,
+	                            JSON_VALUE(template, '$.blocks[1].minorTitle') as MinorTitle
                             FROM sb.Email
                             WHERE JSON_VALUE(template, '$.eventName') = @e";
-            using (var connection = new SqlConnection(_provider.Db.Db))
+            using (var conn = _dapperRepository.OpenConnection())
             {
-              
-                var flatRes = await connection.QueryAsync<FlatEmailObject>(sql,
-                    new
-                    {
+                var flatRes = await conn.QueryAsync<EmailObjectDto, EmailBlockDto, EmailBlockDto, EmailObjectDto>(sql,
+                     (emailDto, blockDto0, blockDto1) =>
+                     {
+                         emailDto.Blocks = new List<EmailBlockDto>();
+                         emailDto.Blocks.Add(blockDto0);
+                         if (blockDto1 != null)
+                         {
+                             emailDto.Blocks.Add(blockDto1);
+                         }
+                         return emailDto;
+                     }, new
+                     {
                         e = query.Event,
-                    });
+                    }, splitOn: "SocialShare,Title,Title");
 
-                List<EmailObjectDto> result = new List<EmailObjectDto>();
-                foreach (var res in flatRes)
-                {
-                    var t = new EmailObjectDto()
-                    {
-                        SocialShare = Boolean.Parse(res.SocialShare),
-                        Event = res.Event,
-                        Subject = res.Subject,
-                        CultureInfo = new CultureInfo(res.CultureInfo),
-                        Blocks = new List<EmailBlockDto>()
-                    };
-                    t.Blocks.Add(new EmailBlockDto()
-                    {
-                        Title = res.Title0,
-                        Subtitle = res.Subtitle0,
-                        Body = res.Body0,
-                        Cta = res.Cta0,
-                        MinorTitle = res.MinorTitle0
-                    });
-                    if (!string.IsNullOrEmpty(res.Body1))
-                    {
-                        t.Blocks.Add(new EmailBlockDto()
-                        {
-                            Title = res.Title1,
-                            Subtitle = res.Subtitle1,
-                            Body = res.Body1,
-                            Cta = res.Cta1,
-                            MinorTitle = res.MinorTitle1
-                        });
-                    }
-                    result.Add(t);
-                }
-                return result;
+                return flatRes;
             }
         }
-
-        public class FlatEmailObject
-        {
-            public string SocialShare { get; set; }
-            public string Event { get; set; }
-            public string Subject { get; set; }
-            public string CultureInfo { get; set; }
-            public string Title0 { get; set; }
-            public string Subtitle0 { get; set; }
-            public string Body0 { get; set; }
-            public string Cta0 { get; set; }
-            public string MinorTitle0 { get; set; }
-            public string Title1 { get; set; }
-            public string Subtitle1 { get; set; }
-            public string Body1 { get; set; }
-            public string Cta1 { get; set; }
-            public string MinorTitle1 { get; set; }
-        }
+        
     }
     
 }
