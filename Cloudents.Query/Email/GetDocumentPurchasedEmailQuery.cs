@@ -31,7 +31,7 @@ namespace Cloudents.Query.Email
             public async Task<DocumentPurchaseEmailDto> GetAsync(GetDocumentPurchasedEmailQuery query, CancellationToken token)
             {
                 const string sql = @"Select 
-c.Name as CourseName,
+d.CourseName as CourseName,
 d.Name as documentName,
 u.Email as ToEmailAddress,
 u.id as userId,
@@ -40,7 +40,6 @@ u.Language
   from  sb.[Transaction] t
 join sb.[User] u on t.User_id = u.Id
 join sb.Document d on t.DocumentId = d.id
-join sb.Course2 C on D.CourseId = C.Id
 where t.id = @Id";
                 using (var connection = new SqlConnection(_provider.Db.Db))
                 {
