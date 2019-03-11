@@ -123,7 +123,7 @@
             </v-tooltip>
 
         </div>
-        <div class="nav-container bottom-nav elevation-2">
+        <div class="nav-container zoom-helper bottom-nav elevation-2">
             <!--Select-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
@@ -192,6 +192,7 @@
             flex-direction: column;
             width: auto;
             margin-top: 20px;
+            
             &.bottom-nav{
                 top: 575px;
             }
@@ -222,6 +223,15 @@
                         color: #2a79ff;
                     }
 
+                }
+            }
+            &.zoom-helper{
+                max-width: 58px;
+                min-width: 58px;
+                padding: 16px 0px;
+                .nav-action{
+                    padding: 12px 0;
+                    text-align: center;
                 }
             }
             .selected-color {
