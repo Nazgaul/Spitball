@@ -1,7 +1,9 @@
 <template>
     <v-layout row class="tutoring-page" :style="{'background-size': zoom}" :class="{'gridBackground': $route.name === 'tutoring'} ">
         <v-flex>
-            <v-tabs v-model="activeTab" touchless>
+            
+            <v-tabs class="tutoring-navigation" v-model="activeTab" touchless>
+                <AppLogo></AppLogo>
                 <v-tab v-for="n in tabs"
                        touchless
                        class="tutoring-tab"
@@ -42,8 +44,9 @@
     import chat from './chat/chat.vue';
     import sharedDocument from './sharedDocument/sharedDocument.vue';
     import {passSharedDocLink} from './tutorService'
+    import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     export default {
-        components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument},
+        components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument, AppLogo},
         name: "tutor",
         data() {
             return {

@@ -1,14 +1,5 @@
 <template>
     <div class="canvas-container" :style="`max-width:${canvasWidth}px;`" id="canvasDiv">
-        <div class="powered-by">
-            <div>
-                <h5 class="text-sm-center text-md-center">Powered by</h5>
-                <AppLogo></AppLogo>
-            </div>
-            <div>
-                <share-room-btn v-show="isRoomCreated"></share-room-btn>
-            </div>
-        </div>
         <div class="nav-container elevation-2">
             <!--Select-->
             <v-tooltip right>
@@ -193,16 +184,6 @@
         display: flex;
         flex-direction: column;
         margin: 0 auto;
-        .powered-by {
-            display: inline-flex;
-            max-width: 350px;
-            position: fixed;
-            top: 58px;
-            .logo {
-                margin-right: 40px;
-                fill: #3e45a0;
-            }
-        }
         .nav-container {
             position: fixed;
             background-color: #FFFFFF;
@@ -210,7 +191,7 @@
             display: flex;
             flex-direction: column;
             width: auto;
-            margin-top: 70px;
+            margin-top: 20px;
             &.bottom-nav{
                 top: 575px;
             }
