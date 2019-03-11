@@ -2,11 +2,17 @@ import {uploadCanvasImage} from '../components/tutor/tutorService'
 
 const state = {
     dragData: [],
-    zoom: 100
+    zoom: 100,
+    pan:{
+        x:0,
+        y:0
+    }
 };
 const getters = {
     getDragData: state => state.dragData,
-    getZoom: state => state.zoom
+    getZoom: state => state.zoom,
+    getPanX: state => state.pan.x,
+    getPanY: state => state.pan.y
 };
 
 const mutations = {
@@ -21,6 +27,10 @@ const mutations = {
     },
     setZoom(state, val){
         state.zoom = val;
+    },
+    setPan(state, transform){
+        state.pan.x = transform.e;
+        state.pan.y = transform.f;
     }
 };
 
@@ -45,6 +55,9 @@ const actions = {
     },
     updateZoom({commit}, val){
         commit('setZoom', val);
+    },
+    updatePan({commit}, transform){
+        commit('setPan', transform);
     }
 };
 export default {

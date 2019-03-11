@@ -44,6 +44,8 @@ const mousemove = function(evt){
     if (dragStart){
       var pt = this.context.transformedPoint(lastX,lastY);
       this.context.translate(pt.x-dragStart.x, pt.y-dragStart.y);
+      let transform = this.context.getTransform();
+      store.dispatch('updatePan', transform);
       draw.bind(this)();
     }
 }
@@ -72,8 +74,9 @@ const zoom = function(clicks){
     this.context.scale(factor, factor);
     this.context.translate(-pt.x, -pt.y);
     whiteBoardService.redraw(this);
-    let {a} = this.context.getTransform();
-    store.dispatch('updateZoom', a*100);
+    let transform = this.context.getTransform();
+    store.dispatch('updateZoom', transform.a*100);
+    store.dispatch('updatePan', transform);
 }
 
 const mouseScroll = function(evt){
@@ -82,6 +85,12 @@ const mouseScroll = function(evt){
         zoom.bind(this, delta)()
     };
     return evt.preventDefault() && false;
+}
+
+const manualScroll = function(zoomIn){
+    let scrollValue = 0.75;
+    let delta = zoomIn ? scrollValue : scrollValue*-1;
+    zoom.bind(this, delta)()
 }
 
 const defineEndPosition = function(e){
@@ -101,5 +110,6 @@ export default{
     mouseleave,
     mouseScroll,
     draw: liveDraw,
-    init
+    init,
+    manualScroll
 }
