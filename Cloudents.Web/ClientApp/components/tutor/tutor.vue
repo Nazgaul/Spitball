@@ -1,5 +1,5 @@
 <template>
-    <v-layout row class="tutoring-page" :class="{'gridBackground': $route.name === 'tutoring'} ">
+    <v-layout row class="tutoring-page" :style="{'background-size': zoom}" :class="{'gridBackground': $route.name === 'tutoring'} ">
         <v-flex>
             <v-tabs v-model="activeTab" touchless>
                 <v-tab v-for="n in tabs"
@@ -56,7 +56,11 @@
             id: ''
         },
         computed: {
-            ...mapGetters(['isRoomCreated', 'isRoomFull', 'sharedDocUrl']),
+            ...mapGetters(['isRoomCreated', 'isRoomFull', 'sharedDocUrl', 'getZoom']),
+            zoom(){
+                let gridSize = 40 * Number(this.getZoom.toFixed())/100;
+                return  `${gridSize}px ${gridSize}px`;
+            }
         },
         created() {
             console.log('ID Tutor!!',this.id);
