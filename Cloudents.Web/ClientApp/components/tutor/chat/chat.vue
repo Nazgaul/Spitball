@@ -19,7 +19,7 @@
             </div>
             <div class="chat-input-block px-2">
                 <chat-upload-file></chat-upload-file>
-                <v-text-field solo type="text" placeholder="Write a message..." @keyup.enter="send" v-model="messageText">
+                <v-text-field solo type="text" placeholder="Type a message" @keyup.enter="send" v-model="messageText">
                 </v-text-field>
             </div>
         </v-flex>
@@ -91,26 +91,29 @@
 <style  lang="less">
     @import '../../../styles/mixin.less';
     #tutoring-chat-holder{
-        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.5);
+        // box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.5);
         .chat-header{
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
             border-radius: 4px 4px 0 0;
-            background-color: #eeeeee;
+            background-color: #43425d;
+            color:rgba(255, 255, 255, 0.87);
             min-width: 300px;
             .title-chat{
-                color: #000000;
                 width: 30px;
                 font-size: 14px;
-                font-weight: 600;
+                font-weight: normal;
                 letter-spacing: -0.4px;
             }
-                .chat-size-icon{
-                    color: #7b7b7b;
+            .chat-size-ctrl{
+                .video-size-icon{
+                    color: rgba(255, 255, 255, 0.87) !important;
                     font-size: 14px;
                 }
+            }
+                
 
         }
         .messages-container{
@@ -123,7 +126,8 @@
         .chat-input-block{
             display: flex;
             /*background-color: #cccccc;*/
-            border-top: 1px solid #eeeeee;
+            //border-top: 1px solid #eeeeee;
+            box-shadow: 0px -3px 0px 0px rgba(240,240,247,1);
             border-radius: 0 0 16px 16px;
             max-height: 45px;
             .v-input__slot{

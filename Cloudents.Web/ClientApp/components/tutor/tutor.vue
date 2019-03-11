@@ -2,8 +2,8 @@
     <v-layout row class="tutoring-page" :style="{'background-size': zoom}" :class="{'gridBackground': $route.name === 'tutoring'} ">
         <v-flex>
             
-            <v-tabs class="tutoring-navigation" v-model="activeTab" touchless>
-                <AppLogo></AppLogo>
+            <v-tabs class="tutoring-navigation" v-model="activeTab" touchless hide-slider>
+                <span class="logo-container"><AppLogo></AppLogo></span>
                 <v-tab v-for="n in tabs"
                        touchless
                        class="tutoring-tab"
@@ -27,7 +27,7 @@
                 <video-stream :id="id"></video-stream>
             </v-flex>
         </v-layout>
-        <v-layout column align-end style="position: fixed; right: 24px; bottom: 12px;">
+        <v-layout column align-end style="position: fixed; right: 24px; bottom: 0px;">
             <v-flex xs6 sm6 md6>
                 <chat v-show="isRoomCreated" :id="id"></chat>
             </v-flex>
