@@ -98,15 +98,19 @@
         methods: {
             ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus', 'updateRoomID', 'updateSharedDocLink', 'updateRoomIsFull']),
             stopSharing() {
-                this.activeRoom.localParticipant.unpublishTrack(this.screenShareTrack);
-                // let video = Twilio.createLocalVideoTrack();
-                // console.log('video', video)
-                // this.activeRoom.localParticipant.publishTrack(video);
+                let self = this;
+                self.activeRoom.localParticipant.unpublishTrack(this.screenShareTrack);
+                //create new track
+                createLocalVideoTrack().then(function(videoTrack) {
+                    self.activeRoom.localParticipant.publishTrack(videoTrack);
+                        self.screenShareTrack = null;
+                        self.isSharing = false;
+                },
+                    (error)=>{
+                    console.log('error creating video track')
+                    }
+                );
 
-                // self.detachTracks([trackToReDetach]);
-                // self.attachTracks([track], previewContainer);
-                this.screenShareTrack = null;
-                this.isSharing = false;
 
             },
 
@@ -177,13 +181,8 @@
                         }
                     );
             },
-
             //end screen share functions
-            //
-            // biggerLocalVideo() {
-            //     let video = document.querySelectorAll("#localTrack video")[0];
-            //     video.requestFullscreen()
-            // },
+
             biggerRemoteVideo() {
                 let video = document.querySelectorAll("#remoteTrack video")[0];
                 video.requestFullscreen()
@@ -269,7 +268,7 @@
                         let connectOptions;
                         createLocalTracks({
                             audio: self.availableDevices.includes('audioinput'),
-                            video: self.availableDevices.includes('videoinput') ? {width: 100, height: 66} : false,
+                            video: self.availableDevices.includes('videoinput') ? {width: 1080, height: 560,  frameRate: 16} : false,
                         }).then((tracksCreated) => {
                             let localMediaContainer = document.getElementById('localTrack');
                             tracksCreated.forEach((track) => {
@@ -361,7 +360,6 @@
                                 if (track.kind === 'data') {
                                     passSharedDocLink(self.sharedDocUrl);
                                     track.on('message', transferObj => {
-                                        // console.log(`Mouse coordinates: (${transferObj})`);
                                         let Data = JSON.parse(transferObj);
                                         let parsedData = Data.data;
                                         if (Data.type === 'passData') {
@@ -382,8 +380,7 @@
                                         self.attachTracks([track], previewContainer);
                                         self.videoTracksQuantatyAttached.push(track);
                                     }else{
-                                      self.trackToReDetach = self.videoTracksQuantatyAttached[0];
-                                      self.detachTracks([self.trackToReDetach]);
+                                      previewContainer.innerHTML = "";
                                       self.attachTracks([track], previewContainer);
                                     }
                                     return
