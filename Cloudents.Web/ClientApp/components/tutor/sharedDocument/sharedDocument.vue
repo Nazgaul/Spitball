@@ -49,9 +49,10 @@
         }
 
         .iframe-container iframe {
+
             position: absolute;
             top: 0;
-            left: 0;
+            left: 0 /*rtl:ignore*/;
             width: 100%;
             max-width: 1280px;
             height: 100%;

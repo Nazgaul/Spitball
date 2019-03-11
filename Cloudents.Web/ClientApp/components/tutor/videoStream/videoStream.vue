@@ -99,8 +99,12 @@
             ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus', 'updateRoomID', 'updateSharedDocLink', 'updateRoomIsFull']),
             stopSharing() {
                 this.activeRoom.localParticipant.unpublishTrack(this.screenShareTrack);
-                // let videoTrack = this.createVideoTrack();
-                // this.activeRoom.localParticipant.publishTrack(videoTrack);
+                // let video = Twilio.createLocalVideoTrack();
+                // console.log('video', video)
+                // this.activeRoom.localParticipant.publishTrack(video);
+
+                // self.detachTracks([trackToReDetach]);
+                // self.attachTracks([track], previewContainer);
                 this.screenShareTrack = null;
                 this.isSharing = false;
 
@@ -160,18 +164,12 @@
                     });
                 }
             },
-            createVideoTrack(){
-              return  createLocalTracks({
-                    video: self.availableDevices.includes('videoinput') ? {width: 100, height: 66} : false,
-                }).then((tracksCreated) => {
-                        return  tracksCreated
-                })
-            },
+
             showScreen() {
                 let self = this;
                 this.getUserScreen().then((stream)=> {
                             self.screenShareTrack = stream.getVideoTracks()[0];
-
+                            self.activeRoom.localParticipant.publishTrack(self.screenShareTrack);
                             self.isSharing = true;
                         },
                         (error) => {
