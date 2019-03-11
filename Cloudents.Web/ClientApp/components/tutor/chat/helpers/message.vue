@@ -34,7 +34,7 @@
             renderUrl(val){
                 let urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
                 return val.replace(urlRegex, function(url) {
-                    return '<a href="' + url + '" target="_blank">' + url + '</a>';
+                    return '<a href="' + url + '" target="_blank">' + 'Link' + '</a>';
                 });
             }
         }
@@ -45,7 +45,8 @@
 <style scoped lang="less">
     .chat-bubble {
         margin-bottom: 8px;
-        word-break: break-word;
+        white-space: pre-wrap;
+        word-break: break-all;
         &:first-child{
             margin-top: 4px;
         }

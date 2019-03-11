@@ -126,11 +126,11 @@ export default {
             let canvasData = {
                 context: this.canvasData.context,
                 metaData: this.canvasData.metaData
-            }
+            };
             let data = {
                 canvasContext: canvasData,
                 dataContext: dragObj
-            }
+            };
             let transferDataObj = {
                 type: "passData",
                 data: data

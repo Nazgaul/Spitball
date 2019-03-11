@@ -17,7 +17,8 @@
             <div class="messages-container" id="messages-container">
                 <message :message="singleMessage" v-for="singleMessage in messages"></message>
             </div>
-            <div class="chat-input-block">
+            <div class="chat-input-block px-2">
+                <chat-upload-file></chat-upload-file>
                 <v-text-field solo type="text" placeholder="Write a message..." @keyup.enter="send" v-model="messageText">
                 </v-text-field>
             </div>
@@ -25,14 +26,14 @@
     </v-layout>
     </v-container>
 </template>
-
 <script>
     import {mapGetters, mapActions} from 'vuex';
     import message from './helpers/message.vue';
+    import chatUploadFile from './helpers/chatUploadFile.vue';
 
     export default {
         name: "chat.vue",
-        components: {message},
+        components: { message, chatUploadFile },
         data() {
             return {
                 messageText: '',
@@ -43,7 +44,8 @@
             id: {},
         },
         computed: {
-            ...mapGetters({'messages': 'getChatMessages',
+            ...mapGetters({
+                'messages': 'getChatMessages',
                 'userIdentity': 'userIdentity'
             }),
             name() {
@@ -120,11 +122,12 @@
         }
         .chat-input-block{
             display: flex;
-            background-color: #cccccc;
+            /*background-color: #cccccc;*/
+            border-top: 1px solid #eeeeee;
             border-radius: 0 0 16px 16px;
             max-height: 45px;
             .v-input__slot{
-                border-top: 1px solid #eeeeee;
+                /*border-top: 1px solid #eeeeee;*/
                 box-shadow: none;
             }
 

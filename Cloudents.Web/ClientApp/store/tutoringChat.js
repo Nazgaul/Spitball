@@ -49,6 +49,23 @@ const actions = {
     addMessage({commit, state}, message) {
         commit('updateMessages', message)
     },
+    uploadChatFile({commit, state }, formData){
+        let link;
+        chatService.uploadChatFile(formData)
+            .then((resp)=>{
+                console.log('chat file store',resp);
+                link = resp.data && resp.data.link ? resp.data.link : '';
+                let userIdentity = state.identity;
+                let messageObj = {
+                    "text": link,
+                    "type": 'tutoringChatMessage',
+                    "identity" : userIdentity
+                };
+                let sendObj = chatService.createMessageItem(messageObj);
+                chatService.sendChatMessage(sendObj);
+                commit('updateMessages', sendObj)
+            })
+    },
     sendMessage({commit, state}, message) {
         let sendObj = chatService.createMessageItem(message);
         chatService.sendChatMessage(sendObj);
