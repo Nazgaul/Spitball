@@ -37,6 +37,7 @@ const actions = {
     popDragData({state}){
         return Promise.resolve(state.dragData.pop());
     },
+
     uploadImage(context, data){
         return uploadCanvasImage(data).then((response)=>{
             return response.data.link;

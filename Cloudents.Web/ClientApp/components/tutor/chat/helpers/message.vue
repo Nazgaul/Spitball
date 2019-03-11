@@ -33,19 +33,36 @@
         filters:{
             renderUrl(val){
                 let urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-                return val.replace(urlRegex, function(url) {
-                    return '<a href="' + url + '" target="_blank">' + url + '</a>';
-                });
+                // Create thumbnail preview if uploaded file link
+                if(val.includes('sb-preview_')){
+                    let link = val.split('sb-preview_')[1];
+                    return '<div class="image-preview">'+ ' <a href="' + link + '" target="_blank">'+ 'File Uploaded'+ '</a> ' +  '<img src="' + link + '">' + '</div>';
+                }else{     // regular message with link
+                    return val.replace(urlRegex, function(url) {
+                        return '<a href="' + url + '" target="_blank">' + 'Link' + '</a>';
+                    });
+                }
             }
         }
 
     }
 </script>
 
-<style scoped lang="less">
+<style  lang="less">
     .chat-bubble {
+        .image-preview{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            img{
+                max-width: 100px;
+                height: auto;
+            }
+        }
         margin-bottom: 8px;
-        word-break: break-word;
+        white-space: pre-wrap;
+        word-break: break-all;
         &:first-child{
             margin-top: 4px;
         }
