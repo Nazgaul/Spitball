@@ -91,7 +91,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom']),
+        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan']),
         selectDefaultTool(){
             this.setOptionType(this.enumOptions.select);
         },
@@ -164,6 +164,7 @@ export default {
         },
         resetZoom(){
             this.updateZoom(100);
+            this.updatePan({e:0, f:0})
         },
         resizeCanvas(){
             let canvas = document.getElementById('canvas');
