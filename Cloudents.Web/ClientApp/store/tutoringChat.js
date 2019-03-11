@@ -57,7 +57,7 @@ const actions = {
                 link = resp.data && resp.data.link ? resp.data.link : '';
                 let userIdentity = state.identity;
                 let messageObj = {
-                    "text": link,
+                    "text": `sb-preview_${link}`,
                     "type": 'tutoringChatMessage',
                     "identity" : userIdentity
                 };
