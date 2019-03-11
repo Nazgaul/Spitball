@@ -7,14 +7,17 @@
                    @change="uploadChatFiles"
                    id="chat-file"
                    ref="chatFiles" v-show="false"/>
-            <label for="chat-file"><add-file-img></add-file-img></label>
+            <label for="chat-file">
+                <!--<v-icon class="chat-attach-icon">sbf-attach</v-icon>-->
+                <add-file-img></add-file-img>
+            </label>
         </div>
     </div>
 </template>
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
-    import addFileImg from '../images/add-file.svg';
+    import addFileImg from '../../../../font-icon/attach.svg';
     export default {
         name: "chatUploadFile",
         components: { addFileImg },
