@@ -49,6 +49,7 @@
         .chat-input-container{
             display: flex;
             svg{
+                cursor: pointer;
                 vertical-align: middle;
             }
         }
