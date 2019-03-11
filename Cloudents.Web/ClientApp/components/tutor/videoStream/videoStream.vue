@@ -37,10 +37,14 @@
                 <v-flex v-show="visible.remote_player">
                     <div class="row remote_video_container">
                         <div id="remoteTrack"></div>
-                    </div>
+                        <div class="local-video-holder">
+                            <div id="localTrack"></div>
+                        </div>
+
+                        </div>
                 </v-flex>
             </div>
-            <div class="local-video-holder">
+            <!--<div class="local-video-holder">-->
                 <!--<v-flex class="px-3 video-con-controls" @click="minimize('local_player')">-->
                     <!--<div style="display: flex; align-items: center;">-->
                         <!--<span :class="[localOffline ? 'local-offline' : 'local-online']"></span>-->
@@ -57,10 +61,10 @@
                 <!--</v-flex>-->
                 <!--<v-flex v-show="visible.local_player">-->
                     <!--<div class="row">-->
-                        <div id="localTrack"></div>
+                        <!--<div id="localTrack"></div>-->
                     <!--</div>-->
                 <!--</v-flex>-->
-            </div>
+            <!--</div>-->
 
         </v-layout>
     </v-container>
