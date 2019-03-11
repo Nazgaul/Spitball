@@ -13,9 +13,9 @@
             <!--Select-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool-svg': selectedOptionString === enumOptions.pan}"
+                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.pan}"
                             class="nav-action" @click="setOptionType(enumOptions.pan)">
-                        <pan-icon></pan-icon>
+                        <v-icon>sbf-pan</v-icon>
                     </button>
                 </template>
                 <span >Pan</span>

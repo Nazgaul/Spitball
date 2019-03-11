@@ -8,14 +8,12 @@ import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
 import AppLogo from "../../../../wwwroot/Images/logo-spitball.svg";
 import { mapGetters, mapActions } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
-import panIcon from "./images/pan.svg";
 
 export default {
     components: {
         'sliderPicker': Compact,
          shareRoomBtn,
          AppLogo,
-         panIcon
     },
     data() {
         return {
