@@ -91,7 +91,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['resetDragData', 'updateDragData']),
+        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom']),
         selectDefaultTool(){
             this.setOptionType(this.enumOptions.select);
         },
@@ -162,7 +162,18 @@ export default {
                 this.currentOptionSelected.enterPressed.bind(this.canvasData)();
             }
         },
+        resetZoom(){
+            this.updateZoom(100);
+        },
         resizeCanvas(){
+            let canvas = document.getElementById('canvas');
+            let ctx = canvas.getContext("2d");
+            ctx.setTransform(1,0,0,1,0,0);
+            this.resetZoom();
+            this.canvasWidth = (global.innerWidth -50);
+            this.canvasHeight = (global.innerHeight -50);
+            canvas.width = this.canvasWidth;
+            canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
         },
         doZoom(zoomType){
