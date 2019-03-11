@@ -99,7 +99,7 @@ namespace Cloudents.Web.Api
                 var hash = properties.Encrypt();
 
                 var uri = QueryHelpers.AddQueryString(
-                    $"{configuration["functionCdnEndpoint"]}/api/image/{id}/{Base64UrlTextEncoder.Encode(hash)}",
+                    $"{configuration["functionCdnEndpoint"]}/api/image/{Base64UrlTextEncoder.Encode(hash)}",
                     new Dictionary<string, string>()
                 {
                     {"width","880" },

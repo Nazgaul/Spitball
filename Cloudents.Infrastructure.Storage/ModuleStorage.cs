@@ -18,11 +18,21 @@ namespace Cloudents.Infrastructure.Storage
 
             //builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
             builder.RegisterType<BlobProviderContainer>().As<IBlobProvider>();
-            
-            builder.RegisterType<BlobProviderContainer>().As<IDocumentDirectoryBlobProvider>()
-                .WithParameter("container",StorageContainer.Document);
-            builder.RegisterType<BlobProviderContainer>().As<IQuestionsDirectoryBlobProvider>()
+
+            builder.RegisterType<BlobProviderContainer>()
+                .As<IDocumentDirectoryBlobProvider>()
+                .Keyed<IBlobProvider>(StorageContainer.File)
+                .WithParameter("container", StorageContainer.File);
+
+            //.WithParameter("container", StorageContainer.Document)
+            builder.RegisterType<BlobProviderContainer>()
+                .As<IQuestionsDirectoryBlobProvider>()
+                .Keyed<IBlobProvider>(StorageContainer.QuestionsAndAnswers)
                 .WithParameter("container", StorageContainer.QuestionsAndAnswers);
+            builder.RegisterType<BlobProviderContainer>()
+                .As<IChatDirectoryBlobProvider>()
+                .Keyed<IBlobProvider>(StorageContainer.Chat)
+                .WithParameter("container", StorageContainer.Chat);
 
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
             //builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();

@@ -408,5 +408,5 @@ export default {
 };
 </script>
 <style lang="less" src="./app.less"></style>
-<style lang="less" src="./main.less"></style>
+<!--<style lang="less" src="./main.less"></style>-->
 
