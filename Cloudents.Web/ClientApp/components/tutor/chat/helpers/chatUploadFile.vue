@@ -30,7 +30,11 @@
                 let file = self.$refs.chatFiles.files[0];
                 console.log(file);
                 formData.append("file", file);
-                self.uploadChatFile(formData);
+                let objData ={
+                    formData: formData,
+                    isImageType :  file.type && file.type.includes('image')
+                };
+                self.uploadChatFile(objData);
             }
         },
     }

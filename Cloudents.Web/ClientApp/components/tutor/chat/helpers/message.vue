@@ -36,7 +36,7 @@
                 // Create thumbnail preview if uploaded file link
                 if(val.includes('sb-preview_')){
                     let link = val.split('sb-preview_')[1];
-                    return '<div class="image-preview">'+   '  <a href="' + link + '" target="_blank">'+ 'Download'+ '</a> ' +  '<img src="' + link + '">' + '</div>';
+                    return '<div class="image-preview">'+ ' <a href="' + link + '" target="_blank">'+ 'File Uploaded'+ '</a> ' +  '<img src="' + link + '">' + '</div>';
                 }else{     // regular message with link
                     return val.replace(urlRegex, function(url) {
                         return '<a href="' + url + '" target="_blank">' + 'Link' + '</a>';

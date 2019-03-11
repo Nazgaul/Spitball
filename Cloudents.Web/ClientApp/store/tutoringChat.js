@@ -49,15 +49,18 @@ const actions = {
     addMessage({commit, state}, message) {
         commit('updateMessages', message)
     },
-    uploadChatFile({commit, state }, formData){
+    uploadChatFile({commit, state }, objData){
         let link;
+        let formData = objData.formData;
+        let isImage = objData.isImageType;
         chatService.uploadChatFile(formData)
             .then((resp)=>{
                 console.log('chat file store',resp);
                 link = resp.data && resp.data.link ? resp.data.link : '';
                 let userIdentity = state.identity;
                 let messageObj = {
-                    "text": `sb-preview_${link}`,
+                    //if image type add prefix to differ
+                    "text": isImage ? `sb-preview_${link}` : `${link}`,
                     "type": 'tutoringChatMessage',
                     "identity" : userIdentity
                 };
