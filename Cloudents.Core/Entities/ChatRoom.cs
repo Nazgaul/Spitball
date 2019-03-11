@@ -50,11 +50,12 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public ChatMessage(ChatUser user, string message)
+        public ChatMessage(ChatUser user, string message,string blob)
         {
             User = user;
             Message = message;
             CreationTime = DateTime.UtcNow;
+            Blob = blob;
         }
 
 

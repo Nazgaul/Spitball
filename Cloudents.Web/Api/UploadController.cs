@@ -1,4 +1,6 @@
 ﻿using Autofac.Features.Indexed;
+using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
@@ -16,8 +18,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Hubs;
-using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
 {
@@ -158,7 +158,7 @@ namespace Cloudents.Web.Api
             var indexes = new List<int>();
             for (double i = 0; i < tempData2.Size; i += UploadInnerResponse.BlockSize)
             {
-                indexes.Add((int) (i / UploadInnerResponse.BlockSize));
+                indexes.Add((int)(i / UploadInnerResponse.BlockSize));
             }
 
             await documentBlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, indexes, token);
@@ -169,21 +169,16 @@ namespace Cloudents.Web.Api
         [HttpPost("{type:regex(chat)}", Order = 1)]
         public async Task<ActionResult<UploadResponse>> FinishUploadAsync(
             [FromServices] IChatDirectoryBlobProvider blobProvider,
-            [FromServices] IHubContext<SbHub> hubContext,
+            [FromServices] ICommandBus bus,
             [FromServices] UserManager<RegularUser> userManager,
             [FromBody] FinishChatUpload model,
             CancellationToken token)
         {
             var blobName = await CommitBlobsAsync(blobProvider, model, token);
-            //Command
-            await hubContext.Clients.Users(new[]
-            {
-                userManager.GetUserId(User), model.OtherUser.ToString(),
-            }).SendAsync("Chat", new
-            {
-                file = blobName
 
-            }, cancellationToken: token);
+
+            var command = new SendMessageCommand(null, userManager.GetLongUserId(User), new[] { model.OtherUser }, null, blobName);
+            await bus.DispatchAsync(command, token);
             return Ok();
             //return new UploadResponse(tempData2.BlobName);
         }

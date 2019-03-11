@@ -1,4 +1,5 @@
 ﻿using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
@@ -9,7 +10,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command.Command;
 
 namespace Cloudents.Web.Hubs
 {
@@ -74,25 +74,25 @@ namespace Cloudents.Web.Hubs
         }
 
 
-        public async Task ChatAsync(string message,
-            long userId, 
-            CancellationToken token)
-        {
-            var currentUserId = _userManager.Value.GetLongUserId(Context.User);
-            if (userId == currentUserId)
-            {
-                return;
-            }
+        //public async Task ChatAsync(string message, Guid? chatId,
+        //    long userId,
+        //    CancellationToken token)
+        //{
+        //    var currentUserId = _userManager.Value.GetLongUserId(Context.User);
+        //    if (userId == currentUserId)
+        //    {
+        //        return;
+        //    }
 
-            var command = new SendMessageCommand(message, currentUserId, new[] { userId });
-            var t1 = _commandBus.Value.DispatchAsync(command, token);
+        //    var command = new SendMessageCommand(message, currentUserId, new[] { userId }, chatId);
+        //    var t1 = _commandBus.Value.DispatchAsync(command, token);
 
-            var t2 =  Clients.Users(new[] { currentUserId.ToString(), userId.ToString() })
-                .SendAsync("Chat", new
-            {
-                message
-            }, cancellationToken: token);
-            await Task.WhenAll(t1, t2);
-        }
+        //    var t2 = Clients.Users(new[] { currentUserId.ToString(), userId.ToString() })
+        //        .SendAsync("Chat", new
+        //        {
+        //            message
+        //        }, cancellationToken: token);
+        //    await Task.WhenAll(t1, t2);
+        //}
     }
 }

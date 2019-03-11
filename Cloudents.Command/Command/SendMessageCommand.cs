@@ -1,18 +1,28 @@
-﻿namespace Cloudents.Command.Command
+﻿using System;
+using System.Collections.Generic;
+
+namespace Cloudents.Command.Command
 {
     public class SendMessageCommand : ICommand
     {
       
-        public SendMessageCommand(string message, long userSendingId, long[] usersId)
+        public SendMessageCommand(string message, long userSendingId, IEnumerable<long> usersId,
+            Guid? chatRoomId, string blob)
         {
             Message = message;
             UserSendingId = userSendingId;
             ToUsersId = usersId;
+            ChatRoomId = chatRoomId;
+            Blob = blob;
         }
 
-        public string Message { get; private set; }
-        public long UserSendingId { get; private set; }
+        public Guid? ChatRoomId { get;  }
 
-        public long[] ToUsersId { get; private set; }
+        public string Message { get;  }
+        public long UserSendingId { get;  }
+
+        public string Blob { get; }
+
+        public IEnumerable<long> ToUsersId { get; }
     }
 }

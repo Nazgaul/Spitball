@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -14,20 +15,30 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<ChatUser> _chatUserRepository;
         private readonly IRepository<ChatMessage> _chatMessageRepository;
+        private readonly IChatDirectoryBlobProvider _blobProvider;
 
-        public SendMessageCommandHandler(IChatRoomRepository chatRoomRepository, IRegularUserRepository userRepository, IRepository<ChatMessage> chatMessageRepository, IRepository<ChatUser> chatUserRepository)
+        public SendMessageCommandHandler(IChatRoomRepository chatRoomRepository, IRegularUserRepository userRepository, IRepository<ChatMessage> chatMessageRepository, IRepository<ChatUser> chatUserRepository, IChatDirectoryBlobProvider blobProvider)
         {
             _chatRoomRepository = chatRoomRepository;
             _userRepository = userRepository;
             _chatMessageRepository = chatMessageRepository;
             _chatUserRepository = chatUserRepository;
+            _blobProvider = blobProvider;
         }
 
         public async Task ExecuteAsync(SendMessageCommand message, CancellationToken token)
         {
             var users = message.ToUsersId.ToList();
             users.Add(message.UserSendingId);
-            var chatRoom = await _chatRoomRepository.GetChatRoomAsync(users, token);
+            ChatRoom chatRoom;
+            if (message.ChatRoomId.HasValue)
+            {
+                chatRoom = await _chatRoomRepository.LoadAsync(message.ChatRoomId.Value, token);
+            }
+            else
+            {
+                chatRoom = await _chatRoomRepository.GetChatRoomAsync(users, token);
+            }
 
             if (chatRoom == null)
             {
@@ -36,7 +47,7 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var chatUser = chatRoom.Users.FirstOrDefault(f => f.User.Id == message.UserSendingId);
-            var chatMessage = new ChatMessage(chatUser, message.Message);
+            var chatMessage = new ChatMessage(chatUser, message.Message,message.Blob);
             await _chatMessageRepository.AddAsync(chatMessage, token);
             chatRoom.UpdateTime = DateTime.UtcNow;
             await _chatRoomRepository.UpdateAsync(chatRoom, token);
@@ -56,6 +67,12 @@ namespace Cloudents.Command.CommandHandler
                     user.Unread++;
                 }
                 await _chatUserRepository.UpdateAsync(user, token);
+            }
+
+            if (!string.IsNullOrEmpty(message.Blob))
+            {
+                var id = chatMessage.Id;
+                await _blobProvider.MoveAsync(message.Blob, id.ToString(), token);
             }
         }
     }
