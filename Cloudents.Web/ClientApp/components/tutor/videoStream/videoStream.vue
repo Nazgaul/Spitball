@@ -9,8 +9,8 @@
         </v-layout>
         <v-layout>
             <v-flex>
-                <!--<v-btn v-if="!isSharing" @click="showScreen">Share Screen</v-btn>-->
-                <!--<v-btn v-else @click="stopSharing">Stop Sharing</v-btn>-->
+                <v-btn v-if="!isSharing" @click="showScreen">Share Screen</v-btn>
+                <v-btn v-else @click="stopSharing">Stop Sharing</v-btn>
                 <v-btn class="create-session" color="primary" @click="generateRoom()" v-if="!id">Initiate tutoring
                     session
                 </v-btn>
@@ -44,28 +44,6 @@
                         </div>
                 </v-flex>
             </div>
-            <!--<div class="local-video-holder">-->
-                <!--<v-flex class="px-3 video-con-controls" @click="minimize('local_player')">-->
-                    <!--<div style="display: flex; align-items: center;">-->
-                        <!--<span :class="[localOffline ? 'local-offline' : 'local-online']"></span>-->
-                        <!--<span class="user-badge ml-2">You</span>-->
-                    <!--</div>-->
-                    <!--<div style="display: flex; align-items: center;">-->
-                    <!--<span class="video-size-ctrl mr-2" @click.stop="biggerLocalVideo">-->
-                     <!--<v-icon class="video-size-icon">sbf-expand-icon</v-icon>-->
-                    <!--</span>-->
-                        <!--<span class="video-size-ctrl" @click.stop="minimize('local_player')">-->
-                            <!--<v-icon v-if="visible.local_player" class="video-size-icon">sbf-minimize</v-icon>-->
-                         <!--<v-icon v-else class="video-size-icon">sbf-toggle-enlarge</v-icon>                    </span>-->
-                    <!--</div>-->
-                <!--</v-flex>-->
-                <!--<v-flex v-show="visible.local_player">-->
-                    <!--<div class="row">-->
-                        <!--<div id="localTrack"></div>-->
-                    <!--</div>-->
-                <!--</v-flex>-->
-            <!--</div>-->
-
         </v-layout>
     </v-container>
 </template>
@@ -100,6 +78,8 @@
                 localOffline: true,
                 remoteOffline: true,
                 availableDevices: [],
+                videoTracksQuantatyAttached: [],
+                trackToReDetach: {},
                 visible: {
                     'local_player': true,
                     'remote_player': true
@@ -119,25 +99,14 @@
             ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus', 'updateRoomID', 'updateSharedDocLink', 'updateRoomIsFull']),
             stopSharing() {
                 this.activeRoom.localParticipant.unpublishTrack(this.screenShareTrack);
+                // let videoTrack = this.createVideoTrack();
+                // this.activeRoom.localParticipant.publishTrack(videoTrack);
                 this.screenShareTrack = null;
                 this.isSharing = false;
 
             },
-            //screen share functionality
-            showScreen() {
-                let self = this;
-                this.getUserScreen()
-                    .then(function (stream) {
-                            self.screenShareTrack = stream.getVideoTracks()[0];
-                            self.activeRoom.localParticipant.publishTrack(self.screenShareTrack);
-                            self.isSharing = true;
-                        },
-                        (error) => {
-                            console.log('error sharing screen')
-                        }
-                    );
-            },
 
+            //screen share functionality
             getUserScreen() {
                 function isFirefox() {
                     var mediaSourceSupport = !!navigator.mediaDevices.getSupportedConstraints().mediaSource;
@@ -191,12 +160,32 @@
                     });
                 }
             },
-            //end screen share functions
-
-            biggerLocalVideo() {
-                let video = document.querySelectorAll("#localTrack video")[0];
-                video.requestFullscreen()
+            createVideoTrack(){
+              return  createLocalTracks({
+                    video: self.availableDevices.includes('videoinput') ? {width: 100, height: 66} : false,
+                }).then((tracksCreated) => {
+                        return  tracksCreated
+                })
             },
+            showScreen() {
+                let self = this;
+                this.getUserScreen().then((stream)=> {
+                            self.screenShareTrack = stream.getVideoTracks()[0];
+
+                            self.isSharing = true;
+                        },
+                        (error) => {
+                            console.log('error sharing screen')
+                        }
+                    );
+            },
+
+            //end screen share functions
+            //
+            // biggerLocalVideo() {
+            //     let video = document.querySelectorAll("#localTrack video")[0];
+            //     video.requestFullscreen()
+            // },
             biggerRemoteVideo() {
                 let video = document.querySelectorAll("#remoteTrack video")[0];
                 video.requestFullscreen()
@@ -338,15 +327,14 @@
                             self.localOffline = false;
                             localStorage.setItem("identity", localIdentity);
 
+                            //shared google document
                             if (self.activeRoom.participants && self.activeRoom.participants.size < 1) {
                                 let shareLink = localStorage.getItem(`sb_share_link_${self.roomLinkID}`);
                                 if(!shareLink){
                                     self.getSharedocUrl()
                                 }else{
                                     self.updateSharedDocLink(`${shareLink}`);
-
                                 }
-
                             }
                             // Attach the Tracks of all the remote Participants.
                             self.activeRoom.participants.forEach((participant, index) => {
@@ -363,7 +351,7 @@
                                     if (publication.isSubscribed) {
                                         const track = publication.track;
                                         let previewContainer = document.getElementById('remoteTrack');
-                                        console.log('remote track attached', " added track: " + track.kind)
+                                        console.log('remote track attached', " added track: " + track.kind);
                                         self.attachTracks([track], previewContainer);
                                     }
                                 });
@@ -391,12 +379,19 @@
                                             }
                                         }
                                     });
-
-
+                                }else if(track.kind === 'video'){
+                                    if (!previewContainer.querySelector('video')) {
+                                        self.attachTracks([track], previewContainer);
+                                        self.videoTracksQuantatyAttached.push(track);
+                                    }else{
+                                      self.trackToReDetach = self.videoTracksQuantatyAttached[0];
+                                      self.detachTracks([self.trackToReDetach]);
+                                      self.attachTracks([track], previewContainer);
+                                    }
+                                    return
                                 }
 
                                 console.log('track attached', " added track: " + track.kind);
-
                                 self.attachTracks([track], previewContainer);
                             });
                             // When a Participant's Track is unsubscribed from, detach it from the DOM.
