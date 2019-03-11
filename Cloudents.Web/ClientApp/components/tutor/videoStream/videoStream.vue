@@ -33,41 +33,33 @@
                          <v-icon v-else class="video-size-icon">sbf-toggle-enlarge</v-icon>
                     </span>
                     </div>
-                    <!--<span class="video-size-ctrl" @click="requestPictureInPicture('remoteTrack')">Picture mode</span>-->
                 </v-flex>
                 <v-flex v-show="visible.remote_player">
                     <div class="row remote_video_container">
                         <div id="remoteTrack"></div>
                     </div>
                 </v-flex>
-                <!--<v-flex >-->
-                <!--<div class="row remote_video_container">-->
-                <!--<div id="remoteScreenShareVideo"></div>-->
-                <!--</div>-->
-                <!--</v-flex>-->
-
             </div>
-            <div class="video-holder">
-                <v-flex class="px-3 video-con-controls" @click="minimize('local_player')">
-                    <div style="display: flex; align-items: center;">
-                        <span :class="[localOffline ? 'local-offline' : 'local-online']"></span>
-                        <span class="user-badge ml-2">You</span>
-                    </div>
-                    <div style="display: flex; align-items: center;">
-                    <span class="video-size-ctrl mr-2" @click.stop="biggerLocalVideo">
-                     <v-icon class="video-size-icon">sbf-expand-icon</v-icon>
-                    </span>
-                        <span class="video-size-ctrl" @click.stop="minimize('local_player')">
-                            <v-icon v-if="visible.local_player" class="video-size-icon">sbf-minimize</v-icon>
-                         <v-icon v-else class="video-size-icon">sbf-toggle-enlarge</v-icon>                    </span>
-                    </div>
-                    <!--<span class="video-size-ctrl" @click="requestPictureInPicture('localTrack')">Picture mode</span>-->
-                </v-flex>
-                <v-flex v-show="visible.local_player">
-                    <div class="row">
+            <div class="local-video-holder">
+                <!--<v-flex class="px-3 video-con-controls" @click="minimize('local_player')">-->
+                    <!--<div style="display: flex; align-items: center;">-->
+                        <!--<span :class="[localOffline ? 'local-offline' : 'local-online']"></span>-->
+                        <!--<span class="user-badge ml-2">You</span>-->
+                    <!--</div>-->
+                    <!--<div style="display: flex; align-items: center;">-->
+                    <!--<span class="video-size-ctrl mr-2" @click.stop="biggerLocalVideo">-->
+                     <!--<v-icon class="video-size-icon">sbf-expand-icon</v-icon>-->
+                    <!--</span>-->
+                        <!--<span class="video-size-ctrl" @click.stop="minimize('local_player')">-->
+                            <!--<v-icon v-if="visible.local_player" class="video-size-icon">sbf-minimize</v-icon>-->
+                         <!--<v-icon v-else class="video-size-icon">sbf-toggle-enlarge</v-icon>                    </span>-->
+                    <!--</div>-->
+                <!--</v-flex>-->
+                <!--<v-flex v-show="visible.local_player">-->
+                    <!--<div class="row">-->
                         <div id="localTrack"></div>
-                    </div>
-                </v-flex>
+                    <!--</div>-->
+                <!--</v-flex>-->
             </div>
 
         </v-layout>
@@ -286,7 +278,7 @@
                         let connectOptions;
                         createLocalTracks({
                             audio: self.availableDevices.includes('audioinput'),
-                            video: self.availableDevices.includes('videoinput') ? {width: 300, height: 150} : false,
+                            video: self.availableDevices.includes('videoinput') ? {width: 100, height: 66} : false,
                         }).then((tracksCreated) => {
                             let localMediaContainer = document.getElementById('localTrack');
                             tracksCreated.forEach((track) => {
