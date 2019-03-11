@@ -1,7 +1,6 @@
 import {createPointsByOption, createShape} from '../utils/factories'
 import helper from '../utils/helper'
-import whiteBoard from '../whiteBoard';
-import whiteBoardService from '../whiteBoardService';
+import canvasFinder from '../utils/canvasFinder'
 
 const OPTION_TYPE = 'drawRectangle';
 
@@ -66,9 +65,10 @@ const mousedown = function(e){
     this.methods.hideColorPicker();
     startingMousePosition.x = e.clientX;
     startingMousePosition.y = e.clientY - e.target.getBoundingClientRect().top;
+    let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
     let dragObj = createPointsByOption({
-        mouseX: e.pageX - e.target.offsetLeft,
-        mouseY: e.pageY - e.target.getBoundingClientRect().top,
+        mouseX: mouseX,
+        mouseY: mouseY,
         isDragging: false,
         strokeStyle: this.color.hex,
         option: OPTION_TYPE,
@@ -100,9 +100,10 @@ const mousemove = function(e){
 
 const defineEndPosition = function(e){
     if(this.shouldPaint){
+        let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
         let dragObj = createPointsByOption({
-            mouseX: e.pageX - e.target.offsetLeft,
-            mouseY: e.pageY - e.target.getBoundingClientRect().top,
+            mouseX: mouseX,
+            mouseY: mouseY,
             isDragging: false,
             strokeStyle: this.color.hex,
             option: OPTION_TYPE,

@@ -4,16 +4,21 @@ const state = {
     messages: [],
     identity: '',
     isRoom: false,
-    roomId: ''
+    roomId: '',
+    isRoomFull : false
 };
 const getters = {
     getChatMessages: state => state.messages,
     userIdentity: state => state.identity,
     isRoomCreated : state => state.isRoom,
     roomLinkID: state => state.roomId,
+    isRoomFull: state => state.isRoomFull
 };
 
 const mutations = {
+    setRoomIsFull(state, val){
+        state.isRoomFull =val
+    },
     setRoomId(state, val){
         state.roomId = val
     },
@@ -29,6 +34,9 @@ const mutations = {
 };
 
 const actions = {
+    updateRoomIsFull({commit, state}, val){
+        commit('setRoomIsFull', val)
+    },
     updateRoomID({commit, state}, val){
         commit('setRoomId', val)
     },
@@ -40,6 +48,26 @@ const actions = {
     },
     addMessage({commit, state}, message) {
         commit('updateMessages', message)
+    },
+    uploadChatFile({commit, state }, objData){
+        let link;
+        let formData = objData.formData;
+        let isImage = objData.isImageType;
+        chatService.uploadChatFile(formData)
+            .then((resp)=>{
+                console.log('chat file store',resp);
+                link = resp.data && resp.data.link ? resp.data.link : '';
+                let userIdentity = state.identity;
+                let messageObj = {
+                    //if image type add prefix to differ
+                    "text": isImage ? `sb-preview_${link}` : `${link}`,
+                    "type": 'tutoringChatMessage',
+                    "identity" : userIdentity
+                };
+                let sendObj = chatService.createMessageItem(messageObj);
+                chatService.sendChatMessage(sendObj);
+                commit('updateMessages', sendObj)
+            })
     },
     sendMessage({commit, state}, message) {
         let sendObj = chatService.createMessageItem(message);

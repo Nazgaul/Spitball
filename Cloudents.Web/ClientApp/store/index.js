@@ -26,6 +26,7 @@ import onBoardGuide from './onBoardGuide';
 import buyTokens from './buyTokens';
 import tutoringChat from './tutoringChat';
 import tutoringCanvas from './tutoringCanvas';
+import tutoringSharedDoc from './tutoringSharedDocument';
 
 
 
@@ -56,7 +57,8 @@ const store = new Vuex.Store({
         onBoardGuide,
         buyTokens,
         tutoringChat,
-        tutoringCanvas
+        tutoringCanvas,
+        tutoringSharedDoc
     }
 });
 

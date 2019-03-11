@@ -9,7 +9,11 @@
         </v-layout>
         <v-layout>
             <v-flex>
-                <v-btn class="create-session" color="primary" @click="generateRoom()" v-if="!id">Initiate tutoring session</v-btn>
+                <!--<v-btn v-if="!isSharing" @click="showScreen">Share Screen</v-btn>-->
+                <!--<v-btn v-else @click="stopSharing">Stop Sharing</v-btn>-->
+                <v-btn class="create-session" color="primary" @click="generateRoom()" v-if="!id">Initiate tutoring
+                    session
+                </v-btn>
             </v-flex>
         </v-layout>
 
@@ -33,12 +37,18 @@
                 </v-flex>
                 <v-flex v-show="visible.remote_player">
                     <div class="row remote_video_container">
-                        <div id="remoteTrack" ref='remote_player'></div>
+                        <div id="remoteTrack"></div>
                     </div>
                 </v-flex>
+                <!--<v-flex >-->
+                <!--<div class="row remote_video_container">-->
+                <!--<div id="remoteScreenShareVideo"></div>-->
+                <!--</div>-->
+                <!--</v-flex>-->
+
             </div>
             <div class="video-holder">
-                <v-flex class="px-3 video-con-controls"  @click="minimize('local_player')">
+                <v-flex class="px-3 video-con-controls" @click="minimize('local_player')">
                     <div style="display: flex; align-items: center;">
                         <span :class="[localOffline ? 'local-offline' : 'local-online']"></span>
                         <span class="user-badge ml-2">You</span>
@@ -65,10 +75,10 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import Twilio, { connect, createLocalTracks, createLocalVideoTrack, LocalDataTrack } from 'twilio-video';
     import videoService from '../../../services/videoStreamService';
-    import { dataTrack } from '../tutorService';
+    import { dataTrack, getSharedDoc, passSharedDocLink } from '../tutorService';
     import whiteBoardService from '../whiteboard/whiteBoardService';
 
 
@@ -77,11 +87,13 @@
         data() {
             return {
                 loading: false,
-                loaded : false,
+                loaded: false,
                 data: {},
                 isCopied: false,
                 localTrackAval: false,
                 remoteTrack: '',
+                screenShareTrack: null,
+                isSharing: false,
                 activeRoom: '',
                 previewTracks: '',
                 identity: '',
@@ -101,11 +113,90 @@
         props: {
             id: ''
         },
+        computed: {
+            ...mapGetters(['sharedDocUrl', 'roomLinkID', 'isRoomFull'])
+        },
         watch: {
             '$route': 'createChat'
         },
         methods: {
-            ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus', 'updateRoomID']),
+            ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus', 'updateRoomID', 'updateSharedDocLink', 'updateRoomIsFull']),
+            stopSharing() {
+                this.activeRoom.localParticipant.unpublishTrack(this.screenShareTrack);
+                this.screenShareTrack = null;
+                this.isSharing = false;
+
+            },
+            //screen share functionality
+            showScreen() {
+                let self = this;
+                this.getUserScreen()
+                    .then(function (stream) {
+                            self.screenShareTrack = stream.getVideoTracks()[0];
+                            self.activeRoom.localParticipant.publishTrack(self.screenShareTrack);
+                            self.isSharing = true;
+                        },
+                        (error) => {
+                            console.log('error sharing screen')
+                        }
+                    );
+            },
+
+            getUserScreen() {
+                function isFirefox() {
+                    var mediaSourceSupport = !!navigator.mediaDevices.getSupportedConstraints().mediaSource;
+                    var matchData = navigator.userAgent.match('/Firefox/(d) /');
+                    var firefoxVersion = 0;
+                    if (matchData && matchData[1]) {
+                        firefoxVersion = parseInt(matchData[1], 10);
+                    }
+                    return mediaSourceSupport && firefoxVersion >= 52;
+                }
+
+                function isChrome() {
+                    return 'chrome' in window;
+                }
+
+                function canScreenShare() {
+                    return isFirefox() || isChrome();
+                }
+
+                var extensionId = 'chombcfbjenobkieohgkjlmmhehfgomf';
+                if (!canScreenShare()) {
+                    return;
+                }
+                if (isChrome()) {
+                    return new Promise((resolve, reject) => {
+                        const request = {
+                            sources: ['screen']
+                        };
+                        chrome.runtime.sendMessage(extensionId, request, response => {
+                            if (response && response.type === 'success') {
+                                resolve({streamId: response.streamId});
+                            } else {
+                                reject(new Error('Could not get stream'));
+                            }
+                        });
+                    }).then(response => {
+                        return navigator.mediaDevices.getUserMedia({
+                            video: {
+                                mandatory: {
+                                    chromeMediaSource: 'desktop',
+                                    chromeMediaSourceId: response.streamId
+                                }
+                            }
+                        });
+                    });
+                } else if (isFirefox()) {
+                    return navigator.mediaDevices.getUserMedia({
+                        video: {
+                            mediaSource: 'screen'
+                        }
+                    });
+                }
+            },
+            //end screen share functions
+
             biggerLocalVideo() {
                 let video = document.querySelectorAll("#localTrack video")[0];
                 video.requestFullscreen()
@@ -114,10 +205,6 @@
                 let video = document.querySelectorAll("#remoteTrack video")[0];
                 video.requestFullscreen()
             },
-            // requestPictureInPicture(videoType) {
-            //     let video = document.querySelectorAll(`#${videoType} video`)[0];
-            //     video.requestPictureInPicture();
-            // },
             minimize(type) {
                 this.visible[`${type}`] = !this.visible[`${type}`];
             },
@@ -163,7 +250,6 @@
                         });
                     }
                 });
-
             },
 
             // Detach the Participant's Tracks from the DOM.
@@ -224,7 +310,18 @@
                         console.log(err.name + ": " + err.message);
                     });
             },
-
+             getSharedocUrl() {
+                let self = this;
+                self.updateRoomIsFull(true);
+                  getSharedDoc({name: self.roomLinkID})
+                    .then((link) => {
+                            localStorage.setItem(`sb_share_link_${self.roomLinkID}`, `${link}&embedded=true`);
+                            self.updateSharedDocLink(`${link}&embedded=true`);
+                        },
+                        (error) => {
+                        }
+                    );
+            },
             connect(token, options) {
                 let self = this;
                 // disconnect the user from they joined already
@@ -245,6 +342,16 @@
                             self.localOffline = false;
                             localStorage.setItem("identity", localIdentity);
 
+                            if (self.activeRoom.participants && self.activeRoom.participants.size < 1) {
+                                let shareLink = localStorage.getItem(`sb_share_link_${self.roomLinkID}`);
+                                if(!shareLink){
+                                    self.getSharedocUrl()
+                                }else{
+                                    self.updateSharedDocLink(`${shareLink}`);
+
+                                }
+
+                            }
                             // Attach the Tracks of all the remote Participants.
                             self.activeRoom.participants.forEach((participant, index) => {
                                 let previewContainer = document.getElementById('remoteTrack');
@@ -252,7 +359,6 @@
                                 self.attachParticipantTracks(participant, previewContainer);
                                 self.remoteOffline = false;
                             });
-
                             // Attach the Participant's Media to a <div> element.
                             room.on('participantConnected', participant => {
                                 console.log(`Participant "${participant.identity}" connected`);
@@ -269,7 +375,9 @@
                             });
                             // When a Participant adds a Track, attach it to the DOM.
                             room.on('trackSubscribed', (track, participant) => {
+                                let previewContainer = document.getElementById('remoteTrack');
                                 if (track.kind === 'data') {
+                                    passSharedDocLink(self.sharedDocUrl);
                                     track.on('message', transferObj => {
                                         // console.log(`Mouse coordinates: (${transferObj})`);
                                         let Data = JSON.parse(transferObj);
@@ -278,15 +386,21 @@
                                             whiteBoardService.passData(parsedData.canvasContext, parsedData.dataContext);
                                         } else if (Data.type === 'undoData') {
                                             whiteBoardService.undo(parsedData);
-                                        }
-                                        else if (Data.type === 'tutoringChatMessage') {
-                                            console.log('chat message', Data);
-                                            this.addMessage(Data);
+                                        } else if (Data.type === 'tutoringChatMessage') {
+                                            self.addMessage(Data);
+                                        } else if (Data.type === 'sharedDocumentLink') {
+                                            console.log('!!!got shared link event', Data.type, Data);
+                                            if(!self.sharedDocUrl){
+                                                self.updateSharedDocLink(parsedData)
+                                            }
                                         }
                                     });
+
+
                                 }
-                                let previewContainer = document.getElementById('remoteTrack');
+
                                 console.log('track attached', " added track: " + track.kind);
+
                                 self.attachTracks([track], previewContainer);
                             });
                             // When a Participant's Track is unsubscribed from, detach it from the DOM.

@@ -1,5 +1,5 @@
 <template>
-    <v-layout row class="tutoring-page" :class="{'gridBackground': $route.name === 'tutoring'} ">
+    <v-layout row class="tutoring-page" :style="{'background-size': zoom}" :class="{'gridBackground': $route.name === 'tutoring'} ">
         <v-flex>
             <v-tabs v-model="activeTab" touchless>
                 <v-tab v-for="n in tabs"
@@ -14,6 +14,9 @@
                 </v-tab-item>
                 <v-tab-item :key="2" >
                     <codeEditor v-if="isRoomCreated"></codeEditor>
+                </v-tab-item>
+                <v-tab-item :key="3">
+                    <shared-document :key="sharedDocUrl" v-if="isRoomCreated"></shared-document>
                 </v-tab-item>
             </v-tabs>
         </v-flex>
@@ -37,22 +40,28 @@
     import whiteBoard from './whiteboard/WhiteBoard.vue';
     import codeEditor from './codeEditor/codeEditor.vue'
     import chat from './chat/chat.vue';
+    import sharedDocument from './sharedDocument/sharedDocument.vue';
+    import {passSharedDocLink} from './tutorService'
     export default {
-        components:{videoStream, whiteBoard, codeEditor, chat},
+        components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument},
         name: "tutor",
         data() {
             return {
                 activeTab: '',
-                tabs: [ {name: 'Whiteboard'}, {name:'Code Collaboration'}],
+                tabs: [ {name: 'Whiteboard'}, {name:'Code Collaboration'}, {name: 'Document'}],
             }
         },
+
         props: {
             id: ''
         },
         computed: {
-            ...mapGetters(['isRoomCreated']),
+            ...mapGetters(['isRoomCreated', 'isRoomFull', 'sharedDocUrl', 'getZoom']),
+            zoom(){
+                let gridSize = 40 * Number(this.getZoom.toFixed())/100;
+                return  `${gridSize}px ${gridSize}px`;
+            }
         },
-
         created() {
             console.log('ID Tutor!!',this.id);
             global.onbeforeunload = function(){

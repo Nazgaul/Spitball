@@ -3,6 +3,7 @@ import {
     createShape
 } from '../utils/factories'
 import whiteBoardService from '../whiteBoardService';
+import canvasFinder from '../utils/canvasFinder';
 
 const OPTION_TYPE = 'imageDraw';
 
@@ -66,8 +67,7 @@ const liveDraw = function (imgObj) {
 
 const handleImage = function (e) {
     //Set Click Position
-    let mouseX = imageXDefaultPosition;
-    let mouseY = imageYDefaultPosition;
+    let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, imageXDefaultPosition, imageYDefaultPosition);
     this.methods.hideColorPicker();
 
     let formData = new FormData();

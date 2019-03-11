@@ -32,6 +32,7 @@ const init = function(){
 const getHelperObj = function(sx, sy, ex, ey, supressOffset){
         let leftOffset = supressOffset ? 0 : this.context.canvas.getBoundingClientRect().left;
         let topOffset = supressOffset ? 0 : this.context.canvas.getBoundingClientRect().top;
+        
         let startX = sx + leftOffset;
         let startY = sy + topOffset;
         let endX = ex + leftOffset;
@@ -65,8 +66,12 @@ const markShapes = function(){
             points = points.concat(this.shapesSelected[shapeId].points);
         }
     })
-    let rectangleBoundries = canvasFinder.getBoundriesPoints(points);
-    let helperObj = getHelperObj.bind(this, rectangleBoundries.startX, rectangleBoundries.startY - topOffset, rectangleBoundries.endX, rectangleBoundries.endY - topOffset)();
+    let rectangleBoundries = canvasFinder.getBoundriesPoints(points, this);
+    //a = scale of x / d = scale of y
+    let {a, b, c, d, e, f} = this.context.getTransform();
+    let {mouseX:startX, mouseY:startY} = canvasFinder.getRelativeMousePoints(this.context, rectangleBoundries.startX*-a, rectangleBoundries.startY*-d );
+    let {mouseX:endX, mouseY:endY} = canvasFinder.getRelativeMousePoints(this.context, rectangleBoundries.endX*-a, rectangleBoundries.endY*-d);
+    let helperObj = getHelperObj.bind(this, startX*-a, startY*-d -topOffset, endX*-a, endY*-d -topOffset)();
         
     liveDraw.bind(this, helperObj)();
 }
@@ -82,10 +87,9 @@ const mousedown = function(e){
     startingMousePosition.x = e.clientX;
     startingMousePosition.y = e.clientY - topOffset;
     this.methods.hideColorPicker();
-    let mouseX = currentX - e.target.offsetLeft;
-    let mouseY = currentY;
     this.shouldPaint = true;
     if(!currentHelperObj){
+        let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, currentX - e.target.offsetLeft, currentY);
         this.shapesSelected = canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData());
         if(Object.keys(this.shapesSelected).length > 0){
             Object.keys(this.shapesSelected).forEach(shapeId=>{
@@ -135,11 +139,12 @@ const mousedown = function(e){
 }
 
 const moveShapes = function(){
+    let {a, b, c, d, e, f} = this.context.getTransform();
     Object.keys(this.shapesSelected).forEach(shapeId=>{
         let shape = this.shapesSelected[shapeId];
         shape.points.forEach((point, index)=>{
-            dragoffx =  (currentX - startingMousePosition.x);
-            dragoffy =  (currentY - startingMousePosition.y);
+            dragoffx =  (currentX - startingMousePosition.x)/a;
+            dragoffy =  (currentY - startingMousePosition.y)/d;
             point.mouseX = startShapes[shapeId].points[index].mouseX + dragoffx
             point.mouseY = startShapes[shapeId].points[index].mouseY + dragoffy
         })
@@ -195,10 +200,12 @@ const defineEndPosition = function(e){
             if(multiSelectActive){
                 multiSelectActive = false;
                 //get rectangle with the offsets
-                let startX = currentHelperObj.startPositionLeft - e.target.offsetLeft;
-                let startY = currentHelperObj.startPositionTop - e.target.getBoundingClientRect().top;
-                let w = (currentHelperObj.currentX - e.target.offsetLeft) - startX;
-                let h = (currentHelperObj.currentY - e.target.getBoundingClientRect().top) - startY;
+                let {mouseX:startX, mouseY:startY} = canvasFinder.getRelativeMousePoints(this.context, currentHelperObj.startPositionLeft - e.target.offsetLeft, currentHelperObj.startPositionTop - e.target.getBoundingClientRect().top);
+                let {mouseX:w, mouseY:h} = canvasFinder.getRelativeMousePoints(this.context, (currentHelperObj.currentX - e.target.offsetLeft) - startX, (currentHelperObj.currentY - e.target.getBoundingClientRect().top) - startY);
+                // let startX = currentHelperObj.startPositionLeft - e.target.offsetLeft;
+                // let startY = currentHelperObj.startPositionTop - e.target.getBoundingClientRect().top;
+                // let w = (currentHelperObj.currentX - e.target.offsetLeft) - startX;
+                // let h = (currentHelperObj.currentY - e.target.getBoundingClientRect().top) - startY;
                 let rect = {
                     startX,
                     startY,
@@ -221,6 +228,8 @@ const defineEndPosition = function(e){
             // object was just moved
             let moveAction = new moveObjAction(Object.keys(this.shapesSelected), dragoffx, dragoffy)
             addShape.bind(this, "move", moveAction)();
+            dragoffx = 0;
+            dragoffy = 0;
         }
     }
 }
