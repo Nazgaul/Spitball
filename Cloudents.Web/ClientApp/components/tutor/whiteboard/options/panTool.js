@@ -84,6 +84,12 @@ const mouseScroll = function(evt){
     return evt.preventDefault() && false;
 }
 
+const manualScroll = function(zoomIn){
+    let scrollValue = 0.75;
+    let delta = zoomIn ? scrollValue : scrollValue*-1;
+    zoom.bind(this, delta)()
+}
+
 const defineEndPosition = function(e){
     dragStart = null;
 }
@@ -101,5 +107,6 @@ export default{
     mouseleave,
     mouseScroll,
     draw: liveDraw,
-    init
+    init,
+    manualScroll
 }

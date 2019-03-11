@@ -163,12 +163,11 @@ export default {
             }
         },
         resizeCanvas(){
-            let canvas = document.getElementById('canvas');
-            this.canvasWidth = global.innerWidth -50;
-            this.canvasHeight = global.innerHeight -50;
-            canvas.width = this.canvasWidth;
-            canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
+        },
+        doZoom(zoomType){
+            let panTool = whiteBoardService.init.bind(this.canvasData, this.enumOptions.pan)();
+            panTool.manualScroll.bind(this.canvasData, zoomType)();
         },
         registerCanvasEvents(canvas){
             let self = this;

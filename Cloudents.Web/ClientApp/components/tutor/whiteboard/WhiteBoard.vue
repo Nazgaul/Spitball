@@ -115,7 +115,7 @@
             <!--Undo-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo();">
+                    <button v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo()">
                         <v-icon>sbf-undo</v-icon>
                     </button>
                 </template>
@@ -124,10 +124,29 @@
 
         </div>
         <div class="nav-container zoom-helper bottom-nav elevation-2">
-            <!--Select-->
+            <!--Zoom-->
+            <div class="zoom-container">   
+                <v-tooltip right>
+                      <template v-slot:activator="{on}">
+                          <button v-on="on" class="nav-action" @click="doZoom(true)">
+                              <v-icon>sbf-zoom-in</v-icon>
+                          </button>
+                      </template>
+                      <span>zoom in</span>
+                  </v-tooltip>
+                  <v-tooltip right>
+                      <template v-slot:activator="{on}">
+                          <button v-on="on" class="nav-action" @click="doZoom(false)">
+                              <v-icon>sbf-zoom-out</v-icon>
+                          </button>
+                      </template>
+                      <span>zoom out</span>
+                </v-tooltip>
+            </div>
+            
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <span v-on="on" class="nav-action">
+                    <span v-on="on" class="nav-action zoom-text">
                         {{zoom}}%
                     </span>
                 </template>
@@ -135,7 +154,7 @@
             </v-tooltip>
         </div>
         <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
-        <!-- <svg class="helper"  v-if="helperShow"> -->
+        
         <svg class="helper" width="100%" height="100%" v-if="helperShow">
             <rect v-if="selectedOptionString === enumOptions.rectangle || selectedOptionString === enumOptions.select"
                   :x="helperStyle.x"
@@ -228,10 +247,23 @@
             &.zoom-helper{
                 max-width: 58px;
                 min-width: 58px;
-                padding: 16px 0px;
+                padding: 16px 0px 0 0;
                 .nav-action{
-                    padding: 12px 0;
+                    padding: 4px 0;
                     text-align: center;
+                    &.zoom-text{
+                        font-size:12px;
+                        border-top:1px solid rgba(0, 0, 0, 0.16);
+                        margin: 0 6px;
+                    }
+                }
+                .zoom-container{
+                    display: flex;
+                    justify-content: space-evenly;
+                    padding-bottom: 10px;
+                    i{
+                        font-size: 28px;
+                    }
                 }
             }
             .selected-color {
