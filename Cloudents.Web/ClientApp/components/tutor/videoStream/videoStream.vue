@@ -382,14 +382,14 @@
                                             }
                                         }
                                     });
-                                    self.attachTracks([track], previewContainer);
+                                  self.attachTracks([track], previewContainer);
                                 }else if(track.kind === 'video'){
                                     let videoTag = previewContainer.querySelector("video");
                                     if(videoTag){
                                         previewContainer.removeChild(videoTag);
                                     }
                                     self.attachTracks([track], previewContainer);
-                                }else if(track.type === 'audio'){
+                                }else if(track.kind === 'audio'){
                                     self.attachTracks([track], previewContainer);
                                 }
                                 console.log('track attached', " added track: " + track.kind);
