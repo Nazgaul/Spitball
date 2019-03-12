@@ -6,7 +6,7 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
-    <AssemblyVersion>19.2.14.0</AssemblyVersion>
+    <AssemblyVersion>19.3.12.1</AssemblyVersion>
     <UserSecretsId>c7287bd7-40f9-4313-80be-15164120e460</UserSecretsId>
   </PropertyGroup>
 
