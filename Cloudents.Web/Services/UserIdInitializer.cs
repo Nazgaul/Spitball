@@ -38,7 +38,7 @@ namespace Cloudents.Web.Services
                 {
                     var userId = _userManager.GetUserId(_httpContextAccessor.HttpContext.User);
                     telemetry.Context.User.Id = userId;
-                    telemetry.Context.Session.Id = userId;
+                    //telemetry.Context.Session.Id = userId;
                     return;
                 }
 
