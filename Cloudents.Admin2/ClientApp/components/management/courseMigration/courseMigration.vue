@@ -1,8 +1,12 @@
 ﻿<template>
-    <div class="cashout-table-container">
+    <div class="cashout-table-container migration-table">
         <span v-if="showLoading">Loading List...</span>
         <span v-if="showNoResult">NO RESULTS!</span>
         <h4>New Courses List</h4>
+        <h5>
+            The table show new courses that been added to the system <br>
+            Clicking on "MERGE" will merge the new courses into the old courses
+        </h5>
         <v-layout>
             <v-spacer></v-spacer>
             <v-flex xs4 sm4 md4>
@@ -20,17 +24,17 @@
                       disable-initial-sort
                       :search="search">
             <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.oldCourse }}</td>
-                <td class="text-xs-center">{{ props.item.newCourse }}</td>
-               
+                <td class="text-xs-center" >{{ props.item.oldCourse }}</td>
+                <td class="text-xs-center" >{{ props.item.newCourse }}</td>
+
                 <td class="text-xs-center">
-                     <span>             
-                         <v-btn flat
-                                :disabled=disableBtn
-                                @click="courseMigrate(props.item)">
-                             Merge
-                         </v-btn>
-                     </span>
+                    <span>
+                        <v-btn flat
+                               :disabled=disableBtn
+                               @click="courseMigrate(props.item)">
+                            Merge
+                        </v-btn>
+                    </span>
                 </td>
 
             </template>
@@ -103,6 +107,19 @@
     .cashout-table-container {
         width: 100%;
         max-width: calc(100vw - 325px);
+        &.migration-table{
+        thead tr th
+    {
+        &:nth-child(odd){
+                                        background-color:green;
+                                    }
+    &:nth-child(even) {
+        background-color: red;
     }
+                   }
+    
+                         }
+    }
+    
 
 </style>
