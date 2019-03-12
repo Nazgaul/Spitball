@@ -5,6 +5,7 @@ import drawRectangle from './options/drawRectangle'
 import imageDraw from './options/imageDraw'
 import eraser from './options/eraser'
 import textDraw from './options/textDraw'
+import equationDraw from './options/equationDraw'
 import panTool from './options/panTool'
 import selectShape from './options/selectShape'
 import {createShape} from './utils/factories'
@@ -26,7 +27,8 @@ const optionsEnum = {
     eraser,
     selectShape,
     textDraw,
-    panTool
+    panTool,
+    equationDraw
 }
 
 const ghostMoveData = function(actionObj, fromUndo){

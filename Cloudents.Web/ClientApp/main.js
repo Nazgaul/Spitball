@@ -19,6 +19,8 @@ import VueYouTubeEmbed from 'vue-youtube-embed'; //https://github.com/kaorun343/
 import LoadScript from 'vue-plugin-load-script';
 
 import VueNumeric from 'vue-numeric'
+import VueMathjax from 'vue-mathjax'
+
 import {
     VApp,
     VAvatar,
@@ -120,7 +122,7 @@ WebFont.load({
 //    attempt: 1
 //});
 
-
+Vue.use(VueMathjax);
 Vue.use(CloudentsTour);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
