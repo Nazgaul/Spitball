@@ -139,7 +139,7 @@
                     return isFirefox() || isChrome();
                 }
 
-                var extensionId = 'chombcfbjenobkieohgkjlmmhehfgomf';
+                var extensionId = 'hicolpoppnllddloocbcjfeoijgjfdeg';
                 if (!canScreenShare()) {
                     return;
                 }
@@ -387,9 +387,7 @@
                                     }
                                     self.attachTracks([track], previewContainer);
                                 }
-
                                 console.log('track attached', " added track: " + track.kind);
-                                // self.attachTracks([track], previewContainer);
                             });
                             // When a Participant's Track is unsubscribed from, detach it from the DOM.
                             room.on('trackUnsubscribed', function (track) {
