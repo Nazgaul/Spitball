@@ -67,6 +67,7 @@ namespace Cloudents.Web
             }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
 
             services.AddWebMarkupMin().AddHtmlMinification();
+            
             services.AddMvc()
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
                 {
@@ -92,7 +93,6 @@ namespace Cloudents.Web
                 .AddMvcOptions(o =>
                 {
                     //TODO: check in source code
-                    // o.SuppressBindingUndefinedValueToEnumType
                     o.Filters.Add<UserLockedExceptionFilter>();
                     o.Filters.Add(new GlobalExceptionFilter());
                     o.Filters.Add(new ResponseCacheAttribute
@@ -101,7 +101,13 @@ namespace Cloudents.Web
                         Location = ResponseCacheLocation.None
                     });
                     o.ModelBinderProviders.Insert(0, new ApiBinder());
-                }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                })
+               .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .ConfigureApiBehaviorOptions(o =>
+                {
+                    o.SuppressMapClientErrors = true; //https://github.com/aspnet/AspNetCore/issues/4792#issuecomment-454164457
+                    o.SuppressUseValidationProblemDetailsForInvalidModelStateResponses = false;
+                });
             if (HostingEnvironment.IsDevelopment())
             {
                 Swagger.Startup.SwaggerInitial(services);

@@ -32,5 +32,16 @@ namespace Cloudents.Web.Test.IntegrationTests
             p.Should().Be("/Error/NotFound");
             //Assert.EndsWith("error/notfound", p.AbsolutePath);
         }
+
+        [Theory]
+        [InlineData("document/2999")]
+        public async Task Valid_Url_200(string url)
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync(url);
+
+            response.StatusCode.Should().Be(200);
+        }
     }
 }
