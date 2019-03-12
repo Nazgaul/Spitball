@@ -53,17 +53,6 @@ namespace Cloudents.Core.EventHandler
                 Vote = new VoteDto()
             };
 
-            //var dto = new QuestionFeedDto(eventMessage.Question.Id,
-            //    eventMessage.Question.Subject,
-            //    eventMessage.Question.Price,
-            //    eventMessage.Question.Text,
-            //    eventMessage.Question.Attachments,
-            //    0,
-            //    user,
-            //    DateTime.UtcNow,
-            //    false,
-            //    eventMessage.Question.Language,
-            //    0, eventMessage.Question.Course.Name);
             if (eventMessage.Question.Language.Name.Equals("en", StringComparison.OrdinalIgnoreCase))
             {
                 await _queueProvider.InsertMessageAsync(
