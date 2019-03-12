@@ -138,9 +138,9 @@
                 function canScreenShare() {
                     return isFirefox() || isChrome();
                 }
-
-                // var extensionId = 'chombcfbjenobkieohgkjlmmhehfgomf'; // localhost
-                var extensionId = 'hicolpoppnllddloocbcjfeoijgjfdeg'; // dev && prod
+                var extensionId = 'dhndcoampgbambhkkjkicnibhbndjaop'; // localhost spitball share
+                // var extensionId = 'chombcfbjenobkieohgkjlmmhehfgomf'; // localhost TWillio ext
+                // var extensionId = 'hicolpoppnllddloocbcjfeoijgjfdeg'; // dev && prod
 
                 if (!canScreenShare()) {
                     return;
@@ -387,6 +387,8 @@
                                     if(videoTag){
                                         previewContainer.removeChild(videoTag);
                                     }
+                                    self.attachTracks([track], previewContainer);
+                                }else if(track.type === 'audio'){
                                     self.attachTracks([track], previewContainer);
                                 }
                                 console.log('track attached', " added track: " + track.kind);
