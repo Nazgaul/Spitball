@@ -58,8 +58,11 @@
         },
         methods: {
             courseMigrate(item) {
-                migrateCourses(item).then((resp) => {
+                migrateCourses(item.newCourse, item.oldCourse).then((resp) => {
                     console.log('got migration resp success')
+                    const index = this.newCourseList.indexOf(item);
+                    this.$toaster.success(`Course ${item.newCourse} merged into ${item.oldCourse}`);
+                    this.newCourseList.splice(index, 1);
                 },
                     (error) => {
                         console.log(error, 'error migration')

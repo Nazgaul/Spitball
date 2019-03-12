@@ -59,6 +59,9 @@
             universityMigrate(item) {
                 migrateUniversities(item.newId, item.oldId).then((resp) => {
                     console.log('got migration resp success')
+                    const index = this.newUniversityList.indexOf(item);
+                    this.$toaster.success(`University ${item.newUniversity} merged into ${item.oldUniversity}`);
+                    this.newUniversityList.splice(index, 1);
                 },
                     (error) => {
                         console.log(error, 'error migration')
