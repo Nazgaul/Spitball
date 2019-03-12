@@ -28,6 +28,12 @@ namespace Cloudents.Persistance.Maps
             References(x => x.User)
                 .Not.Nullable().Column("UserId")
                 .ForeignKey("fChatUserUser");
+
+            HasMany(x => x.Messages).Cascade.AllDeleteOrphan()
+                .Inverse()
+                .ForeignKeyConstraintName("fChatUserUser")
+                .KeyColumn("UserId");
+
             SchemaAction.Update();
         }
     }
