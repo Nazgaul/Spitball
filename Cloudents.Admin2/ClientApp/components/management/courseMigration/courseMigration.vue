@@ -26,6 +26,7 @@
                 <td class="text-xs-center">
                      <span>             
                          <v-btn flat
+                                :disabled=disableBtn
                                 @click="courseMigrate(props.item)">
                              Merge
                          </v-btn>
@@ -47,7 +48,7 @@
                 showLoading: true,
                 showNoResult: false,
                 editedIndex: -1,
-
+                disableBtn: false,
                 search: '',
                 headers: [
                     { text: 'Old Course', value: 'oldCourse' },
@@ -58,11 +59,14 @@
         },
         methods: {
             courseMigrate(item) {
+                const index = this.newCourseList.indexOf(item);
+                this.disableBtn = true;
                 migrateCourses(item.newCourse, item.oldCourse).then((resp) => {
                     console.log('got migration resp success')
-                    const index = this.newCourseList.indexOf(item);
+                    
                     this.$toaster.success(`Course ${item.newCourse} merged into ${item.oldCourse}`);
                     this.newCourseList.splice(index, 1);
+                    this.disableBtn = false;
                 },
                     (error) => {
                         console.log(error, 'error migration')
