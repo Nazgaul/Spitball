@@ -138,8 +138,10 @@
                 function canScreenShare() {
                     return isFirefox() || isChrome();
                 }
+                // var extensionId = 'dhndcoampgbambhkkjkicnibhbndjaop'; // localhost spitball share
+                // var extensionId = 'chombcfbjenobkieohgkjlmmhehfgomf'; // localhost TWillio ext
+                var extensionId = 'hicolpoppnllddloocbcjfeoijgjfdeg'; // dev && prod
 
-                var extensionId = 'hicolpoppnllddloocbcjfeoijgjfdeg';
                 if (!canScreenShare()) {
                     return;
                 }
@@ -273,7 +275,7 @@
                         let connectOptions;
                         createLocalTracks({
                             audio: self.availableDevices.includes('audioinput'),
-                            video: self.availableDevices.includes('videoinput') ? {width: 1080, height: 720, frameRate: 24} : false,
+                            video: self.availableDevices.includes('videoinput') ? {width: 720, height: 480} : false,
                         }).then((tracksCreated) => {
                             let localMediaContainer = document.getElementById('localTrack');
                             tracksCreated.forEach((track) => {
@@ -380,11 +382,14 @@
                                             }
                                         }
                                     });
+                                  self.attachTracks([track], previewContainer);
                                 }else if(track.kind === 'video'){
                                     let videoTag = previewContainer.querySelector("video");
                                     if(videoTag){
                                         previewContainer.removeChild(videoTag);
                                     }
+                                    self.attachTracks([track], previewContainer);
+                                }else if(track.kind === 'audio'){
                                     self.attachTracks([track], previewContainer);
                                 }
                                 console.log('track attached', " added track: " + track.kind);
