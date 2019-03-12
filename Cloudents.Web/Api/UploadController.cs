@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using Autofac.Features.Indexed;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
@@ -15,6 +16,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
 {
@@ -26,17 +29,17 @@ namespace Cloudents.Web.Api
     public class UploadController : Controller
     {
         private readonly IQuestionsDirectoryBlobProvider _blobProvider;
-        private readonly IDocumentDirectoryBlobProvider _documentBlobProvider;
+        //private readonly IDocumentDirectoryBlobProvider _documentBlobProvider;
         private readonly IStringLocalizer<UploadController> _localizer;
 
 
 
         public UploadController(IQuestionsDirectoryBlobProvider blobProvider,
-            IDocumentDirectoryBlobProvider documentBlobProvider, 
+            // IDocumentDirectoryBlobProvider documentBlobProvider, 
             IStringLocalizer<UploadController> localizer)
         {
             _blobProvider = blobProvider;
-            _documentBlobProvider = documentBlobProvider;
+            // _documentBlobProvider = documentBlobProvider;
             _localizer = localizer;
         }
 
@@ -80,8 +83,11 @@ namespace Cloudents.Web.Api
 
 
 
-        [HttpPost("file"), FormContentType]
-        public async Task<ActionResult<UploadResponse>> Upload([FromForm] UploadRequest2 model, 
+        [HttpPost("{type:StorageContainerConstraint}"), FormContentType]
+        public async Task<ActionResult<UploadResponse>> Upload(
+            [FromRoute] StorageContainer type,
+            [FromForm] UploadRequest2 model,
+            [FromServices] IIndex<StorageContainer, IBlobProvider> blobProviderIndex,
             CancellationToken token)
         {
             if (!ModelState.IsValid)
@@ -89,51 +95,62 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var tempData = TempData.Get<TempData>($"update-{model.SessionId}");
-
+            var blobProvider = blobProviderIndex[type];
             var index = (int)(model.StartOffset / UploadInnerResponse.BlockSize);
-            await _documentBlobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
+            await blobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
                 index, token);
 
             TempData.Put($"update-{model.SessionId}", tempData);
             return new UploadResponse();
         }
 
-        [HttpPost("file/{**type}")]
-        public async Task<ActionResult<UploadResponse>> Upload(
-            [FromRoute] Cloudents.Core.Enum.TransactionType t,
-            [FromBody] UploadRequestFirstStage model,
+
+        [HttpPost("{type:StorageContainerConstraint}", Order = 0), StartUploading]
+        public ActionResult<UploadResponse> StartUploadAsync(
+            [FromBody] UploadRequest model)
+        {
+            string[] supportedFiles = { "doc",
+                "docx", "xls",
+                "xlsx", "PDF",
+                "png", "jpg",
+                "jpeg",
+                "ppt", "pptx","tiff","tif","bmp" };
+
+            var extension = Path.GetExtension(model.Name)?.TrimStart('.');
+
+            if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
+            {
+                ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
+                return BadRequest(ModelState);
+            }
+
+
+            var response = new UploadResponse(Guid.NewGuid());
+
+            var tempData = new TempData
+            {
+                Name = model.Name,
+                Size = model.Size,
+                BlobName = BlobFileName(response.Data.SessionId, model.Name),
+                MimeType = model.MimeType
+            };
+            TempData.Put($"update-{response.Data.SessionId}", tempData);
+            return response;
+        }
+
+        [HttpPost("{type:regex(file)}", Order = 1)]
+        public async Task<ActionResult<UploadResponse>> FinishUploadAsync(
+            [FromServices] IDocumentDirectoryBlobProvider documentBlobProvider,
+            [FromBody] UploadRequest model,
             CancellationToken token)
         {
-            if (model.Phase == UploadPhase.Start)
-            {
-                string[] supportedFiles = { "doc",
-                    "docx", "xls",
-                    "xlsx", "PDF",
-                    "png", "jpg",
-                    "jpeg",
-                    "ppt", "pptx","tiff","tif","bmp" };
+            var blobName = await CommitBlobsAsync(documentBlobProvider, model, token);
+            return new UploadResponse(blobName);
+        }
 
-                var extension = Path.GetExtension(model.Name)?.TrimStart('.');
-
-                if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
-                {
-                    ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
-                    return BadRequest(ModelState);
-                }
-
-
-                var response = new UploadResponse(Guid.NewGuid());
-
-                var tempData = new TempData
-                {
-                    Name = model.Name,
-                    Size = model.Size,
-                    BlobName = BlobFileName(response.Data.SessionId, model.Name),
-                    MimeType = model.MimeType
-                };
-                TempData.Put($"update-{response.Data.SessionId}", tempData);
-                return response;
-            }
+        private async Task<string> CommitBlobsAsync(IBlobProvider documentBlobProvider, UploadRequest model,
+            CancellationToken token)
+        {
             var tempData2 = TempData.Get<TempData>($"update-{model.SessionId}");
 
             TempData.Remove($"update-{model.SessionId}");
@@ -141,10 +158,34 @@ namespace Cloudents.Web.Api
             var indexes = new List<int>();
             for (double i = 0; i < tempData2.Size; i += UploadInnerResponse.BlockSize)
             {
-                indexes.Add((int)(i / UploadInnerResponse.BlockSize));
+                indexes.Add((int) (i / UploadInnerResponse.BlockSize));
             }
-            await _documentBlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, indexes, token);
-            return new UploadResponse(tempData2.BlobName);
+
+            await documentBlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, indexes, token);
+            return tempData2.BlobName;
+        }
+
+
+        [HttpPost("{type:regex(chat)}", Order = 1)]
+        public async Task<ActionResult<UploadResponse>> FinishUploadAsync(
+            [FromServices] IChatDirectoryBlobProvider blobProvider,
+            [FromServices] IHubContext<SbHub> hubContext,
+            [FromServices] UserManager<RegularUser> userManager,
+            [FromBody] FinishChatUpload model,
+            CancellationToken token)
+        {
+            var blobName = await CommitBlobsAsync(blobProvider, model, token);
+            //Command
+            await hubContext.Clients.Users(new[]
+            {
+                userManager.GetUserId(User), model.OtherUser.ToString(),
+            }).SendAsync("Chat", new
+            {
+                file = blobName
+
+            }, cancellationToken: token);
+            return Ok();
+            //return new UploadResponse(tempData2.BlobName);
         }
 
         private static readonly Random Random = new Random();
@@ -171,11 +212,12 @@ namespace Cloudents.Web.Api
         [HttpPost("dropbox")]
         public async Task<UploadResponse> UploadDropBox([FromBody] DropBoxRequest model,
             [FromServices] IRestClient client,
+            [FromServices] IDocumentDirectoryBlobProvider documentDirectoryBlobProvider,
             CancellationToken token)
         {
             var (stream, _) = await client.DownloadStreamAsync(model.Link, token);
             var blobName = BlobFileName(Guid.NewGuid(), model.Name);
-            await _documentBlobProvider.UploadStreamAsync(blobName, stream, token: token);
+            await documentDirectoryBlobProvider.UploadStreamAsync(blobName, stream, token: token);
 
             return new UploadResponse(blobName);
         }

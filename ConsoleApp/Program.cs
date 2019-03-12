@@ -26,6 +26,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Storage;
 using Cloudents.Search.Question;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -141,17 +142,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var z = new ImageProperties(1, 2, true);
-            var bytes = z.Encrypt();
-            var bytes2 = z.Encrypt();
-            var z2 = ImageProperties.Decrypt(bytes);
-
-
-            var queryBus = _container.Resolve<ICommandBus>();
-
-            var command = new ChangeOnlineStatusCommand(638L,true);
-
-           await queryBus.DispatchAsync(command, CancellationToken.None);
+          
 
             //foreach (var textAnalysis in queryBus)
             //{

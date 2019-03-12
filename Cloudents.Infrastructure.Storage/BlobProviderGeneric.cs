@@ -15,8 +15,9 @@ namespace Cloudents.Infrastructure.Storage
 {
     public class BlobProviderContainer : IBlobProvider,
         IDocumentDirectoryBlobProvider,
-        IQuestionsDirectoryBlobProvider
-        
+        IQuestionsDirectoryBlobProvider,
+        IChatDirectoryBlobProvider
+
     {
         private readonly CloudBlobDirectory _blobDirectory;
         private readonly CloudBlobContainer _cloudContainer;

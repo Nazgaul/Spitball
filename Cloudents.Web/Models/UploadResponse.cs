@@ -45,7 +45,7 @@ namespace Cloudents.Web.Models
         public double EndOffset => BlockSize;
     }
 
-    public class UploadRequestFirstStage
+    public class UploadRequest
     {
         public UploadPhase Phase { get; set; }
 
@@ -56,6 +56,11 @@ namespace Cloudents.Web.Models
 
         [JsonProperty("session_id")]
         public Guid SessionId { get; set; }
+    }
+
+    public class FinishChatUpload : UploadRequest
+    {
+        public long OtherUser { get; set; }
     }
 
     public class TempData

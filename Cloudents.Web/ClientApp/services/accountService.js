@@ -54,7 +54,7 @@ export default {
         return connectivityModule.http.get(`/Profile/${id}`)
     },
     getNumberReffered:(id) => {
-        return connectivityModule.http.get(`/Account/${id}/referrals`)
+        return connectivityModule.http.get(`/Account/referrals`)
     },
     getProfileQuestions:(id, page) => {
         let strPage = page ? `?page=${page}` : "";

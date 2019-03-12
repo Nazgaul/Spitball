@@ -53,8 +53,13 @@ namespace Cloudents.Core.Storage
 
     }
 
+    public interface IChatDirectoryBlobProvider : IBlobProvider
+    {
+
+    }
+
     //public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
     //{
-        
+
     //}
 }

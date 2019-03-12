@@ -57,10 +57,13 @@ namespace Cloudents.Core.Entities
             CreationTime = DateTime.UtcNow;
         }
 
+
+
         public virtual Guid Id { get; protected set; }
 
         public virtual ChatUser User { get; protected set; }
         public virtual string Message { get; protected set; }
+        public virtual string Blob { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
 
     }
