@@ -3,7 +3,7 @@
         <v-layout>
             <v-flex>
                 <div class="roomTitle">
-                    <span v-if="loading"> Loading... {{roomName}}</span>
+                    <span v-if="loading"> Loading...</span>
                 </div>
             </v-flex>
         </v-layout>
@@ -11,7 +11,7 @@
             <v-flex>
                 <v-btn v-if="!isSharing" @click="showScreen">Share Screen</v-btn>
                 <v-btn v-else @click="stopSharing">Stop Sharing</v-btn>
-                <v-btn class="create-session" color="primary" @click="generateRoom()" v-if="!id">Initiate tutoring
+                <v-btn class="create-session" color="primary" @click="createRoomFunc()" v-if="!id">Initiate tutoring
                     session
                 </v-btn>
             </v-flex>

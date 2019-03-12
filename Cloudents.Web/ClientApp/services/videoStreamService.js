@@ -1,13 +1,10 @@
-import { connectivityModule } from "./connectivity.module";
 // const extensionId = 'dhndcoampgbambhkkjkicnibhbndjaop'; // localhost spitball share
-// const extensionId = 'chombcfbjenobkieohgkjlmmhehfgomf'; // localhost TWillio ext
-const extensionId = 'hicolpoppnllddloocbcjfeoijgjfdeg'; // dev && prod
+ const extensionId = 'hicolpoppnllddloocbcjfeoijgjfdeg'; // dev && prod
+//  const extensionId = 'chombcfbjenobkieohgkjlmmhehfgomf'; // twillio
 
 export default {
-    generateRoom: () => {
-        return connectivityModule.http.post("tutoring/create");
-    },
-    //get/try to get share stream
+
+    //get/try to get share stream via chrome extension
     getUserScreen() {
         function isFirefox() {
             let mediaSourceSupport = !!navigator.mediaDevices.getSupportedConstraints().mediaSource;
@@ -60,13 +57,4 @@ export default {
             });
         }
     },
-    // Token get
-    getToken: (name, identityName) => {
-        let userIdentity = identityName || '';
-        return connectivityModule.http.get(`tutoring/join?roomName=${name}&identityName=${userIdentity}`)
-            .then((data) => {
-                return data.data.token
-            });
-    }
-
 }

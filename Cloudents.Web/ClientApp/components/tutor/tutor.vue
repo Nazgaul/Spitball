@@ -43,7 +43,6 @@
     import codeEditor from './codeEditor/codeEditor.vue'
     import chat from './chat/chat.vue';
     import sharedDocument from './sharedDocument/sharedDocument.vue';
-    import {passSharedDocLink} from './tutorService'
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     export default {
         components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument, AppLogo},
