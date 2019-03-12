@@ -99,21 +99,26 @@
             ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus', 'updateRoomID', 'updateSharedDocLink', 'updateRoomIsFull']),
             stopSharing() {
                 let self = this;
-                self.activeRoom.localParticipant.unpublishTrack(this.screenShareTrack);
+                self.unPublishTrackfromRoom(self.screenShareTrack);
                 //create new track
                 createLocalVideoTrack().then(function(videoTrack) {
-                    self.activeRoom.localParticipant.publishTrack(videoTrack);
-                        self.screenShareTrack = null;
+                    self.publishTrackToRoom(videoTrack);
+                        // self.screenShareTrack = null;
                         self.isSharing = false;
                 },
                     (error)=>{
                     console.log('error creating video track')
                     }
                 );
-
+            },
+            publishTrackToRoom(track){
+                this.activeRoom.localParticipant.publishTrack(track);
+                // this.screenShareTrack = null;
+            },
+            unPublishTrackfromRoom(track){
+                this.activeRoom.localParticipant.unpublishTrack(track);
 
             },
-
             //screen share functionality
             getUserScreen() {
                 function isFirefox() {
@@ -173,7 +178,7 @@
                 let self = this;
                 this.getUserScreen().then((stream)=> {
                             self.screenShareTrack = stream.getVideoTracks()[0];
-                            self.activeRoom.localParticipant.publishTrack(self.screenShareTrack);
+                            self.publishTrackToRoom(self.screenShareTrack);
                             self.isSharing = true;
                         },
                         (error) => {
@@ -268,7 +273,7 @@
                         let connectOptions;
                         createLocalTracks({
                             audio: self.availableDevices.includes('audioinput'),
-                            video: self.availableDevices.includes('videoinput') ? {width: 1080, height: 560,  frameRate: 16} : false,
+                            video: self.availableDevices.includes('videoinput') ? {width: 1080, height: 720, frameRate: 24} : false,
                         }).then((tracksCreated) => {
                             let localMediaContainer = document.getElementById('localTrack');
                             tracksCreated.forEach((track) => {
@@ -376,18 +381,15 @@
                                         }
                                     });
                                 }else if(track.kind === 'video'){
-                                    if (!previewContainer.querySelector('video')) {
-                                        self.attachTracks([track], previewContainer);
-                                        self.videoTracksQuantatyAttached.push(track);
-                                    }else{
-                                      previewContainer.innerHTML = "";
-                                      self.attachTracks([track], previewContainer);
+                                    let videoTag = previewContainer.querySelector("video");
+                                    if(videoTag){
+                                        previewContainer.removeChild(videoTag);
                                     }
-                                    return
+                                    self.attachTracks([track], previewContainer);
                                 }
 
                                 console.log('track attached', " added track: " + track.kind);
-                                self.attachTracks([track], previewContainer);
+                                // self.attachTracks([track], previewContainer);
                             });
                             // When a Participant's Track is unsubscribed from, detach it from the DOM.
                             room.on('trackUnsubscribed', function (track) {
@@ -425,7 +427,7 @@
         },
         created() {
             if (this.id) {
-                this.updateRoomID(this.id)
+                this.updateRoomID(this.id);
                 this.startChat();
             }
         }
