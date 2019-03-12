@@ -3,7 +3,7 @@ import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import documentService from "../../../../services/documentService";
 import uploadFilesStart from "./helpers/uploadMultipleFileStart.vue";
 import uploadStep_2 from "./helpers/filesDetails.vue";
-import ulpoadStep_3 from "./helpers/documentReferral.vue"
+import uploadStep_3 from "./helpers/documentReferral.vue"
 import analyticsService from "../../../../services/analytics.service";
 import uploadService from "../../../../services/uploadService";
 import Base62 from "base62"
@@ -13,7 +13,7 @@ export default {
     components: {
         uploadFilesStart,
         uploadStep_2,
-        ulpoadStep_3,
+        uploadStep_3,
         sbDialog,
     },
     name: "uploadMultipleFiles",
