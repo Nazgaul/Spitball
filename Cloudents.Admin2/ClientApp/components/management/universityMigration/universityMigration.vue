@@ -27,7 +27,7 @@
                     <span>
                         <v-btn flat
                                @click="universityMigrate(props.item)">
-                            Marge
+                            Merge
                         </v-btn>
                     </span>
                 </td>
