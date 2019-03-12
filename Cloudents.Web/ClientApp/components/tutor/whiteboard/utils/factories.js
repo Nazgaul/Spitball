@@ -11,7 +11,8 @@ const pointsByOption = {
     drawRectangle: RectangleObj,
     imageDraw: ImageObj,
     eraser: DragObj,
-    textDraw: TextObj
+    textDraw: TextObj,
+    equationDraw: EquationObj
 }
 
 function DragObj(objInit){
@@ -61,6 +62,18 @@ function TextObj(objInit){
     this.height = objInit.height;
     this.fontFamily = objInit.fontFamily;
     this.id = objInit.id;
+}
+
+function EquationObj(objInit){
+    this.mouseX= objInit.mouseX;
+    this.mouseY= objInit.mouseY;
+    this.width= objInit.width;
+    this.height= objInit.height;
+    this.color= objInit.color;
+    this.option= objInit.option;
+    this.eventName= objInit.eventName;
+    this.id= objInit.id;
+    this.text= objInit.text;
 }
 
 function Path(objInit){

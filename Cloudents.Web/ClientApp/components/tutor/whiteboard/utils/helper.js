@@ -72,6 +72,16 @@ const setTextShape = function(helperObj){
     HelperObj.cssClass = `text-helper ${helperObj.id}`;
 }
 
+const setEquationShape = function(helperObj){
+    HelperObj.style = {
+        top: `${helperObj.currentY}px`,
+        left: `${helperObj.currentX}px`,
+        text: `${helperObj.text}`,
+        color: `${helperObj.strokeStyle}`,
+    };
+    HelperObj.cssClass = `equation-helper ${helperObj.id}`;
+}
+
 export default {
     showHelper,
     hideHelper,
@@ -80,5 +90,6 @@ export default {
     setEllipseShape,
     HelperObj,
     setTextShape,
-    resetHelperObj
+    resetHelperObj,
+    setEquationShape
 }
