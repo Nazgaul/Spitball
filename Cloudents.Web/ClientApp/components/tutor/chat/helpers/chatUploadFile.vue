@@ -48,6 +48,10 @@
         display: flex;
         .chat-input-container{
             display: flex;
+            svg{
+                cursor: pointer;
+                vertical-align: middle;
+            }
         }
     }
 

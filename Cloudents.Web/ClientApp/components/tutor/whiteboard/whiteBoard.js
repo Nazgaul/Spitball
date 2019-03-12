@@ -8,14 +8,12 @@ import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
 import AppLogo from "../../../../wwwroot/Images/logo-spitball.svg";
 import { mapGetters, mapActions } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
-import panIcon from "./images/pan.svg";
 
 export default {
     components: {
         'sliderPicker': Compact,
          shareRoomBtn,
          AppLogo,
-         panIcon
     },
     data() {
         return {
@@ -93,7 +91,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['resetDragData', 'updateDragData']),
+        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan']),
         selectDefaultTool(){
             this.setOptionType(this.enumOptions.select);
         },
@@ -164,13 +162,24 @@ export default {
                 this.currentOptionSelected.enterPressed.bind(this.canvasData)();
             }
         },
+        resetZoom(){
+            this.updateZoom(100);
+            this.updatePan({e:0, f:0})
+        },
         resizeCanvas(){
             let canvas = document.getElementById('canvas');
-            this.canvasWidth = global.innerWidth -50;
-            this.canvasHeight = global.innerHeight -50;
+            let ctx = canvas.getContext("2d");
+            ctx.setTransform(1,0,0,1,0,0);
+            this.resetZoom();
+            this.canvasWidth = (global.innerWidth -50);
+            this.canvasHeight = (global.innerHeight -50);
             canvas.width = this.canvasWidth;
             canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
+        },
+        doZoom(zoomType){
+            let panTool = whiteBoardService.init.bind(this.canvasData, this.enumOptions.pan)();
+            panTool.manualScroll.bind(this.canvasData, zoomType)();
         },
         registerCanvasEvents(canvas){
             let self = this;

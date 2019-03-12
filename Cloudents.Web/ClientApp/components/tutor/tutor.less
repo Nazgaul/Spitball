@@ -1,4 +1,24 @@
 .tutoring-page{
+  .tutoring-navigation{
+    .theme--light.v-tabs__bar{
+      background-color: #43425d;
+      .v-tabs__div{
+        color:#fff;
+        .v-tabs__item--active{
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+    .logo-container{
+      width: 130px;
+      margin-left: 15px;
+      svg{
+        height: 100%;
+        fill: #e5e5e5;
+      }
+    }
+    
+  }
   .tutoring-tab{
     .v-tabs__item{
       text-transform: capitalize;
@@ -8,7 +28,7 @@
   direction: ltr /*rtl:ignore*/;
   height: 100%;
   &.gridBackground{
-    background-color:  #F8F8F8;
+    background-color: #f0f0f7;
     background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
     background-repeat: initial;
     background-blend-mode: color-burn;

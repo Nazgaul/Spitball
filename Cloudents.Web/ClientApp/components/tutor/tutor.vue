@@ -1,7 +1,9 @@
 <template>
-    <v-layout row class="tutoring-page" :style="{'background-size': zoom}" :class="{'gridBackground': $route.name === 'tutoring'} ">
+    <v-layout row class="tutoring-page" :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}" :class="{'gridBackground': $route.name === 'tutoring'} ">
         <v-flex>
-            <v-tabs v-model="activeTab" touchless>
+            
+            <v-tabs class="tutoring-navigation" v-model="activeTab" touchless hide-slider>
+                <span class="logo-container"><AppLogo></AppLogo></span>
                 <v-tab v-for="n in tabs"
                        touchless
                        class="tutoring-tab"
@@ -25,7 +27,7 @@
                 <video-stream :id="id"></video-stream>
             </v-flex>
         </v-layout>
-        <v-layout column align-end style="position: fixed; right: 24px; bottom: 12px;">
+        <v-layout column align-end style="position: fixed; right: 24px; bottom: 0px;">
             <v-flex xs6 sm6 md6>
                 <chat v-show="isRoomCreated" :id="id"></chat>
             </v-flex>
@@ -42,8 +44,9 @@
     import chat from './chat/chat.vue';
     import sharedDocument from './sharedDocument/sharedDocument.vue';
     import {passSharedDocLink} from './tutorService'
+    import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     export default {
-        components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument},
+        components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument, AppLogo},
         name: "tutor",
         data() {
             return {
@@ -56,11 +59,17 @@
             id: ''
         },
         computed: {
-            ...mapGetters(['isRoomCreated', 'isRoomFull', 'sharedDocUrl', 'getZoom']),
+            ...mapGetters(['isRoomCreated', 'isRoomFull', 'sharedDocUrl', 'getZoom', 'getPanX', 'getPanY']),
             zoom(){
                 let gridSize = 40 * Number(this.getZoom.toFixed())/100;
                 return  `${gridSize}px ${gridSize}px`;
-            }
+            },
+            panX(){
+                return `${this.getPanX}px`
+            },
+            panY(){
+                return `${this.getPanY}px`
+            },
         },
         created() {
             console.log('ID Tutor!!',this.id);

@@ -1,21 +1,12 @@
 <template>
     <div class="canvas-container" :style="`max-width:${canvasWidth}px;`" id="canvasDiv">
-        <div class="powered-by">
-            <div>
-                <h5 class="text-sm-center text-md-center">Powered by</h5>
-                <AppLogo></AppLogo>
-            </div>
-            <div>
-                <share-room-btn v-show="isRoomCreated"></share-room-btn>
-            </div>
-        </div>
         <div class="nav-container elevation-2">
             <!--Select-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool-svg': selectedOptionString === enumOptions.pan}"
+                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.pan}"
                             class="nav-action" @click="setOptionType(enumOptions.pan)">
-                        <pan-icon></pan-icon>
+                        <v-icon>sbf-pan</v-icon>
                     </button>
                 </template>
                 <span >Pan</span>
@@ -124,7 +115,7 @@
             <!--Undo-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo();">
+                    <button v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo()">
                         <v-icon>sbf-undo</v-icon>
                     </button>
                 </template>
@@ -132,11 +123,30 @@
             </v-tooltip>
 
         </div>
-        <div class="nav-container bottom-nav elevation-2">
-            <!--Select-->
+        <div class="nav-container zoom-helper bottom-nav elevation-2">
+            <!--Zoom-->
+            <div class="zoom-container">   
+                <v-tooltip right>
+                      <template v-slot:activator="{on}">
+                          <button v-on="on" class="nav-action" @click="doZoom(true)">
+                              <v-icon>sbf-zoom-in</v-icon>
+                          </button>
+                      </template>
+                      <span>zoom in</span>
+                  </v-tooltip>
+                  <v-tooltip right>
+                      <template v-slot:activator="{on}">
+                          <button v-on="on" class="nav-action" @click="doZoom(false)">
+                              <v-icon>sbf-zoom-out</v-icon>
+                          </button>
+                      </template>
+                      <span>zoom out</span>
+                </v-tooltip>
+            </div>
+            
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <span v-on="on" class="nav-action">
+                    <span v-on="on" class="nav-action zoom-text">
                         {{zoom}}%
                     </span>
                 </template>
@@ -144,7 +154,7 @@
             </v-tooltip>
         </div>
         <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
-        <!-- <svg class="helper"  v-if="helperShow"> -->
+        
         <svg class="helper" width="100%" height="100%" v-if="helperShow">
             <rect v-if="selectedOptionString === enumOptions.rectangle || selectedOptionString === enumOptions.select"
                   :x="helperStyle.x"
@@ -193,16 +203,6 @@
         display: flex;
         flex-direction: column;
         margin: 0 auto;
-        .powered-by {
-            display: inline-flex;
-            max-width: 350px;
-            position: fixed;
-            top: 58px;
-            .logo {
-                margin-right: 40px;
-                fill: #3e45a0;
-            }
-        }
         .nav-container {
             position: fixed;
             background-color: #FFFFFF;
@@ -210,7 +210,8 @@
             display: flex;
             flex-direction: column;
             width: auto;
-            margin-top: 70px;
+            margin-top: 20px;
+            
             &.bottom-nav{
                 top: 575px;
             }
@@ -241,6 +242,28 @@
                         color: #2a79ff;
                     }
 
+                }
+            }
+            &.zoom-helper{
+                max-width: 58px;
+                min-width: 58px;
+                padding: 16px 0px 0 0;
+                .nav-action{
+                    padding: 4px 0;
+                    text-align: center;
+                    &.zoom-text{
+                        font-size:12px;
+                        border-top:1px solid rgba(0, 0, 0, 0.16);
+                        margin: 0 6px;
+                    }
+                }
+                .zoom-container{
+                    display: flex;
+                    justify-content: space-evenly;
+                    padding-bottom: 10px;
+                    i{
+                        font-size: 28px;
+                    }
                 }
             }
             .selected-color {
