@@ -143,10 +143,9 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
 
-            var bus = _container.Resolve<ICommandBus>();
+            var bus = _container.Resolve<IChatRoomRepository>();
+            var z = await bus.GetChatRoomAsync(new [] {159039L, 638L}, default);
 
-            var command = new SendMessageCommand($"hi elad {DateTime.UtcNow}", 638, new[] {159039L}, null, null);
-            await bus.DispatchAsync(command, default);
             //foreach (var textAnalysis in queryBus)
             //{
             //    var t = await textAnalysis.DetectLanguageAsync("1+2+3+4+5+7", default);
