@@ -3,7 +3,7 @@
         <v-layout>
             <v-flex>
                 <div class="roomTitle">
-                    <span v-if="loading"> Loading...</span>
+                    <span v-if="roomLoading"> Loading...</span>
                 </div>
             </v-flex>
         </v-layout>
@@ -17,7 +17,7 @@
             </v-flex>
         </v-layout>
 
-        <v-layout column align-end v-show="loaded">
+        <v-layout column align-end v-show="!roomLoading">
             <div class="video-holder">
                 <v-flex class="px-3 video-con-controls" @click="minimize('remote_player')">
                     <div style="display: flex; align-items: center;">

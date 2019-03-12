@@ -3,9 +3,10 @@ const state = {
     isRoom: false,
     roomId: '',
     isRoomFull: false,
-    currentActiveRoom: {},
+    currentActiveRoom: null,
     isLocalOffline: true,
-    isRemoteOffline: true
+    isRemoteOffline: true,
+    isRoomLoading: false
 };
 const getters = {
     activeRoom:  state => state.currentActiveRoom,
@@ -14,7 +15,8 @@ const getters = {
     userIdentity: state => state.identity,
     isRoomCreated: state => state.isRoom,
     roomLinkID: state => state.roomId,
-    isRoomFull: state => state.isRoomFull
+    isRoomFull: state => state.isRoomFull,
+    roomLoading : state => state.isRoomLoading
 };
 
 const mutations = {
@@ -31,8 +33,10 @@ const mutations = {
         state.identity = val;
     },
     leaveIfJoinedRoom(state) {
-        state.currentActiveRoom.disconnect()
-    },
+        if(state.currentActiveRoom){
+            state.currentActiveRoom.disconnect()
+        }
+     },
     setRoomInstance(state, data){
         state.currentActiveRoom = data
     },
@@ -41,10 +45,17 @@ const mutations = {
     },
     setRemoteStatus(state, val){
         state.isRemoteOffline = val;
+    },
+    setRoomLoading(state, val){
+        state.isRoomLoading = val
     }
+
 };
 
 const actions = {
+    updateRoomLoading({commit, state}, val){
+        commit('setRoomLoading', val)
+    },
     leaveRoomIfJoined({commit}) {
         commit('leaveIfJoinedRoom')
     },

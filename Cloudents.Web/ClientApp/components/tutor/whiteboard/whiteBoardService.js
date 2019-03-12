@@ -1,3 +1,4 @@
+import store from '../../../store/index.js'
 import liveDraw from './options/liveDraw'
 import lineDraw from './options/lineDraw'
 import drawEllipse from './options/drawEllipse'
@@ -9,9 +10,8 @@ import panTool from './options/panTool'
 import selectShape from './options/selectShape'
 import {createShape} from './utils/factories'
 import helper from './utils/helper'
-import store from '../../../store/index'
 
-let dragData = store.getters['getDragData'];
+let dragData = [];
 
 const getDragData = function(){
     return store.getters['getDragData'];

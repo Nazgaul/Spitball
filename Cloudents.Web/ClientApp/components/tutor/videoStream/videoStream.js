@@ -2,6 +2,7 @@ import { mapActions, mapGetters } from 'vuex';
 import { createLocalTracks, createLocalVideoTrack } from 'twilio-video';
 import videoService from '../../../services/videoStreamService';
 import { connectToRoom, createRoom, getToken, dataTrack } from '../tutorService';
+import store from "../../../store";
  // import whiteBoardService from '../whiteboard/whiteBoardService';
 
 
@@ -17,7 +18,6 @@ export default {
             remoteTrack: '',
             screenShareTrack: null,
             isSharing: false,
-            activeRoom: '',
             identity: '',
             roomLink: '',
             availableDevices: [],
@@ -31,13 +31,16 @@ export default {
         id: ''
     },
     computed: {
-        ...mapGetters(['sharedDocUrl', 'roomLinkID', 'isRoomFull', 'activeRoom', 'localOffline','remoteOffline'])
+        ...mapGetters(['sharedDocUrl', 'roomLinkID', 'isRoomFull', 'activeRoom', 'localOffline','remoteOffline', 'roomLoading'])
     },
     watch: {
         '$route': 'createChat'
     },
     methods: {
-        ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus', 'updateRoomID', 'updateSharedDocLink', 'updateRoomIsFull']),
+        ...mapActions([
+            'updateRoomID',
+            'updateRoomLoading'
+        ]),
         publishTrackToRoom(track){
             this.activeRoom.localParticipant.publishTrack(track);
         },
@@ -140,7 +143,7 @@ export default {
 
         // Create a new chat
         createChat() {
-            this.loading = true;
+            this.updateRoomLoading(true);
             const self = this;
             // remove any remote track when joining a new room
             let clearEl = document.getElementById('remoteTrack');

@@ -1,8 +1,7 @@
 import Twilio, { connect, createLocalTracks, createLocalVideoTrack, LocalDataTrack } from 'twilio-video';
 import { connectivityModule } from '../../services/connectivity.module';
+import store from '../../store/index.js'
 import whiteBoardService from "./whiteboard/whiteBoardService";
-import store from '../../store/index'
-
 
 const dataTrack = new LocalDataTrack();
 
@@ -29,7 +28,7 @@ const createRoom = () => {
     return connectivityModule.http.post("tutoring/create");
 };
 // Token get
-const getToken = (name, identityName) => {
+const getToken = function (name, identityName){
     let userIdentity = identityName || '';
     return connectivityModule.http.get(`tutoring/join?roomName=${name}&identityName=${userIdentity}`)
         .then((data) => {
@@ -39,7 +38,7 @@ const getToken = (name, identityName) => {
 
 
 // Attach the Tracks to the DOM.
-const attachTracks = (tracks, container)=> {
+const attachTracks = function(tracks, container){
     tracks.forEach((track) => {
         if (track.attach) {
             container.appendChild(track.attach());
@@ -47,13 +46,13 @@ const attachTracks = (tracks, container)=> {
     });
 };
 // Attach the Participant's Tracks to the DOM.
-const attachParticipantTracks = (participant, container)=> {
+const attachParticipantTracks = function (participant, container) {
     let tracks = Array.from(participant.tracks.values());
-    this.attachTracks(tracks, container);
+    attachTracks(tracks, container);
 };
 
 // Detach the Tracks from the DOM.
-const detachTracks = (tracks)=> {
+const detachTracks = function(tracks){
     tracks.forEach((track) => {
         if (track.detach) {
             track.detach().forEach((detachedElement) => {
@@ -64,7 +63,7 @@ const detachTracks = (tracks)=> {
 };
 
 // Detach the Participant's Tracks from the DOM.
-const detachParticipantTracks = (participant)=> {
+const detachParticipantTracks = function(participant){
     let tracks = Array.from(participant.tracks.values());
     detachTracks(tracks);
 };
@@ -72,18 +71,13 @@ const detachParticipantTracks = (participant)=> {
 
 
 const connectToRoom = function(token, options) {
-    let self = this;
     // disconnect the user from they joined already
     store.dispatch('leaveRoomIfJoined');
     Twilio.connect(token, options)
         .then((room) => {
                 store.dispatch('updateRoomInstance', room);
                 console.log('Successfully joined a Room: ');
-                // set active toom
-                self.activeRoom = room;
-                self.roomName = room.name;
-                self.loading = false;
-                self.loaded = true;
+                store.dispatch('updateRoomLoading', false);
                 //update room status in store of chat to use for show/hide shareBtn
                 store.dispatch('updateRoomStatus', true);
                 let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
@@ -92,7 +86,7 @@ const connectToRoom = function(token, options) {
                 localStorage.setItem("identity", localIdentity);
 
                 //shared google document
-                if (self.activeRoom.participants && self.activeRoom.participants.size < 1) {
+                if ( store.getters['activeRoom'].participants && store.getters['activeRoom'].participants.size < 1) {
                     let shareLink = localStorage.getItem(`sb_share_link_${store.getters['roomLinkID']}`);
                     if(!shareLink){
                         store.dispatch('updateRoomIsFull', true);
