@@ -27,7 +27,7 @@ const getCourseList = function () {
 };
 
 const migrateCourses = function (newCourse, oldCourse) {
-    return connectivityModule.http.post(`${path}`, { "newCourse": newCourse, "oldCourse": oldCourse })
+    return connectivityModule.http.post(`${path}`, { "CourseToRemove": newCourse, "CourseToKeep": oldCourse })
         .then((resp) => {
             console.log(resp, 'post doc success');
             return Promise.resolve(resp);
