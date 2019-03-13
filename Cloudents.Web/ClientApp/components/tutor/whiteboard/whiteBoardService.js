@@ -57,7 +57,9 @@ const ghostChangeText = function(actionObj, fromUndo){
     dragData.forEach(shape=>{
         if(actionObj.id.indexOf(shape.id) > -1){
             shape.points[0].text = fromUndo ? actionObj.oldText : actionObj.newText;
-            shape.points[0].width = fromUndo ? actionObj.oldWidth : actionObj.newWidth;
+            if(!!actionObj.oldWidth){
+                shape.points[0].width = fromUndo ? actionObj.oldWidth : actionObj.newWidth;
+            }
         }
     })
 }
