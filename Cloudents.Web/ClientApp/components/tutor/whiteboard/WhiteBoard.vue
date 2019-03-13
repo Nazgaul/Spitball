@@ -40,7 +40,7 @@
                     <button  v-on="on"
                              :class="{'active-tool': selectedOptionString === enumOptions.equation}"
                              class="nav-action" @click="setOptionType(enumOptions.equation)">
-                        <v-icon>sbf-close</v-icon>
+                        <v-icon>sbf-equation-icon</v-icon>
                     </button>
                 </template>
                 <span>Equation</span>
@@ -236,7 +236,7 @@
             margin-top: 20px;
             
             &.bottom-nav{
-                top: 575px;
+                top: 625px;
             }
             .nav-action {
                 padding: 12px 16px;
