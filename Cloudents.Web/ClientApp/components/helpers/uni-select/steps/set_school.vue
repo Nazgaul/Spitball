@@ -3,8 +3,8 @@
     <div class="" :class="{'selected': (!!search && search.length > 10)}">
         <div class="title-container">
             <span v-language:inner>uniSelect_select_school</span>
-            <a v-show="showNext" class="next-container" :class="{'loading': nextPressed}" @click="checkBeforeNextStep()"
-               v-language:inner>uniSelect_next</a>
+            <!-- <a v-show="showNext" class="next-container" :class="{'loading': nextPressed}" @click="checkBeforeNextStep()"
+               v-language:inner>uniSelect_next</a> -->
 
         </div>
         <div class="select-school-container">
@@ -27,12 +27,17 @@
                     :background-color="'rgba( 255, 255, 255, 1)'"
             >
                 <template slot="no-data">
-                    <v-list-tile v-show="showBox">
+                    <!-- <v-list-tile v-show="showBox">
                         <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
                     </v-list-tile>
                     <v-list-tile>
                         <div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark"
                              v-language:inner>uniSelect_show_all_schools
+                        </div>
+                    </v-list-tile> -->
+                    <v-list-tile>
+                        <div style="cursor:pointer;" @click="addManualUniversity()" class="subheading dark"
+                             v-language:inner>uniSelect_didnt_find_university
                         </div>
                     </v-list-tile>
                 </template>
@@ -129,11 +134,11 @@
             skipUniSelect() {
                 this.fnMethods.openNoWorriesPopup();
             },
-            nextStep(dontChangeUniversity) {
+            nextStep(dontChangeUniversity, universityName) {
                 if (dontChangeUniversity) {
                     this.fnMethods.changeStep(this.enumSteps.set_class)
                 } else {
-                    let schoolName = this.getCurrentSchoolName();
+                    let schoolName = universityName ? universityName : this.getCurrentSchoolName();
                     if (!schoolName) {
                         console.log("No university name found")
                         return;
@@ -163,6 +168,9 @@
                 } else {
                     this.nextStep();
                 }
+            },
+            addManualUniversity(){
+                this.fnMethods.openAddSchoolOrClass(true, this.nextStep);
             },
             getCurrentSchoolName() {
                 //!!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
@@ -203,6 +211,9 @@
                 },
                 set: function (newValue) {
                     this.universityModel = newValue
+                    if(!!newValue && newValue.id){
+                        this.checkBeforeNextStep();
+                    }
                 }
             }
         },
@@ -221,7 +232,7 @@
         color: rgba(0, 0, 0, 0.38);
         &.dark {
             font-size: 13px !important;
-            color: rgba(0, 0, 0, 0.54);
+            color: rgb(74, 135, 251);
         }
     }
 </style>
