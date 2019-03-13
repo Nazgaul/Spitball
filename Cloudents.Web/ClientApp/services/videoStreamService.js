@@ -29,10 +29,13 @@ export default {
         }
         if (isChrome()) {
             return new Promise((resolve, reject) => {
-                const request = {
-                    sources: ['screen']
-                };
+                const request = { sources: ['window', 'screen', 'tab'] };
                 chrome.runtime.sendMessage(extensionId, request, response => {
+                    if(!response){
+                        let error = 'noExtension';
+                        console.log('Extension not installed');
+                        reject(error);
+                    }
                     if (response && response.type === 'success') {
                         resolve({streamId: response.streamId});
                     } else {

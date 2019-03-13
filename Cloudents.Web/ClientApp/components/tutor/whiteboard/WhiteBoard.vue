@@ -200,9 +200,18 @@
                    :class="[helperClass, helperStyle.id]"
                    :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
         </div>
-        <div class="equation-helper-container" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" v-if="helperShow && selectedOptionString === enumOptions.equation">
-            <textarea :class="[helperClass, helperStyle.id]" v-model="helperStyle.text" cols="50" rows="3"></textarea>
-            <vue-mathjax :class="[helperClass, helperStyle.id]" v-show="!!helperStyle.text" :formula="`$$${helperStyle.text}$$`" class="math-jax"></vue-mathjax>
+        <div class="equation-helper-container"
+             :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"
+             v-if="helperShow && selectedOptionString === enumOptions.equation">
+            <textarea :class="[helperClass, helperStyle.id]"
+                      v-model="helperStyle.text"
+                      cols="50"
+                      rows="3"></textarea>
+            <vue-mathjax :class="[helperClass, helperStyle.id]"
+                         v-show="!!helperStyle.text"
+                         :formula="`$$${helperStyle.text}$$`"
+                         class="math-jax"></vue-mathjax>
+        </div>
         </div>
         <!--<div>-->
             <!--<ul>-->

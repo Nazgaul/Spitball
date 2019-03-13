@@ -1,8 +1,46 @@
 <template>
-    <v-flex>
-        <v-btn v-if="!isSharing" @click="showScreen">Share Screen</v-btn>
-        <v-btn v-else @click="stopSharing">Stop Sharing</v-btn>
-    </v-flex>
+    <div>
+        <v-flex>
+            <v-btn v-if="!isSharing" @click="showScreen">Share Screen</v-btn>
+            <v-btn v-else @click="stopSharing">Stop Sharing</v-btn>
+        </v-flex>
+
+        <v-dialog class="install-extension-dialog"
+                v-model="extensionDialog"
+                max-width="290"
+        >
+            <v-card>
+                <v-card-title class="headline">Chrome Extension Installation</v-card-title>
+
+                <v-card-text>
+                    Please install and authorize the Spitball Chrome extension to enable screen sharing on your computer.
+                </v-card-text>
+                <v-card-text>
+                    Once the extension is installed please
+                    <a @click="reloadPage()">reload</a>
+                    the page for the screen sharing feature to be effective.
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <a :href="extensionLink"
+                            target="_blank"
+                           class="btn px-3 py-2 mr-2"
+                            @click="dialog = false"
+                    >Install</a>
+
+                    <v-btn
+                            color="green darken-1"
+                            flat="flat"
+                            @click="extensionDialog = false"
+                    >
+                        Cancel
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </div>
+
+
 </template>
 
 <script>
@@ -15,6 +53,8 @@
         data() {
             return {
                 isSharing: false,
+                extensionDialog: false,
+                extensionLink: `https://chrome.google.com/webstore/detail/hicolpoppnllddloocbcjfeoijgjfdeg`
             }
         },
         computed: {
@@ -22,6 +62,9 @@
         },
 
         methods: {
+            reloadPage(){
+                global.location = global.location;
+            },
             publishTrackToRoom(track) {
                 this.activeRoom.localParticipant.publishTrack(track);
             },
@@ -37,6 +80,9 @@
                         self.isSharing = true;
                     },
                     (error) => {
+                        if (error === 'noExtension') {
+                            self.extensionDialog = true;
+                        }
                         console.log('error sharing screen')
                     }
                 );
