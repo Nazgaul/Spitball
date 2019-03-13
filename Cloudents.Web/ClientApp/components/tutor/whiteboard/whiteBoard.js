@@ -17,8 +17,8 @@ export default {
     },
     data() {
         return {
-            canvasWidth: global.innerWidth -50,
-            canvasHeight: global.innerHeight -50,
+            canvasWidth: global.innerWidth,
+            canvasHeight: global.innerHeight -64,
             showPickColorInterface: false,
             showHelper: false,
             formula: 'x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.',
@@ -193,6 +193,7 @@ export default {
         },
         registerCanvasEvents(canvas){
             let self = this;
+
             global.addEventListener('resize', this.resizeCanvas, false);
             canvas.addEventListener('mousedown', (e) => {
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {

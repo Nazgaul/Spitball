@@ -1,16 +1,40 @@
+@navColor: #a5a4bf;
 .tutoring-page{
+  direction: ltr /*rtl:ignore*/;
+  height: 100%;
   .tutoring-navigation{
-    .theme--light.v-tabs__bar{
-      background-color: #43425d;
-      .v-tabs__div{
-        color:#fff;
-        .v-tabs__item--active{
+    display: flex;
+    align-items: center;
+    background-color: #43425d;
+    height: 64px;
+    justify-content: space-between;
+    .logo-nav-wrap{
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      height: 100%;
+    }
+      .tutor-nav-item{
+        padding: 0 20px;
+        font-size: 16px;
+        line-height: 1.33;
+        letter-spacing: 0.1px;
+        color: #a5a4bf;
+        text-transform: uppercase;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        &.active-nav{
           background-color: rgba(0, 0, 0, 0.1);
+          color: #ffffff;
         }
-      }
+    }
+     .nav-share-btn{
+       margin-left: auto;
+       margin-right: 18px;
     }
     .logo-container{
-      width: 130px;
+      width: 150px;
       margin-left: 15px;
       svg{
         height: 100%;
@@ -19,14 +43,7 @@
     }
     
   }
-  .tutoring-tab{
-    .v-tabs__item{
-      text-transform: capitalize;
-    }
-  }
-  
-  direction: ltr /*rtl:ignore*/;
-  height: 100%;
+
   &.gridBackground{
     background-color: #f0f0f7;
     background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
