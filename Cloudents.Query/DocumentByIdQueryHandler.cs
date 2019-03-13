@@ -61,6 +61,10 @@ namespace Cloudents.Query
             }
 
             var result = await futureValue.GetValueAsync(token);
+            if (result == null)
+            {
+                return null;
+            }
             if (purchaseFuture == null)
             {
                 result.IsPurchased = false;

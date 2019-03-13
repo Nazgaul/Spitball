@@ -173,7 +173,7 @@
   <data name="terms_of_service" xml:space="preserve">
     <value>תנאי שירות</value>
   </data>
-  <data name="menuList_Change" xml:space="preserve">
+  <data name="Change" xml:space="preserve">
     <value>עריכה</value>
   </data>
 </root>
