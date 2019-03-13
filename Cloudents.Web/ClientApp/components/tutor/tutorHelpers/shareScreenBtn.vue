@@ -4,7 +4,6 @@
             <v-btn v-if="!isSharing" @click="showScreen">Share Screen</v-btn>
             <v-btn v-else @click="stopSharing">Stop Sharing</v-btn>
         </v-flex>
-
         <v-dialog class="install-extension-dialog"
                 v-model="extensionDialog"
                 max-width="290"
@@ -24,10 +23,9 @@
                     <v-spacer></v-spacer>
                     <a :href="extensionLink"
                             target="_blank"
-                           class="btn px-3 py-2 mr-2"
+                           class="btn px-3 py-2 mr-3"
                             @click="dialog = false"
                     >Install</a>
-
                     <v-btn
                             color="green darken-1"
                             flat="flat"
@@ -39,8 +37,6 @@
             </v-card>
         </v-dialog>
     </div>
-
-
 </template>
 
 <script>
