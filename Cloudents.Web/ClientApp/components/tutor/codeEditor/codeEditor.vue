@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import { syntaxEnum } from './syntaxEnums.js'
     export default {
         name: "codeEditor",
@@ -31,9 +31,10 @@
             }
         },
         computed: {
-            ...mapGetters(['roomLinkID'])
+            ...mapGetters(['roomLinkID', 'firepadLoadedOnce'])
         },
         methods: {
+            ...mapActions(['updateCodeLoadedOnce']),
             changeLanguageSyntax(codeSyntax) {
                 let self = this;
                 let loadCodeLang = codeSyntax;
@@ -76,6 +77,7 @@
                                     self.$loadScript(`https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js`).then(
                                         () => {
                                             self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror)
+                                            self.updateCodeLoadedOnce(true)
                                         })
                                 })
                             });
@@ -83,7 +85,10 @@
             }
         },
         created() {
-            this.loadFirePad();
+            //if was loaded before prevent calls
+            if(!this.firepadLoadedOnce){
+                this.loadFirePad();
+            }
         }
     }
 

@@ -15,7 +15,9 @@
                 </div>
             </nav>
             <transition name="slide-x-transition">
+                <keep-alive>
                 <component :is="activeItem" v-if="showCurrentCondition"></component>
+                </keep-alive>
             </transition>
         </v-flex>
         <v-layout column align-start style="position: fixed; right: 0; top: 60px;">
@@ -46,7 +48,7 @@
         name: "tutor",
         data() {
             return {
-                activeNavItem : '',
+                activeNavItem : 'white-board',
                 showContent: false,
                 navs: [
                     {name: 'Canvas', value: 'white-board'},
