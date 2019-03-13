@@ -60,13 +60,13 @@ export default {
         continueAction(){
             if(this.popupData.isSchool){
                 if(this.propName.length > 10){
-                    this.letGo();
+                    this.letGo(true);
                 }else{
                     this.errorString = LanguageService.getValueByKey('uniSelect_university_length_error');
                 }
             }else{
                 if(this.propName.length > 3){
-                    this.letGo();
+                    this.letGo(false);
                 }else{
                     this.errorString = LanguageService.getValueByKey('uniSelect_class_length_error');
                 }
@@ -76,8 +76,12 @@ export default {
             this.reset();
             this.popupData.closeFunction();
         },
-        letGo(){
-            this.popupData.continueActionFunction(false, this.propName);
+        letGo(isSchool){
+            if(isSchool){
+                this.popupData.continueActionFunction(false, this.propName);
+            }else{
+                this.popupData.continueActionFunction(this.propName);
+            }
             this.close();
         }
     }

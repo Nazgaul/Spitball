@@ -42,7 +42,10 @@
                     </v-list-tile>
                 </template>
                 <template slot="item" slot-scope="{ index, item, parent }">
-                    <v-list-tile-content style="max-width:385px;">
+                    <v-list-tile v-if="item.helper">
+                        <div style="cursor:pointer;" @click="addManualUniversity()" class="subheading dark">{{ item.text }}</div>
+                    </v-list-tile>
+                    <v-list-tile-content v-else style="max-width:385px;">
                         <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span>
                     </v-list-tile-content>
                 </template>
