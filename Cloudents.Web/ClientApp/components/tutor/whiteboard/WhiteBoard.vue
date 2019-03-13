@@ -34,6 +34,17 @@
                 </template>
                 <span >Text</span>
             </v-tooltip>
+            <!--Equation-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <button  v-on="on"
+                             :class="{'active-tool': selectedOptionString === enumOptions.equation}"
+                             class="nav-action" @click="setOptionType(enumOptions.equation)">
+                        <v-icon>sbf-close</v-icon>
+                    </button>
+                </template>
+                <span>Equation</span>
+            </v-tooltip>
             <!--Color Picker-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
@@ -180,12 +191,15 @@
                      :class="helperClass"
                      :style="{'stroke': helperStyle.stroke}"/>
         </svg>
-        <div class="text-helper-container" v-if="helperShow">
+        <div class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.text">
             <input type="text" placeholder="Enter Some Text"
-                   v-if="selectedOptionString === enumOptions.text"
                    v-model="helperStyle.text"
                    :class="[helperClass, helperStyle.id]"
                    :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
+        </div>
+        <div class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.equation">
+            <textarea :class="[helperClass, helperStyle.id]" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" v-model="helperStyle.text" cols="30" rows="10"></textarea>
+            <vue-mathjax :class="[helperClass, helperStyle.id]" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" :formula="`$$${helperStyle.text}$$`" class="math-jax"></vue-mathjax>
         </div>
         <!--<div>-->
             <!--<ul>-->
@@ -203,6 +217,15 @@
         display: flex;
         flex-direction: column;
         margin: 0 auto;
+        .formula-text{
+                top: 25px;
+                position: absolute;
+                left: 100px;
+            }
+            .math-jax{
+                margin-top: -84px;
+                border: none;
+            }
         .nav-container {
             position: fixed;
             background-color: #FFFFFF;
@@ -323,6 +346,15 @@
         }
         .text-helper-container {
             .text-helper {
+                position: absolute;
+                border: 1px solid #7b7b7b;
+                padding: 6px;
+                outline: none;
+                border-radius: 4px;
+                font-family: "Open Sans", sans-serif;
+                font-size: 14px;
+            }
+            .equation-helper {
                 position: absolute;
                 border: 1px solid #7b7b7b;
                 padding: 6px;

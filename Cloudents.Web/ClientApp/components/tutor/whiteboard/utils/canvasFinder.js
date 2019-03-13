@@ -112,7 +112,8 @@ const clickSearchShapeByType = {
     drawRectangle: findRectangleDraw,
     imageDraw: findImageDraw,
     eraser: function(){},
-    textDraw: findTextDraw
+    textDraw: findTextDraw,
+    equationDraw: findImageDraw
 }
 
 

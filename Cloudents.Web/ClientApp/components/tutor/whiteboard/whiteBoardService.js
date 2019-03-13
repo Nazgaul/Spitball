@@ -1,3 +1,4 @@
+import store from '../../../store/index.js'
 import liveDraw from './options/liveDraw'
 import lineDraw from './options/lineDraw'
 import drawEllipse from './options/drawEllipse'
@@ -5,13 +6,13 @@ import drawRectangle from './options/drawRectangle'
 import imageDraw from './options/imageDraw'
 import eraser from './options/eraser'
 import textDraw from './options/textDraw'
+import equationDraw from './options/equationDraw'
 import panTool from './options/panTool'
 import selectShape from './options/selectShape'
 import {createShape} from './utils/factories'
 import helper from './utils/helper'
-import store from '../../../store/index'
 
-let dragData = store.getters['getDragData'];
+let dragData = [];
 
 const getDragData = function(){
     return store.getters['getDragData'];
@@ -26,7 +27,8 @@ const optionsEnum = {
     eraser,
     selectShape,
     textDraw,
-    panTool
+    panTool,
+    equationDraw
 }
 
 const ghostMoveData = function(actionObj, fromUndo){

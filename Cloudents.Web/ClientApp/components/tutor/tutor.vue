@@ -43,7 +43,6 @@
     import codeEditor from './codeEditor/codeEditor.vue'
     import chat from './chat/chat.vue';
     import sharedDocument from './sharedDocument/sharedDocument.vue';
-    import {passSharedDocLink} from './tutorService'
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     export default {
         components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument, AppLogo},
@@ -72,6 +71,27 @@
             },
         },
         created() {
+            this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG").then(() => {
+                MathJax.Hub.Config({
+                    SVG: {
+                        useGlobalCache: false,
+                        useFontCache: false
+                    }
+                });
+                MathJax.AuthorInit = function(texstring, callback){
+                        var input = texstring;
+                        var wrapper = document.createElement("div");
+                        wrapper.innerHTML = input;
+                        var output = { svg: ""};
+                        MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
+                        MathJax.Hub.Queue(function() {
+                        var mjOut = wrapper.getElementsByTagName("svg")[0];
+                        mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                        output.svg = mjOut.outerHTML;
+                        callback(output);
+                    });
+                }
+            });
             console.log('ID Tutor!!',this.id);
             global.onbeforeunload = function(){
                 return "Are you sure you want to close the window?";

@@ -21,6 +21,7 @@ export default {
             canvasHeight: global.innerHeight -50,
             showPickColorInterface: false,
             showHelper: false,
+            formula: 'x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.',
             predefinedColors:[
                 '#000000',
                 '#FF0000',
@@ -45,6 +46,7 @@ export default {
                 image: 'imageDraw',
                 eraser: 'eraser',
                 text: 'textDraw',
+                equation: 'equationDraw',
                 select: 'selectShape',
                 pan: 'panTool',
             },
@@ -88,6 +90,14 @@ export default {
         },
         zoom(){
             return this.getZoom.toFixed();
+        },
+        computedFormula:{
+            get(){
+                return `$$${this.formula}$$`;
+            },
+            set(val){
+                this.formula = val;
+            }
         }
     },
     methods: {
