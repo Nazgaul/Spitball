@@ -30,7 +30,7 @@ namespace Cloudents.Core.Entities
                 return false;
             }
 
-            if (tag.Count(x => x == ' ') > 2)
+            if (tag.Count(x => x == ' ') > 6)
             {
                 return false;
             }
@@ -54,7 +54,9 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
-            return (Name != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Name.Trim()) : 0);
+            // ReSharper disable once NonReadonlyMemberInGetHashCode Nhibernate
+            var name = Name;
+            return (name != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(name.Trim()) : 0);
         }
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 
@@ -66,7 +68,7 @@ namespace Cloudents.Core.Entities
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException($"not a valid tag name: {name}",nameof(name));
             }
         }
 

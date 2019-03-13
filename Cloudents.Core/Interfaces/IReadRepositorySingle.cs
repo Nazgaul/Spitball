@@ -1,25 +1,20 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿//using System.Threading;
+//using System.Threading.Tasks;
 
-namespace Cloudents.Core.Interfaces
-{
-    public interface IReadRepositoryAsync<T, in TU>
-    {
-        Task<T> GetAsync(TU query, CancellationToken token);
-    }
+//namespace Cloudents.Core.Interfaces
+//{
+//    //public interface IReadRepositoryAsync<T, in TU>
+//    //{
+//    //    Task<T> GetAsync(TU query, CancellationToken token);
+//    //}
 
-    public interface IReadRepository<out T, in TU>
-    {
-        T Get(TU query);
-    }
+//    //public interface IReadRepository<out T, in TU>
+//    //{
+//    //    T Get(TU query);
+//    //}
 
-    //public interface IWriteRepository<out T>
-    //{
-    //    T Update(TU query);
-    //}
-
-    public interface IReadRepositoryAsync<T>
-    {
-        Task<T> GetAsync(CancellationToken token);
-    }
-}
+//    //public interface IReadRepositoryAsync<T>
+//    //{
+//    //    Task<T> GetAsync(CancellationToken token);
+//    //}
+//}

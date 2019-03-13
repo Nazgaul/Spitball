@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
             if (GetRealType() != other.GetRealType())
                 return false;
 
-            if (Id.Equals(default(T)) || other.Id.Equals(default(T)))
+            if (Id.Equals(default) || other.Id.Equals(default))
                 return false;
 
             return EqualityComparer<T>.Default.Equals(Id, other.Id);
@@ -46,9 +46,11 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
+            // ReSharper disable once NonReadonlyMemberInGetHashCode nhibernate
             return (GetRealType().ToString() + Id).GetHashCode();
         }
 
+        // ReSharper disable once VirtualMemberNeverOverridden.Global nhibernate
         public virtual object Actual => this;
 
         private Type GetRealType()

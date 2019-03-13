@@ -15,7 +15,6 @@ using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
-using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -31,6 +30,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
 {
@@ -43,28 +43,28 @@ namespace Cloudents.Web.Api
         private readonly UserManager<RegularUser> _userManager;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
-        private readonly IProfileUpdater _profileUpdater;
+        //private readonly IProfileUpdater _profileUpdater;
 
 
 
         public DocumentController(IQueryBus queryBus,
              ICommandBus commandBus, UserManager<RegularUser> userManager,
             IBlobProvider<DocumentContainer> blobProvider,
-            IStringLocalizer<DocumentController> localizer,
-            IProfileUpdater profileUpdater)
+            IStringLocalizer<DocumentController> localizer
+            )
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
             _userManager = userManager;
             _blobProvider = blobProvider;
             _localizer = localizer;
-            _profileUpdater = profileUpdater;
         }
 
         [HttpGet("{id}"), AllowAnonymous]
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] IBlobProvider blobProvider,
+            [FromServices] ICrawlerResolver crawlerResolver,
 
             CancellationToken token)
         {
@@ -87,17 +87,22 @@ namespace Cloudents.Web.Api
             {
                 prefix = "blur-";
             }
-            var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
-            var fileNameTask = _blobProvider.FilesInDirectoryAsync("file-", query.Id.ToString(), token);
 
-            await Task.WhenAll(filesTask, tQueue, fileNameTask);
-            var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
-            if (!filesTask.Result.Any())
+            var textTask = Task.FromResult<string>(null);
+            if (crawlerResolver.Crawler != null)
+            {
+                textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
+            }
+            var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
+
+            await Task.WhenAll(filesTask, tQueue, textTask);
+            var files = (filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, TimeSpan.FromMinutes(20)))).ToList();
+            if (!files.Any())
             {
                 await queueProvider.InsertBlobReprocessAsync(id);
             }
 
-            return new DocumentPreviewResponse(model, files);
+            return new DocumentPreviewResponse(model, files, textTask.Result);
         }
 
         [HttpPost]
@@ -127,7 +132,6 @@ namespace Cloudents.Web.Api
         /// Search document vertical result
         /// </summary>
         /// <param name="model"></param>
-        /// <param name="profile">User profile - server generated</param>
         /// <param name="searchProvider"></param>
         /// <param name="token"></param>
         /// <returns></returns>
@@ -146,7 +150,6 @@ namespace Cloudents.Web.Api
                 Page = model.Page.GetValueOrDefault(),
             };
 
-            var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
             var resultTask = searchProvider.SearchDocumentsAsync(query, token);
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
 
@@ -163,7 +166,7 @@ namespace Cloudents.Web.Api
 
             }
 
-            await Task.WhenAll(resultTask, queueTask, votesTask);
+            await Task.WhenAll(resultTask, votesTask);
             var result = resultTask.Result;
             var p = result.Result.ToList();
             string nextPageLink = null;
@@ -179,8 +182,8 @@ namespace Cloudents.Web.Api
                     result.Facet.Select(s => new KeyValuePair<string, string>(s, s)));
                 filters.Add(filter);
             }
-           
-           
+
+
             return new WebResponseWithFacet<DocumentFeedDto>
             {
                 Result = p.Select(s =>

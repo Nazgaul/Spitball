@@ -29,7 +29,8 @@ namespace Cloudents.Core.Entities
         public virtual string NormalizedEmail { get; set; }
         public virtual string SecurityStamp { get; set; }
 
-        public virtual string Image { get; set; }
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global reserved for later use
+        public virtual string Image { get; protected set; }
 
         //TODO: should fictive user need to have university
         public virtual University University { get;  set; }
@@ -40,7 +41,6 @@ namespace Cloudents.Core.Entities
 
         public virtual string AuthenticatorKey { get; set; }
 
-        public virtual string PrivateKey { get; set; }
         public virtual bool? OldUser { get; set; }
 
         //public virtual int Score { get; protected set; }
@@ -62,6 +62,7 @@ namespace Cloudents.Core.Entities
 
       
 
+        // ReSharper disable once CollectionNeverUpdated.Local Nhibernate
         private readonly IList<Question> _questions = new List<Question>();
         public virtual IReadOnlyList<Question> Questions => _questions.ToList();
 
@@ -74,6 +75,7 @@ namespace Cloudents.Core.Entities
         public virtual string Email { get; set; }
         public virtual bool EmailConfirmed { get; set; }
 
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global Nhibernate
         public virtual bool Fictive { get; protected set; }
 
         public abstract decimal Balance { get; }

@@ -39,7 +39,7 @@ module.exports = (env) => {
                                 { cleanupIDs: true },
                                 {convertPathData: false},
                                 {removeMetadata: true},
-                                {cleanupAttrs: true},
+                                {cleanupAttrs: false},
                                 {removeEditorsNSData: true},
                                 {removeEmptyAttrs: true },
                                 {convertTransform: false},
@@ -141,7 +141,7 @@ module.exports = (env) => {
             ? [
                 new ExtractTextPlugin({filename: "site.[contenthash].css", allChunks: true}),
                 new WebpackRTLPlugin({
-                    filename: '[name].[contenthash].rtl.css',
+                    filename: 'site.[contenthash].rtl.css',
                     minify: false
                 })
             ]
@@ -157,7 +157,12 @@ module.exports = (env) => {
                     //assetNameRegExp: /.css$/g,
                     cssProcessor: require("cssnano"),
                     cssProcessorOptions: {
-                        discardComments: { removeAll: true },
+                        discardComments: {
+                            remove: function (comment) {
+                                return !comment.includes("rtl")
+                            },
+                            removeAll: true
+                        },
                         reduceIdents: false
                     },
                     canPrint: true

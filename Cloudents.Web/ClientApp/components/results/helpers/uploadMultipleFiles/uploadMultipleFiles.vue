@@ -43,20 +43,20 @@
                         </v-layout>
                         <upload-files-start
                                 :class="[courseSelected && firstStep ? 'visibilityVisible' : 'visibilityHidden', {'slim': !firstStep}]"
-                                :curStep="n"
+                                :curStep="1"
                                 :callBackmethods="callBackmethods"></upload-files-start>
                         <transition name="slide">
-                            <uploadStep_2 v-show="n===2" :curStep="n" :callBackmethods="callBackmethods"></uploadStep_2>
+                            <uploadStep_2 v-show="n===2" :curStep="2" :callBackmethods="callBackmethods"></uploadStep_2>
                         </transition>
                         <transition name="slide">
-                            <ulpoadStep_3
-                                    v-show="n===3"
-                                    :curStep="n"
+                            <uploadStep_3
+                                    v-if="n===3"
+                                    :curStep="3"
                                     :fileSnackbar="fileSnackbar"
                                     :referralLinks="docReferral"
                                     :callBackmethods="callBackmethods"
                                     :showError="showError"
-                                    :errorText="errorText"></ulpoadStep_3>
+                                    :errorText="errorText"></uploadStep_3>
                         </transition>
                     </v-stepper-content>
                 </v-stepper-items>

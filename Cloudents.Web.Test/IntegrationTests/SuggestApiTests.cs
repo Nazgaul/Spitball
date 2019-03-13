@@ -1,14 +1,13 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class SuggestApiTests : IClassFixture<WebApplicationFactory<Startup>>
+    public class SuggestApiTests : IClassFixture<SbWebApplicationFactory>
     {
-        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly SbWebApplicationFactory _factory;
 
-        public SuggestApiTests(WebApplicationFactory<Startup> factory)
+        public SuggestApiTests(SbWebApplicationFactory factory)
         {
             _factory = factory;
         }

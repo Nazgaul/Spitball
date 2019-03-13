@@ -61,7 +61,7 @@ WHERE text like '%duplicate%' and text like '%key%' and language_id = 1033*/
         {
             if (_transaction.IsActive)
             {
-                await _transaction.RollbackAsync(token).ConfigureAwait(false);
+                await _transaction.RollbackAsync(token);
             }
         }
     }

@@ -1,0 +1,84 @@
+.videos-wrapper {
+  .create-session{
+    text-transform: capitalize;
+    margin-top: 25px;
+    margin-right: 12px;
+  }
+  .local-offline, .remote-offline{
+    display: inline-block;
+    background-color: red;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+  }
+  .local-online, .remote-online{
+    display: inline-block;
+    background-color: #19ba42;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+  }
+  .video-holder{
+    border-radius: 4px;
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.5);
+    background-color: #43425d;
+    padding: 0 4px 4px 4px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    .remote_video_container{
+      position: relative;
+      min-height: 154px;
+
+    }
+
+  }
+  .local-video-holder{
+    position: absolute;
+    width: 104px;
+    height: 74px;
+    bottom: -2px;
+    right: 0;
+    padding: 4px 4px 0 4px;
+    background-color:  #43425d;
+  }
+  .video-con-controls{
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+
+  }
+  .user-badge{
+    font-size: 14px;
+    letter-spacing: -0.4px;
+    color: #7b7b7b;
+    display: inline-flex;
+  }
+  .video-size-ctrl {
+    cursor: pointer;
+  }
+  .video-size-icon{
+    color: #7b7b7b;
+    font-size: 14px;
+  }
+  #remoteTrack {
+    video {
+      width: 100%;
+      background-repeat: no-repeat;
+    }
+  }
+  #localTrack {
+    video {
+      width: 100%;
+      background-repeat: no-repeat;
+    }
+  }
+  .spacing {
+    padding: 20px;
+    width: 100%;
+  }
+  .roomTitle {
+    padding: 4px;
+    color: dodgerblue;
+  }
+}

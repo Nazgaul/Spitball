@@ -39,7 +39,7 @@ namespace Cloudents.Web.Controllers
                 return RedirectToAction(nameof(Index), "Home");
             }
             model.Code = System.Net.WebUtility.UrlDecode(model.Code);
-            var user = await _userManager.FindByIdAsync(model.Id.ToString()).ConfigureAwait(false);
+            var user = await _userManager.FindByIdAsync(model.Id.ToString());
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{model.Id}'.");
@@ -53,7 +53,7 @@ namespace Cloudents.Web.Controllers
             {
                 return await GoToStep(user, NextStep.EnterPhone, false, model.ReturnUrl);
             }
-            var result = await _userManager.ConfirmEmailAsync(user, model.Code).ConfigureAwait(false);
+            var result = await _userManager.ConfirmEmailAsync(user, model.Code);
             if (!result.Succeeded)
             {
                 _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
@@ -67,7 +67,7 @@ namespace Cloudents.Web.Controllers
 
         private async Task<RedirectToRouteResult> GoToStep(RegularUser user, NextStep step, bool isNew, string returnUrl)
         {
-            await _signInManager.TempSignIn(user).ConfigureAwait(false);
+            await _signInManager.TempSignIn(user);
             return RedirectToRoute(RegisterController.RegisterRouteName,
                 new
                 {

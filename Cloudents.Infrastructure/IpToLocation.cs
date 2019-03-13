@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure
         public async Task<Location> GetAsync(IPAddress ipAddress, CancellationToken token)
         {
             var uri = new Uri($"http://api.ipstack.com/{ipAddress}?access_key=0b561be1266ad6b1d01f2daedc4703cd");
-            var ipDto = await _restClient.GetAsync<IpDto>(uri, null, token).ConfigureAwait(false);
+            var ipDto = await _restClient.GetAsync<IpDto>(uri, null, token);
             if (ipDto == null)
             {
                 return null;

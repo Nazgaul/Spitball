@@ -1,12 +1,8 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using AutoMapper;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
-using Cloudents.Infrastructure.Data;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
@@ -30,11 +26,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using Cloudents.Web.Controllers;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -70,6 +67,7 @@ namespace Cloudents.Web
             }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
 
             services.AddWebMarkupMin().AddHtmlMinification();
+            
             services.AddMvc()
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
                 {
@@ -95,7 +93,6 @@ namespace Cloudents.Web
                 .AddMvcOptions(o =>
                 {
                     //TODO: check in source code
-                    // o.SuppressBindingUndefinedValueToEnumType
                     o.Filters.Add<UserLockedExceptionFilter>();
                     o.Filters.Add(new GlobalExceptionFilter());
                     o.Filters.Add(new ResponseCacheAttribute
@@ -104,7 +101,13 @@ namespace Cloudents.Web
                         Location = ResponseCacheLocation.None
                     });
                     o.ModelBinderProviders.Insert(0, new ApiBinder());
-                }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                })
+               .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .ConfigureApiBehaviorOptions(o =>
+                {
+                    o.SuppressMapClientErrors = true; //https://github.com/aspnet/AspNetCore/issues/4792#issuecomment-454164457
+                    o.SuppressUseValidationProblemDetailsForInvalidModelStateResponses = false;
+                });
             if (HostingEnvironment.IsDevelopment())
             {
                 Swagger.Startup.SwaggerInitial(services);
@@ -121,7 +124,7 @@ namespace Cloudents.Web
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
-            services.AddDetectionCore().AddDevice();
+            services.AddDetectionCore().AddDevice().AddCrawler();
             services.AddScoped<SignInManager<RegularUser>, SbSignInManager>();
             services.AddIdentity<RegularUser, ApplicationRole>(options =>
             {
@@ -145,7 +148,7 @@ namespace Cloudents.Web
             //{
             //    o.ValidationInterval = TimeSpan.FromMinutes(2);
             //});
-
+          //  services.AddSingleton<IHttpResponseStreamWriterFactory, SbMemoryPoolHttpResponseStreamWriterFactory>();
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb4";
@@ -168,7 +171,6 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<RegularUser>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
-            services.AddTransient<IProfileUpdater, QueueProfileUpdater>();
             services.AddTransient<ICountryProvider, CountryProvider>();
 
             var assembliesOfProgram = new[]
@@ -189,7 +191,6 @@ namespace Cloudents.Web
             .Where(t => t.FullName.Split('.')[0] == "Cloudents");*/
 
 
-            services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
             var keys = new ConfigurationKeys(Configuration["Site"])
@@ -211,9 +212,18 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
 
-            containerBuilder.RegisterType<SeoDocumentRepository>()
-                .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>().WithParameter("query", SeoDbQuery.Flashcard);
+            //containerBuilder.RegisterType<DocumentSeoBuilder>()
+            //    .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>()
+            //    .WithParameter("query", SeoDbQuery.Flashcard);
 
+
+            containerBuilder.RegisterType<DocumentSeoBuilder>()
+                .Keyed<IBuildSeo>(SeoType.Document);
+            containerBuilder.RegisterType<StaticSeoBuilder>()
+                .Keyed<IBuildSeo>(SeoType.Static);
+            containerBuilder.RegisterType<QuestionSeoBuilder>()
+                .Keyed<IBuildSeo>(SeoType.Question);
+            //
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
@@ -296,8 +306,19 @@ namespace Cloudents.Web
                 routes.MapHub<SbHub>("/SbHub");
             });
            
+           
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: SeoTypeString.Question,
+                    template: "question/{id:long}",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
+                routes.MapRoute(
+                    name: "Static",
+                    template: "/{**page}",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

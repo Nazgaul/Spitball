@@ -27,7 +27,10 @@ const actions = {
         let id = model.id ? model.id : '';
         return documentService.getDocument(id)
             .then(({data}) => {
-                let item = {details: data.details, preview: data.preview};
+                let item = {
+                    details: data.details, 
+                    preview: data.preview, 
+                    content: data.content ? data.content : ''};
                 let postfix;
                 if (!item.preview || item.preview.length === 0) {
                     let location = `${global.location.origin}/images/doc-preview-empty.png`;

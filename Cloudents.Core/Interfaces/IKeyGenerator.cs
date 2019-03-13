@@ -12,9 +12,16 @@ namespace Cloudents.Core.Interfaces
 
     public interface ITextAnalysis
     {
-        Task<IEnumerable<KeyValuePair<T, CultureInfo>>> DetectLanguageAsync<T>(
-            IEnumerable<KeyValuePair<T, string>> texts, CancellationToken token);
-
         Task<CultureInfo> DetectLanguageAsync(string text, CancellationToken token);
+    }
+
+    public interface ITextClassifier
+    {
+        Task<IEnumerable<string>> KeyPhraseAsync(string text, CancellationToken token);
+    }
+
+    public interface ITextTranslator
+    {
+        Task<string> TranslateAsync(string text,string from, string to, CancellationToken token);
     }
 }

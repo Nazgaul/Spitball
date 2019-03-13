@@ -59,6 +59,21 @@ namespace Cloudents.Infrastructure.Storage
 
         public Task InsertMessageAsync(ISystemQueueMessage obj, CancellationToken token)
         {
+            return InsertMessageAsync(obj, TimeSpan.Zero, token);
+        }
+
+
+        
+
+
+        public async Task InsertBlobReprocessAsync(long id)
+        {
+            var queue = _queueClient.GetQueueReference("generate-blob-preview");
+            await queue.AddMessageAsync(new CloudQueueMessage(id.ToString()));
+        }
+
+        public Task InsertMessageAsync(ISystemQueueMessage obj, TimeSpan delay, CancellationToken token)
+        {
             var queue = _queueClient.GetQueueReference(QueueName.BackgroundQueue.Name);
             var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
@@ -66,27 +81,7 @@ namespace Cloudents.Infrastructure.Storage
             });
             var cloudMessage = new CloudQueueMessage(json);
             token.ThrowIfCancellationRequested();
-            return queue.AddMessageAsync(cloudMessage, null, null, new QueueRequestOptions(), new OperationContext(), token);
-        }
-
-
-        //private Task InsertMessageAsync(object obj, QueueName queueName, CancellationToken token)
-        //{
-        //    var queue = _queueClient.GetQueueReference(queueName.Name);
-        //    var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
-        //    {
-        //        TypeNameHandling = TypeNameHandling.Auto
-        //    });
-        //    var cloudMessage = new CloudQueueMessage(json);
-        //    token.ThrowIfCancellationRequested();
-        //    return queue.AddMessageAsync(cloudMessage);
-        //}
-
-
-        public async Task InsertBlobReprocessAsync(long id)
-        {
-            var queue = _queueClient.GetQueueReference("generate-blob-preview");
-            await queue.AddMessageAsync(new CloudQueueMessage(id.ToString()));
+            return queue.AddMessageAsync(cloudMessage, null, delay, new QueueRequestOptions(), new OperationContext(), token);
         }
     }
 }

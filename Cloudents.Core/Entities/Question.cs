@@ -43,7 +43,7 @@ namespace Cloudents.Core.Entities
             Status = status;
             Course = course;
             University = university;
-            Language = language;
+            Language = language ?? new CultureInfo("en");
         }
 
         public Question(Course course, string text, decimal price, int attachments,
@@ -60,7 +60,7 @@ namespace Cloudents.Core.Entities
 
             Status = Pending;
             //ChangeState(ItemState.Pending);
-            Language = language;
+            Language = language ?? new CultureInfo("en");
             University = university;
 
         }
@@ -97,8 +97,6 @@ namespace Cloudents.Core.Entities
 
         public virtual IList<QuestionTransaction> Transactions { get; protected set; }
 
-
-        // public virtual int AnswerCount { get; set; }
 
         public virtual Answer AddAnswer(string text, int attachments, RegularUser user, CultureInfo language)
         {
@@ -151,7 +149,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-
+        [NotNull]
         public virtual CultureInfo Language { get; protected set; }
 
         private readonly IList<Vote> _votes = new List<Vote>();

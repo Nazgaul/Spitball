@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
 {
-    public class VoteMap : ClassMap<Vote>
+    public sealed class VoteMap : ClassMap<Vote>
     {
         public VoteMap()
         {

@@ -23,8 +23,8 @@ const wallet = () => import("./components/wallet/wallet.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
 const login = () => import("./components/new_registration/login.vue");
-const university = () => import("./components/helpers/uni-select/uniSelect.vue")
-
+const university = () => import("./components/helpers/uni-select/uniSelect.vue");
+const tutorComponent = () => import("./components/tutor/tutor.vue");
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
 
@@ -182,6 +182,7 @@ let routes2 = [
             requiresAuth: true
         },
     },
+
     {
         path: "/book/:id",
         name: RouteTypes.bookDetailsRoute,
@@ -206,6 +207,23 @@ let routes2 = [
             header: () => ({
                 submitRoute: '/note',
                 currentSelection: "note"
+            })
+        }
+    },
+
+    {
+        path: "/tutoring/:id?",
+        name: 'tutoring',
+        components: {
+            default: tutorComponent,
+            // header: bookDetailsHeader
+        },
+        header: () => ({
+            submitRoute: '/tutoring',
+        }),
+        props: {
+            default: (route) => ({
+                id: route.params.id
             })
         }
     },

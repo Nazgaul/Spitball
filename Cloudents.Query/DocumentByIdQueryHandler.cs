@@ -61,39 +61,45 @@ namespace Cloudents.Query
             }
 
             var result = await futureValue.GetValueAsync(token);
-            result.IsPurchased = true;
-            if (result.Price.GetValueOrDefault() > 0)
+            if (result == null)
             {
-
-                if (purchaseFuture == null)
+                return null;
+            }
+            if (purchaseFuture == null)
+            {
+                result.IsPurchased = false;
+                return result;
+            }
+            result.IsPurchased = true;
+            if (result.Price.GetValueOrDefault() <= 0) return result;
+            //if (purchaseFuture == null)
+            //{
+            //    result.IsPurchased = false;
+            //}
+            else
+            {
+                if (result.User.Id == query.UserId.Value)
                 {
-                    result.IsPurchased = false;
 
+                    result.IsPurchased = true;
                 }
                 else
                 {
-                    if (result.User.Id == query.UserId.Value)
+                    var transactionResult = await purchaseFuture.GetValueAsync(token);
+                    if (transactionResult == null)
                     {
-
-                        result.IsPurchased = true;
+                        result.IsPurchased = false;
                     }
                     else
                     {
-                        var transactionResult = await purchaseFuture.GetValueAsync(token);
-                        if (transactionResult == null)
-                        {
-                            result.IsPurchased = false;
-                        }
-                        else
-                        {
-                            result.IsPurchased = true;
-                        }
+                        result.IsPurchased = true;
                     }
                 }
+
 
             }
             return result;
         }
     }
-   
+
 }

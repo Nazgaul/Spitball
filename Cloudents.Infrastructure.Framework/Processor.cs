@@ -39,7 +39,7 @@
 //            var blobsNamesInCache = new List<string>();
 //            var parallelTask = new List<Task>();
 
-//            var meta = await BlobProvider.FetchBlobMetaDataAsync(BlobUri, token).ConfigureAwait(false);
+//            var meta = await BlobProvider.FetchBlobMetaDataAsync(BlobUri, token);
 //            //meta = RemoveOldMetaTags(meta, cacheVersion);
 //            var pageCount = int.MaxValue;
 //            if (meta.TryGetValue(PagesInDocsMetaKey, out string sPageCount))
@@ -58,9 +58,9 @@
 //                }
 //                try
 //                {
-//                    using (var ms = await convertPageToPreview(pageIndex).ConfigureAwait(false))
+//                    using (var ms = await convertPageToPreview(pageIndex))
 //                    {
-//                        var sr = await Compress.CompressToGzipAsync(ms, token).ConfigureAwait(false);
+//                        var sr = await Compress.CompressToGzipAsync(ms, token);
 //                        parallelTask.Add(BlobProviderCache.UploadStreamAsync(cacheBlobName, sr, mimeType, true, 30, token));
 //                        blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 30));
 //                        meta[metaDataKey] = DateTime.UtcNow.ToString(DatePattern);
@@ -79,7 +79,7 @@
 //            var tasks = new List<Task>();
 //            tasks.AddRange(parallelTask);
 //            tasks.Add(t);
-//            await Task.WhenAll(tasks).ConfigureAwait(false);
+//            await Task.WhenAll(tasks);
 //            return blobsNamesInCache;
 //        }
 
@@ -90,7 +90,7 @@
 //        {
 //            if (pageIndex > NumberOfFilesInGroup)
 //            {
-//                if (!await BlobProviderCache.ExistsAsync(cacheBlobName, token).ConfigureAwait(false))
+//                if (!await BlobProviderCache.ExistsAsync(cacheBlobName, token))
 //                {
 //                    return null;
 //                }

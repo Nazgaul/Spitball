@@ -26,7 +26,6 @@ namespace Cloudents.Web.Api
         private readonly UserManager<RegularUser> _userManager;
         private readonly SbSignInManager _signInManager;
 
-        private readonly IBlockChainErc20Service _blockChainErc20Service;
         private readonly IQueueProvider _queueProvider;
         private readonly ISmsSender _client;
         private readonly IStringLocalizer<RegisterController> _localizer;
@@ -37,11 +36,10 @@ namespace Cloudents.Web.Api
         private const string EmailTime = "EmailTime";
 
         public RegisterController(UserManager<RegularUser> userManager, SbSignInManager signInManager,
-            IBlockChainErc20Service blockChainErc20Service, IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger)
+             IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _blockChainErc20Service = blockChainErc20Service;
             _queueProvider = queueProvider;
             _client = client;
             _localizer = localizer;
@@ -177,8 +175,8 @@ namespace Cloudents.Web.Api
             {
                 name = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             }
-            var (privateKey, _) = _blockChainErc20Service.CreateAccount();
-            return new RegularUser(email, $"{name}.{GenerateRandomNumber()}", privateKey, CultureInfo.CurrentCulture);
+           
+            return new RegularUser(email, $"{name}.{GenerateRandomNumber()}",  CultureInfo.CurrentCulture);
         }
 
         private static int GenerateRandomNumber()

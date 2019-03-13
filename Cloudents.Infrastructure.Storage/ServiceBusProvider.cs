@@ -1,5 +1,4 @@
-﻿using System;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
@@ -8,9 +7,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +16,6 @@ namespace Cloudents.Infrastructure.Storage
     public class ServiceBusProvider : IServiceBusProvider
     {
         private const string QueueSignalr = "signalr";
-        private const string QueueSms = "sms";
         private readonly string _connectionString;
 
         private readonly ConcurrentDictionary<string, TopicClient> _topicClients = new ConcurrentDictionary<string, TopicClient>();
@@ -36,20 +31,20 @@ namespace Cloudents.Infrastructure.Storage
 
 
 
-        private Task InsertQueueMessageAsync(string queue, object obj, CancellationToken token)
-        {
+        //private Task InsertQueueMessageAsync(string queue, object obj, CancellationToken token)
+        //{
             
-             var queueClient = _queueClients.GetOrAdd(queue, x => new QueueClient(_connectionString, x));
+        //     var queueClient = _queueClients.GetOrAdd(queue, x => new QueueClient(_connectionString, x));
 
-            var json = JsonConvert.SerializeObject(obj);
+        //    var json = JsonConvert.SerializeObject(obj);
 
-            token.ThrowIfCancellationRequested();
-            return queueClient.SendAsync(new Message
-            {
-                Body = Encoding.UTF8.GetBytes(json),
-                ContentType = "application/json",
-            });
-        }
+        //    token.ThrowIfCancellationRequested();
+        //    return queueClient.SendAsync(new Message
+        //    {
+        //        Body = Encoding.UTF8.GetBytes(json),
+        //        ContentType = "application/json",
+        //    });
+        //}
 
         public Task InsertMessageAsync(SmsMessage message, CancellationToken token)
         {
@@ -145,23 +140,23 @@ namespace Cloudents.Infrastructure.Storage
         //}
 
 
-        private  IEnumerable<string> GetQueues()
-        {
-            foreach (var field in this.GetType().GetFields(BindingFlags.Public | BindingFlags.Static
-                                                                                  | BindingFlags.FlattenHierarchy)
-                .Where(fi => fi.IsLiteral && !fi.IsInitOnly))
-            {
-                var val = (string) field.GetRawConstantValue();
-                if (val.StartsWith("queue", StringComparison.OrdinalIgnoreCase))
-                {
-                    yield return val;
-                }
-                //if (field.IsLiteral)
-                //{
-                //    continue;
-                //}
-                //yield return (string)field.GetValue(null);
-            }
-        }
+        //private  IEnumerable<string> GetQueues()
+        //{
+        //    foreach (var field in this.GetType().GetFields(BindingFlags.Public | BindingFlags.Static
+        //                                                                          | BindingFlags.FlattenHierarchy)
+        //        .Where(fi => fi.IsLiteral && !fi.IsInitOnly))
+        //    {
+        //        var val = (string) field.GetRawConstantValue();
+        //        if (val.StartsWith("queue", StringComparison.OrdinalIgnoreCase))
+        //        {
+        //            yield return val;
+        //        }
+        //        //if (field.IsLiteral)
+        //        //{
+        //        //    continue;
+        //        //}
+        //        //yield return (string)field.GetValue(null);
+        //    }
+        //}
     }
 }

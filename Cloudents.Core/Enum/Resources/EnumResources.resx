@@ -165,16 +165,6 @@
   <data name="BookConditionUsed" xml:space="preserve">
     <value>Used</value>
   </data>
-  <data name="DocumentTypeExam" xml:space="preserve">
-    <value>Exam note</value>
-  </data>
-  <data name="DocumentTypeLecture" xml:space="preserve">
-    <value>Lecture note</value>
-  </data>
-  <data name="DocumentTypeTextbook" xml:space="preserve">
-    <value>Textbook note</value>
-    <comment>Ram Change</comment>
-  </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>Answered</value>
   </data>

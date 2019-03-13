@@ -11,6 +11,7 @@ using System;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
 {
@@ -32,9 +33,9 @@ namespace Cloudents.Web.Controllers
         }
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        //[ServiceFilter(typeof(RedirectToOldSiteFilterAttribute))]
         public async Task<IActionResult> Index(
-            [FromHeader(Name = "User-Agent")] string userAgent,
+            [FromServices] ICrawlerResolver crawlerResolver,
+          //  [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral,
             [FromQuery] string open,
             [FromQuery] string token
@@ -44,8 +45,8 @@ namespace Cloudents.Web.Controllers
             {
                 TempData[Referral] = referral;
             }
-
-            if (userAgent != null && userAgent.Contains("linkedin", StringComparison.OrdinalIgnoreCase))
+            if (crawlerResolver.Crawler?.Type == CrawlerType.LinkedIn)
+            //if (userAgent != null && userAgent.Contains("linkedin", StringComparison.OrdinalIgnoreCase))
             {
                 ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
             }
@@ -115,7 +116,7 @@ namespace Cloudents.Web.Controllers
             {
                 message
             }, token);
-            await signInManager.SignOutAsync().ConfigureAwait(false);
+            await signInManager.SignOutAsync();
             TempData.Clear();
 
 

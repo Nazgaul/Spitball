@@ -1,4 +1,11 @@
-﻿using System;
+﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
+using JetBrains.Annotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -8,13 +15,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Infrastructure
 {
@@ -53,10 +53,10 @@ namespace Cloudents.Infrastructure
             var uri = new UriBuilder(url);
             uri.AddQuery(queryString);
 
-            var response = await _client.GetAsync(uri.Uri, token).ConfigureAwait(false);
+            var response = await _client.GetAsync(uri.Uri, token);
             if (!response.IsSuccessStatusCode)
                 return null;
-            return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsStringAsync();
         }
 
         public Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
@@ -74,12 +74,12 @@ namespace Cloudents.Infrastructure
             }
 
             var result = await _client.GetAsync(url,
-                    HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
+                    HttpCompletionOption.ResponseHeadersRead, token);
             result.EnsureSuccessStatusCode();
-            var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            var stream = await result.Content.ReadAsStreamAsync();
             if (result.Content.Headers.ContentType.MediaType.Contains("gzip", StringComparison.OrdinalIgnoreCase))
             {
-                stream = await Compress.DecompressFromGzipAsync(stream).ConfigureAwait(false);
+                stream = await Compress.DecompressFromGzipAsync(stream);
             }
 
             return (stream, result.Headers.ETag);
@@ -87,7 +87,7 @@ namespace Cloudents.Infrastructure
 
         public async Task<Uri> UrlRedirectAsync(Uri url)
         {
-            var response = await _client.GetAsync(url).ConfigureAwait(false);
+            var response = await _client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             return response.RequestMessage.RequestUri;
         }
@@ -112,9 +112,9 @@ namespace Cloudents.Infrastructure
 
             uri.AddQuery(queryString);
 
-            var response = await _client.GetAsync(uri.Uri, token).ConfigureAwait(false);
+            var response = await _client.GetAsync(uri.Uri, token);
             response.EnsureSuccessStatusCode();
-            using (var s = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+            using (var s = await response.Content.ReadAsStreamAsync())
             using (var sr = new StreamReader(s))
             using (var reader = new JsonTextReader(sr))
             {
@@ -126,24 +126,61 @@ namespace Cloudents.Infrastructure
             }
         }
 
-        public  Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        public async Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
-            return TransferHttpContentAsync(HttpMethod.Post, url, body, headers, token);
+            var t = await TransferHttpContentAsync(HttpMethod.Post, url, body, headers, token);
+            return t.IsSuccessStatusCode;
         }
 
         [Log]
-        public Task<bool> PostJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        public async Task<bool> PostJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
-            return TransferJsonBodyAsync(HttpMethod.Post, url, obj, headers, token);
+            var t = await TransferJsonBodyAsync(HttpMethod.Post, url, obj, headers, token);
+            return t.IsSuccessStatusCode;
+        }
+
+        public async Task<TU> PostJsonAsync<T, TU>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        {
+            var response = await TransferJsonBodyAsync(HttpMethod.Post, url, obj, headers, token);
+            if (!response.IsSuccessStatusCode)
+            {
+
+                var content = await response.Content.ReadAsStringAsync();
+
+                var v = new HttpRequestException($"failed to invoke url: {url}")
+                {
+                    Data =
+                    {
+                        ["content"] = content,
+                        ["obj"] = JsonConvert.SerializeObject(obj),
+                        ["headers"] = JsonConvert.SerializeObject(headers)
+                    }
+                    
+                };
+                throw v;
+            }
+           
+            //response.EnsureSuccessStatusCode();
+            using (var s = await response.Content.ReadAsStreamAsync())
+            using (var sr = new StreamReader(s))
+            using (var reader = new JsonTextReader(sr))
+            {
+                var serializer = new JsonSerializer
+                {
+                    DefaultValueHandling = DefaultValueHandling.Ignore
+                };
+                return serializer.Deserialize<TU>(reader);
+            }
         }
 
         [Log]
-        public Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        public async Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
-            return TransferJsonBodyAsync(HttpMethod.Put, url, obj, headers, token);
+            var t = await TransferJsonBodyAsync(HttpMethod.Put, url, obj, headers, token);
+            return t.IsSuccessStatusCode;
         }
 
-        private async Task<bool> TransferJsonBodyAsync<T>(HttpMethod method, Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        private async Task<HttpResponseMessage> TransferJsonBodyAsync<T>(HttpMethod method, Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
             var jsonInString = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
@@ -152,15 +189,16 @@ namespace Cloudents.Infrastructure
                 {
                     NamingStrategy = new CamelCaseNamingStrategy()
                 }
-                
+
             });
-            using (var stringContent = new StringContent(jsonInString, Encoding.UTF8, "application/json"))
+            using (var stringContent = new StringContent(jsonInString, Encoding.UTF8,
+                "application/json"))
             {
-                return await TransferHttpContentAsync(method, url, stringContent, headers, token).ConfigureAwait(false);
+                return await TransferHttpContentAsync(method, url, stringContent, headers, token);
             }
         }
 
-        private async Task<bool> TransferHttpContentAsync(HttpMethod method, Uri url, HttpContent obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        private async Task<HttpResponseMessage> TransferHttpContentAsync(HttpMethod method, Uri url, HttpContent obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
             using (var message = new HttpRequestMessage(method, url)
             {
@@ -171,17 +209,17 @@ namespace Cloudents.Infrastructure
                 {
                     foreach (var header in headers)
                     {
-                        message.Headers.Add(header.Key,header.Value);
+                        message.Headers.Add(header.Key, header.Value);
                     }
                 }
 
-                var p = await _client.SendAsync(message, token).ConfigureAwait(false);
-                if (!p.IsSuccessStatusCode)
-                {
-                    var content = await p.Content.ReadAsStringAsync();
-                    _logger.Warning(content);
-                }
-                return p.IsSuccessStatusCode;
+                var p = await _client.SendAsync(message, token);
+                //if (!p.IsSuccessStatusCode)
+                //{
+                //    var content = await p.Content.ReadAsStringAsync();
+                //    _logger.Warning(content);
+                //}
+                return p;
             }
         }
 

@@ -40,7 +40,7 @@ namespace Cloudents.Core.Storage
             var output = new MemoryStream();
             using (Stream cs = new GZipStream(stream, CompressionMode.Decompress))
             {
-                await cs.CopyToAsync(output).ConfigureAwait(false);
+                await cs.CopyToAsync(output);
             }
 
             return output;
@@ -52,7 +52,7 @@ namespace Cloudents.Core.Storage
             var ms = new MemoryStream();
             using (var gz = new GZipStream(ms, CompressionLevel.Optimal))
             {
-                await stream.CopyToAsync(gz, 81920, token).ConfigureAwait(false);
+                await stream.CopyToAsync(gz, 81920, token);
             }
             return ms;
         }

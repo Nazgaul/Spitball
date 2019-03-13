@@ -49,6 +49,7 @@
                         <v-icon small
                                 color="green"
                                 class="mr-2"
+                                :disabled="props.item.approved || props.item.declinedReason"
                                 @click="editItem(props.item)">
                             call_to_action
 
@@ -86,7 +87,7 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-                    <v-btn color="red darken-1"  flat @click="done()">
+                    <v-btn color="red darken-1" :disabled="disableDoneBtn" flat @click="done()">
                         Done
                     </v-btn>
                 </v-card-actions>
@@ -135,6 +136,11 @@
                     {text: 'Actions', value: 'Actions'},
 
                 ],
+            }
+        },
+        computed: {
+            disableDoneBtn() {
+                return this.radios === 'decline' &&  !this.editedItem.declinedReason
             }
         },
         methods: {

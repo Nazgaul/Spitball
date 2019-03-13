@@ -24,4 +24,15 @@ namespace Cloudents.Core.Message.Email
 
         public Guid TransactionId { get; private set; }
     }
+
+
+    public class EndTutoringSessionMessage : ISystemQueueMessage
+    {
+        public EndTutoringSessionMessage(string roomId)
+        {
+            RoomId = roomId;
+        }
+
+        public string RoomId { get; private set; }
+    }
 }

@@ -1,17 +1,16 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class JobApiTests :  IClassFixture<WebApplicationFactory<Startup>>
+    public class JobApiTests :  IClassFixture<SbWebApplicationFactory>
     {
 
-        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly SbWebApplicationFactory _factory;
 
-        public JobApiTests(WebApplicationFactory<Startup> factory)
+        public JobApiTests(SbWebApplicationFactory factory)
         {
             _factory = factory;
         }
@@ -43,7 +42,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsStringAsync();
             var d = JObject.Parse(result);
-            var p = d["result"]["result"].Values();
+            var p = d["result"].Values();
             
             p.Should().HaveCountGreaterOrEqualTo(1);
         }

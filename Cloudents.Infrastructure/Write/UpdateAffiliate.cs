@@ -37,7 +37,7 @@
 //            _logger.Info($"{Service} starting to work");
 //            var list = new List<Task<TU>>();
 //            var timeNow = DateTime.UtcNow;
-//            var (locationToSave, lastWriteTime) = await _downloadFile.DownloadFileAsync(Url, FileLocation, HttpHandler, token).ConfigureAwait(false);
+//            var (locationToSave, lastWriteTime) = await _downloadFile.DownloadFileAsync(Url, FileLocation, HttpHandler, token);
 //            try
 //            {
 //                if (lastWriteTime < timeNow)
@@ -65,14 +65,14 @@
 //                    var obj = ParseTAsync(job, token);
 //                    list.Add(obj);
 //                    if (list.Count < 100) continue;
-//                    await Task.WhenAll(list).ConfigureAwait(false);
+//                    await Task.WhenAll(list);
 //                    var t1 =  UpdateSearchAsync(list.Select(s => s.Result),
 //                        token); // m_JobSearchService.UpdateDataAsync(list, token);
 
 //                    var t2 = progressAsync.Invoke(i);
 //                    _logger.Info($"{Service} finish processing " + i);
 
-//                    await Task.WhenAll(t1, t2).ConfigureAwait(false);
+//                    await Task.WhenAll(t1, t2);
 //                    token.ThrowIfCancellationRequested();
 //                    list.Clear();
 //                }
@@ -92,11 +92,11 @@
 //            }
 //            if (list.Count > 0)
 //            {
-//                await Task.WhenAll(list).ConfigureAwait(false);
-//                await UpdateSearchAsync(list.Select(s => s.Result), token).ConfigureAwait(false);
+//                await Task.WhenAll(list);
+//                await UpdateSearchAsync(list.Select(s => s.Result), token);
 //            }
 //            _logger.Info($"{Service} Going To delete old items");
-//            await DeleteOldItemsAsync(lastWriteTime, token).ConfigureAwait(false);
+//            await DeleteOldItemsAsync(lastWriteTime, token);
 //            _logger.Info($"{Service} finish to work");
 //        }
 //    }

@@ -5,16 +5,6 @@ namespace Cloudents.Core.Query
 {
     public class DocumentQuery : VerticalQuery
     {
-        //public DocumentQuery(string course, UserProfile profile, string term, int page,
-        //    IEnumerable<string> filters) :base(term,course,)
-        //{
-        //    Course = course;
-        //    Term = term;
-        //    Page = page;
-        //    Filters = filters ?? Enumerable.Empty<string>();
-        //    Profile = profile;
-        //}
-
         public DocumentQuery(UserProfile userProfile, string term, string course, bool filterByUniversity, IEnumerable<string> filters) : base(userProfile, term, course, filterByUniversity)
         {
             Filters = filters;

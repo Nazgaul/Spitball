@@ -45,7 +45,7 @@ namespace Cloudents.Search.Document
                     await
                         _client.Documents.GetAsync<Entities.Document>
                         (itemId.ToString(CultureInfo.InvariantCulture),
-                            new[] { nameof(Entities.Document.Content) }, cancellationToken: cancelToken).ConfigureAwait(false);
+                            new[] { nameof(Entities.Document.Content) }, cancellationToken: cancelToken);
                 return item.Content;
             }
             //item may not exists in the search....
@@ -148,7 +148,7 @@ namespace Cloudents.Search.Document
 
         }
 
-        private static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
+        internal static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
         {
             if (input == null)
             {

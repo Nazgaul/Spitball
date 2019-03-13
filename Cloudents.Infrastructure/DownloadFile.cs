@@ -36,7 +36,7 @@
 //                lastWriteTime = p.LastWriteTimeUtc;
 //            }
 
-//            var (stream, etagHeader) = await _client.DownloadStreamAsync(url, auth, token).ConfigureAwait(false);
+//            var (stream, etagHeader) = await _client.DownloadStreamAsync(url, auth, token);
 
 //            try
 //            {
@@ -44,7 +44,7 @@
 //                {
 //                    return (locationToSave, lastWriteTime);
 //                }
-//                var tempFile = await _localStorage.SaveFileToStorageAsync(stream, tempFileName).ConfigureAwait(false);
+//                var tempFile = await _localStorage.SaveFileToStorageAsync(stream, tempFileName);
 //                var tempFileEtag = CalculateMd5(tempFile);
 //                if (tempFileEtag == eTag)
 //                {

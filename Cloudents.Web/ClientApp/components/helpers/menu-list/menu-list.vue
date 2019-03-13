@@ -98,7 +98,7 @@
                     <v-list-tile-title class="subheading" v-language:inner>menuList_changeUniversity</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <span class="edit-text"><span v-language:inner>menuList_Change</span>
+                    <span class="edit-text">
                  <v-icon class="edit-after-icon">sbf-edit-icon</v-icon>
                 </span>
 
@@ -112,7 +112,7 @@
                     <v-list-tile-title class="subheading" v-language:inner>menuList_changeCourse</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <span class="edit-text"><span v-language:inner>menuList_Change</span>
+                    <span class="edit-text">
                  <v-icon class="edit-after-icon">sbf-edit-icon</v-icon>
                 </span>
 

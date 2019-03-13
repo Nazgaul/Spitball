@@ -35,5 +35,7 @@ namespace Cloudents.Core.Entities
         public virtual DomainTimeStamp RowDetail { get; protected set; }
 
         public virtual IList<Document> Documents { get; set; }
+        public virtual IList<Question> Questions { get; set; }
+        public virtual IList<User> Users { get; set; }
     }
 }

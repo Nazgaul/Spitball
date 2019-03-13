@@ -41,11 +41,14 @@ where UserId = :id");
                 var coursesFuture = sqlCourses.Future<string>();
 
 
-                var sqlTags = _session.CreateSQLQuery(@"select tagid from sb.UsersTags
-where UserId = :id");
-                sqlTags.SetInt64("id", query.Id);
+//                var sqlTags = _session.CreateSQLQuery(@"Select  distinct TagId from sb.DocumentsTags where DocumentId in (
+//Select id from sb.Document where CourseName in (
+//Select CourseId from sb.UsersCourses where userid = :id
+//)
+//)");
+//                sqlTags.SetInt64("id", query.Id);
 
-                var tagsFuture = sqlTags.Future<string>();
+                //var tagsFuture = sqlTags.Future<string>();
 
                 var universityFuture = _session.Query<RegularUser>()
                     .Fetch(f => f.University)
@@ -56,14 +59,14 @@ where UserId = :id");
 
 
                 var courses = await coursesFuture.GetEnumerableAsync(token);
-                var tags = await tagsFuture.GetEnumerableAsync(token);
+               // var tags = await tagsFuture.GetEnumerableAsync(token);
                 var university = universityFuture?.Value;
 
                 return new UserProfile
                 {
                     University = university,
                     Courses = courses?.ToList(),
-                    Tags = tags,
+                    Tags = null,
 
                 };
             }

@@ -38,6 +38,10 @@ import userUpVotes from './components/userMainView/userUpVotes/userUpVotes.vue';
 import userDownVotes from './components/userMainView/userDownVotes/userDownVotes.vue';
 import userFlagged from './components/userMainView/userFlaggedItems/userFlaggedItems.vue';
 
+import Management from './components/management/Management.vue';
+import courseMigration from './components/management/courseMigration/courseMigration.vue';
+import universityMigration from './components/management/universityMigration/universityMigration.vue';
+
 export const routes = [
     {
        path: '/home/:userId',
@@ -226,6 +230,27 @@ export const routes = [
             },
         ]
     },
+
+    {
+        path: '/management',
+        name: 'management',
+        component: Management,
+        children: [
+            {
+                path: '',
+                redirect: 'courseMigration'
+            },
+            {
+                path: 'courseMigration',
+                component: courseMigration
+            },
+            {
+                path: 'universityMigration',
+                component: universityMigration
+            }
+        ]
+    },
+
      {
       path: '/dev',
       name: 'dev',

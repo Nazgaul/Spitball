@@ -42,8 +42,11 @@ namespace Cloudents.Web.Identity
 
             var query = new UserProfileQuery(user.Id);
             var result = await _queryBus.QueryAsync(query, default);
-
-            p.AddClaim(new Claim(Profile, JsonConvert.SerializeObject(result)));
+            var v = JsonConvert.SerializeObject(result);
+            if (v.Length < 2000)
+            {
+                p.AddClaim(new Claim(Profile, JsonConvert.SerializeObject(result)));
+            }
 
             return p;
         }

@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Query
 {

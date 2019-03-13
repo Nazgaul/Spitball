@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
@@ -43,6 +44,7 @@ namespace Cloudents.Core.Entities
             return (Name != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Name) : 0);
         }
 
+
         public static bool operator ==(Course left, Course right)
         {
             return Equals(left, right);
@@ -53,9 +55,15 @@ namespace Cloudents.Core.Entities
             return !Equals(left, right);
         }
 
+  
+
         public virtual string Name { get; protected set; }
         public virtual int Count { get; set; }
 
         public virtual DateTime Created { get; set; }
+
+        public virtual ISet<RegularUser> Users { get; protected set; }
+        public virtual IList<Document> Documents { get; protected set; }
+        public virtual IList<Question> Questions { get; protected set; }
     }
 }

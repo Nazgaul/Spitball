@@ -3,12 +3,6 @@
     <TargetFramework>net461</TargetFramework>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <FileVersion>1.1.0.0</FileVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -24,7 +18,7 @@
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="8.5.0" />
     <PackageReference Include="Aspose.Imaging" Version="3.0.0" />
-    <PackageReference Include="Aspose.Pdf" Version="10.5.1" />
+    <PackageReference Include="Aspose.Pdf" Version="10.6.0" />
     <PackageReference Include="Aspose.Slides.NET" Version="15.5.0" />
     <PackageReference Include="Aspose.Words" Version="15.6.0" />
     <PackageReference Include="Autofac" Version="4.6.1" />

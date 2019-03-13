@@ -1,8 +1,10 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace Cloudents.Persistance.Repositories
 {
@@ -18,14 +20,18 @@ namespace Cloudents.Persistance.Repositories
             {
                 throw new System.ArgumentNullException(nameof(name));
             }
+          
             name = name.Trim();
-            var tag = await GetAsync(name, token);
+
+            var tag = await Session.Query<Tag>()
+                .Where(w => w.Name.Equals(name))
+                .FirstOrDefaultAsync(cancellationToken: token);
+
 
             if (tag == null)
             {
-
                 tag = new Tag(name);
-                await AddAsync(tag, token).ConfigureAwait(true);
+                await AddAsync(tag, token);
             }
 
             return tag;

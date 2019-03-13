@@ -11,7 +11,6 @@ namespace Cloudents.Persistance.Maps
             DynamicUpdate();
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
             Map(e => e.Email)/*.Not.Nullable()*/.Unique();
-            Map(e => e.PrivateKey);
             Map(e => e.Name).Not.Nullable().Unique();
             Map(e => e.EmailConfirmed);
             
@@ -41,7 +40,7 @@ namespace Cloudents.Persistance.Maps
                 .Cascade.AllDeleteOrphan();
 
             Map(x => x.Score).ReadOnly();
-            Table("[User]");
+            Table("[User]"); //if not there is sql error
             
             SchemaAction.None();
             DiscriminateSubClassesOnColumn("Fictive");

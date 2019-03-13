@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Data.Test
         {
             new PersistenceSpecification<University>(Session)
                 .CheckProperty(c => c.Name, "Some University")
-                .CheckProperty(c => c.Id, 171885L)
+                .CheckProperty(c => c.Country, "IL")
                 .VerifyTheMappings();
         }
     }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -112,26 +113,27 @@ namespace Cloudents.Infrastructure.Storage
         }
 
 
-        //public string GenerateDownloadLink(string blobName, double expirationTimeInMinutes, string fileName)
-        //{
-        //    var blob = GetBlob(blobName);
+       
 
-        //    var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
-        //    {
-        //        SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
-        //        Permissions = SharedAccessBlobPermissions.Read,
-        //        SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
 
-        //    }, new SharedAccessBlobHeaders
-        //    {
-        //        ContentDisposition = "attachment; filename=\"" + WebUtility.UrlEncode(fileName ?? blob.Name) + "\""
-        //    });
-            
-            
-        //    var url = new Uri(blob.Uri, signedUrl);
-        //    return url.AbsoluteUri;
-        //}
+        public async Task<string> DownloadTextAsync(string name, string directory, CancellationToken token)
+        {
+            try
+            {
+                var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
+                var blob = destinationDirectory.GetBlockBlobReference(name);
 
+                return await blob.DownloadTextAsync();
+            }
+            catch (StorageException e)
+            {
+                if (e.RequestInformation.HttpStatusCode == (int) HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+                throw;
+            }
+        }
 
         public Task<bool> ExistsAsync(string blobName, CancellationToken token)
         {
@@ -157,7 +159,7 @@ namespace Cloudents.Infrastructure.Storage
             await sourceBlob.DeleteAsync();
         }
 
-        public async Task DeleteDirectoryAsync(string id)
+        public async Task DeleteDirectoryAsync(string id,CancellationToken token)
         {
             var directory = _blobDirectory.GetDirectoryReference(id);
             var blobs = await directory.ListBlobsSegmentedAsync(null);
@@ -169,7 +171,7 @@ namespace Cloudents.Infrastructure.Storage
                 if (blob is CloudBlockBlob p)
                 {
 
-                    var t = p.DeleteAsync();
+                    var t = p.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots,AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
                     l.Add(t);
                 }
             }

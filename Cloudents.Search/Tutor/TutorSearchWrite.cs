@@ -93,10 +93,10 @@ namespace Cloudents.Search.Tutor
             do
             {
                 var searchRetVal = await IndexClient.Documents.SearchAsync<Entities.Tutor>("*", parameters, cancellationToken: token)
-                    .ConfigureAwait(false);
+                    ;
                 result = searchRetVal.Results;
 
-                await DeleteDataAsync(result.Select(s => s.Document.Id), token).ConfigureAwait(false);
+                await DeleteDataAsync(result.Select(s => s.Document.Id), token);
 
             } while (result.Count == top);
         }

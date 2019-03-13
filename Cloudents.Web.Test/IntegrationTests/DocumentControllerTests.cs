@@ -1,28 +1,47 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class DocumentControllerTests : IClassFixture<WebApplicationFactory<Startup>>
+    public class DocumentControllerTests : IClassFixture<SbWebApplicationFactory>
     {
-        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly SbWebApplicationFactory _factory;
 
-        public DocumentControllerTests(WebApplicationFactory<Startup> factory)
+        public DocumentControllerTests(SbWebApplicationFactory factory)
         {
             _factory = factory;
         }
 
         [Theory]
-        [InlineData("/item/המרכז-האקדמי-לב-מכון-טל/25405/סימולציה/401065/consoleapplication1.xml")]
-        public async Task LinkToHeb_RedirectResult(string url)
+        [InlineData("document/המסלול-האקדמי-המכללה-למנהל")]
+        public async Task ShortUrl_Invalid_404(string url)
         {
-            var client = _factory.CreateClient();
+            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
+            {
+                AllowAutoRedirect = false
+            });
 
             // Act
             var response = await client.GetAsync(url);
+           
             var p = response.Headers.Location;
-            Assert.EndsWith("/", p.AbsolutePath);
+            p.Should().Be("/Error/NotFound");
+            //Assert.EndsWith("error/notfound", p.AbsolutePath);
+        }
+
+        [Theory]
+        [InlineData("document/2999")]
+        public async Task Valid_Url_200(string url)
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync(url);
+
+            response.StatusCode.Should().Be(200);
         }
     }
 }

@@ -12,7 +12,6 @@ using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using PhoneNumbers;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -82,7 +81,7 @@ namespace Cloudents.Web.Api
             }
 
             var phoneNumber = await _client.ValidateNumberAsync(model.ToString(), token);
-            if (string.IsNullOrEmpty(phoneNumber))
+            if (string.IsNullOrEmpty(phoneNumber.phoneNumber))
             {
                 _logger.Warning("Did not passed validation of lookup");
                 ModelState.AddModelError(nameof(model.PhoneNumber), _localizer["InvalidPhoneNumber"]);
@@ -90,11 +89,10 @@ namespace Cloudents.Web.Api
             }
 
 
-            var phoneUtil = PhoneNumberUtil.GetInstance();
-            var t = phoneUtil.GetRegionCodeForCountryCode(model.CountryCode);
-            user.Country = t;
+         
+            user.Country = phoneNumber.country;
 
-            var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber);
+            var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber.phoneNumber);
 
             //Ram: I disable this - we have an issue that sometime we get the wrong ip look at id 
             //3DCDBF98-6545-473A-8EAA-A9DF00787C70 of UserLocation table in dev sql
@@ -166,7 +164,7 @@ namespace Cloudents.Web.Api
                 {
                     try
                     {
-                        var command = new ReferringUserCommand(base62.Value, user.Id);
+                        var command = new ReferringUserCommand(base62, user.Id);
                         await _commandBus.DispatchAsync(command, token);
                     }
                     catch (UserLockoutException)

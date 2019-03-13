@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command.Admin;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
@@ -41,8 +40,8 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
 
 
-            var Uni = await _universityRepository.GetUniversityByNameAsync(message.University, token);
-            if(Uni == null)
+            var university = await _universityRepository.GetUniversityByNameAsync(message.University, token);
+            if(university == null)
             {
                 throw new InvalidOperationException("we don't have Universities with the specified name");
             }
@@ -51,14 +50,14 @@ namespace Cloudents.Command.CommandHandler.Admin
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
             var question = new Question(course, message.Text, message.Price, message.Files?.Count() ?? 0,
                 user,
-                textLanguage, Uni);
+                textLanguage, university);
            
-            await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
+            await _questionRepository.AddAsync(question, token);
             var id = question.Id;
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{id}", token)) ??
                     Enumerable.Empty<Task>();
-            await Task.WhenAll(l).ConfigureAwait(true);
+            await Task.WhenAll(l);
         }
     }
 }

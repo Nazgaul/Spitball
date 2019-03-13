@@ -35,7 +35,7 @@ namespace Cloudents.Persistance.Repositories
                 .Where(w => w.Updated < DateTime.UtcNow.AddHours(3))
                 .Where(w => Session.Query<Answer>()
                                 .FirstOrDefault(x => x.Question.Id == w.Id) == null && w.Status.State == ItemState.Ok)
-                .ToListAsync(token).ConfigureAwait(false);
+                .ToListAsync(token);
         }
 
         //public Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token)

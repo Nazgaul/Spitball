@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace Cloudents.Persistance.Repositories
 {
@@ -20,16 +22,26 @@ namespace Cloudents.Persistance.Repositories
                 throw new ArgumentNullException(nameof(name));
             }
             name = name.Trim();
-            var course = await GetAsync(name, token);
+
+            var course = await Session.Query<Course>()
+                .Where(w => w.Name.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
+
+
 
             if (course == null)
             {
 
                 course = new Course(name);
-                await AddAsync(course, token).ConfigureAwait(true);
+                await AddAsync(course, token);
             }
 
             return course;
+        }
+
+        public async Task<Course> GetByNameAsync(string name, CancellationToken token)
+        {
+            return await Session.Query<Course>()
+                .Where(w => w.Name.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
         }
     }
 }

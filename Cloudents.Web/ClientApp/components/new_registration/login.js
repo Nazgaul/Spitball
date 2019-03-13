@@ -279,5 +279,12 @@ export default {
                 //global.zxcvbn = data;
             }
         );
+        let captchaLangCode = global.lang === 'he' ? 'iw' : 'en'
+        //load vue recaptha
+        self.$loadScript(`https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=${captchaLangCode}`).then(
+            (data) => {
+                console.log('loaded recaptha vue')
+            }
+        );
     },
 }

@@ -1,45 +1,49 @@
 ﻿<template>
-    <v-app>
-        <v-tour name="myTour"
-                :steps="tourObject.tourSteps"
-                :options="tourObject.toursOptions"
-                :callbacks="tourObject.tourCallbacks"></v-tour>
-        <router-view name="header"></router-view>
-        <router-view name="schoolBlock"></router-view>
-        <v-content class="site-content" :class="{'loading':getIsLoading}">
-            <div class="loader" v-show="getIsLoading">
-                <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
-            </div>
-            <div v-show="showUniSelect" style="height: 100%;">
-                <uni-select></uni-select>
-            </div>
-            <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
-                <marketing-box></marketing-box>
-            </div>
-            <div v-if="showLeadersMobile && getMobileFooterState">
-                <leaders-board></leaders-board>
-            </div>
-            <!-- <div class="school-block-container">
-                      <router-view name="schoolBlock"></router-view>
-            </div>-->
-            <router-view name="verticals"></router-view>
-            <router-view class="main-container" v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
-            <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
-            <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
-                <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
-                <span class="cookie-approve">
-                    <button @click="removeCookiesPopup()"
-                            style="outline:none;"
-                            v-language:inner>
-                        app_cookie_toaster_action
-                    </button>
-                </span>
-            </div>
-            <sb-dialog :showDialog="loginDialogState"
-                       :popUpType="'loginPop'"
-                       :content-class="'login-popup'">
-                <login-to-answer></login-to-answer>
-            </sb-dialog>
+  <v-app>
+    <v-tour
+        name="myTour"
+        :steps="tourObject.tourSteps"
+        :options="tourObject.toursOptions"
+        :callbacks="tourObject.tourCallbacks"
+      ></v-tour>
+    <router-view name="header"></router-view>
+    <router-view name="schoolBlock"></router-view>
+    <v-content class="site-content" :class="{'loading':getIsLoading}">
+      <div class="loader" v-show="getIsLoading">
+        <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
+      </div>
+      <div v-show="showUniSelect" style="height: 100%;">
+        <uni-select></uni-select>
+      </div>
+      <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
+        <marketing-box></marketing-box>
+      </div>
+      <div v-if="showLeadersMobile && getMobileFooterState">
+        <leaders-board></leaders-board>
+      </div>
+      <!-- <div class="school-block-container">
+                <router-view name="schoolBlock"></router-view>
+      </div>-->
+      <router-view name="verticals"></router-view>
+      <router-view class="main-container" v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
+      <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
+      <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
+        <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
+        <span class="cookie-approve">
+          <button
+            @click="removeCookiesPopup()"
+            style="outline:none;"
+            v-language:inner
+          >app_cookie_toaster_action</button>
+        </span>
+      </div>
+      <sb-dialog
+        :showDialog="loginDialogState"
+        :popUpType="'loginPop'"
+        :content-class="'login-popup'"
+      >
+        <login-to-answer></login-to-answer>
+      </sb-dialog>
 
             <sb-dialog :showDialog="universitySelectPopup"
                        :popUpType="'universitySelectPopup'"
@@ -52,7 +56,9 @@
             <sb-dialog :isPersistent="true"
                        :showDialog="newQuestionDialogSate"
                        :popUpType="'newQuestion'"
+                       :max-width="'500px'"
                        :content-class="'newQuestionDialog'">
+
                 <Add-Question></Add-Question>
                 <!-- <New-Question></New-Question> -->
             </sb-dialog>

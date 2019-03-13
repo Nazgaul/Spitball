@@ -60,7 +60,7 @@ namespace Cloudents.Web.Api
             code = UrlEncoder.Default.Encode(code);
             var link = Url.Link("ResetPassword", new { user.Id, code });
             var message = new ResetPasswordEmail(user.Email, link, CultureInfo.CurrentUICulture);
-            await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
+            await _queueProvider.InsertMessageAsync(message, token);
         }
 
         [HttpPost("resend")]
@@ -73,14 +73,14 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
-            var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
+            var user = await _userManager.FindByEmailAsync(email.ToString());
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, _localizer["UserDoesntExists"]);
                 return BadRequest(ModelState);
             }
 
-            await GenerateEmailAsync(user, token).ConfigureAwait(false);
+            await GenerateEmailAsync(user, token);
             return Ok();
         }
 

@@ -28,7 +28,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
         {
-            var question = await _repository.GetAsync(message.Id, token).ConfigureAwait(false); // no point in load next line will do a query
+            var question = await _repository.GetAsync(message.Id, token); // no point in load next line will do a query
             if (question == null)
             {
                 throw new ArgumentException("question doesn't exists");

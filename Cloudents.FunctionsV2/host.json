@@ -1,5 +1,5 @@
 {
   "version": "2.0",
-  //"functions": [ "FunctionPhoneServiceBus2" ]
+  //"functions": [ "DocumentProcessFunction" ]
   //"functions": [ "DocumentSearchSync", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
 }

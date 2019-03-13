@@ -13,8 +13,6 @@ using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Storage;
 using System.Linq;
 using Cloudents.Command.Command;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Admin2.Api
 {
@@ -175,7 +173,7 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
 
-            var PhoneCommand = new ConfirmePhoneNumberCommand(model.Id);
+            var PhoneCommand = new ConfirmPhoneNumberCommand(model.Id);
             var registrationBonusCommand = new FinishRegistrationCommand(model.Id);
             try
             {
@@ -285,7 +283,7 @@ namespace Cloudents.Admin2.Api
                 {
                     document.Preview =
                         blobProvider.GeneratePreviewLink(file,
-                            20);
+                            TimeSpan.FromMinutes(20));
 
                     document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
                 }

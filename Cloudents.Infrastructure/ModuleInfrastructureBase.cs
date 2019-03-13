@@ -2,9 +2,9 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
-using AutoMapper;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
+using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Search.Places;
 using Module = Autofac.Module;
 
@@ -30,10 +30,12 @@ namespace Cloudents.Infrastructure
 
 
             builder.RegisterType<PayPalClient>().As<IPayPal>().SingleInstance();
-            builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
+            //builder.RegisterType<TextAnalysisProvider2>().As<ITextAnalysis>().SingleInstance();
+            builder.RegisterType<AzureTextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
+            builder.RegisterType<TextClassifierAnalysis>().As<ITextClassifier>().SingleInstance();
+            builder.RegisterType<TextTranslatorProvider>().As<ITextTranslator>().SingleInstance();
 
-            builder.RegisterAssemblyTypes(assembly)
-                .AsClosedTypesOf(typeof(ITypeConverter<,>));
+            builder.RegisterType<SmsProvider>().As<ISmsProvider>().As<IVideoProvider>().SingleInstance();
 
         }
     }
