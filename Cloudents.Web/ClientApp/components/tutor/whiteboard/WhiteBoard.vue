@@ -164,7 +164,9 @@
                 <span>zoom</span>
             </v-tooltip>
         </div>
-        <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
+        <div style="position:relative">
+            <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
+
         
         <svg class="helper" width="100%" height="100%" v-if="helperShow">
             <rect v-if="selectedOptionString === enumOptions.rectangle || selectedOptionString === enumOptions.select"
@@ -191,6 +193,7 @@
                      :class="helperClass"
                      :style="{'stroke': helperStyle.stroke}"/>
         </svg>
+
         <div class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.text">
             <input type="text" placeholder="Enter Some Text"
                    v-model="helperStyle.text"
@@ -200,6 +203,7 @@
         <div class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.equation">
             <textarea :class="[helperClass, helperStyle.id]" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" v-model="helperStyle.text" cols="30" rows="10"></textarea>
             <vue-mathjax :class="[helperClass, helperStyle.id]" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" :formula="`$$${helperStyle.text}$$`" class="math-jax"></vue-mathjax>
+        </div>
         </div>
         <!--<div>-->
             <!--<ul>-->
@@ -214,9 +218,6 @@
 
 <style lang="less">
     .canvas-container {
-        display: flex;
-        flex-direction: column;
-        margin: 0 auto;
         .formula-text{
                 top: 25px;
                 position: absolute;
@@ -234,6 +235,7 @@
             flex-direction: column;
             width: auto;
             margin-top: 20px;
+            z-index: 5;
             
             &.bottom-nav{
                 top: 575px;
@@ -312,7 +314,8 @@
             }
 
         }
-        canvas {
+        #canvas {
+            display: block;
             &.select-object {
                 cursor: pointer;
             }
