@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Cloudents.Query;
 using Dapper;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -103,17 +104,16 @@ namespace ConsoleApp
             var counter = 2;
             foreach (var item in t)
             {
-                if (long.TryParse(item.NewId, out long x) && x != item.OldId)
+                if (Guid.TryParse(item.NewId, out Guid x))
                 {
                     try
                     {
-                        var testnewId = t.Where(w => w.OldId == x).Select(s => s.UniId).FirstOrDefault();
+                        var testnewId = t.Where(w => w.UniId == x).Select(s => s.UniId).FirstOrDefault();
                         var z = await d.WithConnectionAsync(async f =>
                         {
                             return await f.ExecuteAsync(update, new
                             {
-                                Newuni = t.Where(w => w.OldId == x).Select(s => s.UniId)
-                                .FirstOrDefault(),
+                                Newuni = x,
                                 OldUni = item.UniId
                             });
 
@@ -125,7 +125,7 @@ namespace ConsoleApp
                         Thread.Sleep(1000);
                     }
                 }
-                else if (item.NewId == "Delete")
+                else if (item.NewId.Equals("Delete", StringComparison.InvariantCultureIgnoreCase))
                 {
                     try
                     {
@@ -134,7 +134,6 @@ namespace ConsoleApp
                             return await f.ExecuteAsync(@"update sb.[user] set UniversityId2 = null where UniversityId2 = @OldUni;
                                                         delete from sb.University where id =  @OldUni;",
                                 new { OldUni = item.UniId });
-
                         }, token);
                     }
                     catch
