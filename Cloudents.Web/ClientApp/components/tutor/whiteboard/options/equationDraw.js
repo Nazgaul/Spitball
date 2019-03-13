@@ -24,6 +24,8 @@ const startingMousePosition = {
     y:null
 }
 
+let imageCache = {};
+
 const yOffset = 12;
 
 let isWriting = false;
@@ -40,7 +42,7 @@ const init = function(){
     currentShapeEditing = null;
 }
 
-const getImageDimensions = function(text){
+const getImageDimensions = function(text, id){
    return new Promise(function(resolve, reject){
     MathJax.AuthorInit(`$$${text}$$`, (output)=>{
         var DOMURL = window.URL || window.webkitURL || window;     
@@ -48,12 +50,18 @@ const getImageDimensions = function(text){
         var svg = new Blob([output.svg], {type: 'image/svg+xml'});
         var url = DOMURL.createObjectURL(svg);
         img.onload = function() {
+            let imgObj = {
+                img,
+                text
+            }
+           imageCache[id] = imgObj;
            resolve({width: img.width, height:img.height}); 
         }
         img.src = url;
     });
    }) 
 }
+
 
 const drawContext = function(svgText, textObj){
     var DOMURL = window.URL || window.webkitURL || window;     
@@ -62,6 +70,11 @@ const drawContext = function(svgText, textObj){
     var svg = new Blob([svgText.svg], {type: 'image/svg+xml'});
      var url = DOMURL.createObjectURL(svg);
      img.onload = function() {
+        let imgObj = {
+            img,
+            text: textObj.text
+        }
+        imageCache[textObj.id] = imgObj;
         self.context.drawImage(img, textObj.mouseX, textObj.mouseY, img.width, img.height);
         DOMURL.revokeObjectURL(url);
      }
@@ -72,10 +85,16 @@ const draw = function(textObj){
     //determin the stroke color
     this.context.fillStyle = textObj.color;
     this.context.font = `${textObj.height}px ${textObj.fontFamily}`;
+    let img = imageCache[textObj.id];
     //create svg with the MathJax object out from the text value
-    MathJax.AuthorInit(`$$${textObj.text}$$`, (output)=>{  
-        drawContext.bind(this, output, textObj)();
-    });
+    if(!!img && img.text === textObj.text){
+        this.context.drawImage(img.img, textObj.mouseX, textObj.mouseY, img.img.width, img.img.height);
+    }else{
+        MathJax.AuthorInit(`$$${textObj.text}$$`, (output)=>{  
+            drawContext.bind(this, output, textObj)();
+        });
+    }
+    
 }
 const liveDraw = function(textObj){
     draw.bind(this, textObj)();
@@ -105,9 +124,7 @@ const setHelperObj = function(e, selectedHelper){
 const changeTextActionObj = function(id, oldShapePoint, newShapePoint){
     this.id = id;
     this.oldText = oldShapePoint.text;
-    this.oldWidth = oldShapePoint.width;
     this.newText = newShapePoint.text;
-    this.newWidth = newShapePoint.width;
 }
 
 const addGhostLocalShape = function(actionType, actionObj){
@@ -139,7 +156,7 @@ const mousedown = function(e){
         if(!!text.value){
             if(!isEditing){
                 const instancedId = currentId + "";
-                getImageDimensions(text.value).then(dimensions=>{
+                getImageDimensions(text.value, instancedId).then(dimensions=>{
                     let textObj = createPointsByOption({
                         mouseX: startingMousePosition.x,
                         mouseY: startingMousePosition.y,
@@ -161,13 +178,15 @@ const mousedown = function(e){
                 
             }else{
                 isEditing = false;
-                let meassureText = this.context.measureText(text.value);
                 currentShapeEditing.points[0].text = text.value;
-                currentShapeEditing.points[0].width = meassureText.width;
-                let textGhostObj = new changeTextActionObj(currentShapeEditing.id, startShapes.points[0], currentShapeEditing.points[0]);
-                addGhostLocalShape.bind(this, "changeText", textGhostObj)();
-                whiteBoardService.redraw(this);
-                moveToSelectTool.bind(this)();
+                getImageDimensions(text.value, currentShapeEditing.id).then(dimensions=>{
+                    currentShapeEditing.points[0].width = dimensions.width;
+                    currentShapeEditing.points[0].height = dimensions.height;
+                    let textGhostObj = new changeTextActionObj(currentShapeEditing.id, startShapes.points[0], currentShapeEditing.points[0]);
+                    addGhostLocalShape.bind(this, "changeText", textGhostObj)();
+                    whiteBoardService.redraw(this);
+                    moveToSelectTool.bind(this)();
+                })
             }
         }
         hideHelperObj();
@@ -180,7 +199,7 @@ const mousedown = function(e){
         let hasShape = canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData());
         if(Object.keys(hasShape).length > 0){
             let prop = Object.keys(hasShape)[0];
-            if(hasShape[prop].type === "textDraw"){
+            if(hasShape[prop].type === "equationDraw"){
                 startingMousePosition.x = hasShape[prop].points[0].mouseX;
                 startingMousePosition.y = hasShape[prop].points[0].mouseY - yOffset;
                 currentShapeEditing = hasShape[prop];

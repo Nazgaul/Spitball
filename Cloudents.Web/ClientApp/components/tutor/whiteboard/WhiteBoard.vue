@@ -40,7 +40,7 @@
                     <button  v-on="on"
                              :class="{'active-tool': selectedOptionString === enumOptions.equation}"
                              class="nav-action" @click="setOptionType(enumOptions.equation)">
-                        <v-icon>sbf-close</v-icon>
+                        <v-icon>sbf-equation-icon</v-icon>
                     </button>
                 </template>
                 <span>Equation</span>
@@ -198,7 +198,7 @@
                    :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
         </div>
         <div class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.equation">
-            <textarea :class="[helperClass, helperStyle.id]" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" v-model="helperStyle.text" cols="30" rows="10"></textarea>
+            <textarea :class="[helperClass, helperStyle.id]" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" v-model="helperStyle.text" cols="20" rows="3"></textarea>
             <vue-mathjax :class="[helperClass, helperStyle.id]" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" :formula="`$$${helperStyle.text}$$`" class="math-jax"></vue-mathjax>
         </div>
         <!--<div>-->
@@ -236,7 +236,7 @@
             margin-top: 20px;
             
             &.bottom-nav{
-                top: 575px;
+                top: 625px;
             }
             .nav-action {
                 padding: 12px 16px;
