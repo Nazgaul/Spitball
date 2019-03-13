@@ -1,8 +1,9 @@
 <template>
 <div class="uni-select-component">
     <no-worries :fnStay="closeNoWorriesPopup" :fnLeave="closeInterface" v-show="beforeLeave"></no-worries>
-    <changing-school :popupData="areYouSurePopup"></changing-school>
-    <div class="overlay" :class="{'active': beforeLeave || areYouSurePopup.show}"></div>
+    <!-- <changing-school :popupData="areYouSurePopup"></changing-school> -->
+    <add-school-or-class :popupData="openAddSchoolOrClassData"></add-school-or-class>
+    <div class="overlay" :class="{'active': beforeLeave || openAddSchoolOrClassData.show}"></div>
     <div class="back-img"></div>
     <div v-show="!beforeLeave" class="close-container" @click="openNoWorriesPopup">
         <v-icon>sbf-close</v-icon>

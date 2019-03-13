@@ -194,4 +194,25 @@ and all of the selected classes will be deleted</value>
   <data name="yes_change" xml:space="preserve">
     <value>YES, Change School</value>
   </data>
+  <data name="add_class" xml:space="preserve">
+    <value>Add This Class</value>
+  </data>
+  <data name="add_new_class" xml:space="preserve">
+    <value>Add New Class</value>
+  </data>
+  <data name="add_new_university" xml:space="preserve">
+    <value>Add New University</value>
+  </data>
+  <data name="add_university" xml:space="preserve">
+    <value>Add This University</value>
+  </data>
+  <data name="class_length_error" xml:space="preserve">
+    <value>Must be more then 3 characters</value>
+  </data>
+  <data name="didnt_find_university" xml:space="preserve">
+    <value>Didn't find university? Add it here!</value>
+  </data>
+  <data name="university_length_error" xml:space="preserve">
+    <value>Must be more then 10 characters</value>
+  </data>
 </root>
