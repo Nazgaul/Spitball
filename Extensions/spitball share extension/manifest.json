@@ -1,0 +1,17 @@
+{
+   "author": "Spitball",
+   "background": {
+      "persistent": false,
+      "scripts": [ "extension.js" ]
+   },
+   "description": "This Chrome extension enables screen sharing for the Spitball tutoring.",
+   "externally_connectable": {
+      "matches": [ "https://spitball.co/*", "https://dev.spitball.co/*", "http://localhost/*", "https://localhost/*" ]
+   },
+   "homepage_url": "https://spitball.co/",
+   "manifest_version": 2,
+   "minimum_chrome_version": "49",
+   "name": "Spitball Screen Sharing",
+   "permissions": [ "desktopCapture" ],
+   "version": "1.4"
+}

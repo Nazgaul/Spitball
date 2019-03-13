@@ -31,6 +31,7 @@ export default {
             return new Promise((resolve, reject) => {
                 const request = { sources: ['window', 'screen', 'tab'] };
                 chrome.runtime.sendMessage(extensionId, request, response => {
+                    //none installed return error string code
                     if(!response){
                         let error = 'noExtension';
                         console.log('Extension not installed');
