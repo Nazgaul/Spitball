@@ -197,9 +197,9 @@
                    :class="[helperClass, helperStyle.id]"
                    :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
         </div>
-        <div class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.equation">
-            <textarea :class="[helperClass, helperStyle.id]" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" v-model="helperStyle.text" cols="20" rows="3"></textarea>
-            <vue-mathjax :class="[helperClass, helperStyle.id]" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" :formula="`$$${helperStyle.text}$$`" class="math-jax"></vue-mathjax>
+        <div class="equation-helper-container" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}" v-if="helperShow && selectedOptionString === enumOptions.equation">
+            <textarea :class="[helperClass, helperStyle.id]" v-model="helperStyle.text" cols="50" rows="3"></textarea>
+            <vue-mathjax :class="[helperClass, helperStyle.id]" v-show="!!helperStyle.text" :formula="`$$${helperStyle.text}$$`" class="math-jax"></vue-mathjax>
         </div>
         <!--<div>-->
             <!--<ul>-->
@@ -217,15 +217,6 @@
         display: flex;
         flex-direction: column;
         margin: 0 auto;
-        .formula-text{
-                top: 25px;
-                position: absolute;
-                left: 100px;
-            }
-            .math-jax{
-                margin-top: -84px;
-                border: none;
-            }
         .nav-container {
             position: fixed;
             background-color: #FFFFFF;
@@ -354,14 +345,29 @@
                 font-family: "Open Sans", sans-serif;
                 font-size: 14px;
             }
-            .equation-helper {
+        }
+        .equation-helper-container {
                 position: absolute;
-                border: 1px solid #7b7b7b;
+                background: #fff;
+                padding: 10px;
+                border: 1px solid #e1e1ef;
+                border-radius: 4px;
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+            .equation-helper {
+                border: 2px solid #c4c4ca;
                 padding: 6px;
                 outline: none;
                 border-radius: 4px;
                 font-family: "Open Sans", sans-serif;
                 font-size: 14px;
+                background: #fff;
+            }
+            .math-jax{
+                margin-right: auto;
+                margin-top: 10px;
+                border: none;
             }
         }
     }
