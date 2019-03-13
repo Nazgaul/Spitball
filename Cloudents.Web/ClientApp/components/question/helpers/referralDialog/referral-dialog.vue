@@ -260,7 +260,9 @@
         },
         created() {
             let id = this.accountUser.id;
-            this.getRefferedUsersNum(id)
+            if(this.referralType != 'uploadReffer'){
+                this.getRefferedUsersNum(id)
+            }
         },
 
         beforeDestroy() {
