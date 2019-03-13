@@ -19,7 +19,6 @@ namespace Cloudents.Web.Services
         private readonly UserManager<RegularUser> _userManager;
         private readonly IDataProtectionProvider _dataProtectProvider;
         private readonly ILogger _logger;
-        
 
         public UserIdInitializer(IHttpContextAccessor httpContextAccessor, UserManager<RegularUser> userManager,
             IDataProtectionProvider dataProtect, ILogger logger)
@@ -39,7 +38,7 @@ namespace Cloudents.Web.Services
                 {
                     var userId = _userManager.GetUserId(_httpContextAccessor.HttpContext.User);
                     telemetry.Context.User.Id = userId;
-                    telemetry.Context.Session.Id = _httpContextAccessor.HttpContext.Session.Id;
+                    //telemetry.Context.Session.Id = userId;
                     return;
                 }
 
