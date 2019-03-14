@@ -40,11 +40,11 @@ namespace Cloudents.Core.Entities
         private readonly IList<Document> _documents = new List<Document>();
         public virtual IReadOnlyList<Document> Documents => _documents.ToList();
 
-        private readonly IList<Question> _questions = new List<Question>();
-        public virtual IReadOnlyList<Question> Questions => _questions.ToList();
+        //private readonly IList<Question> _questions = new List<Question>();
+        //public virtual IReadOnlyList<Question> Questions => _questions.ToList();
 
-        private readonly IList<User> _users = new List<User>();
-        public virtual IReadOnlyList<User> Users => _users.ToList();
+        //private readonly IList<User> _users = new List<User>();
+        //public virtual IReadOnlyList<User> Users => _users.ToList();
         public virtual ItemState State { get; protected set; }
     }
 }

@@ -141,10 +141,13 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var t = _container.Resolve<IQueryBus>();
-            var z = await t
-                .QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(
-                    SyncAzureQuery.Empty(), default);
+            var t = _container.Resolve<ICommandBus>();
+            var command = new AssignCoursesToUserCommand(new string[0], 638);
+            await t.DispatchAsync(command, default);
+           // var z = await t.GetUniversityByNameAsync("Adrian College", default);
+            //var z = await t
+            //    .QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(
+            //        SyncAzureQuery.Empty(), default);
 
             Console.WriteLine("done");
 

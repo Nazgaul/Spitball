@@ -18,24 +18,25 @@ namespace Cloudents.Persistance.Maps
             //   .Inverse()
             //   .ForeignKeyCascadeOnDelete();
 
-            HasManyToMany(x => x.Users)
-                .ParentKeyColumn("CourseId")
-                .Access.ReadOnlyPropertyThroughCamelCaseField(Prefix.Underscore)
-                .ChildKeyColumn("UserId")
-                .ForeignKeyConstraintNames("Courses_User", "User_Courses")
-             .Table("UsersCourses").AsSet();
+            //HasManyToMany(x => x.Users)
+            //    .ParentKeyColumn("CourseId")
+            //    .Access.ReadOnlyPropertyThroughCamelCaseField(Prefix.Underscore)
+            //    .ChildKeyColumn("UserId")
+            //    .Inverse()
+            //    .ForeignKeyConstraintNames("Courses_User", "User_Courses")
+            // .Table("UsersCourses").AsSet();
 
-            HasMany(x => x.Documents)
-                .KeyColumn("CourseName")
-                .Access.ReadOnlyPropertyThroughCamelCaseField(Prefix.Underscore)
-                .LazyLoad()
-                .Inverse()
-                .ForeignKeyCascadeOnDelete();
+            //HasMany(x => x.Documents)
+            //    .KeyColumn("CourseName")
+            //    .Access.ReadOnlyPropertyThroughCamelCaseField(Prefix.Underscore)
+            //    .LazyLoad()
+            //    .Inverse()
+            //    .ForeignKeyCascadeOnDelete();
 
-            HasMany(x => x.Questions)
-                .ReadOnly()
-                .Access.ReadOnlyPropertyThroughCamelCaseField(Prefix.Underscore)
-                .Cascade.None();
+            //HasMany(x => x.Questions)
+            //    .ReadOnly()
+            //    .Access.ReadOnlyPropertyThroughCamelCaseField(Prefix.Underscore)
+            //    .Cascade.None();
             // HasMany(x => x.Users).Cascade.None();
             Map(x => x.State);
             SchemaAction.Update();

@@ -9,7 +9,7 @@
         <div class="bottom-container">
             <div class="school-prop">
                 <div class="outer-div">
-                    <input type="text" v-model="propName" :placeholder="placeholder"/>
+                    <input type="text" maxlength="100" spellcheck="true" :placeholder="placeholder" autocomplete="off" v-model="propName"/>
                 </div>
                 
             </div>

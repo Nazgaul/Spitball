@@ -19,7 +19,8 @@ namespace Cloudents.Persistance.Repositories
             return await Session.Query<University>()
 
                 .Where(w => w.Name == name)
-                .OrderByDescending(o => o.Documents.Count)
+                // ReSharper disable once UseCollectionCountProperty nhibernate will be mad - need to use it because of readonly collection
+                .OrderByDescending(o =>o.Documents.Count())
                 .FirstOrDefaultAsync(token);
             //.SingleOrDefaultAsync(token);
         }
