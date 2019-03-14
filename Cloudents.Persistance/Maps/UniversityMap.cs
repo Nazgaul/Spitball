@@ -17,12 +17,12 @@ namespace Cloudents.Persistance.Maps
                 .ReadOnly()
                 .Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.None();
-            HasMany(x => x.Questions)
-                .ReadOnly()
-                .Access.CamelCaseField(Prefix.Underscore).Cascade.None();
-            HasMany(x => x.Users)
-                .ReadOnly()
-                .Access.CamelCaseField(Prefix.Underscore).Cascade.None();
+            //HasMany(x => x.Questions)
+            //    .ReadOnly()
+            //    .Access.CamelCaseField(Prefix.Underscore).Cascade.None();
+            //HasMany(x => x.Users)
+            //    .ReadOnly()
+            //    .Access.CamelCaseField(Prefix.Underscore).Cascade.None();
             Map(x => x.State);
             SchemaAction.Update();
 
