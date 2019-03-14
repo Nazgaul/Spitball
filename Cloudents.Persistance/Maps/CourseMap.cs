@@ -22,6 +22,7 @@ namespace Cloudents.Persistance.Maps
                 .ParentKeyColumn("CourseId")
                 .Access.ReadOnlyPropertyThroughCamelCaseField(Prefix.Underscore)
                 .ChildKeyColumn("UserId")
+                .Inverse()
                 .ForeignKeyConstraintNames("Courses_User", "User_Courses")
              .Table("UsersCourses").AsSet();
 

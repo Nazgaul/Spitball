@@ -90,6 +90,7 @@ namespace Cloudents.Persistance.Maps
             HasManyToMany(x => x.Courses)
                 .ParentKeyColumn("UserId")
                 .ChildKeyColumn("CourseId")
+                .Cascade.SaveUpdate()
                 .ForeignKeyConstraintNames("User_Courses", "Courses_User")
                 .Table("UsersCourses").AsSet();
 
