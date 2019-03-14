@@ -159,7 +159,7 @@ and all of the selected classes will be deleted</value>
     <comment>pay attention to the line breaks ("ENTER button"  before the first line)</comment>
   </data>
   <data name="select_class" xml:space="preserve">
-    <value>Select class</value>
+    <value>Select course</value>
   </data>
   <data name="select_school" xml:space="preserve">
     <value>Select school</value>
@@ -186,7 +186,7 @@ and all of the selected classes will be deleted</value>
     <value>Skip for now</value>
   </data>
   <data name="type_class_name_placeholder" xml:space="preserve">
-    <value>Search courses</value>
+    <value>Type your course name</value>
   </data>
   <data name="type_school_name_placeholder" xml:space="preserve">
     <value>Type your school name</value>

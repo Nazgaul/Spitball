@@ -206,7 +206,7 @@
     <value>דלג בינתיים</value>
   </data>
   <data name="type_class_name_placeholder" xml:space="preserve">
-    <value>חפש קורסים</value>
+    <value>הקלד את שם הקורס</value>
   </data>
   <data name="type_school_name_placeholder" xml:space="preserve">
     <value>הקלד את שם מוסד הלימודים בו אתה לומד</value>
