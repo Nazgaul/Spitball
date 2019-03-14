@@ -2,6 +2,7 @@ using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
@@ -23,6 +24,8 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException($"Name is {Name}",nameof(Name));
             }
+
+            State = ItemState.Pending;
 
             Created = DateTime.UtcNow;
         }
@@ -61,11 +64,19 @@ namespace Cloudents.Core.Entities
         public virtual string Name { get; protected set; }
         public virtual int Count { get; set; }
 
-        public virtual DateTime Created { get; set; }
+        public virtual DateTime Created { get;protected set; }
 
-        public virtual ISet<RegularUser> Users { get; protected set; }
-        public virtual IList<Document> Documents { get; protected set; }
-        public virtual IList<Question> Questions { get; protected set; }
+        private readonly ISet<RegularUser> _users = new HashSet<RegularUser>();
+        public virtual IReadOnlyCollection<RegularUser> Users => _users.ToList();
+
+
+        private readonly IList<Document> _documents = new List<Document>();
+        public virtual IReadOnlyList<Document> Documents => _documents.ToList();
+
+        private readonly IList<Question> _questions = new List<Question>();
+        public virtual IReadOnlyList<Question> Questions => _questions.ToList();
+
+
         public virtual ItemState State { get; protected set; }
     }
 }
