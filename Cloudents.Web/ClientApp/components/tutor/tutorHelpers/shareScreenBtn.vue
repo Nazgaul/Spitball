@@ -10,7 +10,6 @@
         >
             <v-card>
                 <v-card-title class="headline">Chrome Extension Installation</v-card-title>
-
                 <v-card-text>
                     Please install and authorize the Spitball Chrome extension to enable screen sharing on your computer.
                 </v-card-text>
@@ -29,9 +28,7 @@
                     <v-btn
                             color="green darken-1"
                             flat="flat"
-                            @click="extensionDialog = false"
-                    >
-                        Cancel
+                            @click="extensionDialog = false" >Cancel
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -89,7 +86,6 @@
                 //create new video track
                 createLocalVideoTrack().then((videoTrack) => {
                         self.publishTrackToRoom(videoTrack);
-                        // self.screenShareTrack = null;
                         self.isSharing = false;
                     },
                     (error) => {

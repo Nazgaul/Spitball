@@ -80,7 +80,8 @@ export default {
             if(isSchool){
                 this.popupData.continueActionFunction(false, this.propName);
             }else{
-                this.popupData.continueActionFunction(this.propName);
+                //if class
+                this.popupData.continueActionFunction({text:this.propName});
             }
             this.close();
         }
