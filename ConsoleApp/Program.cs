@@ -101,7 +101,7 @@ namespace ConsoleApp
 
 
 
-            builder.Register(_ => GetSettings(EnvironmentSettings.Prod)).As<IConfigurationKeys>();
+            builder.Register(_ => GetSettings(EnvironmentSettings.Dev)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistance"),
@@ -392,8 +392,8 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            await addToExtra();
-            //await FunctionsExtensions.MergeUniversity(_container);
+            //await addToExtra();
+            await FunctionsExtensions.MergeUniversity(_container);
             //await TransferDocuments();
             //var _queryBus = _container.Resolve<IQueryBus>();
             // await FixStorageAsync();

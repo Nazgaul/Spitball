@@ -149,7 +149,7 @@ namespace ConsoleApp
             });
 
             // Define request parameters.
-            string spreadsheetId = "1EN786C7Uyi09jNB9JXS142bLPcPtBqENr9VFTZVr7Qw";
+            string spreadsheetId = "1gkK8vARdUhwtzVGthpFdp0BZOhHY2KfZTpvN0oU94l8";
             string range = "Sheet1!A2:D";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
@@ -216,8 +216,8 @@ namespace ConsoleApp
 
 
 
-            String spreadsheetId2 = "1EN786C7Uyi09jNB9JXS142bLPcPtBqENr9VFTZVr7Qw";
-            String range2 = $"Sheet1!F{rowNumber}";  // update cell F5 
+            String spreadsheetId2 = "1gkK8vARdUhwtzVGthpFdp0BZOhHY2KfZTpvN0oU94l8";
+            String range2 = $"Sheet1!E{rowNumber}";  // update cell F5 
             ValueRange valueRange = new ValueRange();
             valueRange.MajorDimension = "COLUMNS";//"ROWS";//COLUMNS
 
