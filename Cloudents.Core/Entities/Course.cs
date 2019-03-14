@@ -1,3 +1,4 @@
+using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -65,5 +66,6 @@ namespace Cloudents.Core.Entities
         public virtual ISet<RegularUser> Users { get; protected set; }
         public virtual IList<Document> Documents { get; protected set; }
         public virtual IList<Question> Questions { get; protected set; }
+        public virtual ItemState State { get; protected set; }
     }
 }
