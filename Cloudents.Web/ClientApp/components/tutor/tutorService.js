@@ -151,8 +151,6 @@ const connectToRoom = function(token, options) {
                             previewContainer.removeChild(videoTag);
                         }
                         attachTracks([track], previewContainer);
-                        let addedTrack = previewContainer.querySelector("video");
-                        addedTrack.setAttribute("controls","controls")
                     }else if(track.kind === 'audio'){
                         attachTracks([track], previewContainer);
                     }

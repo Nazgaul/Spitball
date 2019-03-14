@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -85,17 +86,14 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_Not_Found()
         {
-            var client = _factory.CreateClient();
+            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
+            {
+                AllowAutoRedirect = false
+            });
 
             var response = await client.GetAsync("/api/question/123");
 
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JObject.Parse(str);
-
-            var status = d["status"]?.Value<int?>();
-
-            status.Should().Be(404);
+            response.StatusCode.Should().Be(302);
         }
 
         [Theory]

@@ -1,28 +1,26 @@
 <template>
-    <v-layout row class="tutoring-page" :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}" :class="{'gridBackground': $route.name === 'tutoring'} ">
+    <v-layout row class="tutoring-page" :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
+              :class="{'gridBackground': $route.name === 'tutoring'} ">
         <v-flex>
-            
-            <v-tabs class="tutoring-navigation" v-model="activeTab" touchless hide-slider>
-                <span class="logo-container"><AppLogo></AppLogo></span>
-                <v-tab v-for="n in tabs"
-                       touchless
-                       class="tutoring-tab"
-                       :key="n.name"
-                       ripple>
-                    {{n.name}}
-                </v-tab>
-                <v-tab-item :key="1" >
-                    <white-board></white-board>
-                </v-tab-item>
-                <v-tab-item :key="2" >
-                    <codeEditor v-if="isRoomCreated"></codeEditor>
-                </v-tab-item>
-                <v-tab-item :key="3">
-                    <shared-document :key="sharedDocUrl" v-if="isRoomCreated"></shared-document>
-                </v-tab-item>
-            </v-tabs>
+            <nav class="tutoring-navigation">
+                <div class="logo-nav-wrap">
+                    <span class="logo-container"><AppLogo></AppLogo></span>
+                    <a v-for="singleNav in navs"
+                       class="tutor-nav-item"
+                       :class="{ 'active-nav': singleNav.value === activeItem}"
+                       @click="updateActiveNav(singleNav.value)">{{singleNav.name}}</a>
+                </div>
+                <div>
+                    <share-screen-btn class="nav-share-btn"></share-screen-btn>
+                </div>
+            </nav>
+            <transition name="slide-x-transition">
+                <keep-alive>
+                <component :is="activeItem" v-if="showCurrentCondition"></component>
+                </keep-alive>
+            </transition>
         </v-flex>
-        <v-layout column align-start style="position: fixed; right: 0; top: 44px;">
+        <v-layout column align-start style="position: fixed; right: 0; top: 60px;">
             <v-flex xs6 sm6 md6>
                 <video-stream :id="id"></video-stream>
             </v-flex>
@@ -43,14 +41,20 @@
     import codeEditor from './codeEditor/codeEditor.vue'
     import chat from './chat/chat.vue';
     import sharedDocument from './sharedDocument/sharedDocument.vue';
+    import shareScreenBtn from './tutorHelpers/shareScreenBtn.vue';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     export default {
-        components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument, AppLogo},
+        components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument, shareScreenBtn, AppLogo},
         name: "tutor",
         data() {
             return {
-                activeTab: '',
-                tabs: [ {name: 'Whiteboard'}, {name:'Code Collaboration'}, {name: 'Document'}],
+                activeNavItem : 'white-board',
+                showContent: false,
+                navs: [
+                    {name: 'Canvas', value: 'white-board'},
+                    {name:'Code Editor', value: 'code-editor'},
+                    {name: 'Text Editor', value: 'shared-document'}
+                    ],
             }
         },
 
@@ -59,6 +63,12 @@
         },
         computed: {
             ...mapGetters(['isRoomCreated', 'isRoomFull', 'sharedDocUrl', 'getZoom', 'getPanX', 'getPanY']),
+            activeItem(){
+                return this.activeNavItem
+            },
+            showCurrentCondition(){
+               return this.activeItem === 'white-board' ? true : this.isRoomCreated
+            },
             zoom(){
                 let gridSize = 40 * Number(this.getZoom.toFixed())/100;
                 return  `${gridSize}px ${gridSize}px`;
@@ -69,6 +79,12 @@
             panY(){
                 return `${this.getPanY}px`
             },
+        },
+        methods: {
+            updateActiveNav(value) {
+                this.activeNavItem = value;
+                console.log(this.activeItem)
+            }
         },
         created() {
             this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG").then(() => {

@@ -101,7 +101,7 @@ namespace ConsoleApp
 
 
 
-            builder.Register(_ => GetSettings(EnvironmentSettings.Dev)).As<IConfigurationKeys>();
+            builder.Register(_ => GetSettings(EnvironmentSettings.Prod)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistance"),
@@ -341,10 +341,60 @@ namespace ConsoleApp
                 }
             }
         }
+        private static async Task addToExtra()
+        {
+            
+            var d = _container.Resolve<DapperRepository>();
+
+             var res = await d.WithConnectionAsync(async f =>
+             {
+
+                 return await f.QueryAsync<string>(
+                 @"select Name
+                    from sb.University 
+                    where name like N'%ל%'");
+
+             }, default);
+            
+            foreach (var item in res)
+            {
+                var nameArr = item.Split(' ');
+                string resName = string.Empty;
+                foreach (var name in nameArr)
+                {
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        if (name.Substring(0, 1).Equals("ל", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            resName += string.Concat(name.Substring(1), ' ');
+                        }
+                        else
+                        {
+                            resName += string.Concat(name, ' ');
+                        }
+                    }
+                }
+                resName = resName.Substring(0, resName.Length - 1);
+                if (!resName.Equals(item))
+                {
+                    //update
+                    var resU = await d.WithConnectionAsync(async f =>
+                    {
+
+                        return await f.ExecuteAsync(
+                        @"update sb.University
+                            set Extra = CONCAT(Extra, ' ', @name)
+                            where name = @oldName", new { name = resName, oldName = item });
+                    }, default);
+                }
+            }
+        }
 
         private static async Task HadarMethod()
         {
-            await TransferDocuments();
+            await addToExtra();
+            //await FunctionsExtensions.MergeUniversity(_container);
+            //await TransferDocuments();
             //var _queryBus = _container.Resolve<IQueryBus>();
             // await FixStorageAsync();
             /* var commandBus = _container.Resolve<ICommandBus>();*/

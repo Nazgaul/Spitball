@@ -48,6 +48,7 @@ function ImageObj(objInit){
     this.option=objInit.option;
     this.eventName=objInit.eventName;
     this.src = objInit.src;
+    this.isRect = true;
 }
 
 function TextObj(objInit){
@@ -62,6 +63,7 @@ function TextObj(objInit){
     this.height = objInit.height;
     this.fontFamily = objInit.fontFamily;
     this.id = objInit.id;
+    this.isRect = true;
 }
 
 function EquationObj(objInit){
@@ -74,6 +76,7 @@ function EquationObj(objInit){
     this.eventName= objInit.eventName;
     this.id= objInit.id;
     this.text= objInit.text;
+    this.isRect = true;
 }
 
 function Path(objInit){

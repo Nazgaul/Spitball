@@ -160,7 +160,7 @@ const getBoundriesPoints = function(points){
     let endX = null;
     let endY = null;
     points.forEach((dragObj, index) => {
-        if(dragObj.option === "imageDraw" || dragObj.option === "textDraw"){
+        if(dragObj.isRect){
             let yOffset = dragObj.yOffset ? dragObj.yOffset : 0;
             if(index === 0){
                 startX = dragObj.mouseX;
@@ -272,7 +272,6 @@ const getBoundriesPoints = function(points){
       }
 
       const getRelativeMousePoints = function(ctx, mouseX, mouseY){
-          console.log(ctx);
         let pt = ctx.transformedPoint(mouseX, mouseY);
         return {mouseX: pt.x, mouseY: pt.y}
       }

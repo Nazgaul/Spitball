@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -19,8 +21,12 @@ namespace Cloudents.Web.Test.IntegrationTests
             // Arrange
             var client = _factory.CreateClient();
 
+            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
+
+            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
+
             // Act
-            var response = await client.GetAsync(url);
+            response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
         }
 

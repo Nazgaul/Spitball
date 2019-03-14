@@ -46,17 +46,20 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_NotFound()
         {
-            var client = _factory.CreateClient();
+            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
+            {
+                AllowAutoRedirect = false
+            });
             
             var response = await client.GetAsync("api/profile/1");
 
-            var str = await response.Content.ReadAsStringAsync();
+            //var str = await response.Content.ReadAsStringAsync();
 
-            var d = JObject.Parse(str);
+            //var d = JObject.Parse(str);
 
-            var status = d["status"]?.Value<int?>();
+            //var status = d["status"]?.Value<int?>();
 
-            status.Should().Be(404);
+            response.StatusCode.Should().Be(302);
         }
 
         [Theory]
