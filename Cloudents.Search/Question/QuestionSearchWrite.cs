@@ -14,7 +14,7 @@ namespace Cloudents.Search.Question
         public const string IndexName = "question2";
         internal const string TagsCountryParameter = "Country";
         internal const string TagsTagsParameter = "Tag";
-        internal const string ScoringProfile = "ScoringProfile";
+        internal const string ScoringProfile = "ScoringProfile2";
 
 
         public QuestionSearchWrite(SearchService client, ILogger logger) : base(client, client.GetClient(IndexName), logger)
