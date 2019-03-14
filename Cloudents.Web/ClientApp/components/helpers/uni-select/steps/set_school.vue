@@ -8,6 +8,7 @@
 
         </div>
         <div class="select-school-container">
+
             <v-combobox
                     class="hello-gaby"
                     v-model="university"
