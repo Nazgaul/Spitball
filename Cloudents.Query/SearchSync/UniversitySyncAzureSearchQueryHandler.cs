@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Sync;
 
 namespace Cloudents.Query.SearchSync
@@ -15,10 +17,11 @@ namespace Cloudents.Query.SearchSync
         {
             get
             {
-                var res = @"select u.Id as UniversityId,
+                const string res = @"select u.Id as UniversityId,
 	                            u.Name as Name,
 	                            u.Extra as Extra,
 	                            u.Country as Country,
+u.State as State,
 	                            c.* 
                             From sb.[University] u  
                             right outer join CHANGETABLE (CHANGES sb.[University], :Version) AS c ON u.Id = c.id   
@@ -33,12 +36,14 @@ namespace Cloudents.Query.SearchSync
         {
             get
             {
-                var res = @"select u.Id as UniversityId,
+                const string res = @"select u.Id as UniversityId,
 	                            u.Name as Name,
 	                            u.Extra as Extra,
 	                            u.Country as Country,
+u.State as State,
 	                            c.* 
                             From sb.[University] u  
+
                             CROSS APPLY CHANGETABLE (VERSION sb.[University], (Id), (u.Id)) AS c  
                             Order by u.Id 
                             OFFSET :PageSize * :PageNumber ROWS 
@@ -48,5 +53,11 @@ namespace Cloudents.Query.SearchSync
         }
 
         protected override int PageSize => 500;
+
+
+        protected override ILookup<bool, AzureSyncBaseDto<UniversitySearchDto>> SeparateUpdateFromDelete(IEnumerable<AzureSyncBaseDto<UniversitySearchDto>> result)
+        {
+            return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.State.GetValueOrDefault(ItemState.Ok) != ItemState.Ok);
+        }
     }
 }
