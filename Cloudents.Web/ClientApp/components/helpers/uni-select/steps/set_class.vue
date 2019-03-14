@@ -136,11 +136,18 @@
             lastStep() {
                 this.fnMethods.changeStep(this.enumSteps.set_school);
             },
-            nextStep() {
+            nextStep(customClass) {
                 //TODO add action update the server instead of 'updateSelectedClasses'
-                this.assignClasses().then(() => {
-                    this.fnMethods.changeStep(this.enumSteps.done);
-                });
+                if(customClass){
+                    this.addClass(customClass);
+                    this.assignClasses().then(() => {
+                        this.fnMethods.changeStep(this.enumSteps.set_class);
+                    });
+                }else{
+                    this.assignClasses().then(() => {
+                        this.fnMethods.changeStep(this.enumSteps.done);
+                    });
+                }
             },
             deleteClass(classToDelete, from){
              let index = from.indexOf(classToDelete);
@@ -148,7 +155,7 @@
             },
 
             addManualUniversity(){
-                this.fnMethods.openAddSchoolOrClass(true, this.nextStep);
+                this.fnMethods.openAddSchoolOrClass(false, this.nextStep);
             },
             addClass(className) {
                 this.pushClassToSelectedClasses(className);
