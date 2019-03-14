@@ -19,33 +19,54 @@
             {{schoolName}}
         </div>
         <div class="select-school-container">
-            <input type="text" id="classes_input"
-                   spellcheck="true"
-                   autocomplete="off"
-                   v-model="search"
-                   :placeholder="classNamePlaceholder"
-                   autofocus>
-            <ul class="class-list search-classes-list"
-                v-if="showBox">
-                <li class="list-item search-class-item cursor-pointer" v-if="!hideIfChoosen"
-                    v-for="singleClass in classes"
-                    @click="addClass(singleClass, classes)">
-                    <div v-html="$options.filters.boldText(singleClass.text, search)">{{ singleClass.text }}</div>
-                </li>
-                <li>
-                    <v-list-tile >
-                        <div style="cursor:pointer;" @click="addManualUniversity()" class="subheading dark">Didnt find add new</div>
-                    </v-list-tile>
-                </li>
-            </ul>
-            <ul  class="class-list selected-classes-list">
-                <li class="list-item selected-class-item" v-for="selectedClass in selectedClasses">
-                    {{selectedClass.text}}
-                    <span class="delete-class cursor-pointer" @click="deleteClass(selectedClass, selectedClasses)">
+            <v-text-field id="classes_input"
+                          v-model="search"
+                          class="class-input"
+                          solo
+                          prepend-inner-icon="sbf-search"
+                          :placeholder="classNamePlaceholder"
+                          autocomplete="off"
+                          autofocus
+                          spellcheck="true"
+                          hide-details
+
+            ></v-text-field>
+            <!--<input type="text" id="classes_input"-->
+                   <!--class="class-input"-->
+                   <!--spellcheck="true"-->
+                   <!--autocomplete="off"-->
+                   <!--v-model="search"-->
+                   <!--:placeholder="classNamePlaceholder"-->
+                   <!--autofocus>-->
+            <div v-if="showBox" class="search-classes-container">
+                <div class="select-heading">
+                    <span>Select from the list</span>
+                </div>
+                <ul class="class-list search-classes-list">
+                    <li class="list-item search-class-item cursor-pointer" v-if="!hideIfChoosen"
+                        v-for="singleClass in classes"
+                        @click="addClass(singleClass, classes)">
+                        <div v-html="$options.filters.boldText(singleClass.text, search)">{{ singleClass.text }}</div>
+                    </li>
+                    <li class="list-item add-item cursor-pointer" @click="addManualUniversity()">
+                        <span v-language:inner>uniSelect_didnt_find_class</span>
+                    </li>
+                </ul>
+            </div>
+          <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
+              <div class="select-heading">
+                <span>Your Selected Courses ({{quantatySelected}})</span>
+              </div>
+              <ul  class="class-list selected-classes-list">
+                  <li class="list-item selected-class-item" v-for="selectedClass in selectedClasses">
+                      {{selectedClass.text}}
+                      <span class="delete-class cursor-pointer" @click="deleteClass(selectedClass, selectedClasses)">
                         <v-icon>sbf-close</v-icon>
                     </span>
-                </li>
-            </ul>
+                  </li>
+              </ul>
+          </div>
+
         </div>
     </div>
 </template>
@@ -95,6 +116,9 @@
                         ? this.global.innerHeight - 470
                         : 300
                 };
+            },
+            quantatySelected(){
+                return this.selectedClasses.length
             },
             schoolName() {
                 return this.getSchoolName();
@@ -197,16 +221,46 @@
 
 <style lang="less" scoped>
     @import "../../../../styles/mixin.less";
-    .scrollBarStyle(3px, #0085D1);
+    .scrollBarStyle(0px, #0085D1);
+
     .cursor-pointer{
         cursor: pointer;
+    }
+
+    .search-classes-container{
+        margin-top: 2px;
+    }
+    .selected-classes-container{
+        &.spaceTop{
+            margin-top: 2px;
+        }
+    }
+    .select-heading{
+        display: flex;
+        align-items: center;
+        height: 28px;
+        padding: 0 16px;
+        background-color: #f0f0f7;
+        span{
+            height: 18px;
+            font-family: @fontFiraSans;
+            font-size: 13px;
+            font-weight: 600;
+            color: @colorBlackNew;
+        }
+
     }
     .class-list{
         background-color: #ffffff;
         max-height: 250px;
         overflow-y: scroll;
         padding-left: 0;
+        &.selected-classes-list{
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+            background-color: #f7f7f7;
+        }
     }
+
     .list-item{
         align-items: center;
         justify-content: space-between;
@@ -221,7 +275,11 @@
         text-decoration: none;
         transition: background .3s cubic-bezier(.25,.8,.5,1);
     }
-
+    .add-item{
+        font-size: 14px;
+        color: @color-blue-new;
+        border-top: solid 2px rgba(81, 88, 175, 0.24);
+    }
     .search-class-item{
         &:hover{
             background: rgba(0,0,0,.04);

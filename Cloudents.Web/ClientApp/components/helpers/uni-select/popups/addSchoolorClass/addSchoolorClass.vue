@@ -1,19 +1,19 @@
 <template>
     <div class="add-school-class-container" :class="{'active': popupData.show}">
-        <div class="header-container">
-            <div class="close-botton"><v-icon @click="close()">sbf-close</v-icon></div>
-            <div class="title">
+        <div class="header-container px-2">
+            <div class="title-add">
                 <span>{{title}}</span>
             </div>
+            <div class="close-botton"><v-icon @click="close()">sbf-close</v-icon></div>
         </div>
         <div class="bottom-container">
             <div class="school-prop">
                 <div class="outer-div">
-                    <input type="text" v-model="propName"/>
+                    <input type="text" v-model="propName" :placeholder="placeholder"/>
                 </div>
                 
             </div>
-            <div class="buttons-container">
+            <div class="buttons-container py-2 align-center" >
                 <span v-show="!!errorString">{{errorString}}</span>
                 <!-- <button class="transparent" @click="continueAction()" v-language:inner>uniSelect_yes_change</button> -->
                 <button @click="continueAction()">{{buttonText}}</button>
@@ -31,13 +31,14 @@ export default {
         popupData:{
             type: Object,
             required: true
-        }
+        },
+        placeholder: ''
     },
     data(){
-        return{
+        return {
             schoolDesc: LanguageService.getValueByKey("uniSelect_school_desc"),
             propName: "",
-            errorString: ""
+            errorString: "",
         }
     },
     computed:{
@@ -104,20 +105,17 @@ export default {
             display: block;
         }
         .header-container{
-            position: relative;
             height: 40px;
             background-color: #f7f7f7;
-            display:flex;
-            flex-direction: column;
-            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
             border-top-left-radius: 4px;
             border-top-right-radius: 4px;
+            align-items: center;
             .close-botton{
-                position: absolute;
-                right:10px;
-                top:10px;
                 i{
-                    font-size: 16px;
+                    font-size: 14px;
                 }
             }
             .icons{
@@ -140,23 +138,23 @@ export default {
                     }
                 }
             }
-            .title{
-                margin-left: 15px;
-                font-family: @fontFiraSans;
-                font-size: 18px !important;
-                font-weight: normal;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: 1.5;
-                letter-spacing: normal;
-                color: rgba(0, 0, 0, 0.87);
+            .title-add{
+                letter-spacing: -.1px;
+                font-family: @fontOpenSans;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 1.23;
+                text-align: center;
+                color: rgba(0,0,0,.87);
             }
         }
         .bottom-container{
             margin: 0px auto;
             text-align: center;
             .school-prop{
-                background-image: linear-gradient(140deg, #4b8ffe, rgba(68, 82, 252, 0.91));
+                background-color: #5158af;
+                box-shadow: 0 2px 4px 0 rgba(0,0,0,.07);
+                /*background-image: linear-gradient(140deg, #4b8ffe, rgba(68, 82, 252, 0.91));*/
                 display: flex;
                 .outer-div{
                     background-color: #fff;
@@ -170,7 +168,7 @@ export default {
                         line-height: 25px;
                         width: 250px;
                         padding-left: 5px;
-                        border: 2px solid #c5c5c5;
+                        /*border: 2px solid #c5c5c5;*/
                     }
                 }
                 
@@ -179,17 +177,27 @@ export default {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
+                align-items: center;
                 span{
                     margin-top: 4px;
                     color: #ff5252;
                 }
                 button{
-                    padding: 10px;
-                    outline: none;
+                    font-family:@fontFiraSans;
+                    display: flex;
+                    max-width: 150px;
+                    align-items: center;
+                    padding: 10px 12px;
                     border-radius: 24px;
-                    background-color: #4452fc;
-                    color:#FFF;
-                    margin: 7px auto;
+                    background-color: #4452fc!important;
+                    text-transform: capitalize;
+                    box-shadow: 0 2px 9px 0 rgba(0,0,0,.35);
+                    font-size: 16px;
+                    font-weight: 400;
+                    color: #fff;
+                    outline: none;
+                    line-height: 16px;
+
                 }
             }
         }
