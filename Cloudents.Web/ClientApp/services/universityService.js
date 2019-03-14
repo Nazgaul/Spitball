@@ -1,4 +1,5 @@
 import { connectivityModule } from "./connectivity.module"
+import { LanguageService } from "../services/language/languageService"
 
 function University(objInit){
     if(!objInit){
@@ -10,6 +11,16 @@ function University(objInit){
         this.country = objInit.country;
         this.text = objInit.name;
     }
+}
+
+function addUniversityObj(){
+    this.text = LanguageService.getValueByKey("uniSelect_didnt_find_university");
+    this.helper = true;
+}
+
+function addClassObj(){
+    this.text = LanguageService.getValueByKey("uniSelect_didnt_find_class");
+    this.helper = true;
 }
 
 function Course(objInit){
@@ -26,6 +37,7 @@ const getUni = (val) => {
             data.universities.forEach((uni)=>{
                 result.push(new University(uni));
             });
+            result.push(new addUniversityObj());
         }
         console.log(data);
         return result;
@@ -52,6 +64,7 @@ const getCourse = (val) => {
             data.courses.forEach((course)=>{
                 result.push(new Course(course));
             });
+            result.push(new addClassObj());
         }
         return result;
     }, (err)=>{

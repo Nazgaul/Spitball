@@ -12,6 +12,8 @@ namespace Cloudents.Search.University
         public const string ScoringProfile = "university-default";
 
         public const string CountryTagScoringParameters = "country";
+
+        internal const string SuggesterName = "sg";
         //public const string DistanceScoringParameter = "currentLocation";
 
         public UniversitySearchWrite(SearchService client, ILogger logger)
@@ -113,7 +115,7 @@ namespace Cloudents.Search.University
                 },
                 Suggesters = new List<Suggester>
                 {
-                    new Suggester("sg",
+                    new Suggester(SuggesterName,
                         nameof(Entities.University.Extra),
                         nameof(Entities.University.Name))
                 }

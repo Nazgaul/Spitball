@@ -6,7 +6,8 @@ const state = {
     currentActiveRoom: null,
     isLocalOffline: true,
     isRemoteOffline: true,
-    isRoomLoading: false
+    isRoomLoading: false,
+    isFirepadLoadedOnce: false
 };
 const getters = {
     activeRoom:  state => state.currentActiveRoom,
@@ -16,7 +17,8 @@ const getters = {
     isRoomCreated: state => state.isRoom,
     roomLinkID: state => state.roomId,
     isRoomFull: state => state.isRoomFull,
-    roomLoading : state => state.isRoomLoading
+    roomLoading : state => state.isRoomLoading,
+    firepadLoadedOnce: state => state.isFirepadLoadedOnce
 };
 
 const mutations = {
@@ -48,11 +50,18 @@ const mutations = {
     },
     setRoomLoading(state, val){
         state.isRoomLoading = val
+    },
+    changeFirepadLoaded(state, val){
+        state.isFirepadLoadedOnce  = val
     }
 
 };
 
 const actions = {
+    updateCodeLoadedOnce({commit, state}, val){
+        commit('changeFirepadLoaded', val)
+    },
+
     updateRoomLoading({commit, state}, val){
         commit('setRoomLoading', val)
     },

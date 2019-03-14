@@ -4,6 +4,7 @@ import SetClass from './steps/set_class.vue'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import noWorries from './popups/noWorries/noWorries.vue'
 import changingSchool from "./popups/changingSchool/changingSchool.vue"
+import addSchoolOrClass from "./popups/addSchoolorClass/addSchoolorClass.vue"
 
 export default {
     components:{
@@ -11,7 +12,8 @@ export default {
         SetSchool,
         SetClass,
         noWorries,
-        changingSchool
+        changingSchool,
+        addSchoolOrClass
     },
 
     data(){
@@ -22,13 +24,20 @@ export default {
                 changeStep: this.changeStep,
                 changeSchoolName: this.changeSchoolName,
                 openNoWorriesPopup: this.openNoWorriesPopup,
-                openAreYouSurePopup: this.openAreYouSurePopup
+                // openAreYouSurePopup: this.openAreYouSurePopup,
+                openAddSchoolOrClass: this.openAddSchoolOrClass
             },
             beforeLeave: false,
-            areYouSurePopup: {
+            // areYouSurePopup: {
+            //     show: false,
+            //     continueActionFunction: null,
+            //     closeFunction: null
+            // },
+            openAddSchoolOrClassData:{
                 show: false,
                 continueActionFunction: null,
-                closeFunction: null
+                closeFunction: null,
+                isSchool: null
             },
             returnPath: '/note'
         }
@@ -93,13 +102,22 @@ export default {
         openNoWorriesPopup(){
             this.beforeLeave = true;
         },
-        openAreYouSurePopup(continueActionFunction){
-            this.areYouSurePopup.show = true;
-            this.areYouSurePopup.continueActionFunction = continueActionFunction;
-            this.areYouSurePopup.closeFunction = this.closeAreYouSurePopup;
+        // openAreYouSurePopup(continueActionFunction){
+        //     this.areYouSurePopup.show = true;
+        //     this.areYouSurePopup.continueActionFunction = continueActionFunction;
+        //     this.areYouSurePopup.closeFunction = this.closeAreYouSurePopup;
+        // },
+        // closeAreYouSurePopup(){
+        //     this.areYouSurePopup.show = false;
+        // },
+        openAddSchoolOrClass(addSchool, continueActionFunction){
+            this.openAddSchoolOrClassData.show = true;
+            this.openAddSchoolOrClassData.continueActionFunction = continueActionFunction;
+            this.openAddSchoolOrClassData.closeFunction = this.closeOpenAddSchoolOrClassPopup;
+            this.openAddSchoolOrClassData.isSchool = addSchool;
         },
-        closeAreYouSurePopup(){
-            this.areYouSurePopup.show = false;
+        closeOpenAddSchoolOrClassPopup(){
+            this.openAddSchoolOrClassData.show = false;
         }
     },
     created(){

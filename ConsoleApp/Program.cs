@@ -141,7 +141,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
+            var t = _container.Resolve<IUniversitySearch>();
+            var z = await t.SearchAsync("אניברסיטה", "IL", default);
             Console.WriteLine("done");
 
         }
