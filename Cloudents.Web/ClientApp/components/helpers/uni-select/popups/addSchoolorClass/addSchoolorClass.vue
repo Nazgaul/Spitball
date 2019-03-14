@@ -1,5 +1,5 @@
 <template>
-    <div class="add-school-class-container" :class="{'active': popupData.show}">
+    <div class="add-school-class-container" :class="{'active': popupData.show, 'mt-5': $vuetify.breakpoint.xsOnly} ">
         <div class="header-container px-2">
             <div class="title-add">
                 <span>{{title}}</span>
