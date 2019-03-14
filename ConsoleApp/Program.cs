@@ -2,6 +2,7 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
@@ -142,7 +143,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
+            
             var bus = _container.Resolve<IChatRoomRepository>();
             var z = await bus.GetChatRoomAsync(new [] {159039L, 638L}, default);
 
