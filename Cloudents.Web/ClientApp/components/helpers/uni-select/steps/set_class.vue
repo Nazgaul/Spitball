@@ -20,6 +20,8 @@
         </div>
         <div class="select-school-container">
             <input type="text" id="classes_input"
+                   spellcheck="true"
+                   autocomplete="off"
                    v-model="search"
                    :placeholder="classNamePlaceholder"
                    autofocus>
