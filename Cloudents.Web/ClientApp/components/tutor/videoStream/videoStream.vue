@@ -9,8 +9,6 @@
         </v-layout>
         <v-layout>
             <v-flex>
-                <v-btn v-if="!isSharing" @click="showScreen">Share Screen</v-btn>
-                <v-btn v-else @click="stopSharing">Stop Sharing</v-btn>
                 <v-btn class="create-session" color="primary" @click="createRoomFunc()" v-if="!id">Initiate tutoring
                     session
                 </v-btn>

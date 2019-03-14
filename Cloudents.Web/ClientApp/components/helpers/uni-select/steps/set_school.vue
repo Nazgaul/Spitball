@@ -3,11 +3,12 @@
     <div class="" :class="{'selected': (!!search && search.length > 10)}">
         <div class="title-container">
             <span v-language:inner>uniSelect_select_school</span>
-            <a v-show="showNext" class="next-container" :class="{'loading': nextPressed}" @click="checkBeforeNextStep()"
-               v-language:inner>uniSelect_next</a>
+            <!-- <a v-show="showNext" class="next-container" :class="{'loading': nextPressed}" @click="checkBeforeNextStep()"
+               v-language:inner>uniSelect_next</a> -->
 
         </div>
         <div class="select-school-container">
+
             <v-combobox
                     class="hello-gaby"
                     v-model="university"
@@ -16,7 +17,7 @@
                     :placeholder="schoolNamePlaceholder"
                     clearable
                     solo
-                    :menu-props="{maxHeight: $vuetify.breakpoint.xsOnly ? dropDownAlphaHeight : 300}"
+                    :menu-props="{maxHeight:  dropDownAlphaHeight}"
                     :search-input.sync="search"
                     :append-icon="''"
                     :clear-icon="'sbf-close'"
@@ -27,17 +28,25 @@
                     :background-color="'rgba( 255, 255, 255, 1)'"
             >
                 <template slot="no-data">
-                    <v-list-tile v-show="showBox">
+                    <!-- <v-list-tile v-show="showBox">
                         <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
                     </v-list-tile>
                     <v-list-tile>
                         <div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark"
                              v-language:inner>uniSelect_show_all_schools
                         </div>
+                    </v-list-tile> -->
+                    <v-list-tile>
+                        <div style="cursor:pointer;" @click="addManualUniversity()" class="subheading dark"
+                             v-language:inner>uniSelect_didnt_find_university
+                        </div>
                     </v-list-tile>
                 </template>
                 <template slot="item" slot-scope="{ index, item, parent }">
-                    <v-list-tile-content style="max-width:385px;">
+                    <v-list-tile v-if="item.helper">
+                        <div style="cursor:pointer;" @click="addManualUniversity()" class="subheading dark">{{ item.text }}</div>
+                    </v-list-tile>
+                    <v-list-tile-content v-else style="max-width:385px;">
                         <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span>
                     </v-list-tile-content>
                 </template>
@@ -79,10 +88,12 @@
         },
         watch: {
             search: debounce(function () {
+                console.log("here");
                 if (!!this.search) {
                     let searchVal = this.search.trim();
-                    if(searchVal.length >= 2)
-                    this.updateUniversities(searchVal);
+                    if (searchVal.length >= 2) {
+                        this.updateUniversities(searchVal);
+                    }
                 }
                 if (this.search === "") {
                     this.clearData();
@@ -122,18 +133,18 @@
                     event.preventDefault();
                 }
             },
-            getAllUniversities() {
-                //leave space
-                this.updateUniversities(' ');
-            },
+            //getAllUniversities() {
+            //    //leave space
+            //    this.updateUniversities(' ');
+            //},
             skipUniSelect() {
                 this.fnMethods.openNoWorriesPopup();
             },
-            nextStep(dontChangeUniversity) {
+            nextStep(dontChangeUniversity, universityName) {
                 if (dontChangeUniversity) {
                     this.fnMethods.changeStep(this.enumSteps.set_class)
                 } else {
-                    let schoolName = this.getCurrentSchoolName();
+                    let schoolName = universityName ? universityName : this.getCurrentSchoolName();
                     if (!schoolName) {
                         console.log("No university name found")
                         return;
@@ -164,6 +175,9 @@
                     this.nextStep();
                 }
             },
+            addManualUniversity(){
+                this.fnMethods.openAddSchoolOrClass(true, this.nextStep);
+            },
             getCurrentSchoolName() {
                 //!!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
                 if (!!this.universityModel) {
@@ -180,8 +194,8 @@
             }
         },
         computed: {
-            dropDownAlphaHeight(){
-                return this.globalHeight - 470
+            dropDownAlphaHeight() {
+                return Math.min( this.globalHeight - 470,300)
             },
             showBox() {
                 if (this.search && this.search > 0) {
@@ -203,6 +217,9 @@
                 },
                 set: function (newValue) {
                     this.universityModel = newValue
+                    if(!!newValue && newValue.id){
+                        this.checkBeforeNextStep();
+                    }
                 }
             }
         },
@@ -221,7 +238,7 @@
         color: rgba(0, 0, 0, 0.38);
         &.dark {
             font-size: 13px !important;
-            color: rgba(0, 0, 0, 0.54);
+            color: rgb(74, 135, 251);
         }
     }
 </style>

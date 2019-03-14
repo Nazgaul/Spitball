@@ -2,11 +2,14 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
+using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Query.Sync;
+using Cloudents.Search.Question;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -24,9 +27,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Query.Query.Sync;
-using Cloudents.Search.Question;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -141,6 +141,13 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var t = _container.Resolve<ICommandBus>();
+            var command = new AssignCoursesToUserCommand(new string[0], 638);
+            await t.DispatchAsync(command, default);
+           // var z = await t.GetUniversityByNameAsync("Adrian College", default);
+            //var z = await t
+            //    .QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(
+            //        SyncAzureQuery.Empty(), default);
 
             Console.WriteLine("done");
 
@@ -340,10 +347,60 @@ namespace ConsoleApp
                 }
             }
         }
+        private static async Task addToExtra()
+        {
+
+            var d = _container.Resolve<DapperRepository>();
+
+            var res = await d.WithConnectionAsync(async f =>
+            {
+
+                return await f.QueryAsync<string>(
+                @"select Name
+                    from sb.University 
+                    where name like N'%ל%'");
+
+            }, default);
+
+            foreach (var item in res)
+            {
+                var nameArr = item.Split(' ');
+                string resName = string.Empty;
+                foreach (var name in nameArr)
+                {
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        if (name.Substring(0, 1).Equals("ל", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            resName += string.Concat(name.Substring(1), ' ');
+                        }
+                        else
+                        {
+                            resName += string.Concat(name, ' ');
+                        }
+                    }
+                }
+                resName = resName.Substring(0, resName.Length - 1);
+                if (!resName.Equals(item))
+                {
+                    //update
+                    var resU = await d.WithConnectionAsync(async f =>
+                    {
+
+                        return await f.ExecuteAsync(
+                        @"update sb.University
+                            set Extra = CONCAT(Extra, ' ', @name)
+                            where name = @oldName", new { name = resName, oldName = item });
+                    }, default);
+                }
+            }
+        }
 
         private static async Task HadarMethod()
         {
-            await TransferDocuments();
+            //await addToExtra();
+            await FunctionsExtensions.MergeUniversity(_container);
+            //await TransferDocuments();
             //var _queryBus = _container.Resolve<IQueryBus>();
             // await FixStorageAsync();
             /* var commandBus = _container.Resolve<ICommandBus>();*/
@@ -573,10 +630,10 @@ namespace ConsoleApp
             var d = _container.Resolve<DapperRepository>();
 
 
-           /* var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
-            var productionOldStorageAccount = CloudStorageAccount.Parse(key);
-            var oldBlobClient = productionOldStorageAccount.CreateCloudBlobClient();
-            var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");*/
+            /* var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
+             var productionOldStorageAccount = CloudStorageAccount.Parse(key);
+             var oldBlobClient = productionOldStorageAccount.CreateCloudBlobClient();
+             var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");*/
 
 
 
@@ -724,7 +781,7 @@ namespace ConsoleApp
                         string itemName = pair.Name;
                         CreateDocumentCommand command =
                             CreateDocumentCommand.DbiOnly(newBlobName,
-                                itemName.Substring(0,Math.Min(150, itemName.Length)),
+                                itemName.Substring(0, Math.Min(150, itemName.Length)),
                                 type, courseName, words?.Where(Tag.ValidateTag),
                                 userId.Value, pair.ProfessorName, uniId.Value);
 

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Query.Query;
 using NHibernate;
 using NHibernate.Linq;
@@ -22,8 +23,7 @@ namespace Cloudents.Query
         public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
         {
             return await _session.Query<Course>()
-                //.Where(w => w.Name.IsLike(query.Term,MatchMode.End))
-                .Where(w => w.Name.Contains(query.Term))
+                .Where(w => w.Name.Contains(query.Term) && w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Count)
                 .Take(10).Select(s => new CourseDto(s.Name)).ToListAsync(token);
         }

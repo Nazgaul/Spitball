@@ -32,7 +32,7 @@
             position: absolute;
             width: 100%;
             background-color: #000;
-            opacity: .5;
+            opacity: .95;
             z-index: 11;
             &.active{
                 display: block;
@@ -109,6 +109,11 @@
                     background-color: #efefef;
                     padding-left:5px;
                     outline: none;
+                    &#classes_input{
+                        background-color: @color-white;
+                        border-radius: 0;
+                        color: @colorInputFocus;
+                    }
                 }
                 i{
                     position: absolute;
@@ -117,9 +122,13 @@
                     font-size: 12px;
                     font-weight: bold;
                     opacity: 0.5;
+                    &.sbf-search{
+                        font-size: 16px;
+                    }
                     &.rtl{
                         transform: rotate(180deg);
                     }
+
                 }
             }
             .skip-container{
@@ -179,13 +188,17 @@
                         &.sbf-chevron-down{
                             font-size: 25px;
                         }
+                        &.sbf-search{
+                            font-size: 16px!important;
+                        }
                     }
 
                 }
                 }
                 //select class page
                 &.set-class{
-                    height: 185px;
+                    //height: 185px;
+                    height: 363px;
                      //transition: height 0.8s linear;
                   .transition (height .16s linear);
                     .title-container{
@@ -243,12 +256,23 @@
                                 }
                             }
                         }
+                        .class-input{
+                            .v-input__slot{
+                                border-radius: 0!important;
+                                i{
+                                    font-size: 16px;
+                                }
+                            }
+                        }
                         i{
                             position: unset;
                             opacity: .5;
                             font-size: 12px;
                             &.sbf-chevron-down{
                                 font-size: 25px;
+                            }
+                            &.sbf-search{
+                                font-size: 16px;
                             }
                         }
 

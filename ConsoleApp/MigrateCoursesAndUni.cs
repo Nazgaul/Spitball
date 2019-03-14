@@ -149,8 +149,8 @@ namespace ConsoleApp
             });
 
             // Define request parameters.
-            string spreadsheetId = "15HTW3DY9zpSubj6sDnCiF74sMe4kbZ9ksxlREEU4u6Q";
-            string range = "UniDelete!A2:E";
+            string spreadsheetId = "1gkK8vARdUhwtzVGthpFdp0BZOhHY2KfZTpvN0oU94l8";
+            string range = "Sheet1!A2:D";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -165,14 +165,14 @@ namespace ConsoleApp
                 foreach (var row in values)
                 {
                     Guid.TryParse(row[0].ToString(), out var uniid);
-                    int.TryParse(row[1].ToString(), out var oldid);
+                    //int.TryParse(row[1].ToString(), out var oldid);
                     // Print columns A and E, which correspond to indices 0 and 4.
                     UniversityToMigratre obj = new UniversityToMigratre()
                     {
                         UniId = uniid,
-                        OldId = oldid,
-                        Name = row[2].ToString(),
-                        NewId = row[4].ToString()
+                        //OldId = oldid,
+                        //Name = row[2].ToString(),
+                        NewId = row[3].ToString()
                     };
 
                     res.Add(obj);
@@ -216,8 +216,8 @@ namespace ConsoleApp
 
 
 
-            String spreadsheetId2 = "15HTW3DY9zpSubj6sDnCiF74sMe4kbZ9ksxlREEU4u6Q";
-            String range2 = $"UniDelete!J{rowNumber}";  // update cell F5 
+            String spreadsheetId2 = "1gkK8vARdUhwtzVGthpFdp0BZOhHY2KfZTpvN0oU94l8";
+            String range2 = $"Sheet1!E{rowNumber}";  // update cell F5 
             ValueRange valueRange = new ValueRange();
             valueRange.MajorDimension = "COLUMNS";//"ROWS";//COLUMNS
 
@@ -284,8 +284,8 @@ namespace ConsoleApp
     public class UniversityToMigratre
     {
         public Guid UniId { get; set; }
-        public int OldId { get; set; }
-        public string Name { get; set; }
+        //public int OldId { get; set; }
+        //public string Name { get; set; }
         public string NewId { get; set; }
     }
 }

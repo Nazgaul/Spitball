@@ -45,7 +45,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var result = d["result"]?.Value<JArray>();
 
-            result.Should().HaveCount(9);
+            result.Should().HaveCount(8);
         }
     }
 }

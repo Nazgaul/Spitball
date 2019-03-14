@@ -1,6 +1,8 @@
+using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
@@ -13,6 +15,7 @@ namespace Cloudents.Core.Entities
             Name = name.Replace("+", "-");
             Country = country;
             RowDetail = new DomainTimeStamp();
+            State = ItemState.Pending;
         }
 
         protected University()
@@ -28,14 +31,20 @@ namespace Cloudents.Core.Entities
         /// <summary>
         /// Used as extra synonym to add to university search
         /// </summary>
-        public virtual string Extra { get; set; }
+        public virtual string Extra { get; protected set; }
 
         public virtual string Country { get; protected set; }
 
         public virtual DomainTimeStamp RowDetail { get; protected set; }
 
-        public virtual IList<Document> Documents { get; set; }
-        public virtual IList<Question> Questions { get; set; }
-        public virtual IList<User> Users { get; set; }
+        private readonly IList<Document> _documents = new List<Document>();
+        public virtual IReadOnlyList<Document> Documents => _documents.ToList();
+
+        //private readonly IList<Question> _questions = new List<Question>();
+        //public virtual IReadOnlyList<Question> Questions => _questions.ToList();
+
+        //private readonly IList<User> _users = new List<User>();
+        //public virtual IReadOnlyList<User> Users => _users.ToList();
+        public virtual ItemState State { get; protected set; }
     }
 }
