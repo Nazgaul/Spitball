@@ -186,7 +186,7 @@ and all of the selected classes will be deleted</value>
     <value>Skip for now</value>
   </data>
   <data name="type_class_name_placeholder" xml:space="preserve">
-    <value>Type your class name</value>
+    <value>Search courses</value>
   </data>
   <data name="type_school_name_placeholder" xml:space="preserve">
     <value>Type your school name</value>
