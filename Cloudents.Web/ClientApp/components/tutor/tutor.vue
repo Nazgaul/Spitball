@@ -5,10 +5,13 @@
             <nav class="tutoring-navigation">
                 <div class="logo-nav-wrap">
                     <span class="logo-container"><AppLogo></AppLogo></span>
-                    <a v-for="singleNav in navs"
-                       class="tutor-nav-item"
-                       :class="{ 'active-nav': singleNav.value === activeItem}"
-                       @click="updateActiveNav(singleNav.value)">{{singleNav.name}}</a>
+                    <div class="tutor-nav-item" v-for="singleNav in navs">
+                        <v-icon>{{singleNav.name}}</v-icon>
+                        <a class="tutor-nav-item-link"
+                           :class="{ 'active-nav': singleNav.value === activeItem}"
+                           @click="updateActiveNav(singleNav.value)">{{singleNav.name}}</a>
+                    </div>
+
                 </div>
                 <div>
                     <share-screen-btn class="nav-share-btn"></share-screen-btn>
@@ -51,9 +54,9 @@
                 activeNavItem : 'white-board',
                 showContent: false,
                 navs: [
-                    {name: 'Canvas', value: 'white-board'},
-                    {name:'Code Editor', value: 'code-editor'},
-                    {name: 'Text Editor', value: 'shared-document'}
+                    {name: 'Canvas', value: 'white-board', icon : 'sbf-canvas'},
+                    {name:'Code Editor', value: 'code-editor', icon : 'sbf-code-editor'},
+                    {name: 'Text Editor', value: 'shared-document', icon : 'sbf-text-icon'}
                     ],
             }
         },
