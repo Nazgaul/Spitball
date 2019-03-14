@@ -1,5 +1,4 @@
 <template>
-    <!--<div class="select-university-container set-class">-->
     <div>
         <div class="title-container">
             <div class="first-container">
@@ -31,13 +30,6 @@
                           hide-details
 
             ></v-text-field>
-            <!--<input type="text" id="classes_input"-->
-                   <!--class="class-input"-->
-                   <!--spellcheck="true"-->
-                   <!--autocomplete="off"-->
-                   <!--v-model="search"-->
-                   <!--:placeholder="classNamePlaceholder"-->
-                   <!--autofocus>-->
             <div v-if="showBox" class="search-classes-container">
                 <div class="select-heading">
                     <span>Select from the list</span>
