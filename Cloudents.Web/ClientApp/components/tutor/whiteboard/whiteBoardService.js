@@ -110,8 +110,7 @@ const undo = function(canvasData){
         store.dispatch('popDragData').then((lastAction)=>{
             if(lastAction.isGhost){
                 ghostByAction[lastAction.actionType](lastAction.actionObj, true)  
-                helper.hideHelper();
-                helper.resetHelperObj(); 
+                hideHelper();
             }
             redraw(canvasData);
         });
@@ -120,6 +119,11 @@ const undo = function(canvasData){
 
 const uploadImage = function(data){
     return store.dispatch('uploadImage', data);
+}
+
+const hideHelper = function(){
+    helper.hideHelper();
+    helper.resetHelperObj(); 
 }
 
 const cleanCanvas = function(ctx){
@@ -143,5 +147,6 @@ export default {
     redraw,
     getDragData,
     uploadImage,
-    passData
+    passData,
+    hideHelper
 }

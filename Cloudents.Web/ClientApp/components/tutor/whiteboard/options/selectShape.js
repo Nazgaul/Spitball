@@ -78,8 +78,7 @@ const markShapes = function(){
 
 const clearMark = function(){
     currentHelperObj = null;
-    helper.hideHelper();
-    helper.resetHelperObj();
+    whiteBoardService.hideHelper();
 }
 
 const mousedown = function(e){
