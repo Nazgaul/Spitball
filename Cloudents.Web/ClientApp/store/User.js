@@ -89,7 +89,9 @@ const getters = {
     },
     pinnedCards: state => state.user.pinnedCards,
 
-    getCookieAccepted: state => state.cookieAccepted,
+    getCookieAccepted: (state, getters, {route}) => {
+        if(route.name === 'tutoring') return true;
+        return state.cookieAccepted},
     // getRegistrationStep:
     //     state => state.user.registrationStep,
     // getUniversity: state => {
