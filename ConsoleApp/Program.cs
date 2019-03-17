@@ -27,6 +27,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cloudents.Search.University;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -141,9 +142,15 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var t = _container.Resolve<ICommandBus>();
-            var command = new AssignCoursesToUserCommand(new string[0], 638);
-            await t.DispatchAsync(command, default);
+            var x = _container.Resolve<UniversitySearch>();
+            var y = await x.GetById("2ad70a78-825f-4992-bcaa-aa100106c2a9");
+                //2ad70a78-825f-4992-bcaa-aa100106c2a9
+
+                var v = await x.SearchAsync("pac", "IL", default);
+
+            var t = _container.Resolve<IQueryBus>();
+            var query = new SyncAzureQuery(3191972, 0);
+            var z = await  t.QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(query, default);
            // var z = await t.GetUniversityByNameAsync("Adrian College", default);
             //var z = await t
             //    .QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(

@@ -15,7 +15,7 @@ function setIntercomSettings(data) {
     let user_name = null;
     let user_email = null;
     let user_phoneNumber = null;
-    let alignment =  global.isRtl  ?  'left' : 'right';
+    let alignment = global.isRtl ? 'left' : 'right';
 
     if (!!data) {
         user_id = "Sb_" + data.id;
@@ -32,8 +32,13 @@ function setIntercomSettings(data) {
         phoneNumber: user_phoneNumber,
         alignment: alignment
     };
-
-    global.Intercom('boot', {intercomSettings});
+    global.Intercom('boot', { intercomSettings });
+}
+function setInspecletSettings(data) {
+    if (!!data) {
+        global.__insp = global.__insp || [];
+        __insp.push(['identify', data.id]);
+    }
 }
 
 function removeIntercomeData() {
@@ -45,7 +50,8 @@ function setIntercomeData(data) {
     // if(global.innerWidth > 600){
     //     setIntercomSettings(data)
     // }
-    setIntercomSettings(data)
+    setIntercomSettings(data);
+    setInspecletSettings(data);
 }
 
 
@@ -110,7 +116,7 @@ const mutations = {
     UPDATE_PROFILE_DATA(state, data) {
         state.profileData = data;
     },
-    updateProfileVote(state, {id, type}) {
+    updateProfileVote(state, { id, type }) {
         if (!!state.profile) {
             state.profile.questions.forEach(question => {
                 if (question.id === id) {
@@ -135,7 +141,7 @@ const mutations = {
 
         }
     },
-    deleteItemFromProfile(state, {id, type}) {
+    deleteItemFromProfile(state, { id, type }) {
         if (!!state.profile) {
             state.profile.questions.forEach((item, index) => {
                 if (item.id === id) {
@@ -191,7 +197,7 @@ const getters = {
 };
 
 const actions = {
-    syncProfile(context, {id, activeTab}) {
+    syncProfile(context, { id, activeTab }) {
         //fetch all the data before returning the value to the component
         accountService.getProfile(id).then(val => {
             let profileUserData = accountService.createUserProfileData(val);
@@ -201,10 +207,10 @@ const actions = {
     },
     getRefferedUsersNum(context, id) {
         accountService.getNumberReffered(id)
-            .then(({data}) => {
-                    let refNumber = data.referrals ? data.referrals : 0;
-                    context.commit('setRefferedNumber', refNumber)
-                },
+            .then(({ data }) => {
+                let refNumber = data.referrals ? data.referrals : 0;
+                context.commit('setRefferedNumber', refNumber)
+            },
                 (error) => {
                     console.error(error)
                 }
@@ -244,7 +250,7 @@ const actions = {
         }
         console.log(activeTab)
     },
-    removeItemFromProfile({commit}, data) {
+    removeItemFromProfile({ commit }, data) {
         commit('deleteItemFromProfile', data)
     },
     resetProfileData(context) {
@@ -253,7 +259,7 @@ const actions = {
     getAnswers(context, answersInfo) {
         let id = answersInfo.id
         let page = answersInfo.page;
-        return accountService.getProfileAnswers(id, page).then(({data}) => {
+        return accountService.getProfileAnswers(id, page).then(({ data }) => {
             let maximumElementsRecivedFromServer = 50;
             if (data.length > 0) {
                 data.forEach(answer => {
@@ -275,7 +281,7 @@ const actions = {
         let id = questionsInfo.id
         let page = questionsInfo.page;
         let user = questionsInfo.user;
-        return accountService.getProfileQuestions(id, page).then(({data}) => {
+        return accountService.getProfileQuestions(id, page).then(({ data }) => {
             let maximumElementsRecivedFromServer = 50;
             if (data.length > 0) {
                 data.forEach(question => {
@@ -298,7 +304,7 @@ const actions = {
         let id = DocumentsInfo.id;
         let page = DocumentsInfo.page;
         let user = DocumentsInfo.user;
-        return accountService.getProfileDocuments(id, page).then(({data}) => {
+        return accountService.getProfileDocuments(id, page).then(({ data }) => {
             let maximumElementsRecivedFromServer = 50;
             if (data.length > 0) {
                 data.forEach(document => {
@@ -320,7 +326,7 @@ const actions = {
         let id = DocumentsInfo.id;
         let page = DocumentsInfo.page;
         let user = DocumentsInfo.user;
-        return accountService.getProfilePurchasedDocuments(id, page).then(({data}) => {
+        return accountService.getProfilePurchasedDocuments(id, page).then(({ data }) => {
             let maximumElementsRecivedFromServer = 50;
             if (data.length > 0) {
                 data.forEach(document => {
@@ -343,16 +349,16 @@ const actions = {
         context.commit("UPDATE_PROFILE_DATA", currentProfile);
 
     },
-    logout({state, commit}) {
+    logout({ state, commit }) {
         removeIntercomeData();
         setIntercomeData();
         global.location.replace("/logout");
 
     },
-    changeLastActiveRoute({commit}, route) {
+    changeLastActiveRoute({ commit }, route) {
         commit("setLastActiveRoute", route)
     },
-    userStatus({dispatch, commit, getters}, {isRequire, to}) {
+    userStatus({ dispatch, commit, getters }, { isRequire, to }) {
         const $this = this;
         if (getters.isUser) {
             return Promise.resolve();
@@ -377,10 +383,10 @@ const actions = {
             setIntercomeData();
         }
     },
-    saveCurrentPathOnPageChange({commit}, {currentRoute}) {
+    saveCurrentPathOnPageChange({ commit }, { currentRoute }) {
         commit("updateFromPath", currentRoute);
     },
-    connectToChat({state, commit}) {
+    connectToChat({ state, commit }) {
         if (!state.user) {
             return;
         }
@@ -415,17 +421,17 @@ const actions = {
             console.error(error);
         }
     },
-    updateUserBalance({commit, state}, payload) {
+    updateUserBalance({ commit, state }, payload) {
         return;
         let newBalance = state.user.balance + payload;
         // debugger
-        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
+        commit('updateUser', { ...state.user, balance: newBalance, dollar: dollarCalculate(newBalance) })
     },
 
-    signalR_SetBalance({commit, state}, newBalance) {
-        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
+    signalR_SetBalance({ commit, state }, newBalance) {
+        commit('updateUser', { ...state.user, balance: newBalance, dollar: dollarCalculate(newBalance) })
     },
-    profileVote({commit}, data) {
+    profileVote({ commit }, data) {
         commit('updateProfileVote', data);
     }
 };
