@@ -5,6 +5,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 import noWorries from './popups/noWorries/noWorries.vue'
 import changingSchool from "./popups/changingSchool/changingSchool.vue"
 import addSchoolOrClass from "./popups/addSchoolorClass/addSchoolorClass.vue"
+import { LanguageService } from "../../../services/language/languageService";
 
 export default {
     components:{
@@ -20,6 +21,8 @@ export default {
         return{
             enumSteps: this.getAllSteps(),
             classes: [],
+            schoolPlaceholder: LanguageService.getValueByKey("uniSelect_type_school_name_placeholder"),
+            classesPlaceholder:  LanguageService.getValueByKey("uniSelect_type_class_name_placeholder"),
             fnMethods: {
                 changeStep: this.changeStep,
                 changeSchoolName: this.changeSchoolName,

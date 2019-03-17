@@ -8,6 +8,7 @@
 
         </div>
         <div class="select-school-container">
+
             <v-combobox
                     class="hello-gaby"
                     v-model="university"
@@ -16,7 +17,7 @@
                     :placeholder="schoolNamePlaceholder"
                     clearable
                     solo
-                    :menu-props="{maxHeight: $vuetify.breakpoint.xsOnly ? dropDownAlphaHeight : 300}"
+                    :menu-props="{maxHeight:  dropDownAlphaHeight}"
                     :search-input.sync="search"
                     :append-icon="''"
                     :clear-icon="'sbf-close'"
@@ -87,10 +88,12 @@
         },
         watch: {
             search: debounce(function () {
+                console.log("here");
                 if (!!this.search) {
                     let searchVal = this.search.trim();
-                    if(searchVal.length >= 2)
-                    this.updateUniversities(searchVal);
+                    if (searchVal.length >= 2) {
+                        this.updateUniversities(searchVal);
+                    }
                 }
                 if (this.search === "") {
                     this.clearData();
@@ -130,10 +133,10 @@
                     event.preventDefault();
                 }
             },
-            getAllUniversities() {
-                //leave space
-                this.updateUniversities(' ');
-            },
+            //getAllUniversities() {
+            //    //leave space
+            //    this.updateUniversities(' ');
+            //},
             skipUniSelect() {
                 this.fnMethods.openNoWorriesPopup();
             },
@@ -191,8 +194,8 @@
             }
         },
         computed: {
-            dropDownAlphaHeight(){
-                return this.globalHeight - 470
+            dropDownAlphaHeight() {
+                return Math.min( this.globalHeight - 470,300)
             },
             showBox() {
                 if (this.search && this.search > 0) {

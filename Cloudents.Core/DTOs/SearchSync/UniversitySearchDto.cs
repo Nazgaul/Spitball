@@ -1,4 +1,6 @@
 ﻿
+using Cloudents.Core.Enum;
+
 namespace Cloudents.Core.DTOs.SearchSync
 {
     public class UniversitySearchDto
@@ -8,6 +10,6 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string Extra { get; set; }
 
         public string Country { get; set; }
-
+        public ItemState? State { get; set; }
     }
 }

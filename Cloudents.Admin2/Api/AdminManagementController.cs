@@ -45,6 +45,23 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
+
+        [HttpGet("newCourses")]
+        public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses(CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            var retVal = await _queryBus.QueryAsync<IList<PendingCoursesDto>>(query, token);
+            return retVal;
+        }
+
+        [HttpGet("allCourses")]
+        public async Task<IEnumerable<string>> GetAllCourses(CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            var retVal = await _queryBus.QueryAsync<IList<string>>(query, token);
+            return retVal;
+        }
+
         [HttpGet("universities")]
         public async Task<IEnumerable<NewUniversitiesDto>> GetUniversities(CancellationToken token)
         {
@@ -61,5 +78,23 @@ namespace Cloudents.Admin2.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+
+        [HttpGet("newUniversities")]
+        public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities(CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            var retVal = await _queryBus.QueryAsync<IList<PendingUniversitiesDto>>(query, token);
+            return retVal;
+        }
+
+        [HttpGet("allUniversities")]
+        public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            var retVal = await _queryBus.QueryAsync<IList<AllUniversitiesDto>>(query, token);
+            return retVal;
+        }
+
     }
 }

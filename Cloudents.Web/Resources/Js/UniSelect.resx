@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changing_school_question" xml:space="preserve">
-    <value>Changing Schools?</value>
+    <value>Changing schools?</value>
   </data>
   <data name="create" xml:space="preserve">
     <value>Create</value>
@@ -130,10 +130,10 @@
     <value>From</value>
   </data>
   <data name="got_it" xml:space="preserve">
-    <value>Got It!</value>
+    <value>Got it!</value>
   </data>
   <data name="keep_school" xml:space="preserve">
-    <value>Keep Current School</value>
+    <value>Keep current school</value>
   </data>
   <data name="keep_typing" xml:space="preserve">
     <value>Keep typing we are searching for you</value>
@@ -142,10 +142,10 @@
     <value>Next</value>
   </data>
   <data name="no_worries" xml:space="preserve">
-    <value>:)  No Worries</value>
+    <value>:)  No worries</value>
   </data>
   <data name="pop_later" xml:space="preserve">
-    <value>I’ll do it Later</value>
+    <value>I’ll do it later</value>
   </data>
   <data name="pop_setting_up_explain" xml:space="preserve">
     <value>By setting this up you will get the best questions &amp; study info fit for your shool &amp; classes</value>
@@ -159,10 +159,10 @@ and all of the selected classes will be deleted</value>
     <comment>pay attention to the line breaks ("ENTER button"  before the first line)</comment>
   </data>
   <data name="select_class" xml:space="preserve">
-    <value>Select Class</value>
+    <value>Select course</value>
   </data>
   <data name="select_school" xml:space="preserve">
-    <value>Select School</value>
+    <value>Select school</value>
   </data>
   <data name="select_school_any_time" xml:space="preserve">
     <value>You can select school &amp; classes at any time from your user menu.</value>
@@ -171,7 +171,7 @@ and all of the selected classes will be deleted</value>
     <value>Select now</value>
   </data>
   <data name="select_school_placeholder" xml:space="preserve">
-    <value>Select Your School</value>
+    <value>Select your school</value>
   </data>
   <data name="set_school_class" xml:space="preserve">
     <value>Set your school &amp; classes</value>
@@ -180,37 +180,37 @@ and all of the selected classes will be deleted</value>
     <value>By setting this up you will get the best questions &amp; study info fit for your shool &amp; classes</value>
   </data>
   <data name="show_all_schools" xml:space="preserve">
-    <value>Show all Schools</value>
+    <value>Show all schools</value>
   </data>
   <data name="skip_for_now" xml:space="preserve">
     <value>Skip for now</value>
   </data>
   <data name="type_class_name_placeholder" xml:space="preserve">
-    <value>Type your Class name</value>
+    <value>Type your course name</value>
   </data>
   <data name="type_school_name_placeholder" xml:space="preserve">
     <value>Type your school name</value>
   </data>
   <data name="yes_change" xml:space="preserve">
-    <value>YES, Change School</value>
+    <value>YES, Change school</value>
   </data>
   <data name="add_class" xml:space="preserve">
-    <value>Add This Class</value>
+    <value>Create course</value>
   </data>
   <data name="add_new_class" xml:space="preserve">
-    <value>Add New Class</value>
+    <value>Add new crouse</value>
   </data>
   <data name="add_new_university" xml:space="preserve">
-    <value>Add New University</value>
+    <value>Add new university</value>
   </data>
   <data name="add_university" xml:space="preserve">
-    <value>Add This University</value>
+    <value>Create university</value>
   </data>
   <data name="class_length_error" xml:space="preserve">
     <value>Must be more then 3 characters</value>
   </data>
   <data name="didnt_find_class" xml:space="preserve">
-    <value>Didn't find class? Add it here!</value>
+    <value>Didn't find course? Add it here!</value>
   </data>
   <data name="didnt_find_university" xml:space="preserve">
     <value>Didn't find university? Add it here!</value>

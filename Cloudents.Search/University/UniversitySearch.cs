@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Search.University
 {
@@ -45,11 +45,26 @@ namespace Cloudents.Search.University
             };
 
             term = term?.Replace("\"", "\\");
-            var result = await
+            var searchDocumentResult = await
                 _client.Documents.SearchAsync<Entities.University>(term, searchParameter,
                     cancellationToken: token);
-            return new UniversitySearchDto(result.Results.Select(s =>
-                new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName, s.Document.Country)));
+
+            if (searchDocumentResult.Results.Count != 0)
+                return new UniversitySearchDto(searchDocumentResult.Results.Select(s =>
+                    new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName, s.Document.Country)));
+            {
+                var suggesterResult = await _client.Documents.SuggestAsync<Entities.University>(term,
+                    UniversitySearchWrite.SuggesterName,
+                    new SuggestParameters()
+                    {
+                        Select = _listOfSelectParams,
+                        UseFuzzyMatching = true,
+                        Top = 15
+                    }, cancellationToken: token);
+                return new UniversitySearchDto(suggesterResult.Results.Select(s =>
+                    new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName, s.Document.Country)));
+            }
+
         }
     }
 }
