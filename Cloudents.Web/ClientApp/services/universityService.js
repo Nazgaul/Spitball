@@ -37,8 +37,11 @@ const getUni = (val) => {
             data.universities.forEach((uni)=>{
                 result.push(new University(uni));
             });
-            result.push(new addUniversityObj());
+            if (data.universities.length != 50) {
+                result.push(new addUniversityObj());
+            }
         }
+       
         console.log(data);
         return result;
     },(err)=>{

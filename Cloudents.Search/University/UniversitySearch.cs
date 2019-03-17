@@ -40,7 +40,7 @@ namespace Cloudents.Search.University
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,
-                Top = 15,
+                //Top = 15,
                 OrderBy = new List<string> { "search.score() desc", nameof(Entities.University.DisplayName) },
                 ScoringProfile = UniversitySearchWrite.ScoringProfile,
                 ScoringParameters = new[]
