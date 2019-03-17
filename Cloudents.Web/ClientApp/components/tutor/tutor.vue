@@ -89,9 +89,10 @@
         created() {
             this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG").then(() => {
                 MathJax.Hub.Config({
+                    showMathMenu: false, 
                     SVG: {
                         useGlobalCache: false,
-                        useFontCache: false
+                        useFontCache: false,
                     }
                 });
                 MathJax.AuthorInit = function(texstring, callback){
@@ -102,11 +103,15 @@
                         MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
                         MathJax.Hub.Queue(function() {
                         var mjOut = wrapper.getElementsByTagName("svg")[0];
+                        if(!mjOut){
+                            return null;
+                        }
                         mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
                         output.svg = mjOut.outerHTML;
                         callback(output);
                     });
                 }
+                //MathJax.Message.Log()
             });
             console.log('ID Tutor!!',this.id);
             global.onbeforeunload = function(){
