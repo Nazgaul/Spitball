@@ -173,6 +173,7 @@ export default {
             }
         },
         resetZoom(){
+            whiteBoardService.hideHelper();
             this.updateZoom(100);
             this.updatePan({e:0, f:0})
         },
@@ -188,6 +189,7 @@ export default {
             whiteBoardService.redraw(this.canvasData);
         },
         doZoom(zoomType){
+            whiteBoardService.hideHelper();
             let panTool = whiteBoardService.init.bind(this.canvasData, this.enumOptions.pan)();
             panTool.manualScroll.bind(this.canvasData, zoomType)();
         },
