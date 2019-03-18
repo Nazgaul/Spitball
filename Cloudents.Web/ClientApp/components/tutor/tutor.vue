@@ -12,7 +12,7 @@
                     </div>
                 </div>
 
-                <div>
+                <div style="display: flex; align-items: center;">
                     <h4 style="color: #ffffff;">Network quality: {{localNetworkQuality}}</h4>
                     <share-screen-btn class="nav-share-btn"></share-screen-btn>
                 </div>
