@@ -6,7 +6,7 @@
                 <div class="logo-nav-wrap">
                     <span class="logo-container"><AppLogo></AppLogo></span>
                     <div class="tutor-nav-item" v-for="singleNav in navs">
-                        <v-icon>{{singleNav.name}}</v-icon>
+                        <v-icon>{{singleNav.icon}}</v-icon>
                         <a class="tutor-nav-item-link"
                            :class="{ 'active-nav': singleNav.value === activeItem}"
                            @click="updateActiveNav(singleNav.value)">{{singleNav.name}}</a>
