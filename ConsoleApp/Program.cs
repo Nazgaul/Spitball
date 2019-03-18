@@ -2,7 +2,6 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
@@ -24,10 +23,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Storage;
+using Cloudents.Query.Email;
 using Cloudents.Search.Question;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -106,7 +103,7 @@ namespace ConsoleApp
             builder.Register(_ => GetSettings(EnvironmentSettings.Dev)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
-                Assembly.Load("Cloudents.Persistance"),
+                Assembly.Load("Cloudents.Persistence"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Search"),
                 Assembly.Load("Cloudents.Core"));
@@ -144,88 +141,11 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             
-            var bus = _container.Resolve<IChatRoomRepository>();
-            var z = await bus.GetChatRoomAsync(new [] {159039L, 638L}, default);
-
-            //foreach (var textAnalysis in queryBus)
-            //{
-            //    var t = await textAnalysis.DetectLanguageAsync("1+2+3+4+5+7", default);
-
-            //}
-            //var textTranslator = _container.Resolve<ITextTranslator>();
-            ////var result2 = await textTranslator.TranslateAsync("hello text", "he", default);
-
-            //var dapper = _container.Resolve<DapperRepository>();
-            //var blobStorage = _container.Resolve<IBlobProvider<DocumentContainer>>();
-            //var textAnalysis = _container.Resolve<ITextAnalysis>();
-            //var textClassifier = _container.Resolve<ITextClassifier>();
-            //var englishCulture = new CultureInfo("en");
-
-            //var list = new List<string>();
-
-            //IEnumerable<(long, string)> result;
-            //using (var db = dapper.OpenConnection())
-            //{
-            //    result = await db.QueryAsync<(long, string)>(@"Select id,name from sb.Document
-            //    where CourseName = N'ליניארית'
-            //    and state = 'Ok'");
-            //}
-
-            //var FileName = @"C:\Users\Ram\Documents\keyphrases-Liniar2.txt";
-            //foreach (var documentId in result.Take(50))
-            //{
-            //    Console.WriteLine($"Processing document {documentId.Item1}");
-            //    var text = await blobStorage.DownloadTextAsync("text.txt", documentId.Item1.ToString(), default);
-            //    if (string.IsNullOrEmpty(text))
-            //    {
-            //        continue;
-            //    }
-
-            //    var v = await textAnalysis.DetectLanguageAsync(text, default);
-            //    if (!v.Equals(englishCulture))
-            //    {
-            //        text = await textTranslator.TranslateAsync(text, "en", default);
-            //    }
-
-            //    var keyPhrases = await textClassifier.KeyPhraseAsync(text, default);
-
-            //    if (!v.Equals(englishCulture))
-            //    {
-            //        text = string.Join(" , ", keyPhrases);
-            //        text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName.ToLowerInvariant(), default);
-
-            //        keyPhrases = text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
-            //    }
-
-            //    using (var fileStream = new FileStream(FileName, FileMode.Append))
-            //    using (var sw = new StreamWriter(fileStream))
-            //    {
-            //        await sw.WriteLineAsync($"Document Id: {documentId.Item1} documentName {documentId.Item2}");
-            //        await sw.WriteLineAsync($"===============================================================");
-            //        foreach (var keyPhrase in keyPhrases)
-            //        {
-            //            list.Add(keyPhrase);
-            //            await sw.WriteLineAsync($"{keyPhrase}");
-            //        }
-
-            //        await sw.WriteLineAsync($"---------------------------------------------------------------");
-            //        await sw.WriteLineAsync();
-
-            //    }
+            var bus = _container.Resolve<IQueryBus>();
+            var query = new GetEmailByEventQuery("AnswerAccepted");
+            var t = await bus.QueryAsync(query, default);
 
 
-            //}
-            //using (var fileStream = new FileStream(FileName, FileMode.Append))
-            //using (var sw = new StreamWriter(fileStream))
-            //{
-            //    await sw.WriteLineAsync($"For course data");
-
-            //    var numberGroups = list.GroupBy(i => i);
-            //    foreach (var grp in numberGroups.OrderByDescending(o => o.Count()))
-            //    {
-            //        await sw.WriteLineAsync($"Key phrase: {grp.Key} count { grp.Count()}");
-            //    }
-            //}
             Console.WriteLine("done");
 
         }

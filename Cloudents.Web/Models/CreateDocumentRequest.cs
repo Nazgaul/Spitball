@@ -3,7 +3,6 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Models
 {

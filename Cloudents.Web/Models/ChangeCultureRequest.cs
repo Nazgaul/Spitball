@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using Cloudents.Core.Entities;
-using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
 

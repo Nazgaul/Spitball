@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Sync;
 using Cloudents.FunctionsV2.System;
@@ -9,12 +8,9 @@ using Cloudents.Infrastructure;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyModel;
 using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Cloudents.Core.Interfaces.ILogger;
@@ -76,7 +72,7 @@ namespace Cloudents.FunctionsV2.Di
             builder.RegisterAssemblyModules(
                 Assembly.Load("Cloudents.Infrastructure.Storage"), //We need this because of event handler in question populate
                 Assembly.Load("Cloudents.Infrastructure"),
-                Assembly.Load("Cloudents.Persistance"));
+                Assembly.Load("Cloudents.Persistence"));
 
             builder.RegisterType<RestClient>().As<IRestClient>()
                 .SingleInstance();

@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Query;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

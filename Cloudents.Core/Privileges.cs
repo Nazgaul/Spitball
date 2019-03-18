@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Enum;
-
-namespace Cloudents.Core
+﻿namespace Cloudents.Core
 {
     public static class Privileges
     {

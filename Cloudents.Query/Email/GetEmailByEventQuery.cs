@@ -1,12 +1,8 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using System.Globalization;
 
 namespace Cloudents.Query.Email
 {
@@ -52,7 +48,6 @@ namespace Cloudents.Query.Email
                 var flatRes = await conn.QueryAsync<EmailObjectDto, EmailBlockDto, EmailBlockDto, EmailObjectDto>(sql,
                      (emailDto, blockDto0, blockDto1) =>
                      {
-                         emailDto.Blocks = new List<EmailBlockDto>();
                          emailDto.Blocks.Add(blockDto0);
                          if (blockDto1 != null)
                          {
@@ -63,11 +58,8 @@ namespace Cloudents.Query.Email
                      {
                         e = query.Event,
                     }, splitOn: "SocialShare,Title,Title");
-
                 return flatRes;
             }
         }
-        
     }
-    
 }

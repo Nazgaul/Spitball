@@ -17,7 +17,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Api
 {

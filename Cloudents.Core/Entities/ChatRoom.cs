@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Event;
 
-[assembly: InternalsVisibleTo("Cloudents.Persistance")]
+//[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
 {
     public class ChatRoom : AggregateRoot<Guid>
