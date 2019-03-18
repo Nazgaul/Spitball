@@ -42,7 +42,7 @@ namespace ConsoleApp
             var counter = 2;
             foreach (var item in t)
             {
-                if (item.NewId != "ok" && item.NewId != "dont know" && item.NewId != "delete")
+                if (item.Action == "כן")
                 {
                     try
                     {
@@ -52,7 +52,7 @@ namespace ConsoleApp
                             return await f.ExecuteAsync(update, new
                             {
                                 newId = item.NewId,
-                                oldId = item.Name
+                                oldId = item.NewName == item.NewId ? item.OldName : item.NewName
                             });
 
                         }, token);
@@ -63,7 +63,7 @@ namespace ConsoleApp
                         Thread.Sleep(1000);
                     }
                 }
-                else if (item.NewId == "delete")
+                /*else if (item.NewId == "delete")
                 {
                     try
                     {
@@ -80,7 +80,7 @@ namespace ConsoleApp
                         MigrateCoursesAndUni.WriteToSheet(counter);
                         Thread.Sleep(1000);
                     }
-                }
+                }*/
                 else {
                     MigrateCoursesAndUni.WriteToSheet(counter);
                     Thread.Sleep(1000);

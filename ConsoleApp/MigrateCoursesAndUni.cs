@@ -42,8 +42,8 @@ namespace ConsoleApp
             });
 
             // Define request parameters.
-            string spreadsheetId = "17DHdoaE61YkuMhjldw7J8yY7nBOgNf2_zsv-_ptTz7E";
-            string range = "Sheet3!A2:B";
+            string spreadsheetId = "17vuOGJ5dzyhpxbRyADibGei3bqduRGq5PHPvHt5R_iE";
+            string range = "Sheet1!A2:D";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -61,9 +61,10 @@ namespace ConsoleApp
                     // Print columns A and E, which correspond to indices 0 and 4.
                     CorseToMigratre obj = new CorseToMigratre()
                     {
-                        Id = row[0].ToString(),
-                        Name = row[0].ToString(),
-                        NewId = row[1].ToString()
+                        NewName = row[0].ToString(),
+                        OldName = row[1].ToString(),
+                        Action = row[2].ToString(),
+                        NewId = row[3].ToString()
                     };
                    
                     res.Add(obj);
@@ -106,8 +107,8 @@ namespace ConsoleApp
 
 
 
-            String spreadsheetId2 = "17DHdoaE61YkuMhjldw7J8yY7nBOgNf2_zsv-_ptTz7E";
-            String range2 = $"Sheet3!C{rowNumber}";  // update cell F5 
+            String spreadsheetId2 = "17vuOGJ5dzyhpxbRyADibGei3bqduRGq5PHPvHt5R_iE";
+            String range2 = $"Sheet1!F{rowNumber}";  // update cell F5 
             ValueRange valueRange = new ValueRange();
             valueRange.MajorDimension = "COLUMNS";//"ROWS";//COLUMNS
 
@@ -276,8 +277,9 @@ namespace ConsoleApp
 
     public class CorseToMigratre
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public string NewName { get; set; }
+        public string OldName { get; set; }
+        public string Action { get; set; }
         public string NewId { get; set; }
     }
 
