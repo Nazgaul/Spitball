@@ -5,15 +5,15 @@
             <nav class="tutoring-navigation">
                 <div class="logo-nav-wrap">
                     <span class="logo-container"><AppLogo></AppLogo></span>
-                    <div class="tutor-nav-item" v-for="singleNav in navs">
-                        <v-icon>{{singleNav.icon}}</v-icon>
+                    <div class="tutor-nav-item" v-for="singleNav in navs" :class="{ 'active-nav': singleNav.value === activeItem}">
+                        <v-icon class="mr-2">{{singleNav.icon}}</v-icon>
                         <a class="tutor-nav-item-link"
-                           :class="{ 'active-nav': singleNav.value === activeItem}"
                            @click="updateActiveNav(singleNav.value)">{{singleNav.name}}</a>
                     </div>
-
                 </div>
+
                 <div>
+                    <h4 style="color: #ffffff;">Network quality: {{localNetworkQuality}}</h4>
                     <share-screen-btn class="nav-share-btn"></share-screen-btn>
                 </div>
             </nav>
@@ -65,7 +65,14 @@
             id: ''
         },
         computed: {
-            ...mapGetters(['isRoomCreated', 'isRoomFull', 'sharedDocUrl', 'getZoom', 'getPanX', 'getPanY']),
+            ...mapGetters([
+                'localNetworkQuality',
+                'isRoomCreated',
+                'isRoomFull',
+                'sharedDocUrl',
+                'getZoom',
+                'getPanX',
+                'getPanY']),
             activeItem(){
                 return this.activeNavItem
             },

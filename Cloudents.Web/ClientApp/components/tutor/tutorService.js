@@ -69,6 +69,7 @@ const detachParticipantTracks = function(participant){
 };
 
 const printNetworkQuality = function (networkQualityLevel) {
+    store.dispatch('updateLocalParticipantsNetworkQuality', networkQualityLevel);
     console.log({
         1: '▃',
         2: '▃▄',
@@ -94,13 +95,14 @@ const connectToRoom = function(token, options) {
                 store.dispatch('updateUserIdentity', localIdentity);
                 store.dispatch('updateLocalStatus', false);
                 localStorage.setItem("identity", localIdentity);
-                const participant = room.localParticipant;
-
+                //set local participant in store
+                store.dispatch('updateLocalParticipant', room.localParticipant);
 
                 // Print the initial Network Quality Level
-                printNetworkQuality(participant.networkQualityLevel);
-                //Network quality change listen to event
-                participant.on('networkQualityLevelChanged', printNetworkQuality );
+                printNetworkQuality(store.getters['localParticipant'].networkQualityLevel);
+
+                //event of network quality change
+                store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality );
 
                 //shared google document
                 if ( store.getters['activeRoom'].participants && store.getters['activeRoom'].participants.size < 1) {
