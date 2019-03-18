@@ -5,8 +5,8 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.6.1" />
-    <PackageReference Include="Dapper" Version="1.50.7" />
+    <PackageReference Include="Autofac" Version="4.9.1" />
+    <PackageReference Include="Dapper" Version="1.60.1" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.37.0.1478" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />

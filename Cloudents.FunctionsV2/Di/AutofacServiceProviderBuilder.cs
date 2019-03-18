@@ -63,20 +63,20 @@ namespace Cloudents.FunctionsV2.Di
 
 
 
-            var assemblies = Directory.GetFiles(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
-                .Where(path =>
-                    Path.GetExtension(path) == ".dll" &&
-                    Path.GetFileNameWithoutExtension(path) 
-                        .Contains("Cloudents",
-                            StringComparison.OrdinalIgnoreCase))
-                .Select(Assembly.Load).ToArray();
+            //var assemblies = Directory.GetFiles(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+            //    .Where(path =>
+            //        Path.GetExtension(path) == ".dll" &&
+            //        Path.GetFileNameWithoutExtension(path) 
+            //            .Contains("Cloudents",
+            //                StringComparison.OrdinalIgnoreCase))
+            //    .Select(Assembly.Load).ToArray();
 
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
-            builder.RegisterAssemblyModules(assemblies);
-                //Assembly.Load("Cloudents.Infrastructure.Storage"), //We need this because of event handler in question populate
-                //Assembly.Load("Cloudents.Infrastructure"),
-                //Assembly.Load("Cloudents.Persistance"));
+            builder.RegisterAssemblyModules(
+                Assembly.Load("Cloudents.Infrastructure.Storage"), //We need this because of event handler in question populate
+                Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Persistance"));
 
             builder.RegisterType<RestClient>().As<IRestClient>()
                 .SingleInstance();
