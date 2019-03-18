@@ -51,7 +51,6 @@
                 newCourseList: [],
                 showLoading: true,
                 showNoResult: false,
-                editedIndex: -1,
                 disableBtn: false,
                 search: '',
                 headers: [

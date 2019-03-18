@@ -24,7 +24,7 @@ namespace Cloudents.Query.Admin
 
         public async Task<IList<PendingCoursesDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            var sql = @"select Name, Created from sb.Course where State = 'Pending'";
+            var sql = @"select Name from sb.Course where State = 'Pending'";
             using (var connection = new SqlConnection(_provider.Db.Db))
             {
                 var res = await connection.QueryAsync<PendingCoursesDto>(sql);

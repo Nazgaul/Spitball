@@ -19,8 +19,6 @@ namespace Cloudents.Core.DTOs.Admin
     {
         [DtoToEntityConnection(nameof(Course.Name))]
         public string Name { get; set; }
-        [DtoToEntityConnection(nameof(Course.Created))]
-        public DateTime Created { get; set; }
     }
 
         public class NewUniversitiesDto

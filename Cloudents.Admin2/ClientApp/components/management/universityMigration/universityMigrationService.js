@@ -11,11 +11,11 @@ function createUniversityItem(objInit) {
     return new universityItem(objInit);
 }
 
-const path = 'AdminManagement/universities';
+const path = 'AdminUniversity/';
 
 const getUniversityList = function () {
 
-    return connectivityModule.http.get(path).then((newUniversityList) => {
+    return connectivityModule.http.get(`${path}universities`).then((newUniversityList) => {
         let arrUniversityList = [];
         if (newUniversityList.length > 0) {
             newUniversityList.forEach((ci) => {
@@ -29,7 +29,7 @@ const getUniversityList = function () {
 };
 
 const migrateUniversities = function (universityToRemove, universityToKeep) {
-    return connectivityModule.http.post(`${path}`, {
+    return connectivityModule.http.post(`${path}migrate`, {
         "universityToRemove": universityToRemove,
         "universityToKeep": universityToKeep
     })

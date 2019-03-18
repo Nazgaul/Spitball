@@ -21,6 +21,15 @@ namespace Cloudents.Core.Entities
 
         }
 
+        public virtual void Approve()
+        {
+            //TODO: maybe put an event to that
+            if (State == ItemState.Pending)
+            {
+                State = ItemState.Ok;
+            }
+        }
+
         //public virtual Guid Id { get; protected set; }
 
 

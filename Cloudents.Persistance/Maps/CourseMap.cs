@@ -22,6 +22,7 @@ namespace Cloudents.Persistance.Maps
                 .ParentKeyColumn("CourseId")
                 .ChildKeyColumn("UserId")
                 .ForeignKeyConstraintNames("Courses_User", "User_Courses")
+                //.Inverse()
              .Table("UsersCourses").AsSet();
 
             HasMany(x => x.Documents)
@@ -31,16 +32,16 @@ namespace Cloudents.Persistance.Maps
                 .ForeignKeyCascadeOnDelete();
 
 
-            //HasMany(x => x.Questions)
-            //    .KeyColumn("CourseId")
-            //    .LazyLoad()
-            //    .Inverse()
-            //    .ForeignKeyCascadeOnDelete();
+            HasMany(x => x.Questions)
+                .KeyColumn("CourseId")
+                .LazyLoad()
+                .Inverse()
+                .ForeignKeyCascadeOnDelete();
 
-            HasMany(x => x.Questions).Cascade.None();
+            // HasMany(x => x.Questions).Cascade.None();
             // HasMany(x => x.Users).Cascade.None();
             Map(x => x.State);
-            SchemaAction.Update();
+            SchemaAction.None();
         }
     }
 }

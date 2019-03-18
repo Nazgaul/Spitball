@@ -47,7 +47,7 @@ t.id as TransactionId,
 from sb.[Transaction] t
 left outer join sb.[User] u 
 on t.User_id = u.Id 
-where t.TransactionType='CashOut' and t.Action='CashOut'
+where t.TransactionType='CashOut' and t.Action='CashOut' and t.Approved is null
 and t.Created>@date
 order by t.id desc", new {date = DateTime.UtcNow.AddMonths(-1)});
                 return result;

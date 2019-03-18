@@ -40,6 +40,8 @@ import userFlagged from './components/userMainView/userFlaggedItems/userFlaggedI
 
 import Management from './components/management/Management.vue';
 import courseMigration from './components/management/courseMigration/courseMigration.vue';
+import coursesPending from './components/management/coursesPending/coursesPending.vue';
+import universityPending from './components/management/universityPending/universityPending.vue';
 import universityMigration from './components/management/universityMigration/universityMigration.vue';
 
 export const routes = [
@@ -247,6 +249,14 @@ export const routes = [
             {
                 path: 'universityMigration',
                 component: universityMigration
+            },
+            {
+                path: 'coursesPending',
+                component: coursesPending
+            },
+            {
+                path: 'universityPending',
+                component: universityPending
             }
         ]
     },
