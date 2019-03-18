@@ -9,11 +9,11 @@ function createCourseItem(objInit) {
     return new courseItem(objInit);
 }
 
-const path = 'AdminManagement/courses';
+const path = 'AdminCourse/';
 
 const getCourseList = function () {
     
-    return connectivityModule.http.get(path).then((newCourseList) => {
+    return connectivityModule.http.get(`${path}courses`).then((newCourseList) => {
         let arrCourseList = [];
         if (newCourseList.length > 0) {
             newCourseList.forEach((ci) => {
@@ -27,7 +27,7 @@ const getCourseList = function () {
 };
 
 const migrateCourses = function (newCourse, oldCourse) {
-    return connectivityModule.http.post(`${path}`, { "CourseToRemove": newCourse, "CourseToKeep": oldCourse })
+    return connectivityModule.http.post(`${path}migrate`, { "CourseToRemove": newCourse, "CourseToKeep": oldCourse })
         .then((resp) => {
             console.log(resp, 'post doc success');
             return Promise.resolve(resp);

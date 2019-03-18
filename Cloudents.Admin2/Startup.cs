@@ -80,7 +80,7 @@ namespace Cloudents.Admin2
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Persistance"),
-               
+                Assembly.Load("Cloudents.Search"),
                 Assembly.GetExecutingAssembly()
             };
 
@@ -89,6 +89,10 @@ namespace Cloudents.Admin2
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
+                Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
+                       Configuration["AzureSearch:SearchServiceAdminApiKey"],
+                    !HostingEnvironment.IsProduction()
+                    ),
                 Storage = Configuration["Storage"],
                 Redis = Configuration["Redis"],
                 ServiceBus = Configuration["ServiceBus"]

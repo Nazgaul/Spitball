@@ -10,57 +10,27 @@ using System.Threading;
 using Cloudents.Query.Query.Admin;
 using Cloudents.Admin2.Models;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminManagementController: ControllerBase
+    public class AdminUniversityController: ControllerBase
     {
        private readonly IQueryBus _queryBus;
        private readonly ICommandBus _commandBus;
+        private readonly IUniversitySearch _universityProvider;
 
-        public AdminManagementController(IQueryBus queryBus, ICommandBus commandBus)
+        public AdminUniversityController(IQueryBus queryBus, ICommandBus commandBus, IUniversitySearch universityProvider)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
+            _universityProvider = universityProvider;
         }
 
-        [HttpGet("courses")]
-        public async Task<IEnumerable<NewCourseDto>> Get(CancellationToken token)
-        {
-            var query = new AdminEmptyQuery();
-            var retVal = await _queryBus.QueryAsync<IList<NewCourseDto>>(query, token);
-            return retVal;
-        }
-
-        [HttpPost("courses")]
-        public async Task<IActionResult> MigrateCourse([FromBody] MigrateCourseRequest model, 
-            CancellationToken token)
-        {
-            var command = new MigrateCourseCommand(model.CourseToKeep, model.CourseToRemove);
-            var deleteCommand = new DeleteCourseCommand(model.CourseToRemove);
-            await _commandBus.DispatchAsync(command, token);
-            await _commandBus.DispatchAsync(deleteCommand, token);
-            return Ok();
-        }
-
-
-        [HttpGet("newCourses")]
-        public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses(CancellationToken token)
-        {
-            var query = new AdminEmptyQuery();
-            var retVal = await _queryBus.QueryAsync<IList<PendingCoursesDto>>(query, token);
-            return retVal;
-        }
-
-        [HttpGet("allCourses")]
-        public async Task<IEnumerable<string>> GetAllCourses(CancellationToken token)
-        {
-            var query = new AdminEmptyQuery();
-            var retVal = await _queryBus.QueryAsync<IList<string>>(query, token);
-            return retVal;
-        }
+        
 
         [HttpGet("universities")]
         public async Task<IEnumerable<NewUniversitiesDto>> GetUniversities(CancellationToken token)
@@ -70,7 +40,7 @@ namespace Cloudents.Admin2.Api
             return retVal;
         }
 
-        [HttpPost("universities")]
+        [HttpPost("migrate")]
         public async Task<IActionResult> MigrateUniversity([FromBody] MigrateUniversityRequest model,
             CancellationToken token)
         {
@@ -96,5 +66,42 @@ namespace Cloudents.Admin2.Api
             return retVal;
         }
 
+
+        /// <summary>
+        /// Get list of universities
+        /// </summary>
+        /// <param name="university">university</param>
+        /// <param name="profile">Not taken from the api</param>
+        /// <param name="token"></param>
+        /// <returns>list of universities</returns>
+        [Route("search")]
+        [HttpGet]
+
+        public async Task<UniversitySearchDto> GetAsync([FromQuery(Name = "university")]string university,
+            CancellationToken token)
+        {
+            //Only IL Need to think about it
+            var result = await _universityProvider.SearchAsync(university,
+                null, token);
+            return result;
+        }
+
+        [HttpPost("approve")]
+        public async Task<IActionResult> ApproveUniversity([FromBody] ApproveUniversityRequest model,
+                CancellationToken token)
+        {
+            var command = new ApproveUniversityCommand(model.Id);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> ApproveCourse(Guid Id,
+                CancellationToken token)
+        {
+            var command = new DeleteUniversityCommand(Id);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }

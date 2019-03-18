@@ -51,13 +51,11 @@
                 newUniversityList: [],
                 showLoading: true,
                 showNoResult: false,
-                editedIndex: -1,
                 disableBtn: false,
                 search: '',
                 headers: [
                     { text: 'Old University', value: 'oldUniversity' },
                     { text: 'New University', value: 'newUniversity' },
-
                 ],
             }
         },

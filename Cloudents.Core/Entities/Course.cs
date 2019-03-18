@@ -59,22 +59,29 @@ namespace Cloudents.Core.Entities
             return !Equals(left, right);
         }
 
-  
+        public virtual void Approve()
+        {
+            //TODO: maybe put an event to that
+            if (State == ItemState.Pending)
+            {
+                State = ItemState.Ok;
+            }
+        }
 
         public virtual string Name { get; protected set; }
         public virtual int Count { get; set; }
 
         public virtual DateTime Created { get;protected set; }
 
-        //private readonly ISet<RegularUser> _users = new HashSet<RegularUser>();
-        //public virtual IReadOnlyCollection<RegularUser> Users => _users.ToList();
+        private readonly ISet<RegularUser> _users = new HashSet<RegularUser>();
+        public virtual IReadOnlyCollection<RegularUser> Users => _users.ToList();
 
 
-        //private readonly IList<Document> _documents = new List<Document>();
-        //public virtual IReadOnlyList<Document> Documents => _documents.ToList();
+        private readonly IList<Document> _documents = new List<Document>();
+        public virtual IReadOnlyList<Document> Documents => _documents.ToList();
 
-        //private readonly IList<Question> _questions = new List<Question>();
-        //public virtual IReadOnlyList<Question> Questions => _questions.ToList();
+        private readonly IList<Question> _questions = new List<Question>();
+        public virtual IReadOnlyList<Question> Questions => _questions.ToList();
 
 
         public virtual ItemState State { get; protected set; }

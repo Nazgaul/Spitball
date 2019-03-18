@@ -97,7 +97,9 @@
                         },
                         childrens: [
                             { name: 'Course', link: '/management/courseMigration', icon: 'people_outline' },
+                            { name: 'Pending Courses', link: '/management/coursesPending', icon: 'people_outline' },
                             { name: 'University', link: '/management/universityMigration', icon: 'people_outline' },
+                            { name: 'Pending Universities', link: '/management/universityPending', icon: 'people_outline' },
                         ]
                     },
                     {
