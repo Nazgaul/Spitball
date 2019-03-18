@@ -78,13 +78,15 @@ export default {
                     let connectOptions;
                     createLocalTracks({
                         audio: self.availableDevices.includes('audioinput'),
-                        video: self.availableDevices.includes('videoinput') ? {
-                            width: { ideal: 1280, min: 640},
-                            height:{ ideal: 720, min: 480},
-                            frameRate: {
-                                ideal: 60,
-                                min: 10
-                            } } : false,
+                        video: self.availableDevices.includes('videoinput'),
+                        // audio: self.availableDevices.includes('audioinput'),
+                        // video: self.availableDevices.includes('videoinput') ? {
+                        //     width: { ideal: 1280, min: 640},
+                        //     height:{ ideal: 720, min: 480},
+                        //     frameRate: {
+                        //         ideal: 60,
+                        //         min: 10
+                        //     } } : false,
                     }).then((tracksCreated) => {
                         let localMediaContainer = document.getElementById('localTrack');
                         tracksCreated.forEach((track) => {

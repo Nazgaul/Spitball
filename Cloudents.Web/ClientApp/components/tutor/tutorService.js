@@ -94,12 +94,13 @@ const connectToRoom = function(token, options) {
                 store.dispatch('updateUserIdentity', localIdentity);
                 store.dispatch('updateLocalStatus', false);
                 localStorage.setItem("identity", localIdentity);
+                const participant = room.localParticipant;
 
 
                 // Print the initial Network Quality Level
-                printNetworkQuality(room.localParticipant.networkQualityLevel);
-
-                store.getters['activeRoom'].localParticipant.on('networkQualityLevelChanged', printNetworkQuality);
+                printNetworkQuality(participant.networkQualityLevel);
+                //Network quality change listen to event
+                participant.on('networkQualityLevelChanged', printNetworkQuality );
 
                 //shared google document
                 if ( store.getters['activeRoom'].participants && store.getters['activeRoom'].participants.size < 1) {
