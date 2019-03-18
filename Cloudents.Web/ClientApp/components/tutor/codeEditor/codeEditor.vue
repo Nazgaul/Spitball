@@ -1,5 +1,10 @@
 <template>
     <div>
+        <!--<v-layout class="ml-3" row align-start>-->
+        <!--<v-flex xs1 sm1 md1 v-for="codeSyntax in codeSet" @click="changeLanguageSyntax(codeSyntax)">-->
+        <!--{{codeSyntax.name}}-->
+        <!--</v-flex>-->
+        <!--</v-layout>-->
         <div id="firepad"></div>
     </div>
 </template>
@@ -35,17 +40,18 @@
         },
         methods: {
             ...mapActions(['updateCodeLoadedOnce']),
-            changeLanguageSyntax(codeSyntax) {
-                let self = this;
-                let loadCodeLang = codeSyntax;
-                self.$loadScript(`${loadCodeLang.link}`).then((loaded) => {
-                    if(self.codeMirror){
-                        self.codeMirror.setOption("mode", `${loadCodeLang.value}`);
-                    }
+            // changeLanguageSyntax(codeSyntax) {
+            //     let self = this;
+            //     let loadCodeLang = codeSyntax;
+            //     self.$loadScript(`${loadCodeLang.link}`).then((loaded) => {
+            //         if(self.codeMirror){
+            //             self.codeMirror.setOption("mode", `${loadCodeLang.value}`);
+            //         }
+                    // wont work cause recreateing firepad with not clean codeMirror
                     // self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror, self.codeMirror.doc.getValue());
                     // console.log(self.codeMirror)
-                })
-            },
+            //     })
+            // },
 
             loadFirePad() {
                 let self = this;
@@ -99,6 +105,4 @@
     @import './themes/monokai.less';
     @import './helperStyles/firepad.less';
     @import './helperStyles/codeMirror.less';
-
-
 </style>

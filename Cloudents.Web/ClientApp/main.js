@@ -20,6 +20,7 @@ import LoadScript from 'vue-plugin-load-script';
 
 import VueNumeric from 'vue-numeric'
 import VueMathjax from 'vue-mathjax'
+import utilitiesService from './services/utilities/utilitiesService';
 
 import {
     VApp,
@@ -386,6 +387,7 @@ global.isMobileAgent = function () {
 
 //injects the route to the store via the rootState.route
 sync(store, router);
+utilitiesService.init();
 
 export {
     app,

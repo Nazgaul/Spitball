@@ -159,7 +159,7 @@ and all of the selected classes will be deleted</value>
     <comment>pay attention to the line breaks ("ENTER button"  before the first line)</comment>
   </data>
   <data name="select_class" xml:space="preserve">
-    <value>Select class</value>
+    <value>Select course</value>
   </data>
   <data name="select_school" xml:space="preserve">
     <value>Select school</value>
@@ -186,7 +186,7 @@ and all of the selected classes will be deleted</value>
     <value>Skip for now</value>
   </data>
   <data name="type_class_name_placeholder" xml:space="preserve">
-    <value>Type your class name</value>
+    <value>Type your course name</value>
   </data>
   <data name="type_school_name_placeholder" xml:space="preserve">
     <value>Type your school name</value>
@@ -195,22 +195,22 @@ and all of the selected classes will be deleted</value>
     <value>YES, Change school</value>
   </data>
   <data name="add_class" xml:space="preserve">
-    <value>Add this class</value>
+    <value>Create course</value>
   </data>
   <data name="add_new_class" xml:space="preserve">
-    <value>Add new class</value>
+    <value>Add new crouse</value>
   </data>
   <data name="add_new_university" xml:space="preserve">
     <value>Add new university</value>
   </data>
   <data name="add_university" xml:space="preserve">
-    <value>Add this university</value>
+    <value>Create university</value>
   </data>
   <data name="class_length_error" xml:space="preserve">
     <value>Must be more then 3 characters</value>
   </data>
   <data name="didnt_find_class" xml:space="preserve">
-    <value>Didn't find class? Add it here!</value>
+    <value>Didn't find course? Add it here!</value>
   </data>
   <data name="didnt_find_university" xml:space="preserve">
     <value>Didn't find university? Add it here!</value>

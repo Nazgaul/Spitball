@@ -5,15 +5,15 @@ import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
 import { dataTrack } from '../tutorService';
 import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
-import AppLogo from "../../../../wwwroot/Images/logo-spitball.svg";
 import { mapGetters, mapActions } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
+import equationMapper from "./innerComponents/equationMapper.vue"
 
 export default {
     components: {
         'sliderPicker': Compact,
          shareRoomBtn,
-         AppLogo,
+         equationMapper
     },
     data() {
         return {
@@ -173,6 +173,7 @@ export default {
             }
         },
         resetZoom(){
+            whiteBoardService.hideHelper();
             this.updateZoom(100);
             this.updatePan({e:0, f:0})
         },
@@ -187,7 +188,13 @@ export default {
             canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
         },
+        injectToTextArea(textToInject){
+            let textAreaElm = document.getElementById('textArea-tutoring');
+            let newValue = textAreaElm.insertAtCaret(textToInject);            
+            this.helperStyle.text = newValue;
+        },
         doZoom(zoomType){
+            whiteBoardService.hideHelper();
             let panTool = whiteBoardService.init.bind(this.canvasData, this.enumOptions.pan)();
             panTool.manualScroll.bind(this.canvasData, zoomType)();
         },
