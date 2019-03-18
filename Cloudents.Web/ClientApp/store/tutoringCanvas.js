@@ -1,4 +1,4 @@
-import {uploadCanvasImage} from '../components/tutor/tutorService'
+import tutorService from '../components/tutor/tutorService'
 
 const state = {
     dragData: [],
@@ -49,7 +49,7 @@ const actions = {
     },
 
     uploadImage(context, data){
-        return uploadCanvasImage(data).then((response)=>{
+        return tutorService.uploadCanvasImage(data).then((response)=>{
             return response.data.link;
         })
     },

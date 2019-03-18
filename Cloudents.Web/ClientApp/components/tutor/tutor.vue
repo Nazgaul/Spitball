@@ -13,7 +13,7 @@
                 </div>
 
                 <div style="display: flex; align-items: center;">
-                    <h4 v-if="localNetworkQuality" style="color: #ffffff;">Network quality: {{localNetworkQuality}}</h4>
+                    <h4 v-if="localNetworkQuality" style="color: #ffffff;">Network quality: {{localNetworkQuality}}/5</h4>
                     <share-screen-btn class="nav-share-btn"></share-screen-btn>
                 </div>
             </nav>

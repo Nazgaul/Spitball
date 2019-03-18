@@ -99,7 +99,7 @@ const connectToRoom = function(token, options) {
                 store.dispatch('updateLocalParticipant', room.localParticipant);
 
                 // Print the initial Network Quality Level
-                printNetworkQuality(store.getters['localParticipant'].networkQualityLevel);
+                // printNetworkQuality(store.getters['localParticipant'].networkQualityLevel);
 
                 //event of network quality change
                 store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality );
@@ -199,7 +199,7 @@ const connectToRoom = function(token, options) {
 };
 
 
-export {
+export default {
     dataTrack,
     uploadCanvasImage,
     getToken,
