@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Cloudents.Core.Event;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using Cloudents.Core.Event;
 
 //[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
@@ -14,15 +13,23 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public ChatRoom(IEnumerable<RegularUser> users)
+        public ChatRoom(IList<RegularUser> users)
         {
             Users = users.Select(s => new ChatUser(this, s)).ToList();
+            Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
             UpdateTime = DateTime.UtcNow;
+        }
+
+        public static string BuildChatRoomIdentifier(IEnumerable<long> userIds)
+        {
+            return string.Join("_", userIds.OrderBy(o => o));
         }
 
         public virtual DateTime UpdateTime { get; set; }
 
         public virtual ICollection<ChatUser> Users { get; protected set; }
+
+        public virtual string Identifier { get; set; }
 
         public virtual ChatMessage AddMessage(long userId, string message, string blob)
         {
