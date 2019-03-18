@@ -210,7 +210,7 @@
                 <textarea id="textArea-tutoring" :class="[helperClass, helperStyle.id]"
                       v-model="helperStyle.text"
                       cols="50"
-                      rows="3"></textarea>
+                      rows="6"></textarea>
                 <vue-mathjax :class="[helperClass, helperStyle.id]"
                          v-show="!!helperStyle.text"
                          :formula="`$$${helperStyle.text}$$`"
