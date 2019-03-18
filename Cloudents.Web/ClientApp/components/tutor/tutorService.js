@@ -80,7 +80,6 @@ const printNetworkQuality = function (networkQualityLevel) {
 };
 
 const createAudioContext = function () {
-
     navigator.mediaDevices.getUserMedia({
         audio: true
     }).then(stream => {
@@ -122,6 +121,7 @@ const createAudioContext = function () {
         scriptProcessor.onaudioprocess = processInput;
 
     }, error => {
+        console.log('Something went wrong, or the browser does not support getUserMedia');
         // Something went wrong, or the browser does not support getUserMedia
     });
 
