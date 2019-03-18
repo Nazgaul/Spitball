@@ -11,7 +11,7 @@ using static Cloudents.Core.Entities.ItemStatus;
 using static Cloudents.Core.Entities.Vote;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
-[assembly: InternalsVisibleTo("Cloudents.Persistance")]
+[assembly: InternalsVisibleTo("Cloudents.Persistence")]
 
 namespace Cloudents.Core.Entities
 {

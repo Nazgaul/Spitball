@@ -7,7 +7,7 @@ namespace Cloudents.Search.Extensions
 {
     public static class FacetExtensions {
 
-        public static IEnumerable<T> AsEnumFacetResult<T>(this IList<FacetResult> facets) where T : Enum, IConvertible
+        public static IEnumerable<T> AsEnumFacetResult<T>(this IEnumerable<FacetResult> facets) where T : Enum, IConvertible
         {
             foreach (var facet in facets)
             {
