@@ -23,7 +23,7 @@ namespace Cloudents.Persistance.Maps
             //HasMany(x => x.Users)
             //    .ReadOnly()
             //    .Access.CamelCaseField(Prefix.Underscore).Cascade.None();
-            Map(x => x.State);
+            Map(x => x.State).Not.Nullable();
             SchemaAction.Update();
 
         }

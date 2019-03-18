@@ -33,7 +33,7 @@ namespace Cloudents.Query
                     Name = s.Name,
                     Image = s.Image,
                     Email = s.Email,
-                    UniversityExists = s.University != null,
+                    UniversityExists = s.University.Id != null,
                     Score = s.Transactions.Score,
                     PhoneNumber = s.PhoneNumber
                 }).WithOptions(o =>
