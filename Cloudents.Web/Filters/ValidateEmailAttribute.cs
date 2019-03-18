@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Filters
 {

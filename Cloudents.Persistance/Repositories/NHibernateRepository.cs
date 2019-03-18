@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 
-namespace Cloudents.Persistance.Repositories
+namespace Cloudents.Persistence.Repositories
 {
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {

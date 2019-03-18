@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Persistance.Maps
+namespace Cloudents.Persistence.Maps
 {
     internal class UserLocationMap : ClassMap<UserLocation>
     {

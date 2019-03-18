@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.Interfaces;
-using Cloudents.Persistance.Maps;
+using Cloudents.Persistence.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Caches.CoreDistributedCache;
@@ -8,7 +8,7 @@ using NHibernate.Cfg;
 using NHibernate.Event;
 using NHibernate.Tool.hbm2ddl;
 
-namespace Cloudents.Persistance
+namespace Cloudents.Persistence
 {
     public class UnitOfWorkFactorySpitball
     {

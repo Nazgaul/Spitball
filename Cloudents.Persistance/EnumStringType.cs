@@ -1,7 +1,7 @@
 ﻿using System;
 using NHibernate.Type;
 
-namespace Cloudents.Persistance
+namespace Cloudents.Persistence
 {
     [Serializable]
     public class GenericEnumStringType<TEnum> : EnumStringType where TEnum : Enum

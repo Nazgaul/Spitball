@@ -9,7 +9,7 @@ using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Exceptions;
 
-namespace Cloudents.Persistance
+namespace Cloudents.Persistence
 {
     [UsedImplicitly]
     public sealed class UnitOfWork : IUnitOfWork

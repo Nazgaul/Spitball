@@ -4,7 +4,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 
-namespace Cloudents.Persistance.Repositories
+namespace Cloudents.Persistence.Repositories
 {
     public class TagRepository : NHibernateRepository<Tag>, ITagRepository
     {

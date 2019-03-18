@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-    <ProjectReference Include="..\Cloudents.Persistance\Cloudents.Persistance.csproj" />
+    <ProjectReference Include="..\Cloudents.Persistance\Cloudents.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

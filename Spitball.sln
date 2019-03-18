@@ -53,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Search", "Cloudents.Search\Cloudents.Search.csproj", "{A3CDCD79-3F17-4D40-BAFF-CB1C5CCC0AEC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Persistance", "Cloudents.Persistance\Cloudents.Persistance.csproj", "{E9B9A3DE-ABF9-4BEA-91A1-74CB790A260C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Persistence", "Cloudents.Persistance\Cloudents.Persistence.csproj", "{E9B9A3DE-ABF9-4BEA-91A1-74CB790A260C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Query", "Cloudents.Query\Cloudents.Query.csproj", "{F4C03D79-CEE5-4994-8E60-9537C24AEB30}"
 EndProject
@@ -164,10 +164,10 @@ Global
 		{8F15B0EE-A780-4F16-879A-A0F078F7890C} = {87821F4F-6A1A-48D1-A863-EE9B2778EA3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ConfirmAddLanguageFile = False
-		RESX_AutoCreateNewLanguageFiles = True
-		RESX_SortFileContentOnSave = True
-		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
 		RESX_PrefixTranslations = False
+		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
+		RESX_SortFileContentOnSave = True
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_ConfirmAddLanguageFile = False
 	EndGlobalSection
 EndGlobal

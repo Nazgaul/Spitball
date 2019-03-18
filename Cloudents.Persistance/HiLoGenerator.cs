@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Persistance
+﻿namespace Cloudents.Persistence
 {
     public class HiLoGenerator
     {

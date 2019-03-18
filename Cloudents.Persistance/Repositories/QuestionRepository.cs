@@ -10,7 +10,7 @@ using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Linq;
 
-namespace Cloudents.Persistance.Repositories
+namespace Cloudents.Persistence.Repositories
 {
     [UsedImplicitly]
     public class QuestionRepository : NHibernateRepository<Question>, IQuestionRepository

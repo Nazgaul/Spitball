@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace Cloudents.Persistance.Repositories
+namespace Cloudents.Persistence.Repositories
 {
     [UsedImplicitly]
     public class TransactionRepository : NHibernateRepository<Transaction>, ITransactionRepository

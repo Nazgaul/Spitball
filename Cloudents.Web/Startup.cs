@@ -34,6 +34,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Web.Resources;
 using Microsoft.Extensions.DependencyModel;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
