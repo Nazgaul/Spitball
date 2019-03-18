@@ -52,8 +52,7 @@ const liveDraw = function(textObj){
 const hideHelperObj = function(){
     currentId = null;
     isEditing = false;
-    helper.hideHelper();
-    helper.resetHelperObj();
+    whiteBoardService.hideHelper();
 }
 
 const setHelperObj = function(e, selectedHelper){

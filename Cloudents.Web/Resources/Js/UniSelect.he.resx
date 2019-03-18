@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_class" xml:space="preserve">
-    <value>הוסף את הקורס</value>
+    <value>צור קורס</value>
   </data>
   <data name="add_new_class" xml:space="preserve">
     <value>הוסף קורס חדש</value>
@@ -127,7 +127,7 @@
     <value>הוסף אוניברסיטה חדשה</value>
   </data>
   <data name="add_university" xml:space="preserve">
-    <value>הוסף את האוניברסיטה</value>
+    <value>צור אוניברסיטה</value>
   </data>
   <data name="changing_school_question" xml:space="preserve">
     <value>משנה מוסד לימודים?</value>
@@ -206,7 +206,7 @@
     <value>דלג בינתיים</value>
   </data>
   <data name="type_class_name_placeholder" xml:space="preserve">
-    <value>חפש קורסים</value>
+    <value>הקלד את שם הקורס</value>
   </data>
   <data name="type_school_name_placeholder" xml:space="preserve">
     <value>הקלד את שם מוסד הלימודים בו אתה לומד</value>

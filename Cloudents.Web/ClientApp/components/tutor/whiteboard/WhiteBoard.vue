@@ -203,14 +203,20 @@
         <div class="equation-helper-container"
              :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"
              v-if="helperShow && selectedOptionString === enumOptions.equation">
-            <textarea :class="[helperClass, helperStyle.id]"
+             <div>
+                 <equation-mapper :injectToTextArea="injectToTextArea"></equation-mapper>
+             </div>
+            <div class="equation-text-area">
+                <textarea id="textArea-tutoring" :class="[helperClass, helperStyle.id]"
                       v-model="helperStyle.text"
                       cols="50"
                       rows="3"></textarea>
-            <vue-mathjax :class="[helperClass, helperStyle.id]"
+                <vue-mathjax :class="[helperClass, helperStyle.id]"
                          v-show="!!helperStyle.text"
                          :formula="`$$${helperStyle.text}$$`"
                          class="math-jax"></vue-mathjax>
+            </div>
+            
         </div>
         </div>
         <!--<div>-->
@@ -375,20 +381,27 @@
                 display: flex;
                 flex-direction: column;
                 padding: 10px;
-            .equation-helper {
-                border: 2px solid #c4c4ca;
-                padding: 6px;
-                outline: none;
-                border-radius: 4px;
-                font-family: "Open Sans", sans-serif;
-                font-size: 14px;
-                background: #fff;
-            }
-            .math-jax{
-                margin-right: auto;
-                margin-top: 10px;
-                border: none;
-            }
+                display: flex;
+                flex-direction: row;
+                .equation-text-area{
+                    display: flex;
+                    flex-direction: column;
+                    .equation-helper {
+                        border: 2px solid #c4c4ca;
+                        padding: 6px;
+                        outline: none;
+                        border-radius: 4px;
+                        font-family: "Open Sans", sans-serif;
+                        font-size: 14px;
+                        background: #fff;
+                    }
+                    .math-jax{
+                        margin-right: auto;
+                        margin-top: 10px;
+                        border: none;
+                    }
+                }
+            
         }
     }
 </style>

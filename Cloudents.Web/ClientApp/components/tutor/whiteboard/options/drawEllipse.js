@@ -1,6 +1,7 @@
 import {createPointsByOption, createShape} from '../utils/factories'
 import helper from '../utils/helper'
 import canvasFinder from '../utils/canvasFinder'
+import whiteBoardService from '../whiteBoardService';
 
 const OPTION_TYPE = 'drawEllipse';
 
@@ -123,8 +124,7 @@ const defineEndPosition = function(e){
         this.shouldPaint = false;
         localShape.path.stroke = linePath2D;
         this.methods.addShape(localShape, clearLocalShape);
-        helper.hideHelper();
-        helper.resetHelperObj();
+        whiteBoardService.hideHelper();
     }
 }
 const mouseup = function(e){

@@ -75,8 +75,7 @@ const defineEndPosition = function(e){
             this.methods.addShape(localShape, clearLocalShape);
     }
     this.shouldPaint = false;
-    helper.hideHelper();
-    helper.resetHelperObj();
+    whiteBoardService.hideHelper();
     
 }
 const mousedown = function(e){
