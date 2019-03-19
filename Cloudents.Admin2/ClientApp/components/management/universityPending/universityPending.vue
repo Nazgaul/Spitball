@@ -60,7 +60,8 @@
                                               :items="suggestUniversities"
                                               item-text="name"
                                               item-value="id"
-                                              label="Select university"></v-select>
+                                              label="Select university"
+                                              :disabled="disableSelectBtn"></v-select>
                                 </div>
                             </v-flex>
                         </v-layout>
@@ -92,6 +93,7 @@
                 picked: '',
                 showLoading: true,
                 showNoResult: false,
+                disableSelectBtn: true,
                 editedIndex: -1,
                 radios: 'approve',
                 search: '',
@@ -138,6 +140,7 @@
                 this.editedItem = this.defaultItem;
                 this.editedIndex = -1;
                 this.radios = 'approve';
+                this.disableSelectBtn = true;
             },
             universityMigrate(item) {
                 const index = this.newUniversitiesList.indexOf(item.uniToRemove);
@@ -146,7 +149,8 @@
 
                     this.$toaster.success(`University ${item.uniToRemove.name} merged into ${item.uniToKeep}`);
                     this.newUniversitiesList.splice(index, 1);
-                    suggestUniversities = [];
+                    this.suggestUniversities = [];
+                    this.disableSelectBtn = true;
                 },
                     (error) => {
                         this.$toaster.error(`Error can't merge`);
@@ -182,6 +186,7 @@
                 getSuggestions(item).then((list) => {
                     if (list.length > 0) {
                         this.suggestUniversities = list;
+                        this.disableSelectBtn = false;
                     }
                 }, (err) => {
                     console.log(err)
