@@ -1,7 +1,9 @@
 ﻿using Autofac;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Dapper;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,16 +15,11 @@ namespace ConsoleApp
         private static CancellationToken token = CancellationToken.None;
 
 
-        public static async Task MergeCourses(IContainer container)
+        public static async Task MergeCourses(IContainer container, IBlobProvider<DocumentContainer> blobProvider)
         {
             var d = container.Resolve<DapperRepository>();
             var t = MigrateCoursesAndUni.Read();
-            const string update = @"BEGIN
-                                       IF NOT EXISTS (select * from sb.Course where Name = @NewId)
-                                       BEGIN
-                                          insert into sb.Course values (@NewId, 0, GETUTCDATE())
-                                       END
-                                    END
+            const string update = @"
                             update sb.Document
                             set CourseName = @newId
                             where CourseName = @oldId;
@@ -43,7 +40,8 @@ namespace ConsoleApp
             var counter = 2;
             foreach (var item in t)
             {
-                if (item.NewId != "ok" && item.NewId != "dont know" && item.NewId != "delete")
+                if (!item.NewId.Equals("ok", StringComparison.InvariantCultureIgnoreCase) &&
+                    !item.NewId.Equals("delete", StringComparison.InvariantCultureIgnoreCase))
                 {
                     try
                     {
@@ -64,17 +62,50 @@ namespace ConsoleApp
                         Thread.Sleep(1000);
                     }
                 }
-                else if (item.NewId == "delete")
+                else if (item.NewId.Equals("delete", StringComparison.InvariantCultureIgnoreCase))
                 {
                     try
                     {
-                        var z = await d.WithConnectionAsync(async f =>
+
+                        var docs = await d.WithConnectionAsync(async f =>
                         {
-                            return await f.ExecuteAsync(@"delete from sb.UsersCourses where CourseId = @oldId;
-                                                        delete from sb.Course where [Name] = @oldId;",
+                            return await f.QueryAsync<long?>(@"select Id from sb.Document where CourseName = @oldId and State = 'Ok';",
                                 new { oldId = item.Name });
 
                         }, token);
+
+                        var z = await d.WithConnectionAsync(async f =>
+                        {
+                            return await f.ExecuteAsync(@"delete from sb.UsersCourses where CourseId = @oldId;
+                                            delete from sb.Question where CourseId = @oldId;
+                                            delete from sb.Document where CourseName = @oldId;
+                                            delete from sb.Course where [Name] = @oldId;",
+                                new { oldId = item.Name });
+
+                        }, token);
+
+
+                        //var z = await d.WithConnectionAsync(async f =>
+                        //{
+                        //    using (var multi = f.QueryMultiple(@"select Id from sb.Document where CourseName = @oldId;", 
+                        //        new { oldId = item.Name }))
+                        //{
+                        //        var docs = multi.Read<long>();
+                        //        var deleteStatment = await multi.Command.Connection.ExecuteAsync(
+                        //            @"delete from sb.UsersCourses where CourseId = @oldId;
+                        //                    delete from sb.Question where CourseId = @oldId;
+                        //                    delete from sb.Document where CourseName = @oldId;
+                        //                    delete from sb.Course where[Name] = @oldId;",
+                        //            new { oldId = item.Name });
+                        //        return docs;
+                        //}
+                        //}, token);
+
+
+                        foreach (var doc in docs)
+                        {
+                            await blobProvider.DeleteDirectoryAsync(doc.ToString(), token);
+                        }
                     }
                     catch
                     {
