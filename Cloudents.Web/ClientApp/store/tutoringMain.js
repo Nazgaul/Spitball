@@ -9,7 +9,8 @@ const state = {
     isLocalOffline: true,
     isRemoteOffline: true,
     isRoomLoading: false,
-    isFirepadLoadedOnce: false
+    isFirepadLoadedOnce: false,
+    qualityDialogVisibility: false
 };
 const getters = {
     activeRoom:  state => state.currentActiveRoom,
@@ -22,7 +23,8 @@ const getters = {
     roomLinkID: state => state.roomId,
     isRoomFull: state => state.isRoomFull,
     roomLoading : state => state.isRoomLoading,
-    firepadLoadedOnce: state => state.isFirepadLoadedOnce
+    firepadLoadedOnce: state => state.isFirepadLoadedOnce,
+    qualityDialog: state=> state.qualityDialogVisibility
 };
 
 const mutations = {
@@ -63,11 +65,17 @@ const mutations = {
     },
     changeFirepadLoaded(state, val){
         state.isFirepadLoadedOnce  = val
+    },
+    setqualityDialogState(state, val){
+        state.qualityDialogVisibility = val
     }
 
 };
 
 const actions = {
+    updateTestDialogState({commit, state}, val){
+        commit('setqualityDialogState', val)
+    },
     updateLocalParticipant({commit, state}, val){
       commit('setlocalParticipantObj', val)
     },
