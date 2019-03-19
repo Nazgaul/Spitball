@@ -15,6 +15,7 @@
                 <div style="display: flex; align-items: center;">
                     <h4 v-if="localNetworkQuality" style="color: #ffffff;">Network quality: {{localNetworkQuality}}/5</h4>
                     <share-screen-btn class="nav-share-btn"></share-screen-btn>
+                    <v-btn @click="changeQualityDialogState(true)">Test</v-btn>
                 </div>
             </nav>
             <transition name="slide-x-transition">
@@ -33,25 +34,41 @@
                 <chat v-show="isRoomCreated" :id="id"></chat>
             </v-flex>
         </v-layout>
+
+        <v-dialog v-model="qualityDialog" content-class="filter-dialog"  :max-width="$vuetify.breakpoint.smAndUp ? '720px' : ''" :fullscreen="$vuetify.breakpoint.xsOnly"  persistent>
+            <quality-validation ></quality-validation>
+        </v-dialog>
+
     </v-layout>
 
 
 </template>
 <script>
-    import {mapGetters} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
     import videoStream from './videoStream/videoStream.vue';
     import whiteBoard from './whiteboard/WhiteBoard.vue';
     import codeEditor from './codeEditor/codeEditor.vue'
     import chat from './chat/chat.vue';
+    import qualityValidation from './tutorHelpers/qualityValidation/qualityValidation.vue'
     import sharedDocument from './sharedDocument/sharedDocument.vue';
     import shareScreenBtn from './tutorHelpers/shareScreenBtn.vue';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     export default {
-        components:{videoStream, whiteBoard, codeEditor, chat, sharedDocument, shareScreenBtn, AppLogo},
+        components:{
+            videoStream,
+            whiteBoard,
+            codeEditor,
+            chat,
+            sharedDocument,
+            shareScreenBtn,
+            AppLogo,
+            qualityValidation
+        },
         name: "tutor",
         data() {
             return {
                 activeNavItem : 'white-board',
+                showQualityDialog: false,
                 showContent: false,
                 navs: [
                     {name: 'Canvas', value: 'white-board', icon : 'sbf-canvas'},
@@ -66,6 +83,7 @@
         },
         computed: {
             ...mapGetters([
+                'qualityDialog',
                 'localNetworkQuality',
                 'isRoomCreated',
                 'isRoomFull',
@@ -91,9 +109,13 @@
             },
         },
         methods: {
+            ...mapActions(['updateTestDialogState']),
             updateActiveNav(value) {
                 this.activeNavItem = value;
                 console.log(this.activeItem)
+            },
+            changeQualityDialogState(val){
+                this.updateTestDialogState(val)
             }
         },
         created() {

@@ -5,14 +5,14 @@ import whiteBoardService from "./whiteboard/whiteBoardService";
 
 const dataTrack = new LocalDataTrack();
 
-const uploadCanvasImage = function(formData){
+const uploadCanvasImage = function (formData) {
     return connectivityModule.http.post("Tutoring/upload", formData);
 };
-const getSharedDoc = async function(docName){
-   return connectivityModule.http.post("Tutoring/document", docName)
-       .then((resp)=>{
-        return  resp.data.link
-   })
+const getSharedDoc = async function (docName) {
+    return connectivityModule.http.post("Tutoring/document", docName)
+        .then((resp) => {
+            return resp.data.link
+        })
 };
 const passSharedDocLink = function (docUrl) {
     let transferDataObj = {
@@ -28,7 +28,7 @@ const createRoom = () => {
     return connectivityModule.http.post("tutoring/create");
 };
 // Token get
-const getToken = function (name, identityName){
+const getToken = function (name, identityName) {
     let userIdentity = identityName || '';
     return connectivityModule.http.get(`tutoring/join?roomName=${name}&identityName=${userIdentity}`)
         .then((data) => {
@@ -38,7 +38,7 @@ const getToken = function (name, identityName){
 
 
 // Attach the Tracks to the DOM.
-const attachTracks = function(tracks, container){
+const attachTracks = function (tracks, container) {
     tracks.forEach((track) => {
         if (track.attach) {
             container.appendChild(track.attach());
@@ -52,7 +52,7 @@ const attachParticipantTracks = function (participant, container) {
 };
 
 // Detach the Tracks from the DOM.
-const detachTracks = function(tracks){
+const detachTracks = function (tracks) {
     tracks.forEach((track) => {
         if (track.detach) {
             track.detach().forEach((detachedElement) => {
@@ -63,7 +63,7 @@ const detachTracks = function(tracks){
 };
 
 // Detach the Participant's Tracks from the DOM.
-const detachParticipantTracks = function(participant){
+const detachParticipantTracks = function (participant) {
     let tracks = Array.from(participant.tracks.values());
     detachTracks(tracks);
 };
@@ -79,9 +79,10 @@ const printNetworkQuality = function (networkQualityLevel) {
     }[networkQualityLevel] || '');
 };
 
+
 const createAudioContext = function () {
     navigator.mediaDevices.getUserMedia({
-        audio: true
+        audio: true,
     }).then(stream => {
         const processInput = audioProcessingEvent => {
             let array = new Uint8Array(analyser.frequencyBinCount);
@@ -97,7 +98,7 @@ const createAudioContext = function () {
 
             //console.log(Math.round(average - 40));
             let micVolume = document.getElementById('micVolume_indicator');
-            micVolume.style.backgroundColor = 'rgba(66, 224, 113, 0.16)';
+            micVolume.style.backgroundColor = 'rgba(66, 224, 113, 0.8)';
             micVolume.style.height = '6px';
             micVolume.style.maxWidth = '150px';
             micVolume.style.width = `${Math.round(average)}px`;
@@ -106,7 +107,7 @@ const createAudioContext = function () {
 
         // Handle the incoming audio stream
         // Handle the incoming audio stream
-        const audioContext = new AudioContext();
+        const audioContext = new (AudioContext || webkitAudioContext)();
         const input = audioContext.createMediaStreamSource(stream);
         const analyser = audioContext.createAnalyser();
         const scriptProcessor = audioContext.createScriptProcessor();
@@ -127,7 +128,7 @@ const createAudioContext = function () {
 
 };
 
-const connectToRoom = function(token, options) {
+const connectToRoom = function (token, options) {
     // disconnect the user from they joined already
     store.dispatch('leaveRoomIfJoined');
     Twilio.connect(token, options)
@@ -150,24 +151,24 @@ const connectToRoom = function(token, options) {
                 // printNetworkQuality(store.getters['localParticipant'].networkQualityLevel);
 
                 //event of network quality change
-                store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality );
+                store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
 
                 //shared google document
-                if ( store.getters['activeRoom'].participants && store.getters['activeRoom'].participants.size < 1) {
+                if (store.getters['activeRoom'].participants && store.getters['activeRoom'].participants.size < 1) {
                     let shareLink = localStorage.getItem(`sb_share_link_${store.getters['roomLinkID']}`);
-                    if(!shareLink){
+                    if (!shareLink) {
                         store.dispatch('updateRoomIsFull', true);
-                            getSharedDoc({name: `${store.getters['roomLinkID']}`})
-                                .then((link) => {
-                                        localStorage.setItem(`sb_share_link_${store.getters['roomLinkID']}`, `${link}&embedded=true`);
-                                        store.dispatch('updateSharedDocLink',`${link}&embedded=true`);
-                                    },
-                                    (error) => {
-                                    }
-                                );
+                        getSharedDoc({name: `${store.getters['roomLinkID']}`})
+                            .then((link) => {
+                                    localStorage.setItem(`sb_share_link_${store.getters['roomLinkID']}`, `${link}&embedded=true`);
+                                    store.dispatch('updateSharedDocLink', `${link}&embedded=true`);
+                                },
+                                (error) => {
+                                }
+                            );
 
-                    }else{
-                        store.dispatch('updateSharedDocLink',`${shareLink}`);
+                    } else {
+                        store.dispatch('updateSharedDocLink', `${shareLink}`);
                     }
                 }
                 // Attach the Tracks of all the remote Participants.
@@ -206,19 +207,19 @@ const connectToRoom = function(token, options) {
                             } else if (Data.type === 'tutoringChatMessage') {
                                 store.dispatch('addMessage', Data);
                             } else if (Data.type === 'sharedDocumentLink') {
-                                if(!shareDocUrl){
-                                    store.dispatch('updateSharedDocLink',parsedData)
+                                if (!shareDocUrl) {
+                                    store.dispatch('updateSharedDocLink', parsedData)
                                 }
                             }
                         });
                         attachTracks([track], previewContainer);
-                    }else if(track.kind === 'video'){
+                    } else if (track.kind === 'video') {
                         let videoTag = previewContainer.querySelector("video");
-                        if(videoTag){
+                        if (videoTag) {
                             previewContainer.removeChild(videoTag);
                         }
                         attachTracks([track], previewContainer);
-                    }else if(track.kind === 'audio'){
+                    } else if (track.kind === 'audio') {
                         attachTracks([track], previewContainer);
                     }
                     console.log('track attached', " added track: " + track.kind);
@@ -249,6 +250,7 @@ const connectToRoom = function(token, options) {
 
 export default {
     dataTrack,
+    detachTracks,
     uploadCanvasImage,
     getToken,
     createRoom,
