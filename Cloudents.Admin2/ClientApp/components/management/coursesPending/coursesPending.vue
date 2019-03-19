@@ -10,7 +10,8 @@
                               append-icon="search"
                               label="Search"
                               single-line
-                              hide-details></v-text-field>
+                              hide-details>
+                </v-text-field>
             </v-flex>
         </v-layout>
 
@@ -39,7 +40,7 @@
         <v-dialog v-model="dialog" max-width="500px">
             <v-card>
                 <v-card-title>
-                    <span v-show="radios === 'merge'" class="headline">Add university to merge {{ editedItem.name }} into</span>
+                    <span v-show="radios === 'merge'" class="headline">Add course to merge {{ editedItem.name }} into</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -58,7 +59,8 @@
                                               solo
                                               v-model="picked"
                                               :items="suggestCourses"
-                                              label="Select course"></v-select>
+                                              label="Select course"
+                                              :disabled="disableSelectBtn"></v-select>
                                 </div>
                             </v-flex>
                         </v-layout>
@@ -90,6 +92,7 @@
                 picked: '',
                 showLoading: true,
                 showNoResult: false,
+                disableSelectBtn: true,
                 editedIndex: -1,
                 radios: 'approve',
                 search: '',
@@ -101,9 +104,8 @@
                 },
                 dialog: false,
                 headers: [
-                    { text: 'Pending Courses', value: 'pendingCourses' },
+                    { text: 'Pending Courses', value: 'name' },
                     { text: 'Actions', value: 'actions' },
-
                 ],
             }
         },
@@ -133,6 +135,7 @@
                 this.editedItem = this.defaultItem;
                 this.editedIndex = -1;
                 this.radios = 'approve';
+                this.disableSelectBtn = true;
             },
             courseMigrate(item) {
                 const index = this.newCourseList.indexOf(item);
@@ -141,6 +144,7 @@
 
                     this.$toaster.success(`Course ${item.newCourse} merged into ${item.oldCourse}`);
                     this.newCourseList.splice(index, 1);
+                    this.disableSelectBtn = true;
                 },
                     (error) => {
                         this.$toaster.error(`Error can't merge`);
@@ -175,6 +179,7 @@
                 getSuggestions(item).then((list) => {
                     if (list.length > 0) {
                         this.suggestCourses = list;
+                        this.disableSelectBtn = false;
                     }
                 }, (err) => {
                     console.log(err)
