@@ -65,6 +65,7 @@
             isErorrGettingMedia() {
                 return this.notAvaliableDevices || this.notAllowedDevices
             }
+
         },
         methods: {
             ...mapActions(['updateTestDialogState']),
