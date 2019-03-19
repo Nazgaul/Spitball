@@ -30,18 +30,20 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var sbl = d["SBL"]?.Value<int?>();
             var leaderboard = d["leaderBoard"]?.Value<JArray>();
-            var id = leaderboard[0]["id"]?.Value<long?>();
-            var name = leaderboard[0]["name"]?.Value<string>();
-            var score1 = leaderboard[0]["score"].Value<long>();
-            var score2 = leaderboard[1]["score"].Value<long>();
-            var uni = leaderboard[0]["university"]?.Value<string>();
-
             sbl.Should().BeGreaterThan(0);
             leaderboard.Should().HaveCount(10);
-            id.Should().BeGreaterThan(0);
-            name.Should().NotBeNull();
-            score1.Should().BeGreaterThan(score2);
-            uni.Should().NotBeNull();
+
+            for(int i = 0; i < 10; i++)
+            {
+                var id = leaderboard[i]["id"]?.Value<long?>();
+                id.Should().BeGreaterThan(0);
+                var name = leaderboard[i]["name"]?.Value<string>();
+                name.Should().NotBeNull();
+                var score1 = leaderboard[i]["score"].Value<long>();
+                score1.Should().BeGreaterThan(0);
+                var uni = leaderboard[i]["university"]?.Value<string>();
+                uni.Should().NotBeNull();
+            }
         }
 
     }
