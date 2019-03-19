@@ -10,7 +10,8 @@
                               append-icon="search"
                               label="Search"
                               single-line
-                              hide-details></v-text-field>
+                              hide-details>
+                </v-text-field>
             </v-flex>
         </v-layout>
 
@@ -39,7 +40,7 @@
         <v-dialog v-model="dialog" max-width="500px">
             <v-card>
                 <v-card-title>
-                    <span v-show="radios === 'merge'" class="headline">Add university to merge {{ editedItem.name }} into</span>
+                    <span v-show="radios === 'merge'" class="headline">Add course to merge {{ editedItem.name }} into</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -101,9 +102,8 @@
                 },
                 dialog: false,
                 headers: [
-                    { text: 'Pending Courses', value: 'pendingCourses' },
+                    { text: 'Pending Courses', value: 'name' },
                     { text: 'Actions', value: 'actions' },
-
                 ],
             }
         },

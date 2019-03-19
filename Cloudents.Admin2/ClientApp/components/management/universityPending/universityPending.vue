@@ -60,7 +60,7 @@
                                               :items="suggestUniversities"
                                               item-text="name"
                                               item-value="id"
-                                              label="Select course"></v-select>
+                                              label="Select university"></v-select>
                                 </div>
                             </v-flex>
                         </v-layout>
@@ -106,7 +106,7 @@
                 },
                 dialog: false,
                 headers: [
-                    { text: 'Pending Universities', value: 'pendingUniversities' },
+                    { text: 'Pending Universities', value: 'name' },
                     { text: 'Actions', value: 'actions' },
 
                 ],
