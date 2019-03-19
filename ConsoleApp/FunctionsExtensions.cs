@@ -20,6 +20,16 @@ namespace ConsoleApp
             var d = container.Resolve<DapperRepository>();
             var t = MigrateCoursesAndUni.Read();
             const string update = @"
+                            delete from sb.Vote where DocumentId in 
+                                    (
+                                    select id from sb.Document where UniversityId = @oldId
+                                    );
+
+                            delete from sb.DocumentsTags where DocumentId in 
+                                        (
+                                        select id from sb.Document where CourseName = @oldId
+                                        );
+
                             update sb.Document
                             set CourseName = @newId
                             where CourseName = @oldId;
@@ -32,7 +42,7 @@ namespace ConsoleApp
                             set CourseId = @newId
                             where CourseId = @oldId
                             and UserId not in (select UserId from sb.UsersCourses where CourseId = @newId);
-
+                            
                             delete from sb.UsersCourses where CourseId = @oldId;
 
                             delete from sb.Course where [Name] = @oldId;";
@@ -74,12 +84,27 @@ namespace ConsoleApp
 
                         }, token);
 
+                        var x = await d.WithConnectionAsync(async f =>
+                        {
+                            return await f.ExecuteAsync(@"
+                                                        delete from sb.Vote where DocumentId in 
+                                                                    (
+                                                                    select id from sb.Document where CourseName = @oldId
+                                                                    );
+                                                        delete from sb.DocumentsTags where DocumentId in 
+                                                                    (
+                                                                    select id from sb.Document where CourseName = @oldId
+                                                                    );",
+                                new { oldId = item.Name });
+
+                        }, token);
+
                         var z = await d.WithConnectionAsync(async f =>
                         {
                             return await f.ExecuteAsync(@"delete from sb.UsersCourses where CourseId = @oldId;
-                                            delete from sb.Question where CourseId = @oldId;
-                                            delete from sb.Document where CourseName = @oldId;
-                                            delete from sb.Course where [Name] = @oldId;",
+                                                        delete from sb.Question where CourseId = @oldId;
+                                                        delete from sb.Document where CourseName = @oldId;
+                                                        delete from sb.Course where [Name] = @oldId;",
                                 new { oldId = item.Name });
 
                         }, token);
