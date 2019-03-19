@@ -39,7 +39,7 @@
         data() {
             return {
                 avalMics: [],
-                singleMicrophoneId: 'none'
+                singleMicrophoneId: ''
             }
         },
         methods: {
@@ -52,8 +52,14 @@
                                 " id = " + device.deviceId);
                             if (device.kind === 'audioinput') {
                                 self.avalMics.push(device);
+                                //check if any default micrphone, if so set as default for test
+                                if(device && device.label.toLowerCase().includes('default')){
+                                    self.singleMicrophoneId = device.deviceId;
+                                    self.validateMicrophone('audio-input-meter', self.singleMicrophoneId);
+                                }
                             }
                         });
+
                         console.log('mics:::', self.avalMics)
                     })
             },
