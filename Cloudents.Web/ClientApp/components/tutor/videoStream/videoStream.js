@@ -1,6 +1,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import { createLocalTracks, createLocalVideoTrack } from 'twilio-video';
-import { connectToRoom, createRoom, getToken, dataTrack } from '../tutorService';
+import tutorService  from '../tutorService';
+// import { connectToRoom, createRoom, getToken, dataTrack } from '../tutorService';
 
 export default {
     name: "videoStream",
@@ -29,7 +30,7 @@ export default {
         ...mapGetters(['sharedDocUrl', 'roomLinkID', 'isRoomFull', 'activeRoom', 'localOffline','remoteOffline', 'roomLoading'])
     },
     watch: {
-        '$route': 'createChat'
+        '$route': 'createVideoSession'
     },
     methods: {
         ...mapActions([
@@ -45,20 +46,20 @@ export default {
         },
         createRoomFunc() {
             let self = this;
-            createRoom().then(data => {
+            tutorService.createRoom().then(data => {
                 self.roomLink = data.data.name;
                 self.$router.push({name: 'tutoring', params: {id: self.roomLink}});
                 self.updateRoomID(self.roomLink)
             })
 
         },
-        startChat() {
-            this.createChat()
+        startVideo() {
+            this.createVideoSession()
         },
         // Generate access token
         async getAccessToken() {
             let identity = localStorage.getItem("identity");
-            return await getToken(this.id, identity);
+            return await tutorService.getToken(this.id, identity);
         },
         async isHardawareAvaliable() {
             let self = this;
@@ -78,20 +79,21 @@ export default {
                     let connectOptions;
                     createLocalTracks({
                         audio: self.availableDevices.includes('audioinput'),
-                        video: self.availableDevices.includes('videoinput') ? {width: 720, height: 480} : false,
+                        video: self.availableDevices.includes('videoinput'),
                     }).then((tracksCreated) => {
                         let localMediaContainer = document.getElementById('localTrack');
                         tracksCreated.forEach((track) => {
                             localMediaContainer.appendChild(track.attach());
                             self.localTrackAval = true;
                         });
-                        if (self.availableDevices) {
-                            tracksCreated.push(dataTrack);
+                        // if (self.availableDevices) {
+                            tracksCreated.push(tutorService.dataTrack);
                             connectOptions = {
-                                tracks: tracksCreated
+                                tracks: tracksCreated,
+                                networkQuality: true
                             }
-                        }
-                        connectToRoom(token, connectOptions);
+                        // }
+                        tutorService.connectToRoom(token, connectOptions);
 
                     }, (error) => {
                         console.log(error, 'error create tracks before connect')
@@ -104,7 +106,7 @@ export default {
         },
 
         // Create a new chat
-        createChat() {
+        createVideoSession() {
             this.updateRoomLoading(true);
             const self = this;
             // remove any remote track when joining a new room
@@ -118,7 +120,7 @@ export default {
     created() {
         if (this.id) {
             this.updateRoomID(this.id);
-            this.startChat();
+            this.startVideo();
         }
     }
 

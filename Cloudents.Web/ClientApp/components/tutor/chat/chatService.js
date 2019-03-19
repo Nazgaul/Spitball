@@ -1,4 +1,4 @@
-import { dataTrack } from '../tutorService';
+ import tutorService from '../tutorService';
 import { connectivityModule } from "../../../services/connectivity.module";
 
 function MessageItem(objInit) {
@@ -17,7 +17,7 @@ const uploadChatFile = function(formData){
 };
 export default {
     sendChatMessage: (message) => {
-        return dataTrack.send(JSON.stringify(message));
+        return tutorService.dataTrack.send(JSON.stringify(message));
     },
     createMessageItem,
     uploadChatFile

@@ -3,11 +3,11 @@ import {
 } from 'vue-color'
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
-import { dataTrack } from '../tutorService';
 import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
 import { mapGetters, mapActions } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue"
+import tutorService from "../tutorService";
 
 export default {
     components: {
@@ -144,7 +144,7 @@ export default {
                 data: data
             };
             let normalizedData = JSON.stringify(transferDataObj);
-            dataTrack.send(normalizedData);
+            tutorService.dataTrack.send(normalizedData);
             if(!dragObj.isGhost && this.selectedOptionString !== this.enumOptions.draw){
                 this.selectDefaultTool(); //case SPITBALL-647
             }
@@ -155,7 +155,7 @@ export default {
                 data: this.canvasData
             };
             let normalizedData = JSON.stringify(transferDataObj);
-            dataTrack.send(normalizedData);
+            tutorService.dataTrack.send(normalizedData);
             whiteBoardService.undo(this.canvasData);
 
         },

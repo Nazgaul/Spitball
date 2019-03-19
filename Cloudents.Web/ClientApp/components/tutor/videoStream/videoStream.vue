@@ -21,6 +21,9 @@
                     <div style="display: flex; align-items: center;">
                         <span :class="[remoteOffline  ? 'remote-offline' : 'remote-online']"></span>
                         <span class="user-badge ml-2">Guest</span>
+                        <div id="micVolume_indicator" class="ml-3">
+
+                        </div>
                     </div>
                     <div style="display: flex; align-items: center;">
                     <span class="video-size-ctrl mr-2" @click.stop="biggerRemoteVideo">

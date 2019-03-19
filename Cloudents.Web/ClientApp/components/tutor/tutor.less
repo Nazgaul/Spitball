@@ -1,4 +1,6 @@
 @navColor: #a5a4bf;
+@iconActiveColor:#a3a0fb;
+@white: #ffffff;
 .tutoring-page{
   direction: ltr /*rtl:ignore*/;
   height: 100%;
@@ -19,14 +21,25 @@
         font-size: 16px;
         line-height: 1.33;
         letter-spacing: 0.1px;
-        color: #a5a4bf;
         text-transform: uppercase;
         height: 100%;
         display: flex;
         align-items: center;
+        .tutor-nav-item-link{
+           color: #a5a4bf;
+        }
+        .sbf{
+          color: #a5a4bf;
+        }
         &.active-nav{
           background-color: rgba(0, 0, 0, 0.1);
-          color: #ffffff;
+          color: @white;
+          .tutor-nav-item-link{
+            color: @white;
+          }
+          .sbf{
+            color: @iconActiveColor;
+          }
         }
     }
      .nav-share-btn{

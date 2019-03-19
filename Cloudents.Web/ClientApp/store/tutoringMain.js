@@ -4,6 +4,8 @@ const state = {
     roomId: '',
     isRoomFull: false,
     currentActiveRoom: null,
+    localParticipant: null,
+    localParticipantsNetworkQuality : null,
     isLocalOffline: true,
     isRemoteOffline: true,
     isRoomLoading: false,
@@ -12,6 +14,8 @@ const state = {
 const getters = {
     activeRoom:  state => state.currentActiveRoom,
     localOffline: state => state.isLocalOffline,
+    localNetworkQuality: state => state.localParticipantsNetworkQuality,
+    localParticipant: state => state.localParticipant,
     remoteOffline: state => state.isRemoteOffline,
     userIdentity: state => state.identity,
     isRoomCreated: state => state.isRoom,
@@ -22,6 +26,12 @@ const getters = {
 };
 
 const mutations = {
+    setlocalParticipantObj(state, val){
+     state.localParticipant = val
+    },
+    setNetworkQuality(state, val){
+        state.localParticipantsNetworkQuality= val
+    },
     setRoomIsFull(state, val) {
         state.isRoomFull = val
     },
@@ -58,6 +68,12 @@ const mutations = {
 };
 
 const actions = {
+    updateLocalParticipant({commit, state}, val){
+      commit('setlocalParticipantObj', val)
+    },
+    updateLocalParticipantsNetworkQuality({commit, state}, val){
+      commit('setNetworkQuality', val)
+    },
     updateCodeLoadedOnce({commit, state}, val){
         commit('changeFirepadLoaded', val)
     },
