@@ -107,7 +107,7 @@ const createAudioContext = function () {
 
         // Handle the incoming audio stream
         // Handle the incoming audio stream
-        const audioContext = new AudioContext();
+        const audioContext = new (AudioContext || webkitAudioContext)();
         const input = audioContext.createMediaStreamSource(stream);
         const analyser = audioContext.createAnalyser();
         const scriptProcessor = audioContext.createScriptProcessor();
