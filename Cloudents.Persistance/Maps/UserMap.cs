@@ -89,6 +89,10 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Online);
             Map(x => x.LastOnline);
 
+            Map(x => x.FirstName);
+            Map(x => x.LastName);
+            Map(x => x.Description);
+
             HasManyToMany(x => x.Courses)
                 .ParentKeyColumn("UserId")
                 .ChildKeyColumn("CourseId")

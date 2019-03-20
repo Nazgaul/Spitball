@@ -24,7 +24,6 @@ namespace Cloudents.Core.Entities
         protected RegularUser()
         {
             UserLogins = new List<UserLogin>();
-            //Transactions = new List<Transaction>();
             Transactions = Transactions ?? new UserTransactions();
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
@@ -67,6 +66,10 @@ namespace Cloudents.Core.Entities
         public virtual bool Online { get; protected set; }
 
         public virtual UserTransactions Transactions { get; protected set; }
+
+        public virtual string FirstName { get; protected set; }
+        public virtual string LastName { get; protected set; }
+        public virtual string Description { get; protected set; }
 
         public virtual void ChangeOnlineStatus(bool isOnline)
         {
