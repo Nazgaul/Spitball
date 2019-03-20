@@ -50,6 +50,8 @@ namespace Cloudents.Core.Entities
 
         public virtual bool LockoutEnabled { get; set; }
 
+        public virtual bool TwoFactorEnabled { get; set; }
+
         public virtual string LockoutReason { get; set; }
 
         // ReSharper disable once CollectionNeverUpdated.Local Nhiberate

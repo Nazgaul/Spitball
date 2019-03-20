@@ -18,7 +18,6 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.NormalizedEmail);
             Map(e => e.SecurityStamp);
             Map(e => e.Image).Nullable();
-            Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
            // Map(e => e.Culture);
 
@@ -72,6 +71,8 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.UserLogins)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
+
+            Map(e => e.TwoFactorEnabled);
 
             Component(x => x.Transactions, y =>
             {

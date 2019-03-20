@@ -158,7 +158,7 @@ namespace Cloudents.Web
 
             services.AddDetectionCore().AddDevice().AddCrawler();
             services.AddScoped<SignInManager<RegularUser>, SbSignInManager>();
-            services.AddIdentity<RegularUser, ApplicationRole>(options =>
+            services.AddDefaultIdentity<RegularUser>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = true;
@@ -173,9 +173,25 @@ namespace Cloudents.Web
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
                 options.Lockout.MaxFailedAccessAttempts = 3;
-
-
             }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
+            //services.AddIdentity<RegularUser, ApplicationRole>(options =>
+            //{
+            //    options.SignIn.RequireConfirmedEmail = true;
+            //    options.SignIn.RequireConfirmedPhoneNumber = true;
+            //    options.User.AllowedUserNameCharacters = null;
+
+            //    options.User.RequireUniqueEmail = true;
+
+            //    options.Password.RequiredLength = PasswordRequiredLength;
+            //    options.Password.RequireDigit = false;
+            //    options.Password.RequireLowercase = false;
+            //    options.Password.RequireNonAlphanumeric = false;
+            //    options.Password.RequireUppercase = false;
+            //    options.Password.RequiredUniqueChars = 0;
+            //    options.Lockout.MaxFailedAccessAttempts = 3;
+
+
+            //}).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
             //services.Configure<SecurityStampValidatorOptions>(o =>
             //{
             //    o.ValidationInterval = TimeSpan.FromMinutes(2);
@@ -201,7 +217,7 @@ namespace Cloudents.Web
 
             services.AddScoped<IUserClaimsPrincipalFactory<RegularUser>, AppClaimsPrincipalFactory>();
             services.AddTransient<IUserStore<RegularUser>, UserStore>();
-            services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
+            //services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
             services.AddTransient<ICountryProvider, CountryProvider>();
 
