@@ -1,4 +1,8 @@
-﻿namespace Cloudents.Core.DTOs
+﻿using System;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities;
+
+namespace Cloudents.Core.DTOs
 {
     public class UserDto
     {
@@ -48,12 +52,20 @@
 
     public class ChatUserDto
     {
-        public long Id { get; set; }
+        [DtoToEntityConnection(nameof(User.Id))]
+        public long UserId { get; set; }
+        [DtoToEntityConnection(nameof(User.Name))]
         public string Name { get; set; }
+        [DtoToEntityConnection(nameof(User.Image))]
         public string Image { get; set; }
 
+        [DtoToEntityConnection(nameof(ChatUser.Unread))]
         public int Unread { get; set; }
 
+        [DtoToEntityConnection(nameof(RegularUser.Online))]
         public bool Online { get; set; }
+
+        [DtoToEntityConnection(nameof(ChatRoom.Id))]
+        public Guid ConversationId { get; set; }
     }
 }

@@ -2,13 +2,12 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
-using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query.Sync;
+using Cloudents.Query.Query;
 using Cloudents.Search.Question;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
@@ -27,7 +26,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Cloudents.Query.Email;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -134,18 +132,11 @@ namespace ConsoleApp
 
         }
 
-        private static async Task VersionChanges()
-        {
-            var qsw = _container.Resolve<QuestionSearchWrite>();
-            await qsw.CreateOrUpdateAsync(default);
-        }
+       
 
         private static async Task RamMethod()
         {
-           
-
             Console.WriteLine("done");
-
         }
 
 
@@ -693,7 +684,7 @@ namespace ConsoleApp
                                 group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
         						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
         						 order by i.itemid
-                        ", new {itemId })).ToList();
+                        ", new { itemId })).ToList();
                 }, default);
 
                 //if (z.Count() == 0)
@@ -842,7 +833,7 @@ namespace ConsoleApp
             {
                 const string sql = @"select id from sb.[user] where email = @email;
 select top 1 id from sb.[user] where Fictive = 1 and country = @country order by newid()";
-                using (var multi = connection.QueryMultiple(sql, new {email, country = country }))
+                using (var multi = connection.QueryMultiple(sql, new { email, country = country }))
                 {
                     var val = multi.ReadFirstOrDefault<long?>();
                     if (val.HasValue)
