@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Persistance.Maps
+namespace Cloudents.Persistence.Maps
 {
     internal class UserLocationMap : ClassMap<UserLocation>
     {
@@ -17,7 +17,8 @@ namespace Cloudents.Persistance.Maps
             Component(x => x.TimeStamp);
             Map(x => x.Ip).Nullable();
             Map(x => x.Country).Length(10).Nullable();
-            SchemaAction.None();
+            Map(x => x.FingerPrint).Nullable();
+            SchemaAction.Update();
         }
     }
 }

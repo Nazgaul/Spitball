@@ -8,7 +8,7 @@ namespace Cloudents.Core.Test
         [Fact]
         public void TryParse_InvalidValue_False()
         {
-            var invalidString = "המסלול-האקדמי-המכללה-למנהל";
+            const string invalidString = "המסלול-האקדמי-המכללה-למנהל";
             var result = Base62.TryParse(invalidString, out var p);
 
             result.Should().BeFalse();

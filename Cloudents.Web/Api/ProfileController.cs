@@ -113,7 +113,6 @@ namespace Cloudents.Web.Api
             }
 
             await Task.WhenAll(retValTask, votesTask);
-
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
@@ -146,7 +145,6 @@ namespace Cloudents.Web.Api
             }
 
             await Task.WhenAll(retValTask, votesTask);
-
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
@@ -155,7 +153,6 @@ namespace Cloudents.Web.Api
                 {
                     s.Vote.Vote = p;
                 }
-
                 return s;
             });
         }

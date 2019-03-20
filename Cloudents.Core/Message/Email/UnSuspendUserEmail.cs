@@ -8,7 +8,7 @@ namespace Cloudents.Core.Message.Email
     public class UnSuspendUserEmail : BaseEmail
     {
         public UnSuspendUserEmail(string to, CultureInfo info)
-            : base(to, "Your account have been unsuspended", info)
+            : base(to, "Your account have been ususpended", info)
         {
 
         }

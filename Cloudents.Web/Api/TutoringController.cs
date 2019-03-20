@@ -58,8 +58,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost("upload")]
         public async Task<IActionResult> UploadAsync(IFormFile file,
-            [FromServices] IBlobProvider<DocumentContainer> blobProvider,
-            [FromServices] IBlobProvider blobProvider2,
+            [FromServices] IDocumentDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
             var fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName());
@@ -67,7 +66,7 @@ namespace Cloudents.Web.Api
                 .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, false, 60 * 24, token);
 
             var uri = blobProvider.GetBlobUrl(fileName);
-            var link = blobProvider2.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
+            var link = blobProvider.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
 
             return Ok(new
             {

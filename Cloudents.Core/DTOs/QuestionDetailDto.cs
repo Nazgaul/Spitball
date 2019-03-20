@@ -31,6 +31,8 @@ namespace Cloudents.Core.DTOs
 
         public bool IsRtl { get; set; }
 
+        
+
         public VoteDto Vote { get; set; }
     }
 

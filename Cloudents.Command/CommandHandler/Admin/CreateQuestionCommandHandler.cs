@@ -16,11 +16,13 @@ namespace Cloudents.Command.CommandHandler.Admin
         private readonly IRepository<Question> _questionRepository;
         private readonly IUniversityRepository _universityRepository;
         private readonly ITextAnalysis _textAnalysis;
-        private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+        private readonly IQuestionsDirectoryBlobProvider _blobProvider;
         private readonly ICourseRepository _courseRepository;
 
 
-        public CreateQuestionCommandHandler(IFictiveUserRepository userRepository, IRepository<Question> questionRepository, ITextAnalysis textAnalysis, IBlobProvider<QuestionAnswerContainer> blobProvider, ICourseRepository courseRepository, IUniversityRepository universityRepository)
+        public CreateQuestionCommandHandler(IFictiveUserRepository userRepository,
+            IRepository<Question> questionRepository, ITextAnalysis textAnalysis,
+            IQuestionsDirectoryBlobProvider blobProvider, ICourseRepository courseRepository, IUniversityRepository universityRepository)
         {
             _userRepository = userRepository;
             _questionRepository = questionRepository;

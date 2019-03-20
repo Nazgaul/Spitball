@@ -8,6 +8,6 @@ namespace Cloudents.Core.Enum
         [ResourceDescription(typeof(EnumResources), "SearchRequestSortRelevance")]
         Relevance,
         [ResourceDescription(typeof(EnumResources), "SearchRequestSortDate")]
-        Date,
+        Date
     }
 }

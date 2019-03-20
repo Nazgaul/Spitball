@@ -8,7 +8,7 @@ using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
 
-namespace Cloudents.Persistance.Repositories
+namespace Cloudents.Persistence.Repositories
 {
     public class AnswerRepository : NHibernateRepository<Answer>, IAnswerRepository
     {

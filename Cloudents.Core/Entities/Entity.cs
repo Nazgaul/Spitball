@@ -11,9 +11,7 @@ namespace Cloudents.Core.Entities
 
         public override bool Equals(object obj)
         {
-            var other = obj as Entity<T>;
-
-            if (ReferenceEquals(other, null))
+            if (!(obj is Entity<T> other))
                 return false;
 
             if (ReferenceEquals(this, other))

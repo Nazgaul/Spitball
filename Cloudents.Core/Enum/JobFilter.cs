@@ -1,30 +1,30 @@
-﻿using Cloudents.Core.Attributes;
+﻿//using Cloudents.Core.Attributes;
 
-namespace Cloudents.Core.Enum
-{
-    public enum JobFilter
-    {
-        None,
+//namespace Cloudents.Core.Enum
+//{
+//    public enum JobFilter
+//    {
+//        None,
 
-        [Parse("Full Time")]
-        FullTime,
+//        [Parse("Full Time")]
+//        FullTime,
 
-        [Parse("Part Time")]
-        PartTime,
+//        [Parse("Part Time")]
+//        PartTime,
 
-        [Parse("Internship")]
-        Internship,
+//        [Parse("Internship")]
+//        Internship,
 
-        [Parse("Campus Rep")]
-        CampusRep,
+//        [Parse("Campus Rep")]
+//        CampusRep,
 
-        [Parse("Contractor")]
-        Contractor,
+//        [Parse("Contractor")]
+//        Contractor,
 
-        [Parse("Temporary")]
-        Temporary,
+//        [Parse("Temporary")]
+//        Temporary,
 
-        [Parse("Remote")]
-        Remote
-    }
-}
+//        [Parse("Remote")]
+//        Remote
+//    }
+//}

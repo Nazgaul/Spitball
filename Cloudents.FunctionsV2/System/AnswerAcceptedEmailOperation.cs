@@ -26,12 +26,12 @@ namespace Cloudents.FunctionsV2.System
 
         public async Task DoOperationAsync(AnswerAcceptedMessage msg, IBinder binder, CancellationToken token)
         {
-            await Task.Delay(TimeSpan.FromSeconds(30), token);
+            //await Task.Delay(TimeSpan.FromSeconds(30), token);
             var query = new GetAnswerAcceptedEmailQuery(msg.TransactionId);
             var data = await _queryBus.QueryAsync(query, token);
 
            
-            var template = await DocumentPurchasedEmailOperation.GetEmail("AnswerAccepted", data.Language, binder, token);
+            var template = await DocumentPurchasedEmailOperation.GetEmail("AnswerAccepted", data.Language, _queryBus, token);
             var dataProtector = _dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
             var code = dataProtector.Protect(data.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));

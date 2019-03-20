@@ -2,7 +2,7 @@
 using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Persistance.Maps
+namespace Cloudents.Persistence.Maps
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Fluent nhibernate")]
     public class RowDetailMap : ComponentMap<RowDetail>

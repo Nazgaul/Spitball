@@ -2,7 +2,7 @@
 using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Persistance.Maps
+namespace Cloudents.Persistence.Maps
 {
     internal class UserMap : ClassMap<User>
     {
@@ -18,7 +18,6 @@ namespace Cloudents.Persistance.Maps
             Map(e => e.NormalizedEmail);
             Map(e => e.SecurityStamp);
             Map(e => e.Image).Nullable();
-            Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
            // Map(e => e.Culture);
 
@@ -40,9 +39,9 @@ namespace Cloudents.Persistance.Maps
                 .Cascade.AllDeleteOrphan();
 
             Map(x => x.Score).ReadOnly();
-            Table("[User]"); //if not there is sql error
+            //Table("User]"); //if not there is sql error
             
-            SchemaAction.None();
+            SchemaAction.Update();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
@@ -73,6 +72,8 @@ namespace Cloudents.Persistance.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
+            Map(e => e.TwoFactorEnabled);
+
             Component(x => x.Transactions, y =>
             {
                 y.Map(x => x.Score);
@@ -83,9 +84,10 @@ namespace Cloudents.Persistance.Maps
             });
             //Map(x => x.Balance).CustomSqlType("smallmoney");
             //Map(x => x.Score);
-            
 
 
+            Map(x => x.Online);
+            Map(x => x.LastOnline);
 
             HasManyToMany(x => x.Courses)
                 .ParentKeyColumn("UserId")

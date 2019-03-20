@@ -3,7 +3,7 @@ using NHibernate;
 using NHibernate.Dialect;
 using NHibernate.Dialect.Function;
 
-namespace Cloudents.Persistance
+namespace Cloudents.Persistence
 {
     [Serializable]
     public class SbDialect : MsSql2012Dialect

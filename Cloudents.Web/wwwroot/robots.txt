@@ -5,5 +5,6 @@ disallow: */download/$
 disallow: /d/
 disallow: /new/
 disallow: /landing/
+disallow: /quiz/
 
 Sitemap: https://www.spitball.co/sitemap.xml/
