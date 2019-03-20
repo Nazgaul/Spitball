@@ -5,7 +5,7 @@ using System.Reflection;
 using Cloudents.Core.DTOs.SearchSync;
 using NHibernate.Transform;
 
-namespace Cloudents.Persistance
+namespace Cloudents.Persistence
 {
     public class AzureSyncBaseDtoTransformer<T, TU> : IResultTransformer where T : AzureSyncBaseDto<TU>, new() where TU : new()
     {

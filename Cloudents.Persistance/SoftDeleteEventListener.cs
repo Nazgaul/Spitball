@@ -8,7 +8,7 @@ using NHibernate.Event;
 using NHibernate.Event.Default;
 using NHibernate.Persister.Entity;
 
-namespace Cloudents.Persistance
+namespace Cloudents.Persistence
 {
     [Serializable]
     internal class SoftDeleteEventListener : DefaultDeleteEventListener

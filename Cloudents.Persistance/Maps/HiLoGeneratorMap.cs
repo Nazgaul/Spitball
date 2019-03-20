@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Persistance.Maps
+namespace Cloudents.Persistence.Maps
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Fluent nhibernate")]
     public class HiLoGeneratorMap : ClassMap<HiLoGenerator>

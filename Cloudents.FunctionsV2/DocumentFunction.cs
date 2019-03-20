@@ -13,8 +13,6 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,8 +44,6 @@ namespace Cloudents.FunctionsV2
             [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] ICommandBus commandBus,
             [Inject] ITextAnalysis textAnalysis,
-            [Inject] ITextClassifier textClassifier,
-            [Inject] ITextTranslator textTranslator,
             ILogger log,
             CancellationToken token)
         {
@@ -65,21 +61,21 @@ namespace Cloudents.FunctionsV2
             var text = await blob.DownloadTextAsync();
             await blob.FetchAttributesAsync();
             var metadata = blob.Metadata;
-            IEnumerable<string> tags = null;
-            if (!metadata.ContainsKey("ProcessTags"))
-            {
+            //IEnumerable<string> tags = null;
+            //if (!metadata.ContainsKey("ProcessTags"))
+            //{
 
-                try
-                {
-                    tags = await GenerateTagsAsync(text, textAnalysis, textClassifier, textTranslator, token);
-                    metadata.Add("ProcessTags", bool.TrueString);
-                    await blob.SetMetadataAsync();
-                }
-                catch (Exception e)
-                {
-                    log.LogError(e, "error extracting tags");
-                }
-            }
+            //    try
+            //    {
+            //        tags = await GenerateTagsAsync(text, textAnalysis, textClassifier, textTranslator, token);
+            //        metadata.Add("ProcessTags", bool.TrueString);
+            //        await blob.SetMetadataAsync();
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        log.LogError(e, "error extracting tags");
+            //    }
+            //}
 
 
             int? pageCount = null;
@@ -92,7 +88,7 @@ namespace Cloudents.FunctionsV2
             try
             {
                 var snippet = text.Truncate(200, true);
-                var command = new UpdateDocumentMetaCommand(longId, pageCount, snippet, tags);
+                var command = new UpdateDocumentMetaCommand(longId, pageCount, snippet);
                 await commandBus.DispatchAsync(command, token);
 
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
@@ -119,36 +115,36 @@ namespace Cloudents.FunctionsV2
             }
         }
 
-        private static async Task<IEnumerable<string>> GenerateTagsAsync(string text,
-            ITextAnalysis textAnalysis,
-            ITextClassifier textClassifier,
-            ITextTranslator textTranslator,
-            CancellationToken token)
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                return null;
-            }
-            var englishCulture = new CultureInfo("en");
+        //private static async Task<IEnumerable<string>> GenerateTagsAsync(string text,
+        //    ITextAnalysis textAnalysis,
+        //    ITextClassifier textClassifier,
+        //    ITextTranslator textTranslator,
+        //    CancellationToken token)
+        //{
+        //    if (string.IsNullOrEmpty(text))
+        //    {
+        //        return null;
+        //    }
+        //    var englishCulture = new CultureInfo("en");
 
-            var v = await textAnalysis.DetectLanguageAsync(text, token);
-            if (!v.Equals(englishCulture))
-            {
-                text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName, "en", token);
-            }
+        //    var v = await textAnalysis.DetectLanguageAsync(text, token);
+        //    if (!v.Equals(englishCulture))
+        //    {
+        //        text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName, "en", token);
+        //    }
 
-            var keyPhrases = await textClassifier.KeyPhraseAsync(text, token);
+        //    var keyPhrases = await textClassifier.KeyPhraseAsync(text, token);
 
-            if (!v.Equals(englishCulture))
-            {
-                text = string.Join(" , ", keyPhrases);
-                text = await textTranslator.TranslateAsync(text, "en", v.TwoLetterISOLanguageName.ToLowerInvariant(), token);
+        //    if (!v.Equals(englishCulture))
+        //    {
+        //        text = string.Join(" , ", keyPhrases);
+        //        text = await textTranslator.TranslateAsync(text, "en", v.TwoLetterISOLanguageName.ToLowerInvariant(), token);
 
-                return text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
-            }
+        //        return text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+        //    }
 
-            return keyPhrases.Select(s => s.Trim());
-        }
+        //    return keyPhrases.Select(s => s.Trim());
+        //}
 
 
         [FunctionName("DocumentSearchSync")]

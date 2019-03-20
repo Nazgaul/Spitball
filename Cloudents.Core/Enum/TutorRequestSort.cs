@@ -9,6 +9,6 @@ namespace Cloudents.Core.Enum
         [ResourceDescription(typeof(EnumResources), "SearchRequestSortRelevance")]
         Relevance,
         [ResourceDescription(typeof(EnumResources), "TutorSortPrice")]
-        Price,
+        Price
     }
 }

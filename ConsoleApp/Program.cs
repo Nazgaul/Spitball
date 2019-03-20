@@ -27,6 +27,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cloudents.Query.Email;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -104,7 +105,7 @@ namespace ConsoleApp
             builder.Register(_ => GetSettings(EnvironmentSettings.Dev)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
-                Assembly.Load("Cloudents.Persistance"),
+                Assembly.Load("Cloudents.Persistence"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Search"),
                 Assembly.Load("Cloudents.Core"));
@@ -141,13 +142,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var t = _container.Resolve<ICommandBus>();
-            var command = new AssignCoursesToUserCommand(new string[0], 638);
-            await t.DispatchAsync(command, default);
-           // var z = await t.GetUniversityByNameAsync("Adrian College", default);
-            //var z = await t
-            //    .QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(
-            //        SyncAzureQuery.Empty(), default);
+           
 
             Console.WriteLine("done");
 
@@ -579,7 +574,7 @@ namespace ConsoleApp
                         t = RandomString(3) + t;
                     }
 
-                    if ($"/spitball-files/files/{id}/" + t != textBlobItem.Uri.LocalPath.ToString().Replace(" ", ""))
+                    if ($"/spitball-files/files/{id}/" + t != textBlobItem.Uri.LocalPath.Replace(" ", ""))
                     {
                         var dirToRemove = blob.Parent;
                         string dirToRemoveStr = dirToRemove.Uri.ToString().Split('/')[dirToRemove.Uri.ToString().Split('/').Length - 2];
@@ -698,7 +693,7 @@ namespace ConsoleApp
                                 group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
         						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
         						 order by i.itemid
-                        ", new { itemId = itemId })).ToList();
+                        ", new {itemId })).ToList();
                 }, default);
 
                 //if (z.Count() == 0)
@@ -847,7 +842,7 @@ namespace ConsoleApp
             {
                 const string sql = @"select id from sb.[user] where email = @email;
 select top 1 id from sb.[user] where Fictive = 1 and country = @country order by newid()";
-                using (var multi = connection.QueryMultiple(sql, new { email = email, country = country }))
+                using (var multi = connection.QueryMultiple(sql, new {email, country = country }))
                 {
                     var val = multi.ReadFirstOrDefault<long?>();
                     if (val.HasValue)

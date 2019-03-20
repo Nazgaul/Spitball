@@ -8,9 +8,9 @@ namespace Cloudents.Core.EventHandler
 {
     public class DeleteBlobEventHandler : IEventHandler<DocumentDeletedEvent>
     {
-        private readonly IBlobProvider<DocumentContainer> _blobProvider;
+        private readonly IDocumentDirectoryBlobProvider _blobProvider;
 
-        public DeleteBlobEventHandler(IBlobProvider<DocumentContainer> blobProvider)
+        public DeleteBlobEventHandler(IDocumentDirectoryBlobProvider blobProvider)
         {
             _blobProvider = blobProvider;
         }

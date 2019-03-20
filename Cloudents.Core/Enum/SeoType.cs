@@ -8,7 +8,7 @@ namespace Cloudents.Core.Enum
         [Parse(SeoTypeString.Document)]
         Document,
         [Parse(SeoTypeString.Question)]
-        Question,
+        Question
         //[Parse(SeoTypeString.Quiz)]
         //Quiz,
         //[Parse(SeoTypeString.Flashcard)]

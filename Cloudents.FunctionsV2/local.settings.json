@@ -2,7 +2,7 @@
   "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=spitballdev;AccountKey=fEzJ1MJZyIQMCoGRK/8lnwCHRLm3A3g0+ZnvoIxed7Bl5MlWw/FkbPKrDhCIlWzasWVCK6q0U4HQZ3qCLnXelg==;EndpointSuffix=core.windows.net",
-    "ConnectionString": "Server=tcp:on0rodxe8f.database.windows.net,1433;Initial Catalog=ZBoxNew;Persist Security Info=False;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    "ConnectionString": "Server=tcp:on0rodxe8f.database.windows.net,1433;Initial Catalog=ZBoxNew_Develop;Persist Security Info=False;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
     "IsDevelop": "True",
     "Redis": "sb-dev.redis.cache.windows.net:6380,password=SggEokcdmQnaS5RFkkl5js4nV0LLXjvXEypeEEFCAo8=,ssl=True,abortConnect=False",
     "SearchServiceAdminApiKey": "5B0433BFBBE625C9D60F7330CFF103F0",

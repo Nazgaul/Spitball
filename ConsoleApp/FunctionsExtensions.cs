@@ -15,7 +15,7 @@ namespace ConsoleApp
         private static CancellationToken token = CancellationToken.None;
 
 
-        public static async Task MergeCourses(IContainer container, IBlobProvider<DocumentContainer> blobProvider)
+        public static async Task MergeCourses(IContainer container, IDocumentDirectoryBlobProvider blobProvider)
         {
             var d = container.Resolve<DapperRepository>();
             var t = MigrateCoursesAndUni.Read();
@@ -61,7 +61,7 @@ namespace ConsoleApp
                             return await f.ExecuteAsync(update, new
                             {
                                 newId = item.NewId,
-                                oldId = item.Name
+                                oldId = item.NewName == item.NewId ? item.OldName : item.NewName
                             });
 
                         }, token);
@@ -80,7 +80,7 @@ namespace ConsoleApp
                         var docs = await d.WithConnectionAsync(async f =>
                         {
                             return await f.QueryAsync<long?>(@"select Id from sb.Document where CourseName = @oldId and State = 'Ok';",
-                                new { oldId = item.Name });
+                                new { oldId = item.OldName});
 
                         }, token);
 
@@ -95,7 +95,7 @@ namespace ConsoleApp
                                                                     (
                                                                     select id from sb.Document where CourseName = @oldId
                                                                     );",
-                                new { oldId = item.Name });
+                                new { oldId = item.OldName });
 
                         }, token);
 
@@ -105,7 +105,7 @@ namespace ConsoleApp
                                                         delete from sb.Question where CourseId = @oldId;
                                                         delete from sb.Document where CourseName = @oldId;
                                                         delete from sb.Course where [Name] = @oldId;",
-                                new { oldId = item.Name });
+                                new { oldId = item.OldName });
 
                         }, token);
 

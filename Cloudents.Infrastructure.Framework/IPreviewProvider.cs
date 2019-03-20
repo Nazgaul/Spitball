@@ -26,10 +26,10 @@ namespace Cloudents.Infrastructure.Framework
 
     }
 
-    public interface IBlurProcessor
-    {
-        Task ProcessBlurPreviewAsync(Stream stream, bool firstPage,
-            Func<Stream, Task> pagePreviewCallback,
-            CancellationToken token);
-    }
+    //public interface IBlurProcessor
+    //{
+    //    Task ProcessBlurPreviewAsync(Stream stream, bool firstPage,
+    //        Func<Stream, Task> pagePreviewCallback,
+    //        CancellationToken token);
+    //}
 }

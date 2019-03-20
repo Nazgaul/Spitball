@@ -6,12 +6,13 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
     public class UserLocation :Entity<Guid>
     {
-        public UserLocation(RegularUser user, string ip, string country)
+        public UserLocation(RegularUser user, string ip, string country, string fingerPrint)
         {
             User = user;
             Ip = ip;
             Country = country;
             TimeStamp = new DomainTimeStamp();
+            FingerPrint = fingerPrint;
         }
 
         protected UserLocation()
@@ -24,5 +25,6 @@ namespace Cloudents.Core.Entities
         public virtual DomainTimeStamp TimeStamp { get; protected set; }
         public virtual string Ip { get; protected set; }
         public virtual string Country { get; protected set; }
+        public virtual string FingerPrint { get; protected set; }
     }
 }

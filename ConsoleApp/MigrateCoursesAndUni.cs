@@ -61,9 +61,10 @@ namespace ConsoleApp
                     // Print columns A and E, which correspond to indices 0 and 4.
                     CorseToMigratre obj = new CorseToMigratre()
                     {
-                        Id = row[0].ToString(),
-                        Name = row[0].ToString(),
-                        NewId = row[1].ToString()
+                        NewName = row[0].ToString(),
+                        OldName = row[1].ToString(),
+                        Action = row[2].ToString(),
+                        NewId = row[3].ToString()
                     };
                    
                     res.Add(obj);
@@ -275,8 +276,9 @@ namespace ConsoleApp
 
     public class CorseToMigratre
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public string NewName { get; set; }
+        public string OldName { get; set; }
+        public string Action { get; set; }
         public string NewId { get; set; }
     }
 

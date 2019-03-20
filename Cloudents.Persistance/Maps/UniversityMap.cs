@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Persistance.Maps
+namespace Cloudents.Persistence.Maps
 {
     public sealed class UniversityMap : ClassMap<University>
     {
@@ -24,7 +24,7 @@ namespace Cloudents.Persistance.Maps
             //    .ReadOnly()
             //    .Access.CamelCaseField(Prefix.Underscore).Cascade.None();
             Map(x => x.State).Not.Nullable();
-            SchemaAction.Update();
+            SchemaAction.None();
 
         }
     }

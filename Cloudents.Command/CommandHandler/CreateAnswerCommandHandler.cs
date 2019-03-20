@@ -22,12 +22,12 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRepository<RegularUser> _userRepository;
         private readonly ITextAnalysis _textAnalysis;
 
-        private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+        private readonly IQuestionsDirectoryBlobProvider _blobProvider;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
             IAnswerRepository answerRepository, IRepository<RegularUser> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider, ITextAnalysis textAnalysis)
+            IQuestionsDirectoryBlobProvider blobProvider, ITextAnalysis textAnalysis)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;

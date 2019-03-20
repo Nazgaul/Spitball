@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Cloudents.Command.Command;
+﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
@@ -25,18 +23,18 @@ namespace Cloudents.Command.CommandHandler
             var doc = await _documentRepository.LoadAsync(message.Id, token);
             doc.PageCount = message.PageCount;
             doc.MetaContent = message.Snippet;
-            foreach (var tagStr in message.Tags ?? Enumerable.Empty<string>())
-            {
-                try
-                {
-                    var tag = await _tagRepository.GetOrAddAsync(tagStr.Replace(",", " "), token);
-                    doc.Tags.Add(tag);
-                }
-                catch (ArgumentException)
-                {
+            //foreach (var tagStr in message.Tags ?? Enumerable.Empty<string>())
+            //{
+            //    try
+            //    {
+            //        var tag = await _tagRepository.GetOrAddAsync(tagStr.Replace(",", " "), token);
+            //        doc.Tags.Add(tag);
+            //    }
+            //    catch (ArgumentException)
+            //    {
 
-                }
-            }
+            //    }
+            //}
             await _documentRepository.UpdateAsync(doc, token);
         }
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
 
-[assembly: InternalsVisibleTo("Cloudents.Persistance")]
+//[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
 {
     public sealed class UserTransactions

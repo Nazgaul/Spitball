@@ -9,6 +9,9 @@ namespace Cloudents.Web.Models
 
         [Required(ErrorMessage = "Required")]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "Required")]
+        public string FingerPrint { get; set; }
     }
 
     public class EmailValidateRequest

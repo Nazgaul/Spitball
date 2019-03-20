@@ -3,7 +3,7 @@ using System.Diagnostics;
 using NHibernate;
 using NHibernate.SqlCommand;
 
-namespace Cloudents.Persistance
+namespace Cloudents.Persistence
 {
     [Serializable]
     public class LoggingInterceptor : EmptyInterceptor
