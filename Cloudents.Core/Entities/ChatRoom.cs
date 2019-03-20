@@ -1,70 +1,118 @@
-﻿using System;
+﻿using Cloudents.Core.Event;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
+//[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
 {
-    public class ChatRoom
+    public class ChatRoom : AggregateRoot<Guid>
     {
         protected ChatRoom()
         {
-
+            Users = new List<ChatUser>();
+            Messages = new List<ChatMessage>();
         }
 
-        public ChatRoom(IEnumerable<User> users)
+        public ChatRoom(IList<RegularUser> users)
         {
             Users = users.Select(s => new ChatUser(this, s)).ToList();
+            Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
             UpdateTime = DateTime.UtcNow;
         }
 
-        public virtual Guid Id { get; protected set; }
+        public static string BuildChatRoomIdentifier(IEnumerable<long> userIds)
+        {
+            return string.Join("_", userIds.OrderBy(o => o));
+        }
+
         public virtual DateTime UpdateTime { get; set; }
+
         public virtual ICollection<ChatUser> Users { get; protected set; }
+        public virtual ICollection<ChatMessage> Messages { get; protected set; }
+
+        public virtual string Identifier { get; set; }
+
+        public virtual ChatMessage AddMessage(RegularUser user, string message, string blob)
+        {
+           // var user = Users.Single(s => s.User.Id == userId);
+            //var chatMessage = user.AddMessage(message, blob);
+
+            var chatMessage = new ChatMessage(user,message,blob,this);
+            UpdateTime = DateTime.UtcNow;
+            foreach (var otherUserInChat in Users.Where(s => s.User != user))
+            {
+                if (!otherUserInChat.User.Online)
+                {
+                    //TODO: need to send an email or something
+                }
+                otherUserInChat.Unread++;
+            }
+            AddEvent(new ChatMessageEvent(chatMessage));
+            return chatMessage;
+
+            //this.AddEvent();
+        }
     }
 
-    public class ChatUser
+    public class ChatUser :Entity<Guid>
     {
         protected ChatUser()
         {
 
         }
 
-        public ChatUser(ChatRoom chatRoom, User user)
+        public ChatUser(ChatRoom chatRoom, RegularUser user)
         {
             ChatRoom = chatRoom;
             User = user;
         }
 
-        public virtual Guid Id { get; protected set; }
+       // public virtual Guid Id { get; protected set; }
         public virtual ChatRoom ChatRoom { get; protected set; }
-        public virtual User User { get; protected set; }
+        public virtual RegularUser User { get; protected set; }
+         
 
         public virtual int Unread { get; set; }
+
+        //public virtual ChatMessage AddMessage(string message, string blob)
+        //{
+        //    var chatMessage = new ChatMessage(User, message, blob);
+        //    Unread = 0;
+        //    Messages.Add(chatMessage);
+
+        //    return chatMessage;
+        //}
+
     }
 
-    public class ChatMessage
+    public class ChatMessage : Entity<Guid>
     {
         protected ChatMessage()
         {
 
         }
 
-        public ChatMessage(ChatRoom chatRoom, User user, string message, string blob)
+        public ChatMessage(RegularUser user, string message, string blob, ChatRoom room)
         {
-            ChatRoom = chatRoom;
             User = user;
             Message = message;
             CreationTime = DateTime.UtcNow;
             Blob = blob;
+            ChatRoom = room;
+
         }
 
-        public virtual Guid Id { get; protected set; }
 
-        public virtual ChatRoom ChatRoom { get; protected set; }
-        public virtual User User { get; protected set; }
+
+       // public virtual Guid Id { get; protected set; }
+
+        public virtual RegularUser User { get; protected set; }
         public virtual string Message { get; protected set; }
+        public virtual string Blob { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
 
-        public virtual string Blob { get; protected set; }
+        public virtual ChatRoom ChatRoom { get; protected set; }
+
     }
 }

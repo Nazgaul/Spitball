@@ -48,7 +48,7 @@ namespace Cloudents.Web.Api
 
             }
 
-            var command = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
+            var command = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress(), model.FingerPrint);
             var t1 = _commandBus.DispatchAsync(command, token);
             var t2 = _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
             await Task.WhenAll(t1, t2);

@@ -5,7 +5,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate.Event;
 
-namespace Cloudents.Persistance
+namespace Cloudents.Persistence
 {
     public class PublishEventsListener : IPostDeleteEventListener
         , IPostInsertEventListener, IPostUpdateEventListener, IPostCollectionUpdateEventListener

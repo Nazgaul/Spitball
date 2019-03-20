@@ -5,7 +5,7 @@ using NHibernate.Criterion;
 using NHibernate.Engine;
 using NHibernate.SqlCommand;
 
-namespace Cloudents.Persistance
+namespace Cloudents.Persistence
 {
     public class ProjectionAsCriterion : AbstractCriterion
     {

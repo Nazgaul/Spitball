@@ -44,4 +44,16 @@
         public int Score { get; set; }
         
     }
+
+
+    public class ChatUserDto
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
+
+        public int Unread { get; set; }
+
+        public bool Online { get; set; }
+    }
 }

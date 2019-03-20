@@ -69,6 +69,7 @@ namespace Cloudents.Core
         Answer,
         Document,
         User,
-        System
+        System,
+        Chat
     }
 }

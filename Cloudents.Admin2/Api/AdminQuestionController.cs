@@ -102,7 +102,7 @@ namespace Cloudents.Admin2.Api
 
         [HttpPost("upload")]
         public async Task<UploadAskFileResponse> UploadFileAsync([FromForm] UploadAskFileRequest model,
-            [FromServices] IBlobProvider<QuestionAnswerContainer> blobProvider,
+            [FromServices] IQuestionsDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };

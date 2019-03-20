@@ -61,10 +61,17 @@ namespace Cloudents.Core.Entities
         public virtual ISet<Course> Courses { get; protected set; }
         public virtual ISet<Tag> Tags { get; protected set; }
 
+        public virtual DateTime LastOnline { get; protected set; }
+        public virtual bool Online { get; protected set; }
 
         public virtual UserTransactions Transactions { get; protected set; }
 
+        public virtual void ChangeOnlineStatus(bool isOnline)
+        {
+            Online = isOnline;
+            LastOnline = DateTime.UtcNow;
 
+        }
 
         public virtual void SuspendUser(DateTimeOffset lockTime, string reason)
         {

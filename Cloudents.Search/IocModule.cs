@@ -3,10 +3,8 @@ using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
-using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Tutor;
 using Cloudents.Search.Document;
-using Cloudents.Search.Job;
 using Cloudents.Search.Question;
 using Cloudents.Search.Tutor;
 using Cloudents.Search.University;
@@ -47,8 +45,8 @@ namespace Cloudents.Search
                 .InterceptedBy(typeof(LogInterceptor));
 
 
-            builder.RegisterType<AzureJobSearch>().As<IJobProvider>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor), typeof(LogInterceptor));
+            //builder.RegisterType<AzureJobSearch>().As<IJobProvider>().EnableInterfaceInterceptors()
+            //    .InterceptedBy(typeof(CacheResultInterceptor), typeof(LogInterceptor));
 
 
             builder.Register(c=>

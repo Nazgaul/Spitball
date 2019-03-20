@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-
-namespace Cloudents.Command.Command
+﻿namespace Cloudents.Command.Command
 {
     public class UpdateDocumentMetaCommand : ICommand
     {
         public UpdateDocumentMetaCommand(long id, 
-            int? pageCount, string snippet, IEnumerable<string> tags)
+            int? pageCount, string snippet)
         {
             Id = id;
             
            // Language = language;
             PageCount = pageCount;
             Snippet = snippet;
-            Tags = tags;
         }
 
         public long Id { get; }
@@ -21,6 +18,5 @@ namespace Cloudents.Command.Command
 
         public string Snippet { get; }
 
-        public IEnumerable<string> Tags { get;  }
     }
 }

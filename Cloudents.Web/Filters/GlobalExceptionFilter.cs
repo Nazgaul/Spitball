@@ -23,10 +23,10 @@ namespace Cloudents.Web.Filters
                     try
                     {
                         context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-                        using (var sr = new StreamReader(context.HttpContext.Request.Body))
-                        {
-                            body = await sr.ReadToEndAsync();
-                        }
+                        var sr = new StreamReader(context.HttpContext.Request.Body);
+                        //{
+                         body = await sr.ReadToEndAsync();
+                        //}
                     }
                     catch (ObjectDisposedException)
                     {

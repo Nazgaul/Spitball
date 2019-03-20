@@ -9,7 +9,7 @@ namespace Cloudents.Web.Test.UnitTests
         [Fact]
         public void CompareTitle_RegularString_Equals()
         {
-            var input = "gfdgdfgdfg";
+            const string input = "gfdgdfgdfg";
 
             var dbValue = input;
 

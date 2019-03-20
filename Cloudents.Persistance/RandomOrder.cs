@@ -2,7 +2,7 @@
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
 
-namespace Cloudents.Persistance
+namespace Cloudents.Persistence
 {
     public class RandomOrder : Order
     {

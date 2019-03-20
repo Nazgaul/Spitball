@@ -42,6 +42,7 @@
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
     import { mapActions, mapMutations } from 'vuex'
     import registrationService from "../../../services/registrationService";
+    const Fingerprint2 = require('fingerprintjs2');
     export default {
         components: {stepTemplate, SbInput},
         name: "step_7",
@@ -80,23 +81,35 @@
             submit() {
                 let self = this;
                 self.loading = true;
-                registrationService.signIn(this.userEmail, this.password)
-                    .then((response) => {
-                        self.loading = false;
-                        analyticsService.sb_unitedEvent('Login', 'Start');
-                        // self.$parent.$emit('updateEmail', self.userEmail);
-                        global.isAuth = true;
-                        global.country = response.data.country;
-                        const isIl = global.country.toLowerCase() === 'il';
-                        const defaultSubmitRoute = isIl ? {path: '/note'} : {path: '/ask'};
-                        let url = self.toUrl || defaultSubmitRoute;
-                        //will be always ask cause he came from email
-                        self.$router.push({path: `${url.path }`});
-                    }, function (error) {
-                        self.loading = false;
-                        self.errorMessage.email = error.response.data["Password"] ? error.response.data["Password"][0] : '';
+                let data = {
+                    email: this.userEmail,
+                    password: this.password,
+                    fingerprint: ""
+                }
 
-                    });
+                var options = {}
+                Fingerprint2.getPromise(options)
+                    .then(function (components) {
+                        var values = components.map(function (component) { return component.value })
+                        var murmur = Fingerprint2.x64hash128(values.join(''), 31)
+                        data.fingerprint = murmur;
+                        registrationService.signIn(data)
+                            .then((response) => {
+                                self.loading = false;
+                                analyticsService.sb_unitedEvent('Login', 'Start');
+                                // self.$parent.$emit('updateEmail', self.userEmail);
+                                global.isAuth = true;
+                                global.country = response.data.country;
+                                const isIl = global.country.toLowerCase() === 'il';
+                                const defaultSubmitRoute = isIl ? { path: '/note' } : { path: '/ask' };
+                                let url = self.toUrl || defaultSubmitRoute;
+                                //will be always ask cause he came from email
+                                self.$router.push({ path: `${url.path}` });
+                            }, function (error) {
+                                self.loading = false;
+                                self.errorMessage.email = error.response.data["Password"] ? error.response.data["Password"][0] : '';
+                            })
+                    })
             },
             forgotPassword() {
                 this.$parent.$emit('fromCreate', 'forgot');
