@@ -56,6 +56,7 @@ import {
     VTextField,
     VToolbar,
     VTooltip,
+    VRating,
     Vuetify
 } from "vuetify";
 import * as route from "./routes";
@@ -98,6 +99,7 @@ const vuetifyComponents = {
     VParallax,
     VBottomNav,
     VTextarea,
+    VRating,
 };
 
 const ilFonts = [

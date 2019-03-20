@@ -59,7 +59,6 @@
                                 }
                             }
                         });
-
                         console.log('mics:::', self.avalMics)
                     })
             },
