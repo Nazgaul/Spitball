@@ -14,6 +14,11 @@ namespace Cloudents.Persistence.Maps
                 .Inverse()
                 .ForeignKeyConstraintName("fChatUserChatRoom")
                 .KeyColumn("ChatRoomId");
+
+            HasMany(x => x.Messages).Cascade.AllDeleteOrphan()
+                .Inverse()
+                .ForeignKeyConstraintName("fChatMessageChatRoom")
+                .KeyColumn("ChatRoomId");
             SchemaAction.Update();
         }
     }
@@ -29,12 +34,6 @@ namespace Cloudents.Persistence.Maps
             References(x => x.User)
                 .Not.Nullable().Column("UserId")
                 .ForeignKey("fChatUserUser");
-
-            HasMany(x => x.Messages).Cascade.AllDeleteOrphan()
-                .Inverse()
-                .ForeignKeyConstraintName("fChatUserUser")
-                .KeyColumn("UserId");
-
             SchemaAction.Update();
         }
     }
@@ -47,6 +46,8 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Message).Length(8000);
             Map(x => x.CreationTime).Not.Nullable();
             References(x => x.User).Not.Nullable().Column("UserId").ForeignKey("fChatUserUser");
+            
+
             SchemaAction.Update();
         }
     }

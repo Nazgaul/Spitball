@@ -10,7 +10,8 @@ namespace Cloudents.Core.Entities
     {
         protected ChatRoom()
         {
-
+            Users = new List<ChatUser>();
+            Messages = new List<ChatMessage>();
         }
 
         public ChatRoom(IList<RegularUser> users)
@@ -28,21 +29,24 @@ namespace Cloudents.Core.Entities
         public virtual DateTime UpdateTime { get; set; }
 
         public virtual ICollection<ChatUser> Users { get; protected set; }
+        public virtual ICollection<ChatMessage> Messages { get; protected set; }
 
         public virtual string Identifier { get; set; }
 
-        public virtual ChatMessage AddMessage(long userId, string message, string blob)
+        public virtual ChatMessage AddMessage(RegularUser user, string message, string blob)
         {
-            var user = Users.Single(s => s.User.Id == userId);
-            var chatMessage = user.AddMessage(message, blob);
+           // var user = Users.Single(s => s.User.Id == userId);
+            //var chatMessage = user.AddMessage(message, blob);
+
+            var chatMessage = new ChatMessage(user,message,blob,this);
             UpdateTime = DateTime.UtcNow;
-            foreach (var otherUserInChat in Users.Where(s => s.User.Id != userId))
+            foreach (var otherUserInChat in Users.Where(s => s.User != user))
             {
                 if (!otherUserInChat.User.Online)
                 {
                     //TODO: need to send an email or something
                 }
-                user.Unread++;
+                otherUserInChat.Unread++;
             }
             AddEvent(new ChatMessageEvent(chatMessage));
             return chatMessage;
@@ -51,7 +55,7 @@ namespace Cloudents.Core.Entities
         }
     }
 
-    public class ChatUser
+    public class ChatUser :Entity<Guid>
     {
         protected ChatUser()
         {
@@ -64,49 +68,51 @@ namespace Cloudents.Core.Entities
             User = user;
         }
 
-        public virtual Guid Id { get; protected set; }
+       // public virtual Guid Id { get; protected set; }
         public virtual ChatRoom ChatRoom { get; protected set; }
         public virtual RegularUser User { get; protected set; }
-
-        protected internal virtual ICollection<ChatMessage> Messages { get; set; }
+         
 
         public virtual int Unread { get; set; }
 
-        public virtual ChatMessage AddMessage(string message, string blob)
-        {
-            var chatMessage = new ChatMessage(this, message, blob);
-            Unread = 0;
-            Messages.Add(chatMessage);
+        //public virtual ChatMessage AddMessage(string message, string blob)
+        //{
+        //    var chatMessage = new ChatMessage(User, message, blob);
+        //    Unread = 0;
+        //    Messages.Add(chatMessage);
 
-            return chatMessage;
-        }
+        //    return chatMessage;
+        //}
 
     }
 
-    public class ChatMessage
+    public class ChatMessage : Entity<Guid>
     {
         protected ChatMessage()
         {
 
         }
 
-        public ChatMessage(ChatUser user, string message, string blob)
+        public ChatMessage(RegularUser user, string message, string blob, ChatRoom room)
         {
             User = user;
             Message = message;
             CreationTime = DateTime.UtcNow;
             Blob = blob;
+            ChatRoom = room;
 
         }
 
 
 
-        public virtual Guid Id { get; protected set; }
+       // public virtual Guid Id { get; protected set; }
 
-        public virtual ChatUser User { get; protected set; }
+        public virtual RegularUser User { get; protected set; }
         public virtual string Message { get; protected set; }
         public virtual string Blob { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
+
+        public virtual ChatRoom ChatRoom { get; protected set; }
 
     }
 }

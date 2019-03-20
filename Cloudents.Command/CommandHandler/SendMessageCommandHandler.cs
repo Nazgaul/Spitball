@@ -12,19 +12,17 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IChatRoomRepository _chatRoomRepository;
         private readonly IRegularUserRepository _userRepository;
+
         //private readonly IRepository<ChatUser> _chatUserRepository;
         private readonly IRepository<ChatMessage> _chatMessageRepository;
         private readonly IChatDirectoryBlobProvider _blobProvider;
 
         public SendMessageCommandHandler(IChatRoomRepository chatRoomRepository,
             IRegularUserRepository userRepository,
-            // IRepository<ChatUser> chatUserRepository,
             IChatDirectoryBlobProvider blobProvider, IRepository<ChatMessage> chatMessageRepository)
         {
             _chatRoomRepository = chatRoomRepository;
             _userRepository = userRepository;
-            // _chatMessageRepository = chatMessageRepository;
-            //_chatUserRepository = chatUserRepository;
             _blobProvider = blobProvider;
             _chatMessageRepository = chatMessageRepository;
         }
@@ -49,14 +47,12 @@ namespace Cloudents.Command.CommandHandler
                 chatRoom = new ChatRoom(users.Select(s => _userRepository.Load(s)).ToList());
                 await _chatRoomRepository.AddAsync(chatRoom, token);
             }
-            var chatMessage = chatRoom.AddMessage(message.UserSendingId, message.Message, message.Blob);
-            //var chatUser = chatRoom.Users.FirstOrDefault(f => f.User.Id == message.UserSendingId);
-            //var chatMessage = new ChatMessage(chatUser, message.Message,message.Blob);
-            //await _chatMessageRepository.AddAsync(chatMessage, token);
-            //chatRoom.UpdateTime = DateTime.UtcNow;
+
+            var user = _userRepository.Load(message.UserSendingId);
+
+            var chatMessage = chatRoom.AddMessage(user, message.Message, message.Blob);
             await _chatRoomRepository.UpdateAsync(chatRoom, token);
             await _chatMessageRepository.AddAsync(chatMessage, token); // need this in order to get id from nhibernate
-            //var t = Task.CompletedTask;
 
 
             if (!string.IsNullOrEmpty(message.Blob))

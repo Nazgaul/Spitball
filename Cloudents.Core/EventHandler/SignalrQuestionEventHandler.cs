@@ -157,7 +157,7 @@ namespace Cloudents.Core.EventHandler
             var message = new SignalRTransportType(SignalRType.Chat,
                 SignalRAction.Add, new { messages = messages });
 
-           var result =  eventMessage.ChatMessage.User.ChatRoom.Users.Select(s =>
+           var result =  eventMessage.ChatMessage.ChatRoom.Users.Select(s =>
                _queueProvider.InsertMessageAsync(message, s.User.Id, token));
            return Task.WhenAll(result);
         }
