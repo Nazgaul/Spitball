@@ -68,6 +68,11 @@ namespace Cloudents.Core.Interfaces
         Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
     }
 
+    public interface IChatRoomRepository : IRepository<ChatRoom>
+    {
+        Task<ChatRoom> GetChatRoomAsync(IList<long> usersId, CancellationToken token);
+    }
+
     public interface IUniversityRepository : IRepository<University>
     {
         [ItemCanBeNull]

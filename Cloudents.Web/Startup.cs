@@ -2,8 +2,10 @@
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
+using Cloudents.Web.Controllers;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
@@ -26,12 +28,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
-using Cloudents.Web.Controllers;
+using Microsoft.Extensions.DependencyModel;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -40,6 +43,32 @@ namespace Cloudents.Web
 {
     public class Startup
     {
+
+        public static IEnumerable<Assembly> GetAssemblies()
+        {
+            var list = new List<string>();
+            var stack = new Stack<Assembly>();
+
+            stack.Push(Assembly.GetEntryAssembly());
+
+            do
+            {
+                var asm = stack.Pop();
+
+                yield return asm;
+
+                foreach (var reference in asm.GetReferencedAssemblies())
+                    if (!list.Contains(reference.FullName))
+                    {
+                        stack.Push(Assembly.Load(reference));
+                        list.Add(reference.FullName);
+                    }
+
+            }
+            while (stack.Count > 0);
+
+        }
+
         public const string IntegrationTestEnvironmentName = "Integration-Test";
         internal const int PasswordRequiredLength = 8;
 
@@ -67,7 +96,10 @@ namespace Cloudents.Web
             }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
 
             services.AddWebMarkupMin().AddHtmlMinification();
-            
+            services.AddRouting(x =>
+            {
+                x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
+            });
             services.AddMvc()
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
                 {
@@ -148,7 +180,7 @@ namespace Cloudents.Web
             //{
             //    o.ValidationInterval = TimeSpan.FromMinutes(2);
             //});
-          //  services.AddSingleton<IHttpResponseStreamWriterFactory, SbMemoryPoolHttpResponseStreamWriterFactory>();
+            //  services.AddSingleton<IHttpResponseStreamWriterFactory, SbMemoryPoolHttpResponseStreamWriterFactory>();
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb4";
@@ -173,24 +205,14 @@ namespace Cloudents.Web
             services.AddTransient<ISmsSender, SmsSender>();
             services.AddTransient<ICountryProvider, CountryProvider>();
 
-            var assembliesOfProgram = new[]
-            {
-                Assembly.Load("Cloudents.Infrastructure.Storage"),
-                Assembly.Load("Cloudents.Infrastructure"),
-                Assembly.Load("Cloudents.Core"),
-                Assembly.Load("Cloudents.Persistance"),
-                Assembly.Load("Cloudents.Search"),
-                Assembly.Load("Cloudents.Query"),
-                Assembly.GetExecutingAssembly()
-            };
 
-            /*var assembliesOfProgram = Assembly
-            .GetExecutingAssembly()
-            .GetReferencedAssemblies()
-            .Select(Assembly.Load)
-            .Where(t => t.FullName.Split('.')[0] == "Cloudents");*/
-
-
+            var assembliesOfProgram = DependencyContext.Default.CompileLibraries
+                .SelectMany(x => x.ResolveReferencePaths())
+                .Distinct()
+                .Where(x => x.Contains(Directory.GetCurrentDirectory()))
+                .Select(Assembly.LoadFile)
+                .ToList();
+            
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
             var keys = new ConfigurationKeys(Configuration["Site"])
@@ -305,8 +327,8 @@ namespace Cloudents.Web
             {
                 routes.MapHub<SbHub>("/SbHub");
             });
-           
-           
+
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -13,10 +12,7 @@ namespace Cloudents.Core.Storage
         Uri GeneratePreviewLink(Uri blobUrl, TimeSpan expirationTime);
         Uri GenerateDownloadLink(Uri blobUrl, TimeSpan expirationTime,
             string contentDisposition);
-    }
 
-    public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
-    {
         Task UploadStreamAsync(string blobName, Stream fileContent,
             string mimeType = null, bool fileGziped = false, int? cacheControlSeconds = null, CancellationToken token = default);
 
@@ -24,8 +20,7 @@ namespace Cloudents.Core.Storage
         Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token);
 
 
-        //string GenerateDownloadLink(string blobName, double expirationTimeInMinutes,
-        //    string contentDisposition);
+
 
         Uri GetBlobUrl(string blobName, bool cdn = false);
 
@@ -46,4 +41,24 @@ namespace Cloudents.Core.Storage
 
         Task DeleteDirectoryAsync(string id, CancellationToken token);
     }
+
+    public interface IDocumentDirectoryBlobProvider : IBlobProvider
+    {
+
+    }
+
+    public interface IQuestionsDirectoryBlobProvider : IBlobProvider
+    {
+
+    }
+
+    public interface IChatDirectoryBlobProvider : IBlobProvider
+    {
+
+    }
+
+    //public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
+    //{
+
+    //}
 }

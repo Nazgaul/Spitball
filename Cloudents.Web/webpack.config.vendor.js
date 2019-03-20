@@ -21,7 +21,7 @@ const allModules = [
     "vue-plugin-load-script",
     "vue-line-clamp",
     "./ClientApp/main.styl",
-    //"./wwwroot/content/main.less",
+    "./ClientApp/components/app/main.less",
     "./ClientApp/myFont.font.js",
     "vuetify/es5/components/Vuetify",
     "vuetify/es5/components/VApp",
@@ -79,7 +79,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.less$/,
-                    exclude: /ClientApp/,
+                    //exclude: /ClientApp/,
                     use: ExtractTextPlugin.extract({ use:  "css-loader!less-loader"  })
                 },
                 {

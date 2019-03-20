@@ -1,4 +1,13 @@
-﻿using Cloudents.Web.Extensions;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Models;
+using Cloudents.Query;
+using Cloudents.Query.Query;
+using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -14,14 +23,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Models;
-using Cloudents.Query;
-using Cloudents.Query.Query;
-using Cloudents.Web.Binders;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Cloudents.Web.Api
@@ -37,7 +38,6 @@ namespace Cloudents.Web.Api
         private readonly IConfiguration _configuration;
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
-
 
         public AccountController(UserManager<RegularUser> userManager,
             SignInManager<RegularUser> signInManager, IConfiguration configuration, ICommandBus commandBus, IQueryBus queryBus)
@@ -150,7 +150,7 @@ namespace Cloudents.Web.Api
 
         [HttpGet("University")]
         public async Task<UniversityDto> GetUniversityAsync(
-            [ProfileModelBinder(ProfileServiceQuery.University 
+            [ProfileModelBinder(ProfileServiceQuery.University
                                 )] UserProfile profile,
 
         [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
@@ -168,7 +168,8 @@ namespace Cloudents.Web.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
-        [HttpGet("{id}/referrals")]
+        [HttpGet("referrals")]
+        [ResponseCache(Duration = TimeConst.Minute * 30, Location = ResponseCacheLocation.Client)]
         public async Task<UserReferralsDto> GetReferrals(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

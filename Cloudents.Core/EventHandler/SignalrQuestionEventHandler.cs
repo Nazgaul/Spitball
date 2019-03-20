@@ -3,6 +3,7 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
@@ -15,7 +16,8 @@ namespace Cloudents.Core.EventHandler
             IEventHandler<QuestionDeletedAdminEvent>,
             IEventHandler<MarkAsCorrectEvent>,
             IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>,
-            IEventHandler<TransactionEvent>
+            IEventHandler<TransactionEvent>,
+            IEventHandler<ChatMessageEvent>
     {
         private readonly IServiceBusProvider _queueProvider;
 
@@ -51,17 +53,6 @@ namespace Cloudents.Core.EventHandler
                 Vote = new VoteDto()
             };
 
-            //var dto = new QuestionFeedDto(eventMessage.Question.Id,
-            //    eventMessage.Question.Subject,
-            //    eventMessage.Question.Price,
-            //    eventMessage.Question.Text,
-            //    eventMessage.Question.Attachments,
-            //    0,
-            //    user,
-            //    DateTime.UtcNow,
-            //    false,
-            //    eventMessage.Question.Language,
-            //    0, eventMessage.Question.Course.Name);
             if (eventMessage.Question.Language.Name.Equals("en", StringComparison.OrdinalIgnoreCase))
             {
                 await _queueProvider.InsertMessageAsync(
@@ -159,5 +150,16 @@ namespace Cloudents.Core.EventHandler
         }
 
 
+        public  Task HandleAsync(ChatMessageEvent eventMessage, CancellationToken token)
+        {
+            //Need to support blob
+            var messages = eventMessage.ChatMessage;
+            var message = new SignalRTransportType(SignalRType.Chat,
+                SignalRAction.Add, new { messages = messages });
+
+           var result =  eventMessage.ChatMessage.ChatRoom.Users.Select(s =>
+               _queueProvider.InsertMessageAsync(message, s.User.Id, token));
+           return Task.WhenAll(result);
+        }
     }
 }

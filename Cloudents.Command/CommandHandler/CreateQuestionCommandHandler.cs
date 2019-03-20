@@ -16,7 +16,7 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IRegularUserRepository _userRepository;
-        private readonly Lazy<IBlobProvider<QuestionAnswerContainer>> _blobProvider;
+        private readonly Lazy<IQuestionsDirectoryBlobProvider> _blobProvider;
         private readonly ITextAnalysis _textAnalysis;
         private readonly ITransactionRepository _transactionRepository;
         private readonly ICourseRepository _courseRepository;
@@ -24,7 +24,7 @@ namespace Cloudents.Command.CommandHandler
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRegularUserRepository userRepository, ITextAnalysis textAnalysis,
             ITransactionRepository transactionRepository,
-            Lazy<IBlobProvider<QuestionAnswerContainer>> blobProvider, ICourseRepository courseRepository)
+            Lazy<IQuestionsDirectoryBlobProvider> blobProvider, ICourseRepository courseRepository)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;

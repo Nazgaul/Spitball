@@ -18,7 +18,7 @@ namespace Cloudents.Web.Models
         public DocumentDetailDto Details { get;  }
         public IEnumerable<Uri> Preview { get;  }
 
-        public string Content { get; private set; }
+        public string Content { get; }
     }
 
 
@@ -33,7 +33,7 @@ namespace Cloudents.Web.Models
             }
 
             var z = GetNumberStr(s1);
-            var z2 = GetNumberStr(s2); 
+            var z2 = GetNumberStr(s2);
 
             if (int.TryParse(z, out var i1) && int.TryParse(z2, out var i2))
             {

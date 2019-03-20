@@ -73,68 +73,13 @@ namespace Cloudents.Web.Controllers
             return Content(document.ToString(), "application/xml");
         }
 
-        //[Route("sitemap-flashcard-{index:int}.xml", Order = 1)]
-        //public IActionResult FlashcardSeoAsync(int index,
-        //    [FromServices] IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery> query2,
-        //    CancellationToken token)
-        //{
-        //    return new FileCallbackResult("application/xml", async (stream, context) =>
-        //    {
-
-        //        using (var writer = XmlWriter.Create(stream, _xmlWriterSettings))
-        //        {
-        //            await writer.WriteStartDocumentAsync();
-        //            writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-        //            var iterator = 0;
-        //            var query = new SeoQuery(index, PageSize);
-        //            foreach (var entity in query2.Get(query))
-        //            {
-        //                var url = Url.RouteUrl(SeoTypeString.Flashcard, new
-        //                {
-        //                    universityName = UrlConst.NameToQueryString(entity.UniversityName ?? "my"),
-        //                    boxId = entity.BoxId,
-        //                    boxName = UrlConst.NameToQueryString(entity.BoxName),
-        //                    id = entity.Id,
-        //                    name = UrlConst.NameToQueryString(entity.Name)
-        //                }, Request.GetUri().Scheme);
-
-        //                if (string.IsNullOrEmpty(url))
-        //                {
-        //                    continue;
-        //                }
-        //                await WriteTagAsync("1", "Daily", url, writer);
-        //                if (iterator == 100)
-        //                {
-        //                    await writer.FlushAsync();
-        //                    iterator = 0;
-        //                }
-        //            }
-
-        //            await writer.WriteEndElementAsync();
-        //            await writer.WriteEndDocumentAsync();
-        //            await writer.FlushAsync();
-        //        }
-        //    });
-        //}
+       
 
         [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription", Order = 2)]
         public IActionResult DetailIndexAsync(SeoType type, int index,
             [FromServices] IIndex<SeoType, IBuildSeo> seoBuilder,
         CancellationToken token)
         {
-
-            //var t = session.Query<Document>()
-            //        .Fetch(f => f.University)
-            //      .Where(w => w.Status.State == ItemState.Ok)
-            //      .Take(PageSize).Skip(PageSize * index)
-            //      .Select(s => new DocumentSeoDto
-            //      {
-            //          Id = s.Id,
-            //          Name = s.Name,
-            //          Country = s.University.Country,
-            //          CourseName = s.Course.Name,
-            //          UniversityName = s.University.Name
-            //      });
             var provider = seoBuilder[type];
             var x = provider.GetUrls(index);
 
@@ -147,13 +92,6 @@ namespace Cloudents.Web.Controllers
                     writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
                     foreach (var url in x)
                     {
-                        //var url = Url.RouteUrl(SeoTypeString.Document, new
-                        //{
-                        //    universityName = FriendlyUrlHelper.GetFriendlyTitle(link.UniversityName),
-                        //    courseName = FriendlyUrlHelper.GetFriendlyTitle(link.CourseName),
-                        //    link.Id,
-                        //    name = FriendlyUrlHelper.GetFriendlyTitle(link.Name)
-                        //}, Request.GetUri().Scheme);
                         i++;
                         await WriteTagAsync("1", "Daily", url, writer);
                         if (i % 100 == 0)

@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Twilio.Rest.Api.V2010.Account;
@@ -65,7 +64,7 @@ namespace Cloudents.FunctionsV2
         //{
 
 
-        //    var message = new AnswerAcceptedMessage(Guid.Parse("AD796D3F-734D-4987-AA1F-A9C700C88DD1"));
+        //    var message = new DocumentPurchasedMessage(Guid.Parse("9D4463F7-CD2C-4091-87AA-A9C8008D922E"));
 
         //    var handlerType =
         //        typeof(ISystemOperation<>).MakeGenericType(message.GetType());
@@ -285,29 +284,29 @@ namespace Cloudents.FunctionsV2
     }
 
 
-    public class EmailObject
-    {
-        public string Id { get; set; }
-        public bool SocialShare { get; set; }
-        public string Event { get; set; }
+    //public class EmailObject
+    //{
+    //    public string Id { get; set; }
+    //    public bool SocialShare { get; set; }
+    //    public string Event { get; set; }
 
-        public string Subject { get; set; }
+    //    public string Subject { get; set; }
 
-        public CultureInfo CultureInfo { get; set; }
+    //    public CultureInfo CultureInfo { get; set; }
 
-        public IEnumerable<EmailBlock> Blocks { get; set; }
+    //    public IEnumerable<EmailBlock> Blocks { get; set; }
 
-    }
+    //}
 
 
 
-    public class EmailBlock
-    {
-        public string Title { get; set; }
-        public string Subtitle { get; set; }
-        public string Body { get; set; }
-        public string Cta { get; set; }
-        public string MinorTitle { get; set; }
-    }
+    //public class EmailBlock
+    //{
+    //    public string Title { get; set; }
+    //    public string Subtitle { get; set; }
+    //    public string Body { get; set; }
+    //    public string Cta { get; set; }
+    //    public string MinorTitle { get; set; }
+    //}
 
 }

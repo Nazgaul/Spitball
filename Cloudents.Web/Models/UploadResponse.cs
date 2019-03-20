@@ -58,6 +58,11 @@ namespace Cloudents.Web.Models
         public Guid SessionId { get; set; }
     }
 
+    public class FinishChatUpload : UploadRequest
+    {
+        public long OtherUser { get; set; }
+    }
+
     public class TempData
     {
         public string Name { get; set; }

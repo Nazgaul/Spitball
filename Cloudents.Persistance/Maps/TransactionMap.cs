@@ -1,8 +1,8 @@
-﻿using Cloudents.Core.Entities;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
-using System.Diagnostics.CodeAnalysis;
 
-namespace Cloudents.Persistance.Maps
+namespace Cloudents.Persistence.Maps
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "assembly loader inject")]
     public class TransactionMap : ClassMap<Transaction>

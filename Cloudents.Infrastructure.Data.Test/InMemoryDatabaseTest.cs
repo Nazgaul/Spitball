@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Data.Test
 
         static InMemoryDatabaseTest()
         {
-            var assemblyMapping = Assembly.Load("Cloudents.Persistance");
+            var assemblyMapping = Assembly.Load("Cloudents.Persistence");
             var configuration = Fluently.Configure()
                 .Database(() => SQLiteConfiguration.Standard.InMemory().ShowSql().DefaultSchema("sb"))
                 
