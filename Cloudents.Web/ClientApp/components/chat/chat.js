@@ -1,6 +1,13 @@
 import chatConversation from "./pages/conversation.vue"
+import chatMessages from "./pages/messages.vue"
 export default {
     components:{
-        chatConversation
+        chatConversation,
+        chatMessages
+    },
+    data(){
+        return{
+            
+        }
     }
 }
