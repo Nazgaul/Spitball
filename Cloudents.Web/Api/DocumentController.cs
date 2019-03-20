@@ -66,6 +66,7 @@ namespace Cloudents.Web.Api
             [FromServices] IQueueProvider queueProvider,
             [FromServices] ICrawlerResolver crawlerResolver,
             [FromServices] IConfiguration configuration,
+            [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
             long? userId = null;
@@ -89,27 +90,37 @@ namespace Cloudents.Web.Api
             {
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
-
-            var range = Enumerable.Range(0, model.PageCount);
-
-            var files = range.Select(page =>
+            var prefix = "preview-";
+            if (!model.IsPurchased)
             {
-                var properties = new ImageProperties(model.Id, page, !model.IsPurchased);
+                prefix = "blur-";
+            }
+            var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
+            //var range = Enumerable.Range(0, model.PageCount);
 
-                var hash = properties.Encrypt();
+            //var files = range.Select(page =>
+            //{
+            //    var properties = new ImageProperties(model.Id, page, !model.IsPurchased);
 
-                var uri = QueryHelpers.AddQueryString(
-                    $"{configuration["functionCdnEndpoint"]}/api/image/{Base64UrlTextEncoder.Encode(hash)}",
-                    new Dictionary<string, string>()
-                {
-                    {"width","880" },
-                    {"height","1270"},
-                    {"mode","Max" }
-                });
-                return new Uri(uri);
-            });
+            //    var hash = properties.Encrypt();
 
-            await Task.WhenAll(tQueue, textTask);
+            //    var uri = QueryHelpers.AddQueryString(
+            //        $"{configuration["functionCdnEndpoint"]}/api/image/{Base64UrlTextEncoder.Encode(hash)}",
+            //        new Dictionary<string, string>()
+            //    {
+            //        {"width","880" },
+            //        {"height","1270"},
+            //        {"mode","Max" }
+            //    });
+            //    return new Uri(uri);
+            //});
+
+            await Task.WhenAll(tQueue, textTask, filesTask);
+            var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
+            if (!filesTask.Result.Any())
+            {
+                await queueProvider.InsertBlobReprocessAsync(id);
+            }
             return new DocumentPreviewResponse(model, files, textTask.Result);
         }
 
