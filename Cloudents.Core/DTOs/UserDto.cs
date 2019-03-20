@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Attributes;
+﻿using System;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs
@@ -52,7 +53,7 @@ namespace Cloudents.Core.DTOs
     public class ChatUserDto
     {
         [DtoToEntityConnection(nameof(User.Id))]
-        public long Id { get; set; }
+        public long UserId { get; set; }
         [DtoToEntityConnection(nameof(User.Name))]
         public string Name { get; set; }
         [DtoToEntityConnection(nameof(User.Image))]
@@ -63,5 +64,8 @@ namespace Cloudents.Core.DTOs
 
         [DtoToEntityConnection(nameof(RegularUser.Online))]
         public bool Online { get; set; }
+
+        [DtoToEntityConnection(nameof(ChatRoom.Id))]
+        public Guid ConversationId { get; set; }
     }
 }

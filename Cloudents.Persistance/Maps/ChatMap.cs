@@ -46,7 +46,9 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Message).Length(8000);
             Map(x => x.CreationTime).Not.Nullable();
             References(x => x.User).Not.Nullable().Column("UserId").ForeignKey("fChatUserUser");
-            
+            References(x => x.ChatRoom)
+                .Not.Nullable().Column("ChatRoomId")
+                .ForeignKey("fChatUserChatRoom");
 
             SchemaAction.Update();
         }
