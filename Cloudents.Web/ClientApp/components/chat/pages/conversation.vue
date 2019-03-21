@@ -29,9 +29,13 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setActiveConversationId']),
+        ...mapActions(['setActiveConversationObj']),
         openConversation(conversation){
-            this.setActiveConversationId(conversation.conversationId);
+            let currentConversationObj = {
+                userId:conversation.userId,
+                conversationId: conversation.conversationId
+            }
+            this.setActiveConversationObj(currentConversationObj);
         }
     }
 }

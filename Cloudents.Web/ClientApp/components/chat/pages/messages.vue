@@ -40,7 +40,9 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['sendChatMessage']),
         sendMessage(){
+            this.sendChatMessage(this.messageText)
             this.messageText = "";
         }
     }
