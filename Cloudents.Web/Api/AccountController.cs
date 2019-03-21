@@ -134,8 +134,7 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses for a user</returns>
         [HttpGet("courses")]
         public async Task<IEnumerable<CourseDto>> GetCourses(
-            [ProfileModelBinder(ProfileServiceQuery.Course
-            )] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.Course)] UserProfile profile,
             CancellationToken token)
         {
             if (profile.Courses != null)
@@ -143,17 +142,15 @@ namespace Cloudents.Web.Api
                 return profile.Courses.Select(s => new CourseDto(s));
             }
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserProfileQuery(userId);
+            var query = new UserDataQuery(userId);
             var t = await _queryBus.QueryAsync(query, token);
             return t.Courses.Select(s => new CourseDto(s));
         }
 
         [HttpGet("University")]
         public async Task<UniversityDto> GetUniversityAsync(
-            [ProfileModelBinder(ProfileServiceQuery.University
-                                )] UserProfile profile,
-
-        [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             CancellationToken token)
         {
             if (!universityId.HasValue)
@@ -176,6 +173,10 @@ namespace Cloudents.Web.Api
             var query = new UserReferralsQuery(userId);
             return await _queryBus.QueryAsync(query, token);
         }
+
+        //[HttpPost("image")]
+        //public async Task<IA>
+
 
     }
 }

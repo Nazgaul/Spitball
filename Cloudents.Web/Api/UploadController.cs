@@ -23,7 +23,7 @@ namespace Cloudents.Web.Api
 {
     //DO NOT ADD API CONTROLLER - UPLOAD WILL NOT WORK
     [Route("api/[controller]")]
-    //[ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Produces("application/json")]
     [Authorize]
     public class UploadController : Controller

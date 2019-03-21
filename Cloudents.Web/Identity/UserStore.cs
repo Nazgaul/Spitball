@@ -23,7 +23,8 @@ namespace Cloudents.Web.Identity
         IUserPhoneNumberStore<RegularUser>,
         IUserAuthenticatorKeyStore<RegularUser>,
         IUserLockoutStore<RegularUser>,
-        IUserLoginStore<RegularUser>
+        IUserLoginStore<RegularUser>,
+        IUserRoleStore<RegularUser>
     {
         private readonly ICommandBus _bus;
         private readonly IQueryBus _queryBus;
@@ -285,6 +286,31 @@ namespace Cloudents.Web.Identity
         {
 
             return _queryBus.QueryAsync(new UserLoginQuery(loginProvider, providerKey), cancellationToken);
+        }
+
+        public async Task AddToRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task RemoveFromRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IList<string>> GetRolesAsync(RegularUser user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> IsInRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IList<RegularUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

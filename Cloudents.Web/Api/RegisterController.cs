@@ -1,4 +1,8 @@
-﻿using Cloudents.Web.Controllers;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
+using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
@@ -13,10 +17,6 @@ using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Web.Api
 {
@@ -49,7 +49,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost, ValidateRecaptcha]
         public async Task<ActionResult<ReturnSignUserResponse>> Post(
-            [FromBody]RegisterRequest model,
+            [FromBody] RegisterRequest model,
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
@@ -63,11 +63,11 @@ namespace Cloudents.Web.Api
                 catch (ArgumentException)
                 {
                 }
-               
+
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
-            user = CreateUser(model.Email, null);
+            user = CreateUser(model.Email, null, null);
             var p = await _userManager.CreateAsync(user, model.Password);
             if (p.Succeeded)
             {
@@ -109,7 +109,7 @@ namespace Cloudents.Web.Api
                 await _signInManager.TempSignIn(user);
                 return new ReturnSignUserResponse(NextStep.EnterPhone, true);
             }
-           
+
             await GenerateEmailAsync(user, returnUrl, token);
             return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
         }
@@ -144,7 +144,7 @@ namespace Cloudents.Web.Api
 
             if (user == null)
             {
-                user = CreateUser(result.Email, result.Name);
+                user = CreateUser(result.Email, result.FirstName, result.LastName);
                 user.EmailConfirmed = true;
                 user.ChangeLanguage(result.Language);
 
@@ -168,15 +168,15 @@ namespace Cloudents.Web.Api
         }
 
 
-        private RegularUser CreateUser(string email, string name)
+        private RegularUser CreateUser(string email, string firstName, string lastName)
         {
             if (email == null) throw new ArgumentNullException(nameof(email));
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(firstName))
             {
-                name = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                firstName = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             }
-           
-            return new RegularUser(email, $"{name}.{GenerateRandomNumber()}",  CultureInfo.CurrentCulture);
+
+            return new RegularUser(email, $"{firstName}.{GenerateRandomNumber()}", null, CultureInfo.CurrentCulture);
         }
 
         private static int GenerateRandomNumber()
@@ -220,7 +220,7 @@ namespace Cloudents.Web.Api
                 {
                     return Ok();
                 }
-                
+
             }
 
             var email = TempData.Peek(Email); //?? throw new ArgumentNullException("TempData", "email is empty");

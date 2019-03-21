@@ -9,22 +9,18 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class RegularUser : User
     {
-        public RegularUser(string email, string name,  Language language) : this()
+        public RegularUser(string email, string firstName,string lastName,  Language language) : this()
         {
             Email = email;
-            Name = name;
+            ChangeName(firstName, lastName);
             TwoFactorEnabled = true;
             Language = language;
             Created = DateTime.UtcNow;
-            //Fictive = false;
-
-
-
         }
+
         protected RegularUser()
         {
             UserLogins = new List<UserLogin>();
-            //Transactions = new List<Transaction>();
             Transactions = Transactions ?? new UserTransactions();
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
@@ -68,11 +64,21 @@ namespace Cloudents.Core.Entities
 
         public virtual UserTransactions Transactions { get; protected set; }
 
+        public virtual string FirstName { get; protected set; }
+        public virtual string LastName { get; protected set; }
+        public virtual string Description { get; protected set; }
+
         public virtual void ChangeOnlineStatus(bool isOnline)
         {
             Online = isOnline;
             LastOnline = DateTime.UtcNow;
+        }
 
+        public virtual void ChangeName(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Name = $"{FirstName} {LastName}";
         }
 
         public virtual void SuspendUser(DateTimeOffset lockTime, string reason)

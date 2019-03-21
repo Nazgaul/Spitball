@@ -40,7 +40,7 @@ namespace Cloudents.Web.Identity
                 p.AddClaim(new Claim(University, user.University.Id.ToString()));
             }
 
-            var query = new UserProfileQuery(user.Id);
+            var query = new UserDataQuery(user.Id);
             var result = await _queryBus.QueryAsync(query, default);
             var v = JsonConvert.SerializeObject(result);
             if (v.Length < 2000)
