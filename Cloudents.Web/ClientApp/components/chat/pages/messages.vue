@@ -7,7 +7,7 @@
                 <span>invite</span>
             </v-flex>
             <v-flex class="messages-body">
-                <message :message="singleMessage" v-for="(singleMessage, index) in 4" :key="index"></message>
+                <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
             </v-flex>
             <v-flex class="messages-input">
                 <chat-upload-file></chat-upload-file>
@@ -18,9 +18,10 @@
 </template>
 
 <script>
-import message from "./message/message.vue"
+import message from "./messageComponents/message.vue"
 import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
+import {mapGetters, mapActions} from 'vuex';
 export default {
     components:{
         message,
@@ -30,6 +31,12 @@ export default {
     data(){
         return{
             messageText: ""
+        }
+    },
+    computed:{
+        ...mapGetters(['getMessages']),
+        messages(){
+            return this.getMessages;
         }
     },
     methods:{

@@ -1,15 +1,16 @@
 <template>
-    <div>
-        hello {{message}}
-    </div>
+    <div v-html="message.text"></div>
 </template>
 
 <script>
 export default {
     props:{
         message:{
-            
+            type:Object
         }
+    },
+    computed:{
+
     }
 }
 </script>

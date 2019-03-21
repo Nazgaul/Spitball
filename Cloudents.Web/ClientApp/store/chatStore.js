@@ -20,25 +20,26 @@ const getters = {
     getConversations: state=>state.conversations,
     getMessages: (state)=>{
         //can get only messages of the current conversation room
-        if(!!activeConversationId){
-            return state.messages[activeConversationId];
+        if(!!state.activeConversationId){
+            return state.messages[state.activeConversationId];
         }
     }
 };
 
 const mutations = {
     addMessage:(state, message)=>{
-        if(!state.messages[message.id]){
+        let id = message.conversationId;
+        if(!state.messages[id]){
             // add a properly this way allow the computed to be fired!
-            state.messages = { ...state.messages, [message.id]:[] };
+            state.messages = { ...state.messages, [id]:[] };
         }
-        state.messages[message.id].push(message);
+        state.messages[id].push(message);
     },
     setActiveConversationId(state, id){
         state.activeConversationId = id;
     },
     addConversation: (state, conversationObj)=>{
-        let id = conversationObj.conversationId;
+        let id = conversationObj.userId;
         // add a properly this way allow the computed to be fired!
         state.conversations = { ...state.conversations, [id]:conversationObj };
     },
@@ -63,24 +64,24 @@ const actions = {
         chatService.getAllConversations().then(({data})=>{
             if(data.length > 0){
                 data.forEach(conversation => {
-                    // for(let i = 0 ; i < 50; i++){
                     let ConversationObj = chatService.createConversation(conversation);
                         commit('addConversation', ConversationObj);
-                    // }
                 })
             }
         });
     },
-    syncMessagesByConversationId:({commit, state})=>{
+    syncMessagesByConversationId:({dispatch, state})=>{
         //get from server the messages by id
         let id = state.activeConversationId;
-        chatService.getMessageById(id).then(({data})=>{
-            if(!data) return;
-            data.forEach(message => {
-                let MessageObj = chatService.createMessage(message, id);
-                commit('addMessage', MessageObj);
+        if(!state.messages[id]){
+            chatService.getMessageById(id).then(({data})=>{
+                if(!data) return;
+                data.forEach(message => {
+                    let MessageObj = chatService.createMessage(message, id);
+                    dispatch('addMessage', MessageObj);
+                })
             })
-        })
+        }
     },
     updateChatState:({commit}, val)=>{
         commit('changeChatState', val);
