@@ -1,8 +1,9 @@
 <template>
-    <div v-html="message.text"></div>
+    <div class="message" :class="{'myMessage': isMine}" v-html="message.text"></div>
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
 export default {
     props:{
         message:{
@@ -10,11 +11,20 @@ export default {
         }
     },
     computed:{
-
+        ...mapGetters(['accountUser']),
+        isMine(){
+            return this.accountUser.id === this.message.userId
+        }
     }
 }
 </script>
 
-<style>
+<style lang='less'>
+.message{
+    text-align: right;
+    &.myMessage{
+        text-align: left;
+    }
+}
 
 </style>

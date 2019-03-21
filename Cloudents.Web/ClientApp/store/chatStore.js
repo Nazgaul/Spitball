@@ -17,7 +17,8 @@ const state = {
     isMinimized: false,
 };
 const getters = {
-    getIsVisible:state=> state.isVisible,
+    getIsChatVisible:state=> state.isVisible,
+    getIsChatMinimized:state=> state.isMinimized,
     getChatState:state=>state.chatState,
     getEnumChatState:state=>state.enumChatState,
     getConversations: state=>state.conversations,
@@ -38,7 +39,7 @@ const mutations = {
             // add a properly this way allow the computed to be fired!
             state.messages = { ...state.messages, [id]:[] };
         }
-        state.messages[id].push(message);
+        state.messages[id].unshift(message);
     },
     setActiveConversationObj(state, obj){
         state.activeConversationObj.userId = obj.userId || null;
@@ -54,7 +55,16 @@ const mutations = {
         if(!!state.enumChatState[newChatState]){
             state.chatState = newChatState;
         }
-    }
+    },
+    toggleChatMinimize:(state)=>{
+        state.isMinimized = !state.isMinimized;
+    },
+    closeChat:(state)=>{
+        state.isVisible = false
+    },
+    OpenChat:(state)=>{
+        state.isVisible = true
+    },
 };
 
 const actions = {
@@ -101,6 +111,9 @@ const actions = {
         })
         chatService.sendChatMessage(messageObj);
     },
+    toggleChatMinimize:({commit})=>{
+        commit('toggleChatMinimize')
+    }
     
 };
 export default {

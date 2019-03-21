@@ -1,10 +1,14 @@
 <template>
-    <v-container py-0 px-0 class="chat-container">
+    <v-container v-show="visible" py-0 px-0 class="chat-container" :class="{'minimized': isMinimized}">
         <v-layout class="chat-header">
             <v-icon @click="OriginalChatState">sbf-close</v-icon>
             <span>Messages</span>
+            <span class="other-side">
+                <v-icon @click="toggleMinimizeChat">sbf-close</v-icon>
+                <v-icon @click="closeChat">sbf-close</v-icon>
+            </span>
         </v-layout>
-        <v-layout class="general-chat-style">
+        <v-layout v-show="!isMinimized" class="general-chat-style">
             <component :is="`chat-${state}`"></component>
         </v-layout>
     </v-container>
@@ -27,17 +31,27 @@
             }
         },
         computed:{
-            ...mapGetters(['getChatState']),
+            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized']),
             state(){
                 return this.getChatState;
+            },
+            visible(){
+                return this.getIsChatVisible;
+            },
+            isMinimized(){
+                return this.getIsChatMinimized;
             }
         },
         methods:{
-            ...mapActions(['updateChatState', 'getAllConversations']),
+            ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
                 this.updateChatState(this.enumChatState.conversation);
-            }
+            },
+            toggleMinimizeChat(){
+                this.toggleChatMinimize();
+            },
+            closeChat(){}
         },
         created(){
             this.getAllConversations();
@@ -56,6 +70,9 @@
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 3px 13px 0 rgba(0, 0, 0, 0.1);
+    &.minimized{
+        height: unset;
+    }
     .chat-header{
         background-color:#43425d;
         border-radius: 4px 4px 0 0;
@@ -65,6 +82,13 @@
             color: #a5a4bf;
             font-size:16px;
             margin-right: 14px;
+        }
+        .other-side{
+            margin-left:auto;
+            i{
+                margin-right: 0;
+                margin-left: 14px;
+            }
         }
     }
     .general-chat-style{
