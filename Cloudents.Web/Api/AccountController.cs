@@ -4,7 +4,6 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Models;
-using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Binders;
@@ -27,6 +26,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Cloudents.Web.Api
@@ -204,15 +204,15 @@ namespace Cloudents.Web.Api
                 file.ContentType, TimeSpan.FromDays(365), token);
 
             var fileUri = blobProvider.GetBlobUrl(fileName);
-            var imageProperties = new ImageProperties(fileUri,  ImageProperties.BlurEffect.None);
+            var imageProperties = new ImageProperties(fileUri, ImageProperties.BlurEffect.None);
 
             var hash = serializer.Serialize(imageProperties);
             var url = Url.RouteUrl("imageUser", new
             {
                 hash = Base64UrlTextEncoder.Encode(hash)
             });
-            // var command = new UpdateUserImageCommand(userId, fileName);
-            //await _commandBus.DispatchAsync(command, token);
+            var command = new UpdateUserImageCommand(userId, url);
+            await _commandBus.DispatchAsync(command, token);
             return Ok(url);
         }
 
