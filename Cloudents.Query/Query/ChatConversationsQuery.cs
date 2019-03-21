@@ -35,12 +35,13 @@ namespace Cloudents.Query.Query
                 using (var conn = _dapper.OpenConnection())
                 {
                     var result = await conn.QueryAsync< ChatUserDto>(@"
-Select u.Name,u.Id as UserId,u.Image,u.Online,cu.Unread, cr.Id as ConversationId
+Select u.Name,u.Id as UserId,u.Image,u.Online,cu.Unread, cr.Id as ConversationId, cr.UpdateTime as DateTime
  from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id
 join sb.[User] u on cu2.UserId = u.Id
-where cu.UserId = @id", new { id = query.UserId });
+where cu.UserId = @id
+order by cr.UpdateTime desc", new { id = query.UserId });
                     return result;
                 }
             }
