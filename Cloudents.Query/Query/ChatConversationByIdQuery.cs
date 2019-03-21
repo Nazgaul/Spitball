@@ -33,7 +33,7 @@ namespace Cloudents.Query.Query
             {
                 return await _session.Query<ChatMessage>()
                       .Where(w => w.ChatRoom.Id == query.ConversationId)
-                      .OrderByDescending(o => o.Id)
+                      .OrderBy(o => o.Id)
                       .Take(50)
                       .Skip(50 * query.Page)
                       .Select(s => new ChatMessageDto
