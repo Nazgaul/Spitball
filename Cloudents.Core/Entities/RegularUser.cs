@@ -66,7 +66,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
-        public virtual string Description { get; protected set; }
+        public virtual string Description { get; set; }
 
         public virtual void ChangeOnlineStatus(bool isOnline)
         {

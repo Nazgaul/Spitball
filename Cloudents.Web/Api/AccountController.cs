@@ -174,9 +174,17 @@ namespace Cloudents.Web.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
+        [HttpPost("settings")]
+        public async Task<IActionResult> ChangeDescription([FromBody]UpdateSettingsRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName, model.Description);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
         //[HttpPost("image")]
         //public async Task<IA>
-
-
+        
     }
 }
