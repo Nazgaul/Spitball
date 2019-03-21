@@ -1,21 +1,21 @@
 <template>
-    <div class="contact-btn-wrap">
+    <div class="tutor-btn-wrap ">
         <button class="ct-btn">
             <v-icon class="ct-btn-icon mr-2">sbf-credit-card</v-icon>
-            <span class="btn-text">Contact me</span>
+            <span class="btn-text">Become a tutor</span>
         </button>
     </div>
 </template>
 
 <script>
     export default {
-        name: "contactBtn"
+        name: "becomeTutorBtn"
     }
 </script>
 
 <style lang="less">
     @import '../../../../styles/mixin.less';
-    .contact-btn-wrap {
+    .tutor-btn-wrap {
         .ct-btn {
             display: flex;
             align-items: center;

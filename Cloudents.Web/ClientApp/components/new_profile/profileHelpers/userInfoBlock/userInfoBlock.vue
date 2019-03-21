@@ -5,32 +5,24 @@
                     <v-flex>
                         <div>
                             <div class="mb-2 text-sm-center text-xs-center px-3">
+                                <h2 class="box-title">Earn</h2>
                                     <span class="tutoring-info-heading">
-                                         Let me know what you need and i”ll be happy to help
+                                        Help others with what you know best
                                     </span>
                             </div>
                         </div>
                     </v-flex>
                     <v-flex xs12 sm12 md12 class="py-4 mb-3">
-                        <contactBtn></contactBtn>
+                        <becomeTutorBtn></becomeTutorBtn>
                     </v-flex>
                 <div class="bottom-section px-3">
                     <div class="info-item mb-2">
                     <div>
-                        <span class="tutoring-info-label">Tutoring Hours</span>
+                        <span class="tutoring-info-label">Learning Hours</span>
                     </div>
                     <div>
                         <span class="tutoring-info-value">10 hours</span>
                     </div>
-                    </div>
-
-                    <div class="info-item mb-2">
-                        <div>
-                            <span class="tutoring-info-label">Tutoring Hours</span>
-                        </div>
-                        <div>
-                            <span class="tutoring-info-value">10 hours</span>
-                        </div>
                     </div>
 
                     <div class="info-item ">
@@ -48,10 +40,10 @@
 </template>
 
 <script>
-    import contactBtn from '../../profileHelpers/contactBtn/contactBtn.vue';
+    import becomeTutorBtn from '../../profileHelpers/becomeTutorBtn/becomeTutorBtn.vue';
     export default {
-        name: "tutorInfoBlock",
-        components: {contactBtn}
+        name: "userInfoBlock",
+        components: {becomeTutorBtn}
     }
 </script>
 
@@ -59,6 +51,11 @@
     @import '../../../../styles/mixin.less';
     .tutoring-info-section {
         min-width: 260px;
+        .box-title{
+            font-size: 30px;
+            font-weight: bold;
+            color: @profileTextColor;
+        }
         .tutoring-info-card{
             display: flex;
             align-items: center;
@@ -76,18 +73,18 @@
             justify-content: space-between;
         }
         .tutoring-info-heading {
-                font-size: 14px;
+                font-size: 13px;
                 font-weight: 600;
                 font-style: italic;
                 color: @profileTextColor;
         }
         .tutoring-info-label{
-            font-size: 12px;
+            font-size: 14px;
             line-height: 1.46;
             color: @textColor;
         }
         .tutoring-info-value{
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             line-height: 1.46;
             color: @profileTextColor;

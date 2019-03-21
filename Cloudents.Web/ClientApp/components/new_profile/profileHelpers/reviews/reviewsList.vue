@@ -1,11 +1,12 @@
 <template>
-    <v-container class="reviews-container">
-        <v-layout column>
+        <v-layout column class="reviews-container mt-4">
+            <v-flex class="mb-3">
+                <span class="review-title">Reviews</span>
+            </v-flex>
             <v-flex v-for="singleReview in 15" class="single-review">
                 <reviewItem :reviewData="singleReview"></reviewItem>
             </v-flex>
         </v-layout>
-    </v-container>
 </template>
 
 <script>
@@ -26,6 +27,13 @@
     @import '../../../../styles/mixin.less';
 
 .reviews-container{
+
+    .review-title{
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 0.77;
+        color: @profileTextColor;
+    }
     .single-review{
         border-top:  solid 1px @newGreyColor;
       &:last-child{

@@ -1,19 +1,36 @@
 <template>
     <v-layout class="bio-text-container" column>
         <v-flex>
-            <h4 class="intro-name">Hey there, I’m Ben!</h4>
+            <h4 class="intro-name">Hey there, I’m {{userName}}!</h4>
         </v-flex>
         <v-flex class="pt-3">
-            <span class="bio-about-intro">
-                Some message i want to pass on to students, so they would identify with me. it might take up to two text lines.
-            </span>
+            <span class="bio-about-intro">{{userDescription}}</span>
         </v-flex>
     </v-layout>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     export default {
-        name: "userAboutMessage"
+        name: "userAboutMessage",
+        data() {
+            return {
+            }
+        },
+        computed: {
+            ...mapGetters(['getProfile']),
+            userDescription() {
+                if(this.getProfile && this.getProfile.user){
+                    return this.getProfile.user.description;
+                }
+            },
+            userName(){
+                if(this.getProfile && this.getProfile.user){
+                    return this.getProfile.user.name;
+                }
+            },
+        },
+
     }
 </script>
 

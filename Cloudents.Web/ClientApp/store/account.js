@@ -15,7 +15,7 @@ function setIntercomSettings(data) {
     let user_name = null;
     let user_email = null;
     let user_phoneNumber = null;
-    let alignment =  global.isRtl  ?  'left' : 'right';
+    let alignment = global.isRtl ? 'left' : 'right';
 
     if (!!data) {
         user_id = "Sb_" + data.id;
@@ -62,13 +62,18 @@ const state = {
     usersReferred: 0
 };
 const mutations = {
+    setProfilePicture(state, imageUrl){
+        state.profile.user = {...state.profile.user, image: imageUrl}
+    },
     setProfile(state, val) {
         state.profile = val;
     },
     setProfileQuestions(state, val) {
         state.profile.questions = val;
     },
-
+    setProfileAbout(state, val) {
+        state.profile = {...state.profile, about: val}
+    },
     setProfileAnswers(state, val) {
         state.profile.answers = val;
     },
@@ -191,6 +196,16 @@ const getters = {
 };
 
 const actions = {
+    uploadAccountImage(context, obj) {
+        accountService.uploadImage(obj).then((imageUrl) => {
+                console.log('image url', imageUrl)
+                context.commit('setProfilePicture', imageUrl)
+            },
+            (error) => {
+                console.log(error, 'error upload account image')
+            })
+    },
+
     syncProfile(context, {id, activeTab}) {
         //fetch all the data before returning the value to the component
         accountService.getProfile(id).then(val => {
@@ -216,26 +231,33 @@ const actions = {
 
             if (activeTab === 1) {
                 let p1 = accountService.getProfile(id);
-                let p2 = accountService.getProfileQuestions(id);
+                let p2 = accountService.getProfileAbout(id);
                 return Promise.all([p1, p2]).then((vals) => {
                     console.log(vals)
+                    let profileData = accountService.createProfileAbout(vals);
+                    context.commit('setProfileAbout', profileData)
+                });
+
+            }
+            if (activeTab === 2) {
+                return accountService.getProfileQuestions(id).then(vals => {
                     let profileData = accountService.createProfileQuestionData(vals);
                     context.commit('setProfileQuestions', profileData)
                 });
             }
-            if (activeTab === 2) {
+            if (activeTab === 3) {
                 return accountService.getProfileAnswers(id).then(vals => {
                     let answers = accountService.createProfileAnswerData(vals);
                     context.commit('setProfileAnswers', answers)
                 });
             }
-            if (activeTab === 3) {
+            if (activeTab === 4) {
                 return accountService.getProfileDocuments(id).then(vals => {
                     let documents = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfileDocuments', documents);
                 });
             }
-            if (activeTab === 4) {
+            if (activeTab === 5) {
                 return accountService.getProfilePurchasedDocuments(id).then(vals => {
                     let purchasedDocuments = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfilePurchasedDocuments', purchasedDocuments);

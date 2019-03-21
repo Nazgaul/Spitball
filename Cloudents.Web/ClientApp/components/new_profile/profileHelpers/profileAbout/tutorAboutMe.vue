@@ -1,6 +1,5 @@
 <template>
-    <v-container class="aboutme-section">
-        <v-layout>
+        <v-layout class="aboutme-section">
             <v-flex xs12>
                 <v-card class="px-4 py-4">
                     <v-layout>
@@ -17,9 +16,7 @@
                     </v-layout>
                 </v-card>
             </v-flex>
-
         </v-layout>
-    </v-container>
 </template>
 
 <script>
