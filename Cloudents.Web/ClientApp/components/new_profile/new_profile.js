@@ -14,7 +14,9 @@ import tutorAboutMe from './profileHelpers/profileAbout/tutorAboutMe.vue';
 import coursesCard from './profileHelpers/coursesCard/coursesCard.vue';
 import subjectsCard from './profileHelpers/subjectsCard/subjectsCard.vue';
 import reviewsList from './profileHelpers/reviews/reviewsList.vue';
-import tutorInfoBlock from './profileHelpers/tutoringInfo/tutorInfoBlock.vue'
+import tutorInfoBlock from './profileHelpers/tutoringInfo/tutorInfoBlock.vue';
+import userInfoBlock from './profileHelpers/userInfoBlock/userInfoBlock.vue';
+import ctaBlock from './profileHelpers/ctaBlock/ctaBlock.vue';
 
 
 //new
@@ -30,7 +32,9 @@ export default {
         coursesCard,
         subjectsCard,
         reviewsList,
-        tutorInfoBlock
+        tutorInfoBlock,
+        userInfoBlock,
+        ctaBlock
     },
     props: {
         id: {

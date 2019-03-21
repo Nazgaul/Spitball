@@ -1,6 +1,6 @@
 <template>
     <v-container class="rating-item-container">
-        <v-layout align-start justify-start>
+        <v-layout align-center justify-space-between>
             <div class="image-rating-wrap">
                 <div>
                     <img class="user-picture" style="border-radius: 50%;"
@@ -17,6 +17,9 @@
                         <userRank :score="1500"></userRank>
                     </div>
                 </div>
+            </div>
+            <div class="review-date">
+                <span>{{reviewDate}}</span>
             </div>
         </v-layout>
         <v-layout class="left-padding">
@@ -40,7 +43,8 @@
                 rating: 3.5,
                 starRateColor: '#000000',
                 rateNumColor: '#000000',
-                text: 'Really pleased with Ben, he is an excellent tutor and confidence is growing and I find the sessions extremely beneficial.  Ben is well prepared and explains things very well.'
+                text: 'Really pleased with Ben, he is an excellent tutor and confidence is growing and I find the sessions extremely beneficial.  Ben is well prepared and explains things very well.',
+                reviewDate: '07 Feb'
             }
         },
         props: {
@@ -85,6 +89,11 @@
         .review-text{
             font-size: 16px;
             line-height: 1.4;
+            color: @profileTextColor;
+        }
+        .review-date{
+            font-size: 11px;
+            font-weight: bold;
             color: @profileTextColor;
         }
 

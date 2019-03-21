@@ -1,12 +1,12 @@
 import { connectivityModule } from "./connectivity.module"
 import searchService from "../services/searchService.js"
 function AccountUser(ObjInit){
-    this.balance= ObjInit.balance
-    this.email= ObjInit.email
-    this.id= ObjInit.id
-    this.name= ObjInit.name
-    this.token= ObjInit.token
-    this.universityExists= ObjInit.universityExists
+    this.balance= ObjInit.balance;
+    this.email= ObjInit.email;
+    this.id= ObjInit.id;
+    this.name= ObjInit.name;
+    this.token= ObjInit.token;
+    this.universityExists= ObjInit.universityExists;
     this.score = ObjInit.score;
     this.phoneNumber = ObjInit.phoneNumber;
 
@@ -20,12 +20,13 @@ function profileUserData(objInit){
     this.purchasedDocuments= [];
 }
 function profileQuestionData(arrInit){
-    return arrInit[1].data.map(searchService.createQuestionItem).map(item => {
-        return {
-            ...item,
-            user: arrInit[0].data,
-        }
-    }) || [];
+    return arrInit.data.map(searchService.createQuestionItem) || [];
+    // return arrInit[1].data.map(searchService.createQuestionItem).map(item => {
+    //     return {
+    //         ...item,
+    //         user: arrInit[0].data,
+    //     }
+    // }) || [];
 }
 
 function profileAnswerData(arrInit){
@@ -34,7 +35,15 @@ function profileAnswerData(arrInit){
 function profileDocumentData(arrInit){
    return arrInit.data.map(searchService.createDocumentItem) || [];
 }
+function profileAboutData(arrInit){
+    return arrInit[1].data.map(searchService.createAboutItem).map(item => {
+        return {
+            ...item,
+            // user: arrInit[0].data,
+        }
+    }) || [];
 
+}
 export default {
     getAccount:() => {
        return connectivityModule.http.get("/Account").then(({data})=>{
@@ -55,6 +64,9 @@ export default {
     },
     getNumberReffered:(id) => {
         return connectivityModule.http.get(`/Account/referrals`)
+    },
+    getProfileAbout:(id) => {
+        return connectivityModule.http.get(`Profile/${id}/about/`)
     },
     getProfileQuestions:(id, page) => {
         let strPage = page ? `?page=${page}` : "";
@@ -88,5 +100,8 @@ export default {
     },
     createProfileDocumentData: (arrInit)=>{
         return new profileDocumentData(arrInit)
+    },
+    createProfileAbout: (arrInit)=>{
+        return new profileAboutData(arrInit)
     }
 }

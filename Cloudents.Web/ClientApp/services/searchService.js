@@ -109,9 +109,18 @@ function DocumentItem(objInit) {
     this.downvoted = !!objInit.vote ? ( !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
 }
 
+function AboutItem(objInit) {
+    this.name = objInit.name;
+}
+
 function createDocumentItem(objInit){
     return new DocumentItem(objInit)
 }
+
+function createAboutItem(objInit){
+    return new AboutItem(objInit)
+}
+
 
 let transferResultAsk = response => {
     let res = response.data;
@@ -294,6 +303,10 @@ export default {
 
     createDocumentItem: (objInit)=>{
         return createDocumentItem(objInit)
+    },
+    createAboutItem: (objInit)=>{
+        return createAboutItem(objInit)
     }
-    
+
+
 }

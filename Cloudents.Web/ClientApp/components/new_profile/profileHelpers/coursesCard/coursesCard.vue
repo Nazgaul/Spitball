@@ -10,12 +10,22 @@
                         </v-flex>
                     </v-layout>
                     <v-layout row wrap>
-                        <v-flex xs6 v-for="(course, index) in courses" class="course-name" order-xs`${index}`>
+                        <v-flex transition="slide-y-transition" xs6
+                                v-for="(course, index) in aboutData"
+                                v-if="index < showQuantity"
+                                :key="index" class="course-name">
                             <v-card class="elevation-0 border mr-3 py-3">
-                                <span class="course-name">{{course}}</span>
+                                <span class="course-name">{{course.name}}</span>
                             </v-card>
                         </v-flex>
-
+                        <v-flex xs6 v-if="aboutData.length >= showQuantity" class="course-name show-more">
+                            <v-card class="elevation-0 border mr-3 py-3" @click="expanded ? showLess() : showAll()">
+                                <span class="font-weight-bold course-name">
+                                    <span v-show="!expanded">{{moreQuantity}} More Courses</span>
+                                    <span v-show="expanded">Show Less</span>
+                                </span>
+                            </v-card>
+                        </v-flex>
                     </v-layout>
                 </v-card>
             </v-flex>
@@ -23,13 +33,42 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     export default {
         name: "coursesCard",
         data() {
             return {
-                courses: ['Basic Physics', 'Analytical Mechanics', 'Biological Physics', 'sdfdsfs Mechanics A', 'Quantum Mechanics A',]
+                showQuantity: 5,
+                defaultToShow: 5,
+                expanded: false
             }
         },
+        methods: {
+            showAll() {
+                this.showQuantity = this.aboutData.length;
+                this.expanded = true;
+            },
+            showLess(){
+                this.showQuantity = this.defaultToShow;
+                this.expanded = false;
+            }
+        },
+        computed: {
+            ...mapGetters(['getProfile']),
+            aboutData() {
+                if(this.getProfile && this.getProfile.about){
+                    return this.getProfile.about;
+                }
+                return [];
+
+            },
+            moreQuantity(){
+                if(this.aboutData.length > this.showQuantity){
+                    return this.aboutData.length - this.showQuantity
+                }
+            },
+        },
+
     }
 </script>
 
@@ -37,6 +76,7 @@
     @import '../../../../styles/mixin.less';
 
     .courses-section {
+
         .courses-title {
             font-size: 18px;
             font-weight: bold;
@@ -48,11 +88,9 @@
         .course-name {
             font-size: 16px;
             color: @color-blue-new;
-            /*&:last-child{*/
-                /*.border{*/
-                    /*border-bottom: 1px solid rgba(0, 0, 0, 0.24);*/
-                /*}*/
-            /*}*/
+        }
+        .show-more{
+            cursor: pointer;
         }
 
     }

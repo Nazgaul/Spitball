@@ -68,7 +68,9 @@ const mutations = {
     setProfileQuestions(state, val) {
         state.profile.questions = val;
     },
-
+    setProfileAbout(state, val){
+        state.profile = {...state.profile, about:val}
+    },
     setProfileAnswers(state, val) {
         state.profile.answers = val;
     },
@@ -216,26 +218,33 @@ const actions = {
 
             if (activeTab === 1) {
                 let p1 = accountService.getProfile(id);
-                let p2 = accountService.getProfileQuestions(id);
+                let p2 = accountService.getProfileAbout(id);
                 return Promise.all([p1, p2]).then((vals) => {
                     console.log(vals)
+                    let profileData = accountService.createProfileAbout(vals);
+                    context.commit('setProfileAbout', profileData)
+                });
+
+            }
+            if (activeTab === 2) {
+                return accountService.getProfileQuestions(id).then(vals => {
                     let profileData = accountService.createProfileQuestionData(vals);
                     context.commit('setProfileQuestions', profileData)
                 });
             }
-            if (activeTab === 2) {
+            if (activeTab === 3) {
                 return accountService.getProfileAnswers(id).then(vals => {
                     let answers = accountService.createProfileAnswerData(vals);
                     context.commit('setProfileAnswers', answers)
                 });
             }
-            if (activeTab === 3) {
+            if (activeTab === 4) {
                 return accountService.getProfileDocuments(id).then(vals => {
                     let documents = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfileDocuments', documents);
                 });
             }
-            if (activeTab === 4) {
+            if (activeTab === 5) {
                 return accountService.getProfilePurchasedDocuments(id).then(vals => {
                     let purchasedDocuments = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfilePurchasedDocuments', purchasedDocuments);

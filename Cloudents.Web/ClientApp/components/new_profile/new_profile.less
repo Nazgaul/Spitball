@@ -1,7 +1,15 @@
 @import '../../styles/mixin.less';
 
 .profile-page-container {
-  max-width: 1700px;
+  font-family: @fontOpenSans;
+  max-width: 1054px;
+  margin-left: @logoWidth;
+  @media (max-width: @screen-xs) {
+    margin-left:0;
+  }
+
+
+
   .tab-padding {
     .v-tabs__bar {
       background-color: transparent;
