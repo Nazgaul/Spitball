@@ -35,7 +35,7 @@ namespace Cloudents.Query.Query
                 using (var conn = _dapper.OpenConnection())
                 {
                     var result = await conn.QueryAsync< ChatUserDto>(@"
-Select u.Name,u.Id,u.Image,u.Online,cu.Unread, cr.Id as ConversationId
+Select u.Name,u.Id as UserId,u.Image,u.Online,cu.Unread, cr.Id as ConversationId
  from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id
