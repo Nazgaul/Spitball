@@ -1,15 +1,15 @@
 <template>
     <div class="conversation-container">
-        <v-layout align-center justify-start row v-for="conversation in 4">
-            <v-flex ml-2 class="avatar-container"><user-avatar :user-name="'gaby'" :user-id="123"/></v-flex>
+        <v-layout @click="openConversation(conversation)" align-center justify-start row v-for="conversation in converations" :key="conversation.conversationId">
+            <v-flex ml-2 class="avatar-container"><user-avatar :user-name="conversation.name" :user-id="conversation.userId"/></v-flex>
             <v-flex class="user-detail-container">
                 <v-flex class="top-detail-container">
-                    <span>name {{conversation}}</span>
-                    <span>date {{conversation}}</span>
+                    <span>name {{conversation.name}}</span>
+                    <span>date {{conversation.name}}</span>
                 </v-flex> 
-                <v-flex>
+                <!-- <v-flex>
                     <span>message {{conversation}}</span>
-                </v-flex> 
+                </v-flex>  -->
             </v-flex>
         </v-layout>
     </div>
@@ -17,9 +17,22 @@
 
 <script>
 import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
+import {mapGetters, mapActions} from 'vuex';
 export default {
     components:{
         UserAvatar
+    },
+    computed:{
+        ...mapGetters(['getConversations']),
+        converations(){
+            return this.getConversations;
+        }
+    },
+    methods:{
+        ...mapActions(['setActiveConversationId']),
+        openConversation(conversation){
+            this.setActiveConversationId(conversation.conversationId);
+        }
     }
 }
 </script>

@@ -1,16 +1,49 @@
 <template>
     <v-container py-0 px-0 class="chat-container">
         <v-layout class="chat-header">
-            <v-icon>sbf-close</v-icon>
+            <v-icon @click="OriginalChatState">sbf-close</v-icon>
             <span>Messages</span>
         </v-layout>
         <v-layout class="general-chat-style">
-            <component :is="'chat-messages'"></component>
+            <component :is="`chat-${state}`"></component>
         </v-layout>
     </v-container>
 </template>
 
-<script src="./chat.js"></script>
+
+<script>
+    import chatConversation from "./pages/conversation.vue"
+    import chatMessages from "./pages/messages.vue"
+    import {mapGetters, mapActions} from 'vuex'
+    
+    export default {
+        components:{
+            chatConversation,
+            chatMessages
+        },
+        data(){
+            return{
+                enumChatState: this.getEnumChatState()
+            }
+        },
+        computed:{
+            ...mapGetters(['getChatState']),
+            state(){
+                return this.getChatState;
+            }
+        },
+        methods:{
+            ...mapActions(['updateChatState', 'getAllConversations']),
+            ...mapGetters(['getEnumChatState']),
+            OriginalChatState(){
+                this.updateChatState(this.enumChatState.conversation);
+            }
+        },
+        created(){
+            this.getAllConversations();
+        }
+    }
+</script>
 <style lang="less">
 .chat-container{
     position: fixed;
