@@ -59,7 +59,7 @@
             border-top: 1px solid rgba(0, 0, 0, 0.24);
         }
         .subject-name {
-            font-size: 16px;
+            font-size: 14px;
             color: @color-blue-new;
         }
 

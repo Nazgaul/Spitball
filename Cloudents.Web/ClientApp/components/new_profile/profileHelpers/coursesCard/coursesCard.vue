@@ -86,7 +86,7 @@
             border-top: 1px solid rgba(0, 0, 0, 0.24);
         }
         .course-name {
-            font-size: 16px;
+            font-size: 14px;
             color: @color-blue-new;
         }
         .show-more{

@@ -5,13 +5,13 @@
                     <profile-bio></profile-bio>
                 </v-flex>
             <v-flex  xs12 sm2 md2>
-                <tutorInfoBlock></tutorInfoBlock>
-                <userInfoBlock></userInfoBlock>
+                <tutorInfoBlock v-if="true"></tutorInfoBlock>
+                <userInfoBlock v-else></userInfoBlock>
             </v-flex>
         </v-layout>
                 <v-layout v-bind="xsColumn" align-start justify-start>
                     <v-flex xs12 md10 sm10 class="mr-5">
-                        <v-flex xs12 sm12 md12 class="mt-3 mb-4" >
+                        <v-flex xs12 sm12 md12 class="mt-3 mb-4 limited-760" >
                             <v-tabs :dir="isRtl ? `ltr` : ''" class="tab-padding" hide-slider xs12>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
                                         v-language:inner>About</span>
