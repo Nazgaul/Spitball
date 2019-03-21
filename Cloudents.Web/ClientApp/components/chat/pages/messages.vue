@@ -56,12 +56,14 @@ export default {
                 background-color: #f7f7f7;
                 padding: 8px;
                 max-height: 34px;
+                min-height: 34px;
                 span{
                     padding: 0 10px 0  10px;
                 }
             }
             .messages-body{
                 padding: 15px 10px 0 10px;
+                overflow: auto;
             }
             .messages-input{
                 display: flex;
@@ -69,6 +71,7 @@ export default {
                 box-shadow: 0px -3px 0px 0px rgba(240,240,247,1);
                 border-radius: 0 0 16px 16px;
                 max-height: 45px;
+                min-height: 45px;
                 padding-right: 14px;
                 .v-input__slot{
                     box-shadow: none !important;

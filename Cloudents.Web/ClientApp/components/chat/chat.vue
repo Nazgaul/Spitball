@@ -45,7 +45,9 @@
     }
 </script>
 <style lang="less">
+@import '../../styles/mixin.less';
 .chat-container{
+    .scrollBarStyle(3px, #43425d);
     position: fixed;
     bottom: 0;
     right: 130px;
@@ -67,7 +69,7 @@
     }
     .general-chat-style{
         height:93%; //minus chat header
-        width:100%;
+        width:100%;        
     }
 }
 </style>

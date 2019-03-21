@@ -5,7 +5,7 @@ function Conversation(objInit){
     this.name = objInit.name;
     this.unread = objInit.unread;
     this.online = objInit.online;
-    this.conversationId = objInit.userId;
+    this.conversationId = objInit.userId + (Math.random()*9999 | 0);
 }
 
 function createConversation(objInit){

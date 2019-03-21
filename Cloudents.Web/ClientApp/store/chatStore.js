@@ -63,8 +63,10 @@ const actions = {
         chatService.getAllConversations().then(({data})=>{
             if(data.length > 0){
                 data.forEach(conversation => {
+                    // for(let i = 0 ; i < 50; i++){
                     let ConversationObj = chatService.createConversation(conversation);
-                    commit('addConversation', ConversationObj);
+                        commit('addConversation', ConversationObj);
+                    // }
                 })
             }
         });

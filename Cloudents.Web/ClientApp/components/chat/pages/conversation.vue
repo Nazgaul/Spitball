@@ -1,6 +1,6 @@
 <template>
     <div class="conversation-container">
-        <v-layout @click="openConversation(conversation)" align-center justify-start row v-for="conversation in converations" :key="conversation.conversationId">
+        <v-layout class="conversation-wrapper" @click="openConversation(conversation)" align-center justify-start row v-for="conversation in converations" :key="conversation.conversationId">
             <v-flex ml-2 class="avatar-container"><user-avatar :user-name="conversation.name" :user-id="conversation.userId"/></v-flex>
             <v-flex class="user-detail-container">
                 <v-flex class="top-detail-container">
@@ -40,14 +40,21 @@ export default {
 <style lang="less">
 .conversation-container{
     width:100%;
-    .avatar-container{
-        flex-grow:0;      
-    }
-    .user-detail-container{
-        padding:12px;
-        .top-detail-container{
-            display:flex;
-            justify-content: space-between;
+    overflow: auto;
+    .conversation-wrapper{
+        cursor: pointer;
+        &:hover{
+            background: #f7f7f7;
+        }
+        .avatar-container{
+            flex-grow:0;      
+        }
+        .user-detail-container{
+            padding:12px;
+            .top-detail-container{
+                display:flex;
+                justify-content: space-between;
+            }
         }
     }
 }
