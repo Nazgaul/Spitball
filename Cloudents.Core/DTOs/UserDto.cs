@@ -1,4 +1,7 @@
-﻿namespace Cloudents.Core.DTOs
+﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities;
+
+namespace Cloudents.Core.DTOs
 {
     public class UserDto
     {
@@ -21,11 +24,20 @@
         public int Score { get; set; }
     }
 
-    public class UserProfileDto : UserDto
+    public class UserProfileDto 
     {
-      
-
+        [DtoToEntityConnection(nameof(User.Id))]
+        public long Id { get; set; }
+        [DtoToEntityConnection(nameof(User.Name))]
+        public string Name { get; set; }
+        [DtoToEntityConnection(nameof(User.Image))]
+        public string Image { get; set; }
+        [DtoToEntityConnection(nameof(User.Score))]
+        public int Score { get; set; }
+        [DtoToEntityConnection(nameof(University.Name))]
         public string UniversityName { get; set; }
+        [DtoToEntityConnection(nameof(RegularUser.Description))]
+        public string Description { get; set; }
     }
 
     public class UserAccountDto 

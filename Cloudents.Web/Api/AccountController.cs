@@ -143,7 +143,7 @@ namespace Cloudents.Web.Api
                 return profile.Courses.Select(s => new CourseDto(s));
             }
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserProfileQuery(userId);
+            var query = new UserDataQuery(userId);
             var t = await _queryBus.QueryAsync(query, token);
             return t.Courses.Select(s => new CourseDto(s));
         }
