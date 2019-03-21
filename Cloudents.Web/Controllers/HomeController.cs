@@ -130,7 +130,7 @@ namespace Cloudents.Web.Controllers
         public IActionResult ImageRedirect([FromRoute]string hash, [FromServices] IConfiguration configuration)
         {
             return Redirect(
-                $"{configuration["functionCdnEndpoint"]}/api/image/user/{hash}?{Request.QueryString}");
+                $"{configuration["functionCdnEndpoint"]}/api/image/user/{hash}{Request.QueryString}");
         }
 
 
