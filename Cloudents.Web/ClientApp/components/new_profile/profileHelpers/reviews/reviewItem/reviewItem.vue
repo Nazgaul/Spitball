@@ -13,7 +13,7 @@
                             :rateNumColor="rateNumColor"
                             :size="'18'"></userRating>
                     <div class="name-rank-wrap">
-                        <span class="user-review-name mr-2 ml-2">John Mayers</span>
+                        <span class="user-review-name mr-2 ">John Mayers</span>
                         <userRank :score="1500"></userRank>
                     </div>
                 </div>

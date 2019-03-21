@@ -11,7 +11,7 @@
                             </div>
                         </div>
                     </v-flex>
-                    <v-flex xs12 sm12 md12 class="py-4 mb-4">
+                    <v-flex xs12 sm12 md12 class="py-4 mb-3">
                         <contactBtn></contactBtn>
                     </v-flex>
                 <div class="bottom-section px-3">
@@ -20,7 +20,7 @@
                         <span class="tutoring-info-label">Tutoring Hours</span>
                     </div>
                     <div>
-                        <span class="tutoring-info-label">10 hours</span>
+                        <span class="tutoring-info-value">10 hours</span>
                     </div>
                     </div>
 
@@ -29,7 +29,7 @@
                             <span class="tutoring-info-label">Tutoring Hours</span>
                         </div>
                         <div>
-                            <span class="tutoring-info-label">10 hours</span>
+                            <span class="tutoring-info-value">10 hours</span>
                         </div>
                     </div>
 
@@ -38,7 +38,7 @@
                             <span class="tutoring-info-label">Tutoring Hours</span>
                         </div>
                         <div>
-                            <span class="tutoring-info-label">10 hours</span>
+                            <span class="tutoring-info-value">10 hours</span>
                         </div>
                     </div>
                 </div>

@@ -1,13 +1,12 @@
 <template>
-    <v-container class="profile-bio">
-        <v-layout>
+        <v-layout class="profile-bio" align-center>
             <v-flex xs12>
                 <v-card class="px-3 py-4">
-                    <v-layout>
-                        <v-flex class="mr-3">
+                    <v-layout v-bind="xsColumn" align-center>
+                        <v-flex xs12 sm3 md3 order-xs2 order-sm1 order-md1>
                            <user-image></user-image>
                         </v-flex>
-                        <v-flex>
+                        <v-flex xs12 order-xs1 order-sm2 order-md2 >
                                 <div>
                                     <div class="user-name mb-2">Supermodel</div>
                                     <div class="user-university">Foster the People</div>
@@ -19,9 +18,7 @@
                     </v-layout>
                 </v-card>
             </v-flex>
-
         </v-layout>
-    </v-container>
 </template>
 
 <script>
@@ -34,6 +31,16 @@
             return {
                 userStars: 3
             }
+        },
+        computed: {
+            xsColumn(){
+                const xsColumn = {};
+                if (this.$vuetify.breakpoint.xsOnly){
+                    xsColumn.column = true;
+
+                }
+                return xsColumn
+            },
         },
     }
 </script>

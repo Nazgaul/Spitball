@@ -1,6 +1,5 @@
 <template>
-    <v-container class="subjects-section">
-        <v-layout>
+        <v-layout  class="subjects-section mt-4">
             <v-flex xs12>
                 <v-card class="px-4 py-4">
                     <v-layout>
@@ -20,9 +19,7 @@
                     </v-layout>
                 </v-card>
             </v-flex>
-
         </v-layout>
-    </v-container>
 </template>
 
 <script>
