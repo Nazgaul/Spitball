@@ -134,8 +134,7 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses for a user</returns>
         [HttpGet("courses")]
         public async Task<IEnumerable<CourseDto>> GetCourses(
-            [ProfileModelBinder(ProfileServiceQuery.Course
-            )] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.Course)] UserProfile profile,
             CancellationToken token)
         {
             if (profile.Courses != null)
@@ -150,10 +149,8 @@ namespace Cloudents.Web.Api
 
         [HttpGet("University")]
         public async Task<UniversityDto> GetUniversityAsync(
-            [ProfileModelBinder(ProfileServiceQuery.University
-                                )] UserProfile profile,
-
-        [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             CancellationToken token)
         {
             if (!universityId.HasValue)
