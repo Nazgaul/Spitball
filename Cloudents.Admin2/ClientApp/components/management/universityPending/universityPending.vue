@@ -49,20 +49,21 @@
                                 <v-radio-group v-model="radios">
                                     <v-radio label="Delete" value="delete"></v-radio>
                                     <v-radio label="Approve" value="approve"></v-radio>
-                                    <v-radio label="Merge" value="merge" @change="getUniversitiesSuggestions(editedItem.name)"></v-radio>
+                                    <v-radio label="Merge" value="merge"></v-radio>
                                 </v-radio-group>
-                                
-                                <div class="select-type-container">
-                                    <v-select v-show="radios === 'merge'"
-                                              class="select-type-input"
-                                              solo
-                                              v-model="picked"
-                                              :items="suggestUniversities"
-                                              item-text="name"
-                                              item-value="id"
-                                              label="Select university"
-                                              :disabled="disableSelectBtn"></v-select>
-                                </div>
+
+                                <!--<div class="select-type-container">
+        <v-select v-show="radios === 'merge'"
+                  class="select-type-input"
+                  solo
+                  v-model="picked"
+                  :items="suggestUniversities"
+                  item-text="name"
+                  item-value="id"
+                  label="Select university"
+                  :disabled="disableSelectBtn"></v-select>
+    </div>-->
+                                <search-Component :context="AdminAPI" :contextCallback="setAdminAPI" :searchValue="picked" :callback="setSearchValue" v-show="radios === 'merge'"> </search-Component>
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -83,14 +84,19 @@
 </template>
 
 <script>
-    import { getUniversitiesList, getSuggestions, migrateUniversities, approve, deleteUniversity } from './universityPendingService'
+    import { getUniversitiesList, /*getSuggestions,*/ migrateUniversities, approve, deleteUniversity } from './universityPendingService'
+    import searchComponent from '../../helpers/search.vue'
 
     export default {
         data() {
             return {
                 newUniversitiesList: [],
-                suggestUniversities: [],
-                picked: '',
+                //suggestUniversities: [],
+                picked: {
+                    id: '',
+                    name: ''
+                },
+                AdminAPI: 'University',
                 showLoading: true,
                 showNoResult: false,
                 disableSelectBtn: true,
@@ -120,6 +126,12 @@
             }
         },
         methods: {
+            setSearchValue(searchValue) {
+                this.picked = searchValue;
+            },
+            setAdminAPI(context) {
+                this.AdminAPI = context;
+            },
             editItem(item) {
                 this.editedIndex = this.newUniversitiesList.indexOf(item);
                 this.editedItem = item;
@@ -134,6 +146,7 @@
                     this.deleteUniversity(this.editedItem);
                 }
                 this.dialog = false;
+                this.setSearchValue({});
             },
             close() {
                 this.dialog = false;
@@ -141,20 +154,19 @@
                 this.editedIndex = -1;
                 this.radios = 'approve';
                 this.disableSelectBtn = true;
+                this.setSearchValue({});
             },
             universityMigrate(item) {
                 const index = this.newUniversitiesList.indexOf(item.uniToRemove);
-                migrateUniversities(item.uniToRemove.id, item.uniToKeep).then((resp) => {
+                migrateUniversities(item.uniToRemove.id, item.uniToKeep.id).then((resp) => {
                     console.log('got migration resp success')
 
-                    this.$toaster.success(`University ${item.uniToRemove.name} merged into ${item.uniToKeep}`);
+                    this.$toaster.success(`University ${item.uniToRemove.name} merged into ${item.uniToKeep.name}`);
                     this.newUniversitiesList.splice(index, 1);
-                    this.suggestUniversities = [];
                     this.disableSelectBtn = true;
                 },
                     (error) => {
                         this.$toaster.error(`Error can't merge`);
-                        suggestUniversities = [];
                     }
                 )
             },
@@ -182,7 +194,7 @@
                     }
                 )
             },
-            getUniversitiesSuggestions(item) {
+            /*getUniversitiesSuggestions(item) {
                 getSuggestions(item).then((list) => {
                     if (list.length > 0) {
                         this.suggestUniversities = list;
@@ -191,7 +203,7 @@
                 }, (err) => {
                     console.log(err)
                 });
-            },
+            },*/
         },
         created() {
             getUniversitiesList().then((list) => {
@@ -204,6 +216,9 @@
             }, (err) => {
                 console.log(err)
                 })
+        },
+        components: {
+            searchComponent
         }
     }
 
