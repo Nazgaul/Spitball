@@ -24,9 +24,11 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Query.Email;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -142,8 +144,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-           
 
+           
             Console.WriteLine("done");
 
         }

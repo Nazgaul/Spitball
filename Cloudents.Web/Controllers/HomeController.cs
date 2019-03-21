@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Security.Cryptography;
 using System.Threading;
@@ -35,7 +36,7 @@ namespace Cloudents.Web.Controllers
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Index(
             [FromServices] ICrawlerResolver crawlerResolver,
-          //  [FromHeader(Name = "User-Agent")] string userAgent,
+            //  [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral,
             [FromQuery] string open,
             [FromQuery] string token
@@ -122,5 +123,16 @@ namespace Cloudents.Web.Controllers
 
             return Redirect("/");
         }
+
+        [Route("image/user/{hash}", Name = "imageUser")]
+        [ResponseCache(
+            Duration = TimeConst.Month, Location = ResponseCacheLocation.Any)]
+        public IActionResult ImageRedirect([FromRoute]string hash, [FromServices] IConfiguration configuration)
+        {
+            return Redirect(
+                $"{configuration["functionCdnEndpoint"]}/api/image/user/{hash}?{Request.QueryString}");
+        }
+
+
     }
 }

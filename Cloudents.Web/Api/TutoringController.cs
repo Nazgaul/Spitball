@@ -1,13 +1,13 @@
 ﻿using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Models;
 
 
 namespace Cloudents.Web.Api
@@ -63,7 +63,7 @@ namespace Cloudents.Web.Api
         {
             var fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName());
             await blobProvider
-                .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, false, 60 * 24, token);
+                .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
             var uri = blobProvider.GetBlobUrl(fileName);
             var link = blobProvider.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
