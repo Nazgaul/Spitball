@@ -50,18 +50,21 @@
                                 <v-radio-group v-model="radios">
                                     <v-radio label="Delete" value="delete"></v-radio>
                                     <v-radio label="Approve" value="approve"></v-radio>
-                                    <v-radio label="Merge" value="merge" @change="getCoursesSuggestions(editedItem.name)"></v-radio>
+                                    <v-radio label="Merge" value="merge"></v-radio>
                                 </v-radio-group>
                                 <!--<v-text-field v-show="radios === 'merge'" v-model="newItem.course" label="New course"></v-text-field>-->
-                                <div class="select-type-container">
-                                    <v-select v-show="radios === 'merge'" 
+                                
+                                <!--<div class="select-type-container">
+                                    <v-select v-show="radios === 'merge'"
                                               class="select-type-input"
                                               solo
                                               v-model="picked"
                                               :items="suggestCourses"
                                               label="Select course"
                                               :disabled="disableSelectBtn"></v-select>
-                                </div>
+                                </div>-->
+
+                                <search-Component :context="adminAPI" :contextCallback="setadminAPI" :searchValue.name="picked" :callback="setSearchValue" v-show="radios === 'merge'"> </search-Component>
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -83,13 +86,18 @@
 
 <script>
     import { getCourseList, getSuggestions, migrateCourses, approve, deleteCourse } from './coursesPendingService'
+    import searchComponent from '../../helpers/search.vue'
 
     export default {
         data() {
             return {
                 newCourseList: [],
-                suggestCourses: [],
-                picked: '',
+                //suggestCourses: [],
+                picked: {
+                    id: '',
+                    name: ''
+                },
+                adminAPI: 'Course',
                 showLoading: true,
                 showNoResult: false,
                 disableSelectBtn: true,
@@ -115,6 +123,13 @@
             }
         },
         methods: {
+            setSearchValue(searchValue) {
+                this.picked.name = searchValue.name;
+                this.picked.id = searchValue.name;
+            },
+            setadminAPI(context) {
+                this.adminAPI = context;
+            },
             editItem(item) {
                 this.editedIndex = this.newCourseList.indexOf(item);
                 this.editedItem = item;
@@ -122,13 +137,14 @@
             },
             done() {
                 if (this.radios === 'merge') {
-                    this.courseMigrate({ "newCourse": this.editedItem.name, "oldCourse": this.picked })
+                    this.courseMigrate({ "newCourse": this.editedItem.name, "oldCourse": this.picked.name })
                 } else if (this.radios === 'approve') {
                     this.approve(this.editedItem);
                 } else {
                     this.deleteCourse(this.editedItem);
                 }
                 this.dialog = false;
+                this.setSearchValue({ "name": '' });
             },
             close() {
                 this.dialog = false;
@@ -136,6 +152,7 @@
                 this.editedIndex = -1;
                 this.radios = 'approve';
                 this.disableSelectBtn = true;
+                this.setSearchValue({ "name": '' });
             },
             courseMigrate(item) {
                 const index = this.newCourseList.indexOf(item);
@@ -175,16 +192,16 @@
                     }
                 )
             },
-            getCoursesSuggestions(item) {
-                getSuggestions(item).then((list) => {
-                    if (list.length > 0) {
-                        this.suggestCourses = list;
-                        this.disableSelectBtn = false;
-                    }
-                }, (err) => {
-                    console.log(err)
-                });
-            },
+            //getCoursesSuggestions(item) {
+            //    getSuggestions(item).then((list) => {
+            //        if (list.length > 0) {
+            //            this.suggestCourses = list;
+            //            this.disableSelectBtn = false;
+            //        }
+            //    }, (err) => {
+            //        console.log(err)
+            //    });
+            //},
         },
         created() {
             getCourseList().then((list) => {
@@ -197,6 +214,9 @@
             }, (err) => {
                 console.log(err)
                 })
+        },
+        components: {
+            searchComponent
         }
     }
 
