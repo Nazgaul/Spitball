@@ -1,4 +1,5 @@
-﻿using Cloudents.Core;
+﻿using System;
+using Cloudents.Core;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Query.Query;
 
 namespace Cloudents.Web.EventHandler
 {
@@ -30,8 +30,10 @@ namespace Cloudents.Web.EventHandler
                     message = new ChatMessageDto
                     {
                         UserId = chatMessage.User.Id,
-                        Text = chatMessage.Message
-                    }
+                        Text = chatMessage.Message,
+                        DateTime = DateTime.UtcNow
+                    },
+
                 });
             var users = chatMessage.ChatRoom.Users.Select(s => s.User.Id.ToString()).ToList();
             await _hubContext.Clients.Users(users).SendAsync("Message", message, cancellationToken: token);

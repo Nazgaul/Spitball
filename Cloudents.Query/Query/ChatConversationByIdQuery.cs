@@ -39,7 +39,8 @@ namespace Cloudents.Query.Query
                       .Select(s => new ChatMessageDto
                       {
                           UserId = s.User.Id,
-                          Text = s.Message
+                          Text = s.Message,
+                          DateTime = s.CreationTime
                       })
                       .ToListAsync(token);
             }
