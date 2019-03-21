@@ -61,7 +61,7 @@ namespace Cloudents.Core.Entities
     {
 
     }
-    public abstract class AggregateRoot<T>: Entity<T> where T : IEquatable<T>
+    public abstract class AggregateRoot<T>: Entity<T>, IAggregateRoot where T : IEquatable<T>
     {
      
 
@@ -77,5 +77,11 @@ namespace Cloudents.Core.Entities
         {
             _domainEvents.Clear();
         }
+    }
+
+    public interface IAggregateRoot
+    {
+        IReadOnlyList<IEvent> DomainEvents { get; }
+        void ClearEvents();
     }
 }

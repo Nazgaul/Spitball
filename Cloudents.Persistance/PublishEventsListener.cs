@@ -68,7 +68,7 @@ namespace Cloudents.Persistence
 
         private async Task PublishEvents(object entity, CancellationToken cancellationToken)
         {
-            if (entity is AggregateRoot p)
+            if (entity is IAggregateRoot p)
             {
                 foreach (var ev in p.DomainEvents.Distinct())
                 {
