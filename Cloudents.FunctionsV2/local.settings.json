@@ -15,7 +15,6 @@
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
     "AzureSignalRConnectionString": "Endpoint=https://spitball-dev.service.signalr.net;AccessKey=dLvXKNqY9g4zunBuSCQvo1xTz4EotBnDoA7YwwXY0gw=;Version=1.0;",
     "AzureWebJobsServiceBus": "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=",
-    "Cosmos": "AccountEndpoint=https://spitball-dev.documents.azure.com:443/;AccountKey=i3mWvwEYwqa5HvGBrgBneTTaX9o56bX4K8WLPLHMN91DjXcE44r3lzI69BXPZUvfARhdGC1psvShqgzIAy0RkA==;",
     "CosmosProd": "AccountEndpoint=https://zboxnew.documents.azure.com:443/;AccountKey=y2v1XQ6WIg81Soasz5YBA7R8fAp52XhJJufNmHy1t7y3YQzpBqbgRnlRPlatGhyGegKdsLq0qFChzOkyQVYdLQ==;",
     "Local": "UseDevelopmentStorage=true"
   }

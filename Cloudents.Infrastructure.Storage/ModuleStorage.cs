@@ -34,8 +34,12 @@ namespace Cloudents.Infrastructure.Storage
                 .Keyed<IBlobProvider>(StorageContainer.Chat)
                 .WithParameter("container", StorageContainer.Chat);
 
+            builder.RegisterType<BlobProviderContainer>()
+                .As<IUserDirectoryBlobProvider>()
+                .Keyed<IBlobProvider>(StorageContainer.Chat)
+                .WithParameter("container", StorageContainer.User);
+
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
-            //builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();
             builder.RegisterType<ServiceBusProvider>().As<IServiceBusProvider>();
         }
     }
