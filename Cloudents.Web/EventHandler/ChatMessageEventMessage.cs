@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Query.Query;
 
 namespace Cloudents.Web.EventHandler
@@ -26,7 +27,11 @@ namespace Cloudents.Web.EventHandler
                 SignalRAction.Add, new
                 {
                     conversationId = chatMessage.ChatRoom.Id,
-                    message = chatMessage.Message
+                    message = new ChatMessageDto
+                    {
+                        UserId = chatMessage.User.Id,
+                        Text = chatMessage.Message
+                    }
                 });
             var users = chatMessage.ChatRoom.Users.Select(s => s.User.Id.ToString()).ToList();
             await _hubContext.Clients.Users(users).SendAsync("Message", message, cancellationToken: token);
