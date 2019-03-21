@@ -4,7 +4,7 @@
             <v-icon @click="OriginalChatState">sbf-close</v-icon>
             <span>Messages</span>
             <span class="other-side">
-                <v-icon @click="toggleMinimizeChat">sbf-close</v-icon>
+                <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
                 <v-icon @click="closeChat">sbf-close</v-icon>
             </span>
         </v-layout>
