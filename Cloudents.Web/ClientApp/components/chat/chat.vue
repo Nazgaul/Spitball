@@ -16,7 +16,7 @@
 
 
 <script>
-    import chatConversation from "./pages/conversation.vue"
+    import chatConversation from "./pages/conversations.vue"
     import chatMessages from "./pages/messages.vue"
     import {mapGetters, mapActions} from 'vuex'
     
