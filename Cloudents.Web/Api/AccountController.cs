@@ -174,5 +174,9 @@ namespace Cloudents.Web.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
+        //[HttpPost("image")]
+        //public async Task<IA>
+
+
     }
 }
