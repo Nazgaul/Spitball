@@ -29,17 +29,24 @@ const getters = {
         }else if(!!state.activeConversationObj.userId){
             return [];
         }
+    },
+    getCurrentConversationObj:(state)=>{
+        if(!!state.activeConversationObj.userId){
+            return state.conversations[state.activeConversationObj.userId];
+        }else{
+            return null;
+        }
     }
 };
 
 const mutations = {
     addMessage:(state, message)=>{
-        let id = state.activeConversationObj.conversationId;
+        let id = message.conversationId;
         if(!state.messages[id]){
             // add a properly this way allow the computed to be fired!
             state.messages = { ...state.messages, [id]:[] };
         }
-        state.messages[id].unshift(message);
+        state.messages[id].push(message);
     },
     setActiveConversationObj(state, obj){
         state.activeConversationObj.userId = obj.userId || null;
@@ -71,6 +78,10 @@ const actions = {
     addMessage:({commit}, messageObj)=>{
         //verify messageObj is actually in the right format
         commit('addMessage', messageObj)
+    },
+    signalRAddMessage({dispatch}, messageObj){
+        let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
+        dispatch('addMessage', MessageObj);
     },
     setActiveConversationObj:({commit, dispatch, state}, Obj)=>{
         commit('setActiveConversationObj', Obj);

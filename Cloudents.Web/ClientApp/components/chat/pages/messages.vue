@@ -36,6 +36,7 @@ export default {
     computed:{
         ...mapGetters(['getMessages']),
         messages(){
+            this.scrollToEnd();
             return this.getMessages;
         }
     },
@@ -44,7 +45,15 @@ export default {
         sendMessage(){
             this.sendChatMessage(this.messageText)
             this.messageText = "";
-        }
+        },
+        scrollToEnd: function() {
+            this.$nextTick(function(){
+                let container = document.querySelector(".messages-body");
+                if(container){
+                    container.scrollTop = container.scrollHeight;
+                }
+            })
+        },
     }
 }
 </script>

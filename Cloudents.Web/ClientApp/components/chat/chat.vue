@@ -2,7 +2,7 @@
     <v-container v-show="visible" py-0 px-0 class="chat-container" :class="{'minimized': isMinimized}">
         <v-layout class="chat-header">
             <v-icon @click="OriginalChatState">sbf-close</v-icon>
-            <span>Messages</span>
+            <span>{{headerTitle}}</span>
             <span class="other-side">
                 <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
                 <v-icon @click="closeChat">sbf-close</v-icon>
@@ -31,7 +31,7 @@
             }
         },
         computed:{
-            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized']),
+            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getCurrentConversationObj']),
             state(){
                 return this.getChatState;
             },
@@ -40,6 +40,17 @@
             },
             isMinimized(){
                 return this.getIsChatMinimized;
+            },
+            headerTitle(){
+                if(this.state === this.enumChatState.conversation){
+                    return "Messages";
+                }else{
+                    if(!!this.getCurrentConversationObj){
+                        return this.getCurrentConversationObj.name;
+                    }else{
+                        //get user from server to show name
+                    }
+                }
             }
         },
         methods:{

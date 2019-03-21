@@ -135,5 +135,12 @@ export const signlaREvents = {
 
 
         }
+    },
+    chat: {
+        add: function(arrEventObj){
+            arrEventObj.forEach((chatMessageToAdd)=>{
+                store.dispatch("signalRAddMessage", chatMessageToAdd);
+            })
+        },
     }
 };
