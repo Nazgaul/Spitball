@@ -14,7 +14,7 @@ namespace Cloudents.Core.Storage
             string contentDisposition);
 
         Task UploadStreamAsync(string blobName, Stream fileContent,
-            string mimeType = null, bool fileGziped = false, int? cacheControlSeconds = null, CancellationToken token = default);
+            string mimeType = null, TimeSpan? cacheControlTime = null, CancellationToken token = default);
 
         Task UploadBlockFileAsync(string blobName, Stream fileContent, int index, CancellationToken token);
         Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token);
@@ -52,13 +52,15 @@ namespace Cloudents.Core.Storage
 
     }
 
+    public interface IUserDirectoryBlobProvider : IBlobProvider
+    {
+
+    }
+
     public interface IChatDirectoryBlobProvider : IBlobProvider
     {
 
     }
 
-    //public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
-    //{
-
-    //}
+    
 }

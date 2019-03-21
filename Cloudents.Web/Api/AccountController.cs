@@ -15,14 +15,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Cloudents.Web.Api
@@ -174,6 +178,44 @@ namespace Cloudents.Web.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
+        [HttpPost("image")]
+        public async Task<IActionResult> UploadImageAsync(IFormFile file,
+            [FromServices] IUserDirectoryBlobProvider blobProvider,
+            [FromServices] UserManager<RegularUser> userManager,
+            [FromServices] IBinarySerializer serializer,
+            CancellationToken token)
+        {
+            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
+            if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("not an image");
+            }
+
+
+            var extension = Path.GetExtension(file.FileName);
+
+            if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("not an image");
+            }
+            var userId = userManager.GetLongUserId(User);
+            var fileName = $"{userId}/{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{extension}";
+            await blobProvider.UploadStreamAsync(fileName, file.OpenReadStream(),
+                file.ContentType, TimeSpan.FromDays(365), token);
+
+            var fileUri = blobProvider.GetBlobUrl(fileName);
+            var imageProperties = new ImageProperties(fileUri, ImageProperties.BlurEffect.None);
+
+            var hash = serializer.Serialize(imageProperties);
+            var url = Url.RouteUrl("imageUser", new
+            {
+                hash = Base64UrlTextEncoder.Encode(hash)
+            });
+            var command = new UpdateUserImageCommand(userId, url);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok(url);
+        }
+
         [HttpPost("settings")]
         public async Task<IActionResult> ChangeDescription([FromBody]UpdateSettingsRequest model, CancellationToken token)
         {
@@ -183,8 +225,5 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        //[HttpPost("image")]
-        //public async Task<IA>
-        
     }
 }
