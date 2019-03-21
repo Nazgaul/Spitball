@@ -9,6 +9,7 @@ function AccountUser(ObjInit){
     this.universityExists= ObjInit.universityExists;
     this.score = ObjInit.score;
     this.phoneNumber = ObjInit.phoneNumber;
+    this.image = ObjInit.image || '';
 
 }
 
@@ -58,6 +59,9 @@ export default {
     },
     getUserName: () => {
         return connectivityModule.http.get("/Account/userName")
+    },
+    uploadImage: (formData) => {
+        return connectivityModule.http.post("/Account/image", formData)
     },
     getProfile:(id) => {
         return connectivityModule.http.get(`/Profile/${id}`)

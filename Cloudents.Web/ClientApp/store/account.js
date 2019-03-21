@@ -15,7 +15,7 @@ function setIntercomSettings(data) {
     let user_name = null;
     let user_email = null;
     let user_phoneNumber = null;
-    let alignment =  global.isRtl  ?  'left' : 'right';
+    let alignment = global.isRtl ? 'left' : 'right';
 
     if (!!data) {
         user_id = "Sb_" + data.id;
@@ -62,14 +62,17 @@ const state = {
     usersReferred: 0
 };
 const mutations = {
+    setProfilePicture(state, imageUrl){
+        state.profile.user = {...state.profile.user, image: imageUrl}
+    },
     setProfile(state, val) {
         state.profile = val;
     },
     setProfileQuestions(state, val) {
         state.profile.questions = val;
     },
-    setProfileAbout(state, val){
-        state.profile = {...state.profile, about:val}
+    setProfileAbout(state, val) {
+        state.profile = {...state.profile, about: val}
     },
     setProfileAnswers(state, val) {
         state.profile.answers = val;
@@ -193,6 +196,16 @@ const getters = {
 };
 
 const actions = {
+    uploadAccountImage(context, obj) {
+        accountService.uploadImage(obj).then((imageUrl) => {
+                console.log('image url', imageUrl)
+                context.commit('setProfilePicture', imageUrl)
+            },
+            (error) => {
+                console.log(error, 'error upload account image')
+            })
+    },
+
     syncProfile(context, {id, activeTab}) {
         //fetch all the data before returning the value to the component
         accountService.getProfile(id).then(val => {
