@@ -37,12 +37,12 @@ function profileDocumentData(arrInit){
    return arrInit.data.map(searchService.createDocumentItem) || [];
 }
 function profileAboutData(arrInit){
-    return arrInit[1].data.map(searchService.createAboutItem).map(item => {
-        return {
-            ...item,
-            // user: arrInit[0].data,
-        }
-    }) || [];
+    let structuredData = searchService.createAboutItem(arrInit[1].data);
+    let obj = {
+        bio: structuredData.bio,
+        courses: structuredData.courses,
+    };
+    return obj
 
 }
 export default {

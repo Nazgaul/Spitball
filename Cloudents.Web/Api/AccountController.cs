@@ -235,5 +235,19 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+
+        [HttpPost("test")]
+        [Authorize(Roles = "Tutor")]
+        public async Task<IActionResult> Test()
+        {
+            
+            var user = await _userManager.GetUserAsync(User);
+
+            var t = _userManager.IsInRoleAsync(user, Tutor.RoleName);
+            await _userManager.AddToRoleAsync(user, "Some test");
+            return Ok();
+        }
+
+
     }
 }
