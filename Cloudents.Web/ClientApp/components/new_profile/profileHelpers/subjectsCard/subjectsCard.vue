@@ -10,7 +10,7 @@
                         </v-flex>
                     </v-layout>
                     <v-layout row wrap>
-                        <v-flex xs6 v-for="singleSubject in subjects" class="subject-name">
+                        <v-flex xs12 sm6 md6 v-for="singleSubject in subjects" class="subject-name">
                             <v-card class="elevation-0 border mr-3 py-3">
                                 <span class="subject-name">{{singleSubject}}</span>
                             </v-card>

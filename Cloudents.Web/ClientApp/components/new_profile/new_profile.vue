@@ -1,11 +1,11 @@
 <template>
     <v-container class="profile-page-container">
-        <v-layout align-start justify-center v-bind="xsColumn" class="bio-wrap" >
-                <v-flex xs12 sm10 md10 class="mr-2">
+        <v-layout  justify-center v-bind="xsColumn" class="bio-wrap" >
+                <v-flex xs12 sm10 md10 :class="{'mr-2': $vuetify.breakpoint.smAndUp}">
                     <profile-bio></profile-bio>
                 </v-flex>
             <v-flex  xs12 sm2 md2>
-                <tutorInfoBlock v-if="true"></tutorInfoBlock>
+                <tutorInfoBlock v-if="false"></tutorInfoBlock>
                 <userInfoBlock v-else></userInfoBlock>
             </v-flex>
         </v-layout>

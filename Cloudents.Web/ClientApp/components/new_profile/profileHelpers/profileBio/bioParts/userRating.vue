@@ -4,11 +4,13 @@
                 <v-rating
                         v-model="rating"
                         :color="starColor"
+                        :background-color="starColor"
                         :length="ratingLength"
+                        half-icon="sbf-star-rating-half"
                         full-icon="sbf-star-rating-full"
                         empty-icon="sbf-star-rating-empty"
-                        readonly
-                        half-increment
+                        :half-increments="true"
+                        :readonly="readonly"
                         hover
                         medium
                         :size="size"
@@ -34,6 +36,10 @@
             starColor: {
                 type: String,
                 default: '#ffca54'
+            },
+            readonly:{
+                type: Boolean,
+                default: true
             },
             size:{
                 type: String,

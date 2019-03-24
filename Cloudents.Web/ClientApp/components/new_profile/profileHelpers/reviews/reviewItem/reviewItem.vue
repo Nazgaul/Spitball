@@ -10,6 +10,7 @@
                     <userRating
                             :rating="rating"
                             :starColor="starRateColor"
+                            :readonly="true"
                             :rateNumColor="rateNumColor"
                             :size="'18'"></userRating>
                     <div class="name-rank-wrap">
@@ -85,6 +86,9 @@
             display: flex;
             flex-direction: row;
             align-items: baseline;
+            @media(max-width: @screen-xs){
+                margin-top: 12px;
+            }
         }
         .review-text{
             font-size: 16px;
