@@ -169,6 +169,8 @@ namespace Cloudents.Core.Entities
         public virtual  Guid Id { get; set; }
         public virtual RegularUser User { get; set; }
 
+        public abstract string Name { get; }
+
         public virtual bool Equals(UserRole other)
         {
             if (ReferenceEquals(null, other)) return false;

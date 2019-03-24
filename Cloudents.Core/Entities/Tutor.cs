@@ -14,5 +14,8 @@
         }
         public virtual string Bio { get; set; }
         public virtual decimal Price { get; set; }
+        public override string Name => RoleName;
+
+        public const string RoleName = "Tutor";
     }
 }

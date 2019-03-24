@@ -34,6 +34,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Identity;
 using Microsoft.Extensions.DependencyModel;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -132,6 +133,7 @@ namespace Cloudents.Web
 
             services.AddDetectionCore().AddDevice().AddCrawler();
             services.AddScoped<SignInManager<RegularUser>, SbSignInManager>();
+            //RoleStore
             services.AddDefaultIdentity<RegularUser>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;
@@ -148,30 +150,9 @@ namespace Cloudents.Web
                 options.Password.RequiredUniqueChars = 0;
                 options.Lockout.MaxFailedAccessAttempts = 3;
             }).AddDefaultTokenProviders()
+                .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
+                .AddRoles<RoleStore>()
                 .AddSignInManager<SbSignInManager>();
-            //services.AddIdentity<RegularUser, ApplicationRole>(options =>
-            //{
-            //    options.SignIn.RequireConfirmedEmail = true;
-            //    options.SignIn.RequireConfirmedPhoneNumber = true;
-            //    options.User.AllowedUserNameCharacters = null;
-
-            //    options.User.RequireUniqueEmail = true;
-
-            //    options.Password.RequiredLength = PasswordRequiredLength;
-            //    options.Password.RequireDigit = false;
-            //    options.Password.RequireLowercase = false;
-            //    options.Password.RequireNonAlphanumeric = false;
-            //    options.Password.RequireUppercase = false;
-            //    options.Password.RequiredUniqueChars = 0;
-            //    options.Lockout.MaxFailedAccessAttempts = 3;
-
-
-            //}).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
-            //services.Configure<SecurityStampValidatorOptions>(o =>
-            //{
-            //    o.ValidationInterval = TimeSpan.FromMinutes(2);
-            //});
-            //  services.AddSingleton<IHttpResponseStreamWriterFactory, SbMemoryPoolHttpResponseStreamWriterFactory>();
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb4";
@@ -190,19 +171,31 @@ namespace Cloudents.Web
             });
 
 
+            //TODO: not sure we need those
             services.AddScoped<IUserClaimsPrincipalFactory<RegularUser>, AppClaimsPrincipalFactory>();
-            services.AddTransient<IUserStore<RegularUser>, UserStore>();
-            //services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
-            services.AddTransient<ISmsSender, SmsSender>();
-            services.AddTransient<ICountryProvider, CountryProvider>();
+            services.AddScoped<IUserStore<RegularUser>, UserStore>();
+            services.AddScoped<IRoleStore<UserRole>, RoleStore>();
+            services.AddScoped<ISmsSender, SmsSender>();
+            services.AddScoped<ICountryProvider, CountryProvider>();
 
 
-            var assembliesOfProgram = DependencyContext.Default.CompileLibraries
-                .SelectMany(x => x.ResolveReferencePaths())
-                .Distinct()
-                .Where(x => x.Contains(Directory.GetCurrentDirectory()))
-                .Select(Assembly.LoadFile)
-                .ToList();
+            var assembliesOfProgram = new[]
+            {
+                Assembly.Load("Cloudents.Infrastructure.Storage"),
+                Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Core"),
+                Assembly.Load("Cloudents.Persistence"),
+                Assembly.Load("Cloudents.Search"),
+                Assembly.Load("Cloudents.Query"),
+                Assembly.GetExecutingAssembly()
+            };
+
+            //var assembliesOfProgram = DependencyContext.Default.CompileLibraries
+            //    .SelectMany(x => x.ResolveReferencePaths())
+            //    .Distinct()
+            //    .Where(x => x.Contains(Directory.GetCurrentDirectory()))
+            //    .Select(Assembly.LoadFile)
+            //    .ToList();
             
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
