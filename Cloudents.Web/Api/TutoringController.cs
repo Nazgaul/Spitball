@@ -8,12 +8,14 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
     public class TutoringController : ControllerBase
     {
         private readonly IQueueProvider _queueProvider;
