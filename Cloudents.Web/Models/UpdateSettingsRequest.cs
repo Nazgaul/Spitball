@@ -12,7 +12,12 @@ namespace Cloudents.Web.Models
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-        [Required]
         public string Description { get; set; }
+    }
+
+    public class BecomeTutorRequest
+    {
+        public string Bio { get; set; }
+        public decimal Price { get; set; }
     }
 }

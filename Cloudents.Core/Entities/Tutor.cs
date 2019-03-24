@@ -2,7 +2,7 @@
 {
     public class Tutor : UserRole
     {
-        public Tutor(string bio, decimal price)
+        public Tutor(string bio, decimal price,RegularUser user) :base(user)
         {
             Bio = bio;
             Price = price;

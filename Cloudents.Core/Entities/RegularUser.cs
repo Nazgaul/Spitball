@@ -158,6 +158,14 @@ namespace Cloudents.Core.Entities
 
     public abstract class UserRole: IEquatable<UserRole>
     {
+        public UserRole(RegularUser user)
+        {
+            User = user;
+        }
+        protected UserRole()
+        {
+            
+        }
         public virtual  Guid Id { get; set; }
         public virtual RegularUser User { get; set; }
 
