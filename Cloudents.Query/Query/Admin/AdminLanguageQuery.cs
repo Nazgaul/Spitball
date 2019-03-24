@@ -5,7 +5,9 @@ using System.Text;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminLanguageQuery : IQuery<IList<PendingCoursesDto>>
+    public class AdminLanguageQuery : 
+            IQuery<IList<PendingCoursesDto>>, 
+            IQuery<IList<PendingUniversitiesDto>>
     {
         public AdminLanguageQuery(string language)
         {

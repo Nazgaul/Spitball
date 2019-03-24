@@ -72,9 +72,9 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("newUniversities")]
-        public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities(CancellationToken token)
+        public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery(Name = "country")] string country, CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
+            var query = new AdminLanguageQuery(country);
             var retVal = await _queryBus.QueryAsync<IList<PendingUniversitiesDto>>(query, token);
             return retVal;
         }

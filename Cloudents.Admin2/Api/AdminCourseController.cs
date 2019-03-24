@@ -112,7 +112,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCoursesTest([FromQuery(Name = "language")] string language, CancellationToken token)
         {
             var query = new AdminLanguageQuery(language);
-            var retVal = await _queryBus.QueryAsync(query, token);
+            var retVal = await _queryBus.QueryAsync<IList<PendingCoursesDto>>(query, token);
             return retVal;
         }
 
