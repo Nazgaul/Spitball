@@ -43,7 +43,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("{id:long}/about")]
-        public async Task<UserProfileAboutDto> GetCoursesAsync(long id, CancellationToken token)
+        public async Task<UserProfileAboutDto> GetAboutAsync(long id, CancellationToken token)
         {
             //var user = _userManager.GetU
             //_userManager.IsInRoleAsync()

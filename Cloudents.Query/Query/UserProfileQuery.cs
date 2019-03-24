@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Dapper;
@@ -31,16 +32,25 @@ namespace Cloudents.Query.Query
                     
                 using (var conn = _session.OpenConnection())
                 {
-                    return await conn.QueryFirstOrDefaultAsync<UserProfileDto>(@"
+                    
+                    var t =  await conn.QueryAsync<UserProfileDto, UserTutorProfileDto, UserProfileDto>(@"
 select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description,
-case when utt.userRole_id is null then 0 else 1 end as IsTutor
+utt.price as price,
+u.online,
+(Select avg(rate) from sb.tutorReview where tutorId = ut.id) as rate,
+(Select count(*) from sb.tutorReview where tutorId = ut.id) as ReviewCount
 from sb.[user] u 
 left join sb.[University] u2 on u.UniversityId2 = u2.Id
 left join sb.UserType ut on ut.userid = u.Id
-left join sb.UserTutor utt on ut.id = utt.userrole_id
+left join sb.UserTutor utt on ut.id = utt.userRole_id
 where u.id = @id
 and (u.LockoutEnd is null or u.LockoutEnd < GETUTCDATE())
-", new { id = query.Id });
+", (dto, profileDto) =>
+                    {
+                        dto.Tutor = profileDto;
+                        return dto;
+                    } , new { id = query.Id },splitOn:"price");
+                    return t.FirstOrDefault();
                 }
 
 
