@@ -38,6 +38,8 @@ namespace Cloudents.Persistence.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
+            
+
             Map(x => x.Score).ReadOnly();
             //Table("User]"); //if not there is sql error
             
@@ -107,6 +109,12 @@ namespace Cloudents.Persistence.Maps
                 .ForeignKeyConstraintNames("User_Tags", "Tags_User")
                 .Table("UsersTags").AsSet();
 
+
+            HasMany(x => x.UserRoles)
+                .KeyColumn("UserId")
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
         }
     }
 
@@ -116,6 +124,22 @@ namespace Cloudents.Persistence.Maps
         {
 
             DiscriminatorValue(true);
+        }
+    }
+
+
+
+    public class UserRoleMap : ClassMap<UserRole>
+
+    {
+        public UserRoleMap()
+        {
+            
+            Id(x => x.Id).GeneratedBy.GuidComb();
+            References(x => x.User).Not.Nullable().Column("UserId");
+            Table("UserType");
+
+
         }
     }
 }

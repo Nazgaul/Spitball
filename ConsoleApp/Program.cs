@@ -144,8 +144,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
-           
+            var unitOfWork = _container.Resolve<IUnitOfWork>();
+            var userRepository = _container.Resolve<IRegularUserRepository>();
+            var me = await userRepository.LoadAsync(160336L, default);
+         
+            await userRepository.UpdateAsync(me, default);
+            await unitOfWork.CommitAsync(default);
             Console.WriteLine("done");
 
         }

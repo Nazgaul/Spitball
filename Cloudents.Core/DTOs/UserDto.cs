@@ -38,6 +38,18 @@ namespace Cloudents.Core.DTOs
         public string UniversityName { get; set; }
         [DtoToEntityConnection(nameof(RegularUser.Description))]
         public string Description { get; set; }
+
+        //[DtoToEntityConnection(nameof(Tutor.Id))]
+        public UserTutorProfileDto Tutor { get; set; }
+    }
+
+    public class UserTutorProfileDto
+    {
+        public decimal Price { get; set; }
+
+        public bool Online { get; set; }
+        public float Rate { get; set; }
+        public int ReviewCount { get; set; }
     }
 
     public class UserAccountDto 

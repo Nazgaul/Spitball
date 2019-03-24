@@ -24,6 +24,7 @@ namespace Cloudents.Core.Entities
             Transactions = Transactions ?? new UserTransactions();
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
+            UserRoles = new HashSet<UserRole>();
 
         }
 
@@ -46,7 +47,7 @@ namespace Cloudents.Core.Entities
 
         public virtual bool LockoutEnabled { get; set; }
 
-        public virtual bool TwoFactorEnabled { get; set; }
+       // public virtual bool TwoFactorEnabled { get; set; }
 
         public virtual string LockoutReason { get; set; }
 
@@ -58,6 +59,7 @@ namespace Cloudents.Core.Entities
 
         public virtual ISet<Course> Courses { get; protected set; }
         public virtual ISet<Tag> Tags { get; protected set; }
+        public virtual ISet<UserRole> UserRoles { get;  set; }
 
         public virtual DateTime LastOnline { get; protected set; }
         public virtual bool Online { get; protected set; }
@@ -141,7 +143,7 @@ namespace Cloudents.Core.Entities
             MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
         }
 
-        public virtual void ConfirmePhoneNumber()
+        public virtual void ConfirmPhoneNumber()
         {
             if (PhoneNumberConfirmed == false)
             {
@@ -154,4 +156,39 @@ namespace Cloudents.Core.Entities
     }
 
 
+    public abstract class UserRole: IEquatable<UserRole>
+    {
+        public UserRole(RegularUser user)
+        {
+            User = user;
+        }
+        protected UserRole()
+        {
+            
+        }
+        public virtual  Guid Id { get; set; }
+        public virtual RegularUser User { get; set; }
+
+        public virtual bool Equals(UserRole other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Equals(User, other.User);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((UserRole)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (User != null ? User.GetHashCode() : 0);
+        }
+
+       
+    }
 }

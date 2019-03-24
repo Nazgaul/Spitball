@@ -225,5 +225,15 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+
+        [HttpPost("BecomeTutor")]
+        public async Task<IActionResult> BecomeTutorAsync([FromBody]BecomeTutorRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new BecomeTutorCommand(userId, model.Price, model.Bio);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query
 {
-    public class UserProfileAboutQuery : IQuery<IEnumerable<CourseDto>>
+    public class UserProfileAboutQuery : IQuery<UserProfileAboutDto>
     {
         public UserProfileAboutQuery(long userId)
         {
@@ -17,7 +17,7 @@ namespace Cloudents.Query.Query
 
 
 
-        internal sealed class UserProfileAboutQueryHandler : IQueryHandler<UserProfileAboutQuery, IEnumerable<CourseDto>>
+        internal sealed class UserProfileAboutQueryHandler : IQueryHandler<UserProfileAboutQuery, UserProfileAboutDto>
         {
             private readonly DapperRepository _repository;
 
@@ -26,12 +26,27 @@ namespace Cloudents.Query.Query
                 _repository = repository;
             }
 
-            public async Task<IEnumerable<CourseDto>> GetAsync(UserProfileAboutQuery query, CancellationToken token)
+            public async Task<UserProfileAboutDto> GetAsync(UserProfileAboutQuery query, CancellationToken token)
             {
                 using (var conn = _repository.OpenConnection())
                 {
-                    return await conn.QueryAsync<CourseDto>(@"select CourseId as Name from sb.UsersCourses
-where UserId = @id", new { id = query.UserId });
+                    using (var grid = await conn.QueryMultipleAsync(@"
+select CourseId as Name from sb.UsersCourses
+where UserId = @id;
+
+select utt.bio
+from sb.UserType ut
+join sb.UserTutor utt on ut.id = utt.userRole_id
+where ut.userid = @id", new {id = query.UserId}))
+                    {
+                        var retVal = new UserProfileAboutDto
+                        {
+                            Courses = await grid.ReadAsync<CourseDto>(),
+                            Bio = await grid.ReadSingleOrDefaultAsync<string>()
+                        };
+
+                        return retVal;
+                    }
                 }
             }
         }
