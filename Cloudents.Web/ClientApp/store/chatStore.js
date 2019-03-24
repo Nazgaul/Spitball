@@ -88,7 +88,11 @@ const actions = {
         dispatch('syncMessagesByConversationId');
         dispatch('updateChatState', state.enumChatState.messages);
     },
-    getAllConversations:({commit})=>{
+    getAllConversations:({commit, getters})=>{
+        if(!getters.accountUser) {
+            commit('closeChat')
+            return;
+        };
         chatService.getAllConversations().then(({data})=>{
             if(data.length > 0){
                 data.forEach(conversation => {
