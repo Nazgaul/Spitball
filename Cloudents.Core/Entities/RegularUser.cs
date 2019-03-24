@@ -24,6 +24,7 @@ namespace Cloudents.Core.Entities
             Transactions = Transactions ?? new UserTransactions();
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
+            UserRoles = new HashSet<UserRole>();
 
         }
 
@@ -58,6 +59,7 @@ namespace Cloudents.Core.Entities
 
         public virtual ISet<Course> Courses { get; protected set; }
         public virtual ISet<Tag> Tags { get; protected set; }
+        public virtual ISet<UserRole> UserRoles { get;  set; }
 
         public virtual DateTime LastOnline { get; protected set; }
         public virtual bool Online { get; protected set; }
@@ -151,6 +153,18 @@ namespace Cloudents.Core.Entities
 
         public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
+    }
+
+
+    public abstract class UserRole
+    {
+        public virtual  Guid Id { get; set; }
+        public virtual RegularUser UserId { get; set; }
+    }
+
+    public class TutorRole : UserRole
+    {
+        public virtual string Bio { get; set; }
     }
 
 
