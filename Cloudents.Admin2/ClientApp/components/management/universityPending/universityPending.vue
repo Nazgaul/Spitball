@@ -39,7 +39,7 @@
         <v-dialog v-model="dialog" max-width="500px">
             <v-card>
                 <v-card-title>
-                    <span v-show="radios === 'merge'" class="headline">Add University to merge {{ editedItem.name }} into</span>
+                    <span v-show="radios === 'merge'" class="headline">{{ editedItem.name }}</span>
                 </v-card-title>
 
                 <v-card-text>

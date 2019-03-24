@@ -100,11 +100,19 @@ namespace Cloudents.Admin2.Api
             };
         }
 
-        [HttpGet("newCourses")]
+        /*[HttpGet("newCourses")]
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses(CancellationToken token)
         {
             var query = new AdminEmptyQuery();
             var retVal = await _queryBus.QueryAsync<IList<PendingCoursesDto>>(query, token);
+            return retVal;
+        }*/
+
+        [HttpGet("newCourses")]
+        public async Task<IEnumerable<PendingCoursesDto>> GetNewCoursesTest([FromQuery(Name = "language")] string language, CancellationToken token)
+        {
+            var query = new AdminLanguageQuery(language);
+            var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
 
