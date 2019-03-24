@@ -12,6 +12,10 @@
                               single-line
                               hide-details>
                 </v-text-field>
+                <v-select :items="languages"
+                    label="language"
+                    v-model="language"
+                          @change="getCourseList(language)"></v-select>
             </v-flex>
         </v-layout>
 
@@ -40,7 +44,7 @@
         <v-dialog v-model="dialog" max-width="500px">
             <v-card>
                 <v-card-title>
-                    <span v-show="radios === 'merge'" class="headline">Add course to merge {{ editedItem.name }} into</span>
+                    <span v-show="radios === 'merge'" class="headline">{{ editedItem.name }}</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -104,6 +108,8 @@
                 editedIndex: -1,
                 radios: 'approve',
                 search: '',
+                languages: ["all","he", "en"],
+                language:'',
                 editedItem: {
                     course: '',
                 },
@@ -202,9 +208,22 @@
             //        console.log(err)
             //    });
             //},
+            getCourseList(language) {
+                getCourseList(language).then((list) => {
+                    if (list.length === 0) {
+                        this.showNoResult = true;
+                    } else {
+                        this.newCourseList = [];
+                        this.newCourseList = list;
+                    }
+                    this.showLoading = false;
+                }, (err) => {
+                    console.log(err)
+                })
+            }
         },
         created() {
-            getCourseList().then((list) => {
+            getCourseList('').then((list) => {
                 if (list.length === 0) {
                     this.showNoResult = true;
                 } else {

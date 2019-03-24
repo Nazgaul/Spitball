@@ -25,8 +25,8 @@ const path = 'AdminCourse/';
 //    });
 //};
 
-const getCourseList = function () {
-    return connectivityModule.http.get(`${path}newCourses`).then((newCourseList) => {
+const getCourseList = function (language) {
+    return connectivityModule.http.get(`${path}newCourses?language=${language}`).then((newCourseList) => {
         let arrCourseList = [];
         if (newCourseList.length > 0) {
             newCourseList.forEach((ci) => {

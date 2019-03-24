@@ -72,9 +72,9 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("newUniversities")]
-        public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities(CancellationToken token)
+        public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery(Name = "country")] string country, CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
+            var query = new AdminLanguageQuery(country);
             var retVal = await _queryBus.QueryAsync<IList<PendingUniversitiesDto>>(query, token);
             return retVal;
         }
@@ -116,12 +116,25 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
+        //TODO: Fix this and make it work in proper CQRS architecture 
         [HttpDelete("{Id}")]
         public async Task<IActionResult> ApproveCourse(Guid Id,
                 CancellationToken token)
         {
-            var command = new DeleteUniversityCommand(Id);
-            await _commandBus.DispatchAsync(command, token);
+            const string sql = @"update sb.[user] set UniversityId2 = null where UniversityId2 = @OldUni;
+                                delete from sb.University where id =  @OldUni;";
+
+            var z = await _dapperRepository.WithConnectionAsync(async f =>
+            {
+                return await f.ExecuteAsync(sql, new
+                {
+                    OldUni = Id
+                });
+
+            }, token);
+
+            /*var command = new DeleteUniversityCommand(Id);
+            await _commandBus.DispatchAsync(command, token);*/
             return Ok();
         }
     }

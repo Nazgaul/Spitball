@@ -26,8 +26,8 @@ const path = 'AdminUniversity/';
     });
 };*/
 
-const getUniversitiesList = function () {
-    return connectivityModule.http.get(`${path}newUniversities`).then((newUniversitiesList) => {
+const getUniversitiesList = function (country) {
+    return connectivityModule.http.get(`${path}newUniversities?country=${country}`).then((newUniversitiesList) => {
         let arrCourseList = [];
         if (newUniversitiesList.length > 0) {
             newUniversitiesList.forEach((ci) => {

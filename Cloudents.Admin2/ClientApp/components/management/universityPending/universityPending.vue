@@ -11,6 +11,10 @@
                               label="Search"
                               single-line
                               hide-details></v-text-field>
+                <v-select :items="countries"
+                          label="country"
+                          v-model="country"
+                          @change="getUniversityList(country)"></v-select>
             </v-flex>
         </v-layout>
 
@@ -39,7 +43,7 @@
         <v-dialog v-model="dialog" max-width="500px">
             <v-card>
                 <v-card-title>
-                    <span v-show="radios === 'merge'" class="headline">Add University to merge {{ editedItem.name }} into</span>
+                    <span v-show="radios === 'merge'" class="headline">{{ editedItem.name }}</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -103,6 +107,8 @@
                 editedIndex: -1,
                 radios: 'approve',
                 search: '',
+                countries: ["all","il", "us"],
+                country: '',
                 editedItem: {
                     course: '',
                 },
@@ -204,9 +210,23 @@
                     console.log(err)
                 });
             },*/
+            getUniversityList(country) {
+                getUniversitiesList(country).then((list) => {
+                    if (list.length === 0) {
+                        this.showNoResult = true;
+                        this.newUniversitiesList = [];
+                    } else {
+                        this.newUniversitiesList = [];
+                        this.newUniversitiesList = list;
+                    }
+                    this.showLoading = false;
+                }, (err) => {
+                    console.log(err)
+                })
+            }
         },
         created() {
-            getUniversitiesList().then((list) => {
+            getUniversitiesList('').then((list) => {
                 if (list.length === 0) {
                     this.showNoResult = true;
                 } else {

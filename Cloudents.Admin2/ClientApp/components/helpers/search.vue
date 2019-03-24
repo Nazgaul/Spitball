@@ -21,7 +21,7 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-expand-transition>
-            <v-list v-if="items.length > 0" class="red lighten-3">
+            <v-list v-if="items.length > 0 && !searchValue.name" class="red lighten-3">
                 <v-list-tile v-for="(field, i) in items"
                              :key="i"
                              @click="setCallback(field)">
@@ -88,7 +88,8 @@
         },
     watch: {
         search: debounce(
-            function(val) {
+            function (val) {
+                
     // Items have already been loaded
     //if (this.items.length > 0) return
 
