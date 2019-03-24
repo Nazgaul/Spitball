@@ -109,8 +109,10 @@ function DocumentItem(objInit) {
     this.downvoted = !!objInit.vote ? ( !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
 }
 
+
 function AboutItem(objInit) {
-    this.name = objInit.name;
+    this.bio = objInit.bio;
+    this.courses = objInit.courses
 }
 
 function createDocumentItem(objInit){

@@ -1,32 +1,59 @@
 <template>
     <v-layout class="profile-bio" align-center>
         <v-flex xs12>
-            <v-card class="px-3 py-4">
-                <v-layout v-bind="xsColumn" align-start>
+            <v-card class="py-4" :class="[$vuetify.breakpoint.smAndUp ?  'pl-4 px-3' : 'px-1 transparent elevation-0']">
+                <v-layout v-bind="xsColumn" :class="[$vuetify.breakpoint.smAndUp ? 'align-start' : 'align-center' ]">
                     <v-flex  order-xs2 order-sm1 order-md1>
                         <user-image></user-image>
                     </v-flex>
-                    <v-flex xs12 order-xs1 order-sm2 order-md2 :class="[$vuetify.breakpoint.smAndUp ?  'pl-4' : '']">
-                        <div>
-                            <div class="user-name mb-2">
-                                <div class="d-flex align-start">
-                                    <span class="line-height-1">
-                                    {{userName}}
-                                    </span>
-
+                    <v-flex xs12 order-xs1 order-sm2 order-md2 :class="[$vuetify.breakpoint.smAndUp ?  'pl-4' : 'mb-4']">
+                        <v-layout class="name-price-wrap" justify-space-between align-center>
+                            <div>
+                                <div class="user-name mb-2">
+                                    <div class="d-flex align-start">
+                                        <v-icon v-if="$vuetify.breakpoint.xsOnly" class="face-icon mr-2">sbf-face-icon</v-icon>
+                                    <span class="line-height-1">{{userName}}</span>
+                                        <v-icon v-if="$vuetify.breakpoint.xsOnly" class="edit-profile-action  ml-2">sbf-edit-icon</v-icon>
+                                    </div>
+                                    <div class="d-flex align-start" v-if="$vuetify.breakpoint.smAndUp">
+                                        <userRank class="ml-3" :score="userScore"></userRank>
+                                    </div>
                                 </div>
-                                <div class="d-flex align-start">
-                                    <userRank class="ml-3" :score="userScore"></userRank>
-                                </div>
-
+                                <div class="user-university text-capitalize">{{university}}</div>
                             </div>
-                            <div class="user-university">{{university}}</div>
-                        </div>
-                        <div class="mt-5">
+                            <div class="tutor-price mr-3" v-if="$vuetify.breakpoint.smAndUp">
+                                <span class="tutor-price">120
+                                <span class="tutor-price small-text">Pts / hour</span>
+                                </span>
+                                 <span class=" ml-4">
+                                     <v-icon class="edit-profile-action">sbf-edit-icon</v-icon>
+                                 </span>
+                            </div>
+
+                        </v-layout>
+                        <div class="mt-5"  v-if="$vuetify.breakpoint.smAndUp">
                             <userAboutMessage></userAboutMessage>
                         </div>
                     </v-flex>
                 </v-layout>
+                <v-flex>
+                    <div class="tutor-price text-xs-center" v-if="$vuetify.breakpoint.xsOnly">
+                                <span class="tutor-price">120
+                                <span class="tutor-price small-text">Pts / hour</span>
+                                </span>
+                   <span class="divider mt-4"
+                                style="height: 2px; width: 44px; background-color: #979797; margin: 0 auto; display: block">
+
+                                </span>
+
+                    </div>
+                </v-flex>
+                <v-flex>
+                    <div class="mt-4"  v-if="$vuetify.breakpoint.xsOnly">
+                        <userAboutMessage></userAboutMessage>
+                    </div>
+                </v-flex>
+
             </v-card>
         </v-flex>
     </v-layout>
@@ -88,6 +115,31 @@
             font-weight: bold;
             letter-spacing: -0.4px;
             color: @profileTextColor;
+            .face-icon{
+                font-size: 18px;
+            }
+
+        }
+        .tutor-price{
+            font-family: @fontOpenSans;
+            font-weight: bold;
+            font-size: 20px;
+            color: @profileTextColor;
+            @media(max-width: @screen-xs){
+                font-size: 26px;
+            }
+            .small-text{
+                font-size: 13px;
+            }
+
+        }
+        .edit-profile-action{
+            color: #a3a0fb;
+            opacity: 0.41;
+            font-size: 20px;
+           @media(max-width: @screen-xs){
+               color: #3c3b53;
+           }
         }
         .line-height-1{
             line-height: 1;
@@ -96,6 +148,7 @@
             font-size: 14px;
             letter-spacing: -0.3px;
             color: @textColor;
+
         }
     }
 

@@ -10,7 +10,7 @@
                         </v-flex>
                     </v-layout>
                     <v-layout row wrap>
-                        <v-flex transition="slide-y-transition" xs6
+                        <v-flex transition="slide-y-transition" xs12 sm6 md6
                                 v-for="(course, index) in aboutData"
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
@@ -18,7 +18,7 @@
                                 <span class="course-name">{{course.name}}</span>
                             </v-card>
                         </v-flex>
-                        <v-flex xs6 v-if="aboutData.length >= showQuantity" class="course-name show-more">
+                        <v-flex xs12 sm6 md6 v-if="aboutData.length >= showQuantity" class="course-name show-more">
                             <v-card class="elevation-0 border mr-3 py-3" @click="expanded ? showLess() : showAll()">
                                 <span class="font-weight-bold course-name">
                                     <span v-show="!expanded">{{moreQuantity}} More Courses</span>
@@ -56,8 +56,8 @@
         computed: {
             ...mapGetters(['getProfile']),
             aboutData() {
-                if(this.getProfile && this.getProfile.about){
-                    return this.getProfile.about;
+                if(this.getProfile &&  this.getProfile.about && this.getProfile.about.courses){
+                    return this.getProfile.about.courses;
                 }
                 return [];
 
