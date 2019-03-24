@@ -5,8 +5,8 @@
     </v-flex>
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
-        <span>{{conversation.name}}</span>
-        <span>{{date}}</span>
+        <span class="conversation-name">{{conversation.name}}</span>
+        <span class="conversation-date">{{date}}</span>
       </v-flex>
       <!-- <v-flex>
             <span>message {{conversation}}</span>
@@ -41,6 +41,8 @@ export default {
   display: flex;
   width: 100%;
   align-items: center;
+  padding: 7px 0;
+  border-bottom: solid 1px rgba(67, 66, 93, 0.17);
   .avatar-container {
     flex-grow: 0;
   }
@@ -49,6 +51,15 @@ export default {
     .top-detail-container {
       display: flex;
       justify-content: space-between;
+      .conversation-name{
+        font-size: 11px;
+        font-weight: bold;
+        color: #43425d;
+      }
+      .conversation-date{
+        font-size: 11px;
+        color: #43425d;
+      }
     }
   }
 }

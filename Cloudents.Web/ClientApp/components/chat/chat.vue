@@ -2,7 +2,7 @@
     <v-container v-show="visible" py-0 px-0 class="chat-container" :class="{'minimized': isMinimized}">
         <v-layout class="chat-header">
             <v-icon @click="OriginalChatState">sbf-close</v-icon>
-            <span>{{headerTitle}}</span>
+            <span class="chat-header-text">{{headerTitle}}</span>
             <span class="other-side">
                 <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
                 <v-icon @click="closeChat">sbf-close</v-icon>
@@ -89,6 +89,12 @@
         border-radius: 4px 4px 0 0;
         padding:10px;
         color:#fff;
+        .chat-header-text{
+            font-family: @fontOpenSans;
+            font-size: 11px;
+            font-weight: bold;
+            color: #ffffff;
+        }
         i{
             color: #a5a4bf;
             font-size:16px;
