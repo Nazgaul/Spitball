@@ -33,7 +33,7 @@ namespace Cloudents.Query.Query
                 {
                     return await conn.QueryFirstOrDefaultAsync<UserProfileDto>(@"
 select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description, utt.bio, 
-case when utt.userrole_id is null then 0 else 1 end as IsTutor
+case when utt.userRole_id is null then 0 else 1 end as IsTutor
 from sb.[user] u 
 left join sb.[University] u2 on u.UniversityId2 = u2.Id
 left join sb.UserType ut on ut.userid = u.Id

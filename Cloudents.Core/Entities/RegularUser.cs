@@ -162,10 +162,45 @@ namespace Cloudents.Core.Entities
         public virtual RegularUser UserId { get; set; }
     }
 
-    public class TutorRole : UserRole
+    public class TutorRole : UserRole, IEquatable<TutorRole>
     {
+        public override RegularUser UserId { get; set; }
+
+        public virtual bool Equals(TutorRole other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Equals(UserId, other.UserId);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((TutorRole) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (UserId != null ? UserId.GetHashCode() : 0);
+        }
+
+        public static bool operator ==(TutorRole left, TutorRole right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(TutorRole left, TutorRole right)
+        {
+            return !Equals(left, right);
+        }
+
         public virtual string Bio { get; set; }
     }
+
+
+
 
 
 }
