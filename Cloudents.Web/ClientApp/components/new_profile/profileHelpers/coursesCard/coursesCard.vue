@@ -56,8 +56,8 @@
         computed: {
             ...mapGetters(['getProfile']),
             aboutData() {
-                if(this.getProfile && this.getProfile.about){
-                    return this.getProfile.about;
+                if(this.getProfile &&  this.getProfile.about && this.getProfile.about.courses){
+                    return this.getProfile.about.courses;
                 }
                 return [];
 

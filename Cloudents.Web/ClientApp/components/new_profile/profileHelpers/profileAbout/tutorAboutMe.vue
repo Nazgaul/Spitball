@@ -8,7 +8,7 @@
                                 <div class="about-title mb-2">Who am I?</div>
                             </div>
                             <div class="mt-2">
-                             <p class="about-text">{{aboutMeText | truncate(isOpen, '...', textLimit)}}
+                             <p class="about-text">{{aboutMe | truncate(isOpen, '...', textLimit)}}
                              </p>
                             </div>
                         </v-flex>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     export default {
         name: "tutorAboutMe",
         data() {
@@ -35,13 +36,15 @@
 
             }
         },
-        props: {
-            aboutMeText: {
-                type: String,
-                default: ' I am a 2nd year Physics Student at the University of Oxford. I was lucky to have the support of great teachers and talented older students especially when I was learning new Maths, and understand firsthand the value of having someone patiently listen to the topics and questions you are struggling with and taki,  I am a 2nd year Physics Student at the University of Oxford. I was lucky to have the support of great teachers and talented older students especially when I was learning new Maths, and understand firsthand the value of having someone patiently listen to the topics and questions you are struggling with and taki'
-            },
-        },
         computed: {
+            ...mapGetters(['getProfile']),
+            aboutMe() {
+                if(this.getProfile &&  this.getProfile.about && this.getProfile.about.bio){
+                    return this.getProfile.about.bio;
+                }
+                return '';
+
+            },
             isOpen :{
                 get(){
                     return this.defOpen

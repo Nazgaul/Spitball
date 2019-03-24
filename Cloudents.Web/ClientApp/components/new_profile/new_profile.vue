@@ -1,10 +1,10 @@
 <template>
     <v-container class="profile-page-container">
         <v-layout  justify-center v-bind="xsColumn" class="bio-wrap" >
-                <v-flex xs12 sm10 md10 :class="{'mr-2': $vuetify.breakpoint.smAndUp}">
+                <v-flex xs12 sm9 md9 >
                     <profile-bio></profile-bio>
                 </v-flex>
-            <v-flex  xs12 sm2 md2>
+            <v-flex  xs12 sm3 md3 :class="{'pl-4': $vuetify.breakpoint.smAndUp}">
                 <tutorInfoBlock v-if="false"></tutorInfoBlock>
                 <userInfoBlock v-else></userInfoBlock>
             </v-flex>
@@ -105,7 +105,6 @@
                             </scroll-list>
                         </v-flex>
                     </v-flex>
-
                     <v-flex sm2 md2 xs12>
                         <v-spacer></v-spacer>
                     </v-flex>
