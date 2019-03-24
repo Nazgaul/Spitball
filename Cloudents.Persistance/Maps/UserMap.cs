@@ -136,19 +136,10 @@ namespace Cloudents.Persistence.Maps
         {
             
             Id(x => x.Id).GeneratedBy.GuidComb();
-            References(x => x.UserId).Not.Nullable().Column("UserId");
+            References(x => x.User).Not.Nullable().Column("UserId");
             Table("UserType");
 
 
-        }
-    }
-
-    public class TutorRoleMap : SubclassMap<TutorRole>
-    {
-        public TutorRoleMap()
-        {
-            Map(x => x.Bio).Length(1000);
-            Table("UserTutor");
         }
     }
 }

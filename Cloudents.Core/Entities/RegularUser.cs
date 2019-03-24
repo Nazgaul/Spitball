@@ -47,7 +47,7 @@ namespace Cloudents.Core.Entities
 
         public virtual bool LockoutEnabled { get; set; }
 
-        public virtual bool TwoFactorEnabled { get; set; }
+       // public virtual bool TwoFactorEnabled { get; set; }
 
         public virtual string LockoutReason { get; set; }
 
@@ -143,7 +143,7 @@ namespace Cloudents.Core.Entities
             MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
         }
 
-        public virtual void ConfirmePhoneNumber()
+        public virtual void ConfirmPhoneNumber()
         {
             if (PhoneNumberConfirmed == false)
             {
@@ -156,21 +156,16 @@ namespace Cloudents.Core.Entities
     }
 
 
-    public abstract class UserRole
+    public abstract class UserRole: IEquatable<UserRole>
     {
         public virtual  Guid Id { get; set; }
-        public virtual RegularUser UserId { get; set; }
-    }
+        public virtual RegularUser User { get; set; }
 
-    public class TutorRole : UserRole, IEquatable<TutorRole>
-    {
-        public override RegularUser UserId { get; set; }
-
-        public virtual bool Equals(TutorRole other)
+        public virtual bool Equals(UserRole other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(UserId, other.UserId);
+            return Equals(User, other.User);
         }
 
         public override bool Equals(object obj)
@@ -178,29 +173,14 @@ namespace Cloudents.Core.Entities
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((TutorRole) obj);
+            return Equals((UserRole)obj);
         }
 
         public override int GetHashCode()
         {
-            return (UserId != null ? UserId.GetHashCode() : 0);
+            return (User != null ? User.GetHashCode() : 0);
         }
 
-        public static bool operator ==(TutorRole left, TutorRole right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(TutorRole left, TutorRole right)
-        {
-            return !Equals(left, right);
-        }
-
-        public virtual string Bio { get; set; }
+       
     }
-
-
-
-
-
 }

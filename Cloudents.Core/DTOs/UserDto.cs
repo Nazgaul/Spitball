@@ -39,9 +39,8 @@ namespace Cloudents.Core.DTOs
         [DtoToEntityConnection(nameof(RegularUser.Description))]
         public string Description { get; set; }
 
-
+        [DtoToEntityConnection(nameof(Tutor.Id))]
         public bool IsTutor { get; set; }
-        public string Bio { get; set; }
     }
 
     public class UserAccountDto 

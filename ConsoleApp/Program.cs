@@ -147,10 +147,10 @@ namespace ConsoleApp
             var unitOfWork = _container.Resolve<IUnitOfWork>();
             var userRepository = _container.Resolve<IRegularUserRepository>();
             var me = await userRepository.LoadAsync(160336L, default);
-            me.UserRoles.Add(new TutorRole()
+           var z =  me.UserRoles.Add(new Tutor()
             {
-                Bio = "Im Beny and i like you all. long live god all mighty. ",
-                UserId = me
+                Bio = "Im Beny and i like you all2. long live god all mighty. ",
+                User = me
             });
             await userRepository.UpdateAsync(me, default);
             await unitOfWork.CommitAsync(default);

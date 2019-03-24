@@ -32,7 +32,7 @@ namespace Cloudents.Query.Query
                 using (var conn = _session.OpenConnection())
                 {
                     return await conn.QueryFirstOrDefaultAsync<UserProfileDto>(@"
-select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description, utt.bio, 
+select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description,
 case when utt.userRole_id is null then 0 else 1 end as IsTutor
 from sb.[user] u 
 left join sb.[University] u2 on u.UniversityId2 = u2.Id
