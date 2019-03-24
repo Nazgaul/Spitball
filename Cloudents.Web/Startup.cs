@@ -43,32 +43,6 @@ namespace Cloudents.Web
 {
     public class Startup
     {
-
-        public static IEnumerable<Assembly> GetAssemblies()
-        {
-            var list = new List<string>();
-            var stack = new Stack<Assembly>();
-
-            stack.Push(Assembly.GetEntryAssembly());
-
-            do
-            {
-                var asm = stack.Pop();
-
-                yield return asm;
-
-                foreach (var reference in asm.GetReferencedAssemblies())
-                    if (!list.Contains(reference.FullName))
-                    {
-                        stack.Push(Assembly.Load(reference));
-                        list.Add(reference.FullName);
-                    }
-
-            }
-            while (stack.Count > 0);
-
-        }
-
         public const string IntegrationTestEnvironmentName = "Integration-Test";
         internal const int PasswordRequiredLength = 8;
 
@@ -173,7 +147,8 @@ namespace Cloudents.Web
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
                 options.Lockout.MaxFailedAccessAttempts = 3;
-            }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
+            }).AddDefaultTokenProviders()
+                .AddSignInManager<SbSignInManager>();
             //services.AddIdentity<RegularUser, ApplicationRole>(options =>
             //{
             //    options.SignIn.RequireConfirmedEmail = true;
