@@ -62,7 +62,7 @@ const state = {
     usersReferred: 0
 };
 const mutations = {
-    setProfilePicture(state, imageUrl){
+    setProfilePicture(state, imageUrl) {
         state.profile.user = {...state.profile.user, image: imageUrl}
     },
     setProfile(state, val) {
@@ -197,8 +197,8 @@ const getters = {
 
 const actions = {
     uploadAccountImage(context, obj) {
-        accountService.uploadImage(obj).then((imageUrl) => {
-                console.log('image url', imageUrl)
+        accountService.uploadImage(obj).then((resp) => {
+                let imageUrl = resp.data;
                 context.commit('setProfilePicture', imageUrl)
             },
             (error) => {
