@@ -38,6 +38,10 @@ namespace Cloudents.Core.DTOs
         public string UniversityName { get; set; }
         [DtoToEntityConnection(nameof(RegularUser.Description))]
         public string Description { get; set; }
+
+
+        public bool IsTutor { get; set; }
+        public string Bio { get; set; }
     }
 
     public class UserAccountDto 
