@@ -108,7 +108,7 @@
                 editedIndex: -1,
                 radios: 'approve',
                 search: '',
-                languages: ["he", "en"],
+                languages: ["all","he", "en"],
                 language:'',
                 editedItem: {
                     course: '',

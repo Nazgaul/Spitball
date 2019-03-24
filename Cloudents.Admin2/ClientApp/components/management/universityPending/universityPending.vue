@@ -107,7 +107,7 @@
                 editedIndex: -1,
                 radios: 'approve',
                 search: '',
-                countries: ["il", "us"],
+                countries: ["all","il", "us"],
                 country: '',
                 editedItem: {
                     course: '',
