@@ -5,7 +5,7 @@
                 <span class="icon-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'mr-2' : 'ml-2']"><v-icon>sbf-hand-icon</v-icon></span>
                 <span class="text-wrap">
                     <span v-language:inner>profile_hey_there</span>
-                    <span>{{userName}}!</span>
+                    <span>&nbsp;{{userName}}!</span>
                   </span>
             </h4>
         </v-flex>
