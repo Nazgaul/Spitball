@@ -34,7 +34,6 @@
 
                         </v-flex>
                         <v-flex class="web-content">
-
                             <div class="empty-state"
                                  v-if="activeTab === 1 && isEmptyCourses">
                                 <courseEmptyState></courseEmptyState>

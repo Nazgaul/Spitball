@@ -26,7 +26,7 @@
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
-                                                         :user-name="accountUser.name"/>
+                                                         :userImageUrl="userImageUrl"   :user-name="accountUser.name"/>
 
                                             <menu-list :isAuthUser="loggedIn"
                                                        v-if=!$vuetify.breakpoint.xsOnly></menu-list>
@@ -132,6 +132,9 @@
                 'getShowSelectUniInterface',
                 'showMobileFeed'
             ]),
+            userImageUrl(){
+                return `${this.accountUser.image}?width=32&height=32`
+            },
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
