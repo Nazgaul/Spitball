@@ -189,7 +189,7 @@
 <style lang="less">
     @import '../../../../../styles/mixin.less';
     @uploadGreyBackground: rgba(68, 82, 252, 0.09);
-    @chipActiveColor: #4452FC;
+    @chipActiveColor: @color-blue-new;
     .file-item-card {
         //progress
         .progress-line {
