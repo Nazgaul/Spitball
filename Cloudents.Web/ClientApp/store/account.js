@@ -64,6 +64,7 @@ const state = {
 const mutations = {
     setProfilePicture(state, imageUrl) {
         state.profile.user = {...state.profile.user, image: imageUrl}
+        state.user = {...state.user, image: imageUrl}
     },
     setProfile(state, val) {
         state.profile = val;
@@ -181,7 +182,6 @@ const getters = {
     chatAccount: state => state.talkMe,
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
-        console.log("user");
         return state.user
     },
     lastActiveRoute: state => state.lastActiveRoute,
