@@ -17,7 +17,7 @@ import reviewsList from './profileHelpers/reviews/reviewsList.vue';
 import tutorInfoBlock from './profileHelpers/tutoringInfo/tutorInfoBlock.vue';
 import userInfoBlock from './profileHelpers/userInfoBlock/userInfoBlock.vue';
 import ctaBlock from './profileHelpers/ctaBlock/ctaBlock.vue';
-
+import courseEmptyState from './profileHelpers/courseEmptyState/courseEmptyState.vue';
 
 //new
 export default {
@@ -34,7 +34,8 @@ export default {
         reviewsList,
         tutorInfoBlock,
         userInfoBlock,
-        ctaBlock
+        ctaBlock,
+        courseEmptyState
     },
     props: {
         id: {
@@ -204,6 +205,9 @@ export default {
                 return false  // return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
             }
         },
+        isEmptyCourses(){
+            return this.profileData && this.profileData.about && this.profileData.about.courses && !this.profileData.about.courses.length
+        },
         emptyStateData() {
             let questions = {
                 text: LanguageService.getValueByKey("profile_emptyState_questions_text"),
@@ -228,11 +232,11 @@ export default {
                 btnText: LanguageService.getValueByKey("profile_emptyState_documents_btnText"),
                 btnUrl: 'note'
             };
-            if (this.activeTab === 1) {
+            if (this.activeTab === 2) {
                 return questions
-            } else if (this.activeTab === 2) {
-                return answers
             } else if (this.activeTab === 3) {
+                return answers
+            } else if (this.activeTab === 4) {
                 return documents
             }
         }

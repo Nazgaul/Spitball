@@ -94,6 +94,9 @@
             font-size: 16px;
             line-height: 1.4;
             color: @profileTextColor;
+            @media(max-width: @screen-xs){
+                font-size: 14px;
+            }
         }
         .review-date{
             font-size: 11px;

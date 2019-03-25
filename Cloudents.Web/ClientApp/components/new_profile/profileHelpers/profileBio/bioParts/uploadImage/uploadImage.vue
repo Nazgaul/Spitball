@@ -53,12 +53,13 @@
         .image-edit-text{
             font-family: @fontOpenSans;
             font-size: 11px;
-            color: @textColor;
+            color: @color-black;
         }
         .profile-image-input-container {
             display: flex;
             .sbf {
                 cursor: pointer;
+                color: @color-black;
             }
         }
     }

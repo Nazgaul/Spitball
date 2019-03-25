@@ -3,7 +3,7 @@
             <img class="user-picture" style="height: 240px; width: 214px;"
                  :src="profileImage">
             <div class="bottom-section">
-                <user-rating :rating="4.5" :readonly="false" class="px-4 line-height-1"></user-rating>
+                <user-rating :rating="4.5" :readonly="true" class="px-4 line-height-1"></user-rating>
                 <span class="reviews-quantity">({{quantityReviews}} Reviews)</span>
             </div>
                 <div

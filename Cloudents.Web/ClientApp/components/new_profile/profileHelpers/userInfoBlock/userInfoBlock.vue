@@ -12,7 +12,7 @@
                             </div>
                         </div>
                     </v-flex>
-                    <v-flex  v-if="$vuetify.breakpoint.smAndUp" xs12 sm12 md12 class="py-4 mb-3">
+                    <v-flex  xs12 sm12 md12 :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-3']">
                         <becomeTutorBtn></becomeTutorBtn>
                     </v-flex>
                 <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}">
@@ -47,6 +47,24 @@
             background-color: transparent;
             flex-direction: row;
         }
+        .mobile-btn-fixed-bottom {
+            align-items: baseline;
+            position: fixed;
+            bottom: 6px;
+            right: 0;
+            width: 100%;
+            z-index: 9;
+            margin: 0;
+            padding: 0;
+            .ct-btn{
+                width: 98%;
+                border-radius: 4px;
+                box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.22);
+                margin: 0 auto;
+
+            }
+        }
+
         .box-title{
             font-size: 30px;
             font-weight: bold;

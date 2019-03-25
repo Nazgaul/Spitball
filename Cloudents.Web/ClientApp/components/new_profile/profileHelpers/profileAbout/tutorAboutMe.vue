@@ -13,7 +13,7 @@
                             </div>
                         </v-flex>
                         <v-flex class="read-more-action mt-2 mb-2" v-if="readMoreVisible">
-                            <v-divider style="width: 100%; height: 2px;"></v-divider>
+                            <v-divider style="widabout-textth: 100%; height: 2px;"></v-divider>
                             <a class="read-more-text pt-3 pb-1" @click="isOpen = !isOpen">
                                 <span v-if="!isOpen">Read more...</span>
                                 <span v-else>Read Less</span>
@@ -101,6 +101,11 @@
             font-size: 18px;
             line-height: 1.59;
             color: @textColor;
+            @media(max-width: @screen-xs){
+                font-size: 14px;
+                line-height: 1.53;
+
+            }
         }
     }
 

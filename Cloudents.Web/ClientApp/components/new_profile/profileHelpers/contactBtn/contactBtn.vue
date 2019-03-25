@@ -2,7 +2,7 @@
     <div class="contact-btn-wrap">
         <button class="ct-btn">
             <v-icon class="ct-btn-icon mr-2">sbf-comment-icon</v-icon>
-            <span class="btn-text">Contact me</span>
+            <span class="btn-text text-uppercase">Contact me</span>
         </button>
     </div>
 </template>

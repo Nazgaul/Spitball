@@ -1,8 +1,8 @@
 <template>
     <div class="tutor-btn-wrap ">
         <button class="ct-btn">
-            <v-icon class="ct-btn-icon mr-2">sbf-credit-card</v-icon>
-            <span class="btn-text">Become a tutor</span>
+            <v-icon class="ct-btn-icon mr-2">sbf-face-icon</v-icon>
+            <span class="btn-text text-uppercase">Become a tutor</span>
         </button>
     </div>
 </template>

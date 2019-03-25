@@ -5,7 +5,7 @@
                     <profile-bio></profile-bio>
                 </v-flex>
             <v-flex  xs12 sm3 md3 :class="{'pl-4': $vuetify.breakpoint.smAndUp}">
-                <tutorInfoBlock v-if="false"></tutorInfoBlock>
+                <tutorInfoBlock v-if="true"></tutorInfoBlock>
                 <userInfoBlock v-else></userInfoBlock>
             </v-flex>
         </v-layout>
@@ -34,6 +34,12 @@
 
                         </v-flex>
                         <v-flex class="web-content">
+
+                            <div class="empty-state"
+                                 v-if="activeTab === 1 && isEmptyCourses">
+                                <courseEmptyState></courseEmptyState>
+                            </div>
+
                             <div class="empty-state"
                                  v-if="activeTab === 2 && !profileData.questions.length && !loadingContent">
                                 <div class="text-block">
