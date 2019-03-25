@@ -6,9 +6,8 @@
                 <v-flex v-if="$vuetify.breakpoint.smAndUp">
                     <div>
                         <div class="mb-2 text-sm-center text-xs-center px-3">
-                                    <span class="tutoring-info-heading">
-                                         Let me know what you need and i”ll be happy to help
-                                    </span>
+                        <span class="tutoring-info-heading" v-language:inner>profile_tutor_sidebar_title
+                        </span>
                         </div>
                     </div>
                 </v-flex>

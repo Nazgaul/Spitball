@@ -5,7 +5,7 @@
                     <profile-bio></profile-bio>
                 </v-flex>
             <v-flex  xs12 sm3 md3 :class="{'pl-4': $vuetify.breakpoint.smAndUp}">
-                <tutorInfoBlock v-if="true"></tutorInfoBlock>
+                <tutorInfoBlock v-if="false"></tutorInfoBlock>
                 <userInfoBlock v-else></userInfoBlock>
             </v-flex>
         </v-layout>
@@ -14,7 +14,7 @@
                         <v-flex xs12 sm12 md12 class="mt-3 mb-4 limited-760" >
                             <v-tabs :dir="isRtl ? `ltr` : ''" class="tab-padding" hide-slider xs12>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
-                                        v-language:inner>About</span>
+                                        v-language:inner>profile_about</span>
                                 </v-tab>
 
 
@@ -72,7 +72,7 @@
                                 <tutorAboutMe></tutorAboutMe>
                                 <coursesCard></coursesCard>
                                 <subjectsCard></subjectsCard>
-                                <ctaBlock></ctaBlock>
+                                <ctaBlock v-if="$vuetify.breakpoint.smAndUp"></ctaBlock>
                                 <reviewsList></reviewsList>
                             </div>
                             <scroll-list v-if="activeTab === 2" :scrollFunc="loadQuestions" :isLoading="questions.isLoading"

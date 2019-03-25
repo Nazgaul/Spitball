@@ -1,7 +1,7 @@
 <template>
         <v-layout column class="reviews-container mt-4">
             <v-flex class="mb-3">
-                <span class="review-title">Reviews</span>
+                <span class="review-title" v-language:inner>profile_reviews</span>
             </v-flex>
             <v-flex v-for="singleReview in 15" class="single-review">
                 <reviewItem :reviewData="singleReview"></reviewItem>

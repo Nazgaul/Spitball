@@ -5,13 +5,16 @@
                     <v-layout>
                         <v-flex xs12 sm12 md12>
                             <div>
-                                <div class="subject-title mb-4">Subjects</div>
+                                <div class="subject-title mb-4" v-language:inner>profile_subjects</div>
                             </div>
+                        </v-flex>
+                        <v-flex class="text-xs-right">
+                            <v-icon class="edit-icon subheading pr-2">sbf-edit-icon</v-icon>
                         </v-flex>
                     </v-layout>
                     <v-layout row wrap>
                         <v-flex xs12 sm6 md6 v-for="singleSubject in subjects" class="subject-name">
-                            <v-card class="elevation-0 border mr-3 py-3">
+                            <v-card class="elevation-0 border py-3" :class="{'mr-3': $vuetify.breakpoint.smAndUp}">
                                 <span class="subject-name">{{singleSubject}}</span>
                             </v-card>
                         </v-flex>
@@ -50,6 +53,15 @@
     @import '../../../../styles/mixin.less';
 
     .subjects-section {
+        .edit-icon{
+            color: @purpleLight;
+            opacity: 0.41;
+            font-size: 20px;
+            cursor: pointer;
+            @media(max-width: @screen-xs){
+                color: @purpleDark;
+            }
+        }
         .subject-title {
             font-size: 18px;
             font-weight: bold;

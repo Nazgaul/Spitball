@@ -4,7 +4,7 @@
             <v-card class="px-4 py-4 elevation-0 empty-card">
                 <v-layout align-start justify-start >
                     <v-flex xs12 sm12 md12  class="text-xs-left">
-                            <div class="courses-empty-title mb-4">My Courses</div>
+                            <div class="courses-empty-title mb-4" v-language:inner>profile_courses_empty_state_title</div>
                         <v-divider></v-divider>
                     </v-flex>
                 </v-layout>
@@ -13,12 +13,14 @@
                             <v-icon class="empty-course-icon">sbf-courses-icon</v-icon>
                     </v-flex>
                     <v-flex xs8 sm8 md8 class="text-xs-left">
-                        <span class="empty-text">Selecting your courses will help  you get personilised study materials and tutors</span>
+                        <span class="empty-text" v-language:inner>profile_courses_empty_select_courses</span>
                     </v-flex>
                 </v-layout>
                 <v-layout class="pt-3">
                     <v-flex>
-                        <v-btn  round outline class="select-btn text-uppercase">Select my courses</v-btn>
+                        <v-btn @click="openUniInterface()"  round outline class="select-btn text-uppercase">
+                            <span v-language:inner>profile_courses_empty_btn</span>
+                        </v-btn>
                     </v-flex>
                 </v-layout>
             </v-card>
@@ -29,6 +31,14 @@
 <script>
     export default {
         name: "courseEmptyState",
+        methods: {
+            openUniInterface(){
+                this.$router.push({
+                    name:'uniselect',
+                    params: {step: 'setClass'}
+                });
+            }
+        },
 
     }
 </script>

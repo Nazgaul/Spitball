@@ -23,10 +23,14 @@
                             </div>
                             <div class="tutor-price mr-3" v-if="$vuetify.breakpoint.smAndUp">
                                 <span class="tutor-price">120
-                                <span class="tutor-price small-text">Pts / hour</span>
+                                <span class="tutor-price small-text">
+                                    <span v-language:inner>app_currency_dynamic</span>
+                                    <span>/</span>
+                                     <span v-language:inner>profile_points_hour</span>
+                                </span>
                                 </span>
                                  <span class=" ml-4">
-                                     <v-icon class="edit-profile-action">sbf-edit-icon</v-icon>
+                                     <v-icon class="edit-profile-action subheading">sbf-edit-icon</v-icon>
                                  </span>
                             </div>
 
@@ -134,11 +138,12 @@
 
         }
         .edit-profile-action{
-            color: #a3a0fb;
+            color: @purpleLight;
             opacity: 0.41;
             font-size: 20px;
+            cursor: pointer;
            @media(max-width: @screen-xs){
-               color: #3c3b53;
+               color: @purpleDark;
            }
         }
         .line-height-1{

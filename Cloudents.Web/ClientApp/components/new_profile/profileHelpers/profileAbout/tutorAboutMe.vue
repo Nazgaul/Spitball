@@ -5,7 +5,7 @@
                     <v-layout column>
                         <v-flex xs12 sm12 md12>
                             <div>
-                                <div class="about-title mb-2">Who am I?</div>
+                                <div class="about-title mb-2" v-language:inner>profile_who_am_i</div>
                             </div>
                             <div class="mt-2">
                              <p class="about-text">{{aboutMe | truncate(isOpen, '...', textLimit)}}
@@ -15,8 +15,8 @@
                         <v-flex class="read-more-action mt-2 mb-2" v-if="readMoreVisible">
                             <v-divider style="widabout-textth: 100%; height: 2px;"></v-divider>
                             <a class="read-more-text pt-3 pb-1" @click="isOpen = !isOpen">
-                                <span v-if="!isOpen">Read more...</span>
-                                <span v-else>Read Less</span>
+                                <span v-if="!isOpen" v-language:inner>profile_read_more</span>
+                                <span v-else v-language:inner>profile_expand_less</span>
                             </a>
                         </v-flex>
                     </v-layout>

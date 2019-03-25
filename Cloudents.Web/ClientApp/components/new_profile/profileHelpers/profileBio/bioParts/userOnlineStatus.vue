@@ -1,8 +1,8 @@
 <template>
     <v-layout class="user-online-status-wrap">
             <div :class="['status-container', isOnline ? 'online' : 'offline']">
-                <span  v-if="isOnline" class="online">Online</span>
-                <span v-else class="offline">Offline</span>
+                <span  v-if="isOnline" class="online" v-language:inner>profile_user_online_status_online</span>
+                <span v-else class="offline" v-language:inner>profile_user_online_status_offline</span>
             </div>
 
     </v-layout>

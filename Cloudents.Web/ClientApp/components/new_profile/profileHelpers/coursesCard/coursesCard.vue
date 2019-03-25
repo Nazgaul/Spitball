@@ -1,28 +1,36 @@
 <template>
-        <v-layout class="courses-section mt-4">
+        <v-layout class="courses-section mt-4" >
             <v-flex xs12>
                 <v-card class="px-4 py-4">
                     <v-layout>
-                        <v-flex xs12 sm12 md12>
+                        <v-flex xs11 sm11 md11 grow>
                             <div>
-                                <div class="courses-title mb-4">Courses I Can Help You With</div>
+                                <div class="courses-title mb-4" v-language:inner>profile_courses_can_help</div>
                             </div>
                         </v-flex>
+                        <v-flex class="text-xs-right">
+                            <v-icon class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
+                        </v-flex>
                     </v-layout>
-                    <v-layout row wrap>
-                        <v-flex transition="slide-y-transition" xs12 sm6 md6
+                    <v-layout row wrap >
+                        <!--<transition-group name="fade"  tag="v-layout" style="flex-direction: row; flex-wrap: wrap;">-->
+                        <v-flex  xs12 sm6 md6 key="sdf"
                                 v-for="(course, index) in aboutData"
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
-                            <v-card class="elevation-0 border mr-3 py-3">
+                            <v-card class="elevation-0 border mr-3 py-3" key="wqerghfh">
                                 <span class="course-name">{{course.name}}</span>
                             </v-card>
                         </v-flex>
+                        <!--</transition-group>-->
                         <v-flex xs12 sm6 md6 v-if="aboutData.length >= showQuantity" class="course-name show-more">
-                            <v-card class="elevation-0 border mr-3 py-3" @click="expanded ? showLess() : showAll()">
+                            <v-card :class="{'mr-3': $vuetify.breakpoint.smAndUp}" class="elevation-0 border  py-3" @click="expanded ? showLess() : showAll()">
                                 <span class="font-weight-bold course-name">
-                                    <span v-show="!expanded">{{moreQuantity}} More Courses</span>
-                                    <span v-show="expanded">Show Less</span>
+                                    <span v-show="!expanded">
+                                        <span> {{moreQuantity}}</span>
+                                    <span v-language:inner>profile_expand_more_courses</span>
+                                    </span>
+                                    <span v-show="expanded" v-language:inner>profile_expand_less</span>
                                 </span>
                             </v-card>
                         </v-flex>
@@ -76,7 +84,15 @@
     @import '../../../../styles/mixin.less';
 
     .courses-section {
-
+        .edit-icon{
+                color: @purpleLight;
+                opacity: 0.41;
+                font-size: 20px;
+                cursor: pointer;
+                @media(max-width: @screen-xs){
+                    color: @purpleDark;
+            }
+        }
         .courses-title {
             font-size: 18px;
             font-weight: bold;

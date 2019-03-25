@@ -11,7 +11,7 @@
                    ref="profileImage" v-show="false"/>
             <label for="profile-picture" >
                 <v-icon class="attach-icon">sbf-camera</v-icon>
-                <span class="image-edit-text">Edit</span>
+                <span class="image-edit-text" v-language:inner>profile_edit_image_text</span>
             </label>
         </div>
     </div>
