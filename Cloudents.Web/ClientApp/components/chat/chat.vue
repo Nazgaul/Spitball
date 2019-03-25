@@ -3,7 +3,7 @@
         <v-layout class="chat-header">
             <v-icon @click="OriginalChatState">sbf-close</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
-            <span class="other-side">
+            <span class="other-side" v-show="!isMobile">
                 <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
                 <v-icon @click="closeChatWindow">sbf-close</v-icon>
             </span>
@@ -32,11 +32,18 @@
         },
         computed:{
             ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getCurrentConversationObj']),
+            isMobile(){
+                return this.$vuetify.breakpoint.smAndDown;
+            },
             state(){
                 return this.getChatState;
             },
             visible(){
-                return this.getIsChatVisible;
+                if(this.isMobile){
+                    return true;
+                }else{
+                    return this.getIsChatVisible;
+                }
             },
             isMinimized(){
                 return this.getIsChatMinimized;
@@ -85,6 +92,11 @@
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 3px 13px 0 rgba(0, 0, 0, 0.1);
+    @media (max-width: @screen-xs) {
+        position: unset;
+        width: 100%;
+        border-radius: unset;
+    }
     &.minimized{
         height: unset;
     }
@@ -93,6 +105,9 @@
         border-radius: 4px 4px 0 0;
         padding:10px;
         color:#fff;
+        @media (max-width: @screen-xs) {
+            border-radius: unset;
+        }
         .chat-header-text{
             font-family: @fontOpenSans;
             font-size: 11px;
@@ -114,7 +129,10 @@
     }
     .general-chat-style{
         height:93%; //minus chat header
-        width:100%;        
+        width:100%;    
+        @media (max-width: @screen-xs) {
+            height:92%;
+        }    
     }
 }
 </style>

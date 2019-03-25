@@ -22,7 +22,7 @@
                                         <v-icon @click="openChatWindow">sbf-close</v-icon>
                                     </div>
                                     <div class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}}</span>
+                                        <span class="bold header-wallet-text">{{accountUser.balance | currencyLocalyFilter}}</span>
                                         <!-- <span>${{accountUser.balance | dollarVal}}</span> -->
                                         <button class="setting-buysbl-button" :class="[{'red': accountUser.balance <= 300}, {'yellow': accountUser.balance > 300 && accountUser.balance <= 700}]" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span>&nbsp;<span><v-icon>sbf-star-icon</v-icon></span></button>     
                                     </div>
