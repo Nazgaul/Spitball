@@ -18,7 +18,7 @@
             </v-flex>
             <v-flex>
                    <span :style="{ color: rateNumColor }" class="caption">
-        ({{ rating }})
+       {{ rating }}
       </span>
             </v-flex>
         </v-layout>

@@ -12,7 +12,7 @@
                              </p>
                             </div>
                         </v-flex>
-                        <v-flex class="read-more-action mt-2 mb-2">
+                        <v-flex class="read-more-action mt-2 mb-2" v-if="readMoreVisible">
                             <v-divider style="width: 100%; height: 2px;"></v-divider>
                             <a class="read-more-text pt-3 pb-1" @click="isOpen = !isOpen">
                                 <span v-if="!isOpen">Read more...</span>
@@ -43,6 +43,10 @@
                     return this.getProfile.about.bio;
                 }
                 return '';
+
+            },
+            readMoreVisible(){
+                return this.aboutMe.length >=  this.textLimit
 
             },
             isOpen :{
