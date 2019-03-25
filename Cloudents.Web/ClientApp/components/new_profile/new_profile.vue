@@ -1,5 +1,9 @@
 <template>
     <v-container class="profile-page-container">
+        <button v-if="$vuetify.breakpoint.xsOnly" class="back-button" @click="$router.go(-1)">
+            <v-icon right>sbf-arrow-back</v-icon>
+        </button>
+
         <v-layout  justify-center v-bind="xsColumn" class="bio-wrap" >
                 <v-flex xs12 sm9 md9 >
                     <profile-bio></profile-bio>
@@ -12,6 +16,7 @@
                 <v-layout v-bind="xsColumn" align-start justify-start>
                     <v-flex xs12 md10 sm10 class="mr-5">
                         <v-flex xs12 sm12 md12 class="mt-3 mb-4 limited-760" >
+                            <v-divider v-if="$vuetify.breakpoint.xsOnly" style="height:2px; color: rgba(163, 160, 251, 0.32);"></v-divider>
                             <v-tabs :dir="isRtl ? `ltr` : ''" class="tab-padding" hide-slider xs12>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
                                         v-language:inner>profile_about</span>
@@ -96,7 +101,7 @@
                                 <router-link :to="{name:'document',params:{id:document.id}}"
                                              v-for="(document ,index) in profileData.documents"
                                              :key="index" class="mb-3">
-                                    <result-note style="padding: 16px;" :item="document" class="mb-3"></result-note>
+                                    <result-note style="padding: 16px; " :item="document" class="mb-3 limit-width"></result-note>
                                 </router-link>
                             </scroll-list>
                             <scroll-list v-if="activeTab === 5" :scrollFunc="loadPurchasedDocuments"

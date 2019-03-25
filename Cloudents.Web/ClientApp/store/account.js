@@ -211,6 +211,7 @@ const actions = {
         accountService.getProfile(id).then(val => {
             let profileUserData = accountService.createUserProfileData(val);
             context.commit('setProfile', profileUserData)
+            // cause of multiple profile requests to server
             context.dispatch('setProfileByActiveTab', activeTab)
         });
     },
@@ -228,7 +229,6 @@ const actions = {
     setProfileByActiveTab(context, activeTab) {
         if (!!context.state.profile && !!context.state.profile.user) {
             let id = context.state.profile.user.id;
-
             if (activeTab === 1) {
                 let p1 = accountService.getProfile(id);
                 let p2 = accountService.getProfileAbout(id);
