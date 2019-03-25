@@ -1,10 +1,10 @@
 <template>
     <v-container v-show="visible" py-0 px-0 class="chat-container" :class="{'minimized': isMinimized}">
-        <v-layout class="chat-header">
+        <v-layout @click="toggleMinimizeChat(false)" class="chat-header">
             <v-icon @click="OriginalChatState">sbf-close</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
             <span class="other-side">
-                <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
+                <v-icon @click.stop="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
                 <v-icon @click="closeChatWindow">sbf-close</v-icon>
             </span>
         </v-layout>
@@ -57,10 +57,12 @@
             ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
-                this.updateChatState(this.enumChatState.conversation);
+                if(!this.isMinimized){
+                    this.updateChatState(this.enumChatState.conversation);
+                }
             },
-            toggleMinimizeChat(){
-                this.toggleChatMinimize();
+            toggleMinimizeChat(val){
+                this.toggleChatMinimize(val);
             },
             closeChatWindow(){
                 this.closeChat();

@@ -63,8 +63,12 @@ const mutations = {
             state.chatState = newChatState;
         }
     },
-    toggleChatMinimize:(state)=>{
-        state.isMinimized = !state.isMinimized;
+    toggleChatMinimize:(state, val)=>{
+        if(typeof val !== undefined){
+            state.isMinimized = val;
+        }else{
+            state.isMinimized = !state.isMinimized;
+        }
     },
     closeChat:(state)=>{
         state.isVisible = false
@@ -126,8 +130,8 @@ const actions = {
         })
         chatService.sendChatMessage(messageObj);
     },
-    toggleChatMinimize:({commit})=>{
-        commit('toggleChatMinimize')
+    toggleChatMinimize:({commit}, val)=>{
+        commit('toggleChatMinimize', val)
     },
     closeChat:({commit})=>{
         commit('closeChat')
