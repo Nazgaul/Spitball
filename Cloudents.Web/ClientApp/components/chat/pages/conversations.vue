@@ -2,7 +2,6 @@
     <div class="conversations-container">
         <v-layout class="conversations-wrapper"
         @click="openConversation(conversation)"
-        align-center
         justify-start
         row
         v-for="conversation in converations"

@@ -17,7 +17,10 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
-                               
+                                    <div class="header-messages" v-if="loggedIn && !isMobile">
+                                        <span v-language:inner>Messages</span>
+                                        <v-icon @click="openChatWindow">sbf-close</v-icon>
+                                    </div>
                                     <div class="header-wallet" v-if="loggedIn">
                                         <span class="bold">{{accountUser.balance | currencyLocalyFilter}}</span>
                                         <!-- <span>${{accountUser.balance | dollarVal}}</span> -->
@@ -33,6 +36,7 @@
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
+                                    
 
                                     <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
                                     <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/signin', query:{returnUrl : $route.path} }" v-language:inner>header_login</router-link>
@@ -165,7 +169,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog']),
+            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChat']),
             openNewQuestionDialog(){
                     if(this.accountUser == null){
                         this.updateLoginDialogState(true);
@@ -179,8 +183,9 @@
                         };
                         this.updateNewQuestionDialogState(Obj)
                     }
-
-
+            },
+            openChatWindow(){
+                this.openChat();
             },
             openSblToken(){
                 analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");

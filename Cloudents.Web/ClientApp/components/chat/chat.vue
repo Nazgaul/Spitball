@@ -5,7 +5,7 @@
             <span class="chat-header-text">{{headerTitle}}</span>
             <span class="other-side">
                 <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
-                <v-icon @click="closeChat">sbf-close</v-icon>
+                <v-icon @click="closeChatWindow">sbf-close</v-icon>
             </span>
         </v-layout>
         <v-layout v-show="!isMinimized" class="general-chat-style">
@@ -54,7 +54,7 @@
             }
         },
         methods:{
-            ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize']),
+            ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
                 this.updateChatState(this.enumChatState.conversation);
@@ -62,7 +62,9 @@
             toggleMinimizeChat(){
                 this.toggleChatMinimize();
             },
-            closeChat(){}
+            closeChatWindow(){
+                this.closeChat();
+            }
         },
         created(){
             this.getAllConversations();

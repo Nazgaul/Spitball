@@ -84,12 +84,12 @@
 
   .main {
     //.responsive-property(height, 60px, null, 85px);
-    //.responsive-property(padding-top, 10px, 0px, null);
+    //.responsive-property(padding-top, 10px, 0px, null);.header-rocket
     display: flex;
     height: 100%;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 1240px;
+    // max-width: 1240px;
     .setting-buysbl-button{
       font-family: @fontFiraSans;
       display: flex;
@@ -162,9 +162,11 @@
     flex: 1 0 auto;
     line-height: 32px;
     display: flex;
-    max-width: 276px;
+    max-width: 310px;
+    margin-right:16px;
     @media (max-width: @screen-xs) {
       flex: 0 auto;
+      margin-right:0px;
     }
     .v-btn--icon {
       @media (max-width: 959px) {
@@ -318,7 +320,8 @@
 
 }
 .header-wallet{
-  padding-right: 16px;
+  // padding-right: 16px;
+  padding-left: 16px;
   align-items: center;
 }
 .header-comments {
@@ -376,7 +379,7 @@
 .header-rocket {
   height: 34px;
   padding-left: 24px;
-  border-left: 1px solid #dddddd;
+  // border-left: 1px solid #dddddd;
   justify-content: flex-end;
   max-width: 60px;
   @media (max-width: @screen-xs) {
@@ -411,6 +414,18 @@
       min-width: 20px;
       min-height: 17px;
     }
+  }
+}
+
+.header-messages{
+  align-items: center;
+  text-align: center;
+  padding: 0 10px;
+  display: flex;
+  border-right: 1px solid #dddddd;
+  i{
+    font-size:16px;
+    margin: 0 5px;
   }
 }
 

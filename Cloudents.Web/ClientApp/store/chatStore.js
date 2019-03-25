@@ -69,7 +69,7 @@ const mutations = {
     closeChat:(state)=>{
         state.isVisible = false
     },
-    OpenChat:(state)=>{
+    openChat:(state)=>{
         state.isVisible = true
     },
 };
@@ -128,6 +128,12 @@ const actions = {
     },
     toggleChatMinimize:({commit})=>{
         commit('toggleChatMinimize')
+    },
+    closeChat:({commit})=>{
+        commit('closeChat')
+    },
+    openChat:({commit})=>{
+        commit('openChat')
     }
     
 };
