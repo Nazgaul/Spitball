@@ -5,7 +5,14 @@
             <label for="chat-file">
                 <!--<v-icon class="chat-attach-icon">sbf-attach</v-icon>-->
                 <add-file-img></add-file-img>
-                <file-upload
+                <file-upload  chunk-enabled
+                :chunk="{
+                              action: uploadUrl,
+                              minSize: 1,
+                              maxRetries: 5,
+                               finishBody : {
+        OtherUser: 638
+      }}"
                 id="file-input"
                 :input-id="componentUniqueId"
                 ref="upload"
@@ -34,7 +41,7 @@
             return {
                 componentUniqueId: `instance-${this._uid}`,
                 extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp'],
-                uploadUrl: "/api/upload/ask",
+                uploadUrl: "/api/chat/upload",
                 uploadedFiles: [],
                 uploadedFileNames: [],
             }

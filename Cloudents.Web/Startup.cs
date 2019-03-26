@@ -34,6 +34,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Web.Api;
 using Microsoft.Extensions.DependencyModel;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -233,6 +234,7 @@ namespace Cloudents.Web
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
+            containerBuilder.RegisterType<UploadService>();
 
             //containerBuilder.RegisterType<DocumentSeoBuilder>()
             //    .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>()
