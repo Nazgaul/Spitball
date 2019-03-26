@@ -18,13 +18,12 @@
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <div class="header-messages" v-if="loggedIn && !isMobile">
-                                        <span v-language:inner>Messages</span>
+                                        <span class="header-messages-text" v-language:inner>chat_messages</span>
                                         <v-icon @click="openChatWindow">sbf-forum-icon</v-icon>
                                     </div>
                                     <div class="header-wallet" v-if="loggedIn">
-                                        <span class="bold header-wallet-text">{{accountUser.balance | currencyLocalyFilter}}</span>
-                                        <!-- <span>${{accountUser.balance | dollarVal}}</span> -->
-                                        <button class="setting-buysbl-button" :class="[{'red': accountUser.balance <= 300}, {'yellow': accountUser.balance > 300 && accountUser.balance <= 700}]" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span>&nbsp;<span><v-icon>sbf-star-icon</v-icon></span></button>     
+                                        <button class="setting-buysbl-button" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span></button>     
+                                        <span class="bold header-wallet-text">{{accountUser.balance | currencyLocalyFilter}}</span>                                        
                                     </div>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">

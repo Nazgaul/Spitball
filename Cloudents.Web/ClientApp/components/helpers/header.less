@@ -98,16 +98,13 @@
       display: flex;
       align-items: center;
       padding: 0px 15px;
-      font-size: 12px;
       font-weight: 600;
       letter-spacing: -.2px;
       color: rgba(0,0,0,.87);
       outline: none;
-      line-height: 10px;
       border-radius: 14px;
-      box-shadow: 0 3px 8px 0 rgba(0,0,0,.25);
       background-image: linear-gradient(108deg,#ffe78d,#ffca54);
-      margin-top: 3px;
+      // margin-top: 3px;
       span{
         font-size:11px;
         color: rgba(0, 0, 0, 0.77); 
@@ -165,7 +162,8 @@
     flex: 1 0 auto;
     line-height: 32px;
     display: flex;
-    max-width: 310px;
+    width: 388px;
+    min-width: 388px;
     margin-right:16px;
     @media (max-width: @screen-xs) {
       flex: 0 auto;
@@ -327,6 +325,7 @@
   padding-left: 16px;
   align-items: center;
   .header-wallet-text{
+    font-size:13px;
     @media (max-width: @screen-sm) {
       color: #c8c7e5;
     }
@@ -349,12 +348,16 @@
 }
 
 .header-wallet {
-  flex-direction: column;
-  max-width: 120px;
-  min-width: 110px;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 190px;
+  min-width: 190px;
   @media (max-width: @screen-sm) {
     // align-items: start;
     width: auto;
+    flex-direction: column;
+    max-width: 120px;
+    min-width: 110px;
   }
 
   .v-btn {
@@ -372,6 +375,9 @@
     }
     &.bold {
       font-weight: bold;
+      @media (max-width: @screen-xs) {
+        margin-top: 3px;
+      }
     }
   }
 }
@@ -427,10 +433,13 @@
 
 .header-messages{
   align-items: center;
-  text-align: center;
-  padding: 0 10px;
+  justify-content: flex-end;
   display: flex;
   border-right: 1px solid #dddddd;
+  padding-right: 5px;
+  .header-messages-text{
+    font-size: 12px;
+  }
   i{
     font-size:16px;
     margin: 0 5px;
