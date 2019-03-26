@@ -1,5 +1,5 @@
 <template>
-    <v-container v-show="visible" py-0 px-0 class="chat-container" :class="{'minimized': isMinimized}">
+    <v-container v-show="visible" py-0 px-0 class="chat-container" :style="{'height': height}" :class="{'minimized': isMinimized}">
         <v-layout class="chat-header">
             <v-icon @click="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
@@ -27,13 +27,21 @@
         },
         data(){
             return{
-                enumChatState: this.getEnumChatState()
+                enumChatState: this.getEnumChatState(),
+                mobileFooterHeight: 48,
             }
         },
         computed:{
             ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getCurrentConversationObj']),
             isMobile(){
                 return this.$vuetify.breakpoint.smAndDown;
+            },
+            height(){
+                if(this.isMobile){
+                    return `${global.innerHeight - this.mobileFooterHeight}px`;
+                }else{
+                    return '595px';
+                }
             },
             state(){
                 return this.getChatState;
