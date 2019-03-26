@@ -1,22 +1,21 @@
 <template>
     <v-card class="user-edit-wrap pb-3" >
         <v-layout class="header px-3 py-3 mb-3">
-            <!--<div class="edit-" style="background-color: #f0f0f7; width: 100%;">-->
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
                 <span v-language:inner>profile_edit_tutor_title</span>
             </v-flex>
-            <!--</div>-->
         </v-layout>
         <v-layout  class="px-3 mt-2" align-center justify-space-between>
             <v-flex xs4 class="mr-2">
                 <v-layout  column>
-                    <v-flex xs6 class="mb-2">
+                    <v-flex xs6 class="mb-2 pl-2">
                         <span class="subtitle" v-language:inner>profile_personal_details</span>
                     </v-flex>
                    <v-flex>
                        <v-text-field
                                :label="firstNameLabel"
+                               v-model="firstName"
                                outline
                        ></v-text-field>
                    </v-flex>
@@ -24,13 +23,13 @@
             </v-flex>
             <v-flex xs4 class="mr-2">
                 <v-layout  column>
-                    <v-flex xs6 class="mb-2" grow>
+                    <v-flex xs6 class="mb-2 pl-2" grow>
                         <span class="subtitle" style="visibility: hidden">hidden</span>
                     </v-flex>
                     <v-flex>
                         <v-text-field
-
-                                :label="firstNameLabel"
+                                :label="lastNameLabel"
+                                v-model="lastName"
                                 outline
                         ></v-text-field>
                     </v-flex>
@@ -38,13 +37,13 @@
             </v-flex>
             <v-flex xs4>
                 <v-layout  column>
-                    <v-flex xs6 class="mb-2">
+                    <v-flex xs6 class="mb-2 pl-2">
                         <span class="subtitle" v-language:inner>profile_pricing</span>
                     </v-flex>
                     <v-flex>
-                        <v-text-field
+                        <v-text-field class="disabled-background"
                                 :label="priceLabel"
-                                value="50"
+                                v-model="priceHour"
                                 outline
                                 prefix="₪"
                                 readonly
@@ -55,7 +54,7 @@
         </v-layout>
 
         <v-layout class="px-3" column>
-            <v-flex class="mb-2">
+            <v-flex class="mb-2 pl-2">
                 <span class="subtitle" v-language:inner>profile_aboutme</span>
             </v-flex>
             <v-flex>
@@ -79,10 +78,14 @@
         </v-layout>
         <v-layout class="px-3" align-center justify-end>
             <v-flex xs2 >
-               <v-btn class="shallow-blue" round outline primary @click="closeDialog">Cancel</v-btn>
+               <v-btn class="shallow-blue" round outline primary @click="closeDialog">
+                   <span v-language:inner>profile_btn_cancel</span>
+               </v-btn>
             </v-flex>
             <v-flex xs2 class="mr-3">
-                <v-btn class="blue-btn" round @click="saveChanges()">Save Changes</v-btn>
+                <v-btn class="blue-btn" round @click="saveChanges()">
+                    <span v-language:inner>profile_btn_save_changes</span>
+                  </v-btn>
             </v-flex>
         </v-layout>
     </v-card>
@@ -103,7 +106,10 @@
                 bioLabel: LanguageService.getValueByKey("profile_bio_label"),
                 titleLabel: LanguageService.getValueByKey("profile_description_label"),
                 editedAbout: '',
-                editedDescription: ''
+                editedDescription: '',
+                firstName: '',
+                lastName: '',
+                priceHour: 50
 
             }
         },
@@ -153,6 +159,11 @@
 <style lang="less">
     @import '../../../../styles/mixin.less';
     .user-edit-wrap {
+        .disabled-background{
+            .v-input__slot{
+                background-color: #f5f5f5!important;
+            }
+        }
         .shallow-blue{
             border: 1px solid  #4452fc;
             color: #4452fc;

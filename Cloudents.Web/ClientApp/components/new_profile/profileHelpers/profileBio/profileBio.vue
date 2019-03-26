@@ -73,8 +73,9 @@
                 :popUpType="'editUserInfo'"
                 :content-class="'edit-dialog'"
         >
-            <userInfoEdit v-if="false" :closeCallback="closeEditDialog"></userInfoEdit>
-            <tutorInfoEdit :closeCallback="closeEditDialog"></tutorInfoEdit>
+            <tutorInfoEdit v-if="isTutorProfile" :closeCallback="closeEditDialog"></tutorInfoEdit>
+            <userInfoEdit v-else :closeCallback="closeEditDialog"></userInfoEdit>
+
         </sb-dialog>
     </v-layout>
 </template>
