@@ -99,7 +99,7 @@ namespace Cloudents.Web
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddRouting(x =>
             {
-                x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
+               // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
             });
             services.AddMvc()
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>

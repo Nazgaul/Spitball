@@ -97,11 +97,13 @@ namespace Cloudents.Web.Api
 
        
 
-        public override async Task FinishUploadAsync(UploadRequest model)
+        public override async Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)
         {
-            if (!(model is FinishChatUpload chatModel))
+            if ((model is FinishChatUpload chatModel))
             {
-               
+                var command = new SendMessageCommand(null, _userManager.GetLongUserId(User), new[] { chatModel.OtherUser }, null, blobName);
+                await _commandBus.DispatchAsync(command, token);
+              
             }
         }
     }

@@ -29,7 +29,7 @@ namespace Cloudents.Web.Services
 
         public delegate UploadService Factory(IBlobProvider blobProvider);
 
-        public UploadResponse StartUpload(UploadRequest model)
+        public UploadStartResponse StartUpload(UploadRequestStart model)
         {
             string[] supportedFiles = { "doc",
                 "docx", "xls",
@@ -48,7 +48,7 @@ namespace Cloudents.Web.Services
             }
 
 
-            var response = new UploadResponse(Guid.NewGuid());
+            var response = new UploadStartResponse(Guid.NewGuid());
 
             var tempData = new TempData
             {
@@ -79,7 +79,7 @@ namespace Cloudents.Web.Services
             return $"file-{sessionId}-{name.Replace("/", string.Empty)}";
         }
 
-        public async Task<UploadResponse> UploadBatchAsync(UploadRequest2 model, CancellationToken token)
+        public async Task<UploadStartResponse> UploadBatchAsync(UploadRequestForm model, CancellationToken token)
         {
 
             var tempDataProvider = _tempDataDictionaryFactory.GetTempData(_httpContextAccessor.HttpContext);
@@ -90,10 +90,10 @@ namespace Cloudents.Web.Services
                 index, token);
 
             tempDataProvider.Put($"update-{model.SessionId}", tempData);
-            return new UploadResponse();
+            return new UploadStartResponse();
         }
 
-        public async Task<UploadResponse> FinishUploadAsync(UploadRequest model, CancellationToken token)
+        public async Task<string> FinishUploadAsync(UploadRequestFinish model, CancellationToken token)
         {
             var tempDataProvider = _tempDataDictionaryFactory.GetTempData(_httpContextAccessor.HttpContext);
             var tempData2 = tempDataProvider.Get<TempData>($"update-{model.SessionId}");
@@ -107,7 +107,7 @@ namespace Cloudents.Web.Services
             }
 
             await _blobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, indexes, token);
-            return new UploadResponse(tempData2.BlobName);
+            return tempData2.BlobName;
         }
     }
 }
