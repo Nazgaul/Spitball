@@ -12,7 +12,7 @@ import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.
 import profileBio from './profileHelpers/profileBio/profileBio.vue';
 import tutorAboutMe from './profileHelpers/profileAbout/tutorAboutMe.vue';
 import coursesCard from './profileHelpers/coursesCard/coursesCard.vue';
-import subjectsCard from './profileHelpers/subjectsCard/subjectsCard.vue';
+// import subjectsCard from './profileHelpers/subjectsCard/subjectsCard.vue';
 import reviewsList from './profileHelpers/reviews/reviewsList.vue';
 import tutorInfoBlock from './profileHelpers/tutoringInfo/tutorInfoBlock.vue';
 import userInfoBlock from './profileHelpers/userInfoBlock/userInfoBlock.vue';
@@ -23,6 +23,7 @@ import courseEmptyState from './profileHelpers/courseEmptyState/courseEmptyState
 export default {
     name: "new_profile",
     components: {
+        // subjectsCard,
         questionCard,
         userBlock,
         resultNote,
@@ -30,7 +31,6 @@ export default {
         profileBio,
         tutorAboutMe,
         coursesCard,
-        subjectsCard,
         reviewsList,
         tutorInfoBlock,
         userInfoBlock,
@@ -184,14 +184,14 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["accountUser", "getProfile"]),
+        ...mapGetters(["accountUser", "getProfile", "isTutorProfile"]),
         xsColumn(){
             const xsColumn = {};
             if (this.$vuetify.breakpoint.xsOnly){
                 xsColumn.column = true;
             }
-            return xsColumn
-        },
+            return xsColumn        },
+
         profileData() {
             if (!!this.getProfile) {
                 return this.getProfile
@@ -202,9 +202,11 @@ export default {
         },
         isMyProfile() {
             if (!!this.profileData) {
-                return false  // return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
+                // return false
+                return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
             }
         },
+
         isEmptyCourses(){
             return this.profileData && this.profileData.about && this.profileData.about.courses && !this.profileData.about.courses.length
         },

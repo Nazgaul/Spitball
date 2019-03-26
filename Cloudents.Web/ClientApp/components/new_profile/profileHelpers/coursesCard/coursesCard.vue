@@ -9,7 +9,7 @@
                             </div>
                         </v-flex>
                         <v-flex class="text-xs-right">
-                            <v-icon class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
+                            <v-icon v-if="isMyProfile" class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
                         </v-flex>
                     </v-layout>
                     <v-layout row wrap >
@@ -50,6 +50,12 @@
                 defaultToShow: 5,
                 expanded: false
             }
+        },
+        props: {
+            isMyProfile: {
+                type: Boolean,
+                default: false
+            },
         },
         methods: {
             showAll() {

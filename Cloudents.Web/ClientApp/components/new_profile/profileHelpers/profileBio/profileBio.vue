@@ -4,7 +4,7 @@
             <v-card class="py-4" :class="[$vuetify.breakpoint.smAndUp ?  'pl-4 px-3' : 'px-1 transparent elevation-0']">
                 <v-layout v-bind="xsColumn" :class="[$vuetify.breakpoint.smAndUp ? 'align-start' : 'align-center' ]">
                     <v-flex  order-xs2 order-sm1 order-md1>
-                        <user-image></user-image>
+                        <user-image :isMyProfile="isMyProfile"></user-image>
                     </v-flex>
                     <v-flex xs12 order-xs1 order-sm2 order-md2 :class="[$vuetify.breakpoint.smAndUp ?  'pl-4' : 'mb-4']">
                         <v-layout class="name-price-wrap" justify-space-between align-center>
@@ -13,7 +13,7 @@
                                     <div class="d-flex align-start">
                                         <v-icon v-if="$vuetify.breakpoint.xsOnly" class="face-icon mr-2">sbf-face-icon</v-icon>
                                     <span class="line-height-1">{{userName}}</span>
-                                        <v-icon v-if="$vuetify.breakpoint.xsOnly" class="edit-profile-action  ml-2">sbf-edit-icon</v-icon>
+                                        <v-icon v-if="$vuetify.breakpoint.xsOnly && isMyProfile" class="edit-profile-action  ml-2">sbf-edit-icon</v-icon>
                                     </div>
                                     <div class="d-flex align-start" v-if="$vuetify.breakpoint.smAndUp">
                                         <userRank class="ml-3" :score="userScore"></userRank>
@@ -29,7 +29,7 @@
                                      <span v-language:inner>profile_points_hour</span>
                                 </span>
                                 </span>
-                                 <span class=" ml-4">
+                                 <span class=" ml-4" v-if="isMyProfile">
                                      <v-icon class="edit-profile-action subheading">sbf-edit-icon</v-icon>
                                  </span>
                             </div>
@@ -75,6 +75,12 @@
             return {
                 userStars: 3
             }
+        },
+        props: {
+         isMyProfile: {
+                type: Boolean,
+                default: false
+            },
         },
         computed: {
             ...mapGetters(['getProfile']),

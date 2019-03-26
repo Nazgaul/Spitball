@@ -6,10 +6,10 @@
 
         <v-layout  justify-center v-bind="xsColumn" class="bio-wrap" >
                 <v-flex xs12 sm9 md9 >
-                    <profile-bio></profile-bio>
+                    <profile-bio :isMyProfile="isMyProfile"></profile-bio>
                 </v-flex>
             <v-flex  xs12 sm3 md3 :class="{'pl-4': $vuetify.breakpoint.smAndUp}">
-                <tutorInfoBlock v-if="false"></tutorInfoBlock>
+                <tutorInfoBlock v-if="isTutorProfile"></tutorInfoBlock>
                 <userInfoBlock v-else></userInfoBlock>
             </v-flex>
         </v-layout>
@@ -74,11 +74,11 @@
 
                             </div>
                             <div v-if="activeTab === 1" style="max-width: 760px;">
-                                <tutorAboutMe></tutorAboutMe>
-                                <coursesCard></coursesCard>
-                                <subjectsCard></subjectsCard>
-                                <ctaBlock v-if="$vuetify.breakpoint.smAndUp"></ctaBlock>
-                                <reviewsList></reviewsList>
+                                <tutorAboutMe v-if="isTutorProfile"></tutorAboutMe>
+                                <coursesCard :isMyProfile="isMyProfile"></coursesCard>
+                                <!--<subjectsCard></subjectsCard>-->
+                                <ctaBlock v-if="$vuetify.breakpoint.smAndUp && isMyProfile"></ctaBlock>
+                                <reviewsList v-if="isTutorProfile"></reviewsList>
                             </div>
                             <scroll-list v-if="activeTab === 2" :scrollFunc="loadQuestions" :isLoading="questions.isLoading"
                                          :isComplete="questions.isComplete">

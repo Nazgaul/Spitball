@@ -173,6 +173,13 @@ const mutations = {
 };
 
 const getters = {
+    isTutorProfile: state =>{
+        if(state.profile &&  state.profile.user && state.profile.user.isTutor ){
+            return  state.profile.user.isTutor
+        }else {
+            return false
+        }
+    },
     getProfile: state => state.profile,
     fromPath: state => state.fromPath,
     unreadMessages: state => state.unreadMessages,

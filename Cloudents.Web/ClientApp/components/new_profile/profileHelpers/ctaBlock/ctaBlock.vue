@@ -2,12 +2,13 @@
     <v-layout class="cta-section mt-5 mb-5">
         <v-flex xs12>
             <v-layout align-center justify-center column>
-                <v-flex xs12 sm4 md4 class="text-xs-center text-sm-center text-md-center">
+                <v-flex v-if="isTutorProfile" xs12 sm4 md4 class="text-xs-center text-sm-center text-md-center">
                     <div class="cta-title mb-4 "v-language:inner>profile_cta_section_title
                     </div>
                 </v-flex>
                 <v-flex class="text-xs-center text-sm-center text-md-center mt-3 mb-">
-                    <contactBtn></contactBtn>
+                    <contactBtn v-if="isTutorProfile"></contactBtn>
+                    <becomeTutorBtn v-else></becomeTutorBtn>
                 </v-flex>
             </v-layout>
         </v-flex>
@@ -15,11 +16,16 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     import contactBtn from '../../profileHelpers/contactBtn/contactBtn.vue';
+    import becomeTutorBtn from '../../profileHelpers/becomeTutorBtn/becomeTutorBtn.vue';
 
     export default {
         name: "ctaBlock",
-        components: {contactBtn}
+        components: {contactBtn, becomeTutorBtn},
+        computed: {
+            ...mapGetters(['isTutorProfile']),
+        },
     }
 </script>
 

@@ -13,11 +13,10 @@
                     <span class="user-balance py-2">{{profUserBal}}<span class="small">Pts</span>
                     </span>
             </div>
-                <div
-                        class="hover-block d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3 white--text">
+                <div v-if="isMyProfile" class="hover-block d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3 white--text">
                     <uploadImage></uploadImage>
                 </div>
-            <userOnlineStatus class="user-status" :isOnline="true"></userOnlineStatus>
+            <userOnlineStatus class="user-status" :isOnline="isOnline"></userOnlineStatus>
         </div>
 </template>
 
@@ -37,13 +36,25 @@
                 hover: false,
             }
         },
+        props: {
+        isMyProfile: {
+                type: Boolean,
+                default: false
+            },
+        },
         computed: {
-            ...mapGetters(['getProfile']),
+            ...mapGetters(['getProfile', 'isOnline']),
             profileImage() {
                 if( this.getProfile && this.getProfile.user){
                     return  `${global.location.origin}${this.getProfile.user.image}?width=214&height=240`
                 }
                 return ''
+            },
+            isOnline(){
+                if( this.getProfile && this.getProfile.user && this.getProfile.user.tutorData){
+                    return this.getProfile.user.tutorData.online || false
+                }
+              return false
             },
             profUserBal(){
                 if(this.getProfile && this.getProfile.user){

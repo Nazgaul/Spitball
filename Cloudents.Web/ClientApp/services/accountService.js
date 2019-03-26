@@ -12,9 +12,35 @@ function AccountUser(ObjInit){
     this.image = ObjInit.image || '';
 
 }
+ function TutorData(objOnit) {
+     this.online = objOnit.online || false;
+     this.price= objOnit.price || 0;
+     this.rate = objOnit.rate || 0;
+     this.reviewCount = objOnit.reviewCount || 0;
+
+ }
+
+ function CreateTutorData(objInit) {
+     return new TutorData(objInit)
+ }
+ function createUserPersonalData(objInit) {
+     return new ProfilePersonalData(objInit)
+ }
+function ProfilePersonalData(objInit){
+    this.id = objInit.id;
+    this.name = objInit.name;
+    this.description = objInit.description || '';
+    this.score = objInit.score;
+    this.image = objInit.image || '';
+    this.universityName= objInit.universityName;
+    this.isTutor= objInit.hasOwnProperty('tutor') || false;
+    this.tutorData = objInit.tutor ? CreateTutorData(objInit.tutor) : CreateTutorData({})
+
+}
+
 
 function profileUserData(objInit){
-    this.user= objInit.data;
+    this.user= createUserPersonalData(objInit.data) ;
     this.questions = [];
     this.answers = [];
     this.documents = [];
