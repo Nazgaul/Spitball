@@ -36,7 +36,8 @@ const getters = {
         }else{
             return null;
         }
-    }
+    },
+    getActiveConversationObj:state=>state.activeConversationObj
 };
 
 const mutations = {

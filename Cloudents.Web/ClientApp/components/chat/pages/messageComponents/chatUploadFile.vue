@@ -7,12 +7,12 @@
                 <add-file-img></add-file-img>
                 <file-upload  chunk-enabled
                 :chunk="{
-                              action: uploadUrl,
-                              minSize: 1,
-                              maxRetries: 5,
-                               finishBody : {
-        OtherUser: 638
-      }}"
+                    action: uploadUrl,
+                    minSize: 1,
+                    maxRetries: 5,
+                    finishBody : {
+                    OtherUser: otherUserId
+                }}"
                 id="file-input"
                 :input-id="componentUniqueId"
                 ref="upload"
@@ -122,6 +122,12 @@
             }
         }
         },
+        computed:{
+            ...mapGetters(['getActiveConversationObj']),
+            otherUserId(){
+                return this.getActiveConversationObj.userId
+            }
+        }
     }
 </script>
 
