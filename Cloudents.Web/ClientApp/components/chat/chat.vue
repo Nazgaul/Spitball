@@ -40,7 +40,11 @@
                 if(this.isMobile){
                     return `${global.innerHeight - this.mobileFooterHeight}px`;
                 }else{
-                    return '595px';
+                    if(this.isMinimized){
+                        return 'unset';
+                    }else{
+                        return '595px';
+                    }
                 }
             },
             state(){
