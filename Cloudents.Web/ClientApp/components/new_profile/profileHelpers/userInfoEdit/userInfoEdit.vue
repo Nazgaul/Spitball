@@ -6,13 +6,13 @@
                 <span v-language:inner>profile_edit_user_profile_title</span>
             </v-flex>
         </v-layout>
-        <v-layout class="px-3 mt-2" align-center justify-space-between>
-            <v-flex xs6 class="mr-2">
+        <v-layout class="px-3 mt-2 align-stretch"  align-center justify-space-between v-bind="xsColumn">
+            <v-flex xs6  :class="{'mr-2' : $vuetify.breakpoint.smAndUp}">
                 <v-layout column>
                     <v-flex xs6 class="mb-2 pl-2">
                         <span class="subtitle" v-language:inner>profile_personal_details</span>
                     </v-flex>
-                    <v-flex>
+                    <v-flex >
                         <v-text-field
                                 :label="userNameLabel"
                                 v-model="userName"
@@ -23,7 +23,7 @@
             </v-flex>
         </v-layout>
 
-        <v-layout class="px-3" column>
+        <v-layout class="px-3 prev-grow" column>
             <v-flex class="mb-2 pl-2">
                 <span class="subtitle" v-language:inner>profile_aboutme</span>
             </v-flex>
@@ -36,14 +36,14 @@
                 ></v-textarea>
             </v-flex>
         </v-layout>
-        <v-layout class="px-3" align-center justify-end>
-            <v-flex xs2>
-                <v-btn class="shallow-blue" round outline primary @click="closeDialog">
+        <v-layout  align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-around px-1' : 'justify-end px-3']">
+            <v-flex xs5 sm2 md2 >
+                <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
                     <span v-language:inner>profile_btn_cancel</span>
                 </v-btn>
             </v-flex>
-            <v-flex xs2 class="mr-3">
-                <v-btn class="blue-btn" round @click="saveChanges()">
+            <v-flex xs5 sm2 md2 :class="{'mr-3': $vuetify.breakpoint.smAndUp}">
+                <v-btn class="blue-btn  ml-0" round @click="saveChanges()">
                     <span v-language:inner>profile_btn_save_changes</span>
                 </v-btn>
             </v-flex>
@@ -75,6 +75,13 @@
         },
         computed: {
             ...mapGetters(['getProfile']),
+            xsColumn(){
+                const xsColumn = {};
+                if (this.$vuetify.breakpoint.xsOnly){
+                    xsColumn.column = true;
+                }
+                return xsColumn
+            },
             userName:{
               get(){
                  return this.getProfile.user.name
@@ -114,32 +121,57 @@
     @import '../../../../styles/mixin.less';
 
     .user-edit-wrap {
-        .shallow-blue {
-            border: 1px solid #4452fc;
+        .align-stretch{
+            @media(max-width: @screen-xs){
+                align-items: stretch;
+                flex-grow: 0;
+            }
+        }
+        .prev-grow{
+            @media(max-width: @screen-xs){
+                flex-grow: 0;
+            }
+        }
+        .disabled-background{
+            .v-input__slot{
+                background-color: #f5f5f5!important;
+            }
+        }
+        .shallow-blue{
+            border: 1px solid  #4452fc;
             color: #4452fc;
+            @media(max-width: @screen-xs){
+                min-width:180px;
+                border-radius: 0;
+            }
         }
         //vuetify overwite
-        .blue-btn {
-            background-color: #4452fc !important;
+        .blue-btn{
+            background-color: #4452fc!important;
             color: @color-white;
-            box-shadow: none !important;
+            box-shadow: none!important;
+            @media(max-width: @screen-xs){
+                min-width:180px;
+                border-radius: 0;
+            }
         }
-        .header {
+        .header{
             background-color: #f0f0f7;
             width: 100%;
+            max-height: 50px;
             color: @profileTextColor;
             font-family: @fontOpenSans;
             font-size: 18px;
             font-weight: bold;
             letter-spacing: -0.5px;
         }
-        .subtitle {
+        .subtitle{
             font-size: 16px;
             font-weight: bold;
             letter-spacing: -0.3px;
             color: @profileTextColor;
         }
-        .edit-icon {
+        .edit-icon{
             color: @profileTextColor;
             font-size: 18px;
         }

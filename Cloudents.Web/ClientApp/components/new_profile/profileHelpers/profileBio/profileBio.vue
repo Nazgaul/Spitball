@@ -58,7 +58,7 @@
                     </div>
                 </v-flex>
                 <v-flex>
-                    <div class="mt-4"  v-if="$vuetify.breakpoint.xsOnly">
+                    <div class="mt-4" v-if="$vuetify.breakpoint.xsOnly">
                         <userAboutMessage></userAboutMessage>
                     </div>
                 </v-flex>
@@ -67,13 +67,13 @@
         </v-flex>
         <sb-dialog
                 :onclosefn="closeEditDialog"
-                :activateOverlay="true"
+                :activateOverlay="false"
                 :showDialog="showEditDataDialog"
                 :maxWidth="'760px'"
                 :popUpType="'editUserInfo'"
                 :content-class="'edit-dialog'"
         >
-            <tutorInfoEdit v-if="isTutorProfile" :closeCallback="closeEditDialog"></tutorInfoEdit>
+            <tutorInfoEdit v-if="!isTutorProfile" :closeCallback="closeEditDialog"></tutorInfoEdit>
             <userInfoEdit v-else :closeCallback="closeEditDialog"></userInfoEdit>
 
         </sb-dialog>
