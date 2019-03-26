@@ -6,7 +6,14 @@
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
         <span class="conversation-name">{{conversation.name}}</span>
-        <span class="conversation-date">{{date}}</span>
+        <v-flex class="date-unread-container">
+          <span class="conversation-date">{{date}}</span>
+          <div>
+            <span v-show="conversation.unread > 0" class="conversation-unread">{{conversation.unread}}</span>
+          </div>
+          
+        </v-flex>
+        
       </v-flex>
       <!-- <v-flex>
             <span>message {{conversation}}</span>
@@ -52,14 +59,33 @@ export default {
       display: flex;
       justify-content: space-between;
       .conversation-name{
+        display: flex;
         font-size: 11px;
         font-weight: bold;
         color: #43425d;
+        align-items: center;
       }
-      .conversation-date{
-        font-size: 11px;
-        color: #43425d;
+      .date-unread-container{
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+        .conversation-date{
+          font-size: 11px;
+          color: #43425d;
+        }
+        .conversation-unread{
+          background: #4452fc;
+          color: #fff;
+          border-radius: 50%;
+          height: 16px;
+          width: 16px;
+          display: inline-block;
+          text-align: center;
+          vertical-align: middle;
+          font-size: 11px;
+        }
       }
+      
     }
   }
 }

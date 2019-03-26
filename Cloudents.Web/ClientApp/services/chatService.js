@@ -3,10 +3,10 @@ import { connectivityModule } from "./connectivity.module"
 function Conversation(objInit){
     this.userId = objInit.userId;
     this.name = objInit.name;
-    this.unread = objInit.unread;
-    this.online = objInit.online;
+    this.unread = objInit.unread || 1;
+    this.online = objInit.online || true;
     this.conversationId = objInit.conversationId;
-    this.dateTime = objInit.dateTime;
+    this.dateTime = objInit.dateTime || new Date().toISOString();
 }
 
 function createConversation(objInit){

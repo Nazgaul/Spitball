@@ -40,6 +40,9 @@ const getters = {
 };
 
 const mutations = {
+    addConversationUnread:(state, message)=>{
+        state.conversations[message.userId].unread++
+    },
     addMessage:(state, message)=>{
         let id = message.conversationId;
         if(!state.messages[id]){
@@ -75,9 +78,36 @@ const mutations = {
 };
 
 const actions = {
-    addMessage:({commit}, messageObj)=>{
-        //verify messageObj is actually in the right format
-        commit('addMessage', messageObj)
+    addMessage:({commit, state}, message)=>{
+        //check if inside conversation
+        let isInConversation = state.chatState == state.enumChatState.messages;
+        if(isInConversation){
+            //check if message sent is part of the current conversation
+            if(state.activeConversationObj.conversationId === message.conversationId){
+                commit('addMessage', message)
+            }else{
+                // check if conversation with this user is exists
+                if(!!state.conversations[message.userId]){
+                    //update unread conversations
+                    commit('addConversationUnread', message)
+                }else{
+                    //no conversation should be added
+                    let ConversationObj = chatService.createConversation(message);
+                    commit('addConversation', ConversationObj)
+                }
+            }
+        }else{
+            // check if conversation with this user is exists
+            if(!!state.conversations[message.userId]){
+                //update unread conversations
+                commit('addConversationUnread', message)
+            }else{
+                //no conversation should be added
+                let ConversationObj = chatService.createConversation(message);
+                commit('addConversation', ConversationObj)
+            }
+        }      
+        
     },
     signalRAddMessage({dispatch}, messageObj){
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
