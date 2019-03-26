@@ -11,7 +11,7 @@
                             <div>
                                 <div class="user-name mb-2">
                                     <div class="d-flex align-start">
-                                        <v-icon v-if="$vuetify.breakpoint.xsOnly" class="face-icon mr-2">sbf-face-icon</v-icon>
+                                        <v-icon v-if="$vuetify.breakpoint.xsOnly && isTutorProfile" class="face-icon mr-2">sbf-face-icon</v-icon>
                                     <span class="line-height-1">{{userName}}</span>
                                         <v-icon v-if="$vuetify.breakpoint.xsOnly && isMyProfile" class="edit-profile-action  ml-2">sbf-edit-icon</v-icon>
                                     </div>
@@ -21,15 +21,15 @@
                                 </div>
                                 <div class="user-university text-capitalize">{{university}}</div>
                             </div>
-                            <div class="tutor-price mr-3" v-if="$vuetify.breakpoint.smAndUp">
-                                <span class="tutor-price">120
+                            <div class="tutor-price mr-3">
+                                <span class="tutor-price"  v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">{{tutorPrice}}
                                 <span class="tutor-price small-text">
                                     <span v-language:inner>app_currency_dynamic</span>
                                     <span>/</span>
                                      <span v-language:inner>profile_points_hour</span>
                                 </span>
                                 </span>
-                                 <span class=" ml-4" v-if="isMyProfile">
+                                 <span class=" ml-4" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
                                      <v-icon class="edit-profile-action subheading">sbf-edit-icon</v-icon>
                                  </span>
                             </div>
@@ -41,9 +41,13 @@
                     </v-flex>
                 </v-layout>
                 <v-flex>
-                    <div class="tutor-price text-xs-center" v-if="$vuetify.breakpoint.xsOnly">
-                                <span class="tutor-price">120
-                                <span class="tutor-price small-text">Pts / hour</span>
+                    <div class="tutor-price text-xs-center" v-if="$vuetify.breakpoint.xsOnly && isTutorProfile">
+                                <span class="tutor-price">{{tutorPrice}}
+                                <span class="tutor-price small-text">
+                                      <span v-language:inner>app_currency_dynamic</span>
+                                    <span>/</span>
+                                     <span v-language:inner>profile_points_hour</span>
+                                </span>
                                 </span>
                    <span class="divider mt-4"
                                 style="height: 2px; width: 44px; background-color: #979797; margin: 0 auto; display: block">
@@ -73,7 +77,6 @@
         components: {userImage, userAboutMessage, userRank},
         data() {
             return {
-                userStars: 3
             }
         },
         props: {
@@ -83,7 +86,7 @@
             },
         },
         computed: {
-            ...mapGetters(['getProfile']),
+            ...mapGetters(['getProfile', 'isTutorProfile']),
             xsColumn() {
                 const xsColumn = {};
                 if (this.$vuetify.breakpoint.xsOnly) {
@@ -91,6 +94,12 @@
 
                 }
                 return xsColumn
+            },
+            tutorPrice(){
+                if (this.getProfile && this.getProfile.user && this.getProfile.user.tutorData) {
+                    return this.getProfile.user.tutorData.price;
+                }
+                return 0
             },
             university() {
                 if (this.getProfile && this.getProfile.user) {
@@ -125,6 +134,10 @@
             font-weight: bold;
             letter-spacing: -0.4px;
             color: @profileTextColor;
+            @media(max-width: @screen-xs){
+                justify-content: center;
+                align-items: center;
+            }
             .face-icon{
                 font-size: 18px;
             }

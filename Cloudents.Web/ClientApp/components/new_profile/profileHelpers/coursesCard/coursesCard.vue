@@ -9,7 +9,7 @@
                             </div>
                         </v-flex>
                         <v-flex class="text-xs-right">
-                            <v-icon v-if="isMyProfile" class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
+                            <v-icon @click="openSetClasses()" v-if="isMyProfile" class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
                         </v-flex>
                     </v-layout>
                     <v-layout row wrap >
@@ -65,6 +65,12 @@
             showLess(){
                 this.showQuantity = this.defaultToShow;
                 this.expanded = false;
+            },
+            openSetClasses(){
+                this.$router.push({
+                    name:'uniselect',
+                    params: {step: 'setClass'}
+                });
             }
         },
         computed: {
