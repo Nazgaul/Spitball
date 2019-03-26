@@ -1,11 +1,11 @@
 <template>
     <v-container v-show="visible" py-0 px-0 class="chat-container" :class="{'minimized': isMinimized}">
         <v-layout class="chat-header">
-            <v-icon @click="OriginalChatState">sbf-close</v-icon>
+            <v-icon @click="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
             <span class="other-side" v-show="!isMobile">
                 <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
-                <v-icon @click="closeChatWindow">sbf-close</v-icon>
+                <v-icon @click="closeChatWindow">sbf-close-chat</v-icon>
             </span>
         </v-layout>
         <v-layout v-show="!isMinimized" class="general-chat-style">
@@ -58,6 +58,9 @@
                         //get user from server to show name
                     }
                 }
+            },
+            inConversationState(){
+               return this.state === this.enumChatState.conversation
             }
         },
         methods:{

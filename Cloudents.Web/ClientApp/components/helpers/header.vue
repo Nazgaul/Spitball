@@ -19,7 +19,7 @@
                                 <div class="settings-wrapper d-flex align-center">
                                     <div class="header-messages" v-if="loggedIn && !isMobile">
                                         <span v-language:inner>Messages</span>
-                                        <v-icon @click="openChatWindow">sbf-close</v-icon>
+                                        <v-icon @click="openChatWindow">sbf-forum-icon</v-icon>
                                     </div>
                                     <div class="header-wallet" v-if="loggedIn">
                                         <span class="bold header-wallet-text">{{accountUser.balance | currencyLocalyFilter}}</span>
