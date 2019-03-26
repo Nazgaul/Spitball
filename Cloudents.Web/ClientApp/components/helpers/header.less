@@ -164,6 +164,7 @@
     width: 388px;
     min-width: 388px;
     margin-right:16px;
+    justify-content: flex-end;
     @media (max-width: @screen-xs) {
       flex: 0 auto;
       margin-right:0px;
@@ -173,6 +174,14 @@
     .v-btn--icon {
       @media (max-width: 959px) {
         margin-right: 0;
+      }
+    }
+    .v-menu{
+      max-width:45px;
+      i{
+        @media (max-width: @screen-xs) {
+          color: #aeadbe;
+        }
       }
     }
     .header-login {
