@@ -13,7 +13,8 @@
                                     <div class="d-flex align-start">
                                         <v-icon v-if="$vuetify.breakpoint.xsOnly && isTutorProfile" class="face-icon mr-2">sbf-face-icon</v-icon>
                                     <span class="line-height-1">{{userName}}</span>
-                                        <v-icon v-if="$vuetify.breakpoint.xsOnly && isMyProfile" class="edit-profile-action  ml-2">sbf-edit-icon</v-icon>
+                                        <v-icon @click="openEditInfo()"
+                                                v-if="$vuetify.breakpoint.xsOnly && isMyProfile" class="edit-profile-action  ml-2">sbf-edit-icon</v-icon>
                                     </div>
                                     <div class="d-flex align-start" v-if="$vuetify.breakpoint.smAndUp">
                                         <userRank class="ml-3" :score="userScore"></userRank>
@@ -30,7 +31,7 @@
                                 </span>
                                 </span>
                                  <span class=" ml-4" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
-                                     <v-icon class="edit-profile-action subheading">sbf-edit-icon</v-icon>
+                                     <v-icon @click="openEditInfo()" class="edit-profile-action subheading">sbf-edit-icon</v-icon>
                                  </span>
                             </div>
 
@@ -64,6 +65,17 @@
 
             </v-card>
         </v-flex>
+        <sb-dialog
+                :onclosefn="closeEditDialog"
+                :activateOverlay="true"
+                :showDialog="showEditDataDialog"
+                :maxWidth="'760px'"
+                :popUpType="'editUserInfo'"
+                :content-class="'edit-dialog'"
+        >
+            <userInfoEdit v-if="false" :closeCallback="closeEditDialog"></userInfoEdit>
+            <tutorInfoEdit :closeCallback="closeEditDialog"></tutorInfoEdit>
+        </sb-dialog>
     </v-layout>
 </template>
 
@@ -72,11 +84,22 @@
     import userImage from './bioParts/userImage/userImage.vue';
     import userAboutMessage from './bioParts/userAboutMessage.vue';
     import userRank from '../../../helpers/UserRank/UserRank.vue'
+    import userInfoEdit from '../../profileHelpers/userInfoEdit/userInfoEdit.vue';
+    import tutorInfoEdit from '../../profileHelpers/userInfoEdit/tutorInfoEdit.vue';
+    import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
     export default {
         name: "profileBio",
-        components: {userImage, userAboutMessage, userRank},
+        components: {
+            userImage,
+            userAboutMessage,
+            userRank,
+            userInfoEdit,
+            tutorInfoEdit,
+            sbDialog
+        },
         data() {
             return {
+                showEditDataDialog: false,
             }
         },
         props: {
@@ -116,6 +139,14 @@
                     return this.getProfile.user.score;
                 }
             }
+        },
+        methods: {
+            openEditInfo() {
+                    this.showEditDataDialog = true;
+            },
+            closeEditDialog() {
+                this.showEditDataDialog = false;
+            },
         },
     }
 </script>
