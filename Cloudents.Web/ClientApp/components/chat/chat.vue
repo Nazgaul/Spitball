@@ -92,6 +92,7 @@
     right: 130px;
     width: 320px;
     height: 595px;
+    z-index: 3;
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 3px 13px 0 rgba(0, 0, 0, 0.1);

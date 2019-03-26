@@ -97,18 +97,17 @@
       font-family: @fontFiraSans;
       display: flex;
       align-items: center;
-      padding: 0px 15px;
+      padding: 0px 10px;
       font-weight: 600;
       letter-spacing: -.2px;
       color: rgba(0,0,0,.87);
       outline: none;
       border-radius: 14px;
       background-image: linear-gradient(108deg,#ffe78d,#ffca54);
-      // margin-top: 3px;
+      height: 16px;
       span{
-        font-size:11px;
+        font-size:10px;
         color: rgba(0, 0, 0, 0.77); 
-        padding-top: 2px;
       }
       i{
         font-size: 14px;
@@ -168,6 +167,8 @@
     @media (max-width: @screen-xs) {
       flex: 0 auto;
       margin-right:0px;
+      min-width: 165px;
+      max-width: 165px;
     }
     .v-btn--icon {
       @media (max-width: 959px) {
@@ -350,8 +351,8 @@
 .header-wallet {
   flex-direction: row;
   justify-content: space-between;
-  max-width: 190px;
-  min-width: 190px;
+  max-width: 180px;
+  min-width: 180px;
   @media (max-width: @screen-sm) {
     // align-items: start;
     width: auto;
@@ -438,11 +439,13 @@
   border-right: 1px solid #dddddd;
   padding-right: 5px;
   .header-messages-text{
+    cursor: pointer;
     font-size: 12px;
   }
   i{
     font-size:16px;
     margin: 0 5px;
+    color: #bcbccb !important;
   }
 }
 
