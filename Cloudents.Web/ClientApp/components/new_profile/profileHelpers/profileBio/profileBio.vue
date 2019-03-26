@@ -52,9 +52,7 @@
                                 </span>
                    <span class="divider mt-4"
                                 style="height: 2px; width: 44px; background-color: #979797; margin: 0 auto; display: block">
-
                                 </span>
-
                     </div>
                 </v-flex>
                 <v-flex>
@@ -73,7 +71,7 @@
                 :popUpType="'editUserInfo'"
                 :content-class="'edit-dialog'"
         >
-            <tutorInfoEdit v-if="!isTutorProfile" :closeCallback="closeEditDialog"></tutorInfoEdit>
+            <tutorInfoEdit v-if="isTutorProfile" :closeCallback="closeEditDialog"></tutorInfoEdit>
             <userInfoEdit v-else :closeCallback="closeEditDialog"></userInfoEdit>
 
         </sb-dialog>
