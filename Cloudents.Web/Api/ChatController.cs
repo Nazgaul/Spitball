@@ -2,10 +2,13 @@
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +23,7 @@ namespace Cloudents.Web.Api
 {
     [Route("api/[controller]")]
     [Authorize]
-    public class ChatController : ControllerBase
+    public class ChatController : UploadControllerBase
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
@@ -59,6 +62,47 @@ namespace Cloudents.Web.Api
                 new[] { model.OtherUser }, null, null);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        //[HttpPost("upload"), FormContentType]
+        //public async Task<ActionResult<UploadResponse>> BatchUploadAsync(
+        //    [FromForm] UploadRequest2 model,
+        //    [FromServices] UploadService.Factory factory,
+        //    [FromServices] IChatDirectoryBlobProvider blobProvider,
+        //    CancellationToken token)
+        //{
+        //    var service = factory.Invoke(blobProvider);
+        //    return await service.UploadBatchAsync(model, token);
+        //}
+
+        //[HttpPost("upload",Order = 0), StartUploading]
+        //public UploadResponse StartUpload([FromBody] UploadRequest model,
+        //    [FromServices] UploadService.Factory factory,
+        //    [FromServices] IChatDirectoryBlobProvider blobProvider,
+        //    CancellationToken token)
+        //{
+        //    var service = factory.Invoke(blobProvider);
+        //    return service.StartUpload(model);
+        //}
+
+        //[HttpPost("upload", Order = 1)]
+        //public async Task<ActionResult<UploadResponse>> FinishUpload([FromBody] UploadRequest model,
+        //    [FromServices] UploadService.Factory factory,
+        //    [FromServices] IChatDirectoryBlobProvider blobProvider,
+        //    CancellationToken token)
+        //{
+        //    var service = factory.Invoke(blobProvider);
+        //    return await service.FinishUploadAsync(model, token);
+        //}
+
+       
+
+        public override async Task FinishUploadAsync(UploadRequest model)
+        {
+            if (!(model is FinishChatUpload chatModel))
+            {
+               
+            }
         }
     }
 }
