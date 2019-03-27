@@ -36,7 +36,7 @@ namespace Cloudents.Web.EventHandler
 
         private ChatMessageDto BuildChatMessage(ChatTextMessage chatMessage)
         {
-            return new ChatMessageDto
+            return new ChatTextMessageDto
             {
                 UserId = chatMessage.User.Id,
                 Text = chatMessage.Message,
@@ -47,7 +47,7 @@ namespace Cloudents.Web.EventHandler
 
         private ChatMessageDto BuildChatMessage(ChatAttachmentMessage chatMessage)
         {
-            return new ChatMessageDto
+            return new ChatAttachmentDto
             {
                 UserId = chatMessage.User.Id,
                // Text = chatMessage.Message,

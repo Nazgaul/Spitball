@@ -33,26 +33,40 @@ namespace Cloudents.Query.Query
             {
                 using (var conn = _repository.OpenConnection())
                 {
-                    var result = await conn.QueryAsync<ChatMessageDto>(@"Select
-userId,message as Text,creationTime as DateTime from sb.ChatMessage cm
+                    var result = new List<ChatMessageDto>();
+                    var reader = await conn.ExecuteReaderAsync(@"
+Select
+messageType as discriminator, userId,message as Text,creationTime as DateTime , blob as File
+from sb.ChatMessage cm
 where ChatRoomId = @Id
 order by cm.Id
 OFFSET @PageSize * @PageNumber ROWS 
- FETCH NEXT @PageSize ROWS ONLY;", new { Id = query.ConversationId, PageSize = 50, PageNumber = query.Page });
+FETCH NEXT @PageSize ROWS ONLY;", new { Id = query.ConversationId, PageSize = 50, PageNumber = query.Page });
+
+                    if (reader.Read())
+                    {
+                        var toMessage = reader.GetRowParser<ChatMessageDto>(typeof(ChatTextMessageDto));
+                        var toAttachment = reader.GetRowParser<ChatMessageDto>(typeof(ChatAttachmentDto));
+                        var col = reader.GetOrdinal("discriminator");
+                        do
+                        {
+                            switch (reader.GetString(col))
+                            {
+                                case "text":
+                                    result.Add(toMessage(reader));
+                                    break;
+                                case "attachment":
+                                    result.Add(toAttachment(reader));
+                                    break;
+                            }
+                        } while (reader.Read());
+                    }
+
                     return result;
+
+
                 }
-                //return await _session.Query<ChatMessage>()
-                //      .Where(w => w.ChatRoom.Id == query.ConversationId)
-                //      .OrderBy(o => o.Id)
-                //      .Take(50)
-                //      .Skip(50 * query.Page)
-                //      .Select(s => new ChatMessageDto
-                //      {
-                //          UserId = s.User.Id,
-                //          Text = s.Message,
-                //          DateTime = s.CreationTime
-                //      })
-                //      .ToListAsync(token);
+
             }
         }
     }

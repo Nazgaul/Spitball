@@ -136,6 +136,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var b = _container.Resolve<IQueryBus>();
+            var query = new ChatConversationByIdQuery(Guid.Parse("5FFE88E7-C704-4843-B132-AA1600D5014F"), 0);
+            var z = await b.QueryAsync(query, default);
             Console.WriteLine("done");
         }
 
