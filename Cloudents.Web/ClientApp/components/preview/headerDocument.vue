@@ -203,7 +203,6 @@
                 } else {
                     this.updateLoginDialogState(true);
                 }
-
             },
             purchaseDocument() {
                 let item = this.item;

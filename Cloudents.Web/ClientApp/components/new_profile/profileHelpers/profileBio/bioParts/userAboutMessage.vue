@@ -48,10 +48,10 @@
             font-family: @fontOpenSans;
             font-size: 30px;
             font-weight: 600;
-            line-height: 0.57;
             color: @profileTextColor;
             display: inline-flex;
-            align-items: center;
+            line-height: 1;
+            align-items: flex-start;
             @media (max-width: @screen-xs) {
                 font-size: 18px;
                 font-weight: 600;
@@ -59,7 +59,7 @@
                 display: flex;
             }
         }
-        .icon-wrap, .text-wrap {
+        .icon-wrap {
             display: inline-flex;
         }
         .icon-wrap {

@@ -1,30 +1,30 @@
 <template>
-    <v-card class="tutor-edit-wrap pb-3" >
+    <v-card class="tutor-edit-wrap pb-3">
         <v-layout class="header px-3 py-3 mb-3">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
                 <span v-language:inner>profile_edit_tutor_title</span>
             </v-flex>
         </v-layout>
-        <v-layout  class="px-3 mt-2"  row wrap>
+        <v-layout class="px-3 mt-2" row wrap>
             <v-flex xs12 sm4 md4 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
-                <v-layout  column>
-                    <v-flex xs12 sm6 md6 class="pl-2 mb-2" >
+                <v-layout column>
+                    <v-flex xs12 sm6 md6 class="pl-2 mb-2">
                         <span class="subtitle" v-language:inner>profile_personal_details</span>
                     </v-flex>
-                   <v-flex xs12>
-                       <v-text-field
-                               :label="firstNameLabel"
-                               v-model="firstName"
-                               outline
-                               hide-details
-                       ></v-text-field>
-                   </v-flex>
+                    <v-flex xs12>
+                        <v-text-field
+                                :label="firstNameLabel"
+                                v-model="firstName"
+                                outline
+                                hide-details
+                        ></v-text-field>
+                    </v-flex>
                 </v-layout>
             </v-flex>
-            <v-flex  xs12 sm4 md4 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
-                <v-layout  column >
-                    <v-flex  v-if="$vuetify.breakpoint.smAndUp" xs12 sm6 md6  class="mb-2 pl-2" grow>
+            <v-flex xs12 sm4 md4 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                <v-layout column>
+                    <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6 md6 class="mb-2 pl-2" grow>
                         <span class="subtitle" style="visibility: hidden">hidden</span>
                     </v-flex>
                     <v-flex>
@@ -37,19 +37,19 @@
                     </v-flex>
                 </v-layout>
             </v-flex>
-            <v-flex  xs12 sm4 md4 :class="{'mt-4': $vuetify.breakpoint.xsOnly}">
-                <v-layout  column  >
-                    <v-flex  xs12 sm6 md6  class="mb-2 pl-2">
+            <v-flex xs12 sm4 md4 :class="{'mt-4': $vuetify.breakpoint.xsOnly}">
+                <v-layout column>
+                    <v-flex xs12 sm6 md6 class="mb-2 pl-2">
                         <span class="subtitle" v-language:inner>profile_pricing</span>
                     </v-flex>
                     <v-flex>
                         <v-text-field class="disabled-background"
-                                :label="priceLabel"
-                                v-model="priceHour"
-                                outline
-                                prefix="₪"
-                                readonly
-                                hide-details
+                                      :label="priceLabel"
+                                      v-model="priceHour"
+                                      outline
+                                      prefix="₪"
+                                      readonly
+                                      hide-details
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
@@ -79,16 +79,16 @@
                 ></v-textarea>
             </v-flex>
         </v-layout>
-        <v-layout  align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-around px-1' : 'justify-end px-3']">
-            <v-flex xs5 sm2 md2 >
-               <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
-                   <span v-language:inner>profile_btn_cancel</span>
-               </v-btn>
+        <v-layout align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-around px-1' : 'justify-end px-3']">
+            <v-flex xs5 sm2 md2>
+                <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
+                    <span v-language:inner>profile_btn_cancel</span>
+                </v-btn>
             </v-flex>
             <v-flex xs5 sm2 md2 :class="{'mr-3': $vuetify.breakpoint.smAndUp}">
                 <v-btn class="blue-btn  ml-0" round @click="saveChanges()">
                     <span v-language:inner>profile_btn_save_changes</span>
-                  </v-btn>
+                </v-btn>
             </v-flex>
         </v-layout>
     </v-card>
@@ -98,6 +98,7 @@
     import accountService from '../../../../services/accountService';
     import { mapGetters } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
+
     export default {
         name: "tutorInfoEdit",
         data() {
@@ -107,10 +108,10 @@
                 priceLabel: LanguageService.getValueByKey("profile_price_label"),
                 bioLabel: LanguageService.getValueByKey("profile_bio_label"),
                 titleLabel: LanguageService.getValueByKey("profile_description_label"),
-                editedAbout: '',
+                editedBio: '',
                 editedDescription: '',
-                firstName: '',
-                lastName: '',
+                editedFirstName: '',
+                editedLastName: '',
                 priceHour: 50
 
             }
@@ -124,67 +125,92 @@
         computed: {
             ...mapGetters(['getProfile']),
             bio: {
-                get(){
+                get() {
                     return this.getProfile.about.bio
                 },
-                set(newVal){
+                set(newVal) {
                     console.log('new val::', newVal)
-                    this.editedAbout = newVal;
+                    this.editedBio = newVal;
+                }
+            },
+            firstName: {
+                get() {
+                    return this.getProfile.user.name
+                },
+                set(newVal) {
+                    console.log('new val::', newVal)
+                    this.editedFirstName = newVal;
+                }
+            },
+            lastName: {
+                get() {
+                   return  ''
+                    // return this.getProfile.user.lastName
+                },
+                set(newVal) {
+                    console.log('new val::', newVal)
+                    this. editedLastName = newVal;
                 }
             },
             description: {
-                get(){
+                get() {
                     return this.getProfile.user.description
                 },
-                set(newVal){
+                set(newVal) {
                     console.log('new val::', newVal)
                     this.editedDescription = newVal;
                 }
             }
         },
         methods: {
-            saveChanges(){
-                accountService.saveTutorInfo({bio: this.bio, description: this.description}).then((success)=>{
-                    this.closeDialog()
-                })
+            saveChanges() {
+                let editsData ={
+                    name: this.editedFirstName || this.firstName,
+                    lastName: this.editedLastName || this.lastName,
+                    bio: this.editedBio || this.bio,
+                    description: this.editedDescription || this.description
+                };
+                accountService.saveTutorInfo(editsData)
+                    .then((success) => {
+                        this.closeDialog()
+                    })
             },
-            closeDialog(){
+            closeDialog() {
                 this.closeCallback ? this.closeCallback() : ''
             },
-            updateAbout() {
-                console.log('setting new bio', this.editedAbout)
-            }
+
         },
     }
 </script>
 
 <style lang="less">
     @import '../../../../styles/mixin.less';
+
     .tutor-edit-wrap {
-        .disabled-background{
-            .v-input__slot{
-                background-color: #f5f5f5!important;
+        .disabled-background {
+            .v-input__slot {
+                background-color: #f5f5f5 !important;
             }
         }
-        .shallow-blue{
-            border: 1px solid  #4452fc;
+        .shallow-blue {
+            border: 1px solid #4452fc;
             color: #4452fc;
-            @media(max-width: @screen-xs){
-                min-width:180px;
+            @media (max-width: @screen-xs) {
+                min-width: 180px;
                 border-radius: 0;
             }
         }
-        //vuetify overwite
-        .blue-btn{
-            background-color: #4452fc!important;
+        //vuetify overwrite
+        .blue-btn {
+            background-color: #4452fc !important;
             color: @color-white;
-            box-shadow: none!important;
-            @media(max-width: @screen-xs){
-                min-width:180px;
+            box-shadow: none !important;
+            @media (max-width: @screen-xs) {
+                min-width: 180px;
                 border-radius: 0;
             }
         }
-        .header{
+        .header {
             background-color: #f0f0f7;
             width: 100%;
             color: @profileTextColor;
@@ -193,13 +219,13 @@
             font-weight: bold;
             letter-spacing: -0.5px;
         }
-        .subtitle{
+        .subtitle {
             font-size: 16px;
             font-weight: bold;
             letter-spacing: -0.3px;
             color: @profileTextColor;
         }
-        .edit-icon{
+        .edit-icon {
             color: @profileTextColor;
             font-size: 18px;
         }
