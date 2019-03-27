@@ -290,6 +290,21 @@ Vue.prototype.$Ph = function (key, placeholders) {
     return LanguageService.changePlaceHolders(rawKey, argumentsToSend)
 }
 
+Vue.prototype.$linky = function (text) {
+    let linkTest = /(ftp:\/\/|www\.|https?:\/\/){1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\S*)/g;
+    let modifiedText = text;
+    let matchedResults = modifiedText.match(linkTest);
+    
+    if(!!matchedResults){
+        matchedResults.forEach(result=>{
+            let prefix = result.toLowerCase().indexOf('http') === -1 &&
+            result.toLowerCase().indexOf('ftp') === -1 ? '//' : ''
+            modifiedText = modifiedText.replace(result, `<a href="${prefix}${result}" target="_blank">${result}</a>`);
+        })
+    }
+    return modifiedText;
+}
+
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
 Vue.filter('currencyLocalyFilter', function (value, hideCurrrency) {
     let amount = Number(value);
