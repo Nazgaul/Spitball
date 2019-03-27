@@ -49,7 +49,7 @@
         width: 100%;
         max-width: 760px;
         .empty-card{
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24)!important;
+            /*box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24)!important;*/
             border-radius: 4px;
         }
         .courses-empty-title{

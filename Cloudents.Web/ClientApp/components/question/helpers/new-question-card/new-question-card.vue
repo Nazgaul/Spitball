@@ -5,11 +5,14 @@
             <div class="question-header-container">
                 <div class="question-header-large-sagment">
                     <div class="avatar-area">
-                        <user-avatar :user-name="cardData.user.name" :userImageUrl="userImageUrl" :user-id="cardData.user.id"/>
+                        <user-avatar
+                                :user-name="cardData.user.name"
+                                :userImageUrl="userImageUrl"
+                                :user-id="cardData.user.id"/>
                     </div>
                     <div class="rank-date-container">
                         <div class="rank-area">
-                            <user-rank :score="cardData.user.score"></user-rank>
+                            <user-rank :score="cardData && cardData.user && cardData.user.score ? cardData.user.score : ''"></user-rank>
                         </div>
                         <div class="date-area">{{uploadDate}}</div>
                     </div>
