@@ -40,14 +40,24 @@ namespace Cloudents.Core.Entities
             //var chatMessage = user.AddMessage(message, blob);
 
             //var chatMessage = new ChatMessage(user, message, blob, this);
+            
             UpdateTime = DateTime.UtcNow;
-            foreach (var otherUserInChat in Users.Where(s => s.User != message.User))
+            foreach (var usersInChat in Users)
             {
-                if (!otherUserInChat.User.Online)
+                if (usersInChat.User != message.User)
                 {
-                    //TODO: need to send an email or something
+
+                    if (!usersInChat.User.Online)
+                    {
+                        //TODO: need to send an email or something
+                    }
+
+                    usersInChat.Unread++;
                 }
-                otherUserInChat.Unread++;
+                else
+                {
+                    usersInChat.Unread = 0;
+                }
             }
             AddEvent(new ChatMessageEvent(message));
             //return chatMessage;
@@ -74,8 +84,9 @@ namespace Cloudents.Core.Entities
         public virtual RegularUser User { get; protected set; }
 
 
-        public virtual int Unread { get; set; }
+        public virtual int Unread { get;  set; }
 
+        
         //public virtual ChatMessage AddMessage(string message, string blob)
         //{
         //    var chatMessage = new ChatMessage(User, message, blob);

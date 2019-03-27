@@ -86,6 +86,15 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpPost("read")]
+        public async Task<IActionResult> ResetUnread(ChatResetRequest model, CancellationToken token)
+        {
+            var command = new ResetUnreadInChatCommand( _userManager.GetLongUserId(User),
+                new[] { model.OtherUser });
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
 
         public override async Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)
         {
