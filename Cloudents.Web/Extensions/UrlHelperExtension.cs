@@ -3,8 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Reflection;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.WebUtilities;
 using IPaging = Cloudents.Web.Models.IPaging;
 
 namespace Cloudents.Web.Extensions
@@ -111,6 +114,18 @@ namespace Cloudents.Web.Extensions
                 courseName = course,
                 id,
                 name = name.Replace("+", "-")
+            });
+        }
+
+
+        public static string ImageUrl(this IUrlHelper helper, 
+            ImageProperties properties,
+            IBinarySerializer serializer)
+        {
+            var hash = serializer.Serialize(properties);
+            return helper.RouteUrl("imageUrl", new
+            {
+                hash = Base64UrlTextEncoder.Encode(hash)
             });
         }
     }
