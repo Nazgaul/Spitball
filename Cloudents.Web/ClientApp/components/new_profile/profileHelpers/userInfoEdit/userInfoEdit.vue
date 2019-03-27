@@ -97,7 +97,7 @@
         },
         methods: {
             saveChanges() {
-                accountService.saveTutorInfo({bio: this.bio, description: this.description}).then((success) => {
+                accountService.saveUserInfo({bio: this.bio, description: this.description}).then((success) => {
                     this.closeDialog()
                 })
             },

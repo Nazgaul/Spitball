@@ -113,8 +113,12 @@ export default {
     getProfilePurchasedDocuments:(id, page)=>{
         let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`)
-
-
+    },
+    saveTutorInfo: (data)=> {
+        return connectivityModule.http.post("/Account/edit", data)
+    },
+    saveUserInfo: (data)=> {
+        return connectivityModule.http.post("/Account/edit", data)
     },
     // createProfileData: (arrInit)=>{
     //     return new ProfileData(arrInit);
