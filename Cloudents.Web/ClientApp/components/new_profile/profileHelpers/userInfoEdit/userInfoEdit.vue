@@ -97,16 +97,17 @@
         },
         methods: {
             saveChanges() {
-                accountService.saveUserInfo({bio: this.bio, description: this.description}).then((success) => {
+                let editsData ={
+                    name: this.editedUserName || this.userName,
+                    description: this.editedDescription || this.userDescription
+                };
+                accountService.saveUserInfo(editsData).then((success) => {
                     this.closeDialog()
                 })
             },
             closeDialog() {
                 this.closeCallback ? this.closeCallback() : ''
             },
-            updateAbout() {
-                console.log('setting new bio', this.editedAbout)
-            }
         },
     }
 </script>

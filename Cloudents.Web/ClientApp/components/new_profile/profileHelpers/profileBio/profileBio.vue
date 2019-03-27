@@ -8,9 +8,9 @@
                     </v-flex>
                     <v-flex xs12 order-xs1 order-sm2 order-md2 :class="[$vuetify.breakpoint.smAndUp ?  'pl-4' : 'mb-4']">
                         <v-layout class="name-price-wrap" justify-space-between align-center>
-                            <v-flex xs12 sm4 md4>
+                            <v-flex xs12 sm8 md8>
                                 <div class="user-name mb-2">
-                                    <div class="d-flex align-start">
+                                    <div class="align-start">
                                         <v-icon v-if="$vuetify.breakpoint.xsOnly && isTutorProfile" class="face-icon mr-2">sbf-face-icon</v-icon>
                                     <span class="line-height-1">{{userName}}</span>
                                         <v-icon @click="openEditInfo()"

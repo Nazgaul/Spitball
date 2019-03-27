@@ -108,10 +108,10 @@
                 priceLabel: LanguageService.getValueByKey("profile_price_label"),
                 bioLabel: LanguageService.getValueByKey("profile_bio_label"),
                 titleLabel: LanguageService.getValueByKey("profile_description_label"),
-                editedAbout: '',
+                editedBio: '',
                 editedDescription: '',
-                firstName: '',
-                lastName: '',
+                editedFirstName: '',
+                editedLastName: '',
                 priceHour: 50
 
             }
@@ -130,7 +130,26 @@
                 },
                 set(newVal) {
                     console.log('new val::', newVal)
-                    this.editedAbout = newVal;
+                    this.editedBio = newVal;
+                }
+            },
+            firstName: {
+                get() {
+                    return this.getProfile.user.name
+                },
+                set(newVal) {
+                    console.log('new val::', newVal)
+                    this.editedFirstName = newVal;
+                }
+            },
+            lastName: {
+                get() {
+                   return  ''
+                    // return this.getProfile.user.lastName
+                },
+                set(newVal) {
+                    console.log('new val::', newVal)
+                    this. editedLastName = newVal;
                 }
             },
             description: {
@@ -146,10 +165,10 @@
         methods: {
             saveChanges() {
                 let editsData ={
-                    name: this.firstName,
-                    lastName: this.lastName,
-                    bio: this.bio,
-                    description: this.description
+                    name: this.editedFirstName || this.firstName,
+                    lastName: this.editedLastName || this.lastName,
+                    bio: this.editedBio || this.bio,
+                    description: this.editedDescription || this.description
                 };
                 accountService.saveTutorInfo(editsData)
                     .then((success) => {
@@ -159,9 +178,7 @@
             closeDialog() {
                 this.closeCallback ? this.closeCallback() : ''
             },
-            updateAbout() {
-                console.log('setting new bio', this.editedAbout)
-            }
+
         },
     }
 </script>
@@ -183,7 +200,7 @@
                 border-radius: 0;
             }
         }
-        //vuetify overwite
+        //vuetify overwrite
         .blue-btn {
             background-color: #4452fc !important;
             color: @color-white;
