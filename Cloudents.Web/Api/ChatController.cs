@@ -98,7 +98,7 @@ namespace Cloudents.Web.Api
 
         public override async Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)
         {
-            if ((model is FinishChatUpload chatModel))
+            if (model is FinishChatUpload chatModel)
             {
                 var command = new SendChatFileMessageCommand(blobName, _userManager.GetLongUserId(User), new[] { chatModel.OtherUser });
                 await _commandBus.DispatchAsync(command, token);
