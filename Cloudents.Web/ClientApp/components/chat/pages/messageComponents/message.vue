@@ -1,5 +1,5 @@
 <template>
-    <div class="message" :class="{'myMessage': isMine}" v-html="message.text"></div>
+    <div class="message" :class="{'myMessage': isMine}" v-html="$linky(message.text)"></div>
 </template>
 
 <script>
