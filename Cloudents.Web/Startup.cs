@@ -234,7 +234,6 @@ namespace Cloudents.Web
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
-            containerBuilder.RegisterType<UploadService>();
 
             //containerBuilder.RegisterType<DocumentSeoBuilder>()
             //    .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>()

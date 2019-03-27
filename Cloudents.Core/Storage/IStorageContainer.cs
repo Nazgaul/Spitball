@@ -23,7 +23,7 @@ namespace Cloudents.Core.Storage
         public string RelativePath { get; }
 
         public static readonly StorageContainer QuestionsAndAnswers = new StorageContainer("spitball-files","question");
-        public static readonly StorageContainer Chat = new StorageContainer("spitball-files","chat");
+        public static readonly StorageContainer Chat = new StorageContainer("spitball-user","chat");
         public static readonly StorageContainer File = new StorageContainer("spitball-files","files");
 
         public static FieldInfo[] GetAllValues()

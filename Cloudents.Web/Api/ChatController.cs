@@ -6,16 +6,16 @@ using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
-using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,7 +29,13 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
 
-        public ChatController(ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus)
+
+     
+
+        public ChatController(ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus,
+            IChatDirectoryBlobProvider blobProvider,
+            ITempDataDictionaryFactory tempDataDictionaryFactory)
+        : base(blobProvider, tempDataDictionaryFactory)
         {
             _commandBus = commandBus;
             _userManager = userManager;
@@ -58,53 +64,26 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]ChatMessageRequest model, CancellationToken token)
         {
-            var command = new SendMessageCommand(model.Message, _userManager.GetLongUserId(User),
-                new[] { model.OtherUser }, null, null);
+            var command = new SendChatTextMessageCommand(model.Message, _userManager.GetLongUserId(User),
+                new[] { model.OtherUser });
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        //[HttpPost("upload"), FormContentType]
-        //public async Task<ActionResult<UploadResponse>> BatchUploadAsync(
-        //    [FromForm] UploadRequest2 model,
-        //    [FromServices] UploadService.Factory factory,
-        //    [FromServices] IChatDirectoryBlobProvider blobProvider,
-        //    CancellationToken token)
-        //{
-        //    var service = factory.Invoke(blobProvider);
-        //    return await service.UploadBatchAsync(model, token);
-        //}
-
-        //[HttpPost("upload",Order = 0), StartUploading]
-        //public UploadResponse StartUpload([FromBody] UploadRequest model,
-        //    [FromServices] UploadService.Factory factory,
-        //    [FromServices] IChatDirectoryBlobProvider blobProvider,
-        //    CancellationToken token)
-        //{
-        //    var service = factory.Invoke(blobProvider);
-        //    return service.StartUpload(model);
-        //}
-
-        //[HttpPost("upload", Order = 1)]
-        //public async Task<ActionResult<UploadResponse>> FinishUpload([FromBody] UploadRequest model,
-        //    [FromServices] UploadService.Factory factory,
-        //    [FromServices] IChatDirectoryBlobProvider blobProvider,
-        //    CancellationToken token)
-        //{
-        //    var service = factory.Invoke(blobProvider);
-        //    return await service.FinishUploadAsync(model, token);
-        //}
-
-       
 
         public override async Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)
         {
             if ((model is FinishChatUpload chatModel))
             {
-                var command = new SendMessageCommand(null, _userManager.GetLongUserId(User), new[] { chatModel.OtherUser }, null, blobName);
+                var command = new SendChatFileMessageCommand(blobName, _userManager.GetLongUserId(User), new[] { chatModel.OtherUser });
                 await _commandBus.DispatchAsync(command, token);
-              
+
             }
+        }
+
+        protected override string BlobFileName(Guid sessionId, string name)
+        {
+            return $"file-{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}-1{Path.GetExtension(name)}";
         }
     }
 }

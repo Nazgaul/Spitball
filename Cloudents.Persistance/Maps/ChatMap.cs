@@ -43,14 +43,32 @@ namespace Cloudents.Persistence.Maps
         public ChatMessageMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(x => x.Message).Length(8000);
             Map(x => x.CreationTime).Not.Nullable();
             References(x => x.User).Not.Nullable().Column("UserId").ForeignKey("fChatUserUser");
             References(x => x.ChatRoom)
                 .Not.Nullable().Column("ChatRoomId")
                 .ForeignKey("fChatUserChatRoom");
 
+            DiscriminateSubClassesOnColumn("MessageType");
             SchemaAction.Update();
+        }
+    }
+
+    public class ChatTextMessageMap : SubclassMap<ChatTextMessage>
+    {
+        public ChatTextMessageMap()
+        {
+            Map(x => x.Message).Length(8000);
+            DiscriminatorValue("text");
+        }
+    }
+
+    public class ChatAttachmentMessageMap : SubclassMap<ChatAttachmentMessage>
+    {
+        public ChatAttachmentMessageMap()
+        {
+            Map(x => x.Blob).Length(8000);
+            DiscriminatorValue("attachment");
         }
     }
 }

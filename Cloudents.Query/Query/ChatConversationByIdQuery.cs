@@ -1,10 +1,8 @@
-﻿using System;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using NHibernate;
-using NHibernate.Linq;
+using Dapper;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,31 +16,43 @@ namespace Cloudents.Query.Query
             Page = page;
         }
 
-        public Guid ConversationId { get; }
-        public int Page { get; }
+        private Guid ConversationId { get; }
+        private int Page { get; }
 
         internal sealed class ChatConversationByIdQueryHandler : IQueryHandler<ChatConversationByIdQuery, IEnumerable<ChatMessageDto>>
         {
-            private readonly IStatelessSession _session;
+            private readonly DapperRepository _repository;
 
-            public ChatConversationByIdQueryHandler(QuerySession session)
+            public ChatConversationByIdQueryHandler(DapperRepository repository)
             {
-                _session = session.StatelessSession;
+                _repository = repository;
             }
+
+
             public async Task<IEnumerable<ChatMessageDto>> GetAsync(ChatConversationByIdQuery query, CancellationToken token)
             {
-                return await _session.Query<ChatMessage>()
-                      .Where(w => w.ChatRoom.Id == query.ConversationId)
-                      .OrderBy(o => o.Id)
-                      .Take(50)
-                      .Skip(50 * query.Page)
-                      .Select(s => new ChatMessageDto
-                      {
-                          UserId = s.User.Id,
-                          Text = s.Message,
-                          DateTime = s.CreationTime
-                      })
-                      .ToListAsync(token);
+                using (var conn = _repository.OpenConnection())
+                {
+                    var result = await conn.QueryAsync<ChatMessageDto>(@"Select
+userId,message as Text,creationTime as DateTime from sb.ChatMessage cm
+where ChatRoomId = @Id
+order by cm.Id
+OFFSET @PageSize * @PageNumber ROWS 
+ FETCH NEXT @PageSize ROWS ONLY;", new { Id = query.ConversationId, PageSize = 50, PageNumber = query.Page });
+                    return result;
+                }
+                //return await _session.Query<ChatMessage>()
+                //      .Where(w => w.ChatRoom.Id == query.ConversationId)
+                //      .OrderBy(o => o.Id)
+                //      .Take(50)
+                //      .Skip(50 * query.Page)
+                //      .Select(s => new ChatMessageDto
+                //      {
+                //          UserId = s.User.Id,
+                //          Text = s.Message,
+                //          DateTime = s.CreationTime
+                //      })
+                //      .ToListAsync(token);
             }
         }
     }
