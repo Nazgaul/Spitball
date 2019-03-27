@@ -95,7 +95,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-
+        [NonAction]
         public override async Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)
         {
             if (model is FinishChatUpload chatModel)

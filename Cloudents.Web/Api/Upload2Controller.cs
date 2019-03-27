@@ -56,7 +56,8 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-        public virtual string[] GetSupportedExtensions()
+        [NonAction]
+        protected virtual string[] GetSupportedExtensions()
         {
             return new[]{ "doc",
             "docx", "xls",
