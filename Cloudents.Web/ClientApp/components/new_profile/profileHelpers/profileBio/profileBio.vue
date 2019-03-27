@@ -8,7 +8,7 @@
                     </v-flex>
                     <v-flex xs12 order-xs1 order-sm2 order-md2 :class="[$vuetify.breakpoint.smAndUp ?  'pl-4' : 'mb-4']">
                         <v-layout class="name-price-wrap" justify-space-between align-center>
-                            <div>
+                            <v-flex xs12 sm4 md4>
                                 <div class="user-name mb-2">
                                     <div class="d-flex align-start">
                                         <v-icon v-if="$vuetify.breakpoint.xsOnly && isTutorProfile" class="face-icon mr-2">sbf-face-icon</v-icon>
@@ -20,8 +20,8 @@
                                         <userRank class="ml-3" :score="userScore"></userRank>
                                     </div>
                                 </div>
-                                <div class="user-university text-capitalize">{{university}}</div>
-                            </div>
+                                <div class="text-xs-center text-sm-left text-md-left user-university text-capitalize">{{university}}</div>
+                            </v-flex>
                             <div class="tutor-price mr-3">
                                 <span class="tutor-price"  v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">{{tutorPrice}}
                                 <span class="tutor-price small-text">

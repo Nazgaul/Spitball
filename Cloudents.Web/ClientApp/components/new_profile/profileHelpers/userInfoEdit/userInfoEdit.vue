@@ -6,13 +6,13 @@
                 <span v-language:inner>profile_edit_user_profile_title</span>
             </v-flex>
         </v-layout>
-        <v-layout class="px-3 mt-2 align-stretch"  align-center justify-space-between v-bind="xsColumn">
-            <v-flex xs6  :class="{'mr-2' : $vuetify.breakpoint.smAndUp}">
+        <v-layout class="px-3 mt-2 prev-grow"  row wrap>
+            <v-flex xs12 sm6 md6  :class="{'pr-2' : $vuetify.breakpoint.smAndUp}">
                 <v-layout column>
-                    <v-flex xs6 class="mb-2 pl-2">
+                    <v-flex xs12 sm6 md6 class="mb-2 pl-2">
                         <span class="subtitle" v-language:inner>profile_personal_details</span>
                     </v-flex>
-                    <v-flex >
+                    <v-flex xs12 sm6 md6 >
                         <v-text-field
                                 :label="userNameLabel"
                                 v-model="userName"
@@ -75,13 +75,7 @@
         },
         computed: {
             ...mapGetters(['getProfile']),
-            xsColumn(){
-                const xsColumn = {};
-                if (this.$vuetify.breakpoint.xsOnly){
-                    xsColumn.column = true;
-                }
-                return xsColumn
-            },
+
             userName:{
               get(){
                  return this.getProfile.user.name
@@ -121,12 +115,6 @@
     @import '../../../../styles/mixin.less';
 
     .user-edit-wrap {
-        .align-stretch{
-            @media(max-width: @screen-xs){
-                align-items: stretch;
-                flex-grow: 0;
-            }
-        }
         .prev-grow{
             @media(max-width: @screen-xs){
                 flex-grow: 0;
