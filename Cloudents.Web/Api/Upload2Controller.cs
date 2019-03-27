@@ -49,7 +49,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<ActionResult<UploadStartResponse>> FinishUpload([FromBody] UploadRequestBase model,
+        public async Task<ActionResult<UploadStartResponse>> Upload([FromBody] UploadRequestBase model,
             CancellationToken token)
         {
             var result = await Upload(model as dynamic, token);
