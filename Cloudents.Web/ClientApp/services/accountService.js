@@ -115,10 +115,10 @@ export default {
         return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`)
     },
     saveTutorInfo: (data)=> {
-        return connectivityModule.http.post("/Account/edit", data)
+        return connectivityModule.http.post("/Account/editTutor", data)
     },
     saveUserInfo: (data)=> {
-        return connectivityModule.http.post("/Account/edit", data)
+        return connectivityModule.http.post("/Account/editUser", data)
     },
     // createProfileData: (arrInit)=>{
     //     return new ProfileData(arrInit);
