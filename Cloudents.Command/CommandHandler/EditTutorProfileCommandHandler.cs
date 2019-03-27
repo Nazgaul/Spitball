@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    public class EditToturProfileCommandHandler: ICommandHandler<EditToturProfileCommand>
+    public class EditTutorProfileCommandHandler: ICommandHandler<EditTutorProfileCommand>
     {
         private readonly IRegularUserRepository _userRepository;
 
-        public EditToturProfileCommandHandler(IRegularUserRepository userRepository)
+        public EditTutorProfileCommandHandler(IRegularUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public async Task ExecuteAsync(EditToturProfileCommand message, CancellationToken token)
+        public async Task ExecuteAsync(EditTutorProfileCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
             Tutor tutor = (Tutor)user.UserRoles.FirstOrDefault(f => f is Tutor);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Web.Models
 {
-    public class EditToturProfileRequest
+    public class EditTutorProfileRequest
     {
         [StringLength(255, ErrorMessage = "StringLength")]
         public string Name { get; set; }

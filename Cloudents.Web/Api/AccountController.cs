@@ -248,11 +248,11 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("editTotur")]
-        public async Task<IActionResult> EditUserProfileAsync([FromBody]EditToturProfileRequest model, CancellationToken token)
+        [HttpPost("editTutor")]
+        public async Task<IActionResult> EditUserProfileAsync([FromBody]EditTutorProfileRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new EditToturProfileCommand(userId, model.Name, model.LastName, model.Bio, model.Description);
+            var command = new EditTutorProfileCommand(userId, model.Name, model.LastName, model.Bio, model.Description);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

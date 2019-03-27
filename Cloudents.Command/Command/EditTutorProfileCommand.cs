@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Cloudents.Command.Command
 {
-    public class EditToturProfileCommand: ICommand
+    public class EditTutorProfileCommand: ICommand
     {
-        public EditToturProfileCommand(long userId, string name, string lastName, string bio, string description)
+        public EditTutorProfileCommand(long userId, string name, string lastName, string bio, string description)
         {
             UserId = userId;
             Name = name;
