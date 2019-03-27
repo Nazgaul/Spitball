@@ -11,22 +11,22 @@ function createCourseItem(objInit) {
 
 const path = 'AdminCourse/';
 
-const getSuggestions = function (item) {
-    return connectivityModule.http.get(`${path}search?course=${item}`).then((suggestCourses) => {
-        let arrCourseList = [];
-        if (suggestCourses.courses.length > 0) {
-            suggestCourses.courses.forEach((ci) => {
-                arrCourseList.push(createCourseItem(ci).name);
-            });
-        }
-        return Promise.resolve(arrCourseList);
-    }, (err) => {
-        return Promise.reject(err);
-    });
-};
+//const getSuggestions = function (item) {
+//    return connectivityModule.http.get(`${path}search?course=${item}`).then((suggestCourses) => {
+//        let arrCourseList = [];
+//        if (suggestCourses.courses.length > 0) {
+//            suggestCourses.courses.forEach((ci) => {
+//                arrCourseList.push(createCourseItem(ci).name);
+//            });
+//        }
+//        return Promise.resolve(arrCourseList);
+//    }, (err) => {
+//        return Promise.reject(err);
+//    });
+//};
 
-const getCourseList = function () {
-    return connectivityModule.http.get(`${path}newCourses`).then((newCourseList) => {
+const getCourseList = function (language) {
+    return connectivityModule.http.get(`${path}newCourses?language=${language}`).then((newCourseList) => {
         let arrCourseList = [];
         if (newCourseList.length > 0) {
             newCourseList.forEach((ci) => {
@@ -74,7 +74,7 @@ const deleteCourse = function (course) {
 
 export {
     getCourseList,
-    getSuggestions,
+    //getSuggestions,
     approve,
     deleteCourse,
     migrateCourses,

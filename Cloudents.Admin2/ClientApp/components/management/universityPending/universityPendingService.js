@@ -12,7 +12,7 @@ function createUniversityItem(objInit) {
 
 const path = 'AdminUniversity/';
 
-const getSuggestions = function (item) {
+/*const getSuggestions = function (item) {
     return connectivityModule.http.get(`${path}search?university=${item}`).then((suggestUniversities) => {
         let arrCourseList = [];
         if (suggestUniversities.universities.length > 0) {
@@ -24,10 +24,10 @@ const getSuggestions = function (item) {
     }, (err) => {
         return Promise.reject(err);
     });
-};
+};*/
 
-const getUniversitiesList = function () {
-    return connectivityModule.http.get(`${path}newUniversities`).then((newUniversitiesList) => {
+const getUniversitiesList = function (country) {
+    return connectivityModule.http.get(`${path}newUniversities?country=${country}`).then((newUniversitiesList) => {
         let arrCourseList = [];
         if (newUniversitiesList.length > 0) {
             newUniversitiesList.forEach((ci) => {
@@ -75,7 +75,7 @@ const deleteUniversity = function (university) {
 
 export {
     getUniversitiesList,
-    getSuggestions,
+    //getSuggestions,
     approve,
     deleteUniversity,
     migrateUniversities,

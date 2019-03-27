@@ -1,5 +1,6 @@
 <template>
     <v-card class="user-edit-wrap pb-3">
+        <v-form v-model="validUserForm" ref="form">
         <v-layout class="header px-3 py-3 mb-3">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
@@ -14,6 +15,7 @@
                     </v-flex>
                     <v-flex xs12 sm6 md6 >
                         <v-text-field
+                                :rules="[rules.required]"
                                 :label="userNameLabel"
                                 v-model="userName"
                                 outline
@@ -48,6 +50,7 @@
                 </v-btn>
             </v-flex>
         </v-layout>
+        </v-form>
     </v-card>
 </template>
 
@@ -63,7 +66,11 @@
                 userNameLabel: LanguageService.getValueByKey("profile_user_name_label"),
                 titleLabel: LanguageService.getValueByKey("profile_description_label"),
                 editedDescription: '',
-                editedUserName: ''
+                editedUserName: '',
+                rules: {
+                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
+                },
+                validUserForm: false,
 
             }
         },
@@ -97,13 +104,15 @@
         },
         methods: {
             saveChanges() {
-                let editsData ={
-                    name: this.editedUserName || this.userName,
-                    description: this.editedDescription || this.userDescription
-                };
-                accountService.saveUserInfo(editsData).then((success) => {
-                    this.closeDialog()
-                })
+                if(this.$refs.form.validate()) {
+                    let editsData = {
+                        name: this.editedUserName || this.userName,
+                        description: this.editedDescription || this.userDescription
+                    };
+                    accountService.saveUserInfo(editsData).then((success) => {
+                        this.closeDialog()
+                    })
+                }
             },
             closeDialog() {
                 this.closeCallback ? this.closeCallback() : ''
@@ -127,8 +136,8 @@
             }
         }
         .shallow-blue{
-            border: 1px solid  #4452fc;
-            color: #4452fc;
+            border: 1px solid  @color-blue-new;
+            color:  @color-blue-new;
             @media(max-width: @screen-xs){
                 min-width:180px;
                 border-radius: 0;
@@ -136,7 +145,7 @@
         }
         //vuetify overwite
         .blue-btn{
-            background-color: #4452fc!important;
+            background-color:  @color-blue-new!important;
             color: @color-white;
             box-shadow: none!important;
             @media(max-width: @screen-xs){

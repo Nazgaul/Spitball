@@ -12,6 +12,7 @@
                 <div class="icon-rounded" v-if="$vuetify.breakpoint.smAndUp">
                     <v-icon class="earn-icon">sbf-icon-earners</v-icon>
                 </div>
+
                 <template>
                     <v-list-tile v-for="(leader, index) in leadersList"
                                  v-show="index < leadersLimit"
@@ -20,6 +21,7 @@
                                  @click=""
                                  class="leader-tile"
                     >
+
                         <v-list-tile-avatar class="leader-avatar">
                             <user-avatar :user-name="leader.name" :user-id="leader.userId"></user-avatar>
                         </v-list-tile-avatar>

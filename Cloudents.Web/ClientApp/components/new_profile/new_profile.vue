@@ -40,7 +40,7 @@
                         </v-flex>
                         <v-flex class="web-content">
                             <div class="empty-state"
-                                 v-if="activeTab === 1 && isEmptyCourses">
+                                 v-if="activeTab === 1 && isEmptyCourses && isMyProfile">
                                 <courseEmptyState></courseEmptyState>
                             </div>
 
@@ -86,6 +86,7 @@
                                              :to="{name:'question',params:{id:questionData.id}}"
                                              v-for="(questionData,index) in profileData.questions" :key="index">
                                     <question-card :cardData="questionData"></question-card>
+
                                 </router-link>
                             </scroll-list>
                             <scroll-list v-if="activeTab === 3" :scrollFunc="loadAnswers" :isLoading="answers.isLoading"
