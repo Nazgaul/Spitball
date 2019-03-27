@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cloudents.Core.Extension;
 
 //[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
@@ -127,12 +128,13 @@ namespace Cloudents.Core.Entities
 
         }
 
+       
+
         protected ChatMessage(RegularUser user, ChatRoom room)
         {
             User = user;
             CreationTime = DateTime.UtcNow;
             ChatRoom = room;
-
         }
 
 

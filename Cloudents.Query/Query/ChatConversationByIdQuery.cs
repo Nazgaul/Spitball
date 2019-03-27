@@ -36,7 +36,8 @@ namespace Cloudents.Query.Query
                     var result = new List<ChatMessageDto>();
                     var reader = await conn.ExecuteReaderAsync(@"
 Select
-messageType as discriminator, userId,message as Text,creationTime as DateTime , blob as Attachment
+messageType as discriminator, userId,message as Text,creationTime as DateTime , blob as Attachment,
+cm.id as id, cm.ChatRoomId as chatRoomId
 from sb.ChatMessage cm
 where ChatRoomId = @Id
 order by cm.Id

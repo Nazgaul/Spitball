@@ -20,7 +20,7 @@ namespace Cloudents.Web.Api
     public abstract class UploadControllerBase : ControllerBase
     {
 
-        private readonly IBlobProvider _blobProvider;
+        protected readonly IBlobProvider _blobProvider;
         private readonly ITempDataDictionaryFactory _tempDataDictionaryFactory;
 
         protected UploadControllerBase(IBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory)
@@ -121,9 +121,8 @@ namespace Cloudents.Web.Api
                 indexes.Add((int)(i / UploadInnerResponse.BlockSize));
             }
 
-            await _blobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, indexes, token);
+            await _blobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, tempData2.Name, indexes, token);
             var result = tempData2.BlobName;
-            //return tempData2.BlobName;
             await FinishUploadAsync(model, result, token);
             return new UploadStartResponse(result);
         }

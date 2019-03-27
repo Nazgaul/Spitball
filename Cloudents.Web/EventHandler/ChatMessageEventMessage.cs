@@ -28,7 +28,7 @@ namespace Cloudents.Web.EventHandler
                 SignalRAction.Add, new
                 {
                     conversationId = chatMessage.ChatRoom.Id,
-                    message = BuildChatMessage(eventMessage as dynamic)
+                    message = BuildChatMessage((dynamic) chatMessage)
                 });
             var users = chatMessage.ChatRoom.Users.Select(s => s.User.Id.ToString()).ToList();
             await _hubContext.Clients.Users(users).SendAsync("Message", message, cancellationToken: token);

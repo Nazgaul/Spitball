@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -57,7 +58,21 @@ namespace Cloudents.Web.Api
         {
             //specific conversation
             var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(id, page), token);
-            return result;
+            return result.Select(s =>
+            {
+                if (s is ChatAttachmentDto p)
+                {
+                    p.Src = "https://upload.wikimedia.org/wikipedia/commons/9/99/SOME_LIKE_IT_HOT_TITLE.jpg";
+                    p.Link = Url.RouteUrl("ChatDownload",new
+                    {
+                        chatRoomId = p.ChatRoomId,
+                        chatId = p.Id
+                    });
+                    
+                }
+
+                return s;
+            });
         }
 
         // POST api/<controller>
