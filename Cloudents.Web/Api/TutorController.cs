@@ -11,10 +11,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Wangkanai.Detection;
-using Microsoft.AspNetCore.Identity;
-using Cloudents.Core.Entities;
-using Cloudents.Command;
-using Cloudents.Command.Command;
 
 namespace Cloudents.Web.Api
 {
@@ -79,17 +75,6 @@ namespace Cloudents.Web.Api
                 },
                 NextPageLink = nextPageLink
             };
-        }
-
-        [HttpPost("edit")]
-        public async Task<IActionResult> EditUserProfileAsync([FromBody]EditToturProfileRequest model,
-            [FromServices] ICommandBus _commandBus, [FromServices] UserManager<RegularUser> _userManager
-            , CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new EditToturProfileCommand(userId, model.Name, model.LastName, model.Bio, model.Description);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
         }
     }
 }
