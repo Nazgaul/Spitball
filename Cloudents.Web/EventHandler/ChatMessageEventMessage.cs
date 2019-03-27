@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Web.EventHandler
 {
@@ -27,16 +28,31 @@ namespace Cloudents.Web.EventHandler
                 SignalRAction.Add, new
                 {
                     conversationId = chatMessage.ChatRoom.Id,
-                    message = new ChatMessageDto
-                    {
-                        UserId = chatMessage.User.Id,
-                        Text = chatMessage.Message,
-                        DateTime = DateTime.UtcNow
-                    },
-
+                    message = BuildChatMessage(eventMessage as dynamic)
                 });
             var users = chatMessage.ChatRoom.Users.Select(s => s.User.Id.ToString()).ToList();
             await _hubContext.Clients.Users(users).SendAsync("Message", message, cancellationToken: token);
+        }
+
+        private ChatMessageDto BuildChatMessage(ChatTextMessage chatMessage)
+        {
+            return new ChatMessageDto
+            {
+                UserId = chatMessage.User.Id,
+                Text = chatMessage.Message,
+                DateTime = DateTime.UtcNow
+            };
+        }
+
+
+        private ChatMessageDto BuildChatMessage(ChatAttachmentMessage chatMessage)
+        {
+            return new ChatMessageDto
+            {
+                UserId = chatMessage.User.Id,
+               // Text = chatMessage.Message,
+                DateTime = DateTime.UtcNow
+            };
         }
     }
 }

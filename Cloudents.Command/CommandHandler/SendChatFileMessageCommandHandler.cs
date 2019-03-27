@@ -8,18 +8,19 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    public class SendMessageCommandHandler : ICommandHandler<SendMessageCommand>
+    public class SendChatFileMessageCommandHandler : ICommandHandler<SendChatFileMessageCommand>
     {
         private readonly IChatRoomRepository _chatRoomRepository;
         private readonly IRegularUserRepository _userRepository;
 
-        //private readonly IRepository<ChatUser> _chatUserRepository;
         private readonly IRepository<ChatMessage> _chatMessageRepository;
         private readonly IChatDirectoryBlobProvider _blobProvider;
 
-        public SendMessageCommandHandler(IChatRoomRepository chatRoomRepository,
+        public SendChatFileMessageCommandHandler(
+            IChatRoomRepository chatRoomRepository,
             IRegularUserRepository userRepository,
-            IChatDirectoryBlobProvider blobProvider, IRepository<ChatMessage> chatMessageRepository)
+            IRepository<ChatMessage> chatMessageRepository,
+            IChatDirectoryBlobProvider blobProvider)
         {
             _chatRoomRepository = chatRoomRepository;
             _userRepository = userRepository;
@@ -27,21 +28,11 @@ namespace Cloudents.Command.CommandHandler
             _chatMessageRepository = chatMessageRepository;
         }
 
-        public async Task ExecuteAsync(SendMessageCommand message, CancellationToken token)
+        public async Task ExecuteAsync(SendChatFileMessageCommand message, CancellationToken token)
         {
             var users = message.ToUsersId.ToList();
             users.Add(message.UserSendingId);
-            ChatRoom chatRoom;
-            if (message.ChatRoomId.HasValue)
-            {
-                chatRoom = await _chatRoomRepository.LoadAsync(message.ChatRoomId.Value, token);
-            }
-            else
-            {
-                
-                chatRoom = await _chatRoomRepository.GetChatRoomAsync(users, token);
-            }
-
+            var chatRoom = await _chatRoomRepository.GetChatRoomAsync(users, token);
             if (chatRoom == null)
             {
                 chatRoom = new ChatRoom(users.Select(s => _userRepository.Load(s)).ToList());
@@ -49,17 +40,15 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var user = _userRepository.Load(message.UserSendingId);
-
-            var chatMessage = chatRoom.AddMessage(user, message.Message, message.Blob);
+            var chatMessage = new ChatAttachmentMessage(user, message.Blob, chatRoom);
+            chatRoom.AddMessage(chatMessage);
             await _chatRoomRepository.UpdateAsync(chatRoom, token);
             await _chatMessageRepository.AddAsync(chatMessage, token); // need this in order to get id from nhibernate
-
-
-            if (!string.IsNullOrEmpty(message.Blob))
-            {
-                var id = chatMessage.Id;
-                await _blobProvider.MoveAsync(message.Blob, id.ToString(), token);
-            }
+                                                                       //if (!string.IsNullOrEmpty(message.Blob))
+                                                                       //{
+            var id = chatMessage.Id;
+            await _blobProvider.MoveAsync(message.Blob, $"{chatRoom.Id}/{id}", token);
+            //}
         }
     }
 }

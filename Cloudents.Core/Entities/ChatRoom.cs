@@ -33,14 +33,14 @@ namespace Cloudents.Core.Entities
 
         public virtual string Identifier { get; set; }
 
-        public virtual ChatMessage AddMessage(RegularUser user, string message, string blob)
+        public virtual void AddMessage(ChatMessage message)
         {
-           // var user = Users.Single(s => s.User.Id == userId);
+            // var user = Users.Single(s => s.User.Id == userId);
             //var chatMessage = user.AddMessage(message, blob);
 
-            var chatMessage = new ChatMessage(user,message,blob,this);
+            //var chatMessage = new ChatMessage(user, message, blob, this);
             UpdateTime = DateTime.UtcNow;
-            foreach (var otherUserInChat in Users.Where(s => s.User != user))
+            foreach (var otherUserInChat in Users.Where(s => s.User != message.User))
             {
                 if (!otherUserInChat.User.Online)
                 {
@@ -48,14 +48,14 @@ namespace Cloudents.Core.Entities
                 }
                 otherUserInChat.Unread++;
             }
-            AddEvent(new ChatMessageEvent(chatMessage));
-            return chatMessage;
+            AddEvent(new ChatMessageEvent(message));
+            //return chatMessage;
 
             //this.AddEvent();
         }
     }
 
-    public class ChatUser :Entity<Guid>
+    public class ChatUser : Entity<Guid>
     {
         protected ChatUser()
         {
@@ -68,10 +68,10 @@ namespace Cloudents.Core.Entities
             User = user;
         }
 
-       // public virtual Guid Id { get; protected set; }
+        // public virtual Guid Id { get; protected set; }
         public virtual ChatRoom ChatRoom { get; protected set; }
         public virtual RegularUser User { get; protected set; }
-         
+
 
         public virtual int Unread { get; set; }
 
@@ -86,30 +86,60 @@ namespace Cloudents.Core.Entities
 
     }
 
-    public class ChatMessage : Entity<Guid>
+    public class ChatAttachmentMessage : ChatMessage
+    {
+        protected ChatAttachmentMessage()
+        {
+
+        }
+
+        public ChatAttachmentMessage(RegularUser user, string blob, ChatRoom room) : base(user, room)
+        {
+            Blob = blob;
+
+        }
+
+        public virtual string Blob { get; protected set; }
+
+    }
+
+    public class ChatTextMessage : ChatMessage
+    {
+        protected ChatTextMessage()
+        {
+
+        }
+
+        public ChatTextMessage(RegularUser user, string message, ChatRoom room) : base(user, room)
+        {
+            Message = message;
+
+        }
+
+        public virtual string Message { get; protected set; }
+
+    }
+
+    public abstract class ChatMessage : Entity<Guid>
     {
         protected ChatMessage()
         {
 
         }
 
-        public ChatMessage(RegularUser user, string message, string blob, ChatRoom room)
+        protected ChatMessage(RegularUser user, ChatRoom room)
         {
             User = user;
-            Message = message;
             CreationTime = DateTime.UtcNow;
-            Blob = blob;
             ChatRoom = room;
 
         }
 
 
 
-       // public virtual Guid Id { get; protected set; }
+        // public virtual Guid Id { get; protected set; }
 
         public virtual RegularUser User { get; protected set; }
-        public virtual string Message { get; protected set; }
-        public virtual string Blob { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
 
         public virtual ChatRoom ChatRoom { get; protected set; }

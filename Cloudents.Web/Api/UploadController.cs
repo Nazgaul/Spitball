@@ -83,10 +83,10 @@ namespace Cloudents.Web.Api
 
 
 
-        [HttpPost("{type:StorageContainerConstraint}"), FormContentType]
-        public async Task<ActionResult<UploadResponse>> Upload(
+        [HttpPost("file"), FormContentType]
+        public async Task<ActionResult<UploadStartResponse>> Upload(
             [FromRoute] StorageContainer type,
-            [FromForm] UploadRequest2 model,
+            [FromForm] UploadRequestForm model,
             [FromServices] IIndex<StorageContainer, IBlobProvider> blobProviderIndex,
             CancellationToken token)
         {
@@ -101,14 +101,15 @@ namespace Cloudents.Web.Api
                 index, token);
 
             TempData.Put($"update-{model.SessionId}", tempData);
-            return new UploadResponse();
+            return new UploadStartResponse();
         }
 
 
-        [HttpPost("{type:StorageContainerConstraint}", Order = 0), StartUploading]
-        public ActionResult<UploadResponse> StartUploadAsync(
-            [FromBody] UploadRequest model)
+        [HttpPost("file", Order = 0), StartUploading]
+        public ActionResult<UploadStartResponse> StartUploadAsync(
+            [FromBody] UploadRequestStart model)
         {
+
             string[] supportedFiles = { "doc",
                 "docx", "xls",
                 "xlsx", "PDF",
@@ -125,7 +126,7 @@ namespace Cloudents.Web.Api
             }
 
 
-            var response = new UploadResponse(Guid.NewGuid());
+            var response = new UploadStartResponse(Guid.NewGuid());
 
             var tempData = new TempData
             {
@@ -138,17 +139,17 @@ namespace Cloudents.Web.Api
             return response;
         }
 
-        [HttpPost("{type:regex(file)}", Order = 1)]
-        public async Task<ActionResult<UploadResponse>> FinishUploadAsync(
+        [HttpPost("file", Order = 1)]
+        public async Task<ActionResult<UploadStartResponse>> FinishUploadAsync(
             [FromServices] IDocumentDirectoryBlobProvider documentBlobProvider,
-            [FromBody] UploadRequest model,
+            [FromBody] UploadRequestFinish model,
             CancellationToken token)
         {
             var blobName = await CommitBlobsAsync(documentBlobProvider, model, token);
-            return new UploadResponse(blobName);
+            return new UploadStartResponse(blobName);
         }
 
-        private async Task<string> CommitBlobsAsync(IBlobProvider documentBlobProvider, UploadRequest model,
+        private async Task<string> CommitBlobsAsync(IBlobProvider documentBlobProvider, UploadRequestFinish model,
             CancellationToken token)
         {
             var tempData2 = TempData.Get<TempData>($"update-{model.SessionId}");
@@ -166,22 +167,22 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("{type:regex(chat)}", Order = 1)]
-        public async Task<ActionResult<UploadResponse>> FinishUploadAsync(
-            [FromServices] IChatDirectoryBlobProvider blobProvider,
-            [FromServices] ICommandBus bus,
-            [FromServices] UserManager<RegularUser> userManager,
-            [FromBody] FinishChatUpload model,
-            CancellationToken token)
-        {
-            var blobName = await CommitBlobsAsync(blobProvider, model, token);
+        //[HttpPost("{type:regex(chat)}", Order = 1)]
+        //public async Task<ActionResult<UploadStartResponse>> FinishUploadAsync(
+        //    [FromServices] IChatDirectoryBlobProvider blobProvider,
+        //    [FromServices] ICommandBus bus,
+        //    [FromServices] UserManager<RegularUser> userManager,
+        //    [FromBody] FinishChatUpload model,
+        //    CancellationToken token)
+        //{
+        //    var blobName = await CommitBlobsAsync(blobProvider, model, token);
 
 
-            var command = new SendMessageCommand(null, userManager.GetLongUserId(User), new[] { model.OtherUser }, null, blobName);
-            await bus.DispatchAsync(command, token);
-            return Ok();
-            //return new UploadResponse(tempData2.BlobName);
-        }
+        //    var command = new SendMessageCommand(null, userManager.GetLongUserId(User), new[] { model.OtherUser }, null, blobName);
+        //    await bus.DispatchAsync(command, token);
+        //    return Ok();
+        //    //return new UploadResponse(tempData2.BlobName);
+        //}
 
         private static readonly Random Random = new Random();
 
@@ -205,7 +206,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("dropbox")]
-        public async Task<UploadResponse> UploadDropBox([FromBody] DropBoxRequest model,
+        public async Task<UploadStartResponse> UploadDropBox([FromBody] DropBoxRequest model,
             [FromServices] IRestClient client,
             [FromServices] IDocumentDirectoryBlobProvider documentDirectoryBlobProvider,
             CancellationToken token)
@@ -214,7 +215,7 @@ namespace Cloudents.Web.Api
             var blobName = BlobFileName(Guid.NewGuid(), model.Name);
             await documentDirectoryBlobProvider.UploadStreamAsync(blobName, stream, token: token);
 
-            return new UploadResponse(blobName);
+            return new UploadStartResponse(blobName);
         }
 
     }

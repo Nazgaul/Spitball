@@ -12,10 +12,10 @@ namespace Cloudents.Persistence
 {
     public class UnitOfWorkFactorySpitball
     {
-        private readonly IEventPublisher _publisher;
+        private readonly PublishEventsListener _publisher;
         private readonly ISessionFactory _factory;
 
-        public UnitOfWorkFactorySpitball(IEventPublisher publisher, IConfigurationKeys connectionString)
+        public UnitOfWorkFactorySpitball(PublishEventsListener publisher, IConfigurationKeys connectionString)
         {
             _publisher = publisher;
             var configuration = Fluently.Configure()
@@ -71,12 +71,12 @@ namespace Cloudents.Persistence
 #if DEBUG
             config.SetInterceptor(new LoggingInterceptor());
 #endif
-            var eventPublisherListener = new PublishEventsListener(_publisher);
-            config.SetListener(ListenerType.PostCommitDelete, eventPublisherListener);
+           // var eventPublisherListener = new PublishEventsListener(_publisher);
+            config.SetListener(ListenerType.PostCommitDelete, _publisher);
             config.SetListener(ListenerType.Delete, new SoftDeleteEventListener());
-            config.SetListener(ListenerType.PostInsert, eventPublisherListener);
-            config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
-            config.SetListener(ListenerType.PostCollectionUpdate, eventPublisherListener);
+            config.SetListener(ListenerType.PostInsert, _publisher);
+            config.SetListener(ListenerType.PostUpdate, _publisher);
+            config.SetListener(ListenerType.PostCollectionUpdate, _publisher);
 
 
             //var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
