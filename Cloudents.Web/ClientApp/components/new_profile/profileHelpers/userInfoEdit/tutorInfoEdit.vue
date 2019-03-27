@@ -6,9 +6,9 @@
                 <span v-language:inner>profile_edit_tutor_title</span>
             </v-flex>
         </v-layout>
-        <v-layout  class="px-3 mt-2 align-stretch" align-center justify-space-between v-bind="xsColumn">
-            <v-flex xs12 sm4 md4 :class="{'mr-2': $vuetify.breakpoint.smAndUp}">
-                <v-layout  column >
+        <v-layout  class="px-3 mt-2"  row wrap>
+            <v-flex xs12 sm4 md4 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+                <v-layout  column>
                     <v-flex xs12 sm6 md6 class="pl-2 mb-2" >
                         <span class="subtitle" v-language:inner>profile_personal_details</span>
                     </v-flex>
@@ -22,7 +22,7 @@
                    </v-flex>
                 </v-layout>
             </v-flex>
-            <v-flex  xs12 sm4 md4 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'mr-2']">
+            <v-flex  xs12 sm4 md4 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
                 <v-layout  column >
                     <v-flex  v-if="$vuetify.breakpoint.smAndUp" xs12 sm6 md6  class="mb-2 pl-2" grow>
                         <span class="subtitle" style="visibility: hidden">hidden</span>
@@ -123,13 +123,6 @@
         },
         computed: {
             ...mapGetters(['getProfile']),
-            xsColumn(){
-                const xsColumn = {};
-                if (this.$vuetify.breakpoint.xsOnly){
-                    xsColumn.column = true;
-                }
-                return xsColumn
-            },
             bio: {
                 get(){
                     return this.getProfile.about.bio
@@ -168,11 +161,6 @@
 <style lang="less">
     @import '../../../../styles/mixin.less';
     .tutor-edit-wrap {
-        .align-stretch{
-            @media(max-width: @screen-xs){
-                align-items: stretch;
-            }
-        }
         .disabled-background{
             .v-input__slot{
                 background-color: #f5f5f5!important;
