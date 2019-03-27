@@ -31,9 +31,9 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Src { get; set; }
         [DataMember]
-        public string Link { get; set; }
+        public string Href { get; set; }
 
-        private string Attachment { get; set; }
+        public string Attachment { get; set; }
 
         [DataMember] public override string Type => "file";
 

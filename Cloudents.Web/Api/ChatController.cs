@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -54,22 +55,22 @@ namespace Cloudents.Web.Api
 
         // GET api/<controller>/5
         [HttpGet("{id:guid}")]
-        public async Task<IEnumerable<ChatMessageDto>> Get(Guid id, int page, CancellationToken token)
+        public async Task<IEnumerable<ChatMessageDto>> Get(Guid id, int page,
+            [FromServices] IBinarySerializer serializer,
+            CancellationToken token)
         {
             //specific conversation
             var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(id, page), token);
             return result.Select(s =>
             {
-                if (s is ChatAttachmentDto p)
+                if (!(s is ChatAttachmentDto p)) return s;
+                var url = _blobProvider.GetBlobUrl($"{p.ChatRoomId}/{p.Id}/{p.Attachment}");
+                p.Src = Url.ImageUrl(new ImageProperties(url), serializer);
+                p.Href = Url.RouteUrl("ChatDownload",new
                 {
-                    p.Src = "https://upload.wikimedia.org/wikipedia/commons/9/99/SOME_LIKE_IT_HOT_TITLE.jpg";
-                    p.Link = Url.RouteUrl("ChatDownload",new
-                    {
-                        chatRoomId = p.ChatRoomId,
-                        chatId = p.Id
-                    });
-                    
-                }
+                    chatRoomId = p.ChatRoomId,
+                    chatId = p.Id
+                });
 
                 return s;
             });
