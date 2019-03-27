@@ -1,14 +1,24 @@
 <template>
-    <div>
-        <h4>Audio Output quality test</h4>
+   <v-layout align-center justify-center column class="audio-out-container mt-5 py-3">
+       <v-flex class="mb-3">
+           <speakerImage class="speaker-icon"></speakerImage>
+       </v-flex>
+       <v-flex class="mt-3">
+           <h4 class="auidio-out-title subheading">Audio Output quality test</h4>
+       </v-flex>
+       <v-flex class="mt-3 mb-4">
+           <img class="eq-image" src="../../../images/eq.gif" alt="">
+       </v-flex>
         <div class="audio-input-validation">
         </div>
-    </div>
+   </v-layout>
 </template>
 
 <script>
+    import speakerImage from '../../../images/speaker.svg'
     export default {
         name: "audioOutputValidation",
+        components: {speakerImage},
         data() {
             return {
                 // soundUrl: 'https://blue-online-static.wyzantcdn.com//static/dist/assets/12_short_working-solutions_0066.mp3',
@@ -34,6 +44,16 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="less">
+.audio-out-container{
+    .auidio-out-title{
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.87);
+    }
+    .speaker-icon{
+        height: 40px;
+        width: 40px;
+        fill: #a8a8a8;
+    }
+}
 </style>

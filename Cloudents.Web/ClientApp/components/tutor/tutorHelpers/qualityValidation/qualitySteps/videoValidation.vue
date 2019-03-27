@@ -1,90 +1,93 @@
 <template>
-    <div class="video-quality-wrap">
-        <v-container fluid>
-            <v-layout wrap align-center justify-center column>
-                <v-flex>
-                    <h4>Video quality test</h4>
-                </v-flex>
-                <v-flex xs12 sm6 md6>
-                    <v-select
-                            class="minimum-width"
-                            v-model="singleCameraId"
-                            :items="avalCameras"
-                            item-value="deviceId"
-                            item-text="label"
-                            label="Standard"
-                            hide-details
-                            :prepend-icon="''"
-                            @change="createVideoQualityPreview()"
-                            :placeholder="'Please select camera'"
-                            :append-icon="'sbf-arrow-down'"
-                            solo
-                            single-line
-                    ></v-select>
-                </v-flex>
+    <v-layout class="video-quality-wrap" align-center justify-center column  wrap>
+        <v-layout align-center justify-center row>
+            <v-flex>
+                <videoCameraImage class="video-cam-icon"></videoCameraImage>
+            </v-flex>
+            <v-flex class="ml-2">
+                <h4 class="video-title subheading">Video quality test</h4>
 
-            </v-layout>
-            <v-layout align-center justify-center>
-                <v-flex xs12 sm6 md6 class="mt-3">
-                    <div id="local-video-test-track"></div>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </div>
+            </v-flex>
+        </v-layout>
+        <v-flex xs12 sm12 md12 class="mt-3 mb-4" >
+            <div id="local-video-test-track"></div>
+        </v-flex>
+        <v-flex xs12 sm12 md12 d-flex class="width-force mb-4">
+            <v-select
+                    class="minimum-width"
+                    v-model="singleCameraId"
+                    :items="avalCameras"
+                    item-value="deviceId"
+                    item-text="label"
+                    label="Standard"
+                    hide-details
+                    :prepend-icon="''"
+                    @change="createVideoQualityPreview()"
+                    :placeholder="'Please select camera'"
+                    :append-icon="'sbf-arrow-down'"
+                    solo
+                    single-line
+            ></v-select>
+        </v-flex>
+    </v-layout>
+
 </template>
 
 <script>
     import { createLocalVideoTrack, } from 'twilio-video';
-    import tutorService from '../../../tutorService'
+    import tutorService from '../../../tutorService';
+    import videoCameraImage from '../../../images/video-camera.svg'
+
     export default {
         name: "videoValidation",
+        components: {videoCameraImage},
         data() {
             return {
                 videoEl: null,
                 localTrack: null,
-                avalCameras :[],
+                avalCameras: [],
                 singleCameraId: ''
             }
         },
         methods: {
-            getVideoInputdevices(){
+            getVideoInputdevices() {
                 let self = this;
                 navigator.mediaDevices.enumerateDevices()
-                    .then((mediaDevices)=>{
-                            mediaDevices.forEach((device)=>{
-                                if(device.kind ==='videoinput'){
+                    .then((mediaDevices) => {
+                            mediaDevices.forEach((device) => {
+                                if (device.kind === 'videoinput') {
                                     self.avalCameras.push(device)
                                 }
                             })
-                    },
-                        (error)=>{
-                        console.log('error cant get video input devices', error)
+                        },
+                        (error) => {
+                            console.log('error cant get video input devices', error)
                         }
                     )
             },
 
             createVideoQualityPreview() {
                 //clear if exists
-                if(this.localTrack){
+                if (this.localTrack) {
                     this.clearVideoTrack();
                 }
                 let self = this;
-                createLocalVideoTrack({width: 320, height: 180, deviceId: {exact : self.singleCameraId} })
+                createLocalVideoTrack({width: 320, height: 180, deviceId: {exact: self.singleCameraId}})
                     .then(track => {
-                    self.videoEl= document.getElementById('local-video-test-track');
-                    self.localTrack = track;
-                    self.videoEl.appendChild(self.localTrack.attach());
-                    console.log('added track')
-                });
+                        self.videoEl = document.getElementById('local-video-test-track');
+                        self.localTrack = track;
+                        self.videoEl.appendChild(self.localTrack.attach());
+                        console.log('added track')
+                    });
             },
-            clearVideoTrack(){
-                    tutorService.detachTracks([this.localTrack])
+            clearVideoTrack() {
+                tutorService.detachTracks([this.localTrack])
             }
         },
-        created(){
+        created() {
             this.getVideoInputdevices()
         },
-        beforeDestroy(){
+        beforeDestroy() {
             this.clearVideoTrack();
             console.log('destroyed component')
         }
@@ -92,10 +95,28 @@
 </script>
 
 <style scoped lang="less">
-    .video-quality-wrap{
-    .minimum-width{
-        min-width: 340px;
-    }
+    .video-quality-wrap {
+        .width-force{
+            width: 98%;
+        }
+        #local-video-test-track{
+            min-height: 168px;
+            min-width: 298px;
+            box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.16);
+            border: solid 6px #ffffff;
+        }
+        .video-title{
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.87);
+        }
+        .video-cam-icon {
+                height: 40px;
+                width: 40px;
+                fill: #a8a8a8;
+        }
+        .minimum-width {
+            min-width: 340px;
+        }
     }
 
 

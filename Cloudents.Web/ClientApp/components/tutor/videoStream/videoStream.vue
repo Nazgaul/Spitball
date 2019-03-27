@@ -7,11 +7,12 @@
                 </div>
             </v-flex>
         </v-layout>
-        <v-layout>
-            <v-flex>
-                <v-btn class="create-session" color="primary" @click="createRoomFunc()" v-if="!id">Initiate tutoring
-                    session
-                </v-btn>
+        <v-layout align-center justify-end>
+            <v-flex xs8 class="d-inline-flex">
+                <button class="create-session" color="primary" @click="createRoomFunc()" v-if="!id">
+                    <timerIcon class="timer-icon mr-2"></timerIcon>
+                    Start Session
+                </button>
             </v-flex>
         </v-layout>
 
