@@ -18,6 +18,6 @@ namespace Cloudents.Core.DTOs
 
     public class ChatAttachmentDto : ChatMessageDto
     {
-        public string File { get; set; }
+        public string Attachment { get; set; }
     }
 }
