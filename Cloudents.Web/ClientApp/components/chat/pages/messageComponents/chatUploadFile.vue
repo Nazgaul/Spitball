@@ -48,46 +48,14 @@
         },
         methods: {
             ...mapActions(['uploadChatFile']),
-            uploadChatFiles() {
-                let self = this;
-                let formData = new FormData();
-                let file = self.$refs.chatFiles.files[0];
-                console.log(file);
-                formData.append("file", file);
-                let objData ={
-                    formData: formData,
-                    isImageType :  file.type && file.type.includes('image')
-                };
-                self.uploadChatFile(objData);
-            },
         inputFile: function (newFile, oldFile) {
             let self = this;
             if (self.uploadedFiles && self.uploadedFiles.length > 1) {
                 return
             }
             if (newFile && oldFile && !newFile.active && oldFile.active) {
-                // Get response data
-                // console.log('response', newFile.response);
-                if (newFile.xhr) {
-                    //  Get the response status code
-                    // console.log('status', newFile.xhr.status)
-                    if (newFile.xhr.status === 200) {
-                        // console.log('Succesfully uploadede')
-                        //on after successful loading done, emit to parent to add to list
-                        if (newFile.response && newFile.response.files) {
-                            //self.$emit('addFile', newFile.response.files);
-                            let filename = newFile.response.files;
-                            //if max reached replace
-                            if (this.uploadedFileNames && this.uploadedFileNames.length > 1) {
-                                this.uploadedFileNames.splice(-1, 1, filename);
-                                //add
-                            } else {
-                                this.uploadedFileNames = this.uploadedFileNames.concat(filename);
-                            }
-                            this.populatThumbnailBoxes();
-                        }
-                    }
-                }
+                console.log('upload Complete');
+                self.uploadedFiles.length = 0;
             }
             if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
                 if (!this.$refs.upload.active) {

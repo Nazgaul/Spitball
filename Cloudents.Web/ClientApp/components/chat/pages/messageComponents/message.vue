@@ -1,5 +1,5 @@
 <template>
-    <div class="message" :class="{'myMessage': isMine}" v-html="$linky(message.text)"></div>
+    <div class="message" :class="{'myMessage': isMine, 'imgMessage': message.type === 'file'}" v-html="$chatMessage(message)"></div>
 </template>
 
 <script>
@@ -36,6 +36,9 @@ export default {
         margin-right: auto;
         background-color: #dfdeff;
         border-radius: 8px 8px 8px 0;
+    }
+    &.imgMessage{
+        height: 160px;
     }
 }
 

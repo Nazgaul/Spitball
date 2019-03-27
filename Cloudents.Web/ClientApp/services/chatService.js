@@ -3,24 +3,36 @@ import { connectivityModule } from "./connectivity.module"
 function Conversation(objInit){
     this.userId = objInit.userId;
     this.name = objInit.name;
-    this.unread = objInit.unread || 1;
-    this.online = objInit.online || true;
+    this.unread = objInit.unread;
+    this.online = objInit.online;
     this.conversationId = objInit.conversationId;
-    this.dateTime = objInit.dateTime || new Date().toISOString();
+    this.dateTime = objInit.dateTime;
 }
 
 function createConversation(objInit){
     return new Conversation(objInit)
 }
 
-function Message(objInit, id){
+function TextMessage(objInit, id){
     this.userId= objInit.userId;
     this.text = objInit.text;
     this.conversationId = id;
+    this.type = objInit.type;
+}
+function FileMessage(objInit, id){
+    this.userId= objInit.userId;
+    this.conversationId = id;
+    this.src = objInit.src;
+    this.href = objInit.href;
+    this.type = objInit.type;
 }
 
 function createMessage(objInit, id){
-    return new Message(objInit, id)
+    if(objInit.type === 'text'){
+        return new TextMessage(objInit, id)
+    }else{
+        return new FileMessage(objInit, id)
+    }
 }
 
 function serverMessageObj(objInit){
