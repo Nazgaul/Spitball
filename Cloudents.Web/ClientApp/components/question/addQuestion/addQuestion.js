@@ -83,7 +83,13 @@ export default {
         },
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly
-        }
+        },
+        userImageUrl(){
+            if(this.accountUser.image.length > 1){
+                return `${this.accountUser.image}?width=32&height=32`
+            }
+            return ''
+        },
     },
     watch: {
         questionMessage() {
