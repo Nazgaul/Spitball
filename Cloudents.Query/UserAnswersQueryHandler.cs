@@ -38,7 +38,8 @@ namespace Cloudents.Query
                         {
                             Id = s.Question.User.Id,
                             Name = s.Question.User.Name,
-                            Score = s.Question.User.Score
+                            Score = s.Question.User.Score,
+                            Image = s.Question.User.Image
                         },
                         Price = s.Question.Price,
                         Id = s.Question.Id,

@@ -12,6 +12,14 @@ namespace Cloudents.Core.DTOs
             Score = score;
         }
 
+        public UserDto(long id, string name, int score, string image)
+        {
+            Id = id;
+            Name = name;
+            Score = score;
+            Image = image;
+        }
+
         // ReSharper disable once MemberCanBeProtected.Global need that for mark answer as correct.
         public UserDto()
         {
