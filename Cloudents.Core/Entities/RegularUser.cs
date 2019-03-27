@@ -66,7 +66,7 @@ namespace Cloudents.Core.Entities
 
         public virtual UserTransactions Transactions { get; protected set; }
 
-        public virtual string FirstName { get; protected set; }
+        //public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Description { get; set; }
 
@@ -78,9 +78,8 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeName(string firstName, string lastName)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Name = $"{FirstName} {LastName}";
+            LastName = lastName ?? LastName;
+            Name = firstName;
         }
 
         public virtual void SuspendUser(DateTimeOffset lockTime, string reason)

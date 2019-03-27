@@ -11,6 +11,10 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Wangkanai.Detection;
+using Microsoft.AspNetCore.Identity;
+using Cloudents.Core.Entities;
+using Cloudents.Command;
+using Cloudents.Command.Command;
 
 namespace Cloudents.Web.Api
 {
@@ -25,6 +29,7 @@ namespace Cloudents.Web.Api
         private readonly ITutorSearch _tutorSearch;
         private readonly IStringLocalizer<TutorController> _localizer;
         private readonly IDevice _device;
+       
 
         /// <inheritdoc />
         /// <summary>
@@ -33,7 +38,8 @@ namespace Cloudents.Web.Api
         /// <param name="tutorSearch"></param>
         /// <param name="localizer"></param>
         /// <param name="deviceResolver"></param>
-        public TutorController(ITutorSearch tutorSearch, IStringLocalizer<TutorController> localizer, IDeviceResolver deviceResolver)
+        public TutorController(ITutorSearch tutorSearch, IStringLocalizer<TutorController> localizer
+                , IDeviceResolver deviceResolver)
         {
             _tutorSearch = tutorSearch;
             _localizer = localizer;
@@ -73,6 +79,17 @@ namespace Cloudents.Web.Api
                 },
                 NextPageLink = nextPageLink
             };
+        }
+
+        [HttpPost("edit")]
+        public async Task<IActionResult> EditUserProfileAsync([FromBody]EditToturProfileRequest model,
+            [FromServices] ICommandBus _commandBus, [FromServices] UserManager<RegularUser> _userManager
+            , CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new EditToturProfileCommand(userId, model.Name, model.LastName, model.Bio, model.Description);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
     }
 }
