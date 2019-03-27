@@ -255,7 +255,7 @@
             },
             userImageUrl(){
                 if(this.item && this.item.user && this.item.user.image.length > 1){
-                    return `${this.item.user.image}?width=32&height=32`
+                    return `${this.item.user.image}`
                 }
                 return ''
             },

@@ -1,5 +1,6 @@
 <template>
-    <v-card class="tutor-edit-wrap pb-3">
+    <v-card class="tutor-edit-wrap pb-3"  >
+        <v-form v-model="valid" ref="form">
         <v-layout class="header px-3 py-3 mb-3">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
@@ -14,10 +15,10 @@
                     </v-flex>
                     <v-flex xs12>
                         <v-text-field
+                                :rules="[rules.required]"
                                 :label="firstNameLabel"
                                 v-model="firstName"
                                 outline
-                                hide-details
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
@@ -29,10 +30,10 @@
                     </v-flex>
                     <v-flex>
                         <v-text-field
+                                :rules="[rules.required]"
                                 :label="lastNameLabel"
                                 v-model="lastName"
                                 outline
-                                hide-details
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
@@ -56,7 +57,7 @@
             </v-flex>
         </v-layout>
 
-        <v-layout class="px-3" column :class="[$vuetify.breakpoint.xsOnly ? 'mt-5' : 'mt-3']">
+        <v-layout class="px-3" column :class="[$vuetify.breakpoint.xsOnly ? 'mt-3' : '']">
             <v-flex class="mb-2 pl-2">
                 <span class="subtitle" v-language:inner>profile_aboutme</span>
             </v-flex>
@@ -91,6 +92,7 @@
                 </v-btn>
             </v-flex>
         </v-layout>
+        </v-form>
     </v-card>
 </template>
 
@@ -112,7 +114,11 @@
                 editedDescription: '',
                 editedFirstName: '',
                 editedLastName: '',
-                priceHour: 50
+                priceHour: 50,
+                rules: {
+                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
+                },
+                valid: false,
 
             }
         },
@@ -164,16 +170,18 @@
         },
         methods: {
             saveChanges() {
-                let editsData ={
-                    name: this.editedFirstName || this.firstName,
-                    lastName: this.editedLastName || this.lastName,
-                    bio: this.editedBio || this.bio,
-                    description: this.editedDescription || this.description
-                };
-                accountService.saveTutorInfo(editsData)
-                    .then((success) => {
-                        this.closeDialog()
-                    })
+                if(this.$refs.form.validate()){
+                    let editsData ={
+                        name: this.editedFirstName || this.firstName,
+                        lastName: this.editedLastName || this.lastName,
+                        bio: this.editedBio || this.bio,
+                        description: this.editedDescription || this.description
+                    };
+                    accountService.saveTutorInfo(editsData)
+                        .then((success) => {
+                            this.closeDialog()
+                        })
+                }
             },
             closeDialog() {
                 this.closeCallback ? this.closeCallback() : ''
@@ -194,7 +202,7 @@
         }
         .shallow-blue {
             border: 1px solid #4452fc;
-            color: #4452fc;
+            color: @color-blue-new;
             @media (max-width: @screen-xs) {
                 min-width: 180px;
                 border-radius: 0;
@@ -202,7 +210,7 @@
         }
         //vuetify overwrite
         .blue-btn {
-            background-color: #4452fc !important;
+            background-color: @color-blue-new!important;
             color: @color-white;
             box-shadow: none !important;
             @media (max-width: @screen-xs) {
