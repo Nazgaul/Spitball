@@ -17,8 +17,8 @@ namespace Cloudents.Query.Query.Admin
         IQuery<IEnumerable<FlaggedQuestionDto>>,
         IQuery<IList<NewCourseDto>>,
         IQuery<IList<NewUniversitiesDto>>,
-        IQuery<IList<PendingCoursesDto>>,
-        IQuery<IList<PendingUniversitiesDto>>,
+       //IQuery<IList<PendingCoursesDto>>,
+        //IQuery<IList<PendingUniversitiesDto>>,
         IQuery<IList<AllUniversitiesDto>>,
         IQuery<IList<string>>
     {

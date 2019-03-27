@@ -12,6 +12,7 @@ using System;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
@@ -124,13 +125,15 @@ namespace Cloudents.Web.Controllers
             return Redirect("/");
         }
 
-        [Route("image/user/{hash}", Name = "imageUser")]
+
+
+        [Route("image/{hash}", Name = "imageUrl")]
         [ResponseCache(
             Duration = TimeConst.Month, Location = ResponseCacheLocation.Any)]
         public IActionResult ImageRedirect([FromRoute]string hash, [FromServices] IConfiguration configuration)
         {
             return Redirect(
-                $"{configuration["functionCdnEndpoint"]}/api/image/user/{hash}{Request.QueryString}");
+                $"{configuration["functionCdnEndpoint"]}/api/image/{hash}?{Request.QueryString}");
         }
 
 

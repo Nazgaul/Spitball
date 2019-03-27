@@ -8,13 +8,13 @@ namespace Cloudents.Infrastructure
     {
         public void Serialize(Stream sr, object o)
         {
-            Serializer.Serialize(sr,o);
-            
+            Serializer.Serialize(sr, o);
+
         }
 
         public T Deserialize<T>(Stream sr)
         {
-           return Serializer.Deserialize<T>(sr);
+            return Serializer.Deserialize<T>(sr);
         }
 
         public byte[] Serialize(object o)
@@ -34,4 +34,6 @@ namespace Cloudents.Infrastructure
             }
         }
     }
+
+    
 }
