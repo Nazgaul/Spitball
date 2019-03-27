@@ -2,14 +2,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -169,14 +166,5 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpPost("edit")]
-        public async Task<IActionResult> EditUserProfileAsync([FromBody]EditUserProfileRequest model,
-            [FromServices] ICommandBus _commandBus, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new EditUserProfileCommand(userId, model.Name, model.Description);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
     }
 }
