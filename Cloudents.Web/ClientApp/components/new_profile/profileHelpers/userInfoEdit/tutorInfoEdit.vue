@@ -4,7 +4,7 @@
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
                 <span v-language:inner>profile_edit_tutor_title</span>
-            </v-flex>name-price-wrap
+            </v-flex>
         </v-layout>
         <v-layout  class="px-3 mt-2"  row wrap>
             <v-flex xs12 sm4 md4 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
