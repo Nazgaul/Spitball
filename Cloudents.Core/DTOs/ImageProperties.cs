@@ -8,7 +8,7 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.DTOs
 {
-    [Serializable,DataContract]
+    [Serializable, DataContract]
     public class ImageProperties
     {
         public enum BlurEffect
@@ -30,7 +30,7 @@ namespace Cloudents.Core.DTOs
 
         protected ImageProperties()
         {
-            
+
         }
 
         [DataMember(Order = 1)]

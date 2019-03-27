@@ -20,6 +20,7 @@
     <PackageReference Include="PayPal" Version="2.0.0-rc2" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
     <PackageReference Include="Twilio" Version="5.27.2" />
+    <PackageReference Include="protobuf-net" Version="2.4.0" />
     <!--We have a problem with redis nuget packages.-->
     <!--<PackageReference Include="NHibernate.Caches.CoreDistributedCache.Redis" Version="5.5.1" />-->
     

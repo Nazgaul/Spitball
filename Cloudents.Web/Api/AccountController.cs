@@ -207,7 +207,7 @@ namespace Cloudents.Web.Api
             var imageProperties = new ImageProperties(fileUri, ImageProperties.BlurEffect.None);
 
             var hash = serializer.Serialize(imageProperties);
-            var url = Url.RouteUrl("imageUser", new
+            var url = Url.RouteUrl("imageUrl", new
             {
                 hash = Base64UrlTextEncoder.Encode(hash)
             });

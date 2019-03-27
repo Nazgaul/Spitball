@@ -12,6 +12,7 @@ using Cloudents.Admin2.Models;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using Dapper;
 
 namespace Cloudents.Admin2.Api
 {
@@ -22,38 +23,58 @@ namespace Cloudents.Admin2.Api
        private readonly IQueryBus _queryBus;
        private readonly ICommandBus _commandBus;
         private readonly IUniversitySearch _universityProvider;
+        private readonly DapperRepository _dapperRepository;
 
-        public AdminUniversityController(IQueryBus queryBus, ICommandBus commandBus, IUniversitySearch universityProvider)
+        public AdminUniversityController(IQueryBus queryBus, ICommandBus commandBus, 
+            IUniversitySearch universityProvider, DapperRepository dapperRepository)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
             _universityProvider = universityProvider;
+            _dapperRepository = dapperRepository;
         }
 
         
 
-        [HttpGet("universities")]
-        public async Task<IEnumerable<NewUniversitiesDto>> GetUniversities(CancellationToken token)
-        {
-            var query = new AdminEmptyQuery();
-            var retVal = await _queryBus.QueryAsync<IList<NewUniversitiesDto>> (query, token);
-            return retVal;
-        }
+        //[HttpGet("universities")]
+        //public async Task<IEnumerable<NewUniversitiesDto>> GetUniversities(CancellationToken token)
+        //{
+        //    var query = new AdminEmptyQuery();
+        //    var retVal = await _queryBus.QueryAsync<IList<NewUniversitiesDto>> (query, token);
+        //    return retVal;
+        //}
 
+        //TODO: Fix this and make it work in proper CQRS architecture
         [HttpPost("migrate")]
         public async Task<IActionResult> MigrateUniversity([FromBody] MigrateUniversityRequest model,
             CancellationToken token)
         {
-            var command = new MigrateUniversityCommand(model.UniversityToKeep, model.UniversityToRemove);
-            await _commandBus.DispatchAsync(command, token);
+            const string update = @"update sb.[user] set UniversityId2 = @Newuni where UniversityId2 = @OldUni;
+                                update sb.Document set UniversityId = @Newuni where UniversityId = @OldUni;
+                                update sb.Question set UniversityId = @Newuni where UniversityId = @OldUni;
+                                delete from sb.University where id =  @OldUni;";
+
+
+
+            var z = await _dapperRepository.WithConnectionAsync(async f =>
+            {
+                return await f.ExecuteAsync(update, new
+                {
+                    Newuni = model.UniversityToKeep,
+                    OldUni = model.UniversityToRemove
+                });
+
+            }, token);
+            /*var command = new MigrateUniversityCommand(model.UniversityToKeep, model.UniversityToRemove);
+            await _commandBus.DispatchAsync(command, token);*/
             return Ok();
         }
 
 
         [HttpGet("newUniversities")]
-        public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities(CancellationToken token)
+        public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery(Name = "country")] string country, CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
+            var query = new AdminLanguageQuery(country);
             var retVal = await _queryBus.QueryAsync<IList<PendingUniversitiesDto>>(query, token);
             return retVal;
         }
@@ -95,12 +116,25 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
+        //TODO: Fix this and make it work in proper CQRS architecture 
         [HttpDelete("{Id}")]
         public async Task<IActionResult> ApproveCourse(Guid Id,
                 CancellationToken token)
         {
-            var command = new DeleteUniversityCommand(Id);
-            await _commandBus.DispatchAsync(command, token);
+            const string sql = @"update sb.[user] set UniversityId2 = null where UniversityId2 = @OldUni;
+                                delete from sb.University where id =  @OldUni;";
+
+            var z = await _dapperRepository.WithConnectionAsync(async f =>
+            {
+                return await f.ExecuteAsync(sql, new
+                {
+                    OldUni = Id
+                });
+
+            }, token);
+
+            /*var command = new DeleteUniversityCommand(Id);
+            await _commandBus.DispatchAsync(command, token);*/
             return Ok();
         }
     }

@@ -59,7 +59,7 @@ namespace Cloudents.FunctionsV2
                     Mode = mode,
                     Size = new Size(width, height)
                 }));
-                switch(properties.Blur.GetValueOrDefault())
+                switch (properties.Blur.GetValueOrDefault())
                 {
                     case ImageProperties.BlurEffect.None:
                         break;
@@ -73,20 +73,20 @@ namespace Cloudents.FunctionsV2
                         throw new ArgumentOutOfRangeException();
                 }
 
-               
-                
+
+
                 return new FileCallbackResult("image/jpg", (stream, context) =>
-                    {
-                        context.HttpContext.Response.Headers.Add("Cache-Control", $"public, max-age={Year}, s-max-age={Year}");
-                        image.SaveAsJpeg(stream);
-                        image?.Dispose();
-                        return Task.CompletedTask;
-                    }
+                {
+                    context.HttpContext.Response.Headers.Add("Cache-Control", $"public, max-age={Year}, s-max-age={Year}");
+                    image.SaveAsJpeg(stream);
+                    image?.Dispose();
+                    return Task.CompletedTask;
+                }
                 );
             }
         }
 
 
-       
+
     }
 }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Admin
 {
-    public class AdminPendingCoursesQueryHandler : IQueryHandler<AdminEmptyQuery, IList<PendingCoursesDto>>
+    public class AdminPendingCoursesQueryHandler : IQueryHandler<AdminLanguageQuery, IList<PendingCoursesDto>>
     {
 
         private readonly IConfigurationKeys _provider;
@@ -22,9 +22,18 @@ namespace Cloudents.Query.Admin
             _provider = provider;
         }
 
-        public async Task<IList<PendingCoursesDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
+        public async Task<IList<PendingCoursesDto>> GetAsync(AdminLanguageQuery query, CancellationToken token)
         {
             var sql = @"select Name from sb.Course where State = 'Pending'";
+            if (query.Language == "he")
+            {
+                sql += "and name like N'%[א-ת]%'";
+            }
+            else if (query.Language == "en")
+            {
+                sql += "and name like '%[a-z]%'";
+            }
+            
             using (var connection = new SqlConnection(_provider.Db.Db))
             {
                 var res = await connection.QueryAsync<PendingCoursesDto>(sql);
