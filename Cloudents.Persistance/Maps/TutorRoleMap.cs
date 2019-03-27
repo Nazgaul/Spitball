@@ -9,6 +9,11 @@ namespace Cloudents.Persistence.Maps
         {
             Map(x => x.Bio).Length(1000);
             Map(x => x.Price).CustomSqlType("smallMoney");
+            HasMany(x => x.Courses)
+              .KeyColumn("TutorId")
+              .LazyLoad()
+              .Inverse()
+              .ForeignKeyCascadeOnDelete();
             Table("UserTutor");
         }
     }
