@@ -98,7 +98,7 @@
 
 <script>
     import accountService from '../../../../services/accountService';
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
 
     export default {
@@ -135,7 +135,6 @@
                     return this.getProfile.about.bio
                 },
                 set(newVal) {
-                    console.log('new val::', newVal)
                     this.editedBio = newVal;
                 }
             },
@@ -144,7 +143,6 @@
                     return this.getProfile.user.name
                 },
                 set(newVal) {
-                    console.log('new val::', newVal)
                     this.editedFirstName = newVal;
                 }
             },
@@ -169,6 +167,7 @@
             }
         },
         methods: {
+            ...mapActions(['updateEditedProfile']),
             saveChanges() {
                 if(this.$refs.form.validate()){
                     let editsData ={
@@ -179,6 +178,8 @@
                     };
                     accountService.saveTutorInfo(editsData)
                         .then((success) => {
+                            //update profile store
+                            this.updateEditedProfile(editsData);
                             this.closeDialog()
                         })
                 }

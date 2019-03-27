@@ -56,7 +56,7 @@
 
 <script>
     import accountService from '../../../../services/accountService';
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
 
     export default {
@@ -103,6 +103,7 @@
             }
         },
         methods: {
+            ...mapActions(['updateEditedProfile']),
             saveChanges() {
                 if(this.$refs.form.validate()) {
                     let editsData = {
@@ -110,6 +111,7 @@
                         description: this.editedDescription || this.userDescription
                     };
                     accountService.saveUserInfo(editsData).then((success) => {
+                        this.updateEditedProfile(editsData);
                         this.closeDialog()
                     })
                 }
