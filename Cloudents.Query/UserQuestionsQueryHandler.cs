@@ -28,6 +28,7 @@ namespace Cloudents.Query
                 .Select(s => new QuestionFeedDto
                 {
                     Id = s.Id,
+                    User = new UserDto(s.User.Id, s.User.Name, s.User.Score, s.User.Image),
                     Subject = s.Subject,
                     Price = s.Price,
                     Text = s.Text,

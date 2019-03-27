@@ -1,5 +1,5 @@
 <template>
-    <v-container class="profile-page-container">
+    <v-container class="profile-page-container" :class="{'content-center': !isMyProfile && !isTutorProfile}">
         <button v-if="$vuetify.breakpoint.xsOnly" class="back-button" @click="$router.go(-1)">
             <v-icon right>sbf-arrow-back</v-icon>
         </button>
@@ -8,13 +8,13 @@
                 <v-flex xs12 sm9 md9 >
                     <profile-bio :isMyProfile="isMyProfile"></profile-bio>
                 </v-flex>
-            <v-flex  xs12 sm3 md3 :class="{'pl-4': $vuetify.breakpoint.smAndUp}">
+            <v-flex  xs12 sm3 md3 :class="{'pl-4': $vuetify.breakpoint.smAndUp}" v-if="isMyProfile || isTutorProfile">
                 <tutorInfoBlock v-if="isTutorProfile"></tutorInfoBlock>
                 <userInfoBlock v-else></userInfoBlock>
             </v-flex>
         </v-layout>
-                <v-layout v-bind="xsColumn" align-start justify-start>
-                    <v-flex xs12 md10 sm10 class="mr-5">
+                <v-layout v-bind="xsColumn" align-start  :class="[isMyProfile && isTutorProfile ? 'justify-start' : ' justify-center'  ]">
+                    <v-flex xs12 md9 sm9 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
                         <v-flex xs12 sm12 md12 class="mt-3 mb-4 limited-760" >
                             <v-divider v-if="$vuetify.breakpoint.xsOnly" style="height:2px; color: rgba(163, 160, 251, 0.32);"></v-divider>
                             <v-tabs :dir="isRtl ? `ltr` : ''" class="tab-padding" hide-slider xs12>
@@ -93,7 +93,7 @@
                                 <router-link :to="{name:'question',params:{id:answerData.id}}"
                                              v-for="(answerData,index) in profileData.answers"
                                              :key="index" class="mb-3">
-                                    <question-card :cardData="answerData" class="mb-3"></question-card>
+                                    <question-card :cardData="answerData" class="mb-3 limit-width"></question-card>
                                 </router-link>
                             </scroll-list>
                             <scroll-list v-if="activeTab === 4" :scrollFunc="loadDocuments" :isLoading="documents.isLoading"
@@ -115,7 +115,7 @@
                             </scroll-list>
                         </v-flex>
                     </v-flex>
-                    <v-flex sm2 md2 xs12>
+                    <v-flex sm3 md3 xs12 v-if="isMyProfile || isTutorProfile">
                         <v-spacer></v-spacer>
                     </v-flex>
                 </v-layout>

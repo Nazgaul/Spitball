@@ -4,13 +4,21 @@
   font-family: @fontOpenSans;
   max-width: 1054px;
   margin-left: @logoWidth;
+  &.content-center{
+    margin: 0 auto;
+  }
   @media (max-width: @screen-xs) {
     margin-left: 0;
+  }
+  .question-container{
+    margin: unset;
   }
   .back-button{
     position: absolute;
     top: 40px;
     left: 10px;
+    z-index: 99;
+    outline: none;
   }
   .limit-width{
     max-width: 500px;

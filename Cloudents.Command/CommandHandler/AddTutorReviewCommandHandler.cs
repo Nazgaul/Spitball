@@ -14,14 +14,11 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IRegularUserRepository _regularUserRepository;
         private readonly IRepository<TutorReview> _repository;
-        private readonly IRepository<Tutor> _tutorRepository;
 
-        public AddTutorReviewCommandHandler(IRepository<TutorReview> repository, IRegularUserRepository regularUserRepository,
-            IRepository<Tutor> tutorRepository)
+        public AddTutorReviewCommandHandler(IRepository<TutorReview> repository, IRegularUserRepository regularUserRepository)
         {
             _repository = repository;
             _regularUserRepository = regularUserRepository;
-            _tutorRepository = tutorRepository;
         }
 
         public async Task ExecuteAsync(AddTutorReviewCommand message, CancellationToken token)

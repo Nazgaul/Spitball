@@ -3,7 +3,7 @@
             <v-flex class="mb-3">
                 <span class="review-title" v-language:inner>profile_reviews</span>
             </v-flex>
-            <v-flex v-for="singleReview in 15" class="single-review">
+            <v-flex  v-for="singleReview in 15"  class="single-review">
                 <reviewItem :reviewData="singleReview"></reviewItem>
             </v-flex>
         </v-layout>

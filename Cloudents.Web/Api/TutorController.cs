@@ -25,6 +25,7 @@ namespace Cloudents.Web.Api
         private readonly ITutorSearch _tutorSearch;
         private readonly IStringLocalizer<TutorController> _localizer;
         private readonly IDevice _device;
+       
 
         /// <inheritdoc />
         /// <summary>
@@ -33,7 +34,8 @@ namespace Cloudents.Web.Api
         /// <param name="tutorSearch"></param>
         /// <param name="localizer"></param>
         /// <param name="deviceResolver"></param>
-        public TutorController(ITutorSearch tutorSearch, IStringLocalizer<TutorController> localizer, IDeviceResolver deviceResolver)
+        public TutorController(ITutorSearch tutorSearch, IStringLocalizer<TutorController> localizer
+                , IDeviceResolver deviceResolver)
         {
             _tutorSearch = tutorSearch;
             _localizer = localizer;

@@ -190,7 +190,8 @@ export default {
             if (this.$vuetify.breakpoint.xsOnly){
                 xsColumn.column = true;
             }
-            return xsColumn        },
+            return xsColumn
+        },
 
         profileData() {
             if (!!this.getProfile) {
