@@ -56,11 +56,16 @@ const sendChatMessage = (messageObj) => {
     return connectivityModule.http.post(`Chat`, messageObj);
 }
 
+const clearUnread = (otherUserId) => {
+    return connectivityModule.http.post(`Chat/read?otherUser=${otherUserId}`);
+}
+
 export default {
     getAllConversations,
     createConversation,
     getMessageById,
     createMessage,
     sendChatMessage,
-    createServerMessageObj
+    createServerMessageObj,
+    clearUnread
 }

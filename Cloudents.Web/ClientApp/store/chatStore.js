@@ -76,6 +76,9 @@ const mutations = {
     openChat:(state)=>{
         state.isVisible = true
     },
+    clearUnreadFromConversation:(state, userId)=>{
+        state.conversations[userId].unread = 0;
+    }
 };
 
 const actions = {
@@ -110,12 +113,17 @@ const actions = {
         }      
         
     },
+    clearUnread:({commit}, otherUserId)=>{
+        chatService.clearUnread(otherUserId);
+        commit('clearUnreadFromConversation', otherUserId);
+    },
     signalRAddMessage({dispatch}, messageObj){
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
         dispatch('addMessage', MessageObj);
     },
     setActiveConversationObj:({commit, dispatch, state}, Obj)=>{
         commit('setActiveConversationObj', Obj);
+        dispatch('clearUnread', Obj.userId);
         dispatch('syncMessagesByConversationId');
         dispatch('updateChatState', state.enumChatState.messages);
     },
