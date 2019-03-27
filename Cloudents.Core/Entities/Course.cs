@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
@@ -84,6 +86,9 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyList<Question> Questions => _questions.ToList();
 
 
+        protected internal virtual IList<TutorsCourses> Tutors { get; set; }
+        
+  
         public virtual ItemState State { get; protected set; }
     }
 }
