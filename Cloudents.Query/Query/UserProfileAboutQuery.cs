@@ -37,12 +37,23 @@ where UserId = @id;
 select utt.bio
 from sb.UserType ut
 join sb.UserTutor utt on ut.id = utt.userRole_id
+where ut.userid = @id;
+
+select tr.Review as ReviewText, tr.Rate, tr.DateTime, u.Name, u.Image, u.Score
+from sb.UserType ut
+join sb.UserTutor utt 
+	on ut.id = utt.userRole_id
+join sb.TutorReview tr
+	on tr.TutorId = utt.UserRole_id
+join sb.[user] u
+	on tr.UserId = U.Id
 where ut.userid = @id", new {id = query.UserId}))
                     {
                         var retVal = new UserProfileAboutDto
                         {
                             Courses = await grid.ReadAsync<CourseDto>(),
-                            Bio = await grid.ReadSingleOrDefaultAsync<string>()
+                            Bio = await grid.ReadSingleOrDefaultAsync<string>(),
+                            Reviews = await grid.ReadAsync<TutorReviewDto>()
                         };
 
                         return retVal;

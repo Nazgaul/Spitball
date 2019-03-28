@@ -10,6 +10,6 @@ namespace Cloudents.Core.DTOs
 
         public IEnumerable<string> Subjects { get; set; }
 
-        public IEnumerable<string> Reviews { get; set; }
+        public IEnumerable<TutorReviewDto> Reviews { get; set; }
     }
 }
