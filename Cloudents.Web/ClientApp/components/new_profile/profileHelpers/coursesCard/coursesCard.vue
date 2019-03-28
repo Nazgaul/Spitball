@@ -18,7 +18,7 @@
                                 v-for="(course, index) in aboutData"
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
-                            <v-card class="elevation-0 border mr-3 py-3" key="wqerghfh">
+                            <v-card class="elevation-0 border mr-3 py-3 text-truncate" key="wqerghfh">
                                 <span class="course-name">{{course.name}}</span>
                             </v-card>
                         </v-flex>

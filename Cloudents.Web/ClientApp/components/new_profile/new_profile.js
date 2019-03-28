@@ -2,11 +2,11 @@
 
 //old
 import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
-import resultNote from "../results/ResultNote.vue"
+import resultNote from "../results/ResultNote.vue";
 import userBlock from '../helpers/user-block/user-block.vue';
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from "../../services/language/languageService";
-import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue"
+import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue";
 //old
 //new
 import profileBio from './profileHelpers/profileBio/profileBio.vue';
