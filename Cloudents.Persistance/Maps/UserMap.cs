@@ -110,10 +110,11 @@ namespace Cloudents.Persistence.Maps
                 .Table("UsersTags").AsSet();
 
 
-            HasMany(x => x.UserRoles)
+            /*HasMany(x => x.UserRoles)
                 .KeyColumn("UserId")
                 .Inverse()
-                .Cascade.AllDeleteOrphan();
+                .Cascade.AllDeleteOrphan();*/
+            HasOne(x => x.Tutor).Cascade.All();
 
         }
     }

@@ -24,7 +24,7 @@ namespace Cloudents.Core.Entities
             Transactions = Transactions ?? new UserTransactions();
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
-            UserRoles = new HashSet<UserRole>();
+            //UserRoles = new HashSet<UserRole>();
 
         }
 
@@ -59,7 +59,7 @@ namespace Cloudents.Core.Entities
 
         public virtual ISet<Course> Courses { get; protected set; }
         public virtual ISet<Tag> Tags { get; protected set; }
-        public virtual ISet<UserRole> UserRoles { get;  set; }
+        //public virtual ISet<UserRole> UserRoles { get;  set; }
 
         public virtual DateTime LastOnline { get; protected set; }
         public virtual bool Online { get; protected set; }
@@ -69,7 +69,7 @@ namespace Cloudents.Core.Entities
         //public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Description { get; set; }
-
+        public virtual Tutor Tutor { get; set; }
         public virtual void ChangeOnlineStatus(bool isOnline)
         {
             Online = isOnline;

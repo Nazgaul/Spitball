@@ -236,17 +236,17 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("test")]
-        [Authorize(Roles = "Tutor")]
-        public async Task<IActionResult> Test()
-        {
-            
-            var user = await _userManager.GetUserAsync(User);
+        //[HttpPost("test")]
+        //[Authorize(Roles = "Tutor")]
+        //public async Task<IActionResult> Test()
+        //{
 
-            var t = _userManager.IsInRoleAsync(user, Tutor.RoleName);
-            await _userManager.AddToRoleAsync(user, "Some test");
-            return Ok();
-        }
+        //    var user = await _userManager.GetUserAsync(User);
+
+        //    var t = _userManager.IsInRoleAsync(user, Tutor.RoleName);
+        //    await _userManager.AddToRoleAsync(user, "Some test");
+        //    return Ok();
+        //}
 
         [HttpPost("editTutor")]
         public async Task<IActionResult> EditUserProfileAsync([FromBody]EditTutorProfileRequest model, CancellationToken token)
