@@ -8,25 +8,25 @@
                 </div>
                 <div class="user-rating ml-2 pt-3">
                     <userRating
-                            :rating="rating"
+                            :rating="reviewData.rate"
                             :starColor="starRateColor"
                             :readonly="true"
                             :rateNumColor="rateNumColor"
                             :size="'18'"></userRating>
                     <div class="name-rank-wrap">
-                        <span class="user-review-name mr-2 ">John Mayers</span>
-                        <userRank :score="1500"></userRank>
+                        <span class="user-review-name mr-2 ">{{reviewData.name}}</span>
+                        <userRank :score="reviewData.score"></userRank>
                     </div>
                 </div>
             </div>
             <div class="review-date">
-                <span>{{reviewDate}}</span>
+                <span>{{reviewData.created | dateFromISO}}</span>
             </div>
         </v-layout>
         <v-layout class="left-padding">
             <div class="mt-3">
                           <span class="review-text">
-                    {{text}}
+                    {{reviewData.reviewText}}
                 </span>
             </div>
         </v-layout>
@@ -41,11 +41,10 @@
         components: {userRating, userRank},
         data() {
             return {
-                rating: 3.5,
+                // rating: 3.5,
                 starRateColor: '#000000',
                 rateNumColor: '#000000',
-                text: 'Really pleased with Ben, he is an excellent tutor and confidence is growing and I find the sessions extremely beneficial.  Ben is well prepared and explains things very well.',
-                reviewDate: '07 Feb'
+
             }
         },
         props: {

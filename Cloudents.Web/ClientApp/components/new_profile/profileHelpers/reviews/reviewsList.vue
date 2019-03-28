@@ -3,13 +3,14 @@
             <v-flex class="mb-3">
                 <span class="review-title" v-language:inner>profile_reviews</span>
             </v-flex>
-            <v-flex  v-for="singleReview in 15"  class="single-review">
+            <v-flex  v-for="singleReview in reviews"  class="single-review">
                 <reviewItem :reviewData="singleReview"></reviewItem>
             </v-flex>
         </v-layout>
 </template>
 
 <script>
+    import { mapGetters } from "vuex";
     import reviewItem from './reviewItem/reviewItem.vue'
     export default {
         name: "reviewsList",
@@ -20,6 +21,13 @@
             return {
             }
         },
+        computed: {
+            ...mapGetters(['getProfile']),
+            reviews() {
+                if(this.getProfile && this.getProfile.about && this.getProfile.about.reviews)
+                return this.getProfile.about.reviews
+            }
+        },
     }
 </script>
 
@@ -27,7 +35,6 @@
     @import '../../../../styles/mixin.less';
 
 .reviews-container{
-
     .review-title{
         font-size: 22px;
         font-weight: 600;

@@ -38,6 +38,18 @@ function ProfilePersonalData(objInit){
 
 }
 
+function ReviewItem(objInit){
+    this.created = objInit.created;
+    this.image = objInit.image;
+    this.rate = objInit.rate;
+    this.reviewText = objInit.reviewText;
+    this.score = objInit.score;
+}
+
+function createReviewItem(objInit) {
+    return new ReviewItem(objInit)
+
+}
 function CourseItem(objInit) {
     this.name = objInit.name;
 }
@@ -49,6 +61,7 @@ function createCourseItem(objInit) {
 function AboutItem(objInit) {
     this.bio = objInit.bio;
     this.courses = objInit.courses.map(createCourseItem);
+    this.reviews = objInit.reviews.map(createReviewItem);
 }
 
 function createAboutItem(objInit){
@@ -81,11 +94,12 @@ function profileDocumentData(arrInit){
 }
 function profileAboutData(arrInit){
     let structuredData = createAboutItem(arrInit[1].data);
-    let obj = {
+    let data = {
         bio: structuredData.bio,
         courses: structuredData.courses,
-    }
-    return obj;
+        reviews: structuredData.reviews
+    };
+    return data;
 
 }
 export default {
