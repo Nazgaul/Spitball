@@ -15,7 +15,7 @@
         <v-flex>
                 <img class="rounded-img" src="https://spitball-dev-function.azureedge.net/api/image/ClVodHRwczovL3NwaXRiYWxsZGV2LmJsb2IuY29yZS53aW5kb3dzLm5ldC9zcGl0YmFsbC11c2VyL3Byb2ZpbGUvMTYwMzM2LzE1NTM2OTk0NjMucG5nEAA??&width=40&height=40&mode=crop" alt="">
         </v-flex>
-        <v-flex class="pl-3 tutor-text caption" >
+        <v-flex class="pl-3 tutor-text caption" v-line-clamp="2" >
             {{tutorData.text}}
         </v-flex>
     </v-layout>
