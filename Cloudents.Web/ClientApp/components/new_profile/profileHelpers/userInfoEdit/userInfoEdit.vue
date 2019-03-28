@@ -7,7 +7,7 @@
                 <span v-language:inner>profile_edit_user_profile_title</span>
             </v-flex>
         </v-layout>
-        <v-layout class="px-3 mt-2 prev-grow"  row wrap>
+        <v-layout class="px-3 mt-4 prev-grow"  row wrap>
             <v-flex xs12 sm6 md6  :class="{'pr-2' : $vuetify.breakpoint.smAndUp}">
                 <v-layout column>
                     <v-flex xs12 sm6 md6 class="mb-2 pl-2">
@@ -31,6 +31,7 @@
             </v-flex>
             <v-flex>
                 <v-textarea
+                        rows="2"
                         outline
                         v-model="userDescription"
                         name="input-about"
