@@ -149,7 +149,7 @@ export default {
         return connectivityModule.http.post("/Account/editTutor", data)
     },
     saveUserInfo: (data)=> {
-        return connectivityModule.http.post("/Account/editUser", data)
+        return connectivityModule.http.post("/Account/settings", data)
     },
     // createProfileData: (arrInit)=>{
     //     return new ProfileData(arrInit);

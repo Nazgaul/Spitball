@@ -5,9 +5,11 @@ namespace Cloudents.Web.Models
     public class UpdateSettingsRequest
     {
         [Required]
+        [StringLength(255, ErrorMessage = "StringLength")]
         public string FirstName { get; set; }
-        [Required]
+        //[Required]
         public string LastName { get; set; }
+        [StringLength(255, ErrorMessage = "StringLength")]
         public string Description { get; set; }
     }
 
