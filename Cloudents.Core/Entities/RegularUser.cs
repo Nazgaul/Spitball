@@ -9,7 +9,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class RegularUser : User
     {
-        public RegularUser(string email, string firstName,string lastName,  Language language) : this()
+        public RegularUser(string email, string firstName, string lastName, Language language) : this()
         {
             Email = email;
             ChangeName(firstName, lastName);
@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
         {
             UserLogins = new List<UserLogin>();
             Transactions = Transactions ?? new UserTransactions();
-            Courses = new HashSet<Course>();
+            Courses = new HashSet<UserCourse>();
             Tags = new HashSet<Tag>();
             UserRoles = new HashSet<UserRole>();
 
@@ -47,7 +47,7 @@ namespace Cloudents.Core.Entities
 
         public virtual bool LockoutEnabled { get; set; }
 
-       // public virtual bool TwoFactorEnabled { get; set; }
+        // public virtual bool TwoFactorEnabled { get; set; }
 
         public virtual string LockoutReason { get; set; }
 
@@ -57,9 +57,28 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
-        public virtual ISet<Course> Courses { get; protected set; }
+        protected internal virtual ISet<UserCourse> Courses { get; protected set; }
+
+
+        public virtual void AssignCourses(IEnumerable<Course> courses)
+        {
+            var userCourse = new List<UserCourse>();
+            foreach (var course in courses)
+            {
+                var p = new UserCourse(this, course);
+                userCourse.Add(p);
+                if (Courses.Add(p))
+                {
+                    course.Count++;
+                }
+               
+            }
+            Courses.IntersectWith(userCourse);
+        }
+
+
         public virtual ISet<Tag> Tags { get; protected set; }
-        public virtual ISet<UserRole> UserRoles { get;  set; }
+        public virtual ISet<UserRole> UserRoles { get; set; }
 
         public virtual DateTime LastOnline { get; protected set; }
         public virtual bool Online { get; protected set; }
@@ -91,7 +110,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UnSuspendUser()
         {
-            LockoutEnd = DateTime.UtcNow.Add(new TimeSpan(0,0,-1));
+            LockoutEnd = DateTime.UtcNow.Add(new TimeSpan(0, 0, -1));
             AddEvent(new UserUnSuspendEvent(this));
         }
 
@@ -117,7 +136,7 @@ namespace Cloudents.Core.Entities
         {
             var t = new AwardMoneyTransaction(price);
             MakeTransaction(t);
-            
+
         }
 
         public virtual void AwardMoney(AwardsTransaction award)
@@ -155,7 +174,7 @@ namespace Cloudents.Core.Entities
     }
 
 
-    public abstract class UserRole: IEquatable<UserRole>
+    public abstract class UserRole : IEquatable<UserRole>
     {
         public UserRole(RegularUser user)
         {
@@ -163,9 +182,9 @@ namespace Cloudents.Core.Entities
         }
         protected UserRole()
         {
-            
+
         }
-        public virtual  Guid Id { get; set; }
+        public virtual Guid Id { get; set; }
         public virtual RegularUser User { get; set; }
 
         public abstract string Name { get; }
@@ -190,6 +209,6 @@ namespace Cloudents.Core.Entities
             return (User != null ? User.GetHashCode() : 0);
         }
 
-       
+
     }
 }

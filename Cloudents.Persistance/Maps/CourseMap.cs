@@ -38,17 +38,33 @@ namespace Cloudents.Persistence.Maps
             //    .Inverse()
             //    .Cascade.None();
 
-            HasMany(x => x.Tutors)
-                .Table("TutorsCourses")
-                .KeyColumn("CourseId")
-                //.Cascade.Delete()
-                .LazyLoad()
-                .Inverse().Cascade.AllDeleteOrphan()
-                .AsList();
+            //HasMany(x => x.Tutors)
+            //    .Table("TutorsCourses")
+            //    .KeyColumn("CourseId")
+            //    //.Cascade.Delete()
+            //    .LazyLoad()
+            //    .Inverse().Cascade.AllDeleteOrphan()
+            //    .AsList();
+
+            HasMany(x => x.Users)
+                .KeyColumn("CourseId").ForeignKeyConstraintName("Courses_User").Inverse().AsSet();
 
             // HasMany(x => x.Questions).Cascade.None();
             // HasMany(x => x.Users).Cascade.None();
             Map(x => x.State);
+        }
+    }
+
+    public sealed class UserCourseMap : ClassMap<UserCourse>
+    {
+        public UserCourseMap()
+        {
+            CompositeId()
+                .KeyReference(x => x.User, "UserId")
+                .KeyReference(x => x.Course, "CourseId");
+
+            Table("UsersCourses");
+
         }
     }
 }

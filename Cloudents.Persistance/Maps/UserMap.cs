@@ -80,7 +80,7 @@ namespace Cloudents.Persistence.Maps
             {
                 y.Map(x => x.Score);
                 y.Map(x => x.Balance).CustomSqlType("smallmoney");
-                y.HasMany(x => x.Transactions).KeyColumn("User_id").Inverse()
+                y.HasMany(x => x.Transactions).KeyColumn("User_id")
                     .Inverse() 
                     .Cascade.AllDeleteOrphan().ForeignKeyConstraintName("Transaction_User").AsBag();
             });
@@ -95,12 +95,17 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.LastName);
             Map(x => x.Description);
 
-            HasManyToMany(x => x.Courses)
-                .ParentKeyColumn("UserId")
-                .ChildKeyColumn("CourseId")
-                .Cascade.SaveUpdate()
-                .ForeignKeyConstraintNames("User_Courses", "Courses_User")
-                .Table("UsersCourses").AsSet();
+            //HasManyToMany(x => x.Courses)
+            //    .ParentKeyColumn("UserId")
+            //    .ChildKeyColumn("CourseId")
+            //    .Cascade.SaveUpdate()
+            //    .ForeignKeyConstraintNames("User_Courses", "Courses_User")
+            //    .Table("UsersCourses").AsSet();
+
+
+            HasMany(x => x.Courses)
+                .Cascade.AllDeleteOrphan()
+                .KeyColumn("UserId").Inverse().AsSet();
 
 
             HasManyToMany(x => x.Tags)
