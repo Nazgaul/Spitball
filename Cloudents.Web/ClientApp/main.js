@@ -305,7 +305,7 @@ Vue.prototype.$chatMessage = function (message) {
         }
         return modifiedText;
     }else{
-        return `<a href="${message.href}"><img src="${message.src}?&width=190&height=140&mode=stretch" /></a>`
+        return `<a href="${message.href}"><img src="${message.src}?&width=190&height=140&mode=crop" /></a>`
     }
 }
 

@@ -3,7 +3,6 @@
         <div ml-2 class="avatar-container"><user-avatar :user-name="'gaby'" :user-id="123"/></div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <span>schedule</span>
                 <span>invite</span>
             </v-flex>
             <v-flex class="messages-body">
