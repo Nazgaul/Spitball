@@ -20,6 +20,12 @@ namespace Cloudents.Command.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token);
             user.ChangeName(message.FirstName, message.LastName);
             user.Description = message.Description;
+            if (user.Tutor != null)
+            {
+                user.Tutor.Bio = message.Bio;
+            }
+
+
             await _userRepository.UpdateAsync(user, token);
         }
     }

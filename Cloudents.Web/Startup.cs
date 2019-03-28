@@ -4,6 +4,7 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Filters;
@@ -32,7 +33,6 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Identity;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -70,8 +70,9 @@ namespace Cloudents.Web
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddRouting(x =>
             {
-               // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
+                // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
             });
+
             services.AddMvc()
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
                 {
@@ -148,7 +149,7 @@ namespace Cloudents.Web
                 options.Lockout.MaxFailedAccessAttempts = 3;
             }).AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
-               // .AddRoles<RoleStore>()
+                // .AddRoles<RoleStore>()
                 .AddSignInManager<SbSignInManager>();
             services.ConfigureApplicationCookie(o =>
             {
@@ -193,7 +194,7 @@ namespace Cloudents.Web
             //    .Where(x => x.Contains(Directory.GetCurrentDirectory()))
             //    .Select(Assembly.LoadFile)
             //    .ToList();
-            
+
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
             var keys = new ConfigurationKeys(Configuration["Site"])

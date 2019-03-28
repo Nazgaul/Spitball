@@ -146,7 +146,7 @@ export default {
         return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`)
     },
     saveTutorInfo: (data)=> {
-        return connectivityModule.http.post("/Account/editTutor", data)
+        return connectivityModule.http.post("/Account/settings", data)
     },
     saveUserInfo: (data)=> {
         return connectivityModule.http.post("/Account/settings", data)

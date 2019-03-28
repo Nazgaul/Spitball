@@ -173,7 +173,7 @@
             saveChanges() {
                 if(this.$refs.form.validate()){
                     let editsData ={
-                        name: this.editedFirstName || this.firstName,
+                        firstName: this.editedFirstName || this.firstName,
                         lastName: this.editedLastName || this.lastName,
                         bio: this.editedBio || this.bio,
                         description: this.editedDescription || this.description
