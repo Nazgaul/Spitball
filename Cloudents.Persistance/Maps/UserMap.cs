@@ -11,7 +11,7 @@ namespace Cloudents.Persistence.Maps
             DynamicUpdate();
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
             Map(e => e.Email)/*.Not.Nullable()*/.Unique();
-            Map(e => e.Name).Not.Nullable();
+            Map(e => e.Name).ReadOnly().Not.Nullable();
             Map(e => e.EmailConfirmed);
             
             Map(e => e.NormalizedName);
@@ -91,7 +91,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Online);
             Map(x => x.LastOnline);
 
-            //Map(x => x.FirstName);
+            Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.Description);
 
@@ -135,17 +135,17 @@ namespace Cloudents.Persistence.Maps
 
 
 
-    public class UserRoleMap : ClassMap<UserRole>
+    //public class UserRoleMap : ClassMap<UserRole>
 
-    {
-        public UserRoleMap()
-        {
+    //{
+    //    public UserRoleMap()
+    //    {
             
-            Id(x => x.Id).GeneratedBy.GuidComb();
-            References(x => x.User).Not.Nullable().Column("UserId");
-            Table("UserType");
+    //        Id(x => x.Id).GeneratedBy.GuidComb();
+    //        References(x => x.User).Not.Nullable().Column("UserId");
+    //        Table("UserType");
 
 
-        }
-    }
+    //    }
+    //}
 }

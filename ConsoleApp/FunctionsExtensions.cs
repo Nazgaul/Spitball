@@ -11,7 +11,7 @@ namespace ConsoleApp
 {
     public class FunctionsExtensions
     {
-        private static CancellationToken token = CancellationToken.None;
+        private static CancellationToken _token = CancellationToken.None;
 
 
         public static async Task MergeCourses(IContainer container, IDocumentDirectoryBlobProvider blobProvider)
@@ -63,7 +63,7 @@ namespace ConsoleApp
                                 oldId = item.NewName == item.NewId ? item.OldName : item.NewName
                             });
 
-                        }, token);
+                        }, _token);
                     }
                     catch
                     {
@@ -81,7 +81,7 @@ namespace ConsoleApp
                             return await f.QueryAsync<long?>(@"select Id from sb.Document where CourseName = @oldId and State = 'Ok';",
                                 new { oldId = item.OldName});
 
-                        }, token);
+                        }, _token);
 
                         var x = await d.WithConnectionAsync(async f =>
                         {
@@ -96,7 +96,7 @@ namespace ConsoleApp
                                                                     );",
                                 new { oldId = item.OldName });
 
-                        }, token);
+                        }, _token);
 
                         var z = await d.WithConnectionAsync(async f =>
                         {
@@ -106,7 +106,7 @@ namespace ConsoleApp
                                                         delete from sb.Course where [Name] = @oldId;",
                                 new { oldId = item.OldName });
 
-                        }, token);
+                        }, _token);
 
 
                         //var z = await d.WithConnectionAsync(async f =>
@@ -128,7 +128,7 @@ namespace ConsoleApp
 
                         foreach (var doc in docs)
                         {
-                            await blobProvider.DeleteDirectoryAsync(doc.ToString(), token);
+                            await blobProvider.DeleteDirectoryAsync(doc.ToString(), _token);
                         }
                     }
                     catch
@@ -172,7 +172,7 @@ namespace ConsoleApp
                                 OldUni = item.UniId
                             });
 
-                        }, token);
+                        }, _token);
                     }
                     catch
                     {
@@ -189,7 +189,7 @@ namespace ConsoleApp
                             return await f.ExecuteAsync(@"update sb.[user] set UniversityId2 = null where UniversityId2 = @OldUni;
                                                         delete from sb.University where id =  @OldUni;",
                                 new { OldUni = item.UniId });
-                        }, token);
+                        }, _token);
                     }
                     catch
                     {

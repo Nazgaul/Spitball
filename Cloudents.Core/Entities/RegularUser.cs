@@ -85,7 +85,7 @@ namespace Cloudents.Core.Entities
 
         public virtual UserTransactions Transactions { get; protected set; }
 
-        //public virtual string FirstName { get; protected set; }
+        public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Description { get; set; }
         public virtual Tutor Tutor { get; set; }
@@ -97,8 +97,16 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeName(string firstName, string lastName)
         {
-            LastName = lastName ?? LastName;
-            Name = firstName;
+            FirstName = firstName;
+            LastName = lastName;
+           
+            Name = $"{FirstName} {LastName}".Trim();
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                var rdm = new Random();
+                var randomNumber =  rdm.Next(1000, 9999);
+                Name = $"{Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0]}.{randomNumber}";
+            }
         }
 
         public virtual void SuspendUser(DateTimeOffset lockTime, string reason)
@@ -110,7 +118,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UnSuspendUser()
         {
-            LockoutEnd = DateTime.UtcNow.Add(new TimeSpan(0, 0, -1));
+            LockoutEnd = DateTime.UtcNow.Add(TimeSpan.FromSeconds(-1));
             AddEvent(new UserUnSuspendEvent(this));
         }
 
@@ -174,41 +182,41 @@ namespace Cloudents.Core.Entities
     }
 
 
-    public abstract class UserRole : IEquatable<UserRole>
-    {
-        public UserRole(RegularUser user)
-        {
-            User = user;
-        }
-        protected UserRole()
-        {
+    //public abstract class UserRole : IEquatable<UserRole>
+    //{
+    //    public UserRole(RegularUser user)
+    //    {
+    //        User = user;
+    //    }
+    //    protected UserRole()
+    //    {
 
-        }
-        public virtual Guid Id { get; set; }
-        public virtual RegularUser User { get; set; }
+    //    }
+    //    public virtual Guid Id { get; set; }
+    //    public virtual RegularUser User { get; set; }
 
-        public abstract string Name { get; }
+    //    public abstract string Name { get; }
 
-        public virtual bool Equals(UserRole other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Equals(User, other.User);
-        }
+    //    public virtual bool Equals(UserRole other)
+    //    {
+    //        if (ReferenceEquals(null, other)) return false;
+    //        if (ReferenceEquals(this, other)) return true;
+    //        return Equals(User, other.User);
+    //    }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((UserRole)obj);
-        }
+    //    public override bool Equals(object obj)
+    //    {
+    //        if (ReferenceEquals(null, obj)) return false;
+    //        if (ReferenceEquals(this, obj)) return true;
+    //        if (obj.GetType() != GetType()) return false;
+    //        return Equals((UserRole)obj);
+    //    }
 
-        public override int GetHashCode()
-        {
-            return (User != null ? User.GetHashCode() : 0);
-        }
+    //    public override int GetHashCode()
+    //    {
+    //        return (User != null ? User.GetHashCode() : 0);
+    //    }
 
 
-    }
+    //}
 }

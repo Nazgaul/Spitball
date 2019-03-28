@@ -8,11 +8,11 @@ namespace Cloudents.Core.Storage
     public sealed class StorageContainer : IEquatable<StorageContainer>
     {
 
-        private StorageContainer(string name)
-        {
-            Name = name.ToLowerInvariant();
-            RelativePath = string.Empty;
-        }
+        //private StorageContainer(string name)
+        //{
+        //    Name = name.ToLowerInvariant();
+        //    RelativePath = string.Empty;
+        //}
 
         private StorageContainer(string name,string relativePath)
         {
@@ -28,13 +28,13 @@ namespace Cloudents.Core.Storage
         public static readonly StorageContainer File = new StorageContainer("spitball-files","files");
         public static readonly StorageContainer User = new StorageContainer("spitball-user","profile");
 
-        public static FieldInfo[] GetAllValues()
-        {
-            var fields = typeof(StorageContainer).GetFields(BindingFlags.Public |
-                                                            BindingFlags.Static |
-                                                            BindingFlags.DeclaredOnly);
-            return fields;
-        }
+        //public static FieldInfo[] GetAllValues()
+        //{
+        //    var fields = typeof(StorageContainer).GetFields(BindingFlags.Public |
+        //                                                    BindingFlags.Static |
+        //                                                    BindingFlags.DeclaredOnly);
+        //    return fields;
+        //}
 
         public bool Equals(StorageContainer other)
         {

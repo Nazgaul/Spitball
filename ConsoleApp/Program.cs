@@ -154,9 +154,9 @@ namespace ConsoleApp
 
 
 
-            var _bus = _container.Resolve<ICloudStorageProvider>();
-            var blobClient = _bus.GetBlobClient();
-            var queueClient = _bus.GetQueueClient();
+            var bus = _container.Resolve<ICloudStorageProvider>();
+            var blobClient = bus.GetBlobClient();
+            var queueClient = bus.GetQueueClient();
 
 
             var container = blobClient.GetContainerReference("spitball-files");
@@ -341,7 +341,7 @@ namespace ConsoleApp
                 }
             }
         }
-        private static async Task addToExtra()
+        private static async Task AddToExtra()
         {
 
             var d = _container.Resolve<DapperRepository>();
@@ -611,12 +611,12 @@ namespace ConsoleApp
 
         }
 
-        private static Random random = new Random();
+        private static Random _random = new Random();
         public static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+              .Select(s => s[_random.Next(s.Length)]).ToArray());
         }
 
         public static async Task TransferDocuments()

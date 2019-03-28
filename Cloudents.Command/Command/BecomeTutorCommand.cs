@@ -2,17 +2,15 @@
 {
     public class BecomeTutorCommand : ICommand
     {
-        public BecomeTutorCommand(long userId, decimal price, string bio)
+        public BecomeTutorCommand(long userId, string bio)
         {
             UserId = userId;
-            Price = price;
             Bio = bio;
         }
 
-        public long UserId { get; private set; }
+        public long UserId { get; }
 
-        public decimal Price { get; private set; }
 
-        public string Bio { get; private set; }
+        public string Bio { get; }
     }
 }

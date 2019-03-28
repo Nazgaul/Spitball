@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
@@ -12,6 +13,7 @@ namespace Cloudents.Core.Entities
             
         }
 
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public UserCourse(RegularUser user, Course course)
         {
             User = user;
@@ -29,7 +31,7 @@ namespace Cloudents.Core.Entities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((UserCourse) obj);
         }
 

@@ -217,40 +217,30 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("settings")]
-        public async Task<IActionResult> ChangeDescription([FromBody]UpdateSettingsRequest model, CancellationToken token)
+        public async Task<IActionResult> ChangeDescription([FromBody]UpdateSettingsRequest model,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName, model.Description);
+            var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName, 
+                model.Description, model.Bio);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        [NonAction]
 
 
         [HttpPost("BecomeTutor")]
         public async Task<IActionResult> BecomeTutorAsync([FromBody]BecomeTutorRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new BecomeTutorCommand(userId, model.Price, model.Bio);
+            var command = new BecomeTutorCommand(userId,  model.Bio);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        [HttpPost("editTutor")]
-        public async Task<IActionResult> EditUserProfileAsync([FromBody]EditTutorProfileRequest model, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new EditTutorProfileCommand(userId, model.Name, model.LastName, model.Bio, model.Description);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        
 
-        [HttpPost("editUser")]
-        public async Task<IActionResult> EditUserProfileAsync([FromBody]EditUserProfileRequest model, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new EditUserProfileCommand(userId, model.Name, model.Description);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+     
     }
 }

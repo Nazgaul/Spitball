@@ -22,12 +22,10 @@ namespace Cloudents.Infrastructure
     public sealed class RestClient : IRestClient, IDisposable
     {
         private readonly HttpClient _client;
-        private readonly ILogger _logger;
 
 
         public RestClient(ILogger logger)
         {
-            _logger = logger;
             _client = new HttpClient();
         }
 
