@@ -129,7 +129,7 @@ export default {
                         opacity: 0.35;
                         font-size: 33px;
                         &.blue{
-                            color: #4452FC;
+                            color: @color-blue-new;
                         }
                         &.small{
                             font-size:15px;
@@ -189,7 +189,7 @@ export default {
                     align-items: center;
                     padding: 10px 12px;
                     border-radius: 24px;
-                    background-color: #4452fc!important;
+                    background-color: #43425d!important;
                     text-transform: capitalize;
                     box-shadow: 0 2px 9px 0 rgba(0,0,0,.35);
                     font-size: 16px;

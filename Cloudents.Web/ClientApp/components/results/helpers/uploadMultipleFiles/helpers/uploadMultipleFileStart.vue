@@ -257,7 +257,7 @@
 <style lang="less">
     @import "../../../../../styles/mixin.less";
 
-    @purpleNewColor: #3e45a0;
+    @purpleNewColor: #43425d;
     .upload-component-wrap {
         max-height: 200px;
         background-color: transparent;

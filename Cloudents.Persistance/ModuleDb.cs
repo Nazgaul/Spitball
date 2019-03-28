@@ -16,6 +16,8 @@ namespace Cloudents.Persistence
             builder.RegisterType<UnitOfWorkFactorySpitball>()
                 .SingleInstance();
 
+            builder.RegisterType<PublishEventsListener>().AsSelf().SingleInstance();
+
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession())
                 .InstancePerLifetimeScope();
 

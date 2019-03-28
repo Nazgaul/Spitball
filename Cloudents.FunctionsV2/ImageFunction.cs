@@ -38,16 +38,21 @@ namespace Cloudents.FunctionsV2
             var hashBytes = Base64UrlTextEncoder.Decode(hash);
 
             var properties = serializer.Deserialize<ImageProperties>(hashBytes);
-
             int.TryParse(req.Query["width"], out var width);
             int.TryParse(req.Query["height"], out var height);
             if (!Enum.TryParse(req.Query["mode"], true, out ResizeMode mode))
             {
                 mode = ResizeMode.Crop;
             }
-            if (width == 0 || height == 0)
+
+            if (width == 0)
             {
-                return new BadRequestResult();
+                width = 50;
+            }
+
+            if (height == 0)
+            {
+                height = 50;
             }
 
             //using (var sr = await binder.BindAsync<Stream>(new BlobAttribute($"spitball-files/files/{properties.Id}/preview-{properties.Page}.jpg", FileAccess.Read), token))

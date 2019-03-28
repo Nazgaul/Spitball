@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Text;
+using Microsoft.AspNetCore.WebUtilities;
+using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Web.Filters
 {
@@ -25,14 +28,13 @@ namespace Cloudents.Web.Filters
             {
                 return false;
             }
-            StreamReader reader = new StreamReader(context.RouteContext.HttpContext.Request.Body);
-            JsonTextReader jsonReader = new JsonTextReader(reader);
-            
-            JsonSerializer ser = new JsonSerializer();
-            var t = ser.Deserialize<UploadRequest>(jsonReader);
-            context.RouteContext.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-            return t.Phase == UploadPhase.Start;
 
+            var reader = new HttpRequestStreamReader(context.RouteContext.HttpContext.Request.Body, Encoding.UTF8);
+            var parser = JObject.Parse(reader.ReadToEnd());
+
+            var t = string.Equals(parser.GetValue("phase", StringComparison.OrdinalIgnoreCase).Value<string>(), "start", StringComparison.OrdinalIgnoreCase);
+            context.RouteContext.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
+            return t;
         }
 
         public int Order => 1;

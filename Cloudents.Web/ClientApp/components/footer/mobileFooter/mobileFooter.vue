@@ -25,7 +25,6 @@
                 <span class="mob-footer-title" v-language:inner>mobileFooter_action_promotion</span>
                 <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.promotions">sbf-icon-promotions</v-icon>
                 <v-icon class="mob-footer-icon" v-else>sbf-icon-promotions-selected</v-icon>
-
             </v-btn>
         </v-bottom-nav>
     </div>

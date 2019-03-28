@@ -16,8 +16,7 @@ namespace Cloudents.Core.EventHandler
             IEventHandler<QuestionDeletedAdminEvent>,
             IEventHandler<MarkAsCorrectEvent>,
             IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>,
-            IEventHandler<TransactionEvent>,
-            IEventHandler<ChatMessageEvent>
+            IEventHandler<TransactionEvent>
     {
         private readonly IServiceBusProvider _queueProvider;
 
@@ -150,16 +149,16 @@ namespace Cloudents.Core.EventHandler
         }
 
 
-        public  Task HandleAsync(ChatMessageEvent eventMessage, CancellationToken token)
-        {
-            //Need to support blob
-            var messages = eventMessage.ChatMessage;
-            var message = new SignalRTransportType(SignalRType.Chat,
-                SignalRAction.Add, new { messages = messages });
+        //public  Task HandleAsync(ChatMessageEvent eventMessage, CancellationToken token)
+        //{
+        //    //Need to support blob
+        //    var messages = eventMessage.ChatMessage;
+        //    var message = new SignalRTransportType(SignalRType.Chat,
+        //        SignalRAction.Add, new { messages = messages });
 
-           var result =  eventMessage.ChatMessage.ChatRoom.Users.Select(s =>
-               _queueProvider.InsertMessageAsync(message, s.User.Id, token));
-           return Task.WhenAll(result);
-        }
+        //   var result =  eventMessage.ChatMessage.ChatRoom.Users.Select(s =>
+        //       _queueProvider.InsertMessageAsync(message, s.User.Id, token));
+        //   return Task.WhenAll(result);
+        //}
     }
 }

@@ -44,6 +44,8 @@ namespace Cloudents.Infrastructure.Storage
             _blobDirectory = _cloudContainer.GetDirectoryReference(container.RelativePath ?? string.Empty);
         }
 
+       
+
         public Uri GetBlobUrl(string blobName, bool cdn = false)
         {
             var blob = _blobDirectory.GetBlockBlobReference(blobName);
@@ -112,8 +114,19 @@ namespace Cloudents.Infrastructure.Storage
 
         public Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token)
         {
+            return CommitBlockListAsync(blobName, mimeType, null, indexes, token);
+        }
+
+        public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes,
+            CancellationToken token)
+        {
             var blob = GetBlob(blobName);
             blob.Properties.ContentType = mimeType;
+            if (!string.IsNullOrEmpty(originalFileName))
+            {
+                blob.Metadata["fileName"] = originalFileName;
+            }
+
             return blob.PutBlockListAsync(indexes.Select(ToBase64));
         }
 
@@ -234,7 +247,7 @@ namespace Cloudents.Infrastructure.Storage
             return url;
         }
 
-        public Uri GenerateDownloadLink(Uri blobUrl, TimeSpan expirationTime, string fileName)
+        public Uri GenerateDownloadLink(Uri blobUrl, TimeSpan expirationTime, string fileName = null)
         {
             var blob = GetBlob(blobUrl);
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy

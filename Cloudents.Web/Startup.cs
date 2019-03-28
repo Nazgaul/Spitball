@@ -34,6 +34,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Web.Api;
 using Microsoft.Extensions.DependencyModel;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -98,7 +99,7 @@ namespace Cloudents.Web
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddRouting(x =>
             {
-                x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
+               // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
             });
             services.AddMvc()
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
