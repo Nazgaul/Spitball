@@ -42,7 +42,7 @@ namespace Cloudents.Core.EventHandler
                 User = user,
                 Price = eventMessage.Question.Price,
                 Id = eventMessage.Question.Id,
-                Course = eventMessage.Question.Course?.Name, //TODO: this is because we already have question without courses
+                Course = eventMessage.Question.Course?.Id, //TODO: this is because we already have question without courses
                 Subject = eventMessage.Question.Subject,
                 Text = eventMessage.Question.Text,
                 Answers = 0,

@@ -188,7 +188,7 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
             [Core.Attributes.DtoToEntityConnection(nameof(Question.Id))]
             public long Id { get; set; }
 
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Course.Name))]
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Course.Id))]
             public string Course { get; set; }
 
             [Core.Attributes.DtoToEntityConnection(nameof(Question.University.Name))]
