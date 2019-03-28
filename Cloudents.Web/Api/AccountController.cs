@@ -244,13 +244,6 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("editUser")]
-        public async Task<IActionResult> EditUserProfileAsync([FromBody]EditUserProfileRequest model, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new EditUserProfileCommand(userId, model.Name, model.Description);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+     
     }
 }
