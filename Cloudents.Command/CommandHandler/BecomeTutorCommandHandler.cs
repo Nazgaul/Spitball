@@ -20,7 +20,7 @@ namespace Cloudents.Command.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            user.UserRoles.Add(new Tutor(message.Bio, message.Price, user));
+            user.Tutor = new Tutor(message.Bio, message.Price, user.Id);
 
             await _userRepository.UpdateAsync(user, token);
         }

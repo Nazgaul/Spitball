@@ -19,10 +19,10 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(EditTutorProfileCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            Tutor tutor = (Tutor)user.UserRoles.FirstOrDefault(f => f is Tutor);
+            //Tutor tutor = (Tutor)user.UserRoles.FirstOrDefault(f => f is Tutor);
             user.ChangeName(message.Name, message.LastName);
             user.Description = message.Description;
-            tutor.Bio = message.Bio;
+            user.Tutor.Bio = message.Bio;
             await _userRepository.UpdateAsync(user, token);
         }
     }

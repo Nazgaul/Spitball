@@ -21,8 +21,8 @@ namespace Cloudents.Identity
         IUserPhoneNumberStore<RegularUser>,
         IUserAuthenticatorKeyStore<RegularUser>,
         IUserLockoutStore<RegularUser>,
-        IUserLoginStore<RegularUser>,
-        IUserRoleStore<RegularUser>
+        IUserLoginStore<RegularUser>//,
+        //IUserRoleStore<RegularUser>
     {
         private readonly ISession _session;
         private readonly ICommandBus _bus;
@@ -307,11 +307,11 @@ namespace Cloudents.Identity
             throw new NotImplementedException();
         }
 
-        public Task<bool> IsInRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
-        {
-            var result = user.UserRoles.Any(f => f.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
-            return Task.FromResult(result);
-        }
+        //public Task<bool> IsInRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
+        //{
+        //    var result = user.UserRoles.Any(f => f.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
+        //    return Task.FromResult(result);
+        //}
 
         public async Task<IList<RegularUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
         {
