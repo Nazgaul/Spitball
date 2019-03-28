@@ -39,7 +39,7 @@ from sb.UserType ut
 join sb.UserTutor utt on ut.id = utt.userRole_id
 where ut.userid = @id;
 
-select tr.Review as ReviewText, tr.Rate, tr.DateTime, u.Name, u.Image, u.Score
+select tr.Review as ReviewText, tr.Rate, tr.DateTime as Created, u.Name, u.Image, u.Score
 from sb.UserType ut
 join sb.UserTutor utt 
 	on ut.id = utt.userRole_id
