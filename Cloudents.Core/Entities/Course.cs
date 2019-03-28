@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
         public const int MaxLength = 150;
         protected Course()
         {
-
+            Tutors = new List<TutorsCourses>();
         }
 
         public Course(string name)
@@ -30,6 +30,8 @@ namespace Cloudents.Core.Entities
             State = ItemState.Pending;
 
             Created = DateTime.UtcNow;
+
+            Tutors = new List<TutorsCourses>();
         }
 
         protected bool Equals(Course other)

@@ -29,19 +29,22 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumn("CourseName")
                 .LazyLoad()
                 .Inverse()
-                .ForeignKeyCascadeOnDelete();
+                .Cascade.None();
 
 
             HasMany(x => x.Questions)
                 .KeyColumn("CourseId")
                 .LazyLoad()
                 .Inverse()
-                .ForeignKeyCascadeOnDelete();
+                .Cascade.None();
 
             HasMany(x => x.Tutors)
+                .Table("TutorsCourses")
+                .KeyColumn("CourseId")
+                //.Cascade.Delete()
                 .LazyLoad()
-                .Inverse()
-                .ForeignKeyCascadeOnDelete();
+                .Inverse().Cascade.AllDeleteOrphan()
+                .AsList();
 
             // HasMany(x => x.Questions).Cascade.None();
             // HasMany(x => x.Users).Cascade.None();
