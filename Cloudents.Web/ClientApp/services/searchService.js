@@ -110,19 +110,9 @@ function DocumentItem(objInit) {
 }
 
 
-function AboutItem(objInit) {
-    this.bio = objInit.bio;
-    this.courses = objInit.courses
-}
-
 function createDocumentItem(objInit){
     return new DocumentItem(objInit)
 }
-
-function createAboutItem(objInit){
-    return new AboutItem(objInit)
-}
-
 
 let transferResultAsk = response => {
     let res = response.data;
@@ -306,9 +296,4 @@ export default {
     createDocumentItem: (objInit)=>{
         return createDocumentItem(objInit)
     },
-    createAboutItem: (objInit)=>{
-        return createAboutItem(objInit)
-    }
-
-
 }

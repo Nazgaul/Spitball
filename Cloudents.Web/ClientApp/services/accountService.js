@@ -38,6 +38,23 @@ function ProfilePersonalData(objInit){
 
 }
 
+function CourseItem(objInit) {
+    this.name = objInit.name;
+}
+
+function createCourseItem(objInit) {
+    return new CourseItem(objInit);
+}
+
+function AboutItem(objInit) {
+    this.bio = objInit.bio;
+    this.courses = objInit.courses.map(createCourseItem);
+}
+
+function createAboutItem(objInit){
+     return new AboutItem(objInit);
+}
+
 
 function profileUserData(objInit){
     this.user= createUserPersonalData(objInit.data) ;
@@ -63,7 +80,7 @@ function profileDocumentData(arrInit){
    return arrInit.data.map(searchService.createDocumentItem) || [];
 }
 function profileAboutData(arrInit){
-    let structuredData = searchService.createAboutItem(arrInit[1].data);
+    let structuredData = createAboutItem(arrInit[1].data);
     let obj = {
         bio: structuredData.bio,
         courses: structuredData.courses,
