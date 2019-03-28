@@ -1,7 +1,7 @@
 <template>
     <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId}}:''">
         <v-avatar v-if="isImage"  tag="v-avatar" size="32" :class="'user-avatar image'">
-            <img :src="userImageUrl+'?width=32&height=32'" alt="user avatar">
+            <img :src="imageUrl" alt="user avatar">
         </v-avatar>
         <v-avatar v-else tag="v-avatar" size="32" :class="'user-avatar userColor' + strToACII % 11">
             <span class="white--text font-14">{{userName.slice(0,2).toUpperCase()}}</span>
@@ -10,6 +10,7 @@
     </component>
 </template>
 <script>
+import utilitiesService from '../../../services/utilities/utilitiesService'
     export default {
         props: {
             userId: Number,
@@ -31,6 +32,9 @@
                     sum += this.userName.charCodeAt(i);
                 }
                 return sum
+            },
+            imageUrl(){
+                return utilitiesService.proccessImageURL(this.userImageUrl, 32, 32)
             }
         },
     }

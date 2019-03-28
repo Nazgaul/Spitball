@@ -27,6 +27,7 @@
     import userRating from '../userRating.vue';
     import uploadImage from '../uploadImage/uploadImage.vue';
     import userOnlineStatus from '../userOnlineStatus.vue';
+    import utilitiesService from '../../../../../../services/utilities/utilitiesService';
 
 
     export default {
@@ -47,7 +48,7 @@
             ...mapGetters(['getProfile', 'isTutorProfile']),
             profileImage() {
                 if (this.getProfile && this.getProfile.user && this.getProfile.user.image.length > 1) {
-                    return `${global.location.origin}${this.getProfile.user.image}?width=214&height=240`
+                    return utilitiesService.proccessImageURL(this.getProfile.user.image, 214,240);
                 } else {
                     return '../../images/placeholder-profile.png'
                 }
