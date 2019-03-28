@@ -26,7 +26,7 @@ namespace Cloudents.Core.EventHandler
                 UniversityId = eventMessage.Document.University.Id,
                 UniversityName = eventMessage.Document.University.Name,
                 Country = eventMessage.Document.University.Country.ToUpperInvariant(),
-                Course = eventMessage.Document.Course.Name.ToUpperInvariant(),
+                Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
                 ItemId =  eventMessage.Document.Id,
                 Name = eventMessage.Document.Name,

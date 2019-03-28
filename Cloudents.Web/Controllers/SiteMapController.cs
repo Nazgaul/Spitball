@@ -184,7 +184,7 @@ namespace Cloudents.Web.Controllers
                      Id = s.Id,
                      Name = s.Name,
                      Country = s.University.Country,
-                     CourseName = s.Course.Name,
+                     CourseName = s.Course.Id,
                      UniversityName = s.University.Name
                  });
 

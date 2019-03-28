@@ -1,8 +1,5 @@
 ﻿using FluentAssertions;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -29,19 +26,19 @@ namespace Cloudents.Web.Test.IntegrationTests
             var d = JObject.Parse(str);
 
             var sbl = d["SBL"]?.Value<int?>();
-            var leaderboard = d["leaderBoard"]?.Value<JArray>();
+            var leaderBoard = d["leaderBoard"]?.Value<JArray>();
             sbl.Should().BeGreaterThan(0);
-            leaderboard.Should().HaveCount(10);
+            leaderBoard.Should().HaveCount(10);
 
             for(int i = 0; i < 10; i++)
             {
-                var id = leaderboard[i]["id"]?.Value<long?>();
+                var id = leaderBoard[i]["id"]?.Value<long?>();
                 id.Should().BeGreaterThan(0);
-                var name = leaderboard[i]["name"]?.Value<string>();
+                var name = leaderBoard[i]["name"]?.Value<string>();
                 name.Should().NotBeNull();
-                var score1 = leaderboard[i]["score"].Value<long>();
+                var score1 = leaderBoard[i]["score"].Value<long>();
                 score1.Should().BeGreaterThan(0);
-                var uni = leaderboard[i]["university"]?.Value<string>();
+                var uni = leaderBoard[i]["university"]?.Value<string>();
                 uni.Should().NotBeNull();
             }
         }

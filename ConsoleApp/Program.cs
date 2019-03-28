@@ -7,8 +7,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query;
-using Cloudents.Search.Question;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -23,11 +21,9 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -139,11 +135,15 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             var unitOfWork = _container.Resolve<IUnitOfWork>();
-            var userRepository = _container.Resolve<IRegularUserRepository>();
-            var me = await userRepository.LoadAsync(160336L, default);
+
+            var c = _container.Resolve<ICommandBus>();
+            var command = new AssignCoursesToUserCommand(new []{ "0506.1" }, 638);
+            await c.DispatchAsync(command, default);
+            //var userRepository = _container.Resolve<IRegularUserRepository>();
+            //var me = await userRepository.LoadAsync(160336L, default);
          
-            await userRepository.UpdateAsync(me, default);
-            await unitOfWork.CommitAsync(default);
+            //await userRepository.UpdateAsync(me, default);
+            //await unitOfWork.CommitAsync(default);
             Console.WriteLine("done");
         }
 

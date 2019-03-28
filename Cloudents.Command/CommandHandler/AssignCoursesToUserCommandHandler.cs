@@ -2,6 +2,7 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,24 +25,26 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AssignCoursesToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
+            //user.Courses.Clear();
 
-            //var firstCourseTransaction = await _transactionRepository.GetFirstCourseTransaction(message.UserId, token);
+            var courses = message.Name.Select(s => _courseRepository.GetOrAddAsync(s, token));
 
-            //if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
+            user.AssignCourses(await Task.WhenAll(courses));
+            //foreach (var name in message.Name)
             //{
-            //    user.AwardMoney(AwardsTransaction.FirstCourse);
-            //    await _userRepository.UpdateAsync(user, token);
+            //    var course = await _courseRepository.GetOrAddAsync(name, token);
+            //    if (user.Courses.Any(a => a.Course == course))
+            //    {
+            //        continue;
+                    
+            //    }
+            //    var p = new UserCourse(user,course);
+            //    if (user.Courses.Add(p))
+            //    {
+            //        course.Count++;
+            //        await _courseRepository.UpdateAsync(course, token);
+            //    }
             //}
-            user.Courses.Clear();
-            foreach (var name in message.Name)
-            {
-                var course = await _courseRepository.GetOrAddAsync(name, token);
-                if (user.Courses.Add(course))
-                {
-                    course.Count++;
-                    await _courseRepository.UpdateAsync(course, token);
-                }
-            }
 
             await _userRepository.UpdateAsync(user, token);
         }

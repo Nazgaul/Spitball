@@ -58,7 +58,7 @@ namespace Cloudents.Query.Query
                            Image = s.User.Image,
                            Score = s.User.Score
                        },
-                       Course = s.Course.Name
+                       Course = s.Course.Id
                    }).ToFutureValue();//.SingleOrDefaultAsync(token);
 
                 if (!query.UserId.HasValue)

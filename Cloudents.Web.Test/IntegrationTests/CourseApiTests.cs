@@ -23,10 +23,10 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
 
-            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
+            await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
 
             // Act
-            response = await client.GetAsync(url);
+            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
         }
 

@@ -12,7 +12,6 @@ using System;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers

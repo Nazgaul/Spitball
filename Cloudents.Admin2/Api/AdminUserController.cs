@@ -173,11 +173,11 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
 
-            var PhoneCommand = new ConfirmPhoneNumberCommand(model.Id);
+            var phoneCommand = new ConfirmPhoneNumberCommand(model.Id);
             var registrationBonusCommand = new FinishRegistrationCommand(model.Id);
             try
             {
-                await _commandBus.DispatchAsync(PhoneCommand, token);
+                await _commandBus.DispatchAsync(phoneCommand, token);
                 await _commandBus.DispatchAsync(registrationBonusCommand, token);
             }
             
@@ -303,7 +303,7 @@ namespace Cloudents.Admin2.Api
         {
             var query = new AdminUserFlagsOthersQuery(minFlags, page);
             var res = await _queryBus.QueryAsync(query, token);
-            return new UsersFlagsResponse { flags = res.Item1, Rows = res.Item2 };
+            return new UsersFlagsResponse { Flags = res.Item1, Rows = res.Item2 };
         }
     }
 }
