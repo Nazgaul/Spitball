@@ -7,6 +7,7 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using NHibernate;
 using NHibernate.Linq;
@@ -50,9 +51,14 @@ namespace Cloudents.Identity
             return Task.FromResult(user.Name);
         }
 
-        public Task SetUserNameAsync(RegularUser user, string userName, CancellationToken cancellationToken)
+        public Task SetUserNameAsync(RegularUser user, [NotNull] string userName, CancellationToken cancellationToken)
         {
-            user.Name = userName;
+            if (userName == null) throw new ArgumentNullException(nameof(userName));
+            var splitUserName = userName.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+            var firstName = splitUserName[0];
+            var lastName = splitUserName.ElementAtOrDefault(1);
+
+            user.ChangeName(firstName,lastName);
             return Task.CompletedTask;
         }
 
