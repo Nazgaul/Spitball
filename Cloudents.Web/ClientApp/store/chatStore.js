@@ -15,6 +15,7 @@ const state = {
     },
     isVisible: true,
     isMinimized: false,
+    totalUnread: 0
 };
 const getters = {
     getIsChatVisible:state=> state.isVisible,
@@ -38,6 +39,7 @@ const getters = {
         }
     },
     getActiveConversationObj:state=>state.activeConversationObj,
+    getTotalUnread: state=>state.totalUnread
 };
 
 const mutations = {
@@ -78,6 +80,10 @@ const mutations = {
     },
     clearUnreadFromConversation:(state, userId)=>{
         state.conversations[userId].unread = 0;
+    },
+    updateTotalUnread:(state, val)=>{
+        //val could be negative value
+        state.totalUnread = state.totalUnread + val;
     }
 };
 
@@ -94,6 +100,7 @@ const actions = {
                 if(!!state.conversations[message.userId]){
                     //update unread conversations
                     commit('addConversationUnread', message)
+                    commit('updateTotalUnread', 1);
                 }else{
                     //no conversation should be added
                     let ConversationObj = chatService.createConversation(message);
@@ -105,6 +112,7 @@ const actions = {
             if(!!state.conversations[message.userId]){
                 //update unread conversations
                 commit('addConversationUnread', message)
+                commit('updateTotalUnread', 1);
             }else{
                 //no conversation should be added
                 let ConversationObj = chatService.createConversation(message);
@@ -113,8 +121,13 @@ const actions = {
         }      
         
     },
-    clearUnread:({commit}, otherUserId)=>{
+    setTotalUnread:({commit}, totalUnread)=>{
+        commit('updateTotalUnread', totalUnread)
+    },
+    clearUnread:({commit, state}, otherUserId)=>{
         chatService.clearUnread(otherUserId);
+        let unreadNumber = state.conversations[otherUserId].unread * -1;
+        commit('updateTotalUnread', unreadNumber);
         commit('clearUnreadFromConversation', otherUserId);
     },
     signalRAddMessage({dispatch}, messageObj){
@@ -137,6 +150,7 @@ const actions = {
                 data.forEach(conversation => {
                     let ConversationObj = chatService.createConversation(conversation);
                         commit('addConversation', ConversationObj);
+                        commit('updateTotalUnread', ConversationObj.unread);
                 })
             }
         });

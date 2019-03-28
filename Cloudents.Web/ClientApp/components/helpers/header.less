@@ -447,6 +447,22 @@
   display: flex;
   border-right: 1px solid #dddddd;
   padding-right: 5px;
+  position: relative;
+  .unread-circle{
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    background: #4452fc;
+    color: #fff;
+    border-radius: 50%;
+    height: 13px;
+    width: 13px;
+    display: flex;
+    font-size: 10px;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
   .header-messages-text{
     cursor: pointer;
     font-size: 12px;

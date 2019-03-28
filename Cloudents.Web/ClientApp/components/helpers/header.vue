@@ -20,6 +20,7 @@
                                     <div class="header-messages" v-if="loggedIn && !isMobile">
                                         <span @click="openChatWindow" class="header-messages-text" v-language:inner>chat_messages</span>
                                         <v-icon @click="openChatWindow">sbf-forum-icon</v-icon>
+                                        <span class="unread-circle" v-show="totalUnread > 0">{{totalUnread}}</span>
                                     </div>
                                     <div class="header-wallet" v-if="loggedIn">
                                         <button class="setting-buysbl-button" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span></button>     
@@ -133,7 +134,8 @@
                 'getShowToaster',
                 'getToasterText',
                 'getShowSelectUniInterface',
-                'showMobileFeed'
+                'showMobileFeed',
+                'getTotalUnread'
             ]),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
@@ -148,6 +150,9 @@
                     return false;
                 }
                 
+            },
+            totalUnread(){
+                return this.getTotalUnread
             }
             //myMoney(){return this.accountUser.balance / 40}
 
