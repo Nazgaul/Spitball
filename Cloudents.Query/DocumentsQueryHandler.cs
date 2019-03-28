@@ -39,7 +39,7 @@ namespace Cloudents.Query
                         Image = s.User.Image
                     },
                     DateTime = s.TimeStamp.UpdateTime,
-                    Course = s.Course.Name,
+                    Course = s.Course.Id,
                     Type = s.Type,
                     Professor = s.Professor,
                     Title = s.Name,

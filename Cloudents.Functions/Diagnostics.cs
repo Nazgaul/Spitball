@@ -9,10 +9,10 @@ namespace Cloudents.Functions
 {
     public static class Diagnostics
     {
-        private static string key = TelemetryConfiguration.Active.InstrumentationKey
+        private static string _key = TelemetryConfiguration.Active.InstrumentationKey
             = Environment.GetEnvironmentVariable("APPINSIGHTS_INSTRUMENTATIONKEY",
                 EnvironmentVariableTarget.Process);
-        private static TelemetryClient telemetry = new TelemetryClient() { InstrumentationKey = key };
+        private static TelemetryClient _telemetry = new TelemetryClient() { InstrumentationKey = _key };
 
         [FunctionName("Diagnostics")]
         public static void Run(
@@ -23,7 +23,7 @@ namespace Cloudents.Functions
             queue.FetchAttributes();
             var count = queue.ApproximateMessageCount;
 
-            telemetry.TrackMetric("queueGenerateBlobPreview", count.GetValueOrDefault());
+            _telemetry.TrackMetric("queueGenerateBlobPreview", count.GetValueOrDefault());
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
         }
     }

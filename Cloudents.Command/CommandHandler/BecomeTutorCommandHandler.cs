@@ -19,8 +19,8 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(BecomeTutorCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-
-            user.UserRoles.Add(new Tutor(message.Bio, message.Price, user));
+            
+            user.Tutor = new Tutor(message.Bio, user.Id);
 
             await _userRepository.UpdateAsync(user, token);
         }

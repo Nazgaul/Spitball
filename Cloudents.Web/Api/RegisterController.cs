@@ -67,7 +67,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
-            user = CreateUser(model.Email, null, null);
+            user = new RegularUser(model.Email, null, null, CultureInfo.CurrentCulture);
             var p = await _userManager.CreateAsync(user, model.Password);
             if (p.Succeeded)
             {
@@ -144,9 +144,14 @@ namespace Cloudents.Web.Api
 
             if (user == null)
             {
-                user = CreateUser(result.Email, result.FirstName, result.LastName);
-                user.EmailConfirmed = true;
-                user.ChangeLanguage(result.Language);
+                user = new RegularUser(result.Email,
+                    result.FirstName, result.LastName,
+                    result.Language)
+                {
+                    EmailConfirmed = true,
+                    //TODO we need to download the image and save it on our servers.
+                   // Image = result.Picture
+                };
 
                 var result3 = await _userManager.CreateAsync(user);
                 if (result3.Succeeded)
@@ -168,22 +173,22 @@ namespace Cloudents.Web.Api
         }
 
 
-        private RegularUser CreateUser(string email, string firstName, string lastName)
-        {
-            if (email == null) throw new ArgumentNullException(nameof(email));
-            if (string.IsNullOrEmpty(firstName))
-            {
-                firstName = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
-            }
+        //private RegularUser CreateUser(string email, string firstName, string lastName, string picture, )
+        //{
+        //    if (email == null) throw new ArgumentNullException(nameof(email));
+        //    if (string.IsNullOrEmpty(firstName))
+        //    {
+        //        firstName = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
+        //    }
 
-            return new RegularUser(email, $"{firstName}.{GenerateRandomNumber()}", null, CultureInfo.CurrentCulture);
-        }
+        //    return new RegularUser(email, firstName, lastName, CultureInfo.CurrentCulture);
+        //}
 
-        private static int GenerateRandomNumber()
-        {
-            var rdm = new Random();
-            return rdm.Next(1000, 9999);
-        }
+        //private static int GenerateRandomNumber()
+        //{
+        //    var rdm = new Random();
+        //    return rdm.Next(1000, 9999);
+        //}
 
         private async Task GenerateEmailAsync(RegularUser user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {

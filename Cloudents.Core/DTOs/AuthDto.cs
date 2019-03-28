@@ -11,6 +11,8 @@ namespace Cloudents.Core.DTOs
 
         public string Id { get; set; }
 
+        public string Picture { get; set; }
+
         public Language Language { get; set; }
 
         public override string ToString()

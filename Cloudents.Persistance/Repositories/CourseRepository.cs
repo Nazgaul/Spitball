@@ -24,7 +24,7 @@ namespace Cloudents.Persistence.Repositories
             name = name.Trim();
 
             var course = await Session.Query<Course>()
-                .Where(w => w.Name.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
+                .Where(w => w.Id.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
 
 
 
@@ -41,7 +41,7 @@ namespace Cloudents.Persistence.Repositories
         public async Task<Course> GetByNameAsync(string name, CancellationToken token)
         {
             return await Session.Query<Course>()
-                .Where(w => w.Name.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
+                .Where(w => w.Id.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
         }
     }
 }

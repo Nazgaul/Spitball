@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Cloudents.Core.Interfaces
+﻿namespace Cloudents.Core.Interfaces
 {
     public interface IEvent
     {

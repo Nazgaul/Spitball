@@ -44,7 +44,7 @@ namespace Cloudents.Query
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
                     .Select(s => s.Updated).WithAlias(() => dto.DateTime)
                     .Select(s => s.Language).WithAlias(() => dto.CultureInfo)
-                    .Select(s => s.Course.Name).WithAlias(() => dto.Course)
+                    .Select(s => s.Course.Id).WithAlias(() => dto.Course)
                     .Select(Projections.Property(() => questionAlias.VoteCount).As("Vote.Votes"))
                     .SelectSubQuery(QueryOver.Of<Answer>()
                         .Where(w => w.Question.Id == questionAlias.Id && w.Status.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)

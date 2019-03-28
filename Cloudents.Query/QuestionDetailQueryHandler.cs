@@ -48,7 +48,7 @@ namespace Cloudents.Query
                     Id = s.Id,
                     Price = s.Price,
                     Subject = s.Subject,
-                    Course = s.Course.Name,
+                    Course = s.Course.Id,
                     Vote = new VoteDto
                     {
                         Votes = s.VoteCount

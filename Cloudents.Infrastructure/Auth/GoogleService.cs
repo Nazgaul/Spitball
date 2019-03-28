@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Auth
             {
                 return null;
             }
-
+           
             return new ExternalAuthDto()
             {
                 Id = result.Subject,
@@ -43,7 +43,8 @@ namespace Cloudents.Infrastructure.Auth
                 LastName = result.FamilyName,
                 Email = result.Email,
                 Language = result.Locale,
-                Name = result.Name
+                Name = result.Name,
+                Picture = result.Picture
             };
         }
 

@@ -44,7 +44,7 @@ namespace Cloudents.Core.DTOs.Admin
         public DateTime Created { get; set; }
         [DtoToEntityConnection(nameof(Document.University.Name))]
         public string University { get; set; }
-        [DtoToEntityConnection(nameof(Document.Course.Name))]
+        [DtoToEntityConnection(nameof(Document.Course.Id))]
         public string Course { get; set; }
         [DtoToEntityConnection(nameof(Document.Price))]
         public decimal? Price { get; set; }

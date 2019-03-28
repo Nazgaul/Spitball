@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
-    public class Course //: Entity<string>
+    public class Course : Entity<string>
     {
         public const int MinLength = 4;
         public const int MaxLength = 150;
@@ -18,13 +18,13 @@ namespace Cloudents.Core.Entities
         {
             Tutors = new List<TutorsCourses>();
         }
-
+        
         public Course(string name)
         {
-            Name = name.Trim();//.Replace("+", string.Empty);
-            if (Name.Length > MaxLength || Name.Length < MinLength)
+            Id = name.Trim();//.Replace("+", string.Empty);
+            if (Id.Length > MaxLength || Id.Length < MinLength)
             {
-                throw new ArgumentException($"Name is {Name}",nameof(Name));
+                throw new ArgumentException($"Name is {Id}",nameof(Id));
             }
 
             State = ItemState.Pending;
@@ -36,7 +36,7 @@ namespace Cloudents.Core.Entities
 
         protected bool Equals(Course other)
         {
-            return string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase);
+            return string.Equals(Id, other.Id, StringComparison.OrdinalIgnoreCase);
         }
 
         public override bool Equals(object obj)
@@ -49,7 +49,7 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
-            return (Name != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Name) : 0);
+            return Id != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Id) : 0;
         }
 
 
@@ -72,23 +72,14 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual string Name { get; protected set; }
         public virtual int Count { get; set; }
 
         public virtual DateTime Created { get;protected set; }
 
-        private readonly ISet<RegularUser> _users = new HashSet<RegularUser>();
-        public virtual IReadOnlyCollection<RegularUser> Users => _users.ToList();
+        private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
+        public virtual IReadOnlyCollection<UserCourse> Users => _users.ToList();
 
-
-        private readonly IList<Document> _documents = new List<Document>();
-        public virtual IReadOnlyList<Document> Documents => _documents.ToList();
-
-        private readonly IList<Question> _questions = new List<Question>();
-        public virtual IReadOnlyList<Question> Questions => _questions.ToList();
-
-
-        protected internal virtual IList<TutorsCourses> Tutors { get; set; }
+        protected virtual IList<TutorsCourses> Tutors { get; set; }
         
   
         public virtual ItemState State { get; protected set; }

@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Dapper;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,20 +33,17 @@ namespace Cloudents.Query.Query
 select CourseId as Name from sb.UsersCourses
 where UserId = @id;
 
-select utt.bio
-from sb.UserType ut
-join sb.UserTutor utt on ut.id = utt.userRole_id
-where ut.userid = @id;
+select t.bio
+from sb.Tutor t
+where t.userid = @id;
 
 select tr.Review as ReviewText, tr.Rate, tr.DateTime as Created, u.Name, u.Image, u.Score
-from sb.UserType ut
-join sb.UserTutor utt 
-	on ut.id = utt.userRole_id
+from sb.Tutor t
 join sb.TutorReview tr
-	on tr.TutorId = utt.UserRole_id
+	on tr.TutorId = t.UserId
 join sb.[user] u
 	on tr.UserId = U.Id
-where ut.userid = @id", new {id = query.UserId}))
+where t.userid = @id", new {id = query.UserId}))
                     {
                         var retVal = new UserProfileAboutDto
                         {

@@ -4,7 +4,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -95,10 +94,10 @@ namespace Cloudents.Web.Api
 
         [HttpPost("review")]
         public async Task<IActionResult> CreateReview([FromBody] ReviewRequest model,
-            [FromServices] UserManager<RegularUser> _userManager,
+            [FromServices] UserManager<RegularUser> userManager,
             CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
             var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, user);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
