@@ -1,12 +1,13 @@
 ﻿using Cloudents.Core.Event;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Cloudents.Core.Extension;
 
 //[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public class ChatRoom : AggregateRoot<Guid>
     {
         protected ChatRoom()

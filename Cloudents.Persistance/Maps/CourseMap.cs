@@ -54,17 +54,4 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.State);
         }
     }
-
-    public sealed class UserCourseMap : ClassMap<UserCourse>
-    {
-        public UserCourseMap()
-        {
-            CompositeId()
-                .KeyReference(x => x.User, "UserId")
-                .KeyReference(x => x.Course, "CourseId");
-
-            Table("UsersCourses");
-
-        }
-    }
 }

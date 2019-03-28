@@ -7,8 +7,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query;
-using Cloudents.Search.Question;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -23,11 +21,9 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 

@@ -1,10 +1,4 @@
-﻿using Cloudents.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Cloudents.Web.Models
+﻿namespace Cloudents.Web.Models
 {
     public class ReviewRequest
     {
