@@ -11,13 +11,12 @@ namespace Cloudents.Query.Admin
 {
     public class AdminNewUniversitiesQueryHandler : IQueryHandler<AdminEmptyQuery, IList<NewUniversitiesDto>>
     {
+        private readonly DapperRepository _dapper;
 
-        private readonly IConfigurationKeys _provider;
 
-
-        public AdminNewUniversitiesQueryHandler(IConfigurationKeys provider)
+        public AdminNewUniversitiesQueryHandler(DapperRepository dapper)
         {
-            _provider = provider;
+            _dapper = dapper;
         }
 
         public async Task<IList<NewUniversitiesDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
@@ -27,11 +26,11 @@ namespace Cloudents.Query.Admin
                     select cte.Id as [NewId], cte.Name as NewUniversity, c.Id as OldId, c.Name as OldUniversity  from cte, sb.university c
                     where c.Name like REPLACE(cte.Name,' ','%')
                     and c.Name <> cte.Name";
-            using (var connection = new SqlConnection(_provider.Db.Db))
+            return await _dapper.WithConnectionAsync(async connection =>
             {
                 var res = await connection.QueryAsync<NewUniversitiesDto>(sql);
                 return res.AsList();
-            }
+            }, token);
         }
     }
 }

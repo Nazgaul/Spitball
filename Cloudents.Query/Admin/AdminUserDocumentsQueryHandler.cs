@@ -11,12 +11,12 @@ namespace Cloudents.Query.Admin
 {
     public class AdminUserDocumentsQueryHandler : IQueryHandler<AdminUserDocumentsQuery, IEnumerable<UserDocumentsDto>>
     {
-        private readonly IConfigurationKeys _provider;
+        private readonly DapperRepository _dapper;
 
 
-        public AdminUserDocumentsQueryHandler(IConfigurationKeys provider)
+        public AdminUserDocumentsQueryHandler(DapperRepository dapper)
         {
-            _provider = provider;
+            _dapper = dapper;
         }
         private const int PageSize = 200;
 
@@ -30,7 +30,7 @@ namespace Cloudents.Query.Admin
 				order by 1
                  OFFSET @PageSize * @PageNumber ROWS
                  FETCH NEXT @PageSize ROWS ONLY;";
-            using (var connection = new SqlConnection(_provider.Db.Db))
+            return await _dapper.WithConnectionAsync(async connection =>
             {
                 return await connection.QueryAsync<UserDocumentsDto>(sql,
                     new
@@ -39,7 +39,7 @@ namespace Cloudents.Query.Admin
                         PageNumber = query.Page,
                         PageSize
                     });
-            }
+            }, token);
         }
     }
 }

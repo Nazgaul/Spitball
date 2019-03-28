@@ -11,13 +11,12 @@ namespace Cloudents.Query.Admin
 {
     public class AdminPendingUniversitiesQueryHandler : IQueryHandler<AdminLanguageQuery, IList<PendingUniversitiesDto>>
     {
+        private readonly DapperRepository _dapper;
 
-        private readonly IConfigurationKeys _provider;
 
-
-    public AdminPendingUniversitiesQueryHandler(IConfigurationKeys provider)
+        public AdminPendingUniversitiesQueryHandler(DapperRepository dapper)
     {
-        _provider = provider;
+            _dapper = dapper;
     }
 
     public async Task<IList<PendingUniversitiesDto>> GetAsync(AdminLanguageQuery query, CancellationToken token)
@@ -31,11 +30,11 @@ namespace Cloudents.Query.Admin
             {
                 sql += "and country = 'us'";
             }
-            using (var connection = new SqlConnection(_provider.Db.Db))
-        {
-            var res = await connection.QueryAsync<PendingUniversitiesDto>(sql);
-            return res.AsList();
-        }
+            return await _dapper.WithConnectionAsync(async connection =>
+            {
+                var res = await connection.QueryAsync<PendingUniversitiesDto>(sql);
+                return res.AsList();
+            }, token);
     }
 }
 }

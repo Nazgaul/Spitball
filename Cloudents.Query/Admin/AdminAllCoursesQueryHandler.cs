@@ -10,22 +10,23 @@ namespace Cloudents.Query.Admin
 {
     public class AdminAllCoursesQueryHandler : IQueryHandler<AdminEmptyQuery, IList<string>>
     {
-        private readonly IConfigurationKeys _provider;
+        private readonly DapperRepository _dapper;
 
 
-        public AdminAllCoursesQueryHandler(IConfigurationKeys provider)
+        public AdminAllCoursesQueryHandler(DapperRepository dapper)
         {
-            _provider = provider;
+            _dapper = dapper;
         }
 
         public async Task<IList<string>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
             var sql = @"select Name from sb.Course where name like N'%[א-ת]%' and State = 'Ok'";
-            using (var connection = new SqlConnection(_provider.Db.Db))
+            var result = await _dapper.WithConnectionAsync(async connection =>
             {
                 var res = await connection.QueryAsync<string>(sql);
                 return res.AsList();
-            }
+            }, token);
+            return result;
         }
     }
 }
