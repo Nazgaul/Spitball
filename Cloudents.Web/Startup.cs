@@ -148,7 +148,7 @@ namespace Cloudents.Web
                 options.Lockout.MaxFailedAccessAttempts = 3;
             }).AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
-                .AddRoles<RoleStore>()
+               // .AddRoles<RoleStore>()
                 .AddSignInManager<SbSignInManager>();
             services.ConfigureApplicationCookie(o =>
             {
@@ -171,7 +171,7 @@ namespace Cloudents.Web
             //TODO: not sure we need those
             services.AddScoped<IUserClaimsPrincipalFactory<RegularUser>, AppClaimsPrincipalFactory>();
             services.AddScoped<IUserStore<RegularUser>, UserStore>();
-            services.AddScoped<IRoleStore<UserRole>, RoleStore>();
+            //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();
 

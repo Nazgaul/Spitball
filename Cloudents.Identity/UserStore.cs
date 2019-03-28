@@ -26,7 +26,6 @@ namespace Cloudents.Identity
     {
         private readonly ISession _session;
         private readonly ICommandBus _bus;
-        //private readonly IQueryBus _queryBus;
 
         public UserStore(ICommandBus bus, ISession session)
         {
@@ -109,7 +108,7 @@ namespace Cloudents.Identity
         public async Task<RegularUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
             //Expression<Func<RegularUser, bool>> expression = s => s.NormalizedName == normalizedUserName;
-            return _session.Query<RegularUser>().FirstOrDefault(w => w.NormalizedName == normalizedUserName);
+            return await _session.Query<RegularUser>().FirstOrDefaultAsync(w => w.NormalizedName == normalizedUserName, cancellationToken: cancellationToken);
             //return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
@@ -290,7 +289,6 @@ namespace Cloudents.Identity
                 .Fetch(f => f.User)
                 .Where(w => w.ProviderKey == providerKey && w.LoginProvider == loginProvider)
                 .Select(s => s.User).SingleOrDefaultAsync(cancellationToken: cancellationToken);
-            //return _queryBus.QueryAsync(new UserLoginQuery(loginProvider, providerKey), cancellationToken);
         }
 
 

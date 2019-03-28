@@ -16,8 +16,8 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteCourseCommand message, CancellationToken token)
         {
-            var CourseToRemove = await _courseRepository.LoadAsync(message.CourseToRemove, token);
-            await _courseRepository.DeleteAsync(CourseToRemove, token);
+            var courseToRemove = await _courseRepository.LoadAsync(message.CourseToRemove, token);
+            await _courseRepository.DeleteAsync(courseToRemove, token);
         }
     }
 }
