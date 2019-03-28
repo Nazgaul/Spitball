@@ -1,5 +1,5 @@
-import { connectivityModule } from "./connectivity.module"
-import searchService from "../services/searchService.js"
+import { connectivityModule } from "./connectivity.module";
+import searchService from "../services/searchService.js";
 function AccountUser(ObjInit){
     this.balance= ObjInit.balance;
     this.email= ObjInit.email;
@@ -21,10 +21,10 @@ function AccountUser(ObjInit){
  }
 
  function CreateTutorData(objInit) {
-     return new TutorData(objInit)
+     return new TutorData(objInit);
  }
  function createUserPersonalData(objInit) {
-     return new ProfilePersonalData(objInit)
+     return new ProfilePersonalData(objInit);
  }
 function ProfilePersonalData(objInit){
     this.id = objInit.id;
@@ -34,7 +34,7 @@ function ProfilePersonalData(objInit){
     this.image = objInit.image || '';
     this.universityName= objInit.universityName;
     this.isTutor= objInit.hasOwnProperty('tutor') || false;
-    this.tutorData = objInit.tutor ? CreateTutorData(objInit.tutor) : CreateTutorData({})
+    this.tutorData = objInit.tutor ? CreateTutorData(objInit.tutor) : CreateTutorData({});
 
 }
 
@@ -67,8 +67,8 @@ function profileAboutData(arrInit){
     let obj = {
         bio: structuredData.bio,
         courses: structuredData.courses,
-    };
-    return obj
+    }
+    return obj;
 
 }
 export default {

@@ -66,6 +66,7 @@ const mutations = {
         state.profile.user = {...state.profile.user, image: imageUrl};
         state.user = {...state.user, image: imageUrl}
     },
+
     setProfile(state, val) {
         state.profile = val;
     },
@@ -169,6 +170,18 @@ const mutations = {
     },
     setRefferedNumber(state, data) {
         state.usersReferred = data;
+    },
+    updateEditedData(state, newData){
+        if(state.isTutorProfile){
+            state.profile.about.bio = newData.bio
+            state.profile.user.name = newData.name;
+            state.profile.user.lastName = newData.lastName;
+            state.profile.user.description = newData.description
+        }else{
+            state.profile.user.name = newData.name;
+            state.profile.user.description = newData.description
+        }
+
     }
 };
 
@@ -203,6 +216,10 @@ const getters = {
 };
 
 const actions = {
+    updateEditedProfile(context, newdata){
+        context.commit("updateEditedData", newdata)
+    },
+
     uploadAccountImage(context, obj) {
         accountService.uploadImage(obj).then((resp) => {
                 let imageUrl = resp.data;

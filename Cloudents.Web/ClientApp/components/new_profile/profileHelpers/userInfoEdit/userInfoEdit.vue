@@ -7,7 +7,7 @@
                 <span v-language:inner>profile_edit_user_profile_title</span>
             </v-flex>
         </v-layout>
-        <v-layout class="px-3 mt-2 prev-grow"  row wrap>
+        <v-layout class="px-3 mt-4 prev-grow"  row wrap>
             <v-flex xs12 sm6 md6  :class="{'pr-2' : $vuetify.breakpoint.smAndUp}">
                 <v-layout column>
                     <v-flex xs12 sm6 md6 class="mb-2 pl-2">
@@ -31,6 +31,7 @@
             </v-flex>
             <v-flex>
                 <v-textarea
+                        rows="2"
                         outline
                         v-model="userDescription"
                         name="input-about"
@@ -56,7 +57,7 @@
 
 <script>
     import accountService from '../../../../services/accountService';
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
 
     export default {
@@ -103,6 +104,7 @@
             }
         },
         methods: {
+            ...mapActions(['updateEditedProfile']),
             saveChanges() {
                 if(this.$refs.form.validate()) {
                     let editsData = {
@@ -110,6 +112,7 @@
                         description: this.editedDescription || this.userDescription
                     };
                     accountService.saveUserInfo(editsData).then((success) => {
+                        this.updateEditedProfile(editsData);
                         this.closeDialog()
                     })
                 }

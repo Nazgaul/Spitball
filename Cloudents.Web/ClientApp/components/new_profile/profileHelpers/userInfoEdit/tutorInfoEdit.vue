@@ -7,7 +7,7 @@
                 <span v-language:inner>profile_edit_tutor_title</span>
             </v-flex>
         </v-layout>
-        <v-layout class="px-3 mt-2" row wrap>
+        <v-layout class="px-3 mt-3" row wrap>
             <v-flex xs12 sm4 md4 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
                 <v-layout column>
                     <v-flex xs12 sm6 md6 class="pl-2 mb-2">
@@ -63,6 +63,7 @@
             </v-flex>
             <v-flex>
                 <v-textarea
+                        rows="2"
                         outline
                         v-model="description"
                         name="input-about"
@@ -73,6 +74,7 @@
         <v-layout class="px-3">
             <v-flex>
                 <v-textarea
+                        rows="5"
                         outline
                         v-model="bio"
                         name="input-bio"
@@ -98,7 +100,7 @@
 
 <script>
     import accountService from '../../../../services/accountService';
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
 
     export default {
@@ -135,7 +137,6 @@
                     return this.getProfile.about.bio
                 },
                 set(newVal) {
-                    console.log('new val::', newVal)
                     this.editedBio = newVal;
                 }
             },
@@ -144,7 +145,6 @@
                     return this.getProfile.user.name
                 },
                 set(newVal) {
-                    console.log('new val::', newVal)
                     this.editedFirstName = newVal;
                 }
             },
@@ -169,6 +169,7 @@
             }
         },
         methods: {
+            ...mapActions(['updateEditedProfile']),
             saveChanges() {
                 if(this.$refs.form.validate()){
                     let editsData ={
@@ -179,6 +180,8 @@
                     };
                     accountService.saveTutorInfo(editsData)
                         .then((success) => {
+                            //update profile store
+                            this.updateEditedProfile(editsData);
                             this.closeDialog()
                         })
                 }
