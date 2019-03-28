@@ -10,7 +10,7 @@
                     <div class="doc-details">
                         <div class="author">
                             <div>
-                              <user-avatar class="avatar-circle width24 mr-2" :user-name="uploaderName" :user-id="uploaderID"/>
+                              <user-avatar class="avatar-circle width24 mr-2" :userImageUrl="userImageUrl" :user-name="uploaderName" :user-id="uploaderID"/>
                             </div>
                             <user-rank class="mr-2"
                                        :score="uploaderScore"></user-rank>
@@ -203,7 +203,6 @@
                 } else {
                     this.updateLoginDialogState(true);
                 }
-
             },
             purchaseDocument() {
                 let item = this.item;
@@ -253,6 +252,12 @@
                 }else{
                     return 0
                 }
+            },
+            userImageUrl(){
+                if(this.item && this.item.user && this.item.user.image.length > 1){
+                    return `${this.item.user.image}`
+                }
+                return ''
             },
             uploadDate() {
                 if (this.item && this.item.date) {

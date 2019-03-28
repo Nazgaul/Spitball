@@ -1,13 +1,18 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Extensions;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Models;
 
 
 namespace Cloudents.Web.Api
@@ -19,11 +24,14 @@ namespace Cloudents.Web.Api
         private readonly IQueueProvider _queueProvider;
         private readonly IVideoProvider _videoProvider;
         private readonly IGoogleDocument _googleDocument;
-        public TutoringController(IQueueProvider queueProvider, IVideoProvider videoProvider, IGoogleDocument googleDocument)
+        private readonly ICommandBus _commandBus;
+
+        public TutoringController(IQueueProvider queueProvider, IVideoProvider videoProvider, IGoogleDocument googleDocument, ICommandBus commandBus)
         {
             _queueProvider = queueProvider;
             _videoProvider = videoProvider;
             _googleDocument = googleDocument;
+            _commandBus = commandBus;
         }
 
 
@@ -63,7 +71,7 @@ namespace Cloudents.Web.Api
         {
             var fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName());
             await blobProvider
-                .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, false, 60 * 24, token);
+                .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
             var uri = blobProvider.GetBlobUrl(fileName);
             var link = blobProvider.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
@@ -83,6 +91,17 @@ namespace Cloudents.Web.Api
             {
                 link = url
             });
+        }
+
+        [HttpPost("review")]
+        public async Task<IActionResult> CreateReview([FromBody] ReviewRequest model,
+            [FromServices] UserManager<RegularUser> _userManager,
+            CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, user);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
     }
 }

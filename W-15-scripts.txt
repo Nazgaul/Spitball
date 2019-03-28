@@ -1,45 +1,7 @@
-﻿--we can remove the bing custom search api key from azure
-Need to run update version in console app
-Need to update azure functions v2
-Need to update functions
+﻿ALTER TABLE [sb].[User] DROP CONSTRAINT [AK_uniqueName]
+need to create spitball-user container with public access
 
 
 
---need to do when we transfer to new scoring system.
-need to run in case we want to change the Score system to transactions count
-first run the first update statement until all records have been updated and 
-then run the second update for all tire1 users
-begin tran
-update top(10000) U
-set Score = (select count(1) 
-			from sb.[Transaction] 
-			where TransactionType in ('Question', 'Document') 
-				and Price > 0 
-				and [Type] = 'Earned'
-				and U.Id = [User_Id]
-			)
-from sb.[User] U 
-where Score != (select count(1) 
-			from sb.[Transaction] 
-			where TransactionType in ('Question', 'Document') 
-				and Price > 0 
-				and [Type] = 'Earned'
-				and U.Id = [User_Id]
-			)
 
 
-begin tran
-update top(5000) U
-set Score = Score + 2
-from sb.[User] U 
-where U.Country in ('US', 'CA', 'AU' , 'GB', 'IE', 'IL', 'NZ', 'MX', 'SE' , 'NO', 'DK', 'FI', 'NL', 'BE','LU','DE','CH','AT','ZA')
-and Score != 2 + (select count(1) 
-			from sb.[Transaction] 
-			where TransactionType in ('Question', 'Document') 
-				and Price > 0 
-				and [Type] = 'Earned'
-				and U.Id = [User_Id]
-			)
-commit
-rollback
-set CourseId2 = (select id from sb.Course2 C where Q.CourseId = C.Name)

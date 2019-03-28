@@ -19,55 +19,6 @@ namespace Cloudents.Query
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
     public class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
     {
-        //private class QuestionFlatDto
-        //{
-        //    [DtoToEntityConnection(nameof(Question.User.Id))]
-        //    public long UserId { get; private set; }
-        //    [DtoToEntityConnection(nameof(Question.User.Name))]
-        //    public string UserName { get; set; }
-        //    [DtoToEntityConnection(nameof(Question.User.Score))]
-        //    public int UserScore { get; set; }
-        //    [DtoToEntityConnection(nameof(Question.Id))]
-        //    public long Id { get; set; }
-        //    [DtoToEntityConnection(nameof(Question.Text))]
-        //    public string Text { get; set; }
-        //    [DtoToEntityConnection(nameof(Question.Price))]
-        //    public decimal Price { get; set; }
-        //    [DtoToEntityConnection(nameof(Question.Updated))]
-        //    public DateTime Create { get; set; }
-        //    [DtoToEntityConnection(nameof(Question.CorrectAnswer.Id))]
-        //    public Guid? CorrectAnswerId { get; set; }
-        //    [DtoToEntityConnection(nameof(Question.Subject))]
-        //    public QuestionSubject? Subject { get; set; }
-        //    [DtoToEntityConnection(nameof(Question.Language))]
-        //    public CultureInfo Language { get; set; }
-        //    [DtoToEntityConnection(nameof(Question.VoteCount))]
-        //    public int Votes { get; set; }
-        //    [DtoToEntityConnection(nameof(Question.Course))]
-        //    public string Course { get; set; }
-        //}
-
-        //private class AnswerFlatDto
-        //{
-        //    [DtoToEntityConnection(nameof(Answer.Id))]
-        //    public Guid Id { get; set; }
-        //    [DtoToEntityConnection(nameof(Answer.Text))]
-        //    public string Text { get; set; }
-        //    [DtoToEntityConnection(nameof(Answer.User.Id))]
-        //    public long UserId { get; set; }
-        //    [DtoToEntityConnection(nameof(Answer.User.Name))]
-        //    public string UserName { get; set; }
-        //    [DtoToEntityConnection(nameof(Answer.User.Score))]
-        //    public int UserScore { get; set; }
-        //    [DtoToEntityConnection(nameof(Answer.Created))]
-        //    public DateTime Created { get; set; }
-        //    [DtoToEntityConnection(nameof(Answer.VoteCount))]
-        //    public int VoteCount { get; set; }
-        //    [DtoToEntityConnection(nameof(Answer.Language))]
-        //    public CultureInfo Language { get; set; }
-        //}
-
-
         private readonly IQuestionsDirectoryBlobProvider _blobProvider;
         private readonly IStatelessSession _session;
 
@@ -82,7 +33,6 @@ namespace Cloudents.Query
         private async Task<QuestionDetailDto> GetFromDbAsync(long id, CancellationToken token)
         {
 
-            //TODO: this is left join query need to fix that
             var questionFuture = _session.Query<Question>()
                 .Where(w => w.Id == id && w.Status.State == ItemState.Ok)
                 .Fetch(f => f.User)
@@ -107,7 +57,6 @@ namespace Cloudents.Query
                     CorrectAnswerId = s.CorrectAnswer.Id,
                     Create = s.Updated,
                     IsRtl = SetIsRtl(s.Language),
-                    //IsRtl = (s.Language != null) && s.Language.TextInfo.IsRightToLeft
 
                 }
                
@@ -115,9 +64,6 @@ namespace Cloudents.Query
             var answersFuture = _session.Query<Answer>()
                 .Where(w => w.Question.Id == id && w.Status.State == ItemState.Ok)
                 .Fetch(f => f.User)
-
-                //.ThenByDescending(x => x.Item.VoteCount)
-                //.ThenBy(x=>x.Id)
                 .Select(s => new QuestionDetailAnswerDto
                 (
                     s.Id,
@@ -154,78 +100,10 @@ namespace Cloudents.Query
 
             return dto;
 
-            //var questionDetailResult = await _dapper.WithConnectionAsync(async connection =>
-            //{
-            //    using (var grid = connection.QueryMultiple(@"
-            //            select U.Id as UserId, U.Name as UserName, U.Score as UserScore, 
-            //                    Q.Id, Q.Text,  Q.Price, 
-	           //                 Q.Updated as 'Create', Q.CorrectAnswer_id as CorrectAnswerId, 
-            //                    Q.Subject_id as Subject, 
-	           //                 Q.Language, Q.VoteCount as Votes, 
-	           //                 C.Name as Course
-            //                from sb.Question Q
-            //                join sb.[user] U
-	           //                 on Q.UserId = U.Id
-            //                left join sb.Course2 C
-	           //                 on Q.CourseId2 = C.Id
-            //                where Q.Id = @id and Q.State = 'ok';
-
-            //                select A.Id, A.Text, U.Id as UserId, U.Name as UserName, 
-            //                U.Score as UserScore, A.Created, A.VoteCount, A.Language
-            //                from sb.Answer A
-            //                join sb.[user] U
-	           //                 on A.UserId = U.Id
-            //                where A.State = 'ok' and A.QuestionId = @id;", new { id }))
-            //    {
-
-
-
-            //        var res = await grid.ReadSingleOrDefaultAsync<QuestionFlatDto>();
-            //        if (res == null)
-            //        {
-            //            return null;
-            //        }
-
-            //        var questionDetailDto = new QuestionDetailDto
-            //        {
-            //            User = new UserDto { Id = res.UserId, Name = res.UserName, Score = res.UserScore },
-            //            Course = res.Course,
-            //            Vote = new VoteDto { Votes = res.Votes },
-            //            Price = res.Price,
-            //            Id = res.Id,
-            //            Subject = res.Subject,
-            //            CorrectAnswerId = res.CorrectAnswerId,
-            //            Create = res.Create,
-            //            Text = res.Text,
-            //            IsRtl = res.Language?.TextInfo.IsRightToLeft ?? false
-            //        };
-
-            //        var answers = await grid.ReadAsync<AnswerFlatDto>();
-
-            //        questionDetailDto.Answers = answers
-            //            .OrderByDescending(x => x.Id == questionDetailDto.CorrectAnswerId)
-            //            .ThenByDescending(x => x.VoteCount).ThenBy(x => x.Created).Select(a =>
-            //                new QuestionDetailAnswerDto
-            //                {
-            //                    User = new UserDto { Id = a.UserId, Name = a.UserName, Score = a.UserScore },
-            //                    Id = a.Id,
-            //                    Vote = new VoteDto { Votes = a.VoteCount },
-            //                    Text = a.Text,
-            //                    Create = a.Created,
-            //                    IsRtl = a.Language?.TextInfo.IsRightToLeft ?? false
-            //                });
-
-
-            //        return questionDetailDto;
-            //    }
-            //}, token);
-
-            //return questionDetailResult;
-
 
         }
 
-        private bool SetIsRtl(CultureInfo info)
+        private static bool SetIsRtl(CultureInfo info)
         {
             return info?.TextInfo.IsRightToLeft ?? false;
         }

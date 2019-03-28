@@ -29,7 +29,7 @@
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
-                                                         :user-name="accountUser.name"/>
+                                                         :userImageUrl="userImageUrl"   :user-name="accountUser.name"/>
 
                                             <menu-list :isAuthUser="loggedIn"
                                                        v-if=!$vuetify.breakpoint.xsOnly></menu-list>
@@ -137,6 +137,13 @@
                 'showMobileFeed',
                 'getTotalUnread'
             ]),
+            userImageUrl(){
+                if(this.accountUser.image.length > 1){
+                    return `${this.accountUser.image}`
+                }
+                return ''
+
+            },
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },

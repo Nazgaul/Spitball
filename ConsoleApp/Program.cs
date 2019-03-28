@@ -23,9 +23,11 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -136,9 +138,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var b = _container.Resolve<IQueryBus>();
-            var query = new ChatConversationByIdQuery(Guid.Parse("5FFE88E7-C704-4843-B132-AA1600D5014F"), 0);
-            var z = await b.QueryAsync(query, default);
+            var unitOfWork = _container.Resolve<IUnitOfWork>();
+            var userRepository = _container.Resolve<IRegularUserRepository>();
+            var me = await userRepository.LoadAsync(160336L, default);
+         
+            await userRepository.UpdateAsync(me, default);
+            await unitOfWork.CommitAsync(default);
             Console.WriteLine("done");
         }
 

@@ -29,17 +29,14 @@ namespace Cloudents.Web.Api
     public class UploadController : Controller
     {
         private readonly IQuestionsDirectoryBlobProvider _blobProvider;
-        //private readonly IDocumentDirectoryBlobProvider _documentBlobProvider;
         private readonly IStringLocalizer<UploadController> _localizer;
 
 
 
         public UploadController(IQuestionsDirectoryBlobProvider blobProvider,
-            // IDocumentDirectoryBlobProvider documentBlobProvider, 
             IStringLocalizer<UploadController> localizer)
         {
             _blobProvider = blobProvider;
-            // _documentBlobProvider = documentBlobProvider;
             _localizer = localizer;
         }
 
@@ -73,7 +70,7 @@ namespace Cloudents.Web.Api
                     //Image.FromStream(sr);
                     var fileName = $"{userId}.{Guid.NewGuid()}.{formFile.FileName}";
                     await _blobProvider
-                        .UploadStreamAsync(fileName, sr, formFile.ContentType, false, 60 * 24, token);
+                        .UploadStreamAsync(fileName, sr, formFile.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
                     fileNames.Add(fileName);
                 }
