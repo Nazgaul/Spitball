@@ -20,7 +20,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 14px 42px 14px 34px;
+            /*padding: 14px 42px 14px 34px;*/
+            padding: 14px 60px 14px 50px;
             background-color: #ffca54;
             height: 48px;
             border-radius: 24px;
