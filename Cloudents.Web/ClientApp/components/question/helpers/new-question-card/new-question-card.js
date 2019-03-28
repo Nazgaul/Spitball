@@ -52,6 +52,12 @@ export default {
         }
     },
     computed: {
+        userImageUrl(){
+            if( this.cardData && this.cardData.user &&  this.cardData.user.image && this.cardData.user.image.length > 1){
+                return `${this.cardData.user.image}`
+            }
+            return ''
+        },
         lineClampValue(){
            if(this.detailedView && !this.suggestion){
                return 0

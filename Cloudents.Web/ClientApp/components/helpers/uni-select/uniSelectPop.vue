@@ -36,7 +36,7 @@ export default {
             // this.changeSelectUniState(true);
             this.$router.push({
                         name:'uniselect',
-                    })
+                    });
             this.closePopup();
         }
     }

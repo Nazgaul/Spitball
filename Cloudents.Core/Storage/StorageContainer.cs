@@ -1,9 +1,12 @@
 ﻿
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Cloudents.Core.Storage
 {
+    [Serializable]
     public sealed class StorageContainer : IEquatable<StorageContainer>
     {
 
@@ -23,8 +26,9 @@ namespace Cloudents.Core.Storage
         public string RelativePath { get; }
 
         public static readonly StorageContainer QuestionsAndAnswers = new StorageContainer("spitball-files","question");
-        public static readonly StorageContainer Chat = new StorageContainer("spitball-files","chat");
+        public static readonly StorageContainer Chat = new StorageContainer("spitball-user","chat");
         public static readonly StorageContainer File = new StorageContainer("spitball-files","files");
+        public static readonly StorageContainer User = new StorageContainer("spitball-user","profile");
 
         public static FieldInfo[] GetAllValues()
         {

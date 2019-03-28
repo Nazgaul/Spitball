@@ -1,10 +1,11 @@
-﻿namespace Cloudents.Core.Interfaces
+﻿using System.IO;
+
+namespace Cloudents.Core.Interfaces
 {
     public interface IEvent
     {
 
     }
-
 
     public interface IBinarySerializer
     {

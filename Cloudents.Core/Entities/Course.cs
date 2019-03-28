@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
@@ -14,7 +16,7 @@ namespace Cloudents.Core.Entities
         public const int MaxLength = 150;
         protected Course()
         {
-
+            Tutors = new List<TutorsCourses>();
         }
 
         public Course(string name)
@@ -28,6 +30,8 @@ namespace Cloudents.Core.Entities
             State = ItemState.Pending;
 
             Created = DateTime.UtcNow;
+
+            Tutors = new List<TutorsCourses>();
         }
 
         protected bool Equals(Course other)
@@ -84,6 +88,9 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyList<Question> Questions => _questions.ToList();
 
 
+        protected internal virtual IList<TutorsCourses> Tutors { get; set; }
+        
+  
         public virtual ItemState State { get; protected set; }
     }
 }

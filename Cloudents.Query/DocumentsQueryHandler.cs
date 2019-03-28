@@ -35,7 +35,8 @@ namespace Cloudents.Query
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Score = s.User.Score
+                        Score = s.User.Score,
+                        Image = s.User.Image
                     },
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Name,

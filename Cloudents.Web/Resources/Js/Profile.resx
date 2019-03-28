@@ -147,4 +147,112 @@
   <data name="purchased_documents" xml:space="preserve">
     <value>Purchased Documents</value>
   </data>
+  <data name="about" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="become_tutor_btn" xml:space="preserve">
+    <value>Become a tutor</value>
+  </data>
+  <data name="courses_can_help" xml:space="preserve">
+    <value>Courses I Can Help You With</value>
+  </data>
+  <data name="courses_empty_btn" xml:space="preserve">
+    <value>Select my courses</value>
+  </data>
+  <data name="courses_empty_select_courses" xml:space="preserve">
+    <value>Selecting your courses will help  you get personilised study materials and tutors</value>
+  </data>
+  <data name="courses_empty_state_title" xml:space="preserve">
+    <value>My Courses</value>
+  </data>
+  <data name="cta_section_title" xml:space="preserve">
+    <value>Become an achiever in no time!</value>
+  </data>
+  <data name="edit_image_text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="expand_less" xml:space="preserve">
+    <value>Show Less</value>
+  </data>
+  <data name="expand_more_courses" xml:space="preserve">
+    <value>More Courses</value>
+  </data>
+  <data name="hey_there" xml:space="preserve">
+    <value>Hey there, I’m</value>
+  </data>
+  <data name="points_hour" xml:space="preserve">
+    <value>hour</value>
+  </data>
+  <data name="read_more" xml:space="preserve">
+    <value>Read More ...</value>
+  </data>
+  <data name="reviews" xml:space="preserve">
+    <value>Reviews</value>
+  </data>
+  <data name="subjects" xml:space="preserve">
+    <value>Subjects</value>
+  </data>
+  <data name="tutor_contact_btn" xml:space="preserve">
+    <value>Contact me</value>
+  </data>
+  <data name="tutor_sidebar_title" xml:space="preserve">
+    <value>Let me know what you need and i”ll be happy to help</value>
+  </data>
+  <data name="user_online_status_offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="user_online_status_online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="user_sidebar_text" xml:space="preserve">
+    <value>Help others with what you know best</value>
+  </data>
+  <data name="user_sidebar_title" xml:space="preserve">
+    <value>Earn</value>
+  </data>
+  <data name="who_am_i" xml:space="preserve">
+    <value>Who am I?</value>
+  </data>
+  <data name="aboutme" xml:space="preserve">
+    <value>About me</value>
+  </data>
+  <data name="bio_label" xml:space="preserve">
+    <value>Bio</value>
+  </data>
+  <data name="btn_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="btn_save_changes" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="contact_to_edit" xml:space="preserve">
+    <value>Contact us to edit price</value>
+  </data>
+  <data name="description_label" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="edit_tutor_title" xml:space="preserve">
+    <value>Edit your Tutor profile</value>
+  </data>
+  <data name="edit_user_profile_title" xml:space="preserve">
+    <value>Edit your profile</value>
+  </data>
+  <data name="firstName_label" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="lastName_label" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="personal_details" xml:space="preserve">
+    <value>Personal details</value>
+  </data>
+  <data name="price_label" xml:space="preserve">
+    <value>Price per Hour</value>
+  </data>
+  <data name="pricing" xml:space="preserve">
+    <value>Pricing</value>
+  </data>
+  <data name="user_name_label" xml:space="preserve">
+    <value>Username</value>
+  </data>
 </root>

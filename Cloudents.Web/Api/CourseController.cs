@@ -67,5 +67,16 @@ namespace Cloudents.Web.Api
             await _signInManager.RefreshSignInAsync(user);
             return Ok();
         }
+
+        [HttpPost("tutor")]
+        public async Task<IActionResult> SetTutorCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new AssignCoursesToTutorCommand(model.Select(s => s.Name), userId);
+            await _commandBus.DispatchAsync(command, token);
+            var user = await _userManager.GetUserAsync(User);
+            await _signInManager.RefreshSignInAsync(user);
+            return Ok();
+        }
     }
 }

@@ -11,14 +11,13 @@ namespace Cloudents.Persistence.Maps
             DynamicUpdate();
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
             Map(e => e.Email)/*.Not.Nullable()*/.Unique();
-            Map(e => e.Name).Not.Nullable().Unique();
+            Map(e => e.Name).Not.Nullable();
             Map(e => e.EmailConfirmed);
             
             Map(e => e.NormalizedName);
             Map(e => e.NormalizedEmail);
             Map(e => e.SecurityStamp);
-            Map(e => e.Image).Nullable();
-            Map(e => e.TwoFactorEnabled);
+            Map(e => e.Image).Length(5000).Nullable();
             Map(e => e.AuthenticatorKey);
            // Map(e => e.Culture);
 
@@ -39,10 +38,12 @@ namespace Cloudents.Persistence.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
+            
+
             Map(x => x.Score).ReadOnly();
             //Table("User]"); //if not there is sql error
             
-            SchemaAction.Update();
+            SchemaAction.None();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
@@ -73,6 +74,8 @@ namespace Cloudents.Persistence.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
+            Map(e => e.TwoFactorEnabled);
+
             Component(x => x.Transactions, y =>
             {
                 y.Map(x => x.Score);
@@ -88,6 +91,10 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Online);
             Map(x => x.LastOnline);
 
+            //Map(x => x.FirstName);
+            Map(x => x.LastName);
+            Map(x => x.Description);
+
             HasManyToMany(x => x.Courses)
                 .ParentKeyColumn("UserId")
                 .ChildKeyColumn("CourseId")
@@ -102,6 +109,12 @@ namespace Cloudents.Persistence.Maps
                 .ForeignKeyConstraintNames("User_Tags", "Tags_User")
                 .Table("UsersTags").AsSet();
 
+
+            HasMany(x => x.UserRoles)
+                .KeyColumn("UserId")
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
         }
     }
 
@@ -111,6 +124,22 @@ namespace Cloudents.Persistence.Maps
         {
 
             DiscriminatorValue(true);
+        }
+    }
+
+
+
+    public class UserRoleMap : ClassMap<UserRole>
+
+    {
+        public UserRoleMap()
+        {
+            
+            Id(x => x.Id).GeneratedBy.GuidComb();
+            References(x => x.User).Not.Nullable().Column("UserId");
+            Table("UserType");
+
+
         }
     }
 }

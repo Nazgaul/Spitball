@@ -24,7 +24,7 @@ namespace Cloudents.Persistence.Maps
             //    .ReadOnly()
             //    .Access.CamelCaseField(Prefix.Underscore).Cascade.None();
             Map(x => x.State).Not.Nullable();
-            SchemaAction.Update();
+            SchemaAction.None();
 
         }
     }

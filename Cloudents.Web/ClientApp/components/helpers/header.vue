@@ -17,22 +17,26 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
-                               
+                                    <!-- <div class="header-messages" v-if="loggedIn && !isMobile">
+                                        <span @click="openChatWindow" class="header-messages-text" v-language:inner>chat_messages</span>
+                                        <v-icon @click="openChatWindow">sbf-forum-icon</v-icon>
+                                        <span class="unread-circle" v-show="totalUnread > 0">{{totalUnread}}</span>
+                                    </div> -->
                                     <div class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}}</span>
-                                        <!-- <span>${{accountUser.balance | dollarVal}}</span> -->
-                                        <button class="setting-buysbl-button" :class="[{'red': accountUser.balance <= 300}, {'yellow': accountUser.balance > 300 && accountUser.balance <= 700}]" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span>&nbsp;<span><v-icon>sbf-star-icon</v-icon></span></button>     
+                                        <button class="setting-buysbl-button" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span></button>     
+                                        <span class="header-wallet-text">{{accountUser.balance | currencyLocalyFilter}}</span>                                        
                                     </div>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
-                                                         :user-name="accountUser.name"/>
+                                                         :userImageUrl="userImageUrl"   :user-name="accountUser.name"/>
 
                                             <menu-list :isAuthUser="loggedIn"
                                                        v-if=!$vuetify.breakpoint.xsOnly></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
+                                    
 
                                     <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
                                     <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/signin', query:{returnUrl : $route.path} }" v-language:inner>header_login</router-link>
@@ -130,8 +134,16 @@
                 'getShowToaster',
                 'getToasterText',
                 'getShowSelectUniInterface',
-                'showMobileFeed'
+                'showMobileFeed',
+                'getTotalUnread'
             ]),
+            userImageUrl(){
+                if(this.accountUser.image.length > 1){
+                    return `${this.accountUser.image}`
+                }
+                return ''
+
+            },
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
@@ -145,6 +157,9 @@
                     return false;
                 }
                 
+            },
+            totalUnread(){
+                return this.getTotalUnread
             }
             //myMoney(){return this.accountUser.balance / 40}
 
@@ -165,7 +180,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog']),
+            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChat']),
             openNewQuestionDialog(){
                     if(this.accountUser == null){
                         this.updateLoginDialogState(true);
@@ -179,8 +194,9 @@
                         };
                         this.updateNewQuestionDialogState(Obj)
                     }
-
-
+            },
+            openChatWindow(){
+                this.openChat();
             },
             openSblToken(){
                 analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");

@@ -127,7 +127,7 @@ namespace Cloudents.Admin2.Api
                 //Image.FromStream(sr);
                 var fileName = $"admin.{Guid.NewGuid()}.{formFile.FileName}";
                 await blobProvider
-                    .UploadStreamAsync(fileName, sr, formFile.ContentType, false, 60 * 24, token);
+                    .UploadStreamAsync(fileName, sr, formFile.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
                 return new UploadAskFileResponse(fileName);
             }

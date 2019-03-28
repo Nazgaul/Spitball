@@ -30,10 +30,8 @@ namespace Cloudents.Infrastructure
 
 
             builder.RegisterType<PayPalClient>().As<IPayPal>().SingleInstance();
-            //builder.RegisterType<TextAnalysisProvider2>().As<ITextAnalysis>().SingleInstance();
             builder.RegisterType<AzureTextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
-            //builder.RegisterType<TextClassifierAnalysis>().As<ITextClassifier>().SingleInstance();
-            //builder.RegisterType<TextTranslatorProvider>().As<ITextTranslator>().SingleInstance();
+            builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
             builder.RegisterType<SmsProvider>().As<ISmsProvider>().As<IVideoProvider>().SingleInstance();
 

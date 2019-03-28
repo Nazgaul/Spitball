@@ -205,7 +205,7 @@ const connectToRoom = function (token, options) {
                             } else if (Data.type === 'undoData') {
                                 whiteBoardService.undo(parsedData);
                             } else if (Data.type === 'tutoringChatMessage') {
-                                store.dispatch('addMessage', Data);
+                                //store.dispatch('addMessage', Data);
                             } else if (Data.type === 'sharedDocumentLink') {
                                 if (!shareDocUrl) {
                                     store.dispatch('updateSharedDocLink', parsedData)

@@ -33,8 +33,8 @@ namespace Cloudents.Web.Api
         
         public async Task<ActionResult<UserProfileDto>> GetAsync(long id, CancellationToken token)
         {
-            var query = new UserDataByIdQuery(id);
-            var retVal = await _queryBus.QueryAsync<UserProfileDto>(query, token);
+            var query = new UserProfileQuery(id);
+            var retVal = await _queryBus.QueryAsync(query, token);
             if (retVal == null)
             {
                 return NotFound();
@@ -42,8 +42,17 @@ namespace Cloudents.Web.Api
             return retVal;
         }
 
+        [HttpGet("{id:long}/about")]
+        public async Task<UserProfileAboutDto> GetAboutAsync(long id, CancellationToken token)
+        {
+            //var user = _userManager.GetU
+            //_userManager.IsInRoleAsync()
+            var query = new UserProfileAboutQuery(id);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
         // GET
-        [HttpGet("{id}/questions")]
+        [HttpGet("{id:long}/questions")]
         [ProducesResponseType(200)]
 
         public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
@@ -84,7 +93,7 @@ namespace Cloudents.Web.Api
         }
 
         // GET
-        [HttpGet("{id}/answers")]
+        [HttpGet("{id:long}/answers")]
         [ProducesResponseType(200)]
 
         public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
@@ -94,7 +103,7 @@ namespace Cloudents.Web.Api
             return await MergeFeedWithVotes(retValTask, token);
         }
 
-        [HttpGet("{id}/documents")]
+        [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]
 
         public async Task<IEnumerable<DocumentFeedDto>> GetDocumentsAsync(long id, int page, CancellationToken token)
@@ -126,7 +135,7 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpGet("{id}/purchaseDocuments")]
+        [HttpGet("{id:long}/purchaseDocuments")]
         [ProducesResponseType(200)]
 
         public async Task<IEnumerable<DocumentFeedDto>> GetPurchaseDocumentsAsync(long id, int page, CancellationToken token)
@@ -156,5 +165,6 @@ namespace Cloudents.Web.Api
                 return s;
             });
         }
+
     }
 }

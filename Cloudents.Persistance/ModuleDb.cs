@@ -16,6 +16,8 @@ namespace Cloudents.Persistence
             builder.RegisterType<UnitOfWorkFactorySpitball>()
                 .SingleInstance();
 
+            builder.RegisterType<PublishEventsListener>().AsSelf().SingleInstance();
+
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession())
                 .InstancePerLifetimeScope();
 
@@ -23,15 +25,16 @@ namespace Cloudents.Persistence
                 .InstancePerLifetimeScope();
 
 
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerDependency();
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
-                .AsImplementedInterfaces().InstancePerLifetimeScope();
+                .AsImplementedInterfaces().InstancePerDependency();
 
             var assembly = Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf()
-                .AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>))
+                .AsSelf()
+                .AsImplementedInterfaces().InstancePerDependency();
 
-            builder.RegisterType<QuerySession>().InstancePerLifetimeScope();
+            builder.RegisterType<QuerySession>().InstancePerDependency();
 
             base.Load(builder);
         }
