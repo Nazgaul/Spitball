@@ -3,9 +3,9 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    public class TutorRoleMap : ClassMap<Tutor>
+    public class TutorMap : ClassMap<Tutor>
     {
-        public TutorRoleMap()
+        public TutorMap()
         {
             Id(x => x.UserId).GeneratedBy.Assigned();
             Map(x => x.Bio).Length(1000);

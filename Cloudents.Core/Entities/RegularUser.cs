@@ -182,41 +182,41 @@ namespace Cloudents.Core.Entities
     }
 
 
-    public abstract class UserRole : IEquatable<UserRole>
-    {
-        public UserRole(RegularUser user)
-        {
-            User = user;
-        }
-        protected UserRole()
-        {
+    //public abstract class UserRole : IEquatable<UserRole>
+    //{
+    //    public UserRole(RegularUser user)
+    //    {
+    //        User = user;
+    //    }
+    //    protected UserRole()
+    //    {
 
-        }
-        public virtual Guid Id { get; set; }
-        public virtual RegularUser User { get; set; }
+    //    }
+    //    public virtual Guid Id { get; set; }
+    //    public virtual RegularUser User { get; set; }
 
-        public abstract string Name { get; }
+    //    public abstract string Name { get; }
 
-        public virtual bool Equals(UserRole other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Equals(User, other.User);
-        }
+    //    public virtual bool Equals(UserRole other)
+    //    {
+    //        if (ReferenceEquals(null, other)) return false;
+    //        if (ReferenceEquals(this, other)) return true;
+    //        return Equals(User, other.User);
+    //    }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((UserRole)obj);
-        }
+    //    public override bool Equals(object obj)
+    //    {
+    //        if (ReferenceEquals(null, obj)) return false;
+    //        if (ReferenceEquals(this, obj)) return true;
+    //        if (obj.GetType() != GetType()) return false;
+    //        return Equals((UserRole)obj);
+    //    }
 
-        public override int GetHashCode()
-        {
-            return (User != null ? User.GetHashCode() : 0);
-        }
+    //    public override int GetHashCode()
+    //    {
+    //        return (User != null ? User.GetHashCode() : 0);
+    //    }
 
 
-    }
+    //}
 }

@@ -135,17 +135,17 @@ namespace Cloudents.Persistence.Maps
 
 
 
-    public class UserRoleMap : ClassMap<UserRole>
+    //public class UserRoleMap : ClassMap<UserRole>
 
-    {
-        public UserRoleMap()
-        {
+    //{
+    //    public UserRoleMap()
+    //    {
             
-            Id(x => x.Id).GeneratedBy.GuidComb();
-            References(x => x.User).Not.Nullable().Column("UserId");
-            Table("UserType");
+    //        Id(x => x.Id).GeneratedBy.GuidComb();
+    //        References(x => x.User).Not.Nullable().Column("UserId");
+    //        Table("UserType");
 
 
-        }
-    }
+    //    }
+    //}
 }
