@@ -34,7 +34,7 @@ namespace Cloudents.Command.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            var course = await _courseRepository.GetByNameAsync(message.Course, token);
+            var course = await _courseRepository.LoadAsync(message.Course, token);
 
             var tags = new List<Tag>();
 
