@@ -10,8 +10,8 @@ namespace Cloudents.Persistence.Maps
             //CompositeId()
            //.KeyReference(x => x.User, "UserId");
             Id(x => x.UserId).GeneratedBy.Assigned();
-            Map(x => x.Bio).Length(1000);
-            Map(x => x.Price).CustomSqlType("smallMoney");
+            Map(x => x.Bio).Not.Nullable().Length(1000);
+            Map(x => x.Price).Not.Nullable().CustomSqlType("smallMoney");
            /* HasMany(x => x.Courses)
               .Table("TutorsCourses")
               .KeyColumn("TutorId")              
