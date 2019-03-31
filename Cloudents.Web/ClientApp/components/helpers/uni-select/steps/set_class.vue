@@ -3,37 +3,56 @@
         <div class="title-container">
             <div class="first-container">
                 <div>
-                    <v-icon @click="lastStep()" :class="{'rtl': isRtl}">sbf-arrow-back</v-icon>
+                    <v-icon @click="lastStep()" class="course-back-btn" :class="{'rtl': isRtl}">sbf-arrow-back</v-icon>
+                    <div class="select-class-string font-weight-bold d-inline">
+                        <span  v-language:inner>uniSelect_select_class</span>
+                        <span>({{quantatySelected}})</span>
+                    </div>
                 </div>
                 <div>
-                    <a class="next-container" @click="nextStep()" v-language:inner>uniSelect_done</a>
+                    <a class="next-container py-2 px-3 font-weight-bold" @click="nextStep()" v-language:inner>uniSelect_done</a>
                 </div>
             </div>
-            <div class="select-class-string">
-                <span v-language:inner>uniSelect_select_class</span>
-            </div>
+
         </div>
         <div class="explain-container">
             <span v-language:inner>uniSelect_from</span>
             {{schoolName}}
         </div>
         <div class="select-school-container">
-            <v-text-field id="classes_input"
-                          v-model="search"
-                          class="class-input"
-                          solo
-                          prepend-inner-icon="sbf-search"
-                          :placeholder="classNamePlaceholder"
-                          autocomplete="off"
-                          autofocus
-                          spellcheck="true"
-                          hide-details
+            <div>
+                <v-text-field id="classes_input"
+                              v-model="search"
+                              class="class-input"
+                              solo
+                              prepend-inner-icon="sbf-search"
+                              :placeholder="classNamePlaceholder"
+                              autocomplete="off"
+                              autofocus
+                              spellcheck="true"
+                              hide-details
 
-            ></v-text-field>
-            <div v-if="showBox" class="search-classes-container">
-                <div class="select-heading">
-                    <span>Select from the list</span>
+                ></v-text-field>
+                <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
+                    <!--<div class="select-heading">-->
+                        <!--<span>Your Selected Courses ({{quantatySelected}})</span>-->
+                    <!--</div>-->
+                    <div  class="class-list selected-classes-list py-3 px-3">
+                        <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
+                             v-for="selectedClass in selectedClasses">
+                            <span class="text-truncate">{{selectedClass.text}}</span>
+                            <span class="delete-class cursor-pointer pr-3" @click="deleteClass(selectedClass, selectedClasses)">
+                        <v-icon color="white">sbf-close</v-icon>
+                    </span>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div v-if="showBox" class="search-classes-container">
+                <!--<div class="select-heading">-->
+                    <!--<span>Select from the list</span>-->
+                <!--</div>-->
                 <ul class="class-list search-classes-list">
                     <li class="list-item search-class-item cursor-pointer" v-if="!hideIfChoosen"
                         v-for="singleClass in classes"
@@ -45,20 +64,6 @@
                     </li>
                 </ul>
             </div>
-          <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
-              <div class="select-heading">
-                <span>Your Selected Courses ({{quantatySelected}})</span>
-              </div>
-              <ul  class="class-list selected-classes-list">
-                  <li class="list-item selected-class-item" v-for="selectedClass in selectedClasses">
-                      {{selectedClass.text}}
-                      <span class="delete-class cursor-pointer" @click="deleteClass(selectedClass, selectedClasses)">
-                        <v-icon>sbf-close</v-icon>
-                    </span>
-                  </li>
-              </ul>
-          </div>
-
         </div>
     </div>
 </template>
@@ -223,6 +228,7 @@
         margin-top: 2px;
     }
     .selected-classes-container{
+
         &.spaceTop{
             margin-top: 2px;
         }
@@ -248,11 +254,31 @@
         overflow-y: scroll;
         padding-left: 0;
         &.selected-classes-list{
+            overflow: auto;
+            white-space: nowrap;
             box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
             background-color: #f7f7f7;
         }
     }
-
+    //new
+    .selected-class-item{
+        max-width: 300px;
+        height: 30px;
+        border-radius: 16px;
+        background-color: @purpleLight;
+        color: lighten(@color-white, 87%);
+        font-size: 12px;
+        text-decoration: none;
+    }
+    .select-class-string{
+          color: @color-blue-new;
+          font-size: 18px;
+    }
+    .course-back-btn{
+        color: @color-black;
+        opacity: 0.54;
+    }
+    //end new
     .list-item{
         align-items: center;
         justify-content: space-between;

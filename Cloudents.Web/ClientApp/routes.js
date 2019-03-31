@@ -172,7 +172,8 @@ let routes2 = [
         name: "uniselect",
         components: {
             default: university,
-            header: pageHeader
+            header: pageHeader,
+            schoolBlock: schoolBlock,
         },
         props:{
             default: (route)=>({
