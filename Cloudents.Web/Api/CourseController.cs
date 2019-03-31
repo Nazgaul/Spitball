@@ -46,7 +46,9 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { nameof(CourseRequest.Term) })]
+        [ResponseCache(Duration = TimeConst.Hour,
+            Location = ResponseCacheLocation.Any,
+            VaryByQueryKeys = new[] { nameof(CourseRequest.Term) })]
         public async Task<CoursesResponse> GetAsync([FromQuery]CourseRequest model,
             CancellationToken token)
         {
