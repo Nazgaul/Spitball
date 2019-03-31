@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
@@ -40,7 +41,7 @@ namespace Cloudents.Persistence.Maps
 
             // HasMany(x => x.Questions).Cascade.None();
             // HasMany(x => x.Users).Cascade.None();
-            Map(x => x.State);
+            Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             SchemaAction.None();
         }
     }
