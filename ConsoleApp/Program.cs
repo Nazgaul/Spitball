@@ -135,9 +135,12 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             var unitOfWork = _container.Resolve<IUnitOfWork>();
-
             var c = _container.Resolve<ICommandBus>();
-            var command = new AssignCoursesToUserCommand(new []{ "0506.1" }, 638);
+            //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
+           // await c.DispatchAsync(command2, default);
+
+            var command = new AddTutorReviewCommand("this is a great review of myself", 5, 638, 638);
+            
             await c.DispatchAsync(command, default);
             //var userRepository = _container.Resolve<IRegularUserRepository>();
             //var me = await userRepository.LoadAsync(160336L, default);

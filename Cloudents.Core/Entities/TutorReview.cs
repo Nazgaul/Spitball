@@ -5,7 +5,7 @@ namespace Cloudents.Core.Entities
 {
     public class TutorReview : Entity<Guid>
     {
-        public TutorReview(string review, float rate, RegularUser user, RegularUser tutor)
+        internal TutorReview(string review, float rate, RegularUser user, Tutor tutor)
         {
             Review = review;
             Rate = rate;
@@ -26,6 +26,6 @@ namespace Cloudents.Core.Entities
                 
         public virtual RegularUser User { get; protected set; }
                 
-        public virtual RegularUser Tutor { get; set; }
+        public virtual Tutor Tutor { get; protected set; }
     }
 }
