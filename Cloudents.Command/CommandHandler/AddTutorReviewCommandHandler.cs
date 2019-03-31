@@ -20,11 +20,12 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(AddTutorReviewCommand message, CancellationToken token)
         {
-            var user = await _regularUserRepository.GetAsync(message.Tutor, token);
+            var user = await _regularUserRepository.GetAsync(message.User, token);
+            var tutor = await _regularUserRepository.GetAsync(message.Tutor, token);
             //Tutor tutor = (Tutor)user.UserRoles.FirstOrDefault(f => f is Tutor);
             if (user.Tutor != null)
             {
-                var review = new TutorReview(message.Review, message.Rate, message.User, user);
+                var review = new TutorReview(message.Review, message.Rate, user, tutor);
                 await _repository.AddAsync(review, token);
             }
         }

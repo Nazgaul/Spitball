@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Admin2.Api
 {
@@ -97,19 +98,12 @@ namespace Cloudents.Admin2.Api
             };
         }
 
-        /*[HttpGet("newCourses")]
-        public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses(CancellationToken token)
-        {
-            var query = new AdminEmptyQuery();
-            var retVal = await _queryBus.QueryAsync<IList<PendingCoursesDto>>(query, token);
-            return retVal;
-        }*/
-
         [HttpGet("newCourses")]
-        public async Task<IEnumerable<PendingCoursesDto>> GetNewCoursesTest([FromQuery(Name = "language")] string language, CancellationToken token)
+        public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses([FromQuery]CoursesRequest model
+                , CancellationToken token)
         {
-            var query = new AdminLanguageQuery(language);
-            var retVal = await _queryBus.QueryAsync<IList<PendingCoursesDto>>(query, token);
+            var  query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending));
+            var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
 
@@ -128,6 +122,45 @@ namespace Cloudents.Admin2.Api
         {
             var command = new ApproveCourseCommand(model.Course);
             await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+
+        //TODO: Fix this and make it work in proper CQRS architecture
+        [HttpPost("rename")]
+        public async Task<IActionResult> RenameCourse([FromBody] RenameCourseRequest model,
+                CancellationToken token)
+        {
+            const string update = @"
+                            insert into sb.Course (Name, Count, State) 
+                            values(@newId, (select [Count] from sb.Course where Name = @oldId), 'Ok' );
+
+                            update sb.Document
+                            set CourseName = @newId
+                            where CourseName = @oldId;
+
+                            update sb.Question
+                            set CourseId = @newId
+                            where CourseId = @oldId;
+
+                            update sb.UsersCourses 
+                            set CourseId = @newId
+                            where CourseId = @oldId;
+                            delete from sb.Course where [Name] = @oldId;";
+
+
+
+            var z = await _dapperRepository.WithConnectionAsync(async f =>
+            {
+                return await f.ExecuteAsync(update, new
+                {
+                    newId = model.NewName,
+                    oldId = model.OldName
+                });
+
+            }, token);
+            /*var command = new RenameCourseCommand(model.OldName, model.NewName);
+            await _commandBus.DispatchAsync(command, token);*/
             return Ok();
         }
 

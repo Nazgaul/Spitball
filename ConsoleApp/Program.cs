@@ -392,8 +392,12 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
+            var commandBus = _container.Resolve<ICommandBus>();
+            var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
+            await commandBus.DispatchAsync(command, default);
+
             //await addToExtra();
-            await FunctionsExtensions.MergeUniversity(_container);
+            //await FunctionsExtensions.DeleteCourses(_container);
             //await TransferDocuments();
             //var _queryBus = _container.Resolve<IQueryBus>();
             // await FixStorageAsync();

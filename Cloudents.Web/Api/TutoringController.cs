@@ -98,7 +98,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var user = await userManager.GetUserAsync(User);
-            var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, user);
+            var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, user.Id);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
