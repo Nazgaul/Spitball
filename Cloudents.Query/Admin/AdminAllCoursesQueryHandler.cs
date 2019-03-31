@@ -21,12 +21,11 @@ namespace Cloudents.Query.Admin
         public async Task<IList<string>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
             var sql = @"select Name from sb.Course where name like N'%[א-ת]%' and State = 'Ok'";
-            var result = await _dapper.WithConnectionAsync(async connection =>
+            using (var connection = _dapper.OpenConnection())
             {
                 var res = await connection.QueryAsync<string>(sql);
                 return res.AsList();
-            }, token);
-            return result;
+            };
         }
     }
 }

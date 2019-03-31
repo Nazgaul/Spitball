@@ -1,29 +1,65 @@
-﻿using System.Collections.Generic;
+﻿
+using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.Entities
 {
-    public class Tutor
+    public class Tutor : Entity<long>
     {
-        public Tutor(string bio, long userId) 
+        public Tutor(string bio, RegularUser user) :this()
         {
-            UserId = userId;
+            User = user;
             Bio = bio;
             Price = 50;
-            //Courses = new HashSet<TutorsCourses>();
         }
 
         protected Tutor()
         {
-            //Courses = new HashSet<TutorsCourses>();
+            Reviews = new List<TutorReview>();
         }
         public virtual string Bio { get; set; }
         public virtual decimal Price { get; protected set; }
-        //public virtual RegularUser User { get; set; }
-        public virtual long UserId { get; set; }
-        /*public override string Name => RoleName;
-        //private readonly ISet<TutorsCourses> _courses = new HashSet<TutorsCourses>();
-        //public virtual IReadOnlyCollection<TutorsCourses> Courses => _courses.ToList();
-        public virtual ISet<TutorsCourses> Courses { get; protected set; }
-        public const string RoleName = "Tutor";*/
+        public virtual RegularUser User { get; protected set; }
+
+        //public virtual bool Equals(Tutor other)
+        //{
+        //    if (ReferenceEquals(null, other)) return false;
+        //    if (ReferenceEquals(this, other)) return true;
+        //    return User.Equals(other.User);
+        //}
+
+        //public override bool Equals(object obj)
+        //{
+        //    if (ReferenceEquals(null, obj)) return false;
+        //    if (ReferenceEquals(this, obj)) return true;
+        //    if (obj.GetType() != this.GetType()) return false;
+        //    return Equals((Tutor) obj);
+        //}
+
+        //public override int GetHashCode()
+        //{
+        //    var t =  User.GetHashCode();
+        //    return t;
+        //}
+
+        //public static bool operator ==(Tutor left, Tutor right)
+        //{
+        //    return Equals(left, right);
+        //}
+
+        //public static bool operator !=(Tutor left, Tutor right)
+        //{
+        //    return !Equals(left, right);
+        //}
+
+        protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
+
+
+        public virtual void AddReview(string review, float rate, RegularUser user)
+        {
+            var newReview = new TutorReview(review,rate,user,this);
+           
+            Reviews.Add(newReview);
+        }
     }
 }

@@ -5,19 +5,28 @@
         <h4>Pending Courses List</h4>
         <v-layout>
             <v-spacer></v-spacer>
-            <v-flex xs4 sm4 md4>
-                <v-text-field v-model="search"
-                              append-icon="search"
-                              label="Search"
-                              single-line
-                              hide-details>
-                </v-text-field>
+            <v-flex xs3>
+                <v-select :items="states"
+                          label="state"
+                          v-model="state"
+                          @change="getCourseList(language, state)"></v-select>
+            </v-flex>   
+            <v-flex xs3 offset-xs2>
                 <v-select :items="languages"
-                    label="language"
-                    v-model="language"
-                          @change="getCourseList(language)"></v-select>
+                          label="language"
+                          v-model="language"
+                          @change="getCourseList(language, state)"></v-select>
             </v-flex>
-        </v-layout>
+                <v-flex xs4 sm4 md4 offset-xs2>
+                    <v-text-field v-model="search"
+                                  append-icon="search"
+                                  label="Search"
+                                  single-line
+                                  hide-details>
+                    </v-text-field>
+                </v-flex>
+
+</v-layout>
 
         <v-data-table :headers="headers"
                       :items="newCourseList"
@@ -44,7 +53,7 @@
         <v-dialog v-model="dialog" max-width="500px">
             <v-card>
                 <v-card-title>
-                    <span v-show="radios === 'merge'" class="headline">{{ editedItem.name }}</span>
+                    <span v-show="radios === 'merge' || radios === 'rename'" class="headline">{{ editedItem.name }}</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -52,23 +61,34 @@
                         <v-layout wrap>
                             <v-flex xs12>
                                 <v-radio-group v-model="radios">
+                                    <v-radio label="Rename" value="rename"></v-radio>
                                     <v-radio label="Delete" value="delete"></v-radio>
                                     <v-radio label="Approve" value="approve"></v-radio>
                                     <v-radio label="Merge" value="merge"></v-radio>
                                 </v-radio-group>
                                 <!--<v-text-field v-show="radios === 'merge'" v-model="newItem.course" label="New course"></v-text-field>-->
-                                
                                 <!--<div class="select-type-container">
-                                    <v-select v-show="radios === 'merge'"
-                                              class="select-type-input"
-                                              solo
-                                              v-model="picked"
-                                              :items="suggestCourses"
-                                              label="Select course"
-                                              :disabled="disableSelectBtn"></v-select>
-                                </div>-->
+        <v-select v-show="radios === 'merge'"
+                  class="select-type-input"
+                  solo
+                  v-model="picked"
+                  :items="suggestCourses"
+                  label="Select course"
+                  :disabled="disableSelectBtn"></v-select>
+    </div>-->
 
-                                <search-Component :context="adminAPI" :contextCallback="setadminAPI" :searchValue.name="picked" :callback="setSearchValue" v-show="radios === 'merge'"> </search-Component>
+                                <search-Component :context="adminAPI" 
+                                                  :contextCallback="setadminAPI" 
+                                                  :searchValue.name="picked" 
+                                                  :callback="setSearchValue"
+                                                  v-show="radios === 'merge'">
+                                </search-Component>
+                                <v-text-field :label="editedItem.name" 
+                                              single-line 
+                                              v-show="radios === 'rename'"
+                                              v-model ="newName">
+
+                                </v-text-field>
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -89,7 +109,7 @@
 </template>
 
 <script>
-    import { getCourseList, getSuggestions, migrateCourses, approve, deleteCourse } from './coursesPendingService'
+    import { getCourseList, migrateCourses, approve, rename, deleteCourse } from './coursesPendingService'
     import searchComponent from '../../helpers/search.vue'
 
     export default {
@@ -108,8 +128,11 @@
                 editedIndex: -1,
                 radios: 'approve',
                 search: '',
-                languages: ["all","he", "en"],
-                language:'',
+                languages: ["All", "He", "En"],
+                language: 'All',
+                states: ["Pending", "Ok"],
+                state: 'Pending',
+                newName: '',
                 editedItem: {
                     course: '',
                 },
@@ -125,10 +148,18 @@
         },
         computed: {
             disableDoneBtn() {
-                return this.radios === 'merge' && !this.picked;
+                return this.radios === 'merge' && !this.picked || this.radios === 'rename' && this.newName.length < 4;
+            }
+        },
+        watch: {
+            radios(newVal, oldVal) {
+                if (newVal === "rename") {
+                    this.newName = this.editedItem.name;
+                }
             }
         },
         methods: {
+           
             setSearchValue(searchValue) {
                 this.picked.name = searchValue.name;
                 this.picked.id = searchValue.name;
@@ -146,11 +177,15 @@
                     this.courseMigrate({ "newCourse": this.editedItem.name, "oldCourse": this.picked.name })
                 } else if (this.radios === 'approve') {
                     this.approve(this.editedItem);
-                } else {
+                } else if (this.radios === 'rename') {
+                    this.rename(this.editedItem, this.newName);
+                }
+                else {
                     this.deleteCourse(this.editedItem);
                 }
                 this.dialog = false;
                 this.setSearchValue({ "name": '' });
+                this.newName = '';
             },
             close() {
                 this.dialog = false;
@@ -159,6 +194,7 @@
                 this.radios = 'approve';
                 this.disableSelectBtn = true;
                 this.setSearchValue({ "name": '' });
+                this.newName = '';
             },
             courseMigrate(item) {
                 const index = this.newCourseList.indexOf(item);
@@ -186,6 +222,18 @@
                     }
                 )
             },
+            rename(course, newName) {
+                const index = this.newCourseList.indexOf(course);
+                rename(course.name, newName).then((resp) => {
+                    console.log('got rename resp success')
+                    this.$toaster.success(`Rename Course ${course.name} to ${newName}`);
+                    this.newCourseList.splice(index, 1);
+                },
+                    (error) => {
+                        this.$toaster.error(`Error can't Rename`);
+                    }
+                )
+            },
             deleteCourse(item) {
                 const index = this.newCourseList.indexOf(item);
                 deleteCourse(item).then((resp) => {
@@ -208,12 +256,12 @@
             //        console.log(err)
             //    });
             //},
-            getCourseList(language) {
-                getCourseList(language).then((list) => {
+            getCourseList(language, state) {
+                getCourseList(language, state).then((list) => {
+                    this.newCourseList = [];
                     if (list.length === 0) {
                         this.showNoResult = true;
                     } else {
-                        this.newCourseList = [];
                         this.newCourseList = list;
                     }
                     this.showLoading = false;
@@ -223,7 +271,7 @@
             }
         },
         created() {
-            getCourseList('').then((list) => {
+            getCourseList('', 'Pending').then((list) => {
                 if (list.length === 0) {
                     this.showNoResult = true;
                 } else {
