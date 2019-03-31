@@ -7,7 +7,9 @@ namespace Cloudents.Persistence.Maps
     {
         public TutorMap()
         {
-            Id(x => x.UserId).GeneratedBy.Assigned();
+            CompositeId()
+           .KeyReference(x => x.User, "UserId");
+            //Id(x => x.UserId).GeneratedBy.Assigned();
             Map(x => x.Bio).Length(1000);
             Map(x => x.Price).CustomSqlType("smallMoney");
            /* HasMany(x => x.Courses)

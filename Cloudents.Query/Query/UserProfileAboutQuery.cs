@@ -33,10 +33,9 @@ namespace Cloudents.Query.Query
 select CourseId as Name from sb.UsersCourses
 where UserId = @id;
 
-select utt.bio
-from sb.UserType ut
-join sb.UserTutor utt on ut.id = utt.userRole_id
-where ut.userid = @id;
+select t.bio
+from sb.Tutor t
+where t.userid = @id;
 
 select tr.Review as ReviewText, tr.Rate, tr.DateTime as Created, u.Name, u.Image, u.Score
 from sb.Tutor t

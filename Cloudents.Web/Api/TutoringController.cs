@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/[controller]"),ApiController]
     public class TutoringController : ControllerBase
     {
         private readonly IQueueProvider _queueProvider;
