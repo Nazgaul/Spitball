@@ -48,7 +48,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                 throw new InvalidOperationException("we don't have Universities with the specified name");
             }
 
-            var course = await _courseRepository.GetOrAddAsync(message.CourseName, token);
+            var course = await _courseRepository.LoadAsync(message.CourseName, token);
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
             var question = new Question(course, message.Text, message.Price, message.Files?.Count() ?? 0,
                 user,

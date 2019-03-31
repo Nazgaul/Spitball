@@ -13,7 +13,6 @@ namespace Cloudents.Query.Admin
     {
         private readonly DapperRepository _dapper;
 
-
         public AdminUserQuestionsQueryHandler(DapperRepository dapper)
         {
             _dapper = dapper;
@@ -28,7 +27,7 @@ namespace Cloudents.Query.Admin
 				order by 1
                  OFFSET @PageSize * @PageNumber ROWS
                  FETCH NEXT @PageSize ROWS ONLY;";
-            return await _dapper.WithConnectionAsync(async connection =>
+            using (var connection = _dapper.OpenConnection())
             {
                 return await connection.QueryAsync<UserQuestionsDto>(sql,
                     new
@@ -37,7 +36,7 @@ namespace Cloudents.Query.Admin
                         PageNumber = query.Page,
                         PageSize
                     });
-            }, token);
+            };
         }
     }
 }

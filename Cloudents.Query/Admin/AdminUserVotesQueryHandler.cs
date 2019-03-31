@@ -1,9 +1,7 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Interfaces;
 using Cloudents.Query.Query.Admin;
 using Dapper;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,7 +30,8 @@ namespace Cloudents.Query.Admin
                                 order by 1 desc
                                 OFFSET @pageSize * @PageNumber ROWS
                                 FETCH NEXT @pageSize ROWS ONLY;";
-            return await _dapper.WithConnectionAsync(async connection =>
+
+            using (var connection = _dapper.OpenConnection())
             {
                 return await connection.QueryAsync<UserVotesDto>(sql,
                     new
@@ -42,7 +41,7 @@ namespace Cloudents.Query.Admin
                         PageNumber = query.Page,
                         PageSize
                     });
-            }, token);
+            };
         }
     }
 }

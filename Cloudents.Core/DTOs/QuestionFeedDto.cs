@@ -6,7 +6,7 @@ namespace Cloudents.Core.DTOs
 {
     public class QuestionFeedDto
     {
-        private bool _isRtl;
+       // private bool _isRtl;
 
         
 

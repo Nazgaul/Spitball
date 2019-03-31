@@ -12,6 +12,7 @@ using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Dapper;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Admin2.Api
 {
@@ -67,10 +68,11 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("newUniversities")]
-        public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] string country, CancellationToken token)
+        public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] UniversitiesRequest model
+            , CancellationToken token)
         {
-            var query = new AdminLanguageQuery(country);
-            var retVal = await _queryBus.QueryAsync<IList<PendingUniversitiesDto>>(query, token);
+            AdminUniversitiesQuery query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
+            var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
 
@@ -125,6 +127,15 @@ namespace Cloudents.Admin2.Api
 
             /*var command = new DeleteUniversityCommand(Id);
             await _commandBus.DispatchAsync(command, token);*/
+            return Ok();
+        }
+
+        [HttpPost("rename")]
+        public async Task<IActionResult> RenameUniversity([FromBody] RenameUniversityRequest model,
+        CancellationToken token)
+        {
+            var command = new RenameUniversityCommand(model.UniversityId, model.NewName);
+             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
     }

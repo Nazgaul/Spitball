@@ -21,11 +21,11 @@ namespace Cloudents.Query.Email
 
         internal sealed class GetDocumentPurchasedEmailQueryHandler : IQueryHandler<GetDocumentPurchasedEmailQuery, DocumentPurchaseEmailDto>
         {
-            private readonly IConfigurationKeys _provider;
+            private readonly DapperRepository _dapper;
 
-            public GetDocumentPurchasedEmailQueryHandler(IConfigurationKeys provider)
+            public GetDocumentPurchasedEmailQueryHandler(DapperRepository dapper)
             {
-                _provider = provider;
+                _dapper = dapper;
             }
 
             public async Task<DocumentPurchaseEmailDto> GetAsync(GetDocumentPurchasedEmailQuery query, CancellationToken token)
@@ -41,7 +41,7 @@ u.Language
 join sb.[User] u on t.User_id = u.Id
 join sb.Document d on t.DocumentId = d.id
 where t.id = @id";
-                using (var connection = new SqlConnection(_provider.Db.Db))
+                using (var connection = _dapper.OpenConnection())
                 {
                     return await connection.QuerySingleAsync<DocumentPurchaseEmailDto>(sql,
                         new

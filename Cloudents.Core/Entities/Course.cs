@@ -16,7 +16,6 @@ namespace Cloudents.Core.Entities
         public const int MaxLength = 150;
         protected Course()
         {
-            Tutors = new List<TutorsCourses>();
         }
         
         public Course(string name)
@@ -26,12 +25,8 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException($"Name is {Id}",nameof(Id));
             }
-
             State = ItemState.Pending;
-
             Created = DateTime.UtcNow;
-
-            Tutors = new List<TutorsCourses>();
         }
 
         protected bool Equals(Course other)
@@ -72,14 +67,15 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual int Count { get; set; }
+        public virtual int Count { get;protected internal set; }
+
+
 
         public virtual DateTime Created { get;protected set; }
 
-        private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
-        public virtual IReadOnlyCollection<UserCourse> Users => _users.ToList();
+      //  private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
+       // public virtual IReadOnlyCollection<UserCourse> Users => _users.ToList();
 
-        protected virtual IList<TutorsCourses> Tutors { get; set; }
         
   
         public virtual ItemState State { get; protected set; }

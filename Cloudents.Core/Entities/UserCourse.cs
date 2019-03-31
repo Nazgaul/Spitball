@@ -5,8 +5,7 @@ namespace Cloudents.Core.Entities
 {
     public class UserCourse : IEquatable<UserCourse>
     {
-        public virtual  RegularUser User { get;protected set; }
-        public virtual  Course Course { get; protected set; }
+       
 
         protected UserCourse()
         {
@@ -19,6 +18,11 @@ namespace Cloudents.Core.Entities
             User = user;
             Course = course;
         }
+
+        public virtual RegularUser User { get; protected set; }
+        public virtual Course Course { get; protected set; }
+
+        public virtual bool CanTeach { get; set; }
 
         public virtual bool Equals(UserCourse other)
         {

@@ -46,8 +46,8 @@ namespace Cloudents.Persistence.Maps
             //    .Inverse().Cascade.AllDeleteOrphan()
             //    .AsList();
 
-            HasMany(x => x.Users)
-                .KeyColumn("CourseId").ForeignKeyConstraintName("Courses_User").Inverse().AsSet();
+            //HasMany(x => x.Users)
+            //    .KeyColumn("CourseId").ForeignKeyConstraintName("Courses_User").Inverse().AsSet();
 
             // HasMany(x => x.Questions).Cascade.None();
             // HasMany(x => x.Users).Cascade.None();

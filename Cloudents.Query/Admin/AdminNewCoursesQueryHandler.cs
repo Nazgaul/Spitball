@@ -13,7 +13,7 @@ namespace Cloudents.Query.Admin
     {
 
         private readonly DapperRepository _dapper;
-
+        
         public AdminNewCoursesQueryHandler(DapperRepository dapper)
         {
             _dapper = dapper;
@@ -27,11 +27,11 @@ namespace Cloudents.Query.Admin
                     select cte.Name as NewCourse, c.Name as OldCourse from cte, sb.Course c
                     where c.Name like REPLACE(cte.Name,' ','%')
                     and c.Name <> cte.Name";
-            return await _dapper.WithConnectionAsync(async connection =>
+            using (var connection = _dapper.OpenConnection())
             {
                 var res = await connection.QueryAsync<NewCourseDto>(sql);
                 return res.AsList();
-            }, token);
+            };
         }
     }
 }
