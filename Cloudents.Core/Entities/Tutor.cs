@@ -4,9 +4,9 @@ namespace Cloudents.Core.Entities
 {
     public class Tutor
     {
-        public Tutor(string bio, RegularUser user) 
+        public Tutor(string bio, long userId) 
         {
-            User = user;
+            UserId = userId;
             Bio = bio;
             Price = 50;
             //Courses = new HashSet<TutorsCourses>();
@@ -18,7 +18,8 @@ namespace Cloudents.Core.Entities
         }
         public virtual string Bio { get; set; }
         public virtual decimal Price { get; protected set; }
-        public virtual RegularUser User { get; set; }
+        //public virtual RegularUser User { get; set; }
+        public virtual long UserId { get; set; }
         /*public override string Name => RoleName;
         //private readonly ISet<TutorsCourses> _courses = new HashSet<TutorsCourses>();
         //public virtual IReadOnlyCollection<TutorsCourses> Courses => _courses.ToList();
