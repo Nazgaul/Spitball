@@ -142,7 +142,7 @@
             },
             firstName: {
                 get() {
-                    return this.getProfile.user.name
+                    return this.getProfile.user.firstName
                 },
                 set(newVal) {
                     this.editedFirstName = newVal;
