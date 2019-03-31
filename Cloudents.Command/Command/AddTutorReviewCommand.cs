@@ -4,16 +4,16 @@ namespace Cloudents.Command.Command
 {
     public class AddTutorReviewCommand : ICommand
     {
-        public AddTutorReviewCommand(string review, float rate, long tutor, long user)
+        public AddTutorReviewCommand(string review, float rate, long tutorId, long userId)
         {
             Review = review;
             Rate = rate;
-            Tutor = tutor;
-            User = user;
+            TutorId = tutorId;
+            UserId = userId;
         }
-        public virtual string Review { get; set; }
-        public virtual float Rate { get; set; }
-        public long Tutor { get; set; }
-        public long User { get; set; }
+        public virtual string Review { get; }
+        public virtual float Rate { get; }
+        public long TutorId { get;  }
+        public long UserId { get; }
     }
 }

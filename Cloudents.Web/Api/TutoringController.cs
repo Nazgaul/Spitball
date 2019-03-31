@@ -12,6 +12,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Extensions;
 
 
 namespace Cloudents.Web.Api
@@ -97,8 +98,8 @@ namespace Cloudents.Web.Api
             [FromServices] UserManager<RegularUser> userManager,
             CancellationToken token)
         {
-            var user = await userManager.GetUserAsync(User);
-            var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, user.Id);
+            var userId = userManager.GetLongUserId(User);
+            var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, userId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
