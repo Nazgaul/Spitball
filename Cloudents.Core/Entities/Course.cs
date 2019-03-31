@@ -16,7 +16,6 @@ namespace Cloudents.Core.Entities
         public const int MaxLength = 150;
         protected Course()
         {
-            Tutors = new List<TutorsCourses>();
         }
         
         public Course(string name)
@@ -31,7 +30,6 @@ namespace Cloudents.Core.Entities
 
             Created = DateTime.UtcNow;
 
-            Tutors = new List<TutorsCourses>();
         }
 
         protected bool Equals(Course other)
@@ -79,7 +77,6 @@ namespace Cloudents.Core.Entities
         private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
         public virtual IReadOnlyCollection<UserCourse> Users => _users.ToList();
 
-        protected virtual IList<TutorsCourses> Tutors { get; set; }
         
   
         public virtual ItemState State { get; protected set; }
