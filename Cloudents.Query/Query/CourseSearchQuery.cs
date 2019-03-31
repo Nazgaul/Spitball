@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using NHibernate;
-using NHibernate.Linq;
+using Dapper;
+
 
 namespace Cloudents.Query.Query
 {
@@ -23,19 +23,27 @@ namespace Cloudents.Query.Query
        
         internal sealed class CoursesByTermQueryHandler : IQueryHandler<CourseSearchQuery, IEnumerable<CourseDto>>
         {
-            private readonly IStatelessSession _session;
+            private readonly DapperRepository _dapperRepository;
 
-            public CoursesByTermQueryHandler(QuerySession session)
+            public CoursesByTermQueryHandler(DapperRepository dapperRepository)
             {
-                _session = session.StatelessSession;
+                _dapperRepository = dapperRepository;
             }
 
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
-            {
-                return await _session.Query<Course>()
+           {
+                var sql = @"select top 10 Name
+                            from sb.Course
+                            where CONTAINS(Name, @Term) and State = 'OK'
+                            order by [Count] desc";
+                using (var conn = _dapperRepository.OpenConnection())
+                {
+                    return await conn.QueryAsync<CourseDto>(sql, new { Term = query.Term});
+                }
+                    /*return await _session.Query<Course>()
                     .Where(w => w.Id.Contains(query.Term) && w.State == ItemState.Ok)
                     .OrderByDescending(o => o.Count)
-                    .Take(10).Select(s => new CourseDto(s.Id)).ToListAsync(token);
+                    .Take(10).Select(s => new CourseDto(s.Id)).ToListAsync(token);*/
 
             }
         }

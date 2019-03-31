@@ -13,12 +13,8 @@
                     <a class="next-container py-2 px-3 font-weight-bold" @click="nextStep()" v-language:inner>uniSelect_done</a>
                 </div>
             </div>
+        </div>
 
-        </div>
-        <div class="explain-container">
-            <span v-language:inner>uniSelect_from</span>
-            {{schoolName}}
-        </div>
         <div class="select-school-container">
             <div>
                 <v-text-field id="classes_input"
@@ -34,9 +30,6 @@
 
                 ></v-text-field>
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
-                    <!--<div class="select-heading">-->
-                        <!--<span>Your Selected Courses ({{quantatySelected}})</span>-->
-                    <!--</div>-->
                     <div  class="class-list selected-classes-list py-3 px-3">
                         <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
                              v-for="selectedClass in selectedClasses">
@@ -50,9 +43,7 @@
             </div>
 
             <div v-if="showBox" class="search-classes-container">
-                <!--<div class="select-heading">-->
-                    <!--<span>Select from the list</span>-->
-                <!--</div>-->
+
                 <ul class="class-list search-classes-list">
                     <li class="list-item search-class-item cursor-pointer" v-if="!hideIfChoosen"
                         v-for="singleClass in classes"
@@ -256,8 +247,8 @@
         &.selected-classes-list{
             overflow: auto;
             white-space: nowrap;
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
-            background-color: #f7f7f7;
+            /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);*/
+            background-color: #f0f0f7;
         }
     }
     //new
@@ -274,10 +265,7 @@
           color: @color-blue-new;
           font-size: 18px;
     }
-    .course-back-btn{
-        color: @color-black;
-        opacity: 0.54;
-    }
+
     //end new
     .list-item{
         align-items: center;

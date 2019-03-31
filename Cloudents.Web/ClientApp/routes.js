@@ -25,6 +25,8 @@ const newProfile = () => import("./components/new_profile/new_profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
 const login = () => import("./components/new_registration/login.vue");
 const university = () => import("./components/helpers/uni-select/uniSelect.vue");
+const setCourse = () => import("./components/editCourses/editCourses.vue");
+
 const tutorComponent = () => import("./components/tutor/tutor.vue");
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -172,6 +174,23 @@ let routes2 = [
         name: "uniselect",
         components: {
             default: university,
+            header: pageHeader,
+            schoolBlock: schoolBlock,
+        },
+        props:{
+            default: (route)=>({
+                step: route.params.step
+            })
+        },
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: "/edit-courses/",
+        name: "setCourse",
+        components: {
+            default: setCourse,
             header: pageHeader,
             schoolBlock: schoolBlock,
         },
