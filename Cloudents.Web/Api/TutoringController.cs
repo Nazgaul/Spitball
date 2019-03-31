@@ -13,7 +13,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Web.Extensions;
-
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Web.Api
 {
@@ -99,8 +99,20 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = userManager.GetLongUserId(User);
+            if (userId == model.Tutor)
+            {
+                return BadRequest();
+            }
+            
             var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, userId);
-            await _commandBus.DispatchAsync(command, token);
+            try
+            {
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest();
+            }
             return Ok();
         }
     }

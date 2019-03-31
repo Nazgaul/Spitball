@@ -41,7 +41,6 @@ namespace Cloudents.Query.Query
                     return await conn.QueryAsync<CourseDto>(sql, new { Term = query.Term});
                 }
                     /*return await _session.Query<Course>()
-                    //.Where(w => w.Name.IsLike(query.Term,MatchMode.End))
                     .Where(w => w.Id.Contains(query.Term) && w.State == ItemState.Ok)
                     .OrderByDescending(o => o.Count)
                     .Take(10).Select(s => new CourseDto(s.Id)).ToListAsync(token);*/

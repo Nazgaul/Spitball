@@ -52,7 +52,9 @@ namespace Cloudents.Web.EventHandler
             {
                 UserId = chatMessage.User.Id,
                 Text = chatMessage.Message,
-                DateTime = DateTime.UtcNow
+                DateTime = DateTime.UtcNow,
+                Name = chatMessage.User.Name,
+                Image = chatMessage.User.Image
             };
         }
 

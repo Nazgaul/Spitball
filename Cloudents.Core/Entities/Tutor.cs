@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
@@ -15,7 +16,6 @@ namespace Cloudents.Core.Entities
 
         protected Tutor()
         {
-            Reviews = new List<TutorReview>();
         }
         public virtual string Bio { get; set; }
         public virtual decimal Price { get; protected set; }
@@ -51,15 +51,19 @@ namespace Cloudents.Core.Entities
         //{
         //    return !Equals(left, right);
         //}
+        private readonly ICollection<TutorReview> _reviews = new HashSet<TutorReview>();
 
-        protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
+        public virtual IReadOnlyCollection<TutorReview> Reviews => _reviews.ToList();
+
+        //protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
+     
 
 
         public virtual void AddReview(string review, float rate, RegularUser user)
         {
             var newReview = new TutorReview(review,rate,user,this);
-           
-            Reviews.Add(newReview);
+
+            _reviews.Add(newReview);
         }
     }
 }
