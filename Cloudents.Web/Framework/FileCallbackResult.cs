@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 
-namespace Cloudents.Web.Filters
+namespace Cloudents.Web.Framework
 {
     /// <summary>
     /// Represents an <see cref="ActionResult"/> that when executed will

@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.ActionConstraints;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudents.Web.Filters
+namespace Cloudents.Web.Framework
 {
     public class FormContentTypeAttribute : Attribute, IActionConstraint
     {
