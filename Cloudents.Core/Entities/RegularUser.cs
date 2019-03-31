@@ -28,7 +28,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual int FraudScore { get; set; }
+        //public virtual int FraudScore { get; set; }
 
 
         public virtual void DeleteQuestionAndAnswers()
