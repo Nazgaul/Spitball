@@ -47,7 +47,8 @@
             </div>
           <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
               <div class="select-heading">
-                <span>Your Selected Courses ({{quantatySelected}})</span>
+                  <span v-language:inner>uniSelect_yours_selected</span>
+                  <span> ({{quantatySelected}})</span>
               </div>
               <ul  class="class-list selected-classes-list">
                   <li class="list-item selected-class-item" v-for="selectedClass in selectedClasses">
