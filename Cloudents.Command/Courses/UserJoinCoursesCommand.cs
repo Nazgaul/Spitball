@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cloudents.Command.Command
+namespace Cloudents.Command.Courses
 {
     public class UserJoinCoursesCommand : ICommand
     {

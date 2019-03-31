@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
         {
             UserLogins = new List<UserLogin>();
             Transactions = Transactions ?? new UserTransactions();
-            Courses = new HashSet<UserCourse>();
+            UserCourses = new HashSet<UserCourse>();
             Tags = new HashSet<Tag>();
             //UserRoles = new HashSet<UserRole>();
 
@@ -57,28 +57,34 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
-        protected internal virtual ISet<UserCourse> Courses { get; protected set; }
+        protected internal virtual ISet<UserCourse> UserCourses { get; protected set; }
 
 
         public virtual void AssignCourses(IEnumerable<Course> courses)
         {
-            var userCourse = new List<UserCourse>();
             foreach (var course in courses)
             {
                 var p = new UserCourse(this, course);
-                userCourse.Add(p);
-                if (Courses.Add(p))
+                if (UserCourses.Add(p))
                 {
                     course.Count++;
                 }
-               
             }
-            Courses.IntersectWith(userCourse);
+           // Courses.IntersectWith(userCourse);
+        }
+
+        public virtual void RemoveCourse(Course course)
+        {
+         //   UserCourses.Remove()
+            var p = new UserCourse(this,course);
+            if (UserCourses.Remove(p))
+            {
+                course.Count--;
+            }
         }
 
 
         public virtual ISet<Tag> Tags { get; protected set; }
-        //public virtual ISet<UserRole> UserRoles { get;  set; }
 
         public virtual DateTime LastOnline { get; protected set; }
         public virtual bool Online { get; protected set; }
@@ -179,6 +185,8 @@ namespace Cloudents.Core.Entities
 
         public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
+
+       
     }
 
 

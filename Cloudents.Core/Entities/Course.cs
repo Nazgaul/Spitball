@@ -25,11 +25,8 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException($"Name is {Id}",nameof(Id));
             }
-
             State = ItemState.Pending;
-
             Created = DateTime.UtcNow;
-
         }
 
         protected bool Equals(Course other)
@@ -70,12 +67,14 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual int Count { get; set; }
+        public virtual int Count { get;protected internal set; }
+
+
 
         public virtual DateTime Created { get;protected set; }
 
-        private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
-        public virtual IReadOnlyCollection<UserCourse> Users => _users.ToList();
+      //  private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
+       // public virtual IReadOnlyCollection<UserCourse> Users => _users.ToList();
 
         
   

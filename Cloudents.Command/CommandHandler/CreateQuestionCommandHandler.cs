@@ -51,7 +51,6 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var course = await _courseRepository.LoadAsync(message.Course, token);
-            course.Count++;
             await _courseRepository.UpdateAsync(course, token);
 
 

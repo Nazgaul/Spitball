@@ -59,10 +59,6 @@ namespace Cloudents.Command.CommandHandler
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);
 
-
-            course.Count++;
-            await _courseRepository.UpdateAsync(course, token);
-
             message.Id = id;
         }
     }

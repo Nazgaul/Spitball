@@ -1,17 +1,18 @@
-﻿using Cloudents.Web.Extensions;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using Cloudents.Command;
-using Cloudents.Command.Command;
+using Cloudents.Command.Courses;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Web.Extensions;
+using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -45,7 +46,7 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour,Location = ResponseCacheLocation.Any,VaryByQueryKeys = new []{nameof(CourseRequest.Term) })]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { nameof(CourseRequest.Term) })]
         public async Task<CoursesResponse> GetAsync([FromQuery]CourseRequest model,
             CancellationToken token)
         {
@@ -57,26 +58,38 @@ namespace Cloudents.Web.Api
             };
         }
 
-        [HttpPost]
+        [HttpPost("set")]
         public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new UserJoinCoursesCommand(model.Select(s=>s.Name), userId);
+            var command = new UserJoinCoursesCommand(model.Select(s => s.Name), userId);
             await _commandBus.DispatchAsync(command, token);
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.RefreshSignInAsync(user);
             return Ok();
         }
 
-        //[HttpPost("tutor")]
-        //public async Task<IActionResult> SetTutorCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var command = new AssignCoursesToTutorCommand(model.Select(s => s.Name), userId);
-        //    await _commandBus.DispatchAsync(command, token);
-        //    var user = await _userManager.GetUserAsync(User);
-        //    await _signInManager.RefreshSignInAsync(user);
-        //    return Ok();
-        //}
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new CreateCourseCommand(userId, model.Name);
+            await _commandBus.DispatchAsync(command, token);
+            var user = await _userManager.GetUserAsync(User);
+            await _signInManager.RefreshSignInAsync(user);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCoursesAsync([FromQuery,Required]string name, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new UserRemoveCourseCommand(userId, name);
+            await _commandBus.DispatchAsync(command, token);
+            var user = await _userManager.GetUserAsync(User);
+            await _signInManager.RefreshSignInAsync(user);
+            return Ok();
+        }
     }
 }

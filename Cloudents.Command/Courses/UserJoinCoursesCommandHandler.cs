@@ -1,12 +1,11 @@
-﻿using Cloudents.Command.Command;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Command.CommandHandler
+namespace Cloudents.Command.Courses
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserJoinCoursesCommandHandler : ICommandHandler<UserJoinCoursesCommand>

@@ -3,5 +3,9 @@ need to create spitball-user container with public access
 
 
 
+update sb.Course
+set Count = (select count(*) from sb.UsersCourses where CourseId = Name)
+
+
 
 
