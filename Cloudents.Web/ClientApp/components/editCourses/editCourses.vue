@@ -8,11 +8,13 @@
     import { mapActions, mapGetters } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
     import step_1 from './helpers/addCourses.vue';
+    import step_2 from './helpers/selectedCourses.vue';
 
 
     export default {
         components: {
-            step_1
+            step_1,
+            step_2
 
         },
         data() {
@@ -24,7 +26,7 @@
                 isRtl: global.isRtl,
                 global: global,
                 steps : 2,
-                currentStep: 1,
+                currentStep: 2,
                 callBackmethods: {
                     next: this.nextStep,
                     changeStep: this.changeStep,

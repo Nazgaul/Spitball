@@ -10,8 +10,8 @@
                 </div>
 
             </v-flex>
-            <v-flex xs2 shrink>
-                <a class="next-container py-1 px-3 font-weight-bold" @click="nextStep()"
+            <v-flex xs2 shrink class="d-flex justify-end">
+                <a class="next-container py-1 px-3 font-weight-bold" @click="sendData()"
                    v-language:inner>uniSelect_done</a>
             </v-flex>
         </v-layout>
@@ -30,7 +30,8 @@
 
                 ></v-text-field>
             </v-flex>
-            <v-flex v-if="quantatySelected">
+
+            <v-flex v-show="quantatySelected"  transition="fade-transition">
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
                     <div class="class-list selected-classes-list py-3 px-3">
                         <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
@@ -68,8 +69,9 @@
                         </v-layout>
                     </div>
                     <!--create new course-->
-                    <div class="list-item add-item cursor-pointer"style="height: 52px;" @click="addManualUniversity()">
+                    <div class="d-flex align-center justify-center list-item caption cursor-pointer" @click="addManualUniversity()">
                         <span v-language:inner>uniSelect_didnt_find_class</span>
+                        <span class="add-item">Create new</span>
                     </div>
 
                 </div>
@@ -128,7 +130,8 @@
                 return this.getSchoolName();
             },
             showBox() {
-                return !!this.search && this.search.length > 0;
+                return true
+                // return !!this.search && this.search.length > 0;
             },
             classes() {
                 return this.getClasses();
@@ -165,11 +168,12 @@
 
             lastStep() {
                 this.$router.go(-1);
-                // this.fnMethods.changeStep(this.enumSteps.set_school);
             },
             nextStep(customClass) {
-                //TODO add action update the server instead of 'updateSelectedClasses'
                 this.callbackFunc.next();
+            },
+            sendData(){
+                console.log('sending to server')
             },
             deleteClass(classToDelete, from) {
                 let index = from.indexOf(classToDelete);
@@ -192,13 +196,16 @@
                 }, 200);
                 this.checkAsSelected(className, this.classes);
             },
-            itemInList(item) {
-                if(typeof item !== "object") {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
+            // itemInList(item) {
+            //     if(typeof item !== "object") {
+            //         return false;
+            //     } else {
+            //         return true;
+            //     }
+            // }
+        },
+        created(){
+            this.updateClasses('his');
         },
         filters: {
             boldText(value, search) {
@@ -220,8 +227,10 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
 
-    @colorBlue: #4452fc;
     .add-courses-wrap {
+        .v-input__slot{
+            box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17)!important;
+        }
         .scrollBarStyle(0px, #0085D1);
         .light-purple {
             color: @purpleLight;
@@ -266,6 +275,7 @@
             font-size: 18px;
         }
         .next-container {
+            max-width: 80px;
             font-size: 16px;
             color: @colorBlue;
             border-radius: 16px;
@@ -288,9 +298,7 @@
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
         }
         .add-item {
-            font-size: 14px;
-            color: @color-blue-new;
-            border-top: solid 2px rgba(81, 88, 175, 0.24);
+            color: @colorBlue;
         }
         .search-class-item {
             &:hover {
