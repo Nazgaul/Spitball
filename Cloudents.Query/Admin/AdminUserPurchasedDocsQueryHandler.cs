@@ -33,8 +33,7 @@ namespace Cloudents.Query.Admin
                 order by 1
                 OFFSET @pageSize * @PageNumber ROWS
                 FETCH NEXT @pageSize ROWS ONLY;";
-
-            return await _dapper.WithConnectionAsync(async connection =>
+            using (var connection = _dapper.OpenConnection())
             {
                 return await connection.QueryAsync<UserPurchasedDocsDto>(sql,
                     new
@@ -43,7 +42,7 @@ namespace Cloudents.Query.Admin
                         PageNumber = query.Page,
                         PageSize
                     });
-            }, token);
+            };
         }
     }
 }

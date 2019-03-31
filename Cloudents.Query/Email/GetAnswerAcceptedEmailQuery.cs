@@ -20,11 +20,11 @@ namespace Cloudents.Query.Email
 
         internal sealed class GetAnswerAcceptedEmailQueryQueryHandler : IQueryHandler<GetAnswerAcceptedEmailQuery, AnswerAcceptedEmailDto>
         {
-            private readonly IConfigurationKeys _provider;
+            private readonly DapperRepository _dapper;
 
-            public GetAnswerAcceptedEmailQueryQueryHandler(IConfigurationKeys provider)
+            public GetAnswerAcceptedEmailQueryQueryHandler(DapperRepository dapper)
             {
-                _provider = provider;
+                _dapper = dapper;
             }
 
             public async Task<AnswerAcceptedEmailDto> GetAsync(GetAnswerAcceptedEmailQuery query, CancellationToken token)
@@ -41,7 +41,7 @@ join sb.[User] u on t.User_id = u.Id
 join sb.Question q on q.id = t.QuestionId
 join sb.Answer a on a.Id = t.AnswerId
 where t.id = @id ";
-                using (var connection = new SqlConnection(_provider.Db.Db))
+                using (var connection = _dapper.OpenConnection())
                 {
                     return await connection.QuerySingleAsync<AnswerAcceptedEmailDto>(sql,
                         new

@@ -1,9 +1,7 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Interfaces;
 using Cloudents.Query.Query.Admin;
 using Dapper;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +10,7 @@ namespace Cloudents.Query.Admin
     public class AdminNewUniversitiesQueryHandler : IQueryHandler<AdminEmptyQuery, IList<NewUniversitiesDto>>
     {
         private readonly DapperRepository _dapper;
-
+        
 
         public AdminNewUniversitiesQueryHandler(DapperRepository dapper)
         {
@@ -26,11 +24,11 @@ namespace Cloudents.Query.Admin
                     select cte.Id as [NewId], cte.Name as NewUniversity, c.Id as OldId, c.Name as OldUniversity  from cte, sb.university c
                     where c.Name like REPLACE(cte.Name,' ','%')
                     and c.Name <> cte.Name";
-            return await _dapper.WithConnectionAsync(async connection =>
+            using (var connection = _dapper.OpenConnection())
             {
                 var res = await connection.QueryAsync<NewUniversitiesDto>(sql);
                 return res.AsList();
-            }, token);
+            };
         }
     }
 }

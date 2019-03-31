@@ -3,9 +3,11 @@ using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Dapper;
 using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace ConsoleApp
 {
@@ -54,7 +56,7 @@ namespace ConsoleApp
                 {
                     try
                     {
-                      //  var testnewId = t.Where(w => w.Id == x).Select(s => s.Name).FirstOrDefault();
+                        //  var testnewId = t.Where(w => w.Id == x).Select(s => s.Name).FirstOrDefault();
                         var z = await d.WithConnectionAsync(async f =>
                         {
                             return await f.ExecuteAsync(update, new
@@ -137,11 +139,12 @@ namespace ConsoleApp
                         Thread.Sleep(1000);
                     }
                 }
-                else {
+                else
+                {
                     MigrateCoursesAndUni.WriteToSheet(counter);
                     Thread.Sleep(1000);
                 }
-                
+
                 counter++;
             }
         }
@@ -199,6 +202,95 @@ namespace ConsoleApp
                 }
                 counter++;
             }
+        }
+
+
+        public static async Task DeleteCourses2(IContainer container)
+        {
+            var d = container.Resolve<DapperRepository>();
+
+            IEnumerable<string> courses = null;
+            do
+            {
+                courses = await d.WithConnectionAsync(async f =>
+                {
+                    return await f.QueryAsync<string>(@"
+select top 100 name from sb.Course c
+where not exists ( select * from sb.Document d where d.CourseName = c.Name)
+and not exists ( select * from sb.question d where d.CourseId = c.Name)
+
+order by name");
+
+                }, default);
+                foreach (var item in courses)
+                {
+                    try
+                    {
+                        using (var conn = d.OpenConnection())
+                        {
+                            await conn.ExecuteAsync("delete from sb.userscourses where courseId=@name;" +
+                                                    "delete from sb.course where name=@name", new { name = item });
+                            Console.WriteLine($"Deleted course {item}");
+                        }
+                    }
+                    catch (SqlException e) when (e.Number == 547)
+                    {
+                        //Console.WriteLine(e);
+                        //throw;
+                    }
+                }
+
+
+                await Task.Delay(TimeSpan.FromMilliseconds(100));
+
+            } while (courses.Any());
+
+        }
+
+        public static async Task DeleteCourses(IContainer container)
+        {
+            var d = container.Resolve<DapperRepository>();
+            IEnumerable<string> courses = null;
+            do
+            {
+                courses = await d.WithConnectionAsync(async f =>
+                {
+                    return await f.QueryAsync<string>("select top 1000 Name from sb.DeletedCourses where State != 'Deleted'");
+
+                }, default);
+
+                foreach (var item in courses)
+                {
+                    try
+                    {
+                        var z = await d.WithConnectionAsync(async f =>
+                        {
+                            return await f.ExecuteAsync(@"delete from sb.Vote where DocumentId in 
+                                                                (
+                                                                select id from sb.Document where CourseName = @oldId
+                                                                );
+                                                    delete from sb.DocumentsTags where DocumentId in 
+                                                                (
+                                                                select id from sb.Document where CourseName = @oldId
+			                                                    )
+                                                    delete from sb.UsersCourses where CourseId = @oldId;
+                                                    delete from sb.Question where CourseId = @oldId;
+                                                    delete from sb.Document where CourseName = @oldId;
+                                                    delete from sb.Course where [Name] = @oldId;
+                                                    update sb.DeletedCourses set [State] = 'Deleted' where [name] = @oldId;",
+                                new { oldId = item });
+                        }, default);
+                        Console.WriteLine($"{item} Deleted");
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"didn't process {item}");
+                    }
+                    Thread.Sleep(500);
+                }
+
+            } while (courses.Count() > 0 && courses != null);
+
         }
     }
 }
