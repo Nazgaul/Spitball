@@ -86,7 +86,7 @@
 
             userName:{
               get(){
-                 return this.getProfile.user.firstName
+                 return this.getProfile.user.name
               },
               set(newVal){
                   this.editedUserName = newVal;
@@ -98,7 +98,7 @@
                     return this.getProfile.user.description
                 },
                 set(newVal) {
-                    console.log('new val::', newVal);
+                    console.log('new val::', newVal)
                     this.editedDescription = newVal;
                 }
             }
@@ -108,7 +108,7 @@
             saveChanges() {
                 if(this.$refs.form.validate()) {
                     let editsData = {
-                        firstName: this.editedUserName || this.userName,
+                        name: this.editedUserName || this.userName,
                         description: this.editedDescription || this.userDescription
                     };
                     accountService.saveUserInfo(editsData).then((success) => {

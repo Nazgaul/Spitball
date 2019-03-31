@@ -130,7 +130,7 @@
             },
             userName(){
                 if (this.getProfile && this.getProfile.user) {
-                    return this.getProfile.user.firstName;
+                    return this.getProfile.user.name;
                 }
             },
             userScore(){
