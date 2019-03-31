@@ -9,7 +9,6 @@ namespace Cloudents.Persistence.Maps
         {
 
             DiscriminatorValue(false);
-            Map(e => e.FraudScore);
             Map(e => e.PhoneNumber).Column("PhoneNumberHash");
             Map(e => e.PhoneNumberConfirmed);
             Map(e => e.PasswordHash).Nullable();
