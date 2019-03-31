@@ -146,10 +146,21 @@ export default {
         return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`)
     },
     saveTutorInfo: (data)=> {
-        return connectivityModule.http.post("/Account/settings", data)
+        let serverFormatt= {
+            firstName: data.name,
+            description: data.description,
+            lastName: data.lastName,
+            bio: data.bio,
+        };
+        return connectivityModule.http.post("/Account/settings", serverFormatt)
     },
     saveUserInfo: (data)=> {
-        return connectivityModule.http.post("/Account/settings", data)
+        let serverFormatt= {
+                firstName: data.name,
+                description: data.description
+
+        };
+        return connectivityModule.http.post("/Account/settings", serverFormatt)
     },
     // createProfileData: (arrInit)=>{
     //     return new ProfileData(arrInit);

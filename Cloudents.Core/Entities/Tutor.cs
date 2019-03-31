@@ -18,6 +18,7 @@ namespace Cloudents.Core.Entities
         }
         public virtual string Bio { get; set; }
         public virtual decimal Price { get; protected set; }
+        //public virtual RegularUser User { get; set; }
         public virtual long UserId { get; set; }
         /*public override string Name => RoleName;
         //private readonly ISet<TutorsCourses> _courses = new HashSet<TutorsCourses>();
