@@ -11,7 +11,7 @@
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <a class="next-container py-1 px-3 font-weight-bold" @click="sendData()"
+                <a class="next-container py-1 px-3 font-weight-bold" @click="submitAndGo()"
                    v-language:inner>uniSelect_done</a>
             </v-flex>
         </v-layout>
@@ -172,8 +172,10 @@
             nextStep(customClass) {
                 this.callbackFunc.next();
             },
-            sendData(){
-                console.log('sending to server')
+            submitAndGo(){
+                this.assignClasses().then(() => {
+                    this.$router.push({name: 'editCourse'});
+                });
             },
             deleteClass(classToDelete, from) {
                 let index = from.indexOf(classToDelete);
@@ -205,7 +207,7 @@
             // }
         },
         created(){
-            this.updateClasses('his');
+            this.updateClasses('history');
         },
         filters: {
             boldText(value, search) {

@@ -1,6 +1,6 @@
 <template>
     <div class="courses-list-wrap">
-        <div v-if="isEmpty">
+        <div v-if="!isEmpty">
         <v-layout row class="py-4 px-4" align-center justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
@@ -25,20 +25,25 @@
                         </div>
                         <v-layout row align-center justify-end>
                             <v-flex shrink class="d-flex align-center">
-                                <v-btn round outline color="#a3a0fb"
-                                       class="elevation-0 text-none align-center justify-center rounded-btn">
-                                    <span v-if="true">
-                                    <v-icon color="#a3a0fb" class="btn-icon" left>sbf-face-icon</v-icon>
-                                        <span class="purple-text">Teach</span>
+                                <v-btn v-if="!singleClass.isTeaching" round @click="toggleTeaching(singleClass)"
+                                       class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
+                                    <span>
+                                    <v-icon color="#a3a0fb" class="btn-icon mr-1" >sbf-face-icon</v-icon>
+                                        <span class="purple-text caption">Teach</span>
                                     </span>
-                                    <span v-else>
-                                       <v-icon class="btn-icon" left>sbf-face-icon</v-icon>
-                                        <span>Teaching</span>
+                                </v-btn>
+
+                                <v-btn v-else round @click="toggleTeaching(singleClass)"
+                                       class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
+                                    <span>
+                                       <v-icon class="btn-icon mr-1" >sbf-checkmark</v-icon>
+                                        <span class="caption">Teaching</span>
                                   </span>
                                 </v-btn>
+
                                 <span>
-                                     <v-icon class="add-sbf-icon"
-                                             @click="checkCanTeach(singleClass)">sbf-plus-circle</v-icon>
+                                     <v-icon class="delete-sbf-icon"
+                                             @click="checkCanTeach(singleClass)">sbf-delete-outline</v-icon>
                                    </span>
                             </v-flex>
                         </v-layout>
@@ -63,40 +68,22 @@
             return {};
         },
         computed: {
-            ...mapGetters(['getClasses']),
+            ...mapGetters(['getSelectedClasses']),
             classesSelected() {
-                // return this.getClasses;
-                return [
-                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
-                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
-                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
-                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
-                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
-                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
-                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
-                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
-                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
-                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
-                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
-                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
-                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
-                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
-                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
-                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
-                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
-                ]
+                return this.getSelectedClasses;
             },
             isEmpty(){
-                return this.getClasses.length < 1
+                return this.getSelectedClasses.length < 1
             },
             coursesQuantaty() {
-                return this.getClasses.length;
+                return this.getSelectedClasses.length;
             }
 
         },
         methods: {
             ...mapActions(["updateClasses", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
-            checkCanTeach(course) {
+            toggleTeaching(course) {
+                course.isTeaching = !course.isTeaching;
                 console.log('can teach', course);
             },
             deleteFromList(classToDelete, from) {
@@ -119,8 +106,22 @@
         .rounded-btn {
             border-radius: 16px;
         }
+        .solid-btn{
+            &:not(.v-btn--flat){
+                background-color: @purpleLight!important;
+                color: @color-white;
+            }
+        }
+        .outline-btn{
+            background-color:@color-white;
+            color: @purpleLight;
+
+        }
         .add-btn{
             color: @color-white;
+        }
+        .delete-sbf-icon{
+            color: lighten(@color-black, 75%);
         }
         .purple-text {
             color: @purpleLight;
@@ -150,11 +151,6 @@
         }
         .add-item {
             color: @colorBlue;
-        }
-        .search-class-item {
-            &:hover {
-                background: rgba(0, 0, 0, .04);
-            }
         }
     }
 

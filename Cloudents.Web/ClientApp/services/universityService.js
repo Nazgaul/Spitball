@@ -25,6 +25,10 @@ function addUniversityObj(){
 
 function Course(objInit){
     this.text = objInit.name;
+    this.isFollowing = objInit.isRegistered || false;
+    this.isTeaching = objInit.isTeaching || false;
+    this.students= objInit.users || 10;
+
 }
 function ServerCourse(name){
     this.name = name
@@ -81,7 +85,7 @@ const assaignCourse = (arrCourses) => {
             courses.push(new ServerCourse(course))
         }
     })
-    return connectivityModule.http.post("Course", courses)
+    return connectivityModule.http.post("Course/set", courses)
 }
 
 const getProfileUniversity = () => {

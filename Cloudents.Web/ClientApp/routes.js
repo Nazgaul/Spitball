@@ -192,6 +192,10 @@ let routes2 = [
         name: "setCourse",
         children: [
             {
+                path: '',
+                redirect: 'edit',
+            },
+            {
                 path: 'add',
                 name: 'addCourse',
                 component: addCourse
