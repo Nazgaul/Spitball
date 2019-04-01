@@ -36,7 +36,7 @@ export default {
             courseSelected: '',
             nextStepCalled: false,
             loading: false,
-            disableBtn: false,
+            // disableBtn: false,
             fileSnackbar:{
                 color: '',
                 uploadDoneMessage: '',
@@ -73,9 +73,15 @@ export default {
         },
         isLoaded() {
             let result = this.getFileData.every((item) => {
-                return item.progress === 100  && item.name !== ''
+                return item.progress === 100
             });
             return result;
+        },
+        disableBtn(){
+            let result = this.getFileData.every((item) => {
+                return item.name !== ''
+            });
+            return !result;
         }
 
     },

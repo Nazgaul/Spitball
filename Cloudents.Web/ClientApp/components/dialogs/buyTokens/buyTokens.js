@@ -21,8 +21,8 @@ export default {
               currency: 'USD'
           },
           pro:{
-              pts:1000, 
-              price:10,
+              pts:1400, 
+              price:14,
               currency: 'USD'
           }
       },
@@ -40,8 +40,8 @@ export default {
           sku: "points_2",
         },
         pro: {
-          name: "1000 points on Spitball",
-          description: "1000 points on Spitball",
+          name: "1400 points on Spitball",
+          description: "1400 points on Spitball",
           quantity: "1",
           sku: "points_3"
         }
