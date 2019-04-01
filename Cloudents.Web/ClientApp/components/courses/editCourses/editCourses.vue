@@ -134,7 +134,7 @@
         }
         .class-list {
             background-color: #ffffff;
-            max-height: 250px;
+            max-height: 664px;
             overflow-y: scroll;
             padding-left: 0;
         }

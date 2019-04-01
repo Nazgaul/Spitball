@@ -25,9 +25,9 @@ function addUniversityObj() {
 
 function Course(objInit) {
     this.text = objInit.name;
-    this.isFollowing = objInit.isRegistered || false;
+    this.isFollowing = objInit.isFollowing || false;
     this.isTeaching = objInit.isTeaching || false;
-    this.students = objInit.users || 10;
+    this.students = objInit.students || 10;
 
 }
 
@@ -63,7 +63,8 @@ const assaignUniversity = (uniName) => {
 };
 
 const getCourse = (val) => {
-    return connectivityModule.http.get(`course/search?term=${val}`).then(({data}) => {
+    let path = val ? `course/search?term=${val}` : `course/search`;
+    return connectivityModule.http.get(`${path}`).then(({data}) => {
         let result = [];
         if(!!data.courses && data.courses.length > 0) {
             data.courses.forEach((course) => {

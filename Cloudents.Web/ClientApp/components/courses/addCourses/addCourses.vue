@@ -11,8 +11,9 @@
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <a class="next-container py-1 px-3 font-weight-bold" @click="submitAndGo()"
-                   v-language:inner>uniSelect_done</a>
+                <v-btn round  class="elevation-0 done-btn py-1 font-weight-bold my-0"  @click="submitAndGo()">
+                    <span v-language:inner>uniSelect_done</span>
+                </v-btn>
             </v-flex>
         </v-layout>
         <v-layout column class="px-3">
@@ -35,7 +36,7 @@
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
                     <div class="class-list selected-classes-list py-3 px-3">
                         <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
-                             v-for="selectedClass in selectedClasses">
+                             v-for="selectedClass in localSelectedClasses">
                             <span class="text-truncate">{{selectedClass.text}}</span>
                             <span class="delete-class cursor-pointer pr-3"
                                   @click="deleteClass(selectedClass, selectedClasses)">
@@ -71,14 +72,13 @@
                             <v-flex v-else shrink class="d-flex align-end">
                                 <span class="light-purple caption font-weight-bold mr-2">Joinded</span>
                             </v-flex>
-
                         </v-layout>
                     </div>
                     <!--create new course-->
-                    <div class="d-flex align-center justify-center list-item caption cursor-pointer" @click="addManualUniversity()">
-                        <span v-language:inner>uniSelect_didnt_find_class</span>
+                    <v-flex  class="text-xs-center align-center justify-center cand-find caption cursor-pointer" @click="addManualUniversity()">
+                        <span>Can't Find your course?</span>
                         <span class="add-item">Create new</span>
-                    </div>
+                    </v-flex>
                 </div>
             </v-flex>
 
@@ -99,7 +99,8 @@
                     "uniSelect_type_class_name_placeholder"
                 ),
                 isRtl: global.isRtl,
-                global: global
+                global: global,
+                localSelectedClasses: []
             };
         },
         // props: {
@@ -150,7 +151,7 @@
             },
             selectedClasses: {
                 get() {
-                    return this.getSelectedClasses;
+                    return this.localSelectedClasses;
                 },
                 set(val) {
                     let arrValidData = [];
@@ -163,14 +164,21 @@
                             }
                         });
                     }
-                    this.updateSelectedClasses(arrValidData);
+                    this.localSelectedClasses.push(arrValidData)
+                   this.updateSelectedClasses(arrValidData);
                 }
             }
         },
         methods: {
-            ...mapActions(["updateClasses", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
+            ...mapActions([
+                              "updateClasses",
+                              "updateSelectedClasses",
+                              "assignClasses",
+                              "pushClassToSelectedClasses",
+                              "changeClassesToCachedClasses",
+                              "addToCachedClasses"
+                          ]),
             ...mapGetters(["getSchoolName", "getClasses"]),
-
             lastStep() {
                 this.$router.go(-1);
             },
@@ -178,6 +186,7 @@
                 this.callbackFunc.next();
             },
             submitAndGo(){
+                this.changeClassesToCachedClasses();
                 this.assignClasses().then(() => {
                     this.$router.push({name: 'editCourse'});
                 });
@@ -190,12 +199,10 @@
                 let index = from.indexOf(classToCheck);
                 from[index].isSelected = true;
             },
-
-            addManualUniversity() {
-                this.fnMethods.openAddSchoolOrClass(false, this.nextStep);
-            },
             addClass(className) {
-                this.pushClassToSelectedClasses(className);
+                this.localSelectedClasses.push(className);
+                this.addToCachedClasses(className);
+                // this.pushClassToSelectedClasses(className);
                 setTimeout(() => {
                     let inputElm = document.getElementById('classes_input');
                     inputElm.value = "";
@@ -205,7 +212,7 @@
             },
         },
         created(){
-            this.updateClasses('history');
+            this.updateClasses('');
         },
         filters: {
             boldText(value, search) {
@@ -247,12 +254,18 @@
             color: @purpleLight;
             font-size: 28px;
         }
+        .done-btn{
+            color: @colorBlue;
+            border-radius: 16px;
+            border: solid 1px @colorBlue;
+            background-color: @color-white!important;
+        }
         .search-classes-container {
             margin-top: 2px;
         }
         .class-list {
             background-color: #ffffff;
-            max-height: 250px;
+            max-height: 664px;
             overflow-y: scroll;
             padding-left: 0;
             &.selected-classes-list {
@@ -297,6 +310,11 @@
             position: relative;
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
+        }
+        .cand-find{
+            height: 48px;
+            margin: 0;
+            padding: 0 16px;
         }
         .add-item {
             color: @colorBlue;
