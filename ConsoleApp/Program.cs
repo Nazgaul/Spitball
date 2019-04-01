@@ -144,6 +144,12 @@ namespace ConsoleApp
         {
            
 
+                var v = await x.SearchAsync("pac", "IL", default);
+
+            var t = _container.Resolve<IQueryBus>();
+            var query = new SyncAzureQuery(3191972, 0);
+            var z = await  t.QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(query, default);
+
             Console.WriteLine("done");
 
         }
