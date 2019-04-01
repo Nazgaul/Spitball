@@ -1,6 +1,6 @@
 <template>
     <div class="add-courses-wrap">
-        <v-layout row class="py-4 px-4" align-center justify-center>
+        <v-layout row :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2']" align-center justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
                     <v-icon @click="lastStep()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
@@ -16,7 +16,7 @@
                 </v-btn>
             </v-flex>
         </v-layout>
-        <v-layout column class="px-3">
+        <v-layout column :class="{'px-3' : $vuetify.breakpoint.smAndUp}">
             <v-flex>
                 <v-text-field id="classes_input"
                               v-model="search"
@@ -186,6 +186,7 @@
                 this.callbackFunc.next();
             },
             submitAndGo(){
+                //assign all saved in cached list to classes list
                 this.changeClassesToCachedClasses();
                 this.assignClasses().then(() => {
                     this.$router.push({name: 'editCourse'});
@@ -201,6 +202,7 @@
             },
             addClass(className) {
                 this.localSelectedClasses.push(className);
+                //add to cached list
                 this.addToCachedClasses(className);
                 // this.pushClassToSelectedClasses(className);
                 setTimeout(() => {
@@ -239,7 +241,9 @@
         .v-input__slot{
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17)!important;
         }
-
+        .grey-backgound{
+            background-color: #f0f0f7;
+        }
         .light-purple {
             color: @purpleLight;
         }
@@ -258,7 +262,7 @@
             color: @colorBlue;
             border-radius: 16px;
             border: solid 1px @colorBlue;
-            background-color: @color-white!important;
+            background-color: transparent!important;
         }
         .search-classes-container {
             margin-top: 2px;
@@ -288,14 +292,6 @@
             color: @color-blue-new;
             font-size: 18px;
         }
-        .next-container {
-            max-width: 80px;
-            font-size: 16px;
-            color: @colorBlue;
-            border-radius: 16px;
-            border: solid 1px @colorBlue;
-            text-transform: uppercase;
-        }
         //end new
         .list-item {
             align-items: center;
@@ -307,7 +303,7 @@
             height: 48px;
             margin: 0;
             padding: 0 16px;
-            position: relative;
+            /*position: relative;*/
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
         }
@@ -324,26 +320,6 @@
                 background: rgba(0, 0, 0, .04);
             }
         }
-        .chip-style {
-            background-color: rgba(68, 82, 252, 0.09);
-            &.dark-chip {
-                background-color: rgba(68, 82, 252, 0.27);
-            }
-            &.selected {
-                -webkit-box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.2);
-                -moz-box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.2);
-                box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.2);
-            }
-        }
-
-        .chip-button {
-            cursor: pointer;
-            max-width: 150px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
         .sbf-close {
             font-size: 8px !important;
             margin-bottom: 3px;

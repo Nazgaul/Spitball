@@ -20,7 +20,7 @@
                 <div class="class-list search-classes-list">
                     <div class="list-item search-class-item cursor-pointer"
                          v-for="singleClass in classesSelected">
-                        <div>
+                        <div class="text-truncate course-name-wrap">
                             {{ singleClass.text }}
                         </div>
                         <v-layout row align-center justify-end>
@@ -151,6 +151,11 @@
             position: relative;
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
+        }
+        .course-name-wrap{
+            @media(max-width: @screen-xs){
+                max-width: 60%;
+            }
         }
         .add-item {
             color: @colorBlue;
