@@ -33,36 +33,40 @@ namespace Cloudents.Query.Query
             {
                 var sql = @"if @UniversityId is not null
                             select top 50 c.Name, 
-                                case when uc.CourseId is not null and uc.UserId = @id 
+                                case when uc2.CourseId is not null
                                     then cast(1 as bit) 
-                                    else cast(0 as bit) end as IsRegistered,
-	                            Count(distinct u.Id) as Users
+                                    else cast(0 as bit) end as IsFollowing,
+	                            Count(distinct u.Id) as Students
                             from sb.Course c
                             left join sb.UsersCourses uc
 	                            on c.Name = uc.CourseId
                             left join sb.[User] u
 	                            on uc.UserId = U.Id and U.UniversityId2 = @UniversityId
+                            left join sb.UsersCourses uc2
+	                            on c.Name = uc2.CourseId and uc2.UserId = @Id
                             where State = 'OK'
-                            group by c.Name, case when uc.CourseId is not null and uc.UserId = @id 
+                            group by c.Name,uc2.CourseId
+                            order by Count(distinct u.Id) desc, case when uc2.CourseId is not null
                                     then cast(1 as bit) 
-                                    else cast(0 as bit) end 
-                            order by Count(distinct u.Id) desc;
+                                    else cast(0 as bit) end desc;
                             else
                             select top 50 c.Name, 
-                                case when uc.CourseId is not null and uc.UserId = @id 
-                                    then cast(1 as bit) 
-                                    else cast(0 as bit) end as IsRegistered,
-	                            Count(distinct u.Id) as Users
-                            from sb.Course c
-                            left join sb.UsersCourses uc
-	                            on c.Name = uc.CourseId
-                            left join sb.[User] u
-	                            on uc.UserId = U.Id
-                            where State = 'OK'
-                            group by c.Name, case when uc.CourseId is not null and uc.UserId = @id 
-                                    then cast(1 as bit) 
-                                    else cast(0 as bit) end 
-                            order by Count(distinct u.Id) desc;";
+                                case when uc2.CourseId is not null
+                                        then cast(1 as bit) 
+                                        else cast(0 as bit) end as IsFollowing,
+                                Count(distinct u.Id) as Students
+                                from sb.Course c
+                                left join sb.UsersCourses uc
+                                on c.Name = uc.CourseId
+                                left join sb.[User] u
+                                on uc.UserId = U.Id
+                                left join sb.UsersCourses uc2
+	                                on c.Name = uc2.CourseId and uc2.UserId = @Id
+                                where State = 'OK'
+                                group by c.Name, uc2.CourseId 
+                                order by Count(distinct u.Id) desc, case when uc2.CourseId is not null
+                                        then cast(1 as bit) 
+                                        else cast(0 as bit) end desc;";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
                     return await conn.QueryAsync<CourseDto>(sql, new { UniversityId = query.UniversityId, Id = query.UserId });

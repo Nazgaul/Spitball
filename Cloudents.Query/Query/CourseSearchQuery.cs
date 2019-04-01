@@ -35,14 +35,16 @@ namespace Cloudents.Query.Query
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
            {
                 var sql = @"select top 50 Name,
-	case when uc.CourseId is not null and uc.UserId = @Id then cast(1 as bit) else cast(0 as bit) end as IsRegistered,
-	count(distinct uc.UserId) as Users
-from sb.Course c
-left join sb.UsersCourses uc
-	on c.Name = uc.CourseId --and uc.UserId = @Id
-where CONTAINS(Name, @Term) and State = 'OK'
-group by Name,case when uc.CourseId is not null and uc.UserId = @Id then cast(1 as bit) else cast(0 as bit) end
-order by count(distinct uc.UserId) desc";
+	                            case when uc2.CourseId is not null then cast(1 as bit) else cast(0 as bit) end as IsFollowing,
+	                            count(distinct uc.UserId) as Students
+                            from sb.Course c
+                            left join sb.UsersCourses uc
+	                            on c.Name = uc.CourseId
+                            left join sb.UsersCourses uc2
+	                            on c.Name = uc2.CourseId and uc2.UserId = 160347
+                            where CONTAINS(Name, @Term) and State = 'OK'
+                            group by Name, uc2.CourseId
+                            order by count(distinct uc.UserId) desc, case when uc2.CourseId is not null then cast(1 as bit) else cast(0 as bit) end desc";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
                     return await conn.QueryAsync<CourseDto>(sql, new { Term = query.Term, Id = query.UserId});
