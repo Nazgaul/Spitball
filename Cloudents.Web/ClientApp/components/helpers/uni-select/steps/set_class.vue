@@ -120,7 +120,24 @@
                 return !!this.search && this.search.length > 0;
             },
             classes() {
-                return this.getClasses();
+                let classes = this.getClasses();
+                //remove classes that was already selected
+                let newClassList = [];
+                classes.forEach(serverClass=>{
+                    let found = false;
+                    let serverClassText = serverClass.text;
+                    this.selectedClasses.forEach(classInList=>{
+                        let listClassText = classInList.text ? classInList.text : classInList;
+                        if(listClassText === serverClassText){
+                            found = true;
+                            return;
+                        }
+                    });
+                    if(!found){
+                        newClassList.push(serverClass);
+                    }
+                });
+                return newClassList
             },
             hideIfChoosen(){
                 this.classes.some(r=> this.selectedClasses.indexOf(r) >= 0)
