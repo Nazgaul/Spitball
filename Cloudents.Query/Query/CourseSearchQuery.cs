@@ -12,11 +12,13 @@ namespace Cloudents.Query.Query
 {
     public class CourseSearchQuery : IQuery<IEnumerable<CourseDto>>
     {
-        public CourseSearchQuery(string term)
+        public CourseSearchQuery(long userId, string term)
         {
+            UserId = userId;
             Term = term;
         }
 
+        public long UserId { get; }
         public string Term { get; }
 
 
@@ -32,13 +34,18 @@ namespace Cloudents.Query.Query
 
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
            {
-                var sql = @"select top 10 Name
-                            from sb.Course
-                            where CONTAINS(Name, @Term) and State = 'OK'
-                            order by [Count] desc";
+                var sql = @"select top 50 Name,
+	case when uc.CourseId is not null and uc.UserId = @Id then cast(1 as bit) else cast(0 as bit) end as IsRegistered,
+	count(distinct uc.UserId) as Users
+from sb.Course c
+left join sb.UsersCourses uc
+	on c.Name = uc.CourseId --and uc.UserId = @Id
+where CONTAINS(Name, @Term) and State = 'OK'
+group by Name,case when uc.CourseId is not null and uc.UserId = @Id then cast(1 as bit) else cast(0 as bit) end
+order by count(distinct uc.UserId) desc";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
-                    return await conn.QueryAsync<CourseDto>(sql, new { Term = query.Term});
+                    return await conn.QueryAsync<CourseDto>(sql, new { Term = query.Term, Id = query.UserId});
                 }
                     /*return await _session.Query<Course>()
                     .Where(w => w.Id.Contains(query.Term) && w.State == ItemState.Ok)
