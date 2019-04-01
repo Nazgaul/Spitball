@@ -56,7 +56,8 @@ namespace Cloudents.Web.Api
            [RequiredFromQuery, StringLength(150, MinimumLength = 3, ErrorMessage = "StringLength")] string term,
             CancellationToken token)
         {
-            var query = new CourseSearchQuery(term);
+            var userId = _userManager.GetLongUserId(User);
+            var query = new CourseSearchQuery(userId, term);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {
@@ -73,7 +74,13 @@ namespace Cloudents.Web.Api
             [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             CancellationToken token)
         {
-            return null;
+            var query = new CourseSearchByUniversityQuery(universityId);
+            var result = await _queryBus.QueryAsync(query, token);
+            return new CoursesResponse
+            {
+                Courses = result
+            };
+            //return null;
         }
 
         [HttpPost("set")]
