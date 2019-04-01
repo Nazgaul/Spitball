@@ -54,18 +54,24 @@
                         <div v-html="$options.filters.boldText(singleClass.text, search)">
                             {{ singleClass.text }}</div>
                         <v-layout row align-center justify-end>
-                            <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
-                                     <span class="light-purple caption font-weight-bold mr-2">Joined</span>
-                                   <span>
+                            <div v-if="!singleClass.isFollowing">
+                                <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
+                                    <span class="light-purple caption font-weight-bold mr-2">Joined</span>
+                                    <span>
                                      <v-icon class="checked-icon">sbf-check-circle</v-icon>
                                    </span>
-                            </v-flex>
-                            <v-flex shrink v-else class="d-flex align-center">
-                                <span class="light-purple caption font-weight-bold mr-2">Join</span>
-                                <span>
+                                </v-flex>
+                                <v-flex shrink v-else class="d-flex align-center">
+                                    <span class="light-purple caption font-weight-bold mr-2">Join</span>
+                                    <span>
                                      <v-icon class="add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
                                    </span>
+                                </v-flex>
+                            </div>
+                            <v-flex v-else shrink class="d-flex align-end">
+                                <span class="light-purple caption font-weight-bold mr-2">Joinded</span>
                             </v-flex>
+
                         </v-layout>
                     </div>
                     <!--create new course-->
@@ -73,7 +79,6 @@
                         <span v-language:inner>uniSelect_didnt_find_class</span>
                         <span class="add-item">Create new</span>
                     </div>
-
                 </div>
             </v-flex>
 
@@ -97,12 +102,12 @@
                 global: global
             };
         },
-        props: {
-            callbackFunc: {
-                required: true,
-                type: Object
-            },
-        },
+        // props: {
+        //     callbackFunc: {
+        //         required: true,
+        //         type: Object
+        //     },
+        // },
         watch: {
             search: debounce(function (val) {
                 let searchVal;
@@ -198,13 +203,6 @@
                 }, 200);
                 this.checkAsSelected(className, this.classes);
             },
-            // itemInList(item) {
-            //     if(typeof item !== "object") {
-            //         return false;
-            //     } else {
-            //         return true;
-            //     }
-            // }
         },
         created(){
             this.updateClasses('history');

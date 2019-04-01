@@ -43,7 +43,7 @@
 
                                 <span>
                                      <v-icon class="delete-sbf-icon"
-                                             @click="checkCanTeach(singleClass)">sbf-delete-outline</v-icon>
+                                             @click="removeClass(singleClass)">sbf-delete-outline</v-icon>
                                    </span>
                             </v-flex>
                         </v-layout>
@@ -81,10 +81,13 @@
 
         },
         methods: {
-            ...mapActions(["updateClasses", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
+            ...mapActions(["updateClasses", "deleteClass", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
             toggleTeaching(course) {
                 course.isTeaching = !course.isTeaching;
                 console.log('can teach', course);
+            },
+            removeClass(classDelete){
+              this.deleteClass(classDelete);
             },
             deleteFromList(classToDelete, from) {
                 let index = from.indexOf(classToDelete);
