@@ -7,16 +7,16 @@
             Name = name;
         }
 
-        public CourseDto(string name, bool isRegistered, int users)
+        public CourseDto(string name, bool isFollowing, int students)
         {
             Name = name;
-            IsRegistered = isRegistered;
-            Users = users;
+            IsFollowing = isFollowing;
+            Students = students;
         }
 
         public string Name { get;  }
-        public bool? IsRegistered { get; set; }
-        public int Users { get; set; }
+        public bool? IsFollowing { get; set; }
+        public int Students { get; set; }
     }
     
 }
