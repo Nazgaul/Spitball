@@ -74,7 +74,8 @@ namespace Cloudents.Web.Api
             [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             CancellationToken token)
         {
-            var query = new CourseSearchByUniversityQuery(universityId);
+            var userId = _userManager.GetLongUserId(User);
+            var query = new CourseSearchByUniversityQuery(userId, universityId);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {
