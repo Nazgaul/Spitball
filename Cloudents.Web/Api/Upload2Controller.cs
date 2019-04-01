@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Framework;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,12 +22,12 @@ namespace Cloudents.Web.Api
     public abstract class UploadControllerBase : ControllerBase
     {
 
-        protected readonly IBlobProvider _blobProvider;
+        protected readonly IBlobProvider BlobProvider;
         private readonly ITempDataDictionaryFactory _tempDataDictionaryFactory;
 
         protected UploadControllerBase(IBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory)
         {
-            _blobProvider = blobProvider;
+            BlobProvider = blobProvider;
             _tempDataDictionaryFactory = tempDataDictionaryFactory;
         }
 
@@ -38,7 +40,7 @@ namespace Cloudents.Web.Api
             var tempDataProvider = _tempDataDictionaryFactory.GetTempData(HttpContext);
             var tempData = tempDataProvider.Get<TempData>($"update-{model.SessionId}");
             var index = (int)(model.StartOffset / UploadInnerResponse.BlockSize);
-            await _blobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
+            await BlobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
                 index, token);
 
             tempDataProvider.Put($"update-{model.SessionId}", tempData);
@@ -68,6 +70,7 @@ namespace Cloudents.Web.Api
         }
 
 
+        [SuppressMessage("ReSharper", "UnusedParameter.Local",Justification = "need the same method signature")]
         private Task<UploadStartResponse> Upload(UploadRequestStart model, CancellationToken token)
         {
 
@@ -111,7 +114,7 @@ namespace Cloudents.Web.Api
 
         private async Task<UploadStartResponse> Upload(UploadRequestFinish model, CancellationToken token)
         {
-            var tempDataProvider = _tempDataDictionaryFactory.GetTempData(this.HttpContext);
+            var tempDataProvider = _tempDataDictionaryFactory.GetTempData(HttpContext);
             var tempData2 = tempDataProvider.Get<TempData>($"update-{model.SessionId}");
 
             tempDataProvider.Remove($"update-{model.SessionId}");
@@ -122,7 +125,7 @@ namespace Cloudents.Web.Api
                 indexes.Add((int)(i / UploadInnerResponse.BlockSize));
             }
 
-            await _blobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, tempData2.Name, indexes, token);
+            await BlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, tempData2.Name, indexes, token);
             var result = tempData2.BlobName;
             await FinishUploadAsync(model, result, token);
             return new UploadStartResponse(result);

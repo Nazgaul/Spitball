@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -37,8 +36,10 @@ namespace Cloudents.Query.Query
                     var reader = await conn.ExecuteReaderAsync(@"
 Select
 messageType as discriminator, userId,message as Text,creationTime as DateTime , blob as Attachment,
-cm.id as id, cm.ChatRoomId as chatRoomId
+cm.id as id, cm.ChatRoomId as chatRoomId, u.Image, u.Name
 from sb.ChatMessage cm
+join sb.[user] u
+	on cm.UserId = u.Id
 where ChatRoomId = @Id
 order by cm.Id
 OFFSET @PageSize * @PageNumber ROWS 

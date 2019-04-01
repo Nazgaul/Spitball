@@ -41,7 +41,7 @@ namespace Cloudents.Query
                     {
                         Votes = s.VoteCount
                     },
-                    Course = s.Course.Name
+                    Course = s.Course.Id
                 })
                 .Take(50).Skip(query.Page * 50)
                 .ToListAsync(token);

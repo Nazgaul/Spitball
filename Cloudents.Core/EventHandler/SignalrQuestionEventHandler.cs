@@ -3,7 +3,6 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
@@ -42,7 +41,7 @@ namespace Cloudents.Core.EventHandler
                 User = user,
                 Price = eventMessage.Question.Price,
                 Id = eventMessage.Question.Id,
-                Course = eventMessage.Question.Course?.Name, //TODO: this is because we already have question without courses
+                Course = eventMessage.Question.Course?.Id, //TODO: this is because we already have question without courses
                 Subject = eventMessage.Question.Subject,
                 Text = eventMessage.Question.Text,
                 Answers = 0,

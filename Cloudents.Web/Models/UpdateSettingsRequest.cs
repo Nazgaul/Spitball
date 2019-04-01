@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
     public class UpdateSettingsRequest
     {
         [Required]
+        [StringLength(255, ErrorMessage = "StringLength")]
         public string FirstName { get; set; }
-        [Required]
+        //[Required]
         public string LastName { get; set; }
+        [StringLength(255, ErrorMessage = "StringLength")]
         public string Description { get; set; }
+
+        [StringLength(1000, ErrorMessage = "StringLength")]
+        public string Bio { get; set; }
     }
+   
 
     public class BecomeTutorRequest
     {
         public string Bio { get; set; }
-        public decimal Price { get; set; }
     }
 }

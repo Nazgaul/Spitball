@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
@@ -9,7 +10,7 @@ namespace Cloudents.Persistence.Maps
     {
         public CourseMap()
         {
-            Id(e => e.Name).GeneratedBy.Assigned().Length(150);
+            Id(e => e.Id).Column("Name").GeneratedBy.Assigned().Length(150);
             Map(x => x.Count).Not.Nullable();
             Map(x => x.Created);
             //HasMany(x => x.Users)
@@ -18,37 +19,40 @@ namespace Cloudents.Persistence.Maps
             //   .Inverse()
             //   .ForeignKeyCascadeOnDelete();
 
-            HasManyToMany(x => x.Users)
-                .ParentKeyColumn("CourseId")
-                .ChildKeyColumn("UserId")
-                .ForeignKeyConstraintNames("Courses_User", "User_Courses")
-                //.Inverse()
-             .Table("UsersCourses").AsSet();
+            //HasManyToMany(x => x.Users)
+            //    .ParentKeyColumn("CourseId")
+            //    .ChildKeyColumn("UserId")
+            //    .ForeignKeyConstraintNames("Courses_User", "User_Courses")
+            //    //.Inverse()
+            // .Table("UsersCourses").AsSet();
 
-            HasMany(x => x.Documents)
-                .KeyColumn("CourseName")
-                .LazyLoad()
-                .Inverse()
-                .Cascade.None();
+            //HasMany(x => x.Documents)
+            //    .KeyColumn("CourseName")
+            //    .LazyLoad()
+            //    .Inverse()
+            //    .Cascade.None();
 
 
-            HasMany(x => x.Questions)
-                .KeyColumn("CourseId")
-                .LazyLoad()
-                .Inverse()
-                .Cascade.None();
+            //HasMany(x => x.Questions)
+            //    .KeyColumn("CourseId")
+            //    .LazyLoad()
+            //    .Inverse()
+            //    .Cascade.None();
 
-            HasMany(x => x.Tutors)
-                .Table("TutorsCourses")
-                .KeyColumn("CourseId")
-                //.Cascade.Delete()
-                .LazyLoad()
-                .Inverse().Cascade.AllDeleteOrphan()
-                .AsList();
+            //HasMany(x => x.Tutors)
+            //    .Table("TutorsCourses")
+            //    .KeyColumn("CourseId")
+            //    //.Cascade.Delete()
+            //    .LazyLoad()
+            //    .Inverse().Cascade.AllDeleteOrphan()
+            //    .AsList();
+
+            HasMany(x => x.Users)
+                .KeyColumn("CourseId").ForeignKeyConstraintName("Courses_User").Inverse().AsSet();
 
             // HasMany(x => x.Questions).Cascade.None();
             // HasMany(x => x.Users).Cascade.None();
-            Map(x => x.State);
+            Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
         }
     }
 }

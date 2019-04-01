@@ -26,8 +26,8 @@ const path = 'AdminUniversity/';
     });
 };*/
 
-const getUniversitiesList = function (country) {
-    return connectivityModule.http.get(`${path}newUniversities?country=${country}`).then((newUniversitiesList) => {
+const getUniversitiesList = function (country, state) {
+    return connectivityModule.http.get(`${path}newUniversities?Country=${country}&State=${state}`).then((newUniversitiesList) => {
         let arrCourseList = [];
         if (newUniversitiesList.length > 0) {
             newUniversitiesList.forEach((ci) => {
@@ -62,6 +62,17 @@ const approve = function (university) {
         });
 };
 
+const rename = function (university, newName) {
+    return connectivityModule.http.post(`${path}rename`, { "UniversityId": university, "NewName": newName })
+        .then((resp) => {
+            console.log(resp, 'post doc success');
+            return Promise.resolve(resp);
+        }, (error) => {
+            console.log(error, 'error post doc');
+            return Promise.reject(error);
+        });
+};
+
 const deleteUniversity = function (university) {
     return connectivityModule.http.delete(`${path}${university.id}`)
         .then((resp) => {
@@ -77,6 +88,7 @@ export {
     getUniversitiesList,
     //getSuggestions,
     approve,
+    rename,
     deleteUniversity,
     migrateUniversities,
     createCourseItem

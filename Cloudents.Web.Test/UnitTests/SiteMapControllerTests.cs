@@ -1,8 +1,4 @@
 ﻿using Cloudents.Web.Test.IntegrationTests;
-using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
-using System;
-using System.Threading.Tasks;
 using System.Xml;
 using Xunit;
 

@@ -2,10 +2,8 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Query.Admin;
 using Dapper;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,13 +11,11 @@ namespace Cloudents.Query.Admin
 {
     public class AdminPendingCoursesQueryHandler : IQueryHandler<AdminLanguageQuery, IList<PendingCoursesDto>>
     {
+        private readonly DapperRepository _dapper;
 
-        private readonly IConfigurationKeys _provider;
-
-
-        public AdminPendingCoursesQueryHandler(IConfigurationKeys provider)
+        public AdminPendingCoursesQueryHandler(DapperRepository dapper)
         {
-            _provider = provider;
+            _dapper = dapper;
         }
 
         public async Task<IList<PendingCoursesDto>> GetAsync(AdminLanguageQuery query, CancellationToken token)
@@ -33,12 +29,12 @@ namespace Cloudents.Query.Admin
             {
                 sql += "and name like '%[a-z]%'";
             }
-            
-            using (var connection = new SqlConnection(_provider.Db.Db))
+
+            return await _dapper.WithConnectionAsync(async connection =>
             {
                 var res = await connection.QueryAsync<PendingCoursesDto>(sql);
                 return res.AsList();
-            }
+            }, token);
         }
     }
 }

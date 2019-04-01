@@ -35,15 +35,15 @@ namespace Cloudents.Query.Query
                     
                     var t =  await conn.QueryAsync<UserProfileDto, UserTutorProfileDto, UserProfileDto>(@"
 select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description,
-utt.price as price,
+t.price as price,
 u.online,
-(Select avg(rate) from sb.tutorReview where tutorId = ut.id) as rate,
-(Select count(*) from sb.tutorReview where tutorId = ut.id) as ReviewCount
+(Select avg(rate) from sb.tutorReview where tutorId = t.UserId) as rate,
+(Select count(*) from sb.tutorReview where tutorId = t.UserId) as ReviewCount
 from sb.[user] u 
 left join sb.[University] u2 on u.UniversityId2 = u2.Id
-left join sb.UserType ut on ut.userid = u.Id
-left join sb.UserTutor utt on ut.id = utt.userRole_id
-where u.id = @id
+left join sb.Tutor t
+	on U.Id = t.UserId
+where u.id = @Id
 and (u.LockoutEnd is null or u.LockoutEnd < GETUTCDATE())
 ", (dto, profileDto) =>
                     {

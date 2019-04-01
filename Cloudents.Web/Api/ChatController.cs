@@ -64,7 +64,7 @@ namespace Cloudents.Web.Api
             return result.Select(s =>
             {
                 if (!(s is ChatAttachmentDto p)) return s;
-                var url = _blobProvider.GetBlobUrl($"{p.ChatRoomId}/{p.Id}/{p.Attachment}");
+                var url = BlobProvider.GetBlobUrl($"{p.ChatRoomId}/{p.Id}/{p.Attachment}");
                 p.Src = Url.ImageUrl(new ImageProperties(url), serializer);
                 p.Href = Url.RouteUrl("ChatDownload",new
                 {

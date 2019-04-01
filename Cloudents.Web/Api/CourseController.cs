@@ -1,17 +1,17 @@
-﻿using Cloudents.Web.Extensions;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Web.Extensions;
+using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -45,7 +45,9 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour,Location = ResponseCacheLocation.Any,VaryByQueryKeys = new []{nameof(CourseRequest.Term) })]
+        [ResponseCache(Duration = TimeConst.Hour, 
+            Location = ResponseCacheLocation.Any, 
+            VaryByQueryKeys = new[] { nameof(CourseRequest.Term) })]
         public async Task<CoursesResponse> GetAsync([FromQuery]CourseRequest model,
             CancellationToken token)
         {
@@ -57,11 +59,13 @@ namespace Cloudents.Web.Api
             };
         }
 
+       
+
         [HttpPost]
         public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AssignCoursesToUserCommand(model.Select(s=>s.Name), userId);
+            var command = new AssignCoursesToUserCommand(model.Select(s => s.Name), userId);
             await _commandBus.DispatchAsync(command, token);
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.RefreshSignInAsync(user);

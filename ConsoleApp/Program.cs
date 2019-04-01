@@ -7,8 +7,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query;
-using Cloudents.Search.Question;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -23,11 +21,9 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -139,11 +135,18 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             var unitOfWork = _container.Resolve<IUnitOfWork>();
-            var userRepository = _container.Resolve<IRegularUserRepository>();
-            var me = await userRepository.LoadAsync(160336L, default);
+            var c = _container.Resolve<ICommandBus>();
+            //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
+           // await c.DispatchAsync(command2, default);
+
+            var command = new AddTutorReviewCommand("this is a great review of myself", 5, 638, 638);
+            
+            await c.DispatchAsync(command, default);
+            //var userRepository = _container.Resolve<IRegularUserRepository>();
+            //var me = await userRepository.LoadAsync(160336L, default);
          
-            await userRepository.UpdateAsync(me, default);
-            await unitOfWork.CommitAsync(default);
+            //await userRepository.UpdateAsync(me, default);
+            //await unitOfWork.CommitAsync(default);
             Console.WriteLine("done");
         }
 
@@ -154,9 +157,9 @@ namespace ConsoleApp
 
 
 
-            var _bus = _container.Resolve<ICloudStorageProvider>();
-            var blobClient = _bus.GetBlobClient();
-            var queueClient = _bus.GetQueueClient();
+            var bus = _container.Resolve<ICloudStorageProvider>();
+            var blobClient = bus.GetBlobClient();
+            var queueClient = bus.GetQueueClient();
 
 
             var container = blobClient.GetContainerReference("spitball-files");
@@ -341,7 +344,7 @@ namespace ConsoleApp
                 }
             }
         }
-        private static async Task addToExtra()
+        private static async Task AddToExtra()
         {
 
             var d = _container.Resolve<DapperRepository>();
@@ -392,8 +395,12 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
+            var commandBus = _container.Resolve<ICommandBus>();
+            var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
+            await commandBus.DispatchAsync(command, default);
+
             //await addToExtra();
-            await FunctionsExtensions.MergeUniversity(_container);
+            //await FunctionsExtensions.DeleteCourses(_container);
             //await TransferDocuments();
             //var _queryBus = _container.Resolve<IQueryBus>();
             // await FixStorageAsync();
@@ -611,12 +618,12 @@ namespace ConsoleApp
 
         }
 
-        private static Random random = new Random();
+        private static Random _random = new Random();
         public static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+              .Select(s => s[_random.Next(s.Length)]).ToArray());
         }
 
         public static async Task TransferDocuments()

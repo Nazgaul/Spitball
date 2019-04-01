@@ -4,6 +4,7 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Filters;
@@ -28,15 +29,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Web.Api;
-using Cloudents.Identity;
-using Microsoft.Extensions.DependencyModel;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -74,8 +70,9 @@ namespace Cloudents.Web
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddRouting(x =>
             {
-               // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
+                // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
             });
+
             services.AddMvc()
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
                 {
@@ -152,7 +149,7 @@ namespace Cloudents.Web
                 options.Lockout.MaxFailedAccessAttempts = 3;
             }).AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
-                .AddRoles<RoleStore>()
+                // .AddRoles<RoleStore>()
                 .AddSignInManager<SbSignInManager>();
             services.ConfigureApplicationCookie(o =>
             {
@@ -175,7 +172,7 @@ namespace Cloudents.Web
             //TODO: not sure we need those
             services.AddScoped<IUserClaimsPrincipalFactory<RegularUser>, AppClaimsPrincipalFactory>();
             services.AddScoped<IUserStore<RegularUser>, UserStore>();
-            services.AddScoped<IRoleStore<UserRole>, RoleStore>();
+            //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();
 
@@ -197,7 +194,7 @@ namespace Cloudents.Web
             //    .Where(x => x.Contains(Directory.GetCurrentDirectory()))
             //    .Select(Assembly.LoadFile)
             //    .ToList();
-            
+
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
             var keys = new ConfigurationKeys(Configuration["Site"])

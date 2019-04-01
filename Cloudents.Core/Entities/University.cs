@@ -32,6 +32,12 @@ namespace Cloudents.Core.Entities
             }
         }
 
+
+        public virtual void Rename(string newName)
+        {
+            Name = newName;
+        }
+
         //public virtual Guid Id { get; protected set; }
 
 

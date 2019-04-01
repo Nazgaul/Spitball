@@ -1,21 +1,16 @@
-﻿using Cloudents.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
     public class ReviewRequest
     {
-        public ReviewRequest(string review, float rate, long tutorId)
-        {
-            Review = review;
-            Rate = rate;
-            Tutor = tutorId;
-        }
-        public virtual string Review { get; set; }
-        public virtual float Rate { get; set; }
-        public virtual long Tutor { get; set; }
+        [StringLength(1000)]
+        [Required(ErrorMessage = "Required")]
+        public string Review { get; set; }
+        [Range(0, 5)]
+        [Required(ErrorMessage = "Required")]
+        public float Rate { get; set; }
+        [Required(ErrorMessage = "Required")]
+        public long Tutor { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class RegularUser : User
     {
-        public RegularUser(string email, string firstName,string lastName,  Language language) : this()
+        public RegularUser(string email, string firstName, string lastName, Language language) : this()
         {
             Email = email;
             ChangeName(firstName, lastName);
@@ -22,13 +22,13 @@ namespace Cloudents.Core.Entities
         {
             UserLogins = new List<UserLogin>();
             Transactions = Transactions ?? new UserTransactions();
-            Courses = new HashSet<Course>();
+            Courses = new HashSet<UserCourse>();
             Tags = new HashSet<Tag>();
-            UserRoles = new HashSet<UserRole>();
+            //UserRoles = new HashSet<UserRole>();
 
         }
 
-        public virtual int FraudScore { get; set; }
+        //public virtual int FraudScore { get; set; }
 
 
         public virtual void DeleteQuestionAndAnswers()
@@ -47,7 +47,7 @@ namespace Cloudents.Core.Entities
 
         public virtual bool LockoutEnabled { get; set; }
 
-       // public virtual bool TwoFactorEnabled { get; set; }
+        // public virtual bool TwoFactorEnabled { get; set; }
 
         public virtual string LockoutReason { get; set; }
 
@@ -57,19 +57,38 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
-        public virtual ISet<Course> Courses { get; protected set; }
+        protected internal virtual ISet<UserCourse> Courses { get; protected set; }
+
+
+        public virtual void AssignCourses(IEnumerable<Course> courses)
+        {
+            var userCourse = new List<UserCourse>();
+            foreach (var course in courses)
+            {
+                var p = new UserCourse(this, course);
+                userCourse.Add(p);
+                if (Courses.Add(p))
+                {
+                    course.Count++;
+                }
+               
+            }
+            Courses.IntersectWith(userCourse);
+        }
+
+
         public virtual ISet<Tag> Tags { get; protected set; }
-        public virtual ISet<UserRole> UserRoles { get;  set; }
+        //public virtual ISet<UserRole> UserRoles { get;  set; }
 
         public virtual DateTime LastOnline { get; protected set; }
         public virtual bool Online { get; protected set; }
 
         public virtual UserTransactions Transactions { get; protected set; }
 
-        //public virtual string FirstName { get; protected set; }
+        public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Description { get; set; }
-
+        public virtual Tutor Tutor { get; set; }
         public virtual void ChangeOnlineStatus(bool isOnline)
         {
             Online = isOnline;
@@ -78,8 +97,16 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeName(string firstName, string lastName)
         {
-            LastName = lastName ?? LastName;
-            Name = firstName;
+            FirstName = firstName;
+            LastName = lastName;
+           
+            Name = $"{FirstName} {LastName}".Trim();
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                var rdm = new Random();
+                var randomNumber =  rdm.Next(1000, 9999);
+                Name = $"{Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0]}.{randomNumber}";
+            }
         }
 
         public virtual void SuspendUser(DateTimeOffset lockTime, string reason)
@@ -91,7 +118,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UnSuspendUser()
         {
-            LockoutEnd = DateTime.UtcNow.Add(new TimeSpan(0,0,-1));
+            LockoutEnd = DateTime.UtcNow.Add(TimeSpan.FromSeconds(-1));
             AddEvent(new UserUnSuspendEvent(this));
         }
 
@@ -117,7 +144,7 @@ namespace Cloudents.Core.Entities
         {
             var t = new AwardMoneyTransaction(price);
             MakeTransaction(t);
-            
+
         }
 
         public virtual void AwardMoney(AwardsTransaction award)
@@ -155,41 +182,41 @@ namespace Cloudents.Core.Entities
     }
 
 
-    public abstract class UserRole: IEquatable<UserRole>
-    {
-        public UserRole(RegularUser user)
-        {
-            User = user;
-        }
-        protected UserRole()
-        {
-            
-        }
-        public virtual  Guid Id { get; set; }
-        public virtual RegularUser User { get; set; }
+    //public abstract class UserRole : IEquatable<UserRole>
+    //{
+    //    public UserRole(RegularUser user)
+    //    {
+    //        User = user;
+    //    }
+    //    protected UserRole()
+    //    {
 
-        public abstract string Name { get; }
+    //    }
+    //    public virtual Guid Id { get; set; }
+    //    public virtual RegularUser User { get; set; }
 
-        public virtual bool Equals(UserRole other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Equals(User, other.User);
-        }
+    //    public abstract string Name { get; }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((UserRole)obj);
-        }
+    //    public virtual bool Equals(UserRole other)
+    //    {
+    //        if (ReferenceEquals(null, other)) return false;
+    //        if (ReferenceEquals(this, other)) return true;
+    //        return Equals(User, other.User);
+    //    }
 
-        public override int GetHashCode()
-        {
-            return (User != null ? User.GetHashCode() : 0);
-        }
+    //    public override bool Equals(object obj)
+    //    {
+    //        if (ReferenceEquals(null, obj)) return false;
+    //        if (ReferenceEquals(this, obj)) return true;
+    //        if (obj.GetType() != GetType()) return false;
+    //        return Equals((UserRole)obj);
+    //    }
 
-       
-    }
+    //    public override int GetHashCode()
+    //    {
+    //        return (User != null ? User.GetHashCode() : 0);
+    //    }
+
+
+    //}
 }

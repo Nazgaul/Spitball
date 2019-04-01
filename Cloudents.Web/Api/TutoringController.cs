@@ -4,7 +4,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -13,12 +12,13 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-
+using Cloudents.Web.Extensions;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/[controller]"),ApiController]
     public class TutoringController : ControllerBase
     {
         private readonly IQueueProvider _queueProvider;
@@ -95,12 +95,24 @@ namespace Cloudents.Web.Api
 
         [HttpPost("review")]
         public async Task<IActionResult> CreateReview([FromBody] ReviewRequest model,
-            [FromServices] UserManager<RegularUser> _userManager,
+            [FromServices] UserManager<RegularUser> userManager,
             CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User);
-            var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, user);
-            await _commandBus.DispatchAsync(command, token);
+            var userId = userManager.GetLongUserId(User);
+            if (userId == model.Tutor)
+            {
+                return BadRequest();
+            }
+            
+            var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, userId);
+            try
+            {
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest();
+            }
             return Ok();
         }
     }

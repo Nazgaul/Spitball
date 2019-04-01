@@ -1,9 +1,7 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Interfaces;
 using Cloudents.Query.Query.Admin;
 using Dapper;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,10 +9,10 @@ namespace Cloudents.Query.Admin
 {
     public class AdminUserFlagsOthersQueryHandler : IQueryHandler<AdminUserFlagsOthersQuery, (IEnumerable<UserFlagsOthersDto>, int)>
     {
-        private readonly IConfigurationKeys _provider;
-        public AdminUserFlagsOthersQueryHandler(IConfigurationKeys provider)
+        private readonly DapperRepository _dapper;
+        public AdminUserFlagsOthersQueryHandler(DapperRepository dapper)
         {
-            _provider = provider;
+            _dapper = dapper;
         }
         private const int PageSize = 200;
         public async Task<(IEnumerable<UserFlagsOthersDto>, int)> GetAsync(AdminUserFlagsOthersQuery query, CancellationToken token)
@@ -44,27 +42,27 @@ namespace Cloudents.Query.Admin
                             ) A;";
             }
 
-            using (var connection = new SqlConnection(_provider.Db.Db))
+            using (var connection = _dapper.OpenConnection())
             {
-                using (var res = await connection.QueryMultipleAsync(sql,
-                    new
-                    {
-                        flags = query.MinFlags,
-                        PageNumber = query.Page,
-                        PageSize
-                    })
-                    )
+            using (var res = await connection.QueryMultipleAsync(sql,
+                new
                 {
-                    var resList = res.Read<UserFlagsOthersDto>();
-                    int rows = -1;
-                    if (!res.IsConsumed)
-                    {
-                        rows = res.ReadFirst<int>();
-                    }
-                return (resList, rows);
+                    flags = query.MinFlags,
+                    PageNumber = query.Page,
+                    PageSize
+                })
+                )
+            {
+                var resList = res.Read<UserFlagsOthersDto>();
+                int rows = -1;
+                if (!res.IsConsumed)
+                {
+                    rows = res.ReadFirst<int>();
                 }
-                // return resList;
+                return (resList, rows);
             }
+                // return resList;
+            };
         }
     }
 }

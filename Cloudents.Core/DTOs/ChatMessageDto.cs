@@ -20,6 +20,8 @@ namespace Cloudents.Core.DTOs
         [DataMember] public DateTime DateTime { get; set; }
 
         [DataMember] public abstract string Type { get; }
+        [DataMember] public string Name { get; set; }
+        [DataMember] public string Image { get; set; }
     }
 
     [DataContract]

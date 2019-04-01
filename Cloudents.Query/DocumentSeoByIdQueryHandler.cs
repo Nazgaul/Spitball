@@ -31,7 +31,7 @@ namespace Cloudents.Query
                         Name = s.Name,
                         Country = s.University.Country,
                         MetaContent = s.MetaContent,
-                        CourseName = s.Course.Name,
+                        CourseName = s.Course.Id,
                         UniversityName = s.University.Name
                     }
                     // (s.Name, s.Course.Name, s.University.Country, s.University.Name, s.Id)
@@ -58,7 +58,7 @@ namespace Cloudents.Query
                      Name = s.Name,
                      Country = s.University.Country,
                      MetaContent = s.MetaContent,
-                     CourseName = s.Course.Name,
+                     CourseName = s.Course.Id,
                      UniversityName = s.University.Name
                  }
                 // (s.Name, s.Course.Name, s.University.Country, s.University.Name, s.Id)
