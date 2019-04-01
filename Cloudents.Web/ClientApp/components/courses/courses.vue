@@ -1,14 +1,16 @@
 <template>
     <v-card class="edit-courses-card">
-    <component :is="'step_'+currentStep" :callbackFunc="callBackmethods"> </component>
+        <router-view></router-view>
+    <!--<component :is="'step_'+currentStep" :callbackFunc="callBackmethods"> </component>-->
+        <!--<router-view></router-view>-->
     </v-card>
 </template>
 
 <script>
     import { mapActions, mapGetters } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
-    import step_1 from './helpers/addCourses.vue';
-    import step_2 from './helpers/selectedCourses.vue';
+    import step_1 from './addCourses/addCourses.vue';
+    import step_2 from './editCourses/editCourses.vue';
 
 
     export default {
@@ -26,7 +28,7 @@
                 isRtl: global.isRtl,
                 global: global,
                 steps : 2,
-                currentStep: 2,
+                currentStep: 1,
                 callBackmethods: {
                     next: this.nextStep,
                     changeStep: this.changeStep,
@@ -61,6 +63,6 @@
 </script>
 
 
-<style lang="less" src="./editCourses.less">
+<style lang="less" src="./courses.less">
 
 </style>

@@ -7,10 +7,8 @@ import pageHeader from './components/header/header.vue';
 // import landingHeader from './components/landingPage/helpers/landingHeader.vue'
 import landingPage from './components/landingPage/landingPage.vue';
 import schoolBlock from './components/schoolBlock/schoolBlock.vue';
-import verticalsTabs from './components/header/verticalsTabs.vue'
-import {
-    staticRoutes
-} from "./components/satellite/satellite-routes";
+import verticalsTabs from './components/header/verticalsTabs.vue';
+import { staticRoutes } from "./components/satellite/satellite-routes";
 
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
@@ -25,9 +23,11 @@ const newProfile = () => import("./components/new_profile/new_profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
 const login = () => import("./components/new_registration/login.vue");
 const university = () => import("./components/helpers/uni-select/uniSelect.vue");
-const setCourse = () => import("./components/editCourses/editCourses.vue");
-
+const setCourse = () => import("./components/courses/courses.vue");
+const addCourse = () => import("./components/courses/addCourses/addCourses.vue");
+const editCourse = () => import("./components/courses/editCourses/editCourses.vue");
 const tutorComponent = () => import("./components/tutor/tutor.vue");
+
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
 
@@ -35,7 +35,7 @@ function dynamicPropsFn(route) {
         name: newName,
         query: route.query,
         params: route.params,
-    }
+    };
 }
 
 function dynamicDetailsPropsFn(route) {
@@ -44,7 +44,7 @@ function dynamicDetailsPropsFn(route) {
         query: route.query,
         id: route.params.id,
         params: route.params,
-    }
+    };
 }
 
 function headerResultPageFn(route) {
@@ -52,12 +52,13 @@ function headerResultPageFn(route) {
         userText: route.query.term,
         submitRoute: route.path,
         currentSelection: route.path.slice(1)
-    }
+    };
 }
+
 function verticalResultPageFn(route) {
     return {
         currentSelection: route.path.slice(1)
-    }
+    };
 }
 
 const resultPage = {
@@ -101,7 +102,7 @@ let routes2 = [
             default: landingPage,
 
         },
-        
+
     },
     {
         path: "/result",
@@ -126,7 +127,7 @@ let routes2 = [
                         title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
                         path: route.path,
                         location: window.location.href
-                    }
+                    };
                 }
             }
         }
@@ -145,7 +146,7 @@ let routes2 = [
                         title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
                         path: route.path,
                         location: window.location.href
-                    }
+                    };
                 }
             }
         }
@@ -164,7 +165,7 @@ let routes2 = [
                         title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
                         path: route.path,
                         location: window.location.href
-                    }
+                    };
                 }
             }
         }
@@ -177,8 +178,8 @@ let routes2 = [
             header: pageHeader,
             schoolBlock: schoolBlock,
         },
-        props:{
-            default: (route)=>({
+        props: {
+            default: (route) => ({
                 step: route.params.step
             })
         },
@@ -187,15 +188,29 @@ let routes2 = [
         },
     },
     {
-        path: "/edit-courses/",
+        path: "/courses/",
         name: "setCourse",
+        children: [
+            {
+                path: 'add',
+                component: addCourse
+            },
+            {
+                path: 'edit',
+                component: editCourse
+            },
+            {
+                path: '*',
+                redirect: 'edit',
+            },
+        ],
         components: {
             default: setCourse,
             header: pageHeader,
             schoolBlock: schoolBlock,
         },
-        props:{
-            default: (route)=>({
+        props: {
+            default: (route) => ({
                 step: route.params.step
             })
         },
@@ -319,10 +334,10 @@ let routes2 = [
         name: "registration",
         beforeEnter: (to, from, next) => {
             //prevent entering if loged in
-            if (global.isAuth) {
-                next(false)
+            if(global.isAuth) {
+                next(false);
             } else {
-                next()
+                next();
             }
         }
     },
@@ -350,19 +365,19 @@ let routes2 = [
 for (let v in staticRoutes) {
     let item = staticRoutes[v];
     routes2.push({
-        path: item.path || "/" + item.name,
-        name: item.name,
-        components: {
-            header: satelliteHeader,
-            default: item.import
-        },
-        meta: {
-            static: true
-        },
-        props: {
-            default: (route) => item.params ? item.params(route) : {}
-        }
-    })
+                     path: item.path || "/" + item.name,
+                     name: item.name,
+                     components: {
+                         header: satelliteHeader,
+                         default: item.import
+                     },
+                     meta: {
+                         static: true
+                     },
+                     props: {
+                         default: (route) => item.params ? item.params(route) : {}
+                     }
+                 });
 }
 
 export const routes = routes2;
