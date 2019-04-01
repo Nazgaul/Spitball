@@ -1,5 +1,6 @@
 <template>
     <div class="courses-list-wrap">
+        <div v-if="isEmpty">
         <v-layout row class="py-4 px-4" align-center justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
@@ -8,8 +9,10 @@
                 </div>
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <a class="next-container py-1 px-3 font-weight-bold" @click="goToAddMore()"
-                >Add</a>
+                <v-btn round  color="#4452FC" class="add-btn py-1 font-weight-bold my-0" @click="goToAddMore()">
+                    <v-icon left>sbf-plus-regular</v-icon>
+                    <span>Add</span>
+                </v-btn>
             </v-flex>
         </v-layout>
         <v-layout align-center>
@@ -43,13 +46,16 @@
                 </div>
             </v-flex>
         </v-layout>
+        </div>
+        <div v-else>
+            <courses-empty-state></courses-empty-state>
+        </div>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import coursesEmptyState from '../coursesEmptyState/coursesEmptyState.vue';
-
     export default {
         name: "selectedCourses",
         components: {coursesEmptyState},
@@ -60,6 +66,9 @@
             ...mapGetters(['getClasses']),
             classesSelected() {
                 return this.getClasses;
+            },
+            isEmpty(){
+                return this.getClasses.length < 1
             },
             coursesQuantaty() {
                 return this.getClasses.length;
@@ -76,7 +85,7 @@
                 from.splice(index, 1);
             },
             goToAddMore() {
-                console.log('add more');
+                this.$router.push({name: 'addCourse'});
             }
         },
 
@@ -89,6 +98,9 @@
     .courses-list-wrap {
         .rounded-btn {
             border-radius: 16px;
+        }
+        .add-btn{
+            color: @color-white;
         }
         .purple-text {
             color: @purpleLight;

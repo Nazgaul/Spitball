@@ -193,10 +193,12 @@ let routes2 = [
         children: [
             {
                 path: 'add',
+                name: 'addCourse',
                 component: addCourse
             },
             {
                 path: 'edit',
+                name: 'editCourse',
                 component: editCourse
             },
             {
