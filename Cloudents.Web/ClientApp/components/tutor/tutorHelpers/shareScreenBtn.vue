@@ -42,7 +42,7 @@
     import { mapGetters } from 'vuex';
     import { createLocalVideoTrack } from 'twilio-video';
     import videoService from "../../../services/videoStreamService";
-    import castIcon from '../images/cast.svg'
+    import castIcon from '../images/cast.svg';
     export default {
         name: "shareScreenBtn",
         components: {castIcon},
@@ -50,7 +50,7 @@
             return {
                 isSharing: false,
                 extensionDialog: false,
-                extensionLink: `https://chrome.google.com/webstore/detail/hicolpoppnllddloocbcjfeoijgjfdeg`
+                extensionLink: `https://chrome.google.com/webstore/detail/${videoService.extensionId}`
             }
         },
         computed: {
