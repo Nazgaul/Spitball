@@ -1,9 +1,9 @@
 // const extensionId = 'dhndcoampgbambhkkjkicnibhbndjaop'; // localhost spitball share
- const extensionId = 'hicolpoppnllddloocbcjfeoijgjfdeg'; // dev && prod
+const extensionId = 'jaimgihanebafnbcpckdkilkeoomkpik';  // dev && prod
 //  const extensionId = 'chombcfbjenobkieohgkjlmmhehfgomf'; // twillio
 
 export default {
-
+    extensionId,
     //get/try to get share stream via chrome extension
     getUserScreen() {
         function isFirefox() {
