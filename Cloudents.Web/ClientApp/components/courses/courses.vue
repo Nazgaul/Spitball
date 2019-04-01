@@ -1,5 +1,5 @@
 <template>
-    <v-card class="edit-courses-card">
+    <v-card class="courses-card">
         <router-view></router-view>
     <!--<component :is="'step_'+currentStep" :callbackFunc="callBackmethods"> </component>-->
         <!--<router-view></router-view>-->

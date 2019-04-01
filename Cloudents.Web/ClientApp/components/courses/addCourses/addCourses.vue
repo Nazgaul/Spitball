@@ -228,10 +228,11 @@
     @import '../../../styles/mixin.less';
 
     .add-courses-wrap {
+        .scrollBarStyle(0px, #0085D1);
         .v-input__slot{
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17)!important;
         }
-        .scrollBarStyle(0px, #0085D1);
+
         .light-purple {
             color: @purpleLight;
         }

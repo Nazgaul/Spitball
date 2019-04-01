@@ -65,7 +65,26 @@
         computed: {
             ...mapGetters(['getClasses']),
             classesSelected() {
-                return this.getClasses;
+                // return this.getClasses;
+                return [
+                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
+                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
+                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
+                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
+                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
+                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
+                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
+                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
+                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
+                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
+                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
+                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
+                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
+                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
+                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
+                    { text: 'Psychoogy', isJoined: true, studentsEnrolled: 87, isTeaching: true},
+                    { text: 'Calculas', isJoined: true, studentsEnrolled: 154, isTeaching: false},
+                ]
             },
             isEmpty(){
                 return this.getClasses.length < 1
@@ -96,6 +115,7 @@
     @import '../../../styles/mixin.less';
 
     .courses-list-wrap {
+        .scrollBarStyle(0px, #0085D1);
         .rounded-btn {
             border-radius: 16px;
         }
