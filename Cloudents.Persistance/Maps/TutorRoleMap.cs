@@ -14,7 +14,8 @@ namespace Cloudents.Persistence.Maps
             HasOne(x => x.User).Constrained().Cascade.None();
             Map(x => x.Bio).Length(1000);
             Map(x => x.Price).CustomSqlType("smallMoney");
-            HasMany(x => x.Reviews).Cascade.AllDeleteOrphan().Inverse();
+            HasMany(x => x.Reviews).Access.CamelCaseField(Prefix.Underscore)
+                .Cascade.AllDeleteOrphan().Inverse();
             /* HasMany(x => x.Courses)
                .Table("TutorsCourses")
                .KeyColumn("TutorId")              

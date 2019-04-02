@@ -227,9 +227,6 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [NonAction]
-
-
         [HttpPost("BecomeTutor")]
         public async Task<IActionResult> BecomeTutorAsync([FromBody]BecomeTutorRequest model, CancellationToken token)
         {
@@ -238,9 +235,6 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
-
-        
-
      
     }
 }
