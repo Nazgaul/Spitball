@@ -81,7 +81,6 @@
                     </v-flex>
                 </div>
             </v-flex>
-
         </v-layout>
     </div>
 </template>
