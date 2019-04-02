@@ -25,7 +25,7 @@
                     <a :href="extensionLink"
                             target="_blank"
                            class="btn px-3 py-2 mr-3"
-                            @click="dialog = false"
+                            @click="extensionDialog = false"
                     >Install</a>
                     <v-btn
                             color="green darken-1"
@@ -50,7 +50,7 @@
             return {
                 isSharing: false,
                 extensionDialog: false,
-                extensionLink: `https://chrome.google.com/webstore/detail/hicolpoppnllddloocbcjfeoijgjfdeg`
+                extensionLink: `https://chrome.google.com/webstore/detail/${videoService.extensionId}`
             }
         },
         computed: {

@@ -1,6 +1,6 @@
 <template>
     <div class="add-courses-wrap">
-        <v-layout row class="py-4 px-4" align-center justify-center>
+        <v-layout row :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2']" align-center justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
                     <v-icon @click="lastStep()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
@@ -11,11 +11,12 @@
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <a class="next-container py-1 px-3 font-weight-bold" @click="sendData()"
-                   v-language:inner>uniSelect_done</a>
+                <v-btn round  class="elevation-0 done-btn py-1 font-weight-bold my-0"  @click="submitAndGo()">
+                    <span v-language:inner>uniSelect_done</span>
+                </v-btn>
             </v-flex>
         </v-layout>
-        <v-layout column class="px-3">
+        <v-layout column :class="{'px-3' : $vuetify.breakpoint.smAndUp}">
             <v-flex>
                 <v-text-field id="classes_input"
                               v-model="search"
@@ -35,7 +36,7 @@
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
                     <div class="class-list selected-classes-list py-3 px-3">
                         <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
-                             v-for="selectedClass in selectedClasses">
+                             v-for="selectedClass in localSelectedClasses">
                             <span class="text-truncate">{{selectedClass.text}}</span>
                             <span class="delete-class cursor-pointer pr-3"
                                   @click="deleteClass(selectedClass, selectedClasses)">
@@ -54,26 +55,30 @@
                         <div v-html="$options.filters.boldText(singleClass.text, search)">
                             {{ singleClass.text }}</div>
                         <v-layout row align-center justify-end>
-                            <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
-                                     <span class="light-purple caption font-weight-bold mr-2">Joined</span>
-                                   <span>
+                            <div v-if="!singleClass.isFollowing">
+                                <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
+                                    <span class="light-purple caption font-weight-bold mr-2">Joined</span>
+                                    <span>
                                      <v-icon class="checked-icon">sbf-check-circle</v-icon>
                                    </span>
-                            </v-flex>
-                            <v-flex shrink v-else class="d-flex align-center">
-                                <span class="light-purple caption font-weight-bold mr-2">Join</span>
-                                <span>
+                                </v-flex>
+                                <v-flex shrink v-else class="d-flex align-center">
+                                    <span class="light-purple caption font-weight-bold mr-2">Join</span>
+                                    <span>
                                      <v-icon class="add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
                                    </span>
+                                </v-flex>
+                            </div>
+                            <v-flex v-else shrink class="d-flex align-end">
+                                <span class="light-purple caption font-weight-bold mr-2">Joinded</span>
                             </v-flex>
                         </v-layout>
                     </div>
                     <!--create new course-->
-                    <div class="d-flex align-center justify-center list-item caption cursor-pointer" @click="addManualUniversity()">
-                        <span v-language:inner>uniSelect_didnt_find_class</span>
+                    <v-flex  class="text-xs-center align-center justify-center cand-find caption cursor-pointer" @click="addManualUniversity()">
+                        <span>Can't Find your course?</span>
                         <span class="add-item">Create new</span>
-                    </div>
-
+                    </v-flex>
                 </div>
             </v-flex>
 
@@ -94,15 +99,16 @@
                     "uniSelect_type_class_name_placeholder"
                 ),
                 isRtl: global.isRtl,
-                global: global
+                global: global,
+                localSelectedClasses: []
             };
         },
-        props: {
-            callbackFunc: {
-                required: true,
-                type: Object
-            },
-        },
+        // props: {
+        //     callbackFunc: {
+        //         required: true,
+        //         type: Object
+        //     },
+        // },
         watch: {
             search: debounce(function (val) {
                 let searchVal;
@@ -145,7 +151,7 @@
             },
             selectedClasses: {
                 get() {
-                    return this.getSelectedClasses;
+                    return this.localSelectedClasses;
                 },
                 set(val) {
                     let arrValidData = [];
@@ -158,22 +164,33 @@
                             }
                         });
                     }
-                    this.updateSelectedClasses(arrValidData);
+                    this.localSelectedClasses.push(arrValidData)
+                   this.updateSelectedClasses(arrValidData);
                 }
             }
         },
         methods: {
-            ...mapActions(["updateClasses", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
+            ...mapActions([
+                              "updateClasses",
+                              "updateSelectedClasses",
+                              "assignClasses",
+                              "pushClassToSelectedClasses",
+                              "changeClassesToCachedClasses",
+                              "addToCachedClasses"
+                          ]),
             ...mapGetters(["getSchoolName", "getClasses"]),
-
             lastStep() {
                 this.$router.go(-1);
             },
             nextStep(customClass) {
                 this.callbackFunc.next();
             },
-            sendData(){
-                console.log('sending to server')
+            submitAndGo(){
+                //assign all saved in cached list to classes list
+                this.changeClassesToCachedClasses();
+                this.assignClasses().then(() => {
+                    this.$router.push({name: 'editCourse'});
+                });
             },
             deleteClass(classToDelete, from) {
                 let index = from.indexOf(classToDelete);
@@ -183,12 +200,11 @@
                 let index = from.indexOf(classToCheck);
                 from[index].isSelected = true;
             },
-
-            addManualUniversity() {
-                this.fnMethods.openAddSchoolOrClass(false, this.nextStep);
-            },
             addClass(className) {
-                this.pushClassToSelectedClasses(className);
+                this.localSelectedClasses.push(className);
+                //add to cached list
+                this.addToCachedClasses(className);
+                // this.pushClassToSelectedClasses(className);
                 setTimeout(() => {
                     let inputElm = document.getElementById('classes_input');
                     inputElm.value = "";
@@ -196,16 +212,9 @@
                 }, 200);
                 this.checkAsSelected(className, this.classes);
             },
-            // itemInList(item) {
-            //     if(typeof item !== "object") {
-            //         return false;
-            //     } else {
-            //         return true;
-            //     }
-            // }
         },
         created(){
-            this.updateClasses('his');
+            this.updateClasses('');
         },
         filters: {
             boldText(value, search) {
@@ -228,10 +237,13 @@
     @import '../../../styles/mixin.less';
 
     .add-courses-wrap {
+        .scrollBarStyle(0px, #0085D1);
         .v-input__slot{
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17)!important;
         }
-        .scrollBarStyle(0px, #0085D1);
+        .grey-backgound{
+            background-color: #f0f0f7;
+        }
         .light-purple {
             color: @purpleLight;
         }
@@ -246,12 +258,18 @@
             color: @purpleLight;
             font-size: 28px;
         }
+        .done-btn{
+            color: @colorBlue;
+            border-radius: 16px;
+            border: solid 1px @colorBlue;
+            background-color: transparent!important;
+        }
         .search-classes-container {
             margin-top: 2px;
         }
         .class-list {
             background-color: #ffffff;
-            max-height: 250px;
+            max-height: 664px;
             overflow-y: scroll;
             padding-left: 0;
             &.selected-classes-list {
@@ -274,14 +292,6 @@
             color: @color-blue-new;
             font-size: 18px;
         }
-        .next-container {
-            max-width: 80px;
-            font-size: 16px;
-            color: @colorBlue;
-            border-radius: 16px;
-            border: solid 1px @colorBlue;
-            text-transform: uppercase;
-        }
         //end new
         .list-item {
             align-items: center;
@@ -293,9 +303,14 @@
             height: 48px;
             margin: 0;
             padding: 0 16px;
-            position: relative;
+            /*position: relative;*/
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
+        }
+        .cand-find{
+            height: 48px;
+            margin: 0;
+            padding: 0 16px;
         }
         .add-item {
             color: @colorBlue;
@@ -305,26 +320,6 @@
                 background: rgba(0, 0, 0, .04);
             }
         }
-        .chip-style {
-            background-color: rgba(68, 82, 252, 0.09);
-            &.dark-chip {
-                background-color: rgba(68, 82, 252, 0.27);
-            }
-            &.selected {
-                -webkit-box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.2);
-                -moz-box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.2);
-                box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.2);
-            }
-        }
-
-        .chip-button {
-            cursor: pointer;
-            max-width: 150px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
         .sbf-close {
             font-size: 8px !important;
             margin-bottom: 3px;

@@ -52,7 +52,7 @@ const actions = {
             setTimeout(()=>{
                 dispatch('releaseResultLock', "uni");
             }, 2000);
-            
+
 
         });
         universityService.getProfileCourses().then((courses)=>{
@@ -102,7 +102,7 @@ const actions = {
             commit('setSchoolName', val);
             //update profile data with new university
             let currentProfID = this.getters.accountUser.id;
-            
+
             //dispatch("syncProfile", currentProfID);
             Promise.resolve(true);
         })
@@ -126,6 +126,14 @@ const actions = {
     clearClasses({commit}){
         commit('setClasses', []);
     },
+    deleteClass({commit}, val){
+        let name = val.name;
+        universityService.deleteCourse(name).then((resp)=>{
+            commit('deleteCourse', val);
+        })
+
+    },
+
     updateSelectedClasses({commit}, val){
         commit('setSelectedClasses', val);
     },
@@ -138,11 +146,14 @@ const actions = {
             //dispatch("updateCoursesFilters", state.selectedClasses);
             dispatch('changeReflectChangeToPage')
             Promise.resolve(true);
-            
+
         })
     },
     assignSelectedClassesCache({commit, state}){
         commit("setSelectedClassesCahce", state.selectedClasses);
+    },
+    addToCachedClasses({commit, state}, val){
+        commit("updateCachedList", val);
     },
     changeClassesToCachedClasses({commit, state}){
         if(state.selectedClassesCache.length > 0){
@@ -159,7 +170,7 @@ const actions = {
         if(localPopedItem < 3){
             localPopedItem++;
             commit('setUniversityPopStorage', localPopedItem);
-        }        
+        }
     },
     releaseResultLock({commit}, val){
         if(val === "uni"){
@@ -167,7 +178,7 @@ const actions = {
         }else if(val === "class"){
             commit('openResultLockForClassesChange');
         }
-        
+
     },
     updateSelectForTheFirstTime({commit}, val){
         commit('setSelectForTheFirstTime', val);
@@ -181,11 +192,15 @@ const actions = {
         }else{
             commit('updtaeShowSchoolBlock', !state.showSchoolBlock)
         }
-        
+
     }
 };
 
 const mutations = {
+    deleteCourse(state, val){
+        let index = state.selectedClasses.indexOf(val);
+        state.selectedClasses.splice(index, 1);
+    },
     setUniversities(state,val) {
         state.universities = val;
     },
@@ -194,6 +209,9 @@ const mutations = {
     },
     setClasses(state, val){
         state.classes = val;
+    },
+    updateCachedList(state, val){
+        state.selectedClassesCache.push(val);
     },
     pushClass(state, val){
         state.selectedClasses.push(val);

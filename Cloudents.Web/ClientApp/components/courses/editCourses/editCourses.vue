@@ -1,5 +1,6 @@
 <template>
     <div class="courses-list-wrap">
+        <div v-if="!isEmpty">
         <v-layout row class="py-4 px-4" align-center justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
@@ -8,8 +9,10 @@
                 </div>
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <a class="next-container py-1 px-3 font-weight-bold" @click="goToAddMore()"
-                >Add</a>
+                <v-btn round  color="#4452FC" class="add-btn py-1 font-weight-bold my-0" @click="goToAddMore()">
+                    <v-icon left>sbf-plus-regular</v-icon>
+                    <span>Add</span>
+                </v-btn>
             </v-flex>
         </v-layout>
         <v-layout align-center>
@@ -17,25 +20,30 @@
                 <div class="class-list search-classes-list">
                     <div class="list-item search-class-item cursor-pointer"
                          v-for="singleClass in classesSelected">
-                        <div>
+                        <div class="text-truncate course-name-wrap">
                             {{ singleClass.text }}
                         </div>
                         <v-layout row align-center justify-end>
                             <v-flex shrink class="d-flex align-center">
-                                <v-btn round outline color="#a3a0fb"
-                                       class="elevation-0 text-none align-center justify-center rounded-btn">
-                                    <span v-if="true">
-                                    <v-icon color="#a3a0fb" class="btn-icon" left>sbf-face-icon</v-icon>
-                                        <span class="purple-text">Teach</span>
+                                <v-btn v-if="!singleClass.isTeaching" round @click="toggleTeaching(singleClass)"
+                                       class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
+                                    <span>
+                                    <v-icon color="#a3a0fb" class="btn-icon mr-1" >sbf-face-icon</v-icon>
+                                        <span class="purple-text caption">Teach</span>
                                     </span>
-                                    <span v-else>
-                                       <v-icon class="btn-icon" left>sbf-face-icon</v-icon>
-                                        <span>Teaching</span>
+                                </v-btn>
+
+                                <v-btn v-else round @click="toggleTeaching(singleClass)"
+                                       class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
+                                    <span>
+                                       <v-icon class="btn-icon mr-1" >sbf-checkmark</v-icon>
+                                        <span class="caption">Teaching</span>
                                   </span>
                                 </v-btn>
+
                                 <span>
-                                     <v-icon class="add-sbf-icon"
-                                             @click="checkCanTeach(singleClass)">sbf-plus-circle</v-icon>
+                                     <v-icon class="delete-sbf-icon"
+                                             @click="removeClass(singleClass)">sbf-delete-outline</v-icon>
                                    </span>
                             </v-flex>
                         </v-layout>
@@ -43,13 +51,16 @@
                 </div>
             </v-flex>
         </v-layout>
+        </div>
+        <div v-else>
+            <courses-empty-state></courses-empty-state>
+        </div>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import coursesEmptyState from '../coursesEmptyState/coursesEmptyState.vue';
-
     export default {
         name: "selectedCourses",
         components: {coursesEmptyState},
@@ -57,26 +68,33 @@
             return {};
         },
         computed: {
-            ...mapGetters(['getClasses']),
+            ...mapGetters(['getSelectedClasses']),
             classesSelected() {
-                return this.getClasses;
+                return this.getSelectedClasses;
+            },
+            isEmpty(){
+                return this.getSelectedClasses.length < 1
             },
             coursesQuantaty() {
-                return this.getClasses.length;
+                return this.getSelectedClasses.length;
             }
 
         },
         methods: {
-            ...mapActions(["updateClasses", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
-            checkCanTeach(course) {
+            ...mapActions(["updateClasses", "deleteClass", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
+            toggleTeaching(course) {
+                course.isTeaching = !course.isTeaching;
                 console.log('can teach', course);
+            },
+            removeClass(classDelete){
+              this.deleteClass(classDelete);
             },
             deleteFromList(classToDelete, from) {
                 let index = from.indexOf(classToDelete);
                 from.splice(index, 1);
             },
             goToAddMore() {
-                console.log('add more');
+                this.$router.push({name: 'addCourse'});
             }
         },
 
@@ -87,8 +105,26 @@
     @import '../../../styles/mixin.less';
 
     .courses-list-wrap {
+        .scrollBarStyle(0px, #0085D1);
         .rounded-btn {
             border-radius: 16px;
+        }
+        .solid-btn{
+            &:not(.v-btn--flat){
+                background-color: @purpleLight!important;
+                color: @color-white;
+            }
+        }
+        .outline-btn{
+            background-color:@color-white;
+            color: @purpleLight;
+
+        }
+        .add-btn{
+            color: @color-white;
+        }
+        .delete-sbf-icon{
+            color: lighten(@color-black, 75%);
         }
         .purple-text {
             color: @purpleLight;
@@ -98,7 +134,7 @@
         }
         .class-list {
             background-color: #ffffff;
-            max-height: 250px;
+            max-height: 664px;
             overflow-y: scroll;
             padding-left: 0;
         }
@@ -116,13 +152,13 @@
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
         }
+        .course-name-wrap{
+            @media(max-width: @screen-xs){
+                max-width: 60%;
+            }
+        }
         .add-item {
             color: @colorBlue;
-        }
-        .search-class-item {
-            &:hover {
-                background: rgba(0, 0, 0, .04);
-            }
         }
     }
 
