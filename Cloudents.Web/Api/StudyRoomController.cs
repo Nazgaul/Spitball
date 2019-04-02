@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace Cloudents.Web.Api
     [Produces("application/json")]
     [Route("api/[controller]"),ApiController]
     [Authorize]
-    public class TutoringController : ControllerBase
+    public class StudyRoomController : ControllerBase
     {
         private readonly IQueueProvider _queueProvider;
         private readonly IVideoProvider _videoProvider;
@@ -32,7 +33,7 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
 
-        public TutoringController(IQueueProvider queueProvider, IVideoProvider videoProvider,
+        public StudyRoomController(IQueueProvider queueProvider, IVideoProvider videoProvider,
             ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus)
         {
             _queueProvider = queueProvider;
@@ -43,7 +44,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateStudyRoom(CreateStudyRoomRequest model, CancellationToken token)
+        public async Task<IActionResult> CreateStudyRoomAsync(CreateStudyRoomRequest model, CancellationToken token)
         {
             var tutorId = _userManager.GetLongUserId(User);
             var command = new CreateStudyRoomCommand(tutorId, model.UserId);
@@ -52,7 +53,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("id:guid")]
-        public async Task<ActionResult<StudyRoomDto>> GetStudyRoom(Guid id, CancellationToken token)
+        public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new StudyRoomQuery(id, userId);
@@ -63,6 +64,14 @@ namespace Cloudents.Web.Api
             }
 
             return result;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<UserStudyRoomDto>> GetUserStudyRooms(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserStudyRoomQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
         }
 
 
@@ -95,24 +104,24 @@ namespace Cloudents.Web.Api
             );
         }
 
-        [HttpPost("upload")]
-        public async Task<IActionResult> UploadAsync(IFormFile file,
-            [FromServices] IDocumentDirectoryBlobProvider blobProvider,
-            CancellationToken token)
-        {
-            var fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName());
-            await blobProvider
-                .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
+        //[HttpPost("upload")]
+        //public async Task<IActionResult> UploadAsync(IFormFile file,
+        //    [FromServices] IDocumentDirectoryBlobProvider blobProvider,
+        //    CancellationToken token)
+        //{
+        //    var fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName());
+        //    await blobProvider
+        //        .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
-            var uri = blobProvider.GetBlobUrl(fileName);
-            var link = blobProvider.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
+        //    var uri = blobProvider.GetBlobUrl(fileName);
+        //    var link = blobProvider.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
 
-            return Ok(new
-            {
-                link
-            });
+        //    return Ok(new
+        //    {
+        //        link
+        //    });
 
-        }
+        //}
 
         //[HttpPost("document")]
         //public async Task<IActionResult> CreateOnlineDocument([FromBody] OnlineDocumentRequest model, CancellationToken token)
