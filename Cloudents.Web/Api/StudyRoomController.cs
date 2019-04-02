@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Authorization;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Api
 {
@@ -80,11 +82,12 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <returns></returns>
         [HttpPost("id:guid/start")]
-        public async Task<IActionResult> CreateAsync([FromRoute] Guid id, CancellationToken token)
+        public async Task<IActionResult> CreateAsync([FromRoute] Guid id,
+            [FromServices] IHostingEnvironment configuration,
+            CancellationToken token)
         {
             var roomName = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-            var t1 = _videoProvider.CreateRoomAsync(roomName);
-
+            var t1 = _videoProvider.CreateRoomAsync(roomName, configuration.IsProduction());
             var t2 = _queueProvider.InsertMessageAsync(new EndTutoringSessionMessage(roomName), TimeSpan.FromMinutes(90), token);
             await Task.WhenAll(t1, t2);
             return Ok(new
@@ -97,7 +100,8 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> ConnectAsync(string roomName)
         {
             var user = _userManager.GetUserId(User);
-            var token = await _videoProvider.ConnectToRoomAsync(roomName, user);
+            //TODO: need to distinguish tutor from not.
+            var token = await _videoProvider.ConnectToRoomAsync(roomName, user,true);
             return Ok(new
             {
                 token

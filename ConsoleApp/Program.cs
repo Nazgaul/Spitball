@@ -5,6 +5,7 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
 using Dapper;
@@ -130,13 +131,13 @@ namespace ConsoleApp
 
         }
 
-       
+
 
         private static async Task RamMethod()
         {
-            var c = _container.Resolve<ICommandBus>();
-            var command2 = new CreateStudyRoomCommand(638,159039);
-            await c.DispatchAsync(command2, default);
+            var c = _container.Resolve<SmsProvider>();
+
+            await c.ComposeVideo("RM9f9095b1b604469fae518f11797aea07");
 
             Console.WriteLine("done");
         }
