@@ -1,8 +1,5 @@
 ﻿using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,8 +16,8 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteUniversityCommand message, CancellationToken token)
         {
-            var CourseToRemove = await _universityRepository.LoadAsync(message.Id, token);
-            await _universityRepository.DeleteAsync(CourseToRemove, token);
+            var courseToRemove = await _universityRepository.LoadAsync(message.Id, token);
+            await _universityRepository.DeleteAsync(courseToRemove, token);
         }
     }
 }

@@ -1,22 +1,30 @@
 <template>
-    <v-stepper v-model="step">
+    <v-stepper v-model="step" class="quality-test-container">
+        <div class="header-text-wrap pt-3 pb-2 px-4">
+            <span class="header-text" v-if="!isErorrGettingMedia">Camera & Sound Test</span>
+            <span class="header-text" v-if="isErorrGettingMedia && !notAvaliableDevices">Browser Permissions</span>
+            <span class="header-text" v-if="isErorrGettingMedia && notAvaliableDevices">Device Access</span>
+        </div>
+
         <v-stepper-header v-if="!isErorrGettingMedia">
-            <v-stepper-step :complete-icon="'sbf-checkmark'" :complete="step > 1" step="1">Audio Input Test
+            <v-stepper-step color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 1" step="1">Audio Input Test
             </v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step :complete-icon="'sbf-checkmark'" :complete="step > 2" step="2">Audio Output Test
+            <v-stepper-step color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 2" step="2">Audio Output Test
             </v-stepper-step>
             <v-divider></v-divider>
 
-            <v-stepper-step :complete-icon="'sbf-checkmark'" step="3">Video Test</v-stepper-step>
+            <v-stepper-step color="#4452fc" :complete-icon="'sbf-checkmark'" step="3">Video Test</v-stepper-step>
         </v-stepper-header>
-
+        <!--header unable to get device-->
+        <v-stepper-header class="device-error-header px-4 py-2" v-if="isErorrGettingMedia && notAvaliableDevices">
+            <span>Unable to access device.</span></v-stepper-header>
         <v-stepper-items>
             <v-stepper-content v-for="n in steps"
                                :key="`${n}-content`"
                                :step="n">
                 <v-card
-                        class="mb-5 elevation-0"
+                        class="mb-1 elevation-0"
                         color="grey lighten-1"
                         max-height="450px">
                     <!--if there is an error requesting user media show helper component-->
@@ -25,20 +33,23 @@
                     <component  :is="'validation_step_'+step" v-if="n === step && !isErorrGettingMedia"></component>
 
                 </v-card>
-                <v-btn v-if="step !== steps && !isErorrGettingMedia"
-                       color="primary"
-                       @click="nextStep(n)"
-                >
-                    Continue
-                </v-btn>
-                <v-btn v-if="isErorrGettingMedia"
-                       color="primary"
-                       @click="closeDialog(n)"
-                >
-                    Got it
-                </v-btn>
+                <v-layout align-center justify-center>
+                    <v-flex xs2 sm2 md2 class="d-flex align-center justify-center">
+                        <button class="blue-btn" v-if="step !== steps && !isErorrGettingMedia"
+                               @click="nextStep(n)"
+                        >
+                            Continue
+                        </button>
+                        <button  class="blue-btn" v-if="isErorrGettingMedia"
+                               @click="closeDialog(n)"
+                        >
+                            Got it
+                        </button>
+                        <button class="blue-btn" v-if="step === steps" @click="closeDialog()">Done</button>
 
-                <v-btn flat v-if="step === steps" @click="closeDialog()">Done</v-btn>
+                    </v-flex>
+                </v-layout>
+
             </v-stepper-content>
         </v-stepper-items>
     </v-stepper>
@@ -52,7 +63,11 @@
     import notAllowed from './qualitySteps/notAllowed.vue';
     export default {
         name: "qualityValidation",
-        components: {validation_step_1, validation_step_2, validation_step_3, notAllowed},
+        components: {
+            validation_step_1,
+            validation_step_2,
+            validation_step_3,
+            notAllowed},
         data() {
             return {
                 notAvaliableDevices: false,
@@ -102,6 +117,44 @@
     }
 </script>
 
-<style scoped>
+<style lang="less">
+    .quality-test-container{
+        .device-error-header{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            height: 32px;
+            background-color: #ff5a5a;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.87);
+            span{
+                line-height: 1;
+            }
+
+        }
+        .blue-btn{
+            border-radius: 4px;
+            padding: 10px 16px;
+            text-transform: uppercase;
+            box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.16);
+            background-color: #4452fc;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.87);
+        }
+        .header-text-wrap{
+            display: flex;
+            background-color: #f2f2f2;
+            width: 100%;
+            border-radius: 4px 4px 0 0;
+            .header-text{
+                font-size: 12px;
+                font-weight: 600;
+                color: #000000;
+            }
+        }
+    }
 
 </style>

@@ -5,17 +5,27 @@
         <h4>Pending Universities List</h4>
         <v-layout>
             <v-spacer></v-spacer>
-            <v-flex xs4 sm4 md4>
-                <v-text-field v-model="search"
-                              append-icon="search"
-                              label="Search"
-                              single-line
-                              hide-details></v-text-field>
+            <v-flex xs3>
+                <v-select :items="states"
+                          label="state"
+                          v-model="state"
+                          @change="getUniversityList(language, state)"></v-select>
+            </v-flex>
+            <v-flex xs3 offset-xs2>
                 <v-select :items="countries"
                           label="country"
                           v-model="country"
-                          @change="getUniversityList(country)"></v-select>
+                          @change="getUniversityList(country, state)"></v-select>
             </v-flex>
+
+            <v-flex xs4 sm4 md4 offset-xs2>
+                    <v-text-field v-model="search"
+                                  append-icon="search"
+                                  label="Search"
+                                  single-line
+                                  hide-details></v-text-field>
+                    
+                </v-flex>
         </v-layout>
 
         <v-data-table :headers="headers"
@@ -51,6 +61,7 @@
                         <v-layout wrap>
                             <v-flex xs12>
                                 <v-radio-group v-model="radios">
+                                    <v-radio label="Rename" value="rename"></v-radio>
                                     <v-radio label="Delete" value="delete"></v-radio>
                                     <v-radio label="Approve" value="approve"></v-radio>
                                     <v-radio label="Merge" value="merge"></v-radio>
@@ -68,6 +79,12 @@
                   :disabled="disableSelectBtn"></v-select>
     </div>-->
                                 <search-Component :context="AdminAPI" :contextCallback="setAdminAPI" :searchValue="picked" :callback="setSearchValue" v-show="radios === 'merge'"> </search-Component>
+                                <v-text-field :label="editedItem.name"
+                                single-line
+                                v-show="radios === 'rename'"
+                                v-model ="newName">
+
+                                </v-text-field>
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -88,7 +105,7 @@
 </template>
 
 <script>
-    import { getUniversitiesList, /*getSuggestions,*/ migrateUniversities, approve, deleteUniversity } from './universityPendingService'
+    import { getUniversitiesList, /*getSuggestions,*/ migrateUniversities, approve, rename, deleteUniversity } from './universityPendingService'
     import searchComponent from '../../helpers/search.vue'
 
     export default {
@@ -109,6 +126,9 @@
                 search: '',
                 countries: ["all","il", "us"],
                 country: '',
+                states: ["Pending", "Ok"],
+                state: 'Pending',
+                newName: '',
                 editedItem: {
                     course: '',
                 },
@@ -128,7 +148,14 @@
         },
         computed: {
             disableDoneBtn() {
-                return this.radios === 'merge' && !this.picked;
+                return this.radios === 'merge' && !this.picked || this.radios === 'rename' && this.newName.length < 4;
+            }
+        },
+        watch: {
+            radios(newVal, oldVal) {
+                if (newVal === "rename") {
+                    this.newName = this.editedItem.name;
+                }
             }
         },
         methods: {
@@ -148,11 +175,14 @@
                     this.universityMigrate({ "uniToRemove": this.editedItem, "uniToKeep": this.picked })
                 } else if (this.radios === 'approve') {
                     this.approve(this.editedItem);
+                } else if (this.radios === 'rename') {
+                    this.rename(this.editedItem, this.newName);
                 } else {
                     this.deleteUniversity(this.editedItem);
                 }
                 this.dialog = false;
                 this.setSearchValue({});
+                this.newName = '';
             },
             close() {
                 this.dialog = false;
@@ -161,6 +191,7 @@
                 this.radios = 'approve';
                 this.disableSelectBtn = true;
                 this.setSearchValue({});
+                this.newName = '';
             },
             universityMigrate(item) {
                 const index = this.newUniversitiesList.indexOf(item.uniToRemove);
@@ -188,6 +219,18 @@
                     }
                 )
             },
+            rename(university, newName) {
+                const index = this.newUniversitiesList.indexOf(university);
+                rename(university.id, newName).then((resp) => {
+                    console.log('got rename resp success')
+                    this.$toaster.success(`Rename Course ${university.name} to ${newName}`);
+                    this.newUniversitiesList.splice(index, 1);
+                },
+                    (error) => {
+                        this.$toaster.error(`Error can't Rename`);
+                    }
+                )
+            },
             deleteUniversity(item) {
                 const index = this.newUniversitiesList.indexOf(item);
                 deleteUniversity(item).then((resp) => {
@@ -210,13 +253,12 @@
                     console.log(err)
                 });
             },*/
-            getUniversityList(country) {
-                getUniversitiesList(country).then((list) => {
+            getUniversityList(country, state) {
+                getUniversitiesList(country, state).then((list) => {
+                    this.newUniversitiesList = [];
                     if (list.length === 0) {
                         this.showNoResult = true;
-                        this.newUniversitiesList = [];
                     } else {
-                        this.newUniversitiesList = [];
                         this.newUniversitiesList = list;
                     }
                     this.showLoading = false;
@@ -226,7 +268,7 @@
             }
         },
         created() {
-            getUniversitiesList('').then((list) => {
+            getUniversitiesList('', 'Pending').then((list) => {
                 if (list.length === 0) {
                     this.showNoResult = true;
                 } else {

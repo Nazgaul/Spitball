@@ -47,7 +47,8 @@
             </div>
           <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
               <div class="select-heading">
-                <span>Your Selected Courses ({{quantatySelected}})</span>
+                  <span v-language:inner>uniSelect_yours_selected</span>
+                  <span> ({{quantatySelected}})</span>
               </div>
               <ul  class="class-list selected-classes-list">
                   <li class="list-item selected-class-item" v-for="selectedClass in selectedClasses">
@@ -119,7 +120,24 @@
                 return !!this.search && this.search.length > 0;
             },
             classes() {
-                return this.getClasses();
+                let classes = this.getClasses();
+                //remove classes that was already selected
+                let newClassList = [];
+                classes.forEach(serverClass=>{
+                    let found = false;
+                    let serverClassText = serverClass.text;
+                    this.selectedClasses.forEach(classInList=>{
+                        let listClassText = classInList.text ? classInList.text : classInList;
+                        if(listClassText === serverClassText){
+                            found = true;
+                            return;
+                        }
+                    });
+                    if(!found){
+                        newClassList.push(serverClass);
+                    }
+                });
+                return newClassList
             },
             hideIfChoosen(){
                 this.classes.some(r=> this.selectedClasses.indexOf(r) >= 0)

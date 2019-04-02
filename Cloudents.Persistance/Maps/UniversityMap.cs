@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
@@ -23,8 +24,8 @@ namespace Cloudents.Persistence.Maps
             //HasMany(x => x.Users)
             //    .ReadOnly()
             //    .Access.CamelCaseField(Prefix.Underscore).Cascade.None();
-            Map(x => x.State).Not.Nullable();
-            SchemaAction.Update();
+            Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
+            SchemaAction.None();
 
         }
     }

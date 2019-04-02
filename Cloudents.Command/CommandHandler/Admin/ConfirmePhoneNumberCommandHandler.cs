@@ -19,7 +19,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
             var user = await _userRepository.LoadAsync(message.Id, token);
          
-            user.ConfirmePhoneNumber();
+            user.ConfirmPhoneNumber();
             await _userRepository.UpdateAsync(user, token);
         }
     }

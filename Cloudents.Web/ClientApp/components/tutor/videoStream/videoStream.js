@@ -1,10 +1,11 @@
 import { mapActions, mapGetters } from 'vuex';
 import { createLocalTracks, createLocalVideoTrack } from 'twilio-video';
 import tutorService  from '../tutorService';
-// import { connectToRoom, createRoom, getToken, dataTrack } from '../tutorService';
+ import timerIcon from '../images/timer.svg'
 
 export default {
     name: "videoStream",
+    components: {timerIcon},
     data() {
         return {
             loading: false,

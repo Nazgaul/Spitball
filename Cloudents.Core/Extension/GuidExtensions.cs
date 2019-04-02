@@ -5,7 +5,7 @@
 //    public static class GuidExtensions
 //    {
 //        private static readonly long BaseDateTicks = new DateTime(1900, 1, 1).Ticks;
-//        public static Guid Comb(this Guid source)
+//        public static Guid Comb()
 //        {
 //            byte[] guidArray = Guid.NewGuid().ToByteArray();
 

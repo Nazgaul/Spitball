@@ -16,8 +16,8 @@ namespace ConsoleApp
 
             // If modifying these scopes, delete your previously saved credentials
             // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
-            static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
-            static string ApplicationName = "Quickstart";
+            static string[] _scopes = { SheetsService.Scope.SpreadsheetsReadonly };
+            static string _applicationName = "Quickstart";
 
             public static IList<EmailObject> Read()
             {
@@ -31,7 +31,7 @@ namespace ConsoleApp
                     string credPath = "token.json";
                     credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                         GoogleClientSecrets.Load(stream).Secrets,
-                        Scopes,
+                        _scopes,
                         "user",
                         CancellationToken.None,
                         new FileDataStore(credPath, true)).Result;
@@ -42,7 +42,7 @@ namespace ConsoleApp
                 var service = new SheetsService(new BaseClientService.Initializer()
                 {
                     HttpClientInitializer = credential,
-                    ApplicationName = ApplicationName,
+                    ApplicationName = _applicationName,
                 });
 
                 // Define request parameters.
@@ -64,44 +64,44 @@ namespace ConsoleApp
                     // Print columns A and E, which correspond to indices 0 and 4.
                     EmailObject obj = new EmailObject()
                     {
-                        id = $"{row[1].ToString().Replace(" ", string.Empty)}_{new CultureInfo(row[0].ToString())}",
-                        socialShare = row[2].ToString() == "Yes",
-                        eventName = row[1].ToString().Replace(" ", string.Empty),
-                        subject = row[3].ToString(),
-                        cultureInfo = new CultureInfo(row[0].ToString()),
-                        blocks = new List<EmailBlock>()
+                        Id = $"{row[1].ToString().Replace(" ", string.Empty)}_{new CultureInfo(row[0].ToString())}",
+                        SocialShare = row[2].ToString() == "Yes",
+                        EventName = row[1].ToString().Replace(" ", string.Empty),
+                        Subject = row[3].ToString(),
+                        CultureInfo = new CultureInfo(row[0].ToString()),
+                        Blocks = new List<EmailBlock>()
                     };
                     if (row[4].ToString() != string.Empty)
                     {
-                        obj.blocks.Add(new EmailBlock()
+                        obj.Blocks.Add(new EmailBlock()
                         {
-                            title = row[4].ToString(),
-                            subtitle = row[6].ToString(),
-                            body = row[7].ToString(),
-                            cta = row[8].ToString(),
-                            minorTitle = row[5].ToString()
+                            Title = row[4].ToString(),
+                            Subtitle = row[6].ToString(),
+                            Body = row[7].ToString(),
+                            Cta = row[8].ToString(),
+                            MinorTitle = row[5].ToString()
                         });
                     }
 
                     if (row.Count > 10 && row[2].ToString() == "No")
                     {
-                        obj.blocks.Add(new EmailBlock()
+                        obj.Blocks.Add(new EmailBlock()
                         {
-                            title = row[10].ToString(),
-                            subtitle = row[11].ToString(),
-                            body = row[12].ToString(),
-                            cta = row.Count > 13 ? row[13].ToString() : string.Empty,
+                            Title = row[10].ToString(),
+                            Subtitle = row[11].ToString(),
+                            Body = row[12].ToString(),
+                            Cta = row.Count > 13 ? row[13].ToString() : string.Empty,
                         });
                     }
 
                     if (row.Count > 14)
                     {
-                        obj.blocks.Add(new EmailBlock()
+                        obj.Blocks.Add(new EmailBlock()
                         {
-                            title = row[14].ToString(),
-                            subtitle = row[15].ToString(),
-                            body = row[16].ToString(),
-                            cta = row[17].ToString()
+                            Title = row[14].ToString(),
+                            Subtitle = row[15].ToString(),
+                            Body = row[16].ToString(),
+                            Cta = row[17].ToString()
                         });
                     }
                     res.Add(obj);
@@ -121,24 +121,24 @@ namespace ConsoleApp
 
     public class EmailObject
     {
-        public string id { get; set; }
-        public bool socialShare { get; set; }
-        public string eventName { get; set; }
+        public string Id { get; set; }
+        public bool SocialShare { get; set; }
+        public string EventName { get; set; }
 
-        public string subject { get; set; }
+        public string Subject { get; set; }
 
-        public CultureInfo cultureInfo { get; set; }
+        public CultureInfo CultureInfo { get; set; }
 
-        public IList<EmailBlock> blocks { get; set; }
+        public IList<EmailBlock> Blocks { get; set; }
     }
 
     public class EmailBlock
     {
-        public string title { get; set; }
-        public string subtitle { get; set; }
-        public string body { get; set; }
-        public string cta { get; set; }
-        public string minorTitle { get; set; }
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
+        public string Body { get; set; }
+        public string Cta { get; set; }
+        public string MinorTitle { get; set; }
     }
 
 }

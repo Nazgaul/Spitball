@@ -20,7 +20,8 @@ const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const wallet = () => import("./components/wallet/wallet.vue");
-const viewProfile = () => import("./components/profile/profile.vue");
+// const viewProfile = () => import("./components/profile/profile.vue");
+const newProfile = () => import("./components/new_profile/new_profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
 const login = () => import("./components/new_registration/login.vue");
 const university = () => import("./components/helpers/uni-select/uniSelect.vue");
@@ -261,7 +262,8 @@ let routes2 = [
     {
         path: "/profile/:id",
         components: {
-            default: viewProfile,
+            // default: viewProfile,
+            default: newProfile,
             header: profilePageHeader,
         },
         name: "profile",

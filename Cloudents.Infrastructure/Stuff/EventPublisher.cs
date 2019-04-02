@@ -73,7 +73,7 @@ namespace Cloudents.Infrastructure.Stuff
             var handlerType = typeof(IEventHandler<>).MakeGenericType(eventMessage.GetType());
             var handlerCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
 
-
+            
             var tasks = new List<Task>();
             if (_container.Resolve(handlerCollectionType) is IEnumerable eventHandlers)
                 foreach (dynamic handler in eventHandlers)

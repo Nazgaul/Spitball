@@ -1,8 +1,10 @@
 <template>
-    <div>
+    <div class="share-screen-btn-wrap">
         <v-flex>
-            <v-btn v-if="!isSharing" @click="showScreen">Share Screen</v-btn>
-            <v-btn v-else @click="stopSharing">Stop Sharing</v-btn>
+            <button v-if="!isSharing" @click="showScreen" class="outline-btn">
+                    <castIcon  class="cast-icon mr-1"></castIcon>
+                Share Screen</button>
+            <button class="outline-btn" v-else @click="stopSharing">Stop Sharing</button>
         </v-flex>
         <v-dialog class="install-extension-dialog"
                 v-model="extensionDialog"
@@ -40,14 +42,15 @@
     import { mapGetters } from 'vuex';
     import { createLocalVideoTrack } from 'twilio-video';
     import videoService from "../../../services/videoStreamService";
-
+    import castIcon from '../images/cast.svg';
     export default {
         name: "shareScreenBtn",
+        components: {castIcon},
         data() {
             return {
                 isSharing: false,
                 extensionDialog: false,
-                extensionLink: `https://chrome.google.com/webstore/detail/hicolpoppnllddloocbcjfeoijgjfdeg`
+                extensionLink: `https://chrome.google.com/webstore/detail/${videoService.extensionId}`
             }
         },
         computed: {
@@ -97,6 +100,26 @@
     }
 </script>
 
-<style scoped>
+<style lang="less">
+    .share-screen-btn-wrap{
+        .outline-btn{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: solid 2px #a5a4bf;
+            background-color: rgba(165, 164, 191, 0.1);
+            font-size: 11px;
+            line-height: 1.27;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+        .cast-icon{
+            fill: #ffffff;
+            height: 16px;
+
+        }
+    }
 
 </style>

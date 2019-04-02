@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
-    <AssemblyVersion>19.3.19.0</AssemblyVersion>
+    <AssemblyVersion>19.4.1.0</AssemblyVersion>
     <UserSecretsId>edbe3a22-9985-49e7-8ceb-7cd343f48247</UserSecretsId>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
@@ -62,6 +62,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Command\Cloudents.Command.csproj" />
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
+    <ProjectReference Include="..\Cloudents.Identity\Cloudents.Identity.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj" />
     <ProjectReference Include="..\Cloudents.Persistance\Cloudents.Persistence.csproj" />

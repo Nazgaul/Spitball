@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
@@ -12,10 +13,12 @@ namespace Cloudents.Persistence
 
     {
         private readonly IEventPublisher _eventPublisher;
+        private readonly ILogger _logger;
 
-        public PublishEventsListener(IEventPublisher eventPublisher)
+        public PublishEventsListener(IEventPublisher eventPublisher, ILogger logger)
         {
             _eventPublisher = eventPublisher;
+            _logger = logger;
         }
 
         public async Task OnPostDeleteAsync(PostDeleteEvent @event, CancellationToken cancellationToken)
@@ -68,12 +71,21 @@ namespace Cloudents.Persistence
 
         private async Task PublishEvents(object entity, CancellationToken cancellationToken)
         {
-            if (entity is AggregateRoot p)
+            if (entity is IAggregateRoot p)
             {
                 foreach (var ev in p.DomainEvents.Distinct())
                 {
                     //Nhibernate doesn't support multiple async
-                    await _eventPublisher.PublishAsync(ev, cancellationToken);
+                    try
+                    {
+                        await _eventPublisher.PublishAsync(ev, cancellationToken);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.Exception(e);
+
+
+                    }
 
                 }
                 p.ClearEvents();

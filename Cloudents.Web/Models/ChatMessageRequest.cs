@@ -11,4 +11,14 @@ namespace Cloudents.Web.Models
 
         public long OtherUser { get; set; }
     }
+
+
+    public class ChatResetRequest
+    {
+        //public Guid? ChatId { get; set; }
+
+     
+
+        public long OtherUser { get; set; }
+    }
 }

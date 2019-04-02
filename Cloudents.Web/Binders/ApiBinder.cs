@@ -1,8 +1,7 @@
-﻿using System;
-using Cloudents.Core.Storage;
-using Cloudents.Web.Models;
+﻿using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using System;
 
 namespace Cloudents.Web.Binders
 {
@@ -14,7 +13,7 @@ namespace Cloudents.Web.Binders
             {
                 throw new ArgumentNullException(nameof(context));
             }
-            
+
             if (context.Metadata.ModelType == typeof(GeographicCoordinate))
             {
                 return new BinderTypeModelBinder(typeof(GeoPointEntityBinder));
@@ -25,16 +24,16 @@ namespace Cloudents.Web.Binders
                 return new BinderTypeModelBinder(typeof(LocationEntityBinder));
             }
 
-            if (context.Metadata.ModelType == typeof(StorageContainer))
-            {
-                return new BinderTypeModelBinder(typeof(StorageContainerBinder));
-            }
-                //Note we cannot check for regular enum in here because we are checking for nullable enum
-                if (Nullable.GetUnderlyingType(context.Metadata.ModelType)?.IsEnum == true)
+            //if (context.Metadata.ModelType == typeof(StorageContainer))
+            //{
+            //    return new BinderTypeModelBinder(typeof(StorageContainerBinder));
+            //}
+            //Note we cannot check for regular enum in here because we are checking for nullable enum
+            if (Nullable.GetUnderlyingType(context.Metadata.ModelType)?.IsEnum == true)
             {
                 return new BinderTypeModelBinder(typeof(NullableEnumEntityBinder));
             }
-            
+
             //if (context.Metadata.ModelType == typeof(string))
             //{
             //this cause problem

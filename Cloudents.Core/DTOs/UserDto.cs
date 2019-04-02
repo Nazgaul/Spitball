@@ -1,4 +1,8 @@
-﻿namespace Cloudents.Core.DTOs
+﻿using System;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities;
+
+namespace Cloudents.Core.DTOs
 {
     public class UserDto
     {
@@ -7,6 +11,14 @@
             Id = id;
             Name = name;
             Score = score;
+        }
+
+        public UserDto(long id, string name, int score, string image)
+        {
+            Id = id;
+            Name = name;
+            Score = score;
+            Image = image;
         }
 
         // ReSharper disable once MemberCanBeProtected.Global need that for mark answer as correct.
@@ -21,11 +33,32 @@
         public int Score { get; set; }
     }
 
-    public class UserProfileDto : UserDto
+    public class UserProfileDto 
     {
-      
-
+        [DtoToEntityConnection(nameof(User.Id))]
+        public long Id { get; set; }
+        [DtoToEntityConnection(nameof(User.Name))]
+        public string Name { get; set; }
+        [DtoToEntityConnection(nameof(User.Image))]
+        public string Image { get; set; }
+        [DtoToEntityConnection(nameof(User.Score))]
+        public int Score { get; set; }
+        [DtoToEntityConnection(nameof(University.Name))]
         public string UniversityName { get; set; }
+        [DtoToEntityConnection(nameof(RegularUser.Description))]
+        public string Description { get; set; }
+
+        //[DtoToEntityConnection(nameof(Tutor.Id))]
+        public UserTutorProfileDto Tutor { get; set; }
+    }
+
+    public class UserTutorProfileDto
+    {
+        public decimal Price { get; set; }
+
+        public bool Online { get; set; }
+        public float Rate { get; set; }
+        public int ReviewCount { get; set; }
     }
 
     public class UserAccountDto 
@@ -48,12 +81,23 @@
 
     public class ChatUserDto
     {
-        public long Id { get; set; }
+        [DtoToEntityConnection(nameof(User.Id))]
+        public long UserId { get; set; }
+        [DtoToEntityConnection(nameof(User.Name))]
         public string Name { get; set; }
+        [DtoToEntityConnection(nameof(User.Image))]
         public string Image { get; set; }
 
+        [DtoToEntityConnection(nameof(ChatUser.Unread))]
         public int Unread { get; set; }
 
+        [DtoToEntityConnection(nameof(RegularUser.Online))]
         public bool Online { get; set; }
+
+        [DtoToEntityConnection(nameof(ChatRoom.Id))]
+        public Guid ConversationId { get; set; }
+
+        [DtoToEntityConnection(nameof(ChatRoom.UpdateTime))]
+        public DateTime DateTime { get; set; }
     }
 }

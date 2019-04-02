@@ -9,14 +9,14 @@
     </v-flex>    
     <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
-            <v-tabs :dir="this.$vuetify.breakpoint.xsOnly && isRtl ? `ltr` : ''" v-model="currentVertical" :value="currentVertical" :scrollable="true">
+            <v-tabs hide-slider :dir="this.$vuetify.breakpoint.xsOnly && isRtl ? `ltr` : ''" v-model="currentVertical" :value="currentVertical" :scrollable="true">
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
                                  :active-class="'v-tabs__item--active header-tab-active'"
                                  class="mr-3 vertical">
                         {{tab.name}}
                     </v-tab>
-                    <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider>
+                    <!-- <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider> -->
             </v-tabs>
         </v-layout>
     </v-flex>

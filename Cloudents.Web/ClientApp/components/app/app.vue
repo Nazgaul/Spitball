@@ -17,6 +17,7 @@
       </div>
       <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
         <marketing-box></marketing-box>
+        <!-- <chat-component v-if="isMobile"></chat-component> -->
       </div>
       <div v-if="showLeadersMobile && getMobileFooterState">
         <leaders-board></leaders-board>
@@ -26,6 +27,7 @@
       </div>-->
       <router-view name="verticals"></router-view>
       <router-view class="main-container" v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
+      <!-- <chat-component v-if="!isMobile"></chat-component> -->
       <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
       <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
         <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
@@ -133,6 +135,7 @@ import marketingBox from "../helpers/marketingBox/marketingBox.vue";
 import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
 import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
 import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
+import chatComponent from "../chat/chat.vue";
 
 export default {
   components: {
@@ -142,7 +145,7 @@ export default {
     loginToAnswer,
     uniSelectPop,
     uniSelect,
-
+    chatComponent,
     newIsraeliPop,
     reportItem,
     mobileFooter,
@@ -197,7 +200,9 @@ export default {
       "getCurrentStep",
       "newBallerDialog"
     ]),
-
+    isMobile(){
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     showFeed() {
       if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
         return this.showMobileFeed;

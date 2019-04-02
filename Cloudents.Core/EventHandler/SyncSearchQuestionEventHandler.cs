@@ -34,10 +34,10 @@ namespace Cloudents.Core.EventHandler
                 DateTime = dbQuestion.Updated,
                 Text = dbQuestion.Text,
                 Country = dbQuestion.User.Country,
-                Language = dbQuestion.Language?.TwoLetterISOLanguageName,
+                Language = dbQuestion.Language.TwoLetterISOLanguageName,
                 Subject = dbQuestion.Subject,
                 State = QuestionFilter.Unanswered,
-                Course = dbQuestion.Course?.Name,
+                Course = dbQuestion.Course?.Id,
                 UniversityName = dbQuestion.University?.Name
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);

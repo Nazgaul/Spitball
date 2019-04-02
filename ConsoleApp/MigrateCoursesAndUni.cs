@@ -12,8 +12,8 @@ namespace ConsoleApp
 {
     public class MigrateCoursesAndUni
     {
-        static string[] Scopes = { SheetsService.Scope.Spreadsheets};
-        static string ApplicationName = "Quickstart";
+        static string[] _scopes = { SheetsService.Scope.Spreadsheets};
+        static string _applicationName = "Quickstart";
 
         public static IList<CorseToMigratre> Read()
         {
@@ -27,7 +27,7 @@ namespace ConsoleApp
                 string credPath = "token.json";
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
+                    _scopes,
                     "user",
                     CancellationToken.None,
                     new FileDataStore(credPath, true)).Result;
@@ -38,7 +38,7 @@ namespace ConsoleApp
             var service = new SheetsService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
+                ApplicationName = _applicationName,
             });
 
             // Define request parameters.
@@ -91,7 +91,7 @@ namespace ConsoleApp
 
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
+                    _scopes,
                     "user",
                     CancellationToken.None,
                     new FileDataStore(credPath, true)).Result;
@@ -102,7 +102,7 @@ namespace ConsoleApp
             var service = new SheetsService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
+                ApplicationName = _applicationName,
             });
 
            
@@ -134,7 +134,7 @@ namespace ConsoleApp
                 string credPath = "token.json";
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
+                    _scopes,
                     "user",
                     CancellationToken.None,
                     new FileDataStore(credPath, true)).Result;
@@ -145,7 +145,7 @@ namespace ConsoleApp
             var service = new SheetsService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
+                ApplicationName = _applicationName,
             });
 
             // Define request parameters.
@@ -200,7 +200,7 @@ namespace ConsoleApp
 
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
+                    _scopes,
                     "user",
                     CancellationToken.None,
                     new FileDataStore(credPath, true)).Result;
@@ -211,7 +211,7 @@ namespace ConsoleApp
             var service = new SheetsService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
+                ApplicationName = _applicationName,
             });
 
 
@@ -231,7 +231,7 @@ namespace ConsoleApp
         }
 
 
-        public static void WriteCourses(int rowNumber, string FirstCourse, string SecondCourse)
+        public static void WriteCourses(int rowNumber, string firstCourse, string secondCourse)
         {
             UserCredential credential;
 
@@ -243,7 +243,7 @@ namespace ConsoleApp
 
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
+                    _scopes,
                     "user",
                     CancellationToken.None,
                     new FileDataStore(credPath, true)).Result;
@@ -254,7 +254,7 @@ namespace ConsoleApp
             var service = new SheetsService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
+                ApplicationName = _applicationName,
             });
 
 
@@ -264,7 +264,7 @@ namespace ConsoleApp
             ValueRange valueRange = new ValueRange();
             valueRange.MajorDimension = "ROWS";//COLUMNS
 
-            var oblist = new List<object>() { FirstCourse, SecondCourse };
+            var oblist = new List<object>() { firstCourse, secondCourse };
             valueRange.Values = new List<IList<object>> { oblist };
 
             SpreadsheetsResource.ValuesResource.UpdateRequest update = service.Spreadsheets.Values.Update(valueRange, spreadsheetId2, range2);

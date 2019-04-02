@@ -1,25 +1,26 @@
 ﻿
 using System;
 using System.ComponentModel.DataAnnotations;
+using Cloudents.Web.Binders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Cloudents.Web.Models
 {
-    public class UploadResponse
+    public class UploadStartResponse
     {
-        public UploadResponse(Guid sessionId)
+        public UploadStartResponse(Guid sessionId)
         {
             Data = new UploadInnerResponse(sessionId);
         }
 
-        public UploadResponse(string fileName)
+        public UploadStartResponse(string fileName)
         {
             FileName = fileName;
         }
 
-        public UploadResponse()
+        public UploadStartResponse()
         {
         }
 
@@ -45,7 +46,14 @@ namespace Cloudents.Web.Models
         public double EndOffset => BlockSize;
     }
 
-    public class UploadRequest
+    [JsonConverter(typeof(UploadRequestJsonConverter))]
+    public class UploadRequestBase
+    {
+
+    }
+
+
+    public class UploadRequestStart : UploadRequestBase
     {
         public UploadPhase Phase { get; set; }
 
@@ -54,11 +62,19 @@ namespace Cloudents.Web.Models
         public long Size { get; set; }
         public string Name { get; set; }
 
+        //[JsonProperty("session_id")]
+        //public Guid SessionId { get; set; }
+    }
+
+    public class UploadRequestFinish : UploadRequestBase
+    {
+        public UploadPhase Phase { get; set; }
+
         [JsonProperty("session_id")]
         public Guid SessionId { get; set; }
     }
 
-    public class FinishChatUpload : UploadRequest
+    public class FinishChatUpload : UploadRequestFinish
     {
         public long OtherUser { get; set; }
     }
@@ -81,9 +97,9 @@ namespace Cloudents.Web.Models
         Finish
     }
 
-    public class UploadRequest2
+    public class UploadRequestForm
     {
-        public UploadPhase Phase { get; set; }
+        //public UploadPhase Phase { get; set; }
         [FromForm(Name="session_id")]
         public Guid SessionId { get; set; }
         [FromForm(Name= "start_offset")]

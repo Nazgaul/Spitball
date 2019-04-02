@@ -25,8 +25,8 @@ const path = 'AdminCourse/';
 //    });
 //};
 
-const getCourseList = function (language) {
-    return connectivityModule.http.get(`${path}newCourses?language=${language}`).then((newCourseList) => {
+const getCourseList = function (language, state) {
+    return connectivityModule.http.get(`${path}newCourses?Language=${language}&State=${state}`).then((newCourseList) => {
         let arrCourseList = [];
         if (newCourseList.length > 0) {
             newCourseList.forEach((ci) => {
@@ -61,6 +61,17 @@ const approve = function (course) {
         });
 };
 
+const rename = function (course, newName) {
+    return connectivityModule.http.post(`${path}rename`, { "OldName": course, "NewName": newName })
+        .then((resp) => {
+            console.log(resp, 'post doc success');
+            return Promise.resolve(resp);
+        }, (error) => {
+            console.log(error, 'error post doc');
+            return Promise.reject(error);
+        });
+};
+
 const deleteCourse = function (course) {
     return connectivityModule.http.delete(`${path}${course.name}`)
         .then((resp) => {
@@ -76,6 +87,7 @@ export {
     getCourseList,
     //getSuggestions,
     approve,
+    rename,
     deleteCourse,
     migrateCourses,
     createCourseItem

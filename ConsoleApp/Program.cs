@@ -2,14 +2,11 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
-using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query.Sync;
-using Cloudents.Search.Question;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -27,7 +24,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Cloudents.Query.Email;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -134,18 +130,24 @@ namespace ConsoleApp
 
         }
 
-        private static async Task VersionChanges()
-        {
-            var qsw = _container.Resolve<QuestionSearchWrite>();
-            await qsw.CreateOrUpdateAsync(default);
-        }
+       
 
         private static async Task RamMethod()
         {
-           
+            var unitOfWork = _container.Resolve<IUnitOfWork>();
+            var c = _container.Resolve<ICommandBus>();
+            //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
+           // await c.DispatchAsync(command2, default);
 
+            var command = new AddTutorReviewCommand("this is a great review of myself", 5, 638, 638);
+            
+            await c.DispatchAsync(command, default);
+            //var userRepository = _container.Resolve<IRegularUserRepository>();
+            //var me = await userRepository.LoadAsync(160336L, default);
+         
+            //await userRepository.UpdateAsync(me, default);
+            //await unitOfWork.CommitAsync(default);
             Console.WriteLine("done");
-
         }
 
 
@@ -155,9 +157,9 @@ namespace ConsoleApp
 
 
 
-            var _bus = _container.Resolve<ICloudStorageProvider>();
-            var blobClient = _bus.GetBlobClient();
-            var queueClient = _bus.GetQueueClient();
+            var bus = _container.Resolve<ICloudStorageProvider>();
+            var blobClient = bus.GetBlobClient();
+            var queueClient = bus.GetQueueClient();
 
 
             var container = blobClient.GetContainerReference("spitball-files");
@@ -342,7 +344,7 @@ namespace ConsoleApp
                 }
             }
         }
-        private static async Task addToExtra()
+        private static async Task AddToExtra()
         {
 
             var d = _container.Resolve<DapperRepository>();
@@ -393,8 +395,12 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
+            var commandBus = _container.Resolve<ICommandBus>();
+            var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
+            await commandBus.DispatchAsync(command, default);
+
             //await addToExtra();
-            await FunctionsExtensions.MergeUniversity(_container);
+            //await FunctionsExtensions.DeleteCourses(_container);
             //await TransferDocuments();
             //var _queryBus = _container.Resolve<IQueryBus>();
             // await FixStorageAsync();
@@ -612,12 +618,12 @@ namespace ConsoleApp
 
         }
 
-        private static Random random = new Random();
+        private static Random _random = new Random();
         public static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+              .Select(s => s[_random.Next(s.Length)]).ToArray());
         }
 
         public static async Task TransferDocuments()
@@ -693,7 +699,7 @@ namespace ConsoleApp
                                 group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
         						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
         						 order by i.itemid
-                        ", new {itemId })).ToList();
+                        ", new { itemId })).ToList();
                 }, default);
 
                 //if (z.Count() == 0)
@@ -842,7 +848,7 @@ namespace ConsoleApp
             {
                 const string sql = @"select id from sb.[user] where email = @email;
 select top 1 id from sb.[user] where Fictive = 1 and country = @country order by newid()";
-                using (var multi = connection.QueryMultiple(sql, new {email, country = country }))
+                using (var multi = connection.QueryMultiple(sql, new { email, country = country }))
                 {
                     var val = multi.ReadFirstOrDefault<long?>();
                     if (val.HasValue)

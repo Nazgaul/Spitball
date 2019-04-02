@@ -1,8 +1,6 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Interfaces;
 using Cloudents.Query.Query.Admin;
 using Dapper;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,13 +8,13 @@ namespace Cloudents.Query.Admin
 {
     public class AdminUserDetailsQueryHandler : IQueryHandler<AdminUserDetailsQuery, UserDetailsDto>
     {
-      
-        private readonly IConfigurationKeys _provider;
+
+        private readonly DapperRepository _dapper;
 
 
-        public AdminUserDetailsQueryHandler(IConfigurationKeys provider)
+        public AdminUserDetailsQueryHandler(DapperRepository dapper)
         {
-            _provider = provider;
+            _dapper = dapper;
         }
 
         public async Task<UserDetailsDto> GetAsync(AdminUserDetailsQuery query, CancellationToken token)
@@ -42,14 +40,15 @@ namespace Cloudents.Query.Admin
 			else 1 end,
 			U.PhoneNumberConfirmed,
 			U.EmailConfirmed";
-            using (var connection = new SqlConnection(_provider.Db.Db))
+
+            using (var connection = _dapper.OpenConnection())
             {
                 return await connection.QuerySingleOrDefaultAsync<UserDetailsDto>(sql,
                     new
                     {
                         id = query.UserId,
                     });
-            }
+            };
 
                     
          

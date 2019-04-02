@@ -109,6 +109,7 @@ function DocumentItem(objInit) {
     this.downvoted = !!objInit.vote ? ( !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
 }
 
+
 function createDocumentItem(objInit){
     return new DocumentItem(objInit)
 }
@@ -294,6 +295,5 @@ export default {
 
     createDocumentItem: (objInit)=>{
         return createDocumentItem(objInit)
-    }
-    
+    },
 }

@@ -58,6 +58,10 @@ const allModules = [
     "vuetify/es5/components/VParallax",
     "vuetify/es5/components/VBottomNav",
     "vuetify/es5/components/VTextarea",
+    "vuetify/es5/components/VRating",
+    "vuetify/es5/components/VForm",
+  
+
     "webfontloader",
 
 ];

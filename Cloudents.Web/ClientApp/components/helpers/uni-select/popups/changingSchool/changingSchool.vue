@@ -119,7 +119,7 @@ export default {
                         opacity: 0.35;
                         font-size: 33px;
                         &.blue{
-                            color: #4452FC;
+                            color: @color-blue-new;
                         }
                         &.small{
                             font-size:15px;
@@ -150,7 +150,7 @@ export default {
                 margin-top: 36px;
                 line-height: 1.57;
                 .blueText{
-                    color: #4452fc;
+                    color: #43425d;
                     font-weight: 600;
                 }
             }
@@ -166,7 +166,7 @@ export default {
                     height: 48px;
                     outline: none;
                     border-radius: 24px;
-                    background-color: #4452fc;
+                    background-color: #43425d;
                     color:#FFF;
                     &.transparent{
                         background-color: transparent !important;
