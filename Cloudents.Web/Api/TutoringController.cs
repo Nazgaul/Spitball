@@ -113,7 +113,7 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
-            catch(UserNotTutorException)
+            catch(EmptyResultException)
             {
                 return BadRequest();
             }

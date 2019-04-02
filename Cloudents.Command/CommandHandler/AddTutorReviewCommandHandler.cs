@@ -24,7 +24,7 @@ namespace Cloudents.Command.CommandHandler
             var userTutor = await _regularUserRepository.LoadAsync(message.TutorId, token);
             if (userTutor.Tutor == null)
             {
-                throw new UserNotTutorException();
+                throw new EmptyResultException();
             }
             if (userTutor.Tutor.Reviews.Any(w => w.User.Id == message.UserId))
             {

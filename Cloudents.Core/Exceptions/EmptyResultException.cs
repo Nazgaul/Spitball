@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Cloudents.Core.Exceptions
 {
-    public class UserNotTutorException : Exception
+    public class EmptyResultException : Exception
     {
     }
 }
