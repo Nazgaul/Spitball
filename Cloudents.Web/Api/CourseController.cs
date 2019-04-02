@@ -90,7 +90,7 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.RefreshSignInAsync(user);
-            return Ok();
+            return Ok(model);
         }
 
 
@@ -102,7 +102,7 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.RefreshSignInAsync(user);
-            return Ok();
+            return Ok(model);
         }
 
         [HttpPost("teach")]
