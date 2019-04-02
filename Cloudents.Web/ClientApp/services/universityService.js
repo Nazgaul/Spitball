@@ -115,6 +115,11 @@ const deleteCourse = (name) => {
         return resp
     })
 };
+const createCourse = (course) => {
+    return connectivityModule.http.post("account/course/create", course).then((resp) => {
+        return new Course(resp.data);
+    });
+};
 
 export default {
     getUni,
@@ -123,5 +128,6 @@ export default {
     assaignCourse,
     getProfileUniversity,
     getProfileCourses,
-    deleteCourse
+    deleteCourse,
+    createCourse
 };

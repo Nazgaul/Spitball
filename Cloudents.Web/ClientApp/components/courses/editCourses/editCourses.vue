@@ -1,6 +1,6 @@
 <template>
     <div class="courses-list-wrap">
-        <div v-if="isEmpty">
+        <div v-if="!isEmpty">
         <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
@@ -87,7 +87,7 @@
 
         },
         methods: {
-            ...mapActions(["updateClasses", "deleteClass", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
+            ...mapActions(["updateClasses", "syncCoursesData", "deleteClass", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
             toggleTeaching(course) {
                 course.isTeaching = !course.isTeaching;
                 console.log('can teach', course);
@@ -103,6 +103,9 @@
                 this.$router.push({name: 'addCourse'});
             }
         },
+        created(){
+            this.syncCoursesData()
+        }
 
     };
 </script>

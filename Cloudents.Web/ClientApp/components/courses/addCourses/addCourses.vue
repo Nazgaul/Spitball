@@ -83,13 +83,14 @@
                         </v-layout>
                     </div>
                     <!--create new course-->
-                    <v-flex  class="text-xs-center align-center justify-center cand-find caption cursor-pointer" @click="addManualUniversity()">
+                    <v-flex  class="text-xs-center align-center justify-center cand-find caption cursor-pointer" @click="changeCreateDialogState(true)">
                         <span>Can't Find your course?</span>
                         <span class="add-item">Create new</span>
                     </v-flex>
                 </div>
             </v-flex>
         </v-layout>
+
     </div>
 </template>
 
@@ -110,12 +111,7 @@
                 localSelectedClasses: []
             };
         },
-        // props: {
-        //     callbackFunc: {
-        //         required: true,
-        //         type: Object
-        //     },
-        // },
+
         watch: {
             search: debounce(function (val) {
                 let searchVal;
@@ -139,9 +135,7 @@
             quantatySelected() {
                 return this.selectedClasses.length;
             },
-            schoolName() {
-                return this.getSchoolName();
-            },
+
             showBox() {
                 return true
                 // return !!this.search && this.search.length > 0;
@@ -152,10 +146,7 @@
             hideIfChoosen() {
                 this.classes.some(r => this.selectedClasses.indexOf(r) >= 0);
             },
-            //edge hide placehloder fix
-            placeholderVisible() {
-                return this.getSelectedClasses.length < 1;
-            },
+
             selectedClasses: {
                 get() {
                     return this.localSelectedClasses;
@@ -183,9 +174,10 @@
                               "assignClasses",
                               "pushClassToSelectedClasses",
                               "changeClassesToCachedClasses",
-                              "addToCachedClasses"
+                              "addToCachedClasses",
+                              "changeCreateDialogState"
                           ]),
-            ...mapGetters(["getSchoolName", "getClasses"]),
+            ...mapGetters(["getClasses"]),
             lastStep() {
                 this.$router.go(-1);
             },
