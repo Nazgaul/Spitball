@@ -36,16 +36,13 @@ namespace Cloudents.Query.Query
            {
                     var sql = @"declare @t nvarchar(255) = CONCAT('"" * ', replace(@Term, ' ', ' * "" AND "" * '), ' * ""')
                             select top 50 Name,
-	                            case when uc2.CourseId is not null then cast(1 as bit) else cast(0 as bit) end as IsFollowing,
-	                            count(distinct uc.UserId) as Students, cast(null as bit) as IsPending
+	                            case when uc.CourseId is not null then 1 else null end as IsFollowing,
+	                            c.count as Students
                             from sb.Course c
                             left join sb.UsersCourses uc
-	                            on c.Name = uc.CourseId
-                            left join sb.UsersCourses uc2
-	                            on c.Name = uc2.CourseId and uc2.UserId = @Id
+	                            on c.Name = uc.CourseId and uc.UserId = @Id
                             where CONTAINS(Name, @t) and State = 'OK'
-                            group by Name, uc2.CourseId
-                            order by count(distinct uc.UserId) desc, case when uc2.CourseId is not null then cast(1 as bit) else cast(0 as bit) end desc";
+                            order by c.count desc, case when uc.CourseId is not null then 1 else null end desc";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
                     return await conn.QueryAsync<CourseDto>(sql, new { Term = query.Term, Id = query.UserId});
