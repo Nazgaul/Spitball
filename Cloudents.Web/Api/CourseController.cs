@@ -70,12 +70,10 @@ namespace Cloudents.Web.Api
         [ResponseCache(Duration = TimeConst.Hour,
             Location = ResponseCacheLocation.Client,
             VaryByQueryKeys = new[] {  "term" })]
-        public async Task<CoursesResponse> GetAsync(
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
-            CancellationToken token)
+        public async Task<CoursesResponse> GetAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new CourseSearchByUniversityQuery(userId, universityId);
+            var query = new CourseSearchByUniversityQuery(userId);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {
