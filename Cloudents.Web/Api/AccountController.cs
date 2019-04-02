@@ -133,22 +133,16 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Perform course search per user
         /// </summary>
-        /// <param name="profile"></param>
         /// <param name="token"></param>
         /// <returns>list of courses for a user</returns>
         [HttpGet("courses")]
-        public async Task<IEnumerable<CourseDto>> GetCourses(
-            [ProfileModelBinder(ProfileServiceQuery.Course)] UserProfile profile,
-            CancellationToken token)
+        public async Task<IEnumerable<CourseDto>> GetCourses(CancellationToken token)
         {
-            if (profile.Courses != null)
-            {
-                return profile.Courses.Select(s => new CourseDto(s));
-            }
-            var userId = _userManager.GetLongUserId(User);
-            var query = new UserDataQuery(userId);
-            var t = await _queryBus.QueryAsync(query, token);
-            return t.Courses.Select(s => new CourseDto(s));
+            var user = await _userManager.GetUserAsync(User);
+         
+            var query = new UserCoursesQuery(user.Id);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result;
         }
 
         [HttpGet("University")]

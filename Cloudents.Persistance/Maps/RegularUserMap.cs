@@ -51,7 +51,7 @@ namespace Cloudents.Persistence.Maps
             //    .Table("UsersCourses").AsSet();
 
 
-            HasMany(x => x.UserCourses)
+            HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
 
