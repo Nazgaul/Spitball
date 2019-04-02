@@ -1,63 +1,54 @@
 <template>
-    <v-card class="courses-card">
+    <v-card class="courses-card" :class="{'': $vuetify.breakpoint.xsOnly}">
+        <!--Main courses view-->
         <router-view></router-view>
-    <!--<component :is="'step_'+currentStep" :callbackFunc="callBackmethods"> </component>-->
-        <!--<router-view></router-view>-->
+        <!--Dialog with new cousre creation-->
+        <sb-dialog :isPersistent="true"
+                   :showDialog="createDialogVisibility"
+                   :popUpType="'create-course'"
+                   :max-width="'706px'"
+                   :content-class="'create-course-dialog'">
+            <verifyCreation v-if="!creationVerified"></verifyCreation>
+            <createCourse v-if="creationVerified && !createdNew"></createCourse>
+            <courseCreated v-if="createdNew" :courseName="freshCourse"></courseCreated>
+        </sb-dialog>
     </v-card>
 </template>
 
 <script>
     import { mapActions, mapGetters } from "vuex";
-    import { LanguageService } from "../../services/language/languageService";
-    import step_1 from './addCourses/addCourses.vue';
-    import step_2 from './editCourses/editCourses.vue';
-
+    import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
+    import verifyCreation from './createCourses/verifyCreation.vue';
+    import createCourse from './createCourses/createCourse.vue';
+    import courseCreated from './createCourses/courseCreated.vue';
 
     export default {
         components: {
-            step_1,
-            step_2
+            sbDialog,
+            verifyCreation,
+            createCourse,
+            courseCreated
 
         },
         data() {
             return {
-                search: "",
-                classNamePlaceholder: LanguageService.getValueByKey(
-                    "uniSelect_type_class_name_placeholder"
-                ),
-                isRtl: global.isRtl,
-                global: global,
-                steps : 2,
-                currentStep: 1,
-                callBackmethods: {
-                    next: this.nextStep,
-                    changeStep: this.changeStep,
-                },
+                freshCourse: '',
+                createdNew: false
             };
         },
-
         computed: {
-            ...mapGetters(["getSelectedClasses"]),
+            ...mapGetters(["createDialogVisibility", "creationVerified"]),
 
         },
         methods: {
-            ...mapActions(["updateClasses", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
-            ...mapGetters(["getSchoolName", "getClasses"]),
-
-            lastStep() {
-            this.$router.go(-1)
-                // this.fnMethods.changeStep(this.enumSteps.set_school);
-            },
-            nextStep() {
-                if (this.currentStep === this.steps) {
-                    this.currentStep = 1
-                } else {
-                    this.currentStep = this.currentStep + 1;
-                }
-            },
-            changeStep(step){
-                this.currentStep = step
-            }
+            ...mapActions(["updateClasses",]),
+        },
+        created() {
+            this.$root.$on("courseCreated", courseName => {
+                console.log('got event created course', courseName);
+                this.freshCourse = courseName;
+                this.createdNew = true;
+            });
         }
     };
 </script>

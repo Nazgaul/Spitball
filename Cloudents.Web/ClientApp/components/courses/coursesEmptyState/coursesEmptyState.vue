@@ -1,15 +1,14 @@
 <template>
     <div class="empty-courses-wrap">
-        <v-layout row class="py-4 px-4" align-center justify-center>
-            <v-flex grow xs10>
+        <v-layout row class="py-4" :class="[$vuetify.breakpoint.smAndUp ?  'px-4': 'px-3']" align-center justify-center>
+            <v-flex grow xs8 sm10 md10>
                 <div class="d-inline-flex justify-center shrink">
                     <span class="subheading font-weight-bold">My Courses </span>
-                    <span class="subheading font-weight-bold" v-if="coursesQuantaty">({{coursesQuantaty}})</span>
                 </div>
             </v-flex>
-            <v-flex xs2 shrink class="justify-end">
-                <v-btn round  color="#4452FC" class="add-btn py-1 font-weight-bold my-0" @click="goToAddCourses()">
-                    <v-icon left>sbf-plus-regular</v-icon>
+            <v-flex xs4 sm2 md2 shrink class="justify-end d-inline-flex">
+                <v-btn round color="#4452FC" class="add-btn py-1 px-0 font-weight-bold my-0" @click="goToAddCourses()">
+                    <v-icon class="mr-1">sbf-plus-regular</v-icon>
                     <span>Add</span>
                 </v-btn>
             </v-flex>
@@ -28,17 +27,23 @@
                 <img src="../images/courses-empty-image.png" alt="Empty courses">
             </v-flex>
         </v-layout>
+        <v-layout v-if="$vuetify.breakpoint.xsOnly" class="pt-5" align-center justify-center>
+            <v-flex xs12 sm12 md12 class="text-xs-center">
+                <finishBtn></finishBtn>
+            </v-flex>
+        </v-layout>
 
     </div>
 </template>
 
 <script>
+    import finishBtn from '../helpers/finishBtn.vue';
+
     export default {
         name: "coursesEmptyState",
+        components: {finishBtn},
         data() {
-            return {
-
-            };
+            return {};
         },
         methods: {
             goToAddCourses() {
@@ -50,15 +55,17 @@
 
 <style lang="less">
     @import '../../../styles/mixin.less';
-    .empty-courses-wrap{
-        .add-btn{
+
+    .empty-courses-wrap {
+        min-height: 764px;
+        .add-btn {
             color: @color-white;
         }
-        .text-small{
+        .text-small {
             font-size: 14px;
             color: @colorBlackNew;
         }
-        .dark-text{
+        .dark-text {
             font-size: 18px;
             color: @textColor;
         }
