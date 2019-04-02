@@ -150,9 +150,11 @@
             loggedIn() {
                 return this.accountUser !== null
             },
+
             hideHeader(){
                 if(this.$vuetify.breakpoint.xsOnly){
-                    return this.$route.name === "uniselect" || !this.showMobileFeed;
+                    let matchedCoursesRoute = this.$route.name === 'courses' || this.$route.name === 'addCourse' || this.$route.name === 'editCourse';
+                    return this.$route.name === "uniselect" || matchedCoursesRoute || !this.showMobileFeed;
                 }else{
                     return false;
                 }
@@ -161,8 +163,6 @@
             totalUnread(){
                 return this.getTotalUnread
             }
-            //myMoney(){return this.accountUser.balance / 40}
-
         },
         watch: {
             toolbarHeight(val) {

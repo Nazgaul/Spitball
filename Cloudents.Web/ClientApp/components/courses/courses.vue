@@ -1,5 +1,5 @@
 <template>
-    <v-card class="courses-card">
+    <v-card class="courses-card" :class="{'': $vuetify.breakpoint.xsOnly}">
         <router-view></router-view>
     <!--<component :is="'step_'+currentStep" :callbackFunc="callBackmethods"> </component>-->
         <!--<router-view></router-view>-->

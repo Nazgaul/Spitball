@@ -13,7 +13,7 @@ function University(objInit) {
     }
 }
 
-function addUniversityObj() {
+function AddUniversityObj() {
     this.text = LanguageService.getValueByKey("uniSelect_didnt_find_university");
     this.helper = true;
 }
@@ -28,6 +28,7 @@ function Course(objInit) {
     this.isFollowing = objInit.isFollowing || false;
     this.isTeaching = objInit.isTeaching || false;
     this.students = objInit.students || 10;
+    this.isPending = objInit.isPending || false;
 
 }
 
@@ -42,7 +43,7 @@ const getUni = (val) => {
             data.universities.forEach((uni) => {
                 result.push(new University(uni));
             });
-            result.push(new addUniversityObj());
+            result.push(new AddUniversityObj());
         }
         console.log(data);
         return result;
