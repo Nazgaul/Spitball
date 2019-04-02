@@ -25,15 +25,25 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueueProvider _queueProvider;
         private readonly IVideoProvider _videoProvider;
-        private readonly IGoogleDocument _googleDocument;
         private readonly ICommandBus _commandBus;
+        private readonly UserManager<RegularUser> _userManager;
 
-        public TutoringController(IQueueProvider queueProvider, IVideoProvider videoProvider, IGoogleDocument googleDocument, ICommandBus commandBus)
+        public TutoringController(IQueueProvider queueProvider, IVideoProvider videoProvider,
+            ICommandBus commandBus, UserManager<RegularUser> userManager)
         {
             _queueProvider = queueProvider;
             _videoProvider = videoProvider;
-            _googleDocument = googleDocument;
             _commandBus = commandBus;
+            _userManager = userManager;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateStudyRoom(CreateStudyRoomRequest model, CancellationToken token)
+        {
+            var tutorId = _userManager.GetLongUserId(User);
+            var command = new CreateStudyRoomCommand(tutorId, model.UserId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
 
 
@@ -85,15 +95,15 @@ namespace Cloudents.Web.Api
 
         }
 
-        [HttpPost("document")]
-        public async Task<IActionResult> CreateOnlineDocument([FromBody] OnlineDocumentRequest model, CancellationToken token)
-        {
-            var url = await _googleDocument.CreateOnlineDocAsync(model.Name, token);
-            return Ok(new
-            {
-                link = url
-            });
-        }
+        //[HttpPost("document")]
+        //public async Task<IActionResult> CreateOnlineDocument([FromBody] OnlineDocumentRequest model, CancellationToken token)
+        //{
+        //    var url = await _googleDocument.CreateOnlineDocAsync(model.Name, token);
+        //    return Ok(new
+        //    {
+        //        link = url
+        //    });
+        //}
 
         [HttpPost("review")]
         public async Task<IActionResult> CreateReview([FromBody] ReviewRequest model,
@@ -117,5 +127,8 @@ namespace Cloudents.Web.Api
             }
             return Ok();
         }
+
+
+        
     }
 }

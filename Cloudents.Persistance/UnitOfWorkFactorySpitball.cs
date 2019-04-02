@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Interfaces;
 using Cloudents.Persistence.Maps;
 using FluentNHibernate.Cfg;
+using FluentNHibernate.Conventions.Helpers;
 using NHibernate;
 using NHibernate.Caches.CoreDistributedCache;
 using NHibernate.Caches.CoreDistributedCache.Redis;
@@ -30,7 +31,8 @@ namespace Cloudents.Persistence
 
             configuration.Mappings(m =>
             {
-                m.FluentMappings.AddFromAssemblyOf<UserMap>();
+                m.FluentMappings.AddFromAssemblyOf<UserMap>()
+                    .Conventions.Add(ForeignKey.EndsWith("Id"));
             });
 
 
