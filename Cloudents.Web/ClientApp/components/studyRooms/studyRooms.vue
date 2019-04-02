@@ -5,16 +5,19 @@
                 My Study Rooms
             </v-flex>
         </v-layout>
-        <v-layout>
-            
+        <v-layout mt-3 class="study-rooms-cards-container">
+            <study-card v-for="(card, index) in 4" :key="index"></study-card>
         </v-layout>
     </v-container>
 
 </template>
 
 <script>
+import studyCard from './studyRoomCard/studyRoomCard.vue'
 export default {
-
+    components:{
+        studyCard
+    }
 }
 </script>
 
@@ -31,6 +34,10 @@ export default {
             font-size: 17px;
             line-height: 2.35;
         }
+    }
+    .study-rooms-cards-container{
+        display: flex;
+        flex-wrap: wrap;
     }
 }
 </style>
