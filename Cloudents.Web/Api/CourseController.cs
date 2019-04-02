@@ -69,7 +69,7 @@ namespace Cloudents.Web.Api
         [HttpGet]
         [ResponseCache(Duration = TimeConst.Hour,
             Location = ResponseCacheLocation.Client,
-            VaryByQueryKeys = new[] {  "term" })]
+            VaryByQueryKeys = new[] { "term" })]
         public async Task<CoursesResponse> GetAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -105,6 +105,14 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpPost("teach")]
+        public async Task<IActionResult> TeachCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new TeachCourseCommand(userId, model.Name);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
         [HttpDelete]
         public async Task<IActionResult> DeleteCoursesAsync([FromQuery, Required]string name, CancellationToken token)
         {
