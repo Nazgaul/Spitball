@@ -1,6 +1,6 @@
 <template>
     <div class="courses-list-wrap">
-        <div v-if="!isEmpty">
+        <div v-if="isEmpty">
         <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
@@ -20,8 +20,8 @@
                 <div class="class-list search-classes-list">
                     <div class="list-item search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classesSelected">
-                        <v-layout column class="pl-4">
-                            <v-flex class="text-truncate course-name-wrap">
+                        <v-layout column class="pl-4 limit-width">
+                            <v-flex shrink class="text-truncate course-name-wrap">
                                 {{ singleClass.text }}
                             </v-flex>
                             <v-flex class="students-enrolled pt-1">
@@ -47,7 +47,6 @@
                                         <span class="caption">Teaching</span>
                                   </span>
                                 </v-btn>
-
                                 <span>
                                      <v-icon class="delete-sbf-icon"
                                              @click="removeClass(singleClass)">sbf-delete-outline</v-icon>
@@ -161,9 +160,9 @@
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
 
         }
-        .course-name-wrap{
+        .limit-width{
             @media(max-width: @screen-xs){
-                max-width: 60%;
+                max-width: 60%!important;
             }
         }
         .add-item {

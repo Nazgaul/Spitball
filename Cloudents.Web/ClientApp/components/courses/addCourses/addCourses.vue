@@ -48,12 +48,20 @@
             </v-flex>
         </v-layout>
         <v-layout align-center>
-            <v-flex v-if="showBox" class="search-classes-container">
+            <v-flex v-if="showBox">
                 <div class="class-list search-classes-list">
-                    <div class="list-item search-class-item cursor-pointer"
+                    <div class="list-item search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classes">
-                        <div v-html="$options.filters.boldText(singleClass.text, search)">
-                            {{ singleClass.text }}</div>
+                        <v-layout column class="pl-3 limit-width">
+                            <v-flex shrink class="text-truncate course-name-wrap">
+                                <div v-html="$options.filters.boldText(singleClass.text, search)">
+                                    {{ singleClass.text }}</div>
+                            </v-flex>
+                            <v-flex class="students-enrolled pt-2">
+                                {{singleClass.students}}
+                                <span class="students-enrolled">students</span>
+                            </v-flex>
+                        </v-layout>
                         <v-layout row align-center justify-end>
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
@@ -62,7 +70,7 @@
                                      <v-icon class="checked-icon">sbf-check-circle</v-icon>
                                    </span>
                                 </v-flex>
-                                <v-flex shrink v-else class="d-flex align-center">
+                                <v-flex shrink v-else class="d-flex align-center cursor-pointer">
                                     <span class="light-purple caption font-weight-bold mr-2">Join</span>
                                     <span>
                                      <v-icon class="add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
@@ -181,9 +189,7 @@
             lastStep() {
                 this.$router.go(-1);
             },
-            nextStep(customClass) {
-                this.callbackFunc.next();
-            },
+
             submitAndGo(){
                 //assign all saved in cached list to classes list
                 this.changeClassesToCachedClasses();
@@ -263,9 +269,6 @@
             border: solid 1px @colorBlue;
             background-color: transparent!important;
         }
-        .search-classes-container {
-            margin-top: 2px;
-        }
         .class-list {
             background-color: #ffffff;
             max-height: 664px;
@@ -276,6 +279,10 @@
                 white-space: nowrap;
                 background-color: #f0f0f7;
             }
+        }
+        .students-enrolled{
+            color: rgba(128, 128, 128, 0.87);
+            font-size: 10px;
         }
         //new
         .selected-class-item {
@@ -293,16 +300,11 @@
         }
         //end new
         .list-item {
-            align-items: center;
-            justify-content: space-between;
             color: inherit;
             display: flex;
             font-size: 16px;
-            font-weight: 400;
-            height: 48px;
             margin: 0;
-            padding: 0 16px;
-            /*position: relative;*/
+            border-bottom: solid 1px #f0f0f7;
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
         }
@@ -315,9 +317,9 @@
             color: @colorBlue;
         }
         .search-class-item {
-            &:hover {
-                background: rgba(0, 0, 0, .04);
-            }
+            /*&:hover {*/
+                /*background: rgba(0, 0, 0, .04);*/
+            /*}*/
         }
         .sbf-close {
             font-size: 8px !important;
