@@ -1,7 +1,7 @@
 <template>
     <div class="courses-list-wrap">
         <div v-if="!isEmpty">
-        <v-layout row class="py-4 px-4" align-center justify-center>
+        <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
                     <span class="subheading font-weight-bold">My Courses</span>
@@ -18,12 +18,19 @@
         <v-layout align-center>
             <v-flex class="search-classes-container">
                 <div class="class-list search-classes-list">
-                    <div class="list-item search-class-item cursor-pointer"
+                    <div class="list-item search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classesSelected">
-                        <div class="text-truncate course-name-wrap">
-                            {{ singleClass.text }}
-                        </div>
-                        <v-layout row align-center justify-end>
+                        <v-layout column class="pl-4">
+                            <v-flex class="text-truncate course-name-wrap">
+                                {{ singleClass.text }}
+                            </v-flex>
+                            <v-flex class="students-enrolled pt-1">
+                                {{singleClass.students}}
+                                <span class="students-enrolled">students</span>
+                            </v-flex>
+                        </v-layout>
+
+                        <v-layout row align-center justify-end class="pr-2">
                             <v-flex shrink class="d-flex align-center">
                                 <v-btn v-if="!singleClass.isTeaching" round @click="toggleTeaching(singleClass)"
                                        class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
@@ -109,6 +116,10 @@
         .rounded-btn {
             border-radius: 16px;
         }
+        .students-enrolled{
+            color: rgba(128, 128, 128, 0.87);
+            font-size: 10px;
+        }
         .solid-btn{
             &:not(.v-btn--flat){
                 background-color: @purpleLight!important;
@@ -116,8 +127,10 @@
             }
         }
         .outline-btn{
-            background-color:@color-white;
+            background-color:transparent!important;
             color: @purpleLight;
+            border-radius: 16px;
+            border: 1px solid @purpleLight;
 
         }
         .add-btn{
@@ -139,18 +152,14 @@
             padding-left: 0;
         }
         .list-item {
-            align-items: center;
-            justify-content: space-between;
-            color: inherit;
             display: flex;
-            font-size: 16px;
-            font-weight: 400;
-            height: 48px;
-            margin: 0;
-            padding: 0 16px;
             position: relative;
+            margin: 0;
+            border-bottom: solid 1px #f0f0f7;
+            font-size: 16px;
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
+
         }
         .course-name-wrap{
             @media(max-width: @screen-xs){
