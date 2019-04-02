@@ -28,7 +28,8 @@ const state = {
     reflectChangeToPage: 0,
     showSchoolBlock: global.innerWidth > 599 ? true : false,
     createDialog: false,
-    creationVerified: false
+    creationVerified: false,
+
 };
 
 const getters = {
@@ -70,6 +71,7 @@ const actions = {
             }
         });
     },
+    //to sync courses only
     syncCoursesData({commit, dispatch}) {
         universityService.getProfileCourses().then((courses) => {
             if(courses.length > 0) {
@@ -150,9 +152,10 @@ const actions = {
         commit('setClasses', []);
     },
     deleteClass({commit}, val) {
-        let name = val.name;
-        universityService.deleteCourse(name).then((resp) => {
+        let name = val.text;
+       return universityService.deleteCourse(name).then((resp) => {
             commit('deleteCourse', val);
+            return resp
         });
 
     },
@@ -223,7 +226,7 @@ const actions = {
     updateVerification({commit, state}, val) {
         commit('verifyCreation', val);
 
-    }
+    },
 };
 
 const mutations = {

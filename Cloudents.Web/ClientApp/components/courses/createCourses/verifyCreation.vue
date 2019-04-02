@@ -1,5 +1,11 @@
 <template>
     <v-card class="verify-creation-wrap">
+        <v-layout class="close-toolbar pl-4 pr-3" style="width:100%;" align-center justify-end>
+            <v-flex shrink class="mr-2">
+                <v-icon class="subheading course-close-icon" >sbf-close</v-icon>
+            </v-flex>
+        </v-layout>
+
         <v-layout align-center justify-center>
             <v-flex xs12 sm12 md12 class="text-xs-center">
                 <v-icon>sbf-face-icon</v-icon>
@@ -62,6 +68,11 @@
     @import '../../../styles/mixin.less';
     .verify-creation-wrap{
         min-height: 340px;
+        .close-toolbar{
+            max-height: 54px;
+            width: 100%;
+            background-color: @color-white;
+        }
         .outline{
             border-radius: 16px;
             border: solid 1px @profileTextColor;

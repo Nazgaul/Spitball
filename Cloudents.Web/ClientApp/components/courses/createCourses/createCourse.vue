@@ -1,5 +1,13 @@
 <template>
     <v-card class="creation-wrap">
+        <v-layout class="close-toolbar pl-4 pr-3" style="width:100%;" align-center justify-end>
+            <v-flex grow>
+                <span class="font-weight-bold dialog-heading">Create New Course</span>
+            </v-flex>
+            <v-flex shrink class="mr-2">
+                <v-icon @click="closeDialog()" class="subheading course-close-icon">sbf-close</v-icon>
+            </v-flex>
+        </v-layout>
         <v-layout shrink align-center justify-center class="px-4 mt-4 mb-3">
             <v-flex xs12 sm12 md12 class="text-xs-center">
                 <v-text-field v-model="courseName"
@@ -13,7 +21,7 @@
                               hide-details></v-text-field>
             </v-flex>
         </v-layout>
-        <v-layout align-start justify-start column class="px-4">
+        <v-layout align-start justify-start shrink column class="px-4">
             <v-flex xs12 md6 sm6 class="text-xs-center mb-1">
                 <span class="caption helper-text">Minimum Characters</span>
             </v-flex>
@@ -26,7 +34,7 @@
 
             </v-flex>
         </v-layout>
-        <v-layout align-center justify-center class="pb-5 pt-0">
+        <v-layout align-center justify-center shrink class="pb-5 pt-4">
             <v-flex shrink class="text-xs-center">
                 <button @click="createNewCourse()" :disabled="!courseName"
                         class="cursor-pointer create-btn min-width solid d-flex align-center justify-center py-2 px-3">
@@ -50,12 +58,17 @@
         methods: {
             ...mapActions(['createCourse', 'changeCreateDialogState']),
             createNewCourse() {
-                let course = {name: this.courseName};
-                this.createCourse(course).then((success)=>{
-                    this.changeCreateDialogState(false);
-                    this.$router.push({name: 'editCourse'});
+                let self = this;
+                let course = {name: self.courseName};
+                self.createCourse(course).then((success)=>{
+                    // this.changeCreateDialogState(false);
+                    self.$root.$emit('courseCreated', self.courseName);
+                    // this.$router.push({name: 'editCourse'});
                 });
-                console.log(this.courseName);
+                console.log(self.courseName);
+            },
+            closeDialog(){
+                this.changeCreateDialogState(false);
             }
         },
     };
@@ -66,6 +79,26 @@
 
     .creation-wrap {
         min-height: 340px;
+        .close-toolbar{
+            height: 54px;
+            width: 100%;
+            background-color: @profileTextColor;
+            .dialog-heading{
+                color: @color-white;
+                font-size: 18px;
+            }
+        }
+
+        .course-close-icon{
+            height: 54px;
+            width: 100%;
+            &.light{
+                color: @color-white;
+            }
+            &.dark{
+                color: @profileTextColor;
+            }
+        }
         .helper-text {
             color: @colorBlackNew;
         }
@@ -74,6 +107,7 @@
             font-size: 18px;
         }
         .solid {
+            outline: none;
             border-radius: 16px;
             background-color: @profileTextColor;
             .btn-text {

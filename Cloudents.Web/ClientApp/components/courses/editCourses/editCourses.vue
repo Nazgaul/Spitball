@@ -1,62 +1,61 @@
 <template>
     <div class="courses-list-wrap">
         <div v-if="!isEmpty">
-        <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
-            <v-flex grow xs10>
-                <div class="d-inline-flex justify-center shrink">
-                    <span class="subheading font-weight-bold">My Courses</span>
-                    <span class="subheading font-weight-bold" v-if="coursesQuantaty">({{coursesQuantaty}})</span>
-                </div>
-            </v-flex>
-            <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn round  color="#4452FC" class="add-btn py-1 font-weight-bold my-0" @click="goToAddMore()">
-                    <v-icon left>sbf-plus-regular</v-icon>
-                    <span>Add</span>
-                </v-btn>
-            </v-flex>
-        </v-layout>
-        <v-layout align-center>
-            <v-flex class="search-classes-container">
-                <div class="class-list search-classes-list">
-                    <div class="list-item search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
-                         v-for="singleClass in classesSelected">
-                        <v-layout column class="pl-4 limit-width">
-                            <v-flex shrink class="text-truncate course-name-wrap">
-                                {{ singleClass.text }}
-                            </v-flex>
-                            <v-flex class="students-enrolled pt-1">
-                                {{singleClass.students}}
-                                <span class="students-enrolled">students</span>
-                            </v-flex>
-                        </v-layout>
+            <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
+                <v-flex grow xs10>
+                    <div class="d-inline-flex justify-center shrink">
+                        <span class="subheading font-weight-bold">My Courses</span>
+                        <span class="subheading font-weight-bold" v-if="coursesQuantaty">({{coursesQuantaty}})</span>
+                    </div>
+                </v-flex>
+                <v-flex xs2 shrink class="d-flex justify-end">
+                    <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0" @click="goToAddMore()">
+                        <v-icon left>sbf-plus-regular</v-icon>
+                        <span>Add</span>
+                    </v-btn>
+                </v-flex>
+            </v-layout>
+            <v-layout align-center>
+                <v-flex class="search-classes-container">
+                    <div class="class-list search-classes-list">
+                        <div class="list-item search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
+                             v-for="singleClass in classesSelected">
+                            <v-layout column class="pl-4 limit-width">
+                                <v-flex shrink class="text-truncate course-name-wrap">
+                                    {{ singleClass.text }}
+                                </v-flex>
+                                <v-flex class="students-enrolled pt-1">
+                                    {{singleClass.students}}
+                                    <span class="students-enrolled">students</span>
+                                </v-flex>
+                            </v-layout>
 
-                        <v-layout row align-center justify-end class="pr-2">
-                            <v-flex shrink class="d-flex align-center">
-                                <v-btn v-if="!singleClass.isTeaching" round @click="toggleTeaching(singleClass)"
-                                       class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
+                            <v-layout row align-center justify-end class="pr-2">
+                                <v-flex shrink class="d-flex align-center">
+                                    <v-btn v-if="!singleClass.isTeaching" round @click="teachCourse(singleClass)"
+                                           class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
-                                    <v-icon color="#a3a0fb" class="btn-icon mr-1" >sbf-face-icon</v-icon>
+                                    <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
                                         <span class="purple-text caption">Teach</span>
                                     </span>
-                                </v-btn>
+                                    </v-btn>
 
-                                <v-btn v-else round @click="toggleTeaching(singleClass)"
-                                       class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
+                                    <v-btn v-else-if="singleClass.isTeaching" round @click="unTeach(singleClass)"
+                                           class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
-                                       <v-icon class="btn-icon mr-1" >sbf-checkmark</v-icon>
+                                       <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
                                         <span class="caption">Teaching</span>
                                   </span>
-                                </v-btn>
-                                <span>
-                                     <v-icon class="delete-sbf-icon"
-                                             @click="removeClass(singleClass)">sbf-delete-outline</v-icon>
-                                   </span>
-                            </v-flex>
-                        </v-layout>
+                                    </v-btn>
+                                    <span>
+                                            <v-icon @click="removeClass(singleClass)" class="delete-sbf-icon">sbf-delete-outline</v-icon>
+                                    </span>
+                                </v-flex>
+                            </v-layout>
+                        </div>
                     </div>
-                </div>
-            </v-flex>
-        </v-layout>
+                </v-flex>
+            </v-layout>
         </div>
         <div v-else>
             <courses-empty-state></courses-empty-state>
@@ -67,19 +66,23 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import coursesEmptyState from '../coursesEmptyState/coursesEmptyState.vue';
+    import universityService from '../../../services/universityService';
+
     export default {
         name: "selectedCourses",
         components: {coursesEmptyState},
         data() {
-            return {};
+            return {
+                btnLoading: false
+            };
         },
         computed: {
             ...mapGetters(['getSelectedClasses']),
             classesSelected() {
                 return this.getSelectedClasses;
             },
-            isEmpty(){
-                return this.getSelectedClasses.length < 1
+            isEmpty() {
+                return this.getSelectedClasses.length < 1;
             },
             coursesQuantaty() {
                 return this.getSelectedClasses.length;
@@ -88,23 +91,38 @@
         },
         methods: {
             ...mapActions(["updateClasses", "syncCoursesData", "deleteClass", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
-            toggleTeaching(course) {
-                course.isTeaching = !course.isTeaching;
-                console.log('can teach', course);
+            teachCourse(course) {
+                universityService.teachCourse(course.text)
+                                 .then((resp) => {
+                                     return course.isTeaching = true;
+                                 });
             },
-            removeClass(classDelete){
-              this.deleteClass(classDelete);
+            unTeach(course) {
+                universityService.unTeachCourse(course.text)
+                                 .then((resp) => {
+                                     return course.isTeaching = false;
+                                 });
             },
-            deleteFromList(classToDelete, from) {
-                let index = from.indexOf(classToDelete);
-                from.splice(index, 1);
+            removeClass(classDelete) {
+
+                this.deleteClass(classDelete).then((resp) => {
+                    classDelete.loading = false;
+                }, (error) => {
+                    classDelete.loading = false;
+                }).finally(() => {
+                    classDelete.loading = false;
+                });
             },
+            // deleteFromList(classToDelete, from) {
+            //     let index = from.indexOf(classToDelete);
+            //     from.splice(index, 1);
+            // },
             goToAddMore() {
                 this.$router.push({name: 'addCourse'});
             }
         },
-        created(){
-            this.syncCoursesData()
+        created() {
+            // this.syncCoursesData();
         }
 
     };
@@ -118,27 +136,27 @@
         .rounded-btn {
             border-radius: 16px;
         }
-        .students-enrolled{
+        .students-enrolled {
             color: rgba(128, 128, 128, 0.87);
             font-size: 10px;
         }
-        .solid-btn{
-            &:not(.v-btn--flat){
-                background-color: @purpleLight!important;
+        .solid-btn {
+            &:not(.v-btn--flat) {
+                background-color: @purpleLight !important;
                 color: @color-white;
             }
         }
-        .outline-btn{
-            background-color:transparent!important;
+        .outline-btn {
+            background-color: transparent !important;
             color: @purpleLight;
             border-radius: 16px;
             border: 1px solid @purpleLight;
 
         }
-        .add-btn{
+        .add-btn {
             color: @color-white;
         }
-        .delete-sbf-icon{
+        .delete-sbf-icon {
             color: lighten(@color-black, 75%);
         }
         .purple-text {
@@ -163,9 +181,9 @@
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
 
         }
-        .limit-width{
-            @media(max-width: @screen-xs){
-                max-width: 60%!important;
+        .limit-width {
+            @media (max-width: @screen-xs) {
+                max-width: 60% !important;
             }
         }
         .add-item {

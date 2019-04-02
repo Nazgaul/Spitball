@@ -83,7 +83,7 @@
                         </v-layout>
                     </div>
                     <!--create new course-->
-                    <v-flex  class="text-xs-center align-center justify-center cand-find caption cursor-pointer" @click="changeCreateDialogState(true)">
+                    <v-flex  class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer" @click="changeCreateDialogState(true)">
                         <span>Can't Find your course?</span>
                         <span class="add-item">Create new</span>
                     </v-flex>
@@ -300,10 +300,10 @@
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
         }
-        .cand-find{
-            height: 48px;
+        .cant-find{
+            display: flex;
             margin: 0;
-            padding: 0 16px;
+            min-height: 48px;
         }
         .add-item {
             color: @colorBlue;

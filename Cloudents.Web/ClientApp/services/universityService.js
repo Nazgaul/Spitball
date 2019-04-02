@@ -111,15 +111,27 @@ const getProfileCourses = () => {
     });
 };
 const deleteCourse = (name) => {
-    return connectivityModule.http.delete(`course/${name}`).then((resp)=>{
+    return connectivityModule.http.delete(`course?name=${name}`).then((resp)=>{
         return resp
     })
 };
 const createCourse = (course) => {
-    return connectivityModule.http.post("account/course/create", course).then((resp) => {
+    return connectivityModule.http.post("course/create", course).then((resp) => {
+        // return resp
         return new Course(resp.data);
     });
 };
+const teachCourse = (course) => {
+    return connectivityModule.http.post("account/course/teach", course).then((resp) => {
+        return resp
+    });
+};
+const unTeachCourse = (course) => {
+    return connectivityModule.http.delete("account/course/teach", course).then((resp) => {
+        return resp
+    });
+};
+
 
 export default {
     getUni,
@@ -129,5 +141,7 @@ export default {
     getProfileUniversity,
     getProfileCourses,
     deleteCourse,
-    createCourse
+    createCourse,
+    teachCourse,
+    unTeachCourse
 };
