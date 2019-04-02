@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
         {
             UserLogins = new List<UserLogin>();
             Transactions = Transactions ?? new UserTransactions();
-            UserCourses = new HashSet<UserCourse>();
+            //UserCourses = new HashSet<UserCourse>();
             Tags = new HashSet<Tag>();
             //UserRoles = new HashSet<UserRole>();
 
@@ -57,15 +57,17 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
-        protected internal virtual ISet<UserCourse> UserCourses { get; protected set; }
+        //protected internal virtual ISet<UserCourse> UserCourses { get; protected set; }
+        private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
+        public virtual IReadOnlyCollection<UserCourse> UserCourses => _userCourses.ToList();
 
         public virtual void AssignCourses(IEnumerable<Course> courses)
         {
             foreach (var course in courses)
             {
                 var p = new UserCourse(this, course);
-                if (UserCourses.Add(p))
+                if (_userCourses.Add(p))
                 {
                     course.Count++;
                 }
@@ -77,7 +79,7 @@ namespace Cloudents.Core.Entities
         {
          //   UserCourses.Remove()
             var p = new UserCourse(this,course);
-            if (UserCourses.Remove(p))
+            if (_userCourses.Remove(p))
             {
                 course.Count--;
             }
