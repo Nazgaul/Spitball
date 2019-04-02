@@ -12,9 +12,12 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Cloudents.Core.Exceptions;
+using Cloudents.Query;
+using Cloudents.Query.Tutor;
 
 namespace Cloudents.Web.Api
 {
@@ -26,15 +29,17 @@ namespace Cloudents.Web.Api
         private readonly IQueueProvider _queueProvider;
         private readonly IVideoProvider _videoProvider;
         private readonly ICommandBus _commandBus;
+        private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
 
         public TutoringController(IQueueProvider queueProvider, IVideoProvider videoProvider,
-            ICommandBus commandBus, UserManager<RegularUser> userManager)
+            ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus)
         {
             _queueProvider = queueProvider;
             _videoProvider = videoProvider;
             _commandBus = commandBus;
             _userManager = userManager;
+            _queryBus = queryBus;
         }
 
         [HttpPost]
@@ -44,6 +49,20 @@ namespace Cloudents.Web.Api
             var command = new CreateStudyRoomCommand(tutorId, model.UserId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpGet("id:guid")]
+        public async Task<ActionResult<StudyRoomDto>> GetStudyRoom(Guid id, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new StudyRoomQuery(id, userId);
+            var result = await _queryBus.QueryAsync(query, token);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return result;
         }
 
 
