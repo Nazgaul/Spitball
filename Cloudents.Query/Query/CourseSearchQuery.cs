@@ -37,7 +37,7 @@ namespace Cloudents.Query.Query
                     var sql = @"declare @t nvarchar(255) = CONCAT('"" * ', replace(@Term, ' ', ' * "" AND "" * '), ' * ""')
                             select top 50 Name,
 	                            case when uc2.CourseId is not null then cast(1 as bit) else cast(0 as bit) end as IsFollowing,
-	                            count(distinct uc.UserId) as Students, null as State
+	                            count(distinct uc.UserId) as Students, cast(null as bit) as IsPending
                             from sb.Course c
                             left join sb.UsersCourses uc
 	                            on c.Name = uc.CourseId

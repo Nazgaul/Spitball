@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Enum;
-
+﻿
 namespace Cloudents.Core.DTOs
 {
     public class CourseDto
@@ -9,12 +8,12 @@ namespace Cloudents.Core.DTOs
             Name = name;
         }
 
-        public CourseDto(string name, bool? isFollowing, int students, ItemState? state)
+        public CourseDto(string name, bool? isFollowing, int students, bool? isPending)
         {
             Name = name;
             IsFollowing = isFollowing;
             Students = students;
-            State = state;
+            IsPending = isPending;
         }
 
         //public CourseDto(string name, ItemState state, int students)
@@ -27,7 +26,7 @@ namespace Cloudents.Core.DTOs
         public string Name { get;  }
         public bool? IsFollowing { get; set; }
         public int Students { get; set; }
-        public ItemState? State { get; set; }
+        public bool? IsPending { get; set; }
     }
     
 }
