@@ -7,5 +7,9 @@ update sb.Course
 set Count = (select count(*) from sb.UsersCourses where CourseId = Name)
 
 
-
-
+--create full text search on sb.Course - Name
+CREATE UNIQUE INDEX ui_ukCourseName ON sb.Course(Name);  
+--CREATE FULLTEXT CATALOG ft AS DEFAULT;  
+CREATE FULLTEXT INDEX ON  sb.Course(Name)   
+   KEY INDEX ui_ukCourseName   
+   WITH STOPLIST = SYSTEM; 
