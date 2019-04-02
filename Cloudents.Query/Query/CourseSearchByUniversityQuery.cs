@@ -36,7 +36,7 @@ namespace Cloudents.Query.Query
                                 case when uc2.CourseId is not null
                                     then cast(1 as bit) 
                                     else cast(0 as bit) end as IsFollowing,
-	                            Count(distinct u.Id) as Students, null as State
+	                            Count(distinct u.Id) as Students, cast(null as bit) as IsPending
                             from sb.Course c
                             left join sb.UsersCourses uc
 	                            on c.Name = uc.CourseId
@@ -54,7 +54,7 @@ namespace Cloudents.Query.Query
                                 case when uc2.CourseId is not null
                                         then cast(1 as bit) 
                                         else cast(0 as bit) end as IsFollowing,
-                                Count(distinct u.Id) as Students, null as State
+                                Count(distinct u.Id) as Students, cast(null as bit) as IsPending
                                 from sb.Course c
                                 left join sb.UsersCourses uc
                                 on c.Name = uc.CourseId
