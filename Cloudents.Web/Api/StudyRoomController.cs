@@ -79,10 +79,10 @@ namespace Cloudents.Web.Api
         /// Generate room
         /// </summary>
         /// <returns></returns>
-        [HttpPost("create")]
-        public async Task<IActionResult> CreateAsync(CancellationToken token)
+        [HttpPost("id:guid/start")]
+        public async Task<IActionResult> CreateAsync([FromRoute] Guid id, CancellationToken token)
         {
-            var roomName = Guid.NewGuid().ToString();
+            var roomName = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
             var t1 = _videoProvider.CreateRoomAsync(roomName);
 
             var t2 = _queueProvider.InsertMessageAsync(new EndTutoringSessionMessage(roomName), TimeSpan.FromMinutes(90), token);
@@ -93,10 +93,11 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpGet("join")]
-        public async Task<IActionResult> ConnectAsync(string roomName, string identityName)
+        [HttpGet("id:guid/join")]
+        public async Task<IActionResult> ConnectAsync(string roomName)
         {
-            var token = await _videoProvider.ConnectToRoomAsync(roomName, identityName);
+            var user = _userManager.GetUserId(User);
+            var token = await _videoProvider.ConnectToRoomAsync(roomName, user);
             return Ok(new
             {
                 token
