@@ -49,7 +49,6 @@
             font-size: 30px;
             font-weight: 600;
             color: @profileTextColor;
-            display: inline-flex;
             line-height: 1;
             align-items: flex-start;
             @media (max-width: @screen-xs) {
@@ -60,9 +59,8 @@
             }
         }
         .icon-wrap {
+            vertical-align: middle;
             display: inline-flex;
-        }
-        .icon-wrap {
             order: 2;
             i {
                 font-size: 32px;
