@@ -29,7 +29,8 @@ namespace Cloudents.Query.Query
             {
                 const string sql = @"select CourseId as [Name], 
                         c.count as Students,
-                        case when c.State = 'Pending' then 1 else null end as IsPending
+                        case when c.State = 'Pending' then 1 else null end as IsPending,
+                        uc.CanTeach as IsTeaching
                         from sb.UsersCourses uc
                         join sb.Course c
                         on uc.courseId = c.Name

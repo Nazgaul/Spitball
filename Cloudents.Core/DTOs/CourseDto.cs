@@ -27,6 +27,7 @@ namespace Cloudents.Core.DTOs
         public bool? IsFollowing { get; private set; }
         public int Students { get; private set; }
         public bool? IsPending { get; private set; }
+        public bool? IsTeaching { get; private set; }
     }
     
 }
