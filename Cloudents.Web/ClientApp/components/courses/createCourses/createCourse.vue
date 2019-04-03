@@ -1,6 +1,6 @@
 <template>
     <v-card class="creation-wrap">
-        <v-layout class="close-toolbar pl-4 pr-3" style="width:100%;" align-center justify-end>
+        <v-layout class="close-toolbar limit-height pl-4 pr-3" style="width:100%;" align-center justify-end>
             <v-flex grow>
                 <span class="font-weight-bold dialog-heading">Create New Course</span>
             </v-flex>
@@ -52,7 +52,8 @@
         name: "createCourse",
         data() {
             return {
-                courseName: ''
+                courseName: '',
+                btnLoad: false
             };
         },
         methods: {
@@ -65,10 +66,10 @@
                     self.$root.$emit('courseCreated', self.courseName);
                     // this.$router.push({name: 'editCourse'});
                 });
-                console.log(self.courseName);
             },
             closeDialog(){
                 this.changeCreateDialogState(false);
+                this.$root.$emit('courseDialogClosed', true);
             }
         },
     };
@@ -88,16 +89,14 @@
                 font-size: 18px;
             }
         }
+        .limit-height{
+            max-height: 54px;
+        }
 
         .course-close-icon{
             height: 54px;
             width: 100%;
-            &.light{
-                color: @color-white;
-            }
-            &.dark{
-                color: @profileTextColor;
-            }
+            color: @color-white;
         }
         .helper-text {
             color: @colorBlackNew;

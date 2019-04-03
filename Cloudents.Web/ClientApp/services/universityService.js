@@ -111,14 +111,20 @@ const getProfileCourses = () => {
     });
 };
 const deleteCourse = (name) => {
-    return connectivityModule.http.delete(`course?name=${name}`).then((resp)=>{
+    return connectivityModule.http.delete(`course?name=${encodeURIComponent(name)}`).then((resp)=>{
         return resp
     })
 };
 const createCourse = (course) => {
     return connectivityModule.http.post("course/create", course).then((resp) => {
         // return resp
-        return new Course(resp.data);
+        let createdCourse ={
+            name: resp.data.name,
+            isFollowing :true,
+            isTeaching :  false,
+            isPending: true,
+        };
+        return new Course(createdCourse);
     });
 };
 const teachCourse = (course) => {

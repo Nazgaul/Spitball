@@ -24,15 +24,19 @@
                                 <v-flex shrink class="text-truncate course-name-wrap">
                                     {{ singleClass.text }}
                                 </v-flex>
-                                <v-flex class="students-enrolled pt-1">
+                                <v-flex class="label-text pt-1" v-if="singleClass.isPending">
+                                    <span>Pending</span>
+                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center">New</span>
+                                </v-flex>
+                                <v-flex class="label-text  pt-1" v-else>
                                     {{singleClass.students}}
-                                    <span class="students-enrolled">students</span>
+                                    <span class="label-text">students</span>
                                 </v-flex>
                             </v-layout>
 
                             <v-layout row align-center justify-end class="pr-2">
                                 <v-flex shrink class="d-flex align-center">
-                                    <v-btn v-if="!singleClass.isTeaching" round @click="teachCourse(singleClass)"
+                                    <v-btn v-if="!singleClass.isTeaching" round @click="teachCourseToggle(singleClass)"
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
                                     <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
@@ -40,7 +44,7 @@
                                     </span>
                                     </v-btn>
 
-                                    <v-btn v-else-if="singleClass.isTeaching" round @click="unTeach(singleClass)"
+                                    <v-btn v-else-if="singleClass.isTeaching" round @click="teachCourseToggle(singleClass)"
                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
                                        <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
@@ -62,7 +66,6 @@
         </div>
     </div>
 </template>
-
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import coursesEmptyState from '../coursesEmptyState/coursesEmptyState.vue';
@@ -91,26 +94,23 @@
         },
         methods: {
             ...mapActions(["updateClasses", "syncCoursesData", "deleteClass", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
-            teachCourse(course) {
+            teachCourseToggle(course) {
                 universityService.teachCourse(course.text)
                                  .then((resp) => {
-                                     return course.isTeaching = true;
+                                     return course.isTeaching = !course.isTeaching
                                  });
             },
-            unTeach(course) {
-                universityService.unTeachCourse(course.text)
-                                 .then((resp) => {
-                                     return course.isTeaching = false;
-                                 });
-            },
+            // unTeach(course) {
+            //     universityService.unTeachCourse(course.text)
+            //                      .then((resp) => {
+            //                          return course.isTeaching = false;
+            //                      });
+            // },
             removeClass(classDelete) {
 
                 this.deleteClass(classDelete).then((resp) => {
-                    classDelete.loading = false;
                 }, (error) => {
-                    classDelete.loading = false;
                 }).finally(() => {
-                    classDelete.loading = false;
                 });
             },
             // deleteFromList(classToDelete, from) {
@@ -136,7 +136,15 @@
         .rounded-btn {
             border-radius: 16px;
         }
-        .students-enrolled {
+        .badge{
+            max-height: 48px;
+            font-size: 10px;
+            padding: 2px 0;
+            border-radius: 8px;
+            background-color: @purpleLight;
+            color: @color-white;
+        }
+        .label-text {
             color: rgba(128, 128, 128, 0.87);
             font-size: 10px;
         }

@@ -38,16 +38,21 @@
         },
         computed: {
             ...mapGetters(["createDialogVisibility", "creationVerified"]),
-
         },
         methods: {
             ...mapActions(["updateClasses",]),
         },
         created() {
             this.$root.$on("courseCreated", courseName => {
-                console.log('got event created course', courseName);
                 this.freshCourse = courseName;
                 this.createdNew = true;
+            });
+            this.$root.$on("courseDialogClosed", val => {
+                if(val){
+                    this.freshCourse = '';
+                    this.createdNew = false;
+                    this.creationVerified = false
+                }
             });
         }
     };
