@@ -116,6 +116,7 @@
         .course-name {
             font-size: 14px;
             color: @color-blue-new;
+            cursor: pointer;
         }
         .show-more{
             cursor: pointer;
