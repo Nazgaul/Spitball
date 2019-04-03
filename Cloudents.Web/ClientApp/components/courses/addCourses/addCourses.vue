@@ -32,7 +32,7 @@
                 ></v-text-field>
             </v-flex>
 
-            <v-flex v-show="quantatySelected"  transition="fade-transition">
+            <v-flex v-show="true"  transition="fade-transition">
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
                     <div class="class-list selected-classes-list py-3 px-3">
                         <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
@@ -42,6 +42,14 @@
                                   @click="deleteClass(selectedClass, selectedClasses)">
                         <v-icon color="white">sbf-close</v-icon>
                     </span>
+                        </div>
+                        <div class="paddles">
+                            <button class="lefty left-paddle paddle hidden">
+                                <
+                            </button>
+                            <button class="righty right-paddle paddle">
+                                >
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -98,6 +106,7 @@
     import { mapActions, mapGetters } from "vuex";
     import { LanguageService } from "../../../services/language/languageService";
     import debounce from "lodash/debounce";
+    import document from "../../../store/document";
 
     export default {
         data() {
@@ -178,6 +187,7 @@
                               "changeCreateDialogState"
                           ]),
             ...mapGetters(["getClasses"]),
+
             lastStep() {
                 this.$router.go(-1);
             },
@@ -210,8 +220,26 @@
                 this.checkAsSelected(className, this.classes);
             },
         },
+        mounted(){
+            const container = document.getElementsByClassName("selected-classes-list")[0];
+            const lefty = document.querySelector(".lefty");
+            let translate = 0;
+
+            lefty.addEventListener("click", function() {
+                translate += 200;
+                container.style.transform = "translateX(" + translate + "px" + ")";
+            });
+
+            const righty = document.querySelector(".righty");
+            righty.addEventListener("click", function() {
+                translate -= 200;
+                container.style.transform = "translateX(" + translate + "px" + ")";
+            });
+        },
         created(){
             this.updateClasses('');
+
+
         },
         filters: {
             boldText(value, search) {
@@ -234,6 +262,25 @@
     @import '../../../styles/mixin.less';
 
     .add-courses-wrap {
+        .paddles {
+        }
+        .paddle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3em;
+        }
+        .left-paddle {
+            left: 0;
+        }
+        .right-paddle {
+            right: 0;
+        }
+        .hidden {
+            display: none;
+        }
+
+
         .scrollBarStyle(0px, #0085D1);
         .v-input__slot{
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17)!important;
@@ -266,8 +313,10 @@
             max-height: 664px;
             overflow-y: scroll;
             padding-left: 0;
+
             &.selected-classes-list {
                 overflow: auto;
+                position: relative;
                 white-space: nowrap;
                 background-color: #f0f0f7;
             }
