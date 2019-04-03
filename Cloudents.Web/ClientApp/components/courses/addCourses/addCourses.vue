@@ -33,8 +33,8 @@
                 ></v-text-field>
             </v-flex>
 
-            <v-flex v-show="true"  transition="fade-transition">
-                <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]" ref="itemsList">
+            <v-flex v-show="quantatySelected"  transition="fade-transition">
+                <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
                     <div class="class-list selected-classes-list py-3 px-3" >
                         <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
                              v-for="selectedClass in localSelectedClasses">
@@ -44,14 +44,6 @@
                         <v-icon color="white">sbf-close</v-icon>
                     </span>
                         </div>
-                        <!--<div class="paddles">-->
-                            <!--<button class="lefty left-paddle paddle hidden" ref="leftY">-->
-                                <!--<-->
-                            <!--</button>-->
-                            <!--<button class="righty right-paddle paddle" ref="rightY">-->
-                                <!--&gt;-->
-                            <!--</button>-->
-                        <!--</div>-->
                     </div>
                 </div>
             </v-flex>
@@ -221,25 +213,6 @@
                 this.checkAsSelected(className, this.classes);
             },
         },
-        mounted(){
-            // const container = document.getElementsByClassName("selected-classes-list")[0];
-            const container = this.$refs.itemsList;
-            const lefty = this.$refs.leftY;
-            let translate = 0;
-
-            lefty.addEventListener("click", function() {
-                translate += 50;
-                // container.style.transform = "translateX(" + translate + "px" + ")";
-                container.scrollLeft= translate;
-            });
-
-            const righty = this.$refs.rightY;
-            righty.addEventListener("click", function() {
-                translate -= 50;
-                // container.style.transform = "translateX(" + translate + "px" + ")";
-                container.scrollLeft= translate;
-            });
-        },
         created(){
             this.updateClasses('');
 
@@ -315,13 +288,18 @@
         .class-list {
             background-color: #ffffff;
             max-height: 664px;
-            overflow-y: scroll;
             padding-left: 0;
+            overflow-y: scroll;
 
             &.selected-classes-list {
                 position: relative;
                 white-space: nowrap;
+                overflow-x: scroll;
                 background-color: #f0f0f7;
+
+                width:600px;
+                overflow-y:scroll;
+                height: 54px;
             }
         }
         .students-enrolled{
