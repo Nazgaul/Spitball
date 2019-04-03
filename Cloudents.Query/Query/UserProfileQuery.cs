@@ -28,14 +28,12 @@ namespace Cloudents.Query.Query
 
             public async Task<UserProfileDto> GetAsync(UserProfileQuery query, CancellationToken token)
             {
-
-
                 using (var conn = _session.OpenConnection())
                 {
 
                     var t = await conn.QueryAsync<UserProfileDto, UserTutorProfileDto, UserProfileDto>(@"
 select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description,
-t.price as price,t.Bio,
+t.price as price,t.Bio,u.FirstName,u.LastName,
 u.online,
 (Select avg(rate) from sb.tutorReview where tutorId = t.Id) as rate,
 (Select count(*) from sb.tutorReview where tutorId = t.Id) as ReviewCount
@@ -52,8 +50,6 @@ and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())
                     }, new { id = query.Id }, splitOn: "price");
                     return t.FirstOrDefault();
                 }
-
-
             }
         }
     }
