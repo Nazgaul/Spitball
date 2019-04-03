@@ -7,7 +7,7 @@
                         <user-image :isMyProfile="isMyProfile"></user-image>
                     </v-flex>
                     <v-flex xs12 order-xs1 order-sm2 order-md2 :class="[$vuetify.breakpoint.smAndUp ?  'pl-4' : 'mb-4']">
-                        <v-layout class="name-price-wrap" justify-space-between align-center>
+                        <v-layout class="name-price-wrap" justify-space-between>
                             <v-flex xs12 sm8 md8>
                                 <div class="user-name mb-2">
                                     <div class="align-start">
@@ -30,7 +30,7 @@
                                      <span v-language:inner>profile_points_hour</span>
                                 </span>
                                 </span>
-                                 <span class=" ml-4" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
+                                 <span class="d-flex mt-0 ml-4" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
                                      <v-icon @click="openEditInfo()" class="edit-profile-action subheading">sbf-edit-icon</v-icon>
                                  </span>
                             </div>
@@ -159,7 +159,7 @@
         .user-name {
             display: flex;
             flex-direction: row;
-            align-items: flex-end;
+            align-items: center;
             font-family: @fontOpenSans;
             font-size: 18px;
             font-weight: bold;
@@ -167,7 +167,6 @@
             color: @profileTextColor;
             @media(max-width: @screen-xs){
                 justify-content: center;
-                align-items: center;
             }
             .face-icon{
                 font-size: 18px;
