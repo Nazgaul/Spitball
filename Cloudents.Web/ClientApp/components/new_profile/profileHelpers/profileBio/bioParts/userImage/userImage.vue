@@ -1,5 +1,5 @@
 <template>
-    <div class="user-image-wrap">
+    <div class="user-image-wrap" :class="{'hide-block': hideImageBlock}">
         <img class="user-picture" style="height: 240px; width: 214px;"
              :src="profileImage">
         <div class="bottom-section" v-if="isTutorProfile">
@@ -36,6 +36,7 @@
         data() {
             return {
                 hover: false,
+                hideImageBlock: true
             }
         },
         props: {
@@ -47,12 +48,14 @@
         computed: {
             ...mapGetters(['getProfile', 'isTutorProfile']),
             profileImage() {
-                if (this.getProfile && this.getProfile.user && this.getProfile.user.image.length > 1) {
-                    return utilitiesService.proccessImageURL(this.getProfile.user.image, 214,240);
-                } else {
-                    return '../../images/placeholder-profile.png'
+                if(this.getProfile){
+                    if (this.getProfile && this.getProfile.user && this.getProfile.user.image && this.getProfile.user.image.length > 1) {
+                        let url = utilitiesService.proccessImageURL(this.getProfile.user.image, 214,240);
+                        return url;
+                    } else {
+                        return '../../images/placeholder-profile.png'
+                    }
                 }
-
             },
             reviewCount(){
                 if (this.getProfile && this.getProfile.user && this.getProfile.user.tutorData) {
@@ -78,6 +81,12 @@
                 }
             }
         },
+        mounted(){
+            let imageElm = document.querySelector(".user-picture");
+            imageElm.addEventListener('load', ()=>{
+                this.hideImageBlock = false;
+            });
+        }
     }
 </script>
 
@@ -88,6 +97,9 @@
         position: relative;
         height: 240px;
         max-width: 214px;
+        &.hide-block{
+            visibility: hidden;
+        }
         @media (max-width: @screen-xs) {
             margin-bottom: 20px;
         }
