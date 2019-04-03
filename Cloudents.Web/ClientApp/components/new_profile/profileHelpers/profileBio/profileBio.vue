@@ -1,7 +1,7 @@
 <template>
     <v-layout class="profile-bio" align-center>
         <v-flex xs12>
-            <v-card class="py-4" :class="[$vuetify.breakpoint.smAndUp ?  'pl-4 px-3' : 'px-1 transparent elevation-0']">
+            <v-card class="profile-bio-card" :class="[$vuetify.breakpoint.smAndUp ?  'pl-4 px-3 py-4' : 'px-1 transparent elevation-0 py-1']">
                 <v-layout v-bind="xsColumn" :class="[$vuetify.breakpoint.smAndUp ? 'align-start' : 'align-center' ]">
                     <v-flex  order-xs2 order-sm1 order-md1>
                         <user-image :isMyProfile="isMyProfile"></user-image>
@@ -9,28 +9,29 @@
                     <v-flex xs12 order-xs1 order-sm2 order-md2 :class="[$vuetify.breakpoint.smAndUp ?  'pl-4' : 'mb-4']">
                         <v-layout class="name-price-wrap" justify-space-between>
                             <v-flex xs12 sm8 md8>
-                                <div class="user-name mb-2">
+                                <div class="user-name mb-1">
                                     <div class="align-start">
                                         <v-icon v-if="$vuetify.breakpoint.xsOnly && isTutorProfile" class="face-icon mr-2">sbf-face-icon</v-icon>
-                                    <span class="line-height-1">{{userName}}</span>
+                                    <span class="line-height-1 subheading font-weight-bold">{{userName}}</span>
                                         <v-icon @click="openEditInfo()"
                                                 v-if="$vuetify.breakpoint.xsOnly && isMyProfile" class="edit-profile-action  ml-2">sbf-edit-icon</v-icon>
                                     </div>
                                     <div class="d-flex align-start" v-if="$vuetify.breakpoint.smAndUp">
-                                        <userRank class="ml-3" :score="userScore"></userRank>
+                                        <userRank class="ml-2 mt-1" :score="userScore"></userRank>
                                     </div>
                                 </div>
-                                <div class="text-xs-center text-sm-left text-md-left user-university text-capitalize">{{university}}</div>
+                                <div class="text-xs-center text-sm-left text-md-left user-university caption text-capitalize">{{university}}</div>
                             </v-flex>
                             <div class="tutor-price mr-3">
                                 <span class="tutor-price"  v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">{{tutorPrice}}
                                 <span class="tutor-price small-text">
-                                    <span v-language:inner>app_currency_dynamic</span>
+                                    <!--<span v-language:inner>app_currency_dynamic</span>-->
+                                    <span class="subheading">₪</span>
                                     <span>/</span>
                                      <span v-language:inner>profile_points_hour</span>
                                 </span>
                                 </span>
-                                 <span class="d-flex mt-0 ml-4" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
+                                 <span class="mt-0 ml-4" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
                                      <v-icon @click="openEditInfo()" class="edit-profile-action subheading">sbf-edit-icon</v-icon>
                                  </span>
                             </div>
@@ -45,13 +46,14 @@
                     <div class="tutor-price text-xs-center" v-if="$vuetify.breakpoint.xsOnly && isTutorProfile">
                                 <span class="tutor-price">{{tutorPrice}}
                                 <span class="tutor-price small-text">
-                                      <span v-language:inner>app_currency_dynamic</span>
+                                      <!--<span v-language:inner>app_currency_dynamic</span>-->
+                                    <span class="subheading">₪</span>
                                     <span>/</span>
                                      <span v-language:inner>profile_points_hour</span>
                                 </span>
                                 </span>
                    <span class="divider mt-4"
-                                style="height: 2px; width: 44px; background-color: #979797; margin: 0 auto; display: block">
+                                style="height: 2px; width: 44px; background-color: rgba(67, 66, 93, 0.2); margin: 0 auto; display: block">
                                 </span>
                     </div>
                 </v-flex>
@@ -156,6 +158,10 @@
 
     .profile-bio {
         max-width: 760px;
+        .profile-bio-card{
+             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.18);
+             border-radius: 4px;
+        }
         .user-name {
             display: flex;
             flex-direction: row;
@@ -191,8 +197,10 @@
             opacity: 0.41;
             font-size: 20px;
             cursor: pointer;
+            vertical-align: baseline;
            @media(max-width: @screen-xs){
                color: @purpleDark;
+               font-size: 16px;
            }
         }
         .line-height-1{

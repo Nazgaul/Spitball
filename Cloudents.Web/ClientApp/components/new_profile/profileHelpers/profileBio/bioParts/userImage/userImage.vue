@@ -3,9 +3,9 @@
         <img class="user-picture" style="height: 240px; width: 214px;"
              :src="profileImage">
         <div class="bottom-section" v-if="isTutorProfile">
-            <user-rating :rating="tutorRank" :readonly="true" class="px-4 line-height-1"></user-rating>
+            <user-rating :size="'20'" :rating="tutorRank" :readonly="true" class="px-4 line-height-1"></user-rating>
             <span class="reviews-quantity">
-                    <span>({{reviewCount}})</span>
+                    <span>{{reviewCount}}</span>
                     <span v-language:inner>profile_reviews</span>
                     </span>
         </div>
@@ -122,7 +122,7 @@
             width: 38px;
             height: 45px;
             border-radius: 0 4px 0 4px;
-            background-color: rgba(255, 255, 255, 0.38);
+            background-color: rgba(255, 255, 255, 0.7);
             top: 0;
             right: 0;
             display: flex;
