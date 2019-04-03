@@ -56,6 +56,8 @@ namespace Cloudents.Core.DTOs
     {
         public decimal Price { get; set; }
 
+        public string Bio { get; set; }
+
         public bool Online { get; set; }
         public float Rate { get; set; }
         public int ReviewCount { get; set; }
