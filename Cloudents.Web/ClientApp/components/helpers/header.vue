@@ -86,7 +86,7 @@
     import SearchInput from '../helpers/searchInput/searchInput.vue';
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
-    import {mapActions, mapGetters} from 'vuex';
+    import {mapActions, mapGetters, mapMutations} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
     import {LanguageService } from "../../services/language/languageService";
@@ -184,6 +184,7 @@
         },
         methods: {
             ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChat']),
+            ...mapMutations(['UPDATE_SEARCH_LOADING']),
             openNewQuestionDialog(){
                     if(this.accountUser == null){
                         this.updateLoginDialogState(true);
@@ -219,6 +220,7 @@
             },
 
             resetItems(){
+                this.UPDATE_SEARCH_LOADING(true);
                 this.$router.push('/');
             },
             closeDrawer(){

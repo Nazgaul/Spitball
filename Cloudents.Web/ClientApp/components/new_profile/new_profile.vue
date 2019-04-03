@@ -114,7 +114,7 @@
                                 <router-link :to="{name:'document',params:{id:document.id}}"
                                              v-for="(document ,index) in profileData.purchasedDocuments"
                                              :key="index" class="mb-3">
-                                    <result-note style="padding: 16px;" :item="document" class="mb-3"></result-note>
+                                    <result-note style="padding: 16px;" :item="document" class="mb-3 limit-width"></result-note>
                                 </router-link>
                             </scroll-list>
                         </v-flex>
