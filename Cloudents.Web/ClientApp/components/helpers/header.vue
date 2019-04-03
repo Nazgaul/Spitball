@@ -24,12 +24,12 @@
                                     </div> -->
                                     <div class="header-wallet" v-if="loggedIn">
                                         <button class="setting-buysbl-button" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span></button>     
-                                        <span class="header-wallet-text">{{accountUser.balance | currencyLocalyFilter}}</span>                                        
+                                        <span class="header-wallet-text">{{balance | currencyLocalyFilter}}</span>                                        
                                     </div>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
-                                                         :userImageUrl="userImageUrl"   :user-name="accountUser.name"/>
+                                                         :userImageUrl="userImageUrl" :user-name="accountUser.name"/>
 
                                             <menu-list :isAuthUser="loggedIn"
                                                        v-if=!$vuetify.breakpoint.xsOnly></menu-list>
@@ -160,6 +160,9 @@
             },
             totalUnread(){
                 return this.getTotalUnread
+            },
+            balance(){
+                return this.accountUser.balance || 0
             }
             //myMoney(){return this.accountUser.balance / 40}
 
