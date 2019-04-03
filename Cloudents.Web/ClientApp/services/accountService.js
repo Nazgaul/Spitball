@@ -46,6 +46,7 @@ function ReviewItem(objInit){
     this.rate = objInit.rate;
     this.reviewText = objInit.reviewText;
     this.score = objInit.score;
+    this.name = objInit.name || '';
 }
 
 function createReviewItem(objInit) {
