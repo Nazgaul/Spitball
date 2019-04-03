@@ -53,13 +53,14 @@ namespace Cloudents.Web.Hubs
                 await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
             }
 
-
-            var message = new SignalRTransportType(SignalRType.User,
-                SignalRAction.Update, new
+            var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
+                new
                 {
                     id = currentUserId,
                     online = true
                 });
+
+           
 
             var t2 = Clients.All.SendAsync(MethodName, message);
 
@@ -84,12 +85,14 @@ namespace Cloudents.Web.Hubs
             var t1 = _commandBus.Value.DispatchAsync(command, default);
 
 
-            var message = new SignalRTransportType(SignalRType.User,
-                SignalRAction.Update, new
+            var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
+                new
                 {
                     id = currentUserId,
                     online = false
                 });
+
+          
 
             var t2 = Clients.All.SendAsync(MethodName, message);
             await Task.WhenAll(t1, t2);
