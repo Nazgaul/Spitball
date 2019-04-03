@@ -19,7 +19,7 @@
                     <v-flex xs12 md9 sm9 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
                         <v-flex xs12 sm12 md12 class="mt-3 mb-4 limited-760" >
                             <v-divider v-if="$vuetify.breakpoint.xsOnly" style="height:2px; color: rgba(163, 160, 251, 0.32);"></v-divider>
-                            <v-tabs :dir="isRtl ? `ltr` : ''" class="tab-padding" hide-slider xs12>
+                            <v-tabs :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : isRtl? 'rtl' : ''" class="tab-padding" hide-slider xs12>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
                                         v-language:inner>profile_about</span>
                                 </v-tab>
