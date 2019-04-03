@@ -1,5 +1,5 @@
 <template>
-    <v-container class="profile-page-container" :class="{'content-center': !isMyProfile && !isTutorProfile}">
+    <v-container class="profile-page-container pl-0" :class="{'content-center': !isMyProfile && !isTutorProfile}">
         <button v-if="$vuetify.breakpoint.xsOnly" class="back-button" @click="$router.go(-1)">
             <v-icon right>sbf-arrow-back</v-icon>
         </button>
