@@ -27,7 +27,7 @@
                             <v-card :class="{'mr-3': $vuetify.breakpoint.smAndUp}" class="elevation-0 border  py-3" @click="expanded ? showLess() : showAll()">
                                 <span class="font-weight-bold course-name">
                                     <span v-show="!expanded">
-                                        <span> {{moreQuantity}}</span>
+                                        <span> {{moreQuantity}}&nbsp;</span>
                                     <span v-language:inner>profile_expand_more_courses</span>
                                     </span>
                                     <span v-show="expanded" v-language:inner>profile_expand_less</span>
