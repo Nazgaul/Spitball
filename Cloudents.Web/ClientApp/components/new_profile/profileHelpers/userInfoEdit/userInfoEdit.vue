@@ -109,7 +109,8 @@
                 if(this.$refs.form.validate()) {
                     let editsData = {
                         name: this.editedUserName || this.userName,
-                        description: this.editedDescription || this.userDescription
+                        // description: this.editedDescription || this.userDescription spitball-712
+                        description: this.editedDescription
                     };
                     accountService.saveUserInfo(editsData).then((success) => {
                         this.updateEditedProfile(editsData);

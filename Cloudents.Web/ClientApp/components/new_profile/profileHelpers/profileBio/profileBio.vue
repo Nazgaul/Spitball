@@ -70,6 +70,7 @@
                 :maxWidth="'760px'"
                 :popUpType="'editUserInfo'"
                 :content-class="'edit-dialog'"
+                :isPersistent="true"
         >
             <tutorInfoEdit v-if="isTutorProfile" :closeCallback="closeEditDialog"></tutorInfoEdit>
             <userInfoEdit v-else :closeCallback="closeEditDialog"></userInfoEdit>
