@@ -8,7 +8,7 @@
 
         <v-layout align-center justify-center :class="{'shrink': $vuetify.breakpoint.xsOnly}">
             <v-flex xs12 sm12 md12 class="text-xs-center">
-                <v-icon>sbf-face-icon</v-icon>
+                <thinkIcon></thinkIcon>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-4': '']">
@@ -47,11 +47,10 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
+    import thinkIcon from  '../images/thinking.svg'
     export default {
         name: "verifyCreation",
-        computed: {
-
-        },
+        components:{ thinkIcon },
         methods: {
             ...mapActions(['updateVerification', 'changeCreateDialogState']),
            goTocreation(){

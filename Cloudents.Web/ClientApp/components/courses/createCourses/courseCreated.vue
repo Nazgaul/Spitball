@@ -40,7 +40,7 @@
         </v-layout>
         <v-layout align-center justify-center>
             <v-flex shrink xs12 md12 sm12 class="text-xs-center">
-                <img class="bottom-image" src="../images/courses-empty-image.png" alt="">
+                <img class="bottom-image" src="../images/created-course.png" alt="created new course">
             </v-flex>
         </v-layout>
     </v-card>
