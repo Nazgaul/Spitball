@@ -1,5 +1,5 @@
 <template>
-        <v-layout column class="reviews-container mt-4">
+        <v-layout column class="reviews-container">
             <v-flex class="mb-3">
                 <span class="review-title" v-language:inner>profile_reviews</span>
             </v-flex>
@@ -35,11 +35,13 @@
     @import '../../../../styles/mixin.less';
 
 .reviews-container{
+    margin-top: 64px;
     .review-title{
         font-size: 22px;
         font-weight: 600;
         line-height: 0.77;
         color: @profileTextColor;
+
     }
     .single-review{
         border-top:  solid 1px @newGreyColor;

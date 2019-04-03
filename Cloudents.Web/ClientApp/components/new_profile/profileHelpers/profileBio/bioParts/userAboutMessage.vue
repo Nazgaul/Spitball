@@ -3,14 +3,14 @@
         <v-flex>
             <h4 class="intro-name">
                 <span class="icon-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'mr-2' : 'ml-2']"><v-icon>sbf-hand-icon</v-icon></span>
-                <span class="text-wrap">
+                <span class="text-wrap headline font-weight-bold">
                     <span v-language:inner>profile_hey_there</span>
                     <span>&nbsp;{{userName}}!</span>
                   </span>
             </h4>
         </v-flex>
         <v-flex :class="[$vuetify.breakpoint.smAndUp ? 'pt-3' : 'pt-1']">
-            <span class="bio-about-intro">{{userDescription}}</span>
+            <span class="bio-about-intro ">{{userDescription}}</span>
         </v-flex>
     </v-layout>
 </template>
@@ -81,7 +81,7 @@
 
         .bio-about-intro {
             font-family: @fontOpenSans;
-            font-size: 22px;
+            font-size: 20px;
             font-style: italic;
             line-height: 1.36;
             letter-spacing: normal;
