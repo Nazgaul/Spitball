@@ -9,11 +9,9 @@
                     <span v-language:inner>profile_reviews</span>
                     </span>
         </div>
-        <div class="bottom-section" v-else>
-                    <span class="user-balance py-2">{{profUserBal | currencyLocalyFilter}}
-                        <!--<span class="small">Pts</span>-->
-                    </span>
-        </div>
+        <!-- <div class="bottom-section" v-else>
+                    <span class="user-balance py-2">{{profUserBal | currencyLocalyFilter}}</span>
+        </div> -->
         <div v-if="isMyProfile"
              class="hover-block d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3 white--text">
             <uploadImage></uploadImage>
