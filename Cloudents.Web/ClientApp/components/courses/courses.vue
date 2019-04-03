@@ -40,7 +40,7 @@
             ...mapGetters(["createDialogVisibility", "creationVerified"]),
         },
         methods: {
-            ...mapActions(["updateClasses",]),
+            ...mapActions(["updateClasses", "updateVerification"]),
         },
         created() {
             this.$root.$on("courseCreated", courseName => {
@@ -51,7 +51,7 @@
                 if(val){
                     this.freshCourse = '';
                     this.createdNew = false;
-                    this.creationVerified = false
+                    this.updateVerification(false);
                 }
             });
         }

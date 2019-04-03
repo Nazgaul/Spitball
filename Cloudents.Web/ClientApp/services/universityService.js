@@ -128,16 +128,10 @@ const createCourse = (course) => {
     });
 };
 const teachCourse = (course) => {
-    return connectivityModule.http.post("account/course/teach", course).then((resp) => {
+    return connectivityModule.http.post("course/teach", {name: course}).then((resp) => {
         return resp
     });
 };
-const unTeachCourse = (course) => {
-    return connectivityModule.http.delete("account/course/teach", course).then((resp) => {
-        return resp
-    });
-};
-
 
 export default {
     getUni,
@@ -149,5 +143,4 @@ export default {
     deleteCourse,
     createCourse,
     teachCourse,
-    unTeachCourse
 };

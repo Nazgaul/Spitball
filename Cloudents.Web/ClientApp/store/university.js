@@ -253,7 +253,7 @@ const mutations = {
         state.selectedClassesCache.push(val);
     },
     pushClass(state, val) {
-        state.selectedClasses.push(val);
+        state.selectedClasses.unshift(val);
     },
     setSelectedClasses(state, val) {
         state.selectedClasses = val;

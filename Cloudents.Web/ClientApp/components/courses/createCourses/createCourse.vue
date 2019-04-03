@@ -8,17 +8,17 @@
                 <v-icon @click="closeDialog()" class="subheading course-close-icon">sbf-close</v-icon>
             </v-flex>
         </v-layout>
-        <v-layout shrink align-center justify-center class="px-4 mt-4 mb-3">
+        <v-layout shrink align-center justify-center class="px-4 mt-4 mb-1">
             <v-flex xs12 sm12 md12 class="text-xs-center">
                 <v-text-field v-model="courseName"
                               class="course-input"
                               outline
                               prepend-inner-icon=""
                               :placeholder="'Type a course name'"
+                              :rules="[rules.required]"
                               autocomplete="off"
                               autofocus
-                              spellcheck="true"
-                              hide-details></v-text-field>
+                              spellcheck="true"></v-text-field>
             </v-flex>
         </v-layout>
         <v-layout align-start justify-start shrink column class="px-4">
@@ -47,13 +47,17 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import { LanguageService } from "../../../services/language/languageService";
 
     export default {
         name: "createCourse",
         data() {
             return {
                 courseName: '',
-                btnLoad: false
+                btnLoad: false,
+                rules: {
+                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
+                },
             };
         },
         methods: {
