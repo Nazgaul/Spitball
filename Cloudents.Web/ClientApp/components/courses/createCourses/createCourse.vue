@@ -2,7 +2,7 @@
     <v-card class="creation-wrap">
         <v-layout class="close-toolbar limit-height pl-4 pr-3" style="width:100%;" align-center justify-end>
             <v-flex grow>
-                <span class="font-weight-bold dialog-heading">Create New Course</span>
+                <span class="font-weight-bold dialog-heading" v-language:inner>courses_new_title</span>
             </v-flex>
             <v-flex shrink class="mr-2">
                 <v-icon @click="closeDialog()" class="subheading course-close-icon">sbf-close</v-icon>
@@ -14,7 +14,7 @@
                               class="course-input"
                               outline
                               prepend-inner-icon=""
-                              :placeholder="'Type a course name'"
+                              :placeholder="newCoursePlaceholder"
                               :rules="[rules.required]"
                               autocomplete="off"
                               autofocus
@@ -23,14 +23,14 @@
         </v-layout>
         <v-layout align-start justify-start shrink column class="px-4">
             <v-flex xs12 md6 sm6 class="text-xs-center mb-1">
-                <span class="caption helper-text">Minimum Characters</span>
+                <span class="caption helper-text" v-language:inner>courses_minimum</span>
             </v-flex>
             <v-flex xs12 md6 sm6 class="text-xs-center mb-1">
-                <span class="caption helper-text">Meaningfull Name</span>
+                <span class="caption helper-text" v-language:inner>courses_meaningfull</span>
 
             </v-flex>
             <v-flex xs12 md6 sm6 class="text-xs-center mb-1">
-                <span class="caption helper-text">Third tip for creating a course</span>
+                <span class="caption helper-text" v-language:inner>courses_third_tip</span>
 
             </v-flex>
         </v-layout>
@@ -38,7 +38,7 @@
             <v-flex shrink class="text-xs-center">
                 <button @click="createNewCourse()" :disabled="!courseName"
                         class="cursor-pointer create-btn min-width solid d-flex align-center justify-center py-2 px-3">
-                    <span class="font-weight-bold text-uppercase btn-text">Create Course</span>
+                    <span class="font-weight-bold text-uppercase btn-text" v-language:inner>courses_create_course</span>
                 </button>
             </v-flex>
         </v-layout>
@@ -58,6 +58,7 @@
                 rules: {
                     required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
                 },
+                newCoursePlaceholder: LanguageService.getValueByKey("courses_new_placeholder")
             };
         },
         methods: {

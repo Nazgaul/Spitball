@@ -4,14 +4,14 @@
             <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
                 <v-flex grow xs10>
                     <div class="d-inline-flex justify-center shrink">
-                        <span class="subheading font-weight-bold">My Courses</span>
+                        <span class="subheading font-weight-bold" v-language:inner>courses_my_courses</span>
                         <span class="subheading font-weight-bold" v-if="coursesQuantaty">({{coursesQuantaty}})</span>
                     </div>
                 </v-flex>
                 <v-flex xs2 shrink class="d-flex justify-end">
                     <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0" @click="goToAddMore()">
                         <v-icon left>sbf-plus-regular</v-icon>
-                        <span>Add</span>
+                        <span v-language:inner>courses_add</span>
                     </v-btn>
                 </v-flex>
             </v-layout>
@@ -25,12 +25,12 @@
                                     {{ singleClass.text }}
                                 </v-flex>
                                 <v-flex class="label-text pt-1" v-if="singleClass.isPending">
-                                    <span>Pending</span>
-                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center">New</span>
+                                    <span v-language:inner>courses_pending</span>
+                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center" v-language:inner>courses_new</span>
                                 </v-flex>
                                 <v-flex class="label-text  pt-1" v-else>
                                     {{singleClass.students}}
-                                    <span class="label-text">students</span>
+                                    <span class="label-text" v-language:inner>courses_students</span>
                                 </v-flex>
                             </v-layout>
 
@@ -40,7 +40,7 @@
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
                                     <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
-                                        <span class="purple-text caption">Teach</span>
+                                        <span class="purple-text caption" v-language:inner>courses_teach</span>
                                     </span>
                                     </v-btn>
 
@@ -48,7 +48,7 @@
                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
                                        <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
-                                        <span class="caption">Teaching</span>
+                                        <span class="caption" v-language:inner>courses_teaching</span>
                                   </span>
                                     </v-btn>
                                     <span>

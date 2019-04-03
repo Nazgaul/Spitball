@@ -5,14 +5,14 @@
                 <div class="d-inline-flex justify-center shrink">
                     <v-icon @click="lastStep()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
                     </v-icon>
-                    <span class="subheading font-weight-bold">Join Courses</span>
+                    <span class="subheading font-weight-bold" v-language:inner>courses_join</span>
                     <span class="subheading font-weight-bold" v-if="quantatySelected">({{quantatySelected}})</span>
                 </div>
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
                 <v-btn round  class="elevation-0 done-btn py-1 font-weight-bold my-0"  @click="submitAndGo()">
-                    <span v-language:inner>uniSelect_done</span>
+                    <span v-language:inner>courses_done</span>
                 </v-btn>
             </v-flex>
         </v-layout>
@@ -21,6 +21,7 @@
                 <v-text-field id="classes_input"
                               v-model="search"
                               class="class-input"
+                              ref="classInput"
                               solo
                               prepend-inner-icon="sbf-search"
                               :placeholder="classNamePlaceholder"
@@ -33,8 +34,8 @@
             </v-flex>
 
             <v-flex v-show="true"  transition="fade-transition">
-                <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
-                    <div class="class-list selected-classes-list py-3 px-3">
+                <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]" ref="itemsList">
+                    <div class="class-list selected-classes-list py-3 px-3" >
                         <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
                              v-for="selectedClass in localSelectedClasses">
                             <span class="text-truncate">{{selectedClass.text}}</span>
@@ -44,10 +45,10 @@
                     </span>
                         </div>
                         <div class="paddles">
-                            <button class="lefty left-paddle paddle hidden">
+                            <button class="lefty left-paddle paddle hidden" ref="leftY">
                                 <
                             </button>
-                            <button class="righty right-paddle paddle">
+                            <button class="righty right-paddle paddle" ref="rightY">
                                 >
                             </button>
                         </div>
@@ -67,33 +68,33 @@
                             </v-flex>
                             <v-flex class="students-enrolled pt-2">
                                 {{singleClass.students}}
-                                <span class="students-enrolled">students</span>
+                                <span class="students-enrolled" v-language:inner>courses_students</span>
                             </v-flex>
                         </v-layout>
                         <v-layout row align-center justify-end>
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-bold mr-2">Joined</span>
+                                    <span class="light-purple caption font-weight-bold mr-2" v-language:inner>courses_joined</span>
                                     <span>
                                      <v-icon class="checked-icon">sbf-check-circle</v-icon>
                                    </span>
                                 </v-flex>
                                 <v-flex shrink v-else class="d-flex align-center cursor-pointer">
-                                    <span class="light-purple caption font-weight-bold mr-2">Join</span>
+                                    <span class="light-purple caption font-weight-bold mr-2" v-language:inner>courses_join</span>
                                     <span>
                                      <v-icon class="add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
                                    </span>
                                 </v-flex>
                             </div>
                             <v-flex v-else shrink class="d-flex align-end">
-                                <span class="light-purple caption font-weight-bold mr-2">Joinded</span>
+                                <span class="light-purple caption font-weight-bold mr-2" v-language:inner>courses_joined</span>
                             </v-flex>
                         </v-layout>
                     </div>
                     <!--create new course-->
                     <v-flex  class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer" @click="changeCreateDialogState(true)">
-                        <span>Can't Find your course?</span>
-                        <span class="add-item">Create new</span>
+                        <span v-language:inner>courses_cant_find</span>
+                        <span class="add-item" v-language:inner>courses_create_new</span>
                     </v-flex>
                 </div>
             </v-flex>
@@ -113,7 +114,7 @@
             return {
                 search: "",
                 classNamePlaceholder: LanguageService.getValueByKey(
-                    "uniSelect_type_class_name_placeholder"
+                    "courses_placeholder_find"
                 ),
                 isRtl: global.isRtl,
                 global: global,
@@ -213,7 +214,7 @@
                 this.addToCachedClasses(className);
                 // this.pushClassToSelectedClasses(className);
                 setTimeout(() => {
-                    let inputElm = document.getElementById('classes_input');
+                    let inputElm = this.$refs.classInput;
                     inputElm.value = "";
                     inputElm.focus();
                 }, 200);
@@ -221,19 +222,22 @@
             },
         },
         mounted(){
-            const container = document.getElementsByClassName("selected-classes-list")[0];
-            const lefty = document.querySelector(".lefty");
+            // const container = document.getElementsByClassName("selected-classes-list")[0];
+            const container = this.$refs.itemsList;
+            const lefty = this.$refs.leftY;
             let translate = 0;
 
             lefty.addEventListener("click", function() {
-                translate += 200;
-                container.style.transform = "translateX(" + translate + "px" + ")";
+                translate += 50;
+                // container.style.transform = "translateX(" + translate + "px" + ")";
+                container.scrollLeft= translate;
             });
 
-            const righty = document.querySelector(".righty");
+            const righty = this.$refs.rightY;
             righty.addEventListener("click", function() {
-                translate -= 200;
-                container.style.transform = "translateX(" + translate + "px" + ")";
+                translate -= 50;
+                // container.style.transform = "translateX(" + translate + "px" + ")";
+                container.scrollLeft= translate;
             });
         },
         created(){
@@ -315,7 +319,6 @@
             padding-left: 0;
 
             &.selected-classes-list {
-                overflow: auto;
                 position: relative;
                 white-space: nowrap;
                 background-color: #f0f0f7;

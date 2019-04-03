@@ -13,31 +13,25 @@
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-4': '']">
             <v-flex class="text-xs-center">
-                <span class="font-weight-bold heading-text">Before Creating a New Course, Try:</span>
+                <span class="font-weight-bold heading-text" v-language:inner>courses_before creating</span>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-4': '']">
             <v-flex xs12 md5 sm5  class="text-xs-center">
-                <p class="body-1 mb-1">
-                    Checking for spelling mistakes
-                </p>
-                <p class="body-1 mb-1">
-                    Add or remove spaces or special characters
-                </p>
-                <p class="body-1 mb-1">
-                    Find similar course names
-                </p>
+                <p class="body-1 mb-1" v-language:inner>courses_check_mistakes</p>
+                <p class="body-1 mb-1" v-language:inner>courses_remove_spaces</p>
+                <p class="body-1 mb-1" v-language:inner>courses_find_similar</p>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-5 px-5': '']">
             <v-flex shrink xs6 md3 sm3>
                 <button @click="goTocreation()" class="min-width shrink outline d-flex align-center justify-center py-2 px-3">
-                    <span class="font-weight-bold text-capitalize">Create Course</span>
+                    <span class="font-weight-bold text-capitalize" v-language:inner>courses_create_course</span>
                 </button>
             </v-flex>
             <v-flex shrink xs6 md3 sm3>
                 <button @click="closeDialog()" class="min-width solid d-flex align-center justify-center py-2 px-3">
-                    <span class="font-weight-bold text-capitalize">Try Again</span>
+                    <span class="font-weight-bold text-capitalize" v-language:inner>courses_try_again</span>
                 </button>
             </v-flex>
         </v-layout>

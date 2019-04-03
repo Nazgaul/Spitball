@@ -8,7 +8,7 @@
                 <v-flex d-flex xs12 order-xs3 order-sm2 order-md2>
                     <v-layout column>
                         <v-flex d-flex :class="{'shrink text-xs-center': $vuetify.breakpoint.xsOnly}">
-                            <span class="created-heading">You've Created</span>
+                            <span class="created-heading" v-language:inner>courses_you_created</span>
                         </v-flex>
                         <v-flex d-flex>
                             <span class="font-weight-bold subheading">{{courseName}}</span>
@@ -22,20 +22,20 @@
 
         <v-layout align-center justify-center column class="mb-2 mt-4" :class="[ $vuetify.breakpoint.xsOnly ? 'mt-5 shrink': '']">
             <v-flex  class="text-xs-center"  :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-1': '']">
-                <span class="font-weight-bold title">Invite classmates</span>
+                <span class="font-weight-bold title" v-language:inner>courses_invite_classmates</span>
             </v-flex>
             <v-flex>
-                <span class="small-text">Sub Title for adding classmates</span>
+                <span class="small-text" v-language:inner>courses_sub_title_invite</span>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center class="mt-4 mb-3" column :class="{'shrink mt-5 pt-2': $vuetify.breakpoint.xsOnly}">
             <v-flex xs6 md12 sm12 class="text-xs-center pb-2">
                 <button @click="copyClassLink()" class="min-width solid d-flex align-center justify-center py-3 px-3">
-                    <span class="font-weight-bold btn-text text-capitalize">Copy Course Link</span>
+                    <span class="font-weight-bold btn-text text-capitalize" v-language:inner>courses_copy_link</span>
                 </button>
             </v-flex>
             <v-flex xs12 md12 sm12 class="text-xs-center">
-                <span @click="goToCoursesList()" class="caption blue-text cursor-pointer">Back to My Courses</span>
+                <span @click="goToCoursesList()" class="caption blue-text cursor-pointer" v-language:inner>courses_back_to_list</span>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center>
