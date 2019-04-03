@@ -5,7 +5,7 @@
                 <v-flex grow xs10>
                     <div class="d-inline-flex justify-center shrink">
                         <span class="subheading font-weight-bold" v-language:inner>courses_my_courses</span>
-                        <span class="subheading font-weight-bold" v-if="coursesQuantaty">({{coursesQuantaty}})</span>
+                        <span class="subheading font-weight-bold" v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
                     </div>
                 </v-flex>
                 <v-flex xs2 shrink class="d-flex justify-end">
@@ -100,12 +100,6 @@
                                      return course.isTeaching = !course.isTeaching
                                  });
             },
-            // unTeach(course) {
-            //     universityService.unTeachCourse(course.text)
-            //                      .then((resp) => {
-            //                          return course.isTeaching = false;
-            //                      });
-            // },
             removeClass(classDelete) {
 
                 this.deleteClass(classDelete).then((resp) => {
@@ -187,6 +181,9 @@
             font-size: 16px;
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
+            &:first-child{
+                border-top: solid 1px #f0f0f7;
+            }
 
         }
         .limit-width {
