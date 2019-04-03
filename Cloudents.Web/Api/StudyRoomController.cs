@@ -149,7 +149,7 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
             
-            var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, userId);
+            var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, model.Tutor, userId);
             try
             {
                 await _commandBus.DispatchAsync(command, token);
