@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Twilio;
 using Twilio.Converters;
 using Twilio.Jwt.AccessToken;
+using Twilio.Rest.Proxy.V1.Service.Session;
 using Twilio.Rest.Video.V1;
 using Twilio.Rest.Video.V1.Room;
 using static Twilio.Rest.Video.V1.CompositionResource;
@@ -136,27 +137,27 @@ namespace Cloudents.Infrastructure.Mail
         {
             
             var room = await RoomResource.FetchAsync(roomId);
-            var p = await ParticipantResource.ReadAsync(room.Sid);
-            //var recordings = RecordingResource.Read(
-            //    groupingSid: Promoter.ListOfOne(room.Sid)
-            //);
+            var t = RoomRecordingResource.Read(room.Sid);
+            var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);
+          
+
+            var layout = new
+            {
+                transcode = new
+                {
+                    video_sources = new string [] {"MT*"}
+                }
+            };
 
 
-            //var layout = new
-            //{
-            //    transcode = new
-            //    {
-            //        video_sources = recordings.Select(s=>s.Sid).ToArray() new string[] { "RTXXXX" }
-            //    }
-            //};
-
-
-            //var composition = CompositionResource.Create(
-            //    roomSid: room.Sid,
-            //    videoLayout: layout,
-            //    //statusCallback: new Uri('http://my.server.org/callbacks'),
-            //    format: FormatEnum.Mp4
-            //);
+            var composition = CompositionResource.Create(
+                roomSid: room.Sid,
+                audioSources: new List<string>() { "*"},
+                videoLayout: layout,
+                trim:true,
+                //statusCallback: new Uri('http://my.server.org/callbacks'),
+                format: FormatEnum.Mp4
+            );
         }
 
        
