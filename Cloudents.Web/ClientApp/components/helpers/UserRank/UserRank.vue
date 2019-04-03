@@ -39,13 +39,9 @@ export default {
 <style lang="less">
 @import "../../../styles/mixin.less";
     .rank-container{
-            width: 75px;
-            // margin-top: 8px;
             font-family: @fontFiraSans;
             font-size: 12px;
-            font-weight: normal;
             font-style: italic;
-            font-stretch: normal;
             line-height: 1;
             letter-spacing: -0.2px;
             text-align: center;
