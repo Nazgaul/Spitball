@@ -15,7 +15,7 @@ const state = {
         done: 'done'
     },
     stepArr:[
-        'SetSchoolLanding','SetSchool','SetClass','done'
+        'SetSchoolLanding','SetSchool','SetClass','setSchool','setClass','done'
     ],
     universityPopStorage:{
         session: !!window.sessionStorage.getItem('sb_uniSelectPoped_s'), //boolean

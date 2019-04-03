@@ -15,14 +15,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Cloudents.Web.Api
@@ -134,8 +138,7 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses for a user</returns>
         [HttpGet("courses")]
         public async Task<IEnumerable<CourseDto>> GetCourses(
-            [ProfileModelBinder(ProfileServiceQuery.Course
-            )] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.Course)] UserProfile profile,
             CancellationToken token)
         {
             if (profile.Courses != null)
@@ -143,17 +146,15 @@ namespace Cloudents.Web.Api
                 return profile.Courses.Select(s => new CourseDto(s));
             }
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserProfileQuery(userId);
+            var query = new UserDataQuery(userId);
             var t = await _queryBus.QueryAsync(query, token);
             return t.Courses.Select(s => new CourseDto(s));
         }
 
         [HttpGet("University")]
         public async Task<UniversityDto> GetUniversityAsync(
-            [ProfileModelBinder(ProfileServiceQuery.University
-                                )] UserProfile profile,
-
-        [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             CancellationToken token)
         {
             if (!universityId.HasValue)
@@ -177,5 +178,63 @@ namespace Cloudents.Web.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
+        [HttpPost("image")]
+        public async Task<IActionResult> UploadImageAsync(IFormFile file,
+            [FromServices] IUserDirectoryBlobProvider blobProvider,
+            [FromServices] UserManager<RegularUser> userManager,
+            [FromServices] IBinarySerializer serializer,
+            CancellationToken token)
+        {
+            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
+            if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("not an image");
+            }
+
+
+            var extension = Path.GetExtension(file.FileName);
+
+            if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("not an image");
+            }
+            var userId = userManager.GetLongUserId(User);
+            var fileName = $"{userId}/{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{extension}";
+            await blobProvider.UploadStreamAsync(fileName, file.OpenReadStream(),
+                file.ContentType, TimeSpan.FromDays(365), token);
+
+            var fileUri = blobProvider.GetBlobUrl(fileName);
+            var imageProperties = new ImageProperties(fileUri, ImageProperties.BlurEffect.None);
+
+            var hash = serializer.Serialize(imageProperties);
+            var url = Url.RouteUrl("imageUrl", new
+            {
+                hash = Base64UrlTextEncoder.Encode(hash)
+            });
+            var command = new UpdateUserImageCommand(userId, url);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok(url);
+        }
+
+        [HttpPost("settings")]
+        public async Task<IActionResult> ChangeDescription([FromBody]UpdateSettingsRequest model,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName, 
+                model.Description, model.Bio);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("BecomeTutor")]
+        public async Task<IActionResult> BecomeTutorAsync([FromBody]BecomeTutorRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new BecomeTutorCommand(userId,  model.Bio);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+     
     }
 }

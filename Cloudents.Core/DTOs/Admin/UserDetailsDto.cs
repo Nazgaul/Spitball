@@ -21,8 +21,8 @@ namespace Cloudents.Core.DTOs.Admin
         public string Country { get; set; }
         [DtoToEntityConnection(nameof(RegularUser.Score))]
         public int Score { get; set; }
-        [DtoToEntityConnection(nameof(RegularUser.FraudScore))]
-        public int FraudScore { get; set; }
+        //[DtoToEntityConnection(nameof(RegularUser.FraudScore))]
+        //public int FraudScore { get; set; }
        
         public int ReferredCount { get; set; }
         [DtoToEntityConnection(nameof(RegularUser.Balance))]

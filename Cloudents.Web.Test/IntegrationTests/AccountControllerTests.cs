@@ -1,7 +1,4 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,19 +8,17 @@ namespace Cloudents.Web.Test.IntegrationTests
 {
     public class AccountControllerTests : IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
-        private readonly HttpClient client;
+        private readonly HttpClient _client;
 
         public AccountControllerTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
-            client = _factory.CreateClient();
+            _client = factory.CreateClient();
         }
 
         [Fact]
         public async Task GetAsync_Unauthorized_401()
         {
-            var response = await client.GetAsync("api/account");
+            var response = await _client.GetAsync("api/account");
 
             response.StatusCode.Should().Be(401);
         }
@@ -31,11 +26,12 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_OK_200()
         {
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
+            string credentials = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
+            await _client.PostAsync("api/LogIn",
+               new StringContent(credentials, Encoding.UTF8, "application/json"));
 
-            response = await client.GetAsync("api/account");
+            var response = await _client.GetAsync("api/account");
 
             response.StatusCode.Should().Be(200);
         }

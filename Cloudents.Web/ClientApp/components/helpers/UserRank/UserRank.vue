@@ -40,7 +40,7 @@ export default {
 @import "../../../styles/mixin.less";
     .rank-container{
             width: 75px;
-            margin-top: 8px;
+            // margin-top: 8px;
             font-family: @fontFiraSans;
             font-size: 12px;
             font-weight: normal;
@@ -54,31 +54,36 @@ export default {
                 margin-top: unset;
             }
         .level-0 {
-            background-color: #ebebeb;
-            border-radius: 8px;
-            height: 16px;
-            padding-top: 2px;
+            span{
+                background-color: #ebebeb;
+                border-radius: 10px;
+                padding: 2px 12px;
+            }
         }
         .level-1 {
-            background-color: #acacac;
-            border-radius: 8px;
-            height: 16px;
-            color: #ffffff;
-            padding-top: 2px;
+            span{
+                background-color: #acacac;
+                color: #ffffff;
+                border-radius: 10px;
+                padding: 2px 12px;
+            }
         }
         .level-2 {
-            background-color: #939393;
-            border-radius: 8px;
-            height: 16px;
-            color: #ffffff;
-            padding-top: 2px;
+            span{
+                background-color: #939393;
+                color: #ffffff;
+                border-radius: 10px;
+                padding: 2px 12px;
+            }
         }
         .level-3 {
-            background-color: #5c5c5c;
-            border-radius: 8px;
-            height: 16px;
-            color: #ffffff;
-            padding-top: 2px;
+            span{
+                background-color: #5c5c5c;
+                color: #ffffff;
+                border-radius: 10px;
+                padding: 2px 12px;
+            }
         }
+        
     }
 </style>

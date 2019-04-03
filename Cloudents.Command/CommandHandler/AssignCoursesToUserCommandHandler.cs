@@ -1,7 +1,9 @@
-﻿using Cloudents.Command.Command;
+﻿using System.Collections.Generic;
+using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,23 +27,29 @@ namespace Cloudents.Command.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            //var firstCourseTransaction = await _transactionRepository.GetFirstCourseTransaction(message.UserId, token);
-
-            //if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
-            //{
-            //    user.AwardMoney(AwardsTransaction.FirstCourse);
-            //    await _userRepository.UpdateAsync(user, token);
-            //}
-            user.Courses.Clear();
-            foreach (var name in message.Name)
+            IList<Course> courses = new List<Course>();
+            foreach (var courseName in message.Name)
             {
-                var course = await _courseRepository.GetOrAddAsync(name, token);
-                if (user.Courses.Add(course))
-                {
-                    course.Count++;
-                    await _courseRepository.UpdateAsync(course, token);
-                }
+                var course = await _courseRepository.GetOrAddAsync(courseName, token);
+                courses.Add(course);
             }
+
+            user.AssignCourses(courses);
+            //foreach (var name in message.Name)
+            //{
+            //    var course = await _courseRepository.GetOrAddAsync(name, token);
+            //    if (user.Courses.Any(a => a.Course == course))
+            //    {
+            //        continue;
+                    
+            //    }
+            //    var p = new UserCourse(user,course);
+            //    if (user.Courses.Add(p))
+            //    {
+            //        course.Count++;
+            //        await _courseRepository.UpdateAsync(course, token);
+            //    }
+            //}
 
             await _userRepository.UpdateAsync(user, token);
         }

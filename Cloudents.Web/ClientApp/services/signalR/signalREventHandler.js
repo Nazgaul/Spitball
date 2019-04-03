@@ -81,6 +81,7 @@ export const signlaREvents = {
             arrEventObj.forEach((action)=>{
                 if(!userActions[action.type]){
                     console.error(`Action type ${action.type} was not defined in User userActions`)
+                    return;
                 }
                 userActions[action.type](action.data)
             }) 
@@ -135,5 +136,12 @@ export const signlaREvents = {
 
 
         }
+    },
+    chat: {
+        add: function(arrEventObj){
+            arrEventObj.forEach((chatMessageToAdd)=>{
+                store.dispatch("signalRAddMessage", chatMessageToAdd);
+            })
+        },
     }
 };

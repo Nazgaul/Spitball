@@ -240,15 +240,7 @@ export const routes = [
         children: [
             {
                 path: '',
-                redirect: 'courseMigration'
-            },
-            {
-                path: 'courseMigration',
-                component: courseMigration
-            },
-            {
-                path: 'universityMigration',
-                component: universityMigration
+                redirect: 'coursesPending'
             },
             {
                 path: 'coursesPending',

@@ -37,7 +37,7 @@
       text-align: right;
       .v-step__button {
         margin: 0 3px;
-        color: #4452fc;
+        color: @color-blue-new;
         background-color: #ffffff;
         border-radius: 12px;
         padding: 0.35rem 1.4rem;
@@ -267,6 +267,15 @@
     @media (max-width: @screen-xs) {
       display: inline-block;
       margin-bottom: 10px;
+    }
+  }
+}
+//label on inputs rtl support
+.v-input__slot{
+  .v-text-field__slot{
+    label{
+      left: unset !important;
+      right: unset !important;
     }
   }
 }

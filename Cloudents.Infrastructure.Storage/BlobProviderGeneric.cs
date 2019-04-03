@@ -10,14 +10,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
-using static Cloudents.Core.TimeConst;
 
 namespace Cloudents.Infrastructure.Storage
 {
     public class BlobProviderContainer : IBlobProvider,
         IDocumentDirectoryBlobProvider,
         IQuestionsDirectoryBlobProvider,
-        IChatDirectoryBlobProvider
+        IChatDirectoryBlobProvider,
+        IUserDirectoryBlobProvider
 
     {
         private readonly CloudBlobDirectory _blobDirectory;
@@ -44,6 +44,8 @@ namespace Cloudents.Infrastructure.Storage
             _blobDirectory = _cloudContainer.GetDirectoryReference(container.RelativePath ?? string.Empty);
         }
 
+       
+
         public Uri GetBlobUrl(string blobName, bool cdn = false)
         {
             var blob = _blobDirectory.GetBlockBlobReference(blobName);
@@ -68,7 +70,7 @@ namespace Cloudents.Infrastructure.Storage
 
 
         public Task UploadStreamAsync(string blobName, Stream fileContent,
-            string mimeType = null, bool fileGziped = false, int? cacheControlSeconds = null, CancellationToken token = default)
+            string mimeType = null, TimeSpan? cacheControlSeconds = null, CancellationToken token = default)
         {
             var blob = GetBlob(blobName);
             if (fileContent.CanSeek)
@@ -81,14 +83,14 @@ namespace Cloudents.Infrastructure.Storage
                 blob.Properties.ContentType = mimeType;
             }
 
-            if (fileGziped)
-            {
-                blob.Properties.ContentEncoding = "gzip";
-            }
+            //if (fileGziped)
+            //{
+            //    blob.Properties.ContentEncoding = "gzip";
+            //}
 
             if (cacheControlSeconds.HasValue)
             {
-                blob.Properties.CacheControl = "private, max-age=" + (Second * cacheControlSeconds.Value);
+                blob.Properties.CacheControl = "private, max-age=" + cacheControlSeconds.Value.TotalSeconds;
             }
 
             return blob.UploadFromStreamAsync(fileContent);
@@ -112,8 +114,19 @@ namespace Cloudents.Infrastructure.Storage
 
         public Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token)
         {
+            return CommitBlockListAsync(blobName, mimeType, null, indexes, token);
+        }
+
+        public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes,
+            CancellationToken token)
+        {
             var blob = GetBlob(blobName);
             blob.Properties.ContentType = mimeType;
+            if (!string.IsNullOrEmpty(originalFileName))
+            {
+                blob.Metadata["fileName"] = originalFileName;
+            }
+
             return blob.PutBlockListAsync(indexes.Select(ToBase64));
         }
 
@@ -234,7 +247,7 @@ namespace Cloudents.Infrastructure.Storage
             return url;
         }
 
-        public Uri GenerateDownloadLink(Uri blobUrl, TimeSpan expirationTime, string fileName)
+        public Uri GenerateDownloadLink(Uri blobUrl, TimeSpan expirationTime, string fileName = null)
         {
             var blob = GetBlob(blobUrl);
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy

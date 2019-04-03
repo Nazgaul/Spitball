@@ -4,6 +4,7 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Filters;
@@ -28,13 +29,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyModel;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -43,32 +41,6 @@ namespace Cloudents.Web
 {
     public class Startup
     {
-
-        public static IEnumerable<Assembly> GetAssemblies()
-        {
-            var list = new List<string>();
-            var stack = new Stack<Assembly>();
-
-            stack.Push(Assembly.GetEntryAssembly());
-
-            do
-            {
-                var asm = stack.Pop();
-
-                yield return asm;
-
-                foreach (var reference in asm.GetReferencedAssemblies())
-                    if (!list.Contains(reference.FullName))
-                    {
-                        stack.Push(Assembly.Load(reference));
-                        list.Add(reference.FullName);
-                    }
-
-            }
-            while (stack.Count > 0);
-
-        }
-
         public const string IntegrationTestEnvironmentName = "Integration-Test";
         internal const int PasswordRequiredLength = 8;
 
@@ -98,8 +70,9 @@ namespace Cloudents.Web
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddRouting(x =>
             {
-                x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
+                // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
             });
+
             services.AddMvc()
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
                 {
@@ -158,7 +131,8 @@ namespace Cloudents.Web
 
             services.AddDetectionCore().AddDevice().AddCrawler();
             services.AddScoped<SignInManager<RegularUser>, SbSignInManager>();
-            services.AddIdentity<RegularUser, ApplicationRole>(options =>
+            //RoleStore
+            services.AddDefaultIdentity<RegularUser>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = true;
@@ -173,14 +147,10 @@ namespace Cloudents.Web
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
                 options.Lockout.MaxFailedAccessAttempts = 3;
-
-
-            }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
-            //services.Configure<SecurityStampValidatorOptions>(o =>
-            //{
-            //    o.ValidationInterval = TimeSpan.FromMinutes(2);
-            //});
-            //  services.AddSingleton<IHttpResponseStreamWriterFactory, SbMemoryPoolHttpResponseStreamWriterFactory>();
+            }).AddDefaultTokenProviders()
+                .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
+                // .AddRoles<RoleStore>()
+                .AddSignInManager<SbSignInManager>();
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb4";
@@ -199,20 +169,32 @@ namespace Cloudents.Web
             });
 
 
+            //TODO: not sure we need those
             services.AddScoped<IUserClaimsPrincipalFactory<RegularUser>, AppClaimsPrincipalFactory>();
-            services.AddTransient<IUserStore<RegularUser>, UserStore>();
-            services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
-            services.AddTransient<ISmsSender, SmsSender>();
-            services.AddTransient<ICountryProvider, CountryProvider>();
+            services.AddScoped<IUserStore<RegularUser>, UserStore>();
+            //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
+            services.AddScoped<ISmsSender, SmsSender>();
+            services.AddScoped<ICountryProvider, CountryProvider>();
 
 
-            var assembliesOfProgram = DependencyContext.Default.CompileLibraries
-                .SelectMany(x => x.ResolveReferencePaths())
-                .Distinct()
-                .Where(x => x.Contains(Directory.GetCurrentDirectory()))
-                .Select(Assembly.LoadFile)
-                .ToList();
-            
+            var assembliesOfProgram = new[]
+            {
+                Assembly.Load("Cloudents.Infrastructure.Storage"),
+                Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Core"),
+                Assembly.Load("Cloudents.Persistence"),
+                Assembly.Load("Cloudents.Search"),
+                Assembly.Load("Cloudents.Query"),
+                Assembly.GetExecutingAssembly()
+            };
+
+            //var assembliesOfProgram = DependencyContext.Default.CompileLibraries
+            //    .SelectMany(x => x.ResolveReferencePaths())
+            //    .Distinct()
+            //    .Where(x => x.Contains(Directory.GetCurrentDirectory()))
+            //    .Select(Assembly.LoadFile)
+            //    .ToList();
+
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
             var keys = new ConfigurationKeys(Configuration["Site"])

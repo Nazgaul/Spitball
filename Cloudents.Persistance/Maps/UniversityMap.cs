@@ -25,7 +25,7 @@ namespace Cloudents.Persistence.Maps
             //    .ReadOnly()
             //    .Access.CamelCaseField(Prefix.Underscore).Cascade.None();
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
-            SchemaAction.Update();
+            SchemaAction.None();
 
         }
     }

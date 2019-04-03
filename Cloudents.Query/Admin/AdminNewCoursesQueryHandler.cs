@@ -2,10 +2,8 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Query.Admin;
 using Dapper;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,12 +12,11 @@ namespace Cloudents.Query.Admin
     public class AdminNewCoursesQueryHandler : IQueryHandler<AdminEmptyQuery, IList<NewCourseDto>>
     {
 
-        private readonly IConfigurationKeys _provider;
-
-
-        public AdminNewCoursesQueryHandler(IConfigurationKeys provider)
+        private readonly DapperRepository _dapper;
+        
+        public AdminNewCoursesQueryHandler(DapperRepository dapper)
         {
-            _provider = provider;
+            _dapper = dapper;
         }
 
         public async Task<IList<NewCourseDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
@@ -30,11 +27,11 @@ namespace Cloudents.Query.Admin
                     select cte.Name as NewCourse, c.Name as OldCourse from cte, sb.Course c
                     where c.Name like REPLACE(cte.Name,' ','%')
                     and c.Name <> cte.Name";
-            using (var connection = new SqlConnection(_provider.Db.Db))
+            using (var connection = _dapper.OpenConnection())
             {
                 var res = await connection.QueryAsync<NewCourseDto>(sql);
                 return res.AsList();
-            }
+            };
         }
     }
 }

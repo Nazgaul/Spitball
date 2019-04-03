@@ -29,9 +29,9 @@ namespace Cloudents.Query
                 .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
-                    User = new UserDto(s.User.Id, s.User.Name, s.User.Score),
+                    User = new UserDto(s.User.Id, s.User.Name, s.User.Score, s.User.Image),
                     DateTime = s.TimeStamp.UpdateTime,
-                    Course = s.Course.Name,
+                    Course = s.Course.Id,
                     Type = s.Type,
                     Professor = s.Professor,
                     Title = s.Name,

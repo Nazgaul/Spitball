@@ -1,23 +1,21 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Core.DTOs.Admin
 {
     public class NewCourseDto
     {
-        [DtoToEntityConnection(nameof(Course.Name))]
+        [DtoToEntityConnection(nameof(Course.Id))]
         public string NewCourse { get; set; }
-        [DtoToEntityConnection(nameof(Course.Name))]
+        [DtoToEntityConnection(nameof(Course.Id))]
         public string OldCourse { get; set; }
     }
 
 
     public class PendingCoursesDto
     {
-        [DtoToEntityConnection(nameof(Course.Name))]
+        [DtoToEntityConnection(nameof(Course.Id))]
         public string Name { get; set; }
     }
 

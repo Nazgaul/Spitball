@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using Newtonsoft.Json.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,7 +84,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
+            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
             var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
 

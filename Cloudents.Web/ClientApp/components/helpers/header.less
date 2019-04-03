@@ -14,7 +14,8 @@
   &.v-toolbar {
     background-color: @color-white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-    padding-left:21px !important;
+    //padding-left:21px !important;
+    background-color: #3c3b53;
     @media (max-width: @screen-xs) {
       padding-bottom: 8px;
       padding-left:10px !important;
@@ -30,8 +31,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    @media (min-width: @screen-xs) {
-     // padding-bottom: 8px;
+    background-color:#FFF;
+    @media (max-width: @screen-xs) {
+     background-color:unset;
     }
   }
 
@@ -56,7 +58,8 @@
     align-items: center;
     z-index:10;
     @media (min-width: (@screen-sm + 1)) {
-      width: @logoWidth;
+      width: 260px;
+      padding-left: 22px;
     }
 
     @media (max-width: 959px) {
@@ -68,7 +71,8 @@
     }
 
     svg {
-      fill: @color-main-purple;
+      // fill: @color-main-purple;
+      fill: #ffffff;
     }
   }
 
@@ -84,31 +88,27 @@
 
   .main {
     //.responsive-property(height, 60px, null, 85px);
-    //.responsive-property(padding-top, 10px, 0px, null);
+    //.responsive-property(padding-top, 10px, 0px, null);.header-rocket
     display: flex;
     height: 100%;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 1240px;
+    // max-width: 1240px;
     .setting-buysbl-button{
       font-family: @fontFiraSans;
       display: flex;
       align-items: center;
-      padding: 0px 15px;
-      font-size: 12px;
+      padding: 0px 10px;
       font-weight: 600;
       letter-spacing: -.2px;
       color: rgba(0,0,0,.87);
       outline: none;
-      line-height: 10px;
       border-radius: 14px;
-      box-shadow: 0 3px 8px 0 rgba(0,0,0,.25);
       background-image: linear-gradient(108deg,#ffe78d,#ffca54);
-      margin-top: 3px;
+      height: 16px;
       span{
-        font-size:11px;
+        font-size:10px;
         color: rgba(0, 0, 0, 0.77); 
-        padding-top: 2px;
       }
       i{
         font-size: 14px;
@@ -162,13 +162,27 @@
     flex: 1 0 auto;
     line-height: 32px;
     display: flex;
-    max-width: 276px;
+    width: 388px;
+    min-width: 388px;
+    margin-right:16px;
+    justify-content: flex-end;
     @media (max-width: @screen-xs) {
       flex: 0 auto;
+      margin-right:0px;
+      min-width: 165px;
+      max-width: 165px;
     }
     .v-btn--icon {
       @media (max-width: 959px) {
         margin-right: 0;
+      }
+    }
+    .v-menu{
+      max-width:45px;
+      i{
+        @media (max-width: @screen-xs) {
+          color: #aeadbe;
+        }
       }
     }
     .header-login {
@@ -244,7 +258,7 @@
       border-radius: 4px;
      // background-color: @color-light-grey;
      // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-      border: solid 0.5px @color-medium-grey;
+      // border: solid 0.5px @color-medium-grey;
       color: #000;
       letter-spacing: -0.4px;
       font-size: 16px;
@@ -318,8 +332,15 @@
 
 }
 .header-wallet{
-  padding-right: 16px;
+  // padding-right: 16px;
+  padding-left: 16px;
   align-items: center;
+  .header-wallet-text{
+    font-size:13px;
+    @media (max-width: @screen-sm) {
+      color: #c8c7e5;
+    }
+  }
 }
 .header-comments {
   // margin-right: 39px;
@@ -338,12 +359,16 @@
 }
 
 .header-wallet {
-  flex-direction: column;
-  max-width: 120px;
-  min-width: 110px;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 180px;
+  min-width: 180px;
   @media (max-width: @screen-sm) {
     // align-items: start;
     width: auto;
+    flex-direction: column;
+    max-width: 120px;
+    min-width: 110px;
   }
 
   .v-btn {
@@ -361,6 +386,9 @@
     }
     &.bold {
       font-weight: bold;
+      @media (max-width: @screen-xs) {
+        margin-top: 3px;
+      }
     }
   }
 }
@@ -376,7 +404,7 @@
 .header-rocket {
   height: 34px;
   padding-left: 24px;
-  border-left: 1px solid #dddddd;
+  // border-left: 1px solid #dddddd;
   justify-content: flex-end;
   max-width: 60px;
   @media (max-width: @screen-xs) {
@@ -411,6 +439,39 @@
       min-width: 20px;
       min-height: 17px;
     }
+  }
+}
+
+.header-messages{
+  align-items: center;
+  justify-content: flex-end;
+  display: flex;
+  border-right: 1px solid #dddddd;
+  padding-right: 5px;
+  position: relative;
+  .unread-circle{
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    background: #4452fc;
+    color: #fff;
+    border-radius: 50%;
+    height: 13px;
+    width: 13px;
+    display: flex;
+    font-size: 10px;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  .header-messages-text{
+    cursor: pointer;
+    font-size: 12px;
+  }
+  i{
+    font-size:16px;
+    margin: 0 5px;
+    color: #bcbccb !important;
   }
 }
 

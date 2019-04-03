@@ -1,23 +1,19 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests 
+namespace Cloudents.Web.Test.IntegrationTests
 {
     public class BookControllerTests : IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
-        private readonly HttpClient client;
+        private readonly HttpClient _client;
 
         public BookControllerTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
-            client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
             {
                 AllowAutoRedirect = false
             });
@@ -26,7 +22,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_Redirect_To_Default()
         {
-            var response = await client.GetAsync("book");
+            var response = await _client.GetAsync("book");
 
             var p = response.Headers.Location;
 
@@ -36,13 +32,13 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_OK_200()
         {
-            var response = await client.GetAsync("book");
+            await _client.GetAsync("book");
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
+            string credentials = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
+            await _client.PostAsync("api/LogIn", new StringContent(credentials, Encoding.UTF8, "application/json"));
 
-            response = await client.GetAsync("book");
+            var response = await _client.GetAsync("book");
 
             response.StatusCode.Should().Be(200);
         }

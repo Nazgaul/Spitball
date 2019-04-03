@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
@@ -27,9 +24,9 @@ namespace Cloudents.Web.Controllers
             _logger = logger;
         }
 
-        private static readonly IList<string> Domains = PrioritySource.DocumentPriority.Values
-            .Union(PrioritySource.FlashcardPriority.Values)
-            .SelectMany(s => s.Domains).ToList();
+        //private static readonly IList<string> Domains = PrioritySource.DocumentPriority.Values
+        //    .Union(PrioritySource.FlashcardPriority.Values)
+        //    .SelectMany(s => s.Domains).ToList();
 
         public IActionResult Index([FromQuery]UrlRequest model,
             CancellationToken token)
@@ -50,7 +47,7 @@ namespace Cloudents.Web.Controllers
             var userIp = Request.HttpContext.Connection.GetIpAddress();
 
 
-            if (!Uri.TryCreate(referer, UriKind.Absolute, out var refererUri))
+            if (!Uri.TryCreate(referer, UriKind.Absolute, out _))
             {
                 return RedirectToAction("Index", "Home");
             }

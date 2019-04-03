@@ -21,12 +21,12 @@ namespace Cloudents.Web.Test.IntegrationTests
             // Arrange
             var client = _factory.CreateClient();
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
+            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
+            await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
 
             // Act
-            response = await client.GetAsync(url);
+            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
         }
 

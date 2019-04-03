@@ -5,7 +5,6 @@
 
     }
 
-
     public interface IBinarySerializer
     {
         byte[] Serialize(object o);

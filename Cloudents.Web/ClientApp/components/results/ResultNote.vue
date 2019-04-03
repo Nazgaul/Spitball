@@ -9,7 +9,7 @@
                 <div class="document-header-container">
                     <div class="document-header-large-sagment">
                         <div class="avatar-area">
-                            <user-avatar v-if="authorName" :user-name="authorName" :user-id="authorId"/>
+                            <user-avatar v-if="authorName" :userImageUrl="userImageUrl"  :user-name="authorName" :user-id="authorId"/>
                         </div>
                         <div class="rank-date-container">
                             <div class="rank-area">
@@ -197,6 +197,12 @@
 
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
+            userImageUrl(){
+                if(this.item.user && this.item.user.image && this.item.user.image.length > 1){
+                    return `${this.item.user.image}`
+                }
+                return ''
+            },
             isProfile() {
                 return this.$route.name === "profile"
             },

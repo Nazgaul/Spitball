@@ -68,13 +68,20 @@ const state = {
     usersReferred: 0
 };
 const mutations = {
+    setProfilePicture(state, imageUrl) {
+        state.profile.user = {...state.profile.user, image: imageUrl};
+        state.user = {...state.user, image: imageUrl}
+    },
+
     setProfile(state, val) {
         state.profile = val;
     },
     setProfileQuestions(state, val) {
         state.profile.questions = val;
     },
-
+    setProfileAbout(state, val) {
+        state.profile = {...state.profile, about: val}
+    },
     setProfileAnswers(state, val) {
         state.profile.answers = val;
     },
@@ -169,10 +176,29 @@ const mutations = {
     },
     setRefferedNumber(state, data) {
         state.usersReferred = data;
+    },
+    updateEditedData(state, newData){
+        if(state.profile.user.isTutor){
+            state.profile.about.bio = newData.bio
+            state.profile.user.name = `${newData.name} ${newData.lastName}`;
+            // state.profile.user.lastName = newData.lastName;
+            state.profile.user.description = newData.description
+        }else{
+            state.profile.user.name = newData.name;
+            state.profile.user.description = newData.description
+        }
+
     }
 };
 
 const getters = {
+    isTutorProfile: state =>{
+        if(state.profile &&  state.profile.user && state.profile.user.isTutor ){
+            return  state.profile.user.isTutor
+        }else {
+            return false
+        }
+    },
     getProfile: state => state.profile,
     fromPath: state => state.fromPath,
     unreadMessages: state => state.unreadMessages,
@@ -182,7 +208,6 @@ const getters = {
     chatAccount: state => state.talkMe,
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
-        console.log("user");
         return state.user
     },
     lastActiveRoute: state => state.lastActiveRoute,
@@ -197,11 +222,26 @@ const getters = {
 };
 
 const actions = {
-    syncProfile(context, { id, activeTab }) {
+    updateEditedProfile(context, newdata){
+        context.commit("updateEditedData", newdata)
+    },
+
+    uploadAccountImage(context, obj) {
+        accountService.uploadImage(obj).then((resp) => {
+                let imageUrl = resp.data;
+                context.commit('setProfilePicture', imageUrl)
+            },
+            (error) => {
+                console.log(error, 'error upload account image')
+            })
+    },
+
+    syncProfile(context, {id, activeTab}) {
         //fetch all the data before returning the value to the component
         accountService.getProfile(id).then(val => {
             let profileUserData = accountService.createUserProfileData(val);
             context.commit('setProfile', profileUserData)
+            // cause of multiple profile requests to server
             context.dispatch('setProfileByActiveTab', activeTab)
         });
     },
@@ -219,29 +259,35 @@ const actions = {
     setProfileByActiveTab(context, activeTab) {
         if (!!context.state.profile && !!context.state.profile.user) {
             let id = context.state.profile.user.id;
-
             if (activeTab === 1) {
                 let p1 = accountService.getProfile(id);
-                let p2 = accountService.getProfileQuestions(id);
+                let p2 = accountService.getProfileAbout(id);
                 return Promise.all([p1, p2]).then((vals) => {
                     console.log(vals)
+                    let profileData = accountService.createProfileAbout(vals);
+                    context.commit('setProfileAbout', profileData)
+                });
+
+            }
+            if (activeTab === 2) {
+                return accountService.getProfileQuestions(id).then(vals => {
                     let profileData = accountService.createProfileQuestionData(vals);
                     context.commit('setProfileQuestions', profileData)
                 });
             }
-            if (activeTab === 2) {
+            if (activeTab === 3) {
                 return accountService.getProfileAnswers(id).then(vals => {
                     let answers = accountService.createProfileAnswerData(vals);
                     context.commit('setProfileAnswers', answers)
                 });
             }
-            if (activeTab === 3) {
+            if (activeTab === 4) {
                 return accountService.getProfileDocuments(id).then(vals => {
                     let documents = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfileDocuments', documents);
                 });
             }
-            if (activeTab === 4) {
+            if (activeTab === 5) {
                 return accountService.getProfilePurchasedDocuments(id).then(vals => {
                     let purchasedDocuments = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfilePurchasedDocuments', purchasedDocuments);

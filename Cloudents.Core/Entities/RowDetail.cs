@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
@@ -24,6 +25,7 @@ namespace Cloudents.Core.Entities
 
     public class DomainTimeStamp
     {
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public DomainTimeStamp()
         {
             CreationTime = UpdateTime = DateTime.UtcNow;

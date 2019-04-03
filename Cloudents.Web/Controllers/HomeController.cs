@@ -7,11 +7,11 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
@@ -36,7 +36,7 @@ namespace Cloudents.Web.Controllers
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Index(
             [FromServices] ICrawlerResolver crawlerResolver,
-          //  [FromHeader(Name = "User-Agent")] string userAgent,
+            //  [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral,
             [FromQuery] string open,
             [FromQuery] string token

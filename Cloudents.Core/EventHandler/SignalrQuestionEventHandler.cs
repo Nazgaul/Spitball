@@ -3,7 +3,6 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
@@ -16,8 +15,7 @@ namespace Cloudents.Core.EventHandler
             IEventHandler<QuestionDeletedAdminEvent>,
             IEventHandler<MarkAsCorrectEvent>,
             IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>,
-            IEventHandler<TransactionEvent>,
-            IEventHandler<ChatMessageEvent>
+            IEventHandler<TransactionEvent>
     {
         private readonly IServiceBusProvider _queueProvider;
 
@@ -35,7 +33,7 @@ namespace Cloudents.Core.EventHandler
                 score = p.Transactions.Score;
             }
             var user = new UserDto(eventMessage.Question.User.Id, eventMessage.Question.User.Name,
-                score);
+                score, eventMessage.Question.User.Image);
 
             var dto = new QuestionFeedDto
             {
@@ -43,7 +41,7 @@ namespace Cloudents.Core.EventHandler
                 User = user,
                 Price = eventMessage.Question.Price,
                 Id = eventMessage.Question.Id,
-                Course = eventMessage.Question.Course?.Name, //TODO: this is because we already have question without courses
+                Course = eventMessage.Question.Course?.Id, //TODO: this is because we already have question without courses
                 Subject = eventMessage.Question.Subject,
                 Text = eventMessage.Question.Text,
                 Answers = 0,
@@ -94,7 +92,7 @@ namespace Cloudents.Core.EventHandler
         {
            
             var user = new UserDto(eventMessage.Answer.User.Id, eventMessage.Answer.User.Name,
-                eventMessage.Answer.User.Transactions.Score);
+                eventMessage.Answer.User.Transactions.Score, eventMessage.Answer.User.Image);
 
             var answerDto = new QuestionDetailAnswerDto
             (
@@ -150,16 +148,16 @@ namespace Cloudents.Core.EventHandler
         }
 
 
-        public  Task HandleAsync(ChatMessageEvent eventMessage, CancellationToken token)
-        {
-            //Need to support blob
-            var messages = eventMessage.ChatMessage;
-            var message = new SignalRTransportType(SignalRType.Chat,
-                SignalRAction.Add, new { messages = messages });
+        //public  Task HandleAsync(ChatMessageEvent eventMessage, CancellationToken token)
+        //{
+        //    //Need to support blob
+        //    var messages = eventMessage.ChatMessage;
+        //    var message = new SignalRTransportType(SignalRType.Chat,
+        //        SignalRAction.Add, new { messages = messages });
 
-           var result =  eventMessage.ChatMessage.ChatRoom.Users.Select(s =>
-               _queueProvider.InsertMessageAsync(message, s.User.Id, token));
-           return Task.WhenAll(result);
-        }
+        //   var result =  eventMessage.ChatMessage.ChatRoom.Users.Select(s =>
+        //       _queueProvider.InsertMessageAsync(message, s.User.Id, token));
+        //   return Task.WhenAll(result);
+        //}
     }
 }
