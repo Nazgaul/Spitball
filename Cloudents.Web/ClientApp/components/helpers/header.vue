@@ -1,7 +1,7 @@
 <template>
     <div :class="{'hide-header': hideHeader}">
         <!--TODO check if worsk well-->
-        <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header">
+        <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header" clipped-left>
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
                     <v-flex class="line top">
