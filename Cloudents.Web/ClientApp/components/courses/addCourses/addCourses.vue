@@ -44,14 +44,14 @@
                         <v-icon color="white">sbf-close</v-icon>
                     </span>
                         </div>
-                        <div class="paddles">
-                            <button class="lefty left-paddle paddle hidden" ref="leftY">
-                                <
-                            </button>
-                            <button class="righty right-paddle paddle" ref="rightY">
-                                >
-                            </button>
-                        </div>
+                        <!--<div class="paddles">-->
+                            <!--<button class="lefty left-paddle paddle hidden" ref="leftY">-->
+                                <!--<-->
+                            <!--</button>-->
+                            <!--<button class="righty right-paddle paddle" ref="rightY">-->
+                                <!--&gt;-->
+                            <!--</button>-->
+                        <!--</div>-->
                     </div>
                 </div>
             </v-flex>
