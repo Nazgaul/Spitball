@@ -35,7 +35,7 @@
 
             <v-flex v-show="quantatySelected"  transition="fade-transition">
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
-                    <div class="class-list selected-classes-list py-3 px-3" >
+                    <div class="class-list selected-classes-list py-3 px-3" ref="listCourse" >
                         <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
                              v-for="selectedClass in localSelectedClasses">
                             <span class="text-truncate">{{selectedClass.text}}</span>
@@ -218,6 +218,21 @@
 
 
         },
+        mounted(){
+            //mouse wheel fix horizontal scroll
+            let el = this.$refs.listCourse
+            var mouseWheelEvt = function (event) {
+                if (el.doScroll)
+                    el.doScroll(event.wheelDelta>0?"left":"right");
+                else if ((event.wheelDelta || event.detail) > 0)
+                    el.scrollLeft -= 10;
+                else
+                    el.scrollLeft += 10;
+
+                return false;
+            }
+            this.$refs.listCourse.addEventListener("mousewheel", mouseWheelEvt);
+        },
         filters: {
             boldText(value, search) {
                 if(!value) return "";
@@ -296,9 +311,7 @@
                 white-space: nowrap;
                 overflow-x: scroll;
                 background-color: #f0f0f7;
-
-                width:600px;
-                overflow-y:scroll;
+                overflow-y:hidden;
                 height: 54px;
             }
         }
