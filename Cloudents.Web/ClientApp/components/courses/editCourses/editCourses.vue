@@ -5,7 +5,8 @@
                 <v-flex grow xs10>
                     <div class="d-inline-flex justify-center shrink">
                         <span class="subheading font-weight-bold" v-language:inner>courses_my_courses</span>
-                        <span class="subheading font-weight-bold" v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
+                        <span class="subheading font-weight-bold"
+                              v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
                     </div>
                 </v-flex>
                 <v-flex xs2 shrink class="d-flex justify-end">
@@ -26,7 +27,8 @@
                                 </v-flex>
                                 <v-flex class="label-text pt-1" v-if="singleClass.isPending">
                                     <span v-language:inner>courses_pending</span>
-                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center" v-language:inner>courses_new</span>
+                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center"
+                                          v-language:inner>courses_new</span>
                                 </v-flex>
                                 <v-flex class="label-text  pt-1" v-else>
                                     {{singleClass.students}}
@@ -35,8 +37,9 @@
                             </v-layout>
 
                             <v-layout row align-center justify-end class="pr-2">
-                                <v-flex shrink class="d-flex align-center">
+                                <v-flex shrink class="d-flex align-center" v-if="!singleClass.isLoading">
                                     <v-btn v-if="!singleClass.isTeaching" round @click="teachCourseToggle(singleClass)"
+                                           :loading="singleClass.isLoading && teachingActive"
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
                                     <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
@@ -55,14 +58,17 @@
                                             <v-icon @click="removeClass(singleClass)"
                                                     v-show="!singleClass.isLoading"
                                                     class="delete-sbf-icon">sbf-delete-outline</v-icon>
-                                          <v-progress-circular
-                                                  indeterminate
-                                                  :width="2"
-                                                  :size="24"
-                                                  color="primary"
-                                                  v-show="singleClass.isLoading"
-                                          ></v-progress-circular>
                                     </span>
+                                </v-flex>
+                                <v-flex v-else shrink class="d-flex align-center px-5">
+                                    <v-progress-circular
+                                            indeterminate
+                                            :width="2"
+                                            :size="24"
+                                            color="primary"
+                                            v-show="singleClass.isLoading"
+
+                                    ></v-progress-circular>
                                 </v-flex>
                             </v-layout>
                         </div>
@@ -85,7 +91,9 @@
         components: {coursesEmptyState},
         data() {
             return {
-                btnLoading: false
+                btnLoading: false,
+                removingActive: false,
+                teachingActive: false
             };
         },
         computed: {
@@ -104,19 +112,32 @@
         methods: {
             ...mapActions(["updateClasses", "syncCoursesData", "deleteClass", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
             teachCourseToggle(course) {
+                this.teachingActive = true;
+                course.isLoading = true;
                 universityService.teachCourse(course.text)
                                  .then((resp) => {
-                                     return course.isTeaching = !course.isTeaching
-                                 });
+                                     course.isLoading = false;
+                                     this.teachingActive = false;
+                                     return course.isTeaching = !course.isTeaching;
+                                 }, (error) => {
+                                     course.isLoading = false;
+                                     this.teachingActive = false;
+                                 }).finally(() => {
+                    course.isLoading = false;
+                    this.teachingActive = false;
+                });
             },
             removeClass(classDelete) {
-                classDelete.isLoading= true;
+                classDelete.isLoading = true;
+                this.removingActive = true;
                 this.deleteClass(classDelete).then((resp) => {
-                 classDelete.isLoading= false;
+                    classDelete.isLoading = false;
                 }, (error) => {
-                    classDelete.isLoading= false;
+                    classDelete.isLoading = false;
+                    this.removingActive = false;
                 }).finally(() => {
-                    classDelete.isLoading= false;
+                    classDelete.isLoading = false;
+                    this.removingActive = false;
                 });
             },
             // deleteFromList(classToDelete, from) {
@@ -142,7 +163,7 @@
         .rounded-btn {
             border-radius: 16px;
         }
-        .badge{
+        .badge {
             max-height: 48px;
             font-size: 10px;
             padding: 2px 0;
@@ -193,7 +214,7 @@
             font-size: 16px;
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
-            &:first-child{
+            &:first-child {
                 border-top: solid 1px #f0f0f7;
             }
 

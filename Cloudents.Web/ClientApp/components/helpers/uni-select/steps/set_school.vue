@@ -151,7 +151,7 @@
                     };
                     this.nextPressed = true;
                     this.updateSchoolName(schoolName).then(() => {
-                        this.fnMethods.changeStep(this.enumSteps.set_class);
+                       this.fnMethods.changeStep(this.enumSteps.set_class);
                     }).finally(()=>{
                         this.nextPressed = false;
                     });
