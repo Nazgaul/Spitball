@@ -33,10 +33,10 @@
                 ></v-text-field>
             </v-flex>
 
-            <v-flex v-show="quantatySelected"  transition="fade-transition">
+            <v-flex v-show="quantatySelected"  transition="fade-transition" style="position: relative">
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
                     <div class="class-list selected-classes-list py-3 px-3" ref="listCourse" >
-                        <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
+                        <div class="selected-class-item caption d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
                              v-for="selectedClass in localSelectedClasses">
                             <span class="text-truncate">{{selectedClass.text}}</span>
                             <span class="delete-class cursor-pointer pr-3"
@@ -44,14 +44,21 @@
                         <v-icon color="white">sbf-close</v-icon>
                     </span>
                         </div>
-                    </div>
+                        </div>
+
                 </div>
+                <!--<button ref="leftY" class="left-paddle">-->
+                    <!--<v-icon>sbf-arrow-left-carousel</v-icon>-->
+                <!--</button>-->
+                <!--<button ref="rightY" class="right-paddle">-->
+                    <!--<v-icon>sbf-arrow-right-carousel</v-icon>-->
+                <!--</button>-->
             </v-flex>
         </v-layout>
         <v-layout align-center>
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list">
-                    <div class="list-item search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
+                    <div class="list-item subheading search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classes">
                         <v-layout column class="pl-3 limit-width">
                             <v-flex shrink class="text-truncate course-name-wrap">
@@ -219,19 +226,37 @@
 
         },
         mounted(){
+            let self = this;
             //mouse wheel fix horizontal scroll
-            let el = this.$refs.listCourse
-            var mouseWheelEvt = function (event) {
-                if (el.doScroll)
+            let el = self.$refs.listCourse;
+            let mouseWheelEvt = function (event) {
+                if (el.doScroll){
                     el.doScroll(event.wheelDelta>0?"left":"right");
+                }
                 else if ((event.wheelDelta || event.detail) > 0)
+                {
                     el.scrollLeft -= 10;
-                else
+                }
+                else{
                     el.scrollLeft += 10;
-
+                }
                 return false;
-            }
-            this.$refs.listCourse.addEventListener("mousewheel", mouseWheelEvt);
+            };
+            self.$refs.listCourse.addEventListener("mousewheel", mouseWheelEvt);
+            // let clickEventRight = function (event) {
+            //         self.$refs.listCourse.scrollLeft += 50;
+            //     return false;
+            // };
+            // let clickEventLeft = function (event) {
+            //         self.$refs.listCourse.scrollLeft -= 50;
+            //     return false;
+            // };
+            //
+            // self.$refs.rightY.addEventListener("mousedown", clickEventRight);
+            // self.$refs.leftY.addEventListener("mousedown", clickEventLeft);
+
+
+
         },
         filters: {
             boldText(value, search) {
@@ -254,25 +279,20 @@
     @import '../../../styles/mixin.less';
 
     .add-courses-wrap {
-        .paddles {
-        }
-        .paddle {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 3em;
-        }
+
         .left-paddle {
             left: 0;
+            top: 0;
+            position: absolute;
         }
         .right-paddle {
             right: 0;
+            top: 0;
+            position: absolute;
         }
         .hidden {
             display: none;
         }
-
-
         .scrollBarStyle(0px, #0085D1);
         .v-input__slot{
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17)!important;
@@ -326,7 +346,6 @@
             border-radius: 16px;
             background-color: @purpleLight;
             color: lighten(@color-white, 87%);
-            font-size: 12px;
             text-decoration: none;
         }
         .select-class-string {
@@ -337,7 +356,6 @@
         .list-item {
             color: inherit;
             display: flex;
-            font-size: 16px;
             margin: 0;
             border-bottom: solid 1px #f0f0f7;
             text-decoration: none;
@@ -350,11 +368,6 @@
         }
         .add-item {
             color: @colorBlue;
-        }
-        .search-class-item {
-            /*&:hover {*/
-                /*background: rgba(0, 0, 0, .04);*/
-            /*}*/
         }
         .sbf-close {
             font-size: 8px !important;

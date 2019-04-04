@@ -19,7 +19,7 @@
                 <v-flex class="search-classes-container">
                     <div class="class-list search-classes-list">
                         <div class="list-item search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
-                             v-for="singleClass in classesSelected">
+                             v-for="(singleClass, index) in classesSelected" :key="index">
                             <v-layout column class="pl-4 limit-width">
                                 <v-flex shrink class="text-truncate course-name-wrap">
                                     {{ singleClass.text }}
@@ -40,19 +40,28 @@
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
                                     <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
-                                        <span class="purple-text caption" v-language:inner>courses_teach</span>
+                                        <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
                                     </span>
                                     </v-btn>
 
-                                    <v-btn v-else-if="singleClass.isTeaching" round @click="teachCourseToggle(singleClass)"
+                                    <v-btn v-else round @click="teachCourseToggle(singleClass)"
                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
                                        <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
-                                        <span class="caption" v-language:inner>courses_teaching</span>
+                                        <span class="caption" v-html="$Ph('courses_teaching')"></span>
                                   </span>
                                     </v-btn>
                                     <span>
-                                            <v-icon @click="removeClass(singleClass)" class="delete-sbf-icon">sbf-delete-outline</v-icon>
+                                            <v-icon @click="removeClass(singleClass)"
+                                                    v-show="!singleClass.isLoading"
+                                                    class="delete-sbf-icon">sbf-delete-outline</v-icon>
+                                          <v-progress-circular
+                                                  indeterminate
+                                                  :width="2"
+                                                  :size="24"
+                                                  color="primary"
+                                                  v-show="singleClass.isLoading"
+                                          ></v-progress-circular>
                                     </span>
                                 </v-flex>
                             </v-layout>
@@ -101,10 +110,13 @@
                                  });
             },
             removeClass(classDelete) {
-
+                classDelete.isLoading= true;
                 this.deleteClass(classDelete).then((resp) => {
+                 classDelete.isLoading= false;
                 }, (error) => {
+                    classDelete.isLoading= false;
                 }).finally(() => {
+                    classDelete.isLoading= false;
                 });
             },
             // deleteFromList(classToDelete, from) {
