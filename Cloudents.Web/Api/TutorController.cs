@@ -11,6 +11,8 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Wangkanai.Detection;
+using Cloudents.Query;
+using Cloudents.Query.Query;
 
 namespace Cloudents.Web.Api
 {
@@ -75,6 +77,15 @@ namespace Cloudents.Web.Api
                 },
                 NextPageLink = nextPageLink
             };
+        }
+
+        [HttpGet("tutors")]
+        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync([FromServices] IQueryBus _queryBus,
+            CancellationToken token)
+        {
+            var query = new TutorListQuery();
+            var retValTask = await _queryBus.QueryAsync(query, token);
+            return retValTask;
         }
     }
 }
