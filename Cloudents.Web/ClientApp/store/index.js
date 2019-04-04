@@ -30,6 +30,7 @@ import tutoringSharedDoc from './tutoringSharedDocument';
 import tutoringMainStore from './tutoringMain';
 import chatStore from './chatStore';
 import studyRoomsStore from './studyRoomsStore';
+import tutorList from './tutorList';
 
 
 
@@ -65,6 +66,8 @@ const store = new Vuex.Store({
         tutoringMainStore,
         chatStore,
         studyRoomsStore
+        chatStore,
+        tutorList
     }
 });
 

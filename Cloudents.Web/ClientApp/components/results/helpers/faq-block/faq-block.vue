@@ -5,8 +5,8 @@
         <upload-files-btn class="upload-document-button" v-if="isNotes" @click="openUploaderDialog()"></upload-files-btn>
         <v-flex xs12 class="card-block">
             <marketing-box class="mb-3"></marketing-box>
-            <leaders-board ></leaders-board>
-
+            <!--<leaders-board ></leaders-board>-->
+            <tutorList></tutorList>
         </v-flex>
         <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-3">
         </v-flex>
@@ -22,12 +22,14 @@
     import uploadFilesBtn from "../uploadFilesBtn/uploadFilesBtn.vue";
     import marketingBox from "../../../helpers/marketingBox/marketingBox.vue";
     import leadersBoard from "../../../helpers/leadersBoard/leadersBoard.vue";
+    import tutorList from "../../../helpers/tutorList/tutorList.vue";
     export default {
         components:{
             askQuestionBtn,
             uploadFilesBtn,
             marketingBox,
             leadersBoard,
+            tutorList
         },
         data() {
             return {

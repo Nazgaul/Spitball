@@ -10,7 +10,7 @@
     </component>
 </template>
 <script>
-import utilitiesService from '../../../services/utilities/utilitiesService'
+import utilitiesService from '../../../services/utilities/utilitiesService';
     export default {
         props: {
             userId: Number,

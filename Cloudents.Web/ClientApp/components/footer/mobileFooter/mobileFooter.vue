@@ -17,8 +17,8 @@
             </v-btn>
             <v-btn flat color="teal" value="earners"  @click="changeActiveTab(tabs.earners)">
                 <span class="mob-footer-title" v-language:inner>mobileFooter_action_earners</span>
-                <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.earners">sbf-icon-earners</v-icon>
-                <v-icon class="mob-footer-icon" v-else>sbf-icon-earners-selected</v-icon>
+                <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.earners">sbf-graduation</v-icon>
+                <v-icon class="mob-footer-icon" color="#43425d" v-else>sbf-graduation</v-icon>
             </v-btn>
 
             <v-btn flat color="teal" value="promotions"  @click="changeActiveTab(tabs.promotions)">

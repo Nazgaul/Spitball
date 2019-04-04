@@ -20,7 +20,8 @@
         <chat-component v-if="isMobile"></chat-component>
       </div>
       <div v-if="showLeadersMobile && getMobileFooterState">
-        <leaders-board></leaders-board>
+          <tutor-list></tutor-list>
+        <!--<leaders-board></leaders-board>-->
       </div>
       <!-- <div class="school-block-container">
                 <router-view name="schoolBlock"></router-view>
@@ -136,6 +137,7 @@ import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
 import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
 import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
+import tutorList from "../helpers/tutorList/tutorList.vue";
 
 export default {
   components: {
@@ -154,7 +156,8 @@ export default {
     boardGuide,
     uploadMultipleFiles,
     buyTokens,
-    newBaller
+    newBaller,
+    tutorList
   },
   data() {
     return {
