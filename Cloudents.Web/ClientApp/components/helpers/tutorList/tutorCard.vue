@@ -63,8 +63,7 @@
             };
         },
         props: {
-            tutorData: {
-            },
+            tutorData: {},
         },
         computed: {
             userImageUrl() {
