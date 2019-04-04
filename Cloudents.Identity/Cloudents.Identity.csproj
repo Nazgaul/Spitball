@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Command\Cloudents.Command.csproj" />
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
+    <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
   </ItemGroup>
 
 </Project>
