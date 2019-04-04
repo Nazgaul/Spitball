@@ -30,6 +30,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Framework;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
@@ -146,6 +147,26 @@ namespace Cloudents.Web.Api
         }
 
 
+        [HttpGet]
+        public async Task<string> All()
+        {
+            return "All";
+        }
+
+        [HttpGet, IgnoreFromQueryActionConstraint("term")]
+        public async Task<string> Course(
+            [RequiredFromQuery] string course)
+        {
+            return "Course" + course;
+        }
+
+        [HttpGet]
+        public async Task<string> Search(
+            [RequiredFromQuery] string term, string course)
+        {
+            return "Search" + term;
+        }
+
         /// <summary>
         /// Search document vertical result
         /// </summary>
@@ -153,7 +174,7 @@ namespace Cloudents.Web.Api
         /// <param name="searchProvider"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet(Name = "DocumentSearch"), AllowAnonymous]
+        [HttpGet("{se}",Name = "DocumentSearch"), AllowAnonymous]
         //TODO:We have issue in here because of changing course we need to invalidate the query.
         //[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync(

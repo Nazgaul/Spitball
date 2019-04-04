@@ -1,7 +1,9 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Routing;
+using System.Linq;
 
 namespace Cloudents.Web.Framework
 {
@@ -14,6 +16,29 @@ namespace Cloudents.Web.Framework
                 parameter.Action.Selectors.Last().ActionConstraints.Add(new RequiredFromQueryActionConstraint(parameter.BindingInfo?.BinderModelName ?? parameter.ParameterName));
             }
         }
+    }
+
+    public class IgnoreFromQueryActionConstraint : ActionMethodSelectorAttribute
+    {
+        private readonly string _parameter;
+
+        public IgnoreFromQueryActionConstraint(string parameter)
+        {
+            _parameter = parameter;
+        }
+
+
+        public override bool IsValidForRequest(RouteContext routeContext, ActionDescriptor action)
+        {
+            if (routeContext.HttpContext.Request.Query.ContainsKey(_parameter))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public int Order => 999;
     }
 
     public class RequiredFromQueryActionConstraint : IActionConstraint
