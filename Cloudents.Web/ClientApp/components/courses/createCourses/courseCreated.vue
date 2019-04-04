@@ -30,8 +30,14 @@
         </v-layout>
         <v-layout align-center justify-center class="mt-4 mb-3" column :class="{'shrink mt-5 pt-2': $vuetify.breakpoint.xsOnly}">
             <v-flex xs6 md12 sm12 class="text-xs-center pb-2">
-                <button @click="copyClassLink()" class="min-width solid d-flex align-center justify-center py-3 px-3">
-                    <span class="font-weight-bold btn-text text-capitalize" v-language:inner>courses_copy_link</span>
+                <button @click="copyClassLink()" class="min-width solid d-flex align-center justify-center">
+                    <v-icon class="pr-0" color="white" transition="fade-transition"
+                            v-show="isCopied">sbf-checkmark
+                    </v-icon>
+                    <span class="font-weight-bold btn-text text-capitalize" v-show="!isCopied" v-language:inner>courses_copy_link</span>
+                    <span class="font-weight-bold btn-text text-capitalize" v-show="isCopied" v-language:inner>courses_link_copied</span>
+
+
                 </button>
             </v-flex>
             <v-flex xs12 md12 sm12 class="text-xs-center">
@@ -66,7 +72,7 @@
                 this.closeDialog();
             },
             copyClassLink() {
-                let url = global.location.href;
+                let url = `${global.location.origin}/note/?Course=${this.courseName}`;
                 let self = this;
                 self.$copyText(url).then((e) => {
                     self.isCopied = true;
@@ -74,7 +80,7 @@
                 });
                 setTimeout((uncopy) => {
                     self.isCopied = false;
-                }, 1000);
+                }, 2000);
 
             },
             closeDialog(){
@@ -106,6 +112,10 @@
             outline: none;
             border-radius: 24px;
             background-color: @profileTextColor;
+            min-width: 168px;
+            height: 48px;
+            padding-right: 32px;
+            padding-left: 24px;
             @media(max-width: @screen-xs){
                 min-width: 168px;
             }
