@@ -27,13 +27,20 @@ namespace Cloudents.Search.University
             _client = client.GetClient(UniversitySearchWrite.IndexName);
         }
 
+
+        public async Task<Entities.University> GetById(string id)
+        {
+            var t = await _client.Documents.GetAsync<Entities.University>(id);
+            return t;
+        }
+
         public async Task<UniversitySearchDto> SearchAsync(string term, string country,
             CancellationToken token)
         {
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,
-                Top = 15,
+                //Top = 15,
                 OrderBy = new List<string> { "search.score() desc", nameof(Entities.University.DisplayName) },
                 ScoringProfile = UniversitySearchWrite.ScoringProfile,
                 ScoringParameters = new[]

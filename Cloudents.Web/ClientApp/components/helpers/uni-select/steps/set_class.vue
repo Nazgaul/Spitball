@@ -20,7 +20,7 @@
         <div class="select-school-container">
             <v-text-field id="classes_input"
                           v-model="search"
-                          class="class-input"
+                          class="class-input inspectletIgnore"
                           solo
                           prepend-inner-icon="sbf-search"
                           :placeholder="classNamePlaceholder"
