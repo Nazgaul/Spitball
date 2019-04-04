@@ -1,7 +1,7 @@
 <template>
     <div :class="{'hide-header': hideHeader}">
         <!--TODO check if worsk well-->
-        <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header">
+        <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header" clipped-left>
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
                     <v-flex class="line top">
@@ -17,19 +17,19 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
-                                    <!-- <div class="header-messages" v-if="loggedIn && !isMobile">
+                                    <div class="header-messages" v-if="loggedIn && !isMobile">
                                         <span @click="openChatWindow" class="header-messages-text" v-language:inner>chat_messages</span>
                                         <v-icon @click="openChatWindow">sbf-forum-icon</v-icon>
                                         <span class="unread-circle" v-show="totalUnread > 0">{{totalUnread}}</span>
-                                    </div> -->
+                                    </div>
                                     <div class="header-wallet" v-if="loggedIn">
                                         <button class="setting-buysbl-button" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span></button>     
-                                        <span class="header-wallet-text">{{accountUser.balance | currencyLocalyFilter}}</span>                                        
+                                        <span class="header-wallet-text">{{balance | currencyLocalyFilter}}</span>                                        
                                     </div>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
-                                                         :userImageUrl="userImageUrl"   :user-name="accountUser.name"/>
+                                                         :userImageUrl="userImageUrl" :user-name="accountUser.name"/>
 
                                             <menu-list :isAuthUser="loggedIn"
                                                        v-if=!$vuetify.breakpoint.xsOnly></menu-list>
@@ -86,7 +86,7 @@
     import SearchInput from '../helpers/searchInput/searchInput.vue';
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
-    import {mapActions, mapGetters} from 'vuex';
+    import {mapActions, mapGetters, mapMutations} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
     import {LanguageService } from "../../services/language/languageService";
@@ -160,6 +160,9 @@
             },
             totalUnread(){
                 return this.getTotalUnread
+            },
+            balance(){
+                return this.accountUser.balance || 0
             }
             //myMoney(){return this.accountUser.balance / 40}
 
@@ -181,6 +184,7 @@
         },
         methods: {
             ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChat']),
+            ...mapMutations(['UPDATE_SEARCH_LOADING']),
             openNewQuestionDialog(){
                     if(this.accountUser == null){
                         this.updateLoginDialogState(true);
@@ -216,6 +220,7 @@
             },
 
             resetItems(){
+                this.UPDATE_SEARCH_LOADING(true);
                 this.$router.push('/');
             },
             closeDrawer(){

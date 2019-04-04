@@ -25,7 +25,7 @@ namespace Cloudents.Web.Test.UnitTests
             string[] types = { "Earned", "Stake", "Spent" };
             
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
+            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
             var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
 
@@ -51,7 +51,7 @@ namespace Cloudents.Web.Test.UnitTests
         {
             var client = _factory.CreateClient();
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
+            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
             var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
 

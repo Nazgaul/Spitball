@@ -1,5 +1,5 @@
 <template>
-    <v-container class="profile-page-container" :class="{'content-center': !isMyProfile && !isTutorProfile}">
+    <v-container class="profile-page-container pl-0" :class="{'content-center': !isMyProfile && !isTutorProfile}">
         <button v-if="$vuetify.breakpoint.xsOnly" class="back-button" @click="$router.go(-1)">
             <v-icon right>sbf-arrow-back</v-icon>
         </button>
@@ -17,9 +17,9 @@
         </v-layout>
                 <v-layout v-bind="xsColumn" align-start  :class="[isMyProfile && isTutorProfile ? 'justify-start' : ' justify-center'  ]">
                     <v-flex xs12 md9 sm9 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
-                        <v-flex xs12 sm12 md12 class="mt-3 mb-4 limited-760" >
+                        <v-flex xs12 sm12 md12 class="mt-3  limited-760" :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : 'mb-4']">
                             <v-divider v-if="$vuetify.breakpoint.xsOnly" style="height:2px; color: rgba(163, 160, 251, 0.32);"></v-divider>
-                            <v-tabs :dir="isRtl ? `ltr` : ''" class="tab-padding" hide-slider xs12>
+                            <v-tabs :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : isRtl? 'rtl' : ''" class="tab-padding" hide-slider xs12>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
                                         v-language:inner>profile_about</span>
                                 </v-tab>
@@ -114,7 +114,7 @@
                                 <router-link :to="{name:'document',params:{id:document.id}}"
                                              v-for="(document ,index) in profileData.purchasedDocuments"
                                              :key="index" class="mb-3">
-                                    <result-note style="padding: 16px;" :item="document" class="mb-3"></result-note>
+                                    <result-note style="padding: 16px;" :item="document" class="mb-3 limit-width"></result-note>
                                 </router-link>
                             </scroll-list>
                         </v-flex>
