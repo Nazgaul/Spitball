@@ -271,8 +271,6 @@
         .hidden {
             display: none;
         }
-
-
         .scrollBarStyle(0px, #0085D1);
         .v-input__slot{
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17)!important;
@@ -350,11 +348,6 @@
         }
         .add-item {
             color: @colorBlue;
-        }
-        .search-class-item {
-            /*&:hover {*/
-                /*background: rgba(0, 0, 0, .04);*/
-            /*}*/
         }
         .sbf-close {
             font-size: 8px !important;

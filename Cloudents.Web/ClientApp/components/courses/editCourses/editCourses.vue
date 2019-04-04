@@ -19,7 +19,7 @@
                 <v-flex class="search-classes-container">
                     <div class="class-list search-classes-list">
                         <div class="list-item search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
-                             v-for="singleClass in classesSelected">
+                             v-for="(singleClass, index) in classesSelected" :key="index">
                             <v-layout column class="pl-4 limit-width">
                                 <v-flex shrink class="text-truncate course-name-wrap">
                                     {{ singleClass.text }}
@@ -52,7 +52,16 @@
                                   </span>
                                     </v-btn>
                                     <span>
-                                            <v-icon @click="removeClass(singleClass)" class="delete-sbf-icon">sbf-delete-outline</v-icon>
+                                            <v-icon @click="removeClass(singleClass)"
+                                                    v-show="!singleClass.isLoading"
+                                                    class="delete-sbf-icon">sbf-delete-outline</v-icon>
+                                          <v-progress-circular
+                                                  indeterminate
+                                                  :width="2"
+                                                  :size="24"
+                                                  color="primary"
+                                                  v-show="singleClass.isLoading"
+                                          ></v-progress-circular>
                                     </span>
                                 </v-flex>
                             </v-layout>
@@ -101,8 +110,9 @@
                                  });
             },
             removeClass(classDelete) {
-
+                classDelete.isLoading= true;
                 this.deleteClass(classDelete).then((resp) => {
+                 classDelete.isLoading= false;
                 }, (error) => {
                 }).finally(() => {
                 });
