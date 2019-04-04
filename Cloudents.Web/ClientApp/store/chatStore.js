@@ -14,7 +14,7 @@ const state = {
         conversationId: null
     },
     isVisible: true,
-    isMinimized: false,
+    isMinimized: true,
     totalUnread: 0
 };
 const getters = {
