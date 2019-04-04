@@ -1,7 +1,7 @@
 import { connectivityModule } from "./connectivity.module";
 
 function TutorItem(objInit) {
-    this.tutorId = objInit.userId;
+    this.userId = objInit.userId;
     this.name = objInit.name;
     this.image = objInit.image;
     this.bio = objInit.bio;

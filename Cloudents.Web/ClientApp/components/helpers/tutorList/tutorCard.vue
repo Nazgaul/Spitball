@@ -15,7 +15,9 @@
         <v-flex shrink>
 
             <user-avatar size="32"
-                         :userImageUrl="userImageUrl"   :user-name="tutorData.name"/>
+                         :userImageUrl="userImageUrl"
+                         :user-id="tutorData.userId"
+                         :user-name="tutorData.name"/>
         </v-flex>
         <v-flex class="pl-3 tutor-text caption" v-line-clamp="2" >
             {{tutorData.bio}}
