@@ -22,6 +22,7 @@ using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using System;
@@ -36,7 +37,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController, Authorize]
-    public class DocumentController : ControllerBase
+    public class DocumentController : UploadControllerBase
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
@@ -50,8 +51,9 @@ namespace Cloudents.Web.Api
         public DocumentController(IQueryBus queryBus,
              ICommandBus commandBus, UserManager<RegularUser> userManager,
              IDocumentDirectoryBlobProvider blobProvider,
-            IStringLocalizer<DocumentController> localizer
-            )
+            IStringLocalizer<DocumentController> localizer,
+            ITempDataDictionaryFactory tempDataDictionaryFactory)
+        : base(blobProvider, tempDataDictionaryFactory)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
@@ -321,6 +323,38 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
         }
+
+
+        [HttpPost("dropbox")]
+        public async Task<UploadStartResponse> UploadDropBox([FromBody] DropBoxRequest model,
+           [FromServices] IRestClient client,
+           [FromServices] IDocumentDirectoryBlobProvider documentDirectoryBlobProvider,
+           CancellationToken token)
+        {
+            var (stream, _) = await client.DownloadStreamAsync(model.Link, token);
+            var blobName = BlobFileName(Guid.NewGuid(), model.Name);
+            await documentDirectoryBlobProvider.UploadStreamAsync(blobName, stream, token: token);
+
+            return new UploadStartResponse(blobName);
+        }
+        
+
+    [NonAction]
+        public override async Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)
+        {
+        }
+
+        
+
+        //[HttpPost("file", Order = 1)]
+        /*public override async Task<ActionResult<UploadStartResponse>> FinishUploadAsync(
+           [FromServices] IDocumentDirectoryBlobProvider documentBlobProvider,
+           [FromBody] UploadRequestFinish model,
+           CancellationToken token)
+        {
+            var blobName = await CommitBlobsAsync(documentBlobProvider, model, token);
+            return new UploadStartResponse(blobName);
+        }*/
 
     }
 }

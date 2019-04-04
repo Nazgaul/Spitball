@@ -23,7 +23,7 @@ namespace Cloudents.Web.Api
     {
 
         protected readonly IBlobProvider BlobProvider;
-        private readonly ITempDataDictionaryFactory _tempDataDictionaryFactory;
+        protected readonly ITempDataDictionaryFactory _tempDataDictionaryFactory;
 
         protected UploadControllerBase(IBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory)
         {
