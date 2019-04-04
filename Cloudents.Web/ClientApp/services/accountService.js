@@ -9,6 +9,7 @@ function AccountUser(ObjInit){
     this.universityExists= ObjInit.universityExists;
     this.score = ObjInit.score;
     this.phoneNumber = ObjInit.phoneNumber;
+    this.isTutor = ObjInit.isTutor || false;
     this.image = ObjInit.image || '';
 
 }

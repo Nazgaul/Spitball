@@ -38,6 +38,7 @@
 
                             <v-layout row align-center justify-end class="pr-2">
                                 <v-flex shrink class="d-flex align-center" v-if="!singleClass.isLoading">
+                                    <div v-show="isUserTutor">
                                     <v-btn v-if="!singleClass.isTeaching" round @click="teachCourseToggle(singleClass)"
                                            :loading="singleClass.isLoading && teachingActive"
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
@@ -54,6 +55,7 @@
                                         <span class="caption" v-html="$Ph('courses_teaching')"></span>
                                   </span>
                                     </v-btn>
+                                    </div>
                                     <span>
                                             <v-icon @click="removeClass(singleClass)"
                                                     v-show="!singleClass.isLoading"
@@ -97,9 +99,12 @@
             };
         },
         computed: {
-            ...mapGetters(['getSelectedClasses']),
+            ...mapGetters(['getSelectedClasses', 'accountUser']),
             classesSelected() {
                 return this.getSelectedClasses;
+            },
+            isUserTutor(){
+                return this.accountUser.isTutor
             },
             isEmpty() {
                 return this.getSelectedClasses.length < 1;
