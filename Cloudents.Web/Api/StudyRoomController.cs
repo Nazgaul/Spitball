@@ -81,11 +81,13 @@ namespace Cloudents.Web.Api
         /// Generate room
         /// </summary>
         /// <returns></returns>
-        [HttpPost("id:guid/start")]
+        [HttpPost("{id:guid}/start")]
         public async Task<IActionResult> CreateAsync([FromRoute] Guid id,
             [FromServices] IHostingEnvironment configuration,
             CancellationToken token)
         {
+            var command = new CreateStudyRoomSessionCommand(id);
+            await _commandBus.DispatchAsync(command, token);
             var roomName = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
             var t1 = _videoProvider.CreateRoomAsync(roomName, configuration.IsProduction());
             var t2 = _queueProvider.InsertMessageAsync(new EndTutoringSessionMessage(roomName), TimeSpan.FromMinutes(90), token);
@@ -96,7 +98,7 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpGet("id:guid/join")]
+        [HttpGet("{id:guid}/join")]
         public async Task<IActionResult> ConnectAsync(string roomName)
         {
             var user = _userManager.GetUserId(User);
@@ -149,7 +151,7 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
             
-            var command = new AddTutorReviewCommand(model.Review, model.Rate, model.Tutor, userId);
+            var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, model.Tutor, userId);
             try
             {
                 await _commandBus.DispatchAsync(command, token);

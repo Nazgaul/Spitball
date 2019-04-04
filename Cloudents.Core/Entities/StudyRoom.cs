@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 [assembly:InternalsVisibleTo("Cloudents.Persistence")]
@@ -27,6 +28,16 @@ namespace Cloudents.Core.Entities
         public virtual DateTime DateTime { get; protected set; }
 
         public virtual string OnlineDocumentUrl { get; protected set; }
+
+        private readonly IList<StudyRoomSession> _sessions = new List<StudyRoomSession>();
+
+        public virtual IReadOnlyList<StudyRoomSession> Sessions => _sessions.ToList();
+
+        public virtual void AddSession(StudyRoomSession session)
+        {
+            _sessions.Add(session);
+        }
+        
     }
 
 

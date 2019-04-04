@@ -9,9 +9,14 @@
           <v-list-tile-action v-if="!schoolName" class="edit-course">
             <v-icon @click="openPersonalizeUniversity()">sbf-close</v-icon>
           </v-list-tile-action>
-          <!-- <v-list-tile-action v-else class="edit-university">
-            <v-icon @click="openPersonalizeUniversity()">sbf-edit-icon</v-icon>
-          </v-list-tile-action> -->
+        </v-list-tile>
+      </v-list>
+      <v-list>
+        <v-list-tile class="group-header search-university-title">
+          <v-list-tile-action>
+            <v-icon>sbf-university-columns</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title @click="openStudyRooms()">My Study Rooms</v-list-tile-title>
         </v-list-tile>
       </v-list>
       <v-list class="class-list">
@@ -172,7 +177,16 @@ export default {
       
       this.$router.push({ query: newQueryObject });
     },
-
+    openStudyRooms(){
+      if (!this.isLoggedIn) {
+        this.updateLoginDialogState(true);
+      } else {
+        let steps = this.getAllSteps;
+        this.$router.push({
+            name:'studyRooms',
+        })
+      }
+    },
     openPersonalizeCourse() {
       if (!this.isLoggedIn) {
         this.updateLoginDialogState(true);

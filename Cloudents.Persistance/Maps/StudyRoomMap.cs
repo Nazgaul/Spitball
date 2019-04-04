@@ -13,6 +13,9 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Users).Cascade.AllDeleteOrphan();
             Map(x => x.DateTime).Not.Nullable();
             Map(x => x.OnlineDocumentUrl).Not.Nullable();
+            HasMany(x => x.Sessions).Access.CamelCaseField(Prefix.Underscore)
+                .KeyColumn("StudyRoomId")
+                .Cascade.All();
         }
 
     }

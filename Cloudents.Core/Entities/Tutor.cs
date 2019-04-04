@@ -59,9 +59,9 @@ namespace Cloudents.Core.Entities
      
 
 
-        public virtual void AddReview(string review, float rate, RegularUser user)
+        public virtual void AddReview(string review, float rate, RegularUser user, StudyRoom room)
         {
-            var newReview = new TutorReview(review,rate,user,this);
+            var newReview = new TutorReview(review,rate,user,this, room);
 
             _reviews.Add(newReview);
         }

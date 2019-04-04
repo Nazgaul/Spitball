@@ -387,9 +387,9 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            var commandBus = _container.Resolve<ICommandBus>();
-            var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
-            await commandBus.DispatchAsync(command, default);
+            //var commandBus = _container.Resolve<ICommandBus>();
+            //var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
+            //await commandBus.DispatchAsync(command, default);
 
             //await addToExtra();
             //await FunctionsExtensions.DeleteCourses(_container);

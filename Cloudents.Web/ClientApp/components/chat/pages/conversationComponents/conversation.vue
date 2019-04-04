@@ -24,6 +24,7 @@
 
 <script>
 import UserAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
+import utilitiesService from "../../../../services/utilities/utilitiesService"
 export default {
   components: {
     UserAvatar
@@ -35,9 +36,7 @@ export default {
   },
   computed: {
     date() {
-      let date = new Date(this.conversation.dateTime);
-      let options = { year: "numeric", month: "short", day: "2-digit" };
-      return new Intl.DateTimeFormat("en-US", options).format(date);
+      return utilitiesService.dateFormater(this.conversation.dateTime);
     }
   }
 };
