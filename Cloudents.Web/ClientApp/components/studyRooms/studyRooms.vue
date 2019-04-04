@@ -6,7 +6,7 @@
             </v-flex>
         </v-layout>
         <v-layout mt-3 class="study-rooms-cards-container">
-            <study-card v-for="(card, index) in 4" :key="index"></study-card>
+            <study-card v-for="(card, index) in studyRooms" :key="index" :card="card"></study-card>
         </v-layout>
     </v-container>
 
@@ -14,9 +14,26 @@
 
 <script>
 import studyCard from './studyRoomCard/studyRoomCard.vue'
+import {mapActions, mapGetters} from 'vuex'
 export default {
     components:{
         studyCard
+    },
+    data(){
+        return {
+        }
+    },
+    computed:{
+        ...mapGetters(['getStudyRooms']),
+        studyRooms(){
+            return this.getStudyRooms;
+        }
+    },
+    methods:{
+        ...mapActions(['fetchStudyRooms']),
+    },
+    created(){
+        this.fetchStudyRooms();
     }
 }
 </script>

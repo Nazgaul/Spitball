@@ -3,7 +3,7 @@
         <div ml-2 class="avatar-container"><user-avatar :user-name="'gaby'"/></div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <span>invite</span>
+                <span v-if="isTutor" @click="createRoom">Study Room</span>
             </v-flex>
             <v-flex class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
@@ -33,17 +33,24 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getMessages']),
+        ...mapGetters(['getMessages', 'accountUser']),
         messages(){
             this.scrollToEnd();
             return this.getMessages;
+        },
+        isTutor(){
+            return this.accountUser.isTutor;
         }
     },
     methods:{
-        ...mapActions(['sendChatMessage']),
+        ...mapActions(['sendChatMessage', 'createStudyRoom']),
+        ...mapGetters(['getActiveConversationObj']),
         sendMessage(){
-            this.sendChatMessage(this.messageText)
-            this.messageText = "";
+            let messageToSend = this.messageText.trim();
+            if(messageToSend !== ''){
+                this.sendChatMessage(this.messageText);
+                this.messageText = "";
+            }
         },
         scrollToEnd: function() {
             this.$nextTick(function(){
@@ -53,6 +60,11 @@ export default {
                 }
             })
         },
+        createRoom(){
+            let conversationObj = this.getActiveConversationObj();
+            let userId = conversationObj.userId;
+            this.createStudyRoom(userId);
+        }
     }
 }
 </script>
@@ -76,6 +88,7 @@ export default {
                 min-height: 34px;
                 span{
                     padding: 0 10px 0  10px;
+                    cursor: pointer;
                 }
             }
             .messages-body{

@@ -10,7 +10,7 @@ function AccountUser(ObjInit){
     this.score = ObjInit.score;
     this.phoneNumber = ObjInit.phoneNumber;
     this.image = ObjInit.image || '';
-
+    this.isTutor = ObjInit.isTutor || false;
 }
  function TutorData(objOnit) {
      this.online = objOnit.online || false;

@@ -6,18 +6,18 @@
             </v-flex>
         </v-layout>
         <div class="study-card-avatar-area">
-            <user-avatar :user-name="'gaby'" :size="'64'"/>
+            <user-avatar :user-name="card.name" :userImageUrl="card.image" :size="'64'"/>
         </div>
         <v-layout column align-center justify-space-between class="study-card-lower-area">
             <v-flex>
-                {{userName}}
+                {{card.name}}
             </v-flex>
             <v-flex>
                 <user-rank :score="5"></user-rank>
             </v-flex>
             <v-flex py-3 class="study-card-enter-container">
-                <v-icon class="study-card-enter-icon">sbf-close</v-icon>
-                enter rooom
+                <v-icon @click="enterRoom" class="study-card-enter-icon">sbf-close</v-icon>
+                <span @click="enterRoom" class="study-card-enter-text">enter room</span> 
             </v-flex>
         </v-layout>
         <v-layout align-center row justify-space-between class="study-card-created-container">
@@ -40,17 +40,42 @@ export default {
         UserAvatar,
         UserRank
     },
+    props:{
+        card:{
+            type:Object,
+            required: true
+        }
+    },
     data(){
         return {
-            roomStatus: "ActiveRoom",
-            isActive: false,
             userName: "Ben Stern",
             createdDate: ""
         }
     },
+    methods:{
+        enterRoom(){
+            let routeData = this.$router.resolve({
+                    name: 'tutoring',
+                    params: {
+                        id:this.card.id
+                        }
+                });
+            global.open(routeData.href, '_blank');
+        }
+    },
     computed:{
         date(){
-            return utilitiesService.dateFormater(new Date().toISOString());
+            return utilitiesService.dateFormater(this.card.dateTime);
+        },
+        isActive(){
+            return this.card.online
+        },
+        roomStatus(){
+            if(this.isActive){
+                return "Active Room"
+            }else{
+                return "No Activity yet"
+            }
         }
     }
 }
@@ -92,6 +117,10 @@ export default {
                 .study-card-enter-icon{
                     vertical-align: middle;
                     font-size: 14px;
+                    cursor: pointer;
+                }
+                .study-card-enter-text{
+                    cursor: pointer;
                 }
             }
             
