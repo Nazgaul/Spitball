@@ -224,6 +224,44 @@ let routes2 = [
             requiresAuth: true
         },
     },
+    {
+        path: "/university/",
+        name: "setUniversity",
+        children: [
+            {
+                path: '',
+                redirect: 'edit',
+            },
+            {
+                path: 'add',
+                name: 'addCourse',
+                component: addCourse
+            },
+            {
+                path: 'edit',
+                name: 'editCourse',
+                component: editCourse
+            },
+            {
+                path: '*',
+                redirect: 'edit',
+            },
+        ],
+        components: {
+            default: setCourse,
+            header: pageHeader,
+            schoolBlock: schoolBlock,
+        },
+        props: {
+            default: (route) => ({
+                step: route.params.step
+            })
+        },
+        meta: {
+            requiresAuth: true
+        },
+    },
+
 
     {
         path: "/book/:id",
