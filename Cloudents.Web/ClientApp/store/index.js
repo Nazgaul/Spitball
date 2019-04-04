@@ -64,8 +64,7 @@ const store = new Vuex.Store({
         tutoringCanvas,
         tutoringSharedDoc,
         tutoringMainStore,
-        chatStore,
-        studyRoomsStore
+        studyRoomsStore,
         chatStore,
         tutorList
     }
