@@ -6,12 +6,12 @@ namespace Cloudents.Core.DTOs
 {
     public class UserDto
     {
-        public UserDto(long id, string name, int score)
-        {
-            Id = id;
-            Name = name;
-            Score = score;
-        }
+        //public UserDto(long id, string name, int score)
+        //{
+        //    Id = id;
+        //    Name = name;
+        //    Score = score;
+        //}
 
         public UserDto(long id, string name, int score, string image)
         {
@@ -54,11 +54,23 @@ namespace Cloudents.Core.DTOs
 
     public class UserTutorProfileDto
     {
+        [DtoToEntityConnection(nameof(Tutor.Price))]
         public decimal Price { get; set; }
 
+        [DtoToEntityConnection(nameof(Tutor.Bio))]
+        public string Bio { get; set; }
+
+        [DtoToEntityConnection(nameof(RegularUser.Online))]
         public bool Online { get; set; }
+        [DtoToEntityConnection(nameof(TutorReview.Rate))]
         public float Rate { get; set; }
+        [DtoToEntityConnection(nameof(TutorReview))]
         public int ReviewCount { get; set; }
+
+        [DtoToEntityConnection(nameof(RegularUser.FirstName))]
+        public string FirstName { get; set; }
+        [DtoToEntityConnection(nameof(RegularUser.LastName))]
+        public string LastName { get; set; }
     }
 
     public class UserAccountDto 

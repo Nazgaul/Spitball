@@ -1,14 +1,14 @@
 <template>
         <v-layout class="aboutme-section">
             <v-flex xs12>
-                <v-card class="px-4 pt-4">
+                <v-card class="px-4 pt-4 about-me-card">
                     <v-layout column>
                         <v-flex xs12 sm12 md12>
                             <div>
-                                <div class="about-title mb-2" v-language:inner>profile_who_am_i</div>
+                                <div class="about-title subheading font-weight-bold  mb-2" v-language:inner>profile_who_am_i</div>
                             </div>
                             <div class="mt-2">
-                             <p class="about-text">{{aboutMe | truncate(isOpen, '...', textLimit)}}
+                             <p class="about-text body-2">{{aboutMe | truncate(isOpen, '...', textLimit)}}
                              </p>
                             </div>
                         </v-flex>
@@ -75,11 +75,13 @@
 <style lang="less">
     @import '../../../../styles/mixin.less';
     .aboutme-section{
+        .about-me-card{
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.18);
+            border-radius: 4px;
+        }
         .about-title{
             height: 18px;
-            font-size: 18px;
-            font-weight: bold;
-            line-height: 1;
+             line-height: 1;
             color: @profileTextColor;
         }
         .read-more-action{
@@ -98,11 +100,9 @@
 
         }
         .about-text{
-            font-size: 18px;
             line-height: 1.59;
             color: @textColor;
             @media(max-width: @screen-xs){
-                font-size: 14px;
                 line-height: 1.53;
 
             }

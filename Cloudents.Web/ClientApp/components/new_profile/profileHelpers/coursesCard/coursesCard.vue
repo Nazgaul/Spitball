@@ -1,11 +1,11 @@
 <template>
-        <v-layout class="courses-section mt-4" >
+        <v-layout class="courses-section mt-3" >
             <v-flex xs12>
-                <v-card class="px-4 py-4">
+                <v-card class="px-4 py-4 courses-card-wrap">
                     <v-layout>
                         <v-flex xs11 sm11 md11 grow>
                             <div>
-                                <div class="courses-title mb-4" v-language:inner>profile_courses_can_help</div>
+                                <div class="courses-title  subheading font-weight-bold mb-4" v-language:inner>profile_courses_can_help</div>
                             </div>
                         </v-flex>
                         <v-flex class="text-xs-right">
@@ -18,7 +18,7 @@
                                 v-for="(course, index) in aboutData"
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
-                            <v-card class="elevation-0 border mr-3 py-3 text-truncate" key="wqerghfh">
+                            <v-card @click="goToSelectedClass(course.name)" class="cursor-pointer elevation-0 border py-3 text-truncate course-card"  key="wqerghfh">
                                 <span class="course-name">{{course.name}}</span>
                             </v-card>
                         </v-flex>
@@ -27,7 +27,7 @@
                             <v-card :class="{'mr-3': $vuetify.breakpoint.smAndUp}" class="elevation-0 border  py-3" @click="expanded ? showLess() : showAll()">
                                 <span class="font-weight-bold course-name">
                                     <span v-show="!expanded">
-                                        <span> {{moreQuantity}}</span>
+                                        <span> {{moreQuantity}}&nbsp;</span>
                                     <span v-language:inner>profile_expand_more_courses</span>
                                     </span>
                                     <span v-show="expanded" v-language:inner>profile_expand_less</span>
@@ -58,6 +58,9 @@
             },
         },
         methods: {
+            goToSelectedClass(course){
+                this.$router.push({name: 'note', query: {Course: course}})
+            },
             showAll() {
                 this.showQuantity = this.aboutData.length;
                 this.expanded = true;
@@ -96,6 +99,16 @@
     @import '../../../../styles/mixin.less';
 
     .courses-section {
+        .courses-card-wrap{
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.18);
+            border-radius: 4px;
+        }
+        .course-card{
+            margin-right: 24px;
+            /*&:nth-child(even) {*/
+                /*margin-right: 0;*/
+            /*}*/
+        }
         .edit-icon{
                 color: @purpleLight;
                 opacity: 0.41;
@@ -106,16 +119,15 @@
             }
         }
         .courses-title {
-            font-size: 18px;
-            font-weight: bold;
             color: @profileTextColor;
         }
         .border{
-            border-top: 1px solid rgba(0, 0, 0, 0.24);
+            border-top: 1px solid #f0f0f7;
         }
         .course-name {
             font-size: 14px;
-            color: @color-blue-new;
+            color: @linkColor;
+            cursor: pointer;
         }
         .show-more{
             cursor: pointer;

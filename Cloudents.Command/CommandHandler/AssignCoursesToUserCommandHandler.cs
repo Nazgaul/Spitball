@@ -1,4 +1,5 @@
-﻿using Cloudents.Command.Command;
+﻿using System.Collections.Generic;
+using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
@@ -25,11 +26,15 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AssignCoursesToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            //user.Courses.Clear();
 
-            var courses = message.Name.Select(s => _courseRepository.GetOrAddAsync(s, token));
+            IList<Course> courses = new List<Course>();
+            foreach (var courseName in message.Name)
+            {
+                var course = await _courseRepository.GetOrAddAsync(courseName, token);
+                courses.Add(course);
+            }
 
-            user.AssignCourses(await Task.WhenAll(courses));
+            user.AssignCourses(courses);
             //foreach (var name in message.Name)
             //{
             //    var course = await _courseRepository.GetOrAddAsync(name, token);
