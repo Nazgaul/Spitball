@@ -12,11 +12,13 @@
         </v-flex>
     </v-layout>
     <v-layout align-center justify-center class="pb-1">
-        <v-flex>
-                <img class="rounded-img" src="https://spitball-dev-function.azureedge.net/api/image/ClVodHRwczovL3NwaXRiYWxsZGV2LmJsb2IuY29yZS53aW5kb3dzLm5ldC9zcGl0YmFsbC11c2VyL3Byb2ZpbGUvMTYwMzM2LzE1NTM2OTk0NjMucG5nEAA??&width=40&height=40&mode=crop" alt="">
+        <v-flex shrink>
+
+            <user-avatar size="32"
+                         :userImageUrl="userImageUrl"   :user-name="tutorData.name"/>
         </v-flex>
         <v-flex class="pl-3 tutor-text caption" v-line-clamp="2" >
-            {{tutorData.text}}
+            {{tutorData.bio}}
         </v-flex>
     </v-layout>
         <v-divider></v-divider>
@@ -32,7 +34,8 @@
         <v-flex xs8 class="text-xs-right">
             <span class="pricing">
                 <span class="font-weight-medium subheading pricing">{{tutorData.price}}</span>
-                <span class="small-text pricing" v-language:inner>app_currency_dynamic</span>
+                <span class="caption pricing">₪</span>
+                <!--<span class="small-text pricing" v-language:inner>app_currency_dynamic</span>-->
                  <span class="pricing small-text">/ <span v-language:inner>tutorList_per_hour</span></span>
             </span>
         </v-flex>
@@ -44,12 +47,14 @@
     import userRank from '../UserRank/UserRank.vue';
     import userRating from '../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
     import commentIcon from '../../../font-icon/comment-icon.svg';
+    import userAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
     export default {
         name: "tutorCard",
         components: {
             userRank,
             userRating,
-            commentIcon
+            commentIcon,
+            userAvatar
         },
         data() {
             return {
@@ -59,6 +64,12 @@
             tutorData: {
             },
         },
+        computed: {
+            userImageUrl() {
+                return this.tutorData.image
+            }
+        },
+
     };
 </script>
 

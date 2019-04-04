@@ -29,6 +29,7 @@ import tutoringCanvas from './tutoringCanvas';
 import tutoringSharedDoc from './tutoringSharedDocument';
 import tutoringMainStore from './tutoringMain';
 import chatStore from './chatStore';
+import tutorList from './tutorList';
 
 
 
@@ -62,7 +63,8 @@ const store = new Vuex.Store({
         tutoringCanvas,
         tutoringSharedDoc,
         tutoringMainStore,
-        chatStore
+        chatStore,
+        tutorList
     }
 });
 
