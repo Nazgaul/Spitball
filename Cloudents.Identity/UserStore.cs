@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
+using Cloudents.Query;
+using Cloudents.Query.Query;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using NHibernate;
@@ -25,18 +28,20 @@ namespace Cloudents.Identity
         IUserLoginStore<RegularUser>//,
         //IUserRoleStore<RegularUser>
     {
-        private readonly ISession _session;
+        //private readonly ISession _session;
         private readonly ICommandBus _bus;
+        private readonly IQueryBus _queryBus;
 
-        public UserStore(ICommandBus bus, ISession session)
+        public UserStore(ICommandBus bus,  IQueryBus queryBus)
         {
             _bus = bus;
-            _session = session;
+            _queryBus = queryBus;
+            //_session = session;
         }
 
         public void Dispose()
         {
-            _session.Dispose();
+        //    _session.Dispose();
         }
 
         public Task<string> GetUserIdAsync(RegularUser user, CancellationToken cancellationToken)
@@ -76,6 +81,7 @@ namespace Cloudents.Identity
         public async Task<IdentityResult> CreateAsync(RegularUser user, CancellationToken cancellationToken)
         {
             var command = new CreateUserCommand(user);
+            
             await _bus.DispatchAsync(command, cancellationToken);
             return IdentityResult.Success;
         }
@@ -108,14 +114,15 @@ namespace Cloudents.Identity
         public Task<RegularUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var p = long.Parse(userId);
-            return _session.LoadAsync<RegularUser>(p, cancellationToken);
+            return _queryBus.QueryAsync<RegularUser>(new UserDataByIdQuery(p), cancellationToken);
+            //return _session.LoadAsync<RegularUser>(p, cancellationToken);
         }
 
         public async Task<RegularUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            //Expression<Func<RegularUser, bool>> expression = s => s.NormalizedName == normalizedUserName;
-            return await _session.Query<RegularUser>().FirstOrDefaultAsync(w => w.NormalizedName == normalizedUserName, cancellationToken: cancellationToken);
-            //return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
+            Expression<Func<RegularUser, bool>> expression = s => s.NormalizedName == normalizedUserName;
+            //return await _session.Query<RegularUser>().FirstOrDefaultAsync(w => w.NormalizedName == normalizedUserName, cancellationToken: cancellationToken);
+            return await _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
         public Task SetEmailAsync(RegularUser user, string email, CancellationToken cancellationToken)
@@ -142,9 +149,9 @@ namespace Cloudents.Identity
 
         public async Task<RegularUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
-            //Expression<Func<RegularUser, bool>> expression = f => f.NormalizedEmail == normalizedEmail;
-            return await _session.Query<RegularUser>().FirstOrDefaultAsync(w => w.NormalizedEmail == normalizedEmail, cancellationToken: cancellationToken);
-            //return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
+            Expression<Func<RegularUser, bool>> expression = f => f.NormalizedEmail == normalizedEmail;
+            //return await _session.Query<RegularUser>().FirstOrDefaultAsync(w => w.NormalizedEmail == normalizedEmail, cancellationToken: cancellationToken);
+           return await _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
         public Task<string> GetNormalizedEmailAsync(RegularUser user, CancellationToken cancellationToken)
@@ -291,38 +298,16 @@ namespace Cloudents.Identity
 
         public Task<RegularUser> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
         {
-            return _session.Query<UserLogin>()
-                .Fetch(f => f.User)
-                .Where(w => w.ProviderKey == providerKey && w.LoginProvider == loginProvider)
-                .Select(s => s.User).SingleOrDefaultAsync(cancellationToken: cancellationToken);
+            //return _session.Query<UserLogin>()
+            //    .Fetch(f => f.User)
+            //    .Where(w => w.ProviderKey == providerKey && w.LoginProvider == loginProvider)
+            //    .Select(s => s.User).SingleOrDefaultAsync(cancellationToken: cancellationToken);
+
+            return _queryBus.QueryAsync(new UserLoginQuery(loginProvider, providerKey), cancellationToken);
         }
 
 
-        public async Task AddToRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task RemoveFromRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IList<string>> GetRolesAsync(RegularUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public Task<bool> IsInRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
-        //{
-        //    var result = user.UserRoles.Any(f => f.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
-        //    return Task.FromResult(result);
-        //}
-
-        public async Task<IList<RegularUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 
 
