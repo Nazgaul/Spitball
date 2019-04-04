@@ -21,12 +21,12 @@
                             <v-card @click="goToSelectedClass(course.name)"
                                     class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}"
                                     key="two">
-                                <span class="course-name">{{course.name}}{{index}}</span>
+                                <span class="course-name">{{course.name}}</span>
                             </v-card>
                         </v-flex>
                         <!--</transition-group>-->
                         <v-flex xs12 sm6 md6 v-if="aboutData.length >= showQuantity" class="course-name show-more">
-                            <v-card :class="{'mr-3': $vuetify.breakpoint.smAndUp}" class="elevation-0 border  py-3" @click="expanded ? showLess() : showAll()">
+                            <v-card :class="{'mr-0': $vuetify.breakpoint.smAndUp}" class="elevation-0 border  py-3" @click="expanded ? showLess() : showAll()">
                                 <span class="font-weight-bold course-name">
                                     <span v-show="!expanded">
                                         <span> {{moreQuantity}}&nbsp;</span>
