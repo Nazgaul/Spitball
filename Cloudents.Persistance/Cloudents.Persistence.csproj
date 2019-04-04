@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="2.1.2" />
-    <PackageReference Include="NHibernate" Version="5.2.4" />
+    <PackageReference Include="NHibernate" Version="5.2.5" />
     <!--We have a problem with redis nuget packages.-->
     <PackageReference Include="NHibernate.Caches.CoreDistributedCache.Redis" Version="5.5.1" />
     <PackageReference Include="Autofac" Version="4.9.1" />
