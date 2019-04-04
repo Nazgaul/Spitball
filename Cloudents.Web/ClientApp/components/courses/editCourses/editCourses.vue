@@ -40,15 +40,15 @@
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
                                     <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
-                                        <span class="purple-text caption" v-language:inner>courses_teach</span>
+                                        <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
                                     </span>
                                     </v-btn>
 
-                                    <v-btn v-else-if="singleClass.isTeaching" round @click="teachCourseToggle(singleClass)"
+                                    <v-btn v-else round @click="teachCourseToggle(singleClass)"
                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
                                        <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
-                                        <span class="caption" v-language:inner>courses_teaching</span>
+                                        <span class="caption" v-html="$Ph('courses_teaching')"></span>
                                   </span>
                                     </v-btn>
                                     <span>
@@ -114,7 +114,9 @@
                 this.deleteClass(classDelete).then((resp) => {
                  classDelete.isLoading= false;
                 }, (error) => {
+                    classDelete.isLoading= false;
                 }).finally(() => {
+                    classDelete.isLoading= false;
                 });
             },
             // deleteFromList(classToDelete, from) {
