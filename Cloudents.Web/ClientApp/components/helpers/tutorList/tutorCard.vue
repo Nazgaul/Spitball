@@ -79,9 +79,6 @@
 .tutor-card-wrap{
     border-radius: 4px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
-    .rounded-img{
-        border-radius: 50%;
-    }
     .tutor-name{
         color: @profileTextColor;
         line-height: 12px;
@@ -101,7 +98,6 @@
     }
     .tutor-text{
         font-family: @fontOpenSans;
-        font-size: 12px;
         color: @profileTextColor;
         line-height: 1.33;
     }
@@ -116,6 +112,5 @@
         display: block;
         fill: @color-white;
     }
-
 }
 </style>
