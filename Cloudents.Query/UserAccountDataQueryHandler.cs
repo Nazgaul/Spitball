@@ -1,46 +1,38 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
 using Cloudents.Query.Query;
-using NHibernate;
-using NHibernate.Linq;
+using Dapper;
 
 namespace Cloudents.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserAccountDataQueryHandler : IQueryHandler<UserDataByIdQuery, UserAccountDto>
     {
-        private readonly IStatelessSession _session;
+        private readonly DapperRepository _dapperRepository;
 
-        public UserAccountDataQueryHandler(QuerySession readonlySession)
+        public UserAccountDataQueryHandler(DapperRepository dapperRepository)
         {
-            _session = readonlySession.StatelessSession;
+            _dapperRepository = dapperRepository;
         }
 
         //[Cache(TimeConst.Minute * 15, "UserAccount", true)]
         public async Task<UserAccountDto> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
-            return await _session.Query<RegularUser>()
-                .Where(w => w.Id == query.Id && (!w.LockoutEnd.HasValue || DateTime.UtcNow >= w.LockoutEnd.Value))
-                .Select(s => new UserAccountDto
-                {
-                    Id = s.Id,
-                    Balance = s.Transactions.Balance, 
-                    Name = s.Name,
-                    Image = s.Image,
-                    Email = s.Email,
-                    UniversityExists = s.University.Id != null,
-                    Score = s.Transactions.Score,
-                    PhoneNumber = s.PhoneNumber
-                }).WithOptions(o =>
-                {
-                    o.SetCacheable(true)
-                        .SetReadOnly(true);
-                }).SingleOrDefaultAsync(token);
+            var sql = @"select u.Id, U.Balance, u.Name, u.Image, u.Email, 
+                            case when u.UniversityId2 is null then 0 else 1 end as UniversityExists,
+                            u.Score, u.PhoneNumberHash,
+                            case when t.id is null then 0 else 1 end as IsTutor
+                        from sb.[user] u
+                        left join sb.Tutor t
+	                        on u.Id = t.Id
+                        where U.Id = @Id";
+            using (var conn = _dapperRepository.OpenConnection())
+            {
+                var retVal = await conn.QueryFirstAsync<UserAccountDto>(sql, new { id = query.Id });
+                return retVal;
+            }
         }
     }
 }
