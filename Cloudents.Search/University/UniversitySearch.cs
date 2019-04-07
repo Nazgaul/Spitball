@@ -21,7 +21,7 @@ namespace Cloudents.Search.University
             nameof(Entities.University.DisplayName),
             nameof(Entities.University.Country),
             nameof(Entities.University.Image),
-            nameof(Entities.University.UserCountFieldName)
+            Entities.University.UserCountFieldName
         };
 
         public UniversitySearch(ISearchService client)
@@ -37,7 +37,7 @@ namespace Cloudents.Search.University
                 Select = _listOfSelectParams,
                 Top = 15,
                 OrderBy = new List<string> { "search.score() desc",
-                    $"{nameof(Entities.University.UserCountFieldName)} desc" },
+                    $"{Entities.University.UserCountFieldName} desc" },
                 ScoringProfile = UniversitySearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                 {
