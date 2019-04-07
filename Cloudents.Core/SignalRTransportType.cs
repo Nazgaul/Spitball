@@ -60,8 +60,7 @@ namespace Cloudents.Core
     {
         Logout,
         MarkAsCorrect,
-        Toaster,
-        OnlineStatus
+        Toaster
     }
 
     public enum SignalRType

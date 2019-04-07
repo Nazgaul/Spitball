@@ -50,6 +50,9 @@ namespace Cloudents.Core.Entities
 
         public virtual string Country { get; protected set; }
 
+        public virtual string Image { get; set; }
+        public virtual int UsersCount { get; set; }
+
         public virtual DomainTimeStamp RowDetail { get; protected set; }
 
         private readonly IList<Document> _documents = new List<Document>();

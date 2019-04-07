@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace Cloudents.Command.Command
+namespace Cloudents.Command.Courses
 {
-    public class AssignCoursesToUserCommand : ICommand
+    public class UserJoinCoursesCommand : ICommand
     {
-        public AssignCoursesToUserCommand(IEnumerable<string> name, long userId)
+        public UserJoinCoursesCommand(IEnumerable<string> name, long userId)
         {
             Name = name;
             UserId = userId;

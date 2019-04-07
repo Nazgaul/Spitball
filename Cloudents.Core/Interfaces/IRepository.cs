@@ -30,13 +30,13 @@ namespace Cloudents.Core.Interfaces
 
     public interface IRegularUserRepository : IRepository<RegularUser>
     {
-        Task<decimal> UserCashableBalanceAsync(long userId, CancellationToken token);
+        Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>
     {
-        Task<Course> GetOrAddAsync(string name, CancellationToken token);
-        Task<Course> GetByNameAsync(string name, CancellationToken token);
+        //Task<Course> GetOrAddAsync(string name, CancellationToken token);
+        //Task<Course> GetByNameAsync(string name, CancellationToken token);
     }
 
    
@@ -73,13 +73,13 @@ namespace Cloudents.Core.Interfaces
         Task<ChatRoom> GetChatRoomAsync(IList<long> usersId, CancellationToken token);
     }
 
-    public interface IUniversityRepository : IRepository<University>
-    {
-        [ItemCanBeNull]
-        Task<University> GetUniversityByNameAsync(string name,
-            CancellationToken token);
+    //public interface IUniversityRepository : IRepository<University>
+    //{
+    //    [ItemCanBeNull]
+    //    Task<University> GetUniversityByNameAsync(string name,
+    //        CancellationToken token);
 
-    }
+    //}
 
     public interface ITransactionRepository : IRepository<Transaction>
     {

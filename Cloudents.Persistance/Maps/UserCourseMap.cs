@@ -10,8 +10,11 @@ namespace Cloudents.Persistence.Maps
             CompositeId()
                 .KeyReference(x => x.User, "UserId")
                 .KeyReference(x => x.Course, "CourseId");
+            Map(e => e.CanTeach).Not.Nullable().Default("0");
 
             Table("UsersCourses");
+
+            SchemaAction.Update();
 
         }
     }

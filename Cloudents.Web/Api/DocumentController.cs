@@ -45,7 +45,6 @@ namespace Cloudents.Web.Api
         private readonly UserManager<RegularUser> _userManager;
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
-        //private readonly IProfileUpdater _profileUpdater;
 
 
 

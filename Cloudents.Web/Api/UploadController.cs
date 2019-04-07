@@ -81,8 +81,9 @@ namespace Cloudents.Web.Api
 
         [HttpPost("file"), FormContentType]
         public async Task<ActionResult<UploadStartResponse>> Upload(
+            [FromRoute] StorageContainer type,
             [FromForm] UploadRequestForm model,
-            [FromServices] IDocumentDirectoryBlobProvider blobProvider,
+            [FromServices] IIndex<StorageContainer, IBlobProvider> blobProviderIndex,
             CancellationToken token)
         {
             if (!ModelState.IsValid)
@@ -90,6 +91,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var tempData = TempData.Get<TempData>($"update-{model.SessionId}");
+            var blobProvider = blobProviderIndex[type];
             var index = (int)(model.StartOffset / UploadInnerResponse.BlockSize);
             await blobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
                 index, token);

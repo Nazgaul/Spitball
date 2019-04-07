@@ -85,7 +85,10 @@ export default {
                     this.updateDialogState(true);
                 }
                 
-            }else{
+            }else if(step === this.enumSteps.set_class){
+                this.$router.push({name: 'editCourse'});
+            }
+            else{
                 console.log(`step changed to ${step}`);
                 this.updateCurrentStep(step);
             }

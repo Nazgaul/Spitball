@@ -22,7 +22,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(CashOutCommand message, CancellationToken token)
         {
-            var balance = await _userRepository.UserCashableBalanceAsync(message.UserId, token);
+            var balance = await _userRepository.UserBalanceAsync(message.UserId, token);
             if (balance < 1000)
             {
                 throw new InvalidOperationException("user doesn't have enough money");

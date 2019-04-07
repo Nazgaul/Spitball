@@ -15,33 +15,33 @@ namespace Cloudents.Persistence.Repositories
         {
         }
 
-        public async Task<Course> GetOrAddAsync(string name, CancellationToken token)
-        {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-            name = name.Trim();
+        //public async Task<Course> GetOrAddAsync(string name, CancellationToken token)
+        //{
+        //    if (name == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(name));
+        //    }
+        //    name = name.Trim();
 
-            var course = await Session.Query<Course>()
-                .Where(w => w.Id.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
+        //    var course = await Session.Query<Course>()
+        //        .Where(w => w.Id.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
 
 
 
-            if (course == null)
-            {
+        //    if (course == null)
+        //    {
 
-                course = new Course(name);
-                await AddAsync(course, token);
-            }
+        //        course = new Course(name);
+        //        await AddAsync(course, token);
+        //    }
 
-            return course;
-        }
+        //    return course;
+        //}
 
-        public async Task<Course> GetByNameAsync(string name, CancellationToken token)
-        {
-            return await Session.Query<Course>()
-                .Where(w => w.Id.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
-        }
+        //public async Task<Course> GetByNameAsync(string name, CancellationToken token)
+        //{
+        //    return await Session.Query<Course>()
+        //        .Where(w => w.Id.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
+        //}
     }
 }

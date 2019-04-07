@@ -1,8 +1,8 @@
-﻿namespace Cloudents.Command.Command
+﻿namespace Cloudents.Command.Universities
 {
-    public class AssignUniversityToUserCommand : ICommand
+    public class CreateUniversityCommand : ICommand
     {
-        public AssignUniversityToUserCommand(long userId, string universityName, string country)
+        public CreateUniversityCommand(long userId, string universityName, string country)
         {
             UserId = userId;
             UniversityName = universityName;

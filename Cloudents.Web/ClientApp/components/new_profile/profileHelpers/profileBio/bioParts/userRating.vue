@@ -12,16 +12,14 @@
                         :half-increments="true"
                         :readonly="readonly"
                         hover
+                        medium
                         :size="size"
                 ></v-rating>
             </v-flex>
             <v-flex>
-                <div class="mb-1">
-                   <span :style="{ color: rateNumColor }" class="caption ml-1 pb-1 ">
+                   <span :style="{ color: rateNumColor }" class="caption">
        {{ rating }}
       </span>
-                </div>
-
             </v-flex>
         </v-layout>
 </template>

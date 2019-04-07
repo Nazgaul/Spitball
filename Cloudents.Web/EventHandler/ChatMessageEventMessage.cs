@@ -43,7 +43,7 @@ namespace Cloudents.Web.EventHandler
                     message = BuildChatMessage((dynamic)chatMessage)
                 });
             var users = chatMessage.ChatRoom.Users.Select(s => s.User.Id.ToString()).ToList();
-            await _hubContext.Clients.Users(users).SendAsync(SbHub.MethodName, message, cancellationToken: token);
+            await _hubContext.Clients.Users(users).SendAsync("Message", message, cancellationToken: token);
         }
 
         private ChatMessageDto BuildChatMessage(ChatTextMessage chatMessage)

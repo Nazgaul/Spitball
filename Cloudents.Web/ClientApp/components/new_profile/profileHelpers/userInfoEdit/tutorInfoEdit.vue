@@ -142,7 +142,7 @@
             },
             firstName: {
                 get() {
-                    return this.getProfile.user.tutorData.firstName
+                    return this.getProfile.user.name
                 },
                 set(newVal) {
                     this.editedFirstName = newVal;
@@ -150,8 +150,8 @@
             },
             lastName: {
                 get() {
+                   return  ''
                     // return this.getProfile.user.lastName
-                    return this.getProfile.user.tutorData.lastName
                 },
                 set(newVal) {
                     console.log('new val::', newVal)

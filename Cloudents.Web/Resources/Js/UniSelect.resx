@@ -218,7 +218,4 @@ and all of the selected classes will be deleted</value>
   <data name="university_length_error" xml:space="preserve">
     <value>Must be more then 10 characters</value>
   </data>
-  <data name="yours_selected" xml:space="preserve">
-    <value>Your Selected Courses</value>
-  </data>
 </root>

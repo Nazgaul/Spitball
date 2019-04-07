@@ -1,5 +1,5 @@
 <template>
-    <v-container v-show="visible" py-0 px-0 class="sb-chat-container" :style="{'height': height}" :class="{'minimized': isMinimized}">
+    <v-container v-show="visible" py-0 px-0 class="chat-container" :style="{'height': height}" :class="{'minimized': isMinimized}">
         <v-layout class="chat-header">
             <v-icon @click="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
@@ -97,7 +97,7 @@
 </script>
 <style lang="less">
 @import '../../styles/mixin.less';
-.sb-chat-container{
+.chat-container{
     .scrollBarStyle(3px, #43425d);
     position: fixed;
     bottom: 0;

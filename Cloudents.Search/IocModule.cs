@@ -31,9 +31,10 @@ namespace Cloudents.Search
         {
             builder.RegisterType<AzureQuestionSearch>().As<IQuestionsSearch>().AsSelf();
             builder.RegisterType<AzureDocumentSearch>().AsSelf().As<IDocumentsSearch>();
-            builder.RegisterType<UniversitySearch>().AsSelf().As<IUniversitySearch>();
+            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
 
             builder.RegisterType<DocumentSearchWrite>().As<SearchServiceWrite<Entities.Document>>();
+            builder.RegisterType<UniversitySearchWrite>().AsSelf();
             builder.RegisterType<QuestionSearchWrite>().AsSelf();
             builder.RegisterType<DocumentSearchWrite>().AsSelf();
             //builder.RegisterGeneric(typeof(SearchServiceWrite<>)).AsSelf();
