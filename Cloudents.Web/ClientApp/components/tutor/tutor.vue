@@ -38,12 +38,6 @@
                 <video-stream :id="id"></video-stream>
             </v-flex>
         </v-layout>
-        <v-layout column align-end style="position: fixed; right: 24px; bottom: 0px;">
-            <v-flex xs6 sm6 md6>
-                <chat v-show="isRoomCreated" :id="id"></chat>
-            </v-flex>
-        </v-layout>
-
         <v-dialog v-model="qualityDialog" content-class="filter-dialog"
                   :max-width="$vuetify.breakpoint.smAndUp ? '720px' : ''" :fullscreen="$vuetify.breakpoint.xsOnly"
                   persistent>
@@ -59,7 +53,6 @@
     import videoStream from './videoStream/videoStream.vue';
     import whiteBoard from './whiteboard/WhiteBoard.vue';
     import codeEditor from './codeEditor/codeEditor.vue'
-    import chat from './chat/chat.vue';
     import qualityValidation from './tutorHelpers/qualityValidation/qualityValidation.vue'
     import sharedDocument from './sharedDocument/sharedDocument.vue';
     import shareScreenBtn from './tutorHelpers/shareScreenBtn.vue';
@@ -76,7 +69,6 @@
             videoStream,
             whiteBoard,
             codeEditor,
-            chat,
             sharedDocument,
             shareScreenBtn,
             AppLogo,
