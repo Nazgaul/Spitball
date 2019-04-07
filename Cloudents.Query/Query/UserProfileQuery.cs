@@ -42,7 +42,7 @@ u.online,
 from sb.[user] u 
 left join sb.[University] u2 on u.UniversityId2 = u2.Id
 left join sb.Tutor t
-	on U.Id = t.UserId
+	on U.Id = t.Id
 where u.id = @Id
 and (u.LockoutEnd is null or u.LockoutEnd < GETUTCDATE())
 ", (dto, profileDto) =>
