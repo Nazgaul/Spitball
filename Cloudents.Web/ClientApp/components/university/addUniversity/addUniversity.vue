@@ -158,6 +158,8 @@
                     let previousSchoolName = this.getSchoolName;
                     let currentSchoolName = universityName;
                     return previousSchoolName.toLowerCase() !== currentSchoolName.toLowerCase();
+                }else{
+                    return true
                 }
             },
             selectUniversity(university) {

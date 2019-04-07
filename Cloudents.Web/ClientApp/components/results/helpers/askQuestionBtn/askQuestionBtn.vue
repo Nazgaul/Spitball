@@ -6,7 +6,8 @@
                     <!--<p v-show="$vuetify.breakpoint.smAndUp" :class="['ask-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
                     <!--faqBlock_ask-->
                     <!--</p>-->
-                    <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]"
+                    <button round
+                            :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]"
                             @click="goToAskQuestion()">
                         <v-icon class="sb-edit-icon">sbf-edit-icon</v-icon>
                         <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span>
@@ -25,7 +26,7 @@
             return {
                 offsetTop: 0,
                 offsetTop2: 0,
-            }
+            };
         },
         props: {
             isAsk: {
@@ -38,33 +39,32 @@
             ...mapGetters(['accountUser', 'loginDialogState', 'getCookieAccepted']),
 
             isFloatingBtn() {
-if(this.$vuetify.breakpoint.smAndDown){
-
+                if(this.$vuetify.breakpoint.smAndDown) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
-                
-                return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
+
+                return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown);
             },
-            raiseFloatingButtonPosition(){
-                return !this.getCookieAccepted
+            raiseFloatingButtonPosition() {
+                return !this.getCookieAccepted;
             }
         },
         methods: {
             ...mapActions([
-                "updateLoginDialogState",
-                'updateNewQuestionDialogState',
-                'updateUserProfileData'
-            ]),
+                              "updateLoginDialogState",
+                              'updateNewQuestionDialogState',
+                              'updateUserProfileData'
+                          ]),
             goToAskQuestion() {
-                if (this.accountUser == null) {
+                if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
                     //set user profile
-                    this.updateUserProfileData('profileHWH')
+                    this.updateUserProfileData('profileHWH');
                 } else {
                     //ab test original do not delete
-                    this.updateNewQuestionDialogState(true)
+                    this.updateNewQuestionDialogState(true);
                 }
             },
             transformToBtn() {
@@ -73,16 +73,16 @@ if(this.$vuetify.breakpoint.smAndDown){
         },
 
         beforeMount: function () {
-            if (window) {
-                window.addEventListener('scroll', this.transformToBtn)
+            if(window) {
+                window.addEventListener('scroll', this.transformToBtn);
             }
         },
         beforeDestroy: function () {
-            if (window) {
-                window.removeEventListener('scroll', this.transformToBtn)
+            if(window) {
+                window.removeEventListener('scroll', this.transformToBtn);
             }
         }
-    }
+    };
 </script>
 
 <style lang="less">
@@ -190,7 +190,7 @@ if(this.$vuetify.breakpoint.smAndDown){
                             font-size: 0px;
                             visibility: hidden;
                         }
-                        &.raised{
+                        &.raised {
                             bottom: 65px;
                         }
                     }
