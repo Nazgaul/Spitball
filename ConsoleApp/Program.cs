@@ -136,6 +136,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var t = _container.Resolve<IUnitOfWork>();
             var c = await UpdateMethod();
             //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
             // await c.DispatchAsync(command2, default);
