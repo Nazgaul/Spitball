@@ -1,8 +1,8 @@
-﻿using Cloudents.Core.DTOs;
-using Dapper;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Dapper;
 
 namespace Cloudents.Query.Query
 {
@@ -18,7 +18,7 @@ namespace Cloudents.Query.Query
 
         internal sealed class UserProfileQueryHandler : IQueryHandler<UserProfileQuery, UserProfileDto>
         {
-
+           
             private readonly DapperRepository _session;
 
             public UserProfileQueryHandler(DapperRepository session)
@@ -28,28 +28,32 @@ namespace Cloudents.Query.Query
 
             public async Task<UserProfileDto> GetAsync(UserProfileQuery query, CancellationToken token)
             {
+        
+                    
                 using (var conn = _session.OpenConnection())
                 {
-
-                    var t = await conn.QueryAsync<UserProfileDto, UserTutorProfileDto, UserProfileDto>(@"
+                    
+                    var t =  await conn.QueryAsync<UserProfileDto, UserTutorProfileDto, UserProfileDto>(@"
 select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description,
-t.price as price,t.Bio,u.FirstName,u.LastName,
+t.price as price,
 u.online,
-(Select avg(rate) from sb.tutorReview where tutorId = t.Id) as rate,
-(Select count(*) from sb.tutorReview where tutorId = t.Id) as ReviewCount
+(Select avg(rate) from sb.tutorReview where tutorId = t.UserId) as rate,
+(Select count(*) from sb.tutorReview where tutorId = t.UserId) as ReviewCount
 from sb.[user] u 
 left join sb.[University] u2 on u.UniversityId2 = u2.Id
 left join sb.Tutor t
-	on U.Id = t.Id
+	on U.Id = t.UserId
 where u.id = @Id
-and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())
+and (u.LockoutEnd is null or u.LockoutEnd < GETUTCDATE())
 ", (dto, profileDto) =>
                     {
                         dto.Tutor = profileDto;
                         return dto;
-                    }, new { id = query.Id }, splitOn: "price");
+                    } , new { id = query.Id },splitOn:"price");
                     return t.FirstOrDefault();
                 }
+
+
             }
         }
     }

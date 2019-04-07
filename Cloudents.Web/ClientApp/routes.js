@@ -7,10 +7,8 @@ import pageHeader from './components/header/header.vue';
 // import landingHeader from './components/landingPage/helpers/landingHeader.vue'
 import landingPage from './components/landingPage/landingPage.vue';
 import schoolBlock from './components/schoolBlock/schoolBlock.vue';
-import verticalsTabs from './components/header/verticalsTabs.vue'
-import {
-    staticRoutes
-} from "./components/satellite/satellite-routes";
+import verticalsTabs from './components/header/verticalsTabs.vue';
+import { staticRoutes } from "./components/satellite/satellite-routes";
 
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
@@ -24,8 +22,20 @@ const wallet = () => import("./components/wallet/wallet.vue");
 const newProfile = () => import("./components/new_profile/new_profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
 const login = () => import("./components/new_registration/login.vue");
-const university = () => import("./components/helpers/uni-select/uniSelect.vue");
+// const university = () => import("./components/helpers/uni-select/uniSelect.vue");
+
+// course section
+const setCourse = () => import("./components/courses/courses.vue");
+const addCourse = () => import("./components/courses/addCourses/addCourses.vue");
+const editCourse = () => import("./components/courses/editCourses/editCourses.vue");
+/*
+ new uni section
+*/
+const setUniversity = () => import("./components/university/university.vue");
+const addUniversity = () => import("./components/university/addUniversity/addUniversity.vue");
+
 const tutorComponent = () => import("./components/tutor/tutor.vue");
+
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
 
@@ -33,7 +43,7 @@ function dynamicPropsFn(route) {
         name: newName,
         query: route.query,
         params: route.params,
-    }
+    };
 }
 
 function dynamicDetailsPropsFn(route) {
@@ -42,7 +52,7 @@ function dynamicDetailsPropsFn(route) {
         query: route.query,
         id: route.params.id,
         params: route.params,
-    }
+    };
 }
 
 function headerResultPageFn(route) {
@@ -50,12 +60,13 @@ function headerResultPageFn(route) {
         userText: route.query.term,
         submitRoute: route.path,
         currentSelection: route.path.slice(1)
-    }
+    };
 }
+
 function verticalResultPageFn(route) {
     return {
         currentSelection: route.path.slice(1)
-    }
+    };
 }
 
 const resultPage = {
@@ -99,7 +110,7 @@ let routes2 = [
             default: landingPage,
 
         },
-        
+
     },
     {
         path: "/result",
@@ -124,7 +135,7 @@ let routes2 = [
                         title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
                         path: route.path,
                         location: window.location.href
-                    }
+                    };
                 }
             }
         }
@@ -143,7 +154,7 @@ let routes2 = [
                         title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
                         path: route.path,
                         location: window.location.href
-                    }
+                    };
                 }
             }
         }
@@ -162,27 +173,88 @@ let routes2 = [
                         title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
                         path: route.path,
                         location: window.location.href
-                    }
+                    };
                 }
             }
         }
     },
+    // {
+    //     path: "/uniselect/:step?",
+    //     name: "uniselect",
+    //     components: {
+    //         default: university,
+    //         header: pageHeader,
+    //         schoolBlock: schoolBlock,
+    //     },
+    //     props: {
+    //         default: (route) => ({
+    //             step: route.params.step
+    //         })
+    //     },
+    //     meta: {
+    //         requiresAuth: true
+    //     },
+    // },
     {
-        path: "/uniselect/:step?",
-        name: "uniselect",
+        path: "/courses/",
+        name: "setCourse",
+        children: [
+            {
+                path: '',
+                redirect: 'edit',
+            },
+            {
+                path: 'add',
+                name: 'addCourse',
+                component: addCourse
+            },
+            {
+                path: 'edit',
+                name: 'editCourse',
+                component: editCourse
+            },
+            {
+                path: '*',
+                redirect: 'edit',
+            },
+        ],
         components: {
-            default: university,
-            header: pageHeader
-        },
-        props:{
-            default: (route)=>({
-                step: route.params.step
-            })
+            default: setCourse,
+            header: pageHeader,
+            schoolBlock: schoolBlock,
         },
         meta: {
             requiresAuth: true
         },
     },
+    {
+        path: "/university/",
+        name: "setUniversity",
+        children: [
+            {
+                path: '',
+                redirect: 'add',
+            },
+            {
+                path: 'add',
+                name: 'addUniversity',
+                component: addUniversity
+            },
+            {
+                path: '*',
+                redirect: 'add',
+            },
+        ],
+        components: {
+            default: setUniversity,
+            header: pageHeader,
+            schoolBlock: schoolBlock,
+        },
+        meta: {
+            requiresAuth: true
+        },
+    },
+
 
     {
         path: "/book/:id",
@@ -299,10 +371,10 @@ let routes2 = [
         name: "registration",
         beforeEnter: (to, from, next) => {
             //prevent entering if loged in
-            if (global.isAuth) {
-                next(false)
+            if(global.isAuth) {
+                next(false);
             } else {
-                next()
+                next();
             }
         }
     },
@@ -330,19 +402,19 @@ let routes2 = [
 for (let v in staticRoutes) {
     let item = staticRoutes[v];
     routes2.push({
-        path: item.path || "/" + item.name,
-        name: item.name,
-        components: {
-            header: satelliteHeader,
-            default: item.import
-        },
-        meta: {
-            static: true
-        },
-        props: {
-            default: (route) => item.params ? item.params(route) : {}
-        }
-    })
+                     path: item.path || "/" + item.name,
+                     name: item.name,
+                     components: {
+                         header: satelliteHeader,
+                         default: item.import
+                     },
+                     meta: {
+                         static: true
+                     },
+                     props: {
+                         default: (route) => item.params ? item.params(route) : {}
+                     }
+                 });
 }
 
 export const routes = routes2;

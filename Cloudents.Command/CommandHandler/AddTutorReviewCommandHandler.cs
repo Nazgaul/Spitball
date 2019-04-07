@@ -22,10 +22,15 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AddTutorReviewCommand message, CancellationToken token)
         {
             var userTutor = await _regularUserRepository.LoadAsync(message.TutorId, token);
+            if (userTutor.Tutor == null)
+            {
+                throw new EmptyResultException();
+            }
             if (userTutor.Tutor.Reviews.Any(w => w.User.Id == message.UserId))
             {
                 throw new DuplicateRowException();
             }
+            
             if (userTutor.Tutor != null)
             {
                 var user =  await _regularUserRepository.LoadAsync(message.UserId, token);

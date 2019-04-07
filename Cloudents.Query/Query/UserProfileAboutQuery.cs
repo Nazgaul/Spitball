@@ -35,15 +35,15 @@ where UserId = @id;
 
 select t.bio
 from sb.Tutor t
-where t.Id = @id;
+where t.userid = @id;
 
 select tr.Review as ReviewText, tr.Rate, tr.DateTime as Created, u.Name, u.Image, u.Score
 from sb.Tutor t
 join sb.TutorReview tr
-	on tr.TutorId = t.Id
+	on tr.TutorId = t.UserId
 join sb.[user] u
 	on tr.UserId = U.Id
-where t.Id = @id", new {id = query.UserId}))
+where t.userid = @id", new {id = query.UserId}))
                     {
                         var retVal = new UserProfileAboutDto
                         {

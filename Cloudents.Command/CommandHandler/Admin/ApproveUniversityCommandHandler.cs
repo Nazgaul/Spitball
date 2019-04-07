@@ -2,13 +2,14 @@
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
     public class ApproveUniversityCommandHandler : ICommandHandler<ApproveUniversityCommand>
     {
-        private readonly IUniversityRepository _universityRepository;
-        public ApproveUniversityCommandHandler(IUniversityRepository universityRepository)
+        private readonly IRepository<University> _universityRepository;
+        public ApproveUniversityCommandHandler(IRepository<University> universityRepository)
         {
             _universityRepository = universityRepository;
         }

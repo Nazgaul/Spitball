@@ -178,12 +178,7 @@ export default {
         this.updateLoginDialogState(true);
       } else {
         let steps = this.getAllSteps;
-        this.$router.push({
-            name:'uniselect',
-            params: {
-                step:steps.set_class
-            }
-        })
+          this.$router.push({name: 'editCourse'});
       }
     },
     openPersonalizeUniversity() {
@@ -191,12 +186,7 @@ export default {
         this.updateLoginDialogState(true);
       } else {
         let steps = this.getAllSteps;
-        this.$router.push({
-            name:'uniselect',
-            params: {
-                step:steps.set_school
-            }
-        })
+        this.$router.push({name: 'addUniversity'})
       }
     }
   },

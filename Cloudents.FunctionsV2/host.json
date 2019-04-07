@@ -3,5 +3,5 @@
   
   //"functions": [ "ImageFunction" ],
 
-  //"functions": [ "DocumentSearchSync", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
+  //"functions": [ "UniversitySearchSync", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
 }

@@ -15,7 +15,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("/api/university?term=bos")]
+        [InlineData("/api/university")]
         public async Task GetAsync_OK(string url)
         {
             // Arrange

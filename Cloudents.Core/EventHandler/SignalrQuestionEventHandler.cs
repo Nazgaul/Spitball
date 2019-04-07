@@ -33,7 +33,7 @@ namespace Cloudents.Core.EventHandler
                 score = p.Transactions.Score;
             }
             var user = new UserDto(eventMessage.Question.User.Id, eventMessage.Question.User.Name,
-                score, eventMessage.Question.User.Image);
+                score);
 
             var dto = new QuestionFeedDto
             {
@@ -92,7 +92,7 @@ namespace Cloudents.Core.EventHandler
         {
            
             var user = new UserDto(eventMessage.Answer.User.Id, eventMessage.Answer.User.Name,
-                eventMessage.Answer.User.Transactions.Score, eventMessage.Answer.User.Image);
+                eventMessage.Answer.User.Transactions.Score);
 
             var answerDto = new QuestionDetailAnswerDto
             (

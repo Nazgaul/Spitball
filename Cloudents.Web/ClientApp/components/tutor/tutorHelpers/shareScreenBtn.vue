@@ -25,7 +25,7 @@
                     <a :href="extensionLink"
                             target="_blank"
                            class="btn px-3 py-2 mr-3"
-                            @click="dialog = false"
+                            @click="extensionDialog = false"
                     >Install</a>
                     <v-btn
                             color="green darken-1"
@@ -42,7 +42,7 @@
     import { mapGetters } from 'vuex';
     import { createLocalVideoTrack } from 'twilio-video';
     import videoService from "../../../services/videoStreamService";
-    import castIcon from '../images/cast.svg';
+    import castIcon from '../images/cast.svg'
     export default {
         name: "shareScreenBtn",
         components: {castIcon},

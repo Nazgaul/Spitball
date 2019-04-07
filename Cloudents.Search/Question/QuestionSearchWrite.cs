@@ -43,20 +43,6 @@ namespace Cloudents.Search.Question
                 },
                 ScoringProfiles = new List<ScoringProfile>
                 {
-                    new ScoringProfile("ScoringProfile")
-                    {
-                        TextWeights = new TextWeights(new Dictionary<string, double>
-                        {
-                            [nameof(Entities.Question.Text)] = 185,
-                            [nameof(Entities.Question.Prefix)] = 180,
-                        }),
-                        FunctionAggregation = ScoringFunctionAggregation.Sum,
-                        Functions = new List<ScoringFunction>
-                        {
-                            new FreshnessScoringFunction(nameof(Entities.Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
-                            new TagScoringFunction(nameof(Entities.Question.Country),1.01, new TagScoringParameters(TagsCountryParameter))
-                        }
-                    },
                     new ScoringProfile(ScoringProfile)
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>

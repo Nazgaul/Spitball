@@ -26,7 +26,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_OK_200()
         {
-            string credentials = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+            string credentials = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
 
             await _client.PostAsync("api/LogIn",
                new StringContent(credentials, Encoding.UTF8, "application/json"));
