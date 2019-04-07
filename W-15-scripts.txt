@@ -1,5 +1,5 @@
-﻿ALTER TABLE [sb].[User] DROP CONSTRAINT [AK_uniqueName]
-need to create spitball-user container with public access
+﻿Need to upload azure function2
+
 
 
 
