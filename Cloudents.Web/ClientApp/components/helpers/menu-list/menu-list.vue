@@ -291,12 +291,7 @@
                     let steps = this.getAllSteps();
                     this.updateCurrentStep(steps.set_school);
                     // this.changeSelectUniState(true);
-                    this.$router.push({
-                        name:'uniselect',
-                         params: {
-                             step:steps.set_school
-                         }
-                    })
+                    this.$router.push({name: 'addUniversity'})
                     this.$root.$emit("closeDrawer");
                 }
             },
@@ -306,13 +301,6 @@
                 } else {
                     let steps = this.getAllSteps();
                     this.updateCurrentStep(steps.set_class);
-                    // this.changeSelectUniState(true);
-                    // this.$router.push({
-                    //     name:'uniselect',
-                    //      params: {
-                    //          step:steps.set_class
-                    //      }
-                    // })
                     this.$router.push({name: 'editCourse'});
                     this.$root.$emit("closeDrawer");
                 }
