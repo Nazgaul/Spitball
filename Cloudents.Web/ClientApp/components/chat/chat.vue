@@ -32,7 +32,7 @@
             }
         },
         computed:{
-            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj']),
+            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked']),
             isMobile(){
                 return this.$vuetify.breakpoint.smAndDown;
             },
@@ -79,7 +79,7 @@
             ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
-                if(!this.isMinimized){
+                if(!this.isMinimized && !this.getIsChatLocked){
                     this.updateChatState(this.enumChatState.conversation);
                 }
             },

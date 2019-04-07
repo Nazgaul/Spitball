@@ -50,6 +50,7 @@
     import userRating from '../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
     import commentIcon from '../../../font-icon/comment-icon.svg';
     import userAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
+    import chatService from '../../../services/chatService'
     import {mapGetters, mapActions} from 'vuex'
     export default {
         name: "tutorCard",
@@ -78,13 +79,7 @@
                 if ( this.accountUser == null) {
                     this.updateLoginDialogState(true);
                 } else {
-                    let conversationObj = this.getConversations[this.tutorData.userId];
-                    let currentConversationObj = {
-                        userId: this.tutorData.userId,
-                        userName: this.tutorData.name,
-                        userImage: this.tutorData.image,
-                        conversationId: conversationObj ? conversationObj.conversationId : null
-                    }
+                    let currentConversationObj = chatService.createActiveConversationObj(this.tutorData)
                     this.setActiveConversationObj(currentConversationObj);
                     this.openChatInterface();
                 }

@@ -17,7 +17,8 @@ const state = {
     },
     isVisible: true,
     isMinimized: true,
-    totalUnread: 0
+    totalUnread: 0,
+    chatLocked: false
 };
 const getters = {
     getIsChatVisible:state=> state.isVisible,
@@ -47,6 +48,7 @@ const getters = {
     },
     getActiveConversationObj:state=>state.activeConversationObj,
     getTotalUnread: state=>state.totalUnread,
+    getIsChatLocked: state=>state.chatLocked,
 };
 
 const mutations = {
@@ -99,6 +101,9 @@ const mutations = {
     updateTotalUnread:(state, val)=>{
         //val could be negative value
         state.totalUnread = state.totalUnread + val;
+    },
+    lockChat:(state)=>{
+        state.chatLocked = true;
     }
 };
 
@@ -226,8 +231,10 @@ const actions = {
     openChatInterface:({commit, dispatch})=>{
         commit('expandChat');
         dispatch('openChat');
+    },
+    lockChat:({commit})=>{
+        commit('lockChat');
     }
-    
 };
 export default {
     state,
