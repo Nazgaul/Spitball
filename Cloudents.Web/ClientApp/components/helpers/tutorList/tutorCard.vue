@@ -82,6 +82,7 @@
                     let currentConversationObj = {
                         userId: this.tutorData.userId,
                         userName: this.tutorData.name,
+                        userImage: this.tutorData.image,
                         conversationId: conversationObj ? conversationObj.conversationId : null
                     }
                     this.setActiveConversationObj(currentConversationObj);

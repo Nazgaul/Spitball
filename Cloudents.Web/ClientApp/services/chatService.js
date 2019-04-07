@@ -3,10 +3,11 @@ import { connectivityModule } from "./connectivity.module"
 function Conversation(objInit){
     this.userId = objInit.userId;
     this.name = objInit.name;
-    this.unread = objInit.unread;
-    this.online = objInit.online;
+    this.unread = objInit.unread || 0;
+    this.online = objInit.online || true;
     this.conversationId = objInit.conversationId;
     this.dateTime = objInit.dateTime || new Date().toISOString();
+    this.image = objInit.image
 }
 
 function createConversation(objInit){
@@ -46,7 +47,11 @@ function createServerMessageObj(objInit){
 
 const getAllConversations = () => {
     return connectivityModule.http.get(`Chat`);
-}   
+}  
+
+const getConversationById = (id) => {
+    return connectivityModule.http.get(`Chat/conversation/${id}`);
+}
 
 const getMessageById = (id) => {
     return connectivityModule.http.get(`Chat/${id}`);
@@ -62,10 +67,11 @@ const clearUnread = (otherUserId) => {
 
 export default {
     getAllConversations,
+    getConversationById,
     createConversation,
     getMessageById,
     createMessage,
     sendChatMessage,
     createServerMessageObj,
-    clearUnread
+    clearUnread,
 }

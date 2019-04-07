@@ -30,7 +30,8 @@ export default {
             let currentConversationObj = {
                 userId:conversation.userId,
                 conversationId: conversation.conversationId,
-                userName: conversation.name
+                userName: conversation.name,
+                userImage: conversation.image
             }
             this.setActiveConversationObj(currentConversationObj);
         }

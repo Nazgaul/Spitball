@@ -1,6 +1,6 @@
 <template>
     <div class="messages-container">
-        <div ml-2 class="avatar-container"><user-avatar :user-name="activeConversationObj.userName"/></div>
+        <div ml-2 class="avatar-container"><user-avatar :user-name="activeConversationObj.userName" :userImageUrl="activeConversationObj.userImage"/></div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
                 <span v-if="isTutor" @click="createRoom">Study Room</span>
