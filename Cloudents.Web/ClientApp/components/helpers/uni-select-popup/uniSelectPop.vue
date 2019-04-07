@@ -28,12 +28,10 @@ export default {
     methods:{
         ...mapActions([ 'changeSelectPopUpUniState', 'changeSelectUniState']),
         closePopup(){
-            //console.log(this.popUpType)
             this.$root.$emit('closePopUp', this.popUpType);
             this.changeSelectPopUpUniState(false);
         },
         openUniInterface(){
-            // this.changeSelectUniState(true);
             this.$router.push({
                         name:'uniselect',
                     });

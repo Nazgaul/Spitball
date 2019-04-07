@@ -176,23 +176,6 @@ let routes2 = [
             }
         }
     },
-    // {
-    //     path: "/uniselect/:step?",
-    //     name: "uniselect",
-    //     components: {
-    //         default: university,
-    //         header: pageHeader,
-    //         schoolBlock: schoolBlock,
-    //     },
-    //     props: {
-    //         default: (route) => ({
-    //             step: route.params.step
-    //         })
-    //     },
-    //     meta: {
-    //         requiresAuth: true
-    //     },
-    // },
     {
         path: "/courses/",
         name: "setCourse",

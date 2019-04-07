@@ -81,7 +81,7 @@
             },
             hideHeader(){
                 if(this.$vuetify.breakpoint.xsOnly){
-                    return this.$route.name === "uniselect" || !this.showMobileFeed;
+                    return this.$route.name === "university" || !this.showMobileFeed;
                 }else{
                     return false;
                 }

@@ -67,10 +67,7 @@
                 this.expanded = false;
             },
             openSetClasses(){
-                this.$router.push({
-                    name:'uniselect',
-                    params: {step: 'setClass'}
-                });
+              this.$router.push({name: 'addCourse'})
             }
         },
         computed: {

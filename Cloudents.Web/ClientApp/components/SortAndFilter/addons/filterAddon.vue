@@ -9,15 +9,7 @@ export default {
         ...mapActions(['updateCurrentStep', 'changeSelectUniState']),
         ...mapGetters(['getAllSteps']),
         openEditClass(){
-            let steps = this.getAllSteps();
-            // this.updateCurrentStep(steps.set_class);
-            // this.changeSelectUniState(true);
-            this.$router.push({
-            name:'uniselect',
-            params: {
-                step:steps.set_class
-            }
-        })
+           this.$router.push({name: 'addCourse'})
         },
         
     }
