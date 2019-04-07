@@ -147,7 +147,6 @@ namespace Cloudents.Web.Api
 
         [HttpGet("University")]
         public async Task<UniversityDto> GetUniversityAsync(
-            [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
             [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             CancellationToken token)
         {
@@ -155,10 +154,10 @@ namespace Cloudents.Web.Api
             {
                 return null;
             }
-            if (profile.University != null)
-            {
-                return new UniversityDto(profile.University.Id, profile.University.Name, profile.University.Country);
-            }
+            //if (profile.University != null)
+            //{
+            //    return new UniversityDto(profile.University.Id, profile.University.Name, profile.University.Country);
+            //}
             var query = new UniversityQuery(universityId.Value);
             return await _queryBus.QueryAsync(query, token);
         }

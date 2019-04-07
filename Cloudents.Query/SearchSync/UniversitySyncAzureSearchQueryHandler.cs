@@ -22,6 +22,8 @@ namespace Cloudents.Query.SearchSync
 	                            u.Extra as Extra,
 	                            u.Country as Country,
 u.State as State,
+ImageUrl as Image,
+UsersCount,
 	                            c.* 
                             From sb.[University] u  
                             right outer join CHANGETABLE (CHANGES sb.[University], :Version) AS c ON u.Id = c.id   
@@ -41,6 +43,8 @@ u.State as State,
 	                            u.Extra as Extra,
 	                            u.Country as Country,
 u.State as State,
+ImageUrl as Image,
+UsersCount,
 	                            c.* 
                             From sb.[University] u  
 

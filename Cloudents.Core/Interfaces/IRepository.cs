@@ -73,13 +73,13 @@ namespace Cloudents.Core.Interfaces
         Task<ChatRoom> GetChatRoomAsync(IList<long> usersId, CancellationToken token);
     }
 
-    public interface IUniversityRepository : IRepository<University>
-    {
-        [ItemCanBeNull]
-        Task<University> GetUniversityByNameAsync(string name,
-            CancellationToken token);
+    //public interface IUniversityRepository : IRepository<University>
+    //{
+    //    [ItemCanBeNull]
+    //    Task<University> GetUniversityByNameAsync(string name,
+    //        CancellationToken token);
 
-    }
+    //}
 
     public interface ITransactionRepository : IRepository<Transaction>
     {

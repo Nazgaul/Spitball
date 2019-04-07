@@ -11,6 +11,8 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Name).UniqueKey("uq_UniversityNameCountry");
             Map(x => x.Extra);
+            Map(x => x.UsersCount);
+            Map(x => x.Image).Column("ImageUrl");
             Map(x => x.Country).Not.Nullable().Length(2).UniqueKey("uq_UniversityNameCountry");
             Component(x => x.RowDetail);
 
@@ -25,7 +27,7 @@ namespace Cloudents.Persistence.Maps
             //    .ReadOnly()
             //    .Access.CamelCaseField(Prefix.Underscore).Cascade.None();
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
-            SchemaAction.None();
+            SchemaAction.Validate();
 
         }
     }

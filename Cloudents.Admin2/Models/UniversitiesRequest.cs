@@ -2,9 +2,9 @@
 
 namespace Cloudents.Admin2.Models
 {
-    public class CoursesRequest
+    public class UniversitiesRequest
     {
-        public string Language { get; set; }
+        public string Country { get; set; }
         public ItemState? State { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         private readonly IFictiveUserRepository _userRepository;
         private readonly IRepository<Question> _questionRepository;
-        private readonly IUniversityRepository _universityRepository;
+        private readonly IRepository<University> _universityRepository;
         private readonly ITextAnalysis _textAnalysis;
         private readonly IQuestionsDirectoryBlobProvider _blobProvider;
         private readonly ICourseRepository _courseRepository;
@@ -22,7 +22,7 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         public CreateQuestionCommandHandler(IFictiveUserRepository userRepository,
             IRepository<Question> questionRepository, ITextAnalysis textAnalysis,
-            IQuestionsDirectoryBlobProvider blobProvider, ICourseRepository courseRepository, IUniversityRepository universityRepository)
+            IQuestionsDirectoryBlobProvider blobProvider, ICourseRepository courseRepository, IRepository<University> universityRepository)
         {
             _userRepository = userRepository;
             _questionRepository = questionRepository;
@@ -42,7 +42,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
 
 
-            var university = await _universityRepository.GetUniversityByNameAsync(message.University, token);
+            var university = await _universityRepository.LoadAsync(message.University, token);
             if(university == null)
             {
                 throw new InvalidOperationException("we don't have Universities with the specified name");

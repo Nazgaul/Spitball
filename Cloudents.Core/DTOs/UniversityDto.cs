@@ -5,16 +5,24 @@ namespace Cloudents.Core.DTOs
 {
     public class UniversityDto
     {
-        public UniversityDto(Guid id, string name, string country)
+        public UniversityDto(Guid id, string name, string country, string image, int usersCount)
         {
             Id = id;
             Name = name;
             Country = country;
+            Image = image;
+            UsersCount = usersCount;
         }
 
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Country { get; set; }
+        public Guid Id { get;  }
+        public string Name { get; }
+        public string Country { get;  }
+
+        public string Image { get; }
+        public int UsersCount { get; }
+
+
+
     }
 
     public class UniversitySearchDto

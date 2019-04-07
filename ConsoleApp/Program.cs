@@ -25,6 +25,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cloudents.Query.Query;
+using Cloudents.Search.University;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -135,9 +136,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var c = _container.Resolve<IQueryBus>();
-            var query = new UserCoursesQuery(160347);
-            var z = await c.QueryAsync(query, default);
+            var c = await UpdateMethod();
             //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
             // await c.DispatchAsync(command2, default);
 
@@ -149,6 +148,12 @@ namespace ConsoleApp
             Console.WriteLine("done");
         }
 
+        private static async Task<UniversitySearchWrite> UpdateMethod()
+        {
+            var c = _container.Resolve<UniversitySearchWrite>();
+            await c.CreateOrUpdateAsync(default);
+            return c;
+        }
 
 
         private static async Task ReduWordProcessing()

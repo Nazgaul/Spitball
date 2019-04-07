@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
-    public class AssignUniversityRequest
+    public class CreateUniversityRequest
     {
         [StringLength(100, MinimumLength = 10, ErrorMessage = "StringLength")]
 
@@ -10,5 +11,11 @@ namespace Cloudents.Web.Models
         public string Name { get; set; }
 
         public string Country { get; set; }
+    }
+
+
+    public class AssignUniversityRequest
+    {
+        public Guid Id { get; set; }
     }
 }
