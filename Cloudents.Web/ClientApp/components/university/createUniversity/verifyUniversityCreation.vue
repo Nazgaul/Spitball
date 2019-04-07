@@ -52,7 +52,6 @@
            },
            closeDialog(){
                this.changeUniCreateDialogState(false);
-               // this.$root.$emit('courseDialogClosed', true);
            }
         },
     };

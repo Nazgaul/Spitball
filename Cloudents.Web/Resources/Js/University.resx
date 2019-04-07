@@ -120,8 +120,14 @@
   <data name="btn_create_university" xml:space="preserve">
     <value>Create University</value>
   </data>
+  <data name="cant_find" xml:space="preserve">
+    <value>Can't find your university ?</value>
+  </data>
   <data name="choose_title" xml:space="preserve">
     <value>Choose your university</value>
+  </data>
+  <data name="create_new" xml:space="preserve">
+    <value>Create new</value>
   </data>
   <data name="create_new_title" xml:space="preserve">
     <value>Create New University</value>
