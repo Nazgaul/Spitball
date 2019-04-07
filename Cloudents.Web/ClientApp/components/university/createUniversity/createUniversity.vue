@@ -36,7 +36,7 @@
         </v-layout>
         <v-layout align-center justify-center shrink class="pb-5 pt-4">
             <v-flex shrink class="text-xs-center">
-                <button @click="createNewCourse()" :disabled="!courseName"
+                <button @click="createNewUniversite()" :disabled="!universityName"
                         class="cursor-pointer create-btn min-width solid d-flex align-center justify-center py-2 px-3">
                     <span class="font-weight-bold text-uppercase btn-text" v-language:inner>university_btn_create_university</span>
                 </button>
@@ -53,7 +53,7 @@
         name: "createUniversity",
         data() {
             return {
-                courseName: '',
+                universityName: '',
                 btnLoad: false,
                 rules: {
                     required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
@@ -63,19 +63,19 @@
         },
         methods: {
             ...mapActions(['createUniversity', 'changeUniCreateDialogState', 'updateUniVerification']),
-            createNewCourse() {
+            createNewUniversite() {
                 let self = this;
-                let course = {name: self.universityName};
+                let universite = {name: self.universityName};
                 let classesSet = this.getClasses.length > 0;
                 //create new uni add action in store needed
-                self.createUniversity(course).then((success)=>{
+                self.createUniversity(universite).then((success)=>{
                      this.changeUniCreateDialogState(false);
                      classesSet ? this.$router.go(-1) : this.$router.push({name: 'editCourse'});
                 });
             },
             closeDialog(){
-                this.updateUniVerification(false)
-                this.changeCreateDialogState(false);
+                this.changeUniCreateDialogState(false);
+                this.updateUniVerification(false);
             }
         },
     };

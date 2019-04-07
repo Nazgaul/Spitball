@@ -1,7 +1,7 @@
 <template>
-    <v-card class="courses-card" :class="{'': $vuetify.breakpoint.xsOnly}">
+    <v-card class="uni-card" :class="{'': $vuetify.breakpoint.xsOnly}">
         <!--Main courses view-->
-        <router-view></router-view>
+        <router-view ></router-view>
         <!--Dialog with new cousre creation-->
         <sb-dialog :isPersistent="true"
                    :showDialog="getCreateDialogVisibility"
