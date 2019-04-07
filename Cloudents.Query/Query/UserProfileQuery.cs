@@ -37,8 +37,8 @@ namespace Cloudents.Query.Query
 select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description,
 t.price as price,
 u.online,
-(Select avg(rate) from sb.tutorReview where tutorId = t.UserId) as rate,
-(Select count(*) from sb.tutorReview where tutorId = t.UserId) as ReviewCount
+(Select avg(rate) from sb.tutorReview where tutorId = t.Id) as rate,
+(Select count(*) from sb.tutorReview where tutorId = t.Id) as ReviewCount
 from sb.[user] u 
 left join sb.[University] u2 on u.UniversityId2 = u2.Id
 left join sb.Tutor t
