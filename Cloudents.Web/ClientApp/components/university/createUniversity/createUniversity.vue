@@ -76,7 +76,11 @@
                     self.createUniversity(university).then((success)=>{
                         self.changeUniCreateDialogState(false);
                         classesSet ? self.$router.go(-1) : self.$router.push({name: 'editCourse'});
-                    });
+                    }, (error)=>{
+                        console.log('error create university', error)
+                    }).finally(()=>{
+                        console.log('done creation')
+                    })
                 }
 
             },
