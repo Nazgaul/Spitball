@@ -10,15 +10,17 @@
         </v-layout>
         <v-layout shrink align-center justify-center class="px-4 mt-4 mb-1">
             <v-flex xs12 sm12 md12 class="text-xs-center">
+                <v-form  ref="uniForm"  v-model="validUniForm">
                 <v-text-field v-model="universityName"
                               class="uni-input"
                               outline
                               prepend-inner-icon=""
                               :placeholder="newUniPlaceholder"
-                              :rules="[rules.required]"
+                              :rules="newUniRules"
                               autocomplete="off"
                               autofocus
                               spellcheck="true"></v-text-field>
+                </v-form>
             </v-flex>
         </v-layout>
         <v-layout align-start justify-start shrink column class="px-4">
@@ -55,23 +57,28 @@
             return {
                 universityName: '',
                 btnLoad: false,
-                rules: {
-                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
-                },
+                newUniRules: [
+                    v => !!v || LanguageService.getValueByKey("formErrors_required"),
+                    v => (v && v.length >= 10) || LanguageService.getValueByKey("formErrors_longer_10"),
+                ],
+                validUniForm: false,
                 newUniPlaceholder: LanguageService.getValueByKey("university_create_uni_placeholder")
             };
         },
         methods: {
             ...mapActions(['createUniversity', 'changeUniCreateDialogState', 'updateUniVerification']),
             createNewUniversite() {
-                let self = this;
-                let universite = {name: self.universityName};
-                let classesSet = this.getClasses.length > 0;
-                //create new uni add action in store needed
-                self.createUniversity(universite).then((success)=>{
-                     this.changeUniCreateDialogState(false);
-                     classesSet ? this.$router.go(-1) : this.$router.push({name: 'editCourse'});
-                });
+                if (this.$refs.uniForm.validate()) {
+                    let self = this;
+                    let university = self.universityName;
+                    let classesSet =  self.getClasses && self.getClasses.length > 0;
+                    //create new uni add action in store needed
+                    self.createUniversity(university).then((success)=>{
+                        self.changeUniCreateDialogState(false);
+                        classesSet ? self.$router.go(-1) : self.$router.push({name: 'editCourse'});
+                    });
+                }
+
             },
             closeDialog(){
                 this.changeUniCreateDialogState(false);

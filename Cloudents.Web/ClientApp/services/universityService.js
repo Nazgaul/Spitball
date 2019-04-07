@@ -6,12 +6,14 @@ function University(objInit) {
         this.id = "";
         this.country = "";
         this.text = "";
+        this.students = "";
+        this.image = "";
     } else {
         this.id = objInit.id;
         this.country = objInit.country;
         this.text = objInit.name;
-        this.students = objInit.students || 0;
-        this.image = objInit.image || '/image/ClVodHRwczovL3NwaXRiYWxsZGV2LmJsb2IuY29yZS53aW5kb3dzLm5ldC9zcGl0YmFsbC11c2VyL3Byb2ZpbGUvMTYwMzM2LzE1NTM2OTk0NjMucG5nEAA?&amp;width=32&amp;height=32&amp;mode=crop';
+        this.students = objInit.usersCount || 0;
+        this.image = objInit.image || '';
     }
 }
 function Course(objInit) {
@@ -45,9 +47,9 @@ const getUni = (val) => {
 
 const assaignUniversity = (uniName) => {
     let university = {
-        name: uniName
+        id: uniName
     };
-    return connectivityModule.http.post("University/assign", university).then(() => {
+    return connectivityModule.http.post("University/set", university).then(() => {
         return true;
     }, (err) => {
         return Promise.reject(err);
@@ -62,7 +64,6 @@ const getCourse = (val) => {
             data.courses.forEach((course) => {
                 result.push(new Course(course));
             });
-            // result.push(new addClassObj());
         }
         return result;
     }, (err) => {
@@ -117,6 +118,16 @@ const createCourse = (course) => {
         return new Course(createdCourse);
     });
 };
+const createUni = (uni) => {
+    return connectivityModule.http.post("university/create", {name: uni}).then((resp) => {
+        // return resp
+        // let createdUniversity ={
+        //     name: resp.data.name,
+        // };
+        return uni
+    });
+};
+
 const teachCourse = (course) => {
     return connectivityModule.http.post("course/teach", {name: course}).then((resp) => {
         return resp
@@ -132,5 +143,6 @@ export default {
     getProfileCourses,
     deleteCourse,
     createCourse,
+    createUni,
     teachCourse,
 };

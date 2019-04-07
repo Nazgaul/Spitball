@@ -91,8 +91,14 @@ const actions = {
         universityService.createCourse(courseToCreate).then((course) => {
             dispatch('pushClassToSelectedClasses', course);
         });
-
     },
+
+    createUniversity({commit, dispatch}, uniTocreate) {
+        universityService.createUni(uniTocreate).then((uni) => {
+            commit('setSchoolName', uni);
+        });
+    },
+
 
     changeReflectChangeToPage({commit}) {
         commit('setReflectChangeToPage');
@@ -103,8 +109,10 @@ const actions = {
     },
     updateSchoolName({commit, dispatch}, val) {
         if(!val) return;
-        return universityService.assaignUniversity(val).then(() => {
-            commit('setSchoolName', val);
+        let uniId = val.id;
+        let uniName = val.name;
+        return universityService.assaignUniversity(uniId).then(() => {
+            commit('setSchoolName', uniName);
             //update profile data with new university
             let currentProfID = this.getters.accountUser.id;
 

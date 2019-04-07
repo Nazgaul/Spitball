@@ -38,12 +38,15 @@
                 <div class="university-list">
                     <div class="list-item subheading cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleUni in universities"
-                         @click="selectUniversity(singleUni.text)">
+                         @click="selectUniversity(singleUni)">
                         <v-layout shrink>
                             <v-flex xs1 sm1 md1>
-                                <span>
-                                    <img :src="singleUni.image" alt="university logo" class="rounded">
+                                <span class="uni-logo">
+                                    <img v-if="singleUni.image" :src="singleUni.image" alt="university logo" class="rounded uni-img">
                                     <!--<v-icon class="checked-icon">sbf-check-circle</v-icon>-->
+                                    <span v-else>
+                                    <empty-uni-logo></empty-uni-logo>
+                                    </span>
                                 </span>
                             </v-flex>
                         </v-layout>
@@ -77,8 +80,10 @@
     import { mapActions, mapGetters } from 'vuex';
     import debounce from "lodash/debounce";
     import { LanguageService } from "../../../services/language/languageService";
+    import emptyUniLogo from '../images/empty-uni-logo.svg';
 
     export default {
+        components: {emptyUniLogo},
         data() {
             return {
                 universityModel: '',
@@ -90,7 +95,6 @@
         },
         watch: {
             search: debounce(function () {
-                console.log("here");
                 if(!!this.search) {
                     let searchVal = this.search.trim();
                     if(searchVal.length >= 2) {
@@ -139,7 +143,7 @@
                 this.clearUniversityList();
             },
             openCreateUniDialog() {
-               this.changeUniCreateDialogState(true);
+                this.changeUniCreateDialogState(true);
             },
             getOut() {
                 let classesSet = this.getClasses.length > 0;
@@ -157,15 +161,20 @@
                     return previousSchoolName.toLowerCase() !== currentSchoolName.toLowerCase();
                 }
             },
-            selectUniversity(universityName) {
-                let schoolName = universityName ? universityName : '';
+            selectUniversity(university) {
+                let schoolName = university.text ? university.text : '';
+                let uniId = university.id;
                 if(!schoolName) {
                     return;
                 }
+                let objToSend = {
+                    name: schoolName,
+                    id: uniId
+                };
                 // check if changed
-                if(this.checkBeforeNextStep(universityName)) {
+                if(this.checkBeforeNextStep(schoolName)) {
                     //new if changed
-                    this.updateSchoolName(schoolName)
+                    this.updateSchoolName(objToSend)
                         .then((success) => {
                                   this.getOut();
                               },
@@ -179,6 +188,9 @@
                 }
 
             },
+        },
+        created(){
+            this.updateUniversities('');
         },
         filters: {
             boldText(value, search) {
@@ -196,7 +208,6 @@
                 } else {
                     return value;
                 }
-
             }
         },
 
@@ -214,6 +225,17 @@
             border-radius: 50%;
             width: 42px;
             height: 42px;
+        }
+        .uni-logo {
+            border: 1px solid rgb(221, 221, 221);
+            background-color: rgb(240, 240, 247);
+            height: 42px;
+            width: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+
         }
         .v-input__slot {
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17) !important;
