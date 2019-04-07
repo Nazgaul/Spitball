@@ -53,11 +53,11 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-        [HttpGet("conversation/{id}")]
-        public async Task<ChatUserDto> GetConversation(Guid Id, CancellationToken token)
+        [HttpGet("conversation/{id:guid}")]
+        public async Task<ChatUserDto> GetConversation(Guid id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var result = await _queryBus.QueryAsync(new ChatConversationQuery(Id, userId), token);
+            var result = await _queryBus.QueryAsync(new ChatConversationQuery(id, userId), token);
             return result;
         }
 
