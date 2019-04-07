@@ -1,0 +1,278 @@
+<template>
+    <div class="add-university-wrap">
+        <v-layout row :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2']" align-center
+                  justify-center>
+            <v-flex grow xs10>
+                <div class="d-inline-flex justify-center shrink">
+                    <span class="subheading font-weight-bold">Choose your university</span>
+                </div>
+
+            </v-flex>
+            <v-flex xs2 shrink class="d-flex justify-end">
+                <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0" @click="getOut()">
+                    <span class="text-capitalize">I'm not a student</span>
+                </v-btn>
+            </v-flex>
+        </v-layout>
+        <v-layout column :class="{'px-3' : $vuetify.breakpoint.smAndUp}">
+            <v-flex>
+                <v-text-field id="university-input"
+                              v-model="university"
+                              @input="updateSearch($event)"
+                              class="uni-input"
+                              ref="universityInput"
+                              solo
+                              prepend-inner-icon="sbf-search"
+                              :placeholder="schoolNamePlaceholder"
+                              :clear-icon="'sbf-close'"
+                              @click:clear="clearData(search, university)"
+                              autocomplete="off"
+                              autofocus
+                              spellcheck="true"
+                              hide-details
+                ></v-text-field>
+            </v-flex>
+        </v-layout>
+        <v-layout align-center :class="[$vuetify.breakpoint.smAndUp ? 'px-2 mt-3': '']">
+            <v-flex v-if="showBox">
+                <div class="university-list">
+                    <div class="list-item subheading cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
+                         v-for="singleUni in universities"
+                         @click="selectUniversity(singleUni.text)">
+                        <v-layout shrink>
+                            <v-flex xs1 sm1 md1>
+                                <span>
+                                    <img :src="singleUni.image" alt="university logo" class="rounded">
+                                    <!--<v-icon class="checked-icon">sbf-check-circle</v-icon>-->
+                                </span>
+                            </v-flex>
+                        </v-layout>
+                        <v-layout column class="pl-3 limit-width">
+                            <v-flex shrink class="text-truncate ">
+                                <div v-html="$options.filters.boldText(singleUni.text, search)">
+                                    {{ singleUni.text }}
+                                </div>
+                            </v-flex>
+                            <v-flex class="students-enrolled pt-1">
+                                {{singleUni.students}}
+                                <span class="students-enrolled" v-language:inner>courses_students</span>
+                            </v-flex>
+                        </v-layout>
+                    </div>
+                    <!--create new University-->
+                    <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
+                            @click.prevent="openCreateUniDialog()">
+                        <span v-language:inner>university_cant_find</span>
+                        <span class="add-item" v-language:inner>university_create_new</span>
+                    </v-flex>
+                </div>
+            </v-flex>
+        </v-layout>
+
+    </div>
+</template>
+
+
+<script>
+    import { mapActions, mapGetters } from 'vuex';
+    import debounce from "lodash/debounce";
+    import { LanguageService } from "../../../services/language/languageService";
+
+    export default {
+        data() {
+            return {
+                universityModel: '',
+                search: '',
+                schoolNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_school_name_placeholder'),
+                globalHeight: global.innerHeight,
+                isRtl: global.isRtl
+            };
+        },
+        watch: {
+            search: debounce(function () {
+                console.log("here");
+                if(!!this.search) {
+                    let searchVal = this.search.trim();
+                    if(searchVal.length >= 2) {
+                        this.updateUniversities(searchVal);
+                    }
+                }
+                if(this.search === "") {
+                    this.clearData();
+                }
+            }, 500)
+        },
+        computed: {
+            ...mapGetters(["getUniversities", "getSchoolName", "accountUser", "getClasses"]),
+            dropDownAlphaHeight() {
+                return Math.min(this.globalHeight - 470, 300);
+            },
+            showBox() {
+                if(this.search && this.search.length > 0) {
+                    return true;
+                }
+            },
+            universities() {
+                return this.getUniversities;
+            },
+            university: {
+                get: function () {
+                    let schoolNameFromStore = this.getSchoolName;
+                    return schoolNameFromStore || this.universityModel;
+                },
+                set: function (newValue) {
+                    this.universityModel = newValue;
+                }
+            }
+        },
+
+        methods: {
+            ...mapActions([
+                              "updateUniversities",
+                              "clearUniversityList",
+                              "updateSchoolName",
+                              "changeUniCreateDialogState"
+                          ]),
+            clearData(search, university) {
+                search = '';
+                university = undefined;
+                this.clearUniversityList();
+            },
+            openCreateUniDialog() {
+               this.changeUniCreateDialogState(true);
+            },
+            getOut() {
+                let classesSet = this.getClasses.length > 0;
+                classesSet ? this.$router.go(-1) : this.$router.push({name: 'editCourse'});
+            },
+            updateSearch(val) {
+                this.search = val;
+            },
+            checkBeforeNextStep(universityName) {
+                let user = this.accountUser;
+                if(!!user && user.universityExists) {
+                    //compare previous and current school name, if different show popup
+                    let previousSchoolName = this.getSchoolName;
+                    let currentSchoolName = universityName;
+                    return previousSchoolName.toLowerCase() !== currentSchoolName.toLowerCase();
+                }
+            },
+            selectUniversity(universityName) {
+                let schoolName = universityName ? universityName : '';
+                if(!schoolName) {
+                    return;
+                }
+                // check if changed
+                if(this.checkBeforeNextStep(universityName)) {
+                    //new if changed
+                    this.updateSchoolName(schoolName)
+                        .then((success) => {
+                                  this.getOut();
+                              },
+                              (error) => {
+                                  console.log('error', error);
+                              }
+                        );
+                } else {
+                    //skip if not
+                    this.getOut();
+                }
+
+            },
+        },
+        filters: {
+            boldText(value, search) {
+                let match;
+                //mark the text bold according to the search value
+                if(!value) return '';
+                if(!!search) {
+                    match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
+                }
+                if(match) {
+                    let startIndex = value.toLowerCase().indexOf(search.toLowerCase());
+                    let endIndex = search.length;
+                    let word = value.substr(startIndex, endIndex);
+                    return value.replace(word, '<b>' + word + '</b>');
+                } else {
+                    return value;
+                }
+
+            }
+        },
+
+
+    };
+</script>
+
+
+<style lang="less">
+    @import '../../../styles/mixin.less';
+
+    .add-university-wrap {
+        .scrollBarStyle(0px, #0085D1);
+        .rounded {
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+        }
+        .v-input__slot {
+            box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17) !important;
+        }
+        .grey-backgound {
+            background-color: #f0f0f7;
+        }
+        .light-purple {
+            color: @purpleLight;
+        }
+        .cursor-pointer {
+            cursor: pointer;
+        }
+        .checked-icon {
+            font-size: 28px;
+            color: @purpleLight;
+        }
+        .add-sbf-icon {
+            color: @purpleLight;
+            font-size: 28px;
+        }
+        .done-btn {
+            color: @colorBlue;
+            border-radius: 16px;
+            border: solid 1px @colorBlue;
+            background-color: transparent !important;
+            min-width: 160px;
+        }
+        .university-list {
+            background-color: #ffffff;
+            max-height: 664px;
+            padding-left: 0;
+            overflow-y: scroll;
+        }
+        .students-enrolled {
+            color: rgba(128, 128, 128, 0.87);
+            font-size: 10px;
+        }
+        .list-item {
+            color: inherit;
+            display: flex;
+            margin: 0;
+            border-bottom: solid 1px #f0f0f7;
+            text-decoration: none;
+            transition: background .3s cubic-bezier(.25, .8, .5, 1);
+        }
+        .cant-find {
+            display: flex;
+            margin: 0;
+            min-height: 48px;
+        }
+        .add-item {
+            color: @colorBlue;
+        }
+        .sbf-close {
+            font-size: 8px !important;
+            margin-bottom: 3px;
+            margin-left: 8px;
+        }
+    }
+
+</style>

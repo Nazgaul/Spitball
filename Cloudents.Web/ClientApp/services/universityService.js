@@ -10,19 +10,10 @@ function University(objInit) {
         this.id = objInit.id;
         this.country = objInit.country;
         this.text = objInit.name;
+        this.students = objInit.students || 0;
+        this.image = objInit.image || '/image/ClVodHRwczovL3NwaXRiYWxsZGV2LmJsb2IuY29yZS53aW5kb3dzLm5ldC9zcGl0YmFsbC11c2VyL3Byb2ZpbGUvMTYwMzM2LzE1NTM2OTk0NjMucG5nEAA?&amp;width=32&amp;height=32&amp;mode=crop';
     }
 }
-
-function AddUniversityObj() {
-    this.text = LanguageService.getValueByKey("uniSelect_didnt_find_university");
-    this.helper = true;
-}
-
-// function addClassObj(){
-//     this.text = LanguageService.getValueByKey("uniSelect_didnt_find_class");
-//     this.helper = true;
-// }
-
 function Course(objInit) {
     this.text = objInit.name;
     this.isFollowing = objInit.isFollowing || false;
@@ -45,9 +36,7 @@ const getUni = (val) => {
             data.universities.forEach((uni) => {
                 result.push(new University(uni));
             });
-            result.push(new AddUniversityObj());
         }
-        console.log(data);
         return result;
     }, (err) => {
         return Promise.reject(err);

@@ -22,10 +22,18 @@ const wallet = () => import("./components/wallet/wallet.vue");
 const newProfile = () => import("./components/new_profile/new_profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
 const login = () => import("./components/new_registration/login.vue");
-const university = () => import("./components/helpers/uni-select/uniSelect.vue");
+// const university = () => import("./components/helpers/uni-select/uniSelect.vue");
+
+// course section
 const setCourse = () => import("./components/courses/courses.vue");
 const addCourse = () => import("./components/courses/addCourses/addCourses.vue");
 const editCourse = () => import("./components/courses/editCourses/editCourses.vue");
+/*
+ new uni section
+*/
+const setUniversity = () => import("./components/university/university.vue");
+const addUniversity = () => import("./components/university/addUniversity/addUniversity.vue");
+
 const tutorComponent = () => import("./components/tutor/tutor.vue");
 
 function dynamicPropsFn(route) {
@@ -170,23 +178,23 @@ let routes2 = [
             }
         }
     },
-    {
-        path: "/uniselect/:step?",
-        name: "uniselect",
-        components: {
-            default: university,
-            header: pageHeader,
-            schoolBlock: schoolBlock,
-        },
-        props: {
-            default: (route) => ({
-                step: route.params.step
-            })
-        },
-        meta: {
-            requiresAuth: true
-        },
-    },
+    // {
+    //     path: "/uniselect/:step?",
+    //     name: "uniselect",
+    //     components: {
+    //         default: university,
+    //         header: pageHeader,
+    //         schoolBlock: schoolBlock,
+    //     },
+    //     props: {
+    //         default: (route) => ({
+    //             step: route.params.step
+    //         })
+    //     },
+    //     meta: {
+    //         requiresAuth: true
+    //     },
+    // },
     {
         path: "/courses/",
         name: "setCourse",
@@ -230,25 +238,20 @@ let routes2 = [
         children: [
             {
                 path: '',
-                redirect: 'edit',
+                redirect: 'add',
             },
             {
                 path: 'add',
-                name: 'addCourse',
-                component: addCourse
-            },
-            {
-                path: 'edit',
-                name: 'editCourse',
-                component: editCourse
+                name: 'addUniversity',
+                component: addUniversity
             },
             {
                 path: '*',
-                redirect: 'edit',
+                redirect: 'add',
             },
         ],
         components: {
-            default: setCourse,
+            default: setUniversity,
             header: pageHeader,
             schoolBlock: schoolBlock,
         },

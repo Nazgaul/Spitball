@@ -28,14 +28,6 @@
                     :background-color="'rgba( 255, 255, 255, 1)'"
             >
                 <template slot="no-data">
-                    <!-- <v-list-tile v-show="showBox">
-                        <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
-                    </v-list-tile>
-                    <v-list-tile>
-                        <div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark"
-                             v-language:inner>uniSelect_show_all_schools
-                        </div>
-                    </v-list-tile> -->
                     <v-list-tile>
                         <div style="cursor:pointer;" @click="addManualUniversity()" class="subheading dark"
                              v-language:inner>uniSelect_didnt_find_university
@@ -88,7 +80,6 @@
         },
         watch: {
             search: debounce(function () {
-                console.log("here");
                 if (!!this.search) {
                     let searchVal = this.search.trim();
                     if (searchVal.length >= 2) {
@@ -133,10 +124,7 @@
                     event.preventDefault();
                 }
             },
-            //getAllUniversities() {
-            //    //leave space
-            //    this.updateUniversities(' ');
-            //},
+
             skipUniSelect() {
                 this.fnMethods.openNoWorriesPopup();
             },

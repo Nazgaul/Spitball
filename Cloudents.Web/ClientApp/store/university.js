@@ -29,6 +29,8 @@ const state = {
     showSchoolBlock: global.innerWidth > 599 ? true : false,
     createDialog: false,
     creationVerified: false,
+    createUniDialog: false,
+    uniCreationVerified: false,
 
 };
 
@@ -48,7 +50,9 @@ const getters = {
     getReflectChangeToPage: state => state.reflectChangeToPage,
     getShowSchoolBlock: state => state.showSchoolBlock,
     createDialogVisibility: state => state.createDialog,
-    creationVerified: state => state.creationVerified
+    creationVerified: state => state.creationVerified,
+    getCreateDialogVisibility: state => state.createUniDialog,
+    uniCreationVerified: state => state.uniCreationVerified
 };
 
 const actions = {
@@ -93,31 +97,7 @@ const actions = {
     changeReflectChangeToPage({commit}) {
         commit('setReflectChangeToPage');
     },
-    changeSelectUniState({commit, dispatch, getters, rootState}, val) {
-        return; //DEPRECATED using route now!
-        if(!val) {
-            dispatch('changeClassesToCachedClasses');
-            //if(state.selectForTheFirstTime){
-            //after register should open the tour on the correct page
-            //dispatch('updateSelectForTheFirstTime', false);
-            let VerticalName = getters.getCurrentVertical;
-            if(VerticalName === "note") {
-                //invokes the watch on the app.vue file
-                dispatch('StudyDocuments_updateDataLoaded', false);
-                setTimeout(() => {
-                    dispatch('StudyDocuments_updateDataLoaded', true);
-                });
-            } else if(VerticalName === "ask") {
-                //invokes the watch on the app.vue file
-                dispatch('HomeworkHelp_updateDataLoaded', false);
-                setTimeout(() => {
-                    dispatch('HomeworkHelp_updateDataLoaded', true);
-                });
-            }
-            //}
-        }
-        commit('setSelectUniState', val);
-    },
+
     changeSelectPopUpUniState({commit}, val) {
         commit('setSelectPopUpUniState', val);
     },
@@ -225,17 +205,33 @@ const actions = {
     },
     updateVerification({commit, state}, val) {
         commit('verifyCreation', val);
+    },
+    changeUniCreateDialogState({commit, state}, val) {
+        commit('updateUniCreateDialogState', val);
+    },
+    updateUniVerification({commit, state}, val) {
+        commit('verifyUniCreation', val);
 
     },
+
 };
 
 const mutations = {
+    //uni create dialog mutations
+    verifyUniCreation(state, val) {
+        state.uniCreationVerified = val;
+    },
+    updateUniCreateDialogState(state, val) {
+        state.createUniDialog = val;
+    },
+    //course create dialog mutations
     verifyCreation(state, val) {
         state.creationVerified = val;
     },
     updateCreateDialogState(state, val) {
         state.createDialog = val;
     },
+    //end dialogs mutations
     deleteCourse(state, val) {
         let index = state.selectedClasses.indexOf(val);
         state.selectedClasses.splice(index, 1);
