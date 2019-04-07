@@ -24,7 +24,7 @@ namespace Cloudents.Query.SearchSync
             _repository = repository;
         }
 
-        const string FirstQuery = @"with cte as (
+        private const string FirstQuery = @"with cte as (
 select q.Id as QuestionId,
                            q.Language as Language,
                            u.Country as Country,
@@ -49,7 +49,7 @@ From sb.[Question] q
                            join sb.[User] u 
                            On u.Id = q.UserId
 left join sb.University uni on uni.Id = q.UniversityId
-left join sb.Course2 c2 on q.CourseId2 = c2.Id
+left join sb.Course c2 on q.CourseId = c2.Name
                            Order by q.Id  
                            OFFSET @PageSize * @PageNumber 
                             ROWS FETCH NEXT @PageSize ROWS ONLY
@@ -59,7 +59,7 @@ select * from
 cte
 CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c;";
 
-        const string VersionSql = @"select q.Id as QuestionId,
+        private const string VersionSql = @"select q.Id as QuestionId,
 	    q.Language as Language,
 	    u.Country as Country,
 	    (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
@@ -84,8 +84,7 @@ join sb.[User] u
 	On u.Id = q.UserId
 left join sb.University uni 
 	on uni.Id = q.UniversityId
-left join sb.Course2 C2
-        on q.CourseId2 = C2.Id
+left join sb.Course c2 on q.CourseId = c2.Name
 Order by q.Id 
 OFFSET @PageSize * @PageNumber 
 ROWS FETCH NEXT @PageSize ROWS ONLY";
