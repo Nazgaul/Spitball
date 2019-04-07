@@ -35,14 +35,28 @@ namespace Cloudents.Query.Tutor
                 
                 using (var conn = _repository.OpenConnection())
                 {
-                    
-                    var result = await conn.QueryFirstOrDefaultAsync<StudyRoomDto>(@"Select onlineDocumentUrl as OnlineDocument 
+                    using (var grid =await conn.QueryMultipleAsync(@"Select onlineDocumentUrl as OnlineDocument 
 from sb.StudyRoom
 cross apply STRING_SPLIT(identifier,'_')
 where id = @Id
-and value = @UserId", new { query.Id, query.UserId });
+and value = @UserId;
+Select id from sb.ChatRoom
+cross apply STRING_SPLIT(identifier,'_')
+where id = @Id
+and value = @UserId", new {query.Id, query.UserId}))
+                    {
+                        var documentUrl = await grid.ReadFirstOrDefaultAsync<string>();
+                        var chatRoomId = await grid.ReadFirstOrDefaultAsync<Guid>();
 
-                    return result;
+                        var result = new StudyRoomDto
+                        {
+                            ConversationId = chatRoomId,
+                            OnlineDocument = documentUrl
+                        };
+                        return result;
+
+                    }
+                
                 }
                 
             }
