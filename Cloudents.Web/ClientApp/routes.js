@@ -223,11 +223,6 @@ let routes2 = [
             header: pageHeader,
             schoolBlock: schoolBlock,
         },
-        props: {
-            default: (route) => ({
-                step: route.params.step
-            })
-        },
         meta: {
             requiresAuth: true
         },
@@ -254,11 +249,6 @@ let routes2 = [
             default: setUniversity,
             header: pageHeader,
             schoolBlock: schoolBlock,
-        },
-        props: {
-            default: (route) => ({
-                step: route.params.step
-            })
         },
         meta: {
             requiresAuth: true

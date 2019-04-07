@@ -20,7 +20,6 @@
                               v-model="university"
                               @input="updateSearch($event)"
                               class="uni-input"
-                              ref="universityInput"
                               solo
                               prepend-inner-icon="sbf-search"
                               :placeholder="schoolNamePlaceholder"
@@ -190,7 +189,7 @@
             },
         },
         created(){
-            this.updateUniversities('');
+            this.updateUniversities(' ');
         },
         filters: {
             boldText(value, search) {

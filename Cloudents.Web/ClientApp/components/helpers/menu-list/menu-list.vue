@@ -291,7 +291,7 @@
                     let steps = this.getAllSteps();
                     this.updateCurrentStep(steps.set_school);
                     // this.changeSelectUniState(true);
-                    this.$router.push({name: 'addUniversity'})
+                    this.$router.push({name: 'addUniversity'});
                     this.$root.$emit("closeDrawer");
                 }
             },

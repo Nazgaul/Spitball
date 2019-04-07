@@ -39,7 +39,7 @@
             ...mapActions(["updateClasses", "updateUniVerification"]),
         },
         created() {
-                    console.log('uni created!!!!!!')
+              console.log('uni created!!!!!!')
         }
     };
 </script>
