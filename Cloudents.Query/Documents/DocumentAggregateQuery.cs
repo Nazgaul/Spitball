@@ -16,16 +16,16 @@ namespace Cloudents.Query.Documents
         public int Page { get; private set; }
 
 
-        internal sealed class DocumentAggregateQueryHandler : BaseDocumentQueryHandler, IQueryHandler<DocumentAggregateQuery, IList<DocumentFeedDto>>
+        internal sealed class DocumentAggregateQueryHandler :  IQueryHandler<DocumentAggregateQuery, IList<DocumentFeedDto>>
         {
-            public DocumentAggregateQueryHandler(QuerySession session) : base(session)
+
+            private readonly DapperRepository _dapperRepository;
+
+            public DocumentAggregateQueryHandler(DapperRepository dapperRepository)
             {
+                _dapperRepository = dapperRepository;
             }
 
-            protected override bool Filter(Document w)
-            {
-                throw new System.NotImplementedException();
-            }
 
             public async Task<IList<DocumentFeedDto>> GetAsync(DocumentAggregateQuery query, CancellationToken token)
             {

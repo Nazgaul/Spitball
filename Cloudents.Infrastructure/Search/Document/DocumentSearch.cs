@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Search.Document
             {
                 if (dic.TryGetValue(resultResult.Id, out var p))
                 {
-                    p.Source = "Cloudents";
+                    //p.Source = "Cloudents";
                     retVal.Add(p);
                 }
 

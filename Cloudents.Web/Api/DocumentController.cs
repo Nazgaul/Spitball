@@ -16,6 +16,7 @@ using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Framework;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
@@ -30,7 +31,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Framework;
+using Cloudents.Web.Swagger;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
@@ -148,23 +149,34 @@ namespace Cloudents.Web.Api
 
 
         [HttpGet]
-        public async Task<string> All()
+        public async Task<string> AllAsync()
         {
             return "All";
         }
 
         [HttpGet, IgnoreFromQueryActionConstraint("term")]
-        public async Task<string> Course(
+        public async Task<string> SpecificCourseAsync(
             [RequiredFromQuery] string course)
         {
             return "Course" + course;
         }
 
         [HttpGet]
-        public async Task<string> Search(
-            [RequiredFromQuery] string term, string course)
+        public async Task<string> SearchInClassAsync(
+            [RequiredFromQuery] string term,
+            [RequiredFromQuery] string course,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId)
         {
-            return "Search" + term;
+            return "Search Class" + term;
+        }
+
+        [HttpGet, IgnoreFromQueryActionConstraint("course")]
+        public async Task<string> SearchInSpitballAsync(
+            [RequiredFromQuery] string term,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId)
+        {
+            //TODO need courses
+            return "Search spitball" + term;
         }
 
         /// <summary>
@@ -174,7 +186,7 @@ namespace Cloudents.Web.Api
         /// <param name="searchProvider"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet("{se}",Name = "DocumentSearch"), AllowAnonymous]
+        [HttpGet("{se}", Name = "DocumentSearch"), AllowAnonymous]
         //TODO:We have issue in here because of changing course we need to invalidate the query.
         //[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync(
