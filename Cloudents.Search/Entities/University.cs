@@ -32,7 +32,7 @@ namespace Cloudents.Search.Entities
 
         public string Image { get; set; }
         [IsSortable, JsonProperty(UserCountFieldName)]
-        public int UsersCount { get; set; }
+        public int? UsersCount { get; set; }
 
     }
 }

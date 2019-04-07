@@ -73,7 +73,7 @@ namespace Cloudents.Search.University
         private static UniversityDto ToDto(Entities.University university)
         {
             return new UniversityDto(Guid.Parse(university.Id), university.DisplayName, university.Country,
-                university.Image, university.UsersCount);
+                university.Image, university.UsersCount.GetValueOrDefault());
         }
     }
 }
