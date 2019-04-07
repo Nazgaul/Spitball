@@ -106,7 +106,7 @@
             }, 500)
         },
         computed: {
-            ...mapGetters(["getUniversities", "getSchoolName", "accountUser", "getClasses"]),
+            ...mapGetters(["getUniversities", "getSchoolName", "accountUser", "getSelectedClasses"]),
             dropDownAlphaHeight() {
                 return Math.min(this.globalHeight - 470, 300);
             },
@@ -145,7 +145,7 @@
                 this.changeUniCreateDialogState(true);
             },
             getOut() {
-                let classesSet = this.getClasses.length > 0;
+                let classesSet = this.getSelectedClasses && this.getSelectedClasses.length > 0;
                 classesSet ? this.$router.go(-1) : this.$router.push({name: 'editCourse'});
             },
             updateSearch(val) {
