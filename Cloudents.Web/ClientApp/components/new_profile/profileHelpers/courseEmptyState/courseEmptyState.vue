@@ -33,10 +33,7 @@
         name: "courseEmptyState",
         methods: {
             openUniInterface(){
-                this.$router.push({
-                    name:'uniselect',
-                    params: {step: 'setClass'}
-                });
+                this.$router.push({name: 'addCourse'})
             }
         },
 

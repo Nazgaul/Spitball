@@ -67,10 +67,7 @@
                 let self = this;
                 //show selectUni interface
                 self.updateSelectForTheFirstTime(true);
-               
-               
-                this.$router.push({name:'uniselect'})
-                // this.$router.push({path: `${url.path }`});
+                this.$router.push({name:'addUniversity'})
             },
         },
     }

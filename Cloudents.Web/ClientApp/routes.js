@@ -18,11 +18,9 @@ const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const wallet = () => import("./components/wallet/wallet.vue");
-// const viewProfile = () => import("./components/profile/profile.vue");
 const newProfile = () => import("./components/new_profile/new_profile.vue");
-const profilePageHeader = () => import("./components/profile/header/header.vue");
+const profilePageHeader = () => import("./components/new_profile/header/header.vue");
 const login = () => import("./components/new_registration/login.vue");
-// const university = () => import("./components/helpers/uni-select/uniSelect.vue");
 
 // course section
 const setCourse = () => import("./components/courses/courses.vue");
@@ -178,23 +176,6 @@ let routes2 = [
             }
         }
     },
-    // {
-    //     path: "/uniselect/:step?",
-    //     name: "uniselect",
-    //     components: {
-    //         default: university,
-    //         header: pageHeader,
-    //         schoolBlock: schoolBlock,
-    //     },
-    //     props: {
-    //         default: (route) => ({
-    //             step: route.params.step
-    //         })
-    //     },
-    //     meta: {
-    //         requiresAuth: true
-    //     },
-    // },
     {
         path: "/courses/",
         name: "setCourse",

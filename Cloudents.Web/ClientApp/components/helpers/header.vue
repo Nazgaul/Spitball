@@ -133,7 +133,6 @@
                 'unreadMessages',
                 'getShowToaster',
                 'getToasterText',
-                'getShowSelectUniInterface',
                 'showMobileFeed',
                 'getTotalUnread'
             ]),
@@ -155,7 +154,7 @@
                 if(this.$vuetify.breakpoint.xsOnly){
                     let matchedCoursesRoute = this.$route.name === 'courses' || this.$route.name === 'addCourse' || this.$route.name === 'editCourse';
                     let matchedUniRoute = this.$route.name === 'university' || this.$route.name === 'addUniversity';
-                    return this.$route.name === "uniselect" || matchedCoursesRoute || matchedUniRoute || !this.showMobileFeed;
+                    return  matchedCoursesRoute || matchedUniRoute || !this.showMobileFeed;
                 }else{
                     return false;
                 }

@@ -6,22 +6,7 @@ const state = {
     schoolName: '',
     selectedClasses: [],
     selectedClassesCache: [],
-    showSelectUniInterface: false,
     showSelectUniPopUpInterface: false,
-    currentStep: 'SetSchoolLanding',
-    stepsEnum: {
-        set_school_landing: 'SetSchoolLanding',
-        set_school: 'SetSchool',
-        set_class: 'SetClass',
-        done: 'done'
-    },
-    stepArr: [
-        'SetSchoolLanding', 'SetSchool', 'SetClass', 'done'
-    ],
-    universityPopStorage: {
-        session: !!window.sessionStorage.getItem('sb_uniSelectPoped_s'), //boolean
-        local: window.localStorage.getItem('sb_uniSelectPoped_l') || 0 //integer
-    },
     resultLockForSchoolNameChange: false,
     resultLockForClassesChange: false,
     selectForTheFirstTime: false,
@@ -40,7 +25,6 @@ const getters = {
     getClasses: state => state.classes,
     getSelectedClasses: state => state.selectedClasses,
     getSelectedClassesCache: state => state.selectedClassesCache,
-    getShowSelectUniInterface: state => state.showSelectUniInterface,
     getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
     getAllSteps: state => state.stepsEnum,
     getCurrentStep: state => state.currentStep,
@@ -219,7 +203,6 @@ const actions = {
     },
     updateUniVerification({commit, state}, val) {
         commit('verifyUniCreation', val);
-
     },
 
 };
