@@ -120,6 +120,9 @@
   <data name="btn_create_university" xml:space="preserve">
     <value>Create University</value>
   </data>
+  <data name="choose_title" xml:space="preserve">
+    <value>Choose your university</value>
+  </data>
   <data name="create_new_title" xml:space="preserve">
     <value>Create New University</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="new_title" xml:space="preserve">
     <value>Before Creating a New UniversityTry:</value>
+  </data>
+  <data name="not_student_btn" xml:space="preserve">
+    <value>I'm not a student</value>
   </data>
   <data name="third_tip_for_creating" xml:space="preserve">
     <value>Third tip for creating a course</value>

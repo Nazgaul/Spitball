@@ -4,13 +4,13 @@
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
-                    <span class="subheading font-weight-bold">Choose your university</span>
+                    <span class="subheading font-weight-bold" v-language:inner>university_choose_title</span>
                 </div>
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
                 <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0" @click="getOut()">
-                    <span class="text-capitalize">I'm not a student</span>
+                    <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
                 </v-btn>
             </v-flex>
         </v-layout>
@@ -83,7 +83,7 @@
             return {
                 universityModel: '',
                 search: '',
-                schoolNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_school_name_placeholder'),
+                schoolNamePlaceholder: LanguageService.getValueByKey('university_create_uni_placeholder'),
                 globalHeight: global.innerHeight,
                 isRtl: global.isRtl
             };

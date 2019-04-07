@@ -1,8 +1,8 @@
 <template>
-    <v-card class="creation-wrap">
+    <v-card class="uni-creation-wrap">
         <v-layout class="close-toolbar limit-height pl-4 pr-3" style="width:100%;" align-center justify-end>
             <v-flex grow>
-                <span class="font-weight-bold dialog-heading" v-language:inner>university_new_title</span>
+                <span class="font-weight-bold dialog-heading" v-language:inner>university_create_new_title</span>
             </v-flex>
             <v-flex shrink class="mr-2">
                 <v-icon @click="closeDialog()" class="subheading course-close-icon">sbf-close</v-icon>
@@ -11,10 +11,10 @@
         <v-layout shrink align-center justify-center class="px-4 mt-4 mb-1">
             <v-flex xs12 sm12 md12 class="text-xs-center">
                 <v-text-field v-model="universityName"
-                              class="course-input"
+                              class="uni-input"
                               outline
                               prepend-inner-icon=""
-                              :placeholder="newCoursePlaceholder"
+                              :placeholder="newUniPlaceholder"
                               :rules="[rules.required]"
                               autocomplete="off"
                               autofocus
@@ -30,7 +30,7 @@
 
             </v-flex>
             <v-flex xs12 md6 sm6 class="text-xs-center mb-1">
-                <span class="caption helper-text" v-language:inner>courses_third_tip</span>
+                <span class="caption helper-text" v-language:inner>university_third_tip_for_creating</span>
 
             </v-flex>
         </v-layout>
@@ -38,7 +38,7 @@
             <v-flex shrink class="text-xs-center">
                 <button @click="createNewCourse()" :disabled="!courseName"
                         class="cursor-pointer create-btn min-width solid d-flex align-center justify-center py-2 px-3">
-                    <span class="font-weight-bold text-uppercase btn-text" v-language:inner>courses_create_course</span>
+                    <span class="font-weight-bold text-uppercase btn-text" v-language:inner>university_btn_create_university</span>
                 </button>
             </v-flex>
         </v-layout>
@@ -58,25 +58,24 @@
                 rules: {
                     required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
                 },
-                newCoursePlaceholder: LanguageService.getValueByKey("courses_new_placeholder")
+                newUniPlaceholder: LanguageService.getValueByKey("university_create_uni_placeholder")
             };
         },
         methods: {
-            ...mapActions(['createUniversity', 'changeUniCreateDialogState']),
+            ...mapActions(['createUniversity', 'changeUniCreateDialogState', 'updateUniVerification']),
             createNewCourse() {
                 let self = this;
                 let course = {name: self.universityName};
                 let classesSet = this.getClasses.length > 0;
                 //create new uni add action in store needed
                 self.createUniversity(course).then((success)=>{
-                    // this.changeUniCreateDialogState(false);
-                    // self.$root.$emit('courseCreated', self.universityName);
-                    classesSet ? this.$router.go(-1) : this.$router.push({name: 'editCourse'});
+                     this.changeUniCreateDialogState(false);
+                     classesSet ? this.$router.go(-1) : this.$router.push({name: 'editCourse'});
                 });
             },
             closeDialog(){
+                this.updateUniVerification(false)
                 this.changeCreateDialogState(false);
-                // this.$root.$emit('courseDialogClosed', true);
             }
         },
     };
@@ -85,7 +84,7 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
 
-    .creation-wrap {
+    .uni-creation-wrap {
         min-height: 340px;
         .close-toolbar{
             height: 54px;
@@ -127,9 +126,9 @@
             }
         }
         .min-width {
-            width: 146px;
+            width: 180px;
         }
-        .course-input {
+        .uni-input {
             .v-input__slot {
                 border: 1px solid @profileTextColor !important;
                 input {
