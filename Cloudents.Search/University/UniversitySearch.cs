@@ -1,9 +1,9 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -19,7 +19,9 @@ namespace Cloudents.Search.University
         private readonly string[] _listOfSelectParams = {
             nameof(Entities.University.Id),
             nameof(Entities.University.DisplayName),
-            nameof(Entities.University.Country)
+            nameof(Entities.University.Country),
+            nameof(Entities.University.Image),
+            nameof(Entities.University.UserCountFieldName)
         };
 
         public UniversitySearch(ISearchService client)
@@ -34,7 +36,8 @@ namespace Cloudents.Search.University
             {
                 Select = _listOfSelectParams,
                 Top = 15,
-                OrderBy = new List<string> { "search.score() desc", nameof(Entities.University.DisplayName) },
+                OrderBy = new List<string> { "search.score() desc",
+                    $"{nameof(Entities.University.UserCountFieldName)} desc" },
                 ScoringProfile = UniversitySearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                 {
@@ -51,7 +54,7 @@ namespace Cloudents.Search.University
 
             if (searchDocumentResult.Results.Count != 0)
                 return new UniversitySearchDto(searchDocumentResult.Results.Select(s =>
-                    new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName, s.Document.Country)));
+                    ToDto(s.Document)));
             {
                 var suggesterResult = await _client.Documents.SuggestAsync<Entities.University>(term,
                     UniversitySearchWrite.SuggesterName,
@@ -62,9 +65,15 @@ namespace Cloudents.Search.University
                         Top = 15
                     }, cancellationToken: token);
                 return new UniversitySearchDto(suggesterResult.Results.Select(s =>
-                    new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName, s.Document.Country)));
+                    ToDto( s.Document)));
             }
 
+        }
+
+        private static UniversityDto ToDto(Entities.University university)
+        {
+            return new UniversityDto(Guid.Parse(university.Id), university.DisplayName, university.Country,
+                university.Image, university.UsersCount);
         }
     }
 }
