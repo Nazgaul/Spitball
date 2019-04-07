@@ -154,7 +154,8 @@
             hideHeader(){
                 if(this.$vuetify.breakpoint.xsOnly){
                     let matchedCoursesRoute = this.$route.name === 'courses' || this.$route.name === 'addCourse' || this.$route.name === 'editCourse';
-                    return this.$route.name === "uniselect" || matchedCoursesRoute || !this.showMobileFeed;
+                    let matchedUniRoute = this.$route.name === 'university' || this.$route.name === 'addUniversity';
+                    return this.$route.name === "uniselect" || matchedCoursesRoute || matchedUniRoute || !this.showMobileFeed;
                 }else{
                     return false;
                 }
