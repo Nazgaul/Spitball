@@ -67,20 +67,20 @@
                         <v-layout row align-center justify-end>
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-bold mr-2" v-language:inner>courses_joined</span>
+                                    <span class="light-purple caption font-weight-bold mr-2" v-html="$Ph('courses_joined')"></span>
                                     <span>
                                      <v-icon class="checked-icon">sbf-check-circle</v-icon>
                                    </span>
                                 </v-flex>
                                 <v-flex shrink v-else class="d-flex align-center cursor-pointer">
-                                    <span class="light-purple caption font-weight-bold mr-2" v-language:inner>courses_join</span>
+                                    <span class="light-purple caption font-weight-bold mr-2" v-html="$Ph('courses_join')"></span>
                                     <span>
                                      <v-icon class="add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
                                    </span>
                                 </v-flex>
                             </div>
                             <v-flex v-else shrink class="d-flex align-end">
-                                <span class="light-purple caption font-weight-bold mr-2" v-language:inner>courses_joined</span>
+                                <span class="light-purple caption font-weight-bold mr-2" v-html="$Ph('courses_joined')"></span>
                             </v-flex>
                         </v-layout>
                     </div>

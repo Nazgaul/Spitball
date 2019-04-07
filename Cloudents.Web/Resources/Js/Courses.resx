@@ -129,6 +129,9 @@
   <data name="btn_done" xml:space="preserve">
     <value>Done</value>
   </data>
+  <data name="btn_finished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
   <data name="cant_find" xml:space="preserve">
     <value>Can't Find your course?</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="create_new" xml:space="preserve">
     <value>Create new</value>
+  </data>
+  <data name="empty_pretty" xml:space="preserve">
+    <value>Its Pretty empty here…</value>
   </data>
   <data name="find_similar" xml:space="preserve">
     <value>Find similar course names</value>
@@ -177,6 +183,9 @@
   <data name="new_title" xml:space="preserve">
     <value>Create New Course</value>
   </data>
+  <data name="out_of" xml:space="preserve">
+    <value>Out of Spitball</value>
+  </data>
   <data name="pending" xml:space="preserve">
     <value>Pending</value>
   </data>
@@ -185,6 +194,9 @@
   </data>
   <data name="remove_spaces" xml:space="preserve">
     <value>Add or remove spaces or special characters</value>
+  </data>
+  <data name="start_adding" xml:space="preserve">
+    <value>Start Adding Courses To Get The Most</value>
   </data>
   <data name="students" xml:space="preserve">
     <value>students</value>

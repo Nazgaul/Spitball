@@ -65,13 +65,16 @@
                 newUniPlaceholder: LanguageService.getValueByKey("university_create_uni_placeholder")
             };
         },
+        computed: {
+            ...mapGetters(['getSelectedClasses'])
+        },
         methods: {
             ...mapActions(['createUniversity', 'changeUniCreateDialogState', 'updateUniVerification']),
             createNewUniversite() {
                 if (this.$refs.uniForm.validate()) {
                     let self = this;
                     let university = self.universityName;
-                    let classesSet =  self.getClasses && self.getClasses.length > 0;
+                    let classesSet =  self.getSelectedClasses && self.getSelectedClasses.length > 0;
                     //create new uni add action in store needed
                     self.createUniversity(university).then((success)=>{
                         self.changeUniCreateDialogState(false);

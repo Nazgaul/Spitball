@@ -288,9 +288,6 @@
                 if (!this.isLoggedIn) {
                     this.updateLoginDialogState(true);
                 } else {
-                    let steps = this.getAllSteps();
-                    this.updateCurrentStep(steps.set_school);
-                    // this.changeSelectUniState(true);
                     this.$router.push({name: 'addUniversity'});
                     this.$root.$emit("closeDrawer");
                 }
@@ -299,8 +296,6 @@
                 if (!this.isLoggedIn) {
                     this.updateLoginDialogState(true);
                 } else {
-                    let steps = this.getAllSteps();
-                    this.updateCurrentStep(steps.set_class);
                     this.$router.push({name: 'editCourse'});
                     this.$root.$emit("closeDrawer");
                 }
