@@ -6,7 +6,7 @@ function Conversation(objInit){
     this.unread = objInit.unread;
     this.online = objInit.online;
     this.conversationId = objInit.conversationId;
-    this.dateTime = objInit.dateTime;
+    this.dateTime = objInit.dateTime || new Date().toISOString();
 }
 
 function createConversation(objInit){

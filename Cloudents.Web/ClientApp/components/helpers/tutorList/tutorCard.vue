@@ -7,7 +7,7 @@
         <v-flex grow>
             <user-rank class="tutor-rank" :score="tutorData.score"></user-rank>
         </v-flex>
-        <v-flex class="rounded" shrink>
+        <v-flex @click="sendMessage" class="rounded" shrink>
             <commentIcon class="chat-icon"></commentIcon>
         </v-flex>
     </v-layout>
@@ -50,6 +50,7 @@
     import userRating from '../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
     import commentIcon from '../../../font-icon/comment-icon.svg';
     import userAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
+    import {mapGetters, mapActions} from 'vuex'
     export default {
         name: "tutorCard",
         components: {
@@ -66,11 +67,28 @@
             tutorData: {},
         },
         computed: {
+            ...mapGetters(['accountUser', 'getConversations']),
             userImageUrl() {
                 return this.tutorData.image
             }
         },
-
+        methods:{
+            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface']),
+            sendMessage(){
+                if ( this.accountUser == null) {
+                    this.updateLoginDialogState(true);
+                } else {
+                    let conversationObj = this.getConversations[this.tutorData.userId];
+                    let currentConversationObj = {
+                        userId: this.tutorData.userId,
+                        userName: this.tutorData.name,
+                        conversationId: conversationObj ? conversationObj.conversationId : null
+                    }
+                    this.setActiveConversationObj(currentConversationObj);
+                    this.openChatInterface();
+                }
+            }
+        }
     };
 </script>
 
@@ -111,6 +129,7 @@
         margin: 8px auto;
         display: block;
         fill: @color-white;
+        cursor: pointer;
     }
 }
 </style>

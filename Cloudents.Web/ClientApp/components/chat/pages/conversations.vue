@@ -29,10 +29,15 @@ export default {
         openConversation(conversation){
             let currentConversationObj = {
                 userId:conversation.userId,
-                conversationId: conversation.conversationId
+                conversationId: conversation.conversationId,
+                userName: conversation.name
             }
             this.setActiveConversationObj(currentConversationObj);
         }
+    },
+    mounted(){
+        console.log("mounted");
+        this.$forceUpdate();
     }
 }
 </script>

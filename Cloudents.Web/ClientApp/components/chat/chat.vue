@@ -32,7 +32,7 @@
             }
         },
         computed:{
-            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getCurrentConversationObj']),
+            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj']),
             isMobile(){
                 return this.$vuetify.breakpoint.smAndDown;
             },
@@ -64,8 +64,8 @@
                 if(this.state === this.enumChatState.conversation){
                     return "Messages";
                 }else{
-                    if(!!this.getCurrentConversationObj){
-                        return this.getCurrentConversationObj.name;
+                    if(!!this.getActiveConversationObj){
+                        return this.getActiveConversationObj.userName;
                     }else{
                         //get user from server to show name
                     }
