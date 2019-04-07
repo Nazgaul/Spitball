@@ -1,10 +1,10 @@
-﻿using Cloudents.Core.DTOs;
-using Dapper;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Dapper;
 
-namespace Cloudents.Query
+namespace Cloudents.Query.Query
 {
     public class ChatConversationQuery : IQuery<ChatUserDto>
     {
@@ -18,11 +18,11 @@ namespace Cloudents.Query
 
 
         internal sealed class
-           GetAnswerAcceptedEmailQueryQueryHandler : IQueryHandler<ChatConversationQuery, ChatUserDto>
+            ChatConversationQueryHandler : IQueryHandler<ChatConversationQuery, ChatUserDto>
         {
             private readonly DapperRepository _dapper;
 
-            public GetAnswerAcceptedEmailQueryQueryHandler(DapperRepository dapper)
+            public ChatConversationQueryHandler(DapperRepository dapper)
             {
                 _dapper = dapper;
             }
