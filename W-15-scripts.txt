@@ -13,3 +13,26 @@ CREATE UNIQUE INDEX ui_ukCourseName ON sb.Course(Name);
 CREATE FULLTEXT INDEX ON  sb.Course(Name)   
    KEY INDEX ui_ukCourseName   
    WITH STOPLIST = SYSTEM; 
+
+
+
+--Document Search example
+select d.*
+from sb.[user] u
+join sb.UsersCourses uc
+	on u.Id = uc.UserId
+join sb.Document d
+	on uc.CourseId = d.CourseName
+join sb.University un
+	on un.Id = d.UniversityId
+where u.Id = @UserId and uc.CourseId = @CourseName
+order by case when d.UniversityId = u.UniversityId2 then 1 else 0 end desc
+			,case when un.Country = u.Country then 1 else 0 end desc
+
+
+--University Image DBI
+begin tran
+update u
+set ImageUrl = (select LargeImage from zbox.University uz where uz.UniversityName = u.Name and u.Country = uz.Country)
+from sb.University u
+commit
