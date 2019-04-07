@@ -53,6 +53,8 @@ namespace Cloudents.FunctionsV2.Sync
                         Extra = s.Extra,
                         DisplayName = s.Name,
                         Prefix = new[] { s.Name, s.Extra }.Where(x => x != null).ToArray(),
+                        Image = s.Image,
+                        UsersCount = s.UsersCount
                     },
                     Insert = true
 

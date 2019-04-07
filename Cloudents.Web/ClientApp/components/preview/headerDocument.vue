@@ -254,7 +254,7 @@
                 }
             },
             userImageUrl(){
-                if(this.item && this.item.user && this.item.user.image && this.item.user.image.length > 1){
+                if(this.item && this.item.user && this.item.user.image.length > 1){
                     return `${this.item.user.image}`
                 }
                 return ''

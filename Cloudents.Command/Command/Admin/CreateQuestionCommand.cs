@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace Cloudents.Command.Command.Admin
 {
     public class CreateQuestionCommand : ICommand
     {
-        public CreateQuestionCommand(string courseName, string university, string text, decimal price, [CanBeNull] IEnumerable<string> files, string country)
+        public CreateQuestionCommand(string courseName, Guid university,
+            string text, decimal price, [CanBeNull] IEnumerable<string> files, string country)
         {
             CourseName = courseName;
             Text = text;
@@ -24,6 +26,6 @@ namespace Cloudents.Command.Command.Admin
         public IEnumerable<string> Files { get; }
 
         public  string Country { get;  }
-        public string University { get; set; }
+        public Guid University { get; set; }
     }
 }

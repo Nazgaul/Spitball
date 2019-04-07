@@ -2,7 +2,7 @@
     <v-layout class="user-online-status-wrap">
             <div :class="['status-container', isOnline ? 'online' : 'offline']">
                 <span  v-if="isOnline" class="online" v-language:inner>profile_user_online_status_online</span>
-                <!--<span v-else class="offline" v-language:inner>profile_user_online_status_offline</span>-->
+                <span v-else class="offline" v-language:inner>profile_user_online_status_offline</span>
             </div>
 
     </v-layout>
@@ -23,8 +23,8 @@
     @import '../../../../../styles/mixin.less';
     .user-online-status-wrap{
         .status-container{
-            border-radius: 18px;
-            padding: 0 10px;
+            border-radius: 8.5px;
+            padding: 2px 14px;
             @media(max-width: @screen-xs){
                 padding: 2px 8px;
             }

@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.Universities;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
@@ -65,11 +66,22 @@ namespace Cloudents.Web.Api
 
         
 
-        [HttpPost("assign")]
+        [HttpPost("set")]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AssignUniversityToUserCommand(userId, model.Name, model.Country);
+            var command = new UserJoinUniversityCommand(userId, model.Id);
+            await _commandBus.DispatchAsync(command, token);
+            var user = await _userManager.GetUserAsync(User);
+            await _signInManager.RefreshSignInAsync(user);
+            return Ok();
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateUniversityAsync([FromBody] CreateUniversityRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new CreateUniversityCommand(userId, model.Name, model.Country);
             await _commandBus.DispatchAsync(command, token);
             var user = await _userManager.GetUserAsync(User);
 

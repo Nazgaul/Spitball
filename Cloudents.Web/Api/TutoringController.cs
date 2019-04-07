@@ -113,6 +113,10 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
+            catch(EmptyResultException)
+            {
+                return BadRequest();
+            }
             return Ok();
         }
     }

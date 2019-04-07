@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Cloudents.Core.Interfaces;
+using Cloudents.Search.Document;
 using JetBrains.Annotations;
+using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Search.University
@@ -31,49 +33,10 @@ namespace Cloudents.Search.University
             //        "a",
             //    "המכללה","אוניברסיטת","מכללת","אוניברסיטה","ה"
             //};
-            return new Index
+            var index =  new Index
             {
                 Name = indexName,
-                Fields = new List<Field>
-                {
-                    new Field(nameof(Entities.University.Id), DataType.String)
-                    {
-                        IsKey = true
-                    },
-                    new Field(nameof(Entities.University.Name), DataType.String)
-                    {
-                        IsSearchable = true
-                        
-                        //SearchAnalyzer = AnalyzerName.StandardLucene,
-                        //IndexAnalyzer =  AnalyzerName.Create("stopWords")
-                    },
-                    new Field(nameof(Entities.University.DisplayName), DataType.String)
-                    {
-                        IsRetrievable = true,
-                        IsSortable = true
-
-                        //IndexAnalyzer =  AnalyzerName.Create("stopWords")
-                    },
-                    new Field(nameof(Entities.University.Prefix), DataType.Collection(DataType.String))
-                    {
-                        IsSearchable = true,
-                        SearchAnalyzer = AnalyzerName.StandardLucene,
-                        IndexAnalyzer = AnalyzerName.Create("prefix")
-                        
-                    },
-                    new Field(nameof(Entities.University.Extra), DataType.String)
-                    {
-                        IsSearchable = true
-                       
-                        //SearchAnalyzer = AnalyzerName.StandardLucene,
-                        //IndexAnalyzer =  AnalyzerName.Create("stopWords"),
-
-                    },
-                    new Field(nameof(Entities.University.Country), DataType.String)
-                    {
-                        IsFilterable = true
-                    }
-                },
+                Fields = FieldBuilder.BuildForType<Entities.University>(new SearchIndexEnumToIntContractResolver()),
                 Analyzers = new List<Analyzer>
                 {
                     new CustomAnalyzer("prefix",TokenizerName.Standard,new List<TokenFilterName>
@@ -120,6 +83,9 @@ namespace Cloudents.Search.University
                         nameof(Entities.University.Name))
                 }
             };
+
+            index.Fields.Add(new Field("UsersCount", DataType.Int32));
+            return index;
         }
     }
 }

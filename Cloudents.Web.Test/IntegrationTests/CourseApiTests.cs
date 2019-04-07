@@ -21,7 +21,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             // Arrange
             var client = _factory.CreateClient();
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
 
             await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
 

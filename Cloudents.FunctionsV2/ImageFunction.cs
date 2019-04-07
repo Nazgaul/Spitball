@@ -23,7 +23,7 @@ namespace Cloudents.FunctionsV2
     {
         [FunctionName("ImageFunction")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/{hash}")]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/user/{hash}")]
             HttpRequest req, string hash,
             IBinder binder,
             [Inject] IBinarySerializer serializer,

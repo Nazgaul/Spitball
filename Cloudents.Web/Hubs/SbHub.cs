@@ -1,6 +1,5 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
@@ -43,9 +42,8 @@ namespace Cloudents.Web.Hubs
                     StringComparison.OrdinalIgnoreCase))?.Value;
 
             var currentUserId = _userManager.Value.GetLongUserId(Context.User);
-
             var command = new ChangeOnlineStatusCommand(currentUserId, true);
-            var t1 = _commandBus.Value.DispatchAsync(command, default);
+            await _commandBus.Value.DispatchAsync(command, default);
 
             if (country != null)
             {
@@ -53,19 +51,6 @@ namespace Cloudents.Web.Hubs
                 await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
             }
 
-            var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
-                new
-                {
-                    id = currentUserId,
-                    online = true
-                });
-
-           
-
-            var t2 = Clients.All.SendAsync(MethodName, message);
-
-
-            await Task.WhenAll(t1, t2);
             await base.OnConnectedAsync();
         }
 
@@ -82,20 +67,8 @@ namespace Cloudents.Web.Hubs
 
             var currentUserId = _userManager.Value.GetLongUserId(Context.User);
             var command = new ChangeOnlineStatusCommand(currentUserId, false);
-            var t1 = _commandBus.Value.DispatchAsync(command, default);
+            await _commandBus.Value.DispatchAsync(command, default);
 
-
-            var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
-                new
-                {
-                    id = currentUserId,
-                    online = false
-                });
-
-          
-
-            var t2 = Clients.All.SendAsync(MethodName, message);
-            await Task.WhenAll(t1, t2);
             await base.OnDisconnectedAsync(exception);
         }
 

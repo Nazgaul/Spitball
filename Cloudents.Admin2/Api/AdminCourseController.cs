@@ -90,7 +90,7 @@ namespace Cloudents.Admin2.Api
         public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {
-            var query = new CourseSearchQuery(course);
+            var query = new CourseSearchQuery(0, course);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {
