@@ -360,6 +360,12 @@
             margin-bottom: 3px;
             margin-left: 8px;
         }
+        .course-back-btn{
+            &.rtl{
+                /*rtl:ignore*/
+                transform: rotate( -180deg );
+            }
+        }
 
     }
 
