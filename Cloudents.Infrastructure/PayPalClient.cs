@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure
 
         private sealed class Sku
         {
-            private static readonly Sku PaymentThree = new Sku("points_3", 1000);
+            private static readonly Sku PaymentThree = new Sku("points_3", 1400);
             private static readonly Sku PaymentTwo = new Sku("points_2", 500);
             private static readonly Sku PaymentOne = new Sku("points_1", 100);
 
