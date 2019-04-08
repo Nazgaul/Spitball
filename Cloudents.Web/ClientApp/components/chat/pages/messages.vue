@@ -105,9 +105,10 @@ export default {
                 border-radius: 0 0 16px 16px;
                 max-height: 45px;
                 min-height: 45px;
-                padding-right: 14px;
+                padding-right: 20px;
                 .v-input__slot{
                     box-shadow: none !important;
+                    
                 }
             }
         }

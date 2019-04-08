@@ -22,6 +22,7 @@ export default {
 <style lang='less'>
 .message{
     max-width:211px;
+    width: fit-content;
     text-align: right;
     margin: 5px 0;
     margin-left: auto;
