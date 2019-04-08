@@ -19,7 +19,7 @@
     import chatConversation from "./pages/conversations.vue"
     import chatMessages from "./pages/messages.vue"
     import {mapGetters, mapActions} from 'vuex'
-    
+    import { LanguageService } from '../../services/language/languageService'
     export default {
         components:{
             chatConversation,
@@ -71,12 +71,10 @@
             },
             headerTitle(){
                 if(this.state === this.enumChatState.conversation){
-                    return "Messages";
+                    return LanguageService.getValueByKey('chat_messages');
                 }else{
                     if(!!this.getActiveConversationObj){
                         return this.getActiveConversationObj.userName;
-                    }else{
-                        //get user from server to show name
                     }
                 }
             },
