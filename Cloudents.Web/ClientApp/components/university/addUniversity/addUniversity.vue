@@ -42,7 +42,6 @@
                             <v-flex xs1 sm1 md1>
                                 <span class="uni-logo">
                                     <img v-if="singleUni.image" :src="singleUni.image" alt="university logo" class="rounded uni-img">
-                                    <!--<v-icon class="checked-icon">sbf-check-circle</v-icon>-->
                                     <span v-else>
                                     <empty-uni-logo></empty-uni-logo>
                                     </span>
