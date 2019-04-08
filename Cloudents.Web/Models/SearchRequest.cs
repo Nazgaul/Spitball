@@ -74,9 +74,9 @@ namespace Cloudents.Web.Models
         // [DisplayFormat(HtmlEncode = true)]
         public string Term { get; set; }
 
-        [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
-                            ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
-        [IgnoreNextPageLink]
-        public UserProfile Profile { get; set; }
+        ////[ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
+        ////                    ProfileServiceQuery.Course )]
+        //[IgnoreNextPageLink]
+        //public UserProfile Profile { get; set; }
     }
 }

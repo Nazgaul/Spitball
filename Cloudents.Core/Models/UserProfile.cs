@@ -8,10 +8,9 @@ namespace Cloudents.Core.Models
     public class UserProfile
     {
         public IList<string> Courses { get; set; }
-        public IEnumerable<string> Tags { get; set; }
 
-        [CanBeNull]
-        public UserUniversityQueryProfileDto University { get; set; }
+
+        public Guid? UniversityId { get; set; }
 
         public string Country { get; set; }
     }

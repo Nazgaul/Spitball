@@ -17,7 +17,7 @@ namespace Cloudents.Web.Identity
         internal const string Country = "country";
         internal const string University = "university";
         internal const string Score = "score";
-        internal const string Profile = "profile";
+        //internal const string Profile = "profile";
 
         public AppClaimsPrincipalFactory(UserManager<RegularUser> userManager,
             //RoleManager<ApplicationRole> roleManager,
@@ -40,13 +40,13 @@ namespace Cloudents.Web.Identity
                 p.AddClaim(new Claim(University, user.University.Id.ToString()));
             }
 
-            var query = new UserDataQuery(user.Id);
-            var result = await _queryBus.QueryAsync(query, default);
-            var v = JsonConvert.SerializeObject(result);
-            if (v.Length < 2000)
-            {
-                p.AddClaim(new Claim(Profile, JsonConvert.SerializeObject(result)));
-            }
+            //var query = new UserDataQuery(user.Id);
+            //var result = await _queryBus.QueryAsync(query, default);
+            //var v = JsonConvert.SerializeObject(result);
+            //if (v.Length < 2000)
+            //{
+            //    p.AddClaim(new Claim(Profile, JsonConvert.SerializeObject(result)));
+            //}
 
             return p;
         }

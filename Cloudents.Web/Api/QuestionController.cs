@@ -188,7 +188,7 @@ namespace Cloudents.Web.Api
             [FromServices] IQueryBus queryBus,
            CancellationToken token)
         {
-            var query = new QuestionsQuery(model.Profile, model.Term, model.Course, model.NeedUniversity, model.Source,
+            var query = new QuestionsQuery(null, model.Term, model.Course, model.NeedUniversity, model.Source,
                 model.Filter?.Where(w => w.HasValue).Select(s => s.Value))
             {
                 Page = model.Page.GetValueOrDefault()

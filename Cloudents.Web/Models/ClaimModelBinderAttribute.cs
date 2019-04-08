@@ -13,12 +13,12 @@ namespace Cloudents.Web.Models
         }
     }
 
-    public class ProfileModelBinderAttribute : ModelBinderAttribute
-    {
-        public ProfileModelBinderAttribute(ProfileServiceQuery claim)
-        {
-            BinderType = typeof(ProfileModelBinder);
-            Name = claim.ToString("G");
-        }
-    }
+    //public class ProfileModelBinderAttribute : ModelBinderAttribute
+    //{
+    //    public ProfileModelBinderAttribute(ProfileServiceQuery claim)
+    //    {
+    //        BinderType = typeof(ProfileModelBinder);
+    //        Name = claim.ToString("G");
+    //    }
+    //}
 }

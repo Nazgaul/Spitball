@@ -14,6 +14,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Web.Binders;
+using Cloudents.Web.Services;
 
 namespace Cloudents.Web.Api
 {
@@ -49,18 +50,19 @@ namespace Cloudents.Web.Api
         /// Get list of universities
         /// </summary>
         /// <param name="model">object of query string</param>
-        /// <param name="profile">Not taken from the api</param>
+        /// <param name="countryProvider"></param>
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet, AllowAnonymous]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { nameof(UniversityRequest.Term) })]
 
         public async Task<UniversitySearchDto> GetAsync([FromQuery] UniversityRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            [FromServices] ICountryProvider countryProvider,
             CancellationToken token)
         {
+            var country = await countryProvider.GetUserCountryAsync(token);
             var result = await _universityProvider.SearchAsync(model.Term,
-                profile.Country, token);
+                country, token);
             return result;
         }
 
