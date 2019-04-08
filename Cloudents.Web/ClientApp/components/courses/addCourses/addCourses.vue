@@ -72,10 +72,10 @@
                                      <v-icon class="checked-icon">sbf-check-circle</v-icon>
                                    </span>
                                 </v-flex>
-                                <v-flex shrink v-else class="d-flex align-center cursor-pointer">
+                                <v-flex shrink v-else class="d-flex align-center">
                                     <span class="light-purple caption font-weight-bold mr-2" v-html="$Ph('courses_join')"></span>
                                     <span>
-                                     <v-icon class="add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
+                                     <v-icon class="cursor-pointer add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
                                    </span>
                                 </v-flex>
                             </div>
