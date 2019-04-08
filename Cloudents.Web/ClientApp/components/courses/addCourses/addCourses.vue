@@ -123,6 +123,8 @@
                     if(searchVal.length >= 3) {
                         this.updateClasses(searchVal);
                     }
+                }else if(val === ''){
+                    this.updateClasses('');
                 }
             }, 500)
         },
