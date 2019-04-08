@@ -1,7 +1,7 @@
 <template>
     <v-container v-show="visible" py-0 px-0 class="sb-chat-container" :style="{'height': height}" :class="{'minimized': isMinimized}">
         <v-layout class="chat-header">
-            <v-icon @click="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
+            <v-icon :class="{'rtl':isRtl}" @click="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
             <span class="other-side" v-show="!isMobile">
                 <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
@@ -29,6 +29,7 @@
             return{
                 enumChatState: this.getEnumChatState(),
                 mobileFooterHeight: 48,
+                isRtl: global.isRtl
             }
         },
         computed:{
@@ -128,6 +129,7 @@
         border-radius: 4px 4px 0 0;
         padding:10px;
         color:#fff;
+        
         @media (max-width: @screen-xs) {
             border-radius: unset;
         }
@@ -141,7 +143,16 @@
             color: #a5a4bf;
             font-size:16px;
             margin-right: 14px;
+            &.sbf-arrow-back-chat{
+                &.rtl{
+                    transform: rotate(180deg);
+                }
+            }
+            
         }
+        
+        
+        
         .other-side{
             margin-left:auto;
             i{
