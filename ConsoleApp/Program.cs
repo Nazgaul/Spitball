@@ -25,6 +25,10 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using SqlKata;
+using SqlKata.Execution;
+using System.Data.SqlClient;
+using SqlKata.Compilers;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -385,8 +389,61 @@ namespace ConsoleApp
             }
         }
 
+        private static void QueryCompiler(SqlConnection connection, SqlServerCompiler compiler)
+        {
+            var vote = new Query("sb.Vote as v")
+               .WhereColumns("d.Id", "=", "v.DocumentId")
+               .AsSum("v.VoteType");
+
+            var query = new XQuery(connection, compiler)
+                .Select("d.Id", "un.Name as University"
+                , "d.CourseName as Course", "d.MetaContent as Sinppet"
+                , "d.Type", "u.Id", "u.Name", "u.Score", "u.Image", "d.Views"
+                , "d.Downloads", "d.CreationTime as DateTime", "d.Price as Price")
+                .Select(vote, "Vote")
+                .From("sb.Document as d")
+                .Join("sb.user as u", "u.Id", "d.UserId", "=")
+                .Join("sb.University as un", "un.Id", "d.UniversityId", "=")
+                .Where("d.CourseName", "פיזיקה 2")
+                .Where("d.State", Cloudents.Core.Enum.ItemState.Ok)
+                .OrderByRaw(@"case when d.UniversityId = u.UniversityId2 then 1 else 0 end desc
+                                ,case when un.Country = u.Country then 1 else 0 end desc");
+
+
+            SqlResult result = compiler.Compile(query);
+
+            string sql = result.Sql;
+            Console.WriteLine(sql);
+        }
+
         private static async Task HadarMethod()
         {
+            
+            var connection = new SqlConnection("Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew_Develop;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=true;");
+            var compiler = new SqlServerCompiler();
+
+            var db = new QueryFactory(connection, compiler);
+
+            var vote = new Query("sb.Vote as v")
+               .WhereColumns("d.Id", "=", "v.DocumentId")
+               .AsSum("v.VoteType");
+
+            var tset = db.Query("sb.Document as d")
+                .Select("d.Id", "un.Name as University"
+                , "d.CourseName as Course", "d.MetaContent as Sinppet"
+                , "d.Type", "u.Id", "u.Name", "u.Score", "u.Image", "d.Views"
+                , "d.Downloads", "d.CreationTime as DateTime", "d.Price as Price")
+                .Select(vote, "Vote")
+                .Join("sb.user as u", "u.Id", "d.UserId", "=")
+                .Join("sb.University as un", "un.Id", "d.UniversityId", "=")
+                .Where("d.CourseName", "פיזיקה 2")
+                .Where("d.State", "Ok")
+                .OrderByRaw(@"case when d.UniversityId = u.UniversityId2 then 1 else 0 end desc
+                                ,case when un.Country = u.Country then 1 else 0 end desc")
+                                .Get();
+            //You can register the QueryFactory in the IoC container
+
+            //var user = db.Query("sb.User").Where("Id", (long)160347).First();
             //var commandBus = _container.Resolve<ICommandBus>();
             //var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
             //await commandBus.DispatchAsync(command, default);
