@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Web.Hubs
 {
@@ -42,8 +43,9 @@ namespace Cloudents.Web.Hubs
                     StringComparison.OrdinalIgnoreCase))?.Value;
 
             var currentUserId = _userManager.Value.GetLongUserId(Context.User);
+
             var command = new ChangeOnlineStatusCommand(currentUserId, true);
-            await _commandBus.Value.DispatchAsync(command, default);
+            var t1 = _commandBus.Value.DispatchAsync(command, default);
 
             if (country != null)
             {
@@ -51,6 +53,19 @@ namespace Cloudents.Web.Hubs
                 await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
             }
 
+            var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
+                new
+                {
+                    id = currentUserId,
+                    online = true
+                });
+
+
+
+            var t2 = Clients.All.SendAsync(MethodName, message);
+
+
+            await Task.WhenAll(t1, t2);
             await base.OnConnectedAsync();
         }
 
@@ -67,8 +82,20 @@ namespace Cloudents.Web.Hubs
 
             var currentUserId = _userManager.Value.GetLongUserId(Context.User);
             var command = new ChangeOnlineStatusCommand(currentUserId, false);
-            await _commandBus.Value.DispatchAsync(command, default);
+            var t1 = _commandBus.Value.DispatchAsync(command, default);
 
+
+            var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
+                new
+                {
+                    id = currentUserId,
+                    online = false
+                });
+
+
+
+            var t2 = Clients.All.SendAsync(MethodName, message);
+            await Task.WhenAll(t1, t2);
             await base.OnDisconnectedAsync(exception);
         }
 

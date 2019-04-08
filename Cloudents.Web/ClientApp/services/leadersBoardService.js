@@ -3,7 +3,8 @@ function LeaderBoardItem(ObjInit) {
     this.name = ObjInit.name || '';
     this.score = ObjInit.score || '';
     this.university = ObjInit.university || '';
-    this.userId = ObjInit.id || 777
+    this.userId = ObjInit.id;
+    this.img = ObjInit.image;
 }
 
 function createLeaderBoardItem(ObjInit){

@@ -18,7 +18,8 @@ function AccountUser(ObjInit){
      this.price= objOnit.price || 0;
      this.rate = objOnit.rate || 0;
      this.reviewCount = objOnit.reviewCount || 0;
-
+     this.firstName = objOnit.firstName;
+     this.lastName = objOnit.lastName;
  }
 
  function CreateTutorData(objInit) {
@@ -45,6 +46,7 @@ function ReviewItem(objInit){
     this.rate = objInit.rate;
     this.reviewText = objInit.reviewText;
     this.score = objInit.score;
+    this.name = objInit.name || '';
 }
 
 function createReviewItem(objInit) {

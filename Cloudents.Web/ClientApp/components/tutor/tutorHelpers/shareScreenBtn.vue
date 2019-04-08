@@ -25,7 +25,7 @@
                     <a :href="extensionLink"
                             target="_blank"
                            class="btn px-3 py-2 mr-3"
-                            @click="extensionDialog = false"
+                            @click="dialog = false"
                     >Install</a>
                     <v-btn
                             color="green darken-1"
