@@ -28,8 +28,6 @@
         },
         data() {
             return {
-                // freshCourse: '',
-                // createdNew: false
             };
         },
         computed: {
