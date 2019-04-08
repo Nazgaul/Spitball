@@ -190,7 +190,7 @@
                 let user = this.accountUser();
                 let userId = user.id;
                 let course = this.item && this.item.course ? this.item.course : '';
-                analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${userId}, DOCUMENT_ID: ${this.item.id}, DOC_COURSE:${course}`);
+                analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${userId}, DOC_ID: ${this.item.id}, DOC_COURSE:${course}`);
                 if (!!this.accountUser()) {
                     global.location.href = url;
                     this.updateDownloadsCount()
