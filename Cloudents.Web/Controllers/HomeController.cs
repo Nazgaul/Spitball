@@ -128,7 +128,7 @@ namespace Cloudents.Web.Controllers
 
         [Route("image/{hash}", Name = "imageUrl")]
         [ResponseCache(
-            Duration = TimeConst.Month, Location = ResponseCacheLocation.Any)]
+            Duration = TimeConst.Month, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new []{"*"})]
         public IActionResult ImageRedirect([FromRoute]string hash, [FromServices] IConfiguration configuration)
         {
             return Redirect(
