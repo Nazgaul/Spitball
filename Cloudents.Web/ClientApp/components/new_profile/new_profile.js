@@ -1,12 +1,14 @@
 
 
+//old
 import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
 import resultNote from "../results/ResultNote.vue";
 import userBlock from '../helpers/user-block/user-block.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from "../../services/language/languageService";
 import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue";
-
+//old
+//new
 import profileBio from './profileHelpers/profileBio/profileBio.vue';
 import tutorAboutMe from './profileHelpers/profileAbout/tutorAboutMe.vue';
 import coursesCard from './profileHelpers/coursesCard/coursesCard.vue';

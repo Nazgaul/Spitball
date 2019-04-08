@@ -16,9 +16,12 @@
                 ></v-rating>
             </v-flex>
             <v-flex>
-                   <span :style="{ color: rateNumColor }" class="caption">
+                <div class="mb-1">
+                   <span :style="{ color: rateNumColor }" class="caption ml-1 pb-1 ">
        {{ rating }}
       </span>
+                </div>
+
             </v-flex>
         </v-layout>
 </template>
