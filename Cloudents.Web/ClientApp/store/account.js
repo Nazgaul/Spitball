@@ -172,10 +172,10 @@ const mutations = {
         state.usersReferred = data;
     },
     updateEditedData(state, newData){
-        if(state.isTutorProfile){
+        if(state.profile.user.isTutor){
             state.profile.about.bio = newData.bio;
-            state.profile.user.name = newData.name;
-            state.profile.user.lastName = newData.lastName;
+            state.profile.user.name = `${newData.name} ${newData.lastName}`;
+            //state.profile.user.lastName = newData.lastName;
             state.profile.user.description = newData.description
         }else{
             state.profile.user.name = newData.name;

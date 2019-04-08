@@ -23,7 +23,7 @@
                     >
 
                         <v-list-tile-avatar class="leader-avatar">
-                            <user-avatar :user-name="leader.name" :user-id="leader.userId"></user-avatar>
+                            <user-avatar :user-name="leader.name" :user-id="leader.userId" :userImageUrl="leader.img"></user-avatar>
                         </v-list-tile-avatar>
                         <v-list-tile-content>
                             <v-list-tile-title class="leader-rank">

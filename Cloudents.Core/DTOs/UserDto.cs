@@ -6,13 +6,6 @@ namespace Cloudents.Core.DTOs
 {
     public class UserDto
     {
-        public UserDto(long id, string name, int score)
-        {
-            Id = id;
-            Name = name;
-            Score = score;
-        }
-
         public UserDto(long id, string name, int score, string image)
         {
             Id = id;
