@@ -3,7 +3,7 @@
         <img class="user-picture" style="height: 240px; width: 214px;"
              :src="profileImage">
         <div class="bottom-section" v-if="isTutorProfile">
-            <user-rating :rating="tutorRank" :readonly="true" class="px-4 line-height-1"></user-rating>
+            <user-rating :rating="tutorRank" :size="'18'" :readonly="true" class="px-4 line-height-1"></user-rating>
             <span class="reviews-quantity">
                     <span>({{reviewCount}})</span>
                     <span v-language:inner>profile_reviews</span>

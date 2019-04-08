@@ -5,7 +5,6 @@
             <v-icon v-show="isMobile" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
             <span class="information-box-text" :class="{'mobile': isMobile}">{{informationBlockText}}</span>   
         </div>
-         
     </v-flex>    
     <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
@@ -13,7 +12,7 @@
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
                                  :active-class="'v-tabs__item--active header-tab-active'"
-                                 class="mr-3 vertical">
+                                 class="mr-4 vertical">
                         {{tab.name}}
                     </v-tab>
                     <!-- <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider> -->
