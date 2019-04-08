@@ -1,7 +1,7 @@
 <template>
   <div class="conversation-container">
     <v-flex ml-2 class="avatar-container">
-      <user-avatar :userImageUrl="conversation.img" :user-name="conversation.name"/>
+      <user-avatar :userImageUrl="conversation.image" :user-name="conversation.name"/>
     </v-flex>
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">

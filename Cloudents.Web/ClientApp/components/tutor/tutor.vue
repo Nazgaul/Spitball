@@ -38,45 +38,37 @@
                 <video-stream :id="id"></video-stream>
             </v-flex>
         </v-layout>
-        <v-layout column align-end style="position: fixed; right: 24px; bottom: 0px;">
-            <v-flex xs6 sm6 md6>
-                <chat v-show="isRoomCreated" :id="id"></chat>
-            </v-flex>
-        </v-layout>
-
         <v-dialog v-model="qualityDialog" content-class="filter-dialog"
                   :max-width="$vuetify.breakpoint.smAndUp ? '720px' : ''" :fullscreen="$vuetify.breakpoint.xsOnly"
                   persistent>
             <quality-validation></quality-validation>
         </v-dialog>
-
     </v-layout>
-
 
 </template>
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import videoStream from './videoStream/videoStream.vue';
     import whiteBoard from './whiteboard/WhiteBoard.vue';
-    import codeEditor from './codeEditor/codeEditor.vue'
-    import chat from './chat/chat.vue';
-    import qualityValidation from './tutorHelpers/qualityValidation/qualityValidation.vue'
+    import codeEditor from './codeEditor/codeEditor.vue';
+    import qualityValidation from './tutorHelpers/qualityValidation/qualityValidation.vue';
     import sharedDocument from './sharedDocument/sharedDocument.vue';
     import shareScreenBtn from './tutorHelpers/shareScreenBtn.vue';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
-    import testIcon from './images/eq-system.svg'
+    import testIcon from './images/eq-system.svg';
     import signal_level_0 from  './images/wifi-0.svg';
     import signal_level_1 from  './images/wifi-1.svg';
     import signal_level_2 from  './images/wifi-2.svg';
     import signal_level_3 from  './images/wifi-3.svg';
     import signal_level_4 from  './images/wifi-4.svg';
     import signal_level_5 from  './images/wifi-4.svg';
+    import tutorService from './tutorService'
+    import chatService from '../../services/chatService'
     export default {
         components: {
             videoStream,
             whiteBoard,
             codeEditor,
-            chat,
             sharedDocument,
             shareScreenBtn,
             AppLogo,
@@ -134,16 +126,27 @@
             },
         },
         methods: {
-            ...mapActions(['updateTestDialogState']),
+            ...mapActions(['updateTestDialogState', 'setActiveConversationObj', 'getConversationById', 'lockChat']),
             updateActiveNav(value) {
                 this.activeNavItem = value;
                 console.log(this.activeItem)
             },
             changeQualityDialogState(val) {
                 this.updateTestDialogState(val)
+            },
+            setChatRoom(id){
+                let self = this;
+                tutorService.getChatIdByRoomId(id).then(({data})=>{
+                    self.getConversationById(data.conversationId).then(({data})=>{
+                        let currentConversationObj = chatService.createActiveConversationObj(data)
+                        self.setActiveConversationObj(currentConversationObj);
+                        self.lockChat();
+                    })
+                })
             }
         },
         created() {
+            this.setChatRoom(this.id)
             this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG").then(() => {
                 MathJax.Hub.Config({
                     showMathMenu: false,
@@ -174,6 +177,7 @@
             global.onbeforeunload = function () {
                 return "Are you sure you want to close the window?";
             }
+            
         }
     }
 </script>

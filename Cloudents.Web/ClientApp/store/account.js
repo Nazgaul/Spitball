@@ -410,6 +410,7 @@ const actions = {
                 commit("updateUser", UserAccount);
                 dispatch("connectToChat");
                 dispatch("syncUniData");
+                dispatch("getAllConversations");
                 analyticsService.sb_setUserId(UserAccount.id);
                 initSignalRService();
             }).catch(_ => {

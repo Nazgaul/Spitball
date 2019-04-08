@@ -32,7 +32,7 @@ const getToken = function (name, identityName) {
     let userIdentity = identityName || '';
     return connectivityModule.http.get(`tutoring/join?roomName=${name}&identityName=${userIdentity}`)
         .then((data) => {
-            return data.data.token
+            return !!data.data ? data.data.token : null;
         });
 };
 
@@ -247,6 +247,10 @@ const connectToRoom = function (token, options) {
             });
 };
 
+const getChatIdByRoomId = function(roomId){
+    return connectivityModule.http.get(`StudyRoom/${roomId}`);
+}
+
 
 export default {
     dataTrack,
@@ -254,5 +258,6 @@ export default {
     uploadCanvasImage,
     getToken,
     createRoom,
-    connectToRoom
+    connectToRoom,
+    getChatIdByRoomId
 }

@@ -11,11 +11,14 @@ const state = {
     chatState:"conversation",
     activeConversationObj: {
         userId: null,
-        conversationId: null
+        conversationId: null,
+        userName: null,
+        userImage: null
     },
     isVisible: true,
     isMinimized: true,
-    totalUnread: 0
+    totalUnread: 0,
+    chatLocked: false
 };
 const getters = {
     getIsChatVisible:state=> state.isVisible,
@@ -23,28 +26,34 @@ const getters = {
     getChatState:state=>state.chatState,
     getEnumChatState:state=>state.enumChatState,
     getConversations: state=>state.conversations,
-    getMessages: (state)=>{
+    getMessages: (state, {getConversationIdCurrentUserId})=>{
         //can get only messages of the current conversation room
         if(!!state.activeConversationObj.conversationId){
             return state.messages[state.activeConversationObj.conversationId];
         }else if(!!state.activeConversationObj.userId){
-            return [];
+            //get conversation id From User Id
+            let conversationId  = getConversationIdCurrentUserId;
+            if(!!conversationId){
+                return state.messages[conversationId];
+            }else{
+                return [];
+            }
         }
     },
-    getCurrentConversationObj:(state)=>{
-        if(!!state.activeConversationObj.userId){
-            return state.conversations[state.activeConversationObj.userId];
-        }else{
-            return null;
-        }
+    getConversationIdCurrentUserId:(state)=>{
+        let userId = state.activeConversationObj.userId;
+        return Object.keys(state.conversations).filter((conversationId)=>{
+            return state.conversations[conversationId].userId === userId;
+        })[0];
     },
     getActiveConversationObj:state=>state.activeConversationObj,
-    getTotalUnread: state=>state.totalUnread
+    getTotalUnread: state=>state.totalUnread,
+    getIsChatLocked: state=>state.chatLocked,
 };
 
 const mutations = {
     addConversationUnread:(state, message)=>{
-        state.conversations[message.userId].unread++
+        state.conversations[message.conversationId].unread++
     },
     addMessage:(state, message)=>{
         let id = message.conversationId;
@@ -57,10 +66,15 @@ const mutations = {
     setActiveConversationObj(state, obj){
         state.activeConversationObj.userId = obj.userId || null;
         state.activeConversationObj.conversationId = obj.conversationId || null;
+        state.activeConversationObj.userName = obj.userName || null;
+        state.activeConversationObj.userImage = obj.userImage || null;
+    },
+    setActiveConversationId(state, id){
+        state.activeConversationObj.conversationId = id;
     },
     
     addConversation: (state, conversationObj)=>{
-        let id = conversationObj.userId;
+        let id = conversationObj.conversationId;
         // add a properly this way allow the computed to be fired!
         state.conversations = { ...state.conversations, [id]:conversationObj };
     },
@@ -72,23 +86,29 @@ const mutations = {
     toggleChatMinimize:(state)=>{
         state.isMinimized = !state.isMinimized;
     },
+    expandChat:()=>{
+        state.isMinimized = false;
+    },
     closeChat:(state)=>{
         state.isVisible = false
     },
     openChat:(state)=>{
         state.isVisible = true
     },
-    clearUnreadFromConversation:(state, userId)=>{
-        state.conversations[userId].unread = 0;
+    clearUnreadFromConversation:(state, conversationId)=>{
+        state.conversations[conversationId].unread = 0;
     },
     updateTotalUnread:(state, val)=>{
         //val could be negative value
         state.totalUnread = state.totalUnread + val;
+    },
+    lockChat:(state)=>{
+        state.chatLocked = true;
     }
 };
 
 const actions = {
-    addMessage:({commit, state}, message)=>{
+    addMessage:({commit, state, dispatch}, message)=>{
         //check if inside conversation
         let isInConversation = state.chatState == state.enumChatState.messages;
         if(isInConversation){
@@ -97,19 +117,24 @@ const actions = {
                 commit('addMessage', message)
             }else{
                 // check if conversation with this user is exists
-                if(!!state.conversations[message.userId]){
+                if(!!state.conversations[message.conversationId]){
                     //update unread conversations
                     commit('addConversationUnread', message)
                     commit('updateTotalUnread', 1);
                 }else{
                     //no conversation should be added
-                    let ConversationObj = chatService.createConversation(message);
-                    commit('addConversation', ConversationObj)
+                    // TODO get conversation by id
+                    dispatch('getConversationById', message.conversationId).then(({data})=>{
+                        let ConversationObj = chatService.createConversation(data);
+                        commit('addConversation', ConversationObj)
+                        commit('setActiveConversationId', ConversationObj.conversationId)
+                        commit('addMessage', message)
+                    })
                 }
             }
         }else{
             // check if conversation with this user is exists
-            if(!!state.conversations[message.userId]){
+            if(!!state.conversations[message.conversationId]){
                 //update unread conversations
                 commit('addConversationUnread', message)
                 commit('updateTotalUnread', 1);
@@ -121,14 +146,20 @@ const actions = {
         }      
         
     },
+    getConversationById:(context, conversationId)=>{
+        return chatService.getConversationById(conversationId);
+    },
     setTotalUnread:({commit}, totalUnread)=>{
         commit('updateTotalUnread', totalUnread)
     },
-    clearUnread:({commit, state}, otherUserId)=>{
-        chatService.clearUnread(otherUserId);
-        let unreadNumber = state.conversations[otherUserId].unread * -1;
-        commit('updateTotalUnread', unreadNumber);
-        commit('clearUnreadFromConversation', otherUserId);
+    clearUnread:({commit, state}, conversationId)=>{
+        if(state.conversations[conversationId]){
+            let otherUserId = state.conversations[conversationId].userId;
+            chatService.clearUnread(otherUserId);
+            let unreadNumber = state.conversations[conversationId].unread * -1;
+            commit('updateTotalUnread', unreadNumber);
+            commit('clearUnreadFromConversation', conversationId);
+        }
     },
     signalRAddMessage({dispatch}, messageObj){
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
@@ -136,7 +167,7 @@ const actions = {
     },
     setActiveConversationObj:({commit, dispatch, state}, Obj)=>{
         commit('setActiveConversationObj', Obj);
-        dispatch('clearUnread', Obj.userId);
+        dispatch('clearUnread', Obj.conversationId);
         dispatch('syncMessagesByConversationId');
         dispatch('updateChatState', state.enumChatState.messages);
     },
@@ -155,11 +186,20 @@ const actions = {
             }
         });
     },
-    syncMessagesByConversationId:({dispatch, state})=>{
+    syncMessagesByConversationId:({dispatch, state, getters, commit})=>{
         //get from server the messages by id
-        if(!state.activeConversationObj.conversationId) return;
-        let id = state.activeConversationObj.conversationId;
-        if(!state.messages[id]){
+        let id = null;
+        if(!state.activeConversationObj.conversationId) {
+            //try to get conversation ID
+            let conversationId = getters.getConversationIdCurrentUserId
+            if(!!conversationId){
+                id = conversationId;
+                commit('setActiveConversationId', id)
+            }
+        }else{
+            id = state.activeConversationObj.conversationId;
+        }
+        if(!!id && !state.messages[id]){
             chatService.getMessageById(id).then(({data})=>{
                 if(!data) return;
                 data.forEach(message => {
@@ -187,8 +227,14 @@ const actions = {
     },
     openChat:({commit})=>{
         commit('openChat')
+    },
+    openChatInterface:({commit, dispatch})=>{
+        commit('expandChat');
+        dispatch('openChat');
+    },
+    lockChat:({commit})=>{
+        commit('lockChat');
     }
-    
 };
 export default {
     state,

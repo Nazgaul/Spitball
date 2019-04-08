@@ -54,7 +54,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpGet("id:guid")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

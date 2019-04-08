@@ -3,10 +3,11 @@ import { connectivityModule } from "./connectivity.module"
 function Conversation(objInit){
     this.userId = objInit.userId;
     this.name = objInit.name;
-    this.unread = objInit.unread;
-    this.online = objInit.online;
+    this.unread = objInit.unread || 0;
+    this.online = objInit.online || true;
     this.conversationId = objInit.conversationId;
-    this.dateTime = objInit.dateTime;
+    this.dateTime = objInit.dateTime || new Date().toISOString();
+    this.image = objInit.image
 }
 
 function createConversation(objInit){
@@ -27,6 +28,18 @@ function FileMessage(objInit, id){
     this.type = objInit.type;
 }
 
+function activeConversationObj(objInit){
+        this.userId = objInit.userId || null;
+        this.conversationId = objInit.conversationId || null;
+        this.userName = objInit.name || null;
+        this.userImage = objInit.image || null;
+}
+
+function createActiveConversationObj(objInit){
+    return new activeConversationObj(objInit);
+}
+
+
 function createMessage(objInit, id){
     if(objInit.type === 'text'){
         return new TextMessage(objInit, id)
@@ -46,7 +59,11 @@ function createServerMessageObj(objInit){
 
 const getAllConversations = () => {
     return connectivityModule.http.get(`Chat`);
-}   
+}  
+
+const getConversationById = (id) => {
+    return connectivityModule.http.get(`Chat/conversation/${id}`);
+}
 
 const getMessageById = (id) => {
     return connectivityModule.http.get(`Chat/${id}`);
@@ -62,10 +79,12 @@ const clearUnread = (otherUserId) => {
 
 export default {
     getAllConversations,
+    getConversationById,
     createConversation,
     getMessageById,
     createMessage,
     sendChatMessage,
     createServerMessageObj,
-    clearUnread
+    clearUnread,
+    createActiveConversationObj
 }

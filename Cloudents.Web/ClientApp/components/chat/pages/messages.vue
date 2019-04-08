@@ -1,6 +1,6 @@
 <template>
     <div class="messages-container">
-        <div ml-2 class="avatar-container"><user-avatar :user-name="'gaby'"/></div>
+        <div ml-2 class="avatar-container"><user-avatar :user-name="activeConversationObj.userName" :userImageUrl="activeConversationObj.userImage"/></div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
                 <span v-if="isTutor" @click="createRoom">Study Room</span>
@@ -33,18 +33,20 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getMessages', 'accountUser']),
+        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj']),
         messages(){
             this.scrollToEnd();
             return this.getMessages;
         },
         isTutor(){
             return this.accountUser.isTutor;
+        },
+        activeConversationObj(){
+            return this.getActiveConversationObj;
         }
     },
     methods:{
         ...mapActions(['sendChatMessage', 'createStudyRoom']),
-        ...mapGetters(['getActiveConversationObj']),
         sendMessage(){
             let messageToSend = this.messageText.trim();
             if(messageToSend !== ''){
@@ -61,7 +63,7 @@ export default {
             })
         },
         createRoom(){
-            let conversationObj = this.getActiveConversationObj();
+            let conversationObj = this.activeConversationObj;
             let userId = conversationObj.userId;
             this.createStudyRoom(userId);
         }

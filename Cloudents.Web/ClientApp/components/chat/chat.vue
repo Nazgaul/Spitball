@@ -32,7 +32,7 @@
             }
         },
         computed:{
-            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getCurrentConversationObj']),
+            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked']),
             isMobile(){
                 return this.$vuetify.breakpoint.smAndDown;
             },
@@ -64,8 +64,8 @@
                 if(this.state === this.enumChatState.conversation){
                     return "Messages";
                 }else{
-                    if(!!this.getCurrentConversationObj){
-                        return this.getCurrentConversationObj.name;
+                    if(!!this.getActiveConversationObj){
+                        return this.getActiveConversationObj.userName;
                     }else{
                         //get user from server to show name
                     }
@@ -79,7 +79,7 @@
             ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
-                if(!this.isMinimized){
+                if(!this.isMinimized && !this.getIsChatLocked){
                     this.updateChatState(this.enumChatState.conversation);
                 }
             },

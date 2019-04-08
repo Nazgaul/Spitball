@@ -1,15 +1,12 @@
-﻿using Cloudents.Core.DTOs;
-using Dapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Dapper;
 
-namespace Cloudents.Query
+namespace Cloudents.Query.Query
 {
-    public class ChatConversationQuery: IQuery<ChatUserDto>
+    public class ChatConversationQuery : IQuery<ChatUserDto>
     {
         public ChatConversationQuery(Guid id, long userId)
         {
@@ -21,11 +18,11 @@ namespace Cloudents.Query
 
 
         internal sealed class
-           GetAnswerAcceptedEmailQueryQueryHandler : IQueryHandler<ChatConversationQuery, ChatUserDto>
+            ChatConversationQueryHandler : IQueryHandler<ChatConversationQuery, ChatUserDto>
         {
             private readonly DapperRepository _dapper;
 
-            public GetAnswerAcceptedEmailQueryQueryHandler(DapperRepository dapper)
+            public ChatConversationQueryHandler(DapperRepository dapper)
             {
                 _dapper = dapper;
             }
@@ -35,15 +32,14 @@ namespace Cloudents.Query
             {
                 using (var conn = _dapper.OpenConnection())
                 {
-                    var result = await conn.QueryAsync<ChatUserDto>(@"
+                    return await conn.QueryFirstOrDefaultAsync<ChatUserDto>(@"
 Select u.Name,u.Id as UserId,u.Image,u.Online,cu.Unread, cr.Id as ConversationId, cr.UpdateTime as DateTime
  from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id
 join sb.[User] u on cu2.UserId = u.Id
 where cu.UserId = @UserId and cr.Id = @Id
-order by cr.UpdateTime desc", new { id = query.Id, UserId = query.UserId });
-                    return result.FirstOrDefault();
+order by cr.UpdateTime desc", new { id = query.Id, query.UserId });
                 }
             }
         }
