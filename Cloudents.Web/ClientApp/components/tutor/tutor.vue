@@ -10,7 +10,7 @@
                     </span>
                     <div class="tutor-nav-item" v-for="singleNav in navs"
                          :class="{ 'active-nav': singleNav.value === activeItem}">
-                        <v-icon class="mr-2">{{singleNav.icon}}</v-icon>
+                        <v-icon class="mr-2" @click="updateActiveNav(singleNav.value)">{{singleNav.icon}}</v-icon>
                         <a class="tutor-nav-item-link"
                            @click="updateActiveNav(singleNav.value)">{{singleNav.name}}</a>
                     </div>
