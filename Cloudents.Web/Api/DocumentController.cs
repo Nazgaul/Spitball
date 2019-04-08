@@ -14,6 +14,7 @@ using Cloudents.Core.Message.System;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Documents;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
@@ -31,7 +32,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Swagger;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
@@ -148,35 +148,47 @@ namespace Cloudents.Web.Api
 
 
         [HttpGet]
-        public async Task<string> AllAsync()
+        public async Task<WebResponseWithFacet<DocumentFeedDto>> AggregateAllCoursesAsync(
+           int page, CancellationToken token)
         {
-            return "All";
+            var userId = _userManager.GetLongUserId(User);
+            var query = new DocumentAggregateQuery(userId, page);
+            var result = await _queryBus.QueryAsync(query, token);
+            return new WebResponseWithFacet<DocumentFeedDto>()
+            {
+                Result = result
+            };
         }
 
         [HttpGet, IgnoreFromQueryActionConstraint("term")]
         public async Task<string> SpecificCourseAsync(
-            [RequiredFromQuery] string course)
+            [RequiredFromQuery] string course,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country)
         {
             return "Course" + course;
         }
 
         [HttpGet]
-        public async Task<string> SearchInClassAsync(
+        public async Task<string> SearchAsync(
             [RequiredFromQuery] string term,
-            [RequiredFromQuery] string course,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId)
+             string course, string university,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+             [ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country)
         {
             return "Search Class" + term;
         }
 
-        [HttpGet, IgnoreFromQueryActionConstraint("course")]
-        public async Task<string> SearchInSpitballAsync(
-            [RequiredFromQuery] string term,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId)
-        {
-            //TODO need courses
-            return "Search spitball" + term;
-        }
+        //[HttpGet, IgnoreFromQueryActionConstraint("course")]
+        //public async Task<string> SearchInSpitballAsync(
+        //    [RequiredFromQuery] string term,
+        //    string course,
+        //    [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+        //    [ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country)
+        //{
+        //    //TODO need courses
+        //    return "Search spitball" + term;
+        //}
 
         /// <summary>
         /// Search document vertical result

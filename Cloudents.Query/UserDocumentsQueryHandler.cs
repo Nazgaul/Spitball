@@ -35,7 +35,7 @@ namespace Cloudents.Query
                     Type = s.Type,
                     Professor = s.Professor,
                     Title = s.Name,
-                    Source = "Cloudents",
+                    //Source = "Cloudents",
                     Views = s.Views,
                     Downloads = s.Downloads,
                     University = s.University.Name,
