@@ -65,7 +65,7 @@
                     <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
                             @click.prevent="openCreateUniDialog()">
                         <span v-language:inner>university_cant_find</span>
-                        <span class="add-item" v-language:inner>university_create_new</span>
+                        <span class="pl-1 add-item" v-language:inner>university_create_new</span>
                     </v-flex>
                 </div>
             </v-flex>
