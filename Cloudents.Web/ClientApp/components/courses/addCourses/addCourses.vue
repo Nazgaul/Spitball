@@ -35,7 +35,7 @@
 
             <v-flex v-show="quantatySelected"  transition="fade-transition" style="position: relative">
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
-                    <div class="class-list selected-classes-list py-3 px-3" ref="listCourse" >
+                    <div class="class-list selected-classes-list py-3 px-3" :class="{'higher': isFirefox}" ref="listCourse" >
                         <div class="selected-class-item caption d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
                              v-for="selectedClass in localSelectedClasses">
                             <span class="text-truncate">{{selectedClass.text}}</span>
@@ -72,10 +72,10 @@
                                      <v-icon class="checked-icon">sbf-check-circle</v-icon>
                                    </span>
                                 </v-flex>
-                                <v-flex shrink v-else class="d-flex align-center cursor-pointer">
+                                <v-flex shrink v-else class="d-flex align-center">
                                     <span class="light-purple caption font-weight-bold mr-2" v-html="$Ph('courses_join')"></span>
                                     <span>
-                                     <v-icon class="add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
+                                     <v-icon class="cursor-pointer add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
                                    </span>
                                 </v-flex>
                             </div>
@@ -87,7 +87,7 @@
                     <!--create new course-->
                     <v-flex  class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer" @click="changeCreateDialogState(true)">
                         <span v-language:inner>courses_cant_find</span>
-                        <span class="add-item" v-language:inner>courses_create_new</span>
+                        <span class="pl-1 add-item" v-language:inner>courses_create_new</span>
                     </v-flex>
                 </div>
             </v-flex>
@@ -106,6 +106,7 @@
         data() {
             return {
                 search: "",
+                isFirefox: global.isFirefox,
                 classNamePlaceholder: LanguageService.getValueByKey(
                     "courses_placeholder_find"
                 ),
@@ -123,6 +124,8 @@
                     if(searchVal.length >= 3) {
                         this.updateClasses(searchVal);
                     }
+                }else if(val === ''){
+                    this.updateClasses('');
                 }
             }, 500)
         },
@@ -313,6 +316,9 @@
                 background-color: #f0f0f7;
                 overflow-y:hidden;
                 height: 54px;
+                &.higher{
+                    height: 75px;
+                }
             }
         }
         .students-enrolled{
@@ -353,6 +359,12 @@
             font-size: 8px !important;
             margin-bottom: 3px;
             margin-left: 8px;
+        }
+        .course-back-btn{
+            &.rtl{
+                /*rtl:ignore*/
+                transform: rotate( -180deg );
+            }
         }
 
     }

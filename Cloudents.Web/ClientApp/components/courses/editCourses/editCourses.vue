@@ -19,7 +19,7 @@
             <v-layout align-center>
                 <v-flex class="search-classes-container">
                     <div class="class-list search-classes-list">
-                        <div class="list-item search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
+                        <div class="list-item search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
                              v-for="(singleClass, index) in classesSelected" :key="index">
                             <v-layout column class="pl-4 limit-width">
                                 <v-flex shrink class="text-truncate course-name-wrap">
@@ -27,7 +27,7 @@
                                 </v-flex>
                                 <v-flex class="label-text pt-1" v-if="singleClass.isPending">
                                     <span v-language:inner>courses_pending</span>
-                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center"
+                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center ml-1"
                                           v-language:inner>courses_new</span>
                                 </v-flex>
                                 <v-flex class="label-text  pt-1" v-else>
@@ -164,7 +164,7 @@
     @import '../../../styles/mixin.less';
 
     .courses-list-wrap {
-        .scrollBarStyle(0px, #0085D1);
+        .scrollBarStyle(3px, #0085D1);
         .rounded-btn {
             border-radius: 16px;
         }

@@ -1,10 +1,10 @@
 <template>
-    <v-container class="profile-page-container" :class="{'content-center': !isMyProfile && !isTutorProfile}">
+    <v-container class="profile-page-container">
         <button v-if="$vuetify.breakpoint.xsOnly" class="back-button" @click="$router.go(-1)">
             <v-icon right>sbf-arrow-back</v-icon>
         </button>
 
-        <v-layout  justify-center v-bind="xsColumn" class="bio-wrap" >
+        <v-layout  justify-start v-bind="xsColumn" class="bio-wrap" >
                 <v-flex xs12 sm9 md9 >
                     <profile-bio :isMyProfile="isMyProfile"></profile-bio>
                 </v-flex>
@@ -15,7 +15,7 @@
                 <!--<userInfoBlock v-else></userInfoBlock>-->
             </v-flex>
         </v-layout>
-                <v-layout v-bind="xsColumn" align-start  :class="[isMyProfile && isTutorProfile ? 'justify-start' : ' justify-center'  ]">
+                <v-layout v-bind="xsColumn" align-start  justify-start>
                     <v-flex xs12 md9 sm9 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
                         <v-flex xs12 sm12 md12 class="mt-3  limited-760" :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : 'mb-4']">
                             <v-divider v-if="$vuetify.breakpoint.xsOnly" style="height:2px; color: rgba(163, 160, 251, 0.32);"></v-divider>

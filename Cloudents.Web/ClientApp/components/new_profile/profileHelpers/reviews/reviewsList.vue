@@ -1,5 +1,5 @@
 <template>
-        <v-layout column class="reviews-container">
+        <v-layout column class="reviews-container" v-if="reviews">
             <v-flex class="mb-3">
                 <span class="review-title" v-language:inner>profile_reviews</span>
             </v-flex>

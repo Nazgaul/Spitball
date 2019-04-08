@@ -42,7 +42,6 @@
                             <v-flex xs1 sm1 md1>
                                 <span class="uni-logo">
                                     <img v-if="singleUni.image" :src="singleUni.image" alt="university logo" class="rounded uni-img">
-                                    <!--<v-icon class="checked-icon">sbf-check-circle</v-icon>-->
                                     <span v-else>
                                     <empty-uni-logo></empty-uni-logo>
                                     </span>
@@ -65,7 +64,7 @@
                     <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
                             @click.prevent="openCreateUniDialog()">
                         <span v-language:inner>university_cant_find</span>
-                        <span class="add-item" v-language:inner>university_create_new</span>
+                        <span class="pl-1 add-item" v-language:inner>university_create_new</span>
                     </v-flex>
                 </div>
             </v-flex>

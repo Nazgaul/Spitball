@@ -10,15 +10,17 @@
         </v-layout>
         <v-layout shrink align-center justify-center class="px-4 mt-4 mb-1">
             <v-flex xs12 sm12 md12 class="text-xs-center">
+                <v-form ref="courseForm"  v-model="validCourseForm">
                 <v-text-field v-model="courseName"
                               class="course-input"
                               outline
                               prepend-inner-icon=""
                               :placeholder="newCoursePlaceholder"
-                              :rules="[rules.required]"
+                              :rules="newCourseRules"
                               autocomplete="off"
                               autofocus
                               spellcheck="true"></v-text-field>
+                </v-form>
             </v-flex>
         </v-layout>
         <v-layout align-start justify-start shrink column class="px-4">
@@ -55,22 +57,24 @@
             return {
                 courseName: '',
                 btnLoad: false,
-                rules: {
-                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
-                },
+                validCourseForm:false,
+                newCourseRules: [
+                    v => !!v || LanguageService.getValueByKey("formErrors_required"),
+                    v => (v && v.length >= 4) || LanguageService.getValueByKey("formErrors_longer_4"),
+                ],
                 newCoursePlaceholder: LanguageService.getValueByKey("courses_new_placeholder")
             };
         },
         methods: {
             ...mapActions(['createCourse', 'changeCreateDialogState']),
             createNewCourse() {
-                let self = this;
-                let course = {name: self.courseName};
-                self.createCourse(course).then((success)=>{
-                    // this.changeCreateDialogState(false);
-                    self.$root.$emit('courseCreated', self.courseName);
-                    // this.$router.push({name: 'editCourse'});
-                });
+                if (this.$refs.courseForm.validate()) {
+                    let self = this;
+                    let course = {name: self.courseName};
+                    self.createCourse(course).then((success) => {
+                        self.$root.$emit('courseCreated', self.courseName);
+                    });
+                }
             },
             closeDialog(){
                 this.changeCreateDialogState(false);
