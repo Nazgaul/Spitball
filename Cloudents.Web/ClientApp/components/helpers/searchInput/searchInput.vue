@@ -6,6 +6,7 @@
         <div class="search-b-wrapper">
         <!--<div class="search-b-wrapper" v-scroll="onScroll">-->
             <v-text-field class="search-b" type="text" solo
+                          :class="{'white-background': showSuggestions}"
                           @keyup.enter="search()" autocomplete="off" @keyup.down="arrowNavigation(1)"
                           @keyup.up="arrowNavigation(-1)"
                           name="q"
