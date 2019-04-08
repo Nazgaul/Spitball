@@ -154,10 +154,40 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             var query = new DocumentAggregateQuery(userId, page);
             var result = await _queryBus.QueryAsync(query, token);
-            return new WebResponseWithFacet<DocumentFeedDto>()
+
+
+            var p = result.Result.ToList();
+            string nextPageLink = null;
+            if (p.Count > 0)
             {
-                Result = result
+                nextPageLink = Url.Action("AggregateAllCoursesAsync", new {page = ++page});
+            }
+
+            var filters = new List<IFilters>();
+            if (result.Facet.Any())
+            {
+                var filter = new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
+                    result.Facet.Select(s => new KeyValuePair<string, string>(s, s)));
+                filters.Add(filter);
+            }
+
+
+            return new WebResponseWithFacet<DocumentFeedDto>
+            {
+                Result = p.Select(s =>
+                {
+                    if (s.Url == null)
+                    {
+                        s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                    }
+                    s.Title = Path.GetFileNameWithoutExtension(s.Title);
+                    return s;
+                }),
+                Filters = filters,
+                NextPageLink = nextPageLink
             };
+
+            
         }
 
         [HttpGet, IgnoreFromQueryActionConstraint("term")]

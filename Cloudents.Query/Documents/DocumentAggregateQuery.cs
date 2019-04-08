@@ -8,7 +8,7 @@ using Cloudents.Query.Stuff;
 
 namespace Cloudents.Query.Documents
 {
-    public class DocumentAggregateQuery : IQuery<IEnumerable<DocumentFeedDto>>
+    public class DocumentAggregateQuery : IQuery<DocumentFeedWithFacetDto>
     {
         public DocumentAggregateQuery(long userId, int page)
         {
@@ -21,7 +21,7 @@ namespace Cloudents.Query.Documents
         public long UserId { get; private set; }
 
 
-        internal sealed class DocumentAggregateQueryHandler : IQueryHandler<DocumentAggregateQuery, IEnumerable<DocumentFeedDto>>
+        internal sealed class DocumentAggregateQueryHandler : IQueryHandler<DocumentAggregateQuery, DocumentFeedWithFacetDto>
         {
 
             private readonly IStatelessSession _dapperRepository;
@@ -32,7 +32,7 @@ namespace Cloudents.Query.Documents
             }
 
 
-            public async Task<IEnumerable<DocumentFeedDto>> GetAsync(DocumentAggregateQuery query, CancellationToken token)
+            public async Task<DocumentFeedWithFacetDto> GetAsync(DocumentAggregateQuery query, CancellationToken token)
             {
                 const string sql = @"with cte as (
 select u2.Id as UniversityId, COALESCE(u2.country,u.country) as Country, u.id as userid
@@ -55,6 +55,7 @@ d.Id
 ,d.Downloads
 ,d.CreationTime as [DateTime]
 ,d.VoteCount as Vote_Votes
+,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as Vote_Vote
 ,d.Price as Price
 
 from sb.Document d 
@@ -87,7 +88,12 @@ FETCH NEXT 50 ROWS ONLY";
 
 
                 var filters = await filtersFuture.GetEnumerableAsync(token);
-                return await future.GetEnumerableAsync(token);
+                var list =  await future.GetEnumerableAsync(token);
+                return new DocumentFeedWithFacetDto()
+                {
+                    Facet = filters,
+                    Result = list
+                };
                 //using (var conn = _dapperRepository.OpenConnection())
                 //{
                 //    //using (var grid = await conn.QueryMultipleAsync(sql))
