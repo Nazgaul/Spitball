@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import { LanguageService } from "../../../services/language/languageService";
 
     export default {
