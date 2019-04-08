@@ -72,9 +72,7 @@
                     let self = this;
                     let course = {name: self.courseName};
                     self.createCourse(course).then((success) => {
-                        // this.changeCreateDialogState(false);
                         self.$root.$emit('courseCreated', self.courseName);
-                        // this.$router.push({name: 'editCourse'});
                     });
                 }
             },
