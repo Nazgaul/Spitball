@@ -27,7 +27,7 @@
                                 </v-flex>
                                 <v-flex class="label-text pt-1" v-if="singleClass.isPending">
                                     <span v-language:inner>courses_pending</span>
-                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center"
+                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center ml-1"
                                           v-language:inner>courses_new</span>
                                 </v-flex>
                                 <v-flex class="label-text  pt-1" v-else>
