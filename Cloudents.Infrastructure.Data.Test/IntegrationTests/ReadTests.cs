@@ -4,6 +4,8 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure.Stuff;
+using Cloudents.Persistence;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -27,6 +29,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.Register(_ => configuration).As<IConfigurationKeys>();
             builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             builder.RegisterType<QueryBus>().As<IQueryBus>();
+            builder.RegisterModule<ModuleDb>();
+            builder.RegisterModule<ModuleCore>();
             builder.RegisterType<DapperRepository>().AsSelf();
             var _container = builder.Build();
             _queryBus = _container.Resolve<IQueryBus>();
