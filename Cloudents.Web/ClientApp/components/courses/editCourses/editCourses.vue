@@ -19,7 +19,7 @@
             <v-layout align-center>
                 <v-flex class="search-classes-container">
                     <div class="class-list search-classes-list">
-                        <div class="list-item search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
+                        <div class="list-item search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
                              v-for="(singleClass, index) in classesSelected" :key="index">
                             <v-layout column class="pl-4 limit-width">
                                 <v-flex shrink class="text-truncate course-name-wrap">
