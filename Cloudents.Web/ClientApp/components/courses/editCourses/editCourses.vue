@@ -164,7 +164,7 @@
     @import '../../../styles/mixin.less';
 
     .courses-list-wrap {
-        .scrollBarStyle(0px, #0085D1);
+        .scrollBarStyle(3px, #0085D1);
         .rounded-btn {
             border-radius: 16px;
         }
