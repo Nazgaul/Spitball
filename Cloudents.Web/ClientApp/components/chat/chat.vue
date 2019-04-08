@@ -85,11 +85,14 @@
             }
         },
         methods:{
-            ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat']),
+            ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat', 'openChatInterface']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
-                if(!this.isMinimized && !this.getIsChatLocked){
+                if(!this.getIsChatLocked){
                     this.updateChatState(this.enumChatState.conversation);
+                    if(this.isMinimized){
+                        this.openChatInterface();
+                    }
                 }
             },
             toggleMinimizeChat(){
