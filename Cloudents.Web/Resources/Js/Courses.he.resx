@@ -129,11 +129,14 @@
   <data name="btn_done" xml:space="preserve">
     <value>סיים</value>
   </data>
+  <data name="btn_finished" xml:space="preserve">
+    <value>הסתיים</value>
+  </data>
   <data name="cant_find" xml:space="preserve">
     <value>לא יכול למצוא את הקורס שלך?</value>
   </data>
   <data name="check_mistakes" xml:space="preserve">
-    <value>מחפש שגיאות כתיב</value>
+    <value>לחפש שגיאות כתיב</value>
   </data>
   <data name="copy_link" xml:space="preserve">
     <value>העתק קישור של הקורס</value>
@@ -144,8 +147,11 @@
   <data name="create_new" xml:space="preserve">
     <value>צור חדש</value>
   </data>
+  <data name="empty_pretty" xml:space="preserve">
+    <value>העמוד ריק...</value>
+  </data>
   <data name="find_similar" xml:space="preserve">
-    <value>מצא קורסים בעלי שם זהה</value>
+    <value>למצוא קורסים בעלי שם זהה</value>
   </data>
   <data name="invite_classmates" xml:space="preserve">
     <value>הזמן חברים ללימודים</value>
@@ -177,6 +183,9 @@
   <data name="new_title" xml:space="preserve">
     <value>צור קורס חדש</value>
   </data>
+  <data name="out_of" xml:space="preserve">
+    <value>מספיטבול</value>
+  </data>
   <data name="pending" xml:space="preserve">
     <value>ממתין</value>
   </data>
@@ -184,7 +193,10 @@
     <value>הקלד למצוא קורסים</value>
   </data>
   <data name="remove_spaces" xml:space="preserve">
-    <value>הוסף או מחק רווח או תווים מיוחדים</value>
+    <value>להוסיף או למחוק רווח או תווים מיוחדים</value>
+  </data>
+  <data name="start_adding" xml:space="preserve">
+    <value>התחל להוסיף קורסים כדי לקבל הכי הרבה</value>
   </data>
   <data name="students" xml:space="preserve">
     <value>סטודנטים</value>
