@@ -35,7 +35,7 @@
 
             <v-flex v-show="quantatySelected"  transition="fade-transition" style="position: relative">
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
-                    <div class="class-list selected-classes-list py-3 px-3" ref="listCourse" >
+                    <div class="class-list selected-classes-list py-3 px-3" :class="{'higher': isFirefox}" ref="listCourse" >
                         <div class="selected-class-item caption d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
                              v-for="selectedClass in localSelectedClasses">
                             <span class="text-truncate">{{selectedClass.text}}</span>
@@ -106,6 +106,7 @@
         data() {
             return {
                 search: "",
+                isFirefox: global.isFirefox,
                 classNamePlaceholder: LanguageService.getValueByKey(
                     "courses_placeholder_find"
                 ),
@@ -315,6 +316,9 @@
                 background-color: #f0f0f7;
                 overflow-y:hidden;
                 height: 54px;
+                &.higher{
+                    height: 75px;
+                }
             }
         }
         .students-enrolled{
