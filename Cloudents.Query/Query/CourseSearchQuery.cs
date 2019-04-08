@@ -34,7 +34,7 @@ namespace Cloudents.Query.Query
 
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
            {
-                    var sql = @"declare @t nvarchar(255) = CONCAT('"" * ', replace(@Term, ' ', ' * "" AND "" * '), ' * ""')
+                    var sql = @"declare @t nvarchar(255) = CONCAT('""* ', replace(@Term, ' ', ' * "" AND "" * '), ' *""')
                             select top 50 Name,
 	                            case when uc.CourseId is not null then 1 else null end as IsFollowing,
 	                            c.count as Students
