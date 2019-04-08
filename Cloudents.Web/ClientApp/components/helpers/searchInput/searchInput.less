@@ -1,21 +1,35 @@
 ﻿@import "../../../styles/mixin.less";
-
 .search-input {
   display: flex;
   width: 100%;
-  max-width: 500px;
+  //max-width: 500px;
+  max-width: 862px;
   min-width: auto;
+  border-radius: 4px;
+  margin-left: 32px;
+  border: solid 1px #d1d4d5;
+  background-color: @systemBackgroundColor;
+  @media (max-width: @screen-xs) {
+    margin-left: 0;
 
-  .search-back-arrow{
+  }
+  .search-b{
+    background-color: @systemBackgroundColor;
+    &.white-background {
+      background-color: @color-white;
+    }
+  }
+
+  .search-back-arrow {
     line-height: 32px;
-    i{
+    i {
       transform: rotate(180deg);
       line-height: 32px;
       margin-right: 20px;
       font-size: 14px;
       margin-left: 14px;
       cursor: pointer;
-      &.rtl{
+      &.rtl {
         transform: unset;
       }
     }
@@ -36,23 +50,24 @@
   .search-b-wrapper {
     position: relative;
     flex-grow: 1;
-    .v-input__prepend-outer{
-      margin-top: 3px;
+    .v-input__prepend-outer {
+      margin-top: 8px;
       margin-left: 12px;
     }
-    .v-input__control{
-      min-height: 32px;
-      .v-input__slot{
-        box-shadow: none!important;
+    .v-input__control {
+      min-height: 40px;
+      .v-input__slot {
+        box-shadow: none !important;
         background: none;
         padding: 0;
-        input{
-          padding-right:15px;
+        margin-bottom: 0!important;
+        input {
+          padding-right: 15px;
         }
         //clear icon style
-        .v-input__append-inner{
-          .v-icon{
-            &.sbf-close{
+        .v-input__append-inner {
+          .v-icon {
+            &.sbf-close {
               font-size: 10px;
               padding: 0 8px 8px 0;
             }
@@ -63,12 +78,11 @@
     }
     input[type="search"] {
       .clear-field-btn;
-       font-size: 14px;
+      font-size: 14px;
     }
 
-
   }
-  
+
   .search-b, .search-menu {
     z-index: 3;
   }
@@ -81,12 +95,12 @@
     bottom: 0;
   }
 
-
   .search-menu {
     position: absolute;
     left: 0;
     right: 0;
-    background: #fff !important;
+
+    background: @color-white !important;
     // border-radius: 0 0 4px 4px;
     margin-top: -3px;
     // box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
@@ -98,7 +112,7 @@
       overflow: scroll;
     }
 
-    .suggestion{
+    .suggestion {
       margin: 15px 0px;
     }
 
@@ -186,7 +200,7 @@
       color: @color-white;
     }
 
-    @media(max-width: @screen-xs) {
+    @media (max-width: @screen-xs) {
       margin: 0;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
