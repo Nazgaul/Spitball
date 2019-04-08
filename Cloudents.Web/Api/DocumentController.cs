@@ -147,7 +147,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpGet]
+        [HttpGet(Name = "Documents")]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> AggregateAllCoursesAsync(
            int page, CancellationToken token)
         {
@@ -160,7 +160,7 @@ namespace Cloudents.Web.Api
             string nextPageLink = null;
             if (p.Count > 0)
             {
-                nextPageLink = Url.Action("AggregateAllCoursesAsync", new {page = ++page});
+                nextPageLink = Url.RouteUrl("Documents", new {page = ++page});
             }
 
             var filters = new List<IFilters>();
