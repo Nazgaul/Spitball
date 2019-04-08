@@ -43,13 +43,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new DocumentAggregateQuery(638, 0);
 
             var result = await _queryBus.QueryAsync(query, default);
+        }
 
+        [Fact]
+        public async Task DocumentCourseQuery_Ok()
+        {
+            var query = new DocumentCourseQuery(638, 0, "economics");
 
-
-
-
-
-
+            var result = await _queryBus.QueryAsync(query, default);
         }
     }
 }
