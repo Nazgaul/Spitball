@@ -32,7 +32,7 @@
             }
         },
         computed:{
-            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked']),
+            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked', 'accountUser']),
             isMobile(){
                 return this.$vuetify.breakpoint.smAndDown;
             },
@@ -54,11 +54,19 @@
                 if(this.isMobile){
                     return true;
                 }else{
-                    return this.getIsChatVisible;
+                    if(this.accountUser === null){
+                        return false;
+                    }else{
+                        return this.getIsChatVisible;
+                    }
                 }
             },
             isMinimized(){
-                return this.getIsChatMinimized;
+                 if(this.isMobile){
+                    return false;
+                }else{
+                    return this.getIsChatMinimized;
+                }
             },
             headerTitle(){
                 if(this.state === this.enumChatState.conversation){
@@ -91,7 +99,6 @@
             }
         },
         created(){
-            this.getAllConversations();
         }
     }
 </script>

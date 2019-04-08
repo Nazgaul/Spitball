@@ -74,14 +74,21 @@
             }
         },
         methods:{
-            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface']),
+            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface', 'changeFooterActiveTab']),
             sendMessage(){
                 if ( this.accountUser == null) {
                     this.updateLoginDialogState(true);
                 } else {
                     let currentConversationObj = chatService.createActiveConversationObj(this.tutorData)
                     this.setActiveConversationObj(currentConversationObj);
-                    this.openChatInterface();
+                    let isMobile = this.$vuetify.breakpoint.smAndDown;
+                    if(isMobile){
+                        //move to chat tab
+                        this.changeFooterActiveTab('promotions');
+                    }else{
+                        this.openChatInterface();
+                    }
+                    
                 }
             }
         }
