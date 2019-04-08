@@ -26,6 +26,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cloudents.Query.Query;
 using Cloudents.Search.University;
+using Cloudents.Query.Documents;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -399,9 +400,12 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            var commandBus = _container.Resolve<ICommandBus>();
-            var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
-            await commandBus.DispatchAsync(command, default);
+            var queryBus = _container.Resolve<IQueryBus>();
+            var query = new DocumentCourseQuery(638, 0, "economics");
+            var test = await queryBus.QueryAsync(query, default);
+
+           /* var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
+            await commandBus.DispatchAsync(command, default);*/
 
             //await addToExtra();
             //await FunctionsExtensions.DeleteCourses(_container);
