@@ -28,7 +28,9 @@
                     </div>
                     <div style="display: flex; align-items: center;">
                     <span class="video-size-ctrl mr-2" @click.stop="biggerRemoteVideo">
-                        <v-icon class="video-size-icon">sbf-expand-icon</v-icon>
+                        <span class="video-size-icon">
+                            <fullScreenIcon class="full-screen-icon"></fullScreenIcon>
+                        </span>
                     </span>
                         <span class="video-size-ctrl" @click.stop="minimize('remote_player')">
                          <v-icon v-if="visible.remote_player" class="video-size-icon">sbf-minimize</v-icon>

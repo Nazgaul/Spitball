@@ -244,18 +244,19 @@
         .nav-container {
             position: fixed;
             background-color: #FFFFFF;
-            padding: 16px 0;
+            padding: 0px 0;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             width: auto;
             margin-top: 20px;
+            left: 16px;
             z-index: 5;
 
             &.bottom-nav{
                 top: 625px;
             }
             .nav-action {
-                padding: 12px 16px;
+                padding: 12px 10px;
                 outline: none!important;
                 .v-icon {
                     color: #000000;
