@@ -10,15 +10,17 @@ namespace Cloudents.Query.Documents
 {
     public class DocumentAggregateQuery : IQuery<DocumentFeedWithFacetDto>
     {
-        public DocumentAggregateQuery(long userId, int page)
+        public DocumentAggregateQuery(long userId, int page, string filter = null)
         {
             Page = page;
             UserId = userId;
+            Filter = filter;
         }
 
-        public int Page { get; private set; }
+        private int Page { get; }
 
-        public long UserId { get; private set; }
+        private long UserId { get; }
+        private string Filter { get; }
 
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<DocumentAggregateQuery, DocumentFeedWithFacetDto>
@@ -62,7 +64,8 @@ from sb.Document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId,
 cte
-where d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid)
+where d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) 
+    and (:typefilter is null or d.Type = :typefilter)
 order by case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
 case when un.Country = cte.Country then 2 else 0 end +
 cast(1 as float)/DATEDIFF(day, d.updateTime, GETUTCDATE()) desc

@@ -11,17 +11,19 @@ namespace Cloudents.Query.Documents
 {
     public class DocumentCourseQuery : IQuery<DocumentFeedWithFacetDto>
     {
-        public DocumentCourseQuery(long userId, int page, string course)
+        public DocumentCourseQuery(long userId, int page, string course, string filter = null)
         {
             Page = page;
             UserId = userId;
             Course = course;
+            Filter = filter;
         }
 
         private int Page { get; }
-
         private long UserId { get;  }
         private string Course { get;  }
+        private string Filter { get; }
+        
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<DocumentCourseQuery, DocumentFeedWithFacetDto>
         {
@@ -63,7 +65,7 @@ from sb.Document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId,
 cte
-where d.CourseName = :course
+where d.CourseName = :course and (:typefilter is null or d.Type = :typefilter)
 order by case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
 case when un.Country = cte.Country then 2 else 0 end +
 cast(1 as float)/DATEDIFF(day, d.updateTime, GETUTCDATE()) desc
@@ -80,6 +82,7 @@ FETCH NEXT 50 ROWS ONLY";
                 sqlQuery.SetInt32("page", query.Page);
                 sqlQuery.SetInt64("userid", query.UserId);
                 sqlQuery.SetString("course", query.Course);
+                sqlQuery.SetString("typefilter", query.Filter);
                 sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_'));
                 var future = sqlQuery.Future<DocumentFeedDto>();
 
