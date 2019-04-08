@@ -18,10 +18,10 @@ namespace Cloudents.Query.Documents
             Course = course;
         }
 
-        public int Page { get; private set; }
+        private int Page { get; }
 
-        public long UserId { get; private set; }
-        public string Course { get; private set; }
+        private long UserId { get;  }
+        private string Course { get;  }
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<DocumentCourseQuery, DocumentFeedWithFacetDto>
         {
@@ -73,7 +73,7 @@ FETCH NEXT 50 ROWS ONLY";
 
                 const string filter = @"select distinct [Type]
                 from sb.Document d
-                    where d.CourseName in (select courseid from sb.userscourses where userid = :userid )";
+                    where d.CourseName = :course";
 
 
                 var sqlQuery = _repository.CreateSQLQuery(sql);
@@ -85,7 +85,7 @@ FETCH NEXT 50 ROWS ONLY";
 
 
                 var filterQuery = _repository.CreateSQLQuery(filter);
-                filterQuery.SetInt64("userid", query.UserId);
+                filterQuery.SetString("course", query.Course); 
                 var filtersFuture = filterQuery.Future<string>();
 
 
