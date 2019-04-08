@@ -29,7 +29,8 @@
   scrollbar-color: lighten(@color-main-purple, 30%) @color-white;
   scrollbar-width: thin;
   &.v-navigation-drawer {
-    background-color: #43425d;
+    //background-color: #43425d;
+    background-color: @color-main-purple;
     z-index: 102;
     &.hebrew-drawer {
       // swap of right and left is going to be done by webpack RTL, so real vals are oposite
@@ -51,7 +52,7 @@
           min-width: 21px;
           i {
             font-size: 14px;
-            color: #ffffff;
+            color: #a5a4bf;
           }
           &.edit-course {
             i {
@@ -71,16 +72,19 @@
         }
         .v-list__tile__title {
           cursor: pointer;
-                        padding-right: 15px;
+          padding-right: 15px;
         }
       }
-
     }
     .group-items {
-      margin-left: 20px;
+      padding-left: 20px;
       border-radius: 4px 0 0 4px;
       &.active {
         background-color: rgba(0, 0, 0, 0.1);
+        border-left: 3px solid @purpleLight;
+        border-radius: 0;
+        font-weight: 500;
+
       }
 
       .v-list__tile {
