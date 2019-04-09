@@ -27,6 +27,8 @@ using System.Threading.Tasks;
 using Cloudents.Query.Query;
 using Cloudents.Search.University;
 using Cloudents.Query.Documents;
+using Cloudents.Search.Document;
+using Cloudents.Search.Question;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -137,7 +139,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var c = await UpdateMethod();
+            await UpdateMethod();
             //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
             // await c.DispatchAsync(command2, default);
 
@@ -149,11 +151,18 @@ namespace ConsoleApp
             Console.WriteLine("done");
         }
 
-        private static async Task<UniversitySearchWrite> UpdateMethod()
+        private static async Task UpdateMethod()
         {
-            var c = _container.Resolve<UniversitySearchWrite>();
-            await c.CreateOrUpdateAsync(default);
-            return c;
+            //var c = _container.Resolve<UniversitySearchWrite>();
+            //await c.CreateOrUpdateAsync(default);
+
+
+            var c2 = _container.Resolve<DocumentSearchWrite>();
+            await c2.CreateOrUpdateAsync(default);
+
+
+            //var c3 = _container.Resolve<QuestionSearchWrite>();
+            //await c3.CreateOrUpdateAsync(default);
         }
 
 

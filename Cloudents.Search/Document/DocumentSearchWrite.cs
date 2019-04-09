@@ -50,7 +50,7 @@ namespace Cloudents.Search.Document
                     TextWeights = new TextWeights(new Dictionary<string, double>
                     {
                     [nameof(Entities.Document.Name)] = 4,
-                    [nameof(Entities.Document.Course)] = 3.2,
+                    [Entities.Document.CourseNameField] = 3.2,
                     [nameof(Entities.Document.Content)] = 3,
                 }),
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
