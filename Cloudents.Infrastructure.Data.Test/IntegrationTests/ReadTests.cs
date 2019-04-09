@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentCourseQuery_Ok()
         {
-            var query = new DocumentCourseQuery(638, 0, "economics");
+            var query = new DocumentCourseQuery(638, 0, "economics", "Document");
 
             var result = await _queryBus.QueryAsync(query, default);
         }
