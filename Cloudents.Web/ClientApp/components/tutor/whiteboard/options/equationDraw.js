@@ -108,7 +108,7 @@ const hideHelperObj = function(){
 
 const setHelperObj = function(e, selectedHelper){
     let currentX = selectedHelper ? selectedHelper.mouseX + e.target.offsetLeft : e.clientX;
-    let currentY = selectedHelper ? selectedHelper.mouseY : e.clientY - e.target.getBoundingClientRect().top;
+    let currentY = selectedHelper ? selectedHelper.mouseY : e.clientY;
     let helperObj = {
         currentX,
         currentY,
@@ -200,7 +200,7 @@ const mousedown = function(e){
             let prop = Object.keys(hasShape)[0];
             if(hasShape[prop].type === "equationDraw"){
                 startingMousePosition.x = hasShape[prop].points[0].mouseX;
-                startingMousePosition.y = hasShape[prop].points[0].mouseY - yOffset;
+                startingMousePosition.y = hasShape[prop].points[0].mouseY;
                 currentShapeEditing = hasShape[prop];
                 isEditing = true;
                 currentId = hasShape[prop].id;
@@ -208,14 +208,14 @@ const mousedown = function(e){
                 startShapes = createShape(hasShape[prop]);
                 
             }else{
-                let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
+                let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft - e.target.getBoundingClientRect().left, e.pageY - e.target.getBoundingClientRect().top);
                 startingMousePosition.x = mouseX;
                 startingMousePosition.y = mouseY;
                 currentId = createGuid('equation');
                 setHelperObj.bind(this, e)();
             }
         }else{
-            let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
+            let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft - e.target.getBoundingClientRect().left, e.pageY - e.target.getBoundingClientRect().top);
             startingMousePosition.x = mouseX;
             startingMousePosition.y = mouseY;
             currentId = createGuid('equation');

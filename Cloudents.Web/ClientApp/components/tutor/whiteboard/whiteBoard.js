@@ -17,8 +17,10 @@ export default {
     },
     data() {
         return {
-            canvasWidth: global.innerWidth,
-            canvasHeight: global.innerHeight -64,
+            canvasWidth: 2400,
+            canvasHeight: 850,
+            windowWidth: global.innerWidth, // 10 stands for the scroll offset
+            windowHeight: global.innerHeight - 64, // 64 stands for the header
             showPickColorInterface: false,
             showHelper: false,
             formula: 'x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.',
@@ -172,18 +174,18 @@ export default {
                 this.currentOptionSelected.enterPressed.bind(this.canvasData)();
             }
         },
-        resetZoom(){
-            whiteBoardService.hideHelper();
-            this.updateZoom(100);
-            this.updatePan({e:0, f:0})
-        },
+        // resetZoom(){
+        //     whiteBoardService.hideHelper();
+        //     this.updateZoom(100);
+        //     this.updatePan({e:0, f:0})
+        // },
         resizeCanvas(){
             let canvas = document.getElementById('canvas');
             let ctx = canvas.getContext("2d");
             ctx.setTransform(1,0,0,1,0,0);
-            this.resetZoom();
-            this.canvasWidth = (global.innerWidth -50);
-            this.canvasHeight = (global.innerHeight -50);
+            // this.resetZoom();
+            this.windowWidth = global.innerWidth,
+            this.windowHeight = global.innerHeight - 64,
             canvas.width = this.canvasWidth;
             canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
@@ -193,12 +195,12 @@ export default {
             let newValue = textAreaElm.insertAtCaret(textToInject);            
             this.helperStyle.text = newValue;
         },
-        doZoom(zoomType){
-            whiteBoardService.hideHelper();
-            let panTool = whiteBoardService.init.bind(this.canvasData, this.enumOptions.pan)();
-            panTool.manualScroll.bind(this.canvasData, zoomType)();
-        },
-        registerCanvasEvents(canvas){
+        // doZoom(zoomType){
+        //     whiteBoardService.hideHelper();
+        //     let panTool = whiteBoardService.init.bind(this.canvasData, this.enumOptions.pan)();
+        //     panTool.manualScroll.bind(this.canvasData, zoomType)();
+        // },
+        registerCanvasEvents(canvas, canvasWrapper){
             let self = this;
 
             global.addEventListener('resize', this.resizeCanvas, false);
@@ -226,6 +228,16 @@ export default {
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mouseScroll) {
                     self.currentOptionSelected.mouseScroll.bind(self.canvasData, e)()
                 }
+            });
+            canvasWrapper.addEventListener('scroll', (e) => {
+                if(this.selectedOptionString === this.enumOptions.select){
+                    self.currentOptionSelected.reMarkSelectedShapes.bind(self.canvasData, e)()
+                }
+                let transform={
+                    x:e.target.scrollLeft*-1,
+                    y:e.target.scrollTop*-1
+                }
+                self.updatePan(transform)
             });
             canvas.addEventListener('mousewheel', (e) => {
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mouseScroll) {
@@ -269,6 +281,7 @@ export default {
     },
     mounted() {
         let canvas = document.querySelector('canvas');
+        let canvasWrapper = document.querySelector('.canvas-wrapper');
         canvas.width = this.canvasWidth;
         canvas.height = this.canvasHeight;
         this.canvasData.context = canvas.getContext("2d");
@@ -276,7 +289,7 @@ export default {
         this.canvasData.context.lineJoin = this.canvasData.lineJoin;
         this.canvasData.context.lineWidth = this.canvasData.lineWidth;
         canvasFinder.trackTransforms(this.canvasData.context);
-        this.registerCanvasEvents(canvas);
+        this.registerCanvasEvents(canvas, canvasWrapper);
         global.document.addEventListener("keydown", this.keyPressed);
         
     }
