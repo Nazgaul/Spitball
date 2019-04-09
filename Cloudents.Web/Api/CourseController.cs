@@ -44,7 +44,7 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Perform course search
         /// </summary>
-        /// <param name="term">params</param>
+        /// <param name="request">params</param>
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
@@ -53,11 +53,11 @@ namespace Cloudents.Web.Api
             Location = ResponseCacheLocation.Any,
             VaryByQueryKeys = new[] { "term" })]
         public async Task<CoursesResponse> GetAsync(
-           [RequiredFromQuery, StringLength(150, MinimumLength = 3, ErrorMessage = "StringLength")] string term,
+           [RequiredFromQuery] CourseRequest request,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new CourseSearchQuery(userId, term);
+            var query = new CourseSearchQuery(userId, request.Term);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {

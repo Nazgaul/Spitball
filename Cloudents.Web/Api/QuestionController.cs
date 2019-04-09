@@ -191,7 +191,7 @@ namespace Cloudents.Web.Api
             var query = new QuestionsQuery(null, model.Term, model.Course, model.NeedUniversity, model.Source,
                 model.Filter?.Where(w => w.HasValue).Select(s => s.Value))
             {
-                Page = model.Page.GetValueOrDefault()
+                Page = model.Page
             };
 
 

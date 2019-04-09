@@ -46,7 +46,7 @@ namespace Cloudents.Web.Extensions
         /// <returns>link</returns>
         public static string NextPageLink(this IUrlHelper urlHelper, string routeName, object routeValue, IPaging queryString)
         {
-            queryString.Page = queryString.Page.GetValueOrDefault() + 1;
+            queryString.Page = queryString.Page + 1;
             return Link(urlHelper, routeName, routeValue, queryString);
         }
 

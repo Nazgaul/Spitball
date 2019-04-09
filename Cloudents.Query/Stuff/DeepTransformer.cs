@@ -7,14 +7,28 @@ using NHibernate.Transform;
 
 namespace Cloudents.Query.Stuff
 {
+
+ 
+
     public class DeepTransformer<TEntity> : IResultTransformer
     where TEntity : class
     {
         private readonly char _complexChar;
+        private readonly IResultTransformer _baseTransformer;
         public DeepTransformer(char complexChar = '.')
         {
             _complexChar = complexChar;
+            _baseTransformer = Transformers
+                .AliasToBean<TEntity>();
+
         }
+
+        public DeepTransformer(IResultTransformer transformer, char complexChar = '.')
+        {
+            _baseTransformer = transformer;
+            _complexChar = complexChar;
+        }
+
         // rows iterator
         public object TransformTuple(object[] tuple, string[] aliases)
         {
@@ -36,9 +50,8 @@ namespace Cloudents.Query.Stuff
 
             // be smart use what is already available
             // the standard properties string, valueTypes
-            var result = Transformers
-                 .AliasToBean<TEntity>()
-                 .TransformTuple(tuple, propertyAliases.ToArray());
+            var result = _baseTransformer.TransformTuple(tuple, propertyAliases.ToArray());
+           
 
             TransformPersistentChain(tuple, complexAliases, result, list);
 

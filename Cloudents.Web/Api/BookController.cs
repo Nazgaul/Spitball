@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
         public async Task<WebResponseWithFacet<BookSearchDto>> GetAsync([FromQuery]BookRequest bookRequest, CancellationToken token)
         {
             bookRequest = bookRequest ?? new BookRequest();
-            var result = (await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Page.GetValueOrDefault(), token)).ToListIgnoreNull();
+            var result = (await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Page, token)).ToListIgnoreNull();
             string nextPageLink = null;
             if (result.Count > 0)
             {
