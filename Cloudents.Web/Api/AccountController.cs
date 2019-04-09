@@ -138,9 +138,9 @@ namespace Cloudents.Web.Api
         [HttpGet("courses")]
         public async Task<IEnumerable<CourseDto>> GetCourses(CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var userId = _userManager.GetLongUserId(User);
          
-            var query = new UserCoursesQuery(user.Id);
+            var query = new UserCoursesQuery(userId);
             var result = await _queryBus.QueryAsync(query, token);
             return result;
         }
@@ -154,10 +154,6 @@ namespace Cloudents.Web.Api
             {
                 return null;
             }
-            //if (profile.University != null)
-            //{
-            //    return new UniversityDto(profile.University.Id, profile.University.Name, profile.University.Country);
-            //}
             var query = new UniversityQuery(universityId.Value);
             return await _queryBus.QueryAsync(query, token);
         }

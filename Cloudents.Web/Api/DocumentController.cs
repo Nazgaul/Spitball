@@ -17,12 +17,12 @@ using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Documents;
 using Cloudents.Query.Query;
+using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
-using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -151,8 +151,9 @@ namespace Cloudents.Web.Api
 
         [HttpGet(Name = "Documents")]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> AggregateAllCoursesAsync(
-           int page, CancellationToken token)
+           [FromQuery]DocumentRequestAggregate request, CancellationToken token)
         {
+            var page = request.Page;
             var userId = _userManager.GetLongUserId(User);
             var query = new DocumentAggregateQuery(userId, page);
             var result = await _queryBus.QueryAsync(query, token);
@@ -174,7 +175,7 @@ namespace Cloudents.Web.Api
             var filters = new List<IFilters>();
             if (result.Facet.Any())
             {
-                var filter = new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
+                var filter = new Filters<string>(nameof(DocumentRequestAggregate.Filter), _localizer["TypeFilterTitle"],
                     result.Facet.Select(s => new KeyValuePair<string, string>(s, s)));
                 filters.Add(filter);
             }
@@ -197,39 +198,27 @@ namespace Cloudents.Web.Api
             };
         }
 
-        [HttpGet, IgnoreFromQueryActionConstraint("term")]
+        [HttpGet]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SpecificCourseAsync(
-            [RequiredFromQuery] string course,
-            int page,
+            [RequiredFromQuery]DocumentRequestCourse request,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new DocumentCourseQuery(userId, page, course);
+            var query = new DocumentCourseQuery(userId, request.Page, request.Course);
             var result = await _queryBus.QueryAsync(query, token);
-            return GenerateResult(result, new { page = ++page, course = course });
+            return GenerateResult(result, new { page = ++request.Page, request.Course });
         }
 
         [HttpGet]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchInCourseAsync(
-            [RequiredFromQuery] string term,
-            [RequiredFromQuery] string course,
-            [FromQuery(Name = "Uni")]string university,
-            int page,
-            string[] filter,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
-            [FromServices] ICountryProvider countryProvider,
+            [RequiredFromQuery]  DocumentRequestSearchCourse request,
+            [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country)] UserProfile profile,
             [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
         {
-            var country = await countryProvider.GetUserCountryAsync(token);
-            var userProfile = new UserProfile()
+            var query = new DocumentQuery(profile, request.Term, request.Course, false, request.Filter?.Where(w => !string.IsNullOrEmpty(w)))
             {
-                Country = country,
-                UniversityId = universityId
-            };
-            var query = new DocumentQuery(userProfile, term, course, false, filter?.Where(w => !string.IsNullOrEmpty(w)))
-            {
-                Page = page,
+                Page = request.Page,
             };
             var resultTask = searchProvider.SearchDocumentsAsync(query, token);
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
@@ -251,41 +240,34 @@ namespace Cloudents.Web.Api
             var result = resultTask.Result;
             return GenerateResult(result, new
             {
-                page = ++page,
-                course,
-                term,
-                university,
-                filter
+                page = ++request.Page,
+                request.Course,
+                request.Term,
+                request.University,
+                request.Filter
             });
         }
 
-        [HttpGet, IgnoreFromQueryActionConstraint("course")]
+        [HttpGet]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchInSpitballAsync(
-            [RequiredFromQuery] string term,
-            [FromQuery(Name = "Uni")]string university,
-            int page,
-            string[] filter,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
-            [FromServices] ICountryProvider countryProvider,
+          [RequiredFromQuery]  DocumentRequestSearch request,
+           
+            [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
             [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
         {
-            var country = await countryProvider.GetUserCountryAsync(token);
-            var userProfile = new UserProfile()
+            var userId = _userManager.GetLongUserId(User);
+            var query = new DocumentQuery(profile, request.Term, null,
+                request.University != null, request.Filter?.Where(w => !string.IsNullOrEmpty(w)))
             {
-                Country = country,
-                UniversityId = universityId
-            };
-            var query = new DocumentQuery(userProfile, term, null, university != null, filter?.Where(w => !string.IsNullOrEmpty(w)))
-            {
-                Page = page,
+                Page = request.Page,
             };
             var resultTask = searchProvider.SearchDocumentsAsync(query, token);
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
 
             if (User.Identity.IsAuthenticated)
             {
-                var userId = _userManager.GetLongUserId(User);
+
                 var queryTags = new UserVotesByCategoryQuery(userId);
                 votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
                     .ContinueWith(
@@ -300,10 +282,10 @@ namespace Cloudents.Web.Api
             var result = resultTask.Result;
             return GenerateResult(result, new
             {
-                page = ++page,
-                term,
-                university,
-                filter
+                page = ++request.Page,
+                request.Term,
+                request.University,
+                request.Filter
             });
         }
 
