@@ -81,6 +81,7 @@ FETCH NEXT 50 ROWS ONLY";
                 var sqlQuery = _dapperRepository.CreateSQLQuery(sql);
                 sqlQuery.SetInt32("page", query.Page);
                 sqlQuery.SetInt64("userid", query.UserId);
+                sqlQuery.SetString("typefilter", query.Filter);
                 sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_'));
                 var future = sqlQuery.Future<DocumentFeedDto>();
 

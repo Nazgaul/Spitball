@@ -27,6 +27,7 @@ using System.Threading.Tasks;
 using Cloudents.Query.Query;
 using Cloudents.Search.University;
 using Cloudents.Query.Documents;
+using Cloudents.Query.Questions;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -401,7 +402,7 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
             var queryBus = _container.Resolve<IQueryBus>();
-            var query = new DocumentCourseQuery(638, 0, "economics");
+            var query = new QuestionAggregateQuery(638L, 0);
             var test = await queryBus.QueryAsync(query, default);
 
            /* var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
