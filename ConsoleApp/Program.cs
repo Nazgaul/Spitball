@@ -27,6 +27,7 @@ using System.Threading.Tasks;
 using Cloudents.Query.Query;
 using Cloudents.Search.University;
 using Cloudents.Query.Documents;
+using Cloudents.Query.Questions;
 using Cloudents.Search.Document;
 using Cloudents.Search.Question;
 
@@ -116,15 +117,15 @@ namespace ConsoleApp
 
             _container = builder.Build();
 
-            if (Environment.UserName == "Ram")
-            {
-                await RamMethod();
-            }
-            else
-            {
+            //if (Environment.UserName == "Ram")
+            //{
+            //    await RamMethod();
+            //}
+            //else
+            //{
 
                 await HadarMethod();
-            }
+            //}
 
 
             Console.WriteLine("done");

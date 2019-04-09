@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using NHibernate.Transform;
 
 namespace Cloudents.Query.Questions
 {
@@ -83,7 +84,7 @@ FETCH NEXT 50 ROWS ONLY;";
                 sqlQuery.SetInt64("userid", query.UserId);
                 sqlQuery.SetString("typefilter", query.Filter);
                 sqlQuery.SetResultTransformer(new DeepTransformer<QuestionFeedDto>(
-                    new CustomDeepTransformer<QuestionFeedDto, CultureInfo>(), '_'));
+                    '_', new CustomDeepTransformer<QuestionFeedDto>()));
                 var future = sqlQuery.Future<QuestionFeedDto>();
 
 
