@@ -9,9 +9,14 @@
     <PackageReference Include="Dapper" Version="1.60.1" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.37.0.1478" />
     <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AnalyzerPowerPack" Version="1.1.0" />
     <PackageReference Include="SimMetrics" Version="1.1.4118.23231" />
     <!--Do not remove this-->
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.12.0.8217">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

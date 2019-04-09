@@ -297,32 +297,6 @@ namespace Cloudents.Identity
                 .Select(s => s.User).SingleOrDefaultAsync(cancellationToken: cancellationToken);
         }
 
-
-        public async Task AddToRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task RemoveFromRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IList<string>> GetRolesAsync(RegularUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public Task<bool> IsInRoleAsync(RegularUser user, string roleName, CancellationToken cancellationToken)
-        //{
-        //    var result = user.UserRoles.Any(f => f.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
-        //    return Task.FromResult(result);
-        //}
-
-        public async Task<IList<RegularUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 
