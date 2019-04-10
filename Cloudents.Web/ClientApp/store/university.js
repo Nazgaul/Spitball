@@ -225,7 +225,6 @@ const actions = {
     assignClasses({state, dispatch}) {
         universityService.assaignCourse(state.selectedClasses).then(() => {
             //Update Filters in note page
-            //dispatch("updateCoursesFilters", state.selectedClasses);
             dispatch('changeReflectChangeToPage');
             Promise.resolve(true);
 
