@@ -9,7 +9,7 @@ set userscount = (select count(*) from sb.[user] where UniversityId2 = sb.Univer
 
 Need to update azure search
 Need to upload azure function
-Delete version txt from blob
+Delete version txt from blob https://zboxstorage.blob.core.windows.net/spitball/AzureSearch/university3-version.txt
 
 
 --University Image DBI
