@@ -218,9 +218,8 @@
 
 <style lang="less">
     @import '../../../styles/mixin.less';
-
     .add-university-wrap {
-        .scrollBarStyle(0px, #0085D1);
+        .scrollBarStyle(3px, #0085D1);
         .rounded {
             border-radius: 50%;
             width: 42px;

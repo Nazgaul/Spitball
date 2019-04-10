@@ -263,9 +263,7 @@
 </script>
 <style lang="less">
     @import '../../../styles/mixin.less';
-
     .add-courses-wrap {
-
         .left-paddle {
             left: 0;
             top: 0;
@@ -279,7 +277,7 @@
         .hidden {
             display: none;
         }
-        .scrollBarStyle(0px, #0085D1);
+        .scrollBarStyle(3px, #0085D1);
         .v-input__slot{
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17)!important;
         }
