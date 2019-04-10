@@ -1,12 +1,12 @@
 <template>
     <v-card class="tutor-card-wrap px-3 pb-2 mb-2 elevation-0">
-    <v-layout align-center class="pt-3">
+    <v-layout align-center justify-space-between class="pt-3">
         <v-flex shrink class="mr-2 tutor-name font-weight-bold caption">
             {{tutorData.name}}
         </v-flex>
-        <v-flex grow>
+        <!-- <v-flex grow>
             <user-rank class="tutor-rank" :score="tutorData.score"></user-rank>
-        </v-flex>
+        </v-flex> -->
         <v-flex @click="sendMessage" class="rounded" shrink>
             <commentIcon class="chat-icon"></commentIcon>
         </v-flex>
