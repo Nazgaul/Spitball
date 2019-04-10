@@ -39,6 +39,80 @@ const getters = {
     uniCreationVerified: state => state.uniCreationVerified
 };
 
+const mutations = {
+    //uni create dialog mutations
+    verifyUniCreation(state, val) {
+        state.uniCreationVerified = val;
+    },
+    updateUniCreateDialogState(state, val) {
+        state.createUniDialog = val;
+    },
+    //course create dialog mutations
+    verifyCreation(state, val) {
+        state.creationVerified = val;
+    },
+    updateCreateDialogState(state, val) {
+        state.createDialog = val;
+    },
+    //end dialogs mutations
+    deleteCourse(state, val) {
+        let index = state.selectedClasses.indexOf(val);
+        state.selectedClasses.splice(index, 1);
+    },
+    setUniversities(state, val) {
+        state.universities = val;
+    },
+    setSchoolName(state, val) {
+        state.schoolName = val;
+    },
+    setClasses(state, val) {
+        state.classes = val;
+    },
+    updateCachedList(state, val) {
+        state.selectedClassesCache.push(val);
+    },
+    pushClass(state, val) {
+        state.selectedClasses.unshift(val);
+    },
+    setSelectedClasses(state, val) {
+        state.selectedClasses = val;
+    },
+    setSelectedClassesCahce(state, val) {
+        state.selectedClassesCache = [].concat(val);
+    },
+    setSelectUniState(state, val) {
+        // state.showSelectUniInterface = val;
+    },
+    setCurrentStep(state, val) {
+        state.currentStep = val;
+    },
+    setSelectPopUpUniState(state, val) {
+        state.showSelectUniPopUpInterface = val;
+    },
+    setUniversityPopStorage(state, val) {
+        window.sessionStorage.setItem('sb_uniSelectPoped_s', true);
+        window.localStorage.setItem('sb_uniSelectPoped_l', val);
+        state.universityPopStorage.session = true;
+        state.universityPopStorage.local = val;
+
+    },
+    openResultLockForSchoolNameChange(state) {
+        state.resultLockForSchoolNameChange = true;
+    },
+    openResultLockForClassesChange(state) {
+        state.resultLockForClassesChange = true;
+    },
+    setSelectForTheFirstTime(state, val) {
+        state.selectForTheFirstTime = val;
+    },
+    setReflectChangeToPage(state) {
+        state.reflectChangeToPage++;
+    },
+    updtaeShowSchoolBlock(state, val) {
+        state.showSchoolBlock = val;
+    }
+};
+
 const actions = {
     syncUniData({commit, dispatch}) {
         universityService.getProfileUniversity().then((university) => {
@@ -127,13 +201,15 @@ const actions = {
     },
     deleteClass({commit}, val) {
         let name = val.text;
-       return universityService.deleteCourse(name).then((resp) => {
+        return universityService.deleteCourse(name).then((resp) => {
             commit('deleteCourse', val);
             return resp
         });
 
     },
-
+    deleteFromSelectedList({commit}, val) {
+        commit('deleteCourse', val);
+    },
     updateSelectedClasses({commit}, val) {
         commit('setSelectedClasses', val);
     },
@@ -207,80 +283,6 @@ const actions = {
         commit('verifyUniCreation', val);
     },
 
-};
-
-const mutations = {
-    //uni create dialog mutations
-    verifyUniCreation(state, val) {
-        state.uniCreationVerified = val;
-    },
-    updateUniCreateDialogState(state, val) {
-        state.createUniDialog = val;
-    },
-    //course create dialog mutations
-    verifyCreation(state, val) {
-        state.creationVerified = val;
-    },
-    updateCreateDialogState(state, val) {
-        state.createDialog = val;
-    },
-    //end dialogs mutations
-    deleteCourse(state, val) {
-        let index = state.selectedClasses.indexOf(val);
-        state.selectedClasses.splice(index, 1);
-    },
-    setUniversities(state, val) {
-        state.universities = val;
-    },
-    setSchoolName(state, val) {
-        state.schoolName = val;
-    },
-    setClasses(state, val) {
-        state.classes = val;
-    },
-    updateCachedList(state, val) {
-        state.selectedClassesCache.push(val);
-    },
-    pushClass(state, val) {
-        state.selectedClasses.unshift(val);
-    },
-    setSelectedClasses(state, val) {
-        state.selectedClasses = val;
-    },
-    setSelectedClassesCahce(state, val) {
-        state.selectedClassesCache = [].concat(val);
-    },
-    setSelectUniState(state, val) {
-        // state.showSelectUniInterface = val;
-    },
-    setCurrentStep(state, val) {
-        state.currentStep = val;
-    },
-    setSelectPopUpUniState(state, val) {
-        state.showSelectUniPopUpInterface = val;
-    },
-    setUniversityPopStorage(state, val) {
-        window.sessionStorage.setItem('sb_uniSelectPoped_s', true);
-        window.localStorage.setItem('sb_uniSelectPoped_l', val);
-        state.universityPopStorage.session = true;
-        state.universityPopStorage.local = val;
-
-    },
-    openResultLockForSchoolNameChange(state) {
-        state.resultLockForSchoolNameChange = true;
-    },
-    openResultLockForClassesChange(state) {
-        state.resultLockForClassesChange = true;
-    },
-    setSelectForTheFirstTime(state, val) {
-        state.selectForTheFirstTime = val;
-    },
-    setReflectChangeToPage(state) {
-        state.reflectChangeToPage++;
-    },
-    updtaeShowSchoolBlock(state, val) {
-        state.showSchoolBlock = val;
-    }
 };
 
 export default {
