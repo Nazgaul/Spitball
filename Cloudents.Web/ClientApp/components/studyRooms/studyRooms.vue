@@ -7,6 +7,7 @@
         </v-layout>
         <v-layout mt-3 class="study-rooms-cards-container">
             <study-card v-for="(card, index) in studyRooms" :key="index" :card="card"></study-card>
+            <study-card-tutor v-if="!isTutor"></study-card-tutor>
         </v-layout>
     </v-container>
 
@@ -14,20 +15,25 @@
 
 <script>
 import studyCard from './studyRoomCard/studyRoomCard.vue'
+import studyCardTutor from './studyRoomCard/studyRoomCardTutor.vue'
 import {mapActions, mapGetters} from 'vuex'
 export default {
     components:{
-        studyCard
+        studyCard,
+        studyCardTutor
     },
     data(){
         return {
         }
     },
     computed:{
-        ...mapGetters(['getStudyRooms']),
+        ...mapGetters(['getStudyRooms', 'accountUser']),
         studyRooms(){
             return this.getStudyRooms;
-        }
+        },
+        isTutor(){
+            return this.accountUser.isTutor;
+        },
     },
     methods:{
         ...mapActions(['fetchStudyRooms']),
