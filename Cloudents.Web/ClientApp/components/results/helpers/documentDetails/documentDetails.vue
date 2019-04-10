@@ -7,7 +7,7 @@
             <span class="aligned">{{item && item.course}}
                         <span :class="{'swap': isRtl}" class="sb-icon-arrow" v-show="item && item.professor">&#10625;</span>
                         </span>
-            <span class="aligned" v-line-clamp="1">{{item && item.professor}}</span>
+            <span class="aligned cut-long" v-line-clamp="'1'">{{item && item.professor}}</span>
         </div>
     </v-flex>
 </template>
