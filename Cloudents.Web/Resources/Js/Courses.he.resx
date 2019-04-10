@@ -130,7 +130,7 @@
     <value>סיים</value>
   </data>
   <data name="btn_finished" xml:space="preserve">
-    <value>הסתיים</value>
+    <value>סיימתי</value>
   </data>
   <data name="cant_find" xml:space="preserve">
     <value>לא יכול למצוא את הקורס שלך?</value>
