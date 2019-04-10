@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System.Linq;
+using Cloudents.Core.DTOs;
 using Cloudents.Query.Stuff;
 using NHibernate;
 using System.Threading;
@@ -62,7 +63,8 @@ from sb.Document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId,
 cte
-where d.CourseName = :course and (:typefilter is null or d.Type in :typefilter)
+where d.CourseName = :course
+ and (:typeFilterCount = 0 or d.Type in (:typefilter))
 order by case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
 case when un.Country = cte.Country then 2 else 0 end +
 cast(1 as float)/DATEDIFF(day, d.updateTime, GETUTCDATE()) desc
@@ -79,7 +81,8 @@ FETCH NEXT 50 ROWS ONLY";
                 sqlQuery.SetInt32("page", query.Page);
                 sqlQuery.SetInt64("userid", query.UserId);
                 sqlQuery.SetString("course", query.Course);
-                sqlQuery.SetParameterList("typefilter", query.Filter);
+                sqlQuery.SetInt32("typeFilterCount", query.Filter?.Length ?? 0);
+                sqlQuery.SetParameterList("typefilter", query.Filter ?? Enumerable.Repeat("x", 1));
                 sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_'));
                 var future = sqlQuery.Future<DocumentFeedDto>();
 

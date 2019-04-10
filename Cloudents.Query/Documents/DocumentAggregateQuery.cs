@@ -1,10 +1,9 @@
 ﻿using Cloudents.Core.DTOs;
-using Dapper;
+using Cloudents.Query.Stuff;
 using NHibernate;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Stuff;
 
 namespace Cloudents.Query.Documents
 {
@@ -65,7 +64,7 @@ join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId,
 cte
 where d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) 
-    and (:typefilter is null or d.Type in :typefilter)
+    and (:typeFilterCount = 0 or d.Type in (:typefilter))
 order by case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
 case when un.Country = cte.Country then 2 else 0 end +
 cast(1 as float)/DATEDIFF(day, d.updateTime, GETUTCDATE()) desc
@@ -81,8 +80,10 @@ FETCH NEXT 50 ROWS ONLY";
                 var sqlQuery = _dapperRepository.CreateSQLQuery(sql);
                 sqlQuery.SetInt32("page", query.Page);
                 sqlQuery.SetInt64("userid", query.UserId);
-                sqlQuery.SetParameterList("typefilter", query.Filter);
-                
+                sqlQuery.SetInt32("typeFilterCount", query.Filter?.Length ?? 0);
+                sqlQuery.SetParameterList("typefilter", query.Filter ?? Enumerable.Repeat("x",1));
+
+
                 sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_'));
                 var future = sqlQuery.Future<DocumentFeedDto>();
 
@@ -93,7 +94,7 @@ FETCH NEXT 50 ROWS ONLY";
 
 
                 var filters = await filtersFuture.GetEnumerableAsync(token);
-                var list =  await future.GetEnumerableAsync(token);
+                var list = await future.GetEnumerableAsync(token);
                 return new DocumentFeedWithFacetDto()
                 {
                     Facet = filters,

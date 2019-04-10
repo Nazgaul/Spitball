@@ -155,7 +155,7 @@ namespace Cloudents.Web.Api
         {
             var page = request.Page;
             var userId = _userManager.GetLongUserId(User);
-            var query = new DocumentAggregateQuery(userId, page,request.Filter);
+            var query = new DocumentAggregateQuery(userId, page, request.Filter);
             var result = await _queryBus.QueryAsync(query, token);
 
 
@@ -204,7 +204,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new DocumentCourseQuery(userId, request.Page, request.Course);
+            var query = new DocumentCourseQuery(userId, request.Page, request.Course, request.Filter);
             var result = await _queryBus.QueryAsync(query, token);
             return GenerateResult(result, new { page = ++request.Page, request.Course });
         }
@@ -251,7 +251,7 @@ namespace Cloudents.Web.Api
         [HttpGet, AllowAnonymous]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchInSpitballAsync(
           [RequiredFromQuery]  DocumentRequestSearch request,
-           
+
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
             [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
