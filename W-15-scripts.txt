@@ -9,21 +9,7 @@ set userscount = (select count(*) from sb.[user] where UniversityId2 = sb.Univer
 
 Need to update azure search
 Need to upload azure function
-Delete version txt from blob
-
-
---Document Search example
-select d.*
-from sb.[user] u
-join sb.UsersCourses uc
-	on u.Id = uc.UserId
-join sb.Document d
-	on uc.CourseId = d.CourseName
-join sb.University un
-	on un.Id = d.UniversityId
-where u.Id = @UserId and uc.CourseId = @CourseName
-order by case when d.UniversityId = u.UniversityId2 then 1 else 0 end desc
-			,case when un.Country = u.Country then 1 else 0 end desc
+Delete version txt from blob https://zboxstorage.blob.core.windows.net/spitball/AzureSearch/university3-version.txt
 
 
 --University Image DBI

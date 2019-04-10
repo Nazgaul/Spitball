@@ -12,7 +12,7 @@
                 <v-flex xs2 shrink class="text-xs-center hidden-xs-only" >
                     <finishBtn></finishBtn>
                 </v-flex>
-                <v-flex xs2 shrink class="d-flex justify-end">
+                <v-flex xs2 shrink class="d-flex justify-start">
                     <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0" @click="goToAddMore()">
                         <v-icon left>sbf-plus-regular</v-icon>
                         <span v-language:inner>courses_add</span>
@@ -84,7 +84,7 @@
         <div v-else>
             <courses-empty-state></courses-empty-state>
         </div>
-        <v-layout align-center justify-center class="hidden-sm-and-up">
+        <v-layout align-center justify-center class="hidden-sm-and-up fixed-bottom-wrap elevation-2">
             <v-flex xs12 class="text-xs-center pt-3">
                 <finishBtn></finishBtn>
             </v-flex>
@@ -164,9 +164,6 @@
                 this.$router.push({name: 'addCourse'});
             }
         },
-        created() {
-            // this.syncCoursesData();
-        }
 
     };
 </script>
@@ -178,6 +175,13 @@
         .scrollBarStyle(3px, #0085D1);
         .rounded-btn {
             border-radius: 16px;
+        }
+        .fixed-bottom-wrap{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: @color-white;
         }
         .badge {
             max-height: 48px;
@@ -221,6 +225,11 @@
             max-height: 664px;
             overflow-y: scroll;
             padding-left: 0;
+            @media(max-width: @screen-xs){
+                height: ~"calc(100% - 202px)";
+                padding-bottom: 64px;
+
+            }
         }
         .list-item {
             display: flex;
