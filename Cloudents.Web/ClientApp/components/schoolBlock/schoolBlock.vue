@@ -133,7 +133,7 @@ export default {
       return (!!this.$route.query && !!this.$route.query.term) || (!!this.$route.query && (!!this.$route.query.Filter || !!this.$route.query.Source))
     },
     selectCourse(item, isDefault) {
-      if(this.inUniselect){
+      if(this.inUniselect && !item){
         this.updateFilter();
         return;
       }
