@@ -40,34 +40,30 @@ select u2.Id as UniversityId, COALESCE(u2.country,u.country) as Country, u.id as
   from sb.[user] u left join sb.University u2 on u.UniversityId2 = u2.Id
   where u.id = :userid 
 )
-select 
-d.Id
-,un.Name as University
-,d.CourseName as Course
-,d.MetaContent as Snippet
-,d.Professor
-,d.Type
-,d.Name as Title
-,u.Id as User_Id
-,U.Name as User_Name
-,u.Score as User_Score
-,u.Image as User_Image
-,d.[Views]
-,d.Downloads
-,d.CreationTime as [DateTime]
-,d.VoteCount as Vote_Votes
-,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as Vote_Vote
-,d.Price as Price
-
-from sb.Document d 
-join sb.[user] u on d.UserId = u.Id
-join sb.University un on un.Id = d.UniversityId,
-cte
-where d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) 
-    and (:typeFilterCount = 0 or d.Type in (:typefilter))
-order by case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
-case when un.Country = cte.Country then 2 else 0 end +
-cast(1 as float)/DATEDIFF(day, d.updateTime, GETUTCDATE()) desc
+select ds.Id
+	,ds.University
+	,ds.Course
+	,ds.Snippet
+	,ds.Professor
+	,ds.Type
+	,ds.Title
+	,ds.User_Id
+	,ds.User_Name
+	,ds.User_Score
+	,ds.User_Image
+	,ds.[Views]
+	,ds.Downloads
+	,ds.[DateTime]
+	,ds.Vote_Votes
+	,(select v.VoteType from sb.Vote v where v.DocumentId = ds.Id and v.UserId = cte.userid) as Vote_Vote
+	,ds.Price
+from sb.iv_DocumentSearch ds
+,cte
+where ds.Course in (select courseId from sb.usersCourses where userid = cte.userid) 
+    and (:typeFilterCount = 0 or ds.Type in (:typefilter))
+order by case when ds.UniversityId = cte.UniversityId then 3 else 0 end  +
+case when ds.Country = cte.Country then 2 else 0 end +
+cast(1 as float)/DATEDIFF(day, ds.[DateTime], GETUTCDATE()) desc
 OFFSET :page*50 ROWS
 FETCH NEXT 50 ROWS ONLY";
 
