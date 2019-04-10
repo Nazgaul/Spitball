@@ -7,10 +7,12 @@
         </div>
 
         <v-stepper-header v-if="!isErorrGettingMedia">
-            <v-stepper-step color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 1" step="1">Audio Input Test
+            <v-stepper-step color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 1" step="1">Audio Input
+                Test
             </v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 2" step="2">Audio Output Test
+            <v-stepper-step color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 2" step="2">Audio Output
+                Test
             </v-stepper-step>
             <v-divider></v-divider>
 
@@ -30,20 +32,20 @@
                     <!--if there is an error requesting user media show helper component-->
                     <not-allowed v-if="isErorrGettingMedia" :isNotFound="notAvaliableDevices"></not-allowed>
                     <!--in case devices are avaliable show regular test steps-->
-                    <component  :is="'validation_step_'+step" v-if="n === step && !isErorrGettingMedia"></component>
+                    <component :is="'validation_step_'+step" v-if="n === step && !isErorrGettingMedia"></component>
 
                 </v-card>
                 <v-layout align-center justify-center>
                     <v-flex xs2 sm2 md2 class="d-flex align-center justify-center">
                         <button class="blue-btn" v-if="step !== steps && !isErorrGettingMedia"
-                               @click="nextStep(n)"
+                                @click="nextStep(n)"
                         >
                             Continue
                         </button>
-                        <button  class="blue-btn" v-if="isErorrGettingMedia"
-                               @click="closeDialog(n)"
-                        >
-                            Got it
+                        <button class="blue-btn" v-if="isErorrGettingMedia"
+                                @click="closeDialog(n)"
+                        >Got
+                        it
                         </button>
                         <button class="blue-btn" v-if="step === steps" @click="closeDialog()">Done</button>
 
@@ -61,50 +63,52 @@
     import validation_step_2 from './qualitySteps/audioOutputValidation.vue';
     import validation_step_3 from './qualitySteps/videoValidation.vue';
     import notAllowed from './qualitySteps/notAllowed.vue';
+
     export default {
         name: "qualityValidation",
         components: {
             validation_step_1,
             validation_step_2,
             validation_step_3,
-            notAllowed},
+            notAllowed
+        },
         data() {
             return {
                 notAvaliableDevices: false,
                 notAllowedDevices: false,
                 steps: 3,
                 step: 1
-            }
+            };
         },
         computed: {
             isErorrGettingMedia() {
-                return this.notAvaliableDevices || this.notAllowedDevices
+                return this.notAvaliableDevices || this.notAllowedDevices;
             }
 
         },
         methods: {
             ...mapActions(['updateTestDialogState']),
             checkPermission() {
-                let self =this;
+                let self = this;
                 navigator.mediaDevices.getUserMedia({audio: true, video: true})
-                    .then(stream => {
-                            console.log('got permissins')
-                        },
-                    //handle all error types in catch
-                    ).catch((err) => {
+                         .then(stream => {
+                                   console.log('got permissins');
+                               },
+                               //handle all error types in catch
+                         ).catch((err) => {
                     console.log(err.name + ": " + err.message, err);
-                    if (err.name  === 'NotAllowedError') {
-                        console.log('please grant permission Unable to access device.')
+                    if(err.name === 'NotAllowedError') {
+                        console.log('please grant permission Unable to access device.');
                         self.notAllowedDevices = true;
-                        self.updateTestDialogState(true)
-                    }else if(err.name === 'NotFoundError'){
+                        self.updateTestDialogState(true);
+                    } else if(err.name === 'NotFoundError') {
                         self.notAvaliableDevices = true;
-                        self.updateTestDialogState(true)
+                        self.updateTestDialogState(true);
                     }
                 }); // always check for errors at the end.
             },
             nextStep(n) {
-                this.step = n + 1
+                this.step = n + 1;
             },
             closeDialog() {
                 this.step = 1;
@@ -112,14 +116,16 @@
             }
         },
         created() {
-            this.checkPermission()
+            this.checkPermission();
         }
-    }
+    };
 </script>
 
 <style lang="less">
-    .quality-test-container{
-        .device-error-header{
+    .quality-test-container {
+        /*rtl:begin:ignore*/
+        direction: ltr;
+        .device-error-header {
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -128,12 +134,12 @@
             font-size: 14px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.87);
-            span{
+            span {
                 line-height: 1;
             }
 
         }
-        .blue-btn{
+        .blue-btn {
             border-radius: 4px;
             padding: 10px 16px;
             text-transform: uppercase;
@@ -144,17 +150,18 @@
             letter-spacing: 0.5px;
             color: rgba(255, 255, 255, 0.87);
         }
-        .header-text-wrap{
+        .header-text-wrap {
             display: flex;
             background-color: #f2f2f2;
             width: 100%;
             border-radius: 4px 4px 0 0;
-            .header-text{
+            .header-text {
                 font-size: 12px;
                 font-weight: 600;
                 color: #000000;
             }
         }
+        /*rtl:end:ignore*/
     }
 
 </style>

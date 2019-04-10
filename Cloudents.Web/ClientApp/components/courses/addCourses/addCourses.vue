@@ -217,14 +217,11 @@
             deleteClass(classToDelete, from) {
                 let index = from.indexOf(classToDelete);
                 from.splice(index, 1);
-                // let indexTwo = this.localSelectedClasses.indexOf(classToDelete);
-                // this.localSelectedClasses.splice(indexTwo, 1);
+                //clean from cached list and request new list, and refresh data
                 this.removeFromCached(classToDelete);
                 this.updateClasses(this.search);
 
             },
-
-
             checkAsSelected(classToCheck, from) {
                 let index = from.indexOf(classToCheck);
                 from[index].isSelected = true;
