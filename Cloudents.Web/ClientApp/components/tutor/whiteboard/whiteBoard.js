@@ -17,7 +17,7 @@ export default {
     },
     data() {
         return {
-            canvasWidth: 2400,
+            canvasWidth: 2800,
             canvasHeight: 850,
             windowWidth: global.innerWidth, // 10 stands for the scroll offset
             windowHeight: global.innerHeight - 64, // 64 stands for the header
