@@ -142,7 +142,7 @@
     <value>Before Creating a New UniversityTry:</value>
   </data>
   <data name="not_student_btn" xml:space="preserve">
-    <value>I'm not a student</value>
+    <value>Done</value>
   </data>
   <data name="third_tip_for_creating" xml:space="preserve">
     <value></value>
