@@ -59,6 +59,10 @@ const mutations = {
         let index = state.selectedClasses.indexOf(val);
         state.selectedClasses.splice(index, 1);
     },
+    deleteFromCachedList(state, val){
+        let index = state.selectedClassesCache.indexOf(val);
+        state.selectedClassesCache.splice(index, 1);
+    },
     setUniversities(state, val) {
         state.universities = val;
     },
@@ -203,13 +207,13 @@ const actions = {
         let name = val.text;
         return universityService.deleteCourse(name).then((resp) => {
             commit('deleteCourse', val);
+            //clean cached list
+            commit('deleteFromCachedList', val);
             return resp
         });
 
     },
-    deleteFromSelectedList({commit}, val) {
-        commit('deleteCourse', val);
-    },
+
     updateSelectedClasses({commit}, val) {
         commit('setSelectedClasses', val);
     },

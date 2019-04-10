@@ -158,7 +158,7 @@
             },
             classes() {
                 let classesList = this.getClasses();
-                if(this.localSelectedClasses.length > 0){
+                if(this.localSelectedClasses.length > 0) {
                     this.localSelectedClasses.forEach((item) => {
                         for (let i = 0; i < classesList.length; i++) {
                             if(classesList[i].text === item.text) {
@@ -198,7 +198,7 @@
                               "pushClassToSelectedClasses",
                               "changeClassesToCachedClasses",
                               "addToCachedClasses",
-                              "changeCreateDialogState"
+                              "changeCreateDialogState",
                           ]),
             ...mapGetters(["getClasses"]),
 
@@ -215,10 +215,10 @@
             },
             deleteClass(classToDelete, from) {
                 let index = from.indexOf(classToDelete);
-                from.splice(index, 1);
+                let courseDeleted = from.splice(index, 1);
                 // from[index]['isSelected'] = false;
                 // let indexTwo = this.localSelectedClasses.indexOf(classToDelete);
-                // this.localSelectedClasses.splice(indexTwo, 1);
+                this.localSelectedClasses.splice(indexTwo, 1);
 
             },
 
