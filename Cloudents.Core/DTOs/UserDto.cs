@@ -41,10 +41,7 @@ namespace Cloudents.Core.DTOs
         [DtoToEntityConnection(nameof(RegularUser.Description))]
         public string Description { get; set; }
 
-        [DtoToEntityConnection(nameof(RegularUser.FirstName))]
-        public string FirstName { get; set; }
-        [DtoToEntityConnection(nameof(RegularUser.LastName))]
-        public string LastName { get; set; }
+        
         //[DtoToEntityConnection(nameof(Tutor.Id))]
         public UserTutorProfileDto Tutor { get; set; }
     }
@@ -56,6 +53,10 @@ namespace Cloudents.Core.DTOs
         public bool Online { get; set; }
         public float Rate { get; set; }
         public int ReviewCount { get; set; }
+        [DtoToEntityConnection(nameof(RegularUser.FirstName))]
+        public string FirstName { get; set; }
+        [DtoToEntityConnection(nameof(RegularUser.LastName))]
+        public string LastName { get; set; }
     }
 
     public class UserAccountDto 
