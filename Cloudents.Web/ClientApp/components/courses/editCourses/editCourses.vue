@@ -164,9 +164,6 @@
                 this.$router.push({name: 'addCourse'});
             }
         },
-        created() {
-            // this.syncCoursesData();
-        }
 
     };
 </script>
