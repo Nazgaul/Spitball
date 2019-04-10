@@ -249,6 +249,7 @@
             flex-direction: row;
             width: auto;
             margin-top: 20px;
+            /*rtl:ignore*/
             left: 16px;
             z-index: 5;
 
