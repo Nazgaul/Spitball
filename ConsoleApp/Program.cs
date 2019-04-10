@@ -26,6 +26,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cloudents.Query.Query;
 using Cloudents.Search.University;
+using Cloudents.Query.Documents;
+using Cloudents.Query.Questions;
+using Cloudents.Search.Document;
+using Cloudents.Search.Question;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -113,15 +117,15 @@ namespace ConsoleApp
 
             _container = builder.Build();
 
-            if (Environment.UserName == "Ram")
-            {
-                await RamMethod();
-            }
-            else
-            {
+            //if (Environment.UserName == "Ram")
+            //{
+            //    await RamMethod();
+            //}
+            //else
+            //{
 
                 await HadarMethod();
-            }
+            //}
 
 
             Console.WriteLine("done");
@@ -136,8 +140,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var t = _container.Resolve<IUnitOfWork>();
-            var c = await UpdateMethod();
+            await UpdateMethod();
             //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
             // await c.DispatchAsync(command2, default);
 
@@ -149,11 +152,18 @@ namespace ConsoleApp
             Console.WriteLine("done");
         }
 
-        private static async Task<UniversitySearchWrite> UpdateMethod()
+        private static async Task UpdateMethod()
         {
-            var c = _container.Resolve<UniversitySearchWrite>();
-            await c.CreateOrUpdateAsync(default);
-            return c;
+            //var c = _container.Resolve<UniversitySearchWrite>();
+            //await c.CreateOrUpdateAsync(default);
+
+
+            var c2 = _container.Resolve<DocumentSearchWrite>();
+            await c2.CreateOrUpdateAsync(default);
+
+
+            //var c3 = _container.Resolve<QuestionSearchWrite>();
+            //await c3.CreateOrUpdateAsync(default);
         }
 
 
@@ -400,9 +410,12 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            var commandBus = _container.Resolve<ICommandBus>();
-            var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
-            await commandBus.DispatchAsync(command, default);
+            var queryBus = _container.Resolve<IQueryBus>();
+          //  var query = new QuestionAggregateQuery(638L, 0);
+//            var test = await queryBus.QueryAsync(query, default);
+
+           /* var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
+            await commandBus.DispatchAsync(command, default);*/
 
             //await addToExtra();
             //await FunctionsExtensions.DeleteCourses(_container);

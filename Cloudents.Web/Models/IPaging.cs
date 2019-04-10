@@ -8,6 +8,6 @@
         /// <summary>
         /// Page property
         /// </summary>
-        int? Page { get; set; }
+        int Page { get; set; }
     }
 }

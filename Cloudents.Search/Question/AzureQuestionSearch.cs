@@ -34,13 +34,13 @@ namespace Cloudents.Search.Question
         {
             var filters = new List<string>();
 
-            var country = query.UserProfile.Country ?? query.UserProfile.University?.Country;
+            //var country = query.UserProfile.Country ?? query.UserProfile.University?.Country;
 
-            if (country != null)
-            {
-                var filter1 = $"{nameof(Entities.Question.Country)} eq '{country.ToUpperInvariant()}'";
-                filters.Add($"({filter1})");
-            }
+            //if (country != null)
+            //{
+            //    var filter1 = $"{nameof(Entities.Question.Country)} eq '{country.ToUpperInvariant()}'";
+            //    filters.Add($"({filter1})");
+            //}
 
             if (query.Course != null)
             {
@@ -49,9 +49,9 @@ namespace Cloudents.Search.Question
                 filters.Add($"({filterStr})");
             }
 
-            if (query.FilterByUniversity && query.UserProfile.University != null)
+            if (query.FilterByUniversity )
             {
-                var universityStr = $"{nameof(Entities.Question.UniversityName)} eq '{query.UserProfile.University.Name}'";
+                var universityStr = $"{nameof(Entities.Question.UniversityName)} eq '{query.UserProfile.UniversityId.GetValueOrDefault().ToString()}'";
                 filters.Add($"({universityStr})");
 
             }
@@ -86,15 +86,9 @@ namespace Cloudents.Search.Question
                 ScoringProfile = QuestionSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {
-                    new ScoringParameter
-                    (QuestionSearchWrite.TagsCountryParameter
-                        , new[] {query.UserProfile.Country}),
-                    new ScoringParameter(
-                        QuestionSearchWrite.TagsTagsParameter,
-                        AzureDocumentSearch.GenerateScoringParameterValues(query.UserProfile.Tags)
-                        
-                        ),
-
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsUniversityParameter,query.UserProfile.UniversityId.ToString()),
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCourseParameter,query.UserProfile.Courses),
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCountryParameter,query.UserProfile.Country)
                 }
 
             };

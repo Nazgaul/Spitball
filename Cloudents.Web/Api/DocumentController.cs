@@ -11,11 +11,15 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
+using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Documents;
 using Cloudents.Query.Query;
+using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Framework;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
@@ -145,28 +149,77 @@ namespace Cloudents.Web.Api
         }
 
 
-        /// <summary>
-        /// Search document vertical result
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="searchProvider"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet(Name = "DocumentSearch"), AllowAnonymous]
-        //TODO:We have issue in here because of changing course we need to invalidate the query.
-        //[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
-        public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync(
-            [FromQuery] DocumentRequest model,
+        [HttpGet(Name = "Documents"), AllowAnonymous]
+        public async Task<WebResponseWithFacet<DocumentFeedDto>> AggregateAllCoursesAsync(
+           [FromQuery]DocumentRequestAggregate request, CancellationToken token)
+        {
+            var page = request.Page;
+            var userId = _userManager.GetLongUserId(User);
+            var query = new DocumentAggregateQuery(userId, page, request.Filter);
+            var result = await _queryBus.QueryAsync(query, token);
+
+
+            return GenerateResult(result, new { page = ++page });
+        }
+
+        private WebResponseWithFacet<DocumentFeedDto> GenerateResult(
+            DocumentFeedWithFacetDto result, object nextPageParams)
+        {
+            var p = result.Result.ToList();
+            string nextPageLink = null;
+            if (p.Count > 0)
+            {
+                nextPageLink = Url.RouteUrl("Documents", nextPageParams);
+            }
+
+            var filters = new List<IFilters>();
+            if (result.Facet.Any())
+            {
+                var filter = new Filters<string>(nameof(DocumentRequestAggregate.Filter), _localizer["TypeFilterTitle"],
+                    result.Facet.Select(s => new KeyValuePair<string, string>(s, s)));
+                filters.Add(filter);
+            }
+
+
+            return new WebResponseWithFacet<DocumentFeedDto>
+            {
+                Result = p.Select(s =>
+                {
+                    if (s.Url == null)
+                    {
+                        s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                    }
+
+                    s.Title = Path.GetFileNameWithoutExtension(s.Title);
+                    return s;
+                }),
+                Filters = filters,
+                NextPageLink = nextPageLink
+            };
+        }
+
+        [HttpGet, AllowAnonymous]
+        public async Task<WebResponseWithFacet<DocumentFeedDto>> SpecificCourseAsync(
+            [RequiredFromQuery]DocumentRequestCourse request,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new DocumentCourseQuery(userId, request.Page, request.Course, request.Filter);
+            var result = await _queryBus.QueryAsync(query, token);
+            return GenerateResult(result, new { page = ++request.Page, request.Course });
+        }
+
+        [HttpGet, AllowAnonymous]
+        public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchInCourseAsync(
+            [RequiredFromQuery]  DocumentRequestSearchCourse request,
+            [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country)] UserProfile profile,
             [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
         {
-
-            model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(model.Profile, model.Term, model.Course, !string.IsNullOrEmpty(model.University), model.Filter?.Where(w => !string.IsNullOrEmpty(w)))
+            var query = new DocumentQuery(profile, request.Term, request.Course, false, request.Filter?.Where(w => !string.IsNullOrEmpty(w)))
             {
-                Page = model.Page.GetValueOrDefault(),
+                Page = request.Page,
             };
-
             var resultTask = searchProvider.SearchDocumentsAsync(query, token);
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
 
@@ -185,42 +238,133 @@ namespace Cloudents.Web.Api
 
             await Task.WhenAll(resultTask, votesTask);
             var result = resultTask.Result;
-            var p = result.Result.ToList();
-            string nextPageLink = null;
-            if (p.Count > 0)
+            return GenerateResult(result, new
             {
-                nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
-            }
-
-            var filters = new List<IFilters>();
-            if (result.Facet.Any())
-            {
-                var filter = new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
-                    result.Facet.Select(s => new KeyValuePair<string, string>(s, s)));
-                filters.Add(filter);
-            }
-
-
-            return new WebResponseWithFacet<DocumentFeedDto>
-            {
-                Result = p.Select(s =>
-                {
-                    if (s.Url == null)
-                    {
-                        s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
-                    }
-
-                    if (votesTask?.Result != null && votesTask.Result.TryGetValue(s.Id, out var param))
-                    {
-                        s.Vote.Vote = param;
-                    }
-                    s.Title = Path.GetFileNameWithoutExtension(s.Title);
-                    return s;
-                }),
-                Filters = filters,
-                NextPageLink = nextPageLink
-            };
+                page = ++request.Page,
+                request.Course,
+                request.Term,
+                request.University,
+                request.Filter
+            });
         }
+
+        [HttpGet, AllowAnonymous]
+        public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchInSpitballAsync(
+          [RequiredFromQuery]  DocumentRequestSearch request,
+
+            [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
+            [FromServices] IDocumentSearch searchProvider,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new DocumentQuery(profile, request.Term, null,
+                request.University != null, request.Filter?.Where(w => !string.IsNullOrEmpty(w)))
+            {
+                Page = request.Page,
+            };
+            var resultTask = searchProvider.SearchDocumentsAsync(query, token);
+            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+
+            if (User.Identity.IsAuthenticated)
+            {
+
+                var queryTags = new UserVotesByCategoryQuery(userId);
+                votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
+                    .ContinueWith(
+                        t2 =>
+                        {
+                            return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
+                        }, token);
+
+            }
+
+            await Task.WhenAll(resultTask, votesTask);
+            var result = resultTask.Result;
+            return GenerateResult(result, new
+            {
+                page = ++request.Page,
+                request.Term,
+                request.University,
+                request.Filter
+            });
+        }
+
+        ///// <summary>
+        ///// Search document vertical result
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <param name="searchProvider"></param>
+        ///// <param name="token"></param>
+        ///// <returns></returns>
+        //[HttpGet("{se}", Name = "DocumentSearch"), AllowAnonymous]
+        ////TODO:We have issue in here because of changing course we need to invalidate the query.
+        ////[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
+        //public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync(
+        //    [FromQuery] DocumentRequest model,
+        //    [FromServices] IDocumentSearch searchProvider,
+        //    CancellationToken token)
+        //{
+
+        //    model = model ?? new DocumentRequest();
+        //    var query = new DocumentQuery(model.Profile, model.Term, model.Course, !string.IsNullOrEmpty(model.University), model.Filter?.Where(w => !string.IsNullOrEmpty(w)))
+        //    {
+        //        Page = model.Page.GetValueOrDefault(),
+        //    };
+
+        //    var resultTask = searchProvider.SearchDocumentsAsync(query, token);
+        //    var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var userId = _userManager.GetLongUserId(User);
+        //        var queryTags = new UserVotesByCategoryQuery(userId);
+        //        votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
+        //            .ContinueWith(
+        //            t2 =>
+        //            {
+        //                return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
+        //            }, token);
+
+        //    }
+
+        //    await Task.WhenAll(resultTask, votesTask);
+        //    var result = resultTask.Result;
+        //    var p = result.Result.ToList();
+        //    string nextPageLink = null;
+        //    if (p.Count > 0)
+        //    {
+        //        nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
+        //    }
+
+        //    var filters = new List<IFilters>();
+        //    if (result.Facet.Any())
+        //    {
+        //        var filter = new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
+        //            result.Facet.Select(s => new KeyValuePair<string, string>(s, s)));
+        //        filters.Add(filter);
+        //    }
+
+
+        //    return new WebResponseWithFacet<DocumentFeedDto>
+        //    {
+        //        Result = p.Select(s =>
+        //        {
+        //            if (s.Url == null)
+        //            {
+        //                s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+        //            }
+
+        //            if (votesTask?.Result != null && votesTask.Result.TryGetValue(s.Id, out var param))
+        //            {
+        //                s.Vote.Vote = param;
+        //            }
+        //            s.Title = Path.GetFileNameWithoutExtension(s.Title);
+        //            return s;
+        //        }),
+        //        Filters = filters,
+        //        NextPageLink = nextPageLink
+        //    };
+        //}
 
         [HttpPost("vote")]
         public async Task<IActionResult> VoteAsync([FromBody]

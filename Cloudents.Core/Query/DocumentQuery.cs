@@ -5,7 +5,12 @@ namespace Cloudents.Core.Query
 {
     public class DocumentQuery : VerticalQuery
     {
-        public DocumentQuery(UserProfile userProfile, string term, string course, bool filterByUniversity, IEnumerable<string> filters) : base(userProfile, term, course, filterByUniversity)
+        public DocumentQuery(UserProfile userProfile, 
+            string term,
+            string course,
+            bool filterByUniversity,
+            IEnumerable<string> filters) :
+            base(userProfile, term, course, filterByUniversity)
         {
             Filters = filters;
         }

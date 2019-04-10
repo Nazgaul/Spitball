@@ -13,8 +13,10 @@ namespace Cloudents.Search.Question
     {
         public const string IndexName = "question2";
         internal const string TagsCountryParameter = "Country";
-        internal const string TagsTagsParameter = "Tag";
-        internal const string ScoringProfile = "ScoringProfile2";
+        internal const string TagsCourseParameter = "Course";
+        internal const string TagsUniversityParameter = "University";
+        //internal const string TagsTagsParameter = "Tag";
+        internal const string ScoringProfile = "ScoringProfile3";
 
 
         public QuestionSearchWrite(SearchService client, ILogger logger) : base(client, client.GetClient(IndexName), logger)
@@ -43,6 +45,21 @@ namespace Cloudents.Search.Question
                 },
                 ScoringProfiles = new List<ScoringProfile>
                 {
+                    new ScoringProfile("ScoringProfile2")
+                    {
+                        TextWeights = new TextWeights(new Dictionary<string, double>
+                        {
+                            [nameof(Entities.Question.Text)] = 185,
+                            [nameof(Entities.Question.Prefix)] = 180,
+                        }),
+                        FunctionAggregation = ScoringFunctionAggregation.Sum,
+                        Functions = new List<ScoringFunction>
+                        {
+                            new FreshnessScoringFunction(nameof(Entities.Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
+                            new TagScoringFunction(nameof(Entities.Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
+                            new TagScoringFunction(nameof(Entities.Question.Tags),170, new TagScoringParameters("Tag")),
+                        }
+                    },
                     new ScoringProfile(ScoringProfile)
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
@@ -55,7 +72,8 @@ namespace Cloudents.Search.Question
                         {
                             new FreshnessScoringFunction(nameof(Entities.Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
                             new TagScoringFunction(nameof(Entities.Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
-                            new TagScoringFunction(nameof(Entities.Question.Tags),170, new TagScoringParameters(TagsTagsParameter)),
+                            new TagScoringFunction(nameof(Entities.Question.Course),170, new TagScoringParameters(TagsCourseParameter)),
+                            new TagScoringFunction(nameof(Entities.Question.UniversityName),120, new TagScoringParameters(TagsUniversityParameter)),
                         }
                     }
                 },
