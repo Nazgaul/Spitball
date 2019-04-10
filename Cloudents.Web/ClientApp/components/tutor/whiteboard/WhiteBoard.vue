@@ -136,10 +136,10 @@
         </div>
         <div class="nav-container zoom-helper bottom-nav elevation-2">
             <!--Zoom-->
-            <div class="zoom-container">   
+            <div class="zoom-container" xs12>
                 <v-tooltip right>
                       <template v-slot:activator="{on}">
-                          <button v-on="on" class="nav-action" @click="doZoom(true)">
+                          <button v-on="on" class="nav-action mr-2" @click="doZoom(true)">
                               <v-icon>sbf-zoom-in</v-icon>
                           </button>
                       </template>
@@ -244,18 +244,19 @@
         .nav-container {
             position: fixed;
             background-color: #FFFFFF;
-            padding: 16px 0;
+            padding: 0px 0;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             width: auto;
             margin-top: 20px;
+            left: 16px;
             z-index: 5;
 
             &.bottom-nav{
-                top: 625px;
+                bottom: 16px;
             }
             .nav-action {
-                padding: 12px 16px;
+                padding: 12px 10px;
                 outline: none!important;
                 .v-icon {
                     color: #000000;
@@ -284,9 +285,8 @@
                 }
             }
             &.zoom-helper{
-                max-width: 58px;
-                min-width: 58px;
-                padding: 16px 0px 0 0;
+                padding: 8px 8px;
+                flex-direction: column;
                 .nav-action{
                     padding: 4px 0;
                     text-align: center;
@@ -294,6 +294,7 @@
                         font-size:12px;
                         border-top:1px solid rgba(0, 0, 0, 0.16);
                         margin: 0 6px;
+                        padding-top: 8px;
                     }
                 }
                 .zoom-container{

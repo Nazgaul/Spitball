@@ -124,13 +124,13 @@
     <value>בחזרה לקורסים שלי</value>
   </data>
   <data name="before creating" xml:space="preserve">
-    <value>:לפני יצירת קורס חדש, נסה</value>
+    <value>לפני יצירת קורס חדש, נסה:</value>
   </data>
   <data name="btn_done" xml:space="preserve">
     <value>סיים</value>
   </data>
   <data name="btn_finished" xml:space="preserve">
-    <value>הסתיים</value>
+    <value>סיימתי</value>
   </data>
   <data name="cant_find" xml:space="preserve">
     <value>לא יכול למצוא את הקורס שלך?</value>
@@ -201,17 +201,11 @@
   <data name="students" xml:space="preserve">
     <value>סטודנטים</value>
   </data>
-  <data name="sub_title_invite" xml:space="preserve">
-    <value>תת כותרת להוספת חברים ללימודים</value>
-  </data>
   <data name="teach" xml:space="preserve">
     <value>למד קורס</value>
   </data>
   <data name="teaching" xml:space="preserve">
     <value>מלמד</value>
-  </data>
-  <data name="third_tip" xml:space="preserve">
-    <value>טיפ שלישי ליצירת קורס</value>
   </data>
   <data name="try_again" xml:space="preserve">
     <value>נסה שוב</value>

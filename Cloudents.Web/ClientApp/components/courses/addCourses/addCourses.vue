@@ -35,7 +35,7 @@
 
             <v-flex v-show="quantatySelected"  transition="fade-transition" style="position: relative">
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
-                    <div class="class-list selected-classes-list py-3 px-3" :class="{'higher': isFirefox}" ref="listCourse" >
+                    <div class="class-list selected-classes-list py-3 px-3" :class="{'higher': isFirefox || isEdge}" ref="listCourse" >
                         <div class="selected-class-item caption d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
                              v-for="selectedClass in localSelectedClasses">
                             <span class="text-truncate">{{selectedClass.text}}</span>
@@ -69,12 +69,14 @@
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
                                     <span class="light-purple caption font-weight-bold mr-2" v-html="$Ph('courses_joined')"></span>
                                     <span>
+
                                      <v-icon class="checked-icon">sbf-check-circle</v-icon>
                                    </span>
                                 </v-flex>
                                 <v-flex shrink v-else class="d-flex align-center">
                                     <span class="light-purple caption font-weight-bold mr-2" v-html="$Ph('courses_join')"></span>
                                     <span>
+
                                      <v-icon class="cursor-pointer add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
                                    </span>
                                 </v-flex>
@@ -107,6 +109,7 @@
             return {
                 search: "",
                 isFirefox: global.isFirefox,
+                isEdge: global.isEdge,
                 classNamePlaceholder: LanguageService.getValueByKey(
                     "courses_placeholder_find"
                 ),
@@ -149,10 +152,6 @@
             classes() {
                 return this.getClasses();
             },
-            hideIfChoosen() {
-                this.classes.some(r => this.selectedClasses.indexOf(r) >= 0);
-            },
-
             selectedClasses: {
                 get() {
                     return this.localSelectedClasses;
@@ -168,7 +167,7 @@
                             }
                         });
                     }
-                    this.localSelectedClasses.push(arrValidData)
+                    this.localSelectedClasses.push(arrValidData);
                    this.updateSelectedClasses(arrValidData);
                 }
             }
@@ -200,6 +199,10 @@
                 let index = from.indexOf(classToDelete);
                 from.splice(index, 1);
             },
+            // hideIfChoosen(single) {
+            //     return this.localSelectedClasses.indexOf(single) >= 0
+            // },
+
             checkAsSelected(classToCheck, from){
                 let index = from.indexOf(classToCheck);
                 from[index].isSelected = true;
@@ -260,23 +263,11 @@
 </script>
 <style lang="less">
     @import '../../../styles/mixin.less';
-
     .add-courses-wrap {
-
-        .left-paddle {
-            left: 0;
-            top: 0;
-            position: absolute;
-        }
-        .right-paddle {
-            right: 0;
-            top: 0;
-            position: absolute;
-        }
         .hidden {
             display: none;
         }
-        .scrollBarStyle(0px, #0085D1);
+        .scrollBarStyle(3px, #0085D1);
         .v-input__slot{
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17)!important;
         }

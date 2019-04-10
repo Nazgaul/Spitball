@@ -113,6 +113,7 @@
                 if(this.search && this.search.length > 0) {
                     return true;
                 }
+                return true;
             },
             universities() {
                 return this.getUniversities;
@@ -127,7 +128,6 @@
                 }
             }
         },
-
         methods: {
             ...mapActions([
                               "updateUniversities",
@@ -190,7 +190,7 @@
             },
         },
         created(){
-            this.updateUniversities(' ');
+            this.updateUniversities('');
         },
         filters: {
             boldText(value, search) {
@@ -218,9 +218,8 @@
 
 <style lang="less">
     @import '../../../styles/mixin.less';
-
     .add-university-wrap {
-        .scrollBarStyle(0px, #0085D1);
+        .scrollBarStyle(3px, #0085D1);
         .rounded {
             border-radius: 50%;
             width: 42px;

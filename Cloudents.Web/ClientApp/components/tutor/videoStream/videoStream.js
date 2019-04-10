@@ -1,11 +1,12 @@
 import { mapActions, mapGetters } from 'vuex';
 import { createLocalTracks, createLocalVideoTrack } from 'twilio-video';
 import tutorService  from '../tutorService';
- import timerIcon from '../images/timer.svg'
+ import timerIcon from '../images/timer.svg';
+ import fullScreenIcon from '../images/fullscreen.svg';
 
 export default {
     name: "videoStream",
-    components: {timerIcon},
+    components: {timerIcon, fullScreenIcon},
     data() {
         return {
             loading: false,

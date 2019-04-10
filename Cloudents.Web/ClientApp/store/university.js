@@ -105,12 +105,14 @@ const actions = {
         });
     },
     updateUniversities({commit}, val) {
-        if(!val) return;
-        universityService.getUni(val).then(data => {
-            commit('setUniversities', data);
-        }, err => {
-            commit('setUniversities', []);
-        });
+        if(val || val === ''){
+            universityService.getUni(val).then(data => {
+                commit('setUniversities', data);
+            }, err => {
+                commit('setUniversities', []);
+            });
+        }
+
     },
     clearUniversityList({commit}) {
         commit('setUniversities', []);
