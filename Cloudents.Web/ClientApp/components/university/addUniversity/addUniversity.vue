@@ -99,9 +99,9 @@
                         this.updateUniversities(searchVal);
                     }
                 }
-                if(this.search === "") {
-                    this.clearData();
-                }
+                // if(this.search === "") {
+                //     this.clearData();
+                // }
             }, 500)
         },
         computed: {
@@ -190,7 +190,7 @@
             },
         },
         created(){
-            this.updateUniversities('');
+            this.updateUniversities(' ');
         },
         filters: {
             boldText(value, search) {
