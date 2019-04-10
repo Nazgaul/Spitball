@@ -201,17 +201,11 @@
   <data name="students" xml:space="preserve">
     <value>סטודנטים</value>
   </data>
-  <data name="sub_title_invite" xml:space="preserve">
-    <value>תת כותרת להוספת חברים ללימודים</value>
-  </data>
   <data name="teach" xml:space="preserve">
     <value>למד קורס</value>
   </data>
   <data name="teaching" xml:space="preserve">
     <value>מלמד</value>
-  </data>
-  <data name="third_tip" xml:space="preserve">
-    <value>טיפ שלישי ליצירת קורס</value>
   </data>
   <data name="try_again" xml:space="preserve">
     <value>נסה שוב</value>
