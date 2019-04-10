@@ -145,7 +145,7 @@
     <value>קורסים שאני יכול לעזור לך איתם</value>
   </data>
   <data name="courses_empty_btn" xml:space="preserve">
-    <value>לבחור את הקורסים שלי</value>
+    <value>בחירת הקורסים שלי</value>
   </data>
   <data name="courses_empty_select_courses" xml:space="preserve">
     <value>בחירת הקורסים שלך תעזור ליצור חומרי לימוד ומרצים מתאימים לצרכיך</value>

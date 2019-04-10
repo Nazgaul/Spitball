@@ -115,7 +115,13 @@
 
         },
         methods: {
-            ...mapActions(["updateClasses", "syncCoursesData", "deleteClass", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
+            ...mapActions(["updateClasses",
+                              "syncCoursesData",
+                              "deleteClass",
+                              "updateSelectedClasses",
+                              "assignClasses",
+                              "pushClassToSelectedClasses",
+                          ]),
             teachCourseToggle(course) {
                 this.teachingActive = true;
                 course.isLoading = true;
@@ -137,6 +143,7 @@
                 this.removingActive = true;
                 this.deleteClass(classDelete).then((resp) => {
                     classDelete.isLoading = false;
+
                 }, (error) => {
                     classDelete.isLoading = false;
                     this.removingActive = false;
@@ -145,10 +152,6 @@
                     this.removingActive = false;
                 });
             },
-            // deleteFromList(classToDelete, from) {
-            //     let index = from.indexOf(classToDelete);
-            //     from.splice(index, 1);
-            // },
             goToAddMore() {
                 this.$router.push({name: 'addCourse'});
             }

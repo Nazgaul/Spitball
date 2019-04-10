@@ -1,8 +1,14 @@
 
 @import "../../../../styles/mixin.less";
 .details-row {
+  overflow: hidden;
+  text-overflow: ellipsis;
   .details-wrap {
     padding-top: 5px;
+    // prevents overflow of box if text without spaces
+    .cut-long{
+       word-break: break-all;
+    }
     .aligned {
       font-size: 11px;
       color: @colorBlackNew;
@@ -15,7 +21,6 @@
         }
       .sb-icon-arrow {
         font-size: 12px;
-        //height: 16px;
         width: 12px;
         color: @colorGreyLight;
         text-align: center;

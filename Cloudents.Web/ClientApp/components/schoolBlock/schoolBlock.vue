@@ -160,6 +160,9 @@ export default {
         this.updateFilter();
       }
     },
+    isOutsideNoteAsk(){
+        return this.$route.name !== 'ask' && this.$route.name !== 'note'
+    },
     updateFilter() {
       this.UPDATE_SEARCH_LOADING(true);
       this.UPDATE_LOADING(true);
@@ -169,8 +172,11 @@ export default {
       if (this.selectedCourse === "") {
         delete newQueryObject.Course;
       }
-      
-      this.$router.push({ query: newQueryObject });
+      if(this.isOutsideNoteAsk()){
+          this.$router.push({name: 'note', query: newQueryObject });
+      }else{
+          this.$router.push({ query: newQueryObject });
+      }
     },
 
     openPersonalizeCourse() {

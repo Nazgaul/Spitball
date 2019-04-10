@@ -136,15 +136,12 @@
     <value>הקלד שם אוניברסיטה</value>
   </data>
   <data name="find_similar" xml:space="preserve">
-    <value>מצא אוניברסיטאות בעלות שם זהה</value>
+    <value>למצוא אוניברסיטאות בעלות שם זהה</value>
   </data>
   <data name="new_title" xml:space="preserve">
-    <value>:לפני יצירת אוניברסיטה חדשה, נסה</value>
+    <value>לפני יצירת אוניברסיטה חדשה, נסה:</value>
   </data>
   <data name="not_student_btn" xml:space="preserve">
     <value>אני לא סטודנט</value>
-  </data>
-  <data name="third_tip_for_creating" xml:space="preserve">
-    <value>טיפ שלישי ליצירת קורס</value>
   </data>
 </root>

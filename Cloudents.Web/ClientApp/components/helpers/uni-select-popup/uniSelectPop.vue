@@ -32,9 +32,7 @@ export default {
             this.changeSelectPopUpUniState(false);
         },
         openUniInterface(){
-            this.$router.push({
-                        name:'uniselect',
-                    });
+            this.$router.push({name:'addUniversity'});
             this.closePopup();
         }
     }
