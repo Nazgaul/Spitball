@@ -57,7 +57,7 @@ const hideHelperObj = function(){
 
 const setHelperObj = function(e, selectedHelper){
     let currentX = selectedHelper ? selectedHelper.mouseX + e.target.offsetLeft : e.clientX;
-    let currentY = selectedHelper ? selectedHelper.mouseY : e.clientY - e.target.getBoundingClientRect().top;
+    let currentY = selectedHelper ? selectedHelper.mouseY : e.clientY;
     let helperObj = {
         currentX,
         currentY,
@@ -157,14 +157,14 @@ const mousedown = function(e){
                 startShapes = createShape(hasShape[prop]);
                 
             }else{
-                let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
+                let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft - e.target.getBoundingClientRect().left, e.pageY - e.target.getBoundingClientRect().top);
                 startingMousePosition.x = mouseX;
                 startingMousePosition.y = mouseY;
                 currentId = createGuid('text');
                 setHelperObj.bind(this, e)();
             }
         }else{
-            let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
+            let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft - e.target.getBoundingClientRect().left, e.pageY - e.target.getBoundingClientRect().top);
             startingMousePosition.x = mouseX;
             startingMousePosition.y = mouseY;
             currentId = createGuid('text');

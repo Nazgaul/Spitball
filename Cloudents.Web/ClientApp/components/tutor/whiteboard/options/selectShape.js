@@ -71,7 +71,7 @@ const markShapes = function(){
     let {a, b, c, d, e, f} = this.context.getTransform();
     let {mouseX:startX, mouseY:startY} = canvasFinder.getRelativeMousePoints(this.context, rectangleBoundries.startX*-a, rectangleBoundries.startY*-d );
     let {mouseX:endX, mouseY:endY} = canvasFinder.getRelativeMousePoints(this.context, rectangleBoundries.endX*-a, rectangleBoundries.endY*-d);
-    let helperObj = getHelperObj.bind(this, startX*-a, startY*-d -topOffset, endX*-a, endY*-d -topOffset)();
+    let helperObj = getHelperObj.bind(this, startX*-a, startY*-d, endX*-a, endY*-d)();
         
     liveDraw.bind(this, helperObj)();
 }
@@ -84,7 +84,7 @@ const clearMark = function(){
 const mousedown = function(e){
     topOffset = e.target.getBoundingClientRect().top;
     startingMousePosition.x = e.clientX;
-    startingMousePosition.y = e.clientY - topOffset;
+    startingMousePosition.y = e.clientY;
     this.methods.hideColorPicker();
     this.shouldPaint = true;
     if(!currentHelperObj){
@@ -155,7 +155,7 @@ const moveShapes = function(){
 
 const mousemove = function(e){
     currentX = e.clientX;
-    currentY = e.clientY - topOffset;
+    currentY = e.clientY;
     if(this.shouldPaint){
         if(mouseInsideSelectedRectangle){
             //move shape
@@ -199,12 +199,8 @@ const defineEndPosition = function(e){
             if(multiSelectActive){
                 multiSelectActive = false;
                 //get rectangle with the offsets
-                let {mouseX:startX, mouseY:startY} = canvasFinder.getRelativeMousePoints(this.context, currentHelperObj.startPositionLeft - e.target.offsetLeft, currentHelperObj.startPositionTop - e.target.getBoundingClientRect().top);
-                let {mouseX:w, mouseY:h} = canvasFinder.getRelativeMousePoints(this.context, (currentHelperObj.currentX - e.target.offsetLeft) - startX, (currentHelperObj.currentY - e.target.getBoundingClientRect().top) - startY);
-                // let startX = currentHelperObj.startPositionLeft - e.target.offsetLeft;
-                // let startY = currentHelperObj.startPositionTop - e.target.getBoundingClientRect().top;
-                // let w = (currentHelperObj.currentX - e.target.offsetLeft) - startX;
-                // let h = (currentHelperObj.currentY - e.target.getBoundingClientRect().top) - startY;
+                let {mouseX:startX, mouseY:startY} = canvasFinder.getRelativeMousePoints(this.context, currentHelperObj.startPositionLeft - e.target.offsetLeft - e.target.getBoundingClientRect().left, currentHelperObj.startPositionTop - e.target.getBoundingClientRect().top);
+                let {mouseX:w, mouseY:h} = canvasFinder.getRelativeMousePoints(this.context, (currentHelperObj.currentX - e.target.offsetLeft - e.target.getBoundingClientRect().left) - startX, (currentHelperObj.currentY - e.target.getBoundingClientRect().top) - startY);
                 let rect = {
                     startX,
                     startY,
@@ -260,5 +256,6 @@ export default{
     mouseleave,
     draw: liveDraw,
     init,
-    deleteSelectedShape
+    deleteSelectedShape,
+    reMarkSelectedShapes: markShapes,
 }

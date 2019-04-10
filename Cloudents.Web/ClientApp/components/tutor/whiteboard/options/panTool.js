@@ -4,13 +4,17 @@ import store from "../../../../store/index";
 let lastX=null;
 let lastY=null;
 let scaleFactor = null;
-let dragStart = null;
-let dragged = false;
+let dragStart = false;
+
+let mouseStartX = null;
+let mouseStartY = null;
+let startScrollPositionTop = null;
+let startScrollPositionLeft = null;
 
 const init = function(){
     lastX = this.context.canvas.width/2;
     lastY = this.context.canvas.height/2;
-    dragged = false;
+    dragStart = false;
     scaleFactor = 1.1;    
 }
 const draw = function(){
@@ -28,23 +32,30 @@ const draw = function(){
 
 const liveDraw = function(){};
 
-const mousedown = function(evt){
+const mousedown = function(e){
     //Set Click Position
     this.methods.hideColorPicker();
-    lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
-    lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
-    dragStart = this.context.transformedPoint(lastX,lastY);
-    dragged = false;
-    
+    dragStart = true;
+    mouseStartX = e.clientX;
+    mouseStartY = e.clientY;
+    startScrollPositionTop = e.target.parentElement.scrollTop;
+    startScrollPositionLeft = e.target.parentElement.scrollLeft;
 }
-const mousemove = function(evt){
-    lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
-    lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
-    dragged = true;
+
+
+const mousemove = function(e){
+    // let scrollReachedBottom = (e.target.parentElement.scrollTop + e.target.parentElement.clientHeight) === e.target.height;
+    // let scrollReachdRight = (e.target.parentElement.scrollLeft + e.target.parentElement.clientWidth) === e.target.width;
+    let scrollableElm = e.target.parentElement;
+    let deltaX = mouseStartX - e.clientX;
+    let deltaY = mouseStartY - e.clientY;
     if (dragStart){
-      var pt = this.context.transformedPoint(lastX,lastY);
-      this.context.translate(pt.x-dragStart.x, pt.y-dragStart.y);
-      let transform = this.context.getTransform();
+      scrollableElm.scrollLeft = startScrollPositionLeft + deltaX;
+      scrollableElm.scrollTop = startScrollPositionTop + deltaY;
+      let transform = {
+          x: scrollableElm.scrollLeft*-1,
+          y: scrollableElm.scrollTop*-1
+      }
       store.dispatch('updatePan', transform);
       draw.bind(this)();
     }
@@ -68,33 +79,35 @@ const zoom = function(clicks){
     // }else if(a === minLimit && clicks < 0){
     //     return;
     // }
-    let pt = this.context.transformedPoint(lastX, lastY);
-    this.context.translate(pt.x, pt.y);
-    let factor = Math.pow(scaleFactor, clicks);
-    this.context.scale(factor, factor);
-    this.context.translate(-pt.x, -pt.y);
-    whiteBoardService.redraw(this);
-    let transform = this.context.getTransform();
-    store.dispatch('updateZoom', transform.a*100);
-    store.dispatch('updatePan', transform);
+
+    //deprecated added scroll
+    // let pt = this.context.transformedPoint(lastX, lastY);
+    // this.context.translate(pt.x, pt.y);
+    // let factor = Math.pow(scaleFactor, clicks);
+    // this.context.scale(factor, factor);
+    // this.context.translate(-pt.x, -pt.y);
+    // whiteBoardService.redraw(this);
+    // let transform = this.context.getTransform();
+    // store.dispatch('updateZoom', transform.a*100);
+    // store.dispatch('updatePan', transform);
 }
 
-const mouseScroll = function(evt){
-    let delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
-    if (delta) {
-        zoom.bind(this, delta)()
-    };
-    return evt.preventDefault() && false;
-}
+// const mouseScroll = function(evt){
+//     let delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
+//     if (delta) {
+//         zoom.bind(this, delta)()
+//     };
+//     return evt.preventDefault() && false;
+// }
 
-const manualScroll = function(zoomIn){
-    let scrollValue = 0.75;
-    let delta = zoomIn ? scrollValue : scrollValue*-1;
-    zoom.bind(this, delta)()
-}
+// const manualScroll = function(zoomIn){
+//     let scrollValue = 0.75;
+//     let delta = zoomIn ? scrollValue : scrollValue*-1;
+//     zoom.bind(this, delta)()
+// }
 
 const defineEndPosition = function(e){
-    dragStart = null;
+    dragStart = false;
 }
 const mouseup = function(e){
     defineEndPosition.bind(this, e)()
@@ -108,8 +121,8 @@ export default{
     mouseup,
     mousemove,
     mouseleave,
-    mouseScroll,
+    // mouseScroll,
     draw: liveDraw,
     init,
-    manualScroll
+    // manualScroll
 }

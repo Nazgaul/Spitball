@@ -54,7 +54,7 @@ const liveDraw = function(dragObj){
 }
 const defineEndPosition = function(e){
     if(this.shouldPaint){
-        let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
+        let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft - e.target.getBoundingClientRect().left, e.pageY - e.target.getBoundingClientRect().top);
         let dragObj = createPointsByOption({
             mouseX: mouseX,
             mouseY: mouseY,
@@ -81,12 +81,12 @@ const defineEndPosition = function(e){
 }
 const mousedown = function(e){
     //Set Click Position
-    let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft, e.pageY - e.target.getBoundingClientRect().top);
+    let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft - e.target.getBoundingClientRect().left, e.pageY - e.target.getBoundingClientRect().top);
     mouseState.mouseX = mouseX;
     mouseState.mouseY = mouseY;
     //helper obj
     startingMousePosition.x = e.pageX;
-    startingMousePosition.y = e.pageY - e.target.getBoundingClientRect().top;
+    startingMousePosition.y = e.pageY;
 
     this.methods.hideColorPicker();
 
@@ -107,7 +107,7 @@ const mousedown = function(e){
 const mousemove = function(e){
     if(this.shouldPaint){
         let currentX = e.pageX;
-        let currentY = e.pageY - e.target.getBoundingClientRect().top;
+        let currentY = e.pageY;
         let helperObj = {
             startPositionLeft: startingMousePosition.x,
             startPositionTop: startingMousePosition.y,
