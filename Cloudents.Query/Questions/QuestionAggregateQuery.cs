@@ -1,14 +1,8 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Query.Stuff;
 using NHibernate;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using NHibernate.Transform;
 
 namespace Cloudents.Query.Questions
 {

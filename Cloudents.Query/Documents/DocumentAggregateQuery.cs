@@ -10,7 +10,7 @@ namespace Cloudents.Query.Documents
 {
     public class DocumentAggregateQuery : IQuery<DocumentFeedWithFacetDto>
     {
-        public DocumentAggregateQuery(long userId, int page, string filter = null)
+        public DocumentAggregateQuery(long userId, int page, string[] filter)
         {
             Page = page;
             UserId = userId;
@@ -20,7 +20,7 @@ namespace Cloudents.Query.Documents
         private int Page { get; }
 
         private long UserId { get; }
-        private string Filter { get; }
+        private string[] Filter { get; }
 
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<DocumentAggregateQuery, DocumentFeedWithFacetDto>
@@ -65,7 +65,7 @@ join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId,
 cte
 where d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) 
-    and (:typefilter is null or d.Type = :typefilter)
+    and (:typefilter is null or d.Type in :typefilter)
 order by case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
 case when un.Country = cte.Country then 2 else 0 end +
 cast(1 as float)/DATEDIFF(day, d.updateTime, GETUTCDATE()) desc
@@ -81,7 +81,8 @@ FETCH NEXT 50 ROWS ONLY";
                 var sqlQuery = _dapperRepository.CreateSQLQuery(sql);
                 sqlQuery.SetInt32("page", query.Page);
                 sqlQuery.SetInt64("userid", query.UserId);
-                sqlQuery.SetString("typefilter", query.Filter);
+                sqlQuery.SetParameterList("typefilter", query.Filter);
+                
                 sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_'));
                 var future = sqlQuery.Future<DocumentFeedDto>();
 

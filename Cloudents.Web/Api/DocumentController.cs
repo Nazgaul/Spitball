@@ -149,13 +149,13 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpGet(Name = "Documents")]
+        [HttpGet(Name = "Documents"), AllowAnonymous]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> AggregateAllCoursesAsync(
            [FromQuery]DocumentRequestAggregate request, CancellationToken token)
         {
             var page = request.Page;
             var userId = _userManager.GetLongUserId(User);
-            var query = new DocumentAggregateQuery(userId, page);
+            var query = new DocumentAggregateQuery(userId, page,request.Filter);
             var result = await _queryBus.QueryAsync(query, token);
 
 
@@ -198,7 +198,7 @@ namespace Cloudents.Web.Api
             };
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SpecificCourseAsync(
             [RequiredFromQuery]DocumentRequestCourse request,
             CancellationToken token)
@@ -209,7 +209,7 @@ namespace Cloudents.Web.Api
             return GenerateResult(result, new { page = ++request.Page, request.Course });
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchInCourseAsync(
             [RequiredFromQuery]  DocumentRequestSearchCourse request,
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country)] UserProfile profile,
@@ -248,7 +248,7 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchInSpitballAsync(
           [RequiredFromQuery]  DocumentRequestSearch request,
            
