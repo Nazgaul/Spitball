@@ -12,20 +12,6 @@ Need to upload azure function
 Delete version txt from blob
 
 
---Document Search example
-select d.*
-from sb.[user] u
-join sb.UsersCourses uc
-	on u.Id = uc.UserId
-join sb.Document d
-	on uc.CourseId = d.CourseName
-join sb.University un
-	on un.Id = d.UniversityId
-where u.Id = @UserId and uc.CourseId = @CourseName
-order by case when d.UniversityId = u.UniversityId2 then 1 else 0 end desc
-			,case when un.Country = u.Country then 1 else 0 end desc
-
-
 --University Image DBI
 begin tran
 update u
