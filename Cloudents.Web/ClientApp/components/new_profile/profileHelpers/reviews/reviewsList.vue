@@ -1,5 +1,5 @@
 <template>
-        <v-layout column class="reviews-container" v-if="reviews">
+        <v-layout column class="reviews-container" v-if="reviews && reviews.length >0">
             <v-flex class="mb-3">
                 <span class="review-title" v-language:inner>profile_reviews</span>
             </v-flex>
@@ -27,6 +27,7 @@
                 if(this.getProfile && this.getProfile.about && this.getProfile.about.reviews)
                 return this.getProfile.about.reviews
             }
+
         },
     }
 </script>
