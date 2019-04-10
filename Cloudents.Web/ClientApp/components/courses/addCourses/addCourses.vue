@@ -264,16 +264,6 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
     .add-courses-wrap {
-        .left-paddle {
-            left: 0;
-            top: 0;
-            position: absolute;
-        }
-        .right-paddle {
-            right: 0;
-            top: 0;
-            position: absolute;
-        }
         .hidden {
             display: none;
         }
