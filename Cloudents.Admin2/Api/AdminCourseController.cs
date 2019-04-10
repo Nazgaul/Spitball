@@ -16,7 +16,7 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminCourseController: ControllerBase
+    public class AdminCourseController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
@@ -60,7 +60,7 @@ namespace Cloudents.Admin2.Api
 
                             delete from sb.Course where [Name] = @oldId;";
 
-          
+
 
             await _dapperRepository.WithConnectionAsync(async f =>
             {
@@ -102,7 +102,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses([FromQuery]CoursesRequest model
                 , CancellationToken token)
         {
-            var  query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending));
+            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending));
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
@@ -163,6 +163,24 @@ namespace Cloudents.Admin2.Api
             await _commandBus.DispatchAsync(command, token);*/
             return Ok();
         }
+
+        [HttpPost("subject")]
+        public async Task<IActionResult> SetSubjectToCourse([FromBody] SetSubjectToCourseRequest model,
+                CancellationToken token)
+        {
+            var command = new AddSubjectToCourseCommand(model.CourseName, model.Subject);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpGet("subject")]
+        public async Task<IEnumerable<string>> GetSubjects(CancellationToken token)
+        {
+            var query = new AdminSubjectsQuery();
+            var retVal = await _queryBus.QueryAsync(query, token);
+            return retVal;
+        }
+    
 
         [HttpDelete("{name}")]
         public async Task<IActionResult> ApproveCourse(string name,

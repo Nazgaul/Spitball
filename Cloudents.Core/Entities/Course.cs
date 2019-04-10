@@ -67,6 +67,11 @@ namespace Cloudents.Core.Entities
             }
         }
 
+        public virtual void AddSubject(CourseSubject subject)
+        {
+            Subject = subject;
+        }
+
         public virtual int Count { get;protected internal set; }
 
 
@@ -79,5 +84,6 @@ namespace Cloudents.Core.Entities
         
   
         public virtual ItemState State { get; protected set; }
+        public virtual CourseSubject Subject { get; protected set; }
     }
 }
