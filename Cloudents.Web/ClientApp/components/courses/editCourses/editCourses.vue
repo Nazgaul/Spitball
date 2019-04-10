@@ -2,12 +2,15 @@
     <div class="courses-list-wrap">
         <div v-if="!isEmpty">
             <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
-                <v-flex grow xs10>
+                <v-flex grow xs8>
                     <div class="d-inline-flex justify-center shrink">
                         <span class="subheading font-weight-bold" v-language:inner>courses_my_courses</span>
                         <span class="subheading font-weight-bold"
                               v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
                     </div>
+                </v-flex>
+                <v-flex xs2 shrink class="text-xs-center hidden-xs-only" >
+                    <finishBtn></finishBtn>
                 </v-flex>
                 <v-flex xs2 shrink class="d-flex justify-end">
                     <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0" @click="goToAddMore()">
@@ -81,16 +84,21 @@
         <div v-else>
             <courses-empty-state></courses-empty-state>
         </div>
+        <v-layout align-center justify-center class="hidden-sm-and-up">
+            <v-flex xs12 class="text-xs-center pt-3">
+                <finishBtn></finishBtn>
+            </v-flex>
+        </v-layout>
     </div>
 </template>
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import coursesEmptyState from '../coursesEmptyState/coursesEmptyState.vue';
     import universityService from '../../../services/universityService';
-
+    import finishBtn from  '../helpers/finishBtn.vue';
     export default {
         name: "selectedCourses",
-        components: {coursesEmptyState},
+        components: {coursesEmptyState, finishBtn},
         data() {
             return {
                 btnLoading: false,
