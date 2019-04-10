@@ -1,59 +1,66 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
+using Cloudents.Query;
+using Cloudents.Query.Tutor;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Web.Extensions;
-using Microsoft.AspNetCore.Authorization;
-using Cloudents.Core.Exceptions;
-using Cloudents.Query;
-using Cloudents.Query.Tutor;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]"),ApiController]
+    [Route("api/[controller]"), ApiController]
     [Authorize]
     public class StudyRoomController : ControllerBase
     {
-        private readonly IQueueProvider _queueProvider;
         private readonly IVideoProvider _videoProvider;
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
 
-        public StudyRoomController(IQueueProvider queueProvider, IVideoProvider videoProvider,
+        public StudyRoomController(IVideoProvider videoProvider,
             ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus)
         {
-            _queueProvider = queueProvider;
             _videoProvider = videoProvider;
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
         }
 
+        /// <summary>
+        /// Create study room between tutor and student for many sessions
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> CreateStudyRoomAsync(CreateStudyRoomRequest model, CancellationToken token)
         {
             var tutorId = _userManager.GetLongUserId(User);
             var command = new CreateStudyRoomCommand(tutorId, model.UserId);
             await _commandBus.DispatchAsync(command, token);
+            //TODO: signalr
             return Ok();
         }
 
+        /// <summary>
+        /// Get Study Room data and sessionId if opened
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, CancellationToken token)
         {
@@ -78,7 +85,7 @@ namespace Cloudents.Web.Api
 
 
         /// <summary>
-        /// Generate room
+        /// Start a session
         /// </summary>
         /// <returns></returns>
         [HttpPost("{id:guid}/start")]
@@ -86,59 +93,60 @@ namespace Cloudents.Web.Api
             [FromServices] IHostingEnvironment configuration,
             CancellationToken token)
         {
-            var command = new CreateStudyRoomSessionCommand(id);
+            var userId = _userManager.GetLongUserId(User);
+            var session = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
+            await _videoProvider.CreateRoomAsync(session, configuration.IsProduction());
+            var command = new CreateStudyRoomSessionCommand(id, session, userId);
             await _commandBus.DispatchAsync(command, token);
-            var roomName = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-            var t1 = _videoProvider.CreateRoomAsync(roomName, configuration.IsProduction());
-            var t2 = _queueProvider.InsertMessageAsync(new EndTutoringSessionMessage(roomName), TimeSpan.FromMinutes(90), token);
-            await Task.WhenAll(t1, t2);
+
+            //TODO signalr
+            // var t1 = _videoProvider.CreateRoomAsync(roomName, configuration.IsProduction());
+            //  var t2 = _queueProvider.InsertMessageAsync(new EndTutoringSessionMessage(roomName), TimeSpan.FromMinutes(90), token);
+            // await Task.WhenAll(t1, t2);
             return Ok(new
             {
-                name = roomName
+                session
             });
         }
 
-        [HttpGet("{id:guid}/join")]
-        public async Task<IActionResult> ConnectAsync(string roomName)
+        /// <summary>
+        /// Join to an open session
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="session"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpPost("{id:guid}/join")]
+        public async Task<IActionResult> ConnectToSessionAsync(Guid id,
+           [FromBody] string session
+           )
         {
             var user = _userManager.GetUserId(User);
-            //TODO: need to distinguish tutor from not.
-            var token = await _videoProvider.ConnectToRoomAsync(roomName, user,true);
+            var token = await _videoProvider.ConnectToRoomAsync(session, user, true);
             return Ok(new
             {
                 token
-            }
-            );
+            });
         }
 
-        //[HttpPost("upload")]
-        //public async Task<IActionResult> UploadAsync(IFormFile file,
-        //    [FromServices] IDocumentDirectoryBlobProvider blobProvider,
-        //    CancellationToken token)
-        //{
-        //    var fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName());
-        //    await blobProvider
-        //        .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
-        //    var uri = blobProvider.GetBlobUrl(fileName);
-        //    var link = blobProvider.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
+        /// <summary>
+        /// End Open Session
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="session"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpPost("{id:guid}/end")]
+        public async Task<IActionResult> EndSessionAsync(Guid id,
+            [FromBody] string session
+        )
+        {
+            //TODO need to validate
+            await _videoProvider.CloseRoomAsync(session);
+            return Ok();
+        }
 
-        //    return Ok(new
-        //    {
-        //        link
-        //    });
-
-        //}
-
-        //[HttpPost("document")]
-        //public async Task<IActionResult> CreateOnlineDocument([FromBody] OnlineDocumentRequest model, CancellationToken token)
-        //{
-        //    var url = await _googleDocument.CreateOnlineDocAsync(model.Name, token);
-        //    return Ok(new
-        //    {
-        //        link = url
-        //    });
-        //}
 
         [HttpPost("review")]
         public async Task<IActionResult> CreateReview([FromBody] ReviewRequest model,
@@ -150,7 +158,7 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
-            
+
             var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, model.Tutor, userId);
             try
             {
@@ -164,6 +172,6 @@ namespace Cloudents.Web.Api
         }
 
 
-        
+
     }
 }

@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Core.Entities
 {
     public class StudyRoomSession : Entity<Guid>
     {
-        public StudyRoomSession(StudyRoom studyRoom, DateTime created, DateTime? ended, TimeSpan? duration)
+        public StudyRoomSession(StudyRoom studyRoom,string sessionId)
         {
             StudyRoom = studyRoom;
-            Created = created;
-            Ended = ended;
-            Duration = duration;
+            Created = DateTime.UtcNow;
+            SessionId = sessionId;
         }
         protected StudyRoomSession()
         {
@@ -22,6 +19,8 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime? Ended { get; protected set; }
         public virtual TimeSpan? Duration { get; protected set; }
+
+        public virtual string SessionId { get; protected set; }
 
         public static void EndSession(StudyRoomSession session)
         {

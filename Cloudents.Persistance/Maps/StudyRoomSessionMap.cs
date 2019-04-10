@@ -1,8 +1,5 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -15,6 +12,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Created).Not.Nullable();
             Map(x => x.Ended);
             Map(x => x.Duration);
+            Map(x => x.SessionId).Not.Nullable();
             SchemaAction.Update();
            
         }

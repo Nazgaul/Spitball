@@ -2,8 +2,7 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,10 +18,18 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(CreateStudyRoomSessionCommand message, CancellationToken token)
         {
-            var room = await _studyRoomRepository.GetAsync(message.StudyRoomId, token);
-            var session = new StudyRoomSession(room, DateTime.UtcNow, null, null);
-            room.AddSession(session);
+            var room = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
+            if (room.Tutor.Id != message.TutorId)
+            {
+                throw new ArgumentException();
+            }
 
+            if (room.Sessions.Any(a => a.Ended == null))
+            {
+                throw new ArgumentException("there is already open session");
+            }
+            var session = new StudyRoomSession(room, message.SessionName);
+            room.AddSession(session);
         }
     }
 }

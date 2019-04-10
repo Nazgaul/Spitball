@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -28,12 +29,33 @@ namespace Cloudents.Query.Tutor
             {
                 using (var connection = _dapperRepository.OpenConnection())
                 {
-                  return  await connection.QueryAsync<UserStudyRoomDto>(
-                        @"Select u.Name as Name, u.Image as Image, u.Online as online, sr.Id as id, sr.DateTime
+                    using (var grid = await connection.QueryMultipleAsync(@"Select
+ u.Name as Name,
+ u.Image as Image,
+ u.Online as online,
+ sr.Id as id,
+ sr.DateTime
 from sb.StudyRoom sr 
-join sb.StudyRoomUser sru on sr.id = sru.studyroomid
+join sb.StudyRoomUser sru on sr.id = sru.studyRoomId
 join sb.[User] u on sr.TutorId = u.Id
-where sru.userid = @UserId", new {query.UserId});
+where sru.userid = @UserId;
+
+Select
+ u.Name as Name,
+ u.Image as Image,
+ u.Online as online,
+ sr.Id as id,
+ sr.DateTime
+from sb.StudyRoom sr 
+join sb.StudyRoomUser sru on sr.id = sru.studyRoomId
+join sb.[User] u on sru.UserId = u.Id
+where sr.TutorId = @UserId", new { query.UserId }))
+                    {
+                        var r1 = await grid.ReadAsync<UserStudyRoomDto>();
+                        var r2 = await grid.ReadAsync<UserStudyRoomDto>();
+
+                        return r1.Union(r2);
+                    }
                 }
 
             }

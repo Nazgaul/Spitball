@@ -35,12 +35,17 @@ namespace Cloudents.Query.Tutor
 
                 using (var conn = _repository.OpenConnection())
                 {
-                    return await conn.QueryFirstOrDefaultAsync<StudyRoomDto>(@"
-Select onlineDocumentUrl as OnlineDocument, cr.Id as ConversationId
+                    return await conn.QuerySingleOrDefaultAsync<StudyRoomDto>(@"
+Select srs.sessionId,
+onlineDocumentUrl as OnlineDocument, 
+cr.Id as ConversationId
+
 from sb.StudyRoom sr join sb.ChatRoom cr on sr.Identifier = cr.Identifier
+join sb.StudyRoomSession srs on sr.Id = srs.StudyRoomId and srs.Ended is null
 cross apply STRING_SPLIT(sr.identifier,'_')
 where sr.id = @Id
-and value = @UserId;", new { query.Id, query.UserId });
+and value = @UserId;",
+                        new { query.Id, query.UserId });
 
 
 

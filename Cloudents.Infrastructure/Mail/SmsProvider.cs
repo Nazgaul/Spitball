@@ -1,14 +1,11 @@
 ﻿using Cloudents.Core.Interfaces;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Twilio;
-using Twilio.Converters;
 using Twilio.Jwt.AccessToken;
-using Twilio.Rest.Proxy.V1.Service.Session;
 using Twilio.Rest.Video.V1;
 using Twilio.Rest.Video.V1.Room;
 using static Twilio.Rest.Video.V1.CompositionResource;
@@ -91,13 +88,15 @@ namespace Cloudents.Infrastructure.Mail
 
             return (result.PhoneNumber.ToString(), result.CountryCode);
         }
-       
 
-        public async Task CreateRoomAsync(string id,bool needRecord)
+
+        public async Task CreateRoomAsync(string id, bool needRecord)
         {
-            var t = await  RoomResource.CreateAsync(
+            var t = await RoomResource.CreateAsync(
                 uniqueName: id,
                 maxParticipants: 2,
+                type: RoomResource.RoomTypeEnum.GroupSmall, //this is smaller fee
+                enableTurn: false,//no need according to document
                 recordParticipantsOnConnect: needRecord);
         }
 
@@ -118,8 +117,6 @@ namespace Cloudents.Infrastructure.Mail
             };
             var grants = new HashSet<IGrant> { grant };
 
-           
-
             // Create an Access Token generator
             var token = new Token(
                 AccountSid,
@@ -135,35 +132,35 @@ namespace Cloudents.Infrastructure.Mail
 
         public async Task ComposeVideo(string roomId)
         {
-            
+
             var room = await RoomResource.FetchAsync(roomId);
             var t = RoomRecordingResource.Read(room.Sid);
             var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);
-          
+
 
             var layout = new
             {
                 transcode = new
                 {
-                    video_sources = new string [] {"MT*"}
+                    video_sources = new string[] { "MT*" }
                 }
             };
 
 
             var composition = CompositionResource.Create(
                 roomSid: room.Sid,
-                audioSources: new List<string>() { "*"},
+                audioSources: new List<string>() { "*" },
                 videoLayout: layout,
-                trim:true,
+                trim: true,
                 //statusCallback: new Uri('http://my.server.org/callbacks'),
                 format: FormatEnum.Mp4
             );
         }
 
-       
+
 
 
     }
 
-   
+
 }
