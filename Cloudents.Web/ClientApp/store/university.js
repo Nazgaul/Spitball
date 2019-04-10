@@ -213,7 +213,9 @@ const actions = {
         });
 
     },
-
+    removeFromCached({commit}, val){
+        commit('deleteFromCachedList', val);
+    },
     updateSelectedClasses({commit}, val) {
         commit('setSelectedClasses', val);
     },

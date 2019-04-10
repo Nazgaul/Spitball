@@ -199,6 +199,7 @@
                               "changeClassesToCachedClasses",
                               "addToCachedClasses",
                               "changeCreateDialogState",
+                              "removeFromCached"
                           ]),
             ...mapGetters(["getClasses"]),
 
@@ -215,10 +216,11 @@
             },
             deleteClass(classToDelete, from) {
                 let index = from.indexOf(classToDelete);
-                let courseDeleted = from.splice(index, 1);
-                // from[index]['isSelected'] = false;
+                from.splice(index, 1);
                 // let indexTwo = this.localSelectedClasses.indexOf(classToDelete);
-                this.localSelectedClasses.splice(indexTwo, 1);
+                // this.localSelectedClasses.splice(indexTwo, 1);
+                this.removeFromCached(classToDelete);
+                this.updateClasses(this.search);
 
             },
 
@@ -231,7 +233,6 @@
                 this.localSelectedClasses.push(className);
                 //add to cached list
                 this.addToCachedClasses(className);
-                // this.pushClassToSelectedClasses(className);
                 setTimeout(() => {
                     let inputElm = this.$refs.classInput;
                     inputElm.value = "";
