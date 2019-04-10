@@ -26,7 +26,7 @@
         </v-list-tile>
         <v-list-tile
           class="group-items"
-          :class="{'active': !selectedCourse}"
+          :class="{'active': !selectedCourse && !inUniselect}"
           @click="selectCourse(null, true)">
           <v-list-tile-title v-text="dictionary.allCourses"></v-list-tile-title>
         </v-list-tile>
@@ -59,7 +59,8 @@ export default {
         addcourses: LanguageService.getValueByKey('schoolBlock_add_your_courses'),
         myCourses: LanguageService.getValueByKey('schoolBlock_my_courses'),
         allCourses: LanguageService.getValueByKey('schoolBlock_all_courses'),
-      }
+      },
+      inUniselect: true
     };
   },
   props: {
@@ -105,6 +106,7 @@ export default {
       }
     },
     $route(val) {
+      this.inUniselect = val.path.indexOf('courses') > -1 || val.path.indexOf('university') > -1;
       if (!!this.$route.query) {
         if (!this.$route.query.Course) {
           this.selectedCourse = "";
@@ -131,6 +133,10 @@ export default {
       return (!!this.$route.query && !!this.$route.query.term) || (!!this.$route.query && (!!this.$route.query.Filter || !!this.$route.query.Source))
     },
     selectCourse(item, isDefault) {
+      if(this.inUniselect){
+        this.updateFilter();
+        return;
+      }
       if (!this.lock) {
         this.lock = true;
         if(!!isDefault){
