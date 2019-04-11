@@ -5,15 +5,15 @@ export default {
         return {
             answers: [],
             loading: true
-        }
+        };
     },
     methods: {
         doCopy(id){
                 let self = this;
-                this.$copyText(id).then((e) => {
+                this.$copyText(id).then(() => {
                     self.$toaster.success(`ID Copied`);
-                }, (e) => {
-                })
+                }, () => {
+                });
 
         },
         aproveA(answer, index) {
@@ -22,22 +22,22 @@ export default {
                 this.$toaster.success(`Answer Aproved`);
             }, () => {
                 this.$toaster.error(`Answer Aproved Failed`);
-            })
+            });
         },
         declineAnswer(answer, index) {
-            let id = answer.id
+            let id = answer.id;
             deleteAnswer([id]).then(() => {
                 this.answers.splice(index, 1);
                 this.$toaster.success(`Answer Declined`);
-            }, err => {
+            },() => {
                 this.$toaster.error(`Answer Declined Failed`);
-            })
+            });
         }
     },
     created() {
         getAllAnswers().then((answersResp) => {
             this.answers = answersResp;
             this.loading = false;
-        })
+        });
     }
 }

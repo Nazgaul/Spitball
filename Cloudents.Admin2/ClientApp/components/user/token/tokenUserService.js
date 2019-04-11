@@ -6,13 +6,13 @@ const grantTokens = function(userId, tokens, transactionType){
         userId,
         tokens,
         transactionType
-    }
+    };
     return connectivityModule.http.post(path, data).then(()=>{
         return Promise.resolve();
     }, (err)=>{
         return Promise.reject(err);
-    })
-}
+    });
+};
 
 export {
     grantTokens

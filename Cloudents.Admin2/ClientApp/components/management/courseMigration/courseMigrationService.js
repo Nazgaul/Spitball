@@ -1,12 +1,12 @@
 ﻿import { connectivityModule } from '../../../services/connectivity.module';
 
 
-function courseItem(objInit) {
+function CourseItem(objInit) {
     this.newCourse = objInit.newCourse;
     this.oldCourse = objInit.oldCourse;
 }
 function createCourseItem(objInit) {
-    return new courseItem(objInit);
+    return new CourseItem(objInit);
 }
 
 const path = 'AdminCourse/';

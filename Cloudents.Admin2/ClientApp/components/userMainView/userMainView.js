@@ -29,27 +29,27 @@ export default {
             userActions: [
                 {
                     title: "Suspend",
-                    action: this.showSuspendDialog,
+                    action: this.showSuspendDialog
                 },
                 {
                     title: "Suspend",
-                    action: this.releaseUser,
+                    action: this.releaseUser
                 },
                 {
                     title: "Pay Cashout",
-                    action: this.payCashOut,
+                    action: this.payCashOut
 
                 },
                 {
                     title: "Grant Tokens",
-                    action: this.sendTokens,
-                },
+                    action: this.sendTokens
+                }
             ],
             suspendDialog: false,
             userComponentsShow: false,
             activeUserComponent: '',
-            deleteUserQuestions: false,
-        }
+            deleteUserQuestions: false
+        };
     },
 
     computed: {
@@ -61,7 +61,7 @@ export default {
             "filterValue"
         ]),
         userInfo() {
-            return this.UserInfo
+            return this.UserInfo;
         },
         showActions() {
             return Object.keys(this.UserInfo).length !== 0;
@@ -69,14 +69,14 @@ export default {
         userStatusActive: {
             get() {
                 if (this.userInfo && this.userInfo.status) {
-                    return this.userInfo.status.value
+                    return this.userInfo.status.value;
                 }
             },
             set(val) {
-                this.suspendedUser = val
+                this.suspendedUser = val;
             }
 
-        },
+        }
     },
     methods: {
         ...mapActions([
@@ -108,7 +108,7 @@ export default {
                 this.verifyUserPhone(userObj).then((resp) => {
                     console.log(resp);
                     this.openTokensDialog();
-                })
+                });
             }
         },
         openTokensDialog() {
@@ -118,23 +118,23 @@ export default {
             this.setTokensDialogState(false);
         },
         updateFilter(val) {
-            return this.updateFilterValue(val)
+            return this.updateFilterValue(val);
         },
         getUserInfoData(paramId) {
             if (!!this.UserInfo) {
                 this.resetUserData();
             }
-            let id = this.userIdentifier || paramId
+            let id = this.userIdentifier || paramId;
             let self = this;
             self.getUserData(id)
                 .then((data) => {
                     if(data &&  data.id && data.id.value){
-                        self.$router.push({name: 'userMainView', params: {userId: data.id.value}})
+                        self.$router.push({name: 'userMainView', params: {userId: data.id.value}});
                     }else{
                         //clean id from url if not valid and nopthing reterned from server
-                        self.$router.push({name: 'userMainView', params: {userId: ''}})
+                        self.$router.push({name: 'userMainView', params: {userId: ''}});
                     }
-                })
+                });
         },
 
         //keep here cause there is an option to release from within this component
@@ -142,25 +142,25 @@ export default {
             let self = this;
             let idArr = [];
             idArr.push(this.userId);
-            releaseUser(idArr).then((email) => {
+            releaseUser(idArr).then(() => {
                 self.$toaster.success(`user got released`);
                 this.suspendedUser = false;
                 this.setUserCurrentStatus(false);
             }, (err) => {
                 self.$toaster.error(`ERROR: failed to realse user`);
-                console.log(err)
+                console.log(err);
             }).finally(() => {
                 self.lock = false;
                 self.userIds = null;
 
-            })
-        },
+            });
+        }
     },
     created() {
         if(this.$route.params && this.$route.params.userId){
-            this. getUserInfoData(this.$route.params.userId)
+            this. getUserInfoData(this.$route.params.userId);
         }
         console.log('usr main view created' + this.userId, this.$route);
 
-    },
+    }
 }
