@@ -58,13 +58,19 @@ namespace Cloudents.Core.Entities
             return !Equals(left, right);
         }
 
-        public virtual void Approve()
+        public virtual void Approve(CourseSubject subject)
         {
             //TODO: maybe put an event to that
             if (State == ItemState.Pending)
             {
                 State = ItemState.Ok;
+                Subject = subject;
             }
+        }
+
+        public virtual void AddSubject(CourseSubject subject)
+        {
+            Subject = subject;
         }
 
         public virtual int Count { get;protected internal set; }
@@ -79,5 +85,6 @@ namespace Cloudents.Core.Entities
         
   
         public virtual ItemState State { get; protected set; }
+        public virtual CourseSubject Subject { get; protected set; }
     }
 }
