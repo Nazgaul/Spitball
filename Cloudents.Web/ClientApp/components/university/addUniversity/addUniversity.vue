@@ -35,6 +35,9 @@
         <v-layout align-center :class="[$vuetify.breakpoint.smAndUp ? 'px-2 mt-3': '']">
             <v-flex v-if="showBox">
                 <div class="university-list">
+
+                    <scroll-list  :scrollFunc="loadUniversities" :isLoading="isLoading"
+                                 :isComplete="isComplete">
                     <div class="list-item subheading cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleUni in universities"
                          @click="selectUniversity(singleUni)">
@@ -60,6 +63,7 @@
                             </v-flex>
                         </v-layout>
                     </div>
+                    </scroll-list>
                     <!--create new University-->
                     <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
                             @click.prevent="openCreateUniDialog()">
@@ -84,6 +88,9 @@
         components: {emptyUniLogo},
         data() {
             return {
+                isLoading: false,
+                isComplete: false,
+                page: 1,
                 universityModel: '',
                 search: '',
                 schoolNamePlaceholder: LanguageService.getValueByKey('university_create_uni_placeholder'),
@@ -96,7 +103,8 @@
                 if(!!this.search) {
                     let searchVal = this.search.trim();
                     if(searchVal.length >= 2) {
-                        this.updateUniversities(searchVal);
+                        let paramObj = {term : searchVal, page: this.page};
+                        this.updateUniversities(paramObj);
                     }
                 }
                 // if(this.search === "") {
@@ -147,6 +155,18 @@
                 let classesSet = this.getSelectedClasses && this.getSelectedClasses.length > 0;
                 classesSet ? this.$router.go(-1) : this.$router.push({name: 'editCourse'});
             },
+            loadUniversities(){
+                let paramObj = {term: this.search, page:this.page};
+                this.updateUniversities(paramObj).then((hasData) => {
+                    if (!hasData) {
+                        this.isComplete = true;
+                    }
+                    this.isLoading = false;
+                    this.page++;
+                }, (err) => {
+                    this.isComplete = true;
+                })
+            },
             updateSearch(val) {
                 this.search = val;
             },
@@ -190,7 +210,8 @@
             },
         },
         created(){
-            this.updateUniversities(' ');
+            let paramObj = {term: ' ', page:this.page};
+            this.updateUniversities(paramObj);
         },
         filters: {
             boldText(value, search) {

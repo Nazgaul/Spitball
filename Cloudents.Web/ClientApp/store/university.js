@@ -186,6 +186,7 @@ const actions = {
         if(val || val === ''){
             universityService.getUni(val).then(data => {
                 commit('setUniversities', data);
+                return data
             }, err => {
                 commit('setUniversities', []);
             });
@@ -198,6 +199,7 @@ const actions = {
     updateClasses({commit}, val) {
         universityService.getCourse(val).then(data => {
             commit('setClasses', data);
+            return data
         });
     },
     clearClasses({commit}) {

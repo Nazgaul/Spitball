@@ -54,6 +54,9 @@
         <v-layout align-center>
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list">
+
+                    <scroll-list :scrollFunc="loadCourses" :isLoading="isLoading"
+                                 :isComplete="isComplete">
                     <div class="list-item subheading search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classes">
                         <v-layout column class="pl-3 limit-width">
@@ -93,6 +96,7 @@
                             </v-flex>
                         </v-layout>
                     </div>
+                    </scroll-list>
                     <!--create new course-->
                     <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
                             @click="changeCreateDialogState(true)">
@@ -115,6 +119,9 @@
         data() {
             return {
                 search: "",
+                isLoading: false,
+                isComplete: false,
+                page: 1,
                 isFirefox: global.isFirefox,
                 isEdge: global.isEdge,
                 classNamePlaceholder: LanguageService.getValueByKey(
@@ -132,10 +139,13 @@
                 if(!!val) {
                     searchVal = val.trim();
                     if(searchVal.length >= 3) {
-                        this.updateClasses(searchVal);
+                        let paramObj = { term: searchVal, page: this.page };
+                        this.updateClasses(paramObj);
                     }
                 } else if(val === '') {
-                    this.updateClasses('');
+                    let paramObj = { term: '', page: this.page };
+                    this.updateClasses(paramObj);
+                    // this.updateClasses('');
                 }
             }, 500)
         },
@@ -206,7 +216,17 @@
             lastStep() {
                 this.$router.go(-1);
             },
-
+            loadCourses(){
+                this.updateClasses(this.page).then((hasData) => {
+                    if (!hasData) {
+                        this.isComplete = true;
+                    }
+                    this.isLoading = false;
+                    this.page++;
+                }, (err) => {
+                    this.isComplete = true;
+                })
+            },
             submitAndGo() {
                 //assign all saved in cached list to classes list
                 this.changeClassesToCachedClasses();
@@ -219,7 +239,8 @@
                 from.splice(index, 1);
                 //clean from cached list and request new list, and refresh data
                 this.removeFromCached(classToDelete);
-                this.updateClasses(this.search);
+                let paramObj = { term: this.search, page: this.page };
+                this.updateClasses(paramObj);
 
             },
             checkAsSelected(classToCheck, from) {
@@ -239,9 +260,7 @@
             },
         },
         created() {
-            this.updateClasses('');
-
-
+            this.updateClasses({ term: '', page: this.page });
         },
         mounted() {
             let self = this;
