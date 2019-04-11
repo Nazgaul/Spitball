@@ -13,8 +13,8 @@
         <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
       </div>
       <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
-        <marketing-box></marketing-box>
-        <!-- <chat-component v-if="isMobile"></chat-component> -->
+        <!-- <marketing-box></marketing-box> -->
+        <chat-component v-if="isMobile"></chat-component>
       </div>
       <div v-if="showLeadersMobile && getMobileFooterState">
           <tutor-list></tutor-list>
@@ -25,7 +25,7 @@
       </div>-->
       <router-view name="verticals"></router-view>
       <router-view class="main-container" v-show="showFeed" ref="mainPage"></router-view>
-      <!-- <chat-component v-if="!isMobile"></chat-component> -->
+      <chat-component v-if="!isMobile"></chat-component>
       <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
       <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
         <span v-language:inner>app_cookie_toaster_text</span> &nbsp;

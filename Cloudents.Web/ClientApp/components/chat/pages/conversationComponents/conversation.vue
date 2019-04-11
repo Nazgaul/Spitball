@@ -63,6 +63,11 @@ export default {
         font-weight: bold;
         color: #43425d;
         align-items: center;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        width: 180px;
+        white-space: nowrap;
+        overflow: hidden;
       }
       .date-unread-container{
         display: flex;

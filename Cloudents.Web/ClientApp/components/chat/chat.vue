@@ -139,6 +139,11 @@
             font-size: 11px;
             font-weight: bold;
             color: #ffffff;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
         }
         i{
             color: #a5a4bf;
