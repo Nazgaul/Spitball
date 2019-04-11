@@ -108,7 +108,6 @@
     // Lazily load input items
             
             return connectivityModule.http.get(`Admin${this.context}/search?${this.context.toLowerCase()}=${val}`)
-            //fetch(`AdminCourse/search?course=${val}`)
                 .then(res => {
                     if (this.context === 'Course') {
                         this.items = [].concat(res.courses);

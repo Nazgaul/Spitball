@@ -88,4 +88,8 @@ namespace Cloudents.Core.Interfaces
        // Task<TransactionActionType> GetFirstCourseTransaction(long userId, CancellationToken token);
 
     }
+    public interface ICourseSubjectRepository : IRepository<CourseSubject>
+    {
+        Task<CourseSubject> GetCourseSubjectByName(string name, CancellationToken token);
+    }
 }

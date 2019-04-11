@@ -11,19 +11,19 @@ function createCourseItem(objInit) {
 
 const path = 'AdminCourse/';
 
-//const getSuggestions = function (item) {
-//    return connectivityModule.http.get(`${path}search?course=${item}`).then((suggestCourses) => {
-//        let arrCourseList = [];
-//        if (suggestCourses.courses.length > 0) {
-//            suggestCourses.courses.forEach((ci) => {
-//                arrCourseList.push(createCourseItem(ci).name);
-//            });
-//        }
-//        return Promise.resolve(arrCourseList);
-//    }, (err) => {
-//        return Promise.reject(err);
-//    });
-//};
+const getSubjects = function () {
+    return connectivityModule.http.get(`${path}subject`).then((subjects) => {
+        let arrCourseList = [];
+        if (subjects.length > 0) {
+            subjects.forEach((ci) => {
+                arrCourseList.push(ci);
+            });
+        }
+        return Promise.resolve(arrCourseList);
+    }, (err) => {
+        return Promise.reject(err);
+    });
+};
 
 const getCourseList = function (language, state) {
     return connectivityModule.http.get(`${path}newCourses?Language=${language}&State=${state}`).then((newCourseList) => {
@@ -51,7 +51,7 @@ const migrateCourses = function (newCourse, oldCourse) {
 };
 
 const approve = function (course) {
-    return connectivityModule.http.post(`${path}approve`, { "Course": course.name })
+    return connectivityModule.http.post(`${path}approve`, { "Course": course.name.name, "Subject": course.subject })
         .then((resp) => {
             console.log(resp, 'post doc success');
             return Promise.resolve(resp);
@@ -85,6 +85,7 @@ const deleteCourse = function (course) {
 
 export {
     getCourseList,
+    getSubjects,
     //getSuggestions,
     approve,
     rename,
