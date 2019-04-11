@@ -210,7 +210,7 @@
                 )
             },
             approve(item) {
-                const index = this.newCourseList.indexOf(item);
+                const index = this.newCourseList.indexOf(item.name);
                 approve(item).then((resp) => {
                     console.log('got migration resp success')
                     this.$toaster.success(`Approved Course ${item.name.name}`);
