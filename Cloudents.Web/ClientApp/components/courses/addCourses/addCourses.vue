@@ -57,8 +57,8 @@
                     <div class="list-item subheading search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
                         <v-layout column class="pl-3 limit-width">
-                            <v-flex shrink class="text-truncate course-name-wrap">
-                                <div class="text-truncate" v-html="$options.filters.boldText(singleClass.text, search)">
+                            <v-flex shrink class="course-name-wrap">
+                                <div v-html="$options.filters.boldText(singleClass.text, search)">
                                     {{ singleClass.text }}
                                 </div>
                             </v-flex>
@@ -333,14 +333,20 @@
 </script>
 <style lang="less">
     @import '../../../styles/mixin.less';
-
     .add-courses-wrap {
         .scrollBarStyle(3px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
-
+        .sbf-search{
+            height: 22px;
+            min-width: 34px;
+            font-size: 18px;
+            opacity: 0.5;
+        }
         .hidden {
             display: none;
         }
+        //keep to align course name
         .minimize-width{
+            min-width: 90px;
             @media(max-width: @screen-xs){
                 min-width: 90px;
             }
