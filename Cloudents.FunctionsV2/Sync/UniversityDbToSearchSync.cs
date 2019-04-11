@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,7 +55,8 @@ namespace Cloudents.FunctionsV2.Sync
                         DisplayName = s.Name,
                         Prefix = new[] { s.Name, s.Extra }.Where(x => x != null).ToArray(),
                         Image = s.Image,
-                        UsersCount = s.UsersCount
+                        UsersCount = s.UsersCount,
+                        InsertDate = DateTime.UtcNow
                     },
                     Insert = true
 
