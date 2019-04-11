@@ -26,6 +26,7 @@ export default {
         }
     },
     methods:{
+        
     },
     computed:{
     }
@@ -44,6 +45,7 @@ export default {
         max-width: 164px;
         display: flex;
         flex-direction: column;
+        min-height: 232px;
         @media (max-width: @screen-xs) {
             margin:5px;
         }
