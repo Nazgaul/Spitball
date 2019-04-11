@@ -49,8 +49,8 @@
                                 </span>
                             </v-flex>
                         </v-layout>
-                        <v-layout column class="pl-3 limit-width">
-                            <v-flex shrink class="text-truncate ">
+                        <v-layout column class="ml-3 limit-width">
+                            <v-flex shrink>
                                 <div v-html="$options.filters.boldText(singleUni.text, search)">
                                     {{ singleUni.text }}
                                 </div>
@@ -277,6 +277,12 @@
             border-radius: 50%;
             width: 42px;
             height: 42px;
+        }
+        .minimize-width{
+            min-width: 90px;
+            @media(max-width: @screen-xs){
+                min-width: 90px;
+            }
         }
         .uni-logo {
             border: 1px solid rgb(221, 221, 221);
