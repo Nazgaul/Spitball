@@ -8,15 +8,20 @@ namespace Cloudents.Command.CommandHandler.Admin
     public class ApproveCourseCommandHandler : ICommandHandler<ApproveCourseCommand>
     {
         private readonly ICourseRepository _courseRepository;
-        public ApproveCourseCommandHandler(ICourseRepository courseRepository)
+        private readonly ICourseSubjectRepository _subjectRepository;
+        public ApproveCourseCommandHandler(ICourseRepository courseRepository,
+            ICourseSubjectRepository subjectRepository)
         {
             _courseRepository = courseRepository;
+            _subjectRepository = subjectRepository;
         }
 
         public async Task ExecuteAsync(ApproveCourseCommand message, CancellationToken token)
         {
             var course = await _courseRepository.LoadAsync(message.Course, token);
-            course.Approve();
+            var subject = await _subjectRepository.GetCourseSubjectByName(message.Subject
+                    , token);
+            course.Approve(subject);
         }
     }
 }

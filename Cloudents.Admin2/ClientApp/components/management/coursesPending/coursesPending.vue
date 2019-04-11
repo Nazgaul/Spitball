@@ -63,19 +63,20 @@
                                 <v-radio-group v-model="radios">
                                     <v-radio label="Rename" value="rename"></v-radio>
                                     <v-radio label="Delete" value="delete"></v-radio>
-                                    <v-radio label="Approve" value="approve"></v-radio>
+                                    <v-radio label="Approve" value="approve"
+                                             @change="getSubjects"></v-radio>
                                     <v-radio label="Merge" value="merge"></v-radio>
                                 </v-radio-group>
                                 <!--<v-text-field v-show="radios === 'merge'" v-model="newItem.course" label="New course"></v-text-field>-->
-                                <!--<div class="select-type-container">
-        <v-select v-show="radios === 'merge'"
-                  class="select-type-input"
-                  solo
-                  v-model="picked"
-                  :items="suggestCourses"
-                  label="Select course"
-                  :disabled="disableSelectBtn"></v-select>
-    </div>-->
+                                <div class="select-type-container">
+                                    <v-select v-show="radios === 'approve'"
+                                              class="select-type-input"
+                                              v-model="subject"
+                                              :items="subjects"
+                                              :loading="isLoading"
+                                               label="Select subjects"
+                                          ></v-select>
+                            </div>
 
                                 <search-Component :context="adminAPI" 
                                                   :contextCallback="setadminAPI" 
@@ -109,14 +110,16 @@
 </template>
 
 <script>
-    import { getCourseList, migrateCourses, approve, rename, deleteCourse } from './coursesPendingService'
+    import { getCourseList, getSubjects, migrateCourses, approve, rename, deleteCourse } from './coursesPendingService'
     import searchComponent from '../../helpers/search.vue'
 
     export default {
         data() {
             return {
+                isLoading: true,
                 newCourseList: [],
-                //suggestCourses: [],
+                subjects: [],
+                subject: '',
                 picked: {
                     id: '',
                     name: ''
@@ -124,9 +127,8 @@
                 adminAPI: 'Course',
                 showLoading: true,
                 showNoResult: false,
-                disableSelectBtn: true,
                 editedIndex: -1,
-                radios: 'approve',
+                radios: 'delete',
                 search: '',
                 languages: ["All", "He", "En"],
                 language: 'All',
@@ -159,7 +161,6 @@
             }
         },
         methods: {
-           
             setSearchValue(searchValue) {
                 this.picked.name = searchValue.name;
                 this.picked.id = searchValue.name;
@@ -176,7 +177,7 @@
                 if (this.radios === 'merge') {
                     this.courseMigrate({ "newCourse": this.editedItem.name, "oldCourse": this.picked.name })
                 } else if (this.radios === 'approve') {
-                    this.approve(this.editedItem);
+                    this.approve({ "name": this.editedItem, "subject": this.subject});
                 } else if (this.radios === 'rename') {
                     this.rename(this.editedItem, this.newName);
                 }
@@ -192,7 +193,6 @@
                 this.editedItem = this.defaultItem;
                 this.editedIndex = -1;
                 this.radios = 'approve';
-                this.disableSelectBtn = true;
                 this.setSearchValue({ "name": '' });
                 this.newName = '';
             },
@@ -203,7 +203,6 @@
 
                     this.$toaster.success(`Course ${item.newCourse} merged into ${item.oldCourse}`);
                     this.newCourseList.splice(index, 1);
-                    this.disableSelectBtn = true;
                 },
                     (error) => {
                         this.$toaster.error(`Error can't merge`);
@@ -214,7 +213,7 @@
                 const index = this.newCourseList.indexOf(item);
                 approve(item).then((resp) => {
                     console.log('got migration resp success')
-                    this.$toaster.success(`Approved Course ${item.name}`);
+                    this.$toaster.success(`Approved Course ${item.name.name}`);
                     this.newCourseList.splice(index, 1);
                 },
                     (error) => {
@@ -246,16 +245,16 @@
                     }
                 )
             },
-            //getCoursesSuggestions(item) {
-            //    getSuggestions(item).then((list) => {
-            //        if (list.length > 0) {
-            //            this.suggestCourses = list;
-            //            this.disableSelectBtn = false;
-            //        }
-            //    }, (err) => {
-            //        console.log(err)
-            //    });
-            //},
+            getSubjects() {
+                getSubjects().then((list) => {
+                    if (list.length > 0) {
+                        this.subjects = list;
+                        this.isLoading = false;
+                    }
+                }, (err) => {
+                    console.log(err)
+                });
+            },
             getCourseList(language, state) {
                 getCourseList(language, state).then((list) => {
                     this.newCourseList = [];
