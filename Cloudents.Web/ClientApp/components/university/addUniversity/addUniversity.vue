@@ -108,9 +108,6 @@
         },
         computed: {
             ...mapGetters(["getUniversities", "getSchoolName", "accountUser", "getSelectedClasses"]),
-            dropDownAlphaHeight() {
-                return Math.min(this.globalHeight - 470, 300);
-            },
             showBox() {
                 if(this.search && this.search.length > 0) {
                     return true;

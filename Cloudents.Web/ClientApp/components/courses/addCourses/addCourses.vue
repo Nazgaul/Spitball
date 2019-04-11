@@ -146,13 +146,7 @@
         },
         computed: {
             ...mapGetters(["getSelectedClasses"]),
-            dropDownAlphaHeight() {
-                return {
-                    maxHeight: this.$vuetify.breakpoint.xsOnly
-                        ? this.global.innerHeight - 470
-                        : 300
-                };
-            },
+
             quantatySelected() {
                 return this.selectedClasses.length;
             },
