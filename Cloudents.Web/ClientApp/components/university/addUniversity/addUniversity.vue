@@ -321,6 +321,9 @@
             border: solid 1px @colorBlue;
             background-color: transparent !important;
             min-width: 160px;
+            @media(max-width: @screen-xs){
+                min-width: unset;
+            }
         }
         .university-list {
             background-color: #ffffff;
