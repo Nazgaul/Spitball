@@ -63,8 +63,7 @@
                                 <v-radio-group v-model="radios">
                                     <v-radio label="Rename" value="rename"></v-radio>
                                     <v-radio label="Delete" value="delete"></v-radio>
-                                    <v-radio label="Approve" value="approve"
-                                             @change="getSubjects"></v-radio>
+                                    <v-radio label="Approve" value="approve"></v-radio>
                                     <v-radio label="Merge" value="merge"></v-radio>
                                 </v-radio-group>
                                 <!--<v-text-field v-show="radios === 'merge'" v-model="newItem.course" label="New course"></v-text-field>-->
@@ -245,16 +244,7 @@
                     }
                 )
             },
-            getSubjects() {
-                getSubjects().then((list) => {
-                    if (list.length > 0) {
-                        this.subjects = list;
-                        this.isLoading = false;
-                    }
-                }, (err) => {
-                    console.log(err)
-                });
-            },
+   
             getCourseList(language, state) {
                 getCourseList(language, state).then((list) => {
                     this.newCourseList = [];
@@ -279,7 +269,17 @@
                 this.showLoading = false;
             }, (err) => {
                 console.log(err)
-                })
+            })
+                .then(getSubjects().then((list) => {
+                    if (list.length > 0) {
+                        this.subjects = list;
+                        this.isLoading = false;
+                    }
+                }, (err) => {
+                    console.log(err)
+                    })
+                )
+           
         },
         components: {
             searchComponent
