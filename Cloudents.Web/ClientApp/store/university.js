@@ -66,6 +66,12 @@ const mutations = {
     setUniversities(state, val) {
         state.universities = val;
     },
+    addUniversities(state, val) {
+        state.universities = state.universities.concat(val);
+    },
+    addClasses(state, val) {
+        state.classes = state.classes.concat(val);
+    },
     setSchoolName(state, val) {
         state.schoolName = val;
     },
@@ -184,21 +190,45 @@ const actions = {
     },
     updateUniversities({commit}, val) {
         if(val || val === ''){
-            universityService.getUni(val).then(data => {
+           return universityService.getUni(val).then(data => {
                 commit('setUniversities', data);
+                return data
             }, err => {
                 commit('setUniversities', []);
             });
         }
 
     },
+    addUniversities({commit}, val){
+        if(val || val === ''){
+            return universityService.getUni(val).then(data => {
+                commit('addUniversities', data);
+                return data
+            }, err => {
+                commit('setUniversities', []);
+            });
+        }
+    },
+
     clearUniversityList({commit}) {
         commit('setUniversities', []);
     },
     updateClasses({commit}, val) {
-        universityService.getCourse(val).then(data => {
+     return  universityService.getCourse(val).then(data => {
             commit('setClasses', data);
+            console.log('!!!store', data);
+            return data
         });
+    },
+    addClasses({commit}, val){
+        if(val || val === ''){
+            return universityService.getCourse(val).then(data => {
+                commit('addClasses', data);
+                return data
+            }, err => {
+                commit('setClasses', []);
+            });
+        }
     },
     clearClasses({commit}) {
         commit('setClasses', []);

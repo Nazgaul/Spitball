@@ -14,6 +14,7 @@
                 <v-flex xs12 sm6 md6 d-flex class="mt-5">
                     <v-select
                             class="minimum-width"
+                            :content-class="'select-direction'"
                             v-model="singleMicrophoneId"
                             :items="avalMics"
                             item-value="deviceId"
@@ -27,6 +28,7 @@
                             solo
                             single-line
                     ></v-select>
+                    <span class="to-attach"></span>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -74,15 +76,19 @@
         },
         created() {
             this.getAvalDevices();
-            // this.validateMicrophone()
         },
         beforeDestroy() {
             qualityValidationService.stopAudioContext()
         }
     }
 </script>
-
 <style scoped lang="less">
+    //keep cause of mount of select box to root of dom by vuetify
+    .select-direction{
+        .v-select-list{
+            direction: ltr/*rtl:ignore*/;
+        }
+    }
     .audio-input-quality-wrap {
         .audio-title{
             font-weight: 600;
