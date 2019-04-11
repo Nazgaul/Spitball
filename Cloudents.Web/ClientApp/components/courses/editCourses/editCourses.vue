@@ -12,7 +12,7 @@
                 <v-flex xs2 shrink class="text-xs-center hidden-xs-only" >
                     <finishBtn></finishBtn>
                 </v-flex>
-                <v-flex xs2 shrink class="d-flex justify-start">
+                <v-flex shrink class="d-flex justify-start">
                     <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0" @click="goToAddMore()">
                         <v-icon left>sbf-plus-regular</v-icon>
                         <span v-language:inner>courses_add</span>
