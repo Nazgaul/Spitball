@@ -12,7 +12,7 @@
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0" @click="submitAndGo()">
+                <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
                     <span v-language:inner>courses_btn_done</span>
                 </v-btn>
             </v-flex>
