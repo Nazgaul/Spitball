@@ -1,6 +1,5 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Web.Hubs
 {
@@ -60,7 +60,7 @@ namespace Cloudents.Web.Hubs
                     online = true
                 });
 
-           
+
 
             var t2 = Clients.All.SendAsync(MethodName, message);
 
@@ -92,7 +92,7 @@ namespace Cloudents.Web.Hubs
                     online = false
                 });
 
-          
+
 
             var t2 = Clients.All.SendAsync(MethodName, message);
             await Task.WhenAll(t1, t2);

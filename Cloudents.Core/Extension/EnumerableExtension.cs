@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Cloudents.Core.Extension
 {
@@ -43,5 +45,14 @@ namespace Cloudents.Core.Extension
             if (bucket != null && count > 0)
                 yield return bucket.Take(count);
         }*/
+    }
+
+    public static class PropertyInfoExtensions
+    {
+        public static Type GetRealType(this PropertyInfo info)
+        {
+            var propertyType = info.PropertyType;
+            return Nullable.GetUnderlyingType(propertyType) ?? propertyType;
+        }
     }
 }

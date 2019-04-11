@@ -92,6 +92,7 @@ namespace Cloudents.Core.EventHandler
         {
            
             var user = new UserDto(eventMessage.Answer.User.Id, eventMessage.Answer.User.Name,
+
                 eventMessage.Answer.User.Transactions.Score, eventMessage.Answer.User.Image);
 
             var answerDto = new QuestionDetailAnswerDto

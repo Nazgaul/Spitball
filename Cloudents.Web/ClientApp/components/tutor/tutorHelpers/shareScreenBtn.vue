@@ -42,7 +42,7 @@
     import { mapGetters } from 'vuex';
     import { createLocalVideoTrack } from 'twilio-video';
     import videoService from "../../../services/videoStreamService";
-    import castIcon from '../images/cast.svg';
+    import castIcon from '../images/cast.svg'
     export default {
         name: "shareScreenBtn",
         components: {castIcon},

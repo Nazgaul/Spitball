@@ -19,7 +19,9 @@
                                  :key="leader.name"
                                  avatar
                                  @click=""
-                                 class="leader-tile">
+                                 class="leader-tile"
+                    >
+
                         <v-list-tile-avatar class="leader-avatar">
                             <user-avatar :user-name="leader.name" :user-id="leader.userId" :userImageUrl="leader.img"></user-avatar>
                         </v-list-tile-avatar>
@@ -28,8 +30,7 @@
                                 <user-rank :score="leader.score"></user-rank>
 
                             </v-list-tile-title>
-                            <v-list-tile-sub-title class="leader-university">
-                                {{ leader.university}}
+                            <v-list-tile-sub-title class="leader-university">{{ leader.university}}
                             </v-list-tile-sub-title>
                         </v-list-tile-content>
                         <v-list-tile-action class="leader-ammount">

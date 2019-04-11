@@ -188,12 +188,7 @@ namespace Cloudents.Web
                 Assembly.GetExecutingAssembly()
             };
 
-            //var assembliesOfProgram = DependencyContext.Default.CompileLibraries
-            //    .SelectMany(x => x.ResolveReferencePaths())
-            //    .Distinct()
-            //    .Where(x => x.Contains(Directory.GetCurrentDirectory()))
-            //    .Select(Assembly.LoadFile)
-            //    .ToList();
+         
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
@@ -215,11 +210,6 @@ namespace Cloudents.Web
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
-
-            //containerBuilder.RegisterType<DocumentSeoBuilder>()
-            //    .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>()
-            //    .WithParameter("query", SeoDbQuery.Flashcard);
-
 
             containerBuilder.RegisterType<DocumentSeoBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Document);

@@ -29,8 +29,8 @@ const mutations = {
         state.zoom = val;
     },
     setPan(state, transform){
-        state.pan.x = transform.e;
-        state.pan.y = transform.f;
+        state.pan.x = !!transform.x ? transform.x : state.pan.x;
+        state.pan.y = !!transform.y ? transform.y : state.pan.y;
     }
 };
 

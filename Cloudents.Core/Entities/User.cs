@@ -33,9 +33,14 @@ namespace Cloudents.Core.Entities
         public virtual string Image { get; set; }
 
         //TODO: should fictive user need to have university
-        public virtual University University { get;  set; }
+        public virtual University University { get; protected  set; }
 
-     
+
+        public virtual void SetUniversity(University university)
+        {
+            University = university;
+            University.UsersCount++;
+        }
 
         public virtual bool TwoFactorEnabled { get; set; }
 

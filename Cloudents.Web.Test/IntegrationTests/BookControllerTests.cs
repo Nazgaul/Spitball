@@ -34,7 +34,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.GetAsync("book");
 
-            string credentials = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+            string credentials = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
 
             await _client.PostAsync("api/LogIn", new StringContent(credentials, Encoding.UTF8, "application/json"));
 

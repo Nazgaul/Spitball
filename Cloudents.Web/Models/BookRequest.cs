@@ -18,6 +18,6 @@ namespace Cloudents.Web.Models
         /// Page for paging
         /// </summary>
         [DefaultValue(0)]
-        public int? Page { get; set; }
+        public int Page { get; set; }
     }
 }

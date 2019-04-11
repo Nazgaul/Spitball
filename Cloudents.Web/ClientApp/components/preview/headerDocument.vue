@@ -187,7 +187,10 @@
             ...mapGetters(['accountUser']),
             downloadDoc() {
                 let url = this.$route.path + '/download';
-                analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD');
+                let user = this.accountUser();
+                let userId = user.id;
+                let course = this.item && this.item.course ? this.item.course : '';
+                analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${userId}, DOC_ID: ${this.item.id}, DOC_COURSE:${course}`);
                 if (!!this.accountUser()) {
                     global.location.href = url;
                     this.updateDownloadsCount()
@@ -254,7 +257,7 @@
                 }
             },
             userImageUrl(){
-                if(this.item && this.item.user && this.item.user.image && this.item.user.image.length > 1){
+                if(this.item && this.item.user &&  this.item.user.image && this.item.user.image.length > 1){
                     return `${this.item.user.image}`
                 }
                 return ''

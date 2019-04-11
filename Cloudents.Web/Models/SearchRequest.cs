@@ -1,7 +1,7 @@
-﻿using Cloudents.Core.Models;
-using Cloudents.Web.Binders;
-using Cloudents.Web.Extensions;
+﻿using Cloudents.Web.Extensions;
+using Cloudents.Web.Framework;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -41,14 +41,43 @@ namespace Cloudents.Web.Models
 
     //    [DisplayFormat(HtmlEncode = true)]
     //    public string[] Source { get; set; }
-      
+
     //}
 
-    public class DocumentRequest : VerticalRequest
-    {
-        public string[] Filter { get; set; }
 
+    public class DocumentRequestAggregate : IPaging
+    {
+        public int Page { get; set; }
+        public string[] Filter { get; set; }
     }
+
+
+    public class DocumentRequestCourse : DocumentRequestAggregate
+    {
+        [RequiredPropertyForQuery]
+        public string Course { get; set; }
+    }
+
+    public class DocumentRequestSearch : DocumentRequestAggregate
+    {
+        [RequiredPropertyForQuery]
+        public string Term { get; set; }
+
+        [FromQuery(Name = "Uni")]
+        public string University { get; set; }
+    }
+
+    public class DocumentRequestSearchCourse : DocumentRequestSearch
+    {
+        [RequiredPropertyForQuery]
+        public string Course { get; set; }
+    }
+
+    //public class DocumentRequest : VerticalRequest
+    //{
+    //    public string[] Filter { get; set; }
+
+    //}
 
     public abstract class VerticalRequest : IPaging
     {
@@ -66,7 +95,7 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// Page for paging
         /// </summary>
-        public int? Page { get; set; }
+        public int Page { get; set; }
 
         /// <summary>
         /// The term of search
@@ -74,9 +103,9 @@ namespace Cloudents.Web.Models
         // [DisplayFormat(HtmlEncode = true)]
         public string Term { get; set; }
 
-        [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
-                            ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
-        [IgnoreNextPageLink]
-        public UserProfile Profile { get; set; }
+        ////[ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
+        ////                    ProfileServiceQuery.Course )]
+        //[IgnoreNextPageLink]
+        //public UserProfile Profile { get; set; }
     }
 }

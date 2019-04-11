@@ -1,5 +1,5 @@
 <template>
-    <div class="canvas-container" :style="`max-width:${canvasWidth}px;`" id="canvasDiv">
+    <div class="canvas-container" id="canvasDiv">
         <div class="nav-container elevation-2">
             <!--Select-->
             <v-tooltip right>
@@ -134,12 +134,12 @@
             </v-tooltip>
 
         </div>
-        <div class="nav-container zoom-helper bottom-nav elevation-2">
-            <!--Zoom-->
-            <div class="zoom-container">   
+        <!-- <div class="nav-container zoom-helper bottom-nav elevation-2">
+            
+            <div class="zoom-container" xs12>
                 <v-tooltip right>
                       <template v-slot:activator="{on}">
-                          <button v-on="on" class="nav-action" @click="doZoom(true)">
+                          <button v-on="on" class="nav-action mr-2" @click="doZoom(true)">
                               <v-icon>sbf-zoom-in</v-icon>
                           </button>
                       </template>
@@ -163,8 +163,8 @@
                 </template>
                 <span>zoom</span>
             </v-tooltip>
-        </div>
-        <div style="position:relative">
+        </div> -->
+        <div class="canvas-wrapper" style="position:relative; overflow: auto;" :style="`width:${windowWidth}px;height:${windowHeight}px;`">
             <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
 
         
@@ -244,18 +244,19 @@
         .nav-container {
             position: fixed;
             background-color: #FFFFFF;
-            padding: 16px 0;
+            padding: 0px 0;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             width: auto;
             margin-top: 20px;
+            left: 16px;
             z-index: 5;
 
             &.bottom-nav{
-                top: 625px;
+                bottom: 16px;
             }
             .nav-action {
-                padding: 12px 16px;
+                padding: 12px 10px;
                 outline: none!important;
                 .v-icon {
                     color: #000000;
@@ -283,28 +284,28 @@
 
                 }
             }
-            &.zoom-helper{
-                max-width: 58px;
-                min-width: 58px;
-                padding: 16px 0px 0 0;
-                .nav-action{
-                    padding: 4px 0;
-                    text-align: center;
-                    &.zoom-text{
-                        font-size:12px;
-                        border-top:1px solid rgba(0, 0, 0, 0.16);
-                        margin: 0 6px;
-                    }
-                }
-                .zoom-container{
-                    display: flex;
-                    justify-content: space-evenly;
-                    padding-bottom: 10px;
-                    i{
-                        font-size: 28px;
-                    }
-                }
-            }
+            // &.zoom-helper{
+            //     padding: 8px 8px;
+            //     flex-direction: column;
+            //     .nav-action{
+            //         padding: 4px 0;
+            //         text-align: center;
+            //         &.zoom-text{
+            //             font-size:12px;
+            //             border-top:1px solid rgba(0, 0, 0, 0.16);
+            //             margin: 0 6px;
+            //             padding-top: 8px;
+            //         }
+            //     }
+            //     .zoom-container{
+            //         display: flex;
+            //         justify-content: space-evenly;
+            //         padding-bottom: 10px;
+            //         i{
+            //             font-size: 28px;
+            //         }
+            //     }
+            // }
             .selected-color {
                 font-size: 26px;
                 cursor: pointer;
@@ -335,7 +336,7 @@
             }
         }
         .helper {
-            position: absolute;
+            position: fixed;
             pointer-events: none;
             top: 0;
             left: 0;
@@ -363,7 +364,7 @@
         }
         .text-helper-container {
             .text-helper {
-                position: absolute;
+                position: fixed;
                 border: 1px solid #7b7b7b;
                 padding: 6px;
                 outline: none;
@@ -373,7 +374,7 @@
             }
         }
         .equation-helper-container {
-                position: absolute;
+                position: fixed;
                 background: #fff;
                 padding: 10px;
                 border: 1px solid #e1e1ef;

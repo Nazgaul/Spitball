@@ -25,11 +25,18 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AddTutorReviewCommand message, CancellationToken token)
         {
             var userTutor = await _regularUserRepository.LoadAsync(message.TutorId, token);
-            if (userTutor.Tutor.Reviews.Any(w => w.User.Id == message.UserId) &&
+            
+            if (userTutor.Tutor == null)
+            {
+                throw new EmptyResultException();
+            }
+if (userTutor.Tutor.Reviews.Any(w => w.User.Id == message.UserId) &&
                 userTutor.Tutor.Reviews.Any(w => w.Room.Id == message.RoomId))
+
             {
                 throw new DuplicateRowException();
             }
+            
             var studyRoom = await _studyRoomRepository.LoadAsync(message.RoomId, token);
 
             if (userTutor.Tutor != null &&

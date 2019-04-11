@@ -1,7 +1,7 @@
 <template>
     <div :class="{'hide-header': hideHeader}">
         <!--TODO check if worsk well-->
-        <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header" clipped-left>
+        <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header" clipped-left clipped-right>
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
                     <v-flex class="line top">
@@ -133,7 +133,6 @@
                 'unreadMessages',
                 'getShowToaster',
                 'getToasterText',
-                'getShowSelectUniInterface',
                 'showMobileFeed',
                 'getTotalUnread'
             ]),
@@ -152,7 +151,9 @@
             },
             hideHeader(){
                 if(this.$vuetify.breakpoint.xsOnly){
-                    return this.$route.name === "uniselect" || !this.showMobileFeed;
+                   let matchedCoursesRoute = this.$route.name === 'courses' || this.$route.name === 'addCourse' || this.$route.name === 'editCourse';
+                    let matchedUniRoute = this.$route.name === 'university' || this.$route.name === 'addUniversity';
+                    return  matchedCoursesRoute || matchedUniRoute || !this.showMobileFeed;;
                 }else{
                     return false;
                 }

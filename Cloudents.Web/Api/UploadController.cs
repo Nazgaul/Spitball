@@ -81,6 +81,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost("file"), FormContentType]
         public async Task<ActionResult<UploadStartResponse>> Upload(
+            [FromRoute] StorageContainer type,
             [FromForm] UploadRequestForm model,
             [FromServices] IDocumentDirectoryBlobProvider blobProvider,
             CancellationToken token)

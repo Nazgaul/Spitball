@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using Microsoft.Azure.Search.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Search.Extensions
 {
-    public static class FacetExtensions {
+    public static class FacetExtensions
+    {
 
         public static IEnumerable<T> AsEnumFacetResult<T>(this IEnumerable<FacetResult> facets) where T : Enum, IConvertible
         {
@@ -19,7 +21,36 @@ namespace Cloudents.Search.Extensions
                 }
             }
         }
-       
 
+
+    }
+
+    public static class TagScoringParameter 
+    {
+        public static ScoringParameter GenerateTagScoringParameter(string name, IEnumerable<string> input)
+        {
+            if (input == null)
+            {
+                return new ScoringParameter(name, new string[] { null });
+            }
+
+            var inputList = input.ToList();
+            if (!inputList.Any())
+            {
+                return new ScoringParameter(name, new string[] { null });
+            }
+
+            return new ScoringParameter(name, inputList.Select(w => w.ToUpperInvariant()));
+        }
+        public static ScoringParameter GenerateTagScoringParameter(string name, string input)
+        {
+            return GenerateTagScoringParameter(name, new[] { input });
+        }
+
+      
+
+        //public TagScoringParameter(string name, GeographyPoint value) : base(name, value)
+        //{
+        //}
     }
 }

@@ -27,7 +27,7 @@ namespace Cloudents.Core.DTOs
 
         public string Url { get; set; }
 
-        public string Source { get; set; }
+        //public string Source { get; set; }
 
         public DateTime? DateTime { get; set; }
 

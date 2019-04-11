@@ -50,8 +50,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new InsufficientFundException();
             }
 
-            var course = await _courseRepository.GetByNameAsync(message.Course, token);
-            course.Count++;
+            var course = await _courseRepository.LoadAsync(message.Course, token);
             await _courseRepository.UpdateAsync(course, token);
 
 

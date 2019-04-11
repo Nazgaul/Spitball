@@ -58,7 +58,7 @@ namespace Cloudents.Web.Api
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Relevance),
                 model.Location?.ToGeoPoint(),
-                model.Page.GetValueOrDefault(), isMobile, token)).ToListIgnoreNull();
+                model.Page, isMobile, token)).ToListIgnoreNull();
             string nextPageLink = null;
             if (result.Count > 0)
             {

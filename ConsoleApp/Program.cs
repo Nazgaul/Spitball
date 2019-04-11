@@ -25,10 +25,12 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using SqlKata;
-using SqlKata.Execution;
-using System.Data.SqlClient;
-using SqlKata.Compilers;
+using Cloudents.Query.Query;
+using Cloudents.Search.University;
+using Cloudents.Query.Documents;
+using Cloudents.Query.Questions;
+using Cloudents.Search.Document;
+using Cloudents.Search.Question;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -116,15 +118,15 @@ namespace ConsoleApp
 
             _container = builder.Build();
 
-            if (Environment.UserName == "Ram")
-            {
-                await RamMethod();
-            }
-            else
-            {
+            //if (Environment.UserName == "Ram")
+            //{
+            //    await RamMethod();
+            //}
+            //else
+            //{
 
                 await HadarMethod();
-            }
+            //}
 
 
             Console.WriteLine("done");
@@ -139,13 +141,25 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var c = _container.Resolve<SmsProvider>();
-
-            await c.ComposeVideo("RM9f9095b1b604469fae518f11797aea07");
+            await UpdateMethod();
+            // await c.DispatchAsync(command2, default);
 
             Console.WriteLine("done");
         }
 
+        private static async Task UpdateMethod()
+        {
+            //var c = _container.Resolve<UniversitySearchWrite>();
+            //await c.CreateOrUpdateAsync(default);
+
+
+            var c2 = _container.Resolve<DocumentSearchWrite>();
+            await c2.CreateOrUpdateAsync(default);
+
+
+            //var c3 = _container.Resolve<QuestionSearchWrite>();
+            //await c3.CreateOrUpdateAsync(default);
+        }
 
 
         private static async Task ReduWordProcessing()
@@ -389,58 +403,17 @@ namespace ConsoleApp
             }
         }
 
-        private static void QueryCompiler(SqlConnection connection, SqlServerCompiler compiler)
-        {
-            var vote = new Query("sb.Vote as v")
-               .WhereColumns("d.Id", "=", "v.DocumentId")
-               .AsSum("v.VoteType");
-
-            var query = new XQuery(connection, compiler)
-                .Select("d.Id", "un.Name as University"
-                , "d.CourseName as Course", "d.MetaContent as Sinppet"
-                , "d.Type", "u.Id", "u.Name", "u.Score", "u.Image", "d.Views"
-                , "d.Downloads", "d.CreationTime as DateTime", "d.Price as Price")
-                .Select(vote, "Vote")
-                .From("sb.Document as d")
-                .Join("sb.user as u", "u.Id", "d.UserId", "=")
-                .Join("sb.University as un", "un.Id", "d.UniversityId", "=")
-                .Where("d.CourseName", "פיזיקה 2")
-                .Where("d.State", Cloudents.Core.Enum.ItemState.Ok)
-                .OrderByRaw(@"case when d.UniversityId = u.UniversityId2 then 1 else 0 end desc
-                                ,case when un.Country = u.Country then 1 else 0 end desc");
-
-
-            SqlResult result = compiler.Compile(query);
-
-            string sql = result.Sql;
-            Console.WriteLine(sql);
-        }
+     
 
         private static async Task HadarMethod()
         {
-            
-            var connection = new SqlConnection("Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew_Develop;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=true;");
-            var compiler = new SqlServerCompiler();
+            var queryBus = _container.Resolve<IQueryBus>();
+          //  var query = new QuestionAggregateQuery(638L, 0);
+//            var test = await queryBus.QueryAsync(query, default);
 
-            var db = new QueryFactory(connection, compiler);
-
-            var vote = new Query("sb.Vote as v")
-               .WhereColumns("d.Id", "=", "v.DocumentId")
-               .AsSum("v.VoteType");
-
-            var tset = db.Query("sb.Document as d")
-                .Select("d.Id", "un.Name as University"
-                , "d.CourseName as Course", "d.MetaContent as Sinppet"
-                , "d.Type", "u.Id", "u.Name", "u.Score", "u.Image", "d.Views"
-                , "d.Downloads", "d.CreationTime as DateTime", "d.Price as Price")
-                .Select(vote, "Vote")
-                .Join("sb.user as u", "u.Id", "d.UserId", "=")
-                .Join("sb.University as un", "un.Id", "d.UniversityId", "=")
-                .Where("d.CourseName", "פיזיקה 2")
-                .Where("d.State", "Ok")
-                .OrderByRaw(@"case when d.UniversityId = u.UniversityId2 then 1 else 0 end desc
-                                ,case when un.Country = u.Country then 1 else 0 end desc")
-                                .Get();
+           /* var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
+            await commandBus.DispatchAsync(command, default);*/
+          
             //You can register the QueryFactory in the IoC container
 
             //var user = db.Query("sb.User").Where("Id", (long)160347).First();

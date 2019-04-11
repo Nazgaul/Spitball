@@ -133,37 +133,26 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Perform course search per user
         /// </summary>
-        /// <param name="profile"></param>
         /// <param name="token"></param>
         /// <returns>list of courses for a user</returns>
         [HttpGet("courses")]
-        public async Task<IEnumerable<CourseDto>> GetCourses(
-            [ProfileModelBinder(ProfileServiceQuery.Course)] UserProfile profile,
-            CancellationToken token)
+        public async Task<IEnumerable<CourseDto>> GetCourses(CancellationToken token)
         {
-            if (profile.Courses != null)
-            {
-                return profile.Courses.Select(s => new CourseDto(s));
-            }
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserDataQuery(userId);
-            var t = await _queryBus.QueryAsync(query, token);
-            return t.Courses.Select(s => new CourseDto(s));
+         
+            var query = new UserCoursesQuery(userId);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result;
         }
 
         [HttpGet("University")]
         public async Task<UniversityDto> GetUniversityAsync(
-            [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
             [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             CancellationToken token)
         {
             if (!universityId.HasValue)
             {
                 return null;
-            }
-            if (profile.University != null)
-            {
-                return new UniversityDto(profile.University.Id, profile.University.Name, profile.University.Country);
             }
             var query = new UniversityQuery(universityId.Value);
             return await _queryBus.QueryAsync(query, token);
@@ -227,6 +216,9 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [NonAction]
+
+
         [HttpPost("BecomeTutor")]
         public async Task<IActionResult> BecomeTutorAsync([FromBody]BecomeTutorRequest model, CancellationToken token)
         {
@@ -235,6 +227,9 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        
+
      
     }
 }

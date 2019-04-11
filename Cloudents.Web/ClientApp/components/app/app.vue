@@ -12,12 +12,9 @@
       <div class="loader" v-show="getIsLoading">
         <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
       </div>
-      <div v-show="showUniSelect" style="height: 100%;">
-        <uni-select></uni-select>
-      </div>
       <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
-        <!-- <marketing-box></marketing-box> -->
-        <chat-component v-if="isMobile"></chat-component>
+        <marketing-box></marketing-box>
+        <!-- <chat-component v-if="isMobile"></chat-component> -->
       </div>
       <div v-if="showLeadersMobile && getMobileFooterState">
           <tutor-list></tutor-list>
@@ -27,8 +24,8 @@
                 <router-view name="schoolBlock"></router-view>
       </div>-->
       <router-view name="verticals"></router-view>
-      <router-view class="main-container" v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
-      <chat-component v-if="!isMobile"></chat-component>
+      <router-view class="main-container" v-show="showFeed" ref="mainPage"></router-view>
+      <!-- <chat-component v-if="!isMobile"></chat-component> -->
       <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
       <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
         <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
@@ -127,8 +124,8 @@ import {
 } from "../../services/language/languageService";
 import tourService from "../../services/tourService";
 import walletService from "../../services/walletService";
-import uniSelectPop from "../helpers/uni-select/uniSelectPop.vue";
-import uniSelect from "../helpers/uni-select/uniSelect.vue";
+import uniSelectPop from "../helpers/uni-select-popup/uniSelectPop.vue";
+// import uniSelect from "../helpers/uni-select-popup/uniSelect.vue";
 import newIsraeliPop from "../dialogs/israeli-pop/newIsraeliPop.vue";
 import reportItem from "../results/helpers/reportItem/reportItem.vue";
 import mobileFooter from "../footer/mobileFooter/mobileFooter.vue";
@@ -146,7 +143,7 @@ export default {
     sbDialog,
     loginToAnswer,
     uniSelectPop,
-    uniSelect,
+    // uniSelect,
     chatComponent,
     newIsraeliPop,
     reportItem,
@@ -167,7 +164,6 @@ export default {
       hideFooter: false,
       showOnBoardGuide: true,
       showBuyTokensDialog: false,
-      showUniSelect: false,
 
       tourObject: {
         region:
@@ -187,7 +183,6 @@ export default {
       "loginDialogState",
       "newQuestionDialogSate",
       "getShowSelectUniPopUpInterface",
-      "getShowSelectUniInterface",
       "getDialogState",
       "confirmationDialog",
       "getShowToaster",
@@ -261,7 +256,7 @@ export default {
       let self = this;
       if (val && !supressed && !!self.accountUser) {
         setTimeout(() => {
-          if (self.$route.name === "ask" && !this.showUniSelect) {
+          if (self.$route.name === "ask") {
             if (self.$vuetify.breakpoint.xsOnly) {
               self.tourObject.tourSteps =
                 tourService[self.tourObject.region].HWSteps.mobile;
@@ -282,7 +277,7 @@ export default {
       let self = this;
       if (val && !supressed && !!self.accountUser) {
         setTimeout(() => {
-          if (self.$route.name === "note" && !this.showUniSelect) {
+          if (self.$route.name === "note") {
             if (self.$vuetify.breakpoint.xsOnly) {
               self.tourObject.tourSteps =
                 tourService[self.tourObject.region].StudyDocumentsSteps.mobile;

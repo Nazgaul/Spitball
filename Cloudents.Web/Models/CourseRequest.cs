@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Cloudents.Web.Framework;
 
 namespace Cloudents.Web.Models
 {
@@ -11,7 +12,7 @@ namespace Cloudents.Web.Models
         /// User input
         /// </summary>
         [StringLength(150, MinimumLength = 3, ErrorMessage = "StringLength")]
-        [Required(ErrorMessage = "Required")]
+        [RequiredPropertyForQuery]
         public string Term { get; set; }
     }
 }

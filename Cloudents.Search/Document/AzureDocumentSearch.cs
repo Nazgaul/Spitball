@@ -2,6 +2,7 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
+using Cloudents.Search.Extensions;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Rest.Azure;
@@ -80,21 +81,20 @@ namespace Cloudents.Search.Document
         public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string> facetSubject)>
             SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token)
         {
-            var country = userProfile.University?.Country ?? userProfile.Country;
-            var filters = new List<string>
-            {
-                $"({nameof(Entities.Document.Country)} eq '{country.ToUpperInvariant()}')"
-            };
+            //var country = userProfile.University?.Country ?? userProfile.Country;
+            var filters = new List<string>();
+            //{
+            //    $"({nameof(Entities.Document.Country)} eq '{country.ToUpperInvariant()}')"
+            //};
             if (query.Course != null)
             {
-
                 var filterStr = $"{Entities.Document.CourseNameField} eq '{query.Course.ToUpperInvariant().Replace("'", "''")}'";
                 filters.Add($"({filterStr})");
             }
 
-            if (query.FilterByUniversity && userProfile.University != null)
+            if (query.FilterByUniversity)
             {
-                var universityStr = $"{Entities.Document.UniversityIdFieldName} eq '{userProfile.University.Id.ToString()}'";
+                var universityStr = $"{Entities.Document.UniversityIdFieldName} eq '{userProfile.UniversityId.GetValueOrDefault().ToString()}'";
                 filters.Add($"({universityStr})");
 
             }
@@ -120,9 +120,9 @@ namespace Cloudents.Search.Document
                 ScoringProfile = DocumentSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {
-                                 new ScoringParameter(DocumentSearchWrite.TagsUniversityParameter, new[] { userProfile.University?.Id.ToString()}),
-                                 new ScoringParameter(DocumentSearchWrite.TagsTagsParameter,GenerateScoringParameterValues( userProfile.Tags)),
-                                 new ScoringParameter(DocumentSearchWrite.TagsCourseParameter, GenerateScoringParameterValues( userProfile.Courses )),
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsUniversityParameter,userProfile.UniversityId.ToString()),
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCourseParameter,userProfile.Courses),
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCountryParameter,userProfile.Country)
                 },
                 Facets = new[]
                 {
@@ -148,20 +148,25 @@ namespace Cloudents.Search.Document
 
         }
 
-        internal static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
-        {
-            if (input == null)
-            {
-                return new string[] { null };
-            }
+        //internal static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
+        //{
+        //    if (input == null)
+        //    {
+        //        return new string[] { null };
+        //    }
 
-            var inputList = input.ToList();
-            if (!inputList.Any())
-            {
-                return new string[] { null };
-            }
+        //    var inputList = input.ToList();
+        //    if (!inputList.Any())
+        //    {
+        //        return new string[] { null };
+        //    }
 
-            return inputList.Select(w => w.ToUpperInvariant());
-        }
+        //    return inputList.Select(w => w.ToUpperInvariant());
+        //}
+
+        //internal static IEnumerable<string> GenerateScoringParameterValues(string input)
+        //{
+        //    return GenerateScoringParameterValues(new[] { input });
+        //}
     }
 }
