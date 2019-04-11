@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Event;
 
 [assembly:InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "Nhibernate")]
     public class StudyRoom : AggregateRoot<Guid>
     {
         public StudyRoom(Tutor tutor, RegularUser user, string onlineDocumentUrl)
         {
             Tutor = tutor;
-            Users = new[] { new StudyRoomUser(user) };
+            _users = new[] { new StudyRoomUser(user) };
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
             DateTime = DateTime.UtcNow;
             OnlineDocumentUrl = onlineDocumentUrl;
+            AddEvent(new StudyRoomCreatedEvent(this));
         }
 
         protected StudyRoom()
@@ -23,7 +27,12 @@ namespace Cloudents.Core.Entities
         }
 
         public virtual Tutor Tutor { get; protected set; }
-        protected internal virtual ICollection<StudyRoomUser> Users { get; set; }
+
+        private readonly ICollection<StudyRoomUser> _users = new List<StudyRoomUser>();
+
+        public virtual IReadOnlyList<StudyRoomUser> Users => _users.ToList();
+
+
         public virtual string Identifier { get; protected set; }
         public virtual DateTime DateTime { get; protected set; }
 
@@ -38,21 +47,5 @@ namespace Cloudents.Core.Entities
             _sessions.Add(session);
         }
         
-    }
-
-
-    public class StudyRoomUser : Entity<Guid>
-    {
-        public StudyRoomUser(RegularUser user)
-        {
-            User = user;
-        }
-
-        protected StudyRoomUser()
-        {
-
-        }
-
-        public virtual RegularUser User { get; set; }
     }
 }

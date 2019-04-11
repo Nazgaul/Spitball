@@ -68,9 +68,10 @@ namespace Cloudents.Core
     {
         Question,
         Answer,
-        Document,
+        //Document,
         User,
         System,
-        Chat
+        Chat,
+        StudyRoom
     }
 }

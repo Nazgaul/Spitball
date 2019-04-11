@@ -75,6 +75,11 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        /// <summary>
+        /// Get study rooms data of user
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<UserStudyRoomDto>> GetUserStudyRooms(CancellationToken token)
         {

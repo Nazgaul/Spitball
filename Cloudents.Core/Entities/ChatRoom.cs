@@ -21,6 +21,7 @@ namespace Cloudents.Core.Entities
             Users = users.Select(s => new ChatUser(this, s)).ToList();
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
             UpdateTime = DateTime.UtcNow;
+            
         }
 
         public static string BuildChatRoomIdentifier(IEnumerable<long> userIds)
@@ -37,11 +38,6 @@ namespace Cloudents.Core.Entities
 
         public virtual void AddMessage(ChatMessage message)
         {
-            // var user = Users.Single(s => s.User.Id == userId);
-            //var chatMessage = user.AddMessage(message, blob);
-
-            //var chatMessage = new ChatMessage(user, message, blob, this);
-            
             UpdateTime = DateTime.UtcNow;
             foreach (var usersInChat in Users)
             {
@@ -61,9 +57,6 @@ namespace Cloudents.Core.Entities
                 }
             }
             AddEvent(new ChatMessageEvent(message));
-            //return chatMessage;
-
-            //this.AddEvent();
         }
     }
 }
