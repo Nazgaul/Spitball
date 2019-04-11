@@ -7,12 +7,12 @@
                     <v-icon @click="lastStep()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
                     </v-icon>
                     <span class="subheading font-weight-bold" v-language:inner>courses_join</span>
-                    <span class="subheading font-weight-bold" v-if="quantatySelected">({{quantatySelected}})</span>
+                    <span class="subheading font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
                 </div>
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0" @click="submitAndGo()">
+                <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
                     <span v-language:inner>courses_btn_done</span>
                 </v-btn>
             </v-flex>
@@ -54,8 +54,8 @@
         <v-layout align-center>
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list">
-                    <div class="list-item subheading search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
-                         v-for="singleClass in classes">
+                    <div class="list-item subheading search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
+                         v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
                         <v-layout column class="pl-3 limit-width">
                             <v-flex shrink class="text-truncate course-name-wrap">
                                 <div v-html="$options.filters.boldText(singleClass.text, search)">
@@ -82,8 +82,7 @@
                                           v-html="$Ph('courses_join')"></span>
                                     <span>
 
-                                     <v-icon class="cursor-pointer add-sbf-icon"
-                                             @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
+                                     <v-icon class="cursor-pointer add-sbf-icon">sbf-plus-circle</v-icon>
                                    </span>
                                 </v-flex>
                             </div>
