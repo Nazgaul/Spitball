@@ -60,7 +60,7 @@ export default {
         myCourses: LanguageService.getValueByKey('schoolBlock_my_courses'),
         allCourses: LanguageService.getValueByKey('schoolBlock_all_courses'),
       },
-      inUniselect: true
+      inUniselect: this.$route.path.indexOf('courses') > -1 || this.$route.path.indexOf('university') > -1
     };
   },
   props: {
@@ -139,6 +139,7 @@ export default {
       }
       if (!this.lock) {
         this.lock = true;
+        
         if(!!isDefault){
           if(!this.selectedCourse){
             if(this.isInSearchMode()){
@@ -151,6 +152,7 @@ export default {
             this.selectedCourse = ""
           }
         }else{
+          
           let text = item.text ? item.text : item;
           if (this.selectedCourse === text) {
             if(this.isInSearchMode()){
