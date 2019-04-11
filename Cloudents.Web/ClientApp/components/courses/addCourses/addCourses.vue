@@ -58,7 +58,7 @@
                          v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
                         <v-layout column class="pl-3 limit-width">
                             <v-flex shrink class="text-truncate course-name-wrap">
-                                <div v-html="$options.filters.boldText(singleClass.text, search)">
+                                <div class="text-truncate" v-html="$options.filters.boldText(singleClass.text, search)">
                                     {{ singleClass.text }}
                                 </div>
                             </v-flex>
@@ -67,7 +67,7 @@
                                 <span class="students-enrolled" v-language:inner>courses_students</span>
                             </v-flex>
                         </v-layout>
-                        <v-layout row align-center justify-end>
+                        <v-layout row align-center justify-end class="minimize-width">
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
                                     <span class="light-purple caption font-weight-bold mr-2"
@@ -344,10 +344,16 @@
     @import '../../../styles/mixin.less';
 
     .add-courses-wrap {
+        .scrollBarStyle(3px, #0085D1);
+
         .hidden {
             display: none;
         }
-        .scrollBarStyle(3px, #0085D1);
+        .minimize-width{
+            @media(max-width: @screen-xs){
+                min-width: 90px;
+            }
+        }
         .v-input__slot {
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17) !important;
         }
