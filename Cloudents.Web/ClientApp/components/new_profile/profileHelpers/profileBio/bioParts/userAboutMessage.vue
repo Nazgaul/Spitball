@@ -51,6 +51,7 @@
             color: @profileTextColor;
             line-height: 1;
             align-items: flex-start;
+            word-break: break-all;
             @media (max-width: @screen-xs) {
                 font-size: 18px;
                 font-weight: 600;
@@ -86,6 +87,7 @@
             line-height: 1.36;
             letter-spacing: normal;
             color: @profileTextColor;
+            word-break: break-all;
             @media(max-width: @screen-xs){
                 font-size: 16px;
                 font-style: italic;
