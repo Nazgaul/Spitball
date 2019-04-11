@@ -51,8 +51,12 @@ export default {
             'setQuestion',
             'updateNewBallerDialogState'
         ]),
-        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+        ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
         ...mapGetters(["getQuestion"]),
+        resetSearch(){
+            this.updateSearchLoading(true);
+            this.$router.push({path:"/ask"})
+        },
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorLength= {
