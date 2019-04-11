@@ -1,6 +1,6 @@
 <template>
     <div class="courses-list-wrap">
-        <div v-if="isEmpty">
+        <div v-if="!isEmpty">
             <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
                 <v-flex grow xs8>
                     <div class="d-inline-flex justify-center shrink">
