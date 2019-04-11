@@ -157,10 +157,10 @@
     <value>Invite classmates</value>
   </data>
   <data name="join" xml:space="preserve">
-    <value>Join Courses</value>
+    <value>Add</value>
   </data>
   <data name="joined" xml:space="preserve">
-    <value>Joined</value>
+    <value>Added</value>
   </data>
   <data name="link_copied" xml:space="preserve">
     <value>Copied Link</value>
