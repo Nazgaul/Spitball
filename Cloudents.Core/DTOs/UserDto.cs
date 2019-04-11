@@ -93,5 +93,9 @@ namespace Cloudents.Core.DTOs
 
         [DtoToEntityConnection(nameof(ChatRoom.UpdateTime))]
         public DateTime DateTime { get; set; }
+
+        [DtoToEntityConnection(nameof(StudyRoom.Id))]
+
+        public Guid StudyRoomId { get; set; }
     }
 }
