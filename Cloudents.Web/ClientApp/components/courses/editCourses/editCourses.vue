@@ -80,15 +80,15 @@
                     </div>
                 </v-flex>
             </v-layout>
+            <v-layout  align-center justify-center class="hidden-sm-and-up fixed-bottom-wrap elevation-2">
+                <v-flex xs12 class="text-xs-center pt-3">
+                    <finishBtn></finishBtn>
+                </v-flex>
+            </v-layout>
         </div>
         <div v-else>
             <courses-empty-state></courses-empty-state>
         </div>
-        <v-layout align-center justify-center class="hidden-sm-and-up fixed-bottom-wrap elevation-2">
-            <v-flex xs12 class="text-xs-center pt-3">
-                <finishBtn></finishBtn>
-            </v-flex>
-        </v-layout>
     </div>
 </template>
 <script>

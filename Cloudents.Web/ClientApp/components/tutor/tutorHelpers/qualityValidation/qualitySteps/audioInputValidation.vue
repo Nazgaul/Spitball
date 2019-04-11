@@ -14,7 +14,7 @@
                 <v-flex xs12 sm6 md6 d-flex class="mt-5">
                     <v-select
                             class="minimum-width"
-                            :content-class="'select-direction'"
+                            :menu-props="{contentClass:'select-direction'}"
                             v-model="singleMicrophoneId"
                             :items="avalMics"
                             item-value="deviceId"

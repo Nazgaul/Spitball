@@ -15,7 +15,7 @@
         <v-flex xs12 sm12 md12 d-flex class="width-force mb-4">
             <v-select
                     class="minimum-width"
-                    :content-class="'select-direction'"
+                    :menu-props="{contentClass:'select-direction'}"
                     v-model="singleCameraId"
                     :items="avalCameras"
                     item-value="deviceId"
