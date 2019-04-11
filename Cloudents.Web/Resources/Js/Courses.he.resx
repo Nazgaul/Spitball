@@ -160,7 +160,7 @@
     <value>הוסף</value>
   </data>
   <data name="joined" xml:space="preserve">
-    <value>התווסף</value>
+    <value> </value>
   </data>
   <data name="link_copied" xml:space="preserve">
     <value>הקישור הועתק</value>
