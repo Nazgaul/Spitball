@@ -82,7 +82,7 @@
         }
     }
 </script>
-<style scoped lang="less">
+<style  lang="less">
     //keep cause of mount of select box to root of dom by vuetify
     .select-direction{
         .v-select-list{

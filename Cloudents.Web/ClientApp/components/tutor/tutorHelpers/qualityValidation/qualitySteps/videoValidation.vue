@@ -95,7 +95,7 @@
     }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
     .select-direction{
         .v-select-list{
             direction: ltr/*rtl:ignore*/;
