@@ -1,9 +1,9 @@
 <template>
     <div class="messages-container">
-        <div ml-2 class="avatar-container"><user-avatar :user-name="activeConversationObj.userName" :userImageUrl="activeConversationObj.userImage"/></div>
+        <div ml-2 class="avatar-container"><user-avatar :user-name="activeConversationObj.userName" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.userImage"/></div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <span v-if="isTutor" @click="createRoom">Study Room</span>
+                <span v-if="isTutor" @click="createRoom" v-language:inner>chat_studyRoom</span>
             </v-flex>
             <v-flex class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
@@ -105,9 +105,10 @@ export default {
                 border-radius: 0 0 16px 16px;
                 max-height: 45px;
                 min-height: 45px;
-                padding-right: 14px;
+                padding-right: 20px;
                 .v-input__slot{
                     box-shadow: none !important;
+                    
                 }
             }
         }

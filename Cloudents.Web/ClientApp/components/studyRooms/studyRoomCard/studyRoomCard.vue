@@ -7,13 +7,11 @@
         </v-layout>
         <div class="study-card-avatar-area">
             <user-avatar :user-name="card.name" :userImageUrl="card.image" :size="'64'"/>
+            <span v-if="isOnline" class="online-circle"></span>
         </div>
         <v-layout column align-center justify-space-between class="study-card-lower-area">
             <v-flex>
                 {{card.name}}
-            </v-flex>
-            <v-flex>
-                <user-rank :score="5"></user-rank>
             </v-flex>
             <v-flex py-3 class="study-card-enter-container">
                 <v-icon @click="enterRoom" class="study-card-enter-icon">sbf-close</v-icon>
@@ -67,8 +65,11 @@ export default {
         date(){
             return utilitiesService.dateFormater(this.card.dateTime);
         },
-        isActive(){
+        isOnline(){
             return this.card.online
+        },
+        isActive(){
+            return false
         },
         roomStatus(){
             if(this.isActive){
@@ -82,6 +83,7 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../styles/mixin.less';
     .study-card-container{
         background-color: #fff;
         border-radius: 4px;
@@ -90,6 +92,9 @@ export default {
         margin: 16px 16px 16px 0;
         min-width: 164px;
         max-width: 164px;
+        @media (max-width: @screen-xs) {
+            margin:5px;
+        }
         .study-card-upper-area{
             background-color: #f0f0f7;
             color:#a5a4bf;
@@ -105,6 +110,16 @@ export default {
             display: flex;
             justify-content: center;
             margin-top: -32px;
+            position: relative;
+            .online-circle{
+                border-radius: 50%;
+                width: 10px;
+                height: 10px;
+                background-color: #00ff14;
+                position: absolute;
+                bottom: 0;
+                right: 57px;
+            }
         }
         .study-card-lower-area{
             margin:10px 0;

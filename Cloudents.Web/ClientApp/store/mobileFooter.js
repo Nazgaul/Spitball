@@ -27,6 +27,9 @@ const getters = {
     },
     showMobileFeed: (state) => {
         return state.stater === state.statesEnum['feed']
+    },
+    getCurrentActiveTabName:(state)=>{
+        return state.stater
     }
 
 };
@@ -38,14 +41,11 @@ const mutations = {
 };
 
 const actions = {
-
     changeFooterActiveTab({commit, state}, stateEnum) {
         if (state.statesEnum[stateEnum]) {
             commit('changeStater', state.statesEnum[stateEnum])
         }
-
     }
-
 };
 export default {
     state,

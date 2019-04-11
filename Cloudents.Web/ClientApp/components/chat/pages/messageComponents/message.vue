@@ -22,6 +22,7 @@ export default {
 <style lang='less'>
 .message{
     max-width:211px;
+    width: fit-content;
     text-align: right;
     margin: 5px 0;
     margin-left: auto;
@@ -29,6 +30,7 @@ export default {
     border-radius: 8px 8px 0 8px;
     background-color: #f5f5f5;
     padding: 10px;
+    word-break: break-word;
     &.myMessage{
         text-align: left;
         margin: 5px 0;

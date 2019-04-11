@@ -1,12 +1,12 @@
 <template>
     <v-card class="tutor-card-wrap px-3 pb-2 mb-2 elevation-0">
-    <v-layout align-center class="pt-3">
+    <v-layout align-center justify-space-between class="pt-3">
         <v-flex shrink class="mr-2 tutor-name font-weight-bold caption">
             {{tutorData.name}}
         </v-flex>
-        <v-flex grow>
+        <!-- <v-flex grow>
             <user-rank class="tutor-rank" :score="tutorData.score"></user-rank>
-        </v-flex>
+        </v-flex> -->
         <v-flex @click="sendMessage" class="rounded" shrink>
             <commentIcon class="chat-icon"></commentIcon>
         </v-flex>
@@ -50,6 +50,7 @@
     import userRating from '../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
     import commentIcon from '../../../font-icon/comment-icon.svg';
     import userAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
+    import chatService from '../../../services/chatService'
     import {mapGetters, mapActions} from 'vuex'
     export default {
         name: "tutorCard",
@@ -73,20 +74,21 @@
             }
         },
         methods:{
-            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface']),
+            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface', 'changeFooterActiveTab']),
             sendMessage(){
                 if ( this.accountUser == null) {
                     this.updateLoginDialogState(true);
                 } else {
-                    let conversationObj = this.getConversations[this.tutorData.userId];
-                    let currentConversationObj = {
-                        userId: this.tutorData.userId,
-                        userName: this.tutorData.name,
-                        userImage: this.tutorData.image,
-                        conversationId: conversationObj ? conversationObj.conversationId : null
-                    }
+                    let currentConversationObj = chatService.createActiveConversationObj(this.tutorData)
                     this.setActiveConversationObj(currentConversationObj);
-                    this.openChatInterface();
+                    let isMobile = this.$vuetify.breakpoint.smAndDown;
+                    if(isMobile){
+                        //move to chat tab
+                        this.changeFooterActiveTab('promotions');
+                    }else{
+                        this.openChatInterface();
+                    }
+                    
                 }
             }
         }

@@ -1,7 +1,7 @@
 <template>
     <v-container v-show="visible" py-0 px-0 class="sb-chat-container" :style="{'height': height}" :class="{'minimized': isMinimized}">
         <v-layout class="chat-header">
-            <v-icon @click="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
+            <v-icon :class="{'rtl':isRtl}" @click="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
             <span class="other-side" v-show="!isMobile">
                 <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
@@ -19,7 +19,7 @@
     import chatConversation from "./pages/conversations.vue"
     import chatMessages from "./pages/messages.vue"
     import {mapGetters, mapActions} from 'vuex'
-    
+    import { LanguageService } from '../../services/language/languageService'
     export default {
         components:{
             chatConversation,
@@ -29,10 +29,11 @@
             return{
                 enumChatState: this.getEnumChatState(),
                 mobileFooterHeight: 48,
+                isRtl: global.isRtl
             }
         },
         computed:{
-            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj']),
+            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked', 'accountUser']),
             isMobile(){
                 return this.$vuetify.breakpoint.smAndDown;
             },
@@ -54,20 +55,26 @@
                 if(this.isMobile){
                     return true;
                 }else{
-                    return this.getIsChatVisible;
+                    if(this.accountUser === null){
+                        return false;
+                    }else{
+                        return this.getIsChatVisible;
+                    }
                 }
             },
             isMinimized(){
-                return this.getIsChatMinimized;
+                 if(this.isMobile){
+                    return false;
+                }else{
+                    return this.getIsChatMinimized;
+                }
             },
             headerTitle(){
                 if(this.state === this.enumChatState.conversation){
-                    return "Messages";
+                    return LanguageService.getValueByKey('chat_messages');
                 }else{
                     if(!!this.getActiveConversationObj){
                         return this.getActiveConversationObj.userName;
-                    }else{
-                        //get user from server to show name
                     }
                 }
             },
@@ -76,11 +83,14 @@
             }
         },
         methods:{
-            ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat']),
+            ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat', 'openChatInterface']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
-                if(!this.isMinimized){
+                if(!this.getIsChatLocked){
                     this.updateChatState(this.enumChatState.conversation);
+                    if(this.isMinimized){
+                        this.openChatInterface();
+                    }
                 }
             },
             toggleMinimizeChat(){
@@ -91,7 +101,6 @@
             }
         },
         created(){
-            this.getAllConversations();
         }
     }
 </script>
@@ -121,6 +130,7 @@
         border-radius: 4px 4px 0 0;
         padding:10px;
         color:#fff;
+        
         @media (max-width: @screen-xs) {
             border-radius: unset;
         }
@@ -134,7 +144,16 @@
             color: #a5a4bf;
             font-size:16px;
             margin-right: 14px;
+            &.sbf-arrow-back-chat{
+                &.rtl{
+                    transform: rotate(180deg);
+                }
+            }
+            
         }
+        
+        
+        
         .other-side{
             margin-left:auto;
             i{
