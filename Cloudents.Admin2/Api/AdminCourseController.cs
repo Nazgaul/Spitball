@@ -2,21 +2,21 @@
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminCourseController: ControllerBase
+    public class AdminCourseController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
@@ -60,7 +60,7 @@ namespace Cloudents.Admin2.Api
 
                             delete from sb.Course where [Name] = @oldId;";
 
-          
+
 
             await _dapperRepository.WithConnectionAsync(async f =>
             {
@@ -90,7 +90,7 @@ namespace Cloudents.Admin2.Api
         public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {
-            var query = new CourseSearchQuery(0, course);
+            var query = new CourseSearchQuery(0, course, 0);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {
@@ -102,7 +102,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses([FromQuery]CoursesRequest model
                 , CancellationToken token)
         {
-            var  query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending));
+            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending));
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }

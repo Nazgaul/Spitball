@@ -44,43 +44,27 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Perform course search
         /// </summary>
-        /// <param name="term">params</param>
+        /// <param name="request">params</param>
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
         [ResponseCache(Duration = TimeConst.Hour,
-            Location = ResponseCacheLocation.Any,
-            VaryByQueryKeys = new[] { "term" })]
+            Location = ResponseCacheLocation.Client,
+            VaryByQueryKeys = new[] { "*" })]
         public async Task<CoursesResponse> GetAsync(
-           [RequiredFromQuery, StringLength(150, MinimumLength = 3, ErrorMessage = "StringLength")] string term,
+           [FromQuery] CourseSearchRequest request,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new CourseSearchQuery(userId, term);
+            var query = new CourseSearchQuery(userId, request.Term, request.Page);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {
                 Courses = result
             };
         }
-
-        [Route("search")]
-        [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour,
-            Location = ResponseCacheLocation.Client,
-            VaryByQueryKeys = new[] { "term" })]
-        public async Task<CoursesResponse> GetAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new CourseSearchByUniversityQuery(userId);
-            var result = await _queryBus.QueryAsync(query, token);
-            return new CoursesResponse
-            {
-                Courses = result
-            };
-            //return null;
-        }
+       
 
         [HttpPost("set")]
         public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
