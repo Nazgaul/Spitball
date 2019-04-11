@@ -216,7 +216,6 @@ const actions = {
     updateClasses({commit}, val) {
      return  universityService.getCourse(val).then(data => {
             commit('setClasses', data);
-            console.log('!!!store', data);
             return data
         });
     },

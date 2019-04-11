@@ -54,8 +54,8 @@
         <v-layout align-center>
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list">
-                    <div class="list-item subheading search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
-                         v-for="singleClass in classes">
+                    <div class="list-item subheading search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
+                         v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
                         <v-layout column class="pl-3 limit-width">
                             <v-flex shrink class="text-truncate course-name-wrap">
                                 <div v-html="$options.filters.boldText(singleClass.text, search)">
@@ -82,8 +82,7 @@
                                           v-html="$Ph('courses_join')"></span>
                                     <span>
 
-                                     <v-icon class="cursor-pointer add-sbf-icon"
-                                             @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
+                                     <v-icon class="cursor-pointer add-sbf-icon">sbf-plus-circle</v-icon>
                                    </span>
                                 </v-flex>
                             </div>
