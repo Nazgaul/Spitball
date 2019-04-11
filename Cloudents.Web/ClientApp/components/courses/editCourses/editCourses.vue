@@ -13,8 +13,8 @@
                     <finishBtn></finishBtn>
                 </v-flex>
                 <v-flex shrink class="d-flex justify-start">
-                    <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0" :class="{'mr-2': $vuetify.breakpoint.xsOnly }" @click="goToAddMore()">
-                        <v-icon left>sbf-plus-regular</v-icon>
+                    <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0 elevation-0" :class="{'mr-2': $vuetify.breakpoint.xsOnly }" @click="goToAddMore()">
+                        <v-icon class="mr-1">sbf-plus-regular</v-icon>
                         <span v-language:inner>courses_add</span>
                     </v-btn>
                 </v-flex>
@@ -172,9 +172,9 @@
     @import '../../../styles/mixin.less';
 
     .courses-list-wrap {
-        .scrollBarStyle(3px, #0085D1);
+        .scrollBarStyle(3px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .rounded-btn {
-            border-radius: 16px;
+            border-radius: 36px!important; //vuetify
         }
         .fixed-bottom-wrap{
             position: fixed;
@@ -223,11 +223,13 @@
         .class-list {
             background-color: #ffffff;
             max-height: 664px;
+            min-height: calc(~"100vh - 350px");
             overflow-y: scroll;
             padding-left: 0;
             @media(max-width: @screen-xs){
                 height: ~"calc(100% - 202px)";
                 padding-bottom: 64px;
+                min-height: unset;
 
             }
         }

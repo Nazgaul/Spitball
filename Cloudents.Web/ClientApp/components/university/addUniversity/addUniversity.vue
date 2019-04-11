@@ -101,7 +101,7 @@
                     let searchVal = this.search.trim();
                     if(searchVal.length >= 2) {
                         let paramObj = {term : searchVal, page: 0};
-                        this.loadUniversities(paramObj)
+                        this.loadUniversities(paramObj);
                     }
                 }
             }, 500)
@@ -157,7 +157,6 @@
                     }
                     self.isLoading = false;
                     self.page = 1;
-                    console.log('page::', self.page)
                 }, (err) => {
                     self.isComplete = true;
                 })
@@ -175,7 +174,6 @@
                     }
                     self.isLoading = false;
                     self.page++;
-                    console.log('page::', self.page)
                 }, (err) => {
                     self.isComplete = true;
                 })
@@ -194,7 +192,6 @@
                         let paramObj = {term: this.term, page: this.page};
                         this.concatUniversities(paramObj)
                     }
-                console.log('scroll made');
             },
             updateSearch(val) {
                 this.search = val;
@@ -275,7 +272,7 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
     .add-university-wrap {
-        .scrollBarStyle(3px, #0085D1);
+        .scrollBarStyle(3px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .rounded {
             border-radius: 50%;
             width: 42px;
@@ -314,10 +311,9 @@
         }
         .done-btn {
             color: @colorBlue;
-            border-radius: 16px;
+            border-radius: 36px;
             border: solid 1px @colorBlue;
             background-color: transparent !important;
-            min-width: 160px;
             @media(max-width: @screen-xs){
                 min-width: unset;
             }

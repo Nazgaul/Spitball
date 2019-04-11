@@ -23,7 +23,7 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
 .sb-outline{
-    border-radius: 16px;
+    border-radius: 36px;
     border: solid 1px @colorBlue;
     background-color: transparent!important;
     color: @colorBlue!important;

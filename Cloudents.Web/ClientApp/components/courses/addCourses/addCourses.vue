@@ -51,10 +51,10 @@
                 </div>
             </v-flex>
         </v-layout>
-        <v-layout align-center>
+        <v-layout align-center class="mt-3 px-2">
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list">
-                    <div class="list-item subheading search-class-item cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
+                    <div class="list-item subheading search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
                         <v-layout column class="pl-3 limit-width">
                             <v-flex shrink class="text-truncate course-name-wrap">
@@ -62,7 +62,7 @@
                                     {{ singleClass.text }}
                                 </div>
                             </v-flex>
-                            <v-flex class="students-enrolled pt-2">
+                            <v-flex class="students-enrolled pt-1">
                                 {{singleClass.students}}
                                 <span class="students-enrolled" v-language:inner>courses_students</span>
                             </v-flex>
@@ -70,7 +70,7 @@
                         <v-layout row align-center justify-end class="minimize-width">
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-bold mr-2"
+                                    <span class="light-purple caption font-weight-medium mr-2"
                                           v-html="$Ph('courses_joined')"></span>
                                     <span>
 
@@ -78,7 +78,7 @@
                                    </span>
                                 </v-flex>
                                 <v-flex shrink v-else class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-bold mr-2"
+                                    <span class="light-purple caption font-weight-medium mr-2"
                                           v-html="$Ph('courses_join')"></span>
                                     <span>
 
@@ -87,7 +87,7 @@
                                 </v-flex>
                             </div>
                             <v-flex v-else shrink class="d-flex align-end">
-                                <span class="light-purple caption font-weight-bold mr-2"
+                                <span class="light-purple caption font-weight-medium mr-2"
                                       v-html="$Ph('courses_joined')"></span>
                             </v-flex>
                         </v-layout>
@@ -219,7 +219,6 @@
                         }
                         self.isLoading = false;
                         self.page++;
-                        console.log('page::', self.page);
                     }, (err) => {
                         self.isComplete = true;
                     });
@@ -229,7 +228,6 @@
                 let currentScroll = scrollTop;
                 let scrollOffset = (currentScroll > (0.75 * totalHeight));
                 let retVal = (!this.isLoading && !this.isComplete && currentScroll > 0 && scrollOffset);
-                console.log('keepp  scroll made', retVal);
                 return retVal;
             },
             scrollCourses(e) {
@@ -254,7 +252,6 @@
                 }, (err) => {
                     self.isComplete = true;
                 });
-                console.log('isComplete in load',self.isComplete)
             },
             submitAndGo() {
                 //assign all saved in cached list to classes list
@@ -338,7 +335,7 @@
     @import '../../../styles/mixin.less';
 
     .add-courses-wrap {
-        .scrollBarStyle(3px, #0085D1);
+        .scrollBarStyle(3px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
 
         .hidden {
             display: none;
@@ -370,7 +367,7 @@
         }
         .done-btn {
             color: @colorBlue;
-            border-radius: 16px;
+            border-radius: 36px;
             border: solid 1px @colorBlue;
             background-color: transparent !important;
         }
@@ -391,6 +388,10 @@
                     height: 75px;
                 }
             }
+        }
+        .search-class-item{
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
         .students-enrolled {
             color: rgba(128, 128, 128, 0.87);
