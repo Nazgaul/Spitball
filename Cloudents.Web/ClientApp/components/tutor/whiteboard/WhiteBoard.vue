@@ -265,7 +265,7 @@
                 &.disabled{
                     pointer-events: none;
                     .v-icon {
-                        color: gray;
+                        color: rgba(0,0,0,.3);
                     }
                 }
                 &.active-tool{
