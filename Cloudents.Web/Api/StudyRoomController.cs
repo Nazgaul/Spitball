@@ -4,7 +4,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Extensions;
@@ -65,13 +64,19 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new StudyRoomQuery(id, userId);
-            var result = await _queryBus.QueryAsync(query, token);
+            var result = await GetStudyRoomAsync(id, userId, token);
             if (result == null)
             {
                 return NotFound();
             }
 
+            return result;
+        }
+
+        private async Task<StudyRoomDto> GetStudyRoomAsync(Guid id, long userId, CancellationToken token)
+        {
+            var query = new StudyRoomQuery(id, userId);
+            var result = await _queryBus.QueryAsync(query, token);
             return result;
         }
 
@@ -99,9 +104,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-
-            var query = new StudyRoomQuery(id, userId);
-            var result = await _queryBus.QueryAsync(query, token);
+            var result = await GetStudyRoomAsync(id, userId, token);
             var session = result.SessionId;
             if (string.IsNullOrEmpty(result.SessionId))
             {
@@ -124,7 +127,7 @@ namespace Cloudents.Web.Api
         /// End Tutoring Session
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="session"></param>
+        /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost("{id:guid}/end")]
         public async Task<IActionResult> EndSessionAsync(Guid id,CancellationToken token)
