@@ -136,11 +136,11 @@
                 if(!!val) {
                     searchVal = val.trim();
                     if(searchVal.length >= 3) {
-                        let paramObj = {term : searchVal, page: 0};
+                        let paramObj = {term: searchVal, page: 0};
                         this.loadCourses(paramObj);
                     }
                 } else if(val === '') {
-                    let paramObj = { term: '', page: this.page };
+                    let paramObj = {term: '', page: 0};
                     this.loadCourses(paramObj);
                 }
             }, 500)
@@ -205,59 +205,63 @@
                               "changeClassesToCachedClasses",
                               "addToCachedClasses",
                               "changeCreateDialogState",
-                              "removeFromCached"
+                              "removeFromCached",
+                               "addClasses"
                           ]),
             ...mapGetters(["getClasses"]),
             lastStep() {
                 this.$router.go(-1);
             },
-            concatCourses(paramObj){
+            concatCourses(paramObj) {
                 let self = this;
                 self.isLoading = true;
-                self.addClasses(paramObj).then((hasData) => {
-                    if (!hasData) {
+                self.addClasses(paramObj)
+                    .then((hasData) => {
+                        if(!hasData) {
+                            self.isComplete = true;
+                            return;
+                        }
+                        if(hasData.length < 50) {
+                            self.isComplete = true;
+                        }
+                        self.isLoading = false;
+                        self.page++;
+                        console.log('page::', self.page);
+                    }, (err) => {
                         self.isComplete = true;
-                        return;
-                    }
-                    if(hasData.length < 30){
-                        self.isComplete = true;
-                    }
-                    self.isLoading = false;
-                    self.page++;
-                    console.log('page::', self.page)
-                }, (err) => {
-                    self.isComplete = true;
-                })
+                    });
             },
-            keepLoad(clientHeight, scrollTop){
+            keepLoad(clientHeight, scrollTop) {
                 let totalHeight = clientHeight;
                 let currentScroll = scrollTop;
                 let scrollOffset = (currentScroll > (0.75 * totalHeight));
                 let retVal = (!this.isLoading && !this.isComplete && currentScroll > 0 && scrollOffset);
-                return retVal
+                console.log('keepp  scroll made', retVal);
+                return retVal;
             },
-            scrollCourses(e){
+            scrollCourses(e) {
                 let clientHeight = e.target.scrollHeight - e.target.offsetHeight;
                 let scrollTop = e.target.scrollTop;
-                if(this.keepLoad(clientHeight, scrollTop)){
+                if(this.keepLoad(clientHeight, scrollTop)) {
                     let paramObj = {term: this.term, page: this.page};
-                    this.concatCourses(paramObj)
+                    this.concatCourses(paramObj);
                 }
-                console.log('scroll made');
+
             },
-            loadCourses(paramObj){
+            loadCourses(paramObj) {
                 let self = this;
                 self.isComplete = false;
                 self.isLoading = true;
                 this.updateClasses(paramObj).then((hasData) => {
-                    if (!hasData) {
+                    if(!hasData) {
                         self.isComplete = true;
                     }
                     self.isLoading = false;
                     self.page = 1;
                 }, (err) => {
-                    this.isComplete = true;
-                })
+                    self.isComplete = true;
+                });
+                console.log('isComplete in load',self.isComplete)
             },
             submitAndGo() {
                 //assign all saved in cached list to classes list
@@ -271,8 +275,8 @@
                 from.splice(index, 1);
                 //clean from cached list and request new list, and refresh data
                 this.removeFromCached(classToDelete);
-                let paramObj = { term: this.search, page: this.page };
-                this.updateClasses(paramObj);
+                let paramObj = {term: this.search, page: 0};
+                this.loadCourses(paramObj);
 
             },
             checkAsSelected(classToCheck, from) {
@@ -292,14 +296,14 @@
             },
         },
         created() {
-            let paramObj = {term: this.term, page: this.page};
+            let paramObj = {term: this.term, page: 0};
             this.loadCourses(paramObj);
-            this.$nextTick(function(){
-                let scrollableElm = document.querySelector('.class-list');
-                scrollableElm.addEventListener('scroll', (e)=>{
-                    this.scrollCourses(e)
-                })
-            })
+            this.$nextTick(function () {
+                let scrollableElm = document.querySelector('.search-classes-list');
+                scrollableElm.addEventListener('scroll', (e) => {
+                    this.scrollCourses(e);
+                });
+            });
         },
         mounted() {
             let self = this;
