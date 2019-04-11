@@ -22,10 +22,10 @@ namespace Cloudents.Core.Entities
 
         public virtual string SessionId { get; protected set; }
 
-        public static void EndSession(StudyRoomSession session)
+        public void EndSession()
         {
-            session.Ended = DateTime.UtcNow;
-            session.Duration = session.Ended - session.Created;
+            Ended = DateTime.UtcNow;
+            Duration = Ended - Created;
         }
     }
 }

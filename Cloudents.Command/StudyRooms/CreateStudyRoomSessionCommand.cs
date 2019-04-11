@@ -1,19 +1,19 @@
 ﻿using System;
 
-namespace Cloudents.Command.Command
+namespace Cloudents.Command.StudyRooms
 {
     public class CreateStudyRoomSessionCommand : ICommand
     {
-        public CreateStudyRoomSessionCommand(Guid studyRoomId, string sessionName, long tutorId)
+        public CreateStudyRoomSessionCommand(Guid studyRoomId, string sessionName, long userId)
         {
             StudyRoomId = studyRoomId;
             SessionName = sessionName;
-            TutorId = tutorId;
+            UserId = userId;
         }
         public Guid StudyRoomId { get; }
 
         public string SessionName { get;  }
 
-        public long TutorId { get;  }
+        public long UserId { get;  }
     }
 }

@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command.StudyRooms;
 
 namespace Cloudents.Web.Api
 {
@@ -51,7 +52,6 @@ namespace Cloudents.Web.Api
             var tutorId = _userManager.GetLongUserId(User);
             var command = new CreateStudyRoomCommand(tutorId, model.UserId);
             await _commandBus.DispatchAsync(command, token);
-            //TODO: signalr
             return Ok();
         }
 
@@ -93,65 +93,47 @@ namespace Cloudents.Web.Api
         /// Start a session
         /// </summary>
         /// <returns></returns>
-        [HttpPost("{id:guid}/start")]
+        [HttpPost("{id:guid}/enter")]
         public async Task<IActionResult> CreateAsync([FromRoute] Guid id,
             [FromServices] IHostingEnvironment configuration,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var session = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-            await _videoProvider.CreateRoomAsync(session, configuration.IsProduction());
-            var command = new CreateStudyRoomSessionCommand(id, session, userId);
-            await _commandBus.DispatchAsync(command, token);
 
-            //TODO signalr
-            // var t1 = _videoProvider.CreateRoomAsync(roomName, configuration.IsProduction());
-            //  var t2 = _queueProvider.InsertMessageAsync(new EndTutoringSessionMessage(roomName), TimeSpan.FromMinutes(90), token);
-            // await Task.WhenAll(t1, t2);
+            var query = new StudyRoomQuery(id, userId);
+            var result = await _queryBus.QueryAsync(query, token);
+            var session = result.SessionId;
+            if (string.IsNullOrEmpty(result.SessionId))
+            {
+
+                session = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
+                await _videoProvider.CreateRoomAsync(session, configuration.IsProduction());
+                var command = new CreateStudyRoomSessionCommand(id, session, userId);
+                await _commandBus.DispatchAsync(command, token);
+
+            }
+            var jwtToken = await _videoProvider.ConnectToRoomAsync(session, userId.ToString(), true);
             return Ok(new
             {
-                session
+                jwtToken
             });
+           
         }
 
         /// <summary>
-        /// Join to an open session
+        /// End Tutoring Session
         /// </summary>
         /// <param name="id"></param>
         /// <param name="session"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpPost("{id:guid}/join")]
-        public async Task<IActionResult> ConnectToSessionAsync(Guid id,
-           [FromBody] string session
-           )
-        {
-            var user = _userManager.GetUserId(User);
-            var token = await _videoProvider.ConnectToRoomAsync(session, user, true);
-            return Ok(new
-            {
-                token
-            });
-        }
-
-
-        /// <summary>
-        /// End Open Session
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="session"></param>
-        /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost("{id:guid}/end")]
-        public async Task<IActionResult> EndSessionAsync(Guid id,
-            [FromBody] string session
-        )
+        public async Task<IActionResult> EndSessionAsync(Guid id,CancellationToken token)
         {
-            //TODO need to validate
-            await _videoProvider.CloseRoomAsync(session);
+            var userId = _userManager.GetLongUserId(User);
+            var command = new EndStudyRoomSessionCommand(id,  userId);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
-
 
         [HttpPost("review")]
         public async Task<IActionResult> CreateReview([FromBody] ReviewRequest model,
