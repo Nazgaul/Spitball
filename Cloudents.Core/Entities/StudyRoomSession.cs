@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string SessionId { get; protected set; }
 
-        public void EndSession()
+        public virtual void EndSession()
         {
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
