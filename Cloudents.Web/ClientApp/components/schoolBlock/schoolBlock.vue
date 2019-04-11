@@ -28,7 +28,7 @@
           class="group-items"
           :class="{'active': !selectedCourse && !inUniselect}"
           @click="selectCourse(null, true)">
-          <v-list-tile-title v-text="dictionary.allCourses"></v-list-tile-title>
+          <v-list-tile-title style="font-weight: bold;" v-text="dictionary.allCourses"></v-list-tile-title>
         </v-list-tile>
         <v-list-tile
           class="group-items"
