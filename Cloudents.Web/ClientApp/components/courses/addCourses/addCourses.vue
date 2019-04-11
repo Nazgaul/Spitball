@@ -283,6 +283,7 @@
                 from[index].isSelected = true;
             },
             addClass(className) {
+                if(className.isFollowing)return;
                 this.localSelectedClasses.push(className);
                 //add to cached list
                 this.addToCachedClasses(className);
