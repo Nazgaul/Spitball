@@ -10,7 +10,7 @@
             <span v-if="isOnline" class="online-circle"></span>
         </div>
         <v-layout column align-center justify-space-between class="study-card-lower-area">
-            <v-flex>
+            <v-flex class="study-card-name">
                 {{card.name}}
             </v-flex>
             <v-flex py-3 class="study-card-enter-container">
@@ -138,7 +138,11 @@ export default {
                     cursor: pointer;
                 }
             }
-            
+            .study-card-name{
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
         }
         .study-card-created-container{
             font-size: 11px;
