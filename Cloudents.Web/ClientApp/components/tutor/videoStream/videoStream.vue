@@ -21,7 +21,7 @@
                 <v-flex class="px-3 video-con-controls" @click="minimize('remote_player')">
                     <div style="display: flex; align-items: center;">
                         <span :class="[remoteOffline  ? 'remote-offline' : 'remote-online']"></span>
-                        <span class="user-badge ml-2">Guest</span>
+                        <span class="user-badge">Guest</span>
                         <div id="micVolume_indicator" class="ml-3">
 
                         </div>
