@@ -157,10 +157,10 @@
     <value>הזמן חברים ללימודים</value>
   </data>
   <data name="join" xml:space="preserve">
-    <value>הוסף</value>
+    <value>צרף לקורסים</value>
   </data>
   <data name="joined" xml:space="preserve">
-    <value> </value>
+    <value>צורף</value>
   </data>
   <data name="link_copied" xml:space="preserve">
     <value>הקישור הועתק</value>
