@@ -103,6 +103,7 @@
     .tutor-name{
         color: @profileTextColor;
         line-height: 12px;
+        word-break: break-all;
     }
     .tutor-rank{
             font-size: 10px;
@@ -123,8 +124,8 @@
         line-height: 1.33;
     }
     .rounded{
-        height: 32px;
-        width: 32px;
+        min-height: 32px;
+        min-width: 32px;
         border-radius: 50%;
         background-color: @profileTextColor;
     }

@@ -398,7 +398,7 @@ const actions = {
     changeLastActiveRoute({commit}, route) {
         commit("setLastActiveRoute", route)
     },
-    userStatus({dispatch, commit, getters}, {isRequire, to}) {
+    userStatus({dispatch, commit, getters, rootState }, {isRequire, to}) {
         const $this = this;
         if (getters.isUser) {
             return Promise.resolve();
@@ -412,7 +412,15 @@ const actions = {
                 dispatch("syncUniData");
                 dispatch("getAllConversations");
                 analyticsService.sb_setUserId(UserAccount.id);
-                initSignalRService();
+                setTimeout(()=>{
+                    if(rootState.route.name === 'tutoring'){
+                        initSignalRService('studyRoomHub');
+                    }else{
+                        initSignalRService();
+                    }
+                }, 1500)
+                
+                
             }).catch(_ => {
                 setIntercomeData()
                 isRequire ? commit("updateFromPath", to) : '';

@@ -10,11 +10,14 @@
             <span v-if="isOnline" class="online-circle"></span>
         </div>
         <v-layout column align-center justify-space-between class="study-card-lower-area">
-            <v-flex>
+            <v-flex py-1 class="study-card-name">
                 {{card.name}}
             </v-flex>
-            <v-flex py-3 class="study-card-enter-container">
-                <v-icon @click="enterRoom" class="study-card-enter-icon">sbf-close</v-icon>
+            <v-flex py-1 class="study-card-message">
+                <v-icon>sbf-message-icon</v-icon>
+            </v-flex>
+            <v-flex py-1 class="study-card-enter-container">
+                <v-icon @click="enterRoom" class="study-card-enter-icon">sbf-enter-icon</v-icon>
                 <span @click="enterRoom" class="study-card-enter-text">enter room</span> 
             </v-flex>
         </v-layout>
@@ -59,7 +62,23 @@ export default {
                         }
                 });
             global.open(routeData.href, '_blank');
-        }
+        },
+        // sendMessage(){
+        //         if ( this.accountUser == null) {
+        //             this.updateLoginDialogState(true);
+        //         } else {
+        //             let currentConversationObj = chatService.createActiveConversationObj(this.tutorData)
+        //             this.setActiveConversationObj(currentConversationObj);
+        //             let isMobile = this.$vuetify.breakpoint.smAndDown;
+        //             if(isMobile){
+        //                 //move to chat tab
+        //                 this.changeFooterActiveTab('promotions');
+        //             }else{
+        //                 this.openChatInterface();
+        //             }
+                    
+        //         }
+        //     }
     },
     computed:{
         date(){
@@ -138,7 +157,27 @@ export default {
                     cursor: pointer;
                 }
             }
-            
+            .study-card-name{
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                font-size: 12px;
+                color: #5d5d5d;
+                font-weight: bold;
+            }
+            .study-card-message{
+                .sbf-message-icon{
+                    font-size:13px;
+                    color: #fff;
+                    height: 32px;
+                    width: 32px;
+                    background-color: #43425d;
+                    border-radius: 50%;
+                    margin: 0 auto;
+                    display: flex;
+                    cursor: pointer;
+                }
+            }
         }
         .study-card-created-container{
             font-size: 11px;
