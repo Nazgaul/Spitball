@@ -8,6 +8,7 @@ namespace Cloudents.Persistence.Maps
         public RegularUserMap()
         {
 
+            DynamicUpdate();
             DiscriminatorValue(false);
             Map(e => e.PhoneNumber).Column("PhoneNumberHash");
             Map(e => e.PhoneNumberConfirmed);
@@ -67,7 +68,7 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumn("UserId")
                 .Inverse()
                 .Cascade.AllDeleteOrphan();*/
-            HasOne(x => x.Tutor).Cascade.All();
+            HasOne(x => x.Tutor).LazyLoad().Cascade.All();
 
         }
     }

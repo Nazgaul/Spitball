@@ -12,7 +12,7 @@
                                 <div class="user-name mb-1">
                                     <div class="align-start">
                                         <v-icon v-if="$vuetify.breakpoint.xsOnly && isTutorProfile" class="face-icon mr-2">sbf-face-icon</v-icon>
-                                    <span class="line-height-1 subheading font-weight-bold">{{userName}}</span>
+                                    <span class="line-height-1 subheading font-weight-bold" style="word-break: break-all;">{{userName}}</span>
                                         <v-icon @click="openEditInfo()"
                                                 v-if="$vuetify.breakpoint.xsOnly && isMyProfile" class="edit-profile-action  ml-2">sbf-edit-icon</v-icon>
                                     </div>

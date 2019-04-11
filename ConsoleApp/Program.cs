@@ -26,6 +26,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cloudents.Query.Query;
 using Cloudents.Search.University;
+using FluentNHibernate.Data;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -100,7 +101,7 @@ namespace ConsoleApp
 
 
 
-            builder.Register(_ => GetSettings(EnvironmentSettings.Prod)).As<IConfigurationKeys>();
+            builder.Register(_ => GetSettings(EnvironmentSettings.Dev)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistence"),
@@ -136,7 +137,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var c = await UpdateMethod();
+            var c = _container.Resolve<UniversitySearchWrite>();
+            await c.DeleteOldDataAsync(DateTime.UtcNow.AddDays(-5), default);
             //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
             // await c.DispatchAsync(command2, default);
 
