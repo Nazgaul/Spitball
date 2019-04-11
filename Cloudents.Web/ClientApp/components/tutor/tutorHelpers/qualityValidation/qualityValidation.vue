@@ -7,16 +7,16 @@
         </div>
 
         <v-stepper-header v-if="!isErorrGettingMedia">
-            <v-stepper-step color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 1" step="1">Audio Input
+            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 1" step="1">Audio Input
                 Test
             </v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 2" step="2">Audio Output
+            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 2" step="2">Audio Output
                 Test
             </v-stepper-step>
             <v-divider></v-divider>
 
-            <v-stepper-step color="#4452fc" :complete-icon="'sbf-checkmark'" step="3">Video Test</v-stepper-step>
+            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" step="3">Video Test</v-stepper-step>
         </v-stepper-header>
         <!--header unable to get device-->
         <v-stepper-header class="device-error-header px-4 py-2" v-if="isErorrGettingMedia && notAvaliableDevices">
@@ -125,6 +125,11 @@
     .quality-test-container {
         /*rtl:begin:ignore*/
         direction: ltr;
+        .step-indicator{
+            .v-stepper__step__step{
+                margin-right: 8px/*rtl:ignore*/;
+            }
+        }
         .device-error-header {
             display: flex;
             align-items: center;
