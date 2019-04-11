@@ -164,14 +164,6 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        [HttpPost("subject")]
-        public async Task<IActionResult> SetSubjectToCourse([FromBody] SetSubjectToCourseRequest model,
-                CancellationToken token)
-        {
-            var command = new AddSubjectToCourseCommand(model.CourseName, model.Subject);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
 
         [HttpGet("subject")]
         public async Task<IEnumerable<string>> GetSubjects(CancellationToken token)
