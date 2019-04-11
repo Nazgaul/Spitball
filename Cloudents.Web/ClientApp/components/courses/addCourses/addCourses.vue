@@ -54,9 +54,6 @@
         <v-layout align-center>
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list">
-
-                    <scroll-list :scrollFunc="loadCourses" :isLoading="isLoading"
-                                 :isComplete="isComplete">
                     <div class="list-item subheading search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classes">
                         <v-layout column class="pl-3 limit-width">
@@ -96,7 +93,6 @@
                             </v-flex>
                         </v-layout>
                     </div>
-                    </scroll-list>
                     <!--create new course-->
                     <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
                             @click="changeCreateDialogState(true)">
@@ -121,7 +117,8 @@
                 search: "",
                 isLoading: false,
                 isComplete: false,
-                page: 1,
+                page: 0,
+                term: '',
                 isFirefox: global.isFirefox,
                 isEdge: global.isEdge,
                 classNamePlaceholder: LanguageService.getValueByKey(
@@ -139,13 +136,12 @@
                 if(!!val) {
                     searchVal = val.trim();
                     if(searchVal.length >= 3) {
-                        let paramObj = { term: searchVal, page: this.page };
-                        this.updateClasses(paramObj);
+                        let paramObj = {term : searchVal, page: 0};
+                        this.loadCourses(paramObj);
                     }
                 } else if(val === '') {
                     let paramObj = { term: '', page: this.page };
-                    this.updateClasses(paramObj);
-                    // this.updateClasses('');
+                    this.loadCourses(paramObj);
                 }
             }, 500)
         },
@@ -212,17 +208,53 @@
                               "removeFromCached"
                           ]),
             ...mapGetters(["getClasses"]),
-
             lastStep() {
                 this.$router.go(-1);
             },
-            loadCourses(){
-                this.updateClasses(this.page).then((hasData) => {
+            concatCourses(paramObj){
+                let self = this;
+                self.isLoading = true;
+                self.addClasses(paramObj).then((hasData) => {
                     if (!hasData) {
-                        this.isComplete = true;
+                        self.isComplete = true;
+                        return;
                     }
-                    this.isLoading = false;
-                    this.page++;
+                    if(hasData.length < 30){
+                        self.isComplete = true;
+                    }
+                    self.isLoading = false;
+                    self.page++;
+                    console.log('page::', self.page)
+                }, (err) => {
+                    self.isComplete = true;
+                })
+            },
+            keepLoad(clientHeight, scrollTop){
+                let totalHeight = clientHeight;
+                let currentScroll = scrollTop;
+                let scrollOffset = (currentScroll > (0.75 * totalHeight));
+                let retVal = (!this.isLoading && !this.isComplete && currentScroll > 0 && scrollOffset);
+                return retVal
+            },
+            scrollCourses(e){
+                let clientHeight = e.target.scrollHeight - e.target.offsetHeight;
+                let scrollTop = e.target.scrollTop;
+                if(this.keepLoad(clientHeight, scrollTop)){
+                    let paramObj = {term: this.term, page: this.page};
+                    this.concatCourses(paramObj)
+                }
+                console.log('scroll made');
+            },
+            loadCourses(paramObj){
+                let self = this;
+                self.isComplete = false;
+                self.isLoading = true;
+                this.updateClasses(paramObj).then((hasData) => {
+                    if (!hasData) {
+                        self.isComplete = true;
+                    }
+                    self.isLoading = false;
+                    self.page = 1;
                 }, (err) => {
                     this.isComplete = true;
                 })
@@ -260,7 +292,14 @@
             },
         },
         created() {
-            this.updateClasses({ term: '', page: this.page });
+            let paramObj = {term: this.term, page: this.page};
+            this.loadCourses(paramObj);
+            this.$nextTick(function(){
+                let scrollableElm = document.querySelector('.class-list');
+                scrollableElm.addEventListener('scroll', (e)=>{
+                    this.scrollCourses(e)
+                })
+            })
         },
         mounted() {
             let self = this;

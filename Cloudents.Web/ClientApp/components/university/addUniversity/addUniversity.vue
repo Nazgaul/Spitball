@@ -32,12 +32,10 @@
                 ></v-text-field>
             </v-flex>
         </v-layout>
+
         <v-layout align-center :class="[$vuetify.breakpoint.smAndUp ? 'px-2 mt-3': '']">
             <v-flex v-if="showBox">
                 <div class="university-list">
-
-                    <scroll-list  :scrollFunc="loadUniversities" :isLoading="isLoading"
-                                 :isComplete="isComplete">
                     <div class="list-item subheading cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleUni in universities"
                          @click="selectUniversity(singleUni)">
@@ -63,7 +61,6 @@
                             </v-flex>
                         </v-layout>
                     </div>
-                    </scroll-list>
                     <!--create new University-->
                     <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
                             @click.prevent="openCreateUniDialog()">
@@ -73,7 +70,6 @@
                 </div>
             </v-flex>
         </v-layout>
-
     </div>
 </template>
 
@@ -90,7 +86,8 @@
             return {
                 isLoading: false,
                 isComplete: false,
-                page: 1,
+                page: 0,
+                term: '',
                 universityModel: '',
                 search: '',
                 schoolNamePlaceholder: LanguageService.getValueByKey('university_create_uni_placeholder'),
@@ -103,13 +100,10 @@
                 if(!!this.search) {
                     let searchVal = this.search.trim();
                     if(searchVal.length >= 2) {
-                        let paramObj = {term : searchVal, page: this.page};
-                        this.updateUniversities(paramObj);
+                        let paramObj = {term : searchVal, page: 0};
+                        this.loadUniversities(paramObj)
                     }
                 }
-                // if(this.search === "") {
-                //     this.clearData();
-                // }
             }, 500)
         },
         computed: {
@@ -139,6 +133,7 @@
         methods: {
             ...mapActions([
                               "updateUniversities",
+                              "addUniversities",
                               "clearUniversityList",
                               "updateSchoolName",
                               "changeUniCreateDialogState"
@@ -155,17 +150,54 @@
                 let classesSet = this.getSelectedClasses && this.getSelectedClasses.length > 0;
                 classesSet ? this.$router.go(-1) : this.$router.push({name: 'editCourse'});
             },
-            loadUniversities(){
-                let paramObj = {term: this.search, page:this.page};
-                this.updateUniversities(paramObj).then((hasData) => {
+            loadUniversities(paramObj){
+                let self = this;
+                self.isComplete = false;
+                self.isLoading = true;
+                self.updateUniversities(paramObj).then((hasData) => {
                     if (!hasData) {
-                        this.isComplete = true;
+                        self.isComplete = true;
                     }
-                    this.isLoading = false;
-                    this.page++;
+                    self.isLoading = false;
+                    self.page = 1;
+                    console.log('page::', self.page)
                 }, (err) => {
-                    this.isComplete = true;
+                    self.isComplete = true;
                 })
+            },
+            concatUniversities(paramObj){
+                let self = this;
+                self.isLoading = true;
+                self.addUniversities(paramObj).then((hasData) => {
+                    if (!hasData) {
+                        self.isComplete = true;
+                        return;
+                    }
+                    if(hasData.length < 30){
+                        self.isComplete = true;
+                    }
+                    self.isLoading = false;
+                    self.page++;
+                    console.log('page::', self.page)
+                }, (err) => {
+                    self.isComplete = true;
+                })
+            },
+            keepLoad(clientHeight, scrollTop){
+                let totalHeight = clientHeight;
+                let currentScroll = scrollTop;
+                let scrollOffset = (currentScroll > (0.75 * totalHeight));
+                let retVal = (!this.isLoading && !this.isComplete && currentScroll > 0 && scrollOffset);
+                return retVal
+            },
+            scrollUniversities(e){
+                let clientHeight = e.target.scrollHeight - e.target.offsetHeight;
+                let scrollTop = e.target.scrollTop;
+                    if(this.keepLoad(clientHeight, scrollTop)){
+                        let paramObj = {term: this.term, page: this.page};
+                        this.concatUniversities(paramObj)
+                    }
+                console.log('scroll made');
             },
             updateSearch(val) {
                 this.search = val;
@@ -210,8 +242,14 @@
             },
         },
         created(){
-            let paramObj = {term: ' ', page:this.page};
-            this.updateUniversities(paramObj);
+            let paramObj = {term: this.term, page: this.page};
+            this.loadUniversities(paramObj);
+            this.$nextTick(function(){
+                let scrollableElm = document.querySelector('.university-list');
+                scrollableElm.addEventListener('scroll', (e)=>{
+                    this.scrollUniversities(e)
+                })
+            })
         },
         filters: {
             boldText(value, search) {
@@ -288,7 +326,7 @@
             background-color: #ffffff;
             max-height: 664px;
             padding-left: 0;
-            overflow-y: scroll;
+            overflow-y: auto;
         }
         .students-enrolled {
             color: rgba(128, 128, 128, 0.87);
