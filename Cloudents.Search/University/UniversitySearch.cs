@@ -1,9 +1,9 @@
-﻿using System;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -15,6 +15,8 @@ namespace Cloudents.Search.University
     public class UniversitySearch : IUniversitySearch
     {
         private readonly ISearchIndexClient _client;
+
+        private const int PageSize = 30;
 
         private readonly string[] _listOfSelectParams = {
             nameof(Entities.University.Id),
@@ -29,13 +31,14 @@ namespace Cloudents.Search.University
             _client = client.GetClient(UniversitySearchWrite.IndexName);
         }
 
-        public async Task<UniversitySearchDto> SearchAsync(string term, string country,
+        public async Task<UniversitySearchDto> SearchAsync(string term, int page, string country,
             CancellationToken token)
         {
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,
-                Top = 15,
+                Top = PageSize,
+                Skip = PageSize * page,
                 OrderBy = new List<string> { "search.score() desc",
                     $"{Entities.University.UserCountFieldName} desc" },
                 ScoringProfile = UniversitySearchWrite.ScoringProfile,
@@ -53,8 +56,12 @@ namespace Cloudents.Search.University
                     cancellationToken: token);
 
             if (searchDocumentResult.Results.Count != 0)
+            {
                 return new UniversitySearchDto(searchDocumentResult.Results.Select(s =>
                     ToDto(s.Document)));
+            }
+
+            if (page == 0)
             {
                 var suggesterResult = await _client.Documents.SuggestAsync<Entities.University>(term,
                     UniversitySearchWrite.SuggesterName,
@@ -62,12 +69,13 @@ namespace Cloudents.Search.University
                     {
                         Select = _listOfSelectParams,
                         UseFuzzyMatching = true,
-                        Top = 15
+                        Top = PageSize
                     }, cancellationToken: token);
                 return new UniversitySearchDto(suggesterResult.Results.Select(s =>
-                    ToDto( s.Document)));
+                    ToDto(s.Document)));
             }
 
+            return new UniversitySearchDto(Enumerable.Empty<UniversityDto>());
         }
 
         private static UniversityDto ToDto(Entities.University university)

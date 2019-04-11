@@ -1,12 +1,4 @@
-﻿using Cloudents.Web.Extensions;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Universities;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
@@ -14,6 +6,13 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
+using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -53,18 +52,19 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet, AllowAnonymous]
-        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { nameof(UniversityRequest.Term) })]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client,
+            VaryByQueryKeys = new[] { "*" })]
 
         public async Task<UniversitySearchDto> GetAsync([FromQuery] UniversityRequest model,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var result = await _universityProvider.SearchAsync(model.Term,
+            var result = await _universityProvider.SearchAsync(model.Term, model.Page,
                 profile.Country, token);
             return result;
         }
 
-        
+
 
         [HttpPost("set")]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
