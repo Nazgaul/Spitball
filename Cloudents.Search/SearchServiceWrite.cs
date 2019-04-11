@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
 using ISearchObject = Cloudents.Search.Interfaces.ISearchObject;
 
 namespace Cloudents.Search
@@ -82,12 +82,33 @@ namespace Cloudents.Search
             if (actions.Count <= 0) return false;
             var batch = IndexBatch.New(actions);
             var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
-            foreach (var errorResult in result.Results.Where(w=>!w.Succeeded))
+            foreach (var errorResult in result.Results.Where(w => !w.Succeeded))
             {
                 _logger.Error($"Failed to process id {errorResult.Key} error {errorResult.ErrorMessage} on index {IndexClient.IndexName} ");
             }
 
             return result.Results.Count > 0;
+        }
+
+
+        protected async Task DeleteOldDataAsync(string filterName, DateTime timeToDelete, CancellationToken token)
+        {
+            const int top = 1000;
+            var parameters = new SearchParameters
+            {
+                Filter = $"{filterName} lt {timeToDelete.ToUniversalTime():yyyy-MM-dd'T'hh:mm:ss'Z'}'",
+                Select = new[] { nameof(ISearchObject.Id) },
+                Top = top
+            };
+            IList<SearchResult<T>> result;
+            do
+            {
+                var searchRetVal = await IndexClient.Documents.SearchAsync<T>("*", parameters, cancellationToken: token);
+                result = searchRetVal.Results;
+
+                await DeleteDataAsync(result.Select(s => s.Document.Id), token);
+
+            } while (result.Count == top);
         }
 
         public virtual async Task CreateOrUpdateAsync(CancellationToken token)
@@ -111,8 +132,8 @@ namespace Cloudents.Search
         protected abstract Index GetIndexStructure(string indexName);
 
 
-       
 
-       
+
+
     }
 }

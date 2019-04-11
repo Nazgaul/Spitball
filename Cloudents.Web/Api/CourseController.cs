@@ -1,12 +1,10 @@
-﻿using System;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Courses;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +13,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Identity;
 
 namespace Cloudents.Web.Api
 {
