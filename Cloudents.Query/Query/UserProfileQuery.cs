@@ -32,6 +32,7 @@ namespace Cloudents.Query.Query
                     
                 using (var conn = _session.OpenConnection())
                 {
+                    //TODO : change to nhibernate
                     
                     var t =  await conn.QueryAsync<UserProfileDto, UserTutorProfileDto, UserProfileDto>(@"
 select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description,
@@ -50,7 +51,7 @@ and (u.LockoutEnd is null or u.LockoutEnd < GETUTCDATE())
                         dto.Tutor = profileDto;
                         return dto;
                     } , new { id = query.Id },splitOn:"price");
-                    return t.FirstOrDefault();
+                    return t.SingleOrDefault();
                 }
 
 

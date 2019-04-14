@@ -1,49 +1,11 @@
-﻿using System;
-using System.Data.SqlClient;
-using Autofac;
-using Cloudents.Core;
-using Cloudents.Core.Interfaces;
-using Cloudents.Query;
+﻿using System.Data.SqlClient;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
-using Cloudents.Infrastructure.Stuff;
-using Cloudents.Persistence;
+using Cloudents.Query.Query;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
-
-    public class DatabaseFixture : IDisposable
-    {
-
-        public DatabaseFixture()
-        {
-            var configuration = new ConfigurationKeys("SomeSite")
-            {
-                Db = new DbConnectionString(
-                    "Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew_Develop;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=true;",
-                    null)
-            };
-            var builder = new ContainerBuilder();
-            builder.Register(_ => configuration).As<IConfigurationKeys>();
-            builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
-            builder.RegisterType<QueryBus>().As<IQueryBus>();
-            builder.RegisterModule<ModuleDb>();
-            builder.RegisterModule<ModuleCore>();
-            builder.RegisterType<DapperRepository>().AsSelf();
-            var _container = builder.Build();
-            _queryBus = _container.Resolve<IQueryBus>();
-
-            // ... initialize data in the test database ...
-        }
-
-        public void Dispose()
-        {
-            // ... clean up test data from the database ...
-        }
-
-        public IQueryBus _queryBus { get; private set; }
-    }
     [CollectionDefinition("Database collection")]
     public class DatabaseCollection : ICollectionFixture<DatabaseFixture>
     {
@@ -96,6 +58,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task DocumentCourseQuery_Filter_Ok()
         {
             var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" });
+
+            var result = await fixture._queryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task UserProfileAboutQuery_Ok()
+        {
+            var query = new UserProfileAboutQuery(638);
 
             var result = await fixture._queryBus.QueryAsync(query, default);
         }
