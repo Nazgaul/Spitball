@@ -15,10 +15,7 @@ namespace Cloudents.Web.Models
         [StringLength(1000, ErrorMessage = "StringLength")]
         public string Bio { get; set; }
     }
-   
 
-    public class BecomeTutorRequest
-    {
-        public string Bio { get; set; }
-    }
+
+   
 }
