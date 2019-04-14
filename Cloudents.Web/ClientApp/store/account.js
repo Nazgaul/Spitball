@@ -414,7 +414,7 @@ const actions = {
                 analyticsService.sb_setUserId(UserAccount.id);
                 setTimeout(()=>{
                     if(rootState.route.name === 'tutoring'){
-                        initSignalRService('studyRoomHub');
+                       // initSignalRService('studyRoomHub');
                     }else{
                         initSignalRService();
                     }

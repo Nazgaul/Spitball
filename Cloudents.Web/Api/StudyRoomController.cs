@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.StudyRooms;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -29,6 +30,9 @@ namespace Cloudents.Web.Api
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
+
+        public const string CookieName = "studyRoomId";
+
 
         public StudyRoomController(IVideoProvider videoProvider,
             ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus)
@@ -61,6 +65,9 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -69,7 +76,12 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
+            Response.Cookies.Append(CookieName, id.ToString(), new CookieOptions()
+            {
+                HttpOnly = true,
+                Secure = true,
 
+            });
             return result;
         }
 
