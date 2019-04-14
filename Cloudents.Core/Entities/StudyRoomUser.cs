@@ -15,5 +15,7 @@ namespace Cloudents.Core.Entities
         }
 
         public virtual RegularUser User { get; protected set; }
+
+        public virtual bool Online { get; set; }
     }
 }

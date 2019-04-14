@@ -23,18 +23,12 @@ namespace Cloudents.Web.EventHandler
         public async Task HandleAsync(StudyRoomCreatedEvent eventMessage, CancellationToken token)
         {
             var studyRoom = eventMessage.StudyRoom;
-            var users = new List<string>()
-            {
-                studyRoom.Tutor.Id.ToString(),
-
-            };
-            users.AddRange(studyRoom.Users.Select(s => s.User.Id.ToString()));
             var message = new SignalRTransportType(SignalRType.StudyRoom,
                 SignalRAction.Add, new
                 {
                     id = studyRoom.Id
                 });
-            await _hubContext.Clients.Users(users).SendAsync(SbHub.MethodName, message, token);
+            await _hubContext.Clients.Users(studyRoom.Users.Select(s => s.User.Id.ToString()).ToList()).SendAsync(SbHub.MethodName, message, token);
         }
     }
 }

@@ -8,6 +8,7 @@ using Cloudents.Query.Documents;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure.Stuff;
 using Cloudents.Persistence;
+using Cloudents.Query.Tutor;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -96,6 +97,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task DocumentCourseQuery_Filter_Ok()
         {
             var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" });
+
+            var result = await fixture._queryBus.QueryAsync(query, default);
+        }
+
+
+        [Fact]
+        public async Task StudyRoomQuery_Ok()
+        {
+            var query = new StudyRoomQuery(Guid.Parse("083318E9-9CA0-4328-95BC-AA2F00E2D4FC"), 638);
 
             var result = await fixture._queryBus.QueryAsync(query, default);
         }

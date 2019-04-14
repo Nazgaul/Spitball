@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
         }
 
         /// <summary>
-        /// Create study room between tutor and student for many sessions
+        /// Create study room between tutor and student for many sessions - happens in chat
         /// </summary>
         /// <param name="model"></param>
         /// <param name="token"></param>

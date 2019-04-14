@@ -41,10 +41,9 @@ onlineDocumentUrl as OnlineDocument,
 cr.Id as ConversationId
 
 from sb.StudyRoom sr join sb.ChatRoom cr on sr.Identifier = cr.Identifier
-join sb.StudyRoomSession srs on sr.Id = srs.StudyRoomId and srs.Ended is null
-cross apply STRING_SPLIT(sr.identifier,'_')
-where sr.id = @Id
-and value = @UserId;",
+left join sb.StudyRoomSession srs on sr.Id = srs.StudyRoomId and srs.Ended is null
+join sb.StudyRoomUser sru on sr.Id = sru.StudyRoomId and sru.UserId = @UserId
+where sr.id = @Id;",
                         new { query.Id, query.UserId });
 
 

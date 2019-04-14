@@ -272,7 +272,7 @@ let routes2 = [
     },
 
     {
-        path: "/tutoring/:id?",
+        path: "/studyroom/:id?",
         name: 'tutoring',
         components: {
             default: tutorComponent,
