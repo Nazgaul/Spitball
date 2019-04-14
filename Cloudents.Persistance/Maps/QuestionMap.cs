@@ -22,7 +22,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.User).Column("UserId")
                 .ForeignKey("Question_User").Not.Nullable();
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
-            References(x => x.University).Not.Nullable().Column("UniversityId").ForeignKey("Question_University").Nullable();
+            References(x => x.University).Column("UniversityId").ForeignKey("Question_University").Nullable();
             References(x => x.Course).Not.Nullable().Column("CourseId").ForeignKey("Question_Course").Nullable();
             HasMany(x => x.Answers).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse()

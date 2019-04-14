@@ -21,11 +21,9 @@ namespace Cloudents.Core.Entities
     {
         public Question(QuestionSubject? subject, string text, decimal price, int attachments,
             RegularUser user,
-             CultureInfo language, [NotNull] Course course, [NotNull] University university)
+             CultureInfo language,  [NotNull] Course course,  University university)
         : this()
         {
-            if (course == null) throw new ArgumentNullException(nameof(course));
-            if (university == null) throw new ArgumentNullException(nameof(university));
             Subject = subject;
             Text = text?.Trim();
             Price = price;
@@ -41,8 +39,8 @@ namespace Cloudents.Core.Entities
             }
 
             Status = status;
-            Course = course;
-            University = university;
+            Course = course ?? throw new ArgumentException();
+            University = university ;
             Language = language ?? new CultureInfo("en");
         }
 
@@ -85,6 +83,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime Updated { get; set; }
 
+        [NotNull]
         public virtual Course Course { get; set; }
         public virtual University University { get; set; }
 
