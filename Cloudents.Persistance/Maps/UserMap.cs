@@ -42,8 +42,8 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.Score).ReadOnly();
             //Table("User]"); //if not there is sql error
-            
-            SchemaAction.None();
+
+            SchemaAction.Validate();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull

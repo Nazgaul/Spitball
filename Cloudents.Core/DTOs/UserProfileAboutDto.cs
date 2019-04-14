@@ -8,8 +8,6 @@ namespace Cloudents.Core.DTOs
 
         public string Bio { get; set; }
 
-        public IEnumerable<string> Subjects { get; set; }
-
         public IEnumerable<TutorReviewDto> Reviews { get; set; }
     }
 }

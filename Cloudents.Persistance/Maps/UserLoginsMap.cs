@@ -11,7 +11,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.ProviderDisplayName).Nullable();
             References(x => x.User).Column("UserId").ForeignKey("UserLogin_User");
             Table("UserLogin");
-            SchemaAction.None();
+            SchemaAction.Validate();
         }
     }
 }

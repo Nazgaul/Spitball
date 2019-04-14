@@ -26,7 +26,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.VoteType).CustomType<int>().Not.Nullable();
             Component(x => x.TimeStamp);
 
-            SchemaAction.None();
+            SchemaAction.Validate();
         }
     }
 

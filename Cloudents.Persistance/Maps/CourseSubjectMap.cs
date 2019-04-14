@@ -13,7 +13,8 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.Identity();
             Map(e => e.Name).Not.Nullable().Unique().Length(150);
             Table("CourseSubject");
-            SchemaAction.Update();
+            ReadOnly();
+            SchemaAction.Validate();
         }
     }
 }
