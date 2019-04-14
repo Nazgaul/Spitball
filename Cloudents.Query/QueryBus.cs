@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Query
 {
     [UsedImplicitly]
-    public sealed class QueryBus : IQueryBus, IDisposable
+    public sealed class QueryBus : IQueryBus//, IDisposable
     {
         public QueryBus(ILifetimeScope container)
         {
@@ -29,10 +29,10 @@ namespace Cloudents.Query
             }
         }
 
-        public void Dispose()
-        {
-            _container?.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    _container?.Dispose();
+        //}
     }
 
 
