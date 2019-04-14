@@ -2,7 +2,6 @@
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Interceptor;
-using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Question;
 using Cloudents.Infrastructure.Search.Tutor;
 using JetBrains.Annotations;
@@ -39,8 +38,7 @@ namespace Cloudents.Infrastructure
             #endregion
             
 
-            builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
+           
 
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));

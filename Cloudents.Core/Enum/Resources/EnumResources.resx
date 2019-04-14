@@ -153,18 +153,6 @@
   <data name="ActionTypeSoldDocument" xml:space="preserve">
     <value>Sold Document</value>
   </data>
-  <data name="BookConditionEBook" xml:space="preserve">
-    <value>Ebook</value>
-  </data>
-  <data name="BookConditionNew" xml:space="preserve">
-    <value>New</value>
-  </data>
-  <data name="BookConditionRental" xml:space="preserve">
-    <value>Rental</value>
-  </data>
-  <data name="BookConditionUsed" xml:space="preserve">
-    <value>Used</value>
-  </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>Answered</value>
   </data>
