@@ -298,6 +298,7 @@ namespace Cloudents.Web
             app.UseAzureSignalR(routes =>
             {
                 routes.MapHub<SbHub>("/SbHub");
+                routes.MapHub<TutoringHub>("/StudyRoomHub");
             });
 
 

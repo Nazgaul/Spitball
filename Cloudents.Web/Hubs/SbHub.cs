@@ -14,6 +14,21 @@ using Cloudents.Core;
 namespace Cloudents.Web.Hubs
 {
     [Authorize]
+    public class TutoringHub : Hub
+    {
+        public override async Task OnConnectedAsync()
+        {
+            await base.OnConnectedAsync();
+        }
+
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            await base.OnDisconnectedAsync(exception);
+        }
+    }
+
+
+    [Authorize]
     public class SbHub : Hub
     {
         private readonly Lazy<UserManager<RegularUser>> _userManager;

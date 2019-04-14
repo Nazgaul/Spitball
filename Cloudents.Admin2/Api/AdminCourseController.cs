@@ -150,7 +150,7 @@ namespace Cloudents.Admin2.Api
 
 
 
-            var z = await _dapperRepository.WithConnectionAsync(async f =>
+            await _dapperRepository.WithConnectionAsync(async f =>
             {
                 return await f.ExecuteAsync(update, new
                 {
