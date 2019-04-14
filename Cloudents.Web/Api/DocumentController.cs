@@ -154,7 +154,9 @@ namespace Cloudents.Web.Api
            [FromQuery]DocumentRequestAggregate request, CancellationToken token)
         {
             var page = request.Page;
-            var userId = _userManager.GetLongUserId(User);
+
+            _userManager.TryGetLongUserId(User, out var userId);
+
             var query = new DocumentAggregateQuery(userId, page, request.Filter);
             var result = await _queryBus.QueryAsync(query, token);
 
@@ -203,7 +205,7 @@ namespace Cloudents.Web.Api
             [RequiredFromQuery]DocumentRequestCourse request,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
+            _userManager.TryGetLongUserId(User, out var userId);
             var query = new DocumentCourseQuery(userId, request.Page, request.Course, request.Filter);
             var result = await _queryBus.QueryAsync(query, token);
             return GenerateResult(result, new { page = ++request.Page, request.Course });
