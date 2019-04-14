@@ -1,4 +1,5 @@
-﻿using Cloudents.Search.Interfaces;
+﻿using System;
+using Cloudents.Search.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json;
@@ -13,8 +14,7 @@ namespace Cloudents.Search.Entities
     {
 
         public const string UserCountFieldName = "UsersCount2";
-
-
+       
 
         [System.ComponentModel.DataAnnotations.Key]
         public string Id { get; set; }
@@ -33,6 +33,10 @@ namespace Cloudents.Search.Entities
         public string Image { get; set; }
         [IsSortable, JsonProperty(UserCountFieldName)]
         public int? UsersCount { get; set; }
+
+
+        [IsFilterable]
+        public DateTime? InsertDate { get; set; }
 
     }
 }

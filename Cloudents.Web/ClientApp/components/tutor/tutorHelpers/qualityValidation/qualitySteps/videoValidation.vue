@@ -15,6 +15,7 @@
         <v-flex xs12 sm12 md12 d-flex class="width-force mb-4">
             <v-select
                     class="minimum-width"
+                    :menu-props="{contentClass:'select-direction'}"
                     v-model="singleCameraId"
                     :items="avalCameras"
                     item-value="deviceId"
@@ -94,7 +95,12 @@
     }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
+    .select-direction{
+        .v-select-list{
+            direction: ltr/*rtl:ignore*/;
+        }
+    }
     .video-quality-wrap {
         .width-force{
             width: 98%;

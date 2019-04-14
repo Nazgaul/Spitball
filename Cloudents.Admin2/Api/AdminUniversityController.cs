@@ -98,7 +98,7 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
             //Only IL Need to think about it
-            var result = await _universityProvider.SearchAsync(university,
+            var result = await _universityProvider.SearchAsync(university, 0,
                 null, token);
             return result;
         }

@@ -90,7 +90,7 @@ export default {
             let syncObj = {
                 id: this.id,
                 activeTab: this.activeTab
-            }
+            };
             this.syncProfile(syncObj);
         },
         getInfoByTab() {
@@ -108,7 +108,7 @@ export default {
             let AnswersInfo = {
                 id: this.id,
                 page: this.answers.page
-            }
+            };
             this.getAnswers(AnswersInfo).then((hasData) => {
                 if (!hasData) {
                     this.answers.isComplete = true;

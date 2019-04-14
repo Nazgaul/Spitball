@@ -1,12 +1,10 @@
-﻿using System;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Courses;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +13,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -50,37 +47,21 @@ namespace Cloudents.Web.Api
         [Route("search")]
         [HttpGet]
         [ResponseCache(Duration = TimeConst.Hour,
-            Location = ResponseCacheLocation.Any,
-            VaryByQueryKeys = new[] { "term" })]
+            Location = ResponseCacheLocation.Client,
+            VaryByQueryKeys = new[] { "*" })]
         public async Task<CoursesResponse> GetAsync(
-           [RequiredFromQuery] CourseRequest request,
+           [FromQuery] CourseSearchRequest request,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new CourseSearchQuery(userId, request.Term);
+            var query = new CourseSearchQuery(userId, request.Term, request.Page);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {
                 Courses = result
             };
         }
-
-        [Route("search")]
-        [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour,
-            Location = ResponseCacheLocation.Client,
-            VaryByQueryKeys = new[] { "term" })]
-        public async Task<CoursesResponse> GetAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new CourseSearchByUniversityQuery(userId);
-            var result = await _queryBus.QueryAsync(query, token);
-            return new CoursesResponse
-            {
-                Courses = result
-            };
-            //return null;
-        }
+       
 
         [HttpPost("set")]
         public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)

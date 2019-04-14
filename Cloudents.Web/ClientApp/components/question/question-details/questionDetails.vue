@@ -5,7 +5,7 @@
         <div class="pt-3 question-wrap" v-if="!$vuetify.breakpoint.smAndDown"
              :class="{'my-question': cardOwner}">
             <v-flex xs12 class="breadcrumbs">
-                <router-link  to="/ask" v-language:inner>questionDetails_Ask_question</router-link>
+                <a style="cursor:pointer;" @click="resetSearch()" v-language:inner>questionDetails_Ask_question</a>
                 <span class="question-category"> <span v-language:inner>questionDetails_question_dash</span>{{questionData.subject}}</span>
             </v-flex>
             <v-layout row>

@@ -1,35 +1,10 @@
 @import "../../styles/mixin.less";
-//scroll style start
-.school-block::-webkit-scrollbar {
-  width: 4px;
-}
 
-/* Track */
-.school-block::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #F5F5F5 !important;
-}
+.scrollBarStyle(3px, #484670, transparent,  inset 0 0 0px);
 
-/* Handle */
-.school-block::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 0;
-  border-radius: 3px !important;
-  background: lighten(@color-main-purple, 30%);
-  -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.5) !important;
-}
-
-.school-block::-webkit-scrollbar-thumb:window-inactive {
-  background: lighten(@color-main-purple, 30%);
-}
-
-//scroll style end
 
 .school-block {
-  //firefox scroll
-  scrollbar-color: lighten(@color-main-purple, 30%) @color-white;
-  scrollbar-width: thin;
   &.v-navigation-drawer {
-    //background-color: #43425d;
     background-color: @color-main-purple;
     z-index: 102;
     &.hebrew-drawer {
@@ -39,7 +14,6 @@
     }
   }
   .v-list {
-
     background: transparent;
     .group-header {
       .v-list__tile {

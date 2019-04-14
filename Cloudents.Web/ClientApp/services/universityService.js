@@ -32,7 +32,7 @@ function ServerCourse(name) {
 }
 
 const getUni = (val) => {
-    return connectivityModule.http.get(`university?term=${val}`).then(({data}) => {
+    return connectivityModule.http.get(`university?term=${val.term}&page=${val.page}`).then(({data}) => {
         let result = [];
         if(!!data.universities && data.universities.length > 0) {
             data.universities.forEach((uni) => {
@@ -57,7 +57,7 @@ const assaignUniversity = (uniName) => {
 };
 
 const getCourse = (val) => {
-    let path = val ? `course/search?term=${val}` : `course/search`;
+    let path = val ? `course/search?term=${val.term}&page=${val.page}` : `course/search`;
     return connectivityModule.http.get(`${path}`).then(({data}) => {
         let result = [];
         if(!!data.courses && data.courses.length > 0) {

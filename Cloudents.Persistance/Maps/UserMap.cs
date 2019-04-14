@@ -11,7 +11,7 @@ namespace Cloudents.Persistence.Maps
             DynamicUpdate();
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
             Map(e => e.Email)/*.Not.Nullable()*/.Unique();
-            Map(e => e.Name).ReadOnly().Not.Nullable();
+            Map(e => e.Name).Not.Nullable();
             Map(e => e.EmailConfirmed);
             
             Map(e => e.NormalizedName);

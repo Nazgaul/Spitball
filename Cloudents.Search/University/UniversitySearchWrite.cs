@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Cloudents.Search.Document;
+using Cloudents.Search.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Search.University
 {
@@ -19,7 +24,7 @@ namespace Cloudents.Search.University
         //public const string DistanceScoringParameter = "currentLocation";
 
         public UniversitySearchWrite(SearchService client, ILogger logger)
-            : base(client, client.GetClient(IndexName),logger)
+            : base(client, client.GetClient(IndexName), logger)
         {
         }
 
@@ -33,7 +38,7 @@ namespace Cloudents.Search.University
             //        "a",
             //    "המכללה","אוניברסיטת","מכללת","אוניברסיטה","ה"
             //};
-            var index =  new Index
+            var index = new Index
             {
                 Name = indexName,
                 Fields = FieldBuilder.BuildForType<Entities.University>(new SearchIndexEnumToIntContractResolver()),
@@ -87,5 +92,13 @@ namespace Cloudents.Search.University
             index.Fields.Add(new Field("UsersCount", DataType.Int32));
             return index;
         }
+
+
+        public  Task DeleteOldDataAsync(DateTime timeToDelete, CancellationToken token)
+        {
+            return DeleteOldDataAsync(nameof(Entities.University.InsertDate), timeToDelete, token);
+           
+        }
+
     }
 }

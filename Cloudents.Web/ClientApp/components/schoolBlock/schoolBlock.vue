@@ -1,5 +1,9 @@
 <template>
-    <v-navigation-drawer touchless  class="school-block" width="260" @input="updateDrawerValue" :value="getShowSchoolBlock" :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
+    <v-navigation-drawer touchless
+                         class="school-block"
+                         width="260"
+                         @input="updateDrawerValue" :value="getShowSchoolBlock"
+                         :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
       <v-list>
         <v-list-tile class="group-header search-university-title">
           <v-list-tile-action class="mr-1">
@@ -26,9 +30,9 @@
         </v-list-tile>
         <v-list-tile
           class="group-items"
-          :class="{'active': !selectedCourse}"
+          :class="{'active': !selectedCourse && !inUniselect}"
           @click="selectCourse(null, true)">
-          <v-list-tile-title v-text="dictionary.allCourses"></v-list-tile-title>
+          <v-list-tile-title style="font-weight: bold;" v-text="dictionary.allCourses"></v-list-tile-title>
         </v-list-tile>
         <v-list-tile
           class="group-items"
@@ -59,7 +63,8 @@ export default {
         addcourses: LanguageService.getValueByKey('schoolBlock_add_your_courses'),
         myCourses: LanguageService.getValueByKey('schoolBlock_my_courses'),
         allCourses: LanguageService.getValueByKey('schoolBlock_all_courses'),
-      }
+      },
+      inUniselect: this.$route.path.indexOf('courses') > -1 || this.$route.path.indexOf('university') > -1
     };
   },
   props: {
@@ -105,6 +110,7 @@ export default {
       }
     },
     $route(val) {
+      this.inUniselect = val.path.indexOf('courses') > -1 || val.path.indexOf('university') > -1;
       if (!!this.$route.query) {
         if (!this.$route.query.Course) {
           this.selectedCourse = "";
@@ -131,8 +137,13 @@ export default {
       return (!!this.$route.query && !!this.$route.query.term) || (!!this.$route.query && (!!this.$route.query.Filter || !!this.$route.query.Source))
     },
     selectCourse(item, isDefault) {
+      if(this.inUniselect && !item){
+        this.updateFilter();
+        return;
+      }
       if (!this.lock) {
         this.lock = true;
+        
         if(!!isDefault){
           if(!this.selectedCourse){
             if(this.isInSearchMode()){
@@ -145,6 +156,7 @@ export default {
             this.selectedCourse = ""
           }
         }else{
+          
           let text = item.text ? item.text : item;
           if (this.selectedCourse === text) {
             if(this.isInSearchMode()){
@@ -160,6 +172,9 @@ export default {
         this.updateFilter();
       }
     },
+    isOutsideNoteAsk(){
+        return this.$route.name !== 'ask' && this.$route.name !== 'note'
+    },
     updateFilter() {
       this.UPDATE_SEARCH_LOADING(true);
       this.UPDATE_LOADING(true);
@@ -169,8 +184,11 @@ export default {
       if (this.selectedCourse === "") {
         delete newQueryObject.Course;
       }
-      
-      this.$router.push({ query: newQueryObject });
+      if(this.isOutsideNoteAsk()){
+          this.$router.push({name: 'note', query: newQueryObject });
+      }else{
+          this.$router.push({ query: newQueryObject });
+      }
     },
 
     openPersonalizeCourse() {

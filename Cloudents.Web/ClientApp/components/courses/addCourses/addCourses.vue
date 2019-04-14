@@ -1,17 +1,18 @@
 <template>
     <div class="add-courses-wrap">
-        <v-layout row :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2']" align-center justify-center>
+        <v-layout row :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2']" align-center
+                  justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
                     <v-icon @click="lastStep()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
                     </v-icon>
                     <span class="subheading font-weight-bold" v-language:inner>courses_join</span>
-                    <span class="subheading font-weight-bold" v-if="quantatySelected">({{quantatySelected}})</span>
+                    <span class="subheading font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
                 </div>
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn round  class="elevation-0 done-btn py-1 font-weight-bold my-0"  @click="submitAndGo()">
+                <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
                     <span v-language:inner>courses_btn_done</span>
                 </v-btn>
             </v-flex>
@@ -33,9 +34,10 @@
                 ></v-text-field>
             </v-flex>
 
-            <v-flex v-show="quantatySelected"  transition="fade-transition" style="position: relative">
+            <v-flex v-show="quantatySelected" transition="fade-transition" style="position: relative">
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
-                    <div class="class-list selected-classes-list py-3 px-3" :class="{'higher': isFirefox || isEdge}" ref="listCourse" >
+                    <div class="class-list selected-classes-list py-3 px-3" :class="{'higher': isFirefox || isEdge}"
+                         ref="listCourse">
                         <div class="selected-class-item caption d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
                              v-for="selectedClass in localSelectedClasses">
                             <span class="text-truncate">{{selectedClass.text}}</span>
@@ -44,50 +46,55 @@
                         <v-icon color="white">sbf-close</v-icon>
                     </span>
                         </div>
-                        </div>
+                    </div>
 
                 </div>
             </v-flex>
         </v-layout>
-        <v-layout align-center>
+        <v-layout align-center class="mt-3 px-2">
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list">
-                    <div class="list-item subheading search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
-                         v-for="singleClass in classes">
+                    <div class="list-item subheading search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
+                         v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
                         <v-layout column class="pl-3 limit-width">
-                            <v-flex shrink class="text-truncate course-name-wrap">
+                            <v-flex shrink class="course-name-wrap">
                                 <div v-html="$options.filters.boldText(singleClass.text, search)">
-                                    {{ singleClass.text }}</div>
+                                    {{ singleClass.text }}
+                                </div>
                             </v-flex>
-                            <v-flex class="students-enrolled pt-2">
+                            <v-flex class="students-enrolled pt-1">
                                 {{singleClass.students}}
                                 <span class="students-enrolled" v-language:inner>courses_students</span>
                             </v-flex>
                         </v-layout>
-                        <v-layout row align-center justify-end>
+                        <v-layout row align-center justify-end class="minimize-width">
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-bold mr-2" v-html="$Ph('courses_joined')"></span>
+                                    <span class="light-purple caption font-weight-medium mr-2"
+                                          v-html="$Ph('courses_joined')"></span>
                                     <span>
 
                                      <v-icon class="checked-icon">sbf-check-circle</v-icon>
                                    </span>
                                 </v-flex>
                                 <v-flex shrink v-else class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-bold mr-2" v-html="$Ph('courses_join')"></span>
+                                    <span class="light-purple caption font-weight-medium mr-2"
+                                          v-html="$Ph('courses_join')"></span>
                                     <span>
 
-                                     <v-icon class="cursor-pointer add-sbf-icon" @click="addClass(singleClass, classes)">sbf-plus-circle</v-icon>
+                                     <v-icon class="cursor-pointer add-sbf-icon">sbf-plus-circle</v-icon>
                                    </span>
                                 </v-flex>
                             </div>
                             <v-flex v-else shrink class="d-flex align-end">
-                                <span class="light-purple caption font-weight-bold mr-2" v-html="$Ph('courses_joined')"></span>
+                                <span class="light-purple caption font-weight-medium mr-2"
+                                      v-html="$Ph('courses_joined')"></span>
                             </v-flex>
                         </v-layout>
                     </div>
                     <!--create new course-->
-                    <v-flex  class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer" @click="changeCreateDialogState(true)">
+                    <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
+                            @click="changeCreateDialogState(true)">
                         <span v-language:inner>courses_cant_find</span>
                         <span class="pl-1 add-item" v-language:inner>courses_create_new</span>
                     </v-flex>
@@ -102,12 +109,15 @@
     import { mapActions, mapGetters } from "vuex";
     import { LanguageService } from "../../../services/language/languageService";
     import debounce from "lodash/debounce";
-    import document from "../../../store/document";
 
     export default {
         data() {
             return {
                 search: "",
+                isLoading: false,
+                isComplete: false,
+                page: 0,
+                term: '',
                 isFirefox: global.isFirefox,
                 isEdge: global.isEdge,
                 classNamePlaceholder: LanguageService.getValueByKey(
@@ -125,32 +135,39 @@
                 if(!!val) {
                     searchVal = val.trim();
                     if(searchVal.length >= 3) {
-                        this.updateClasses(searchVal);
+                        let paramObj = {term: searchVal, page: 0};
+                        this.loadCourses(paramObj);
                     }
-                }else if(val === ''){
-                    this.updateClasses('');
+                } else if(val === '') {
+                    let paramObj = {term: '', page: 0};
+                    this.loadCourses(paramObj);
                 }
             }, 500)
         },
         computed: {
             ...mapGetters(["getSelectedClasses"]),
-            dropDownAlphaHeight() {
-                return {
-                    maxHeight: this.$vuetify.breakpoint.xsOnly
-                        ? this.global.innerHeight - 470
-                        : 300
-                };
-            },
+
             quantatySelected() {
                 return this.selectedClasses.length;
             },
 
             showBox() {
-                return true
+                return true;
                 // return !!this.search && this.search.length > 0;
             },
             classes() {
-                return this.getClasses();
+                let classesList = this.getClasses();
+                if(this.localSelectedClasses.length > 0) {
+                    this.localSelectedClasses.forEach((item) => {
+                        for (let i = 0; i < classesList.length; i++) {
+                            if(classesList[i].text === item.text) {
+                                classesList[i]['isSelected'] = true;
+                            }
+                        }
+                    });
+                }
+                return classesList;
+
             },
             selectedClasses: {
                 get() {
@@ -168,7 +185,7 @@
                         });
                     }
                     this.localSelectedClasses.push(arrValidData);
-                   this.updateSelectedClasses(arrValidData);
+                    this.updateSelectedClasses(arrValidData);
                 }
             }
         },
@@ -180,15 +197,63 @@
                               "pushClassToSelectedClasses",
                               "changeClassesToCachedClasses",
                               "addToCachedClasses",
-                              "changeCreateDialogState"
+                              "changeCreateDialogState",
+                              "removeFromCached",
+                               "addClasses"
                           ]),
             ...mapGetters(["getClasses"]),
-
             lastStep() {
                 this.$router.go(-1);
             },
+            concatCourses(paramObj) {
+                let self = this;
+                self.isLoading = true;
+                self.addClasses(paramObj)
+                    .then((hasData) => {
+                        if(!hasData) {
+                            self.isComplete = true;
+                            return;
+                        }
+                        if(hasData.length < 50) {
+                            self.isComplete = true;
+                        }
+                        self.isLoading = false;
+                        self.page++;
+                    }, (err) => {
+                        self.isComplete = true;
+                    });
+            },
+            keepLoad(clientHeight, scrollTop) {
+                let totalHeight = clientHeight;
+                let currentScroll = scrollTop;
+                let scrollOffset = (currentScroll > (0.75 * totalHeight));
+                let retVal = (!this.isLoading && !this.isComplete && currentScroll > 0 && scrollOffset);
+                return retVal;
+            },
+            scrollCourses(e) {
+                let clientHeight = e.target.scrollHeight - e.target.offsetHeight;
+                let scrollTop = e.target.scrollTop;
+                if(this.keepLoad(clientHeight, scrollTop)) {
+                    let paramObj = {term: this.term, page: this.page};
+                    this.concatCourses(paramObj);
+                }
 
-            submitAndGo(){
+            },
+            loadCourses(paramObj) {
+                let self = this;
+                self.isComplete = false;
+                self.isLoading = true;
+                this.updateClasses(paramObj).then((hasData) => {
+                    if(!hasData) {
+                        self.isComplete = true;
+                    }
+                    self.isLoading = false;
+                    self.page = 1;
+                }, (err) => {
+                    self.isComplete = true;
+                });
+            },
+            submitAndGo() {
                 //assign all saved in cached list to classes list
                 this.changeClassesToCachedClasses();
                 this.assignClasses().then(() => {
@@ -198,20 +263,21 @@
             deleteClass(classToDelete, from) {
                 let index = from.indexOf(classToDelete);
                 from.splice(index, 1);
-            },
-            // hideIfChoosen(single) {
-            //     return this.localSelectedClasses.indexOf(single) >= 0
-            // },
+                //clean from cached list and request new list, and refresh data
+                this.removeFromCached(classToDelete);
+                let paramObj = {term: this.search, page: 0};
+                this.loadCourses(paramObj);
 
-            checkAsSelected(classToCheck, from){
+            },
+            checkAsSelected(classToCheck, from) {
                 let index = from.indexOf(classToCheck);
                 from[index].isSelected = true;
             },
             addClass(className) {
+                if(className.isFollowing)return;
                 this.localSelectedClasses.push(className);
                 //add to cached list
                 this.addToCachedClasses(className);
-                // this.pushClassToSelectedClasses(className);
                 setTimeout(() => {
                     let inputElm = this.$refs.classInput;
                     inputElm.value = "";
@@ -220,30 +286,34 @@
                 this.checkAsSelected(className, this.classes);
             },
         },
-        created(){
-            this.updateClasses('');
-
-
+        created() {
+            let paramObj = {term: this.term, page: 0};
+            this.loadCourses(paramObj);
+            this.$nextTick(function () {
+                let scrollableElm = document.querySelector('.search-classes-list');
+                scrollableElm.addEventListener('scroll', (e) => {
+                    this.scrollCourses(e);
+                });
+            });
         },
-        mounted(){
+        mounted() {
             let self = this;
             //mouse wheel fix horizontal scroll
             let el = self.$refs.listCourse;
             let mouseWheelEvt = function (event) {
-                if (el.doScroll){
-                    el.doScroll(event.wheelDelta>0?"left":"right");
+                if(el.doScroll) {
+                    el.doScroll(event.wheelDelta > 0 ? "left" : "right");
                 }
-                else if ((event.wheelDelta || event.detail) > 0)
-                {
+                else if((event.wheelDelta || event.detail) > 0) {
                     el.scrollLeft -= 10;
                 }
-                else{
+                else {
                     el.scrollLeft += 10;
                 }
                 return false;
             };
             self.$refs.listCourse.addEventListener("mousewheel", mouseWheelEvt);
-},
+        },
         filters: {
             boldText(value, search) {
                 if(!value) return "";
@@ -263,48 +333,49 @@
 </script>
 <style lang="less">
     @import '../../../styles/mixin.less';
-
     .add-courses-wrap {
-
-        .left-paddle {
-            left: 0;
-            top: 0;
-            position: absolute;
-        }
-        .right-paddle {
-            right: 0;
-            top: 0;
-            position: absolute;
+        .scrollBarStyle(3px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
+        .sbf-search{
+            height: 22px;
+            min-width: 34px;
+            font-size: 18px;
+            opacity: 0.5;
         }
         .hidden {
             display: none;
         }
-        .scrollBarStyle(0px, #0085D1);
-        .v-input__slot{
-            box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17)!important;
+        //keep to align course name
+        .minimize-width{
+            min-width: 90px;
+            @media(max-width: @screen-xs){
+                min-width: 90px;
+            }
         }
-        .grey-backgound{
+        .v-input__slot {
+            box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17) !important;
+        }
+        .grey-backgound {
             background-color: #f0f0f7;
         }
         .light-purple {
             color: @purpleLight;
         }
-        .cursor-pointer{
+        .cursor-pointer {
             cursor: pointer;
         }
         .checked-icon {
             font-size: 28px;
             color: @purpleLight;
         }
-        .add-sbf-icon{
+        .add-sbf-icon {
             color: @purpleLight;
             font-size: 28px;
         }
-        .done-btn{
+        .done-btn {
             color: @colorBlue;
-            border-radius: 16px;
+            border-radius: 36px;
             border: solid 1px @colorBlue;
-            background-color: transparent!important;
+            background-color: transparent !important;
         }
         .class-list {
             background-color: #ffffff;
@@ -317,14 +388,21 @@
                 white-space: nowrap;
                 overflow-x: scroll;
                 background-color: #f0f0f7;
-                overflow-y:hidden;
+                overflow-y: hidden;
                 height: 54px;
-                &.higher{
+                &.higher {
                     height: 75px;
                 }
             }
         }
-        .students-enrolled{
+        .selected-classes-container{
+            .scrollBarStyle(3px, #a3a0fb, @color-blue-new);
+        }
+        .search-class-item{
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .students-enrolled {
             color: rgba(128, 128, 128, 0.87);
             font-size: 10px;
         }
@@ -350,7 +428,7 @@
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
         }
-        .cant-find{
+        .cant-find {
             display: flex;
             margin: 0;
             min-height: 48px;
@@ -363,10 +441,10 @@
             margin-bottom: 3px;
             margin-left: 8px;
         }
-        .course-back-btn{
-            &.rtl{
+        .course-back-btn {
+            &.rtl {
                 /*rtl:ignore*/
-                transform: rotate( -180deg );
+                transform: rotate(-180deg);
             }
         }
 

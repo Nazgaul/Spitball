@@ -2,16 +2,19 @@
     <div class="courses-list-wrap">
         <div v-if="!isEmpty">
             <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
-                <v-flex grow xs10>
+                <v-flex grow xs8>
                     <div class="d-inline-flex justify-center shrink">
                         <span class="subheading font-weight-bold" v-language:inner>courses_my_courses</span>
                         <span class="subheading font-weight-bold"
                               v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
                     </div>
                 </v-flex>
-                <v-flex xs2 shrink class="d-flex justify-end">
-                    <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0" @click="goToAddMore()">
-                        <v-icon left>sbf-plus-regular</v-icon>
+                <v-flex xs2 shrink class="text-xs-center hidden-xs-only" >
+                    <finishBtn></finishBtn>
+                </v-flex>
+                <v-flex shrink class="d-flex justify-start">
+                    <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0 elevation-0" :class="{'mr-2': $vuetify.breakpoint.xsOnly }" @click="goToAddMore()">
+                        <v-icon class="mr-1">sbf-plus-regular</v-icon>
                         <span v-language:inner>courses_add</span>
                     </v-btn>
                 </v-flex>
@@ -77,6 +80,11 @@
                     </div>
                 </v-flex>
             </v-layout>
+            <v-layout  align-center justify-center class="hidden-sm-and-up fixed-bottom-wrap elevation-2">
+                <v-flex xs12 class="text-xs-center pt-3">
+                    <finishBtn></finishBtn>
+                </v-flex>
+            </v-layout>
         </div>
         <div v-else>
             <courses-empty-state></courses-empty-state>
@@ -87,10 +95,10 @@
     import { mapActions, mapGetters } from 'vuex';
     import coursesEmptyState from '../coursesEmptyState/coursesEmptyState.vue';
     import universityService from '../../../services/universityService';
-
+    import finishBtn from  '../helpers/finishBtn.vue';
     export default {
         name: "selectedCourses",
-        components: {coursesEmptyState},
+        components: {coursesEmptyState, finishBtn},
         data() {
             return {
                 btnLoading: false,
@@ -115,7 +123,13 @@
 
         },
         methods: {
-            ...mapActions(["updateClasses", "syncCoursesData", "deleteClass", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
+            ...mapActions(["updateClasses",
+                              "syncCoursesData",
+                              "deleteClass",
+                              "updateSelectedClasses",
+                              "assignClasses",
+                              "pushClassToSelectedClasses",
+                          ]),
             teachCourseToggle(course) {
                 this.teachingActive = true;
                 course.isLoading = true;
@@ -137,6 +151,7 @@
                 this.removingActive = true;
                 this.deleteClass(classDelete).then((resp) => {
                     classDelete.isLoading = false;
+
                 }, (error) => {
                     classDelete.isLoading = false;
                     this.removingActive = false;
@@ -145,17 +160,10 @@
                     this.removingActive = false;
                 });
             },
-            // deleteFromList(classToDelete, from) {
-            //     let index = from.indexOf(classToDelete);
-            //     from.splice(index, 1);
-            // },
             goToAddMore() {
                 this.$router.push({name: 'addCourse'});
             }
         },
-        created() {
-            // this.syncCoursesData();
-        }
 
     };
 </script>
@@ -164,9 +172,16 @@
     @import '../../../styles/mixin.less';
 
     .courses-list-wrap {
-        .scrollBarStyle(3px, #0085D1);
+        .scrollBarStyle(3px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .rounded-btn {
-            border-radius: 16px;
+            border-radius: 36px!important; //vuetify
+        }
+        .fixed-bottom-wrap{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: @color-white;
         }
         .badge {
             max-height: 48px;
@@ -208,8 +223,15 @@
         .class-list {
             background-color: #ffffff;
             max-height: 664px;
+            min-height: calc(~"100vh - 350px");
             overflow-y: scroll;
             padding-left: 0;
+            @media(max-width: @screen-xs){
+                height: ~"calc(100% - 202px)";
+                padding-bottom: 64px;
+                min-height: unset;
+
+            }
         }
         .list-item {
             display: flex;
