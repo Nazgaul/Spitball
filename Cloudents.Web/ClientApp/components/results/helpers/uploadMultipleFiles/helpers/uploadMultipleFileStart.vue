@@ -76,7 +76,7 @@
         name: "upload-step-1",
         data() {
             return {
-                uploadUrl: '/api/upload/file',
+                uploadUrl: '/api/Document/upload',
                 dbReady: false,
                 files: [],
                 filesUploaded: [],
