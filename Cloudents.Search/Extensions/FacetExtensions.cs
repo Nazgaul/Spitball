@@ -47,7 +47,9 @@ namespace Cloudents.Search.Extensions
             return GenerateTagScoringParameter(name, new[] { input });
         }
 
-      
+
+
+
 
         //public TagScoringParameter(string name, GeographyPoint value) : base(name, value)
         //{

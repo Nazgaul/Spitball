@@ -26,7 +26,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cloudents.Query.Query;
 using Cloudents.Search.University;
-using Cloudents.Query.Documents;
+using FluentNHibernate.Data;
 using Cloudents.Query.Questions;
 using Cloudents.Search.Document;
 using Cloudents.Search.Question;
@@ -140,7 +140,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await UpdateMethod();
+            var c = _container.Resolve<UniversitySearchWrite>();
+            await c.DeleteOldDataAsync(DateTime.UtcNow.AddDays(-5), default);
             //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
             // await c.DispatchAsync(command2, default);
 

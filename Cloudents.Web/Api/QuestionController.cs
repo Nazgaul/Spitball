@@ -10,6 +10,7 @@ using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
@@ -24,15 +25,20 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
 {
+    
     [Produces("application/json")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
-    [Authorize, ApiController]
+    [Authorize/*, ApiController*/]
     public class QuestionController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
@@ -40,15 +46,18 @@ namespace Cloudents.Web.Api
         private readonly UserManager<RegularUser> _userManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
         private readonly IQuestionSearch _questionSearch;
+        private readonly IQuestionsDirectoryBlobProvider _blobProvider;
 
         public QuestionController(ICommandBus commandBus, UserManager<RegularUser> userManager,
-            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch
+            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch,
+            IQuestionsDirectoryBlobProvider blobProvider
            )
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _localizer = localizer;
             _questionSearch = questionSearch;
+            _blobProvider = blobProvider;
         }
 
         [HttpPost]
@@ -185,10 +194,11 @@ namespace Cloudents.Web.Api
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
             [FromQuery]QuestionsRequest model,
+            [ProfileModelBinder(ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
             [FromServices] IQueryBus queryBus,
            CancellationToken token)
         {
-            var query = new QuestionsQuery(null, model.Term, model.Course, model.NeedUniversity, model.Source,
+            var query = new QuestionsQuery(profile, model.Term, model.Course, model.NeedUniversity, model.Source,
                 model.Filter?.Where(w => w.HasValue).Select(s => s.Value))
             {
                 Page = model.Page
@@ -295,5 +305,40 @@ namespace Cloudents.Web.Api
             }
         }
 
+        [HttpPost("ask")]
+        public async Task<UploadAskFileResponse> UploadFileAsync(UploadAskFileRequest model,
+        CancellationToken token)
+        {
+            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
+
+            var userId = _userManager.GetUserId(User);
+
+            var fileNames = new List<string>();
+            foreach (var formFile in model.File)
+            {
+                if (!formFile.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException("not an image");
+                }
+
+                var extension = Path.GetExtension(formFile.FileName);
+
+                if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException("not an image");
+                }
+
+                using (var sr = formFile.OpenReadStream())
+                {
+                    //Image.FromStream(sr);
+                    var fileName = $"{userId}.{Guid.NewGuid()}.{formFile.FileName}";
+                    await _blobProvider
+                        .UploadStreamAsync(fileName, sr, formFile.ContentType, TimeSpan.FromSeconds(60 * 24), token);
+
+                    fileNames.Add(fileName);
+                }
+            }
+            return new UploadAskFileResponse(fileNames);
+        }
     }
 }

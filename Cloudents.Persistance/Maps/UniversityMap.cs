@@ -8,6 +8,7 @@ namespace Cloudents.Persistence.Maps
     {
         public UniversityMap()
         {
+            DynamicUpdate();
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Name).UniqueKey("uq_UniversityNameCountry");
             Map(x => x.Extra);

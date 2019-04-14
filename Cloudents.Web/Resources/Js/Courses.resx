@@ -157,7 +157,7 @@
     <value>Invite classmates</value>
   </data>
   <data name="join" xml:space="preserve">
-    <value>Join Courses</value>
+    <value>Join courses</value>
   </data>
   <data name="joined" xml:space="preserve">
     <value>Joined</value>
@@ -202,7 +202,7 @@
     <value>students</value>
   </data>
   <data name="sub_title_invite" xml:space="preserve">
-    <value>Sub Title for adding classmates</value>
+    <value></value>
   </data>
   <data name="teach" xml:space="preserve">
     <value>Teach</value>
@@ -211,7 +211,7 @@
     <value>Teaching</value>
   </data>
   <data name="third_tip" xml:space="preserve">
-    <value>Third tip for creating a course</value>
+    <value></value>
   </data>
   <data name="try_again" xml:space="preserve">
     <value>Try Again</value>

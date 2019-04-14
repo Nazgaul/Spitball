@@ -1,6 +1,6 @@
 <template>
-    <v-btn @click="finish()" round-outline class="sb-round sb-outline px-4">
-        <span class="caption font-weight-bold text-capitalize" v-language:inner>btn_finished</span>
+    <v-btn @click="finish()" round-outline class="sb-round sb-outline px-4 elevation-0">
+        <span class="caption font-weight-bold text-capitalize" v-language:inner>courses_btn_finished</span>
     </v-btn>
 </template>
 
@@ -14,7 +14,7 @@
         },
         methods: {
             finish(){
-                this.$router.go(-1)
+                this.$router.push({name: 'note'})
             }
         },
     }
@@ -23,9 +23,10 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
 .sb-outline{
-    border-radius: 16px;
+    border-radius: 36px;
     border: solid 1px @colorBlue;
     background-color: transparent!important;
     color: @colorBlue!important;
+
 }
 </style>

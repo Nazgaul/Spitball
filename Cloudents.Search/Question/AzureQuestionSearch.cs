@@ -49,7 +49,7 @@ namespace Cloudents.Search.Question
                 filters.Add($"({filterStr})");
             }
 
-            if (query.FilterByUniversity )
+            if (query.FilterByUniversity)
             {
                 var universityStr = $"{nameof(Entities.Question.UniversityName)} eq '{query.UserProfile.UniversityId.GetValueOrDefault().ToString()}'";
                 filters.Add($"({universityStr})");
@@ -86,9 +86,9 @@ namespace Cloudents.Search.Question
                 ScoringProfile = QuestionSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsUniversityParameter,query.UserProfile.UniversityId.ToString()),
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCourseParameter,query.UserProfile.Courses),
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCountryParameter,query.UserProfile.Country)
+                                 //TagScoringParameter.GenerateTagScoringParameter(QuestionSearchWrite.TagsUniversityParameter,query.UserProfile.UniversityId.ToString()),
+                                 TagScoringParameter.GenerateTagScoringParameter(QuestionSearchWrite.TagsTagsParameter,(IEnumerable<string>) null),
+                                 TagScoringParameter.GenerateTagScoringParameter(QuestionSearchWrite.TagsCountryParameter,query.UserProfile.Country)
                 }
 
             };
