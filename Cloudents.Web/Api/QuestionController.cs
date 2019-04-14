@@ -27,6 +27,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
 {
@@ -185,10 +187,11 @@ namespace Cloudents.Web.Api
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
             [FromQuery]QuestionsRequest model,
+            [ProfileModelBinder(ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
             [FromServices] IQueryBus queryBus,
            CancellationToken token)
         {
-            var query = new QuestionsQuery(null, model.Term, model.Course, model.NeedUniversity, model.Source,
+            var query = new QuestionsQuery(profile, model.Term, model.Course, model.NeedUniversity, model.Source,
                 model.Filter?.Where(w => w.HasValue).Select(s => s.Value))
             {
                 Page = model.Page
