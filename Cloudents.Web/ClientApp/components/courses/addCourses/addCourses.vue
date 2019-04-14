@@ -395,6 +395,9 @@
                 }
             }
         }
+        .selected-classes-container{
+            .scrollBarStyle(3px, #a3a0fb, @color-blue-new);
+        }
         .search-class-item{
             padding-top: 10px;
             padding-bottom: 10px;
