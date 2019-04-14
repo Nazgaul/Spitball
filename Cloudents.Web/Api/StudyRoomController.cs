@@ -93,7 +93,7 @@ namespace Cloudents.Web.Api
         }
 
         /// <summary>
-        /// Get study rooms data of user
+        /// Get study rooms data of user - used in study room url
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>

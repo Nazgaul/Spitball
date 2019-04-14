@@ -46,6 +46,14 @@ namespace Cloudents.Core.Entities
         {
             _sessions.Add(session);
         }
+
+        public virtual void ChangeOnlineStatus(long userId, bool isOnline)
+        {
+            var studyRoomUser = Users.Single(f => f.User.Id == userId);
+            studyRoomUser.Online = isOnline;
+            AddEvent(new StudyRoomOnlineChangeEvent(this));
+            
+        }
         
     }
 }

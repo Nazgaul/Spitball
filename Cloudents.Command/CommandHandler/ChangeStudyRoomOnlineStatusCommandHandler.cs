@@ -21,8 +21,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(ChangeStudyRoomOnlineStatusCommand message, CancellationToken token)
         {
             var studyRoom = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
-            var studyRoomUser = studyRoom.Users.Single(f => f.User.Id == message.UserId);
-            studyRoomUser.Online = message.Status;
+            studyRoom.ChangeOnlineStatus(message.UserId,message.Status);
         }
     }
 }

@@ -12,4 +12,15 @@ namespace Cloudents.Core.Event
 
         public StudyRoom StudyRoom { get; private set; }
     }
+
+
+    public class StudyRoomOnlineChangeEvent : IEvent
+    {
+        public StudyRoomOnlineChangeEvent(StudyRoom studyRoom)
+        {
+            StudyRoom = studyRoom;
+        }
+
+        public StudyRoom StudyRoom { get; private set; }
+    }
 }
