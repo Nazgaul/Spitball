@@ -8,7 +8,7 @@
                 <v-textarea
                         rows="2"
                         outline
-                        v-model="about"
+                        v-model="description"
                         name="input-about"
                         placeholder="Type a Key sentence about yourself"
                         :label="'Opening sentence'"
@@ -27,11 +27,12 @@
         </v-layout>
         <v-layout align-end justify-end class="mt-5 px-1">
             <v-btn
-                   color="#4452FC"
-                   class="white-text"
-                   round
-                   :disabled="btnDisabled"
-                   @click="submitData()">
+                    color="#4452FC"
+                    class="white-text"
+                    round
+                    :loading="btnLoading"
+                    :disabled="btnDisabled"
+                    @click="submitData()">
                 <span>Done</span>
             </v-btn>
         </v-layout>
@@ -39,28 +40,42 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
+
     export default {
         name: "secondStep",
         data() {
             return {
-                about: '',
-                bio: ''
+                description: '',
+                bio: '',
+                btnLoading: false
             };
         },
         computed: {
             ...mapGetters(['becomeTutorData']),
-           btnDisabled(){
-                return !this.about || !this.bio
-           }
+            btnDisabled() {
+                return !this.description || !this.bio;
+            }
         },
         methods: {
-            ...mapActions(['updateTutorInfo']),
+            ...mapActions(['updateTutorInfo', 'sendBecomeTutorData']),
             submitData() {
-                let bioAbout = { bio: this.bio, about: this.about};
-                let data = {...this.becomeTutorData, ...bioAbout };
-                this.updateTutorInfo(data);
-                this.$root.$emit('becomeTutorStep', 3);
+                let self = this;
+                let descriptionAbout = {bio: self.bio, description: self.description};
+                let data = {...this.becomeTutorData, ...descriptionAbout};
+                self.updateTutorInfo(data);
+                self.btnLoading = true;
+                self.sendBecomeTutorData()
+                    .then((resp) => {
+                        self.btnLoading = false;
+                        self.$root.$emit('becomeTutorStep', 3);
+                    }, (error) => {
+                        console.log('erorr sending data become tutor', error);
+                        self.btnLoading = false;
+                    }).finally(() => {
+                    self.btnLoading = false;
+                });
+
             }
         },
     };

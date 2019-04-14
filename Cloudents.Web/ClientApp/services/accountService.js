@@ -168,6 +168,9 @@ export default {
     // createProfileData: (arrInit)=>{
     //     return new ProfileData(arrInit);
     // },
+    becomeTutor: (data) => {
+        return connectivityModule.http.post("/Account/settings", data)
+    },
     createUserProfileData: (objInit)=>{
         return new profileUserData(objInit);
     },
