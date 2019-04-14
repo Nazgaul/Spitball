@@ -49,8 +49,8 @@
                 </v-layout>
             </v-flex>
         </v-layout>
-        <v-layout align-end justify-end class="mt-5 px-1">
-            <v-btn class="cancel-btn" round outline flat>
+        <v-layout  class="mt-5 px-1" :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
+            <v-btn   @click="closeDialog()" class="cancel-btn" round outline flat>
                 <span>Cancel</span>
             </v-btn>
             <v-btn
@@ -94,18 +94,22 @@
 
         },
         methods: {
-            ...mapActions(['updateTutorInfo', 'uploadAccountImage']),
+            ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),
             uploadImage() {
                 let self = this;
                 let formData = new FormData();
                 let file = self.$refs.tutorImage.files[0];
                 formData.append("file", file);
                 self.uploadAccountImage(formData);
+
             },
             nextStep(){
                 let data = { image: this.userImage, firstName: this.firstName, lastName: this.lastName };
                 this.updateTutorInfo(data);
                 this.$root.$emit('becomeTutorStep', 2);
+            },
+            closeDialog(){
+                this.updateTutorDialog(false)
             }
         },
     };
@@ -155,6 +159,7 @@
             min-width: 214px;
             max-width: 214px;
             min-height: 240px;
+            border-radius: 4px;
         }
         .blue-text {
             color: @colorBlue;

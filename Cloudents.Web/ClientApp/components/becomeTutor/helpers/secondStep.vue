@@ -25,7 +25,7 @@
                 ></v-textarea>
             </v-flex>
         </v-layout>
-        <v-layout align-end justify-end class="mt-5 px-1">
+        <v-layout  class="mt-5 px-1" :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
             <v-btn
                     color="#4452FC"
                     class="white-text"

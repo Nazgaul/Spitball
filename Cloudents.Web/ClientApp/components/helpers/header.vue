@@ -12,7 +12,6 @@
                                 </a> 
                             </v-toolbar-title>
                             <v-toolbar-items>
-                                <v-btn @click="updateTutorDialog(true)">Open become</v-btn>
                                 <search-input v-if="$vuetify.breakpoint.smAndUp" :user-text="userText"
                                               :placeholder="this.$options.placeholders['all']"
                                               :submit-route="submitRoute"></search-input>
@@ -192,7 +191,6 @@
                               'updateUserProfileData',
                               'updateShowBuyDialog',
                               'openChat',
-                              'updateTutorDialog'
                           ]),
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             openNewQuestionDialog(){

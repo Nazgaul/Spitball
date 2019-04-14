@@ -63,7 +63,10 @@ const state = {
 };
 const mutations = {
     setProfilePicture(state, imageUrl) {
-        state.profile.user = {...state.profile.user, image: imageUrl};
+        //check, cause if done from another place not profile(beoome tutor), will throw an error, cause  state.profile.user is undefined
+        if(state.profile && state.profile.user){
+            state.profile.user = {...state.profile.user, image: imageUrl};
+        }
         state.user = {...state.user, image: imageUrl}
     },
 
