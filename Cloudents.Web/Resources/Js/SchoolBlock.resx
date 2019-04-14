@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_your_courses" xml:space="preserve">
-    <value>Add Your Courses</value>
+    <value>What are you studying?</value>
   </data>
   <data name="add_your_university" xml:space="preserve">
-    <value>Add Your University</value>
+    <value>Where do you go to school?</value>
   </data>
   <data name="all_courses" xml:space="preserve">
     <value>All courses</value>
