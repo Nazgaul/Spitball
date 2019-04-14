@@ -33,7 +33,7 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumns.Add("AnswerId")
                 .Inverse().Cascade.AllDeleteOrphan();
             Map(x => x.VoteCount);
-            SchemaAction.None();
+            SchemaAction.Validate();
             //DiscriminateSubClassesOnColumn("State");
         }
 

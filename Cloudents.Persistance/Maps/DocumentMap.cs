@@ -49,7 +49,7 @@ namespace Cloudents.Persistence.Maps
 
    
             Component(x => x.Status);
-            SchemaAction.None();
+            SchemaAction.Validate();
         }
     }
 }
