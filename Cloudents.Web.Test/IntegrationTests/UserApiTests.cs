@@ -84,9 +84,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
 
             response = await client.GetAsync("api/course/search?term=fsdfds");
 
