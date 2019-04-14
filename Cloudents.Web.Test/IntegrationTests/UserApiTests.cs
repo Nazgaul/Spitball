@@ -37,5 +37,79 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             courses.Should().BeEmpty();
         }
+
+        [Fact]
+        public async Task GetAsync_Code()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+
+            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.GetAsync("api/sms/code");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var code = d["code"]?.Value<string>();
+
+            response.StatusCode.Should().Be(200);
+
+            code.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task PostAsync_Sms()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
+
+            string phone = "{\"phoneNumber\":\"542473699\",\"countryCode\":972}";
+
+            client.DefaultRequestHeaders.Add("Referer", "swagger");
+
+            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Sms", new StringContent(phone, Encoding.UTF8, "application/json"));
+
+            response.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public async Task PostAsync_Sms_Resend()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
+
+            client.DefaultRequestHeaders.Add("Referer", "swagger");
+
+            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Sms/resend", null);
+
+            response.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public async Task PostAsync_Sms_Verify()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"fconfirmPassword\":\"123456789\"}";
+
+            string phone = "{\"number\":\"123456\",\"fingerPrint\":\"string\"}";
+
+            client.DefaultRequestHeaders.Add("Referer", "swagger");
+
+            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Sms/verify", new StringContent(phone, Encoding.UTF8, "application/json"));
+
+            response.StatusCode.Should().NotBe(500);
+        }
     }
 }
