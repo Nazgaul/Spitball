@@ -76,6 +76,10 @@
 
     .become-tutor-wrap {
         width: 100%;
+        .theme--light.v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline){
+            background-color: rgba(68, 82, 252, 0.5)!important; //vuetify overwrite
+            color: @color-white!important;
+        }
         .back-image{
             background-image: url('./images/conffeti_desktop.png')!important;
             background-repeat: no-repeat;
