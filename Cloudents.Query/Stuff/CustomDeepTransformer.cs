@@ -7,12 +7,23 @@ using Cloudents.Core.Extension;
 
 namespace Cloudents.Query.Stuff
 {
-    public class CustomDeepTransformer<T> : IResultTransformer
-
+    public static class SbTransformers
     {
+        public static IResultTransformer AliasToBeanImprovement<T>()
+        {
+            return new CustomDeepTransformer(typeof(T));
+        }
+    }
 
+    public class CustomDeepTransformer : IResultTransformer
+    {
+        private readonly Type _type;
+        public CustomDeepTransformer(Type type)
+        {
+            _type = type;
+        }
 
-
+       
         public object TransformTuple(object[] tuple, string[] aliases)
         {
             // Dictionary<string, object> dic = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
@@ -25,7 +36,7 @@ namespace Cloudents.Query.Stuff
             //}
 
 
-            var result = Activator.CreateInstance(typeof(T));
+            var result = Activator.CreateInstance(_type);
 
             for (int i = 0; i < aliases.Length; i++)
             {
@@ -43,7 +54,7 @@ namespace Cloudents.Query.Stuff
             //return x;
         }
 
-        private void SetProperty(string alias, object value, object result)
+        internal static void SetProperty(string alias, object dbValue, object result)
         {
             if (alias == null)
             {
@@ -51,7 +62,7 @@ namespace Cloudents.Query.Stuff
                 return;
             }
 
-            if (value == null)
+            if (dbValue == null)
             {
                 return;
             }
@@ -64,7 +75,7 @@ namespace Cloudents.Query.Stuff
             }
 
             var type = propertyInfo.GetRealType(); 
-            if (type.IsEnum && HandleEnum(propertyInfo, value, result))
+            if (type.IsEnum && HandleEnum(propertyInfo, dbValue, result))
             {
 
                 return;
@@ -73,29 +84,11 @@ namespace Cloudents.Query.Stuff
 
             if (type == typeof(CultureInfo))
             {
-                propertyInfo.SetValue(result, new CultureInfo(value.ToString()));
+                propertyInfo.SetValue(result, new CultureInfo(dbValue.ToString()));
                 return;
             }
-           
-            //if (value is Guid g && propertyInfo.PropertyType == typeof(string))
-            //{
-            //    propertyInfo.SetValue(x, g.ToString());
-            //    return;
-
-            
-            //}
-            //var nullableType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
-            //if (nullableType != null)
-            //{
-            //    if (nullableType.IsEnum && HandleEnum(propertyInfo, nullableType, x, value))
-            //    {
-            //        return;
-            //    }
-            //    var z = Convert.ChangeType(value, nullableType);
-            //    propertyInfo.SetValue(x, z);
-            //    return;
-            //}
-            var y = Convert.ChangeType(value, type);
+          
+            var y = Convert.ChangeType(dbValue, type);
             propertyInfo.SetValue(result, y);
 
         }

@@ -111,17 +111,17 @@ namespace Cloudents.Query.Stuff
                 }
                 else
                 {
-                    if (propertyInfo.PropertyType.IsEnum && value is string str)
-                    {
-                        var e = Enum.Parse(propertyInfo.PropertyType, str, true);
-                        propertyInfo.SetValue(currentObject, e);
-                    }
-                    else
-                    {
-                        propertyInfo.SetValue(currentObject, Convert.ChangeType(value, propertyInfo.PropertyType));
-                    }
-
-                    //propertyInfo.SetValue(currentObject, value);
+                    //if (propertyInfo.PropertyType.IsEnum && value is string str)
+                    //{
+                    //    var e = Enum.Parse(propertyInfo.PropertyType, str, true);
+                    //    propertyInfo.SetValue(currentObject, e);
+                    //}
+                    //else
+                    //{
+                    //    propertyInfo.SetValue(currentObject, Convert.ChangeType(value, propertyInfo.PropertyType));
+                    //}
+                    CustomDeepTransformer.SetProperty(aliase, value,currentObject);
+                    ////propertyInfo.SetValue(currentObject, value);
                 }
             }
         }
