@@ -131,10 +131,8 @@
 
         watch: {
             search: debounce(function (val) {
-                let searchVal;
-                if(!val) {
-                    searchVal = '';
-                }else{
+                let searchVal = '';
+                if(!!val) {
                     searchVal = val.trim();
                 }
                 let paramObj = {term: searchVal, page: 0};
