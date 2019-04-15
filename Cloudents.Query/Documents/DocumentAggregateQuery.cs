@@ -68,7 +68,7 @@ from sb.iv_DocumentSearch ds
 ,cte
 where 
      (:typeFilterCount = 0 or ds.Type in (:typefilter))
-    and ds.Datetime > GETUTCDATE() - 182 --this is because we don't want to aggregate all the historical data
+    and ds.Datetime > GETUTCDATE() - 182 
 order by 
 case when ds.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 4 else 0 end +
 case when ds.UniversityId = cte.UniversityId then 3 else 0 end  +
@@ -76,6 +76,8 @@ case when ds.Country = cte.Country then 2 else 0 end +
 cast(1 as float)/ISNULL(nullif( DATEDIFF(minute, ds.[DateTime], GETUTCDATE()   ),0),1) desc
 OFFSET :page*50 ROWS
 FETCH NEXT 50 ROWS ONLY";
+
+                //this is because we don't want to aggregate all the historical data
 
 
                 const string filter = @"select distinct top 50 [Type]
