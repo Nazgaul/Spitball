@@ -78,7 +78,7 @@ FETCH NEXT 50 ROWS ONLY";
                 sqlQuery.SetInt64("userid", query.UserId);
                 sqlQuery.SetInt32("typeFilterCount", query.Filter?.Length ?? 0);
                 sqlQuery.SetParameterList("typefilter", query.Filter ?? Enumerable.Repeat("x",1));
-
+                
 
                 sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_'));
                 var future = sqlQuery.Future<DocumentFeedDto>();
