@@ -131,17 +131,12 @@
 
         watch: {
             search: debounce(function (val) {
-                let searchVal;
+                let searchVal = '';
                 if(!!val) {
                     searchVal = val.trim();
-                    if(searchVal.length >= 3) {
-                        let paramObj = {term: searchVal, page: 0};
-                        this.loadCourses(paramObj);
-                    }
-                } else if(val === '') {
-                    let paramObj = {term: '', page: 0};
-                    this.loadCourses(paramObj);
                 }
+                let paramObj = {term: searchVal, page: 0};
+                this.loadCourses(paramObj);                
             }, 500)
         },
         computed: {

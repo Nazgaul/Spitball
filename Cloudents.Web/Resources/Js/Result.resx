@@ -181,7 +181,7 @@
     <value>{1} user is answering</value>
   </data>
   <data name="where_school" xml:space="preserve">
-    <value>Where do you go to school?</value>
+    <value>My courses</value>
   </data>
   <data name="your_search" xml:space="preserve">
     <value>Your search</value>

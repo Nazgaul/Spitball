@@ -19,7 +19,7 @@ namespace Cloudents.Persistence.Maps
             Map(z => z.Price).Not.Nullable().CustomSqlType("smallmoney");
 
             DiscriminateSubClassesOnColumn("TransactionType");
-            SchemaAction.None();
+            SchemaAction.Validate();
         }
     }
 

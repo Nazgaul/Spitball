@@ -19,7 +19,7 @@ namespace Cloudents.Persistence.Maps
                 .Inverse()
                 .ForeignKeyConstraintName("fChatMessageChatRoom")
                 .KeyColumn("ChatRoomId");
-            SchemaAction.Update();
+            SchemaAction.Validate();
         }
     }
 
@@ -34,7 +34,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.User)
                 .Not.Nullable().Column("UserId")
                 .ForeignKey("fChatUserUser");
-            SchemaAction.Update();
+            SchemaAction.Validate();
         }
     }
 
@@ -50,7 +50,7 @@ namespace Cloudents.Persistence.Maps
                 .ForeignKey("fChatUserChatRoom");
 
             DiscriminateSubClassesOnColumn("MessageType");
-            SchemaAction.Update();
+            SchemaAction.Validate();
         }
     }
 

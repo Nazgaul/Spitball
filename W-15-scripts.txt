@@ -1,27 +1,7 @@
-﻿need to update DocumentSearchWrite
-need to update QuestionSearchWrite
+﻿
+Need to update question search from the start.
 
 
-alter table sb.university
-add ImageUrl nvarchar(255)
-
-alter table sb.university
-add UsersCount int
-
-update sb.University 
-set userscount = (select count(*) from sb.[user] where UniversityId2 = sb.University.id)
-
-Need to update azure search
-Need to upload azure function
-Delete version txt from blob https://zboxstorage.blob.core.windows.net/spitball/AzureSearch/university3-version.txt
-
-
---University Image DBI
-begin tran
-update u
-set ImageUrl = (select LargeImage from zbox.University uz where uz.UniversityName = u.Name and u.Country = uz.Country)
-from sb.University u
-commit
 
 
 

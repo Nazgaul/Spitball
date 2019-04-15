@@ -17,7 +17,7 @@
                                                 v-if="$vuetify.breakpoint.xsOnly && isMyProfile" class="edit-profile-action  ml-2">sbf-edit-icon</v-icon>
                                     </div>
                                     <div class="d-flex align-start" v-if="$vuetify.breakpoint.smAndUp">
-                                        <userRank class="ml-2 mt-1" :score="userScore"></userRank>
+                                        <userRank v-if="!isTutorProfile" class="ml-2 mt-1" :score="userScore"></userRank>
                                     </div>
                                 </div>
                                 <div class="text-xs-center text-sm-left text-md-left user-university caption text-capitalize">{{university}}</div>
