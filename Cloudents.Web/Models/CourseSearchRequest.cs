@@ -1,15 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Cloudents.Web.Models
+﻿namespace Cloudents.Web.Models
 {
     /// <summary>
-    /// University request object
+    /// Course request object
     /// </summary>
-    public class UniversityRequest
+    public class CourseSearchRequest
     {
         /// <summary>
         /// the user input
         /// </summary>
+        //[StringLength(100, MinimumLength = 3, ErrorMessage = "StringLength")]
         public string Term { get; set; }
 
         public int Page { get; set; }
