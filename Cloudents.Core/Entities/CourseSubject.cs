@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Cloudents.Core.Entities
 {
-    public class CourseSubject: AggregateRoot<long>
+    public class CourseSubject : Entity<int>, IAggregateRoot
     {
         public const int MinLength = 4;
         public const int MaxLength = 150;

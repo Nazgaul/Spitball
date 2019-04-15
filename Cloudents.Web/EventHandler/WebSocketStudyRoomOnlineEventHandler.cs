@@ -20,7 +20,8 @@ namespace Cloudents.Web.EventHandler
 
         public async Task HandleAsync(StudyRoomOnlineChangeEvent eventMessage, CancellationToken token)
         {
-            var studyRoom = eventMessage.StudyRoom;
+            var studyUser = eventMessage.StudyUser;
+            var studyRoom = studyUser.Room;
             var message = new SignalRTransportType(SignalRType.StudyRoom,
                 SignalRAction.Update, new
                 {

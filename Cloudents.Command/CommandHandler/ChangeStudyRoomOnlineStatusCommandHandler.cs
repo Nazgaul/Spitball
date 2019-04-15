@@ -22,6 +22,7 @@ namespace Cloudents.Command.CommandHandler
         {
             var studyRoom = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
             studyRoom.ChangeOnlineStatus(message.UserId,message.Status);
+            await _studyRoomRepository.UpdateAsync(studyRoom, token);
         }
     }
 }

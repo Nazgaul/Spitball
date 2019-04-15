@@ -9,12 +9,12 @@ using Cloudents.Core.Event;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "Nhibernate")]
-    public class StudyRoom : AggregateRoot<Guid>
+    public class StudyRoom : Entity<Guid>, IAggregateRoot
     {
         public StudyRoom(Tutor tutor, RegularUser user, string onlineDocumentUrl)
         {
             
-            _users = new[] { new StudyRoomUser(tutor.User),  new StudyRoomUser(user) };
+            _users = new[] { new StudyRoomUser(tutor.User,this),  new StudyRoomUser(user,this) };
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
             DateTime = DateTime.UtcNow;
             OnlineDocumentUrl = onlineDocumentUrl;
@@ -50,8 +50,9 @@ namespace Cloudents.Core.Entities
         public virtual void ChangeOnlineStatus(long userId, bool isOnline)
         {
             var studyRoomUser = Users.Single(f => f.User.Id == userId);
-            studyRoomUser.Online = isOnline;
-            AddEvent(new StudyRoomOnlineChangeEvent(this));
+            studyRoomUser.ChangeOnlineState(isOnline);
+            //studyRoomUser.Online = isOnline;
+            //studyRoomUser.AddEvent(new StudyRoomOnlineChangeEvent(this));
             
         }
         

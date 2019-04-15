@@ -16,11 +16,11 @@ namespace Cloudents.Core.Event
 
     public class StudyRoomOnlineChangeEvent : IEvent
     {
-        public StudyRoomOnlineChangeEvent(StudyRoom studyRoom)
+        public StudyRoomOnlineChangeEvent(StudyRoomUser studyUser)
         {
-            StudyRoom = studyRoom;
+            StudyUser = studyUser;
         }
 
-        public StudyRoom StudyRoom { get; private set; }
+        public StudyRoomUser StudyUser { get; private set; }
     }
 }

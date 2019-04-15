@@ -8,7 +8,7 @@ using System.Linq;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-    public class ChatRoom : AggregateRoot<Guid>
+    public class ChatRoom : Entity<Guid>, IAggregateRoot
     {
         protected ChatRoom()
         {

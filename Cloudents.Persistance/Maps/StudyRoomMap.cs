@@ -19,7 +19,7 @@ namespace Cloudents.Persistence.Maps
 
 
             HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore)
-                .Cascade.AllDeleteOrphan();
+                .Inverse().Cascade.AllDeleteOrphan();
 
 
         }
@@ -32,6 +32,7 @@ namespace Cloudents.Persistence.Maps
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(x => x.User).Not.Nullable();
+            References(x => x.Room).Column("StudyRoomId").Not.Nullable();
             Map(x => x.Online).Not.Nullable();
         }
     }

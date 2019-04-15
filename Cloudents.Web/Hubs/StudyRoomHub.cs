@@ -33,8 +33,8 @@ namespace Cloudents.Web.Hubs
             var roomId = Guid.Parse(cookieVal);
             var userId = long.Parse(Context.UserIdentifier);
             var command = new ChangeStudyRoomOnlineStatusCommand(userId, true, roomId);
-            await _commandBus.DispatchAsync(command, default);
             await Groups.AddToGroupAsync(Context.ConnectionId, cookieVal);
+            await _commandBus.DispatchAsync(command, default);
             await base.OnConnectedAsync();
         }
 

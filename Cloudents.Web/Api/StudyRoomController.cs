@@ -81,7 +81,6 @@ namespace Cloudents.Web.Api
             {
                 HttpOnly = true,
                 Secure = true,
-
             });
             return result;
         }
