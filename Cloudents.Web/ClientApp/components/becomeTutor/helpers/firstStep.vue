@@ -2,8 +2,11 @@
     <div class="become-first-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0 mt-1' : '']">
         <v-layout row wrap align-center  justify-center >
             <v-flex xs12 sm4 md4 shrink class="image-wrap text-xs-center">
-                <img v-if="userImage" class="user-image" :src="userImage" alt="upload image">
-                <img v-else class="user-image" src="../images/placeholder-image.png" alt="upload image">
+                <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image" @load="loaded">
+                <img v-show="!userImage" class="user-image" src="../images/placeholder-image.png" alt="upload image" @load="loaded" >
+                <div  v-if="!isLoaded">
+                    <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
+                </div>
                 <button v-show="!userImage" class="upload-btn font-weight-bold">
                     <span class="font-weight-bold"></span>
                     <input class="become-upload"
@@ -76,7 +79,8 @@
             return {
                 firstName: '',
                 lastName: '',
-                price: '₪50'
+                price: '₪50',
+                isLoaded: false
             };
         },
         computed: {
@@ -95,6 +99,9 @@
         },
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),
+            loaded(){
+                this.isLoaded = true;
+            },
             uploadImage() {
                 let self = this;
                 let formData = new FormData();

@@ -16,7 +16,7 @@
                     <v-layout row wrap >
                         <!--<transition-group name="fade"  tag="v-layout" style="flex-direction: row; flex-wrap: wrap;">-->
                         <v-flex  xs12 sm6 md6 key="sdf"
-                                v-for="(course, index) in aboutData"
+                                v-for="(course, index) in userCourses"
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
                             <v-card @click="goToSelectedClass(course.name)" class="cursor-pointer elevation-0 border py-3 text-truncate course-card"  key="wqerghfh">
@@ -24,7 +24,7 @@
                             </v-card>
                         </v-flex>
                         <!--</transition-group>-->
-                        <v-flex xs12 sm6 md6 v-if="aboutData.length >= showQuantity" class="course-name show-more">
+                        <v-flex xs12 sm6 md6 v-if="userCourses.length >= showQuantity" class="course-name show-more">
                             <v-card :class="{'mr-3': $vuetify.breakpoint.smAndUp}" class="elevation-0 border  py-3" @click="expanded ? showLess() : showAll()">
                                 <span class="font-weight-bold course-name">
                                     <span v-show="!expanded">
@@ -63,7 +63,7 @@
                 this.$router.push({name: 'note', query: {Course: course}})
             },
             showAll() {
-                this.showQuantity = this.aboutData.length;
+                this.showQuantity = this.userCourses.length;
                 this.expanded = true;
             },
             showLess(){
@@ -76,7 +76,7 @@
         },
         computed: {
             ...mapGetters(['getProfile', 'isTutorProfile']),
-            aboutData() {
+            userCourses() {
                 if(this.getProfile &&  this.getProfile.about && this.getProfile.about.courses){
                     return this.getProfile.about.courses;
                 }
@@ -84,8 +84,8 @@
 
             },
             moreQuantity(){
-                if(this.aboutData.length > this.showQuantity){
-                    return this.aboutData.length - this.showQuantity
+                if(this.userCourses.length > this.showQuantity){
+                    return this.userCourses.length - this.showQuantity
                 }
             },
         },
