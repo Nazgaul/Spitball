@@ -72,6 +72,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await GetStudyRoomAsync(id, userId, token);
+            //TODO: need to add who is the tutor
             if (result == null)
             {
                 return NotFound();
