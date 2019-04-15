@@ -77,11 +77,12 @@
     .become-tutor-wrap {
         width: 100%;
         .back-image{
-            background: @color-white url('./images/conffeti_desktop.png')!important;
-            background-position: center;
+            background-image: url('./images/conffeti_desktop.png')!important;
             background-repeat: no-repeat;
+            background-position: top;
+            background-size: contain;
             @media(max-width: @screen-xs){
-                background: @color-white url('./images/conffeti_mobile.png');
+                background-image: url('./images/conffeti_mobile.png');
 
             }
         }
