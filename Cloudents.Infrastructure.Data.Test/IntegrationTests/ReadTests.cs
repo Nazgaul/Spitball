@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentAggregateQuery_Ok()
         {
-            var query = new DocumentAggregateQuery(638, 0,null);
+            var query = new DocumentAggregateQuery(638, 0,null,"IL");
 
             var result = await fixture._queryBus.QueryAsync(query, default);
         }
@@ -40,7 +40,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentAggregateQuery_WithFilter_Ok()
         {
-            var query = new DocumentAggregateQuery(638, 0, new []{"x", "y" });
+            var query = new DocumentAggregateQuery(638, 0, new []{"x", "y" },"IL");
+
+            var result = await fixture._queryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task DocumentAggregateQuery_NoUser_Ok()
+        {
+            var query = new DocumentAggregateQuery(0, 0, new[] { "x", "y" },"IL");
 
             var result = await fixture._queryBus.QueryAsync(query, default);
         }
