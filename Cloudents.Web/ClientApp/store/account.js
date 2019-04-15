@@ -412,15 +412,7 @@ const actions = {
                 dispatch("syncUniData");
                 dispatch("getAllConversations");
                 analyticsService.sb_setUserId(UserAccount.id);
-                setTimeout(()=>{
-                    if(rootState.route.name === 'tutoring'){
-                       // initSignalRService('studyRoomHub');
-                    }else{
-                        initSignalRService();
-                    }
-                }, 1500)
-                
-                
+                initSignalRService();                
             }).catch(_ => {
                 setIntercomeData()
                 isRequire ? commit("updateFromPath", to) : '';

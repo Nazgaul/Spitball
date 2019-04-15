@@ -10,7 +10,14 @@ const state = {
     isRemoteOffline: true,
     isRoomLoading: false,
     isFirepadLoadedOnce: false,
-    qualityDialogVisibility: false
+    qualityDialogVisibility: false,
+    roomStateEnum: {
+        pending: "pending",
+        ready: "ready",
+        loading: "loading",
+        active: "active"
+    },
+    currentRoomState: "pending"
 };
 const getters = {
     activeRoom:  state => state.currentActiveRoom,
@@ -24,7 +31,8 @@ const getters = {
     isRoomFull: state => state.isRoomFull,
     roomLoading : state => state.isRoomLoading,
     firepadLoadedOnce: state => state.isFirepadLoadedOnce,
-    qualityDialog: state=> state.qualityDialogVisibility
+    qualityDialog: state=> state.qualityDialogVisibility,
+    getCurrentRoomState: state=> state.currentRoomState
 };
 
 const mutations = {
@@ -68,6 +76,11 @@ const mutations = {
     },
     setqualityDialogState(state, val){
         state.qualityDialogVisibility = val
+    },
+    setCurrentRoomState(state, val){
+        if(!!state.roomStateEnum[val]){
+            state.currentRoomState = val
+        }
     }
 
 };
@@ -113,6 +126,12 @@ const actions = {
     updateUserIdentity({commit, state}, val) {
         commit('setUserIdentity', val)
     },
+    updateCurrentRoomState({commit}, val){
+        commit('setCurrentRoomState', val)
+    },
+    signalRUpdateState({commit}, notificationObj){
+        //TODO Update state according to the singnalR data
+    }
 };
 export default {
     state,

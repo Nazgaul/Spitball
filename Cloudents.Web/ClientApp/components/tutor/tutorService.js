@@ -247,10 +247,15 @@ const connectToRoom = function (token, options) {
             });
 };
 
-const getChatIdByRoomId = function(roomId){
+const getRoomInformation = function(roomId){
     return connectivityModule.http.get(`StudyRoom/${roomId}`);
 }
 
+const getJwtToken = function(roomId){
+    return connectivityModule.http.get(`StudyRoom/${roomId}/enter`).then((data)=>{
+        return data.jwtToken;
+    });
+}
 
 export default {
     dataTrack,
@@ -259,5 +264,6 @@ export default {
     getToken,
     createRoom,
     connectToRoom,
-    getChatIdByRoomId
+    getRoomInformation,
+    getJwtToken
 }

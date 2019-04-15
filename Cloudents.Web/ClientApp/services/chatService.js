@@ -61,7 +61,7 @@ const getAllConversations = () => {
     return connectivityModule.http.get(`Chat`);
 }  
 
-const getConversationById = (id) => {
+const getChatById = (id) => {
     return connectivityModule.http.get(`Chat/conversation/${id}`);
 }
 
@@ -79,7 +79,7 @@ const clearUnread = (otherUserId) => {
 
 export default {
     getAllConversations,
-    getConversationById,
+    getChatById,
     createConversation,
     getMessageById,
     createMessage,

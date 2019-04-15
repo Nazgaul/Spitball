@@ -106,7 +106,7 @@ export default {
         { name: "Canvas", value: "white-board", icon: "sbf-canvas" },
         { name: "Code Editor", value: "code-editor", icon: "sbf-code-editor" },
         { name: "Text Editor", value: "shared-document", icon: "sbf-text-icon" }
-      ]
+      ],
     };
   },
 
@@ -145,8 +145,9 @@ export default {
     ...mapActions([
       "updateTestDialogState",
       "setActiveConversationObj",
-      "getConversationById",
-      "lockChat"
+      "getChatById",
+      "lockChat",
+      "updateRoomID"
     ]),
     updateActiveNav(value) {
       this.activeNavItem = value;
@@ -155,14 +156,23 @@ export default {
     changeQualityDialogState(val) {
       this.updateTestDialogState(val);
     },
+     getRoomInformation(){
+      return tutorService.getJwtToken(this.id).then((token)=>{
+        if(!!token){
+          this.updateRoomID(token);
+        }else{
+          //error
+        }
+      }, err => {
+        // error
+      })
+    },
     setChatRoom(id) {
       let self = this;
-      tutorService.getChatIdByRoomId(id).then(({ data }) => {
+      tutorService.getRoomInformation(id).then(({ data }) => {
         initSignalRService("studyRoomHub");
-        self.getConversationById(data.conversationId).then(({ data }) => {
-          let currentConversationObj = chatService.createActiveConversationObj(
-            data
-          );
+        self.getChatById(data.conversationId).then(({ data }) => {
+          let currentConversationObj = chatService.createActiveConversationObj(data);
           self.setActiveConversationObj(currentConversationObj);
           self.lockChat();
         });
@@ -170,7 +180,8 @@ export default {
     }
   },
   created() {
-    this.setChatRoom(this.id);
+    this.setChatRoom(this.id);    
+    this.getRoomInformation();
     this.$loadScript(
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"
     ).then(() => {

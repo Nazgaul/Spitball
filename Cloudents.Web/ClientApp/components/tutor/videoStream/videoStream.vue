@@ -9,9 +9,14 @@
         </v-layout>
         <v-layout align-center justify-end>
             <v-flex xs8 class="d-inline-flex">
-                <button class="create-session" color="primary" @click="createRoomFunc()" v-if="!id">
+                <!-- <button v-if="!roomIsActive" class="create-session" color="primary" :class="{'disabled': roomIsPending}" @click="createRoomFunc()"> -->
+                <button v-if="!roomIsActive" class="create-session" color="primary" @click="createRoomFunc()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
                     Start Session
+                </button>
+                <button v-else class="create-session" color="primary" @click="createRoomFunc()">
+                    <timerIcon class="timer-icon mr-2"></timerIcon>
+                    End Session
                 </button>
             </v-flex>
         </v-layout>

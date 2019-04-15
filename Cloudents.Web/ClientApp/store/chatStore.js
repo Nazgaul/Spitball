@@ -124,7 +124,7 @@ const actions = {
                 }else{
                     //no conversation should be added
                     // TODO get conversation by id
-                    dispatch('getConversationById', message.conversationId).then(({data})=>{
+                    dispatch('getChatById', message.conversationId).then(({data})=>{
                         let ConversationObj = chatService.createConversation(data);
                         commit('addConversation', ConversationObj)
                         commit('setActiveConversationId', ConversationObj.conversationId)
@@ -146,8 +146,8 @@ const actions = {
         }      
         
     },
-    getConversationById:(context, conversationId)=>{
-        return chatService.getConversationById(conversationId);
+    getChatById:(context, conversationId)=>{
+        return chatService.getChatById(conversationId);
     },
     setTotalUnread:({commit}, totalUnread)=>{
         commit('updateTotalUnread', totalUnread)

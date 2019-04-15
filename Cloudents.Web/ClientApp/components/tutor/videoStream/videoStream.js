@@ -1,4 +1,4 @@
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import { createLocalTracks, createLocalVideoTrack } from 'twilio-video';
 import tutorService  from '../tutorService';
  import timerIcon from '../images/timer.svg';
@@ -29,7 +29,14 @@ export default {
         id: ''
     },
     computed: {
-        ...mapGetters(['sharedDocUrl', 'roomLinkID', 'isRoomFull', 'activeRoom', 'localOffline','remoteOffline', 'roomLoading'])
+        ...mapState(['tutoringMainStore']),
+        ...mapGetters(['sharedDocUrl', 'roomLinkID', 'isRoomFull', 'activeRoom', 'localOffline','remoteOffline', 'roomLoading', 'getCurrentRoomState']),
+        roomIsPending(){
+            return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
+        },
+        roomIsActive(){
+            return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.active;
+        }
     },
     watch: {
         '$route': 'createVideoSession'
@@ -39,6 +46,7 @@ export default {
             'updateRoomID',
             'updateRoomLoading'
         ]),
+        
         biggerRemoteVideo() {
             let video = document.querySelectorAll("#remoteTrack video")[0];
             video.requestFullscreen()
@@ -121,8 +129,8 @@ export default {
     },
     created() {
         if (this.id) {
-            this.updateRoomID(this.id);
-            this.startVideo();
+            // this.updateRoomID(this.id);
+            // this.startVideo();
         }
     }
 
