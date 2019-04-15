@@ -1,7 +1,7 @@
 <template>
-    <div class="become-tutor-wrap d-flex">
-        <v-stepper v-model="currentStep">
-            <v-layout align-center justify-center class="py-2 become-header" v-show="!isLastStep">
+    <div class="become-tutor-wrap d-flex" >
+        <v-stepper v-model="currentStep" :class="[isLastStep ?  'back-image' : '']">
+            <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
                 <v-flex xs12 sm12 md12 class="text-xs-center mt-1">
                     <v-icon class="become-title face-icon mr-2">sbf-face-icon</v-icon>
                     <span class="subheading font-weight-bold become-title">Become a tutor</span>
@@ -16,7 +16,7 @@
                 </v-stepper-step>
             </v-stepper-header>
             <v-stepper-items>
-                <v-stepper-content v-for="n in steps"
+                <v-stepper-content v-for="n in steps" class="mt-3"
                                    :key="`step_${n}`"
                                    :step="n">
                         <component :is="`step_${currentStep}`"></component>
@@ -76,6 +76,15 @@
 
     .become-tutor-wrap {
         width: 100%;
+        .back-image{
+            background: @color-white url('./images/conffeti_desktop.png')!important;
+            background-position: center;
+            background-repeat: no-repeat;
+            @media(max-width: @screen-xs){
+                background: @color-white url('./images/conffeti_mobile.png');
+
+            }
+        }
         .cancel-btn {
             border: solid 1px @colorBlue;
             color: @colorBlue;
@@ -92,6 +101,7 @@
         }
         .become-header {
             background-color: @systemBackgroundColor;
+            padding:6px 0;
         }
         .v-stepper__step--active {
             border-bottom: solid 2px @colorBlue;

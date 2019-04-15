@@ -1,12 +1,12 @@
 <template>
     <v-layout class="tutoring-info-section" align-center :class="{'mobile-view': $vuetify.breakpoint.xsOnly}">
         <v-flex xs12>
-            <v-card class="py-4 tutoring-info-card"
+            <v-card class="py-4 tutoring-info-card "
                     :class="[$vuetify.breakpoint.xsOnly ? 'mobile-view elevation-0 px-0 py-2': 'py-4']">
                 <v-flex v-if="$vuetify.breakpoint.smAndUp">
                     <div>
                         <div class="mb-2 text-sm-center text-xs-center px-3">
-                        <span class="tutoring-info-heading" v-language:inner>profile_tutor_sidebar_title
+                        <span class="tutoring-info-heading font-italic" v-language:inner>profile_tutor_sidebar_title
                         </span>
                         </div>
                     </div>
@@ -14,7 +14,7 @@
                 <v-flex xs12 sm12 md12 :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-3']">
                     <contactBtn ></contactBtn>
                 </v-flex>
-                <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}">
+                <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}" v-if="false">
                     <div class="info-item mb-2" v-for="one in 3">
                         <div class="text-xs-center">
                             <span class="tutoring-info-label">Tutoring Hours</span>
@@ -72,6 +72,7 @@
             flex-direction: column;
             padding-left: 8px;
             padding-right: 8px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.18);
             &.mobile-view {
                 background: transparent;
                 flex-direction: row;
@@ -108,7 +109,7 @@
         }
         .tutoring-info-heading {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;
             font-style: italic;
             color: @profileTextColor;
         }

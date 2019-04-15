@@ -1,6 +1,6 @@
 <template>
-    <div class="become-first-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0 mt-1' : '']">
-        <v-layout row wrap align-center  justify-center >
+    <div class="become-first-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
+        <v-layout row wrap align-start  justify-center >
             <v-flex xs12 sm4 md4 shrink class="image-wrap text-xs-center">
                 <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image" @load="loaded">
                 <img v-show="!userImage" class="user-image" src="../images/placeholder-image.png" alt="upload image" @load="loaded" >
@@ -23,7 +23,7 @@
 
             </v-flex>
             <v-flex xs12 sm6 md6 class="inputs-wrap" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
-                <v-layout column shrink>
+                <v-layout column shrink  justify-start>
                     <v-flex xs12  shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-3']">
                         <v-text-field outline
                                       v-model="firstName"
@@ -39,27 +39,27 @@
                                       :label="'Last Name'"></v-text-field>
 
                     </v-flex>
-                    <v-flex xs12>
+                    <v-flex xs12 class="mt-2">
                         <v-text-field outline class="bg-greyed font-weight-bold price-input"
                                       v-model="price"
                                       :disabled="true"
                                       hide-details
                                       :label="'Fixed Price per hour'"></v-text-field>
                     </v-flex>
-                    <v-flex xs12 class="mt-3">
+                    <v-flex xs12 class="contact-price">
                         <div class="blue-text caption cursor-pointer">Contact us to change price</div>
                     </v-flex>
                 </v-layout>
             </v-flex>
         </v-layout>
         <v-layout  class="mt-5 px-1" :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
-            <v-btn   @click="closeDialog()" class="cancel-btn" round outline flat>
+            <v-btn   @click="closeDialog()" class="cancel-btn elevation-0" round outline flat>
                 <span>Cancel</span>
             </v-btn>
             <v-btn
                    color="#4452FC"
                    round
-                   class="white-text"
+                   class="white-text elevation-0"
                    :disabled="btnDisabled"
                    @click="nextStep()">
                 <span>Next</span>
@@ -126,6 +126,9 @@
     @import '../../../styles/mixin.less';
 
     .become-first-wrap {
+        .contact-price{
+            margin-top: 20px;
+        }
         .image-wrap {
             position: relative;
             min-width: 214px;

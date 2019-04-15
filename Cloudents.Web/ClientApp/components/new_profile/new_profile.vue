@@ -11,7 +11,7 @@
 
             <!--TODO HIDDEN FOR NOW-->
             <v-flex  xs12 sm3 md3 :class="{'pl-4': $vuetify.breakpoint.smAndUp}" v-if="isMyProfile || isTutorProfile">
-                <tutorInfoBlock v-if="isTutorProfile"></tutorInfoBlock>
+                <tutorInfoBlock v-if="!isTutorProfile"></tutorInfoBlock>
                 <userInfoBlock v-else></userInfoBlock>
             </v-flex>
         </v-layout>
