@@ -1,6 +1,8 @@
-﻿using System.Data.SqlClient;
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Query.Query;
 using Xunit;
 
@@ -35,6 +37,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new DocumentAggregateQuery(638, 0,null,"IL");
 
             var result = await fixture._queryBus.QueryAsync(query, default);
+
+            
         }
 
         [Fact]
@@ -76,6 +80,19 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new UserProfileAboutQuery(638);
 
             var result = await fixture._queryBus.QueryAsync(query, default);
+        }
+
+
+        [Fact]
+        public async Task QuestionsQueryHandler_Ok()
+        {
+            var ids = new[]
+            {
+                9077L,
+            };
+            var query = new IdsQuery<long>(ids);
+
+            var result = await fixture._queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
         }
     }
 }

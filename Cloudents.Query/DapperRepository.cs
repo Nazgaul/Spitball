@@ -22,12 +22,6 @@ namespace Cloudents.Query
         static DapperRepository()
         {
             SqlMapper.AddTypeHandler(new DapperCultureInfoTypeHandler());
-
-            var t = new CustomPropertyTypeMap(typeof(UserDto), (x, columnName) =>
-            {
-                return null;
-            });
-            SqlMapper.SetTypeMap(typeof(UserDto),t);
         }
        
 

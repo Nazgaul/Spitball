@@ -74,10 +74,14 @@ namespace Cloudents.Web.Binders
                             profile.Country = await _countryProvider.GetUserCountryAsync(token);
                             break;
                         case ProfileServiceQuery.Course:
-                            var userId = _userManager.GetLongUserId(bindingContext.HttpContext.User);
-                            var queryCourses = new UserCoursesQuery(userId);
-                            var resultCourses = await _queryBus.QueryAsync(queryCourses, token);
-                            profile.Courses = resultCourses.Select(s => s.Name);
+                            if (bindingContext.HttpContext.User.Identity.IsAuthenticated)
+                            {
+                                var userId = _userManager.GetLongUserId(bindingContext.HttpContext.User);
+                                var queryCourses = new UserCoursesQuery(userId);
+                                var resultCourses = await _queryBus.QueryAsync(queryCourses, token);
+                                profile.Courses = resultCourses.Select(s => s.Name);
+                            }
+
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();

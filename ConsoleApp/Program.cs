@@ -117,15 +117,15 @@ namespace ConsoleApp
 
             _container = builder.Build();
 
-            //if (Environment.UserName == "Ram")
-            //{
-            //    await RamMethod();
-            //}
-            //else
-            //{
+            if (Environment.UserName == "Ram")
+            {
+                await RamMethod();
+            }
+            else
+            {
 
                 await HadarMethod();
-            //}
+            }
 
 
             Console.WriteLine("done");
@@ -140,8 +140,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var c = _container.Resolve<UniversitySearchWrite>();
-            await c.DeleteOldDataAsync(DateTime.UtcNow.AddDays(-5), default);
+            var c = _container.Resolve<AzureDocumentSearch>();
+            var z = await c.ItemAsync(28886, default);
             //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
             // await c.DispatchAsync(command2, default);
 

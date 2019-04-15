@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Query.Stuff
 {
@@ -120,8 +121,9 @@ namespace Cloudents.Query.Stuff
                     //{
                     //    propertyInfo.SetValue(currentObject, Convert.ChangeType(value, propertyInfo.PropertyType));
                     //}
-                    CustomDeepTransformer.SetProperty(aliase, value,currentObject);
-                    ////propertyInfo.SetValue(currentObject, value);
+                    //CustomDeepTransformer.SetProperty(aliase, value,currentObject);
+                    propertyInfo.SetValueExtension(currentObject, value);
+                    //propertyInfo.SetValue(currentObject, value);
                 }
             }
         }

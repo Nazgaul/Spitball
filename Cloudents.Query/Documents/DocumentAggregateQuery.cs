@@ -77,9 +77,9 @@ OFFSET :page*50 ROWS
 FETCH NEXT 50 ROWS ONLY";
 
 
-                const string filter = @"select distinct [Type]
-                from sb.Document d
-                    where d.CourseName in (select courseId from sb.usersCourses where userid = :userid )";
+                const string filter = @"select distinct top 50 [Type]
+                from sb.Document ds 	where 
+     (:typeFilterCount = 0  or ds.Type in (:typefilter))";
 
 
                 var sqlQuery = _dapperRepository.CreateSQLQuery(sql);
@@ -95,7 +95,8 @@ FETCH NEXT 50 ROWS ONLY";
 
 
                 var filterQuery = _dapperRepository.CreateSQLQuery(filter);
-                filterQuery.SetInt64("userid", query.UserId);
+                filterQuery.SetInt32("typeFilterCount", query.Filter?.Length ?? 0);
+                filterQuery.SetParameterList("typefilter", query.Filter ?? Enumerable.Repeat("x", 1));
                 var filtersFuture = filterQuery.Future<string>();
 
 
