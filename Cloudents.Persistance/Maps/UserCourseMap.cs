@@ -14,7 +14,7 @@ namespace Cloudents.Persistence.Maps
 
             Table("UsersCourses");
 
-            SchemaAction.Update();
+            SchemaAction.Validate();
 
         }
     }

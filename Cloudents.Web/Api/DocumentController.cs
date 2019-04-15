@@ -36,6 +36,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Wangkanai.Detection;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -66,6 +67,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("{id}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] ICrawlerResolver crawlerResolver,
@@ -153,15 +157,23 @@ namespace Cloudents.Web.Api
 
         [HttpGet(Name = "Documents"), AllowAnonymous]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> AggregateAllCoursesAsync(
-           [FromQuery]DocumentRequestAggregate request, CancellationToken token)
+           [FromQuery]DocumentRequestAggregate request,
+           [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile, 
+           CancellationToken token)
         {
             var page = request.Page;
-            var userId = _userManager.GetLongUserId(User);
-            var query = new DocumentAggregateQuery(userId, page, request.Filter);
+
+            _userManager.TryGetLongUserId(User, out var userId);
+
+            var query = new DocumentAggregateQuery(userId, page, request.Filter, profile.Country);
             var result = await _queryBus.QueryAsync(query, token);
 
 
-            return GenerateResult(result, new { page = ++page });
+            return GenerateResult(result, new
+            {
+                page = ++page,
+                filter = request.Filter
+            });
         }
 
         private WebResponseWithFacet<DocumentFeedDto> GenerateResult(
@@ -200,7 +212,7 @@ namespace Cloudents.Web.Api
             };
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SpecificCourseAsync(
             [RequiredFromQuery]DocumentRequestCourse request,
             CancellationToken token)
@@ -208,10 +220,10 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             var query = new DocumentCourseQuery(userId, request.Page, request.Course, request.Filter);
             var result = await _queryBus.QueryAsync(query, token);
-            return GenerateResult(result, new { page = ++request.Page, request.Course });
+            return GenerateResult(result, new { page = ++request.Page, request.Course,request.Filter });
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchInCourseAsync(
             [RequiredFromQuery]  DocumentRequestSearchCourse request,
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country)] UserProfile profile,
@@ -258,7 +270,7 @@ namespace Cloudents.Web.Api
             [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
+            
             var query = new DocumentQuery(profile, request.Term, null,
                 request.University != null, request.Filter?.Where(w => !string.IsNullOrEmpty(w)))
             {
@@ -269,7 +281,7 @@ namespace Cloudents.Web.Api
 
             if (User.Identity.IsAuthenticated)
             {
-
+                var userId = _userManager.GetLongUserId(User);
                 var queryTags = new UserVotesByCategoryQuery(userId);
                 votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
                     .ContinueWith(
@@ -290,83 +302,6 @@ namespace Cloudents.Web.Api
                 request.Filter
             });
         }
-
-        ///// <summary>
-        ///// Search document vertical result
-        ///// </summary>
-        ///// <param name="model"></param>
-        ///// <param name="searchProvider"></param>
-        ///// <param name="token"></param>
-        ///// <returns></returns>
-        //[HttpGet("{se}", Name = "DocumentSearch"), AllowAnonymous]
-        ////TODO:We have issue in here because of changing course we need to invalidate the query.
-        ////[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
-        //public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync(
-        //    [FromQuery] DocumentRequest model,
-        //    [FromServices] IDocumentSearch searchProvider,
-        //    CancellationToken token)
-        //{
-
-        //    model = model ?? new DocumentRequest();
-        //    var query = new DocumentQuery(model.Profile, model.Term, model.Course, !string.IsNullOrEmpty(model.University), model.Filter?.Where(w => !string.IsNullOrEmpty(w)))
-        //    {
-        //        Page = model.Page.GetValueOrDefault(),
-        //    };
-
-        //    var resultTask = searchProvider.SearchDocumentsAsync(query, token);
-        //    var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
-
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var userId = _userManager.GetLongUserId(User);
-        //        var queryTags = new UserVotesByCategoryQuery(userId);
-        //        votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
-        //            .ContinueWith(
-        //            t2 =>
-        //            {
-        //                return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
-        //            }, token);
-
-        //    }
-
-        //    await Task.WhenAll(resultTask, votesTask);
-        //    var result = resultTask.Result;
-        //    var p = result.Result.ToList();
-        //    string nextPageLink = null;
-        //    if (p.Count > 0)
-        //    {
-        //        nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
-        //    }
-
-        //    var filters = new List<IFilters>();
-        //    if (result.Facet.Any())
-        //    {
-        //        var filter = new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
-        //            result.Facet.Select(s => new KeyValuePair<string, string>(s, s)));
-        //        filters.Add(filter);
-        //    }
-
-
-        //    return new WebResponseWithFacet<DocumentFeedDto>
-        //    {
-        //        Result = p.Select(s =>
-        //        {
-        //            if (s.Url == null)
-        //            {
-        //                s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
-        //            }
-
-        //            if (votesTask?.Result != null && votesTask.Result.TryGetValue(s.Id, out var param))
-        //            {
-        //                s.Vote.Vote = param;
-        //            }
-        //            s.Title = Path.GetFileNameWithoutExtension(s.Title);
-        //            return s;
-        //        }),
-        //        Filters = filters,
-        //        NextPageLink = nextPageLink
-        //    };
-        //}
 
         [HttpPost("vote")]
         public async Task<IActionResult> VoteAsync([FromBody]
@@ -400,6 +335,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("flag")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> FlagAsync([FromBody] FlagDocumentRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -418,6 +356,9 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("purchase")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> PurchaseAsync([FromBody] PurchaseDocumentRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -436,6 +377,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("price")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
         {
 
@@ -468,7 +412,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("dropbox")]
+        [HttpPost("dropBox")]
         public async Task<UploadStartResponse> UploadDropBox([FromBody] DropBoxRequest model,
            [FromServices] IRestClient client,
            [FromServices] IDocumentDirectoryBlobProvider documentDirectoryBlobProvider,
@@ -480,24 +424,13 @@ namespace Cloudents.Web.Api
 
             return new UploadStartResponse(blobName);
         }
-        
 
-    [NonAction]
-        public override async Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)
+
+        [NonAction]
+        public override Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)
         {
+            return Task.CompletedTask;
         }
-
-        
-
-        //[HttpPost("file", Order = 1)]
-        /*public override async Task<ActionResult<UploadStartResponse>> FinishUploadAsync(
-           [FromServices] IDocumentDirectoryBlobProvider documentBlobProvider,
-           [FromBody] UploadRequestFinish model,
-           CancellationToken token)
-        {
-            var blobName = await CommitBlobsAsync(documentBlobProvider, model, token);
-            return new UploadStartResponse(blobName);
-        }*/
 
     }
 }

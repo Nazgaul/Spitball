@@ -44,6 +44,10 @@ namespace Cloudents.Search.Extensions
         }
         public static ScoringParameter GenerateTagScoringParameter(string name, string input)
         {
+            if (input == null)
+            {
+                return GenerateTagScoringParameter(name, (IEnumerable<string>) null);
+            }
             return GenerateTagScoringParameter(name, new[] { input });
         }
 
