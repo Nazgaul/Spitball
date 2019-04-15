@@ -101,7 +101,6 @@ function DocumentItem(objInit) {
     this.url = objInit.url;
     this.user = objInit.user;
     this.views = objInit.views;
-    //this.template =  objInit.source && objInit.source.includes('Cloudents') || objInit.source &&  objInit.source.includes('Spitball') ? 'note' : 'note-third-party';
     this.template = 'note';
     this.price = objInit.price;
     this.isPurchased = objInit.isPurchased;
