@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 
 namespace Cloudents.Core.Extension
@@ -53,6 +54,46 @@ namespace Cloudents.Core.Extension
         {
             var propertyType = info.PropertyType;
             return Nullable.GetUnderlyingType(propertyType) ?? propertyType;
+        }
+
+        public static void SetValueExtension(this PropertyInfo info, object obj, object value)
+        {
+            var type = info.GetRealType();
+            if (type.IsEnum && HandleEnum(info, obj, value))
+            {
+
+                return;
+
+            }
+
+            if (type == typeof(CultureInfo))
+            {
+                info.SetValue(obj, new CultureInfo(value.ToString()));
+                return;
+            }
+
+            //var y = Convert.ChangeType(obj, type);
+            info.SetValue(obj, value);
+        }
+
+        private static bool HandleEnum(PropertyInfo propertyInfo, object obj, object value)
+        {
+            var enumType = propertyInfo.GetRealType();
+            if (value is string str)
+            {
+                var e = System.Enum.Parse(enumType, str, true);
+                propertyInfo.SetValue(obj, e);
+                return true;
+            }
+
+            if (value is int i)
+            {
+                var t = System.Enum.ToObject(enumType, i);
+                propertyInfo.SetValue(obj, t);
+                return true;
+            }
+
+            return false;
         }
     }
 }
