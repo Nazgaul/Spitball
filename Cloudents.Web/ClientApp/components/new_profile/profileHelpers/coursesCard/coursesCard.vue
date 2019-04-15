@@ -71,7 +71,12 @@
                 this.expanded = false;
             },
             openSetClasses(){
-                this.$router.push({name: 'addCourse'});
+                if(this.isTutorProfile){
+                    this.$router.push({name: 'editCourse'});
+                }else{
+                    this.$router.push({name: 'addCourse'});
+                }
+                
             }
         },
         computed: {

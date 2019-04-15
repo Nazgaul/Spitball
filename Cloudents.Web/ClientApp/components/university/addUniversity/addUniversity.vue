@@ -97,13 +97,12 @@
         },
         watch: {
             search: debounce(function () {
+                let searchVal = '';
                 if(!!this.search) {
-                    let searchVal = this.search.trim();
-                    if(searchVal.length >= 2) {
-                        let paramObj = {term : searchVal, page: 0};
-                        this.loadUniversities(paramObj);
-                    }
+                    searchVal = this.search.trim();
                 }
+                let paramObj = {term : searchVal, page: 0};
+                this.loadUniversities(paramObj);
             }, 500)
         },
         computed: {
