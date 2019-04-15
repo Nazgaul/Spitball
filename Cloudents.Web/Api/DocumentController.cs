@@ -163,7 +163,11 @@ namespace Cloudents.Web.Api
             var result = await _queryBus.QueryAsync(query, token);
 
 
-            return GenerateResult(result, new { page = ++page });
+            return GenerateResult(result, new
+            {
+                page = ++page,
+                filter = request.Filter
+            });
         }
 
         private WebResponseWithFacet<DocumentFeedDto> GenerateResult(
@@ -210,7 +214,7 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             var query = new DocumentCourseQuery(userId, request.Page, request.Course, request.Filter);
             var result = await _queryBus.QueryAsync(query, token);
-            return GenerateResult(result, new { page = ++request.Page, request.Course });
+            return GenerateResult(result, new { page = ++request.Page, request.Course,request.Filter });
         }
 
         [HttpGet]

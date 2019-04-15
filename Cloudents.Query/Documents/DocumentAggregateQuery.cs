@@ -68,6 +68,7 @@ from sb.iv_DocumentSearch ds
 ,cte
 where 
      (:typeFilterCount = 0 or ds.Type in (:typefilter))
+    and ds.Datetime > GETUTCDATE() - 182 --this is because we don't want to aggregate all the historical data
 order by 
 case when ds.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 4 else 0 end +
 case when ds.UniversityId = cte.UniversityId then 3 else 0 end  +
