@@ -99,10 +99,8 @@
             search: debounce(function () {
                 if(!!this.search) {
                     let searchVal = this.search.trim();
-                    if(searchVal.length >= 2) {
-                        let paramObj = {term : searchVal, page: 0};
-                        this.loadUniversities(paramObj);
-                    }
+                    let paramObj = {term : searchVal, page: 0};
+                    this.loadUniversities(paramObj);
                 }
             }, 500)
         },
