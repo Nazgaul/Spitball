@@ -42,7 +42,7 @@
                         </v-flex>
                         <v-flex class="web-content">
                             <div class="empty-state"
-                                 v-if="activeTab === 1 && isEmptyCourses && isMyProfile">
+                                 v-if="activeTab === 1 && isEmptyCourses && isMyProfile && !isTutorProfile">
                                 <courseEmptyState></courseEmptyState>
                             </div>
 
