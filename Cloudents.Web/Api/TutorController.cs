@@ -63,21 +63,22 @@ namespace Cloudents.Web.Api
         //}
 
         [HttpGet]
-        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync([RequiredFromQuery] 
+        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync(int page,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User,out var userId);
-            var query = new TutorListQuery(userId);
+            var query = new TutorListQuery(userId, page);
             var retValTask = await _queryBus.QueryAsync(query, token);
             return retValTask;
         }
 
         [HttpGet]
         public async Task<IEnumerable<TutorListDto>> GetTutorsAsync([RequiredFromQuery] string courseName,
+            int page,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListByCourseQuery(courseName, userId);
+            var query = new TutorListByCourseQuery(courseName, userId, page);
             var retValTask = await _queryBus.QueryAsync(query, token);
             return retValTask;
         }

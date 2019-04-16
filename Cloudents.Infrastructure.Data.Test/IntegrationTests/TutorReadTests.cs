@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task TutorListByCourseQuery_Ok()
         {
-            var query = new TutorListByCourseQuery("xxx",0);
+            var query = new TutorListByCourseQuery("xxx",0,0);
 
             var result = await fixture._queryBus.QueryAsync(query, default);
 
@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task TutorListQuery_Ok()
         {
-            var query = new TutorListQuery( 0);
+            var query = new TutorListQuery( 0,0);
 
             var result = await fixture._queryBus.QueryAsync(query, default);
 
