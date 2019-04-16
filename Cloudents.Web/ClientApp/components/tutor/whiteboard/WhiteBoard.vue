@@ -249,6 +249,7 @@
             flex-direction: row;
             width: auto;
             margin-top: 20px;
+            /*rtl:ignore*/
             left: 16px;
             z-index: 5;
 
@@ -264,7 +265,7 @@
                 &.disabled{
                     pointer-events: none;
                     .v-icon {
-                        color: gray;
+                        color: rgba(0,0,0,.3);
                     }
                 }
                 &.active-tool{

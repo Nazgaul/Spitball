@@ -189,20 +189,32 @@ let routes2 = [
             {
                 path: '',
                 redirect: 'edit',
+                meta: {
+                    requiresAuth: true
+                },
             },
             {
                 path: 'add',
                 name: 'addCourse',
-                component: addCourse
+                component: addCourse,
+                meta: {
+                    requiresAuth: true
+                },
             },
             {
                 path: 'edit',
                 name: 'editCourse',
-                component: editCourse
+                component: editCourse,
+                meta: {
+                    requiresAuth: true
+                },
             },
             {
                 path: '*',
                 redirect: 'edit',
+                meta: {
+                    requiresAuth: true
+                },
             },
         ],
         components: {
@@ -221,15 +233,24 @@ let routes2 = [
             {
                 path: '',
                 redirect: 'add',
+                meta: {
+                    requiresAuth: true
+                },
             },
             {
                 path: 'add',
                 name: 'addUniversity',
-                component: addUniversity
+                component: addUniversity,
+                meta: {
+                    requiresAuth: true
+                },
             },
             {
                 path: '*',
                 redirect: 'add',
+                meta: {
+                    requiresAuth: true
+                },
             },
         ],
         components: {

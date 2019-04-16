@@ -5,7 +5,8 @@
                     <v-layout>
                         <v-flex xs11 sm11 md11 grow>
                             <div>
-                                <div class="courses-title  subheading font-weight-bold mb-4" v-language:inner>profile_courses_can_help</div>
+                                <div v-show="isTutorProfile" class="courses-title  subheading font-weight-bold mb-4" v-language:inner>profile_courses_can_help</div>
+                                <div v-show="!isTutorProfile" class="courses-title  subheading font-weight-bold mb-4" v-language:inner>profile_courses_empty_state_title</div>
                             </div>
                         </v-flex>
                         <v-flex class="text-xs-right">
@@ -72,11 +73,16 @@
                 this.expanded = false;
             },
             openSetClasses(){
-                this.$router.push({name: 'addCourse'});
+                if(this.isTutorProfile){
+                    this.$router.push({name: 'editCourse'});
+                }else{
+                    this.$router.push({name: 'addCourse'});
+                }
+                
             }
         },
         computed: {
-            ...mapGetters(['getProfile']),
+            ...mapGetters(['getProfile', 'isTutorProfile']),
             aboutData() {
                 if(this.getProfile &&  this.getProfile.about && this.getProfile.about.courses){
                     return this.getProfile.about.courses;

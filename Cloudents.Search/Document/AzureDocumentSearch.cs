@@ -81,11 +81,7 @@ namespace Cloudents.Search.Document
         public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string> facetSubject)>
             SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token)
         {
-            //var country = userProfile.University?.Country ?? userProfile.Country;
             var filters = new List<string>();
-            //{
-            //    $"({nameof(Entities.Document.Country)} eq '{country.ToUpperInvariant()}')"
-            //};
             if (query.Course != null)
             {
                 var filterStr = $"{Entities.Document.CourseNameField} eq '{query.Course.ToUpperInvariant().Replace("'", "''")}'";
@@ -96,7 +92,6 @@ namespace Cloudents.Search.Document
             {
                 var universityStr = $"{Entities.Document.UniversityIdFieldName} eq '{userProfile.UniversityId.GetValueOrDefault().ToString()}'";
                 filters.Add($"({universityStr})");
-
             }
 
             if (query.Filters != null)

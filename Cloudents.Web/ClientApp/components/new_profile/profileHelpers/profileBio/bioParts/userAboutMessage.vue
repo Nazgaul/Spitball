@@ -2,7 +2,7 @@
     <v-layout class="bio-text-container" column>
         <v-flex>
             <h4 class="intro-name">
-                <span class="icon-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'mr-2' : 'ml-2']"><v-icon>sbf-hand-icon</v-icon></span>
+                <span class="icon-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'mr-2' : 'ml-2']"><v-icon>sbf-hand-icon</v-icon></span>&nbsp;
                 <span class="text-wrap headline font-weight-bold">
                     <span v-language:inner>profile_hey_there</span>
                     <span>&nbsp;{{userName}}!</span>
@@ -51,6 +51,7 @@
             color: @profileTextColor;
             line-height: 1;
             align-items: flex-start;
+            word-break: break-all;
             @media (max-width: @screen-xs) {
                 font-size: 18px;
                 font-weight: 600;
@@ -86,6 +87,7 @@
             line-height: 1.36;
             letter-spacing: normal;
             color: @profileTextColor;
+            word-break: break-word;
             @media(max-width: @screen-xs){
                 font-size: 16px;
                 font-style: italic;

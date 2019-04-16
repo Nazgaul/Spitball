@@ -53,7 +53,7 @@ export default {
                 },
                 componentUniqueId: `instance-${this._uid}`,
                 extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp'],
-                uploadUrl: "/api/upload/ask",
+                uploadUrl: "/api/Question/ask",
                 uploadedFiles: [],
                 uploadedFileNames: [],
                 MAX_FILES_AMOUNT: 4,

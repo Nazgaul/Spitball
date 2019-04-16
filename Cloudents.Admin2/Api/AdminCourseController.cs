@@ -2,15 +2,15 @@
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Admin2.Api
 {
@@ -90,7 +90,7 @@ namespace Cloudents.Admin2.Api
         public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {
-            var query = new CourseSearchQuery(0, course);
+            var query = new CourseSearchQuery(0, course, 0);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {

@@ -27,8 +27,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cloudents.Query.Query;
 using Cloudents.Search.University;
-using Cloudents.Query.Documents;
-using Cloudents.Query.Questions;
+using FluentNHibernate.Data;
+
 using Cloudents.Search.Document;
 using Cloudents.Search.Question;
 
@@ -118,15 +118,15 @@ namespace ConsoleApp
 
             _container = builder.Build();
 
-            //if (Environment.UserName == "Ram")
-            //{
-            //    await RamMethod();
-            //}
-            //else
-            //{
+            if (Environment.UserName == "Ram")
+            {
+                await RamMethod();
+            }
+            else
+            {
 
                 await HadarMethod();
-            //}
+            }
 
 
             Console.WriteLine("done");
@@ -141,7 +141,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await UpdateMethod();
+            var c = _container.Resolve<AzureDocumentSearch>();
+            var z = await c.ItemAsync(28886, default);
             // await c.DispatchAsync(command2, default);
 
             Console.WriteLine("done");

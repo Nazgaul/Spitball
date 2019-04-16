@@ -1,7 +1,7 @@
 <template>
     <v-container class="profile-page-container">
         <button v-if="$vuetify.breakpoint.xsOnly" class="back-button" @click="$router.go(-1)">
-            <v-icon right>sbf-arrow-back</v-icon>
+            <v-icon :class="{'rtl-icon': isRtl}" right>sbf-arrow-back</v-icon>
         </button>
 
         <v-layout  justify-start v-bind="xsColumn" class="bio-wrap" >
@@ -42,7 +42,7 @@
                         </v-flex>
                         <v-flex class="web-content">
                             <div class="empty-state"
-                                 v-if="activeTab === 1 && isEmptyCourses && isMyProfile">
+                                 v-if="activeTab === 1 && isEmptyCourses && isMyProfile && !isTutorProfile">
                                 <courseEmptyState></courseEmptyState>
                             </div>
 
@@ -77,7 +77,7 @@
                             </div>
                             <div v-if="activeTab === 1" style="max-width: 760px;">
                                 <tutorAboutMe v-if="isTutorProfile"></tutorAboutMe>
-                                <coursesCard :isMyProfile="isMyProfile"></coursesCard>
+                                <coursesCard v-if="!isEmptyCourses" :isMyProfile="isMyProfile"></coursesCard>
                                 <!--<subjectsCard></subjectsCard>-->
                                 <!--TODO HIDDEN FOR NOW-->
                                 <!--<ctaBlock v-if="$vuetify.breakpoint.smAndUp && isMyProfile"></ctaBlock>-->

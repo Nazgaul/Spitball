@@ -17,76 +17,15 @@ namespace Cloudents.Web.Test.IntegrationTests
             _factory = factory;
         }
 
-        [Theory]
-        [InlineData("/api/profile/159039")]
-        [InlineData("/api/profile/160171")]
-        public async Task GetAsync_OK(string url)
-        {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync(url);
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JObject.Parse(str);
-
-            var uni = d["universityName"]?.Value<string>();
-            var id = d["id"]?.Value<long?>();
-            var name = d["name"]?.Value<string>();
-            var score = d["score"]?.Value<int?>();
-
-            id.Should().BeGreaterThan(0);
-            name.Should().NotBeNull();
-            score.Should().BeGreaterOrEqualTo(0);
-        }
-
-        [Fact]
-        public async Task GetAsync_NotFound()
-        {
-            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
-            {
-                AllowAutoRedirect = false
-            });
-            
-            var response = await client.GetAsync("api/profile/1");
-
-            //var str = await response.Content.ReadAsStringAsync();
-
-            //var d = JObject.Parse(str);
-
-            //var status = d["status"]?.Value<int?>();
-
-            response.StatusCode.Should().Be(302);
-        }
-
-        [Theory]
-        [InlineData("api/profile/159039/questions")]
-        [InlineData("api/profile/159039/answers")]
-        [InlineData("api/profile/159039/documents")]
-        [InlineData("api/profile/159039/purchaseDocuments")]
-        public async Task GetAsync_UserTabs_OK(string url)
-        {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync(url);
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            JArray obj = JArray.Parse(str);
-
-            var id = obj.Children();
-            
-            id.Should().NotBeNull();
-        }
 
         [Fact]
         public async Task Get_User()
         {
             var client = _factory.CreateClient();
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
+            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
 
             response = await client.GetAsync("api/course/search?term=fsdfds");
 
@@ -97,6 +36,80 @@ namespace Cloudents.Web.Test.IntegrationTests
             var courses = d["courses"]?.Value<JArray>();
 
             courses.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task GetAsync_Code()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+
+            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.GetAsync("api/sms/code");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var code = d["code"]?.Value<string>();
+
+            response.StatusCode.Should().Be(200);
+
+            code.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task PostAsync_Sms()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
+
+            string phone = "{\"phoneNumber\":\"542473699\",\"countryCode\":972}";
+
+            client.DefaultRequestHeaders.Add("Referer", "swagger");
+
+            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Sms", new StringContent(phone, Encoding.UTF8, "application/json"));
+
+            response.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public async Task PostAsync_Sms_Resend()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
+
+            client.DefaultRequestHeaders.Add("Referer", "swagger");
+
+            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Sms/resend", null);
+
+            response.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public async Task PostAsync_Sms_Verify()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"fconfirmPassword\":\"123456789\"}";
+
+            string phone = "{\"number\":\"123456\",\"fingerPrint\":\"string\"}";
+
+            client.DefaultRequestHeaders.Add("Referer", "swagger");
+
+            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Sms/verify", new StringContent(phone, Encoding.UTF8, "application/json"));
+
+            response.StatusCode.Should().NotBe(500);
         }
     }
 }
