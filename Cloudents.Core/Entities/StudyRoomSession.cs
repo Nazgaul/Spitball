@@ -26,6 +26,10 @@ namespace Cloudents.Core.Entities
 
         public virtual void EndSession()
         {
+            if (Ended.HasValue)
+            {
+                throw new ArgumentException();
+            }
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
         }

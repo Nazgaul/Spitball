@@ -16,7 +16,7 @@ namespace Cloudents.Query.Query
 
 
         private long UserId { get; }
-        public int Page { get; }
+        private int Page { get; }
 
         internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, IEnumerable<TutorListDto>>
         {
