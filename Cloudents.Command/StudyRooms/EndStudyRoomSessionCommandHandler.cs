@@ -24,10 +24,11 @@ namespace Cloudents.Command.StudyRooms
             {
                 throw new ArgumentException();
             }
-           
-            var session = room.Sessions.Single(a => a.Ended == null);
-            await _videoProvider.CloseRoomAsync(session.SessionId);
+
+            var session = room.Sessions.Last();
             session.EndSession();
+            await _videoProvider.CloseRoomAsync(session.SessionId);
+           
         }
     }
 }
