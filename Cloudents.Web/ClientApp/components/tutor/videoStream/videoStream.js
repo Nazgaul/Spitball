@@ -93,7 +93,7 @@ export default {
         // Generate access token
         // async getAccessToken() {
         //     let identity = localStorage.getItem("identity");
-        //     return await tutorService.getJwtToken(this.id, identity);
+        //     return await tutorService.getToken(this.id, identity);
         // },
         async isHardawareAvaliable() {
             let self = this;
