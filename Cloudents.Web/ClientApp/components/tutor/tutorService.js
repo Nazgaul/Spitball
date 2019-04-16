@@ -153,24 +153,24 @@ const connectToRoom = function (token, options) {
                     //event of network quality change
                     store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
 
-                    //shared google document
-                    if(store.getters['activeRoom'].participants && store.getters['activeRoom'].participants.size < 1) {
-                        let shareLink = localStorage.getItem(`sb_share_link_${store.getters['roomLinkID']}`);
-                        if(!shareLink) {
-                            store.dispatch('updateRoomIsFull', true);
-                            getSharedDoc({name: `${store.getters['roomLinkID']}`})
-                                .then((link) => {
-                                          localStorage.setItem(`sb_share_link_${store.getters['roomLinkID']}`, `${link}&embedded=true`);
-                                          store.dispatch('updateSharedDocLink', `${link}&embedded=true`);
-                                      },
-                                      (error) => {
-                                      }
-                                );
-
-                        } else {
-                            store.dispatch('updateSharedDocLink', `${shareLink}`);
-                        }
-                    }
+                    //!!!!!  NO USE ANYMORE shared google document
+                    // if(store.getters['activeRoom'].participants && store.getters['activeRoom'].participants.size < 1) {
+                    //     let shareLink = localStorage.getItem(`sb_share_link_${store.getters['roomLinkID']}`);
+                    //     if(!shareLink) {
+                    //         store.dispatch('updateRoomIsFull', true);
+                    //         getSharedDoc({name: `${store.getters['roomLinkID']}`})
+                    //             .then((link) => {
+                    //                       localStorage.setItem(`sb_share_link_${store.getters['roomLinkID']}`, `${link}&embedded=true`);
+                    //                       store.dispatch('updateSharedDocLink', `${link}&embedded=true`);
+                    //                   },
+                    //                   (error) => {
+                    //                   }
+                    //             );
+                    //
+                    //     } else {
+                    //         store.dispatch('updateSharedDocLink', `${shareLink}`);
+                    //     }
+                    // }
                     // Attach the Tracks of all the remote Participants.
                     store.getters['activeRoom'].participants.forEach((participant, index) => {
                         let previewContainer = document.getElementById('remoteTrack');
@@ -195,8 +195,6 @@ const connectToRoom = function (token, options) {
                     store.getters['activeRoom'].on('trackSubscribed', (track, participant) => {
                         let previewContainer = document.getElementById('remoteTrack');
                         if(track.kind === 'data') {
-                            let shareDocUrl = store.getters['sharedDocUrl'];
-                            passSharedDocLink(shareDocUrl);
                             track.on('message', transferObj => {
                                 let Data = JSON.parse(transferObj);
                                 let parsedData = Data.data;
@@ -206,10 +204,6 @@ const connectToRoom = function (token, options) {
                                     whiteBoardService.undo(parsedData);
                                 } else if(Data.type === 'tutoringChatMessage') {
                                     //store.dispatch('addMessage', Data);
-                                } else if(Data.type === 'sharedDocumentLink') {
-                                    if(!shareDocUrl) {
-                                        store.dispatch('updateSharedDocLink', parsedData);
-                                    }
                                 }
                             });
                             attachTracks([track], previewContainer);

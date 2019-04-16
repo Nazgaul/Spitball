@@ -25,7 +25,6 @@ import mobileFooter from './mobileFooter';
 import onBoardGuide from './onBoardGuide';
 import buyTokens from './buyTokens';
 import tutoringCanvas from './tutoringCanvas';
-import tutoringSharedDoc from './tutoringSharedDocument';
 import tutoringMainStore from './tutoringMain';
 import chatStore from './chatStore';
 import studyRoomsStore from './studyRoomsStore';
@@ -60,7 +59,6 @@ const store = new Vuex.Store({
         onBoardGuide,
         buyTokens,
         tutoringCanvas,
-        tutoringSharedDoc,
         tutoringMainStore,
         studyRoomsStore,
         chatStore,
