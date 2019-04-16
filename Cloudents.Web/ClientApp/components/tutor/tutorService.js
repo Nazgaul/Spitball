@@ -251,7 +251,7 @@ const getRoomInformation = function (roomId) {
     return connectivityModule.http.get(`StudyRoom/${roomId}`);
 };
 
-const getJwtToken = function (roomId) {
+const enterRoom = function (roomId) {
     return connectivityModule.http.get(`StudyRoom/${roomId}/enter`)
                              .then((data) => {
                                  return data.jwtToken;
@@ -276,6 +276,6 @@ export default {
     createRoom,
     connectToRoom,
     getRoomInformation,
-    getJwtToken,
+    enterRoom,
     createRoomProps
 };
