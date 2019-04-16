@@ -144,18 +144,23 @@ const actions = {
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
         let totalOnline = notificationObj.totalOnline;
-        if(state.currentRoomState !== state.roomStateEnum.active) {
-            if(onlineCount == totalOnline) {
-                dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
+        let isTutor = state.studyRoomData.isTutor;
+        if(isTutor){
+            if(state.currentRoomState !== state.roomStateEnum.active) {
+                if(onlineCount == totalOnline) {
+                    dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
+                } else {
+                    dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
+                }
             } else {
-                dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
+                if(onlineCount == totalOnline) {
+                    //reconnect
+                } else {
+                    // think what to do in case session is active and not all are connected
+                }
             }
-        } else {
-            if(onlineCount == totalOnline) {
-                //reconnect
-            } else {
-                // think what to do in case session is active and not all are connected
-            }
+        }else{
+            //update not tutor state
         }
     }
 };
