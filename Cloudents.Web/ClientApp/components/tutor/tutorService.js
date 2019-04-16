@@ -254,7 +254,7 @@ const getRoomInformation = function (roomId) {
 const enterRoom = function (roomId) {
     return connectivityModule.http.get(`StudyRoom/${roomId}/enter`)
                              .then((data) => {
-                                 return data.jwtToken;
+                                 return true
                              });
 };
 

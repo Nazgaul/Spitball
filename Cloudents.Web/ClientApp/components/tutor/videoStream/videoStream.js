@@ -67,9 +67,12 @@ export default {
             // })
 
         },
-        startVideo() {
-            this.createVideoSession()
+        enterRoom(){
+            tutorService.enterRoom(this.id)
         },
+        // startVideo() {
+        //     this.createVideoSession()
+        // },
         // Generate access token
         async getAccessToken() {
             let identity = localStorage.getItem("identity");
