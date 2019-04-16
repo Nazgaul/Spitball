@@ -143,5 +143,12 @@ export const signlaREvents = {
                 store.dispatch("signalRAddMessage", chatMessageToAdd);
             })
         },
+    },
+    studyroom:{
+        update:function(arrEventObj){
+            arrEventObj.forEach((roomStatusInformation)=>{
+                store.dispatch("signalRUpdateState", roomStatusInformation);
+            })
+        }
     }
 };

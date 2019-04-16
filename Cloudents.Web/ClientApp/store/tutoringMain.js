@@ -129,8 +129,23 @@ const actions = {
     updateCurrentRoomState({commit}, val){
         commit('setCurrentRoomState', val)
     },
-    signalRUpdateState({commit}, notificationObj){
+    signalRUpdateState({commit, dispatch, state}, notificationObj){
         //TODO Update state according to the singnalR data
+        let onlineCount = notificationObj.onlineCount;
+        let totalOnline = notificationObj.totalOnline;
+        if(state.currentRoomState !== state.roomStateEnum.active){
+            if(onlineCount == totalOnline){
+                dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
+            }else{
+                dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
+            }
+        }else{
+            if(onlineCount == totalOnline){
+                //reconnect
+            }else{
+                // think what to do in case session is active and not all are connected
+            }
+        }
     }
 };
 export default {
