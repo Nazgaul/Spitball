@@ -99,7 +99,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"fconfirmPassword\":\"123456789\"}";
+            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
 
             string phone = "{\"number\":\"123456\",\"fingerPrint\":\"string\"}";
 
@@ -110,6 +110,20 @@ namespace Cloudents.Web.Test.IntegrationTests
             var response = await client.PostAsync("api/Sms/verify", new StringContent(phone, Encoding.UTF8, "application/json"));
 
             response.StatusCode.Should().NotBe(500);
+        }
+
+        [Fact]
+        public async Task PostAsync_Resend_Email()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"dale@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
+
+            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Register/resend", new StringContent("{}", Encoding.UTF8, "application/json"));
+
+            response.StatusCode.Should().Be(400);
         }
     }
 }
