@@ -113,19 +113,19 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("{\"subjectId\":\"mathematics\",\"text\":\"Unit testing question\",\"price\":0,\"course\":\"psychology\"}")]
-        [InlineData("{\"subjectId\":\"mathematics\",\"text\":\"Unit testing question\",\"price\":3,\"course\":\"\"}")]
-        [InlineData("{\"subjectId\":\"mathematics\",\"text\":\"Unit testing q\",\"price\":3,\"course\":\"psychology\"}")]
-        [InlineData("{\"subjectId\":\"mathematics\",\"text\":\"\",\"price\":3,\"course\":\"psychology\"}")]
+        [InlineData("{\"subjectId\":\"\",\"course\":\"psychology\",\"text\":\"Unit testing question\",\"price\":0}")]
+        [InlineData("{\"subjectId\":\"\",\"course\":\"\",\"text\":\"Unit testing question\",\"price\":3}")]
+        [InlineData("{\"subjectId\":\"\",\"course\":\"psychology\",\"text\":\"Unit testing q\",\"price\":3}")]
+        [InlineData("{\"subjectId\":\"\",\"course\":\"psychology\",\"text\":\"\",\"price\":3}")]
         public async Task PostAsync_New_Bad_Request(string question)
         {
             var client = _factory.CreateClient();
 
             string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
+            await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
 
-            response = await client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
 
             response.StatusCode.Should().Be(400);
         }
