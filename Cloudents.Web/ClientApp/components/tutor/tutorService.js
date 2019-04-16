@@ -24,17 +24,17 @@ const uploadCanvasImage = function (formData) {
 //     dataTrack.send(normalizedData);
 // };
 
-const createRoom = () => {
-    return connectivityModule.http.post("tutoring/create");
-};
+// const createRoom = () => {
+//     return connectivityModule.http.post("tutoring/create");
+// };
 // Token get
-const getToken = function (name, identityName) {
-    let userIdentity = identityName || '';
-    return connectivityModule.http.get(`tutoring/join?roomName=${name}&identityName=${userIdentity}`)
-                             .then((data) => {
-                                 return !!data.data ? data.data.token : null;
-                             });
-};
+// const getToken = function (name, identityName) {
+//     let userIdentity = identityName || '';
+//     return connectivityModule.http.get(`tutoring/join?roomName=${name}&identityName=${userIdentity}`)
+//                              .then((data) => {
+//                                  return !!data.data ? data.data.token : null;
+//                              });
+// };
 
 
 // Attach the Tracks to the DOM.
@@ -141,11 +141,11 @@ const connectToRoom = function (token, options) {
                     //update room status in store of chat to use for show/hide shareBtn
                     store.dispatch('updateRoomStatus', true);
                     // TODO persistent
-                    // let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
-                    // store.dispatch('updateUserIdentity', localIdentity);
+                    let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
+                    store.dispatch('updateUserIdentity', localIdentity);
                     store.dispatch('updateLocalStatus', false);
                     // TODO persistent
-                    // localStorage.setItem("identity", localIdentity);
+                    localStorage.setItem("identity", localIdentity);
                     //set local participant in store
                     store.dispatch('updateLocalParticipant', room.localParticipant);
 
@@ -191,8 +191,8 @@ const connectToRoom = function (token, options) {
                         }else{
                             console.log('final disconnect')
                         }
-                        console.log(store.state.tutoringMainStore.roomStateEnum.ready);
-                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                        console.log('room closed', store.state.tutoringMainStore.roomStateEnum.pending);
+                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
                     });
 
                     // Attach the Participant's Media to a <div> element.
@@ -289,8 +289,8 @@ export default {
     dataTrack,
     detachTracks,
     uploadCanvasImage,
-    getToken,
-    createRoom,
+    // getToken,
+    // createRoom,
     connectToRoom,
     getRoomInformation,
     enterRoom,
