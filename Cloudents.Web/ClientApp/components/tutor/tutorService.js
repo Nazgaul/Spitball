@@ -8,21 +8,21 @@ const dataTrack = new LocalDataTrack();
 const uploadCanvasImage = function (formData) {
     return connectivityModule.http.post("Tutoring/upload", formData);
 };
-const getSharedDoc = async function (docName) {
-    return connectivityModule.http.post("Tutoring/document", docName)
-                             .then((resp) => {
-                                 return resp.data.link;
-                             });
-};
-const passSharedDocLink = function (docUrl) {
-    let transferDataObj = {
-        type: "sharedDocumentLink",
-        data: docUrl
-    };
-    let normalizedData = JSON.stringify(transferDataObj);
-    console.log('service data track', dataTrack);
-    dataTrack.send(normalizedData);
-};
+// const getSharedDoc = async function (docName) {
+//     return connectivityModule.http.post("Tutoring/document", docName)
+//                              .then((resp) => {
+//                                  return resp.data.link;
+//                              });
+// };
+// const passSharedDocLink = function (docUrl) {
+//     let transferDataObj = {
+//         type: "sharedDocumentLink",
+//         data: docUrl
+//     };
+//     let normalizedData = JSON.stringify(transferDataObj);
+//     console.log('service data track', dataTrack);
+//     dataTrack.send(normalizedData);
+// };
 
 const createRoom = () => {
     return connectivityModule.http.post("tutoring/create");
@@ -140,10 +140,12 @@ const connectToRoom = function (token, options) {
                     store.dispatch('updateRoomLoading', false);
                     //update room status in store of chat to use for show/hide shareBtn
                     store.dispatch('updateRoomStatus', true);
-                    let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
-                    store.dispatch('updateUserIdentity', localIdentity);
+                    // TODO persistent
+                    // let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
+                    // store.dispatch('updateUserIdentity', localIdentity);
                     store.dispatch('updateLocalStatus', false);
-                    localStorage.setItem("identity", localIdentity);
+                    // TODO persistent
+                    // localStorage.setItem("identity", localIdentity);
                     //set local participant in store
                     store.dispatch('updateLocalParticipant', room.localParticipant);
 
@@ -178,6 +180,21 @@ const connectToRoom = function (token, options) {
                         store.dispatch('updateRemoteStatus', false);
 
                     });
+
+                    store.getters['activeRoom'].on('disconnected', (room, error) => {
+                        if (error.code === 20104) {
+                            console.log('Signaling reconnection failed due to expired AccessToken!');
+                        } else if (error.code === 53000) {
+                            console.log('Signaling reconnection attempts exhausted!');
+                        } else if (error.code === 53204) {
+                            console.log('Signaling reconnection took too long!');
+                        }else{
+                            console.log('final disconnect')
+                        }
+                        console.log(store.state.tutoringMainStore.roomStateEnum.ready);
+                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                    });
+
                     // Attach the Participant's Media to a <div> element.
                     store.getters['activeRoom'].on('participantConnected', participant => {
                         console.log(`Participant "${participant.identity}" connected`);
@@ -202,9 +219,10 @@ const connectToRoom = function (token, options) {
                                     whiteBoardService.passData(parsedData.canvasContext, parsedData.dataContext);
                                 } else if(Data.type === 'undoData') {
                                     whiteBoardService.undo(parsedData);
-                                } else if(Data.type === 'tutoringChatMessage') {
-                                    //store.dispatch('addMessage', Data);
                                 }
+                                // else if(Data.type === 'tutoringChatMessage') {
+                                //     //store.dispatch('addMessage', Data);
+                                // }
                             });
                             attachTracks([track], previewContainer);
                         } else if(track.kind === 'video') {
