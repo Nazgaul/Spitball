@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
@@ -104,5 +105,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             var result = await fixture._queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
         }
+
+       
     }
 }

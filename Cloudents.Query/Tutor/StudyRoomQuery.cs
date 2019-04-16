@@ -38,7 +38,8 @@ namespace Cloudents.Query.Tutor
                     return await conn.QuerySingleOrDefaultAsync<StudyRoomDto>(@"
 Select srs.sessionId,
 onlineDocumentUrl as OnlineDocument, 
-cr.Id as ConversationId
+cr.Id as ConversationId,
+sr.tutorId
 
 from sb.StudyRoom sr join sb.ChatRoom cr on sr.Identifier = cr.Identifier
 left join sb.StudyRoomSession srs on sr.Id = srs.StudyRoomId and srs.Ended is null
