@@ -191,8 +191,8 @@ const connectToRoom = function (token, options) {
                         }else{
                             console.log('final disconnect')
                         }
-                        console.log('room closed', store.state.tutoringMainStore.roomStateEnum.pending);
-                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
+                        console.log('room closed', store.state.tutoringMainStore.roomStateEnum.ready);
+                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
                     });
 
                     // Attach the Participant's Media to a <div> element.
