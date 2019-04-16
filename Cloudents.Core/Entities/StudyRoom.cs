@@ -15,6 +15,7 @@ namespace Cloudents.Core.Entities
         {
             
             _users = new[] { new StudyRoomUser(tutor.User,this),  new StudyRoomUser(user,this) };
+            Tutor = tutor;
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
             DateTime = DateTime.UtcNow;
             OnlineDocumentUrl = onlineDocumentUrl;
@@ -26,7 +27,7 @@ namespace Cloudents.Core.Entities
             
         }
 
-        //public virtual Tutor Tutor { get; protected set; }
+        public virtual Tutor Tutor { get; protected set; }
 
         private readonly ICollection<StudyRoomUser> _users = new List<StudyRoomUser>();
 

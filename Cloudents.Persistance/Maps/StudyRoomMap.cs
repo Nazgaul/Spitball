@@ -9,7 +9,7 @@ namespace Cloudents.Persistence.Maps
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Identifier).Not.Nullable().Unique();
-            //References(x => x.Tutor).Not.Nullable();
+            References(x => x.Tutor).Not.Nullable();
 
             Map(x => x.DateTime).Not.Nullable();
             Map(x => x.OnlineDocumentUrl).Not.Nullable();
@@ -21,6 +21,7 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();
 
+            
 
         }
 
