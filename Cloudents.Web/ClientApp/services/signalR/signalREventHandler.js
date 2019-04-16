@@ -124,8 +124,7 @@ export const signlaREvents = {
                     }, serverData.timeout)
                     
                 }
-            }; 
-
+            };
 
             arrEventObj.forEach((action)=>{
                 if(!systemActions[action.type]){

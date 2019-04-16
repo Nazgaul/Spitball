@@ -55,12 +55,13 @@ export default {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
         createRoomFunc() {
-            let self = this;
-            tutorService.createRoom().then(data => {
-                self.roomLink = data.data.name;
-                self.$router.push({name: 'tutoring', params: {id: self.roomLink}});
-                self.updateRoomID(self.roomLink)
-            })
+            this.createVideoSession()
+            // let self = this;
+            // tutorService.createRoom().then(resp => {
+            //     self.roomLink = resp.data.name;
+            //     self.$router.push({name: 'tutoring', params: {id: self.roomLink}});
+            //     self.updateRoomID(self.roomLink)
+            // })
 
         },
         startVideo() {
@@ -69,7 +70,7 @@ export default {
         // Generate access token
         async getAccessToken() {
             let identity = localStorage.getItem("identity");
-            return await tutorService.getToken(this.id, identity);
+            return await tutorService.getJwtToken(this.id, identity);
         },
         async isHardawareAvaliable() {
             let self = this;
@@ -96,13 +97,11 @@ export default {
                             localMediaContainer.appendChild(track.attach());
                             self.localTrackAval = true;
                         });
-                        // if (self.availableDevices) {
                             tracksCreated.push(tutorService.dataTrack);
                             connectOptions = {
                                 tracks: tracksCreated,
                                 networkQuality: true
-                            }
-                        // }
+                            };
                         tutorService.connectToRoom(token, connectOptions);
 
                     }, (error) => {

@@ -147,7 +147,8 @@ export default {
       "setActiveConversationObj",
       "getChatById",
       "lockChat",
-      "updateRoomID"
+      "updateRoomID",
+      "updateStudyRoomProps"
     ]),
     updateActiveNav(value) {
       this.activeNavItem = value;
@@ -170,8 +171,8 @@ export default {
     setChatRoom(id) {
       let self = this;
       tutorService.getRoomInformation(id).then(({ data }) => {
-        
         initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+        this.updateStudyRoomProps(data);
         self.getChatById(data.conversationId).then(({ data }) => {
           let currentConversationObj = chatService.createActiveConversationObj(data);
           self.setActiveConversationObj(currentConversationObj);
@@ -181,7 +182,7 @@ export default {
     }
   },
   created() {
-    this.setChatRoom(this.id);    
+    this.setChatRoom(this.id);
     this.getRoomInformation();
     this.$loadScript(
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"
