@@ -1,31 +1,34 @@
-﻿using Cloudents.Core.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Dapper;
 
 namespace Cloudents.Query.Query
 {
-    public class TutorListQuery : IQuery<IEnumerable<TutorListDto>>
+    public class TutorListByCourseQuery: IQuery<IEnumerable<TutorListDto>>
     {
-        public TutorListQuery(long userId)
+        public TutorListByCourseQuery(string courseId, long userId)
         {
+            CourseId = courseId;
             UserId = userId;
         }
 
+        
 
-        private long UserId { get; }
+        private string CourseId { get; }
+        public long UserId { get; }
 
-        internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, IEnumerable<TutorListDto>>
+        internal sealed class TutorListByCourseQueryHandler : IQueryHandler<TutorListByCourseQuery, IEnumerable<TutorListDto>>
         {
             private readonly DapperRepository _dapperRepository;
 
-            public TutorListQueryHandler(DapperRepository dapperRepository)
+            public TutorListByCourseQueryHandler(DapperRepository dapperRepository)
             {
                 _dapperRepository = dapperRepository;
             }
 
-            public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListQuery query, CancellationToken token)
+            public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
             {
                 const string sql = @"select top 10 U.Id as UserId, U.Name, U.Image, T.Bio, T.Price, U.Score, 
 	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
@@ -33,13 +36,14 @@ namespace Cloudents.Query.Query
                         join sb.Tutor T
 	                        on U.Id = T.Id
 						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
-						and  uc.CourseId in (select CourseId from sb.UsersCourses where UserId = @UserId)
+						and uc.CourseId = @CourseId
 and u.id <> @UserId
                         order by Rate desc";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
-                    var retVal = await conn.QueryAsync<TutorListDto>(sql, new
+                    var retVal = await conn.QueryAsync<TutorListDto>(sql,new
                     {
+                        query.CourseId ,
                         query.UserId
                     });
 
@@ -48,7 +52,4 @@ and u.id <> @UserId
             }
         }
     }
-
-
-
 }

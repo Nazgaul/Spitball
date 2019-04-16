@@ -13,7 +13,7 @@ function TutorItem(objInit) {
 
 export default {
     getTutorList: () =>{
-        return connectivityModule.http.get("tutor/tutors").then(({data})=> {
+        return connectivityModule.http.get("tutor").then(({data})=> {
             let result = [];
             if(!!data && data.length > 0){
                 data.forEach((tutorItem)=>{
