@@ -12,7 +12,8 @@
                 <button v-if="!roomIsActive" class="create-session" color="primary" :class="{'disabled': roomIsPending}" @click="createRoomFunc()">
                 <!-- <button v-if="!roomIsActive" class="create-session" color="primary" @click="createRoomFunc()"> -->
                     <timerIcon class="timer-icon mr-2"></timerIcon>
-                    Start Session
+                    <span v-if="isTutor">Start Session</span>    
+                    <span v-else>Join Session</span>    
                 </button>
                 <button v-else class="create-session" color="primary" @click="createRoomFunc()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>

@@ -30,12 +30,15 @@ export default {
     },
     computed: {
         ...mapState(['tutoringMainStore']),
-        ...mapGetters(['sharedDocUrl', 'roomLinkID', 'isRoomFull', 'activeRoom', 'localOffline','remoteOffline', 'roomLoading', 'getCurrentRoomState']),
+        ...mapGetters(['sharedDocUrl', 'roomLinkID', 'isRoomFull', 'activeRoom', 'localOffline','remoteOffline', 'roomLoading', 'getCurrentRoomState', 'getStudyRoomData']),
         roomIsPending(){
             return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
         },
         roomIsActive(){
             return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.active;
+        },
+        isTutor(){
+            return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         }
     },
     watch: {
