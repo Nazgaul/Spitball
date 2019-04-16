@@ -1,7 +1,7 @@
 <template>
     <div class="contact-btn-wrap">
         <button class="ct-btn">
-            <v-icon class="ct-btn-icon mr-2">sbf-comment-icon</v-icon>
+            <v-icon class="ct-btn-icon mr-2">sbf-message-icon</v-icon>
             <span class="btn-text text-uppercase" v-language:inner>profile_tutor_contact_btn</span>
         </button>
     </div>
@@ -42,7 +42,8 @@
         }
         .ct-btn-icon{
             color: @profileTextColor;
-            font-size: 16px;
+            font-size: 19px;
+            padding-top: 5px;
         }
     }
 

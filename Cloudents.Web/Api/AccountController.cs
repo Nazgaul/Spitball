@@ -206,7 +206,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("settings")]
-        public async Task<IActionResult> ChangeDescription([FromBody]UpdateSettingsRequest model,
+        public async Task<IActionResult> ChangeSettingsAsync([FromBody]UpdateSettingsRequest model,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -216,14 +216,12 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [NonAction]
-
-
         [HttpPost("BecomeTutor")]
-        public async Task<IActionResult> BecomeTutorAsync([FromBody]BecomeTutorRequest model, CancellationToken token)
+        public async Task<IActionResult> BecomeTutorAsync([FromBody]UpdateSettingsRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new BecomeTutorCommand(userId,  model.Bio);
+            var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
+                model.Description, model.Bio);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

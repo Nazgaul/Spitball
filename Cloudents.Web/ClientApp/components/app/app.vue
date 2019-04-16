@@ -77,6 +77,19 @@
                 <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
             </sb-dialog>
 
+        <sb-dialog :showDialog="becomeTutorDialog"
+                   :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
+                   :popUpType="'becomeTutorDialog'"
+                   :maxWidth="'762'"
+                   :onclosefn="setUploadDialogState"
+                   :activateOverlay="false"
+                   :isPersistent="$vuetify.breakpoint.smAndUp"
+                   :content-class="'become-tutor'">
+            <become-tutor v-if="becomeTutorDialog"></become-tutor>
+        </sb-dialog>
+
+
+
             <sb-dialog :showDialog="getOnBoardState"
                        :popUpType="'onBoardGuide'"
                        :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
@@ -133,6 +146,7 @@ import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
 import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
 import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
+import becomeTutor from "../becomeTutor/becomeTutor.vue";
 
 export default {
   components: {
@@ -151,7 +165,8 @@ export default {
     boardGuide,
     uploadMultipleFiles,
     buyTokens,
-    newBaller
+    newBaller,
+    becomeTutor
   },
   data() {
     return {
@@ -193,7 +208,8 @@ export default {
       "getOnBoardState",
       "getShowBuyDialog",
       "getCurrentStep",
-      "newBallerDialog"
+      "newBallerDialog",
+      "becomeTutorDialog"
     ]),
     isMobile(){
       return this.$vuetify.breakpoint.smAndDown;

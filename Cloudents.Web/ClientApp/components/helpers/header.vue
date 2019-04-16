@@ -185,7 +185,14 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChat']),
+            ...mapActions([
+                'updateToasterParams',
+                              'updateNewQuestionDialogState',
+                              'updateLoginDialogState',
+                              'updateUserProfileData',
+                              'updateShowBuyDialog',
+                              'openChat',
+                          ]),
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             openNewQuestionDialog(){
                     if(this.accountUser == null){
