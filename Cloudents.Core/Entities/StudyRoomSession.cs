@@ -1,4 +1,5 @@
 ﻿using System;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -9,6 +10,7 @@ namespace Cloudents.Core.Entities
             StudyRoom = studyRoom;
             Created = DateTime.UtcNow;
             SessionId = sessionId;
+            AddEvent(new StudyRoomSessionCreatedEvent(this));
         }
         protected StudyRoomSession()
         {

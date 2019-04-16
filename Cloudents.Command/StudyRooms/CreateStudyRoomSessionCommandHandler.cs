@@ -18,15 +18,15 @@ namespace Cloudents.Command.StudyRooms
         public async Task ExecuteAsync(CreateStudyRoomSessionCommand message, CancellationToken token)
         {
             var room = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
-            if (room.Identifier.Split('_').All(a => a != message.UserId.ToString()))
+            if (room.Tutor.Id != message.UserId) //only tutor can open a session
             {
                 throw new ArgumentException();
             }
 
-            if (room.Sessions.Any(a => a.Ended == null))
-            {
-                throw new ArgumentException("there is already open session");
-            }
+            //if (room.Sessions.Any(a => a.Ended == null))
+            //{
+            //    throw new ArgumentException("there is already open session");
+            //}
 
             var session = new StudyRoomSession(room, message.SessionName);
             room.AddSession(session);

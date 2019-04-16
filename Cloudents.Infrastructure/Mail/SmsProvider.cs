@@ -107,7 +107,7 @@ namespace Cloudents.Infrastructure.Mail
 
         private const string ApiKey = "SKa10d29f12eb338d91351795847b35883";
         private const string SecretVideo = "sJBB0TVjomROMH2vj3VwuxvPN9CNHETj";
-        public async Task<string> ConnectToRoomAsync(string roomName, string name, bool isTutor)
+        public async Task<string> ConnectToRoomAsync(string roomName, string name)
         {
 
             var room = await RoomResource.FetchAsync(roomName);
@@ -122,7 +122,7 @@ namespace Cloudents.Infrastructure.Mail
                 AccountSid,
                 ApiKey,
                 SecretVideo,
-                identity: $"{name}_{isTutor}",
+                identity: name,
                 grants: grants);
 
             return token.ToJwt();

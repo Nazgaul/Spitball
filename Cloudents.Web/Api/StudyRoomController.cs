@@ -31,7 +31,7 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
 
-        
+
 
 
         public StudyRoomController(IVideoProvider videoProvider,
@@ -77,7 +77,7 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-           
+
             return result;
         }
 
@@ -112,23 +112,19 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var result = await GetStudyRoomAsync(id, userId, token);
-            var session = result.SessionId;
-            if (string.IsNullOrEmpty(result.SessionId))
-            {
+            //var result = await GetStudyRoomAsync(id, userId, token);
+            //var session = result.SessionId;
+            //if (string.IsNullOrEmpty(result.SessionId))
+            //{
 
-                session = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-                await _videoProvider.CreateRoomAsync(session, configuration.IsProduction());
-                var command = new CreateStudyRoomSessionCommand(id, session, userId);
-                await _commandBus.DispatchAsync(command, token);
+            var session = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
+            await _videoProvider.CreateRoomAsync(session, configuration.IsProduction());
+            var command = new CreateStudyRoomSessionCommand(id, session, userId);
+            await _commandBus.DispatchAsync(command, token);
 
-            }
-            var jwtToken = await _videoProvider.ConnectToRoomAsync(session, userId.ToString(), true);
-            return Ok(new
-            {
-                jwtToken
-            });
-           
+            return Ok();
+
+
         }
 
         /// <summary>
@@ -138,10 +134,10 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost("{id:guid}/end")]
-        public async Task<IActionResult> EndSessionAsync(Guid id,CancellationToken token)
+        public async Task<IActionResult> EndSessionAsync(Guid id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new EndStudyRoomSessionCommand(id,  userId);
+            var command = new EndStudyRoomSessionCommand(id, userId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
