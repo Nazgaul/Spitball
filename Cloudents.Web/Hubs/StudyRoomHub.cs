@@ -12,37 +12,40 @@ namespace Cloudents.Web.Hubs
     [Authorize]
     public class StudyRoomHub : Hub
     {
-        private readonly IHttpContextAccessor _httpContext;
         private readonly ICommandBus _commandBus;
+        private const string CookieName = "studyRoomId";
 
-        public StudyRoomHub(IHttpContextAccessor httpContext, ICommandBus commandBus)
+        public StudyRoomHub( ICommandBus commandBus)
         {
-            _httpContext = httpContext;
             _commandBus = commandBus;
         }
 
         public override async Task OnConnectedAsync()
         {
-            var request = _httpContext.HttpContext.Request;
-            var cookieVal = request.Cookies[StudyRoomController.CookieName];
+            var httpContext = Context.GetHttpContext();
+            var request = httpContext.Request;
+            var cookieVal = request.Query["studyRoomId"].ToString();
             if (cookieVal == null)
             {
-                throw new ArgumentException();
+              return;
             }
             
             var roomId = Guid.Parse(cookieVal);
             var userId = long.Parse(Context.UserIdentifier);
+            
             var command = new ChangeStudyRoomOnlineStatusCommand(userId, true, roomId);
             await Groups.AddToGroupAsync(Context.ConnectionId, cookieVal);
             await _commandBus.DispatchAsync(command, default);
             await base.OnConnectedAsync();
+
+
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             //We cant delete the cookie
-            var request = _httpContext.HttpContext.Request;
-            var cookieVal = request.Cookies[StudyRoomController.CookieName];
+            var request = Context.GetHttpContext().Request;
+            var cookieVal = request.Query["studyRoomId"].ToString();
 
             var roomId = Guid.Parse(cookieVal);
             var userId = long.Parse(Context.UserIdentifier);

@@ -170,7 +170,8 @@ export default {
     setChatRoom(id) {
       let self = this;
       tutorService.getRoomInformation(id).then(({ data }) => {
-        initSignalRService("studyRoomHub");
+        
+        initSignalRService(`studyRoomHub?studyRoomId=${id}`);
         self.getChatById(data.conversationId).then(({ data }) => {
           let currentConversationObj = chatService.createActiveConversationObj(data);
           self.setActiveConversationObj(currentConversationObj);

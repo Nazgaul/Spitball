@@ -31,7 +31,7 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
 
-        public const string CookieName = "studyRoomId";
+        
 
 
         public StudyRoomController(IVideoProvider videoProvider,
@@ -77,11 +77,7 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            Response.Cookies.Append(CookieName, id.ToString(), new CookieOptions()
-            {
-                HttpOnly = true,
-                Secure = true,
-            });
+           
             return result;
         }
 
