@@ -20,7 +20,8 @@ const state = {
         loading: "loading",
         active: "active"
     },
-    currentRoomState: "pending"
+    currentRoomState: "pending",
+    jwtToken: null,
 };
 const getters = {
     activeRoom: state => state.currentActiveRoom,
@@ -36,7 +37,8 @@ const getters = {
     firepadLoadedOnce: state => state.isFirepadLoadedOnce,
     qualityDialog: state => state.qualityDialogVisibility,
     getCurrentRoomState: state => state.currentRoomState,
-    getStudyRoomData: state => state.studyRoomData
+    getStudyRoomData: state => state.studyRoomData,
+    getJwtToken: state => state.jwtToken
 };
 
 const mutations = {
@@ -88,8 +90,10 @@ const mutations = {
         if(!!state.roomStateEnum[val]) {
             state.currentRoomState = val;
         }
+    },
+    setJwtToken(state, val){
+        state.jwtToken = val;
     }
-
 };
 
 const actions = {
@@ -159,8 +163,13 @@ const actions = {
                     // think what to do in case session is active and not all are connected
                 }
             }
-        }else{
-            //update not tutor state
+        }
+    },
+    signalRSetJwtToken({commit, dispatch, state}, notificationObj){
+        let token = notificationObj.jwtToken;
+        commit('setJwtToken', token);
+        if(!isTutor){
+            dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
         }
     }
 };
