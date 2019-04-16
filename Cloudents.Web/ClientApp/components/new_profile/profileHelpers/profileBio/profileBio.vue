@@ -23,10 +23,10 @@
                                 <div class="text-xs-center text-sm-left text-md-left user-university caption text-capitalize">{{university}}</div>
                             </v-flex>
                             <div class="tutor-price mr-3">
+                                <span class="subheading">₪</span>
                                 <span class="tutor-price"  v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">{{tutorPrice}}
                                 <span class="tutor-price small-text">
                                     <!--<span v-language:inner>app_currency_dynamic</span>-->
-                                    <span class="subheading">₪</span>
                                     <span>/</span>
                                      <span v-language:inner>profile_points_hour</span>
                                 </span>
@@ -44,10 +44,10 @@
                 </v-layout>
                 <v-flex>
                     <div class="tutor-price text-xs-center" v-if="$vuetify.breakpoint.xsOnly && isTutorProfile">
+                                 <span class="subheading">₪</span>
                                 <span class="tutor-price">{{tutorPrice}}
                                 <span class="tutor-price small-text">
                                       <!--<span v-language:inner>app_currency_dynamic</span>-->
-                                    <span class="subheading">₪</span>
                                     <span>/</span>
                                      <span v-language:inner>profile_points_hour</span>
                                 </span>

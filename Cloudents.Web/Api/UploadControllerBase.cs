@@ -23,12 +23,12 @@ namespace Cloudents.Web.Api
     {
 
         protected readonly IBlobProvider BlobProvider;
-        protected readonly ITempDataDictionaryFactory _tempDataDictionaryFactory;
+        protected readonly ITempDataDictionaryFactory TempDataDictionaryFactory;
 
         protected UploadControllerBase(IBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory)
         {
             BlobProvider = blobProvider;
-            _tempDataDictionaryFactory = tempDataDictionaryFactory;
+            TempDataDictionaryFactory = tempDataDictionaryFactory;
         }
 
         // GET: api/<controller>
@@ -37,7 +37,7 @@ namespace Cloudents.Web.Api
             [FromForm] UploadRequestForm model,
             CancellationToken token)
         {
-            var tempDataProvider = _tempDataDictionaryFactory.GetTempData(HttpContext);
+            var tempDataProvider = TempDataDictionaryFactory.GetTempData(HttpContext);
             var tempData = tempDataProvider.Get<TempData>($"update-{model.SessionId}");
             var index = (int)(model.StartOffset / UploadInnerResponse.BlockSize);
             await BlobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
@@ -94,7 +94,7 @@ namespace Cloudents.Web.Api
                 BlobName = BlobFileName(response.Data.SessionId, model.Name),
                 MimeType = model.MimeType
             };
-            var tempDataProvider = _tempDataDictionaryFactory.GetTempData(HttpContext);
+            var tempDataProvider = TempDataDictionaryFactory.GetTempData(HttpContext);
             tempDataProvider.Put($"update-{response.Data.SessionId}", tempData);
             return Task.FromResult(response);
         }
@@ -114,7 +114,7 @@ namespace Cloudents.Web.Api
 
         private async Task<UploadStartResponse> Upload(UploadRequestFinish model, CancellationToken token)
         {
-            var tempDataProvider = _tempDataDictionaryFactory.GetTempData(HttpContext);
+            var tempDataProvider = TempDataDictionaryFactory.GetTempData(HttpContext);
             var tempData2 = tempDataProvider.Get<TempData>($"update-{model.SessionId}");
 
             tempDataProvider.Remove($"update-{model.SessionId}");
