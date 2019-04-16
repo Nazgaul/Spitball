@@ -252,8 +252,8 @@ const getRoomInformation = function (roomId) {
 };
 
 const enterRoom = function (roomId) {
-    return connectivityModule.http.get(`StudyRoom/${roomId}/enter`)
-                             .then((data) => {
+    return connectivityModule.http.post(`StudyRoom/${roomId}/enter`)
+                             .then(() => {
                                  return true
                              });
 };

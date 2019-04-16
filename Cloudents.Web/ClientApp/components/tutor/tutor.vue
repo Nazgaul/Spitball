@@ -157,18 +157,8 @@ export default {
     changeQualityDialogState(val) {
       this.updateTestDialogState(val);
     },
-     getRoomInformation(){
-      return tutorService.getJwtToken(this.id).then((token)=>{
-        if(!!token){
-          this.updateRoomID(token);
-        }else{
-          //error
-        }
-      }, err => {
-        // error
-      })
-    },
-    setChatRoom(id) {
+
+    setStudyRoom(id) {
       let self = this;
       tutorService.getRoomInformation(id).then(({ data }) => {
         initSignalRService(`studyRoomHub?studyRoomId=${id}`);
@@ -182,8 +172,7 @@ export default {
     }
   },
   created() {
-    this.setChatRoom(this.id);
-    this.getRoomInformation();
+    this.setStudyRoom(this.id);
     this.$loadScript(
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"
     ).then(() => {

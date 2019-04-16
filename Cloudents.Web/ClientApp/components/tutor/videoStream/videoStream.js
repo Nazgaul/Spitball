@@ -30,7 +30,17 @@ export default {
     },
     computed: {
         ...mapState(['tutoringMainStore']),
-        ...mapGetters(['sharedDocUrl', 'roomLinkID', 'isRoomFull', 'activeRoom', 'localOffline','remoteOffline', 'roomLoading', 'getCurrentRoomState', 'getStudyRoomData']),
+        ...mapGetters(['sharedDocUrl',
+                          'roomLinkID',
+                          'isRoomFull',
+                          'activeRoom',
+                          'localOffline',
+                          'remoteOffline',
+                          'roomLoading',
+                          'getCurrentRoomState',
+                          'getStudyRoomData',
+                          'getJwtToken'
+                      ]),
         roomIsPending(){
             return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
         },
@@ -57,34 +67,43 @@ export default {
         minimize(type) {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
-        createRoomFunc() {
-            this.createVideoSession()
-            // let self = this;
-            // tutorService.createRoom().then(resp => {
-            //     self.roomLink = resp.data.name;
-            //     self.$router.push({name: 'tutoring', params: {id: self.roomLink}});
-            //     self.updateRoomID(self.roomLink)
-            // })
-
-        },
+        // createRoomFunc() {
+        //     this.createVideoSession()
+        //     // let self = this;
+        //     // tutorService.createRoom().then(resp => {
+        //     //     self.roomLink = resp.data.name;
+        //     //     self.$router.push({name: 'tutoring', params: {id: self.roomLink}});
+        //     //     self.updateRoomID(self.roomLink)
+        //     // })
+        //
+        // },
         enterRoom(){
-            tutorService.enterRoom(this.id)
+            if(this.isTutor){
+                tutorService.enterRoom(this.id).then(()=>{
+                    this.createVideoSession();
+                })
+            }else{
+                //join
+                this.createVideoSession();
+            }
         },
         // startVideo() {
         //     this.createVideoSession()
         // },
         // Generate access token
-        async getAccessToken() {
-            let identity = localStorage.getItem("identity");
-            return await tutorService.getJwtToken(this.id, identity);
-        },
+        // async getAccessToken() {
+        //     let identity = localStorage.getItem("identity");
+        //     return await tutorService.getToken(this.id, identity);
+        // },
         async isHardawareAvaliable() {
             let self = this;
             if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
                 console.log("enumerateDevices() not supported.");
                 return;
             }
-            const token = await self.getAccessToken();
+            const token = this.getJwtToken; //get jwt from store from store
+
+            // const token = await self.getAccessToken();
             // List cameras and microphones.
             navigator.mediaDevices.enumerateDevices()
                 .then(function (devices) {
