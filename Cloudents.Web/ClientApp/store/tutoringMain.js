@@ -165,8 +165,10 @@ const actions = {
             }
         }
     },
+
     signalRSetJwtToken({commit, dispatch, state}, sessionInformation){
         let token = sessionInformation.data.jwtToken;
+        let isTutor = state.studyRoomData.isTutor;
         commit('setJwtToken', token);
         if(!isTutor){
             dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
