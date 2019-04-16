@@ -148,6 +148,11 @@ export const signlaREvents = {
             arrEventObj.forEach((roomStatusInformation)=>{
                 store.dispatch("signalRUpdateState", roomStatusInformation);
             })
+        },
+        action:function(arrEventObj){
+            arrEventObj.forEach((sessionInformation)=>{
+                store.dispatch("signalRSetJwtToken", sessionInformation);
+            })
         }
     }
 };
