@@ -12,6 +12,6 @@ namespace Cloudents.Core.Interfaces
     {
         Task CreateRoomAsync(string id,bool needRecord);
         Task CloseRoomAsync(string id);
-        Task<string> ConnectToRoomAsync(string roomName, string name, bool isTutor);
+        Task<string> ConnectToRoomAsync(string roomName, string name);
     }
 }
