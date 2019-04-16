@@ -36,13 +36,12 @@ namespace Cloudents.Query.Tutor
                 using (var conn = _repository.OpenConnection())
                 {
                     return await conn.QuerySingleOrDefaultAsync<StudyRoomDto>(@"
-Select srs.sessionId,
+Select 
 onlineDocumentUrl as OnlineDocument, 
 cr.Id as ConversationId,
 sr.tutorId
 
 from sb.StudyRoom sr join sb.ChatRoom cr on sr.Identifier = cr.Identifier
-left join sb.StudyRoomSession srs on sr.Id = srs.StudyRoomId and srs.Ended is null
 join sb.StudyRoomUser sru on sr.Id = sru.StudyRoomId and sru.UserId = @UserId
 where sr.id = @Id;",
                         new { query.Id, query.UserId });
