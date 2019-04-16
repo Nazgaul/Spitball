@@ -121,7 +121,7 @@
     <value>אודות</value>
   </data>
   <data name="aboutme" xml:space="preserve">
-    <value>אודותי</value>
+    <value>קצת עלי</value>
   </data>
   <data name="Answers" xml:space="preserve">
     <value>תשובות</value>
@@ -130,7 +130,7 @@
     <value>הפוך למרצה</value>
   </data>
   <data name="bio_label" xml:space="preserve">
-    <value>אודותי</value>
+    <value>הניסיון שלי</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>ביטול</value>
