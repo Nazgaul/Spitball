@@ -2,11 +2,12 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 import { createLocalTracks, createLocalVideoTrack } from 'twilio-video';
 import tutorService  from '../tutorService';
  import timerIcon from '../images/timer.svg';
+ import stopIcon from '../images/stop-icon.svg';
  import fullScreenIcon from '../images/fullscreen.svg';
 
 export default {
     name: "videoStream",
-    components: {timerIcon, fullScreenIcon},
+    components: {timerIcon, stopIcon, fullScreenIcon},
     data() {
         return {
             loading: false,
@@ -57,7 +58,8 @@ export default {
     methods: {
         ...mapActions([
             'updateRoomID',
-            'updateRoomLoading'
+            'updateRoomLoading',
+            'updateCurrentRoomState'
         ]),
         
         biggerRemoteVideo() {
@@ -77,6 +79,7 @@ export default {
         //     // })
         //
         // },
+
         enterRoom(){
             if(this.isTutor){
                 tutorService.enterRoom(this.id).then(()=>{
@@ -86,6 +89,14 @@ export default {
                 //join
                 this.createVideoSession();
             }
+        },
+        endSession(){
+            tutorService.endTutoringSession(this.id)
+                .then((resp)=>{
+                    console.log('ended session', resp)
+                }, (error)=>{
+                    console.log('error', error);
+                })
         },
         // startVideo() {
         //     this.createVideoSession()
@@ -128,6 +139,7 @@ export default {
                                 networkQuality: true
                             };
                         tutorService.connectToRoom(token, connectOptions);
+                        self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active)
 
                     }, (error) => {
                         console.log(error, 'error create tracks before connect')

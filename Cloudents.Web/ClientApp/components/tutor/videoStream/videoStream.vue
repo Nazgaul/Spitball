@@ -15,8 +15,8 @@
                     <span v-if="isTutor">Start Session</span>    
                     <span v-else>Join Session</span>    
                 </button>
-                <button v-else class="create-session" color="primary" @click="enterRoom()">
-                    <timerIcon class="timer-icon mr-2"></timerIcon>
+                <button v-else class="end-session"  @click="endSession()">
+                    <stopIcon class="stop-icon mr-2"></stopIcon>
                     End Session
                 </button>
             </v-flex>

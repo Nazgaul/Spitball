@@ -257,7 +257,12 @@ const enterRoom = function (roomId) {
                                  return true
                              });
 };
-
+const endTutoringSession = function (roomId) {
+    return connectivityModule.http.post(`StudyRoom/${roomId}/end`)
+                             .then(() => {
+                                 return true
+                             });
+};
 function RoomProps(ObjInit) {
     this.conversationId = ObjInit.conversationId || '';
     this.onlineDocument = ObjInit.onlineDocument || '';
@@ -277,5 +282,6 @@ export default {
     connectToRoom,
     getRoomInformation,
     enterRoom,
-    createRoomProps
+    createRoomProps,
+    endTutoringSession
 };
