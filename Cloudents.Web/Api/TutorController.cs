@@ -7,12 +7,15 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Wangkanai.Detection;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Web.Framework;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -24,66 +27,58 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]", Name = "Tutor"), ApiController]
     public class TutorController : ControllerBase
     {
-        private readonly ITutorSearch _tutorSearch;
-        private readonly IStringLocalizer<TutorController> _localizer;
-        private readonly IDevice _device;
-       
+        private readonly IQueryBus _queryBus;
+        private readonly UserManager<RegularUser> _userManager;
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="tutorSearch"></param>
-        /// <param name="localizer"></param>
-        /// <param name="deviceResolver"></param>
-        public TutorController(ITutorSearch tutorSearch, IStringLocalizer<TutorController> localizer
-                , IDeviceResolver deviceResolver)
+
+        public TutorController(IQueryBus queryBus, UserManager<RegularUser> userManager)
         {
-            _tutorSearch = tutorSearch;
-            _localizer = localizer;
-            _device = deviceResolver.Device;
+            _queryBus = queryBus;
+            _userManager = userManager;
         }
 
-        /// <summary>
-        /// Get Tutors
-        /// </summary>
-        /// <param name="model">The model to parse</param>
-        /// <param name="token"></param>
-        /// <returns></returns>
+
+        //[HttpGet]
+        //public WebResponseWithFacet<TutorDto> GetAsync(CancellationToken token)
+        //{
+
+
+        //    return new WebResponseWithFacet<TutorDto>
+        //    {
+        //        Result = new TutorDto[0],
+        //        //Sort = EnumExtension.GetValues<TutorRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
+        //        //Filters = new IFilters[]
+        //        //{
+        //        //    new Filters<string>(nameof(TutorRequest.Filter),_localizer["StatusFilter"],
+        //        //        EnumExtension.GetValues<TutorRequestFilter>()
+        //        //            .Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization())))
+        //        //},
+        //        NextPageLink = null
+        //    };
+        //}
+
+        //public class TutorDto
+        //{
+
+        //}
+
         [HttpGet]
-        public async Task<WebResponseWithFacet<TutorDto>> GetAsync([FromQuery]TutorRequest model, CancellationToken token)
-        {
-            var isMobile = _device.Type == DeviceType.Mobile;
-            var result = (await _tutorSearch.SearchAsync(model.Term,
-                model.Filter,
-                model.Sort.GetValueOrDefault(TutorRequestSort.Relevance),
-                model.Location?.ToGeoPoint(),
-                model.Page, isMobile, token)).ToListIgnoreNull();
-            string nextPageLink = null;
-            if (result.Count > 0)
-            {
-                nextPageLink = Url.NextPageLink("Tutor", null, model);
-            }
-
-            return new WebResponseWithFacet<TutorDto>
-            {
-                Result = result,
-                Sort = EnumExtension.GetValues<TutorRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
-                Filters = new IFilters[]
-                {
-                    new Filters<string>(nameof(TutorRequest.Filter),_localizer["StatusFilter"],
-                        EnumExtension.GetValues<TutorRequestFilter>()
-                            .Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization())))
-                },
-                NextPageLink = nextPageLink
-            };
-        }
-
-        [HttpGet("tutors")]
-        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync([FromServices] IQueryBus _queryBus,
+        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync(int page,
             CancellationToken token)
         {
-            var query = new TutorListQuery();
+            _userManager.TryGetLongUserId(User,out var userId);
+            var query = new TutorListQuery(userId, page);
+            var retValTask = await _queryBus.QueryAsync(query, token);
+            return retValTask;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync([RequiredFromQuery] string courseName,
+            int page,
+            CancellationToken token)
+        {
+            _userManager.TryGetLongUserId(User, out var userId);
+            var query = new TutorListByCourseQuery(courseName, userId, page);
             var retValTask = await _queryBus.QueryAsync(query, token);
             return retValTask;
         }
