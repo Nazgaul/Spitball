@@ -101,6 +101,6 @@ namespace Cloudents.Core.DTOs
 
         [DtoToEntityConnection(nameof(StudyRoom.Id))]
 
-        public Guid StudyRoomId { get; set; }
+        public Guid? StudyRoomId { get; set; }
     }
 }

@@ -10,7 +10,8 @@ namespace Cloudents.Core.Event
             StudyRoom = studyRoom;
         }
 
-        public StudyRoom StudyRoom { get; private set; }
+        public StudyRoom StudyRoom { get;  }
+
     }
 
 
@@ -21,6 +22,6 @@ namespace Cloudents.Core.Event
             StudyUser = studyUser;
         }
 
-        public StudyRoomUser StudyUser { get; private set; }
+        public StudyRoomUser StudyUser { get; }
     }
 }
