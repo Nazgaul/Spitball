@@ -56,7 +56,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setActiveConversationObj']),
+        ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface']),
         enterRoom(){
             let routeData = this.$router.resolve({
                     name: 'tutoring',
