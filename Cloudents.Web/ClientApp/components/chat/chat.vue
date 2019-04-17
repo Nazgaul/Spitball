@@ -5,7 +5,7 @@
             <span class="chat-header-text">{{headerTitle}}</span>
             <span class="other-side" v-show="!isMobile">
                 <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
-                <v-icon @click="closeChatWindow">sbf-close-chat</v-icon>
+                <v-icon v-if="!isLocked" @click="closeChatWindow">sbf-close-chat</v-icon>
             </span>
         </v-layout>
         <v-layout v-show="!isMinimized" class="general-chat-style">
@@ -79,14 +79,20 @@
                 }
             },
             inConversationState(){
+                if(this.isLocked){
+                    return true;
+                }
                return this.state === this.enumChatState.conversation
             }
         },
         methods:{
             ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat', 'openChatInterface']),
             ...mapGetters(['getEnumChatState']),
+            isLocked(){
+                return this.getIsChatLocked;
+            },
             OriginalChatState(){
-                if(!this.getIsChatLocked){
+                if(!this.isLocked){
                     this.updateChatState(this.enumChatState.conversation);
                     if(this.isMinimized){
                         this.openChatInterface();
