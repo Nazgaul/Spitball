@@ -16,7 +16,7 @@
                            accept="image/*"
                            ref="tutorImage" v-show="false"/>
                     <label for="tutor-picture">
-                        <span class="image-edit-text">Upload Your Photo</span>
+                        <span class="image-edit-text" v-language:inner>becomeTutor_upload_image</span>
                     </label>
                 </button>
 
@@ -27,16 +27,16 @@
                     <v-flex xs12  shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-3']">
                         <v-text-field outline
                                       v-model="firstName"
-                                      placeholder="First Name"
+                                      :placeholder="placeFirstName"
                                       hide-details
-                                      :label="'First Name'"></v-text-field>
+                                      :label="placeFirstName"></v-text-field>
                     </v-flex>
                     <v-flex xs12 :class="[$vuetify.breakpoint.smAndUp ? 'mb-4' : 'mb-3']">
                         <v-text-field outline
                                       v-model="lastName"
-                                      placeholder="Last Name"
+                                      :placeholder="placeLastName"
                                       hide-details
-                                      :label="'Last Name'"></v-text-field>
+                                      :label="placeLastName"></v-text-field>
 
                     </v-flex>
                     <v-flex xs12 class="mt-2">
@@ -44,17 +44,17 @@
                                       v-model="price"
                                       prefix="₪"
                                       hide-details
-                                      :label="'Fixed Price per hour'"></v-text-field>
+                                      :label="placePrice"></v-text-field>
                     </v-flex>
                     <v-flex xs12 class="contact-price">
-                        <div class="blue-text caption cursor-pointer">Contact us to change price</div>
+                        <div class="blue-text caption cursor-pointer" v-language:inner>becomeTutor_contact_to_change</div>
                     </v-flex>
                 </v-layout>
             </v-flex>
         </v-layout>
         <v-layout  class="mt-5 px-1" :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
             <v-btn   @click="closeDialog()" class="cancel-btn elevation-0" round outline flat>
-                <span>Cancel</span>
+                <span v-language:inner>becomeTutor_btn_cancel</span>
             </v-btn>
             <v-btn
                    color="#4452FC"
@@ -62,7 +62,7 @@
                    class="white-text elevation-0"
                    :disabled="btnDisabled"
                    @click="nextStep()">
-                <span>Next</span>
+                <span v-language:inner>becomeTutor_btn_next</span>
             </v-btn>
 
         </v-layout>
@@ -72,11 +72,15 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import utilitiesService from '../../../services/utilities/utilitiesService';
+    import { LanguageService } from "../../../services/language/languageService";
 
     export default {
         name: "firstStep",
         data() {
             return {
+                placeFirstName: LanguageService.getValueByKey("becomeTutor_placeholder_first_name"),
+                placeLastName:  LanguageService.getValueByKey("becomeTutor_placeholder_last_name"),
+                placePrice:  LanguageService.getValueByKey("becomeTutor_placeholder_price"),
                 firstName: '',
                 lastName: '',
                 price: '50',
