@@ -132,9 +132,16 @@
                 }
             },
             userName(){
-                if (this.getProfile && this.getProfile.user) {
-                    return this.getProfile.user.name;
+                if(this.isTutorProfile){
+                    if(this.getProfile && this.getProfile.user && this.getProfile.user.tutorData){
+                        return `${this.getProfile.user.tutorData.firstName} ${this.getProfile.user.tutorData.lastName}`
+                    }
+                }else{
+                    if (this.getProfile && this.getProfile.user) {
+                        return this.getProfile.user.name;
+                    }
                 }
+
             },
             userScore(){
                 if (this.getProfile && this.getProfile.user) {

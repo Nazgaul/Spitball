@@ -177,8 +177,8 @@ const mutations = {
     updateEditedData(state, newData){
         if(state.profile.user.isTutor){
             state.profile.about.bio = newData.bio;
-            state.profile.user.name = `${newData.name} ${newData.lastName}`;
-            //state.profile.user.lastName = newData.lastName;
+            state.profile.user.tutorData.firstName = `${newData.name}`;
+            state.profile.user.tutorData.lastName = newData.lastName;
             state.profile.user.description = newData.description;
             state.profile.user.tutorData.price = newData.price;
         }else{
