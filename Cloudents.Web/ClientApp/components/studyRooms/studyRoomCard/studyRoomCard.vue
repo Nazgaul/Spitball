@@ -14,7 +14,7 @@
                 {{card.name}}
             </v-flex>
             <v-flex py-1 class="study-card-message">
-                <v-icon>sbf-message-icon</v-icon>
+                <v-icon @click="sendMessage">sbf-message-icon</v-icon>
             </v-flex>
             <v-flex py-1 class="study-card-enter-container">
                 <v-icon @click="enterRoom" class="study-card-enter-icon">sbf-enter-icon</v-icon>
@@ -33,9 +33,11 @@
 </template>
 
 <script>
+import {mapActions} from "vuex"
 import UserAvatar from "../../helpers/UserAvatar/UserAvatar.vue";
 import UserRank from "../../helpers/UserRank/UserRank.vue";
 import utilitiesService from "../../../services/utilities/utilitiesService"
+import chatService from "../../../services/chatService"
 export default {
     components:{
         UserAvatar,
@@ -54,6 +56,7 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['setActiveConversationObj']),
         enterRoom(){
             let routeData = this.$router.resolve({
                     name: 'tutoring',
@@ -63,22 +66,17 @@ export default {
                 });
             global.open(routeData.href, '_blank');
         },
-        // sendMessage(){
-        //         if ( this.accountUser == null) {
-        //             this.updateLoginDialogState(true);
-        //         } else {
-        //             let currentConversationObj = chatService.createActiveConversationObj(this.tutorData)
-        //             this.setActiveConversationObj(currentConversationObj);
-        //             let isMobile = this.$vuetify.breakpoint.smAndDown;
-        //             if(isMobile){
-        //                 //move to chat tab
-        //                 this.changeFooterActiveTab('promotions');
-        //             }else{
-        //                 this.openChatInterface();
-        //             }
-                    
-        //         }
-        //     }
+        sendMessage(){
+                let currentConversationObj = chatService.createActiveConversationObj(this.card)
+                this.setActiveConversationObj(currentConversationObj);
+                let isMobile = this.$vuetify.breakpoint.smAndDown;
+                if(isMobile){
+                    //move to chat tab
+                    this.changeFooterActiveTab('promotions');
+                }else{
+                    this.openChatInterface();
+                }
+            }
     },
     computed:{
         date(){
