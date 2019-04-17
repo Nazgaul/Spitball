@@ -27,13 +27,13 @@ namespace Cloudents.Web.EventHandler
         {
             
             var studyRoom = eventMessage.StudyRoom;
-            var chatRoomId = await _chatRoomRepository.GetChatRoomAsync(studyRoom.Identifier, token);
+            var chatRoom = await _chatRoomRepository.GetChatRoomAsync(studyRoom.Identifier, token);
             var message = new SignalRTransportType(SignalRType.StudyRoom,
                 SignalRAction.Add, new
                 {
                     id = studyRoom.Id,
                     userId = studyRoom.Tutor.Id,
-                    conversationId = chatRoomId
+                    conversationId = chatRoom.Id
                 });
             await _hubContext.Clients.Users(studyRoom.Users.Select(s => s.User.Id.ToString()).ToList()).SendAsync(SbHub.MethodName, message, token);
         }

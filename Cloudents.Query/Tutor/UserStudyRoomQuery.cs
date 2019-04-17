@@ -33,7 +33,8 @@ namespace Cloudents.Query.Tutor
  u.Image as Image,
  u.Online as online,
  sr.Id as id,
- sr.DateTime
+ sr.DateTime,
+ (select id from sb.ChatRoom where Identifier = sr.Identifier) as conversationId
 from sb.StudyRoom sr
 join sb.StudyRoomUser sru on sr.id = sru.studyRoomId
 join sb.[User] u on sru.UserId = u.Id
