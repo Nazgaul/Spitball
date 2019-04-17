@@ -118,7 +118,6 @@ export default {
       "qualityDialog",
       "localNetworkQuality",
       "isRoomCreated",
-      "isRoomFull",
       "sharedDocUrl",
       "getZoom",
       "getPanX",

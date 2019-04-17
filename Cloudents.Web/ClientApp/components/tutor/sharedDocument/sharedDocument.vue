@@ -25,7 +25,7 @@
             },
         },
         computed: {
-            ...mapGetters(['getStudyRoomData', 'roomLinkID', 'isRoomFull']),
+            ...mapGetters(['getStudyRoomData', 'roomLinkID']),
             sharedDocUrl(){
                 if(this.getStudyRoomData && this.getStudyRoomData.onlineDocument){
                      return this.getStudyRoomData.onlineDocument
