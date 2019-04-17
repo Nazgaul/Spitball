@@ -29,7 +29,7 @@
         methods: {
             ...mapActions(['updateTutorDialog']),
             goToCourses() {
-                this.$router.push({name: 'addCourse'});
+                this.$router.push({name: 'editCourse'});
                 this.updateTutorDialog(false)
 
             }
