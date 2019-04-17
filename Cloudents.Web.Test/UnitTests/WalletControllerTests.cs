@@ -73,5 +73,19 @@ namespace Cloudents.Web.Test.UnitTests
             amount.Should().Be(150);
             balance.Should().BeGreaterThan(0);
         }
+
+        [Fact]
+        public async Task PostAsync_Redeem()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+
+            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Wallet/redeem", new StringContent("{amount:1000}", Encoding.UTF8, "application/json"));
+
+            response.EnsureSuccessStatusCode();
+        }
     }
 }
