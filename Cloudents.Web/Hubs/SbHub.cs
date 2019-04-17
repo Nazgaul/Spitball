@@ -1,10 +1,7 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Core.Entities;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Linq;
@@ -16,12 +13,10 @@ namespace Cloudents.Web.Hubs
     [Authorize]
     public class SbHub : Hub
     {
-        private readonly Lazy<UserManager<RegularUser>> _userManager;
         private readonly Lazy<ICommandBus> _commandBus;
 
-        public SbHub(Lazy<UserManager<RegularUser>> userManager, Lazy<ICommandBus> commandBus)
+        public SbHub(Lazy<ICommandBus> commandBus)
         {
-            _userManager = userManager;
             _commandBus = commandBus;
         }
 
@@ -42,7 +37,7 @@ namespace Cloudents.Web.Hubs
                 string.Equals(f.Type, AppClaimsPrincipalFactory.Country.ToString(),
                     StringComparison.OrdinalIgnoreCase))?.Value;
 
-            var currentUserId = _userManager.Value.GetLongUserId(Context.User);
+            var currentUserId = long.Parse(Context.UserIdentifier);
 
             var command = new ChangeOnlineStatusCommand(currentUserId, true);
             var t1 = _commandBus.Value.DispatchAsync(command, default);
@@ -80,7 +75,7 @@ namespace Cloudents.Web.Hubs
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
             }
 
-            var currentUserId = _userManager.Value.GetLongUserId(Context.User);
+            var currentUserId = long.Parse(Context.UserIdentifier);
             var command = new ChangeOnlineStatusCommand(currentUserId, false);
             var t1 = _commandBus.Value.DispatchAsync(command, default);
 

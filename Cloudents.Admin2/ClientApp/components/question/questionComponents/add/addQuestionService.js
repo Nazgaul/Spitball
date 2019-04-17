@@ -7,23 +7,23 @@ function SubjectItem(objInit){
 }
 
 function createSubjectItem(objInit){
-    return new SubjectItem(objInit)
+    return new SubjectItem(objInit);
 }
 
 const getSubjectList = function(){
-    let path = "AdminQuestion/subject"
+    let path = "AdminQuestion/subject";
     let subjectsToReturn = [];
     return connectivityModule.http.get(path).then((subjects)=>{
         if (subjects.length > 0){
             subjects.forEach((subject)=>{
                 subjectsToReturn.push(createSubjectItem(subject)); 
-            })
+            });
         }
-        return Promise.resolve(subjectsToReturn)
+        return Promise.resolve(subjectsToReturn);
     },(err)=>{
-        return Promise.reject(err)
-    })
-}
+        return Promise.reject(err);
+    });
+};
 
 const addQuestion = function(subjectId, text, price, country, uni, course, files){
     let path = "AdminQuestion";
@@ -38,11 +38,11 @@ const addQuestion = function(subjectId, text, price, country, uni, course, files
         files
     };
     return connectivityModule.http.post(path, questionData).then(()=>{
-        return Promise.resolve()
+        return Promise.resolve();
     },(err)=>{
-        return Promise.reject(err)
-    })
-}
+        return Promise.reject(err);
+    });
+};
 
 export{
     getSubjectList,

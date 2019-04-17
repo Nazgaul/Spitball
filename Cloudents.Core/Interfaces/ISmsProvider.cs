@@ -10,7 +10,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IVideoProvider
     {
-        Task CreateRoomAsync(string id);
+        Task CreateRoomAsync(string id,bool needRecord);
         Task CloseRoomAsync(string id);
         Task<string> ConnectToRoomAsync(string roomName, string name);
     }

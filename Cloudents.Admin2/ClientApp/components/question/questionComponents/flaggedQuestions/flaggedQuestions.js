@@ -6,16 +6,16 @@ export default {
         return {
             questions: [],
             loading: true
-        }
+        };
     },
     methods:{
         doCopy(id, type){
             let dataType = type || '';
             let self = this;
-            this.$copyText(id).then((e) => {
+            this.$copyText(id).then(() => {
                 self.$toaster.success(`${dataType} Copied` );
-            }, (e) => {
-            })
+            }, () => {
+            });
 
         },
         unflagQ(question, index){
@@ -24,22 +24,22 @@ export default {
                 this.$toaster.success(`Question Aproved`);
             }, ()=>{
                 this.$toaster.error(`Question Aproved Failed`);
-            })
+            });
         },
         declineQuestion(question, index){
-            let id = question.id
+            let id = question.id;
             deleteQuestion([id]).then(()=>{
                 this.questions.splice(index, 1);
                 this.$toaster.success(`Question Declined`);
-            }, err=>{
+            },()=>{
                 this.$toaster.error(`Question Declined Failed`);
-            })
+            });
         }   
     },
     created(){
         getAllQuesitons().then((questionsResp)=>{
             this.questions = questionsResp;
             this.loading = false;
-        })
+        });
     }
 }

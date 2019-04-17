@@ -1,6 +1,6 @@
 <template>
         <v-layout align-center justify-center class="rating-container">
-            <v-flex>
+            <v-flex shrink class="mr-2">
                 <v-rating
                         v-model="rating"
                         :color="starColor"

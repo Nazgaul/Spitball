@@ -8,7 +8,6 @@ export const signalRSender = {
     }
 }
 
-
 export const sendEventList = {
     question:{
             addViewr: function(question){

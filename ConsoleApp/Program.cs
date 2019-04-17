@@ -5,6 +5,7 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
 using Dapper;
@@ -136,20 +137,14 @@ namespace ConsoleApp
 
         }
 
-       
+
 
         private static async Task RamMethod()
         {
             var c = _container.Resolve<AzureDocumentSearch>();
             var z = await c.ItemAsync(28886, default);
-            //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
             // await c.DispatchAsync(command2, default);
 
-            //var userRepository = _container.Resolve<IRegularUserRepository>();
-            //var me = await userRepository.LoadAsync(160336L, default);
-
-            //await userRepository.UpdateAsync(me, default);
-            //await unitOfWork.CommitAsync(default);
             Console.WriteLine("done");
         }
 
@@ -409,6 +404,8 @@ namespace ConsoleApp
             }
         }
 
+     
+
         private static async Task HadarMethod()
         {
             var queryBus = _container.Resolve<IQueryBus>();
@@ -417,6 +414,13 @@ namespace ConsoleApp
 
            /* var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
             await commandBus.DispatchAsync(command, default);*/
+          
+            //You can register the QueryFactory in the IoC container
+
+            //var user = db.Query("sb.User").Where("Id", (long)160347).First();
+            //var commandBus = _container.Resolve<ICommandBus>();
+            //var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
+            //await commandBus.DispatchAsync(command, default);
 
             //await addToExtra();
             //await FunctionsExtensions.DeleteCourses(_container);

@@ -46,7 +46,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var views = result[0]["views"]?.Value<int?>();
             var downloads = result[0]["downloads"]?.Value<int?>();
             var docUrl = result[0]["url"]?.Value<string>();
-            var source = result[0]["source"]?.Value<string>();
+            //var source = result[0]["source"]?.Value<string>();
             var dateTime = result[0]["dateTime"]?.Value<DateTime?>();
             var vote = result[0]["vote"]?.Value<JObject>();
             var price = result[0]["price"]?.Value<double?>();
@@ -63,13 +63,13 @@ namespace Cloudents.Web.Test.IntegrationTests
             views.Should().NotBeNull();
             downloads.Should().NotBeNull();
             docUrl.Should().NotBeNull();
-            source.Should().NotBeNull();
+            //source.Should().NotBeNull();
             dateTime.Should().NotBeNull();
             vote.Should().NotBeNull();
             price.Should().BeGreaterOrEqualTo(0);
 
-            if (url == "/api/document?page=1")
-                next.Should().Be("http://localhost:80/api/Document?Page=2");
+            //if (url == "/api/document?page=1")
+                //next.Should().Be("http://localhost:80/api/Document?Page=2");
         }
 
         [Fact]

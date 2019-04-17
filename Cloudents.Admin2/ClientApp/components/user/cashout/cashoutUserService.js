@@ -1,6 +1,6 @@
 import { connectivityModule } from '../../../services/connectivity.module'
 
-function cashoutUser(objInit) {
+function CashoutUser(objInit) {
     this.userId = objInit.userId;
     this.awardCount = objInit.awardCount || 0;
     this.cashOutPrice = objInit.cashOutPrice || 0;
@@ -20,7 +20,7 @@ function cashoutUser(objInit) {
 }
 
 function createCashoutItem(objInit) {
-    return new cashoutUser(objInit);
+    return new CashoutUser(objInit);
 }
 
 const getCashoutList = function () {
@@ -29,13 +29,13 @@ const getCashoutList = function () {
         let arrCashoutList = [];
         if (cashoutList.length > 0) {
             cashoutList.forEach((cashoutItem) => {
-                arrCashoutList.push(createCashoutItem(cashoutItem))
-            })
+                arrCashoutList.push(createCashoutItem(cashoutItem));
+            });
         }
-        return Promise.resolve(arrCashoutList)
+        return Promise.resolve(arrCashoutList);
     }, (err) => {
-        return Promise.reject(err)
-    })
+        return Promise.reject(err);
+    });
 };
 
 const declineCashout = function (transactionId, reason) {
@@ -45,22 +45,22 @@ const declineCashout = function (transactionId, reason) {
         reason: reason
     };
     return connectivityModule.http.post(path, data).then((success) => {
-        return Promise.resolve(success)
+        return Promise.resolve(success);
     }, (err) => {
-        return Promise.reject(err)
-    })
+        return Promise.reject(err);
+    });
 };
 
 const approveCashout = function (transactionId) {
     let path = "AdminUser/cashOut/approve";
     let data = {
-        transactionId: transactionId,
+        transactionId: transactionId
     };
     return connectivityModule.http.post(path, data).then((success) => {
-        return Promise.resolve(success)
+        return Promise.resolve(success);
     }, (err) => {
-        return Promise.reject(err)
-    })
+        return Promise.reject(err);
+    });
 };
 
 
