@@ -29,7 +29,7 @@ namespace Cloudents.Query.Query
 
             public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
-                const string sql = @"select U.Id as UserId, U.Name, U.Image, T.Bio, T.Price, U.Score, 
+                const string sql = @"select *  from (select U.Id as UserId, U.Name, U.Image, T.Bio, T.Price, U.Score, 
 	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
                         from sb.[user] U
                         join sb.Tutor T
@@ -46,8 +46,9 @@ select U.Id as UserId, U.Name, U.Image, T.Bio, T.Price, U.Score,
 						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
 						join sb.Course c on uc.CourseId = c.Name
 						and c.SubjectId in (Select subjectId  from sb.UsersCourses where UserId = @UserId)
+						) t
 
-and u.id <> @UserId
+where t.UserId <> @UserId
 order by Rate desc
 OFFSET @page*20 ROWS
 FETCH NEXT 20 ROWS ONLY;";
