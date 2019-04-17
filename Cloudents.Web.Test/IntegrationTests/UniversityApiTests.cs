@@ -42,5 +42,80 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var response = client.PostAsync("api/university/set", new StringContent(uni, Encoding.UTF8, "application/json"));
         }
+
+        [Theory]
+        [InlineData("/api/university")]
+        public async Task GetAsync_OK(string url)
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var uni = d["universities"].Value<JArray>();
+
+            var id = uni[0]["id"]?.Value<string>();
+            var name = uni[0]["name"]?.Value<string>();
+            var country = uni[0]["country"]?.Value<string>();
+
+            id.Should().NotBeNull();
+            name.Should().NotBeNull();
+            country.Should().NotBeNull();
+            uni.Should().HaveCountGreaterOrEqualTo(30);
+        }
+
+        [Theory]
+        [InlineData("api/university?term=uni&page=0")]
+        public async Task GetAsync_Paging(string url)
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var uni = d["universities"].Value<JArray>();
+
+            var id = uni[0]["id"]?.Value<string>();
+
+            uni.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task PostAsync_Create_Success()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+
+            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/University/create", new StringContent("{\"name\":\"Open University\",\"country\":\"IL\"}", Encoding.UTF8, "application/json"));
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task PostAsync_Create_Failure()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+
+            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/University/create", new StringContent("{\"name\":\"Open Uni\",\"country\":\"IL\"}", Encoding.UTF8, "application/json"));
+
+            response.Should().Be(400);
+        }
     }
 }
