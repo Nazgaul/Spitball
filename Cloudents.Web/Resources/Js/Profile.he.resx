@@ -195,6 +195,9 @@
   <data name="expand_more_courses" xml:space="preserve">
     <value>קורסים נוספים</value>
   </data>
+  <data name="expand_more_single_course" xml:space="preserve">
+    <value>קורס נוסף</value>
+  </data>
   <data name="firstName_label" xml:space="preserve">
     <value>שם פרטי</value>
   </data>
