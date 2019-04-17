@@ -2,7 +2,7 @@
     <div class="become-second-wrap">
         <v-layout row wrap>
             <v-flex xs12 class="text-xs-center mb-4">
-                <span class="sharing-text">Sharing Your information and background will get more response from students</span>
+                <span class="sharing-text" v-language:inner>becomeTutor_sharing</span>
             </v-flex>
             <v-flex xs12 :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
                 <v-textarea
@@ -12,8 +12,8 @@
                         no-resize
                         v-model="description"
                         name="input-about"
-                        placeholder="Type a Key sentence about yourself"
-                        :label="'Opening sentence'"
+                        :placeholder="placeDescription"
+                        :label="labelDescription"
                 ></v-textarea>
             </v-flex>
             <v-flex xsw12>
@@ -24,8 +24,8 @@
                         outline
                         v-model="bio"
                         name="input-bio"
-                        placeholder="Type a short paragraph about your background and who you are"
-                        :label="'Bio'"
+                        :placeholder="placeBio"
+                        :label="labelBio"
                 ></v-textarea>
             </v-flex>
         </v-layout>
@@ -37,7 +37,7 @@
                     :loading="btnLoading"
                     :disabled="btnDisabled"
                     @click="submitData()">
-                <span>Done</span>
+                <span v-language:inner>becomeTutor_btn_done</span>
             </v-btn>
         </v-layout>
     </div>
@@ -45,11 +45,16 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
+    import { LanguageService } from "../../../services/language/languageService";
 
     export default {
         name: "secondStep",
         data() {
             return {
+                placeDescription: LanguageService.getValueByKey("becomeTutor_placeholder_description"),
+                placeBio: LanguageService.getValueByKey("becomeTutor_placeholder_bio"),
+                labelDescription: LanguageService.getValueByKey("becomeTutor_label_description"),
+                labelBio: LanguageService.getValueByKey("becomeTutor_label_bio"),
                 description: '',
                 bio: '',
                 btnLoading: false
