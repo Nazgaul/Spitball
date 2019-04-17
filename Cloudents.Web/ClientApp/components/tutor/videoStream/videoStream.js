@@ -110,8 +110,8 @@ export default {
                          });
                          let connectOptions;
                          //create local track with custom names
-                         let audioTrackName = `${self.isTutor ? 'tutor' : 'student'}_audio_${self.accountUserID}`;
-                         let videoTrackName = `${self.isTutor ? 'tutor' : 'student'}_video_${self.accountUserID}`;
+                         let audioTrackName = `audio_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
+                         let videoTrackName = `video_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
                          createLocalTracks({
                                                audio: {audio: self.availableDevices.includes('audioinput'), name: `${audioTrackName}`},
                                                video: {video: self.availableDevices.includes('videoinput'), name: `${videoTrackName}`}
