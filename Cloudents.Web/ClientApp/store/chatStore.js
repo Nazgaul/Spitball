@@ -68,6 +68,9 @@ const mutations = {
     setActiveConversationId(state, id){
         state.activeConversationObj.conversationId = id;
     },
+    setActiveConversationStudyRoom(state, id){
+        state.activeConversationObj.studyRoomId = id;
+    },
     
     addConversation: (state, conversationObj)=>{
         let id = conversationObj.conversationId;
@@ -161,7 +164,7 @@ const actions = {
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
         dispatch('addMessage', MessageObj);
     },
-    signalRAddRoomInformationMessage({dispatch, state}, roomInfo){
+    signalRAddRoomInformationMessage({commit, dispatch, state}, roomInfo){
         let messageObj ={
             message: {
                 userId: roomInfo.userId,
@@ -173,6 +176,7 @@ const actions = {
         }
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
         dispatch('addMessage', MessageObj);
+        commit('setActiveConversationStudyRoom', roomInfo.id);
     },
     setActiveConversationObj:({commit, dispatch, state}, Obj)=>{
         commit('setActiveConversationObj', Obj);
