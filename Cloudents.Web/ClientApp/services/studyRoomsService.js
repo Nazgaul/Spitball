@@ -7,6 +7,7 @@ function StudyRoom(objInit){
     this.online = objInit.online;
     this.id = objInit.id;
     this.dateTime = objInit.dateTime;
+    this.conversationId = objInit.conversationId;
 }
 
 function createStudyRoom(objInit){
