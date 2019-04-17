@@ -121,6 +121,9 @@
         .v-stepper:not(.v-stepper--vertical) .v-stepper__label{
             display: flex;
             padding-left: 12px;
+            @media(max-width: @screen-xs){
+                padding-left: 6px;
+            }
         }
         .become-title {
             color: @profileTextColor;
