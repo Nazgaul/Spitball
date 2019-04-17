@@ -16,28 +16,16 @@ namespace Cloudents.Persistence.Repositories
         }
 
 
-        public async Task<ChatRoom> GetChatRoomAsync(IList<long> usersId, CancellationToken token)
+        public Task<ChatRoom> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token)
         {
             var identifier = ChatRoom.BuildChatRoomIdentifier(usersId);
+            return GetChatRoomAsync(identifier, token);
+        }
 
+        public async Task<ChatRoom> GetChatRoomAsync(string identifier, CancellationToken token)
+        {
             return await Session.Query<ChatRoom>()
                 .Where(t => t.Identifier == identifier).SingleOrDefaultAsync(token);
-            //var t =  await Session.Query<ChatUser>()
-            //    .Where(w => usersId.Contains(w.User.Id))
-            //    .GroupBy(g => g.ChatRoom)
-            //    .Where(w => w.Count() == usersId.Count)
-            //    .Select(s => s.Key.Id)
-            //    .SingleOrDefaultAsync(cancellationToken: token);
-            //if (t == default)
-            //{
-            //    return null;
-            //}
-            //return await Session.LoadAsync<ChatRoom>(t,token);
-            //var t =    Session.QueryOver<ChatUser>()
-            //    .WhereRestrictionOn(w => w.User.Id).IsIn(usersId.ToArray())
-            //    .Select(Projections.Group<ChatUser>(x => x.ChatRoom))
-            //    .Where(Restrictions.Eq(Projections.Count<ChatUser>(x => x), usersId.Count))
-            //    .Select(s => s.ChatRoom).SingleOrDefault();
         }
 
     }
