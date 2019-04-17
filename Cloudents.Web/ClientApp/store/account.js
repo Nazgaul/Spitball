@@ -179,7 +179,8 @@ const mutations = {
             state.profile.about.bio = newData.bio;
             state.profile.user.name = `${newData.name} ${newData.lastName}`;
             //state.profile.user.lastName = newData.lastName;
-            state.profile.user.description = newData.description
+            state.profile.user.description = newData.description;
+            state.profile.user.tutorData.price = newData.price;
         }else{
             state.profile.user.name = newData.name;
             state.profile.user.description = newData.description

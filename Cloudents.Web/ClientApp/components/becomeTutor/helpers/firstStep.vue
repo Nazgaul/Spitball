@@ -42,7 +42,7 @@
                     <v-flex xs12 class="mt-2">
                         <v-text-field outline class="bg-greyed font-weight-bold price-input"
                                       v-model="price"
-                                      :disabled="true"
+                                      prefix="₪"
                                       hide-details
                                       :label="'Fixed Price per hour'"></v-text-field>
                     </v-flex>
@@ -79,7 +79,7 @@
             return {
                 firstName: '',
                 lastName: '',
-                price: '₪50',
+                price: '50',
                 isLoaded: false
             };
         },
@@ -111,7 +111,7 @@
 
             },
             nextStep(){
-                let data = { image: this.userImage, firstName: this.firstName, lastName: this.lastName };
+                let data = { image: this.userImage, firstName: this.firstName, lastName: this.lastName, price: this.price };
                 this.updateTutorInfo(data);
                 this.$root.$emit('becomeTutorStep', 2);
             },

@@ -154,6 +154,7 @@ export default {
             description: data.description,
             lastName: data.lastName,
             bio: data.bio,
+            price: data.price
         };
         return connectivityModule.http.post("/Account/settings", serverFormatt)
     },

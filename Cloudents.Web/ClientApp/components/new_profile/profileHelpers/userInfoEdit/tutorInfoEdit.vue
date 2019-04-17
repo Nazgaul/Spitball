@@ -44,12 +44,11 @@
                         <span class="subtitle" v-language:inner>profile_pricing</span>
                     </v-flex>
                     <v-flex>
-                        <v-text-field class="disabled-background"
+                        <v-text-field class=""
                                       :label="priceLabel"
-                                      v-model="priceHour"
+                                      v-model="price"
                                       outline
                                       prefix="₪"
-                                      readonly
                                       hide-details
                         ></v-text-field>
                     </v-flex>
@@ -116,7 +115,7 @@
                 editedDescription: '',
                 editedFirstName: '',
                 editedLastName: '',
-                priceHour: 50,
+                editedPrice: 0,
                 rules: {
                     required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
                 },
@@ -148,6 +147,14 @@
                     this.editedFirstName = newVal;
                 }
             },
+            price: {
+                get(){
+                    return this.getProfile.user.tutorData.price
+                },
+                set(newVal){
+                    this.editedPrice = newVal;
+                }
+            },
             lastName: {
                 get() {
                     // return this.getProfile.user.lastName
@@ -155,7 +162,7 @@
                 },
                 set(newVal) {
                     console.log('new val::', newVal)
-                    this. editedLastName = newVal;
+                    this.editedLastName = newVal;
                 }
             },
             description: {
@@ -176,6 +183,7 @@
                         name: this.editedFirstName || this.firstName,
                         lastName: this.editedLastName || this.lastName,
                         bio: this.editedBio || this.bio,
+                        price: this.editedPrice || this.price,
                         description: this.editedDescription || this.description
                     };
                     accountService.saveTutorInfo(editsData)
