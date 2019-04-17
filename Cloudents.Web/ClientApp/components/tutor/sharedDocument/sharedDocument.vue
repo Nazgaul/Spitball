@@ -11,12 +11,11 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     export default {
         name: "sharedDocument",
         data() {
             return {
-                docName: 'test document',
             }
         },
         props: {
@@ -26,13 +25,14 @@
             },
         },
         computed: {
-            ...mapGetters(['sharedDocUrl', 'roomLinkID', 'isRoomFull']),
-
+            ...mapGetters(['getStudyRoomData', 'roomLinkID']),
+            sharedDocUrl(){
+                if(this.getStudyRoomData && this.getStudyRoomData.onlineDocument){
+                     return this.getStudyRoomData.onlineDocument
+                }
+            }
         },
-        methods: {
-            ...mapActions(['updateSharedDocLink']),
 
-        },
         created() {
         console.log('created do shred component')
 

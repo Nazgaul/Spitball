@@ -189,13 +189,4 @@
   <data name="TransactionTypeStake" xml:space="preserve">
     <value>Stake</value>
   </data>
-  <data name="TutorFilterInPerson" xml:space="preserve">
-    <value>InPerson</value>
-  </data>
-  <data name="TutorFilterOnline" xml:space="preserve">
-    <value>Online</value>
-  </data>
-  <data name="TutorSortPrice" xml:space="preserve">
-    <value>Price</value>
-  </data>
 </root>

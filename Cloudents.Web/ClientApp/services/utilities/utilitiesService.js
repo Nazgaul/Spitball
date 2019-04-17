@@ -30,7 +30,15 @@ const proccessImageURL = function(url, width, height, mode){
 }
 
 
+const dateFormater = function(dateTime){
+  let lang = `${global.lang}-${global.country}`;
+  let date = new Date(dateTime);
+  let options = { year: "numeric", month: "short", day: "2-digit" };
+  return new Intl.DateTimeFormat(lang, options).format(date);
+}
+
 export default {
     init,
-    proccessImageURL
+    proccessImageURL,
+    dateFormater
 }

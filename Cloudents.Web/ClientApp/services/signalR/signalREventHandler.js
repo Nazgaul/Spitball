@@ -124,8 +124,7 @@ export const signlaREvents = {
                     }, serverData.timeout)
                     
                 }
-            }; 
-
+            };
 
             arrEventObj.forEach((action)=>{
                 if(!systemActions[action.type]){
@@ -143,5 +142,22 @@ export const signlaREvents = {
                 store.dispatch("signalRAddMessage", chatMessageToAdd);
             })
         },
+    },
+    studyroom:{
+        add:function(arrEventObj){
+            arrEventObj.forEach((roomInfo)=>{
+                store.dispatch("signalRAddRoomInformationMessage", roomInfo);
+            })
+        },
+        update:function(arrEventObj){
+            arrEventObj.forEach((roomStatusInformation)=>{
+                store.dispatch("signalRUpdateState", roomStatusInformation);
+            })
+        },
+        action:function(arrEventObj){
+            arrEventObj.forEach((sessionInformation)=>{
+                store.dispatch("signalRSetJwtToken", sessionInformation);
+            })
+        }
     }
 };

@@ -10,8 +10,8 @@ function FlaggedDocumentItem(objInit){
     this.siteLink = objInit.siteLink || "none";
 }
 
-function createDocumentItem(ObjInit){
-    return new FlaggedDocumentItem(ObjInit)
+function createDocumentItem(objInit){
+    return new FlaggedDocumentItem(objInit);
 }
 
 export default {
@@ -21,24 +21,24 @@ export default {
             .then((resp) => {
                 console.log(resp, 'success get 20 docs');
                 resp.forEach(function(doc) {
-                   return createDocumentItem(doc)
+                   return createDocumentItem(doc);
                 });
-                return Promise.resolve(resp)
+                return Promise.resolve(resp);
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     },
     deleteDocument: (id) => {
         let url = 'AdminDocument';
         return connectivityModule.http.delete(`${url}/${id}`)
             .then((resp) => {
                 console.log(resp, 'delete success');
-                return Promise.resolve(resp)
+                return Promise.resolve(resp);
             }, (error) => {
                 console.log(error, 'error delete');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     },
 
     unflagDocument: (arrIds) =>{
@@ -46,11 +46,11 @@ export default {
         return connectivityModule.http.post(`${url}`, {"id": arrIds})
             .then((resp) => {
                 console.log(resp, 'post doc success');
-                return Promise.resolve(resp)
+                return Promise.resolve(resp);
             }, (error) => {
                 console.log(error, 'error post doc');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     }
 
 
