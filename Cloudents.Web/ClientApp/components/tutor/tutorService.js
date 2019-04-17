@@ -8,35 +8,6 @@ const dataTrack = new LocalDataTrack();
 const uploadCanvasImage = function (formData) {
     return connectivityModule.http.post("Tutoring/upload", formData);
 };
-// const getSharedDoc = async function (docName) {
-//     return connectivityModule.http.post("Tutoring/document", docName)
-//                              .then((resp) => {
-//                                  return resp.data.link;
-//                              });
-// };
-// const passSharedDocLink = function (docUrl) {
-//     let transferDataObj = {
-//         type: "sharedDocumentLink",
-//         data: docUrl
-//     };
-//     let normalizedData = JSON.stringify(transferDataObj);
-//     console.log('service data track', dataTrack);
-//     dataTrack.send(normalizedData);
-// };
-
-const createRoom = () => {
-    return connectivityModule.http.post("tutoring/create");
-};
-// Token get
-const getToken = function (name, identityName) {
-    let userIdentity = identityName || '';
-    return connectivityModule.http.get(`tutoring/join?roomName=${name}&identityName=${userIdentity}`)
-                             .then((data) => {
-                                 return !!data.data ? data.data.token : null;
-                             });
-};
-
-
 // Attach the Tracks to the DOM.
 const attachTracks = function (tracks, container) {
     tracks.forEach((track) => {
@@ -136,16 +107,16 @@ const connectToRoom = function (token, options) {
                     // add microphone indicator
                     createAudioContext();
                     store.dispatch('updateRoomInstance', room);
-                    console.log('Successfully joined a Room: ');
+                    console.log('Successfully joined a Room: ', room);
                     store.dispatch('updateRoomLoading', false);
                     //update room status in store of chat to use for show/hide shareBtn
                     store.dispatch('updateRoomStatus', true);
                     // TODO persistent
-                    // let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
-                    // store.dispatch('updateUserIdentity', localIdentity);
+                    let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
+                    store.dispatch('updateUserIdentity', localIdentity);
                     store.dispatch('updateLocalStatus', false);
                     // TODO persistent
-                    // localStorage.setItem("identity", localIdentity);
+                    localStorage.setItem("identity", localIdentity);
                     //set local participant in store
                     store.dispatch('updateLocalParticipant', room.localParticipant);
 
@@ -154,25 +125,6 @@ const connectToRoom = function (token, options) {
 
                     //event of network quality change
                     store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
-
-                    //!!!!!  NO USE ANYMORE shared google document
-                    // if(store.getters['activeRoom'].participants && store.getters['activeRoom'].participants.size < 1) {
-                    //     let shareLink = localStorage.getItem(`sb_share_link_${store.getters['roomLinkID']}`);
-                    //     if(!shareLink) {
-                    //         store.dispatch('updateRoomIsFull', true);
-                    //         getSharedDoc({name: `${store.getters['roomLinkID']}`})
-                    //             .then((link) => {
-                    //                       localStorage.setItem(`sb_share_link_${store.getters['roomLinkID']}`, `${link}&embedded=true`);
-                    //                       store.dispatch('updateSharedDocLink', `${link}&embedded=true`);
-                    //                   },
-                    //                   (error) => {
-                    //                   }
-                    //             );
-                    //
-                    //     } else {
-                    //         store.dispatch('updateSharedDocLink', `${shareLink}`);
-                    //     }
-                    // }
                     // Attach the Tracks of all the remote Participants.
                     store.getters['activeRoom'].participants.forEach((participant, index) => {
                         let previewContainer = document.getElementById('remoteTrack');
@@ -191,8 +143,19 @@ const connectToRoom = function (token, options) {
                         }else{
                             console.log('final disconnect')
                         }
-                        console.log(store.state.tutoringMainStore.roomStateEnum.ready);
-                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                        console.log('room closed', store.state.tutoringMainStore.roomStateEnum.ready);
+                        if(store.getters['getStudyRoomData'].isTutor){
+                            store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                        }else{
+                            store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
+
+                        }
+                        //detach all local tracks to prevent multiple added tracks
+                        store.getters['activeRoom'].localParticipant.tracks.forEach(function(track) {
+                            detachTracks([track]);
+                            // track.stop()
+                        });
+
                     });
 
                     // Attach the Participant's Media to a <div> element.
@@ -206,6 +169,7 @@ const connectToRoom = function (token, options) {
                                 attachTracks([track], previewContainer);
                             }
                         });
+                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.active);
                         store.dispatch('updateRemoteStatus', false);
                     });
                     // When a Participant adds a Track, attach it to the DOM.
@@ -220,9 +184,6 @@ const connectToRoom = function (token, options) {
                                 } else if(Data.type === 'undoData') {
                                     whiteBoardService.undo(parsedData);
                                 }
-                                // else if(Data.type === 'tutoringChatMessage') {
-                                //     //store.dispatch('addMessage', Data);
-                                // }
                             });
                             attachTracks([track], previewContainer);
                         } else if(track.kind === 'video') {
@@ -234,7 +195,7 @@ const connectToRoom = function (token, options) {
                         } else if(track.kind === 'audio') {
                             attachTracks([track], previewContainer);
                         }
-                        console.log('track attached', " added track: " + track.kind);
+                        console.log('track attached', " added track: " + track.kind, track);
                     });
                     // When a Participant's Track is unsubscribed from, detach it from the DOM.
                     store.getters['activeRoom'].on('trackUnsubscribed', function (track) {
@@ -289,8 +250,6 @@ export default {
     dataTrack,
     detachTracks,
     uploadCanvasImage,
-    getToken,
-    createRoom,
     connectToRoom,
     getRoomInformation,
     enterRoom,

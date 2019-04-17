@@ -1,11 +1,11 @@
 <template>
     <v-container v-show="visible" py-0 px-0 class="sb-chat-container" :style="{'height': height}" :class="{'minimized': isMinimized}">
-        <v-layout class="chat-header">
+        <v-layout @click="expandChat" class="chat-header">
             <v-icon :class="{'rtl':isRtl}" @click="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
             <span class="other-side" v-show="!isMobile">
-                <v-icon @click="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
-                <v-icon @click="closeChatWindow">sbf-close-chat</v-icon>
+                <v-icon @click.stop="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
+                <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
             </span>
         </v-layout>
         <v-layout v-show="!isMinimized" class="general-chat-style">
@@ -34,6 +34,9 @@
         },
         computed:{
             ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked', 'accountUser']),
+            isLocked(){
+                return this.getIsChatLocked;
+            },
             isMobile(){
                 return this.$vuetify.breakpoint.smAndDown;
             },
@@ -79,6 +82,9 @@
                 }
             },
             inConversationState(){
+                if(this.isLocked){
+                    return true;
+                }
                return this.state === this.enumChatState.conversation
             }
         },
@@ -86,12 +92,15 @@
             ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat', 'openChatInterface']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
-                if(!this.getIsChatLocked){
+                if(!this.isLocked){
                     this.updateChatState(this.enumChatState.conversation);
                     if(this.isMinimized){
                         this.openChatInterface();
                     }
                 }
+            },
+            expandChat(){
+                this.openChatInterface();
             },
             toggleMinimizeChat(){
                 this.toggleChatMinimize();
@@ -130,7 +139,7 @@
         border-radius: 4px 4px 0 0;
         padding:10px;
         color:#fff;
-        
+        z-index:1;
         @media (max-width: @screen-xs) {
             border-radius: unset;
         }
@@ -149,6 +158,7 @@
             color: #a5a4bf;
             font-size:16px;
             margin-right: 14px;
+            z-index:2;
             &.sbf-arrow-back-chat{
                 &.rtl{
                     transform: rotate(180deg);

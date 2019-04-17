@@ -9,20 +9,24 @@
         </v-layout>
         <v-layout align-center justify-end>
             <v-flex xs8 class="d-inline-flex">
-                <button v-if="!roomIsActive" class="create-session" color="primary" :class="{'disabled': roomIsPending}" @click="enterRoom()">
-                <!-- <button v-if="!roomIsActive" class="create-session" color="primary" @click="createRoomFunc()"> -->
+                <button v-if="!roomIsActive && !waitingStudent" class="create-session"  color="primary" :class="{'disabled': roomIsPending}" @click="enterRoom()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
-                    <span v-if="isTutor">Start Session</span>    
-                    <span v-else>Join Session</span>    
+                    <span v-if="isTutor">Start Session</span>
+                    <span v-else>Join Session</span>
                 </button>
+                <button class="create-session" v-else-if="waitingStudent && isTutor">
+                    <span>Waiting for student</span>
+                </button>
+
                 <button v-else class="end-session"  @click="endSession()">
                     <stopIcon class="stop-icon mr-2"></stopIcon>
-                    End Session
+                    <span>End Session</span>
+
                 </button>
             </v-flex>
         </v-layout>
 
-        <v-layout column align-end v-show="!roomLoading">
+        <v-layout column align-end>
             <div class="video-holder">
                 <v-flex class="px-3 video-con-controls" @click="minimize('remote_player')">
                     <div style="display: flex; align-items: center;">

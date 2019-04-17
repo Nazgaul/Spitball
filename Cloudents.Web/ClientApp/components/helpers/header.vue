@@ -185,7 +185,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChat']),
+            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChatInterface']),
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             openNewQuestionDialog(){
                     if(this.accountUser == null){
@@ -202,7 +202,7 @@
                     }
             },
             openChatWindow(){
-                this.openChat();
+                this.openChatInterface();
             },
             openSblToken(){
                 analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
