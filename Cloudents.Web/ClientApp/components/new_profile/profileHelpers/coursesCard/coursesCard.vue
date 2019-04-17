@@ -29,7 +29,8 @@
                                 <span class="font-weight-bold course-name">
                                     <span v-show="!expanded">
                                         <span> {{moreQuantity}}&nbsp;</span>
-                                    <span v-language:inner>profile_expand_more_courses</span>
+                                    <span v-if="moreQuantity > 1" v-language:inner>profile_expand_more_courses</span>
+                                        <span v-else v-language:inner>profile_expand_more_single_course</span>
                                     </span>
                                     <span v-show="expanded" v-language:inner>profile_expand_less</span>
                                 </span>
