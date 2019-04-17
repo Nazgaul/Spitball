@@ -18,7 +18,7 @@ export default {
         width: 100%;
         height: 100%;
         z-index: 101;
-        background-color: rgba(0, 0, 0, 0.78);
+        background-color: rgba(0, 0, 0, 0.95);
         display: flex;
         justify-content: center;
         margin: 0 auto;
