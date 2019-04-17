@@ -35,8 +35,11 @@
                 },
             }
         },
+        props: {
+            roomId: ''
+        },
         computed: {
-            ...mapGetters(['roomLinkID', 'firepadLoadedOnce'])
+            ...mapGetters(['firepadLoadedOnce'])
         },
         methods: {
             ...mapActions(['updateCodeLoadedOnce']),
@@ -56,7 +59,7 @@
             loadFirePad() {
                 let self = this;
                 let loadCodeLang = this.defaultSyntax;
-                let roomId = self.roomLinkID || '';
+                let roomId = self.roomId || '';
                 self.$loadScript(`https://www.gstatic.com/firebasejs/5.8.5/firebase.js`).then(
                     (data) => {
                         // Initialize Firebase

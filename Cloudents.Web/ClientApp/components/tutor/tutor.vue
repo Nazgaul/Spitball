@@ -40,7 +40,7 @@
       </nav>
       <transition name="slide-x-transition">
         <keep-alive>
-          <component :is="activeItem" v-if="showCurrentCondition"></component>
+          <component :is="activeItem" :roomId="id"></component>
         </keep-alive>
       </transition>
     </v-flex>
@@ -127,7 +127,7 @@ export default {
       return this.activeNavItem;
     },
     showCurrentCondition() {
-      return this.activeItem === "white-board" ? true : this.isRoomCreated;
+      return this.activeItem === "white-board" ? true : true;
     },
     zoom() {
       let gridSize = (40 * Number(this.getZoom.toFixed())) / 100;
