@@ -49,7 +49,13 @@ namespace Cloudents.Web.Filters
                 using (var jsonTextReader = new JsonTextReader(sr))
                 {
                     var t = await JToken.ReadFromAsync(jsonTextReader);
-                    captcha = t["captcha"].Value<string>();
+                    captcha = t["captcha"]?.Value<string>();
+                }
+
+                if (string.IsNullOrEmpty(captcha))
+                {
+                    context.Result = new BadRequestResult();
+                    return;
                 }
                 var secret = _configuration["GoogleReCaptcha:Secret"];
                 var nvc = new NameValueCollection()

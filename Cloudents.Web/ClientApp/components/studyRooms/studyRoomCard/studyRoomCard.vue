@@ -1,9 +1,9 @@
 <template>
     <v-container class="study-card-container">
         <v-layout class="study-card-upper-area" :class="{'study-card-active': isActive}">
-            <v-flex>
+            <!-- <v-flex>
                 {{roomStatus}}
-            </v-flex>
+            </v-flex> -->
         </v-layout>
         <div class="study-card-avatar-area">
             <user-avatar :user-name="card.name" :userImageUrl="card.image" :size="'64'"/>

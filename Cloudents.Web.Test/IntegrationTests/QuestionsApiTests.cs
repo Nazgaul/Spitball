@@ -1,14 +1,17 @@
-﻿using FluentAssertions;
+﻿using System.Net;
+using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class QuestionsApiTests :  IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class QuestionsApiTests //:  IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 
@@ -93,7 +96,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var response = await client.GetAsync("/api/question/123");
 
-            response.StatusCode.Should().Be(302);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [Theory]
@@ -121,13 +124,16 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+           // string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
 
             var response = await client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
 
-            response.StatusCode.Should().Be(400);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
+
+
+        
     }
 }

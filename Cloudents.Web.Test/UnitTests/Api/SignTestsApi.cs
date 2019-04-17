@@ -9,7 +9,8 @@ using Xunit;
 
 namespace Cloudents.Web.Test.UnitTests.Api
 {
-    public class SignTestsApi : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class SignTestsApi //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
         private readonly string cred = "{\"email\":\"blah@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
@@ -33,6 +34,7 @@ namespace Cloudents.Web.Test.UnitTests.Api
         public async Task Post_Register_With_Email()
         {
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Referrer = new Uri("https://localhost/swagger");
 
             string sign = "{\"email\":\"elad+6@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
 

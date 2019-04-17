@@ -6,7 +6,8 @@ using Xunit;
 
 namespace Cloudents.Web.Test.UnitTests
 {
-    public class HomeControllerTests :IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class HomeControllerTests //:IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 
