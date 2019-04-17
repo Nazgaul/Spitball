@@ -36,7 +36,10 @@
             }
         },
         props: {
-            roomId: ''
+            roomId: {
+                required: true,
+                type: String
+            }
         },
         computed: {
             ...mapGetters(['firepadLoadedOnce'])

@@ -19,10 +19,10 @@
             }
         },
         props: {
-            propName: {
-                type: Number,
-                default: 0
-            },
+            roomId: {
+                required: false,
+                type: String
+            }
         },
         computed: {
             ...mapGetters(['getStudyRoomData', 'roomLinkID']),
