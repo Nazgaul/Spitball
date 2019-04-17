@@ -144,6 +144,11 @@ export const signlaREvents = {
         },
     },
     studyroom:{
+        add:function(arrEventObj){
+            arrEventObj.forEach((roomInfo)=>{
+                store.dispatch("signalRAddRoomInformationMessage", roomInfo);
+            })
+        },
         update:function(arrEventObj){
             arrEventObj.forEach((roomStatusInformation)=>{
                 store.dispatch("signalRUpdateState", roomStatusInformation);

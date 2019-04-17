@@ -7,7 +7,8 @@ function Conversation(objInit){
     this.online = objInit.online || true;
     this.conversationId = objInit.conversationId;
     this.dateTime = objInit.dateTime || new Date().toISOString();
-    this.image = objInit.image
+    this.image = objInit.image;
+    this.studyRoomId = objInit.studyRoomId;
 }
 
 function createConversation(objInit){
@@ -31,8 +32,8 @@ function FileMessage(objInit, id){
 function activeConversationObj(objInit){
         this.userId = objInit.userId || null;
         this.conversationId = objInit.conversationId || null;
-        this.userName = objInit.name || null;
-        this.userImage = objInit.image || null;
+        this.name = objInit.name || null;
+        this.image = objInit.image || null;
 }
 
 function createActiveConversationObj(objInit){
