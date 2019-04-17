@@ -62,7 +62,7 @@ namespace Cloudents.Web.Test.UnitTests.Api
         public async Task Post_Send_Sms_Code()
         {
             var client = _factory.CreateClient();
-
+            client.DefaultRequestHeaders.Referrer = new Uri("https://localhost/swagger");
             string sign = "{  \"email\": \"elad+6@cloudents.com\",  \"password\": \"123456789\",  \"confirmPassword\": \"123456789\"}";
             
             string phone = "{\"phoneNumber\":\"542473699\",\"countryCode\":\"972\"}";

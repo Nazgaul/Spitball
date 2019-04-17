@@ -90,13 +90,13 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
+            await client.LogInAsync();
 
             await client.DeleteAsync("api/course?name=\"NewCourse1\"");
             var response = await client.PostAsync("api/Course/create", new StringContent("{\"name\":\"NewCourse1\"}", Encoding.UTF8, "application/json"));
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(200, "Create Course Failed");
             response = await client.DeleteAsync("api/course?name=\"NewCourse1\"");
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(200, "Delete Course Failed");
         }
 
         //[Fact]
@@ -115,28 +115,5 @@ namespace Cloudents.Web.Test.IntegrationTests
         //    response.StatusCode.Should().Be(200);
         //}
 
-        //TODO: not sure why this fails.
-        //[TestMethod]
-        //public async Task Create_SomeNewCourse_ReturnResult()
-        //{
-        //    var newCourse = new CreateCourseRequest()
-        //    {
-        //        CourseName = "TestVitali",
-        //        University = 320
-        //    };
-        //    var objectAsJson = JsonConvert.SerializeObject(newCourse);
-        //    var content = new StringContent(objectAsJson, Encoding.UTF8,
-        //        "application/json");
-        //    var response = await Client.PostAsync("api/course/create", content);
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        Assert.IsTrue(true);
-        //        return;
-        //    }
-
-        //    var body = await response.Content.ReadAsStringAsync();
-        //    Assert.Fail(body);
-
-        //}
     }
 }

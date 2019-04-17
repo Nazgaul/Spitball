@@ -24,7 +24,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var client = _factory.CreateClient();
 
 
-            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
+            await client.LogInAsync();
 
             var response = await client.GetAsync("api/Chat");
 
@@ -39,7 +39,7 @@ namespace Cloudents.Web.Test.IntegrationTests
            
             string msg = "{\"message\":\"string\",\"otherUser\":160116}";
 
-            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
+            await client.LogInAsync();
 
             var response = await client.PostAsync("api/Chat", new StringContent(msg, Encoding.UTF8, "application/json"));
 
@@ -63,8 +63,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            
-            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
+
+            await client.LogInAsync();
 
             var response = await client.PostAsync("api/Chat/read", new StringContent("{\"otherUser\":159039}", Encoding.UTF8, "application/json"));
 
