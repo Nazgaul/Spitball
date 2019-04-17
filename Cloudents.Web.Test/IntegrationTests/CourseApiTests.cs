@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -77,6 +78,36 @@ namespace Cloudents.Web.Test.IntegrationTests
             await client.PostAsync("api/course/set", new StringContent(course, Encoding.UTF8, "application/json"));
 
             var response = await client.PostAsync("api/course/teach", new StringContent(course, Encoding.UTF8, "application/json"));
+
+            response.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public async Task PostAsync_Create_Course()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"blah@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+
+            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Course/create", new StringContent("{\"name\":\"NewCourse1\"}", Encoding.UTF8, "application/json")); 
+
+            response.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public async Task PostAsync_Delete_Course()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"blah@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+
+            CancellationToken token;
+
+            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.DeleteAsync("api/course?name=\"NewCourse1\"", token);
 
             response.StatusCode.Should().Be(200);
         }
