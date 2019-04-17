@@ -129,6 +129,9 @@
     @import '../../../../styles/mixin.less';
 
     .user-edit-wrap {
+        @media(max-width: @screen-xs){
+            overflow-x: hidden;
+        }
         .prev-grow{
             @media(max-width: @screen-xs){
                 flex-grow: 0;

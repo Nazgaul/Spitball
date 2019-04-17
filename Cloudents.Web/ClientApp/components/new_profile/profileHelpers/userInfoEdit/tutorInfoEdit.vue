@@ -206,6 +206,9 @@
     @import '../../../../styles/mixin.less';
 
     .tutor-edit-wrap {
+        @media(max-width: @screen-xs){
+            overflow-x: hidden;
+        }
         .disabled-background {
             .v-input__slot {
                 background-color: #f5f5f5 !important;
