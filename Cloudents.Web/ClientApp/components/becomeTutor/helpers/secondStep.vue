@@ -30,6 +30,9 @@
             </v-flex>
         </v-layout>
         <v-layout  class="mt-2 px-1" :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
+            <v-btn   @click="closeDialog()" class="cancel-btn elevation-0" round outline flat>
+                <span v-language:inner>becomeTutor_btn_cancel</span>
+            </v-btn>
             <v-btn
                     color="#4452FC"
                     class="white-text"
@@ -67,7 +70,10 @@
             }
         },
         methods: {
-            ...mapActions(['updateTutorInfo', 'sendBecomeTutorData']),
+            ...mapActions(['updateTutorInfo', 'sendBecomeTutorData', 'updateTutorDialog']),
+            closeDialog(){
+                this.updateTutorDialog(false)
+            },
             submitData() {
                 let self = this;
                 let descriptionAbout = {bio: self.bio, description: self.description};
