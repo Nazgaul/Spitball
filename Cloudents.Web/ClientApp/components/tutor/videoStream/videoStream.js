@@ -23,7 +23,8 @@ export default {
             visible: {
                 'local_player': true,
                 'remote_player': true
-            }
+            },
+            btnLoading : false
         };
     },
     props: {
@@ -77,6 +78,7 @@ export default {
         },
         enterRoom() {
             if(this.isTutor) {
+                this.btnLoading = true;
                 tutorService.enterRoom(this.id).then(() => {
                     this.createVideoSession();
                 });

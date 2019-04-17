@@ -9,12 +9,16 @@
         </v-layout>
         <v-layout align-center justify-end>
             <v-flex xs8 class="d-inline-flex">
-                <button v-if="!roomIsActive" class="create-session" color="primary" :class="{'disabled': roomIsPending}" @click="enterRoom()">
+                <button v-if="!roomIsActive" class="create-session"  color="primary" :class="{'disabled': roomIsPending}" @click="enterRoom()">
                 <!-- <button v-if="!roomIsActive" class="create-session" color="primary" @click="createRoomFunc()"> -->
                     <timerIcon class="timer-icon mr-2"></timerIcon>
-                    <span v-if="isTutor">Start Session</span>    
-                    <span v-else>Join Session</span>    
+                    <span v-if="isTutor">Start Session</span>
+                    <span v-else>Join Session</span>
                 </button>
+                <button class="create-session" v-else-if="remoteOffline && roomIsActive && isTutor">
+                    <span>Waiting for student</span>
+                </button>
+
                 <button v-else class="end-session"  @click="endSession()">
                     <stopIcon class="stop-icon mr-2"></stopIcon>
                     <span>End Session</span>

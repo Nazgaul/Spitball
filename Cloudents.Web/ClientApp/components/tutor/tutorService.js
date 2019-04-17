@@ -144,7 +144,20 @@ const connectToRoom = function (token, options) {
                             console.log('final disconnect')
                         }
                         console.log('room closed', store.state.tutoringMainStore.roomStateEnum.ready);
-                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                        if(store.getters['getStudyRoomData'].isTutor){
+                            store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                        }else{
+                            store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
+
+                        }
+                        //update remote status to default, btn state change
+                        store.dispatch('updateRemoteStatus',true);
+                        //detach all local tracks to prevent multiple added tracks
+                        store.getters['activeRoom'].localParticipant.tracks.forEach(function(track) {
+                            detachTracks([track]);
+                            // track.stop()
+                        });
+
                     });
 
                     // Attach the Participant's Media to a <div> element.
