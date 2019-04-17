@@ -1,10 +1,9 @@
 <template>
     <div class="messages-container">
-         <!-- :user-id="123" -->
-        <div ml-2 class="avatar-container"><user-avatar :user-name="'gaby'"/></div>
+        <div ml-2 class="avatar-container"><user-avatar :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/></div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <span>invite</span>
+                <span v-if="isTutor" @click="createRoom" v-language:inner>chat_studyRoom</span>
             </v-flex>
             <v-flex class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
@@ -34,17 +33,26 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getMessages']),
+        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj']),
         messages(){
             this.scrollToEnd();
             return this.getMessages;
+        },
+        isTutor(){
+            return this.accountUser.isTutor;
+        },
+        activeConversationObj(){
+            return this.getActiveConversationObj;
         }
     },
     methods:{
-        ...mapActions(['sendChatMessage']),
+        ...mapActions(['sendChatMessage', 'createStudyRoom']),
         sendMessage(){
-            this.sendChatMessage(this.messageText)
-            this.messageText = "";
+            let messageToSend = this.messageText.trim();
+            if(messageToSend !== ''){
+                this.sendChatMessage(this.messageText);
+                this.messageText = "";
+            }
         },
         scrollToEnd: function() {
             this.$nextTick(function(){
@@ -54,6 +62,22 @@ export default {
                 }
             })
         },
+        createRoom(){
+            let conversationObj = this.activeConversationObj;
+            if(!!this.activeConversationObj.studyRoomId){
+                let routeData = this.$router.resolve({
+                    name: 'tutoring',
+                    params: {
+                        id: this.activeConversationObj.studyRoomId
+                    }
+                });
+                global.open(routeData.href, '_blank');
+            }else{
+                let userId = conversationObj.userId;
+                this.createStudyRoom(userId);
+            }
+            
+        }
     }
 }
 </script>
@@ -77,6 +101,7 @@ export default {
                 min-height: 34px;
                 span{
                     padding: 0 10px 0  10px;
+                    cursor: pointer;
                 }
             }
             .messages-body{
@@ -91,9 +116,10 @@ export default {
                 border-radius: 0 0 16px 16px;
                 max-height: 45px;
                 min-height: 45px;
-                padding-right: 14px;
+                padding-right: 20px;
                 .v-input__slot{
                     box-shadow: none !important;
+                    
                 }
             }
         }

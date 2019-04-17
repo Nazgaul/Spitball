@@ -1,16 +1,16 @@
 <template>
     <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId}}:''">
-        <v-avatar v-if="isImage"  tag="v-avatar" size="32" :class="'user-avatar image'">
+        <v-avatar v-if="isImage"  tag="v-avatar" :size="size" :class="'user-avatar image'">
             <img :src="imageUrl" alt="user avatar">
         </v-avatar>
-        <v-avatar v-else tag="v-avatar" size="32" :class="'user-avatar userColor' + strToACII % 11">
+        <v-avatar v-else tag="v-avatar" :size="size" :class="'user-avatar userColor' + strToACII % 11">
             <span class="white--text font-14">{{userName.slice(0,2).toUpperCase()}}</span>
         </v-avatar>
 
     </component>
 </template>
 <script>
-import utilitiesService from '../../../services/utilities/utilitiesService'
+import utilitiesService from '../../../services/utilities/utilitiesService';
     export default {
         props: {
             userId: Number,
@@ -20,6 +20,11 @@ import utilitiesService from '../../../services/utilities/utilitiesService'
             userImageUrl: {
                 type: String,
                 required: false
+            },
+            size:{
+                type:String,
+                required: false,
+                default: '32'
             }
         },
         computed: {

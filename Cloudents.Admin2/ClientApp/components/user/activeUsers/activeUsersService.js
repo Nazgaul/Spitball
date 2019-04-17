@@ -16,18 +16,18 @@ const getActiveUsers = function (minFlags, page) {
         let arrActiveUsers = [];
         if (data.flags.length > 0) {
             data.flags.forEach((activeItem) => {
-               arrActiveUsers.push(createActiveUserItem(activeItem))
-            })
+               arrActiveUsers.push(createActiveUserItem(activeItem));
+            });
         }
 
-        let ObjToReturn = {
+        let objToReturn = {
             flags: arrActiveUsers,
             rows:  data.rows
         };
-        return Promise.resolve(ObjToReturn)
+        return Promise.resolve(objToReturn);
     }, (err) => {
-        return Promise.reject(err)
-    })
+        return Promise.reject(err);
+    });
 };
 
 export {

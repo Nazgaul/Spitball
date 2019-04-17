@@ -39,7 +39,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             string cred = "{\"email\":\"blah@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            string question = "{\"subjectId\":\"mathematics\",\"text\":\"Blah blah blah...\",\"price\":2,\"files\":[\"string\"],\"course\":\"Economics\"}";
+            string question = "{\"subjectId\":\"\",\"course\":\"Economics\",\"text\":\"Blah blah blah...\",\"price\":10,\"files\":[]}";
 
             await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
 

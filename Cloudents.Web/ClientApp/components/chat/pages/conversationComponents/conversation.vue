@@ -1,7 +1,7 @@
 <template>
   <div class="conversation-container">
     <v-flex ml-2 class="avatar-container">
-      <user-avatar :userImageUrl="conversation.img" :user-name="conversation.name"/>
+      <user-avatar :userImageUrl="conversation.image" :user-name="conversation.name"/>
     </v-flex>
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
@@ -24,6 +24,7 @@
 
 <script>
 import UserAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
+import utilitiesService from "../../../../services/utilities/utilitiesService"
 export default {
   components: {
     UserAvatar
@@ -35,9 +36,7 @@ export default {
   },
   computed: {
     date() {
-      let date = new Date(this.conversation.dateTime);
-      let options = { year: "numeric", month: "short", day: "2-digit" };
-      return new Intl.DateTimeFormat("en-US", options).format(date);
+      return utilitiesService.dateFormater(this.conversation.dateTime);
     }
   }
 };
@@ -64,6 +63,11 @@ export default {
         font-weight: bold;
         color: #43425d;
         align-items: center;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        width: 180px;
+        white-space: nowrap;
+        overflow: hidden;
       }
       .date-unread-container{
         display: flex;

@@ -99,7 +99,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"fconfirmPassword\":\"123456789\"}";
+            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
 
             string phone = "{\"number\":\"123456\",\"fingerPrint\":\"string\"}";
 
@@ -110,6 +110,49 @@ namespace Cloudents.Web.Test.IntegrationTests
             var response = await client.PostAsync("api/Sms/verify", new StringContent(phone, Encoding.UTF8, "application/json"));
 
             response.StatusCode.Should().NotBe(500);
+        }
+
+        [Fact]
+        public async Task PostAsync_Resend_Email()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"dale@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
+
+            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Register/resend", new StringContent("{}", Encoding.UTF8, "application/json"));
+
+            response.StatusCode.Should().Be(400);
+        }
+
+        [Fact]
+        public async Task GetAsync_Validate_Email()
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("api/LogIn/ValidateEmail?email=elad%40cloudents.com");
+
+            response.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public async Task GetAsync_Non_Validate_Email()
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("api/LogIn/ValidateEmail?email=fsdfs%40cloudents.com");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var email = d["Email"]?.Value<JArray>();
+
+            var error = d["Email"][0].Value<string>();
+
+            response.StatusCode.Should().Be(400);
+            error.Should().Be("Account cannot be found, please sign up");
         }
     }
 }

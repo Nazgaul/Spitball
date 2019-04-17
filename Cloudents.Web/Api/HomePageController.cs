@@ -27,14 +27,5 @@ namespace Cloudents.Web.Api
             var query = new HomePageQuery();
             return await _queryBus.QueryAsync(query, token);
         }
-
-        [HttpGet("LeaderBoard")]
-        [ResponseCache(Duration = TimeConst.Day, Location = ResponseCacheLocation.Any)]
-        public async Task<ActionResult<LeaderBoardResultDto>> GetLeaderBoard
-            (CancellationToken token)
-        {
-            var query = new LeaderBoardQuery();
-            return await _queryBus.QueryAsync(query, token);
-        }
     }
 }
