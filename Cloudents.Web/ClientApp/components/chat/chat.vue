@@ -77,7 +77,7 @@
                     return LanguageService.getValueByKey('chat_messages');
                 }else{
                     if(!!this.getActiveConversationObj){
-                        return this.getActiveConversationObj.userName;
+                        return this.getActiveConversationObj.name;
                     }
                 }
             },

@@ -9,12 +9,7 @@ const state = {
         messages:"messages"
     },
     chatState:"conversation",
-    activeConversationObj: {
-        userId: null,
-        conversationId: null,
-        userName: null,
-        userImage: null
-    },
+    activeConversationObj: chatService.createActiveConversationObj({}), //points to conversation Obj
     isVisible: true,
     isMinimized: true,
     totalUnread: 0,
@@ -56,7 +51,7 @@ const mutations = {
         state.conversations[message.conversationId].unread++
     },
     addMessage:(state, message)=>{
-        let id = message.conversationId;
+        let id = message.conversationId || state.activeConversationObj.conversationId;
         if(!state.messages[id]){
             // add a properly this way allow the computed to be fired!
             state.messages = { ...state.messages, [id]:[] };
@@ -64,13 +59,17 @@ const mutations = {
         state.messages[id].push(message);
     },
     setActiveConversationObj(state, obj){
-        state.activeConversationObj.userId = obj.userId || null;
-        state.activeConversationObj.conversationId = obj.conversationId || null;
-        state.activeConversationObj.userName = obj.userName || null;
-        state.activeConversationObj.userImage = obj.userImage || null;
+        if(!!state.conversations[obj.conversationId]){
+            state.activeConversationObj = chatService.createConversation(state.conversations[obj.conversationId]); 
+        }else{
+            state.activeConversationObj =  chatService.createActiveConversationObj(obj);
+        }
     },
     setActiveConversationId(state, id){
         state.activeConversationObj.conversationId = id;
+    },
+    setActiveConversationStudyRoom(state, id){
+        state.activeConversationObj.studyRoomId = id;
     },
     
     addConversation: (state, conversationObj)=>{
@@ -164,6 +163,20 @@ const actions = {
     signalRAddMessage({dispatch}, messageObj){
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
         dispatch('addMessage', MessageObj);
+    },
+    signalRAddRoomInformationMessage({commit, dispatch, state}, roomInfo){
+        let messageObj ={
+            message: {
+                userId: roomInfo.userId,
+                text: `Room created ${global.location.origin}/studyroom/${roomInfo.id}`,
+                type: 'text'
+            },
+            //TODO signalR should return Conversation ID
+            conversationId: state.activeConversationObj.conversationId,
+        }
+        let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
+        dispatch('addMessage', MessageObj);
+        commit('setActiveConversationStudyRoom', roomInfo.id);
     },
     setActiveConversationObj:({commit, dispatch, state}, Obj)=>{
         commit('setActiveConversationObj', Obj);

@@ -1,6 +1,6 @@
 <template>
     <div class="messages-container">
-        <div ml-2 class="avatar-container"><user-avatar :user-name="activeConversationObj.userName" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.userImage"/></div>
+        <div ml-2 class="avatar-container"><user-avatar :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/></div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
                 <span v-if="isTutor" @click="createRoom" v-language:inner>chat_studyRoom</span>
@@ -64,8 +64,19 @@ export default {
         },
         createRoom(){
             let conversationObj = this.activeConversationObj;
-            let userId = conversationObj.userId;
-            this.createStudyRoom(userId);
+            if(!!this.activeConversationObj.studyRoomId){
+                let routeData = this.$router.resolve({
+                    name: 'tutoring',
+                    params: {
+                        id: this.activeConversationObj.studyRoomId
+                    }
+                });
+                global.open(routeData.href, '_blank');
+            }else{
+                let userId = conversationObj.userId;
+                this.createStudyRoom(userId);
+            }
+            
         }
     }
 }
