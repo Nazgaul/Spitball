@@ -23,7 +23,7 @@
                                 <div class="text-xs-center text-sm-left text-md-left user-university caption text-capitalize">{{university}}</div>
                             </v-flex>
                             <div class="tutor-price mr-3">
-                                <span class="subheading">₪</span>
+                                <span class="subheading" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">₪</span>
                                 <span class="tutor-price"  v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">{{tutorPrice}}
                                 <span class="tutor-price small-text">
                                     <!--<span v-language:inner>app_currency_dynamic</span>-->
