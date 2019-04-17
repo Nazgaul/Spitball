@@ -17,7 +17,8 @@
                 </button>
                 <button v-else class="end-session"  @click="endSession()">
                     <stopIcon class="stop-icon mr-2"></stopIcon>
-                    End Session
+                    <span>End Session</span>
+
                 </button>
             </v-flex>
         </v-layout>

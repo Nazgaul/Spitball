@@ -4,7 +4,6 @@ const state = {
     identity: '',
     isRoom: false,
     roomId: '',
-    isRoomFull: false,
     currentActiveRoom: null,
     localParticipant: null,
     localParticipantsNetworkQuality: null,
@@ -32,7 +31,6 @@ const getters = {
     userIdentity: state => state.identity,
     isRoomCreated: state => state.isRoom,
     roomLinkID: state => state.roomId,
-    isRoomFull: state => state.isRoomFull,
     roomLoading: state => state.isRoomLoading,
     firepadLoadedOnce: state => state.isFirepadLoadedOnce,
     qualityDialog: state => state.qualityDialogVisibility,
@@ -50,9 +48,6 @@ const mutations = {
     },
     setNetworkQuality(state, val) {
         state.localParticipantsNetworkQuality = val;
-    },
-    setRoomIsFull(state, val) {
-        state.isRoomFull = val;
     },
     setRoomId(state, val) {
         state.roomId = val;
@@ -128,9 +123,6 @@ const actions = {
     },
     updateRemoteStatus({commit, state}, val) {
         commit('setRemoteStatus', val);
-    },
-    updateRoomIsFull({commit, state}, val) {
-        commit('setRoomIsFull', val);
     },
     updateRoomID({commit, state}, val) {
         commit('setRoomId', val);
