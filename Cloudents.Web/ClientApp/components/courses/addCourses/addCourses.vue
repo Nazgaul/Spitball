@@ -4,7 +4,7 @@
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
-                    <v-icon @click="lastStep()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
+                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
                     </v-icon>
                     <span class="subheading font-weight-bold" v-language:inner>courses_join</span>
                     <span class="subheading font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
@@ -197,8 +197,8 @@
                                "addClasses"
                           ]),
             ...mapGetters(["getClasses"]),
-            lastStep() {
-                this.$router.go(-1);
+            goToEditCourses() {
+                this.$router.push({name: 'editCourse'})
             },
             concatCourses(paramObj) {
                 let self = this;
