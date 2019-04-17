@@ -7,7 +7,8 @@ using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class UrlControllerTests : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class UrlControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
        // private readonly SbWebApplicationFactory _factory;
         private readonly HttpClient _client;

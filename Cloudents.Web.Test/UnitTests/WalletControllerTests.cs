@@ -9,7 +9,8 @@ using Xunit;
 
 namespace Cloudents.Web.Test.UnitTests
 {
-    public class WalletControllerTests : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class WalletControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 

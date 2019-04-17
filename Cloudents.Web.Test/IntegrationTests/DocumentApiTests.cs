@@ -7,7 +7,8 @@ using System;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class DocumentApiTests : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class DocumentApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 

@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -7,7 +8,8 @@ using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class UniversityApiTests : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class UniversityApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 
@@ -94,11 +96,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task PostAsync_Create_Success()
         {
             var client = _factory.CreateClient();
-
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
-
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
-
+            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
             var response = await client.PostAsync("api/University/create", new StringContent("{\"name\":\"Open University\",\"country\":\"IL\"}", Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
@@ -109,13 +107,14 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
 
-            var response = await client.PostAsync("api/University/create", new StringContent("{\"name\":\"Open Uni\",\"country\":\"IL\"}", Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("api/University/create", 
+                new StringContent("{\"name\":\"Open Uni\",\"country\":\"IL\"}",
+                Encoding.UTF8, "application/json"));
 
-            response.Should().Be(400);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
     }
 }

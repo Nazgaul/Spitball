@@ -8,7 +8,8 @@ using System;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class ChatApiTests : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class ChatApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 
@@ -22,9 +23,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
 
             var response = await client.GetAsync("api/Chat");
 
@@ -36,11 +36,10 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
-
+           
             string msg = "{\"message\":\"string\",\"otherUser\":160116}";
 
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
 
             var response = await client.PostAsync("api/Chat", new StringContent(msg, Encoding.UTF8, "application/json"));
 
@@ -64,9 +63,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
-
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+            
+            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
 
             var response = await client.PostAsync("api/Chat/read", new StringContent("{\"otherUser\":159039}", Encoding.UTF8, "application/json"));
 

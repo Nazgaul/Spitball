@@ -9,7 +9,8 @@ using Xunit;
 
 namespace Cloudents.Web.Test.UnitTests.Api
 {
-    public class TutoringTestsApi : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class TutoringTestsApi //: IClassFixture<SbWebApplicationFactory>
     {
 
         private readonly SbWebApplicationFactory _factory;

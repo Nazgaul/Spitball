@@ -7,8 +7,11 @@ using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class CourseApiTests : IClassFixture<SbWebApplicationFactory>
+
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class CourseApiTests //: IClassFixture<SbWebApplicationFactory>
     {
+        
         private readonly SbWebApplicationFactory _factory;
 
         public CourseApiTests(SbWebApplicationFactory factory)
@@ -83,34 +86,34 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Fact]
-        public async Task PostAsync_Create_Course()
+        public async Task PostAsync_CreateAndDelete_Course()
         {
             var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"blah@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
 
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
-
-            var response = await client.PostAsync("api/Course/create", new StringContent("{\"name\":\"NewCourse1\"}", Encoding.UTF8, "application/json")); 
-
+            await client.DeleteAsync("api/course?name=\"NewCourse1\"");
+            var response = await client.PostAsync("api/Course/create", new StringContent("{\"name\":\"NewCourse1\"}", Encoding.UTF8, "application/json"));
+            response.StatusCode.Should().Be(200);
+            response = await client.DeleteAsync("api/course?name=\"NewCourse1\"");
             response.StatusCode.Should().Be(200);
         }
 
-        [Fact]
-        public async Task PostAsync_Delete_Course()
-        {
-            var client = _factory.CreateClient();
+        //[Fact]
+        //public async Task PostAsync_Delete_Course()
+        //{
+        //    var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"blah@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+        //    string cred = "{\"email\":\"blah@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
-            CancellationToken token;
+        //    CancellationToken token;
 
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+        //    await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
 
-            var response = await client.DeleteAsync("api/course?name=\"NewCourse1\"", token);
+        //    var response = await client.DeleteAsync("api/course?name=\"NewCourse1\"", token);
 
-            response.StatusCode.Should().Be(200);
-        }
+        //    response.StatusCode.Should().Be(200);
+        //}
 
         //TODO: not sure why this fails.
         //[TestMethod]

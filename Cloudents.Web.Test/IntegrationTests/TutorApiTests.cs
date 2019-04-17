@@ -5,8 +5,9 @@ using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    
-    public class TutorApiTests : IClassFixture<SbWebApplicationFactory>
+
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class TutorApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 
