@@ -90,14 +90,14 @@
         </sb-dialog>
 
 
-
-            <sb-dialog :showDialog="getOnBoardState"
-                       :popUpType="'onBoardGuide'"
-                       :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
-                       :maxWidth="'1280px'"
-                       :isPersistent="$vuetify.breakpoint.smAndUp">
-                <board-guide></board-guide>
-            </sb-dialog>
+            <!--TODO V20 onboard will be romoved-->
+            <!--<sb-dialog :showDialog="getOnBoardState"-->
+                       <!--:popUpType="'onBoardGuide'"-->
+                       <!--:content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"-->
+                       <!--:maxWidth="'1280px'"-->
+                       <!--:isPersistent="$vuetify.breakpoint.smAndUp">-->
+                <!--<board-guide></board-guide>-->
+            <!--</sb-dialog>-->
 
             <sb-dialog :showDialog="newBallerDialog"
                        :popUpType="'newBallerDialog'"
@@ -267,50 +267,52 @@ export default {
         }, this.toasterTimeout);
       }
     },
-    HomeworkHelp_isDataLoaded: function(val) {
-      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-      let self = this;
-      if (val && !supressed && !!self.accountUser) {
-        setTimeout(() => {
-          if (self.$route.name === "ask") {
-            if (self.$vuetify.breakpoint.xsOnly) {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].HWSteps.mobile;
-              if (self.getIsFeedTabActive()) {
-                self.$tours["myTour"].start();
-              }
-            } else {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].HWSteps.desktop;
-              self.$tours["myTour"].start();
-            }
-          }
-        }, 3000);
-      }
-    },
-    StudyDocuments_isDataLoaded: function(val) {
-      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-      let self = this;
-      if (val && !supressed && !!self.accountUser) {
-        setTimeout(() => {
-          if (self.$route.name === "note") {
-            if (self.$vuetify.breakpoint.xsOnly) {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
-              if (self.getIsFeedTabActive()) {
-                self.$tours["myTour"].start();
-              }
-            } else {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
-              self.$tours["myTour"].start();
-            }
-          }
-        }, 3000);
-      }
-    },
+    // HomeworkHelp_isDataLoaded: function(val) {
+    //   let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+    //   let self = this;
+    //     <!--TODO V20 onboard and tour will be romoved-->
+    //
+    //     // if (val && !supressed && !!self.accountUser) {
+    //   //   setTimeout(() => {
+    //   //     if (self.$route.name === "ask") {
+    //   //       if (self.$vuetify.breakpoint.xsOnly) {
+    //   //         self.tourObject.tourSteps =
+    //   //           tourService[self.tourObject.region].HWSteps.mobile;
+    //   //         if (self.getIsFeedTabActive()) {
+    //   //           self.$tours["myTour"].start();
+    //   //         }
+    //   //       } else {
+    //   //         self.tourObject.tourSteps =
+    //   //           tourService[self.tourObject.region].HWSteps.desktop;
+    //   //         self.$tours["myTour"].start();
+    //   //       }
+    //   //     }
+    //   //   }, 3000);
+    //    //}
+    // },
+    // StudyDocuments_isDataLoaded: function(val) {
+    //   let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+    //   let self = this;
+        // if (val && !supressed && !!self.accountUser) {
+      //   setTimeout(() => {
+      //     if (self.$route.name === "note") {
+      //       if (self.$vuetify.breakpoint.xsOnly) {
+      //         self.tourObject.tourSteps =
+      //           tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
+      //         if (self.getIsFeedTabActive()) {
+      //           self.$tours["myTour"].start();
+      //         }
+      //       } else {
+      //         self.tourObject.tourSteps =
+      //           tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
+      //         self.$tours["myTour"].start();
+      //       }
+      //     }
+      //   }, 3000);
+      // }
+    // },
     $route: function(val) {
-      this.tourTempClose();
+      // this.tourTempClose();
       this.openOnboardGuide();
     }
   },
