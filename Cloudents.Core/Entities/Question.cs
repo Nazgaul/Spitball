@@ -17,7 +17,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question : AggregateRoot, ISoftDelete
+    public class Question : Entity<long>, IAggregateRoot, ISoftDelete
     {
         public Question(QuestionSubject? subject, string text, decimal price, int attachments,
             RegularUser user,

@@ -13,18 +13,19 @@
         <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
       </div>
       <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
-        <marketing-box></marketing-box>
-        <!-- <chat-component v-if="isMobile"></chat-component> -->
+        <!-- <marketing-box></marketing-box> -->
+        <chat-component v-if="isMobile"></chat-component>
       </div>
       <div v-if="showLeadersMobile && getMobileFooterState">
-        <leaders-board></leaders-board>
+          <tutor-list></tutor-list>
+        <!--<leaders-board></leaders-board>-->
       </div>
       <!-- <div class="school-block-container">
                 <router-view name="schoolBlock"></router-view>
       </div>-->
       <router-view name="verticals"></router-view>
       <router-view class="main-container" v-show="showFeed" ref="mainPage"></router-view>
-      <!-- <chat-component v-if="!isMobile"></chat-component> -->
+      <chat-component v-if="!isMobile"></chat-component>
       <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
       <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
         <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
@@ -147,6 +148,7 @@ import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
 import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
+import tutorList from "../helpers/tutorList/tutorList.vue";
 
 export default {
   components: {
@@ -166,7 +168,8 @@ export default {
     uploadMultipleFiles,
     buyTokens,
     newBaller,
-    becomeTutor
+    becomeTutor,
+    tutorList
   },
   data() {
     return {

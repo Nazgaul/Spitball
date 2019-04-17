@@ -401,7 +401,7 @@ const actions = {
     changeLastActiveRoute({commit}, route) {
         commit("setLastActiveRoute", route)
     },
-    userStatus({dispatch, commit, getters}, {isRequire, to}) {
+    userStatus({dispatch, commit, getters, rootState }, {isRequire, to}) {
         const $this = this;
         if (getters.isUser) {
             return Promise.resolve();
@@ -413,8 +413,9 @@ const actions = {
                 commit("updateUser", UserAccount);
                 dispatch("connectToChat");
                 dispatch("syncUniData");
+                dispatch("getAllConversations");
                 analyticsService.sb_setUserId(UserAccount.id);
-                initSignalRService();
+                initSignalRService();                
             }).catch(_ => {
                 setIntercomeData()
                 isRequire ? commit("updateFromPath", to) : '';

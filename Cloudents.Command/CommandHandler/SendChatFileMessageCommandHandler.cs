@@ -47,9 +47,6 @@ namespace Cloudents.Command.CommandHandler
             await _chatMessageRepository.AddAsync(chatMessage, token); 
             var id = chatMessage.Id;
             await _blobProvider.MoveAsync(message.Blob, $"{chatRoom.Id}/{id}", token);
-            
-
-            //}
         }
     }
 }

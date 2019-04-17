@@ -10,6 +10,6 @@ namespace Cloudents.Core.Event
             ChatMessage = chatMessage;
         }
 
-        public ChatMessage ChatMessage { get; private set; }
+        public ChatMessage ChatMessage { get;  }
     }
 }

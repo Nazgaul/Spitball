@@ -4,27 +4,27 @@
         <div class="chat-input-container align-center justify-center column">
             <label for="chat-file">
                 <!--<v-icon class="chat-attach-icon">sbf-attach</v-icon>-->
-                <add-file-img></add-file-img>
-                <file-upload  chunk-enabled
-                :chunk="{
-                    action: uploadUrl,
-                    minSize: 1,
-                    maxRetries: 5,
-                    finishBody : {
-                    OtherUser: otherUserId
-                }}"
-                id="file-input"
-                :input-id="componentUniqueId"
-                ref="upload"
-                :drop="false"
-                v-model="uploadedFiles"
-                :multiple="false"
-                :post-action="uploadUrl"
-                accept="image/*"
-                :extensions="extensions"
-                @input-file="inputFile"
-                @input-filter="inputFilter"
-              ></file-upload>
+                    <add-file-img></add-file-img>
+                    <file-upload  chunk-enabled
+                    :chunk="{
+                        action: uploadUrl,
+                        minSize: 1,
+                        maxRetries: 5,
+                        finishBody : {
+                        OtherUser: otherUserId
+                    }}"
+                    id="file-input"
+                    :input-id="componentUniqueId"
+                    ref="upload"
+                    :drop="false"
+                    v-model="uploadedFiles"
+                    :multiple="false"
+                    :post-action="uploadUrl"
+                    accept="image/*"
+                    :extensions="extensions"
+                    @input-file="inputFile"
+                    @input-filter="inputFilter"
+                ></file-upload>
             </label>
         </div>
     </div>
@@ -99,13 +99,15 @@
     }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
     .chat-upload-wrap{
         display: flex;
         .chat-input-container{
             display: flex;
             label{
-                position:relative;
+                position: absolute;
+                z-index: 5;
+                right: 15px;
                 .file-uploads{
                     position: absolute;
                     top: 0;
@@ -113,7 +115,7 @@
                     width: 100%;
                     height: 100%;
                     label{
-                        cursor: pointer !important;
+                        cursor:pointer;
                     }
                 }
             }
@@ -121,6 +123,8 @@
                 vertical-align: middle;
             }
         }
+        
+        
     }
 
 </style>

@@ -1,22 +1,22 @@
-﻿using Cloudents.Core;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Hubs;
-using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Cloudents.Web.EventHandler
 {
-    public class ChatMessageEventMessage : IEventHandler<ChatMessageEvent>
+    public class WebSocketChatMessageEventHandler : IEventHandler<ChatMessageEvent>
     {
         private readonly IHubContext<SbHub> _hubContext;
         private readonly IChatDirectoryBlobProvider _blobProvider;
@@ -24,7 +24,7 @@ namespace Cloudents.Web.EventHandler
         private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ChatMessageEventMessage(IHubContext<SbHub> hubContext, IChatDirectoryBlobProvider blobProvider, IBinarySerializer binarySerializer, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public WebSocketChatMessageEventHandler(IHubContext<SbHub> hubContext, IChatDirectoryBlobProvider blobProvider, IBinarySerializer binarySerializer, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
         {
             _hubContext = hubContext;
             _blobProvider = blobProvider;
@@ -43,7 +43,7 @@ namespace Cloudents.Web.EventHandler
                     message = BuildChatMessage((dynamic)chatMessage)
                 });
             var users = chatMessage.ChatRoom.Users.Select(s => s.User.Id.ToString()).ToList();
-            await _hubContext.Clients.Users(users).SendAsync(SbHub.MethodName, message, cancellationToken: token);
+            await _hubContext.Clients.Users(users).SendAsync(SbHub.MethodName, message, token);
         }
 
         private ChatMessageDto BuildChatMessage(ChatTextMessage chatMessage)
@@ -66,16 +66,16 @@ namespace Cloudents.Web.EventHandler
             var properties = new ImageProperties(url);
             var hash = _binarySerializer.Serialize(properties);
 
-           var srcUrl =  _linkGenerator.GetPathByRouteValues(_httpContextAccessor.HttpContext, "imageUrl", new
+            var srcUrl = _linkGenerator.GetPathByRouteValues(_httpContextAccessor.HttpContext, "imageUrl", new
             {
                 hash = Base64UrlTextEncoder.Encode(hash)
             });
 
-           var hrefUrl = _linkGenerator.GetPathByRouteValues(_httpContextAccessor.HttpContext, "ChatDownload", new
-           {
-               chatRoomId = chatMessage.ChatRoom.Id,
-               chatId = chatMessage.Id
-           });
+            var hrefUrl = _linkGenerator.GetPathByRouteValues(_httpContextAccessor.HttpContext, "ChatDownload", new
+            {
+                chatRoomId = chatMessage.ChatRoom.Id,
+                chatId = chatMessage.Id
+            });
             //return helper.RouteUrl("imageUrl", new
             //{
             //    hash = Base64UrlTextEncoder.Encode(hash)
@@ -83,7 +83,7 @@ namespace Cloudents.Web.EventHandler
 
             //yield return _linkGenerator.GetUriByAction(_httpContextAccessor.HttpContext, "Index", "Home");
             return new ChatAttachmentDto
-            { 
+            {
                 UserId = chatMessage.User.Id,
 
                 Src = srcUrl,

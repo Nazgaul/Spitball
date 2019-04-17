@@ -1,11 +1,11 @@
 import { connectivityModule } from '../../services/connectivity.module'
 
-function UserData(objInit) {
-    this.userInfo = createUserInfoItem(objInit.user);
-    this.userAnswers = createAnswertItem(objInit.answers);
-    this.userQuestions = createQuestionItem(objInit.questions);
-    this.userDocuments = createDocumentItem(objInit.documents);
-}
+//function userData(objInit) {
+//    this.userInfo = createUserInfoItem(objInit.user);
+//    this.userAnswers = createAnswertItem(objInit.answers);
+//    this.userQuestions = createQuestionItem(objInit.questions);
+//    this.userDocuments = createDocumentItem(objInit.documents);
+//}
 
 function UserInfo(objInit) {
     this.id = {value: objInit.id || 0, label: 'User ID'};
@@ -29,7 +29,7 @@ function UserInfo(objInit) {
     this.wasSuspended = {value: objInit.wasSuspended ? true : false, label: 'Was Suspended'};
     this.joined =
         {value: `${new Date(objInit.joined).getUTCMonth() + 1}/${new Date(objInit.joined).getUTCDate()}/${new Date(objInit.joined).getUTCFullYear()}`,
-        label: "Join Date"}
+        label: "Join Date"};
 }
 
 function createUserInfoItem(data) {
@@ -101,39 +101,35 @@ function createUpVoteItem(data) {
 
 function createDownVoteItem(data) {
     return data.map((item) => {
-        return new DownVoteItem(item)
+        return new DownVoteItem(item);
     });
 }
 function createFlaggedItem(data) {
     return data.map((item) => {
-        return new FlaggedItem(item)
+        return new FlaggedItem(item);
     });
-}
-
-function createUserItem(objInit) {
-    return new UserData(objInit);
 }
 
 function createQuestionItem(data) {
     return data.map((item) => {
-        return new QuestionItem(item)
+        return new QuestionItem(item);
     });
 }
 
 function createDocumentItem(data) {
     return data.map((item) => {
-        return new DocumentItem(item)
+        return new DocumentItem(item);
     });
 }
 
 function createAnswertItem(data) {
     return data.map((item) => {
-        return new AnswerItem(item)
+        return new AnswerItem(item);
     });
 }
 function createPurchasedDocItem(data) {
     return data.map((item) => {
-        return new PurchasedDocItem(item)
+        return new PurchasedDocItem(item);
     });
 }
 
@@ -146,13 +142,13 @@ export default {
                 if(resp){
                     return createUserInfoItem(resp);
                 }else{
-                    return false
+                    return false;
                 }
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     },
     getUserDocuments: (id, page) => {
         let path = `AdminUser/documents?id=${id}&page=${page}`;
@@ -162,8 +158,8 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     },
     getUserQuestions: (id, page) => {
         let path = `AdminUser/questions?id=${id}&page=${page}`;
@@ -173,8 +169,8 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     },
     getUserAnswers: (id, page) => {
         let path = `AdminUser/answers?id=${id}&page=${page}`;
@@ -184,8 +180,8 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     },
     getPurchasedDocs: (id, page) => {
         let path = `AdminUser/purchased?id=${id}&page=${page}`;
@@ -195,8 +191,8 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     },
     getUpvotes: (id, page) => {
         let path = `AdminUser/upVotes?id=${id}&page=${page}`;
@@ -206,8 +202,8 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     },
     getDownVotes: (id, page) => {
         let path = `AdminUser/downVotes?id=${id}&page=${page}`;
@@ -217,8 +213,8 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     },
     getFlaggedItems: (id, page) => {
         let path = `AdminUser/flags?id=${id}&page=${page}`;
@@ -228,17 +224,17 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error)
-            })
+                return Promise.reject(error);
+            });
     },
     verifyPhone: (data) => {
         let path = `AdminUser/verify`;
         return connectivityModule.http.post(path, data)
-            .then((resp) => {
+            .then(() => {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error)
-            })
-    },
+                return Promise.reject(error);
+            });
+    }
 }

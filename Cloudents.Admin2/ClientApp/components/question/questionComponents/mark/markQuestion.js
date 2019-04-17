@@ -9,7 +9,7 @@ export default {
             page: 0,
             scrollLock: false,
             loading: true
-        }
+        };
     },
     methods: {
         deleteQuestionByID(question) {
@@ -17,32 +17,32 @@ export default {
             let numberArr = [];
             numberArr.push(id);
             deleteQuestion(numberArr)
-                .then(resp => {
+                .then(() => {
                         this.$toaster.success(`Questions were deleted: ${id}`);
-                        let questionIndex = this.questions.indexOf(question)
+                        let questionIndex = this.questions.indexOf(question);
                         this.questions.splice(questionIndex, 1);
                     },
                     (error) => {
                         this.$toaster.error('Something went wrong');
-                        console.log('component delete error', error)
+                        console.log('component delete error', error);
                     }
-                )
+                );
         },
         deleteAnswerByID(question, answer) {
             let answerId = answer.id;
             let idsArray = [];
             idsArray.push(answerId);
             deleteAnswer(idsArray)
-                .then(resp => {
+                .then(() => {
                         this.$toaster.success(`Answer were deleted: ${answerId}`);
                         let answerIndex = question.answers.indexOf(answer);
                         question.answers.splice(answerIndex, 1);
                     },
                     (error) => {
                         this.$toaster.error('Something went wrong');
-                        console.log('component delete error', error)
+                        console.log('component delete error', error);
                     }
-                )
+                );
         },
 
 
@@ -53,15 +53,15 @@ export default {
             acceptAnswer(question.toServer(answer.id)).then(() => {
                 //alert(`SUCCESS: question id: ${question.id} accepted answer id: ${answer.id}`)
                 //remove the question from the list
-                this.$toaster.success(`Question id: ${question.id} accepted answer id: ${answer.id}`)
-                let questionIndex = this.questions.indexOf(question)
+                this.$toaster.success(`Question id: ${question.id} accepted answer id: ${answer.id}`);
+                let questionIndex = this.questions.indexOf(question);
                 this.questions.splice(questionIndex, 1);
             }, () => {
-                this.$toaster.error(`ERROR FAILED TO ACCEPT question id: ${question.id} answer id: ${answer.id}`)
-            })
+                this.$toaster.error(`ERROR FAILED TO ACCEPT question id: ${question.id} answer id: ${answer.id}`);
+            });
         },
         advancePage() {
-            this.page++
+            this.page++;
         },
         getQuestions() {
             getAllQuesitons(this.page).then((questionsResponse) => {
@@ -75,8 +75,8 @@ export default {
                 }
 
                 this.scrollLock = false;
-                console.log('page', this.page)
-            })
+                console.log('page', this.page);
+            });
         },
         handleScroll(event) {
             let offset = 2000;
@@ -97,12 +97,12 @@ export default {
         this.$nextTick(function () {
             let containerElm = document.getElementById('question-wrapper-scroll');
             containerElm.addEventListener('scroll', this.handleScroll);
-        })
+        });
     }
     ,
     beforeDestroy() {
         let containerElm = document.getElementById('question-wrapper-scroll');
-        if (!containerElm) return
+        if (!containerElm) return;
         containerElm.removeEventListener('scroll', this.handleScroll);
     }
 }

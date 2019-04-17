@@ -24,12 +24,12 @@ import leaderBoard from './leaderBoard'
 import mobileFooter from './mobileFooter';
 import onBoardGuide from './onBoardGuide';
 import buyTokens from './buyTokens';
-import tutoringChat from './tutoringChat';
 import tutoringCanvas from './tutoringCanvas';
-import tutoringSharedDoc from './tutoringSharedDocument';
 import tutoringMainStore from './tutoringMain';
 import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
+import studyRoomsStore from './studyRoomsStore';
+import tutorList from './tutorList';
 
 
 
@@ -59,12 +59,13 @@ const store = new Vuex.Store({
         mobileFooter,
         onBoardGuide,
         buyTokens,
-        tutoringChat,
         tutoringCanvas,
-        tutoringSharedDoc,
         tutoringMainStore,
         chatStore,
-        becomeTutor
+        becomeTutor,
+        studyRoomsStore,
+
+        tutorList
     }
 });
 

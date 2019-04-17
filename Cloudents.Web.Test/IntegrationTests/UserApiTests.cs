@@ -125,5 +125,34 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             response.StatusCode.Should().Be(400);
         }
+
+        [Fact]
+        public async Task GetAsync_Validate_Email()
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("api/LogIn/ValidateEmail?email=elad%40cloudents.com");
+
+            response.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public async Task GetAsync_Non_Validate_Email()
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("api/LogIn/ValidateEmail?email=fsdfs%40cloudents.com");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var email = d["Email"]?.Value<JArray>();
+
+            var error = d["Email"][0].Value<string>();
+
+            response.StatusCode.Should().Be(400);
+            error.Should().Be("Account cannot be found, please sign up");
+        }
     }
 }

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Query.Query;
+using Cloudents.Query.Tutor;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -74,6 +76,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture._queryBus.QueryAsync(query, default);
         }
 
+
+        [Fact]
+        public async Task StudyRoomQuery_Ok()
+        {
+            var query = new StudyRoomQuery(Guid.Parse("083318E9-9CA0-4328-95BC-AA2F00E2D4FC"), 638);
+
+            var result = await fixture._queryBus.QueryAsync(query, default);
+        }
+
         [Fact]
         public async Task UserProfileAboutQuery_Ok()
         {
@@ -94,5 +105,16 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             var result = await fixture._queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
         }
+
+
+        [Fact]
+        public async Task UserStudyRoomQuery_Ok()
+        {
+            var query = new UserStudyRoomQuery(638);
+
+            var result = await fixture._queryBus.QueryAsync(query, default);
+        }
+        //UserStudyRoomQuery
+
     }
 }

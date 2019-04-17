@@ -4,11 +4,13 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Entities
 {
-    public abstract class Entity<T> where T : IEquatable<T>
+    
+    public abstract class Entity<T> : IEntity where T : IEquatable<T>
     {
         public virtual T Id { get; protected set; }
 
 
+        
         public override bool Equals(object obj)
         {
             if (!(obj is Entity<T> other))
@@ -55,15 +57,6 @@ namespace Cloudents.Core.Entities
         {
             return Actual.GetType();
         }
-    }
-
-    public abstract class AggregateRoot : AggregateRoot<long>
-    {
-
-    }
-    public abstract class AggregateRoot<T>: Entity<T>, IAggregateRoot where T : IEquatable<T>
-    {
-     
 
         private readonly List<IEvent> _domainEvents = new List<IEvent>();
         public virtual IReadOnlyList<IEvent> DomainEvents => _domainEvents;
@@ -79,9 +72,26 @@ namespace Cloudents.Core.Entities
         }
     }
 
-    public interface IAggregateRoot
+    //public abstract class AggregateRoot : AggregateRoot<long>
+    //{
+
+    //}
+    //public abstract class AggregateRoot<T>: Entity<T>, IAggregateRoot where T : IEquatable<T>
+    //{
+     
+
+      
+    //}
+
+    public interface IEntity
     {
         IReadOnlyList<IEvent> DomainEvents { get; }
         void ClearEvents();
+    }
+
+    public interface IAggregateRoot
+    {
+        //IReadOnlyList<IEvent> DomainEvents { get; }
+        //void ClearEvents();
     }
 }

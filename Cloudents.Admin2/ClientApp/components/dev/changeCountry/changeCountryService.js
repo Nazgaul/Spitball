@@ -1,19 +1,19 @@
 import { connectivityModule } from '../../../services/connectivity.module'
 
-function serverUserObj(objInit){
+function ServerUserObj(objInit){
     this.id = objInit.id;
     this.country = objInit.country;
 }
 
 const setUserCountry = function(userObj){
-    let path = "AdminUser/country"
-    let toSend = new serverUserObj(userObj);
+    let path = "AdminUser/country";
+    let toSend = new ServerUserObj(userObj);
     return connectivityModule.http.post(path, toSend).then(()=>{
-        return Promise.resolve(true)
+        return Promise.resolve(true);
     },(err)=>{
-        return Promise.reject(err)
-    })
-}
+        return Promise.reject(err);
+    });
+};
 
 export{
     setUserCountry,

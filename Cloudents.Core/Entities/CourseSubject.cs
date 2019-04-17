@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Core.Entities
 {
-    public class CourseSubject: AggregateRoot<int>
+    public class CourseSubject : Entity<int>, IAggregateRoot
     {
 
         protected CourseSubject()
