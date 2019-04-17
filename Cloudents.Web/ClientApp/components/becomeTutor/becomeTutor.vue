@@ -4,15 +4,17 @@
             <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
                 <v-flex xs12 sm12 md12 class="text-xs-center mt-1">
                     <v-icon class="become-title face-icon mr-2">sbf-face-icon</v-icon>
-                    <span class="subheading font-weight-bold become-title">Become a tutor</span>
+                    <span class="subheading font-weight-bold become-title" v-language:inner>becomeTutor_title_become</span>
                 </v-flex>
             </v-layout>
             <v-stepper-header class="sb-box" v-show="!isLastStep" :class="[$vuetify.breakpoint.smAndUp ? '' : '' ]">
                 <v-stepper-step class="step-control justify-center" color="#4452FC" :complete="currentStep > 1"
-                                :complete-icon="'sbf-checkmark'" step="1">Personal details
+                                :complete-icon="'sbf-checkmark'" step="1">
+                    <span v-language:inner>becomeTutor_personal_details</span>
                 </v-stepper-step>
                 <v-stepper-step class="step-control justify-center" color="#4452FC" :complete="currentStep > 2"
-                                :complete-icon="'sbf-checkmark'" step="2">Who are you
+                                :complete-icon="'sbf-checkmark'" step="2">
+                    <span v-language:inner>becomeTutor_who</span>
                 </v-stepper-step>
             </v-stepper-header>
             <v-stepper-items>
@@ -48,11 +50,6 @@
         methods: {
             nextStep(n) {
                 this.currentStep = n;
-                // if(n === this.steps) {
-                //     this.currentStep = 1;
-                // } else {
-                //     this.currentStep = n;
-                // }
             },
         },
         created(){
