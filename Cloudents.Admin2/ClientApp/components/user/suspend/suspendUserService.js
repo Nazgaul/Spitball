@@ -10,18 +10,18 @@ const suspendUser = function(ids, reason){
         return Promise.resolve(resp.email);
     }, (err)=>{
         return Promise.reject(err);
-    })
+    });
 };
 const releaseUser = function(ids){
     let path = "AdminUser/unSuspend";
     let data = {
-        ids,
+        ids
     };
     return connectivityModule.http.post(path, data).then((resp)=>{
         return Promise.resolve(resp.email);
     }, (err)=>{
         return Promise.reject(err);
-    })
+    });
 };
 
 export {

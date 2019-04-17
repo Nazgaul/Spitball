@@ -356,8 +356,8 @@ router.beforeEach((to, from, next) => {
         intercomSettings.hide_default_launcher = false;
     }
     //if tutoring disable intercom
-    if (global.location.href.indexOf("tutoring") > -1) {
-        console.log('tutoring disable intercom');
+    if (global.location.href.indexOf("studyroom") > -1) {
+        console.log('studyroom disable intercom');
         intercomSettings.hide_default_launcher = true;
     }
     //case 10995

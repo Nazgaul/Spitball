@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="StatusFilter" xml:space="preserve">
-    <value>Status</value>
+  <data name="become_tutor" xml:space="preserve">
+    <value>BECOME A TUTOR</value>
+  </data>
+  <data name="help_others" xml:space="preserve">
+    <value>Help others with what you know best</value>
   </data>
 </root>

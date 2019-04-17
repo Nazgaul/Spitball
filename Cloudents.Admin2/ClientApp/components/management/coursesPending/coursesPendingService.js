@@ -1,11 +1,11 @@
 ﻿import { connectivityModule } from '../../../services/connectivity.module';
 
 
-function courseItem(objInit) {
+function CourseItem(objInit) {
     this.name = objInit.name;
 }
 function createCourseItem(objInit) {
-    return new courseItem(objInit);
+    return new CourseItem(objInit);
 }
 
 

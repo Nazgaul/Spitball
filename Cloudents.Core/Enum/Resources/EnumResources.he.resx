@@ -189,13 +189,4 @@
   <data name="TransactionTypeStake" xml:space="preserve">
     <value>במשמורת</value>
   </data>
-  <data name="TutorFilterInPerson" xml:space="preserve">
-    <value>אחד על אחד</value>
-  </data>
-  <data name="TutorFilterOnline" xml:space="preserve">
-    <value>מקוון</value>
-  </data>
-  <data name="TutorSortPrice" xml:space="preserve">
-    <value>מחיר</value>
-  </data>
 </root>
