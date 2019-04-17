@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using Xunit;
@@ -22,7 +25,21 @@ namespace Cloudents.Web.Test.IntegrationTests
             //builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);
         }
 
-        public string User => TestUser.GetTestUser();
+
+
+    }
+
+    public static class HttpClientExtensions
+    {
+        public static async Task LogInAsync(this HttpClient client)
+        {
+            var response = await client.PostAsync("api/LogIn", new StringContent(TestUser.GetTestUser(),
+                 Encoding.UTF8, "application/json"));
+            response.EnsureSuccessStatusCode();
+        }
+
+
+        //public string User => TestUser.GetTestUser();
 
 
         private class TestUser
@@ -46,6 +63,5 @@ namespace Cloudents.Web.Test.IntegrationTests
                 return JsonConvert.SerializeObject(user);
             }
         }
-
     }
 }

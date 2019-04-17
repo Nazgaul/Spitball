@@ -123,10 +123,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task PostAsync_New_Bad_Request(string question)
         {
             var client = _factory.CreateClient();
-
-           // string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
-
-            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
+            await client.LogInAsync();
 
             var response = await client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
 
