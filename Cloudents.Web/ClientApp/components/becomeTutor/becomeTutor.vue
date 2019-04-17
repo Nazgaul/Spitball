@@ -1,6 +1,6 @@
 <template>
     <div class="become-tutor-wrap d-flex" >
-        <v-stepper v-model="currentStep" :class="[isLastStep ?  'back-image' : '']">
+        <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="[isLastStep ?  'back-image' : '']">
             <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
                 <v-flex xs12 sm12 md12 class="text-xs-center mt-1">
                     <v-icon class="become-title face-icon mr-2">sbf-face-icon</v-icon>
@@ -73,6 +73,12 @@
 
     .become-tutor-wrap {
         width: 100%;
+        .stepper{
+            @media(max-width: @screen-xs){
+              overflow-y: auto;
+
+            }
+        }
         .theme--light.v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline){
             background-color: rgba(68, 82, 252, 0.5)!important; //vuetify overwrite
             color: @color-white!important;

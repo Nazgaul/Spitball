@@ -9,10 +9,10 @@
                     </v-flex>
                 </v-layout>
                 <v-layout align-center justify-center class="pt-4">
-                    <v-flex xs1 sm1 md1>
-                            <v-icon class="empty-course-icon">sbf-courses-icon</v-icon>
+                    <v-flex xs2 sm1 md1>
+                            <v-icon class="empty-course-icon" >sbf-courses-icon</v-icon>
                     </v-flex>
-                    <v-flex xs8 sm8 md8 class="text-xs-left">
+                    <v-flex xs10 sm8 md8 class="text-xs-left">
                         <span class="empty-text" v-language:inner>profile_courses_empty_select_courses</span>
                     </v-flex>
                 </v-layout>
