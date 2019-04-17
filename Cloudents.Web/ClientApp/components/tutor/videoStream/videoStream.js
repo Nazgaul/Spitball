@@ -50,6 +50,9 @@ export default {
         roomIsActive() {
             return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.active;
         },
+        waitingStudent() {
+            return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.loading;
+        },
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         },
@@ -129,7 +132,7 @@ export default {
                                  networkQuality: true
                              };
                              tutorService.connectToRoom(token, connectOptions);
-                             self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active);
+                             self.isTutor ?  self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.loading) :  self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active);
 
                          }, (error) => {
                              console.log(error, 'error create tracks before connect');

@@ -171,6 +171,7 @@ const connectToRoom = function (token, options) {
                                 attachTracks([track], previewContainer);
                             }
                         });
+                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.active);
                         store.dispatch('updateRemoteStatus', false);
                     });
                     // When a Participant adds a Track, attach it to the DOM.
