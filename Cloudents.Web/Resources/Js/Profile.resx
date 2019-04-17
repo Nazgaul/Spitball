@@ -258,4 +258,7 @@
   <data name="expand_more_single_course" xml:space="preserve">
     <value>More Course</value>
   </data>
+  <data name="single_review" xml:space="preserve">
+    <value>Review</value>
+  </data>
 </root>

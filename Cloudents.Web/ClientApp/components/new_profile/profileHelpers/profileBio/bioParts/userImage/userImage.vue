@@ -6,7 +6,9 @@
             <user-rating :size="'20'" :rating="tutorRank" :readonly="true" class="px-4 line-height-1"></user-rating>
             <span class="reviews-quantity">
                     <span>{{reviewCount}}</span>
-                    <span class="ml-1" v-language:inner>profile_reviews</span>
+                    <span v-if="reviewCount > 1" class="ml-1" v-language:inner>profile_reviews</span>
+                    <span v-else="reviewCount" class="ml-1" v-language:inner>profile_single_review</span>
+
                     </span>
         </div>
         <!-- <div class="bottom-section" v-else>
