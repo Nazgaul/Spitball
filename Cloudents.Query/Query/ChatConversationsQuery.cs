@@ -29,7 +29,7 @@ namespace Cloudents.Query.Query
             {
                 using (var conn = _dapper.OpenConnection())
                 {
-                    var result = await conn.QueryAsync< ChatUserDto>(@"
+                    var result = await conn.QueryAsync<ChatUserDto>(@"
 Select u.Name,
 u.Id as UserId,
 u.Image,

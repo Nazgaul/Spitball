@@ -94,7 +94,7 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<UserStudyRoomDto>> GetUserStudyRooms(CancellationToken token)
+        public async Task<IEnumerable<UserStudyRoomDto>> GetUserLobbyStudyRooms(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserStudyRoomQuery(userId);

@@ -19,5 +19,7 @@ namespace Cloudents.Core.DTOs
         public bool Online { get; set; }
         public Guid Id { get; set; }
         public DateTime DateTime { get; set; }
+
+        public Guid ConversationId { get; set; }
     }
 }

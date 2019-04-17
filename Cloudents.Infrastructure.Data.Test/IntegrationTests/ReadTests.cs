@@ -106,6 +106,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture._queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
         }
 
-       
+
+        [Fact]
+        public async Task UserStudyRoomQuery_Ok()
+        {
+            var query = new UserStudyRoomQuery(638);
+
+            var result = await fixture._queryBus.QueryAsync(query, default);
+        }
+        //UserStudyRoomQuery
+
     }
 }
