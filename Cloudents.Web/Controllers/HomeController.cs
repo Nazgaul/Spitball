@@ -12,6 +12,7 @@ using System;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
@@ -104,7 +105,7 @@ namespace Cloudents.Web.Controllers
             }
         }
 
-        [Route("logout")]
+        [Route("logout"), Authorize]
         public async Task<IActionResult> LogOutAsync(
             [FromServices] SignInManager<RegularUser> signInManager,
             [FromServices] IHubContext<SbHub> hubContext, CancellationToken token)

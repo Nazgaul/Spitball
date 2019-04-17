@@ -25,12 +25,9 @@ namespace Cloudents.Web.Test.UnitTests
             var client = _factory.CreateClient();
             string[] types = { "Earned", "Stake", "Spent" };
             
+            await client.LogInAsync();
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
-
-            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
-
-            response = await client.GetAsync("api/wallet/balance");
+            var response = await client.GetAsync("api/wallet/balance");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -52,11 +49,8 @@ namespace Cloudents.Web.Test.UnitTests
         {
             var client = _factory.CreateClient();
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
-
-            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
-
-            response = await client.GetAsync("api/wallet/transaction");
+            await client.LogInAsync();
+            var response = await client.GetAsync("api/wallet/transaction");
 
             var str = await response.Content.ReadAsStringAsync();
 

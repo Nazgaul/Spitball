@@ -96,7 +96,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task PostAsync_Create_Success()
         {
             var client = _factory.CreateClient();
-            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
+            await client.LogInAsync();
             var response = await client.PostAsync("api/University/create", new StringContent("{\"name\":\"Open University\",\"country\":\"IL\"}", Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
@@ -108,7 +108,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var client = _factory.CreateClient();
 
 
-            await client.PostAsync("api/LogIn", new StringContent(_factory.User, Encoding.UTF8, "application/json"));
+            await client.LogInAsync();
 
             var response = await client.PostAsync("api/University/create", 
                 new StringContent("{\"name\":\"Open Uni\",\"country\":\"IL\"}",
