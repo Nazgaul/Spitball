@@ -150,8 +150,6 @@ const connectToRoom = function (token, options) {
                             store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
 
                         }
-                        //update remote status to default, btn state change
-                        store.dispatch('updateRemoteStatus',true);
                         //detach all local tracks to prevent multiple added tracks
                         store.getters['activeRoom'].localParticipant.tracks.forEach(function(track) {
                             detachTracks([track]);
