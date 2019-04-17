@@ -14,8 +14,8 @@ const mutations = {
 };
 
 const actions = {
-    getTutorList({commit, state}) {
-        tutorListService.getTutorList()
+    getTutorList({commit, state}, objReq) {
+        tutorListService.getTutorList(objReq)
                         .then((tutors) => {
                             commit('setTutors', tutors);
                         });

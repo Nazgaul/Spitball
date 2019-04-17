@@ -21,11 +21,25 @@
         computed: {
             ...mapGetters(['tutorList']),
         },
+        watch: {
+            '$route.query'(val) {
+                let objReq;
+                if(!!this.$route.query && this.$route.query.hasOwnProperty('Course')) {
+                    let courseInFilter =  this.$route.query.Course;
+                    objReq ={page: 0, courseName: courseInFilter};
+                }else{
+                    objReq ={page: 0, courseName: ''};
+                }
+                this.getTutorList(objReq);
+            }
+        },
         methods: {
             ...mapActions(['getTutorList'])
         },
         created(){
-                this.getTutorList();
+                let courseInFilter =  this.$route.query.Course ? this.$route.query.Course : '';
+                let objReq ={page: 0, courseName: courseInFilter};
+                this.getTutorList(objReq);
         }
     };
 </script>

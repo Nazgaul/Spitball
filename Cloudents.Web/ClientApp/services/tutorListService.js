@@ -12,8 +12,8 @@ function TutorItem(objInit) {
 
 
 export default {
-    getTutorList: () =>{
-        return connectivityModule.http.get("tutor").then(({data})=> {
+    getTutorList: (objReq) =>{
+        return connectivityModule.http.get(`tutor?page=${objReq.page}&courseName=${objReq.courseName}`).then(({data})=> {
             let result = [];
             if(!!data && data.length > 0){
                 data.forEach((tutorItem)=>{
