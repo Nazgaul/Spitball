@@ -66,7 +66,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
-            
+
             var subject = d["subject"]?.Value<string>();
             var id = d["id"]?.Value<long?>();
             var text = d["text"]?.Value<string>();
@@ -106,31 +106,35 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+            await client.LogInAsync();
 
-            var response = await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
-
-            response = await client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
         }
 
+
         [Theory]
-        [InlineData("{\"subjectId\":\"\",\"course\":\"psychology\",\"text\":\"Unit testing question\",\"price\":0}")]
-        [InlineData("{\"subjectId\":\"\",\"course\":\"\",\"text\":\"Unit testing question\",\"price\":3}")]
-        [InlineData("{\"subjectId\":\"\",\"course\":\"psychology\",\"text\":\"Unit testing q\",\"price\":3}")]
-        [InlineData("{\"subjectId\":\"\",\"course\":\"psychology\",\"text\":\"\",\"price\":3}")]
-        public async Task PostAsync_New_Bad_Request(string question)
+        [InlineData("", "psychology", "Unit testing question",0)]
+        [InlineData("", "", "Unit testing question",3)]
+        [InlineData("", "psychology", "Unit testing q", 3)]
+        [InlineData("", "psychology", "", 3)]
+        public async Task PostAsync_New_Bad_Request(string subjectId, string course, string text, int price)
         {
+
+
             var client = _factory.CreateClient();
             await client.LogInAsync();
-
+            var question = JsonConvert.SerializeObject(new
+            {
+                subjectId, course, text, price
+            });
             var response = await client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
-
-        
     }
+
+
 }

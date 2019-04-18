@@ -58,7 +58,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Fact]
-        public async Task PostAsync_Chat_Read_Messages()
+        public async Task PostAsyncChatRead_NoSuchConversation_BadRequest()
         {
             var client = _factory.CreateClient();
 
@@ -66,8 +66,8 @@ namespace Cloudents.Web.Test.IntegrationTests
             await client.LogInAsync();
 
             var response = await client.PostAsync("api/Chat/read", new StringContent("{\"otherUser\":159039}", Encoding.UTF8, "application/json"));
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-            response.EnsureSuccessStatusCode();
         }
     }
 }
