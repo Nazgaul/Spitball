@@ -107,12 +107,15 @@ namespace Cloudents.Web.Controllers
             }
         }
 
-        [Route("logout"), Authorize]
+        [Route("logout")]
         public async Task<IActionResult> LogOutAsync(
             [FromServices] SignInManager<RegularUser> signInManager,
             [FromServices] IHubContext<SbHub> hubContext, CancellationToken token)
         {
-
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/");
+            }
             var message = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
                 new object());
 
