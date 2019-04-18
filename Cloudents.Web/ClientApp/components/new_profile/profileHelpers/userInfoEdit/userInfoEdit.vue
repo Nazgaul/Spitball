@@ -39,7 +39,7 @@
                 ></v-textarea>
             </v-flex>
         </v-layout>
-        <v-layout  align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-around px-3' : 'justify-end px-3']">
+        <v-layout  align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between  px-3' : 'justify-end px-3']">
             <v-flex xs5 sm2 md2 >
                 <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
                     <span v-language:inner>profile_btn_cancel</span>
