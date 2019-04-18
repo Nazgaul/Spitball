@@ -7,7 +7,8 @@
         </v-layout>
         <div class="study-card-avatar-area">
             <user-avatar :user-name="card.name" :userImageUrl="card.image" :size="'64'"/>
-            <span v-if="isOnline" class="online-circle"></span>
+            <!-- <span v-if="isOnline" class="online-circle"></span> -->
+            <userOnlineStatus class="user-status" :userId="card.userId"></userOnlineStatus>
         </div>
         <v-layout column align-center justify-space-between class="study-card-lower-area">
             <v-flex py-1 class="study-card-name">
@@ -34,12 +35,14 @@
 import {mapActions} from "vuex"
 import UserAvatar from "../../helpers/UserAvatar/UserAvatar.vue";
 import UserRank from "../../helpers/UserRank/UserRank.vue";
+import userOnlineStatus from "../../helpers/userOnlineStatus/userOnlineStatus.vue";
 import utilitiesService from "../../../services/utilities/utilitiesService"
 import chatService from "../../../services/chatService"
 export default {
     components:{
         UserAvatar,
-        UserRank
+        UserRank,
+        userOnlineStatus
     },
     props:{
         card:{
@@ -128,14 +131,10 @@ export default {
             justify-content: center;
             margin-top: -32px;
             position: relative;
-            .online-circle{
-                border-radius: 50%;
-                width: 10px;
-                height: 10px;
-                background-color: #00ff14;
+            .user-status{
                 position: absolute;
                 bottom: 0;
-                right: 57px;
+                right: 58px;
             }
         }
         .study-card-lower-area{

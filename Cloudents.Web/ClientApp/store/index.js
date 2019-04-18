@@ -30,6 +30,7 @@ import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
 import studyRoomsStore from './studyRoomsStore';
 import tutorList from './tutorList';
+import userOnlineStatus from './userOnlineStatus';
 
 
 
@@ -64,8 +65,8 @@ const store = new Vuex.Store({
         chatStore,
         becomeTutor,
         studyRoomsStore,
-
-        tutorList
+        tutorList,
+        userOnlineStatus
     }
 });
 

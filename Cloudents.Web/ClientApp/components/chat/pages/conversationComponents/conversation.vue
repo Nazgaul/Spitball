@@ -2,6 +2,7 @@
   <div class="conversation-container">
     <v-flex ml-2 class="avatar-container">
       <user-avatar :userImageUrl="conversation.image" :user-name="conversation.name"/>
+      <userOnlineStatus class="user-status" :userId="conversation.userId"></userOnlineStatus>
     </v-flex>
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
@@ -24,10 +25,12 @@
 
 <script>
 import UserAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
-import utilitiesService from "../../../../services/utilities/utilitiesService"
+import utilitiesService from "../../../../services/utilities/utilitiesService";
+import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue"
 export default {
   components: {
-    UserAvatar
+    UserAvatar,
+    userOnlineStatus
   },
   props: {
     conversation: {
@@ -50,7 +53,13 @@ export default {
   padding: 7px 0;
   border-bottom: solid 1px rgba(67, 66, 93, 0.17);
   .avatar-container {
+    position:relative;
     flex-grow: 0;
+    .user-status{
+      bottom: 0;
+      position: absolute;
+      right: -2px;
+    }
   }
   .user-detail-container {
     padding: 12px;
