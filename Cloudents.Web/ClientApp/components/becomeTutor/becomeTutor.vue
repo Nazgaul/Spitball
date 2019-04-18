@@ -21,7 +21,9 @@
                 <v-stepper-content v-for="n in steps" class="mt-3"
                                    :key="`step_${n}`"
                                    :step="n">
+                    <keep-alive>
                         <component :is="`step_${currentStep}`"></component>
+                    </keep-alive>
                 </v-stepper-content>
             </v-stepper-items>
         </v-stepper>
