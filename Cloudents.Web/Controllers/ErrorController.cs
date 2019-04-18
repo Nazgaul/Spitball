@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,8 +22,11 @@ namespace Cloudents.Web.Controllers
         {
             var statusCode = (HttpStatusCode)Response.StatusCode;
 
+            var x = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+            
+
             // For API errors, responds with just the status code (no page).
-            if (HttpContext.Features.Get<IHttpRequestFeature>().RawTarget.StartsWith("/api/", StringComparison.OrdinalIgnoreCase))
+            if (x.OriginalPath.StartsWith("/api/", StringComparison.OrdinalIgnoreCase))
                 return StatusCode((int)statusCode);
 
             // Creates a view model for a user-friendly error page.

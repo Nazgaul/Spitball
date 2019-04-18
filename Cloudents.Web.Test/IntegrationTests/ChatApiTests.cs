@@ -5,6 +5,7 @@ using Xunit;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Net;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -47,15 +48,13 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Fact]
-        public async Task GetAsync_Chat_Messages()
+        public async Task GetAsync_NotValidUrl_Messages()
         {
             var client = _factory.CreateClient();
             
             var response = await client.GetAsync("api/Chat/159039");
 
-            var str = await response.Content.ReadAsStringAsync();
-
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [Fact]

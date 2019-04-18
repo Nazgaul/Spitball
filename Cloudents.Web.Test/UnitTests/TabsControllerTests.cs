@@ -18,7 +18,6 @@ namespace Cloudents.Web.Test.UnitTests
 
         [Theory]
         [InlineData("flashcard")]
-        [InlineData("tutor")]
         [InlineData("book")]
         [InlineData("job")]
         public async Task GetAsync_Redirect_ToHomePage(string url)
