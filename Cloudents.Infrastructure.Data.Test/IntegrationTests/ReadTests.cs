@@ -117,5 +117,18 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             var result = await fixture._queryBus.QueryAsync(query, default);
         }
+
+
+        [Fact]
+        
+        public async Task UserProfileQuery_Ok()
+        {
+            var query = new UserProfileQuery(638);
+
+            var result = await fixture._queryBus.QueryAsync(query, default);
+        }
+
+
+        //UserProfileQuery
     }
 }
