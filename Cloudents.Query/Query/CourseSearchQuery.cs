@@ -14,7 +14,7 @@ namespace Cloudents.Query.Query
             UserId = userId;
             if (!string.IsNullOrEmpty(term))
             {
-                Term = term;
+                Term = term.Replace('"',' ');
             }
 
             Page = page;
