@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
@@ -26,6 +27,10 @@ namespace Cloudents.Command.CommandHandler
             var users = message.ToUsersId.ToList();
             users.Add(message.UserSendingId);
             var chatRoom = await _chatRoomRepository.GetChatRoomAsync(users, token);
+            if (chatRoom == null)
+            {
+                throw new NullReferenceException("no such room");
+            }
             var user = chatRoom.Users.First(f => f.User.Id == message.UserSendingId);
             user.Unread = 0;
             await _chatUserRepository.UpdateAsync(user, token);

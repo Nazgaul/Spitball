@@ -118,9 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="become_tutor" xml:space="preserve">
-    <value>BECOME A TUTOR</value>
+    <value>הפוך למרצה</value>
+  </data>
+  <data name="created" xml:space="preserve">
+    <value>נוצר</value>
+  </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>היכנס לחדר</value>
   </data>
   <data name="help_others" xml:space="preserve">
-    <value>Help others with what you know best</value>
+    <value>עזור לאחרים באמצעות הידע שלך</value>
   </data>
 </root>

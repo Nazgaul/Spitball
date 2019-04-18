@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,25 @@ using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Web.Filters
 {
+
+
+    public class ApiNotFoundFilter : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (context.HttpContext.Request.Path.StartsWithSegments(new PathString("/api"),
+                StringComparison.OrdinalIgnoreCase))
+            {
+                context.Result = new NotFoundResult();
+                return;
+            }
+            // do something before the action executes
+        }
+
+       
+    }
+
+
     public sealed class ValidateRecaptchaAttribute : TypeFilterAttribute
     {
         public ValidateRecaptchaAttribute() : base(typeof(ValidateRecaptchaImpl))

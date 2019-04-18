@@ -12,6 +12,7 @@ using System;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Wangkanai.Detection;
 
@@ -35,6 +36,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        [ApiNotFoundFilter]
         public async Task<IActionResult> Index(
             [FromServices] ICrawlerResolver crawlerResolver,
             //  [FromHeader(Name = "User-Agent")] string userAgent,

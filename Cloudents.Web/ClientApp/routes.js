@@ -297,7 +297,6 @@ let routes2 = [
         name: 'tutoring',
         components: {
             default: tutorComponent,
-            // header: bookDetailsHeader
         },
         header: () => ({
             submitRoute: '/tutoring',
@@ -352,7 +351,6 @@ let routes2 = [
     {
         path: "/profile/:id",
         components: {
-            // default: viewProfile,
             default: newProfile,
             header: profilePageHeader,
         },

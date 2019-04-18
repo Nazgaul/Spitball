@@ -97,10 +97,17 @@ namespace Cloudents.Web.Api
         [HttpPost("read")]
         public async Task<IActionResult> ResetUnread(ChatResetRequest model, CancellationToken token)
         {
-            var command = new ResetUnreadInChatCommand( _userManager.GetLongUserId(User),
-                new[] { model.OtherUser });
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var command = new ResetUnreadInChatCommand( _userManager.GetLongUserId(User),
+                    new[] { model.OtherUser });
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest();
+            }
         }
 
         [NonAction]

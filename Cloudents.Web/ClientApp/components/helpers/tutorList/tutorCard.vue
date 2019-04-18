@@ -38,7 +38,7 @@
                 <span class="font-weight-medium subheading pricing">{{tutorData.price}}</span>
                 <span class="caption pricing">₪</span>
                 <!--<span class="small-text pricing" v-language:inner>app_currency_dynamic</span>-->
-                 <span class="pricing small-text">/ <span v-language:inner>tutorList_per_hour</span></span>
+                 <span class="pricing small-text">&nbsp;/&nbsp;<span v-language:inner>tutorList_per_hour</span></span>
             </span>
         </v-flex>
     </v-layout>
