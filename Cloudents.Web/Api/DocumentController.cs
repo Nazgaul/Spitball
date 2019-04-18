@@ -133,6 +133,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
             CancellationToken token)

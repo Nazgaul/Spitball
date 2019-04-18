@@ -18,13 +18,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Cloudents.Web.Api
 {
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize, ApiController]
     public class ChatController : UploadControllerBase
     {
         private readonly ICommandBus _commandBus;
@@ -32,7 +33,7 @@ namespace Cloudents.Web.Api
         private readonly UserManager<RegularUser> _userManager;
 
 
-     
+
 
         public ChatController(ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus,
             IChatDirectoryBlobProvider blobProvider,
@@ -74,7 +75,7 @@ namespace Cloudents.Web.Api
                 if (!(s is ChatAttachmentDto p)) return s;
                 var url = BlobProvider.GetBlobUrl($"{p.ChatRoomId}/{p.Id}/{p.Attachment}");
                 p.Src = Url.ImageUrl(new ImageProperties(url), serializer);
-                p.Href = Url.RouteUrl("ChatDownload",new
+                p.Href = Url.RouteUrl("ChatDownload", new
                 {
                     chatRoomId = p.ChatRoomId,
                     chatId = p.Id
@@ -95,11 +96,14 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("read")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> ResetUnread(ChatResetRequest model, CancellationToken token)
         {
             try
             {
-                var command = new ResetUnreadInChatCommand( _userManager.GetLongUserId(User),
+                var command = new ResetUnreadInChatCommand(_userManager.GetLongUserId(User),
                     new[] { model.OtherUser });
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();

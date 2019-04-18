@@ -1,6 +1,9 @@
 <template>
     <div class="messages-container">
-        <div ml-2 class="avatar-container"><user-avatar :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/></div>
+        <div ml-2 class="avatar-container">
+            <user-avatar :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/>
+            <userOnlineStatus class="user-status" :userId="activeConversationObj.userId"></userOnlineStatus>
+        </div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
                 <span v-if="isTutor" @click="createRoom" v-language:inner>chat_studyRoom</span>
@@ -19,13 +22,15 @@
 <script>
 import message from "./messageComponents/message.vue"
 import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
+import userOnlineStatus from '../../helpers/userOnlineStatus/userOnlineStatus.vue';
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
 import {mapGetters, mapActions} from 'vuex';
 export default {
     components:{
         message,
         UserAvatar,
-        chatUploadFile
+        chatUploadFile,
+        userOnlineStatus
     },
     data(){
         return{
@@ -90,6 +95,11 @@ export default {
             position:absolute;
             top: 55px;
             left: 10px;
+            .user-status{
+                position: absolute;
+                bottom: 0px;
+                right: -2px;
+            }
         }
         .messages-wrapper{
             height: 100%;

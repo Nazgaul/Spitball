@@ -32,6 +32,7 @@ namespace Cloudents.Query.Tutor
  u.Name as Name,
  u.Image as Image,
  u.Online as online,
+ u.Id as userId,
  sr.Id as id,
  sr.DateTime,
  (select id from sb.ChatRoom where Identifier = sr.Identifier) as conversationId
