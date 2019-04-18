@@ -84,14 +84,14 @@
                 placePrice:  LanguageService.getValueByKey("becomeTutor_placeholder_price"),
                 firstName: '',
                 lastName: '',
-                price: '50',
+                price: 50,
                 isLoaded: false
             };
         },
         computed: {
             ...mapGetters(['becomeTutorData', 'accountUser']),
             btnDisabled(){
-                return !this.firstName || !this.lastName
+                return !this.firstName || !this.lastName || !this.price
             },
             userImage() {
                 if(this.accountUser && this.accountUser.image) {
@@ -101,6 +101,17 @@
                 }
             },
 
+        },
+        watch: {
+            price(newValue, oldValue) {
+                if(!newValue)return;
+                let val = Number.parseInt(newValue);
+                if(val < 0){
+                    return this.price = 0;
+                }else{
+                    return val
+                }
+            }
         },
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),

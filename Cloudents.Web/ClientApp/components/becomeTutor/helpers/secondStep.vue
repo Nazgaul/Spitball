@@ -66,7 +66,7 @@
         computed: {
             ...mapGetters(['becomeTutorData']),
             btnDisabled() {
-                return !this.description || !this.bio;
+                return !this.description || !this.bio || !this.becomeTutorData.firstName || !this.becomeTutorData.lastName || !this.becomeTutorData.price
             }
         },
         methods: {
