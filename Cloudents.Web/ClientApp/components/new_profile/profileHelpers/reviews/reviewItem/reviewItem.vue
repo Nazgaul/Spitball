@@ -5,6 +5,7 @@
                 <div>
                     <user-avatar size="32"
                                  :userImageUrl="reviewData.image"
+                                 :userId="reviewData.id"
                                  :user-name="reviewData.name"/>
                 </div>
                 <div class="user-rating ml-2 pt-3">
@@ -46,7 +47,6 @@
                 // rating: 3.5,
                 starRateColor: '#000000',
                 rateNumColor: '#000000',
-
             }
         },
         props: {
