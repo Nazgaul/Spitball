@@ -47,6 +47,7 @@ function ReviewItem(objInit){
     this.reviewText = objInit.reviewText;
     this.score = objInit.score;
     this.name = objInit.name || '';
+    this.id = objInit.id|| '';
 }
 
 function createReviewItem(objInit) {
@@ -170,7 +171,7 @@ export default {
     //     return new ProfileData(arrInit);
     // },
     becomeTutor: (data) => {
-        return connectivityModule.http.post("/Account/settings", data)
+        return connectivityModule.http.post("/Account/becomeTutor", data)
     },
     createUserProfileData: (objInit)=>{
         return new profileUserData(objInit);

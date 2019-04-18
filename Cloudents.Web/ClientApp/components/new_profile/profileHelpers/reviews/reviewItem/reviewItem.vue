@@ -1,10 +1,12 @@
 <template>
-    <v-container class="rating-item-container">
+    <div class="rating-item-container py-3">
         <v-layout align-center justify-space-between>
             <div class="image-rating-wrap">
                 <div>
-                    <img class="user-picture" style="border-radius: 50%;"
-                         src="https://us.123rf.com/450wm/iconisa/iconisa1710/iconisa171005082/88157850-man-avatar-rounded-icon-vector-illustration-black-sign-on-isolated-background.jpg?ver=6" alt="">
+                    <user-avatar size="32"
+                                 :userImageUrl="reviewData.image"
+                                 :userId="reviewData.id"
+                                 :user-name="reviewData.name"/>
                 </div>
                 <div class="user-rating ml-2 pt-3">
                     <userRating
@@ -30,21 +32,21 @@
                 </span>
             </div>
         </v-layout>
-    </v-container>
+    </div>
 </template>
 
 <script>
     import userRating from '../../profileBio/bioParts/userRating.vue';
-    import userRank from '../../../../helpers/UserRank/UserRank.vue'
+    import userRank from '../../../../helpers/UserRank/UserRank.vue';
+    import userAvatar from '../../../../helpers/UserAvatar/UserAvatar.vue';
     export default {
         name: "reviewItem",
-        components: {userRating, userRank},
+        components: {userRating, userRank, userAvatar},
         data() {
             return {
                 // rating: 3.5,
                 starRateColor: '#000000',
                 rateNumColor: '#000000',
-
             }
         },
         props: {
@@ -58,7 +60,7 @@
     @import '../../../../../styles/mixin.less';
     .rating-item-container{
         .left-padding{
-            padding-left: 48px;
+            padding-left: 32px;
         }
         .image-rating-wrap{
             display: flex;
