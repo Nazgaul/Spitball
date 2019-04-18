@@ -18,7 +18,7 @@
              class="hover-block d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3 white--text">
             <uploadImage></uploadImage>
         </div>
-        <userOnlineStatus class="user-status" v-if="isTutorProfile" :isOnline="isOnline"></userOnlineStatus>
+        <userOnlineStatus class="user-status" v-if="isTutorProfile" :userId="userId"></userOnlineStatus>
     </div>
 </template>
 
@@ -26,7 +26,7 @@
     import { mapGetters } from 'vuex';
     import userRating from '../userRating.vue';
     import uploadImage from '../uploadImage/uploadImage.vue';
-    import userOnlineStatus from '../userOnlineStatus.vue';
+    import userOnlineStatus from '../../../../../helpers/userOnlineStatus/userOnlineStatus.vue';
     import utilitiesService from '../../../../../../services/utilities/utilitiesService';
 
 
@@ -74,6 +74,12 @@
                     return this.getProfile.user.tutorData.online || false
                 }
                 return false
+            },
+            userId(){
+                if (this.getProfile && this.getProfile.user) {
+                    return this.getProfile.user.id
+                }
+                return -1;
             },
             profUserBal() {
                 if (this.getProfile && this.getProfile.user) {

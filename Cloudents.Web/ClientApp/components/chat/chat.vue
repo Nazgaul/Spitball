@@ -89,7 +89,7 @@
             }
         },
         methods:{
-            ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat', 'openChatInterface']),
+            ...mapActions(['updateChatState', 'toggleChatMinimize', 'closeChat', 'openChatInterface']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
                 if(!this.isLocked){

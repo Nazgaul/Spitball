@@ -9,7 +9,7 @@
                     <v-icon>sbf-face-female-icon</v-icon>
                     <v-icon>sbf-face-icon</v-icon>
                 </span>
-                <button class="tutor-button" v-language:inner>studyRoom_become_tutor</button>
+                <button class="tutor-button" @click="updateTutorDialog(true)" v-language:inner>studyRoom_become_tutor</button>
             </v-flex>
         </v-layout>
         <v-layout align-center row justify-space-between class="tutor-card-bottom-area">
@@ -19,14 +19,15 @@
 </template>
 
 <script>
-import utilitiesService from "../../../services/utilities/utilitiesService"
+import utilitiesService from "../../../services/utilities/utilitiesService";
+import {mapActions} from 'vuex'
 export default {
     data(){
         return {
         }
     },
     methods:{
-        
+        ...mapActions(['updateTutorDialog']),
     },
     computed:{
     }
