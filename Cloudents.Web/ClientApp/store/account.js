@@ -1,11 +1,11 @@
 import Talk from "talkjs";
-import accountService from "../services/accountService"
+import accountService from "../services/accountService";
 import { debug } from "util";
 import { dollarCalculate } from "./constants";
-import analyticsService from '../services/analytics.service'
-import profileService from "../services/profile/profileService"
-import reputationService from '../services/reputationService'
-import initSignalRService from '../services/signalR/signalrEventService'
+import analyticsService from '../services/analytics.service';
+import profileService from "../services/profile/profileService";
+import reputationService from '../services/reputationService';
+import initSignalRService from '../services/signalR/signalrEventService';
 
 
 function setIntercomSettings(data) {
@@ -17,7 +17,7 @@ function setIntercomSettings(data) {
     let user_phoneNumber = null;
     let alignment = global.isRtl ? 'left' : 'right';
 
-    if (!!data) {
+    if(!!data) {
         user_id = "Sb_" + data.id;
         user_name = data.name;
         user_email = data.email;
@@ -45,7 +45,7 @@ function setIntercomeData(data) {
     // if(global.innerWidth > 600){
     //     setIntercomSettings(data)
     // }
-    setIntercomSettings(data)
+    setIntercomSettings(data);
 }
 
 
@@ -62,12 +62,17 @@ const state = {
     usersReferred: 0
 };
 const mutations = {
+    changeIsUserTutor(state, val) {
+        state.user.isTutor = val;
+    },
+
     setProfilePicture(state, imageUrl) {
-        //check, cause if done from another place not profile(beoome tutor), will throw an error, cause  state.profile.user is undefined
-        if(state.profile && state.profile.user){
+        //check, cause if done from another place not profile(beoome tutor), will throw an error, cause
+        // state.profile.user is undefined
+        if(state.profile && state.profile.user) {
             state.profile.user = {...state.profile.user, image: imageUrl};
         }
-        state.user = {...state.user, image: imageUrl}
+        state.user = {...state.user, image: imageUrl};
     },
 
     setProfile(state, val) {
@@ -77,7 +82,7 @@ const mutations = {
         state.profile.questions = val;
     },
     setProfileAbout(state, val) {
-        state.profile = {...state.profile, about: val}
+        state.profile = {...state.profile, about: val};
     },
     setProfileAnswers(state, val) {
         state.profile.answers = val;
@@ -121,52 +126,52 @@ const mutations = {
         state.profileData = data;
     },
     updateProfileVote(state, {id, type}) {
-        if (!!state.profile) {
+        if(!!state.profile) {
             state.profile.questions.forEach(question => {
-                if (question.id === id) {
-                    reputationService.updateVoteCounter(question, type)
+                if(question.id === id) {
+                    reputationService.updateVoteCounter(question, type);
                 }
-            })
+            });
             state.profile.answers.forEach(question => {
-                if (question.id === id) {
-                    reputationService.updateVoteCounter(question, type)
+                if(question.id === id) {
+                    reputationService.updateVoteCounter(question, type);
                 }
-            })
+            });
             state.profile.documents.forEach(question => {
-                if (question.id === id) {
-                    reputationService.updateVoteCounter(question, type)
+                if(question.id === id) {
+                    reputationService.updateVoteCounter(question, type);
                 }
-            })
+            });
             state.profile.purchasedDocuments.forEach(question => {
-                if (question.id === id) {
-                    reputationService.updateVoteCounter(question, type)
+                if(question.id === id) {
+                    reputationService.updateVoteCounter(question, type);
                 }
-            })
+            });
 
         }
     },
     deleteItemFromProfile(state, {id, type}) {
-        if (!!state.profile) {
+        if(!!state.profile) {
             state.profile.questions.forEach((item, index) => {
-                if (item.id === id) {
-                    state.profile.questions.splice(index, 1)
+                if(item.id === id) {
+                    state.profile.questions.splice(index, 1);
                 }
             });
             state.profile.answers.forEach((item, index) => {
-                if (item.id === id) {
-                    state.profile.answers.splice(index, 1)
+                if(item.id === id) {
+                    state.profile.answers.splice(index, 1);
                 }
             });
             state.profile.documents.forEach((item, index) => {
-                if (item.id === id) {
-                    state.profile.documents.splice(index, 1)
+                if(item.id === id) {
+                    state.profile.documents.splice(index, 1);
                 }
             });
             state.profile.purchasedDocuments.forEach((item, index) => {
-                if (item.id === id) {
-                    state.profile.purchasedDocuments.splice(index, 1)
+                if(item.id === id) {
+                    state.profile.purchasedDocuments.splice(index, 1);
                 }
-            })
+            });
 
 
         }
@@ -174,27 +179,27 @@ const mutations = {
     setRefferedNumber(state, data) {
         state.usersReferred = data;
     },
-    updateEditedData(state, newData){
-        if(state.profile.user.isTutor){
+    updateEditedData(state, newData) {
+        if(state.profile.user.isTutor) {
             state.profile.about.bio = newData.bio;
             state.profile.user.tutorData.firstName = `${newData.name}`;
             state.profile.user.tutorData.lastName = newData.lastName;
             state.profile.user.description = newData.description;
             state.profile.user.tutorData.price = newData.price;
-        }else{
+        } else {
             state.profile.user.name = newData.name;
-            state.profile.user.description = newData.description
+            state.profile.user.description = newData.description;
         }
 
     }
 };
 
 const getters = {
-    isTutorProfile: state =>{
-        if(state.profile &&  state.profile.user && state.profile.user.isTutor ){
-            return  state.profile.user.isTutor
-        }else {
-            return false
+    isTutorProfile: state => {
+        if(state.profile && state.profile.user && state.profile.user.isTutor) {
+            return state.profile.user.isTutor;
+        } else {
+            return false;
         }
     },
     getProfile: state => state.profile,
@@ -206,12 +211,12 @@ const getters = {
     chatAccount: state => state.talkMe,
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
-        return state.user
+        return state.user;
     },
     lastActiveRoute: state => state.lastActiveRoute,
     getProfileData: state => state.profileData,
     getUniversity: state => {
-        if (!!state.user && !!state.user.universityExists) {
+        if(!!state.user && !!state.user.universityExists) {
             return true;
         } else {
             return false;
@@ -220,102 +225,104 @@ const getters = {
 };
 
 const actions = {
-    updateEditedProfile(context, newdata){
-        context.commit("updateEditedData", newdata)
+    updateEditedProfile(context, newdata) {
+        context.commit("updateEditedData", newdata);
     },
 
     uploadAccountImage(context, obj) {
         accountService.uploadImage(obj).then((resp) => {
-                let imageUrl = resp.data;
-                context.commit('setProfilePicture', imageUrl)
-            },
-            (error) => {
-                console.log(error, 'error upload account image')
-            })
+                                                 let imageUrl = resp.data;
+                                                 context.commit('setProfilePicture', imageUrl);
+                                             },
+                                             (error) => {
+                                                 console.log(error, 'error upload account image');
+                                             });
     },
-
+    updateAccountUserToTutor(context, val) {
+        context.commit('changeIsUserTutor', val);
+    },
     syncProfile(context, {id, activeTab}) {
         //fetch all the data before returning the value to the component
         accountService.getProfile(id).then(val => {
             let profileUserData = accountService.createUserProfileData(val);
 
-            context.commit('setProfile', profileUserData)
+            context.commit('setProfile', profileUserData);
             // cause of multiple profile requests to server
-            context.dispatch('setProfileByActiveTab', activeTab)
-            context.dispatch('setUserStatus', profileUserData.user)
+            context.dispatch('setProfileByActiveTab', activeTab);
+            context.dispatch('setUserStatus', profileUserData.user);
         });
     },
     getRefferedUsersNum(context, id) {
         accountService.getNumberReffered(id)
-            .then(({data}) => {
-                    let refNumber = data.referrals ? data.referrals : 0;
-                    context.commit('setRefferedNumber', refNumber)
-                },
-                (error) => {
-                    console.error(error)
-                }
-            )
+                      .then(({data}) => {
+                                let refNumber = data.referrals ? data.referrals : 0;
+                                context.commit('setRefferedNumber', refNumber);
+                            },
+                            (error) => {
+                                console.error(error);
+                            }
+                      );
     },
     setProfileByActiveTab(context, activeTab) {
-        if (!!context.state.profile && !!context.state.profile.user) {
+        if(!!context.state.profile && !!context.state.profile.user) {
             let id = context.state.profile.user.id;
-            if (activeTab === 1) {
+            if(activeTab === 1) {
                 let p1 = accountService.getProfile(id);
                 let p2 = accountService.getProfileAbout(id);
                 return Promise.all([p1, p2]).then((vals) => {
-                    console.log(vals)
+                    console.log(vals);
                     let profileData = accountService.createProfileAbout(vals);
-                    context.commit('setProfileAbout', profileData)
+                    context.commit('setProfileAbout', profileData);
                 });
 
             }
-            if (activeTab === 2) {
+            if(activeTab === 2) {
                 return accountService.getProfileQuestions(id).then(vals => {
                     let profileData = accountService.createProfileQuestionData(vals);
-                    context.commit('setProfileQuestions', profileData)
+                    context.commit('setProfileQuestions', profileData);
                 });
             }
-            if (activeTab === 3) {
+            if(activeTab === 3) {
                 return accountService.getProfileAnswers(id).then(vals => {
                     let answers = accountService.createProfileAnswerData(vals);
-                    context.commit('setProfileAnswers', answers)
+                    context.commit('setProfileAnswers', answers);
                 });
             }
-            if (activeTab === 4) {
+            if(activeTab === 4) {
                 return accountService.getProfileDocuments(id).then(vals => {
                     let documents = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfileDocuments', documents);
                 });
             }
-            if (activeTab === 5) {
+            if(activeTab === 5) {
                 return accountService.getProfilePurchasedDocuments(id).then(vals => {
                     let purchasedDocuments = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
                 });
             }
         }
-        console.log(activeTab)
+        console.log(activeTab);
     },
     removeItemFromProfile({commit}, data) {
-        commit('deleteItemFromProfile', data)
+        commit('deleteItemFromProfile', data);
     },
     resetProfileData(context) {
-        context.commit('resetProfile')
+        context.commit('resetProfile');
     },
     getAnswers(context, answersInfo) {
-        let id = answersInfo.id
+        let id = answersInfo.id;
         let page = answersInfo.page;
         return accountService.getProfileAnswers(id, page).then(({data}) => {
             let maximumElementsRecivedFromServer = 50;
-            if (data.length > 0) {
+            if(data.length > 0) {
                 data.forEach(answer => {
                     //create answer Object and push it to the state
                     let answerToPush = {
                         ...answer,
                         filesNum: answer.files,
-                    }
+                    };
                     context.state.profile.answers.push(answerToPush);
-                })
+                });
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
@@ -324,21 +331,21 @@ const actions = {
         });
     },
     getQuestions(context, questionsInfo) {
-        let id = questionsInfo.id
+        let id = questionsInfo.id;
         let page = questionsInfo.page;
         let user = questionsInfo.user;
         return accountService.getProfileQuestions(id, page).then(({data}) => {
             let maximumElementsRecivedFromServer = 50;
-            if (data.length > 0) {
+            if(data.length > 0) {
                 data.forEach(question => {
                     //create answer Object and push it to the state
                     let questionToPush = {
                         ...question,
                         user: user,
                         filesNum: question.files,
-                    }
+                    };
                     context.state.profile.questions.push(questionToPush);
-                })
+                });
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
@@ -352,7 +359,7 @@ const actions = {
         let user = DocumentsInfo.user;
         return accountService.getProfileDocuments(id, page).then(({data}) => {
             let maximumElementsRecivedFromServer = 50;
-            if (data.length > 0) {
+            if(data.length > 0) {
                 data.forEach(document => {
                     //create answer Object and push it to the state
                     let documentToPush = {
@@ -360,7 +367,7 @@ const actions = {
                         user: user,
                     };
                     context.state.profile.documents.push(documentToPush);
-                })
+                });
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
@@ -374,7 +381,7 @@ const actions = {
         let user = DocumentsInfo.user;
         return accountService.getProfilePurchasedDocuments(id, page).then(({data}) => {
             let maximumElementsRecivedFromServer = 50;
-            if (data.length > 0) {
+            if(data.length > 0) {
                 data.forEach(document => {
                     //create answer Object and push it to the state
                     let documentToPush = {
@@ -382,7 +389,7 @@ const actions = {
                         user: user,
                     };
                     context.state.profile.purchasedDocuments.push(documentToPush);
-                })
+                });
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
@@ -398,31 +405,31 @@ const actions = {
     logout({state, commit}) {
         removeIntercomeData();
         setIntercomeData();
-        if(!state.login)return;
+        if(!state.login) return;
         commit("logout");
         global.location.replace("/logout");
 
     },
     changeLastActiveRoute({commit}, route) {
-        commit("setLastActiveRoute", route)
+        commit("setLastActiveRoute", route);
     },
-    userStatus({dispatch, commit, getters, rootState }, {isRequire, to}) {
+    userStatus({dispatch, commit, getters, rootState}, {isRequire, to}) {
         const $this = this;
-        if (getters.isUser) {
+        if(getters.isUser) {
             return Promise.resolve();
         }
-        if (global.isAuth) {
+        if(global.isAuth) {
             return accountService.getAccount().then((UserAccount) => {
-                setIntercomeData(UserAccount)
+                setIntercomeData(UserAccount);
                 commit("changeLoginStatus", true);
                 commit("updateUser", UserAccount);
                 dispatch("connectToChat");
                 dispatch("syncUniData");
                 dispatch("getAllConversations");
                 analyticsService.sb_setUserId(UserAccount.id);
-                initSignalRService();                
+                initSignalRService();
             }).catch(_ => {
-                setIntercomeData()
+                setIntercomeData();
                 isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
 
@@ -436,7 +443,7 @@ const actions = {
         commit("updateFromPath", currentRoute);
     },
     connectToChat({state, commit}) {
-        if (!state.user) {
+        if(!state.user) {
             return;
         }
         try {
@@ -447,19 +454,19 @@ const actions = {
                 // const me = new Talk.User(state.user.id);
                 //{id, name, email, phone, photoUrl, welcomeMessage, configuration, custom, availabilityText, locale}
                 const me = new Talk.User({
-                    id: state.user.id,
-                    name: state.user.name,
-                    email: state.user.email,
-                    photoUrl: state.user.image,
-                    configuration: "buyer"
-                });
+                                             id: state.user.id,
+                                             name: state.user.name,
+                                             email: state.user.email,
+                                             photoUrl: state.user.image,
+                                             configuration: "buyer"
+                                         });
 
                 commit("updateChatUser", me);
                 const talkSession = new Talk.Session({
-                    appId: global.talkJsId,
-                    me: me,
-                    signature: state.user.token
-                });
+                                                         appId: global.talkJsId,
+                                                         me: me,
+                                                         signature: state.user.token
+                                                     });
                 //talkSession.syncThemeForLocalDev("/content/talkjs-theme.css")
                 talkSession.unreads.on("change", m => {
                     commit("updateMessageCount", m.length);
@@ -474,11 +481,11 @@ const actions = {
         return;
         let newBalance = state.user.balance + payload;
         // debugger
-        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
+        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
     },
 
     signalR_SetBalance({commit, state}, newBalance) {
-        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
+        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
     },
     profileVote({commit}, data) {
         commit('updateProfileVote', data);
@@ -491,4 +498,4 @@ export default {
     getters,
     actions,
     mutations
-}
+};
