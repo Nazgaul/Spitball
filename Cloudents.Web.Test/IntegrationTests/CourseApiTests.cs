@@ -1,8 +1,11 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Collections.Specialized;
+using FluentAssertions;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -85,13 +88,12 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.StatusCode.Should().Be(200);
         }
 
-        [Fact]
+        [Fact(Skip = "this is not a good unit test - need to think about it")]
         public async Task PostAsync_CreateAndDelete_Course()
         {
             var client = _factory.CreateClient();
 
             await client.LogInAsync();
-
             await client.DeleteAsync("api/course?name=\"NewCourse1\"");
             var response = await client.PostAsync("api/Course/create", new StringContent("{\"name\":\"NewCourse1\"}", Encoding.UTF8, "application/json"));
             response.StatusCode.Should().Be(200, "Create Course Failed");
@@ -99,21 +101,21 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.StatusCode.Should().Be(200, "Delete Course Failed");
         }
 
-        //[Fact]
-        //public async Task PostAsync_Delete_Course()
-        //{
-        //    var client = _factory.CreateClient();
+        [Fact(Skip = "this is not a good unit test - need to think about it")]
+        public async Task PostAsync_Delete_Course()
+        {
+            var client = _factory.CreateClient();
 
-        //    string cred = "{\"email\":\"blah@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+            await client.LogInAsync();
+            var uriBuilder = new UriBuilder("api/course");
+            uriBuilder.AddQuery(new NameValueCollection()
+            {
+                ["name"] = "NewCourse1"
+            });
+            var response = await client.DeleteAsync(uriBuilder.Uri);
 
-        //    CancellationToken token;
-
-        //    await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
-
-        //    var response = await client.DeleteAsync("api/course?name=\"NewCourse1\"", token);
-
-        //    response.StatusCode.Should().Be(200);
-        //}
+            response.StatusCode.Should().Be(200);
+        }
 
     }
 }
