@@ -41,7 +41,7 @@ select t.bio
 from sb.Tutor t
 where t.Id = @id;
 
-select tr.Review as ReviewText, tr.Rate, tr.DateTime as Created, u.Name, u.Image, u.Score
+select tr.Review as ReviewText, tr.Rate, tr.DateTime as Created, u.Name, u.Image, u.Score,u.Id
 from sb.Tutor t
 join sb.TutorReview tr
 	on tr.TutorId = t.Id

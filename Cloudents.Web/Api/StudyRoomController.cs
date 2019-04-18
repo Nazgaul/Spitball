@@ -112,11 +112,6 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            //var result = await GetStudyRoomAsync(id, userId, token);
-            //var session = result.SessionId;
-            //if (string.IsNullOrEmpty(result.SessionId))
-            //{
-
             var session = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
             await _videoProvider.CreateRoomAsync(session, configuration.IsProduction());
             var command = new CreateStudyRoomSessionCommand(id, session, userId);
