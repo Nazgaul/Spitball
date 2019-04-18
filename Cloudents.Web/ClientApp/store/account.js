@@ -398,6 +398,8 @@ const actions = {
     logout({state, commit}) {
         removeIntercomeData();
         setIntercomeData();
+        commit("logout");
+        if(!state.login)return;
         global.location.replace("/logout");
 
     },
