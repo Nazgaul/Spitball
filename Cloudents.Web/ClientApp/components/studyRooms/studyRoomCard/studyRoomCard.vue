@@ -18,7 +18,7 @@
                 <v-icon @click="sendMessage">sbf-message-icon</v-icon>
             </v-flex>
             <v-flex py-1 @click="enterRoom" class="study-card-enter-container">
-                <v-icon class="study-card-enter-icon">sbf-enter-icon</v-icon>
+                <v-icon class="study-card-enter-icon mr-1">sbf-enter-icon</v-icon>
                 <span class="study-card-enter-text" v-language:inner>studyRoom_enter_room</span> 
             </v-flex>
         </v-layout>

@@ -40,10 +40,11 @@
 
                     </v-flex>
                     <v-flex xs12 class="mt-2">
-                        <v-text-field outline class="bg-greyed font-weight-bold price-input"
+                        <v-text-field outline class="font-weight-bold price-input"
                                       v-model="price"
                                       prefix="₪"
                                       type="number"
+                                      min="1"
                                       hide-details
                                       :label="placePrice"></v-text-field>
                     </v-flex>
@@ -84,14 +85,14 @@
                 placePrice:  LanguageService.getValueByKey("becomeTutor_placeholder_price"),
                 firstName: '',
                 lastName: '',
-                price: '50',
+                price: 50,
                 isLoaded: false
             };
         },
         computed: {
             ...mapGetters(['becomeTutorData', 'accountUser']),
             btnDisabled(){
-                return !this.firstName || !this.lastName
+                return !this.firstName || !this.lastName || !this.price
             },
             userImage() {
                 if(this.accountUser && this.accountUser.image) {
@@ -101,6 +102,17 @@
                 }
             },
 
+        },
+        watch: {
+            price(newValue, oldValue) {
+                if(!newValue)return;
+                let val = Number.parseInt(newValue);
+                if(val <= 0){
+                    return this.price = 1;
+                }else{
+                    return val
+                }
+            }
         },
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),
@@ -138,9 +150,6 @@
             position: relative;
             min-width: 214px;
             max-width: 214px;
-        }
-        .bg-greyed{
-            background-color: #f5f5f5;
         }
         .price-input{
             color: @textColor;
