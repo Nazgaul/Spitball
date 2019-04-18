@@ -40,7 +40,7 @@
 
                     </v-flex>
                     <v-flex xs12 class="mt-2">
-                        <v-text-field outline class="bg-greyed font-weight-bold price-input"
+                        <v-text-field outline class="font-weight-bold price-input"
                                       v-model="price"
                                       prefix="₪"
                                       type="number"
@@ -150,9 +150,6 @@
             position: relative;
             min-width: 214px;
             max-width: 214px;
-        }
-        .bg-greyed{
-            background-color: #f5f5f5;
         }
         .price-input{
             color: @textColor;
