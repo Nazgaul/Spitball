@@ -184,7 +184,7 @@ const actions = {
         dispatch('syncMessagesByConversationId');
         dispatch('updateChatState', state.enumChatState.messages);
     },
-    getAllConversations:({commit, getters})=>{
+    getAllConversations:({commit, getters, dispatch})=>{
         if(!getters.accountUser) {
             commit('closeChat')
             return;
@@ -195,6 +195,11 @@ const actions = {
                     let ConversationObj = chatService.createConversation(conversation);
                         commit('addConversation', ConversationObj);
                         commit('updateTotalUnread', ConversationObj.unread);
+                        let userStatus = {
+                            id: ConversationObj.userId,
+                            online: ConversationObj.online
+                        }
+                        dispatch('setUserStatus', userStatus);
                 })
             }
         });

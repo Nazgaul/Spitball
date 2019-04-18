@@ -75,7 +75,10 @@ const sendChatMessage = (messageObj) => {
 }
 
 const clearUnread = (otherUserId) => {
-    return connectivityModule.http.post(`Chat/read?otherUser=${otherUserId}`);
+    let serverObj = {
+        otherUserId:otherUserId
+    }
+    return connectivityModule.http.post(`Chat/read`, serverObj);
 }
 
 export default {

@@ -238,9 +238,11 @@ const actions = {
         //fetch all the data before returning the value to the component
         accountService.getProfile(id).then(val => {
             let profileUserData = accountService.createUserProfileData(val);
+
             context.commit('setProfile', profileUserData)
             // cause of multiple profile requests to server
             context.dispatch('setProfileByActiveTab', activeTab)
+            context.dispatch('setUserStatus', profileUserData.user)
         });
     },
     getRefferedUsersNum(context, id) {

@@ -1,9 +1,7 @@
 <template>
     <v-container class="study-rooms-container">
         <v-layout pb-4 class="study-rooms-header-container">
-            <v-flex class="study-rooms-header-text">
-                My Study Rooms
-            </v-flex>
+            <v-flex class="study-rooms-header-text" v-language:inner>schoolBlock_my_study_rooms</v-flex>
         </v-layout>
         <v-layout mt-3 class="study-rooms-cards-container">
             <study-card v-for="(card, index) in studyRooms" :key="index" :card="card"></study-card>

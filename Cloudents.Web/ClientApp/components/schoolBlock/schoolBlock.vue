@@ -20,7 +20,7 @@
           <v-list-tile-action>
             <v-icon>sbf-university-columns</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openStudyRooms()">My Study Rooms</v-list-tile-title>
+          <v-list-tile-title @click="openStudyRooms()" v-text="dictionary.myStudyRooms"></v-list-tile-title>
         </v-list-tile>
       </v-list>
       <v-list class="class-list">
@@ -28,7 +28,7 @@
           <v-list-tile-action class="mr-1">
             <v-icon>sbf-courses-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openPersonalizeCourse()">{{coursesHeaderText}}</v-list-tile-title>
+          <v-list-tile-title @click="openPersonalizeCourse()" >{{coursesHeaderText}}</v-list-tile-title>
           <v-list-tile-action class="edit-course">
             <v-icon @click="openPersonalizeCourse()">sbf-close</v-icon>
           </v-list-tile-action>
@@ -68,6 +68,7 @@ export default {
         addcourses: LanguageService.getValueByKey('schoolBlock_add_your_courses'),
         myCourses: LanguageService.getValueByKey('schoolBlock_my_courses'),
         allCourses: LanguageService.getValueByKey('schoolBlock_all_courses'),
+        myStudyRooms: LanguageService.getValueByKey('schoolBlock_my_study_rooms'),
       },
       inUniselect: this.$route.path.indexOf('courses') > -1 || this.$route.path.indexOf('university') > -1
     };
