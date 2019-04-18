@@ -16,15 +16,13 @@
             <v-flex py-1 class="study-card-message">
                 <v-icon @click="sendMessage">sbf-message-icon</v-icon>
             </v-flex>
-            <v-flex py-1 class="study-card-enter-container">
-                <v-icon @click="enterRoom" class="study-card-enter-icon">sbf-enter-icon</v-icon>
-                <span @click="enterRoom" class="study-card-enter-text">enter room</span> 
+            <v-flex py-1 @click="enterRoom" class="study-card-enter-container">
+                <v-icon class="study-card-enter-icon">sbf-enter-icon</v-icon>
+                <span class="study-card-enter-text" v-language:inner>studyRoom_enter_room</span> 
             </v-flex>
         </v-layout>
         <v-layout align-center row justify-space-between class="study-card-created-container">
-            <span>
-                created
-            </span>
+            <span v-language:inner>studyRoom_created</span>
             <span>
                 {{date}}
             </span>
@@ -109,6 +107,8 @@ export default {
         margin: 16px 16px 16px 0;
         min-width: 164px;
         max-width: 164px;
+        display: flex;
+        flex-direction: column;
         @media (max-width: @screen-xs) {
             margin:5px;
         }
@@ -146,13 +146,10 @@ export default {
             margin: 0 12px;
             border-bottom: solid 1px rgba(67, 66, 93, 0.18);
             .study-card-enter-container{
+                cursor: pointer;
                 .study-card-enter-icon{
                     vertical-align: middle;
                     font-size: 14px;
-                    cursor: pointer;
-                }
-                .study-card-enter-text{
-                    cursor: pointer;
                 }
             }
             .study-card-name{
