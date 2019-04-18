@@ -43,6 +43,7 @@
                         <v-text-field outline class="bg-greyed font-weight-bold price-input"
                                       v-model="price"
                                       prefix="₪"
+                                      type="number"
                                       hide-details
                                       :label="placePrice"></v-text-field>
                     </v-flex>
