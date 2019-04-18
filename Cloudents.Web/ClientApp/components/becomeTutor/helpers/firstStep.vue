@@ -44,6 +44,7 @@
                                       v-model="price"
                                       prefix="₪"
                                       type="number"
+                                      min="1"
                                       hide-details
                                       :label="placePrice"></v-text-field>
                     </v-flex>
@@ -106,8 +107,8 @@
             price(newValue, oldValue) {
                 if(!newValue)return;
                 let val = Number.parseInt(newValue);
-                if(val < 0){
-                    return this.price = 0;
+                if(val <= 0){
+                    return this.price = 1;
                 }else{
                     return val
                 }

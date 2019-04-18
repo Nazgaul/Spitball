@@ -9,14 +9,12 @@
             </v-layout>
             <v-stepper-header class="sb-box" v-show="!isLastStep" :class="[$vuetify.breakpoint.smAndUp ? '' : '' ]">
                 <v-stepper-step class="step-control justify-center"
-                                @click="currentStep =1"
                                 color="#4452FC"
                                 :complete="currentStep > 1"
                                 :complete-icon="'sbf-checkmark'" step="1">
                     <span v-language:inner>becomeTutor_personal_details</span>
                 </v-stepper-step>
                 <v-stepper-step class="step-control justify-center" color="#4452FC"
-                                @click="currentStep =2"
                                 :complete="currentStep > 2"
                                 :complete-icon="'sbf-checkmark'" step="2">
                     <span v-language:inner>becomeTutor_who</span>
