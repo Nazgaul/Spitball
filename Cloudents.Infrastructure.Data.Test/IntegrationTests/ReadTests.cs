@@ -117,8 +117,5 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             var result = await fixture._queryBus.QueryAsync(query, default);
         }
-        
-        //UserStudyRoomQuery
-
     }
 }
