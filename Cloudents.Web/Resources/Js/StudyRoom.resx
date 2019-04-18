@@ -120,6 +120,12 @@
   <data name="become_tutor" xml:space="preserve">
     <value>BECOME A TUTOR</value>
   </data>
+  <data name="created" xml:space="preserve">
+    <value>created</value>
+  </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>enter room</value>
+  </data>
   <data name="help_others" xml:space="preserve">
     <value>Help others with what you know best</value>
   </data>

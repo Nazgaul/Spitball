@@ -1,7 +1,7 @@
 <template>
         <v-layout align-center justify-center class="rating-container">
             <v-flex shrink class="mr-2">
-                <v-rating
+                <v-rating :class="{'rtl-rating': isRtl}"
                         v-model="rating"
                         :color="starColor"
                         :background-color="starColor"
@@ -31,7 +31,8 @@
         name: "userReviews",
         data() {
             return {
-                ratingLength: 5
+                ratingLength: 5,
+                isRtl: global.isRtl
             }
         },
         props: {
@@ -61,6 +62,15 @@
 
 <style lang="less">
     .rating-container{
+        .rtl-rating{
+            .sbf-star-rating-half{
+                -moz-transform: scaleX(-1)/*rtl:ignore*/;
+                -o-transform: scaleX(-1)/*rtl:ignore*/;
+                -webkit-transform: scaleX(-1)/*rtl:ignore*/;
+                transform: scaleX(-1)/*rtl:ignore*/;
+
+            }
+        }
         .v-rating{
             .v-icon{
                 padding: 0;
