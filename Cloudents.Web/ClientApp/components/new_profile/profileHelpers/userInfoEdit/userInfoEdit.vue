@@ -39,7 +39,7 @@
                 ></v-textarea>
             </v-flex>
         </v-layout>
-        <v-layout  align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-around px-1' : 'justify-end px-3']">
+        <v-layout  align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-around px-3' : 'justify-end px-3']">
             <v-flex xs5 sm2 md2 >
                 <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
                     <span v-language:inner>profile_btn_cancel</span>
@@ -146,7 +146,8 @@
             border: 1px solid  @color-blue-new;
             color:  @color-blue-new;
             @media(max-width: @screen-xs){
-                min-width:180px;
+                min-width: 100%;
+                padding: 0 16px ;
                 border-radius: 0;
             }
         }
@@ -156,7 +157,8 @@
             color: @color-white;
             box-shadow: none!important;
             @media(max-width: @screen-xs){
-                min-width:180px;
+                min-width: 100%;
+                padding: 0 16px ;
                 border-radius: 0;
             }
         }
