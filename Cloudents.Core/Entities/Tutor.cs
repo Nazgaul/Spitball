@@ -1,23 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
     public class Tutor : Entity<long>
     {
-        public Tutor(string bio, RegularUser user) :this()
+        public Tutor(string bio, RegularUser user, decimal price) :this()
         {
+            if (price <= 0) throw new ArgumentOutOfRangeException(nameof(price));
             User = user;
             Bio = bio;
-            Price = 50;
+            Price = price;
         }
 
         protected Tutor()
         {
         }
-        public virtual string Bio { get; set; }
+        public virtual string Bio { get;protected set; }
         public virtual decimal Price { get; protected set; }
         public virtual RegularUser User { get; protected set; }
+
+        public virtual void UpdateSettings(string bio, decimal price)
+        {
+            if (price <= 0) throw new ArgumentOutOfRangeException(nameof(price));
+            Price = price;
+            Bio = bio;
+        }
 
         //public virtual bool Equals(Tutor other)
         //{

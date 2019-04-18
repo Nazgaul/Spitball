@@ -14,6 +14,8 @@ namespace Cloudents.Web.Models
 
         [StringLength(1000, ErrorMessage = "StringLength")]
         public string Bio { get; set; }
+
+        public decimal Price { get; set; }
     }
 
 

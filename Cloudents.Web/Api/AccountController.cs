@@ -139,7 +139,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<CourseDto>> GetCourses(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-         
+
             var query = new UserCoursesQuery(userId);
             var result = await _queryBus.QueryAsync(query, token);
             return result;
@@ -210,24 +210,25 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName, 
-                model.Description, model.Bio);
+            var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName,
+                model.Description, model.Bio, model.Price);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
         [HttpPost("BecomeTutor")]
-        public async Task<IActionResult> BecomeTutorAsync([FromBody]UpdateSettingsRequest model, CancellationToken token)
+        public async Task<IActionResult> BecomeTutorAsync(
+            [FromBody]UpdateSettingsRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
-                model.Description, model.Bio);
+                model.Description, model.Bio, model.Price);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        
 
-     
+
+
     }
 }
