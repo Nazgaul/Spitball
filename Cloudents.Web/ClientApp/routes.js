@@ -397,25 +397,6 @@ let routes2 = [
             }
         }
     },
-
-    {
-        path: "/conversations",
-        name: "conversations",
-        components: {
-            default: () => import("./components/conversations/conversations.vue"),
-            header: pageHeader
-        },
-        meta: {
-            requiresAuth: true
-        },
-        props: {
-
-            header: () => ({
-                currentSelection: "ask"
-            })
-        },
-    }
-
 ];
 
 for (let v in staticRoutes) {
