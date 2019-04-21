@@ -101,6 +101,7 @@ export default {
           border-radius: 50%;
           height: 16px;
           width: 16px;
+          line-height: 16px;
           display: inline-block;
           text-align: center;
           vertical-align: middle;
