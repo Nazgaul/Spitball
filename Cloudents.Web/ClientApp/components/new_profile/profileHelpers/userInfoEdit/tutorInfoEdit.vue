@@ -1,6 +1,6 @@
 <template>
     <v-card class="tutor-edit-wrap pb-3"  >
-        <v-form v-model="valid" ref="form">
+        <v-form v-model="valid" ref="formTutor">
         <v-layout class="header px-3 py-3 mb-3">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
@@ -66,6 +66,7 @@
                         rows="2"
                         outline
                         v-model="description"
+                        :rules="[rules.maximumChars]"
                         name="input-about"
                         :label="titleLabel"
                 ></v-textarea>
@@ -76,6 +77,7 @@
                 <v-textarea
                         rows="5"
                         outline
+                        :rules="[rules.maximumChars]"
                         v-model="bio"
                         name="input-bio"
                         :label="bioLabel"
@@ -122,6 +124,10 @@
                     minimum: value => {
                         const pattern = /^\d*[1-9]\d*$/;
                         return pattern.test(value) || LanguageService.getValueByKey("formErrors_positive_only")
+                    },
+                    maximumChars: value =>{
+                        const maxAmmount = 255;
+                        return value.length <= maxAmmount || ` ${maxAmmount} ${LanguageService.getValueByKey("formErrors_max_chars")}`
                     }
                 },
                 valid: false,
@@ -183,7 +189,7 @@
         methods: {
             ...mapActions(['updateEditedProfile']),
             saveChanges() {
-                if(this.$refs.form.validate()){
+                if(this.$refs.formTutor.validate()){
                     let editsData ={
                         name: this.editedFirstName || this.firstName,
                         lastName: this.editedLastName || this.lastName,

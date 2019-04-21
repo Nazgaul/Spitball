@@ -123,6 +123,9 @@
   <data name="longer_4" xml:space="preserve">
     <value>Min.  4 characters</value>
   </data>
+  <data name="max_chars" xml:space="preserve">
+    <value>characters allowed</value>
+  </data>
   <data name="max_number" xml:space="preserve">
     <value>Max value is</value>
   </data>

@@ -1,6 +1,6 @@
 <template>
     <v-card class="user-edit-wrap pb-3">
-        <v-form v-model="validUserForm" ref="form">
+        <v-form v-model="validUserForm" ref="formUser">
         <v-layout class="header px-3 py-3 mb-3">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
@@ -33,6 +33,7 @@
                 <v-textarea
                         rows="2"
                         outline
+                        :rules="[rules.maximumChars]"
                         v-model="userDescription"
                         name="input-about"
                         :label="titleLabel"
@@ -70,6 +71,10 @@
                 editedUserName: '',
                 rules: {
                     required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
+                    maximumChars: value =>{
+                        const maxAmmount = 255;
+                        return value.length <= maxAmmount || ` ${maxAmmount} ${LanguageService.getValueByKey("formErrors_max_chars")}`
+                    }
                 },
                 validUserForm: false,
 
@@ -106,7 +111,7 @@
         methods: {
             ...mapActions(['updateEditedProfile']),
             saveChanges() {
-                if(this.$refs.form.validate()) {
+                if(this.$refs.formUser.validate()) {
                     let editsData = {
                         name: this.editedUserName || this.userName,
                         // description: this.editedDescription || this.userDescription spitball-712
