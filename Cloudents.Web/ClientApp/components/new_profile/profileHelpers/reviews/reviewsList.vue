@@ -45,9 +45,9 @@
 
     }
     .single-review{
-        border-top:  solid 1px @newGreyColor;
+        border-top:  solid 1px @separatorColor;
       &:last-child{
-          border-bottom: solid 1px @newGreyColor;
+          border-bottom: solid 1px @separatorColor;
       }
     }
 }

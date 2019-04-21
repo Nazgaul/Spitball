@@ -13,7 +13,7 @@ namespace Cloudents.Query.Query
             UserId = userId;
         }
 
-        public long UserId { get;  }
+        private long UserId { get;  }
 
         internal sealed class ChatConversationsQueryHandler : IQueryHandler<ChatConversationsQuery, IEnumerable<ChatUserDto>>
         {
@@ -37,7 +37,8 @@ u.Online,
 cu.Unread,
 cr.Id as ConversationId,
 cr.UpdateTime as DateTime,
-(select id from sb.StudyRoom where Identifier = cr.identifier)  as StudyRoomId
+(select id from sb.StudyRoom where Identifier = cr.identifier)  as StudyRoomId,
+(select top 1 cm.Message  from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) as lastMessage
 from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id

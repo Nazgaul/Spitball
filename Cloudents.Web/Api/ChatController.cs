@@ -104,7 +104,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new ResetUnreadInChatCommand(_userManager.GetLongUserId(User),
-                    new[] { model.OtherUser });
+                    new[] { model.OtherUserId });
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }

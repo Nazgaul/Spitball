@@ -7,11 +7,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
     [Collection("Database collection")]
     public class TutorReadTests
     {
-        DatabaseFixture fixture;
+        private readonly DatabaseFixture _fixture;
 
         public TutorReadTests(DatabaseFixture fixture)
         {
-            this.fixture = fixture;
+            this._fixture = fixture;
             // _autoMock = AutoMock.GetLoose();
 
         }
@@ -20,8 +20,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TutorListByCourseQuery_Ok()
         {
             var query = new TutorListByCourseQuery("xxx",0,0);
-
-            var result = await fixture._queryBus.QueryAsync(query, default);
+            _ = await _fixture._queryBus.QueryAsync(query, default);
 
 
         }
@@ -31,8 +30,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TutorListQuery_Ok()
         {
             var query = new TutorListQuery( 0,0);
-
-            var result = await fixture._queryBus.QueryAsync(query, default);
+            _ = await _fixture._queryBus.QueryAsync(query, default);
 
 
         }

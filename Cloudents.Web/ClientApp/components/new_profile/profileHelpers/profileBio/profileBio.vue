@@ -1,16 +1,16 @@
 <template>
     <v-layout class="profile-bio" align-center>
         <v-flex xs12>
-            <v-card class="profile-bio-card" :class="[$vuetify.breakpoint.smAndUp ?  'pl-4 px-3 py-4' : 'px-1 transparent elevation-0 py-1']">
+            <v-card class="profile-bio-card" :class="[$vuetify.breakpoint.smAndUp ?  'pl-4 px-3 py-4' : 'px-1 mt-2 transparent elevation-0 py-1']">
                 <v-layout v-bind="xsColumn" :class="[$vuetify.breakpoint.smAndUp ? 'align-start' : 'align-center' ]">
                     <v-flex  order-xs2 order-sm1 order-md1>
                         <user-image :isMyProfile="isMyProfile"></user-image>
                     </v-flex>
                     <v-flex xs12 order-xs1 order-sm2 order-md2 :class="[$vuetify.breakpoint.smAndUp ?  'pl-4' : 'mb-4']">
                         <v-layout class="name-price-wrap" justify-space-between>
-                            <v-flex xs12 sm8 md8>
-                                <div class="user-name mb-1">
-                                    <div class="align-start">
+                            <v-flex xs12 sm6 md6>
+                                <div class="user-name mb-2">
+                                    <div class="align-start d-flex">
                                         <v-icon v-if="$vuetify.breakpoint.xsOnly && isTutorProfile" class="face-icon mr-2">sbf-face-icon</v-icon>
                                     <span class="line-height-1 subheading font-weight-bold" style="word-break: break-all;">{{userName}}</span>
                                         <v-icon @click="openEditInfo()"
@@ -27,11 +27,11 @@
                                 <span class="tutor-price"  v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">{{tutorPrice}}
                                 <span class="tutor-price small-text">
                                     <!--<span v-language:inner>app_currency_dynamic</span>-->
-                                    <span>/</span>
+                                    <span>/&nbsp;</span>
                                      <span v-language:inner>profile_points_hour</span>
                                 </span>
                                 </span>
-                                 <span class="mt-0 ml-4" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
+                                 <span class="mt-0 ml-2" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
                                      <v-icon @click="openEditInfo()" class="edit-profile-action subheading">sbf-edit-icon</v-icon>
                                  </span>
                             </div>
@@ -183,6 +183,7 @@
             }
             .face-icon{
                 font-size: 18px;
+                color: @profileTextColor;
             }
 
         }

@@ -32,7 +32,9 @@ namespace Cloudents.Query.Query
 
             public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
             {
-                const string sql = @"select *  from (select U.Id as UserId, U.Name, U.Image, T.Bio, T.Price, U.Score, 
+                const string sql = @"select *  from (select U.Id as UserId, U.Name, U.Image,
+(select STRING_AGG(dt.CourseId, ', ') FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
+T.Price, U.Score, 
 	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
                         from sb.[user] U
                         join sb.Tutor T
@@ -41,7 +43,9 @@ namespace Cloudents.Query.Query
 						and uc.CourseId = @CourseId
 
 union
-select U.Id as UserId, U.Name, U.Image, T.Bio, T.Price, U.Score, 
+select U.Id as UserId, U.Name, U.Image, 
+(select STRING_AGG(dt.CourseId, ', ') FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
+T.Price, U.Score, 
 	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
                         from sb.[user] U
                         join sb.Tutor T

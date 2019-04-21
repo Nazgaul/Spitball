@@ -4,7 +4,7 @@ function TutorItem(objInit) {
     this.userId = objInit.userId;
     this.name = objInit.name;
     this.image = objInit.image;
-    this.bio = objInit.bio;
+    this.courses = objInit.courses || 'ergtggerg ergergergdfg dfgdfgdfgdfgdf dfgdfgdfgdfgdf dfgdfgdfgdfg dfgdfgdfgdfgdfgdf dfgdfgdfgdfgdf dfgdfgfdgdfgdfg dfgdfgfdgdfg'
     this.price = objInit.price || 50;
     this.score = objInit.score;
     this.rating = objInit.rate || null;

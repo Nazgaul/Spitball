@@ -1,6 +1,6 @@
 <template>
     <v-layout column wrap align-center v-if="tutorList.length >= 1" class="tutor-list-wrap" :class="{'mx-2 mt-3': $vuetify.breakpoint.xsOnly}">
-        <v-flex class="mb-3">
+        <v-flex class="title-holder">
             <span class="subheading font-weight-bold tutors-title" v-language:inner>tutorList_title</span>
         </v-flex>
         <v-flex>
@@ -47,8 +47,17 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
 .tutor-list-wrap{
+    .title-holder{
+        text-align: center;
+        background: #fff;
+        border-radius: 4px 4px 0 0;
+        margin-bottom: 1px!important;
+        width: 100%;
+    }
     .tutors-title{
         color: @profileTextColor;
+        vertical-align: middle;
+        line-height: 42px;
     }
 }
 </style>

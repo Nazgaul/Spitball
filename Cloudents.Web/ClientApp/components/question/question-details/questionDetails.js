@@ -128,7 +128,6 @@ export default {
                     sendEventList.question.addViewr(this.questionData);
                     this.cahceQuestion = {...this.questionData}
                 }
-                this.buildChat();
             })
         },
         openNewBaller(){
@@ -139,35 +138,6 @@ export default {
                     this.updateNewBallerDialogState(true);
                 }
             }
-        },
-
-        buildChat() {
-            // if (this.talkSession && this.questionData) {
-            //     const otherUser = this.questionData.user;
-            //     var other1 = new Talk.User(otherUser.id);
-            //     var conversation = this.talkSession.getOrCreateConversation(
-            //         `question_${this.id}`
-            //     );
-            //     //conversation
-            //     let subject = this.questionData.text.replace(/\r?\n|\r/g, '');
-            //     subject = subject.substr(0, 2000);
-            //     subject = subject + '...';
-            //     conversation.setParticipant(this.chatAccount, {notify: false});
-            //     conversation.setParticipant(other1);
-            //     conversation.setAttributes({
-            //         photoUrl: `${location.origin}/images/conversation.png`,
-            //         subject: `<${location.href}|${subject}>`
-            //     });
-            //         var chatbox = this.talkSession.createChatbox(conversation, {
-            //         showChatHeader: false
-            //         });
-            //     chatbox.on("sendMessage", (t) => {
-            //         conversation.setParticipant(this.chatAccount, {notify: true})
-            //     });
-            //     this.$nextTick(() => {
-            //         chatbox.mount(this.$refs["chat-area"]);
-            //     });
-            // }
         },
         showAnswerField() {
             if (this.accountUser) {
@@ -182,22 +152,16 @@ export default {
 
     },
     watch: {
-        talkSession: function (newVal, oldVal) {
-            if (newVal) {
-                this.buildChat();
-            }
-        },
         textAreaValue(){
             this.errorLength = {};
         },
         //fix for chat dissapearing on screen resize
         // TODO V20 removing disquestion board from question details SPITBALL-851 Remove the discussion board from question pages
-        '$vuetify.breakpoint.smAndDown': 'buildChat',
         //watch route(url query) update, and het question data from server
         '$route': 'getData'
     },
     computed: {
-        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner"]),
+        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner"]),
         questionData(){
             return this.getQuestion();
         },

@@ -20,6 +20,7 @@ function TextMessage(objInit, id){
     this.text = objInit.text;
     this.conversationId = id;
     this.type = objInit.type;
+    this.dateTime = objInit.dateTime;
 }
 function FileMessage(objInit, id){
     this.userId= objInit.userId;
@@ -27,6 +28,7 @@ function FileMessage(objInit, id){
     this.src = objInit.src;
     this.href = objInit.href;
     this.type = objInit.type;
+    this.dateTime = objInit.dateTime;
 }
 
 function activeConversationObj(objInit){

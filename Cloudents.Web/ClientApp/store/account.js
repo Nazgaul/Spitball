@@ -1,4 +1,3 @@
-import Talk from "talkjs";
 import accountService from "../services/accountService";
 import { debug } from "util";
 import { dollarCalculate } from "./constants";
@@ -52,8 +51,6 @@ function setIntercomeData(data) {
 const state = {
     login: false,
     user: null,
-    talkSession: null,
-    talkMe: null,
     unreadMessages: 0,
     fromPath: null,
     lastActiveRoute: null,
@@ -104,15 +101,6 @@ const mutations = {
     },
     updateUser(state, val) {
         state.user = val;
-    },
-    updateTalkSession(state, val) {
-        state.talkSession = val;
-    },
-    updateChatUser(state, val) {
-        state.talkMe = val;
-    },
-    updateMessageCount(state, val) {
-        state.unreadMessages = val;
     },
     logout(state) {
         state.fromPath = null;
@@ -210,8 +198,6 @@ const getters = {
     unreadMessages: state => state.unreadMessages,
     loginStatus: state => state.login,
     isUser: state => state.user !== null,
-    talkSession: state => state.talkSession,
-    chatAccount: state => state.talkMe,
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
         return state.user;
@@ -428,7 +414,6 @@ const actions = {
                 setIntercomeData(UserAccount);
                 commit("changeLoginStatus", true);
                 commit("updateUser", UserAccount);
-                dispatch("connectToChat");
                 dispatch("syncUniData");
                 dispatch("getAllConversations");
                 analyticsService.sb_setUserId(UserAccount.id);
@@ -446,41 +431,6 @@ const actions = {
     },
     saveCurrentPathOnPageChange({commit}, {currentRoute}) {
         commit("updateFromPath", currentRoute);
-    },
-    connectToChat({state, commit}) {
-        if(!state.user) {
-            return;
-        }
-        try {
-
-
-            Talk.ready.then(() => {
-                // 
-                // const me = new Talk.User(state.user.id);
-                //{id, name, email, phone, photoUrl, welcomeMessage, configuration, custom, availabilityText, locale}
-                const me = new Talk.User({
-                                             id: state.user.id,
-                                             name: state.user.name,
-                                             email: state.user.email,
-                                             photoUrl: state.user.image,
-                                             configuration: "buyer"
-                                         });
-
-                commit("updateChatUser", me);
-                const talkSession = new Talk.Session({
-                                                         appId: global.talkJsId,
-                                                         me: me,
-                                                         signature: state.user.token
-                                                     });
-                //talkSession.syncThemeForLocalDev("/content/talkjs-theme.css")
-                talkSession.unreads.on("change", m => {
-                    commit("updateMessageCount", m.length);
-                });
-                commit("updateTalkSession", talkSession);
-            });
-        } catch (error) {
-            console.error(error);
-        }
     },
     updateUserBalance({commit, state}, payload) {
         return;
