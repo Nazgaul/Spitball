@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using System;
+using Cloudents.Command;
 using Cloudents.Command.Courses;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
@@ -13,6 +14,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Web.Api
 {
@@ -76,12 +78,19 @@ namespace Cloudents.Web.Api
         [HttpPost("create")]
         public async Task<IActionResult> CreateCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new CreateCourseCommand(userId, model.Name);
-            await _commandBus.DispatchAsync(command, token);
-            var user = await _userManager.GetUserAsync(User);
-            await _signInManager.RefreshSignInAsync(user);
-            return Ok(model);
+            try
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var command = new CreateCourseCommand(userId, model.Name);
+                await _commandBus.DispatchAsync(command, token);
+                var user = await _userManager.GetUserAsync(User);
+                await _signInManager.RefreshSignInAsync(user);
+                return Ok(model);
+            }
+            catch (DuplicateRowException)
+            {
+                return Conflict();
+            }
         }
 
         [HttpPost("teach")]
