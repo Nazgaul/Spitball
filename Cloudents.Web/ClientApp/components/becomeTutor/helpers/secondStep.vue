@@ -1,6 +1,7 @@
 <template>
     <div class="become-second-wrap">
         <v-layout row wrap>
+            <v-form v-model="validBecomeSecond" ref="becomeFormSecond">
             <v-flex xs12 class="text-xs-center mb-4">
                 <span class="sharing-text" v-language:inner>becomeTutor_sharing</span>
             </v-flex>
@@ -12,6 +13,7 @@
                         no-resize
                         v-model="description"
                         name="input-about"
+                        :rules="[rules.maxChars]"
                         :placeholder="placeDescription"
                         :label="labelDescription"
                 ></v-textarea>
@@ -22,12 +24,14 @@
                         class="sb-text-area"
                         rows="5"
                         outline
+                        :rules="[rules.maxChars]"
                         v-model="bio"
                         name="input-bio"
                         :placeholder="placeBio"
                         :label="labelBio"
                 ></v-textarea>
             </v-flex>
+            </v-form>
         </v-layout>
         <v-layout  class="mt-2 px-1" :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
             <v-btn   @click="closeDialog()" class="cancel-btn elevation-0" round outline flat>
@@ -60,7 +64,14 @@
                 labelBio: LanguageService.getValueByKey("becomeTutor_label_bio"),
                 description: '',
                 bio: '',
-                btnLoading: false
+                btnLoading: false,
+                validBecomeSecond:false,
+                rules: {
+                    maxChars: value =>{
+                        const maxAmmount = 255;
+                        return value.length <= maxAmmount || ` ${maxAmmount} ${LanguageService.getValueByKey("formErrors_max_chars")}`
+                    },
+                },
             };
         },
         computed: {
@@ -72,25 +83,27 @@
         methods: {
             ...mapActions(['updateTutorInfo', 'sendBecomeTutorData', 'updateTutorDialog', 'updateAccountUserToTutor']),
             closeDialog(){
-                this.updateTutorDialog(false)
+                this.updateTutorDialog(false);
             },
             submitData() {
-                let self = this;
-                let descriptionAbout = {bio: self.bio, description: self.description};
-                let data = {...this.becomeTutorData, ...descriptionAbout};
-                self.updateTutorInfo(data);
-                self.btnLoading = true;
-                self.sendBecomeTutorData()
-                    .then((resp) => {
+                if(this.$refs.becomeFormSecond.validate()) {
+                    let self = this;
+                    let descriptionAbout = {bio: self.bio, description: self.description};
+                    let data = {...this.becomeTutorData, ...descriptionAbout};
+                    self.updateTutorInfo(data);
+                    self.btnLoading = true;
+                    self.sendBecomeTutorData()
+                        .then((resp) => {
+                            self.btnLoading = false;
+                            self.$root.$emit('becomeTutorStep', 3);
+                            self.updateAccountUserToTutor(true);
+                        }, (error) => {
+                            console.log('erorr sending data become tutor', error);
+                            self.btnLoading = false;
+                        }).finally(() => {
                         self.btnLoading = false;
-                        self.$root.$emit('becomeTutorStep', 3);
-                        self.updateAccountUserToTutor(true);
-                    }, (error) => {
-                        console.log('erorr sending data become tutor', error);
-                        self.btnLoading = false;
-                    }).finally(() => {
-                    self.btnLoading = false;
-                });
+                    });
+                }
 
             }
         },
