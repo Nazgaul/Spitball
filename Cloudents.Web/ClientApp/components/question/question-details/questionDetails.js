@@ -128,7 +128,6 @@ export default {
                     sendEventList.question.addViewr(this.questionData);
                     this.cahceQuestion = {...this.questionData}
                 }
-                this.buildChat();
             })
         },
         openNewBaller(){
