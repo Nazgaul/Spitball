@@ -121,10 +121,7 @@
     <value>הפוך למרצה</value>
   </data>
   <data name="created" xml:space="preserve">
-    <value>נוצר</value>
-  </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>היכנס לחדר</value>
+    <value>נוצר ב-</value>
   </data>
   <data name="help_others" xml:space="preserve">
     <value>עזור לאחרים באמצעות הידע שלך</value>
