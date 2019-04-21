@@ -344,7 +344,7 @@ Vue.prototype.$chatMessage = function (message) {
         return modifiedText;
     }else{
         let src = utilitiesService.proccessImageURL(message.src, 190, 140, 'crop');
-        return `<a href="${message.href}"><img src="${src}" /></a>`;
+        return `<a href="${message.href}" target="_blank"><img src="${src}" /></a>`;
     }
 }
 
