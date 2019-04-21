@@ -114,8 +114,6 @@ export default {
             this.search();
         },
         outsideClick(event) {
-            event.preventDefault();
-            event.stopPropagation();
             console.log('clicked outside');
             this.closeSuggestions();
         },
