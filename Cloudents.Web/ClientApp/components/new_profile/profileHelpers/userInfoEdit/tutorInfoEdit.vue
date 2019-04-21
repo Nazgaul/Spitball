@@ -115,7 +115,7 @@
                 editedDescription: '',
                 editedFirstName: '',
                 editedLastName: '',
-                editedPrice: 0,
+                editedPrice: 1,
                 rules: {
                     required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
                 },
@@ -172,6 +172,17 @@
                 set(newVal) {
                     console.log('new val::', newVal)
                     this.editedDescription = newVal;
+                }
+            }
+        },
+        watch: {
+            price(newValue, oldValue) {
+                if(!newValue)return;
+                let val = Number.parseInt(newValue);
+                if(val <= 0){
+                    return this.price = 1;
+                }else{
+                    return val
                 }
             }
         },
