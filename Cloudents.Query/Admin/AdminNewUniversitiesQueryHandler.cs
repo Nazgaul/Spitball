@@ -19,7 +19,7 @@ namespace Cloudents.Query.Admin
 
         public async Task<IList<NewUniversitiesDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            var sql = @"with cte as (
+            const string sql = @"with cte as (
                     Select Id, Name from sb.university where name like N'%[א-ת]%' and CreationTime > GETUTCDATE()-90)
                     select cte.Id as [NewId], cte.Name as NewUniversity, c.Id as OldId, c.Name as OldUniversity  from cte, sb.university c
                     where c.Name like REPLACE(cte.Name,' ','%')
@@ -28,7 +28,7 @@ namespace Cloudents.Query.Admin
             {
                 var res = await connection.QueryAsync<NewUniversitiesDto>(sql);
                 return res.AsList();
-            };
+            }
         }
     }
 }

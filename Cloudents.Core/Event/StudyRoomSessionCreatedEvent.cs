@@ -9,7 +9,7 @@ namespace Cloudents.Core.Event
 
         public StudyRoomSessionCreatedEvent(StudyRoomSession studyRoomSession)
         {
-            this.StudyRoomSession = studyRoomSession;
+            StudyRoomSession = studyRoomSession;
         }
     }
 }
