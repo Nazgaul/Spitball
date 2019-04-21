@@ -4,7 +4,7 @@
         <div class="chat-input-container align-center justify-center column">
             <label for="chat-file">
                 <!--<v-icon class="chat-attach-icon">sbf-attach</v-icon>-->
-                    <add-file-img></add-file-img>
+                    <add-file-img style="opacity: 0.38;"></add-file-img>
                     <file-upload  chunk-enabled
                     :chunk="{
                         action: uploadUrl,

@@ -1,7 +1,7 @@
 <template>
     <div class="messages-container">
         <div ml-2 class="avatar-container">
-            <user-avatar :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/>
+            <user-avatar :size="40" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/>
             <userOnlineStatus class="user-status" :userId="activeConversationObj.userId"></userOnlineStatus>
         </div>
         <v-layout column class="messages-wrapper">
@@ -10,7 +10,7 @@
                     <span v-if="isTutor && messages.length > 0" @click="createRoom" v-language:inner>chat_studyRoom</span>
                 </div>
                 <div>
-                    <v-icon style="font-size: 16px;" @click="createRoom">sbf-studyroom-icon</v-icon>
+                    <v-icon style="font-size: 16px; color:#bcbccb" @click="createRoom">sbf-studyroom-icon</v-icon>
                 </div>
               
             </v-flex>
@@ -94,6 +94,7 @@ export default {
 </script>
 
 <style lang="less">
+@import "../../../styles/mixin.less";
     .messages-container{
         width: 100%;
         height: 100%;
@@ -112,12 +113,14 @@ export default {
             .messages-header{
                 display:flex;
                 background-color: #f7f7f7;
-                padding: 8px;
+                padding: 8px 10px 8px 8px ;
                 max-height: 34px;
                 min-height: 34px;
                 span{
                     padding: 0 10px 0  10px;
                     cursor: pointer;
+                    font-size: 12px;
+                    color: @purpleNewColor;
                 }
             }
             .messages-body{

@@ -329,7 +329,7 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
     .add-courses-wrap {
-        .scrollBarStyle(3px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
+        .scrollBarStyle(6px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .sbf-search{
             height: 22px;
             min-width: 34px;
@@ -391,7 +391,7 @@
             }
         }
         .selected-classes-container{
-            .scrollBarStyle(3px, #a3a0fb, @color-blue-new);
+            .scrollBarStyle(6px, #a3a0fb, @color-blue-new);
         }
         .search-class-item{
             padding-top: 10px;
