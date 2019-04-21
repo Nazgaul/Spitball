@@ -33,11 +33,7 @@ namespace Cloudents.Core.Interfaces
         Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
     }
 
-    public interface ICourseRepository : IRepository<Course>
-    {
-        //Task<Course> GetOrAddAsync(string name, CancellationToken token);
-        //Task<Course> GetByNameAsync(string name, CancellationToken token);
-    }
+ 
 
    
 
@@ -86,7 +82,6 @@ namespace Cloudents.Core.Interfaces
     {
         Task<decimal> GetUserScoreAsync(long userId, CancellationToken token);
         Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
-       // Task<TransactionActionType> GetFirstCourseTransaction(long userId, CancellationToken token);
 
     }
     public interface ICourseSubjectRepository : IRepository<CourseSubject>

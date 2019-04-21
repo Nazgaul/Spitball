@@ -2,14 +2,15 @@
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
     public class DeleteCourseCommandHandler : ICommandHandler<DeleteCourseCommand>
     {
-        private readonly ICourseRepository _courseRepository;
+        private readonly IRepository<Course> _courseRepository;
 
-        public DeleteCourseCommandHandler(ICourseRepository courseRepository)
+        public DeleteCourseCommandHandler(IRepository<Course> courseRepository)
         {
             _courseRepository = courseRepository;
         }
