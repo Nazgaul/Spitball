@@ -47,9 +47,6 @@
                                       prefix="₪"
                                       :label="placePrice"></v-text-field>
                     </v-flex>
-                    <!--<v-flex xs12 class="contact-price">-->
-                        <!--<div class="blue-text caption cursor-pointer" v-language:inner>becomeTutor_contact_to_change</div>-->
-                    <!--</v-flex>-->
                     </v-form>
                 </v-layout>
             </v-flex>

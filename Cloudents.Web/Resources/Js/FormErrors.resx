@@ -123,6 +123,9 @@
   <data name="longer_4" xml:space="preserve">
     <value>Min.  4 characters</value>
   </data>
+  <data name="max_number" xml:space="preserve">
+    <value>Max value is</value>
+  </data>
   <data name="positive_only" xml:space="preserve">
     <value>Only positive values</value>
   </data>
