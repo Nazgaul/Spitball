@@ -187,9 +187,9 @@
                     let editsData ={
                         name: this.editedFirstName || this.firstName,
                         lastName: this.editedLastName || this.lastName,
-                        bio: this.editedBio || this.bio,
+                        bio: this.editedBio,
                         price: this.editedPrice || this.price,
-                        description: this.editedDescription || this.description
+                        description: this.editedDescription
                     };
                     accountService.saveTutorInfo(editsData)
                         .then((success) => {
@@ -204,6 +204,11 @@
             },
 
         },
+        created(){
+            this.editedBio = this.getProfile.about.bio || '';
+            this.editedDescription = this.getProfile.user.description || '';
+        }
+
     }
 </script>
 
