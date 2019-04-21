@@ -62,6 +62,9 @@ const state = {
     usersReferred: 0
 };
 const mutations = {
+    setUniExists(state, val){
+        state.user.universityExists = val;
+    },
     changeIsUserTutor(state, val) {
         state.user.isTutor = val;
     },
@@ -225,10 +228,12 @@ const getters = {
 };
 
 const actions = {
+    updateUniExists(context, val){
+        context.commit("setUniExists", val);
+    },
     updateEditedProfile(context, newdata) {
         context.commit("updateEditedData", newdata);
     },
-
     uploadAccountImage(context, obj) {
         accountService.uploadImage(obj).then((resp) => {
                                                  let imageUrl = resp.data;
