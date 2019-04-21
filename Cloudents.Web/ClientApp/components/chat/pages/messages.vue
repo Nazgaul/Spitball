@@ -1,7 +1,7 @@
 <template>
     <div class="messages-container">
         <div ml-2 class="avatar-container">
-            <user-avatar :size="40" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/>
+            <user-avatar :size="'40'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/>
             <userOnlineStatus class="user-status" :userId="activeConversationObj.userId"></userOnlineStatus>
         </div>
         <v-layout column class="messages-wrapper">
