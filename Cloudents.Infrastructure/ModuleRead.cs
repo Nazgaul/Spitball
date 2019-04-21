@@ -24,11 +24,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
 
-         
-            
-
-           
-
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
 

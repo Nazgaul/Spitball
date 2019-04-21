@@ -47,37 +47,37 @@ namespace Cloudents.Infrastructure.Search.Places
                  });
         }
 
-        [Cache(TimeConst.Year, "zip", true)]
-        public async Task<(Address address, GeoPoint point)> GeoCodingByZipAsync(string zip, CancellationToken token)
-        {
-            var nvc = new NameValueCollection
-            {
-                ["components"] = "postal_code:" + zip,
-                ["key"] = Key,
-            };
+        //[Cache(TimeConst.Year, "zip", true)]
+        //public async Task<(Address address, GeoPoint point)> GeoCodingByZipAsync(string zip, CancellationToken token)
+        //{
+        //    var nvc = new NameValueCollection
+        //    {
+        //        ["components"] = "postal_code:" + zip,
+        //        ["key"] = Key,
+        //    };
 
-            var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token);
-            var source = SerializeResult(str);
+        //    var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token);
+        //    var source = SerializeResult(str);
 
-            if (!string.Equals(source.Status, "ok", StringComparison.OrdinalIgnoreCase))
-                return (null, null);
-            var result = source.Results[0];
+        //    if (!string.Equals(source.Status, "ok", StringComparison.OrdinalIgnoreCase))
+        //        return (null, null);
+        //    var result = source.Results[0];
 
-            var point = new GeoPoint(result.Geometry.Location.Lng, result.Geometry.Location.Lat);
+        //    var point = new GeoPoint(result.Geometry.Location.Lng, result.Geometry.Location.Lat);
 
-            var city = result.AddressComponents
-                ?.FirstOrDefault(w => w.Types.Contains("locality", StringComparer.InvariantCultureIgnoreCase))
-                ?.ShortName;
-            var regionCode = result.AddressComponents?.FirstOrDefault(w =>
-                    w.Types.Contains("administrative_area_level_1", StringComparer.InvariantCultureIgnoreCase))
-                ?.ShortName;
-            var countryCode = result.AddressComponents
-                ?.FirstOrDefault(w => w.Types.Contains("country", StringComparer.InvariantCultureIgnoreCase))
-                ?.ShortName;
-            var address = new Address(city, regionCode, countryCode);
-            return (address, point);
+        //    var city = result.AddressComponents
+        //        ?.FirstOrDefault(w => w.Types.Contains("locality", StringComparer.InvariantCultureIgnoreCase))
+        //        ?.ShortName;
+        //    var regionCode = result.AddressComponents?.FirstOrDefault(w =>
+        //            w.Types.Contains("administrative_area_level_1", StringComparer.InvariantCultureIgnoreCase))
+        //        ?.ShortName;
+        //    var countryCode = result.AddressComponents
+        //        ?.FirstOrDefault(w => w.Types.Contains("country", StringComparer.InvariantCultureIgnoreCase))
+        //        ?.ShortName;
+        //    var address = new Address(city, regionCode, countryCode);
+        //    return (address, point);
 
-        }
+        //}
 
         [Cache(TimeConst.Year, "reverse-location", true)]
         public async Task<(Address address, GeoPoint point)> ReverseGeocodingAsync(GeoPoint point, CancellationToken token)

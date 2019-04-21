@@ -55,7 +55,7 @@ namespace Cloudents.Search
             base.Load(builder);
 
 
-            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Tutor).WithParameter(TutorSuggest.VerticalParameter, Vertical.Tutor);
+            //builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Tutor).WithParameter(TutorSuggest.VerticalParameter, Vertical.Tutor);
             builder.RegisterType<TutorSuggest>().As<ITutorSuggestion>().WithParameter(TutorSuggest.VerticalParameter, Vertical.Tutor);
         }
     }
