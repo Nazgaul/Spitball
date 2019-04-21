@@ -83,6 +83,7 @@ export default {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
         enterRoom() {
+            //if blocked or not available  use of media devices do not allow session start
             if(this.getNotAllowedDevices ||  this.getNotAvaliableDevices){
                 this.updateTestDialogState(true);
                 return
