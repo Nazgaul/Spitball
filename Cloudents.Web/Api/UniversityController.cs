@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using System;
+using Cloudents.Command;
 using Cloudents.Command.Universities;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
@@ -13,6 +14,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -78,15 +81,27 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("create")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> CreateUniversityAsync([FromBody] CreateUniversityRequest model, CancellationToken token)
         {
+            
             var userId = _userManager.GetLongUserId(User);
-            var command = new CreateUniversityCommand(userId, model.Name, model.Country);
-            await _commandBus.DispatchAsync(command, token);
-            var user = await _userManager.GetUserAsync(User);
+            try
+            {
+                var command = new CreateUniversityCommand(userId, model.Name, model.Country);
+                await _commandBus.DispatchAsync(command, token);
+                var user = await _userManager.GetUserAsync(User);
 
-            await _signInManager.RefreshSignInAsync(user);
-            return Ok();
+                await _signInManager.RefreshSignInAsync(user);
+                return Ok();
+            }
+            catch (DuplicateRowException)
+            {
+                return Conflict();
+            }
         }
 
 
