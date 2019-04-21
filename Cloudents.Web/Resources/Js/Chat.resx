@@ -123,4 +123,7 @@
   <data name="studyRoom" xml:space="preserve">
     <value>Study Room</value>
   </data>
+  <data name="type_message" xml:space="preserve">
+    <value>Type something</value>
+  </data>
 </root>
