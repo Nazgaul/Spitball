@@ -123,6 +123,9 @@
   <data name="longer_4" xml:space="preserve">
     <value>מינימום 4 תווים</value>
   </data>
+  <data name="positive_only" xml:space="preserve">
+    <value>רק ערכים חיוביים</value>
+  </data>
   <data name="required" xml:space="preserve">
     <value>שדה חובה</value>
   </data>
