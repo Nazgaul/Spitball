@@ -8,11 +8,14 @@
                 </v-flex>
             </v-layout>
             <v-stepper-header class="sb-box" v-show="!isLastStep" :class="[$vuetify.breakpoint.smAndUp ? '' : '' ]">
-                <v-stepper-step class="step-control justify-center" color="#4452FC" :complete="currentStep > 1"
+                <v-stepper-step class="step-control justify-center"
+                                color="#4452FC"
+                                :complete="currentStep > 1"
                                 :complete-icon="'sbf-checkmark'" step="1">
                     <span v-language:inner>becomeTutor_personal_details</span>
                 </v-stepper-step>
-                <v-stepper-step class="step-control justify-center" color="#4452FC" :complete="currentStep > 2"
+                <v-stepper-step class="step-control justify-center" color="#4452FC"
+                                :complete="currentStep > 2"
                                 :complete-icon="'sbf-checkmark'" step="2">
                     <span v-language:inner>becomeTutor_who</span>
                 </v-stepper-step>
@@ -21,7 +24,9 @@
                 <v-stepper-content v-for="n in steps" class="mt-3"
                                    :key="`step_${n}`"
                                    :step="n">
+                    <keep-alive>
                         <component :is="`step_${currentStep}`"></component>
+                    </keep-alive>
                 </v-stepper-content>
             </v-stepper-items>
         </v-stepper>
@@ -39,7 +44,7 @@
         data() {
             return {
                 steps: 3,
-                currentStep: 1
+                currentStep: 1,
             };
         },
         computed: {

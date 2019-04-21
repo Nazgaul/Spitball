@@ -66,11 +66,11 @@
         computed: {
             ...mapGetters(['becomeTutorData']),
             btnDisabled() {
-                return !this.description || !this.bio;
+                return !this.description || !this.bio || !this.becomeTutorData.firstName || !this.becomeTutorData.lastName || !this.becomeTutorData.price
             }
         },
         methods: {
-            ...mapActions(['updateTutorInfo', 'sendBecomeTutorData', 'updateTutorDialog']),
+            ...mapActions(['updateTutorInfo', 'sendBecomeTutorData', 'updateTutorDialog', 'updateAccountUserToTutor']),
             closeDialog(){
                 this.updateTutorDialog(false)
             },
@@ -84,6 +84,7 @@
                     .then((resp) => {
                         self.btnLoading = false;
                         self.$root.$emit('becomeTutorStep', 3);
+                        self.updateAccountUserToTutor(true);
                     }, (error) => {
                         console.log('erorr sending data become tutor', error);
                         self.btnLoading = false;

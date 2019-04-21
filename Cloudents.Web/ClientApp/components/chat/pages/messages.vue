@@ -6,7 +6,7 @@
         </div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <span v-if="isTutor" @click="createRoom" v-language:inner>chat_studyRoom</span>
+                <span v-if="isTutor && messages.length > 0" @click="createRoom" v-language:inner>chat_studyRoom</span>
             </v-flex>
             <v-flex class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>

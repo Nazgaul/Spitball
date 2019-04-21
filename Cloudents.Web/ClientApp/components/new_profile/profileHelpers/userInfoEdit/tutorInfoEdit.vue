@@ -45,11 +45,12 @@
                     </v-flex>
                     <v-flex>
                         <v-text-field class=""
+                                      :rules="[rules.required, rules.minimum]"
                                       :label="priceLabel"
                                       v-model="price"
                                       outline
                                       prefix="₪"
-                                      hide-details
+                                      :hide-details="$vuetify.breakpoint.xsOnly"
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
@@ -115,9 +116,13 @@
                 editedDescription: '',
                 editedFirstName: '',
                 editedLastName: '',
-                editedPrice: 0,
+                editedPrice: 1,
                 rules: {
                     required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
+                    minimum: value => {
+                        const pattern = /^\d*[1-9]\d*$/;
+                        return pattern.test(value) || LanguageService.getValueByKey("formErrors_positive_only")
+                    }
                 },
                 valid: false,
 
