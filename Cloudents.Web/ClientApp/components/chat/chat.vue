@@ -106,6 +106,7 @@
                 this.toggleChatMinimize();
             },
             closeChatWindow(){
+                this.OriginalChatState();
                 this.closeChat();
             }
         },
