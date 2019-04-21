@@ -16,15 +16,15 @@
         <!--</v-list-tile>-->
       <!--</v-list>-->
       <v-list>
-        <v-list-tile class="group-header search-university-title pl-1">
+        <v-list-tile class="group-header search-university-title pl-1" :class="{'active': inStudyRoomLobby}">
           <v-list-tile-action>
             <v-icon>sbf-studyroom-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openStudyRooms()"  v-text="dictionary.myStudyRooms" class="pl-1"></v-list-tile-title>
+          <v-list-tile-title @click="openStudyRooms()" v-text="dictionary.myStudyRooms" class="pl-1"></v-list-tile-title>
         </v-list-tile>
       </v-list>
       <v-list class="class-list">
-        <v-list-tile class="group-header cursor-pointer" :class="{'active': !selectedCourse}">
+        <v-list-tile class="group-header cursor-pointer" :class="{'active': !selectedCourse && !inStudyRoomLobby}">
           <v-list-tile-action class="mr-1">
             <v-icon>sbf-courses-icon</v-icon>
           </v-list-tile-action>
@@ -64,7 +64,8 @@ export default {
         allCourses: LanguageService.getValueByKey('schoolBlock_all_courses'),
         myStudyRooms: LanguageService.getValueByKey('schoolBlock_my_study_rooms'),
       },
-      inUniselect: this.$route.path.indexOf('courses') > -1 || this.$route.path.indexOf('university') > -1 || this.$route.path.indexOf('study-rooms') > -1
+      inUniselect: this.$route.path.indexOf('courses') > -1 || this.$route.path.indexOf('university') > -1,
+      inStudyRoomLobby: this.$route.path.indexOf('study-rooms') > -1
     };
   },
   props: {
@@ -111,6 +112,7 @@ export default {
     },
     $route(val) {
       this.inUniselect = val.path.indexOf('courses') > -1 || val.path.indexOf('university') > -1;
+      this.inStudyRoomLobby = val.path.indexOf('study-rooms') > -1;
       if (!!this.$route.query) {
         if (!this.$route.query.Course) {
           this.selectedCourse = "";
@@ -137,7 +139,7 @@ export default {
       return (!!this.$route.query && !!this.$route.query.term) || (!!this.$route.query && (!!this.$route.query.Filter || !!this.$route.query.Source))
     },
     selectCourse(item, isDefault) {
-      if(this.inUniselect && !item){
+      if((this.inUniselect || this.inStudyRoomLobby) && !item){
         this.updateFilter();
         return;
       }
