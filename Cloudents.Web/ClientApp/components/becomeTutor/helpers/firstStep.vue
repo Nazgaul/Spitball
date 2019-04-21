@@ -24,6 +24,7 @@
             </v-flex>
             <v-flex xs12 sm6 md6 class="inputs-wrap" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
                 <v-layout column shrink  justify-start>
+                    <v-form v-model="validBecomeFirst" ref="becomeFormFirst">
                     <v-flex xs12  shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-3']">
                         <v-text-field outline
                                       v-model="firstName"
@@ -41,14 +42,12 @@
                     </v-flex>
                     <v-flex xs12 class="mt-2">
                         <v-text-field outline class="font-weight-bold price-input"
-                                      :rules="[rules.required, rules.minimum]"
+                                      :rules="[rules.required, rules.minimum, rules.maximum]"
                                       v-model="price"
                                       prefix="₪"
                                       :label="placePrice"></v-text-field>
                     </v-flex>
-                    <!--<v-flex xs12 class="contact-price">-->
-                        <!--<div class="blue-text caption cursor-pointer" v-language:inner>becomeTutor_contact_to_change</div>-->
-                    <!--</v-flex>-->
+                    </v-form>
                 </v-layout>
             </v-flex>
         </v-layout>
@@ -84,11 +83,16 @@
                 firstName: '',
                 lastName: '',
                 price: 50,
+                validBecomeFirst:false,
                 rules: {
                     required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
                     minimum: value => {
                         const pattern = /^\d*[1-9]\d*$/;
                         return pattern.test(value) || LanguageService.getValueByKey("formErrors_positive_only")
+                    },
+                    maximum: value =>{
+                        const maxAmmount = 200000;
+                        return value <= maxAmmount || `${LanguageService.getValueByKey("formErrors_max_number")} ${maxAmmount}`
                     }
                 },
                 isLoaded: false
@@ -108,17 +112,7 @@
             },
 
         },
-        // watch: {
-        //     price(newValue, oldValue) {
-        //         if(!newValue)return;
-        //         let val = Number.parseInt(newValue);
-        //         if(val <= 0){
-        //             return this.price = 1;
-        //         }else{
-        //             return val
-        //         }
-        //     }
-        // },
+
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),
             loaded(){
@@ -133,9 +127,16 @@
 
             },
             nextStep(){
-                let data = { image: this.userImage, firstName: this.firstName, lastName: this.lastName, price: this.price };
-                this.updateTutorInfo(data);
-                this.$root.$emit('becomeTutorStep', 2);
+                if(this.$refs.becomeFormFirst.validate()) {
+                    let data = {
+                        image: this.userImage,
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        price: this.price
+                    };
+                    this.updateTutorInfo(data);
+                    this.$root.$emit('becomeTutorStep', 2);
+                }
             },
             closeDialog(){
                 this.updateTutorDialog(false)
