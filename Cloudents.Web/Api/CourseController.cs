@@ -39,16 +39,14 @@ namespace Cloudents.Web.Api
         }
 
         /// <summary>
-        /// Perform course search
+        /// Perform course search - we can't put cache because the user can re-enter the page
         /// </summary>
         /// <param name="request">params</param>
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour,
-            Location = ResponseCacheLocation.Client,
-            VaryByQueryKeys = new[] { "*" })]
+      
         public async Task<CoursesResponse> GetAsync(
            [FromQuery] CourseSearchRequest request,
             CancellationToken token)
