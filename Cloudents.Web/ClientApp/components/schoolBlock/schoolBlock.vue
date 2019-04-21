@@ -18,7 +18,7 @@
       <v-list>
         <v-list-tile class="group-header search-university-title">
           <v-list-tile-action>
-            <v-icon>sbf-university-columns</v-icon>
+            <v-icon>sbf-studyroom-icon</v-icon>
           </v-list-tile-action>
           <v-list-tile-title @click="openStudyRooms()"  v-text="dictionary.myStudyRooms"></v-list-tile-title>
         </v-list-tile>
