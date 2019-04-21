@@ -6,7 +6,7 @@ import whiteBoardService from "./whiteboard/whiteBoardService";
 const dataTrack = new LocalDataTrack();
 
 const uploadCanvasImage = function (formData) {
-    return connectivityModule.http.post("Tutoring/upload", formData);
+    return connectivityModule.http.post("StudyRoom/upload", formData);
 };
 // Attach the Tracks to the DOM.
 const attachTracks = function (tracks, container) {
