@@ -122,11 +122,11 @@ let routes2 = [
         alias: [
             "/" + RouteTypes.marketRoute,
             // "/" + RouteTypes.questionRoute,
-            "/" + RouteTypes.flashcardRoute,
+            // "/" + RouteTypes.flashcardRoute,
             // "/" + RouteTypes.notesRoute,
             "/" + RouteTypes.tutorRoute,
-            "/" + RouteTypes.bookRoute,
-            "/" + RouteTypes.jobRoute
+            // "/" + RouteTypes.bookRoute,
+            // "/" + RouteTypes.jobRoute
         ],
         components: resultPage,
         props: resultProps,
