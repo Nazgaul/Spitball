@@ -97,7 +97,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
             await client.LogInAsync();
-            var response = await client.PostAsync("api/University/create", new StringContent("{\"name\":\"Open University\",\"country\":\"IL\"}", Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("api/University/create", 
+                new StringContent("{\"name\":\"Open University\",\"country\":\"IL\"}", Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
         }
