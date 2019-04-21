@@ -6,7 +6,13 @@
         </div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <span v-if="isTutor && messages.length > 0" @click="createRoom" v-language:inner>chat_studyRoom</span>
+                <div>
+                    <span v-if="isTutor && messages.length > 0" @click="createRoom" v-language:inner>chat_studyRoom</span>
+                </div>
+                <div>
+                    <v-icon style="font-size: 16px;" @click="createRoom">sbf-studyroom-icon</v-icon>
+                </div>
+              
             </v-flex>
             <v-flex class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
