@@ -355,6 +355,9 @@ let routes2 = [
             header: profilePageHeader,
         },
         name: "profile",
+        // meta:{
+        //     showMobileFooter: true,
+        // },
         props: {
             default: (route) => ({
                 id: route.params.id
