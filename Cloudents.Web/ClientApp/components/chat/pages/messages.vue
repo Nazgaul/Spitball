@@ -19,7 +19,7 @@
             </v-flex>
             <v-flex class="messages-input">
                 <chat-upload-file></chat-upload-file>
-                <v-text-field solo type="text" placeholder="Type a message" @keyup.enter="sendMessage" v-model="messageText"></v-text-field>
+                <v-text-field solo type="text" :placeholder="placeHolderText" v-language:placeholder @keyup.enter="sendMessage" v-model="messageText"></v-text-field>
             </v-flex>
         </v-layout>
     </div>
@@ -31,6 +31,7 @@ import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
 import userOnlineStatus from '../../helpers/userOnlineStatus/userOnlineStatus.vue';
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
 import {mapGetters, mapActions} from 'vuex';
+import { LanguageService } from '../../../services/language/languageService'
 export default {
     components:{
         message,
@@ -40,7 +41,9 @@ export default {
     },
     data(){
         return{
-            messageText: ""
+            messageText: "",
+            placeHolderText: LanguageService.getValueByKey("chat_type_message"),
+
         }
     },
     computed:{
