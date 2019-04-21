@@ -187,8 +187,8 @@
                     let editsData ={
                         name: this.editedFirstName || this.firstName,
                         lastName: this.editedLastName || this.lastName,
-                        bio: this.editedBio,
                         price: this.editedPrice || this.price,
+                        bio: this.editedBio,
                         description: this.editedDescription
                     };
                     accountService.saveTutorInfo(editsData)

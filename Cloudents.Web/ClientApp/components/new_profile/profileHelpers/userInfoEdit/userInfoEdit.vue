@@ -122,6 +122,9 @@
                 this.closeCallback ? this.closeCallback() : ''
             },
         },
+        created(){
+            this.editedDescription =  this.getProfile.user.description || ''
+        }
     }
 </script>
 
