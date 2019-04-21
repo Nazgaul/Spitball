@@ -5,7 +5,6 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
-using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
 using Dapper;
@@ -25,12 +24,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Cloudents.Query.Query;
-using Cloudents.Search.University;
-using FluentNHibernate.Data;
-
 using Cloudents.Search.Document;
-using Cloudents.Search.Question;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 

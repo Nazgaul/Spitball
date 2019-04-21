@@ -3,11 +3,9 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
 using Microsoft.AspNetCore.SignalR;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query;
 
 namespace Cloudents.Web.EventHandler
 {

@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
-using Cloudents.Search.Document;
 using Cloudents.Search.Extensions;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;

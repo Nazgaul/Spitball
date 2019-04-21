@@ -5,7 +5,6 @@ using Cloudents.Core;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
-using Google.Apis.Docs.v1.Data;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.EventHandler

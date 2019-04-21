@@ -1,8 +1,6 @@
-﻿using Cloudents.Core.Interfaces;
-using Cloudents.Query.Query.Admin;
+﻿using Cloudents.Query.Query.Admin;
 using Dapper;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 

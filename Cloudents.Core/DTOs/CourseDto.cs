@@ -1,28 +1,11 @@
 ﻿
+using System.Diagnostics.CodeAnalysis;
+
 namespace Cloudents.Core.DTOs
 {
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local", Justification = "Reflection")]
     public class CourseDto
     {
-        //public CourseDto(string name)
-        //{
-        //    Name = name;
-        //}
-
-        //public CourseDto(string name, bool? isFollowing, int students, bool? isPending)
-        //{
-        //    Name = name;
-        //    IsFollowing = isFollowing;
-        //    Students = students;
-        //    IsPending = isPending;
-        //}
-
-        //public CourseDto(string name, ItemState state, int students)
-        //{
-        //    Name = name;
-        //    Students = students;
-        //    State = state;
-        //}
-
         public string Name { get; private set; }
         public bool? IsFollowing { get; private set; }
         public int Students { get; private set; }

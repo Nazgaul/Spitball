@@ -1,7 +1,6 @@
 ﻿using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
