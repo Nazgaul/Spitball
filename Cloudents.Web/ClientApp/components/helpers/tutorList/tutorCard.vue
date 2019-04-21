@@ -1,5 +1,6 @@
 <template>
-    <v-card class="tutor-card-wrap px-3 pb-small mb-2 elevation-0 hello">
+
+    <v-card class="tutor-card-wrap px-3 pb-small mb-2 elevation-0 cursor-pointer " @click.native="goToTutorProfile(tutorData.userId)">
         <v-layout align-center justify-space-between class="pt-small pb-1">
             <v-flex shrink class="mr-2 tutor-name font-weight-bold caption">
                 {{tutorData.name}}
@@ -7,7 +8,7 @@
             <!-- <v-flex grow>
                 <user-rank class="tutor-rank" :score="tutorData.score"></user-rank>
             </v-flex> -->
-            <v-flex @click="sendMessage" class="rounded" shrink>
+            <v-flex @click.prevent.stop="sendMessage" class="rounded" shrink style="z-index: 99;">
                 <commentIcon class="chat-icon"></commentIcon>
             </v-flex>
         </v-layout>
@@ -43,6 +44,7 @@
             </v-flex>
         </v-layout>
     </v-card>
+
 </template>
 
 <script>
@@ -75,6 +77,9 @@
         },
         methods: {
             ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface', 'changeFooterActiveTab']),
+            goToTutorProfile(userId){
+                this.$router.push({name:'profile', params:{id: userId}})
+            },
             sendMessage() {
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);

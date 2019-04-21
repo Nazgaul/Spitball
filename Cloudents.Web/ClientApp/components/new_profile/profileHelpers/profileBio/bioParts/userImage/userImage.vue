@@ -141,6 +141,7 @@
         }
         .user-picture {
             border-radius: 4px;
+            border: 1px solid @systemBackgroundColor;
             @media (max-width: @screen-xs) {
                 box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.41);
             }
