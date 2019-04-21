@@ -8,7 +8,7 @@
                     </v-flex>
                     <v-flex xs12 order-xs1 order-sm2 order-md2 :class="[$vuetify.breakpoint.smAndUp ?  'pl-4' : 'mb-4']">
                         <v-layout class="name-price-wrap" justify-space-between>
-                            <v-flex xs12 sm8 md8>
+                            <v-flex xs12 sm6 md6>
                                 <div class="user-name mb-2">
                                     <div class="align-start d-flex">
                                         <v-icon v-if="$vuetify.breakpoint.xsOnly && isTutorProfile" class="face-icon mr-2">sbf-face-icon</v-icon>
@@ -27,11 +27,11 @@
                                 <span class="tutor-price"  v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">{{tutorPrice}}
                                 <span class="tutor-price small-text">
                                     <!--<span v-language:inner>app_currency_dynamic</span>-->
-                                    <span>/</span>
+                                    <span>/&nbsp;</span>
                                      <span v-language:inner>profile_points_hour</span>
                                 </span>
                                 </span>
-                                 <span class="mt-0 ml-4" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
+                                 <span class="mt-0 ml-2" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
                                      <v-icon @click="openEditInfo()" class="edit-profile-action subheading">sbf-edit-icon</v-icon>
                                  </span>
                             </div>
