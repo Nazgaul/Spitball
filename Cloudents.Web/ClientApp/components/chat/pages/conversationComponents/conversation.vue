@@ -6,7 +6,10 @@
     </v-flex>
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
-        <span class="conversation-name">{{conversation.name}}</span>
+        <v-flex>
+          <span class="conversation-name">{{conversation.name}}</span>
+          <span class="conversation-desc">message {{conversation.name}}</span>
+      </v-flex>
         <v-flex class="date-unread-container">
           <span class="conversation-date">{{date}}</span>
           <div>
@@ -16,9 +19,7 @@
         </v-flex>
         
       </v-flex>
-      <!-- <v-flex>
-            <span>message {{conversation}}</span>
-      </v-flex>-->
+      
     </v-flex>
   </div>
 </template>
@@ -50,8 +51,9 @@ export default {
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 7px 0;
-  border-bottom: solid 1px rgba(67, 66, 93, 0.17);
+  &:hover{
+    background: #f7f7f7;
+  }
   .avatar-container {
     position:relative;
     flex-grow: 0;
@@ -63,12 +65,15 @@ export default {
   }
   .user-detail-container {
     padding: 12px;
+    border-bottom: solid 2px rgba(67, 66, 93, 0.17);
+    padding: 16px 12px 16px 12px;
+    
     .top-detail-container {
       display: flex;
       justify-content: space-between;
       .conversation-name{
         display: flex;
-        font-size: 11px;
+        font-size: 13px;
         font-weight: bold;
         color: #43425d;
         align-items: center;
@@ -78,13 +83,17 @@ export default {
         white-space: nowrap;
         overflow: hidden;
       }
+      .conversation-desc{
+        font-size: 12px
+      }
       .date-unread-container{
         display: flex;
         flex-direction: column;
         text-align: right;
         .conversation-date{
           font-size: 11px;
-          color: #43425d;
+          color: rgba(0, 0, 0, 0.38);
+          
         }
         .conversation-unread{
           background: #4452fc;
@@ -96,6 +105,7 @@ export default {
           text-align: center;
           vertical-align: middle;
           font-size: 11px;
+          margin-top: 2px;
         }
       }
       

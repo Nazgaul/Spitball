@@ -12,6 +12,8 @@ const state = {
     isRoomLoading: false,
     isFirepadLoadedOnce: false,
     qualityDialogVisibility: false,
+    notAllowedDevices: false,
+    notAvaliableDevices: false,
     studyRoomData: null,
     roomStateEnum: {
         pending: "pending",
@@ -34,12 +36,20 @@ const getters = {
     roomLoading: state => state.isRoomLoading,
     firepadLoadedOnce: state => state.isFirepadLoadedOnce,
     qualityDialog: state => state.qualityDialogVisibility,
+    getNotAllowedDevices: state => state.notAllowedDevices,
+    getNotAvaliableDevices: state=> state.notAvaliableDevices,
     getCurrentRoomState: state => state.currentRoomState,
     getStudyRoomData: state => state.studyRoomData,
     getJwtToken: state => state.jwtToken
 };
 
 const mutations = {
+    updateAllowedDevices(state, val){
+        state.notAllowedDevices = val
+    },
+    updateAvaliableDevices(state, val){
+        state.notAvaliableDevices = val
+    },
     setStudyRoomProps(state, val) {
         state.studyRoomData = val;
     },
@@ -92,6 +102,12 @@ const mutations = {
 };
 
 const actions = {
+    setAvaliableDevicesStatus({commit, state}, val) {
+        commit('updateAvaliableDevices', val);
+    },
+    setAllowedDevicesStatus({commit, state}, val) {
+        commit('updateAllowedDevices', val);
+    },
     updateStudyRoomProps({commit, state}, val) {
         let roomData = tutorService.createRoomProps(val);
         commit('setStudyRoomProps', roomData);

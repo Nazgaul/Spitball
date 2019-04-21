@@ -145,7 +145,7 @@
     <value>פרטים אישיים</value>
   </data>
   <data name="placeholder_bio" xml:space="preserve">
-    <value>הקלד כמה מילים על הרקע שלך ועל מי אתה</value>
+    <value>ספר על עצמך ומה הרקע שלך</value>
   </data>
   <data name="placeholder_description" xml:space="preserve">
     <value>הקלד משפט מפתח על עצמך</value>

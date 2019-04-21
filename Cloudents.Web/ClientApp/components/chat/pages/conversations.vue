@@ -45,9 +45,7 @@ export default {
     overflow: auto;
     .conversations-wrapper{
         cursor: pointer;
-        &:hover{
-            background: #f7f7f7;
-        }
+        
     }
 }
 </style>

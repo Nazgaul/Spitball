@@ -41,11 +41,9 @@
                     </v-flex>
                     <v-flex xs12 class="mt-2">
                         <v-text-field outline class="font-weight-bold price-input"
+                                      :rules="[rules.required, rules.minimum]"
                                       v-model="price"
                                       prefix="₪"
-                                      type="number"
-                                      min="1"
-                                      hide-details
                                       :label="placePrice"></v-text-field>
                     </v-flex>
                     <!--<v-flex xs12 class="contact-price">-->
@@ -86,6 +84,13 @@
                 firstName: '',
                 lastName: '',
                 price: 50,
+                rules: {
+                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
+                    minimum: value => {
+                        const pattern = /^\d*[1-9]\d*$/;
+                        return pattern.test(value) || LanguageService.getValueByKey("formErrors_positive_only")
+                    }
+                },
                 isLoaded: false
             };
         },
@@ -103,17 +108,17 @@
             },
 
         },
-        watch: {
-            price(newValue, oldValue) {
-                if(!newValue)return;
-                let val = Number.parseInt(newValue);
-                if(val <= 0){
-                    return this.price = 1;
-                }else{
-                    return val
-                }
-            }
-        },
+        // watch: {
+        //     price(newValue, oldValue) {
+        //         if(!newValue)return;
+        //         let val = Number.parseInt(newValue);
+        //         if(val <= 0){
+        //             return this.price = 1;
+        //         }else{
+        //             return val
+        //         }
+        //     }
+        // },
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),
             loaded(){

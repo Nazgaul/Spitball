@@ -63,7 +63,7 @@ export default {
     .message-date{
         color: rgba(0, 0, 0, 0.38);
         display: flex;
-        font-size: 12px;
+        font-size: 11px;
         &.myMessage{
             justify-content: flex-end;
         }
