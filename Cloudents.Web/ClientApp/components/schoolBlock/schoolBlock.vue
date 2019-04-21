@@ -28,7 +28,7 @@
           <v-list-tile-action class="mr-1">
             <v-icon>sbf-courses-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title   @click="selectCourse(null, true)" v-text="dictionary.allCourses"></v-list-tile-title>
+          <v-list-tile-title @click="selectCourse(null, true)" v-text="dictionary.allCourses"></v-list-tile-title>
           <v-list-tile-action class="edit-course px-3" @click="openPersonalizeCourse()">
             <v-icon>sbf-close</v-icon>
           </v-list-tile-action>
@@ -64,7 +64,7 @@ export default {
         allCourses: LanguageService.getValueByKey('schoolBlock_all_courses'),
         myStudyRooms: LanguageService.getValueByKey('schoolBlock_my_study_rooms'),
       },
-      inUniselect: this.$route.path.indexOf('courses') > -1 || this.$route.path.indexOf('university') > -1
+      inUniselect: this.$route.path.indexOf('courses') > -1 || this.$route.path.indexOf('university') > -1 || this.$route.path.indexOf('study-rooms') > -1
     };
   },
   props: {
@@ -156,7 +156,6 @@ export default {
             this.selectedCourse = ""
           }
         }else{
-          
           let text = item.text ? item.text : item;
           if (this.selectedCourse === text) {
             if(this.isInSearchMode()){

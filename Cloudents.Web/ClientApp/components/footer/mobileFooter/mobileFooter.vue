@@ -106,6 +106,7 @@
         border-radius: 50%;
         height: 13px;
         width: 13px;
+        line-height: 13px;
         display: flex;
         font-size: 10px;
         justify-content: center;

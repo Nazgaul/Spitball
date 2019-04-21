@@ -6,10 +6,10 @@
         </div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <div>
-                    <span v-if="isTutor && messages.length > 0" @click="createRoom" v-language:inner>chat_studyRoom</span>
+                <div v-if="isTutor && messages.length > 0">
+                    <span @click="createRoom" v-language:inner>chat_studyRoom</span>
                 </div>
-                <div>
+                <div v-if="isTutor && messages.length > 0">
                     <v-icon style="font-size: 16px; color:#bcbccb" @click="createRoom">sbf-studyroom-icon</v-icon>
                 </div>
               
