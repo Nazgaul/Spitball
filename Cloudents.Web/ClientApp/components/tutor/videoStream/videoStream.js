@@ -42,7 +42,9 @@ export default {
                           'getCurrentRoomState',
                           'getStudyRoomData',
                           'getJwtToken',
-                          'accountUser'
+                          'accountUser',
+                          'getNotAllowedDevices',
+                          'getNotAvaliableDevices'
                       ]),
         roomIsPending() {
             return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
@@ -69,7 +71,8 @@ export default {
         ...mapActions([
                           'updateRoomID',
                           'updateRoomLoading',
-                          'updateCurrentRoomState'
+                          'updateCurrentRoomState',
+                          'updateTestDialogState'
                       ]),
 
         biggerRemoteVideo() {
@@ -80,6 +83,10 @@ export default {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
         enterRoom() {
+            if(this.getNotAllowedDevices ||  this.getNotAvaliableDevices){
+                this.updateTestDialogState(true);
+                return
+            }
             if(this.isTutor) {
                 this.btnLoading = true;
                 tutorService.enterRoom(this.id).then(() => {
@@ -132,7 +139,7 @@ export default {
                                  networkQuality: true
                              };
                              tutorService.connectToRoom(token, connectOptions);
-                             self.isTutor ?  self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.loading) :  self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active);
+        self.isTutor ?  self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.loading) :  self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active);
 
                          }, (error) => {
                              console.log(error, 'error create tracks before connect');
