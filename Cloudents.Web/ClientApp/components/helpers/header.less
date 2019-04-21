@@ -451,14 +451,14 @@
   justify-content: flex-end;
   display: flex;
   border-right: 1px solid #dddddd;
-  padding-right: 5px;
+  padding-right: 12px;
   position: relative;
   .unread-circle{
     position: absolute;
-    top: 0px;
-    right: 5px;
+    top: 2px;
+    right: 12px;
     background: #4452fc;
-    color: #fff;
+    color: @color-white;
     border-radius: 50%;
     height: 13px;
     width: 13px;
@@ -467,6 +467,7 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
+    border: 1px solid @color-white;
   }
   .header-messages-text{
     cursor: pointer;
@@ -474,7 +475,7 @@
   }
   i{
     font-size:16px;
-    padding: 0 5px;
+    padding: 2px 6px 0 8px;
     color: #bcbccb !important;
   }
 }
