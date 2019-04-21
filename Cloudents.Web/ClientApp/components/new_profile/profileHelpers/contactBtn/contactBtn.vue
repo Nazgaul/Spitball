@@ -47,6 +47,10 @@ import chatService from '../../../../services/chatService'
 <style lang="less">
     @import '../../../../styles/mixin.less';
     .contact-btn-wrap {
+        @media(max-width: @screen-xs){
+            margin-top: 2px;
+            margin-bottom: 6px;
+        }
         .ct-btn {
             display: flex;
             align-items: center;
