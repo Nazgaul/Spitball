@@ -123,6 +123,9 @@
   <data name="longer_4" xml:space="preserve">
     <value>Min.  4 characters</value>
   </data>
+  <data name="positive_only" xml:space="preserve">
+    <value>Only positive values</value>
+  </data>
   <data name="required" xml:space="preserve">
     <value>This field is required</value>
   </data>
