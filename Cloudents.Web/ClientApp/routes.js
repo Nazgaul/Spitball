@@ -264,15 +264,15 @@ let routes2 = [
     },
 
 
-    {
-        path: "/book/:id",
-        name: RouteTypes.bookDetailsRoute,
-        components: {
-            default: bookDetails,
-            header: bookDetailsHeader
-        },
-        props: bookDetailsProps
-    },
+    // {
+    //     path: "/book/:id",
+    //     name: RouteTypes.bookDetailsRoute,
+    //     components: {
+    //         default: bookDetails,
+    //         header: bookDetailsHeader
+    //     },
+    //     props: bookDetailsProps
+    // },
     {
         path: "/note/:universityName/:courseName/:id/:name",
         alias: ['/document/:universityName/:courseName/:id/:name'],
@@ -317,19 +317,19 @@ let routes2 = [
             })
         }
     },
-    {
-        path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
-        name: "flashcard",
-        components: {
-            default: showFlashcard,
-            header: previewHeader
-        },
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
+    // {
+    //     path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
+    //     name: "flashcard",
+    //     components: {
+    //         default: showFlashcard,
+    //         header: previewHeader
+    //     },
+    //     props: {
+    //         default: (route) => ({
+    //             id: route.params.id
+    //         })
+    //     }
+    // },
     {
         path: "/question/:id",
         components: {

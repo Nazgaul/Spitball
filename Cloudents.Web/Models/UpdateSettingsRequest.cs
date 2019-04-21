@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Web.Models
 {
@@ -15,6 +16,7 @@ namespace Cloudents.Web.Models
         [StringLength(1000, ErrorMessage = "StringLength")]
         public string Bio { get; set; }
 
+        [Range(0, Tutor.MaximumPrice)]
         public decimal Price { get; set; }
     }
 

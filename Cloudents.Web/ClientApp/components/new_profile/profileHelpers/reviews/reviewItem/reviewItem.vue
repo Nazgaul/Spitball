@@ -1,5 +1,5 @@
 <template>
-    <div class="rating-item-container py-3">
+    <div class="rating-item-container pt-3 pb-2">
         <v-layout align-center justify-space-between>
             <div class="image-rating-wrap">
                 <div>
@@ -14,8 +14,8 @@
                             :starColor="starRateColor"
                             :readonly="true"
                             :rateNumColor="rateNumColor"
-                            :size="'18'"></userRating>
-                    <div class="name-rank-wrap">
+                            :size="'16'"></userRating>
+                    <div class="name-rank-wrap mt-2">
                         <span class="user-review-name mr-2 ">{{reviewData.name}}</span>
                         <userRank :score="reviewData.score"></userRank>
                     </div>
@@ -45,7 +45,7 @@
         data() {
             return {
                 // rating: 3.5,
-                starRateColor: '#000000',
+                starRateColor: '#43425d',
                 rateNumColor: '#000000',
             }
         },
@@ -60,7 +60,7 @@
     @import '../../../../../styles/mixin.less';
     .rating-item-container{
         .left-padding{
-            padding-left: 32px;
+            padding-left: 38px;
         }
         .image-rating-wrap{
             display: flex;
@@ -92,7 +92,7 @@
             }
         }
         .review-text{
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1.4;
             color: @profileTextColor;
             @media(max-width: @screen-xs){

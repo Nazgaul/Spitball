@@ -4,40 +4,34 @@
                          width="260"
                          @input="updateDrawerValue" :value="getShowSchoolBlock"
                          :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
+      <!--<v-list>-->
+        <!--<v-list-tile class="group-header search-university-title">-->
+          <!--<v-list-tile-action class="mr-1">-->
+            <!--<v-icon>sbf-uni-default</v-icon>-->
+          <!--</v-list-tile-action>-->
+          <!--<v-list-tile-title class="font-weight-regular" @click="openPersonalizeUniversity()">{{uniHeaderText}}</v-list-tile-title>-->
+          <!--<v-list-tile-action v-if="!schoolName" class="edit-course">-->
+            <!--<v-icon @click="openPersonalizeUniversity()">sbf-close</v-icon>-->
+          <!--</v-list-tile-action>-->
+        <!--</v-list-tile>-->
+      <!--</v-list>-->
       <v-list>
-        <v-list-tile class="group-header search-university-title">
-          <v-list-tile-action class="mr-1">
-            <v-icon>sbf-uni-default</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title class="font-weight-regular" @click="openPersonalizeUniversity()">{{uniHeaderText}}</v-list-tile-title>
-          <v-list-tile-action v-if="!schoolName" class="edit-course">
-            <v-icon @click="openPersonalizeUniversity()">sbf-close</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-      </v-list>
-      <v-list>
-        <v-list-tile class="group-header search-university-title">
+        <v-list-tile class="group-header search-university-title pl-1">
           <v-list-tile-action>
             <v-icon>sbf-studyroom-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openStudyRooms()" v-text="dictionary.myStudyRooms"></v-list-tile-title>
+          <v-list-tile-title @click="openStudyRooms()"  v-text="dictionary.myStudyRooms" class="pl-1"></v-list-tile-title>
         </v-list-tile>
       </v-list>
       <v-list class="class-list">
-        <v-list-tile class="group-header">
+        <v-list-tile class="group-header cursor-pointer" :class="{'active': !selectedCourse}">
           <v-list-tile-action class="mr-1">
             <v-icon>sbf-courses-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openPersonalizeCourse()" >{{coursesHeaderText}}</v-list-tile-title>
-          <v-list-tile-action class="edit-course">
-            <v-icon @click="openPersonalizeCourse()">sbf-close</v-icon>
+          <v-list-tile-title   @click="selectCourse(null, true)" v-text="dictionary.allCourses"></v-list-tile-title>
+          <v-list-tile-action class="edit-course px-3" @click="openPersonalizeCourse()">
+            <v-icon>sbf-close</v-icon>
           </v-list-tile-action>
-        </v-list-tile>
-        <v-list-tile
-          class="group-items"
-          :class="{'active': !selectedCourse && !inUniselect}"
-          @click="selectCourse(null, true)">
-          <v-list-tile-title style="font-weight: bold;" v-text="dictionary.allCourses"></v-list-tile-title>
         </v-list-tile>
         <v-list-tile
           class="group-items"
@@ -46,7 +40,7 @@
           :key="i"
           @click="selectCourse(item)"
         >
-          <v-list-tile-title v-text="item.text ? item.text : item"></v-list-tile-title>
+          <v-list-tile-title v-text="item.text ? item.text : item" class="pad-left"></v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
