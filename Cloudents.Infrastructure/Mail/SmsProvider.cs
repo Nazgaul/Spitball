@@ -6,12 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Twilio;
 using Twilio.Jwt.AccessToken;
+using Twilio.Rest.Lookups.V1;
 using Twilio.Rest.Video.V1;
 using Twilio.Rest.Video.V1.Room;
 using static Twilio.Rest.Video.V1.CompositionResource;
-
-//using Twilio;
-//using Twilio.Rest.Lookups.V1;
 
 namespace Cloudents.Infrastructure.Mail
 {
@@ -36,57 +34,45 @@ namespace Cloudents.Infrastructure.Mail
 
         public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, CancellationToken token)
         {
-            var result = await Twilio.Rest.Lookups.V1.PhoneNumberResource.FetchAsync(
-                pathPhoneNumber: phoneNumber,
-                type: new List<string>()
+            try
+            {
+                var result = await PhoneNumberResource.FetchAsync(
+                    pathPhoneNumber: phoneNumber,
+                    type: new List<string>()
+                    {
+                        "carrier"
+                    }
+                );
+               
+                if (result == null)
                 {
-                    "carrier"
+                    return (null, null);
                 }
-            );
-            //var uri = new Uri($"https://lookups.twilio.com/v1/PhoneNumbers/{phoneNumber}?Type=carrier");
+                var carrier = result.Carrier;
 
-            //var byteArray = Encoding.ASCII.GetBytes($"{AccountSid}:{AuthToken}");
-            //var authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-            //var headers = new List<KeyValuePair<string, string>>
-            //{
-            //    new KeyValuePair<string, string>("Authorization", authorization.ToString())
-            //};
+                if (carrier.TryGetValue("type", out var carrierType))
+                {
+                    if (!string.Equals(carrierType, "mobile", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return (null, null);
+                    }
+                }
+                if (carrier.TryGetValue("name", out var carrierName))
+                {
 
 
-            //var result = await _restClient.GetAsync<PhoneValidator>(uri, null, headers, token);
+                    if (_badProviders.Contains(carrierName, StringComparer.OrdinalIgnoreCase))
+                    {
+                        return (null, null);
+                    }
+                }
 
-            if (result == null)
+                return (result.PhoneNumber.ToString(), result.CountryCode);
+            }
+            catch (Twilio.Exceptions.ApiException e)
             {
                 return (null, null);
             }
-            var carrier = result.Carrier;
-
-            if (carrier.TryGetValue("type", out var carrierType))
-            {
-                if (!string.Equals(carrierType, "mobile", StringComparison.OrdinalIgnoreCase))
-                {
-                    return (null, null);
-                }
-            }
-            //https://support.twilio.com/hc/en-us/articles/360004563433-Twilio-Lookups-API-is-Not-Returning-Carrier-Data-for-Canadian-Phone-Numbers
-            //if (carrier.Type != null)
-            //{
-            //    if (!string.Equals(carrier.Type, "mobile", StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        return null;
-            //    }
-            //}
-            if (carrier.TryGetValue("name", out var carrierName))
-            {
-
-
-                if (_badProviders.Contains(carrierName, StringComparer.OrdinalIgnoreCase))
-                {
-                    return (null, null);
-                }
-            }
-
-            return (result.PhoneNumber.ToString(), result.CountryCode);
         }
 
 
