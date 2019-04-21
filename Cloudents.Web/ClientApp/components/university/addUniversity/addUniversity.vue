@@ -75,7 +75,7 @@
 
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapActions, mapGetters, mapMutations } from 'vuex';
     import debounce from "lodash/debounce";
     import { LanguageService } from "../../../services/language/languageService";
     import emptyUniLogo from '../images/empty-uni-logo.svg';
@@ -97,13 +97,12 @@
         },
         watch: {
             search: debounce(function () {
+                let searchVal = '';
                 if(!!this.search) {
-                    let searchVal = this.search.trim();
-                    if(searchVal.length >= 2) {
-                        let paramObj = {term : searchVal, page: 0};
-                        this.loadUniversities(paramObj);
-                    }
+                    searchVal = this.search.trim();
                 }
+                let paramObj = {term : searchVal, page: 0};
+                this.loadUniversities(paramObj);
             }, 500)
         },
         computed: {
@@ -135,6 +134,7 @@
                               "updateSchoolName",
                               "changeUniCreateDialogState"
                           ]),
+            ...mapMutations(['UPDATE_SEARCH_LOADING']),
             clearData(search, university) {
                 search = '';
                 university = undefined;
@@ -222,7 +222,8 @@
                     //new if changed
                     this.updateSchoolName(objToSend)
                         .then((success) => {
-                                  this.getOut();
+                                this.UPDATE_SEARCH_LOADING(true)
+                                this.getOut();
                               },
                               (error) => {
                                   console.log('error', error);

@@ -11,7 +11,7 @@ function AccountUser(ObjInit){
     this.phoneNumber = ObjInit.phoneNumber;
     this.isTutor = ObjInit.isTutor || false;
     this.image = ObjInit.image || '';
-
+    this.isTutor = ObjInit.isTutor || false;
 }
  function TutorData(objOnit) {
      this.online = objOnit.online || false;
@@ -168,6 +168,9 @@ export default {
     // createProfileData: (arrInit)=>{
     //     return new ProfileData(arrInit);
     // },
+    becomeTutor: (data) => {
+        return connectivityModule.http.post("/Account/settings", data)
+    },
     createUserProfileData: (objInit)=>{
         return new profileUserData(objInit);
     },

@@ -15,8 +15,7 @@ namespace Cloudents.Web.EventHandler
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class EmailAnswerCreated : EmailEventHandler, IEventHandler<AnswerCreatedEvent>
     {
-        public const string CreateAnswer = "CreateAnswer";
-       
+        
         private readonly IDataProtect _dataProtect;
         private readonly IUrlBuilder _urlBuilder;
 

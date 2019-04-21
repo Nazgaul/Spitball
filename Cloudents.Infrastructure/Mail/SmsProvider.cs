@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Interfaces;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +7,15 @@ using System.Threading.Tasks;
 using Twilio;
 using Twilio.Jwt.AccessToken;
 using Twilio.Rest.Video.V1;
+using Twilio.Rest.Video.V1.Room;
+using static Twilio.Rest.Video.V1.CompositionResource;
 
 //using Twilio;
 //using Twilio.Rest.Lookups.V1;
 
 namespace Cloudents.Infrastructure.Mail
 {
-    public class SmsProvider : ISmsProvider , IVideoProvider
+    public class SmsProvider : ISmsProvider, IVideoProvider
     {
 
 
@@ -89,40 +90,14 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
-
-
-        public class PhoneValidator
+        public async Task CreateRoomAsync(string id, bool needRecord)
         {
-            //public object caller_name { get; set; }
-            //public string country_code { get; set; }
-            [JsonProperty("phone_number")]
-            public string PhoneNumber { get; set; }
-            //public string national_format { get; set; }
-            [JsonProperty("carrier")]
-            public Carrier Carrier { get; set; }
-            //public object add_ons { get; set; }
-            //public string url { get; set; }
-        }
-
-        public class Carrier
-        {
-            //public string mobile_country_code { get; set; }
-            //public string mobile_network_code { get; set; }
-
-            [JsonProperty("name")]
-            public string Name { get; set; }
-            [JsonProperty("type")]
-            public string Type { get; set; }
-            //public object error_code { get; set; }
-        }
-
-
-        public  Task CreateRoomAsync(string id)
-        {
-            return RoomResource.CreateAsync(
+           await RoomResource.CreateAsync(
                 uniqueName: id,
                 maxParticipants: 2,
-                recordParticipantsOnConnect: true);
+                type: RoomResource.RoomTypeEnum.GroupSmall, //this is smaller fee
+                enableTurn: false,//no need according to document
+                recordParticipantsOnConnect: needRecord);
         }
 
         public Task CloseRoomAsync(string id)
@@ -134,20 +109,13 @@ namespace Cloudents.Infrastructure.Mail
         private const string SecretVideo = "sJBB0TVjomROMH2vj3VwuxvPN9CNHETj";
         public async Task<string> ConnectToRoomAsync(string roomName, string name)
         {
-      
-        var room = await RoomResource.FetchAsync(roomName);
 
+            var room = await RoomResource.FetchAsync(roomName);
             var grant = new VideoGrant
             {
                 Room = room.UniqueName,
             };
             var grants = new HashSet<IGrant> { grant };
-
-           // var name = identityName;
-            if (string.IsNullOrEmpty(name))
-            {
-                name = GetName();
-            }
 
             // Create an Access Token generator
             var token = new Token(
@@ -162,46 +130,37 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
-        #region Borrowed from https://github.com/twilio/video-quickstart-js/blob/1.x/server/randomname.js
-
-        readonly string[] _adjectives =
+        public async Task ComposeVideo(string roomId)
         {
-            "Abrasive", "Brash", "Callous", "Daft", "Eccentric", "Feisty", "Golden",
-            "Holy", "Ignominious", "Luscious", "Mushy", "Nasty",
-            "OldSchool", "Pompous", "Quiet", "Rowdy", "Sneaky", "Tawdry",
-            "Unique", "Vivacious", "Wicked", "Xenophobic", "Yawning", "Zesty"
-        };
 
-        readonly string[] _firstNames =
-        {
-            "Anna", "Bobby", "Cameron", "Danny", "Emmett", "Frida", "Gracie", "Hannah",
-            "Isaac", "Jenova", "Kendra", "Lando", "Mufasa", "Nate", "Owen", "Penny",
-            "Quincy", "Roddy", "Samantha", "Tammy", "Ulysses", "Victoria", "Wendy",
-            "Xander", "Yolanda", "Zelda"
-        };
+            var room = await RoomResource.FetchAsync(roomId);
+            var t = RoomRecordingResource.Read(room.Sid);
+            var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);
 
-        readonly string[] _lastNames =
-        {
-            "Anchorage", "Berlin", "Cucamonga", "Davenport", "Essex", "Fresno",
-            "Gunsight", "Hanover", "Indianapolis", "Jamestown", "Kane", "Liberty",
-            "Minneapolis", "Nevis", "Oakland", "Portland", "Quantico", "Raleigh",
-            "SaintPaul", "Tulsa", "Utica", "Vail", "Warsaw", "XiaoJin", "Yale",
-            "Zimmerman"
-        };
 
-      
+            var layout = new
+            {
+                transcode = new
+                {
+                    video_sources = new string[] { "MT*" }
+                }
+            };
 
-        string GetName() => $"{_adjectives.Random()} {_firstNames.Random()} {_lastNames.Random()}";
 
-        #endregion
+            var composition = CompositionResource.Create(
+                roomSid: room.Sid,
+                audioSources: new List<string>() { "*" },
+                videoLayout: layout,
+                trim: true,
+                //statusCallback: new Uri('http://my.server.org/callbacks'),
+                format: FormatEnum.Mp4
+            );
+        }
 
-      
+
+
+
     }
 
-    static class StringArrayExtensions
-    {
-        static readonly Random _random = new Random((int)DateTime.Now.Ticks);
 
-        internal static string Random(this IReadOnlyList<string> array) => array[_random.Next(array.Count)];
-    }
 }

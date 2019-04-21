@@ -1,12 +1,12 @@
 <template>
     <v-layout class="user-info-section" column align-center :class="{'mobile-view': $vuetify.breakpoint.xsOnly}">
         <!--<v-flex xs12>-->
-            <v-card class="px-2 user-info-card" :class="[$vuetify.breakpoint.xsOnly ? 'mobile-view justify-space-betweeen transparent elevation-0 px-0 py-2': 'py-4']">
+            <v-card class="px-3 user-info-card" :class="[$vuetify.breakpoint.xsOnly ? 'mobile-view justify-space-betweeen transparent elevation-0 px-0 py-2': 'py-4']">
                     <v-flex  v-if="$vuetify.breakpoint.smAndUp">
                         <div>
                             <div class="mb-2 text-sm-center text-xs-center">
-                                <h2 class="box-title" v-language:inner>profile_user_sidebar_title</h2>
-                                    <span class="tutoring-info-heading" v-language:inner>profile_user_sidebar_text
+                                <h2 class="box-title font-weight-black" v-language:inner>profile_user_sidebar_title</h2>
+                                    <span class="tutoring-info-heading caption d-block font-weight-bold font-italic" v-language:inner>profile_user_sidebar_text
 
                                     </span>
                             </div>
@@ -15,7 +15,7 @@
                     <v-flex  xs12 sm12 md12 :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-3']">
                         <becomeTutorBtn></becomeTutorBtn>
                     </v-flex>
-                <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}">
+                <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}" v-if="false">
                     <v-flex xs6 sm12 md12 class="info-item mb-2 text-xs-center" v-for="one in 2">
                     <div>
                         <span class="tutoring-info-label">Learning Hours</span>
@@ -67,7 +67,6 @@
 
         .box-title{
             font-size: 30px;
-            font-weight: bold;
             color: @profileTextColor;
         }
         .user-info-card{
@@ -76,6 +75,7 @@
             justify-content: center;
             flex-direction: column;
             min-width: 260px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.18);
             &.mobile-view{
                 width: 100%;
                 padding-top: 12px;
@@ -111,8 +111,7 @@
             }
         }
         .tutoring-info-heading {
-                font-size: 13px;
-                font-weight: 600;
+                margin-top: 12px;
                 font-style: italic;
                 color: @profileTextColor;
         }

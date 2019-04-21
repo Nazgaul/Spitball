@@ -24,17 +24,16 @@ namespace Cloudents.Query.SearchSync
             _repository = repository;
         }
 
-        const string FirstQuery = @"with cte as (
+        private const string FirstQuery = @"with cte as (
 select q.Id as QuestionId,
                            q.Language as Language,
-                           u.Country as Country,
+                           coalesce (uni.country,u.Country) as Country,
                            (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
                            q.Updated as DateTime, 
                            CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
                            q.Text as Text,
                            q.State as State,
                             q.Subject_id as Subject,
---q.CourseId as Course,
 c2.Name as Course,
 uni.Name as University,
 (select STRING_AGG(dt.TagId, ', ')	
@@ -59,9 +58,9 @@ select * from
 cte
 CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c;";
 
-        const string VersionSql = @"select q.Id as QuestionId,
+        private const string VersionSql = @"select q.Id as QuestionId,
 	    q.Language as Language,
-	    u.Country as Country,
+	    coalesce (uni.country,u.Country) as Country,
 	    (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
 	    q.Updated as DateTime, 
 	    CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,

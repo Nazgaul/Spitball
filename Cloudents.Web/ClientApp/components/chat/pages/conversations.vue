@@ -14,6 +14,7 @@
 <script>
 import {mapGetters, mapActions} from 'vuex';
 import conversationComp from './conversationComponents/conversation.vue'
+import chatService from '../../../services/chatService'
 export default {
     components:{
         conversationComp
@@ -27,12 +28,13 @@ export default {
     methods:{
         ...mapActions(['setActiveConversationObj']),
         openConversation(conversation){
-            let currentConversationObj = {
-                userId:conversation.userId,
-                conversationId: conversation.conversationId
-            }
+            let currentConversationObj = chatService.createActiveConversationObj(conversation)
             this.setActiveConversationObj(currentConversationObj);
         }
+    },
+    mounted(){
+        console.log("mounted");
+        this.$forceUpdate();
     }
 }
 </script>

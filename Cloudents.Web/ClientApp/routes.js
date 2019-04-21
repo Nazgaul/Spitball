@@ -33,7 +33,7 @@ const setUniversity = () => import("./components/university/university.vue");
 const addUniversity = () => import("./components/university/addUniversity/addUniversity.vue");
 
 const tutorComponent = () => import("./components/tutor/tutor.vue");
-
+const studyRoomsComponent = () => import("./components/studyRooms/studyRooms.vue");
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
 
@@ -89,6 +89,12 @@ const studyDocumentsPage = {
     header: pageHeader,
     schoolBlock: schoolBlock,
     verticals: verticalsTabs
+};
+
+const studyRoomsPage = {
+    default: studyRoomsComponent,
+    header: pageHeader,
+    schoolBlock: schoolBlock
 };
 
 const bookDetailsProps = {
@@ -287,7 +293,7 @@ let routes2 = [
     },
 
     {
-        path: "/tutoring/:id?",
+        path: "/studyroom/:id?",
         name: 'tutoring',
         components: {
             default: tutorComponent,
@@ -296,6 +302,16 @@ let routes2 = [
         header: () => ({
             submitRoute: '/tutoring',
         }),
+        props: {
+            default: (route) => ({
+                id: route.params.id
+            })
+        }
+    },
+    {
+        path: "/study-rooms",
+        name: 'studyRooms',
+        components: studyRoomsPage,
         props: {
             default: (route) => ({
                 id: route.params.id

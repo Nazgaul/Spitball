@@ -61,16 +61,18 @@ namespace Cloudents.Core
         Logout,
         MarkAsCorrect,
         Toaster,
-        OnlineStatus
+        OnlineStatus,
+        StartSession
     }
 
     public enum SignalRType
     {
         Question,
         Answer,
-        Document,
+        //Document,
         User,
         System,
-        Chat
+        Chat,
+        StudyRoom
     }
 }

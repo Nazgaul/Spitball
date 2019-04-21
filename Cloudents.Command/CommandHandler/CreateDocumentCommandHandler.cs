@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
@@ -14,12 +15,12 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<University> _universityRepository;
         private readonly IRepository<Document> _documentRepository;
-        private readonly ICourseRepository _courseRepository;
+        private readonly IRepository<Course> _courseRepository;
         private readonly ITagRepository _tagRepository;
 
         public CreateDocumentCommandHandler(IDocumentDirectoryBlobProvider blobProvider,
             IRepository<User> userRepository,
-            IRepository<Document> documentRepository, ICourseRepository courseRepository,
+            IRepository<Document> documentRepository, IRepository<Course> courseRepository,
             ITagRepository tagRepository, IRepository<University> universityRepository)
         {
             _blobProvider = blobProvider;
@@ -53,7 +54,7 @@ namespace Cloudents.Command.CommandHandler
                 university = await _universityRepository.LoadAsync(message.UniversityId.Value, token);
             }
 
-            var document = new Document(message.Name, university, 
+            var document = new Document(Path.GetFileNameWithoutExtension(message.Name), university,
                 course, message.Type, tags, user, message.Professor, message.Price);
             await _documentRepository.AddAsync(document, token);
             var id = document.Id;

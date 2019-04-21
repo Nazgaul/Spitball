@@ -1,14 +1,14 @@
 ﻿import { connectivityModule } from '../../../services/connectivity.module';
 
 
-function universityItem(objInit) {
+function UniversityItem(objInit) {
     this.newId = objInit.newId;
     this.newUniversity = objInit.newUniversity;
     this.oldId = objInit.oldId;
     this.oldUniversity = objInit.oldUniversity;
 }
 function createUniversityItem(objInit) {
-    return new universityItem(objInit);
+    return new UniversityItem(objInit);
 }
 
 const path = 'AdminUniversity/';

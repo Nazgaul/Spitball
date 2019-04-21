@@ -5,7 +5,7 @@ namespace Cloudents.Core.Query
 {
     public class DocumentQuery : VerticalQuery
     {
-        public DocumentQuery(UserProfile userProfile, 
+        public DocumentQuery(UserProfile userProfile,
             string term,
             string course,
             bool filterByUniversity,
@@ -28,14 +28,7 @@ namespace Cloudents.Core.Query
             UserProfile = userProfile;
             Term = term;
             Course = course;
-            if (string.IsNullOrEmpty(Course))
-            {
-                FilterByUniversity = filterByUniversity;
-            }
-            else
-            {
-                FilterByUniversity = true;
-            }
+            FilterByUniversity = filterByUniversity;
 
             // Profile = profile;
         }
@@ -46,7 +39,7 @@ namespace Cloudents.Core.Query
 
         public int Page { get; set; }
 
-        public UserProfile UserProfile { get;  }
+        public UserProfile UserProfile { get; }
 
 
     }

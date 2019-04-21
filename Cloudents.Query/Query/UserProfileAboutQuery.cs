@@ -30,8 +30,12 @@ namespace Cloudents.Query.Query
                 using (var conn = _repository.OpenConnection())
                 {
                     using (var grid = await conn.QueryMultipleAsync(@"
-select CourseId as Name from sb.UsersCourses
-where UserId = @id;
+select  CourseId as Name from sb.UsersCourses uc
+where UserId = @id
+and ( 1 = case when exists (  select * from sb.Tutor t where t.Id = uc.UserId) 
+	then   uc.canTeach
+	else  1
+end);
 
 select t.bio
 from sb.Tutor t

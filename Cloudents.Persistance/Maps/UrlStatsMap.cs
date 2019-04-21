@@ -17,7 +17,7 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.Ip);
             Schema("dbo");
 
-            SchemaAction.None();
+            SchemaAction.Validate();
         }
     }
 }

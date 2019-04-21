@@ -1,9 +1,7 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Interfaces;
 using Cloudents.Query.Query.Admin;
 using Dapper;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -44,7 +42,7 @@ namespace Cloudents.Query.Admin
                         PageNumber = query.Page,
                         PageSize
                     });
-            };
+            }
         }
     }
 }

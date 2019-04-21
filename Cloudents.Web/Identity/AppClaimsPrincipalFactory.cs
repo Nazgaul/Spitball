@@ -5,8 +5,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
-using Cloudents.Query.Query;
-using Newtonsoft.Json;
 
 namespace Cloudents.Web.Identity
 {

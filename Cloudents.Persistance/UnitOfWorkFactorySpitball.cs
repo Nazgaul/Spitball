@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Interfaces;
 using Cloudents.Persistence.Maps;
 using FluentNHibernate.Cfg;
+using FluentNHibernate.Conventions.Helpers;
 using NHibernate;
 using NHibernate.Caches.CoreDistributedCache;
 using NHibernate.Caches.CoreDistributedCache.Redis;
@@ -30,7 +31,8 @@ namespace Cloudents.Persistence
 
             configuration.Mappings(m =>
             {
-                m.FluentMappings.AddFromAssemblyOf<UserMap>();
+                m.FluentMappings.AddFromAssemblyOf<UserMap>()
+                    .Conventions.Add(ForeignKey.EndsWith("Id"));
             });
 
 
@@ -74,8 +76,8 @@ namespace Cloudents.Persistence
            // var eventPublisherListener = new PublishEventsListener(_publisher);
             config.SetListener(ListenerType.PostCommitDelete, _publisher);
             config.SetListener(ListenerType.Delete, new SoftDeleteEventListener());
-            config.SetListener(ListenerType.PostInsert, _publisher);
-            config.SetListener(ListenerType.PostUpdate, _publisher);
+            config.SetListener(ListenerType.PostCommitInsert, _publisher);
+            config.SetListener(ListenerType.PostCommitUpdate, _publisher);
             config.SetListener(ListenerType.PostCollectionUpdate, _publisher);
 
 

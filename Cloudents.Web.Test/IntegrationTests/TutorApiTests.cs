@@ -96,5 +96,22 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             result.Should().BeEmpty();
         }
+
+        [Fact]
+        public async Task Post_Create_Room()
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.PostAsync("api/tutoring/create", null);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var result = d["name"]?.Value<string>();
+
+            response.StatusCode.Should().Be(200);
+            result.Should().NotBeNull();
+        }
     }
 }

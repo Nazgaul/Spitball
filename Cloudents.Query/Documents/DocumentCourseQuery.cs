@@ -70,7 +70,8 @@ FETCH NEXT 50 ROWS ONLY";
 
                 const string filter = @"select distinct [Type]
                 from sb.Document d
-                    where d.CourseName = :course";
+                    where d.CourseName = :course
+and (:typeFilterCount = 0 or d.Type in (:typefilter))";
 
 
                 var sqlQuery = _repository.CreateSQLQuery(sql);
@@ -84,7 +85,9 @@ FETCH NEXT 50 ROWS ONLY";
 
 
                 var filterQuery = _repository.CreateSQLQuery(filter);
-                filterQuery.SetString("course", query.Course); 
+                filterQuery.SetString("course", query.Course);
+                filterQuery.SetInt32("typeFilterCount", query.Filter?.Length ?? 0);
+                filterQuery.SetParameterList("typefilter", query.Filter ?? Enumerable.Repeat("x", 1));
                 var filtersFuture = filterQuery.Future<string>();
 
 

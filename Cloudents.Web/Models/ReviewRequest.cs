@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
     public class ReviewRequest
     {
+        [Required]
+        public Guid RoomId { get; set; }
         [StringLength(1000)]
         [Required(ErrorMessage = "Required")]
         public string Review { get; set; }

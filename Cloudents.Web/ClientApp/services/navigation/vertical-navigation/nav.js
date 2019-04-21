@@ -26,18 +26,18 @@ const nav = {
             soon: false
         }
     },
-    flashcard: {
-        data:{
-            id: routes.flashcardRoute,
-            name: LanguageService.getValueByKey("navigation_nav_name_flashcards"),
-            needLocation: false,
-            filter: [],
-            sort: [],
-            icon: "sbf-flashcards",
-            visible: true,
-            soon: !nonIsraeliUser
-        }
-    },
+    // flashcard: {
+    //     data:{
+    //         id: routes.flashcardRoute,
+    //         name: LanguageService.getValueByKey("navigation_nav_name_flashcards"),
+    //         needLocation: false,
+    //         filter: [],
+    //         sort: [],
+    //         icon: "sbf-flashcards",
+    //         visible: true,
+    //         soon: !nonIsraeliUser
+    //     }
+    // },
     tutor: {
         data:{
             id: routes.tutorRoute,
@@ -50,15 +50,15 @@ const nav = {
             soon: !nonIsraeliUser
         }
     },
-    book: {
-        data:{
-            id: routes.bookRoute,
-            name: LanguageService.getValueByKey("navigation_nav_name_book"),
-            icon: "sbf-textbooks",
-            visible: true,
-            soon: !nonIsraeliUser
-        },
-    },
+    // book: {
+    //     data:{
+    //         id: routes.bookRoute,
+    //         name: LanguageService.getValueByKey("navigation_nav_name_book"),
+    //         icon: "sbf-textbooks",
+    //         visible: true,
+    //         soon: !nonIsraeliUser
+    //     },
+    // },
     job: {
         data:{
             id: routes.jobRoute,

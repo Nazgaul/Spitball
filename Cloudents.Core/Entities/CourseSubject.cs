@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Core.Entities
+﻿namespace Cloudents.Core.Entities
 {
-    public class CourseSubject: AggregateRoot<long>
+    public class CourseSubject : Entity<int>, IAggregateRoot
     {
-        public const int MinLength = 4;
-        public const int MaxLength = 150;
-        public CourseSubject(string name)
+
+        protected CourseSubject()
         {
-            var TrimedName = name.Trim();
-            if (TrimedName.Length > MaxLength || TrimedName.Length < MinLength)
-            {
-                throw new ArgumentException($"Name is {TrimedName}", nameof(TrimedName));
-            }
-            Name = TrimedName;
         }
-        protected CourseSubject() { }
         public virtual string Name { get; set; }
     }
 }

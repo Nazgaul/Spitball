@@ -15,7 +15,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
 
-    public class Document : AggregateRoot, ISoftDelete
+    public class Document : Entity<long>, IAggregateRoot, ISoftDelete
     {
         public Document(string name,
             University university,

@@ -17,14 +17,15 @@
             </v-btn>
             <v-btn flat color="teal" value="earners"  @click="changeActiveTab(tabs.earners)">
                 <span class="mob-footer-title" v-language:inner>mobileFooter_action_earners</span>
-                <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.earners">sbf-icon-earners</v-icon>
-                <v-icon class="mob-footer-icon" v-else>sbf-icon-earners-selected</v-icon>
+                <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.earners">sbf-graduation</v-icon>
+                <v-icon class="mob-footer-icon" color="#43425d" v-else>sbf-graduation</v-icon>
             </v-btn>
 
             <v-btn flat color="teal" value="promotions"  @click="changeActiveTab(tabs.promotions)">
                 <span class="mob-footer-title" v-language:inner>mobileFooter_action_promotion</span>
                 <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.promotions">sbf-icon-promotions</v-icon>
                 <v-icon class="mob-footer-icon" v-else>sbf-icon-promotions-selected</v-icon>
+                <span class="unread-circle" v-show="totalUnread > 0">{{totalUnread}}</span>
             </v-btn>
         </v-bottom-nav>
     </div>
@@ -42,22 +43,43 @@
         },
         data() {
             return {
-                activeBtn: 'feed',
+                // activeBtn: 'feed',
                 showNav: true,
                 tabs: this.getFooterEnumsState()
             }
         },
 
         computed: {
-
+            ...mapGetters(['getTotalUnread', 'accountUser', 'getCurrentActiveTabName']),
+            totalUnread(){
+                return this.getTotalUnread
+            },
+            activeBtn:{
+                get(){
+                    return this.getCurrentActiveTabName;
+                },
+                set(val){
+                    this.changeFooterActiveTab(val)
+                }
+            }
         },
         methods: {
-            ...mapActions(['changemobileMarketingBoxState', 'changeFooterActiveTab']),
+            ...mapActions(['changemobileMarketingBoxState', 'changeFooterActiveTab', 'updateLoginDialogState']),
             ...mapGetters(["getFooterEnumsState", "getMobileFooterState"]),
             changeActiveTab(val){
-                this.onStepChange();
-                this.activeBtn = val;
-                this.changeFooterActiveTab(val);
+                if (this.accountUser == null && val === 'promotions') {
+                    this.updateLoginDialogState(true);
+                    setTimeout(()=>{
+                        //this.activeBtn = 'feed';
+                        this.changeFooterActiveTab('feed');
+                    }, 200)
+                    
+                }else{
+                    this.onStepChange();
+                    //this.activeBtn = val;
+                    this.changeFooterActiveTab(val);
+                }
+                
             }
         },
     }
@@ -74,6 +96,21 @@
 
     .mob-footer-icon{
         font-size: 20px;
+    }
+    .unread-circle{
+        position: absolute;
+        top: 10px;
+        right: 30px;
+        background: #4452fc;
+        color: #fff;
+        border-radius: 50%;
+        height: 13px;
+        width: 13px;
+        display: flex;
+        font-size: 10px;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
     }
     .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
         font-size: 12px;

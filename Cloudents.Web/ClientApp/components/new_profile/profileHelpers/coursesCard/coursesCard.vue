@@ -15,17 +15,19 @@
                     </v-layout>
                     <v-layout row wrap >
                         <!--<transition-group name="fade"  tag="v-layout" style="flex-direction: row; flex-wrap: wrap;">-->
-                        <v-flex  xs12 sm6 md6 key="sdf"
-                                v-for="(course, index) in aboutData"
+                        <v-flex  xs12 sm6 md6 key="one"
+                                v-for="(course, index) in userCourses"
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
-                            <v-card @click="goToSelectedClass(course.name)" class="cursor-pointer elevation-0 border py-3 text-truncate course-card"  key="wqerghfh">
+                            <v-card @click="goToSelectedClass(course.name)"
+                                    class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}"
+                                    key="two">
                                 <span class="course-name">{{course.name}}</span>
                             </v-card>
                         </v-flex>
                         <!--</transition-group>-->
-                        <v-flex xs12 sm6 md6 v-if="aboutData.length >= showQuantity" class="course-name show-more">
-                            <v-card :class="{'mr-3': $vuetify.breakpoint.smAndUp}" class="elevation-0 border  py-3" @click="expanded ? showLess() : showAll()">
+                        <v-flex xs12 sm6 md6 v-if="userCourses.length >= showQuantity" class="course-name show-more">
+                            <v-card :class="{'mr-0': $vuetify.breakpoint.smAndUp}" class="elevation-0 border  py-3" @click="expanded ? showLess() : showAll()">
                                 <span class="font-weight-bold course-name">
                                     <span v-show="!expanded">
                                         <span> {{moreQuantity}}&nbsp;</span>
@@ -63,7 +65,7 @@
                 this.$router.push({name: 'note', query: {Course: course}})
             },
             showAll() {
-                this.showQuantity = this.aboutData.length;
+                this.showQuantity = this.userCourses.length;
                 this.expanded = true;
             },
             showLess(){
@@ -71,12 +73,17 @@
                 this.expanded = false;
             },
             openSetClasses(){
-                this.$router.push({name: 'addCourse'});
+                if(this.isTutorProfile){
+                    this.$router.push({name: 'editCourse'});
+                }else{
+                    this.$router.push({name: 'addCourse'});
+                }
+                
             }
         },
         computed: {
             ...mapGetters(['getProfile', 'isTutorProfile']),
-            aboutData() {
+            userCourses() {
                 if(this.getProfile &&  this.getProfile.about && this.getProfile.about.courses){
                     return this.getProfile.about.courses;
                 }
@@ -84,8 +91,8 @@
 
             },
             moreQuantity(){
-                if(this.aboutData.length > this.showQuantity){
-                    return this.aboutData.length - this.showQuantity
+                if(this.userCourses.length > this.showQuantity){
+                    return this.userCourses.length - this.showQuantity
                 }
             },
         },
@@ -103,9 +110,6 @@
         }
         .course-card{
             margin-right: 24px;
-            /*&:nth-child(even) {*/
-                /*margin-right: 0;*/
-            /*}*/
         }
         .edit-icon{
                 color: @purpleLight;
@@ -121,6 +125,7 @@
         }
         .border{
             border-top: 1px solid #f0f0f7;
+
         }
         .course-name {
             font-size: 14px;

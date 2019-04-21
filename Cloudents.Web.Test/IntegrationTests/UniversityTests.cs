@@ -37,10 +37,29 @@ namespace Cloudents.Web.Test.IntegrationTests
             id.Should().NotBeNull();
             name.Should().NotBeNull();
             country.Should().NotBeNull();
-            uni.Should().HaveCountGreaterThan(5);
+            uni.Should().HaveCountGreaterOrEqualTo(30);
         }
 
-        
+        [Theory]
+        [InlineData("api/university?term=uni&page=0")]
+        public async Task GetAsync_Paging(string url)
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var uni = d["universities"].Value<JArray>();
+
+            var id = uni[0]["id"]?.Value<string>();
+
+            uni.Should().NotBeNull();
+        }
     }
 
 

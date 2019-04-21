@@ -36,7 +36,7 @@ namespace Cloudents.Query.Admin
                         PageNumber = query.Page,
                         PageSize
                     });
-            };
+            }
         }
     }
 }

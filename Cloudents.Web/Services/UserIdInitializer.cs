@@ -63,7 +63,7 @@ namespace Cloudents.Web.Services
                         if (val != null)
                         {
                             telemetry.Context.User.Id = val.Value;
-                            telemetry.Context.Session.Id = val.Value;
+                            //telemetry.Context.Session.Id = val.Value;
                         }
                     }
                     catch (Exception ex)

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Query.Stuff
 {
@@ -111,16 +112,17 @@ namespace Cloudents.Query.Stuff
                 }
                 else
                 {
-                    if (propertyInfo.PropertyType.IsEnum && value is string str)
-                    {
-                        var e = Enum.Parse(propertyInfo.PropertyType, str, true);
-                        propertyInfo.SetValue(currentObject, e);
-                    }
-                    else
-                    {
-                        propertyInfo.SetValue(currentObject, Convert.ChangeType(value, propertyInfo.PropertyType));
-                    }
-
+                    //if (propertyInfo.PropertyType.IsEnum && value is string str)
+                    //{
+                    //    var e = Enum.Parse(propertyInfo.PropertyType, str, true);
+                    //    propertyInfo.SetValue(currentObject, e);
+                    //}
+                    //else
+                    //{
+                    //    propertyInfo.SetValue(currentObject, Convert.ChangeType(value, propertyInfo.PropertyType));
+                    //}
+                    //CustomDeepTransformer.SetProperty(aliase, value,currentObject);
+                    propertyInfo.SetValueExtension(currentObject, value);
                     //propertyInfo.SetValue(currentObject, value);
                 }
             }

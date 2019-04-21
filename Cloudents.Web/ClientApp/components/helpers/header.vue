@@ -18,11 +18,11 @@
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <!--TODO HIDDEN FOR NOW-->
-                                    <!--<div class="header-messages" v-if="loggedIn && !isMobile">-->
-                                        <!--<span @click="openChatWindow" class="header-messages-text" v-language:inner>chat_messages</span>-->
-                                        <!--<v-icon @click="openChatWindow">sbf-forum-icon</v-icon>-->
-                                        <!--<span class="unread-circle" v-show="totalUnread > 0">{{totalUnread}}</span>-->
-                                    <!--</div>-->
+                                    <div class="header-messages" v-if="loggedIn && !isMobile">
+                                        <span @click="openChatWindow" class="header-messages-text" v-language:inner>chat_messages</span>
+                                        <v-icon @click="openChatWindow">sbf-forum-icon</v-icon>
+                                        <span class="unread-circle" v-show="totalUnread > 0">{{totalUnread}}</span>
+                                    </div>
                                     <div class="header-wallet" v-if="loggedIn">
                                         <button class="setting-buysbl-button" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span></button>     
                                         <span class="header-wallet-text">{{balance | currencyLocalyFilter}}</span>                                        
@@ -185,7 +185,8 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChat']),
+            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChatInterface']),
+               
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             openNewQuestionDialog(){
                     if(this.accountUser == null){
@@ -202,7 +203,7 @@
                     }
             },
             openChatWindow(){
-                this.openChat();
+                this.openChatInterface();
             },
             openSblToken(){
                 analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");

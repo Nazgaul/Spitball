@@ -24,12 +24,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Cloudents.Query.Query;
-using Cloudents.Search.University;
-using FluentNHibernate.Data;
-using Cloudents.Query.Questions;
 using Cloudents.Search.Document;
-using Cloudents.Search.Question;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -117,15 +112,15 @@ namespace ConsoleApp
 
             _container = builder.Build();
 
-            //if (Environment.UserName == "Ram")
-            //{
-            //    await RamMethod();
-            //}
-            //else
-            //{
+            if (Environment.UserName == "Ram")
+            {
+                await RamMethod();
+            }
+            else
+            {
 
                 await HadarMethod();
-            //}
+            }
 
 
             Console.WriteLine("done");
@@ -136,20 +131,14 @@ namespace ConsoleApp
 
         }
 
-       
+
 
         private static async Task RamMethod()
         {
-            var c = _container.Resolve<UniversitySearchWrite>();
-            await c.DeleteOldDataAsync(DateTime.UtcNow.AddDays(-5), default);
-            //var command2 = new BecomeTutorCommand(638,"Hi this is ram");
+            var c = _container.Resolve<AzureDocumentSearch>();
+            var z = await c.ItemAsync(28886, default);
             // await c.DispatchAsync(command2, default);
 
-            //var userRepository = _container.Resolve<IRegularUserRepository>();
-            //var me = await userRepository.LoadAsync(160336L, default);
-
-            //await userRepository.UpdateAsync(me, default);
-            //await unitOfWork.CommitAsync(default);
             Console.WriteLine("done");
         }
 
@@ -409,6 +398,8 @@ namespace ConsoleApp
             }
         }
 
+     
+
         private static async Task HadarMethod()
         {
             var queryBus = _container.Resolve<IQueryBus>();
@@ -417,6 +408,13 @@ namespace ConsoleApp
 
            /* var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
             await commandBus.DispatchAsync(command, default);*/
+          
+            //You can register the QueryFactory in the IoC container
+
+            //var user = db.Query("sb.User").Where("Id", (long)160347).First();
+            //var commandBus = _container.Resolve<ICommandBus>();
+            //var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
+            //await commandBus.DispatchAsync(command, default);
 
             //await addToExtra();
             //await FunctionsExtensions.DeleteCourses(_container);

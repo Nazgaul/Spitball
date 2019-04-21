@@ -14,14 +14,14 @@ import flaggedDocumentService from './flaggedDocumentService.js'
                 proccessedDocuments: [],
                 bottomNav: 'refresh'
 
-            }
+            };
         },
         methods: {
-            markAsProccessed(arrIds) {
+            markAsProccesed(arrIds) {
                 for (let i = 0; i < arrIds.length; i++) {
-                    this.proccessedDocuments.push(arrIds[i])
+                    this.proccessedDocuments.push(arrIds[i]);
                 }
-                return this.proccessedDocuments
+                return this.proccessedDocuments;
             },
 
             getDocumentsList() {
@@ -34,28 +34,28 @@ import flaggedDocumentService from './flaggedDocumentService.js'
                         self.documentsList = resp;
 
                         self.arrayOfIds = self.documentsList.map(item => {
-                            return item.id
+                            return item.id;
                         });
                     },
                         (error) => {
                             self.$toaster.error('Something went wrong');
-                            console.log('component accept error', error)
-                        })
+                            console.log('component accept error', error);
+                        });
 
             },
             deleteDocument(document) {
                 let singleIdArr = [];
                 flaggedDocumentService.deleteDocument(document.id)
-                    .then(resp => {
+                    .then(() => {
                         this.$toaster.success(`Document ${document.id} successfully deleted`);
                         singleIdArr.push(document.id);
                         // receives arr with id :: [12]
-                        this.markAsProccessed(singleIdArr)
+                        this.markAsProccesed(singleIdArr);
                     },
                         (error) => {
                             this.$toaster.error('Something went wrong');
-                            console.log('component accept error', error)
-                        })
+                            console.log('component accept error', error);
+                        });
             },
             //always one el array
             unflagSingleDocument(document) {
@@ -65,33 +65,33 @@ import flaggedDocumentService from './flaggedDocumentService.js'
                     .then(resp => {
                         this.$toaster.success(`Document ${arrSingleId} approved`);
                         console.log('docs!', resp);
-                        this.markAsProccessed(arrSingleId)
+                        this.markAsProccesed(arrSingleId);
                     },
                         (error) => {
                             this.$toaster.error('Something went wrong');
-                            console.log('component accept error', error)
-                        })
+                            console.log('component accept error', error);
+                        });
             },
             unflagDocuments() {
-                let arrIds = [];
+                let arrIds;
                 //filter already deleted or approved, in order to prevent second processing attempt on server
-                arrIds = this.arrayOfIds.filter((singleID) => {
-                    return !this.proccessedDocuments.includes(singleID);
+                arrIds = this.arrayOfIds.filter((singleId) => {
+                    return !this.proccessedDocuments.includes(singleId);
                 });
                 flaggedDocumentService.unflagDocument(arrIds)
                     .then(resp => {
                         this.$toaster.success(`All Documents ${arrIds} approved`);
                         this.getDocumentsList();
-                        console.log('docs!', resp)
+                        console.log('docs!', resp);
                     },
                         (error) => {
                             this.$toaster.error('Something went wrong');
-                            console.log('component accept error', error)
-                        })
-            },
+                            console.log('component accept error', error);
+                        });
+            }
         },
         computed: {},
         created() {
-            this.getDocumentsList()
+            this.getDocumentsList();
         }
     }

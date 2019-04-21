@@ -3,10 +3,8 @@ using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Models;
 using Cloudents.Query;
 using Cloudents.Query.Query;
-using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -206,7 +204,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("settings")]
-        public async Task<IActionResult> ChangeDescription([FromBody]UpdateSettingsRequest model,
+        public async Task<IActionResult> ChangeSettingsAsync([FromBody]UpdateSettingsRequest model,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -216,14 +214,12 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [NonAction]
-
-
         [HttpPost("BecomeTutor")]
-        public async Task<IActionResult> BecomeTutorAsync([FromBody]BecomeTutorRequest model, CancellationToken token)
+        public async Task<IActionResult> BecomeTutorAsync([FromBody]UpdateSettingsRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new BecomeTutorCommand(userId,  model.Bio);
+            var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
+                model.Description, model.Bio);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

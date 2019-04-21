@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Dapper;
 
@@ -22,12 +21,6 @@ namespace Cloudents.Query
         static DapperRepository()
         {
             SqlMapper.AddTypeHandler(new DapperCultureInfoTypeHandler());
-
-            var t = new CustomPropertyTypeMap(typeof(UserDto), (x, columnName) =>
-            {
-                return null;
-            });
-            SqlMapper.SetTypeMap(typeof(UserDto),t);
         }
        
 

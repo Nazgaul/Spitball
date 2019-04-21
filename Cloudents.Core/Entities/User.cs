@@ -9,7 +9,7 @@ namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate proxy")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-    public abstract class User : AggregateRoot
+    public abstract class User : Entity<long>, IAggregateRoot
     {
 
 
