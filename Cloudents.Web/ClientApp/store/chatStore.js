@@ -10,7 +10,7 @@ const state = {
     },
     chatState:"conversation",
     activeConversationObj: chatService.createActiveConversationObj({}), //points to conversation Obj
-    isVisible: true,
+    isVisible: global.innerWidth < 600 ? false : true,
     isMinimized: true,
     totalUnread: 0,
     chatLocked: false
