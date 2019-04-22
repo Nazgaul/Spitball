@@ -13,7 +13,7 @@
                         no-resize
                         v-model="description"
                         name="input-about"
-                        :rules="[rules.maxChars]"
+                        :rules="[rules.maximumChars]"
                         :placeholder="placeDescription"
                         :label="labelDescription"
                 ></v-textarea>
@@ -24,7 +24,7 @@
                         class="sb-text-area"
                         rows="5"
                         outline
-                        :rules="[rules.maxChars]"
+                        :rules="[rules.maximumChars]"
                         v-model="bio"
                         name="input-bio"
                         :placeholder="placeBio"
@@ -53,6 +53,7 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import { LanguageService } from "../../../services/language/languageService";
+    import { validationRules } from "../../../services/utilities/formValidationRules";
 
     export default {
         name: "secondStep",
@@ -67,10 +68,7 @@
                 btnLoading: false,
                 validBecomeSecond:false,
                 rules: {
-                    maxChars: value =>{
-                        const maxAmmount = 255;
-                        return value.length <= maxAmmount || ` ${maxAmmount} ${LanguageService.getValueByKey("formErrors_max_chars")}`
-                    },
+                    maximumChars:(value)=> validationRules.maximumChars(value, 255)
                 },
             };
         },
