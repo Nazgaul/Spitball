@@ -1,5 +1,5 @@
 <template>
-    <v-container class="study-card-container">
+    <v-container class="study-card-container" @click="enterRoom">
         <v-layout class="study-card-upper-area" :class="{'study-card-active': isActive}">
             <!-- <v-flex>
                 {{roomStatus}}
@@ -15,7 +15,7 @@
                 {{card.name}}
             </v-flex>
             <v-flex py-1 class="study-card-message">
-                <v-icon @click="sendMessage">sbf-message-icon</v-icon>
+                <v-icon @click.stop="sendMessage">sbf-message-icon</v-icon>
             </v-flex>
             <v-flex py-1 pb-2 @click="enterRoom" class="study-card-enter-container">
                 <v-icon class="study-card-enter-icon mr-1">sbf-enter-icon</v-icon>

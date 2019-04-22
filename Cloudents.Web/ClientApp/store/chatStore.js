@@ -1,4 +1,5 @@
 import chatService from '../services/chatService';
+import { LanguageService } from '../services/language/languageService'
 
 const state = {
     conversations: {},
@@ -57,6 +58,10 @@ const mutations = {
             state.messages = { ...state.messages, [id]:[] };
         }
         state.messages[id].push(message);
+        if(message.type === 'text'){
+            state.conversations[id].lastMessage = message.text;
+        }
+        state.conversations[id].dateTime = message.dateTime;
     },
     setActiveConversationObj(state, obj){
         if(!!state.conversations[obj.conversationId]){
@@ -168,7 +173,7 @@ const actions = {
         let messageObj ={
             message: {
                 userId: roomInfo.userId,
-                text: `Room created ${global.location.origin}/studyroom/${roomInfo.id}`,
+                text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
                 type: 'text'
             },
             //TODO signalR should return Conversation ID
