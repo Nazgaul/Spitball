@@ -100,7 +100,7 @@
             },
             userImage() {
                 if(this.accountUser && this.accountUser.image) {
-                    return utilitiesService.proccessImageURL(this.accountUser.image, 240, 214, 'crop');
+                    return utilitiesService.proccessImageURL(this.accountUser.image, 214, 240);
                 } else {
                     return '';
                 }
@@ -181,10 +181,10 @@
             padding: 12px 18px;
         }
         .user-image {
-            min-width: 214px;
             max-width: 214px;
             min-height: 240px;
             border-radius: 4px;
+            border: 1px solid #f0f0f7;
         }
         .blue-text {
             color: @colorBlue;
