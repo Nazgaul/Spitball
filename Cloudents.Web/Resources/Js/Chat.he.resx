@@ -123,4 +123,7 @@
   <data name="studyRoom" xml:space="preserve">
     <value>חדר לימוד</value>
   </data>
+  <data name="type_message" xml:space="preserve">
+    <value>הקלד הודעה</value>
+  </data>
 </root>

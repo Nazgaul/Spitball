@@ -123,6 +123,9 @@
   <data name="created" xml:space="preserve">
     <value>נוצר ב-</value>
   </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>היכנס לחדר</value>
+  </data>
   <data name="help_others" xml:space="preserve">
     <value>עזור לאחרים באמצעות הידע שלך</value>
   </data>
