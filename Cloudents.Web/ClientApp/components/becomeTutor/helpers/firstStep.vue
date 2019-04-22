@@ -93,7 +93,7 @@
                     maximum: value =>{
                         const maxAmmount = 200000;
                         return value <= maxAmmount || `${LanguageService.getValueByKey("formErrors_max_number")} ${maxAmmount}`
-                    }
+                    },
                 },
                 isLoaded: false
             };
