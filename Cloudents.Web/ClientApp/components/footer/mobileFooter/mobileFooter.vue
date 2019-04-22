@@ -21,7 +21,8 @@
                 <v-icon class="mob-footer-icon" color="#43425d" v-else>sbf-graduation</v-icon>
             </v-btn>
 
-            <v-btn flat color="teal" value="promotions"  @click="changeActiveTab(tabs.promotions)">
+            <!-- <v-btn flat color="teal" value="promotions"  @click="changeActiveTab(tabs.promotions)"> -->
+            <v-btn flat color="teal" value="promotions"  @click="openChat()">
                 <span class="mob-footer-title" v-language:inner>mobileFooter_action_promotion</span>
                 <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.promotions">sbf-icon-promotions</v-icon>
                 <v-icon class="mob-footer-icon" v-else>sbf-icon-promotions-selected</v-icon>
@@ -45,7 +46,8 @@
             return {
                 // activeBtn: 'feed',
                 showNav: true,
-                tabs: this.getFooterEnumsState()
+                tabs: this.getFooterEnumsState(),
+                lastTab: null,
             }
         },
 
@@ -63,23 +65,27 @@
                 }
             }
         },
+        watch:{
+            activeBtn(newVal, oldVal){
+                this.lastTab = oldVal;
+            }
+        },
         methods: {
-            ...mapActions(['changemobileMarketingBoxState', 'changeFooterActiveTab', 'updateLoginDialogState']),
+            ...mapActions(['changemobileMarketingBoxState', 'changeFooterActiveTab', 'updateLoginDialogState','openChatInterface']),
             ...mapGetters(["getFooterEnumsState", "getMobileFooterState"]),
-            changeActiveTab(val){
-                if (this.accountUser == null && val === 'promotions') {
+            openChat(){
+                if (this.accountUser == null) {
                     this.updateLoginDialogState(true);
-                    setTimeout(()=>{
-                        //this.activeBtn = 'feed';
-                        this.changeFooterActiveTab('feed');
-                    }, 200)
-                    
                 }else{
-                    this.onStepChange();
-                    //this.activeBtn = val;
-                    this.changeFooterActiveTab(val);
+                    this.openChatInterface();
+                    setTimeout(()=>{
+                        this.changeFooterActiveTab(this.lastTab);
+                    }, 200)
                 }
-                
+            },
+            changeActiveTab(val){
+                this.onStepChange();
+                this.changeFooterActiveTab(val);
             }
         },
     }

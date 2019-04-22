@@ -87,13 +87,7 @@
                     let currentConversationObj = chatService.createActiveConversationObj(this.tutorData);
                     this.setActiveConversationObj(currentConversationObj);
                     let isMobile = this.$vuetify.breakpoint.smAndDown;
-                    if(isMobile) {
-                        //move to chat tab
-                        this.changeFooterActiveTab('promotions');
-                    } else {
-                        this.openChatInterface();
-                    }
-
+                    this.openChatInterface();
                 }
             }
         }
