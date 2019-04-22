@@ -71,6 +71,7 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import utilitiesService from '../../../services/utilities/utilitiesService';
+    import {validationRules} from '../../../services/utilities/formValidationRules';
     import { LanguageService } from "../../../services/language/languageService";
 
     export default {
@@ -85,15 +86,9 @@
                 price: 50,
                 validBecomeFirst:false,
                 rules: {
-                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
-                    minimum: value => {
-                        const pattern = /^\d*[1-9]\d*$/;
-                        return pattern.test(value) || LanguageService.getValueByKey("formErrors_positive_only")
-                    },
-                    maximum: value =>{
-                        const maxAmmount = 200000;
-                        return value <= maxAmmount || `${LanguageService.getValueByKey("formErrors_max_number")} ${maxAmmount}`
-                    },
+                    required:(value)=> validationRules.required(value),
+                    minimum:(value)=> validationRules.positiveNumber(value),
+                    maximum:(value)=> validationRules.maxVal(value, 200000),
                 },
                 isLoaded: false
             };
