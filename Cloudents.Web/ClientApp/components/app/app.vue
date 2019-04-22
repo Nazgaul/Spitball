@@ -12,20 +12,14 @@
       <div class="loader" v-show="getIsLoading">
         <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
       </div>
-      <!-- <div style="height: 100%;" v-show="showMarketingMobile"> -->
-        <!-- <marketing-box></marketing-box>getMobileFooterState -->
         <chat-component v-if="isMobile"></chat-component>
-      <!-- </div> -->showMarketingBox
       <div v-if="showLeadersMobile && getMobileFooterState">
           <tutor-list></tutor-list>
       </div>
-      <!-- <div class="school-block-container">
-                <router-view name="schoolBlock"></router-view>
-      </div>-->
+
       <router-view name="verticals"></router-view>
       <router-view class="main-container" v-show="showFeed" ref="mainPage"></router-view>
       <chat-component v-if="!isMobile"></chat-component>
-      <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
       <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
         <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
         <span class="cookie-approve">

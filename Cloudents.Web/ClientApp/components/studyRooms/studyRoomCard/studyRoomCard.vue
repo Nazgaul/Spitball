@@ -1,5 +1,5 @@
 <template>
-    <v-container class="study-card-container cursor-pointer" @click="enterRoom">
+    <div class="study-card-container cursor-pointer" @click="enterRoom">
         <v-layout class="study-card-upper-area" :class="{'study-card-active': isActive}">
             <!-- <v-flex>
                 {{roomStatus}}
@@ -28,7 +28,7 @@
                 {{date}}
             </span>
         </v-layout>
-    </v-container>
+    </div>
 </template>
 
 <script>
