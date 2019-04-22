@@ -12,21 +12,20 @@
       <div class="loader" v-show="getIsLoading">
         <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
       </div>
-      <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
-        <!-- <marketing-box></marketing-box> -->
-        <!-- <chat-component v-if="isMobile"></chat-component> -->
-      </div>
+      <!-- <div style="height: 100%;" v-show="showMarketingMobile"> -->
+        <!-- <marketing-box></marketing-box>getMobileFooterState -->
+        <chat-component v-if="isMobile"></chat-component>
+      <!-- </div> -->showMarketingBox
       <div v-if="showLeadersMobile && getMobileFooterState">
           <tutor-list></tutor-list>
-        <!--<leaders-board></leaders-board>-->
       </div>
       <!-- <div class="school-block-container">
                 <router-view name="schoolBlock"></router-view>
       </div>-->
       <router-view name="verticals"></router-view>
-      
       <router-view class="main-container" v-show="showFeed" ref="mainPage"></router-view>
-      <chat-component></chat-component>
+      <chat-component v-if="!isMobile"></chat-component>
+      <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
       <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
         <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
         <span class="cookie-approve">
@@ -90,14 +89,14 @@
         </sb-dialog>
 
 
-            <!--TODO V20 onboard will be romoved-->
-            <!--<sb-dialog :showDialog="getOnBoardState"-->
-                       <!--:popUpType="'onBoardGuide'"-->
-                       <!--:content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"-->
-                       <!--:maxWidth="'1280px'"-->
-                       <!--:isPersistent="$vuetify.breakpoint.smAndUp">-->
-                <!--<board-guide></board-guide>-->
-            <!--</sb-dialog>-->
+
+            <sb-dialog :showDialog="getOnBoardState"
+                       :popUpType="'onBoardGuide'"
+                       :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
+                       :maxWidth="'1280px'"
+                       :isPersistent="$vuetify.breakpoint.smAndUp">
+                <board-guide></board-guide>
+            </sb-dialog>
 
             <sb-dialog :showDialog="newBallerDialog"
                        :popUpType="'newBallerDialog'"
@@ -267,52 +266,50 @@ export default {
         }, this.toasterTimeout);
       }
     },
-    // HomeworkHelp_isDataLoaded: function(val) {
-    //   let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-    //   let self = this;
-    //     <!--TODO V20 onboard and tour will be romoved-->
-    //
-    //     // if (val && !supressed && !!self.accountUser) {
-    //   //   setTimeout(() => {
-    //   //     if (self.$route.name === "ask") {
-    //   //       if (self.$vuetify.breakpoint.xsOnly) {
-    //   //         self.tourObject.tourSteps =
-    //   //           tourService[self.tourObject.region].HWSteps.mobile;
-    //   //         if (self.getIsFeedTabActive()) {
-    //   //           self.$tours["myTour"].start();
-    //   //         }
-    //   //       } else {
-    //   //         self.tourObject.tourSteps =
-    //   //           tourService[self.tourObject.region].HWSteps.desktop;
-    //   //         self.$tours["myTour"].start();
-    //   //       }
-    //   //     }
-    //   //   }, 3000);
-    //    //}
-    // },
-    // StudyDocuments_isDataLoaded: function(val) {
-    //   let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-    //   let self = this;
-        // if (val && !supressed && !!self.accountUser) {
-      //   setTimeout(() => {
-      //     if (self.$route.name === "note") {
-      //       if (self.$vuetify.breakpoint.xsOnly) {
-      //         self.tourObject.tourSteps =
-      //           tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
-      //         if (self.getIsFeedTabActive()) {
-      //           self.$tours["myTour"].start();
-      //         }
-      //       } else {
-      //         self.tourObject.tourSteps =
-      //           tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
-      //         self.$tours["myTour"].start();
-      //       }
-      //     }
-      //   }, 3000);
-      // }
-    // },
+    HomeworkHelp_isDataLoaded: function(val) {
+      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+      let self = this;
+      if (val && !supressed && !!self.accountUser) {
+        setTimeout(() => {
+          if (self.$route.name === "ask") {
+            if (self.$vuetify.breakpoint.xsOnly) {
+              self.tourObject.tourSteps =
+                tourService[self.tourObject.region].HWSteps.mobile;
+              if (self.getIsFeedTabActive()) {
+                self.$tours["myTour"].start();
+              }
+            } else {
+              self.tourObject.tourSteps =
+                tourService[self.tourObject.region].HWSteps.desktop;
+              self.$tours["myTour"].start();
+            }
+          }
+        }, 3000);
+      }
+    },
+    StudyDocuments_isDataLoaded: function(val) {
+      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+      let self = this;
+      if (val && !supressed && !!self.accountUser) {
+        setTimeout(() => {
+          if (self.$route.name === "note") {
+            if (self.$vuetify.breakpoint.xsOnly) {
+              self.tourObject.tourSteps =
+                tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
+              if (self.getIsFeedTabActive()) {
+                self.$tours["myTour"].start();
+              }
+            } else {
+              self.tourObject.tourSteps =
+                tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
+              self.$tours["myTour"].start();
+            }
+          }
+        }, 3000);
+      }
+    },
     $route: function(val) {
-      // this.tourTempClose();
+      this.tourTempClose();
       this.openOnboardGuide();
     }
   },

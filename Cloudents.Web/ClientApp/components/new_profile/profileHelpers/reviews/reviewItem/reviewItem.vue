@@ -1,12 +1,11 @@
 <template>
-    <div class="rating-item-container pt-3 pb-2">
+    <v-container class="rating-item-container">
         <v-layout align-center justify-space-between>
             <div class="image-rating-wrap">
                 <div>
-                    <user-avatar size="32"
-                                 :userImageUrl="reviewData.image"
-                                 :userId="reviewData.id"
-                                 :user-name="reviewData.name"/>
+                    <img class="user-picture" style="border-radius: 50%;"
+                         src="
+                         n-avatar-rounded-icon-vector-illustration-black-sign-on-isolated-background.jpg?ver=6" alt="">
                 </div>
                 <div class="user-rating ml-2 pt-3">
                     <userRating
@@ -14,8 +13,8 @@
                             :starColor="starRateColor"
                             :readonly="true"
                             :rateNumColor="rateNumColor"
-                            :size="'16'"></userRating>
-                    <div class="name-rank-wrap mt-2">
+                            :size="'18'"></userRating>
+                    <div class="name-rank-wrap">
                         <span class="user-review-name mr-2 ">{{reviewData.name}}</span>
                         <userRank :score="reviewData.score"></userRank>
                     </div>
@@ -32,21 +31,21 @@
                 </span>
             </div>
         </v-layout>
-    </div>
+    </v-container>
 </template>
 
 <script>
     import userRating from '../../profileBio/bioParts/userRating.vue';
-    import userRank from '../../../../helpers/UserRank/UserRank.vue';
-    import userAvatar from '../../../../helpers/UserAvatar/UserAvatar.vue';
+    import userRank from '../../../../helpers/UserRank/UserRank.vue'
     export default {
         name: "reviewItem",
-        components: {userRating, userRank, userAvatar},
+        components: {userRating, userRank},
         data() {
             return {
                 // rating: 3.5,
-                starRateColor: '#43425d',
+                starRateColor: '#000000',
                 rateNumColor: '#000000',
+
             }
         },
         props: {
@@ -60,7 +59,7 @@
     @import '../../../../../styles/mixin.less';
     .rating-item-container{
         .left-padding{
-            padding-left: 38px;
+            padding-left: 48px;
         }
         .image-rating-wrap{
             display: flex;
@@ -92,7 +91,7 @@
             }
         }
         .review-text{
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.4;
             color: @profileTextColor;
             @media(max-width: @screen-xs){

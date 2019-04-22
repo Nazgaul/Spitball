@@ -54,10 +54,17 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<IActionResult> CreateStudyRoomAsync(CreateStudyRoomRequest model, CancellationToken token)
         {
-            var tutorId = _userManager.GetLongUserId(User);
-            var command = new CreateStudyRoomCommand(tutorId, model.UserId);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var tutorId = _userManager.GetLongUserId(User);
+                var command = new CreateStudyRoomCommand(tutorId, model.UserId);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest("Already active study room");
+            }
         }
 
         /// <summary>

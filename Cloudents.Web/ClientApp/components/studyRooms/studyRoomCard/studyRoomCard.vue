@@ -1,5 +1,5 @@
 <template>
-    <v-container class="study-card-container" @click="enterRoom">
+    <v-container class="study-card-container cursor-pointer" @click="enterRoom">
         <v-layout class="study-card-upper-area" :class="{'study-card-active': isActive}">
             <!-- <v-flex>
                 {{roomStatus}}
@@ -102,8 +102,7 @@ export default {
         box-shadow: 0 3px 14px 0 rgba(0, 0, 0, 0.36);
         padding: 0;
         margin: 16px 16px 16px 0;
-        min-width: 164px;
-        max-width: 164px;
+        width: 164px;
         display: flex;
         flex-direction: column;
         @media (max-width: @screen-xs) {
@@ -111,14 +110,15 @@ export default {
         }
         .study-card-upper-area{
             background-color: #f0f0f7;
-            color:#a5a4bf;
+            //color:#a5a4bf;
             border-radius: 4px 4px 0 0;
-            padding: 24px 0 43px 0;
-            text-align: center;
-            &.study-card-active{
-                background-color: rgba(66, 224, 113, 0.16);
-                color: #34ca61;
-            }
+           // padding: 24px 0 43px 0;
+            height: 68px;
+            // text-align: center;
+            // &.study-card-active{
+            //     background-color: rgba(66, 224, 113, 0.16);
+            //     color: #34ca61;
+            // }
         }
         .study-card-avatar-area{
             display: flex;
@@ -139,7 +139,6 @@ export default {
             margin: 4px 12px;
             border-bottom: solid 1px rgba(67, 66, 93, 0.18);
             .study-card-enter-container{
-                cursor: pointer;
                 .study-card-enter-icon{
                     vertical-align: middle;
                     font-size: 16px;
@@ -167,7 +166,7 @@ export default {
                     border-radius: 50%;
                     margin: 0 auto;
                     display: flex;
-                    cursor: pointer;
+                    //cursor: pointer;
                     padding-top: 3px;
                 }
             }
