@@ -1,4 +1,3 @@
-import colorsSet from '../colorsSet';
 import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 
 
@@ -22,11 +21,6 @@ export default {
         return {
             fullPreview: false,
             errorTextArea: {},
-            colorsSet: colorsSet,
-            activeColor: {
-                name: 'default',
-                id: 0
-            },
             isFirefox: global.isFirefox,
             files: [],
             extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp', 'bmp'],
@@ -48,10 +42,6 @@ export default {
         deletePreview: function (file, index) {
             this.remove(file); //remove from files[]
             this.$emit('removeFile', index); // remove from files list in parent newQuesiton component
-        },
-        updateColor(color) {
-            this.activeColor = color || colorsSet[0];
-            this.$parent.$emit('colorSelected', this.activeColor);
         },
 
         inputFile: function (newFile, oldFile) {
@@ -127,12 +117,6 @@ export default {
 
     },
     mounted() {
-        this.$root.$on('colorReset', () => {
-            return this.activeColor = {
-                name: 'default',
-                id: 0
-            }
-        });
         this.$root.$on('previewClean', () => {
             return this.files = [];
         });

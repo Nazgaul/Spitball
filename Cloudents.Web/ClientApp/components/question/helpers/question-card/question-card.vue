@@ -3,7 +3,7 @@
     <v-flex
             v-if="cardData && !isDeleted "
             class="question-card"
-            :class="[`sbf-card-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' }`, {'highlight':flaggedAsCorrect}]"
+            :class="[{'highlight':flaggedAsCorrect}]"
     >
         <div class="question-card-answer transparent">
             <!-- answer Card -->

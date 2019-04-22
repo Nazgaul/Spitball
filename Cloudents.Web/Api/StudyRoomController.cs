@@ -14,9 +14,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.StudyRooms;
+using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
@@ -86,6 +88,26 @@ namespace Cloudents.Web.Api
             var query = new StudyRoomQuery(id, userId);
             var result = await _queryBus.QueryAsync(query, token);
             return result;
+        }
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadAsync(IFormFile file,
+            [FromHeader(Name = "referer")] Uri referer,
+            [FromServices] IDocumentDirectoryBlobProvider blobProvider,
+            CancellationToken token)
+        {
+            var fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName());
+            await blobProvider
+                .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
+
+            var uri = blobProvider.GetBlobUrl(fileName);
+            var link = blobProvider.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
+
+            return Ok(new
+            {
+                link
+            });
+
         }
 
         /// <summary>
