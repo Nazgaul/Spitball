@@ -39,8 +39,8 @@ namespace Cloudents.Web.Test.IntegrationTests
             string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
             string uni = "{\"id\":\"bdb71a15-62ed-4fab-8a76-a98200e81a53\"}";
-
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+            
+            await client.PostAsync("api/LogIn", HttpClientExtensions.CreateString(cred));
 
             var response = client.PostAsync("api/university/set", new StringContent(uni, Encoding.UTF8, "application/json"));
         }
