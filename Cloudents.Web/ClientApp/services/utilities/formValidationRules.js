@@ -1,5 +1,4 @@
 import { LanguageService } from "../language/languageService";
-
 export const validationRules = {
     required: (value) => !!value || LanguageService.getValueByKey("formErrors_required"),
     positiveNumber: (value) => {
