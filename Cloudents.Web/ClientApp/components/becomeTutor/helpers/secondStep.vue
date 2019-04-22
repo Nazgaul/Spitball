@@ -1,7 +1,7 @@
 <template>
     <div class="become-second-wrap">
         <v-layout row wrap>
-            <v-form v-model="validBecomeSecond" ref="becomeFormSecond">
+            <v-form v-model="validBecomeSecond" ref="becomeFormSecond" class="become-second-form">
             <v-flex xs12 class="text-xs-center mb-4">
                 <span class="sharing-text" v-language:inner>becomeTutor_sharing</span>
             </v-flex>
@@ -112,6 +112,9 @@
     @import '../../../styles/mixin.less';
 
     .become-second-wrap {
+        .become-second-form{
+            width: 100%;
+        }
         .sb-text-area{
             textarea{
                 padding: 12px 0 8px;
