@@ -120,6 +120,9 @@
   <data name="messages" xml:space="preserve">
     <value>Messages</value>
   </data>
+  <data name="room_created" xml:space="preserve">
+    <value>Room created</value>
+  </data>
   <data name="studyRoom" xml:space="preserve">
     <value>Study Room</value>
   </data>

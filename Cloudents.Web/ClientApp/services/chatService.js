@@ -9,6 +9,7 @@ function Conversation(objInit){
     this.dateTime = objInit.dateTime || new Date().toISOString();
     this.image = objInit.image;
     this.studyRoomId = objInit.studyRoomId;
+    this.lastMessage = objInit.lastMessage
 }
 
 function createConversation(objInit){
@@ -20,7 +21,7 @@ function TextMessage(objInit, id){
     this.text = objInit.text;
     this.conversationId = id;
     this.type = objInit.type;
-    this.dateTime = objInit.dateTime;
+    this.dateTime = objInit.dateTime || new Date().toISOString();
 }
 function FileMessage(objInit, id){
     this.userId= objInit.userId;
@@ -28,7 +29,7 @@ function FileMessage(objInit, id){
     this.src = objInit.src;
     this.href = objInit.href;
     this.type = objInit.type;
-    this.dateTime = objInit.dateTime;
+    this.dateTime = objInit.dateTime || new Date().toISOString();
 }
 
 function activeConversationObj(objInit){

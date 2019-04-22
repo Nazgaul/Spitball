@@ -31,13 +31,7 @@ import chatService from '../../../../services/chatService'
                     let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
                     this.setActiveConversationObj(currentConversationObj);
                     let isMobile = this.$vuetify.breakpoint.smAndDown;
-                    if(isMobile){
-                        //move to chat tab
-                        this.changeFooterActiveTab('promotions');
-                    }else{
-                        this.openChatInterface();
-                    }
-                    
+                    this.openChatInterface();                    
                 }
             }
         }

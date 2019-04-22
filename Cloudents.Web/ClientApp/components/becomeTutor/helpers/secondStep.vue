@@ -1,7 +1,7 @@
 <template>
     <div class="become-second-wrap">
         <v-layout row wrap>
-            <v-form v-model="validBecomeSecond" ref="becomeFormSecond">
+            <v-form v-model="validBecomeSecond" ref="becomeFormSecond" class="become-second-form">
             <v-flex xs12 class="text-xs-center mb-4">
                 <span class="sharing-text" v-language:inner>becomeTutor_sharing</span>
             </v-flex>
@@ -13,7 +13,7 @@
                         no-resize
                         v-model="description"
                         name="input-about"
-                        :rules="[rules.maxChars]"
+                        :rules="[rules.maximumChars]"
                         :placeholder="placeDescription"
                         :label="labelDescription"
                 ></v-textarea>
@@ -24,7 +24,7 @@
                         class="sb-text-area"
                         rows="5"
                         outline
-                        :rules="[rules.maxChars]"
+                        :rules="[rules.maximumChars]"
                         v-model="bio"
                         name="input-bio"
                         :placeholder="placeBio"
@@ -34,8 +34,8 @@
             </v-form>
         </v-layout>
         <v-layout  class="mt-2 px-1" :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
-            <v-btn   @click="closeDialog()" class="cancel-btn elevation-0" round outline flat>
-                <span v-language:inner>becomeTutor_btn_cancel</span>
+            <v-btn   @click="goToPreviousStep()" class="cancel-btn elevation-0" round outline flat>
+                <span v-language:inner>becomeTutor_btn_back</span>
             </v-btn>
             <v-btn
                     color="#4452FC"
@@ -53,6 +53,7 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import { LanguageService } from "../../../services/language/languageService";
+    import { validationRules } from "../../../services/utilities/formValidationRules";
 
     export default {
         name: "secondStep",
@@ -67,10 +68,7 @@
                 btnLoading: false,
                 validBecomeSecond:false,
                 rules: {
-                    maxChars: value =>{
-                        const maxAmmount = 255;
-                        return value.length <= maxAmmount || ` ${maxAmmount} ${LanguageService.getValueByKey("formErrors_max_chars")}`
-                    },
+                    maximumChars:(value)=> validationRules.maximumChars(value, 255)
                 },
             };
         },
@@ -82,8 +80,11 @@
         },
         methods: {
             ...mapActions(['updateTutorInfo', 'sendBecomeTutorData', 'updateTutorDialog', 'updateAccountUserToTutor']),
-            closeDialog(){
-                this.updateTutorDialog(false);
+            // closeDialog(){
+            //     this.updateTutorDialog(false);
+            // },
+            goToPreviousStep(){
+                    this.$root.$emit('becomeTutorStep', 1);
             },
             submitData() {
                 if(this.$refs.becomeFormSecond.validate()) {
@@ -114,6 +115,9 @@
     @import '../../../styles/mixin.less';
 
     .become-second-wrap {
+        .become-second-form{
+            width: 100%;
+        }
         .sb-text-area{
             textarea{
                 padding: 12px 0 8px;

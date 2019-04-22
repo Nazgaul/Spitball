@@ -1,6 +1,6 @@
 <template>
   <div class="conversation-container">
-    <v-flex ml-2 class="avatar-container">
+    <v-flex class="avatar-container">
       <user-avatar :userImageUrl="conversation.image" :user-name="conversation.name"/>
       <userOnlineStatus class="user-status" :userId="conversation.userId"></userOnlineStatus>
     </v-flex>
@@ -8,7 +8,7 @@
       <v-flex class="top-detail-container">
         <v-flex>
           <span class="conversation-name">{{conversation.name}}</span>
-          <span class="conversation-desc">message {{conversation.name}}</span>
+          <span class="conversation-desc text-truncate">{{conversation.lastMessage}}</span>
       </v-flex>
         <v-flex class="date-unread-container">
           <span class="conversation-date">{{date}}</span>
@@ -57,6 +57,7 @@ export default {
   .avatar-container {
     position:relative;
     flex-grow: 0;
+    margin-left: 12px;
     .user-status{
       bottom: 0;
       position: absolute;
@@ -84,7 +85,9 @@ export default {
         overflow: hidden;
       }
       .conversation-desc{
-        font-size: 12px
+        font-size: 12px;
+        width: 180px;
+        display: block;
       }
       .date-unread-container{
         display: flex;
@@ -106,7 +109,7 @@ export default {
           text-align: center;
           vertical-align: middle;
           font-size: 11px;
-          margin-top: 2px;
+          margin-top: 3px;
         }
       }
       

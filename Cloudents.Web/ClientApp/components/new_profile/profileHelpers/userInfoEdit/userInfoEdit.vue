@@ -60,6 +60,7 @@
     import accountService from '../../../../services/accountService';
     import { mapGetters, mapActions } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
+    import { validationRules } from "../../../../services/utilities/formValidationRules";
 
     export default {
         name: "userInfoEdit",
@@ -70,11 +71,8 @@
                 editedDescription: '',
                 editedUserName: '',
                 rules: {
-                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
-                    maximumChars: value =>{
-                        const maxAmmount = 255;
-                        return value.length <= maxAmmount || ` ${maxAmmount} ${LanguageService.getValueByKey("formErrors_max_chars")}`
-                    }
+                    required:(value)=> validationRules.required(value),
+                    maximumChars:(value)=>  validationRules.maximumChars(value, 255)
                 },
                 validUserForm: false,
 

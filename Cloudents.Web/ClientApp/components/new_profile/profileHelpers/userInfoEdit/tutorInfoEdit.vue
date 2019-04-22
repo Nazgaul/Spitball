@@ -45,7 +45,7 @@
                     </v-flex>
                     <v-flex>
                         <v-text-field class=""
-                                      :rules="[rules.required, rules.minimum]"
+                                      :rules="[rules.required, rules.minimum, rules.maximum]"
                                       :label="priceLabel"
                                       v-model="price"
                                       outline
@@ -104,7 +104,7 @@
     import accountService from '../../../../services/accountService';
     import { mapGetters, mapActions } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
-
+    import {validationRules} from '../../../../services/utilities/formValidationRules'
     export default {
         name: "tutorInfoEdit",
         data() {
@@ -120,15 +120,10 @@
                 editedLastName: '',
                 editedPrice: 1,
                 rules: {
-                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
-                    minimum: value => {
-                        const pattern = /^\d*[1-9]\d*$/;
-                        return pattern.test(value) || LanguageService.getValueByKey("formErrors_positive_only")
-                    },
-                    maximumChars: value =>{
-                        const maxAmmount = 255;
-                        return value.length <= maxAmmount || ` ${maxAmmount} ${LanguageService.getValueByKey("formErrors_max_chars")}`
-                    }
+                    required:(value)=> validationRules.required(value),
+                    minimum:(value)=>  validationRules.positiveNumber(value),
+                    maximum:(value)=>  validationRules.maxVal(value, 200000),
+                    maximumChars:(value)=>  validationRules.maximumChars(value, 255)
                 },
                 valid: false,
 

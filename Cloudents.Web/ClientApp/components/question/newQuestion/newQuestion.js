@@ -25,7 +25,6 @@ export default {
             errorSelectPrice: '',
             pricesList: [10, 20, 40, 80],
             actionType: "question",
-            selectedColor: {},
             errorWaitTime: '',
             loading: false
         }
@@ -64,10 +63,6 @@ export default {
                     this.errorSelectPrice = '';
                     this.pricesList = [10, 20, 40, 80];
                     this.loading = false;
-                    this.selectedColor = {
-                        name: 'default'
-                    };
-                    this.$root.$emit("colorReset");
                     this.$root.$emit('previewClean', 'true');
                     this.files = [];
                     this.errorWaitTime = '';
@@ -120,7 +115,7 @@ export default {
             self.loading = true;
             if (this.submitForm()) {
                 this.updateLoading(true);
-                questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default')
+                questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files)
                     .then(function (response) {
                             //self.$ga.event("Submit_question", "Homework help");
                             analyticsService.sb_unitedEvent("Submit_question", "Homework help")
@@ -205,9 +200,5 @@ export default {
         },
     },
     created() {
-        this.$on('colorSelected', (activeColor) => {
-            this.selectedColor.name = activeColor.name;
-        });
-
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <v-container class="study-card-container">
+    <v-container class="study-card-container" @click="enterRoom">
         <v-layout class="study-card-upper-area" :class="{'study-card-active': isActive}">
             <!-- <v-flex>
                 {{roomStatus}}
@@ -15,9 +15,9 @@
                 {{card.name}}
             </v-flex>
             <v-flex py-1 class="study-card-message">
-                <v-icon @click="sendMessage">sbf-message-icon</v-icon>
+                <v-icon @click.stop="sendMessage">sbf-message-icon</v-icon>
             </v-flex>
-            <v-flex py-1 @click="enterRoom" class="study-card-enter-container">
+            <v-flex py-1 pb-2 @click="enterRoom" class="study-card-enter-container">
                 <v-icon class="study-card-enter-icon mr-1">sbf-enter-icon</v-icon>
                 <span class="study-card-enter-text" v-language:inner>studyRoom_enter_room</span> 
             </v-flex>
@@ -70,13 +70,7 @@ export default {
         sendMessage(){
                 let currentConversationObj = chatService.createActiveConversationObj(this.card)
                 this.setActiveConversationObj(currentConversationObj);
-                let isMobile = this.$vuetify.breakpoint.smAndDown;
-                if(isMobile){
-                    //move to chat tab
-                    this.changeFooterActiveTab('promotions');
-                }else{
-                    this.openChatInterface();
-                }
+                this.openChatInterface();
             }
     },
     computed:{
@@ -119,7 +113,7 @@ export default {
             background-color: #f0f0f7;
             color:#a5a4bf;
             border-radius: 4px 4px 0 0;
-            padding: 16px 0 43px 0;
+            padding: 24px 0 43px 0;
             text-align: center;
             &.study-card-active{
                 background-color: rgba(66, 224, 113, 0.16);
@@ -142,13 +136,17 @@ export default {
             color: #5d5d5d;
             font-size:12px;
             letter-spacing: -0.3px;
-            margin: 0 12px;
+            margin: 4px 12px;
             border-bottom: solid 1px rgba(67, 66, 93, 0.18);
             .study-card-enter-container{
                 cursor: pointer;
                 .study-card-enter-icon{
                     vertical-align: middle;
-                    font-size: 14px;
+                    font-size: 16px;
+                }
+                .study-card-enter-text{
+                    font-weight: bold;
+                    text-transform: capitalize;
                 }
             }
             .study-card-name{
@@ -161,7 +159,7 @@ export default {
             }
             .study-card-message{
                 .sbf-message-icon{
-                    font-size:13px;
+                    font-size:14px;
                     color: #fff;
                     height: 32px;
                     width: 32px;
@@ -170,6 +168,7 @@ export default {
                     margin: 0 auto;
                     display: flex;
                     cursor: pointer;
+                    padding-top: 3px;
                 }
             }
         }

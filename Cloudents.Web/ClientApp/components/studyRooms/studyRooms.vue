@@ -47,7 +47,9 @@ export default {
 .study-rooms-container{
     height: 100%;
     width: 100%;
-    background-color: rgba(60, 59, 83, 0.81);
+    background-image: url('./img/studyRoomBg.jpg');
+    background-size: cover;
+    background-position-y: bottom;
     padding-left: 48px;
     color:#fff;
     @media (max-width: @screen-xs) {
@@ -55,6 +57,12 @@ export default {
     }
     .study-rooms-header-container{
         border-bottom: solid 1px rgba(255, 255, 255, 0.24);
+        @media (max-width: @screen-xs) {
+            padding-left: 20px;
+            padding-top: 16px;
+            padding-bottom: 16px !important;
+        }
+        
         .study-rooms-header-text{
             font-size: 17px;
             line-height: 2.35;
@@ -63,6 +71,9 @@ export default {
     .study-rooms-cards-container{
         display: flex;
         flex-wrap: wrap;
+        @media (max-width: @screen-xs) {
+            justify-content: space-around;
+        }
     }
 }
 </style>

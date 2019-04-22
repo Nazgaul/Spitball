@@ -1,5 +1,5 @@
 <template>
-    <v-container class="tutor-card-container">
+    <v-container class="tutor-card-container" @click="updateTutorDialog(true)">
         <v-layout class="tutor-card-upper-area">
         </v-layout>
         
@@ -73,7 +73,8 @@ export default {
             .tutor-face-container{
                 margin: 15px auto;
                 i{
-                    font-size:36px;
+                    margin: 0 2px;
+                    font-size:31px;
                     color:#43425d;
                 }
             }
@@ -86,8 +87,8 @@ export default {
                     background-color: #43425d;
                     color: white;
                     border-radius: 22.5px;
-                    padding: 14px;
-                    font-size: 13px;
+                    padding: 14px 24px;
+                    font-size: 11px;
                     outline: none;
                 }
             }
