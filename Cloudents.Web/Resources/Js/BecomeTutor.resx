@@ -120,6 +120,9 @@
   <data name="btn_add_courses_teach" xml:space="preserve">
     <value>Add courses to teach</value>
   </data>
+  <data name="btn_back" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>

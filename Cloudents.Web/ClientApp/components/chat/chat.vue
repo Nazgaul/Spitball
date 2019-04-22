@@ -1,5 +1,5 @@
 <template>
-    <v-container v-if="visible" py-0 px-0 class="sb-chat-container" :class="{'minimized': isMinimized}">
+    <v-container v-if="visible" py-0 px-0 class="sb-chat-container"  :class="[ $route.name == 'tutoring' ?  'chat-right': '', {'minimized': isMinimized}]">
         <v-layout @click="toggleMinimizeChat" class="chat-header">
             <v-icon :class="{'rtl':isRtl}" @click.stop="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
@@ -119,6 +119,9 @@
     background: #fff;
     border-radius: 10px 10px 0 0;
     box-shadow: 0 3px 16px 0 rgba(0, 0, 0, .3);
+    &.chat-right{
+        right: 130px/*rtl:ignore*/;
+    }
     @media (max-width: @screen-xs) {
         width: 100%;
         height: unset !important;
@@ -163,9 +166,6 @@
             }
             
         }
-        
-        
-        
         .other-side{
             margin-left:auto;
             i{
