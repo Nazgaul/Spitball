@@ -117,8 +117,8 @@
     height: 595px;
     z-index: 3;
     background: #fff;
-    border-radius: 4px;
-    box-shadow: 0 3px 13px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 3px 16px 0 rgba(0, 0, 0, .3);
     @media (max-width: @screen-xs) {
         width: 100%;
         height: unset !important;
