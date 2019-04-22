@@ -128,7 +128,7 @@ export default {
             }
             .messages-body{
                 padding: 15px 10px 0 10px;
-                margin: 2px 0 4px 0;
+                margin: 22px 0 4px 0;
                 overflow: auto;
             }
             .messages-input{

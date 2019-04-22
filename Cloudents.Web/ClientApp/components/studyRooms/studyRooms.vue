@@ -47,7 +47,9 @@ export default {
 .study-rooms-container{
     height: 100%;
     width: 100%;
-    background-color: rgba(60, 59, 83, 0.81);
+    background-image: url('./img/studyRoomBg.jpg');
+    background-size: cover;
+    background-position-y: bottom;
     padding-left: 48px;
     color:#fff;
     @media (max-width: @screen-xs) {
