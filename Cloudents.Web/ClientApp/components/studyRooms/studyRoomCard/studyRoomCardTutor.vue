@@ -1,5 +1,5 @@
 <template>
-    <v-container class="tutor-card-container">
+    <v-container class="tutor-card-container" @click="updateTutorDialog(true)">
         <v-layout class="tutor-card-upper-area">
         </v-layout>
         

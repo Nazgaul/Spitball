@@ -57,6 +57,10 @@ const mutations = {
             state.messages = { ...state.messages, [id]:[] };
         }
         state.messages[id].push(message);
+        if(message.type === 'text'){
+            state.conversations[id].lastMessage = message.text;
+        }
+        state.conversations[id].dateTime = message.dateTime;
     },
     setActiveConversationObj(state, obj){
         if(!!state.conversations[obj.conversationId]){
