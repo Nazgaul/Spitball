@@ -107,7 +107,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var client = _factory.CreateClient();
 
             await client.LogInAsync();
-
+            
             var response = await client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();

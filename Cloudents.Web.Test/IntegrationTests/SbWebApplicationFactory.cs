@@ -38,6 +38,10 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.EnsureSuccessStatusCode();
         }
 
+        public static StringContent CreateString(string str)
+        {
+            return new StringContent(str, Encoding.UTF8, "application/json");
+        }
 
         //public string User => TestUser.GetTestUser();
 
