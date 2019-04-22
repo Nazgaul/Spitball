@@ -51,7 +51,7 @@
                        :popUpType="'newQuestion'"
                        :max-width="'500px'"
                        :content-class="'newQuestionDialog'">
-
+                
                 <Add-Question></Add-Question>
                 <!-- <New-Question></New-Question> -->
             </sb-dialog>
@@ -260,52 +260,52 @@ export default {
         }, this.toasterTimeout);
       }
     },
-    HomeworkHelp_isDataLoaded: function(val) {
-      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-      let self = this;
-      if (val && !supressed && !!self.accountUser) {
-        setTimeout(() => {
-          if (self.$route.name === "ask") {
-            if (self.$vuetify.breakpoint.xsOnly) {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].HWSteps.mobile;
-              if (self.getIsFeedTabActive()) {
-                self.$tours["myTour"].start();
-              }
-            } else {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].HWSteps.desktop;
-              self.$tours["myTour"].start();
-            }
-          }
-        }, 3000);
-      }
-    },
-    StudyDocuments_isDataLoaded: function(val) {
-      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-      let self = this;
-      if (val && !supressed && !!self.accountUser) {
-        setTimeout(() => {
-          if (self.$route.name === "note") {
-            if (self.$vuetify.breakpoint.xsOnly) {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
-              if (self.getIsFeedTabActive()) {
-                self.$tours["myTour"].start();
-              }
-            } else {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
-              self.$tours["myTour"].start();
-            }
-          }
-        }, 3000);
-      }
-    },
-    $route: function(val) {
-      this.tourTempClose();
-      this.openOnboardGuide();
-    }
+    //HomeworkHelp_isDataLoaded: function(val) {
+    //  let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+    //  let self = this;
+    //  if (val && !supressed && !!self.accountUser) {
+    //    setTimeout(() => {
+    //      if (self.$route.name === "ask") {
+    //        if (self.$vuetify.breakpoint.xsOnly) {
+    //          self.tourObject.tourSteps =
+    //            tourService[self.tourObject.region].HWSteps.mobile;
+    //          if (self.getIsFeedTabActive()) {
+    //            self.$tours["myTour"].start();
+    //          }
+    //        } else {
+    //          self.tourObject.tourSteps =
+    //            tourService[self.tourObject.region].HWSteps.desktop;
+    //          self.$tours["myTour"].start();
+    //        }
+    //      }
+    //    }, 3000);
+    //  }
+    //},
+    //StudyDocuments_isDataLoaded: function(val) {
+    //  let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+    //  let self = this;
+    //  if (val && !supressed && !!self.accountUser) {
+    //    setTimeout(() => {
+    //      if (self.$route.name === "note") {
+    //        if (self.$vuetify.breakpoint.xsOnly) {
+    //          self.tourObject.tourSteps =
+    //            tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
+    //          if (self.getIsFeedTabActive()) {
+    //            self.$tours["myTour"].start();
+    //          }
+    //        } else {
+    //          self.tourObject.tourSteps =
+    //            tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
+    //          self.$tours["myTour"].start();
+    //        }
+    //      }
+    //    }, 3000);
+    //  }
+    //},
+    //$route: function(val) {
+    // // this.tourTempClose();
+    //  this.openOnboardGuide();
+    //}
   },
   methods: {
     ...mapActions([
@@ -328,17 +328,17 @@ export default {
     closeSblToken() {
       this.updateShowBuyDialog(false);
     },
-    openOnboardGuide() {
-      let isLogedIn = this.accountUser;
-      let supressed = global.localStorage.getItem("sb-onboard-supressed");
-      let validRoutesNames = ["ask", "note"].indexOf(this.$route.name) > -1;
+    //openOnboardGuide() {
+    //  let isLogedIn = this.accountUser;
+    //  let supressed = global.localStorage.getItem("sb-onboard-supressed");
+    //  let validRoutesNames = ["ask", "note"].indexOf(this.$route.name) > -1;
 
-      if (isLogedIn && !supressed && validRoutesNames) {
-        setTimeout(() => {
-          this.updateOnBoardState(true);
-        });
-      }
-    },
+    //  if (isLogedIn && !supressed && validRoutesNames) {
+    //    setTimeout(() => {
+    //      this.updateOnBoardState(true);
+    //    });
+    //  }
+    //},
     tourClosed: function() {
       console.log("tourClosed");
       global.localStorage.setItem("sb_walkthrough_supressed", true);
