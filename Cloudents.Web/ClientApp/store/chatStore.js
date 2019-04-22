@@ -1,4 +1,5 @@
 import chatService from '../services/chatService';
+import { LanguageService } from '../services/language/languageService'
 
 const state = {
     conversations: {},
@@ -172,7 +173,7 @@ const actions = {
         let messageObj ={
             message: {
                 userId: roomInfo.userId,
-                text: `Room created ${global.location.origin}/studyroom/${roomInfo.id}`,
+                text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
                 type: 'text'
             },
             //TODO signalR should return Conversation ID
