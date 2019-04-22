@@ -11,24 +11,9 @@ const getDocument = (params) => {
     return connectivityModule.http.get("/Document", {params});
 }
 
-const getFlashcard = (params) => {
-    return connectivityModule.http.get("search/flashcards", {params});
-}
 
 const getTutor = (params) => {
     return connectivityModule.http.get("tutor", {params: transformLocation(params)})
-}
-
-const getJob = (params) => {
-    return connectivityModule.http.get("job", {params: transformLocation(params)})
-}
-
-const getBook = (params) => {
-    return connectivityModule.http.get("book/search", {params})
-}
-
-const getBookDetails = ({type, isbn13}) => {
-    return connectivityModule.http.get(`book/${type}`, {params: {isbn13}})
 }
 
 const getNextPage = ({url, vertical}) => {
@@ -139,18 +124,6 @@ let transferResultNote = response => {
         nextPage: res.nextPageLink
     }
 };
-let transferResultFlashcard = response => {
-    let res = response.data;
-    let result = res ? res.result : [];
-    if (!res) return {data: []};
-    return {
-        sort: res.sort,
-        filters: res.filters,
-        data: result.map(val => {
-            return {...val, template: 'item'}
-        }), nextPage: res.nextPageLink
-    }
-};
 
 let transferResultTutor = response => {
     let data = response.data;
@@ -168,39 +141,6 @@ let transferResultTutor = response => {
     };
 };
 
-let transferJob = response => {
-    let body = response.data;
-    let {result: items, nextPageLink: nextPage} = body;
-    return {
-        filters: body.filters,
-        data: items ? items.map((val) => {
-            return {
-                ...val,
-                template: "job"
-            }
-        }) : [],
-        nextPage
-    };
-};
-
-let transferBook = response => {
-    let body = response.data;
-    body = body || {};
-    let data = body.result.map(val => {
-        return {...val, template: "book"}
-    });
-    return {data, nextPage: body.nextPageLink}
-};
-
-let transferBookDetails = response => {
-    let body = response.data;
-    let prices = body.prices || [];
-    return {
-        details: body.details, data: prices.map(val => {
-            return {...val, template: "book-price"}
-        })
-    }
-};
 
 let transferNextPage = (res) => {
     let {data, nextPage} = transferMap[currentVertical](res);
@@ -209,11 +149,8 @@ let transferNextPage = (res) => {
 
 const transferMap = {
     ask: (res) => transferResultAsk(res),
-    flashcard: (res) => transferResultFlashcard(res),
     note: (res) => transferResultNote(res),
-    job: (res) => transferJob(res),
     tutor: (res) => transferResultTutor(res),
-    book: (res) => transferBook(res)
 };
 
 
@@ -257,21 +194,9 @@ export default {
         note(params) {
             return getDocument(params).then(transferResultNote);
         },
-        flashcard(params) {
-            return getFlashcard(params).then(transferResultFlashcard);
-        },
         tutor(params) {
             return getTutor(params).then(transferResultTutor);
         },
-        job(params) {
-            return getJob(params).then(transferJob);
-        },
-        book(params) {
-            return getBook(params).then(transferBook);
-        },
-        bookDetails({type, isbn13}) {
-            return getBookDetails({type, isbn13}).then(transferBookDetails);
-        }
     },
     autoComplete: (term) => {
         return autoComplete(term);

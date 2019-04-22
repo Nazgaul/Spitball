@@ -26,18 +26,7 @@ const nav = {
             soon: false
         }
     },
-    // flashcard: {
-    //     data:{
-    //         id: routes.flashcardRoute,
-    //         name: LanguageService.getValueByKey("navigation_nav_name_flashcards"),
-    //         needLocation: false,
-    //         filter: [],
-    //         sort: [],
-    //         icon: "sbf-flashcards",
-    //         visible: true,
-    //         soon: !nonIsraeliUser
-    //     }
-    // },
+
     tutor: {
         data:{
             id: routes.tutorRoute,
@@ -50,47 +39,9 @@ const nav = {
             soon: !nonIsraeliUser
         }
     },
-    // book: {
-    //     data:{
-    //         id: routes.bookRoute,
-    //         name: LanguageService.getValueByKey("navigation_nav_name_book"),
-    //         icon: "sbf-textbooks",
-    //         visible: true,
-    //         soon: !nonIsraeliUser
-    //     },
-    // },
-    job: {
-        data:{
-            id: routes.jobRoute,
-            name: LanguageService.getValueByKey("navigation_nav_name_job"),
-            needLocation: true,
-            filter: [],
-            sort: [],
-            icon: "sbf-job",
-            visible: nonIsraeliUser,
-            soon: !nonIsraeliUser
-        }
-    }
+
 };
 
-let strNew = LanguageService.getValueByKey("navigation_nav_bookDetails_filter_new");
-let strRental = LanguageService.getValueByKey("navigation_nav_bookDetails_filter_rental");
-let strUsed = LanguageService.getValueByKey("navigation_nav_bookDetails_filter_used");
-let strBuy = LanguageService.getValueByKey("book_sort_buy");
-let strSell = LanguageService.getValueByKey("book_sort_sell");
-export let details = {
-    bookDetails: {
-        filter: [
-            {key: strNew, value: strNew},
-            {key: strRental, value: strRental},
-            {key: strUsed, value:strUsed}
-    ],
-        sort: [
-            {key: strBuy, value: strBuy},
-            {key: strSell,value: strSell}
-        ]
-    }
-};
 export let names = [];
 export let page = [];
 export let verticalsNavbar = [];
@@ -126,11 +77,6 @@ for (let i in nav) {
         sort: item.sort
     }
 }
-for (let i in details) {
-    let item = details[i];
-    page[i] = {filter: item.filter, sort: item.sort}
-}
-
 
 
 export default nav

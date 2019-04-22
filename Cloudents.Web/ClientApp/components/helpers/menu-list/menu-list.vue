@@ -2,9 +2,6 @@
     <div>
         <v-list class="menu-list" v-if="!isAuthUser" content-class="s-menu-item">
             <user-block :user="user" :showExtended="true" :classType="'university'" v-if="isMobile" class="unsign">
-                <!--<div slot="icon" class="mb-3">-->
-                <!--&lt;!&ndash;<v-avatar tag="v-avatar" class="Mask" size="32"><not-logged-in></not-logged-in></v-avatar>&ndash;&gt;-->
-                <!--</div>-->
                 <template slot="text" class="mb-3">
                     <div class="menu-list-head-block">
                         <div class="head-text-wrap">
@@ -200,7 +197,6 @@
 <script>
 
     import { mapGetters, mapActions } from 'vuex';
-    import notLoggedIn from "../img/not-logged-in.svg";
     import { notRegMenu } from '../../settings/consts';
     import userBlock from "../user-block/user-block.vue"
     import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
@@ -210,7 +206,7 @@
     import Base62 from "base62"
 
     export default {
-        components: {userBlock, notLoggedIn, sbDialog, referralDialog},
+        components: {userBlock, sbDialog, referralDialog},
         data() {
             return {
                 notRegMenu,

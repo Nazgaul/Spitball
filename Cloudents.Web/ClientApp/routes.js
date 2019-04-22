@@ -11,9 +11,6 @@ import verticalsTabs from './components/header/verticalsTabs.vue';
 import { staticRoutes } from "./components/satellite/satellite-routes";
 
 const showItem = () => import("./components/preview/Item.vue");
-const showFlashcard = () => import("./components/preview/Flashcard.vue");
-const bookDetailsHeader = () => import("./components/book/header.vue");
-const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
@@ -97,15 +94,6 @@ const studyRoomsPage = {
     schoolBlock: schoolBlock
 };
 
-const bookDetailsProps = {
-    default: dynamicDetailsPropsFn,
-    header: (route) => ({
-        name: "textbooks",
-        id: route.params.id,
-        currentSelection: "book",
-        currentPath: "bookDetails"
-    })
-};
 let routes2 = [
     {
         path: "/",
@@ -120,13 +108,9 @@ let routes2 = [
         path: "/result",
         name: "result",
         alias: [
-            "/" + RouteTypes.marketRoute,
             // "/" + RouteTypes.questionRoute,
-            "/" + RouteTypes.flashcardRoute,
             // "/" + RouteTypes.notesRoute,
             "/" + RouteTypes.tutorRoute,
-            "/" + RouteTypes.bookRoute,
-            "/" + RouteTypes.jobRoute
         ],
         components: resultPage,
         props: resultProps,
@@ -263,16 +247,6 @@ let routes2 = [
         },
     },
 
-
-    {
-        path: "/book/:id",
-        name: RouteTypes.bookDetailsRoute,
-        components: {
-            default: bookDetails,
-            header: bookDetailsHeader
-        },
-        props: bookDetailsProps
-    },
     {
         path: "/note/:universityName/:courseName/:id/:name",
         alias: ['/document/:universityName/:courseName/:id/:name'],
@@ -297,7 +271,6 @@ let routes2 = [
         name: 'tutoring',
         components: {
             default: tutorComponent,
-            // header: bookDetailsHeader
         },
         header: () => ({
             submitRoute: '/tutoring',
@@ -312,19 +285,6 @@ let routes2 = [
         path: "/study-rooms",
         name: 'studyRooms',
         components: studyRoomsPage,
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
-    {
-        path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
-        name: "flashcard",
-        components: {
-            default: showFlashcard,
-            header: previewHeader
-        },
         props: {
             default: (route) => ({
                 id: route.params.id

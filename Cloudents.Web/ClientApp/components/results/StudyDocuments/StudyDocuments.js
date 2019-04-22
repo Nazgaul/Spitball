@@ -21,7 +21,7 @@ import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 import resultFilter from '../helpers/resultFilter/resultFilter.vue'
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 
-const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
+const ACADEMIC_VERTICALS = ['note', 'tutor'];
 
 //The vue functionality for result page
 export default {
