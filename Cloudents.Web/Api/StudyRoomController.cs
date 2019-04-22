@@ -135,7 +135,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var session = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-            await _videoProvider.CreateRoomAsync(session, configuration.IsProduction());
+            await _videoProvider.CreateRoomAsync(session, true);// configuration.IsProduction());
             var command = new CreateStudyRoomSessionCommand(id, session, userId);
             await _commandBus.DispatchAsync(command, token);
 
