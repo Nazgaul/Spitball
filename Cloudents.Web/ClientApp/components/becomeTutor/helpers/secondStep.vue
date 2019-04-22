@@ -34,8 +34,8 @@
             </v-form>
         </v-layout>
         <v-layout  class="mt-2 px-1" :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
-            <v-btn   @click="closeDialog()" class="cancel-btn elevation-0" round outline flat>
-                <span v-language:inner>becomeTutor_btn_cancel</span>
+            <v-btn   @click="goToPreviousStep()" class="cancel-btn elevation-0" round outline flat>
+                <span v-language:inner>becomeTutor_btn_back</span>
             </v-btn>
             <v-btn
                     color="#4452FC"
@@ -80,8 +80,11 @@
         },
         methods: {
             ...mapActions(['updateTutorInfo', 'sendBecomeTutorData', 'updateTutorDialog', 'updateAccountUserToTutor']),
-            closeDialog(){
-                this.updateTutorDialog(false);
+            // closeDialog(){
+            //     this.updateTutorDialog(false);
+            // },
+            goToPreviousStep(){
+                    this.$root.$emit('becomeTutorStep', 1);
             },
             submitData() {
                 if(this.$refs.becomeFormSecond.validate()) {
