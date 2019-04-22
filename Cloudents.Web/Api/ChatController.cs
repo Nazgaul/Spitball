@@ -127,7 +127,12 @@ namespace Cloudents.Web.Api
         {
             if (model is FinishChatUpload chatModel)
             {
-                var command = new SendChatFileMessageCommand(blobName, _userManager.GetLongUserId(User), new[] { chatModel.OtherUser });
+                var userId = _userManager.GetLongUserId(User);
+                if (userId == chatModel.OtherUser)
+                {
+                    throw new ArgumentException();
+                }
+                var command = new SendChatFileMessageCommand(blobName, userId, new[] { chatModel.OtherUser });
                 await _commandBus.DispatchAsync(command, token);
 
             }

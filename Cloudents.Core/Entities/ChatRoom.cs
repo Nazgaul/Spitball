@@ -26,7 +26,12 @@ namespace Cloudents.Core.Entities
 
         public static string BuildChatRoomIdentifier(IEnumerable<long> userIds)
         {
-            return string.Join("_", userIds.OrderBy(o => o));
+            var userIdsList = userIds.Distinct().OrderBy(o => o).ToList();
+            if (userIdsList.Count == 1)
+            {
+                throw new ArgumentException("need more then one participant");
+            }
+            return string.Join("_", userIdsList);
         }
 
         public virtual DateTime UpdateTime { get; set; }
