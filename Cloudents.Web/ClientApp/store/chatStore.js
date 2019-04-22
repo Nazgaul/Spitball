@@ -50,6 +50,10 @@ const getters = {
 const mutations = {
     addConversationUnread:(state, message)=>{
         state.conversations[message.conversationId].unread++
+        if(message.type === 'text'){
+            state.conversations[message.conversationId].lastMessage = message.text;
+        }
+        state.conversations[message.conversationId].dateTime = message.dateTime;
     },
     addMessage:(state, message)=>{
         let id = message.conversationId || state.activeConversationObj.conversationId;
@@ -146,6 +150,8 @@ const actions = {
                 //no conversation should be added
                 let ConversationObj = chatService.createConversation(message);
                 commit('addConversation', ConversationObj)
+                commit('addConversationUnread', message)
+                commit('updateTotalUnread', 1);
             }
         }      
         

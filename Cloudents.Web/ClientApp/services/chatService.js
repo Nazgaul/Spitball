@@ -22,6 +22,8 @@ function TextMessage(objInit, id){
     this.conversationId = id;
     this.type = objInit.type;
     this.dateTime = objInit.dateTime || new Date().toISOString();
+    this.name = objInit.name;
+    this.image = objInit.image;
 }
 function FileMessage(objInit, id){
     this.userId= objInit.userId;
@@ -30,6 +32,8 @@ function FileMessage(objInit, id){
     this.href = objInit.href;
     this.type = objInit.type;
     this.dateTime = objInit.dateTime || new Date().toISOString();
+    this.name = objInit.name;
+    this.image = objInit.image;
 }
 
 function activeConversationObj(objInit){
