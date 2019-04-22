@@ -24,13 +24,15 @@ namespace Cloudents.Web.Controllers
         private readonly ILogger _logger;
         private readonly SignInManager<RegularUser> _signInManager;
         private readonly UserManager<RegularUser> _userManager;
+        private readonly IRestClient _client;
 
-        public HomeController(IDataProtect dataProtect, SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager, ILogger logger)
+        public HomeController(IDataProtect dataProtect, SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager, ILogger logger, IRestClient client)
         {
             _dataProtect = dataProtect;
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
+            _client = client;
         }
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]

@@ -25,7 +25,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
             builder.RegisterType<RestClient>().As<IRestClient>()
-                .SingleInstance().EnableInterfaceInterceptors()
+                //.SingleInstance()
+                .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(LogInterceptor));
 
 

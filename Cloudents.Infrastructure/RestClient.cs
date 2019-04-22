@@ -24,9 +24,14 @@ namespace Cloudents.Infrastructure
         private readonly HttpClient _client;
 
 
-        public RestClient(ILogger logger)
+        public RestClient()
         {
             _client = new HttpClient();
+        }
+
+        public RestClient(HttpClient client)
+        {
+            _client = client;
         }
 
         [CanBeNull]

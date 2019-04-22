@@ -31,6 +31,7 @@ using Newtonsoft.Json;
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using WebMarkupMin.AspNetCore2;
@@ -175,6 +176,8 @@ namespace Cloudents.Web
             //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();
+            services.AddHttpClient();
+
 
 
             var assembliesOfProgram = new[]
@@ -188,7 +191,7 @@ namespace Cloudents.Web
                 Assembly.GetExecutingAssembly()
             };
 
-         
+
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
@@ -205,6 +208,7 @@ namespace Cloudents.Web
                 PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
+
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterAssemblyModules(assembliesOfProgram.ToArray());
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
@@ -217,7 +221,11 @@ namespace Cloudents.Web
                 .Keyed<IBuildSeo>(SeoType.Static);
             containerBuilder.RegisterType<QuestionSeoBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Question);
-            //
+            containerBuilder.Register(c =>
+            {
+                var z = c.Resolve<IHttpClientFactory>();
+                return z.CreateClient();
+            });
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
