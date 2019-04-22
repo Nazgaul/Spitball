@@ -87,9 +87,17 @@ namespace Cloudents.Web.Api
 
         // POST api/<controller>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> Post([FromBody]ChatMessageRequest model, CancellationToken token)
         {
-            var command = new SendChatTextMessageCommand(model.Message, _userManager.GetLongUserId(User),
+            var userId = _userManager.GetLongUserId(User);
+            if (userId == model.OtherUser)
+            {
+                return BadRequest();
+            }
+            var command = new SendChatTextMessageCommand(model.Message, userId,
                 new[] { model.OtherUser });
             await _commandBus.DispatchAsync(command, token);
             return Ok();
