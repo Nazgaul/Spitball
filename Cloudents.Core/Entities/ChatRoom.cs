@@ -39,21 +39,19 @@ namespace Cloudents.Core.Entities
         public virtual void AddMessage(ChatMessage message)
         {
             UpdateTime = DateTime.UtcNow;
-            foreach (var usersInChat in Users)
+            foreach (var userInChat in Users)
             {
-                if (usersInChat.User != message.User)
+                if (userInChat.User != message.User)
                 {
-
-                    if (!usersInChat.User.Online)
+                    userInChat.Unread++;
+                    if (!userInChat.User.Online && userInChat.Unread < 2)
                     {
-                        //TODO: need to send an email or something
+                        AddEvent(new OfflineChatMessageEvent(userInChat));
                     }
-
-                    usersInChat.Unread++;
                 }
                 else
                 {
-                    usersInChat.Unread = 0;
+                    userInChat.Unread = 0;
                 }
             }
             AddEvent(new ChatMessageEvent(message));

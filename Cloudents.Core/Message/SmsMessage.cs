@@ -5,10 +5,10 @@ namespace Cloudents.Core.Message
     [DataContract]
     public class SmsMessage
     {
-        public SmsMessage(string phoneNumber, string code, MessageType type)
+        public SmsMessage(string phoneNumber, string message, MessageType type)
         {
             PhoneNumber = phoneNumber;
-            Message = code;
+            Message = message;
             Type = type;
         }
 
