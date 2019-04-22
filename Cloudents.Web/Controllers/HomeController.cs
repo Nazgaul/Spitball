@@ -49,7 +49,6 @@ namespace Cloudents.Web.Controllers
                 TempData[Referral] = referral;
             }
             if (crawlerResolver.Crawler?.Type == CrawlerType.LinkedIn)
-            //if (userAgent != null && userAgent.Contains("linkedin", StringComparison.OrdinalIgnoreCase))
             {
                 ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
             }
