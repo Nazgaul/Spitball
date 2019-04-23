@@ -18,7 +18,6 @@ export default {
             remoteTrack: '',
             screenShareTrack: null,
             identity: '',
-            roomLink: '',
             availableDevices: [],
             visible: {
                 'local_player': true,
@@ -34,7 +33,6 @@ export default {
         ...mapState(['tutoringMainStore']),
         ...mapGetters([
                           'sharedDocUrl',
-                          'roomLinkID',
                           'activeRoom',
                           'localOffline',
                           'remoteOffline',
@@ -67,7 +65,6 @@ export default {
     },
     methods: {
         ...mapActions([
-                          'updateRoomID',
                           'updateRoomLoading',
                           'updateCurrentRoomState'
                       ]),

@@ -2,7 +2,7 @@
         <v-layout align-center justify-center class="rating-container">
             <v-flex shrink class="mr-2">
                 <v-rating
-                        v-model="rating"
+                        v-model="dynamicRating"
                         :color="starColor"
                         :background-color="starColor"
                         :length="ratingLength"
@@ -17,11 +17,10 @@
             </v-flex>
             <v-flex>
                 <div class="mb-1">
-                   <span :style="{ color: rateNumColor }" class="caption ml-1 pb-1 ">
+                   <span v-show="showRateNumber" :style="{ color: rateNumColor }" class="caption ml-1 pb-1 rating-number">
        {{ rating }}
       </span>
                 </div>
-
             </v-flex>
         </v-layout>
 </template>
@@ -35,6 +34,10 @@
             }
         },
         props: {
+            callbackFn: {
+                type: Function,
+                required: false
+            },
             starColor: {
                 type: String,
                 default: '#ffca54'
@@ -55,6 +58,22 @@
                 type: Number,
                 default: 0
             },
+            showRateNumber:{
+                type: Boolean,
+                default: true
+            }
+        },
+        computed: {
+            dynamicRating:{
+             get(){
+                 return this.rating
+             },
+            set(newValue){
+                if(this.callbackFn){
+                    this.callbackFn(newValue)
+                }
+            }
+            }
         },
     }
 </script>

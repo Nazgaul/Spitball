@@ -3,7 +3,7 @@ import tutorService from '../components/tutor/tutorService';
 const state = {
     identity: '',
     isRoom: false,
-    roomId: '',
+    // roomId: '',
     currentActiveRoom: null,
     localParticipant: null,
     localParticipantsNetworkQuality: null,
@@ -30,7 +30,6 @@ const getters = {
     remoteOffline: state => state.isRemoteOffline,
     userIdentity: state => state.identity,
     isRoomCreated: state => state.isRoom,
-    roomLinkID: state => state.roomId,
     roomLoading: state => state.isRoomLoading,
     firepadLoadedOnce: state => state.isFirepadLoadedOnce,
     qualityDialog: state => state.qualityDialogVisibility,
@@ -49,9 +48,7 @@ const mutations = {
     setNetworkQuality(state, val) {
         state.localParticipantsNetworkQuality = val;
     },
-    setRoomId(state, val) {
-        state.roomId = val;
-    },
+
     setRoomStatus(state, val) {
         state.isRoom = val;
     },
@@ -123,9 +120,6 @@ const actions = {
     },
     updateRemoteStatus({commit, state}, val) {
         commit('setRemoteStatus', val);
-    },
-    updateRoomID({commit, state}, val) {
-        commit('setRoomId', val);
     },
     updateRoomStatus({commit, state}, val) {
         commit('setRoomStatus', val);

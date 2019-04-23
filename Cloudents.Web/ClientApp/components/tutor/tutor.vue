@@ -71,7 +71,6 @@
                    :isPersistent="$vuetify.breakpoint.smAndUp"
                    :content-class="'review-dialog'">
             <leave-review></leave-review>
-
         </sb-dialog>
     </v-layout>
 </template>
@@ -167,7 +166,6 @@
                               "setActiveConversationObj",
                               "getChatById",
                               "lockChat",
-                              "updateRoomID",
                               "updateStudyRoomProps",
                               "updateReviewDialog",
                               "updateReview",
@@ -188,7 +186,8 @@
                 let self = this;
                 tutorService.getRoomInformation(id).then(({data}) => {
                     initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-                    this.updateStudyRoomProps(data);
+                    let roomData =  { ...data, roomId: id };
+                    this.updateStudyRoomProps(roomData);
                     self.getChatById(data.conversationId).then(({data}) => {
                         let currentConversationObj = chatService.createActiveConversationObj(data);
                         self.setActiveConversationObj(currentConversationObj);

@@ -3,7 +3,7 @@ import reviewService from '../services/reviewService';
 const state = {
     review: {
         rate: 0,
-        reviewTExt: '',
+        reviewText: '',
         roomId: '',
     },
     reviewDialog: false
@@ -17,8 +17,11 @@ const mutations = {
     changeReviewDialogState(state, val) {
         state.reviewDialog = val;
     },
-    setReview(state, val) {
-        state.review = val;
+    setReview(state, reviewData) {
+        state.review = reviewData;
+    },
+    setReviewStars(state, val){
+        state.review.rate = val
     }
 };
 
@@ -26,11 +29,15 @@ const actions = {
     updateReviewDialog({commit, state}, val) {
         commit('changeReviewDialogState', val);
     },
-    updateReview({commit, state}, val) {
-        commit('setReview', val);
+    updateReviewStars({commit, state}, val){
+        commit('setReviewStars', val)
     },
-    submitReview({commit, state}) {
-        return  reviewService.sendReview(state.review)
+    updateReview({commit, state}, reviewData) {
+        commit('setReview', reviewData);
+    },
+    submitReview({commit, state}, reviewData) {
+        commit('setReview', reviewData);
+        return  reviewService.sendReview(reviewData)
                               .then((resp) => {
                                         return resp;
                                     },

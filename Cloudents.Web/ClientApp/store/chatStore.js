@@ -71,7 +71,6 @@ const mutations = {
     setActiveConversationStudyRoom(state, id){
         state.activeConversationObj.studyRoomId = id;
     },
-    
     addConversation: (state, conversationObj)=>{
         let id = conversationObj.conversationId;
         // add a properly this way allow the computed to be fired!
@@ -142,7 +141,7 @@ const actions = {
                 let ConversationObj = chatService.createConversation(message);
                 commit('addConversation', ConversationObj)
             }
-        }      
+        }
         
     },
     getChatById:(context, conversationId)=>{
@@ -186,7 +185,7 @@ const actions = {
     },
     getAllConversations:({commit, getters})=>{
         if(!getters.accountUser) {
-            commit('closeChat')
+            commit('closeChat');
             return;
         };
         chatService.getAllConversations().then(({data})=>{
@@ -229,7 +228,7 @@ const actions = {
         let messageObj = chatService.createServerMessageObj({
             message: message,
             otherUser: state.activeConversationObj.userId
-        })
+        });
         chatService.sendChatMessage(messageObj);
     },
     toggleChatMinimize:({commit})=>{

@@ -36,7 +36,7 @@
             }
         },
         computed: {
-            ...mapGetters(['roomLinkID', 'firepadLoadedOnce'])
+            ...mapGetters(['getStudyRoomData', 'firepadLoadedOnce'])
         },
         methods: {
             ...mapActions(['updateCodeLoadedOnce']),
@@ -56,7 +56,7 @@
             loadFirePad() {
                 let self = this;
                 let loadCodeLang = this.defaultSyntax;
-                let roomId = self.roomLinkID || '';
+                let roomId = self.getStudyRoomData.roomId || '';
                 self.$loadScript(`https://www.gstatic.com/firebasejs/5.8.5/firebase.js`).then(
                     (data) => {
                         // Initialize Firebase
