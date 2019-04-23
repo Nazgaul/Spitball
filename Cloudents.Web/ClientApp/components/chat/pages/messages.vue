@@ -8,7 +8,7 @@
             <v-flex justify-end class="messages-header">
                 <div v-if="isTutor && messages && messages.length > 0" @click="createRoom">
                     <span v-show="studyRoomExists" v-language:inner >chat_studyRoom_enter</span>
-                    <span v-show="!studyRoomExists" v-language:inner>chat_studyRoom_enter</span>
+                    <span v-show="!studyRoomExists" v-language:inner>chat_studyRoom_create</span>
                 </div>
                 <div v-if="isTutor && messages &&  messages.length > 0">
                     <v-icon style="font-size: 16px; color:#bcbccb">sbf-studyroom-icon</v-icon>

@@ -123,10 +123,10 @@
   <data name="room_created" xml:space="preserve">
     <value>Room created</value>
   </data>
-  <data name="chat_studyRoom_enter" xml:space="preserve">
+  <data name="studyRoom_enter" xml:space="preserve">
     <value>Enter Study Room</value>
   </data>
-  <data name="chat_studyRoom_create" xml:space="preserve">
+  <data name="studyRoom_create" xml:space="preserve">
     <value>Create Study Room</value>
   </data>
   <data name="type_message" xml:space="preserve">
