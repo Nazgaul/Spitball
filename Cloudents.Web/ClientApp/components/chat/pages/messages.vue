@@ -6,11 +6,12 @@
         </div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <div v-if="isTutor && messages.length > 0">
-                    <span @click="createRoom" v-language:inner>chat_studyRoom</span>
+                <div v-if="isTutor && messages && messages.length > 0" @click="createRoom">
+                    <span v-show="studyRoomExists" v-language:inner >chat_studyRoom_enter</span>
+                    <span v-show="!studyRoomExists" v-language:inner>chat_studyRoom_enter</span>
                 </div>
-                <div v-if="isTutor && messages.length > 0">
-                    <v-icon style="font-size: 16px; color:#bcbccb" @click="createRoom">sbf-studyroom-icon</v-icon>
+                <div v-if="isTutor && messages &&  messages.length > 0">
+                    <v-icon style="font-size: 16px; color:#bcbccb">sbf-studyroom-icon</v-icon>
                 </div>
               
             </v-flex>
@@ -57,7 +58,13 @@ export default {
         },
         activeConversationObj(){
             return this.getActiveConversationObj;
+        },
+        studyRoomExists(){
+            if(this.activeConversationObj && this.activeConversationObj.studyRoomId){
+                return this.activeConversationObj.studyRoomId.length > 1
+            }
         }
+
     },
     methods:{
         ...mapActions(['sendChatMessage', 'createStudyRoom']),
