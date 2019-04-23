@@ -20,43 +20,40 @@ namespace Cloudents.Infrastructure
             _client = client;
         }
 
-        //public async Task<PayMeSellerResponse> CreateSellerAsync(PayMeSeller seller, CancellationToken token)
-        //{
-        //    var contractResolver = new DefaultContractResolver
-        //    {
-        //        NamingStrategy = new SnakeCaseNamingStrategy()
-        //    };
-        //    string json = JsonConvert.SerializeObject(seller, new JsonSerializerSettings
-        //    {
-        //        ContractResolver = contractResolver,
-        //    });
-        //    var xx = await _client.PostJsonAsync<string>(new Uri("https://preprod.paymeservice.com/api/create-seller"),
-        //        json, null, token);
-
-        //    return JsonConvert.DeserializeObject<PayMeSellerResponse>(xx, new JsonSerializerSettings
-        //    {
-        //        ContractResolver = contractResolver,
-        //    });
-
-        //}
-
         private static readonly DefaultContractResolver ContractResolver = new DefaultContractResolver
         {
             NamingStrategy = new SnakeCaseNamingStrategy()
         };
 
-        public async Task<GenerateSaleResponse> CreatePayment(string callback, CancellationToken token)
+        public async Task<GenerateSaleResponse> CreateBuyerAsync(string callback, CancellationToken token)
         {
-            var generateSale = new GenerateSale(callback);
+            var generateSale = GenerateSale.CreateBuyer(callback);
 
+            return await GenerateSaleAsync(token, generateSale);
+        }
+
+        public async Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, decimal price, CancellationToken token)
+        {
+            var generateSale = GenerateSale.TransferMoney(sellerKey, buyerKey, price);
+
+            return await GenerateSaleAsync(token, generateSale);
+        }
+
+        private async Task<GenerateSaleResponse> GenerateSaleAsync(CancellationToken token, GenerateSale generateSale)
+        {
             var json = JsonConvert.SerializeObject(generateSale, new JsonSerializerSettings
             {
                 ContractResolver = ContractResolver,
+                NullValueHandling = NullValueHandling.Ignore
             });
             using (var sr = new StringContent(json, Encoding.UTF8, "application/json"))
             {
                 var response = await _client.PostAsync("https://preprod.paymeservice.com/api/generate-sale", sr, token);
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    var str = await response.Content.ReadAsStringAsync();
+                    throw new HttpRequestException($"statusCode: {response.StatusCode} reason: {response.ReasonPhrase}, body: {str}");
+                }
                 using (var s = await response.Content.ReadAsStreamAsync())
                 {
                     var result = s.ToJsonReader(reader =>
@@ -70,25 +67,48 @@ namespace Cloudents.Infrastructure
 
                     return result;
                 }
-
             }
         }
 
 
         private class GenerateSale
         {
-            public GenerateSale(string saleCallbackUrl)
+            public static GenerateSale TransferMoney(string sellerId, string buyerId, decimal price)
             {
-                SaleCallbackUrl = saleCallbackUrl;
+                return new GenerateSale()
+                {
+                    SellerPaymeId = sellerId,
+                    SalePrice = (int)price * 100,
+                    BuyerKey = buyerId
+                };
             }
 
-            public string SellerPaymeId => "MPL15546-31186SKB-53ES24ZG-WGVCBKO2";
-            public int SalePrice => 0;
+            private GenerateSale()
+            {
+
+            }
+
+            public static GenerateSale CreateBuyer(string saleCallbackUrl)
+            {
+                return new GenerateSale()
+                {
+                    SellerPaymeId = "MPL15546-31186SKB-53ES24ZG-WGVCBKO2",
+                    SalePrice = 0,
+                    CaptureBuyer = 1,
+                    SaleType = "token",
+                    SaleCallbackUrl = saleCallbackUrl
+                };
+            }
+
+            public string SellerPaymeId { get; private set; }
+
+            public int SalePrice { get; private set; }
             public string Currency => "ILS";
             public string ProductName => "Tutoring";
-            public int CaptureBuyer => 1;
-            public string SaleType => "token";
-            public string SaleCallbackUrl { get; }
+            public int? CaptureBuyer { get; private set; }
+            public string SaleType { get; private set; }
+            public string SaleCallbackUrl { get; private set; }
+            public string BuyerKey { get; private set; }
 
 
         }

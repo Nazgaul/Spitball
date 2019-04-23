@@ -41,6 +41,8 @@
     public class GenerateSaleResponse
     {
         public int StatusCode { get; set; }
+
+        public string StatusErrorDetails { get; set; }
         public string SaleUrl { get; set; }
         public string PaymeSaleId { get; set; }
         public int PaymeSaleCode { get; set; }

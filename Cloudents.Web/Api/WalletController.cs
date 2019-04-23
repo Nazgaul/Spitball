@@ -96,11 +96,16 @@ namespace Cloudents.Web.Api
         #region PayMe
 
         [HttpPost("GenerateSale")]
-        public async Task<SaleResponse> GenerateLink([FromServices] IPayment payment,[FromServices] IHostingEnvironment configuration,
+        public async Task<ActionResult<SaleResponse>> GenerateLink([FromServices] IPayment payment,
+            [FromServices] IHostingEnvironment configuration,
             CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User);
 
+            var user = await _userManager.GetUserAsync(User);
+            if (!string.IsNullOrEmpty(user.BuyerKey))
+            {
+                return BadRequest();
+            }
             var url = Url.RouteUrl("PayMeCallback", new
             {
                 userId = user.Id
@@ -113,7 +118,7 @@ namespace Cloudents.Web.Api
                 uri.Port = 80;
             };
 
-            var result = await payment.CreatePayment(uri.Uri.AbsoluteUri, token);
+            var result = await payment.CreateBuyerAsync(uri.Uri.AbsoluteUri, token);
             var saleUrl = new UriBuilder(result.SaleUrl);
             saleUrl.AddQuery(new NameValueCollection()
             {
