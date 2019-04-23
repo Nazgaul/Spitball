@@ -16,6 +16,8 @@ using System.Collections.Specialized;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Api
 {
@@ -94,7 +96,8 @@ namespace Cloudents.Web.Api
         #region PayMe
 
         [HttpPost("GenerateSale")]
-        public async Task<SaleResponse> GenerateLink([FromServices] IPayment payment, CancellationToken token)
+        public async Task<SaleResponse> GenerateLink([FromServices] IPayment payment,[FromServices] IHostingEnvironment configuration,
+            CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -102,7 +105,13 @@ namespace Cloudents.Web.Api
             {
                 userId = user.Id
             }, "http");
-            var uri = new UriBuilder(url) { Host = "ca558358.ngrok.io", Port = 80 };
+
+            var uri = new UriBuilder(url);
+            if (configuration.IsDevelopment())
+            {
+                uri.Host = "ca558358.ngrok.io";
+                uri.Port = 80;
+            };
 
             var result = await payment.CreatePayment(uri.Uri.AbsoluteUri, token);
             var saleUrl = new UriBuilder(result.SaleUrl);
@@ -118,10 +127,11 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous]
-        public IActionResult PayMeCallbackAsync([FromQuery]long userId, [FromForm] PayMeCallback model)
+        public async Task<IActionResult> PayMeCallbackAsync([FromQuery]long userId, [FromForm] PayMeCallback model, CancellationToken token)
         {
-            var body = Request.Form;
-            var query = Request.QueryString;
+
+            var command = new AddBuyerTokenCommand(userId, model.BuyerKey);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
         #endregion

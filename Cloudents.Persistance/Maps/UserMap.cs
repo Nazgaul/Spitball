@@ -43,7 +43,6 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Score).ReadOnly();
             //Table("User]"); //if not there is sql error
 
-            SchemaAction.Validate();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
@@ -63,19 +62,4 @@ namespace Cloudents.Persistence.Maps
         }
     }
 
-
-
-    //public class UserRoleMap : ClassMap<UserRole>
-
-    //{
-    //    public UserRoleMap()
-    //    {
-            
-    //        Id(x => x.Id).GeneratedBy.GuidComb();
-    //        References(x => x.User).Not.Nullable().Column("UserId");
-    //        Table("UserType");
-
-
-    //    }
-    //}
 }
