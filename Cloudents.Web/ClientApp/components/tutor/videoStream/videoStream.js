@@ -40,7 +40,8 @@ export default {
                           'getCurrentRoomState',
                           'getStudyRoomData',
                           'getJwtToken',
-                          'accountUser'
+                          'accountUser',
+                          'getAllowReview'
                       ]),
         roomIsPending() {
             return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
@@ -66,7 +67,8 @@ export default {
     methods: {
         ...mapActions([
                           'updateRoomLoading',
-                          'updateCurrentRoomState'
+                          'updateCurrentRoomState',
+                          'updateReviewDialog'
                       ]),
 
         biggerRemoteVideo() {
@@ -91,6 +93,9 @@ export default {
             tutorService.endTutoringSession(this.id)
                         .then((resp) => {
                             console.log('ended session', resp);
+                            if(!this.isTutor && this.getAllowReview){
+                                this.updateReviewDialog(true);
+                            }
                         }, (error) => {
                             console.log('error', error);
                         });

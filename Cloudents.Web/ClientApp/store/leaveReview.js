@@ -6,11 +6,13 @@ const state = {
         reviewText: '',
         roomId: '',
     },
-    reviewDialog: false
+    reviewDialog: false,
+    allowReview: true
 };
 const getters = {
     getReviewDialogState: state => state.reviewDialog,
-    getReview: state => state.review
+    getReview: state => state.review,
+    getAllowReview: state => state.allowReview
 };
 
 const mutations = {
@@ -22,10 +24,17 @@ const mutations = {
     },
     setReviewStars(state, val) {
         state.review.rate = val;
+    },
+    setAllowReview(state, val){
+        state.allowReview = val
     }
+
 };
 
 const actions = {
+    updateAllowReview({commit, state}, val){
+        commit('setAllowReview', val)
+    },
     updateReviewDialog({commit, state}, val) {
         commit('changeReviewDialogState', val);
     },
@@ -39,6 +48,7 @@ const actions = {
         commit('setReview', reviewData);
         return reviewService.sendReview(reviewData)
                             .then((resp) => {
+                                commit('setAllowReview', false);
                                       return resp;
                                   },
                                   (error) => {
