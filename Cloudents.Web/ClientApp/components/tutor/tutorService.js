@@ -241,7 +241,7 @@ function RoomProps(ObjInit) {
     this.onlineDocument = ObjInit.onlineDocument || '';
     this.isTutor = store.getters['accountUser'].id == ObjInit.tutorId;
     this.roomId = ObjInit.roomId || '';
-    this.allowReview = ObjInit.allowReview || true;
+    this.allowReview = ObjInit.allowReview;
 }
 
 const createRoomProps = function createLeaderBoardItem(ObjInit){

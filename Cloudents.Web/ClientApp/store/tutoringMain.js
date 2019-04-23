@@ -89,9 +89,11 @@ const mutations = {
 };
 
 const actions = {
-    updateStudyRoomProps({commit, state}, val) {
+    updateStudyRoomProps(context, val) {
         let roomData = tutorService.createRoomProps(val);
-        commit('setStudyRoomProps', roomData);
+        let allowReview = roomData.allowReview;
+        context.dispatch('updateAllowReview',allowReview);
+        context.commit('setStudyRoomProps', roomData);
     },
     updateTestDialogState({commit, state}, val) {
         commit('setqualityDialogState', val);

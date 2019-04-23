@@ -94,7 +94,7 @@
                 return utilitiesService.proccessImageURL(this.getActiveConversationObj.image, 54, 54);
             },
             tutorId() {
-                return this.getActiveConversationObj.userId.toString();
+                return this.getActiveConversationObj && this.getActiveConversationObj.userId && this.getActiveConversationObj.userId.toString();
             },
             tutorName() {
                 return this.getActiveConversationObj.name;
@@ -116,9 +116,11 @@
                                       tutor: this.tutorId
                                   })
                     .then((resp) => {
-                              this.reviewSent = true;
-                              this.btnLoading = false;
-                              this.updateReview(null);
+                              if(!!resp) {
+                                  this.reviewSent = true;
+                                  this.btnLoading = false;
+                                  this.updateReview(null);
+                              }
                           },
                           (error) => {
                               console.log('error sending review', error);
@@ -143,7 +145,7 @@
     .leave-review-wrap {
         width: 100%;
         background-color: @color-white;
-        .review-close-icon{
+        .review-close-icon {
             color: #a4a3be;
         }
         .v-text-field--outline > .v-input__control > .v-input__slot {
