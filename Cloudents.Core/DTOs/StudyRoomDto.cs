@@ -9,6 +9,8 @@ namespace Cloudents.Core.DTOs
         public Guid ConversationId { get; set; }
 
         public long TutorId { get; set; }
+
+        public bool AllowReview { get; set; }
     }
 
 
