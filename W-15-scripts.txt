@@ -1,2 +1,4 @@
 ﻿alter table sb.question
 ALTER COLUMN price decimal(19,5) null;
+
+need to upload azure function v2.
