@@ -120,6 +120,9 @@
   <data name="messages" xml:space="preserve">
     <value>הודעות</value>
   </data>
+  <data name="room_created" xml:space="preserve">
+    <value>החדר נפתח</value>
+  </data>
   <data name="studyRoom" xml:space="preserve">
     <value>חדר לימוד</value>
   </data>
