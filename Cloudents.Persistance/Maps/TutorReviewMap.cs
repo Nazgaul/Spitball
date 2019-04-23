@@ -14,7 +14,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.DateTime).Not.Nullable();
             Map(x => x.Review).Not.Nullable().Length(1000);
             Map(x => x.Rate).Not.Nullable();
-            SchemaAction.Validate();
+            
         }
     }
 }
