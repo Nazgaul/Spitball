@@ -37,6 +37,20 @@
         public string SellerDashboardSignupLink { get; set; }
     }
 
+
+    public class GenerateSaleResponse
+    {
+        public int StatusCode { get; set; }
+        public string SaleUrl { get; set; }
+        public string PaymeSaleId { get; set; }
+        public int PaymeSaleCode { get; set; }
+        public int Price { get; set; }
+        public string TransactionId { get; set; }
+        public string Currency { get; set; }
+        public string SalePaymentMethod { get; set; }
+    }
+
+
     public enum BankCode
     {
         Yahav = 4,

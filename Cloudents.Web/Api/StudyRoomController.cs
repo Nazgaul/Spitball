@@ -165,6 +165,14 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpPost("PayMe"), AllowAnonymousAttribute]
+        public IActionResult PayMeCallbackAsync([FromForm] PayMeCallback model)
+        {
+            var body = Request.Form;
+            var query = Request.QueryString;
+            return Ok();
+        }
+
 
 
     }

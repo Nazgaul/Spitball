@@ -6,6 +6,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IPayment
     {
-        Task<PayMeSellerResponse> CreateSellerAsync(PayMeSeller seller, CancellationToken token);
+        //Task<PayMeSellerResponse> CreateSellerAsync(PayMeSeller seller, CancellationToken token);
+        Task<GenerateSaleResponse> CreatePayment(string callback, CancellationToken token);
     }
 }
