@@ -92,7 +92,8 @@ const actions = {
     updateStudyRoomProps(context, val) {
         let roomData = tutorService.createRoomProps(val);
         let allowReview = roomData.allowReview;
-        context.dispatch('updateAllowReview',allowReview);
+        //update leaveReview store, to prevent leaving of multiple reviews
+        context.dispatch('updateAllowReview', allowReview);
         context.commit('setStudyRoomProps', roomData);
     },
     updateTestDialogState({commit, state}, val) {
