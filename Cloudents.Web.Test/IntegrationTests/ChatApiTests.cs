@@ -3,9 +3,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -37,12 +36,15 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-           
-            string msg = "{\"message\":\"string\",\"otherUser\":160116}";
+            var msg = new
+            {
+                message = "string",
+                otherUser = "160116"
+            };
 
             await client.LogInAsync();
 
-            var response = await client.PostAsync("api/Chat", new StringContent(msg, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("api/Chat", HttpClientExtensions.CreateString(JsonConvert.SerializeObject(msg)));
 
             response.StatusCode.Should().Be(200);
         }
@@ -62,10 +64,14 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
+            var otherUser = new
+            {
+                otherUser = "159039"
+            };
 
             await client.LogInAsync();
 
-            var response = await client.PostAsync("api/Chat/read", new StringContent("{\"otherUser\":159039}", Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("api/Chat/read", HttpClientExtensions.CreateString(JsonConvert.SerializeObject(otherUser)));
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
         }
