@@ -6,11 +6,11 @@
         </div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <div v-if="isTutor && messages.length > 0" @click="createRoom">
+                <div v-if="isTutor && messages && messages.length > 0" @click="createRoom">
                     <span v-show="studyRoomExists" v-language:inner >chat_studyRoom_enter</span>
                     <span v-show="!studyRoomExists" v-language:inner>chat_studyRoom_enter</span>
                 </div>
-                <div v-if="isTutor && messages.length > 0">
+                <div v-if="isTutor && messages &&  messages.length > 0">
                     <v-icon style="font-size: 16px; color:#bcbccb">sbf-studyroom-icon</v-icon>
                 </div>
               
