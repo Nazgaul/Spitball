@@ -16,10 +16,7 @@ namespace Cloudents.Admin2.Models
         [Required]
         [MinLength(15)]
         public string Text { get; set; }
-        /// <summary>
-        /// The price of the question
-        /// </summary>
-        [Required] public decimal Price { get; set; }
+       
         /// <summary>
         /// the country of the question - can be us or il
         /// </summary>

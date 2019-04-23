@@ -18,18 +18,15 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRegularUserRepository _userRepository;
         private readonly Lazy<IQuestionsDirectoryBlobProvider> _blobProvider;
         private readonly ITextAnalysis _textAnalysis;
-        private readonly ITransactionRepository _transactionRepository;
         private readonly IRepository<Course> _courseRepository;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRegularUserRepository userRepository, ITextAnalysis textAnalysis,
-            ITransactionRepository transactionRepository,
             Lazy<IQuestionsDirectoryBlobProvider> blobProvider, IRepository<Course> courseRepository)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;
             _textAnalysis = textAnalysis;
-            _transactionRepository = transactionRepository;
             _blobProvider = blobProvider;
             _courseRepository = courseRepository;
         }
@@ -43,12 +40,12 @@ namespace Cloudents.Command.CommandHandler
                 throw new DuplicateRowException();
             }
 
-            var currentBalance = await _transactionRepository.GetBalanceAsync(message.UserId, token);
+            //var currentBalance = await _transactionRepository.GetBalanceAsync(message.UserId, token);
            
-            if (currentBalance < message.Price)
-            {
-                throw new InsufficientFundException();
-            }
+            //if (currentBalance < message.Price)
+            //{
+            //    throw new InsufficientFundException();
+            //}
 
             var course = await _courseRepository.LoadAsync(message.Course, token);
             await _courseRepository.UpdateAsync(course, token);
@@ -58,10 +55,9 @@ namespace Cloudents.Command.CommandHandler
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
 
             var question = new Question(message.SubjectId,
-                message.Text, message.Price, message.Files?.Count() ?? 0,
+                message.Text,  message.Files?.Count() ?? 0,
                 user, textLanguage, course, user.University);
 
-            user.MakeTransaction(QuestionTransaction.Asked(question));
             await _userRepository.UpdateAsync(user, token);
 
 

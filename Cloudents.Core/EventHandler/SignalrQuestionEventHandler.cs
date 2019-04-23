@@ -39,7 +39,6 @@ namespace Cloudents.Core.EventHandler
             {
                 CultureInfo = eventMessage.Question.Language,
                 User = user,
-                Price = eventMessage.Question.Price,
                 Id = eventMessage.Question.Id,
                 // ReSharper disable once ConstantConditionalAccessQualifier this is later stuff - we still have null courses
                 Course = eventMessage.Question.Course?.Id,

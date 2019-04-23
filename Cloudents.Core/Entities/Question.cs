@@ -19,14 +19,13 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Question : Entity<long>, IAggregateRoot, ISoftDelete
     {
-        public Question(QuestionSubject? subject, string text, decimal price, int attachments,
+        public Question(QuestionSubject? subject, string text,  int attachments,
             RegularUser user,
              CultureInfo language,  [NotNull] Course course,  University university)
         : this()
         {
             Subject = subject;
             Text = text?.Trim();
-            Price = price;
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
@@ -44,14 +43,13 @@ namespace Cloudents.Core.Entities
             Language = language ?? new CultureInfo("en");
         }
 
-        public Question(Course course, string text, decimal price, int attachments,
+        public Question(Course course, string text, int attachments,
             SystemUser user,
              CultureInfo language, University university)
             : this()
         {
             Course = course;
             Text = text?.Trim();
-            Price = price;
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
@@ -74,7 +72,6 @@ namespace Cloudents.Core.Entities
         //public virtual long Id { get; protected set; }
         public virtual QuestionSubject? Subject { get; protected set; }
         public virtual string Text { get; protected set; }
-        public virtual decimal Price { get; protected set; }
 
         public virtual int Attachments { get; protected set; }
 

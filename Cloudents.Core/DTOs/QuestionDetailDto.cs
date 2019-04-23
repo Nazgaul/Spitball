@@ -18,7 +18,6 @@ namespace Cloudents.Core.DTOs
 
         public string Text { get; set; }
 
-        public decimal Price { get; set; }
         public string Course { get; set; }
         public UserDto User { get; set; }
         public IEnumerable<QuestionDetailAnswerDto> Answers { get; set; }

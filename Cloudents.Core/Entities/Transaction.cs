@@ -193,72 +193,67 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public static QuestionTransaction Asked(Question question)
-        {
-            var money = -Math.Abs(question.Price);
-            return new QuestionTransaction(question)
-            {
-                Action = TransactionActionType.Question,
-                Type = TransactionType.Stake,
-                Price = money
-            };
-        }
+        //public static QuestionTransaction Asked(Question question)
+        //{
+        //    var money = -Math.Abs(question.Price);
+        //    return new QuestionTransaction(question)
+        //    {
+        //        Action = TransactionActionType.Question,
+        //        Type = TransactionType.Stake,
+        //        Price = money
+        //    };
+        //}
 
-        public static QuestionTransaction Deleted(Question question)
-        {
-            var money = Math.Abs(question.Price);
-            return new QuestionTransaction(question)
-            {
-                Question = null,
-                Action = TransactionActionType.DeleteQuestion,
-                Type = TransactionType.Stake,
-                Price = money
-            };
-        }
+        //public static QuestionTransaction Deleted(Question question)
+        //{
+        //    var money = Math.Abs(question.Price);
+        //    return new QuestionTransaction(question)
+        //    {
+        //        Question = null,
+        //        Action = TransactionActionType.DeleteQuestion,
+        //        Type = TransactionType.Stake,
+        //        Price = money
+        //    };
+        //}
 
         public static void Answered(Question question)
         {
-            var money = Math.Abs(question.Price);
             var userQuestion = question.User;
             var correctAnswer = question.CorrectAnswer;
 
-            var t1 = new QuestionTransaction(question)
-            {
-                Action = TransactionActionType.AnswerCorrect,
-                Type = TransactionType.Stake,
-                Price = money,
-                Answer = correctAnswer
-            };
-            var t2 = new QuestionTransaction(question)
-            {
-                Action = TransactionActionType.AnswerCorrect,
-                Type = TransactionType.Spent,
-                Price = -money,
-                Answer = correctAnswer
-            };
+            //var t1 = new QuestionTransaction(question)
+            //{
+            //    Action = TransactionActionType.AnswerCorrect,
+            //    Type = TransactionType.Stake,
+            //    Price = money,
+            //    Answer = correctAnswer
+            //};
+            //var t2 = new QuestionTransaction(question)
+            //{
+            //    Action = TransactionActionType.AnswerCorrect,
+            //    Type = TransactionType.Spent,
+            //    Price = -money,
+            //    Answer = correctAnswer
+            //};
             var t3 = new AwardMoneyTransaction(AwardsTransaction.QuestionOwnerBonus);
-            userQuestion.MakeTransaction(t1);
-            userQuestion.MakeTransaction(t2);
             userQuestion.MakeTransaction(t3);
 
-
-
             var userAnswer = correctAnswer.User;
-            var ta1 = new QuestionTransaction(question)
-            {
-                Action = TransactionActionType.AnswerCorrect,
-                Type = TransactionType.Earned,
-                Price = money,
-                Answer = correctAnswer,
-                //_awardScore = 1
-            };
+
+            //This will trigger the correct answer email.
+
+            //var ta1 = new QuestionTransaction(question)
+            //{
+            //    Action = TransactionActionType.AnswerCorrect,
+            //    Type = TransactionType.Earned,
+            //    Price = money,
+            //    Answer = correctAnswer,
+            //    //_awardScore = 1
+            //};
             var ta2 = new AwardMoneyTransaction(AwardsTransaction.QuestionAnswererBonus);
-            userAnswer.MakeTransaction(ta1);
             userAnswer.MakeTransaction(ta2);
-            userAnswer.MakeTransaction(new CommissionTransaction(question.Price));
         }
 
-       // public override int AwardScore => _awardScore;
     }
 
     public class ReferUserTransaction : Transaction
