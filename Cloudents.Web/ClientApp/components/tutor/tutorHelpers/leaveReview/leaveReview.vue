@@ -1,13 +1,13 @@
 <template>
     <div class="leave-review-wrap">
-            <v-layout align-center justify-space-between class="review-heading px-3">
-                <v-flex xs11 sm11 md11 grow>
-                    <span class="heading-text font-weight-bold">Rating and review </span>
-                </v-flex>
-                <v-flex xs1 sm1 md1 class="text-xs-right">
-                    <v-icon class="body-2 review-close-icon" @click="closeReviewDialog()">sbf-close</v-icon>
-                </v-flex>
-            </v-layout>
+        <v-layout align-center justify-space-between class="review-heading px-3">
+            <v-flex xs11 sm11 md11 grow>
+                <span class="heading-text font-weight-bold">Rating and review </span>
+            </v-flex>
+            <v-flex xs1 sm1 md1 class="text-xs-right">
+                <v-icon class="body-2 review-close-icon" @click="closeReviewDialog()">sbf-close</v-icon>
+            </v-flex>
+        </v-layout>
         <div v-if="!reviewSent">
             <v-layout row wrap class="pt-4 pb-2" :class="{'pt-5 pb-4': $vuetify.breakpoint.xsOnly}">
                 <v-flex xs12 sm12 md12 class="text-xs-center text-sm-center">
@@ -29,7 +29,8 @@
                                 :rate-num-color="'#43425D'"></userRating>
                 </v-flex>
             </v-layout>
-            <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-2" :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
+            <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-2"
+                      :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
                 <v-flex @click="toggleReviewInput()" xs12 sm8 md8 class="text-xs-center  cursor-pointer">
                 <span class="mr-2">
                     <v-icon class="blue-text body-2">sbf-edit-icon</v-icon>
@@ -53,11 +54,11 @@
             </transition>
             <v-layout align-center justify-center class="pt-4 pb-3">
                 <v-flex xs12 sm6 md6 class="text-xs-center">
-                    <v-btn  @click="sendReview()"
-                            :loading="btnLoading"
-                            color="#4452FC"
-                            round
-                            class="white-text elevation-0 py-2 submit-review">
+                    <v-btn @click="sendReview()"
+                           :loading="btnLoading"
+                           color="#4452FC"
+                           round
+                           class="white-text elevation-0 py-2 submit-review">
                         <span class="text-capitalize px-4 subheading">Submit</span>
                     </v-btn>
                 </v-flex>
@@ -84,7 +85,7 @@
                 reviewSent: false,
                 btnLoading: false,
                 reviewVal: 0,
-                roomId:0
+                roomId: 0
             };
         },
         computed: {
@@ -108,16 +109,22 @@
             sendReview() {
                 this.btnLoading = true;
                 let stars = this.getReview.rate;
-                this.submitReview({roomId:this.getStudyRoomData.roomId, review:this.reviewText, rate: stars, tutor: this.tutorId  }).then((resp) => {
-                                             this.reviewSent = true;
-                                             this.btnLoading = false;
-                                             this.updateReview(null)
-                                         },
-                                         (error) => {
-                                             console.log('error sending review', error);
-                                             this.btnLoading = false;
-                                         }
-                ).finally((fn) => {
+                this.submitReview({
+                                      roomId: this.getStudyRoomData.roomId,
+                                      review: this.reviewText,
+                                      rate: stars,
+                                      tutor: this.tutorId
+                                  })
+                    .then((resp) => {
+                              this.reviewSent = true;
+                              this.btnLoading = false;
+                              this.updateReview(null);
+                          },
+                          (error) => {
+                              console.log('error sending review', error);
+                              this.btnLoading = false;
+                          }
+                    ).finally((fn) => {
                     this.btnLoading = false;
 
                 });
@@ -136,6 +143,9 @@
     .leave-review-wrap {
         width: 100%;
         background-color: @color-white;
+        .review-close-icon{
+            color: #a4a3be;
+        }
         .v-text-field--outline > .v-input__control > .v-input__slot {
             border: 1px solid rgba(0, 0, 0, 0.19);
             font-size: 14px;

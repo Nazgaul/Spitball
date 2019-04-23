@@ -30,7 +30,7 @@
                         <testIcon class="test-icon mr-1"></testIcon>
                         System Check
                     </button>
-                    <button @click="updateReviewDialog(true)">Test</button>
+                    <v-btn @click="updateReviewDialog(true)" color="#fff">Review Test</v-btn>
                     <div class="mr-4 pr-1 d-flex">
                         <component
                                 v-if="localNetworkQuality"

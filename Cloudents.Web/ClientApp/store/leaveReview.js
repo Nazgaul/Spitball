@@ -20,8 +20,8 @@ const mutations = {
     setReview(state, reviewData) {
         state.review = reviewData;
     },
-    setReviewStars(state, val){
-        state.review.rate = val
+    setReviewStars(state, val) {
+        state.review.rate = val;
     }
 };
 
@@ -29,21 +29,22 @@ const actions = {
     updateReviewDialog({commit, state}, val) {
         commit('changeReviewDialogState', val);
     },
-    updateReviewStars({commit, state}, val){
-        commit('setReviewStars', val)
+    updateReviewStars({commit, state}, val) {
+        commit('setReviewStars', val);
     },
     updateReview({commit, state}, reviewData) {
         commit('setReview', reviewData);
     },
     submitReview({commit, state}, reviewData) {
         commit('setReview', reviewData);
-        return  reviewService.sendReview(reviewData)
-                              .then((resp) => {
-                                        return resp;
-                                    },
-                                    (error) => {
-                                        console.log('errorsend review', error);
-                                    });
+        return reviewService.sendReview(reviewData)
+                            .then((resp) => {
+                                      return resp;
+                                  },
+                                  (error) => {
+                                      console.log('errorsend review', error);
+                                        return error
+                                  });
     }
 };
 export default {

@@ -1,11 +1,11 @@
 <template>
     <div class="review-submitted-wrap">
         <v-layout row wrap align-center justify-center class="pb-4">
-            <v-flex xs12 md12 sm12 class="text-xs-center pt-3">
+            <v-flex xs12 md12 sm12 class="text-xs-center pt-4">
                 <v-icon class="star-icon">sbf-star-rating-full</v-icon>
             </v-flex>
-            <v-flex xs12 md12 sm12 class="text-xs-center pt-3">
-                <span class="font-weight-bold final-review-title">Thank you for rating</span>
+            <v-flex xs12 md12 sm12 class="text-xs-center pt-4">
+                <span class="font-weight-black final-review-title">Thank you for rating</span>
             </v-flex>
             <v-flex xs12 md12 sm12 class="text-xs-center pt-3 pb-5">
                 <span class="body-2 blue-text">Go to your review</span>
@@ -28,7 +28,7 @@
             color: @profileTextColor;
         }
         .star-icon{
-            font-size: 78px;
+            font-size: 86px;
             color: #ffca54;
         }
         .blue-text{

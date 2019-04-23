@@ -246,7 +246,7 @@ function RoomProps(ObjInit) {
 
 const createRoomProps = function createLeaderBoardItem(ObjInit){
     return new RoomProps(ObjInit)
-}
+};
 
 export default {
     dataTrack,
