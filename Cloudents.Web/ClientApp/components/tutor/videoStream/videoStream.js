@@ -14,6 +14,7 @@ export default {
             loaded: false,
             data: {},
             isCopied: false,
+            sessionStartClickedOnce: false,
             localTrackAval: false,
             remoteTrack: '',
             screenShareTrack: null,
@@ -98,20 +99,24 @@ export default {
                 this.updateTestDialogState(true);
                 return;
             }
-            if(this.isTutor) {
-                this.btnLoading = true;
-                tutorService.enterRoom(this.id).then(() => {
+            if(!this.sessionStartClickedOnce){
+                this.sessionStartClickedOnce = true;
+                if(this.isTutor) {
+                    this.btnLoading = true;
+                    tutorService.enterRoom(this.id).then(() => {
+                        this.createVideoSession();
+                    });
+                } else {
+                    //join
                     this.createVideoSession();
-                });
-            } else {
-                //join
-                this.createVideoSession();
+                }
             }
         },
         endSession() {
             tutorService.endTutoringSession(this.id)
                         .then((resp) => {
                             console.log('ended session', resp);
+                            this.sessionStartClickedOnce = false;
                         }, (error) => {
                             console.log('error', error);
                         });

@@ -132,7 +132,7 @@ const connectToRoom = function (token, options) {
                         store.dispatch('updateRemoteStatus', false);
 
                     });
-
+                    //disconnected room
                     store.getters['activeRoom'].on('disconnected', (room, error) => {
                         if (error.code === 20104) {
                             console.log('Signaling reconnection failed due to expired AccessToken!');
@@ -143,7 +143,6 @@ const connectToRoom = function (token, options) {
                         }else{
                             console.log('final disconnect')
                         }
-                        console.log('room closed', store.state.tutoringMainStore.roomStateEnum.ready);
                         if(store.getters['getStudyRoomData'].isTutor){
                             store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
                         }else{
