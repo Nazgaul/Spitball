@@ -123,10 +123,13 @@
   <data name="room_created" xml:space="preserve">
     <value>החדר נפתח</value>
   </data>
-  <data name="studyRoom" xml:space="preserve">
-    <value>חדר לימוד</value>
+  <data name="chat_studyRoom_enter" xml:space="preserve">
+    <value>כניסה לחדר לימוד</value>
   </data>
-  <data name="type_message" xml:space="preserve">
+  <data name="chat_studyRoom_create" xml:space="preserve">
+    <value>צור חדר לימוד</value>
+  </data>
+  <data name="type_message1" xml:space="preserve">
     <value>הקלד הודעה</value>
   </data>
 </root>
