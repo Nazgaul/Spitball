@@ -12,6 +12,7 @@ using System;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Filters;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
@@ -20,26 +21,19 @@ namespace Cloudents.Web.Controllers
     public class HomeController : Controller
     {
         internal const string Referral = "referral";
-        private readonly IDataProtect _dataProtect;
-        private readonly ILogger _logger;
         private readonly SignInManager<RegularUser> _signInManager;
-        private readonly UserManager<RegularUser> _userManager;
 
-        public HomeController(IDataProtect dataProtect, SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager, ILogger logger)
+        public HomeController(SignInManager<RegularUser> signInManager)
         {
-            _dataProtect = dataProtect;
             _signInManager = signInManager;
-            _userManager = userManager;
-            _logger = logger;
         }
 
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> Index(
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true), SignInWithToken]
+        public IActionResult Index(
             [FromServices] ICrawlerResolver crawlerResolver,
             //  [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral,
-            [FromQuery] string open,
-            [FromQuery] string token
+            [FromQuery] string open
             )
         {
             if (!string.IsNullOrEmpty(referral))
@@ -47,7 +41,6 @@ namespace Cloudents.Web.Controllers
                 TempData[Referral] = referral;
             }
             if (crawlerResolver?.Crawler?.Type == CrawlerType.LinkedIn)
-            //if (userAgent != null && userAgent.Contains("linkedin", StringComparison.OrdinalIgnoreCase))
             {
                 ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
             }
@@ -55,18 +48,6 @@ namespace Cloudents.Web.Controllers
             if (_signInManager.IsSignedIn(User))
             {
                 return View();
-            }
-
-            if (token != null)
-            {
-                await SignInUserAsync(token);
-                return RedirectToAction("Index", new
-                {
-                    referral,
-                    open
-                });
-
-
             }
 
             if (open?.Equals("referral", StringComparison.OrdinalIgnoreCase) == true)
@@ -79,29 +60,6 @@ namespace Cloudents.Web.Controllers
 
 
             return View();
-        }
-
-
-        public async Task SignInUserAsync(string code)
-        {
-            try
-            {
-
-                var userId = _dataProtect.Unprotect(code);
-                var user = await _userManager.FindByIdAsync(userId);
-                if (user != null)
-                {
-                    ViewBag.Auth = true;
-                    await _signInManager.SignInAsync(user, false);
-                }
-
-            }
-            catch (CryptographicException ex)
-            {
-                //We just log the exception. user open the email too later and we can't sign it.
-                //If we see this persist then maybe we need to increase the amount of time
-                _logger.Exception(ex);
-            }
         }
 
         [Route("logout")]
