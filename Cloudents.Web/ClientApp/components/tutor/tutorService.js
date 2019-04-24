@@ -1,5 +1,6 @@
 import Twilio, { connect, createLocalTracks, createLocalVideoTrack, LocalDataTrack } from 'twilio-video';
 import { connectivityModule } from '../../services/connectivity.module';
+import { LanguageService } from '../../services/language/languageService';
 import store from '../../store/index.js';
 import whiteBoardService from "./whiteboard/whiteBoardService";
 
@@ -149,6 +150,11 @@ const connectToRoom = function (token, options) {
                             store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
 
                         }
+                        let toasterParams = {
+                            text: LanguageService.getValueByKey('studyRoom_session_ended'),
+                            type: 'error-toaster'
+                        }
+                        store.dispatch('showRoomToasterMessage', toasterParams);
                         //detach all local tracks to prevent multiple added tracks
                         store.getters['activeRoom'].localParticipant.tracks.forEach(function(track) {
                             detachTracks([track]);

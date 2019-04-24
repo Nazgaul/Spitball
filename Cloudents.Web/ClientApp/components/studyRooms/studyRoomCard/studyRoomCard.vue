@@ -17,9 +17,9 @@
             <v-flex py-1 class="study-card-message">
                 <v-icon @click.stop="sendMessage">sbf-message-icon</v-icon>
             </v-flex>
-            <v-flex py-1 pb-2 @click="enterRoom" class="study-card-enter-container">
+            <v-flex py-1 pb-2 class="study-card-enter-container">
                 <v-icon class="study-card-enter-icon mr-1">sbf-enter-icon</v-icon>
-                <span class="study-card-enter-text" v-language:inner>studyRoom_enter_room</span> 
+                <span class="study-card-enter-text" v-language:inner>studyRoom_enter_room</span>
             </v-flex>
         </v-layout>
         <v-layout align-center row justify-space-between class="study-card-created-container">

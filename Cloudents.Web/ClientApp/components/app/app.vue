@@ -110,7 +110,7 @@
             <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
                            :onStepChange="onFooterStepChange"></mobile-footer>
         </v-content>
-        <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
+        <v-snackbar absolute top :timeout="toasterTimeout" :class="getShowToasterType" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
     </v-app>
@@ -194,6 +194,7 @@ export default {
       "getDialogState",
       "confirmationDialog",
       "getShowToaster",
+      "getShowToasterType",
       "getToasterText",
       "getMobileFooterState",
       "showMarketingBox",
@@ -376,7 +377,7 @@ export default {
     }
   },
   created() {
-    this.openOnboardGuide();
+    //this.openOnboardGuide();
     this.$root.$on("closePopUp", name => {
       if (name === "suggestions") {
         this.showDialogSuggestQuestion = false;

@@ -1,9 +1,14 @@
 ﻿import { TOASTER } from './mutation-types'
 
 const state = {
+    toasterTypes:{
+        default: '',
+        error: 'error-toaster',
+    },
     params: {
         toasterText: '',
         showToaster:false,
+        toasterType: '', //class name
     }
 };
 const mutations = {
@@ -14,6 +19,7 @@ const mutations = {
 const getters = {
     getShowToaster:  state => state.params.showToaster,
     getToasterText: state => state.params.toasterText,
+    getShowToasterType: state=> state.params.toasterType,
 };
 const actions = {
     updateToasterParams({commit}, val){
