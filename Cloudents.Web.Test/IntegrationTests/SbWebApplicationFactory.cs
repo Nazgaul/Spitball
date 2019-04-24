@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -29,9 +30,9 @@ namespace Cloudents.Web.Test.IntegrationTests
 
     }
 
-    public static class HttpClientExtensions
+    public static class HttpClient
     {
-        public static async Task LogInAsync(this HttpClient client)
+        public static async Task LogInAsync(this System.Net.Http.HttpClient client)
         {
             var response = await client.PostAsync("api/LogIn", new StringContent(TestUser.GetTestUser(),
                  Encoding.UTF8, "application/json"));
@@ -40,6 +41,12 @@ namespace Cloudents.Web.Test.IntegrationTests
 
         public static StringContent CreateString(string str)
         {
+            return new StringContent(str, Encoding.UTF8, "application/json");
+        }
+
+        public static StringContent CreateString(object obj)
+        {
+            var str = JsonConvert.SerializeObject(obj);
             return new StringContent(str, Encoding.UTF8, "application/json");
         }
 
@@ -67,5 +74,6 @@ namespace Cloudents.Web.Test.IntegrationTests
                 return JsonConvert.SerializeObject(user);
             }
         }
+               
     }
 }

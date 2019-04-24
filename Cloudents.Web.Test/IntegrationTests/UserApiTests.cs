@@ -5,30 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
+using System.Net;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class UserApiTests //: IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
+        //private readonly SbWebApplicationFactory _factory;
+        private readonly System.Net.Http.HttpClient _client;
 
         public UserApiTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
+            //_factory = factory;
+            _client = factory.CreateClient();
         }
 
 
         [Fact]
         public async Task Get_User()
         {
-            var client = _factory.CreateClient();
+            await _client.LogInAsync();
 
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
-
-            var response = await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
-
-            response = await client.GetAsync("api/course/search?term=fsdfds");
+            var response = await _client.GetAsync("api/course/search?term=fsdfds");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -42,13 +41,16 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_Code()
         {
-            var client = _factory.CreateClient();
+            var cred = new
+            {
+                email = "elad+99@cloudents.com",
+                password = "123456789",
+                fingerPrint = "string"
+            };
 
-            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+            await _client.PostAsync("api/LogIn", HttpClient.CreateString(cred));
 
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
-
-            var response = await client.GetAsync("api/sms/code");
+            var response = await _client.GetAsync("api/sms/code");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -56,7 +58,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var code = d["code"]?.Value<string>();
 
-            response.StatusCode.Should().Be(200);
+            response.EnsureSuccessStatusCode();
 
             code.Should().NotBeNull();
         }
@@ -64,85 +66,100 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Sms()
         {
-            var client = _factory.CreateClient();
+            var cred = new
+            {
+                email = "elad+99@cloudents.com",
+                password = "123456789",
+                fingerPrint = "string"
+            };
 
-            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
+            var phone = new
+            {
+                phoneNumber = "542473699",
+                countryCode = "972"
+            };
+            _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
-            string phone = "{\"phoneNumber\":\"542473699\",\"countryCode\":972}";
+            await _client.PostAsync("api/Register", HttpClient.CreateString(cred));
 
-            client.DefaultRequestHeaders.Add("Referer", "swagger");
+            var response = await _client.PostAsync("api/Sms", HttpClient.CreateString(phone));
 
-            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
-
-            var response = await client.PostAsync("api/Sms", new StringContent(phone, Encoding.UTF8, "application/json"));
-
-            response.StatusCode.Should().Be(200);
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]
         public async Task PostAsync_Sms_Resend()
         {
-            var client = _factory.CreateClient();
+            var cred = new
+            {
+                email = "elad+99@cloudents.com",
+                password = "123456789",
+                fingerPrint = "string"
+            };
 
-            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
+            _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
-            client.DefaultRequestHeaders.Add("Referer", "swagger");
+            await _client.PostAsync("api/Register", HttpClient.CreateString(cred));
 
-            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+            var response = await _client.PostAsync("api/Sms/resend", null);
 
-            var response = await client.PostAsync("api/Sms/resend", null);
-
-            response.StatusCode.Should().Be(200);
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]
         public async Task PostAsync_Sms_Verify()
         {
-            var client = _factory.CreateClient();
+            var cred = new
+            {
+                email = "elad+99@cloudents.com",
+                password = "123456789",
+                fingerPrint = "string"
+            };
 
-            string cred = "{\"email\":\"elad+99@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
+            var phone = new
+            {
+                number = "123456",
+                fingerPrint = "string"
+            };
 
-            string phone = "{\"number\":\"123456\",\"fingerPrint\":\"string\"}";
+            _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
-            client.DefaultRequestHeaders.Add("Referer", "swagger");
+            await _client.PostAsync("api/Register", HttpClient.CreateString(cred));
 
-            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+            var response = await _client.PostAsync("api/Sms/verify", HttpClient.CreateString(phone));
 
-            var response = await client.PostAsync("api/Sms/verify", new StringContent(phone, Encoding.UTF8, "application/json"));
-
-            response.StatusCode.Should().NotBe(500);
+            response.StatusCode.Should().NotBe(HttpStatusCode.InternalServerError);
         }
 
         [Fact]
         public async Task PostAsync_Resend_Email()
         {
-            var client = _factory.CreateClient();
+            var cred = new
+            {
+                email = "dale@cloudents.com",
+                password = "123456789",
+                fingerPrint = "string"
+            };
 
-            string cred = "{\"email\":\"dale@cloudents.com\",\"password\":\"123456789\",\"confirmPassword\":\"123456789\"}";
+            await _client.PostAsync("api/Register", HttpClient.CreateString(cred));
 
-            await client.PostAsync("api/Register", new StringContent(cred, Encoding.UTF8, "application/json"));
+            var response = await _client.PostAsync("api/Register/resend", HttpClient.CreateString("{}"));
 
-            var response = await client.PostAsync("api/Register/resend", new StringContent("{}", Encoding.UTF8, "application/json"));
-
-            response.StatusCode.Should().Be(400);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [Fact]
         public async Task GetAsync_Validate_Email()
         {
-            var client = _factory.CreateClient();
+            var response = await _client.GetAsync("api/LogIn/ValidateEmail?email=elad%40cloudents.com");
 
-            var response = await client.GetAsync("api/LogIn/ValidateEmail?email=elad%40cloudents.com");
-
-            response.StatusCode.Should().Be(200);
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]
         public async Task GetAsync_Non_Validate_Email()
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync("api/LogIn/ValidateEmail?email=fsdfs%40cloudents.com");
+            var response = await _client.GetAsync("api/LogIn/ValidateEmail?email=fsdfs%40cloudents.com");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -152,7 +169,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var error = d["Email"][0].Value<string>();
 
-            response.StatusCode.Should().Be(400);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
             error.Should().Be("Account cannot be found, please sign up");
         }
     }
