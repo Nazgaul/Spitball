@@ -5,10 +5,10 @@
                 <v-icon class="star-icon">sbf-star-rating-full</v-icon>
             </v-flex>
             <v-flex xs12 md12 sm12 class="text-xs-center pt-4">
-                <span class="font-weight-black final-review-title">Thank you for rating</span>
+                <span class="font-weight-black final-review-title" v-language:inner>leaveReview_final_title</span>
             </v-flex>
             <v-flex xs12 md12 sm12 class="text-xs-center pt-3 pb-5">
-                <span class="body-2 blue-text">Go to your review</span>
+                <span class="body-2 blue-text" v-language:inner>leaveReview_final_goTo</span>
             </v-flex>
         </v-layout>
     </div>
