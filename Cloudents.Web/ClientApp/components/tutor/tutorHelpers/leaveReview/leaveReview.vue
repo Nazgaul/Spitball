@@ -129,7 +129,7 @@
                               console.log('error sending review', error);
                               this.btnLoading = false;
                           }
-                    ).finally((fn) => {
+                    ).finally((done) => {
                     this.btnLoading = false;
 
                 });
