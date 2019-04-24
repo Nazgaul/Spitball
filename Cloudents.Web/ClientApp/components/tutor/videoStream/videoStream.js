@@ -25,7 +25,6 @@ export default {
                 'local_player': true,
                 'remote_player': true
             },
-            btnLoading: false
         };
     },
     props: {
@@ -102,7 +101,6 @@ export default {
             if(!this.sessionStartClickedOnce){
                 this.sessionStartClickedOnce = true;
                 if(this.isTutor) {
-                    this.btnLoading = true;
                     tutorService.enterRoom(this.id).then(() => {
                         this.createVideoSession();
                     });
