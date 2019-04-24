@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="alone_in_room" xml:space="preserve">
+    <value>You are the only one in the room</value>
+  </data>
   <data name="become_tutor" xml:space="preserve">
     <value>BECOME A TUTOR</value>
   </data>
@@ -128,5 +131,14 @@
   </data>
   <data name="help_others" xml:space="preserve">
     <value>Help others with what you know best</value>
+  </data>
+  <data name="session_ended" xml:space="preserve">
+    <value>Session ended</value>
+  </data>
+  <data name="student_entered_room" xml:space="preserve">
+    <value>The student entered to the room</value>
+  </data>
+  <data name="tutor_entered_room" xml:space="preserve">
+    <value>The tutor entered to the room</value>
   </data>
 </root>
