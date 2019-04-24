@@ -98,8 +98,9 @@ namespace Cloudents.Web
                 .AddMvcOptions(o =>
                 {
                     //TODO: check in source code
+                    o.Filters.Add<OperationCancelledExceptionFilter>();
                     o.Filters.Add<UserLockedExceptionFilter>();
-                    o.Filters.Add(new GlobalExceptionFilter());
+                    o.Filters.Add<GlobalExceptionFilter>();
                     o.Filters.Add(new ResponseCacheAttribute
                     {
                         NoStore = true,
