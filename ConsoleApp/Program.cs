@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cloudents.Query.Query;
 using Cloudents.Search.Document;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -99,7 +100,7 @@ namespace ConsoleApp
 
 
 
-            builder.Register(_ => GetSettings(EnvironmentSettings.Dev)).As<IConfigurationKeys>();
+            builder.Register(_ => GetSettings(EnvironmentSettings.Prod)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistence"),
@@ -135,8 +136,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var c = _container.Resolve<AzureDocumentSearch>();
-            var z = await c.ItemAsync(28886, default);
+            //
+            var c = _container.Resolve<IQueryBus>();
+            var result = await c.QueryAsync(new DocumentSeoByOldId(585984), default);
+
             // await c.DispatchAsync(command2, default);
 
             Console.WriteLine("done");
