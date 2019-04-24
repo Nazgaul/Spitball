@@ -41,7 +41,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var response = await _client.PostAsync("api/Chat", HttpClient.CreateString(msg));
 
-            response.StatusCode.Should().Be(200);
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]
@@ -55,14 +55,14 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsyncChatRead_NoSuchConversation_BadRequest()
         {
-            var otherUser = new
+            var user = new
             {
                 otherUser = "159039"
             };
 
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Chat/read", HttpClient.CreateString(otherUser));
+            var response = await _client.PostAsync("api/Chat/read", HttpClient.CreateString(user));
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
         }
