@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,16 +23,18 @@ namespace Cloudents.Web.Controllers
     {
         internal const string Referral = "referral";
         private readonly SignInManager<RegularUser> _signInManager;
+        private readonly ILogger _logger;
 
-        public HomeController(SignInManager<RegularUser> signInManager)
+        public HomeController(SignInManager<RegularUser> signInManager, ILogger logger)
         {
             _signInManager = signInManager;
+            _logger = logger;
         }
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true), SignInWithToken]
         public IActionResult Index(
-            [FromServices] ICrawlerResolver crawlerResolver,
-            //  [FromHeader(Name = "User-Agent")] string userAgent,
+            [FromServices] Lazy<ICrawlerResolver> crawlerResolver,
+            [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral,
             [FromQuery] string open
             )
@@ -40,9 +43,21 @@ namespace Cloudents.Web.Controllers
             {
                 TempData[Referral] = referral;
             }
-            if (crawlerResolver?.Crawler?.Type == CrawlerType.LinkedIn)
+
+            try
             {
-                ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
+                if (crawlerResolver.Value.Crawler?.Type == CrawlerType.LinkedIn)
+                {
+                    ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                _logger.Exception(ex,new Dictionary<string, string>()
+                {
+                    ["userAgent"] = userAgent
+                });
             }
 
             if (_signInManager.IsSignedIn(User))
