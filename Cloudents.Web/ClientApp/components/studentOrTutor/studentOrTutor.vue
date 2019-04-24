@@ -9,25 +9,29 @@
                     <span class="headline font-weight-bold text-black" v-language:inner>studentOrTutor_subtitle</span>
                 </v-flex>
             </v-layout>
-            <v-layout row wrap  align-center justify-center class="pt-5">
+            <v-layout row wrap align-center justify-center class="pt-5">
                 <v-flex xs12 sm12 md12 class="text-xs-center pb-4">
                     <span class="body-2 font-weight-bold text-black" v-language:inner>studentOrTutor_currently</span>
                 </v-flex>
-                <v-flex xs2 sm2 md2  shrink class="text-xs-center d-inline-flex align-center justify-end">
-                    <v-btn class="sb-yellow-btn elevation-0" :class="{'wide-btn ': $vuetify.breakpoint.smAndUp}">
+                <v-flex xs12 sm2 md2 shrink class="text-xs-center d-inline-flex btn-wrap">
+                    <v-btn @click="goToCoursesSelection()" class="sb-yellow-btn elevation-0"
+                           :class="{'wide-btn ': $vuetify.breakpoint.smAndUp}">
                         <span class="subheading font-weight-bold text-capitalize" v-language:inner>studentOrTutor_btn_student</span>
                     </v-btn>
                 </v-flex>
-                <v-flex xs2 sm2 md2 shrink class="text-xs-center d-inline-flex align-center justify-start">
-                    <v-btn class="sb-yellow-btn elevation-0" :class="{'wide-btn ': $vuetify.breakpoint.smAndUp}">
+                <v-flex xs12 sm2 md2 shrink class="text-xs-center d-inline-flex btn-wrap">
+                    <v-btn @click="openBecomeTutor()" class="sb-yellow-btn elevation-0"
+                           :class="{'wide-btn ': $vuetify.breakpoint.smAndUp}">
                         <span class="subheading font-weight-bold text-capitalize" v-language:inner>studentOrTutor_btn_tutor</span>
                     </v-btn>
                 </v-flex>
             </v-layout>
             <v-layout align-center justify-center>
-            <v-flex xs12 sm12 md12 class="text-xs-center">
-                <img class="people-img" src="./images/people-background.png" alt="student tutor study">
-            </v-flex>
+                <v-flex xs12 sm12 md12 class="text-xs-center">
+                    <img v-if="$vuetify.breakpoint.xsOnly" class="people-img mobile"
+                         src="./images/people-background-mobile.png" alt="student tutor study">
+                    <img v-else class="people-img" src="./images/people-background.png" alt="student tutor study">
+                </v-flex>
             </v-layout>
         </v-container>
 
@@ -35,31 +39,68 @@
 </template>
 
 <script>
+    import { mapActions, mapGetters } from 'vuex';
+
     export default {
-        name: "studentOrTutor"
+        name: "studentOrTutor",
+        computed: {
+            ...mapGetters(['accountUser']),
+            isTutor() {
+                return this.accountUser.isTutor;
+            }
+        },
+        methods: {
+            ...mapActions(['updateTutorDialog']),
+            goToCoursesSelection() {
+                this.$router.push({name: 'addCourse'});
+            },
+            openBecomeTutor() {
+                this.isTutor ? this.$router.push({name: 'editCourse'}) : this.updateTutorDialog(true);
+            }
+        },
     };
 </script>
 
 <style lang="less">
     @import '../../styles/mixin.less';
-    .student-tutor-wrap{
-        .people-img{
+
+    .student-tutor-wrap {
+        .people-img {
             max-width: 544px;
             height: auto;
+            &.mobile {
+                width: 100%;
+                height: auto;
+            }
         }
-        .theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat){
-            &.sb-yellow-btn{
+        .theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat) {
+            &.sb-yellow-btn {
                 background-color: @yellowColor;
                 color: @profileTextColor;
             }
-            &.wide-btn{
+            &.wide-btn {
                 width: 162px;
                 height: 42px;
-                flex-grow: 0!important;
+                flex-grow: 0 !important;
+            }
+            &:not(.wide-btn) {
+                max-width: 206px;
             }
         }
-
-        .text-black{
+        .btn-wrap {
+            align-items: center;
+            justify-content: flex-end;
+            &:last-child {
+                justify-content: flex-start;
+            }
+            @media (max-width: @screen-xs) {
+                justify-content: center;
+                &:last-child {
+                    justify-content: center;
+                }
+            }
+        }
+        .text-black {
             color: @textColor;
         }
 
