@@ -114,7 +114,7 @@ namespace Cloudents.Web.Api
             var uri = new UriBuilder(url);
             if (configuration.IsDevelopment())
             {
-                uri.Host = "ca558358.ngrok.io";
+                uri.Host = "077633e4.ngrok.io";
                 uri.Port = 80;
             };
 
@@ -131,12 +131,13 @@ namespace Cloudents.Web.Api
             return new SaleResponse(saleUrl.Uri);
         }
 
-        [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous]
+        [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> PayMeCallbackAsync([FromQuery]long userId, [FromForm] PayMeCallback model, CancellationToken token)
         {
 
             var command = new AddBuyerTokenCommand(userId, model.BuyerKey);
             await _commandBus.DispatchAsync(command, token);
+            //TODO: send signalR buyer exists
             return Ok();
         }
         #endregion

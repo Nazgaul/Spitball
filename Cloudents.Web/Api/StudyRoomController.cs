@@ -166,7 +166,8 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("Money")]
-        public async Task<IActionResult> PayMeCallbackAsync([FromServices] IPayment payment,CancellationToken token)
+        public async Task<IActionResult> PayMeCallbackAsync([FromServices] IPayment payment,
+            CancellationToken token)
         {
             var result = await payment.TransferPaymentAsync("MPL15546-31186SKB-53ES24ZG-WGVCBKO2",
                 "BUYER155-6007037T-PTSXP1TO-AZ5ULFC9", 100, token);
