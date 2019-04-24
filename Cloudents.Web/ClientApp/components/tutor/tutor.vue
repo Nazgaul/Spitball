@@ -27,7 +27,8 @@
         <div style="display: flex; align-items: center;">
           <share-screen-btn class="nav-share-btn"></share-screen-btn>
           <button class="outline-btn" @click="changeQualityDialogState(true)">
-            <testIcon class="test-icon mr-1"></testIcon>System Check
+            <testIcon class="test-icon mr-1"></testIcon>
+            System Check
           </button>
           <div class="mr-4 pr-1 d-flex">
             <component

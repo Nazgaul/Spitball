@@ -9,11 +9,11 @@ namespace Cloudents.Web.Test.IntegrationTests
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class TutorApiTests //: IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
+        private readonly System.Net.Http.HttpClient _client;
 
         public TutorApiTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
+            _client = factory.CreateClient();
         }
 
         
@@ -25,11 +25,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [InlineData("api/Tutor")]
         public async Task Search_ReturnResult(string url)
         {
-            // Arrange
-            var client = _factory.CreateClient();
-
-            // Act
-            var response = await client.GetAsync(url);
+            var response = await _client.GetAsync(url);
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -45,9 +41,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact(Skip = "We did a hole markup change to tutor")]
         public async Task Get_OK_Result()
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync("api/tutor");
+            var response = await _client.GetAsync("api/tutor");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -86,9 +80,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact(Skip = "We did a hole markup change to tutor")]
         public async Task Get_Empty_Result()
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync("api/tutor?term=gfsd");
+            var response = await _client.GetAsync("api/tutor?term=gfsd");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -102,9 +94,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact(Skip = "We did a hole markup change to tutor")]
         public async Task Post_Create_Room()
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.PostAsync("api/tutoring/create", null);
+            var response = await _client.PostAsync("api/tutoring/create", null);
 
             var str = await response.Content.ReadAsStringAsync();
 

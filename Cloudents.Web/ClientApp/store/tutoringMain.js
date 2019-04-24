@@ -1,4 +1,5 @@
 import tutorService from '../components/tutor/tutorService';
+import { LanguageService } from '../services/language/languageService';
 
 const state = {
     identity: '',
@@ -40,7 +41,7 @@ const getters = {
     getNotAvaliableDevices: state=> state.notAvaliableDevices,
     getCurrentRoomState: state => state.currentRoomState,
     getStudyRoomData: state => state.studyRoomData,
-    getJwtToken: state => state.jwtToken
+    getJwtToken: state => state.jwtToken,
 };
 
 const mutations = {
@@ -157,11 +158,16 @@ const actions = {
         let onlineCount = notificationObj.onlineCount;
         let totalOnline = notificationObj.totalOnline;
         let isTutor = state.studyRoomData.isTutor;
+        let toasterParams = {};
         if(isTutor){
             if(state.currentRoomState !== state.roomStateEnum.active) {
                 if(onlineCount == totalOnline) {
                     dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
+                    toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
+                    dispatch('showRoomToasterMessage', toasterParams);
                 } else {
+                    toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
+                    dispatch('showRoomToasterMessage', toasterParams);
                     dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 }
             } else {
@@ -171,9 +177,24 @@ const actions = {
                     // think what to do in case session is active and not all are connected
                 }
             }
+        }else{
+            if(onlineCount == totalOnline) {
+                toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
+                dispatch('showRoomToasterMessage', toasterParams);
+            } else {
+                toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
+                dispatch('showRoomToasterMessage', toasterParams);
+            }
         }
     },
-
+    showRoomToasterMessage({dispatch}, toasterParams){
+        let toasterObj = {
+            toasterText: toasterParams.text,
+            showToaster: true,
+            toasterType: toasterParams.type ? toasterParams.type : ''
+        }
+        dispatch('updateToasterParams', toasterObj);
+    },
     signalRSetJwtToken({commit, dispatch, state}, sessionInformation){
         let token = sessionInformation.data.jwtToken;
         let isTutor = state.studyRoomData.isTutor;

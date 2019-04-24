@@ -132,8 +132,6 @@
             ...mapGetters([
                 'accountUser',
                 'unreadMessages',
-                'getShowToaster',
-                'getToasterText',
                 'showMobileFeed',
                 'getTotalUnread'
             ]),
