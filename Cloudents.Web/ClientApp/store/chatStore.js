@@ -91,8 +91,8 @@ const mutations = {
             state.chatState = newChatState;
         }
     },
-    toggleChatMinimize:(state)=>{
-        state.isMinimized = !state.isMinimized;
+    collapseChat:(state)=>{
+        state.isMinimized = true;
     },
     expandChat:()=>{
         state.isMinimized = false;
@@ -123,6 +123,10 @@ const actions = {
             //check if message sent is part of the current conversation
             if(state.activeConversationObj.conversationId === message.conversationId){
                 commit('addMessage', message)
+                if(state.isMinimized){
+                    commit('addConversationUnread', message)
+                    commit('updateTotalUnread', 1);
+                }
             }else{
                 // check if conversation with this user is exists
                 if(!!state.conversations[message.conversationId]){
@@ -130,13 +134,16 @@ const actions = {
                     commit('addConversationUnread', message)
                     commit('updateTotalUnread', 1);
                 }else{
-                    //no conversation should be added
-                    // TODO get conversation by id
+                    //conversationId should be added to the current conversation
                     dispatch('getChatById', message.conversationId).then(({data})=>{
                         let ConversationObj = chatService.createConversation(data);
-                        commit('addConversation', ConversationObj)
-                        commit('setActiveConversationId', ConversationObj.conversationId)
-                        commit('addMessage', message)
+                        commit('addConversation', ConversationObj);
+                        commit('setActiveConversationId', ConversationObj.conversationId);
+                        commit('addMessage', message);
+                        if(state.isMinimized){
+                            commit('addConversationUnread', message)
+                            commit('updateTotalUnread', 1);
+                        }
                     })
                 }
             }
@@ -163,6 +170,9 @@ const actions = {
         commit('updateTotalUnread', totalUnread)
     },
     clearUnread:({commit, state}, conversationId)=>{
+        if(!conversationId) {
+            conversationId = state.activeConversationObj.conversationId;
+        }
         if(state.conversations[conversationId]){
             let otherUserId = state.conversations[conversationId].userId;
             chatService.clearUnread(otherUserId);
@@ -248,8 +258,15 @@ const actions = {
         })
         chatService.sendChatMessage(messageObj);
     },
-    toggleChatMinimize:({commit})=>{
-        commit('toggleChatMinimize')
+    toggleChatMinimize:({commit, state, dispatch})=>{
+        if(!state.isMinimized){
+            commit('collapseChat')
+        }else{
+            if(state.chatState === state.enumChatState.messages){
+                dispatch('clearUnread');
+            }
+            commit('expandChat')
+        }
     },
     closeChat:({commit})=>{
         commit('closeChat')
@@ -257,7 +274,10 @@ const actions = {
     openChat:({commit})=>{
         commit('openChat')
     },
-    openChatInterface:({commit, dispatch})=>{
+    openChatInterface:({commit, dispatch, state})=>{
+        if(state.chatState === state.enumChatState.messages){
+            dispatch('clearUnread');
+        }
         commit('expandChat');
         dispatch('openChat');
     },
