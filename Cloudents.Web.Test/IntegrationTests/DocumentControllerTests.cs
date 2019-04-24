@@ -8,24 +8,21 @@ namespace Cloudents.Web.Test.IntegrationTests
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class DocumentControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
+        private readonly System.Net.Http.HttpClient _client;
 
         public DocumentControllerTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Theory]
         [InlineData("document/המסלול-האקדמי-המכללה-למנהל")]
         public async Task ShortUrl_Invalid_404(string url)
         {
-            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
-            {
-                AllowAutoRedirect = false
-            });
-
-            // Act
-            var response = await client.GetAsync(url);
+            var response = await _client.GetAsync(url);
            
             var p = response.Headers.Location;
             p.Should().Be("/Error/NotFound");
@@ -33,14 +30,12 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("document/2999")]
+        [InlineData("api/document/2999")]
         public async Task Valid_Url_200(string url)
         {
-            var client = _factory.CreateClient();
+            var response = await _client.GetAsync(url);
 
-            var response = await client.GetAsync(url);
-
-            response.StatusCode.Should().Be(200);
+            response.EnsureSuccessStatusCode();
         }
     }
 }
