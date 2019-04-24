@@ -14,7 +14,7 @@
                     <span class="body-2 font-weight-bold text-black" v-language:inner>studentOrTutor_currently</span>
                 </v-flex>
                 <v-flex xs12 sm2 md2 shrink class="text-xs-center d-inline-flex btn-wrap">
-                    <v-btn @click="goToCoursesSelection()" class="sb-yellow-btn elevation-0"
+                    <v-btn @click="goToUniSelect()" class="sb-yellow-btn elevation-0"
                            :class="{'wide-btn ': $vuetify.breakpoint.smAndUp}">
                         <span class="subheading font-weight-bold text-capitalize" v-language:inner>studentOrTutor_btn_student</span>
                     </v-btn>
@@ -51,8 +51,8 @@
         },
         methods: {
             ...mapActions(['updateTutorDialog']),
-            goToCoursesSelection() {
-                this.$router.push({name: 'addCourse'});
+            goToUniSelect() {
+                this.$router.push({name: 'addUniversity'});
             },
             openBecomeTutor() {
                 this.isTutor ? this.$router.push({name: 'editCourse'}) : this.updateTutorDialog(true);
