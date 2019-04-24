@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -19,7 +20,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var response = await _client.GetAsync("api/account");
 
-            response.StatusCode.Should().Be(401);
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
         [Fact]
@@ -28,7 +29,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             await _client.LogInAsync();
             var response = await _client.GetAsync("api/account");
 
-            response.StatusCode.Should().Be(200);
+            response.EnsureSuccessStatusCode();
         }
     }
 }
