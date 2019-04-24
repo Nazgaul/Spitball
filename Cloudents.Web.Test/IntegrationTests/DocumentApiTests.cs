@@ -4,18 +4,22 @@ using Newtonsoft.Json.Linq;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
+using Newtonsoft.Json;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class DocumentApiTests //: IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
-
+        private readonly System.Net.Http.HttpClient _client;
+        
 
         public DocumentApiTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Theory]
@@ -23,22 +27,17 @@ namespace Cloudents.Web.Test.IntegrationTests
         [InlineData("/api/document?page=1")]
         public async Task GetAsync_OK(string url)
         {
-            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
-            {
-                AllowAutoRedirect = false
-            });
-
-            var response = await client.GetAsync(url);
+            var response = await _client.GetAsync(url);
 
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
-
+            
             var result = d["result"]?.Value<JArray>();
             var filters = d["filters"]?.Value<JArray>();
             var type = filters[0]["data"]?.Value<JArray>();
             var next = d["nextPageLink"]?.Value<string>();
-
+            
             var id = result[0]["id"]?.Value<long?>();
             var university = result[0]["university"]?.Value<string>();
             var course = result[0]["course"]?.Value<string>();
@@ -76,9 +75,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_Filters()
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync("/api/document");
+            var response = await _client.GetAsync("/api/document");
 
             var str = await response.Content.ReadAsStringAsync();
 

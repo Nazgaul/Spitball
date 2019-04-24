@@ -11,7 +11,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class UrlControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
        // private readonly SbWebApplicationFactory _factory;
-        private readonly HttpClient _client;
+        private readonly System.Net.Http.HttpClient _client;
 
 
         public UrlControllerTests(SbWebApplicationFactory factory)

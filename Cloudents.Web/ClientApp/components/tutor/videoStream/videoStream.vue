@@ -1,12 +1,12 @@
 <template>
     <v-container class="videos-wrapper py-0">
-        <v-layout>
-            <v-flex>
-                <div class="roomTitle">
-                    <span v-if="roomLoading"> Loading...</span>
-                </div>
-            </v-flex>
-        </v-layout>
+        <!--<v-layout>-->
+            <!--<v-flex>-->
+                <!--<div class="roomTitle">-->
+                    <!--<span v-if="roomLoading"> Loading...</span>-->
+                <!--</div>-->
+            <!--</v-flex>-->
+        <!--</v-layout>-->
         <v-layout align-center justify-end>
             <v-flex xs8 class="d-inline-flex">
                 <button v-if="!roomIsActive && !waitingStudent" class="create-session"  color="primary" :class="{'disabled': roomIsPending}" @click="enterRoom()">
