@@ -9,7 +9,7 @@
                         <v-icon>sbf-pan</v-icon>
                     </button>
                 </template>
-                <span >Pan</span>
+                <span v-language:inner>tutor_tooltip_pan</span>
             </v-tooltip>
 
             <!--Select-->
@@ -20,7 +20,7 @@
                         <v-icon>sbf-mouse-pointer</v-icon>
                     </button>
                 </template>
-                <span >Select</span>
+                <span v-language:inner>tutor_tooltip_select</span>
             </v-tooltip>
 
             <!--Text-->
@@ -32,7 +32,7 @@
                         <v-icon>sbf-text-icon</v-icon>
                     </button>
                 </template>
-                <span >Text</span>
+                <span v-language:inner>tutor_tooltip_text</span>
             </v-tooltip>
             <!--Equation-->
             <v-tooltip right>
@@ -43,7 +43,7 @@
                         <v-icon>sbf-equation-icon</v-icon>
                     </button>
                 </template>
-                <span>Equation</span>
+                <span v-language:inner>tutor_tooltip_equation</span>
             </v-tooltip>
             <!--Color Picker-->
             <v-tooltip right>
@@ -53,7 +53,7 @@
                         <v-icon class="selected-color"  :style="{ color: canvasData.color.hex}">sbf-color-picked</v-icon>
                     </button>
                 </template>
-                <span >Color Picker</span>
+                <span v-language:inner>tutor_tooltip_color</span>
             </v-tooltip>
             <slider-picker class="color-picker" :palette="predefinedColors" v-show="showPickColorInterface"
                            v-model="canvasData.color"/>
@@ -67,7 +67,7 @@
                         <v-icon>sbf-pencil-empty</v-icon>
                     </button>
                 </template>
-                <span >Pen</span>
+                <span v-language:inner>tutor_tooltip_pen</span>
             </v-tooltip>
 
             <!--Line-->
@@ -78,7 +78,7 @@
                         <v-icon>sbf-connect-line</v-icon>
                     </button>
                 </template>
-                <span >Line</span>
+                <span v-language:inner>tutor_tooltip_line</span>
             </v-tooltip>
 
             <!--Circle-->
@@ -89,7 +89,7 @@
                         <v-icon>sbf-elipse-stroke</v-icon>
                     </button>
                 </template>
-                <span>Circle</span>
+                <span v-language:inner>tutor_tooltip_circle</span>
             </v-tooltip>
 
             <!--Square-->
@@ -100,7 +100,7 @@
                         <v-icon>sbf-rectangle-stroke</v-icon>
                     </button>
                 </template>
-                <span>Square</span>
+                <span v-language:inner>tutor_tooltip_square</span>
             </v-tooltip>
 
             <!--Upload Image-->
@@ -114,7 +114,7 @@
                         <v-icon>sbf-upload</v-icon>
                     </button>
                 </template>
-                <span>Upload Image</span>
+                <span v-language:inner>tutor_tooltip_upload</span>
             </v-tooltip>
 
             <!--<button :class="[selectedOptionString === enumOptions.eraser ? 'active-tool' : '']"-->
@@ -129,7 +129,7 @@
                         <v-icon>sbf-undo</v-icon>
                     </button>
                 </template>
-                <span>Undo</span>
+                <span v-language:inner>tutor_tooltip_undo</span>
             </v-tooltip>
 
         </div>
