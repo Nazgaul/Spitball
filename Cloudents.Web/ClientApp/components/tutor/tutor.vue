@@ -45,7 +45,7 @@
         </keep-alive>
       </transition>
     </v-flex>
-    <v-layout column align-start style="position: fixed; right: 0; top: 60px;">
+    <v-layout column align-start class="video-stream-wraper">
       <v-flex xs6 sm6 md6>
         <video-stream :id="id"></video-stream>
       </v-flex>

@@ -128,11 +128,9 @@
 
 <style lang="less">
     .quality-test-container {
-        /*rtl:begin:ignore*/
-        direction: ltr;
         .step-indicator{
             .v-stepper__step__step{
-                margin-right: 8px/*rtl:ignore*/;
+                margin-right: 8px;
             }
         }
         .device-error-header {
@@ -171,7 +169,6 @@
                 color: #000000;
             }
         }
-        /*rtl:end:ignore*/
     }
 
 </style>

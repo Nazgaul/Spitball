@@ -3,7 +3,7 @@
         <v-flex>
             <button v-if="!isSharing" @click="showScreen" class="outline-btn">
                     <castIcon  class="cast-icon mr-1"></castIcon>
-                <span v-language:inner>btn_share_screen</span>
+                <span v-language:inner>tutor_btn_share_screen</span>
                </button>
             <button class="outline-btn" v-else @click="stopSharing">
                 <span v-language:inner>tutor_btn_stop_sharing</span>
