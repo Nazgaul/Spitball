@@ -183,6 +183,9 @@
   <data name="quality_btn_got" xml:space="preserve">
     <value>Got It</value>
   </data>
+  <data name="quality_camera_placeholder" xml:space="preserve">
+    <value>Please select camera</value>
+  </data>
   <data name="quality_input_title" xml:space="preserve">
     <value>Audio Input Quality Test</value>
   </data>
@@ -197,6 +200,9 @@
   </data>
   <data name="quality_unable" xml:space="preserve">
     <value>Unable to access device.</value>
+  </data>
+  <data name="quality_video_test_title" xml:space="preserve">
+    <value>Video Test</value>
   </data>
   <data name="quality_video_title" xml:space="preserve">
     <value>Video quality test</value>

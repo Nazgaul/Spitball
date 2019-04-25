@@ -16,7 +16,9 @@
             </v-stepper-step>
             <v-divider></v-divider>
 
-            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" step="3">Video Test</v-stepper-step>
+            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" step="3">
+                <span v-language:inner>tutor_quality_video_test_title</span>
+            </v-stepper-step>
         </v-stepper-header>
         <!--header unable to get device-->
         <v-stepper-header class="device-error-header px-4 py-2" v-if="isErorrGettingMedia && notAvaliableDevices">

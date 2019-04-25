@@ -24,7 +24,7 @@
                     hide-details
                     :prepend-icon="''"
                     @change="createVideoQualityPreview()"
-                    :placeholder="'Please select camera'"
+                    :placeholder="placeCamera"
                     :append-icon="'sbf-arrow-down'"
                     solo
                     single-line
@@ -38,6 +38,7 @@
     import { createLocalVideoTrack, } from 'twilio-video';
     import tutorService from '../../../tutorService';
     import videoCameraImage from '../../../images/video-camera.svg'
+    import { LanguageService } from "../../../../../services/language/languageService";
 
     export default {
         name: "videoValidation",
@@ -47,7 +48,8 @@
                 videoEl: null,
                 localTrack: null,
                 avalCameras: [],
-                singleCameraId: ''
+                singleCameraId: '',
+                placeCamera: LanguageService.getValueByKey("tutor_quality_camera_placeholder")
             }
         },
         methods: {
