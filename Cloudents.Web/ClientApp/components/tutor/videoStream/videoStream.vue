@@ -1,26 +1,26 @@
 <template>
     <v-container class="videos-wrapper py-0">
-        <v-layout>
-            <v-flex>
-                <div class="roomTitle">
-                    <span v-if="roomLoading"> Loading...</span>
-                </div>
-            </v-flex>
-        </v-layout>
+        <!--<v-layout>-->
+            <!--<v-flex>-->
+                <!--<div class="roomTitle">-->
+                    <!--<span v-if="roomLoading"> Loading...</span>-->
+                <!--</div>-->
+            <!--</v-flex>-->
+        <!--</v-layout>-->
         <v-layout align-center justify-end>
             <v-flex xs8 class="d-inline-flex">
                 <button v-if="!roomIsActive && !waitingStudent" class="create-session"  color="primary" :class="{'disabled': roomIsPending}" @click="enterRoom()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
-                    <span v-if="isTutor">Start Session</span>
-                    <span v-else>Join Session</span>
+                    <span v-if="isTutor" v-language:inner>tutor_stream_btn_start_session</span>
+                    <span v-else v-language:inner>tutor_stream_btn_join_session</span>
                 </button>
                 <button class="create-session" v-else-if="waitingStudent && isTutor">
-                    <span>Waiting for student</span>
+                    <span v-language:inner>tutor_stream_btn_waiting</span>
                 </button>
 
                 <button v-else class="end-session"  @click="endSession()">
                     <stopIcon class="stop-icon mr-2"></stopIcon>
-                    <span>End Session</span>
+                    <span v-language:inner>stream_btn_end_session</span>
 
                 </button>
             </v-flex>

@@ -5,7 +5,7 @@
                 <videoCameraImage class="video-cam-icon"></videoCameraImage>
             </v-flex>
             <v-flex class="ml-2">
-                <h4 class="video-title subheading">Video quality test</h4>
+                <h4 class="video-title subheading" v-language:inner>tutor_quality_video_title</h4>
 
             </v-flex>
         </v-layout>
@@ -96,11 +96,11 @@
 </script>
 
 <style lang="less">
-    .select-direction{
-        .v-select-list{
-            direction: ltr/*rtl:ignore*/;
-        }
-    }
+    /*.select-direction{*/
+        /*.v-select-list{*/
+            /*direction: ltr!*rtl:ignore*!;*/
+        /*}*/
+    /*}*/
     .video-quality-wrap {
         .width-force{
             width: 98%;

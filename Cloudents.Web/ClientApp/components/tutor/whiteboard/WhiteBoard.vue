@@ -51,7 +51,6 @@
                     <button v-on="on" :class="{'active-tool': showPickColorInterface}" class="nav-action"
                             @click="showColorPicker">
                         <v-icon class="selected-color"  :style="{ color: canvasData.color.hex}">sbf-color-picked</v-icon>
-                        <!--<span class="selected-color" :style="{ backgroundColor: canvasData.color.hex}"></span>-->
                     </button>
                 </template>
                 <span >Color Picker</span>
@@ -249,7 +248,6 @@
             flex-direction: row;
             width: auto;
             margin-top: 20px;
-            /*rtl:ignore*/
             left: 16px;
             z-index: 5;
 
@@ -380,9 +378,7 @@
                 padding: 10px;
                 border: 1px solid #e1e1ef;
                 border-radius: 4px;
-                display: flex;
-                flex-direction: column;
-                padding: 10px;
+                /*flex-direction: column;*/
                 display: flex;
                 flex-direction: row;
                 .equation-text-area{
