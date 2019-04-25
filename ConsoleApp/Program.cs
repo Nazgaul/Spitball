@@ -192,7 +192,7 @@ namespace ConsoleApp
                     {
                         continue;
                     }
-                    var fileDir = container.GetDirectoryReference($"files");
+                    var fileDir = container.GetDirectoryReference($"files/{id}");
                     var blobs = fileDir.ListBlobs(false,BlobListingDetails.Metadata).ToList();
                     
                     var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
@@ -241,8 +241,8 @@ namespace ConsoleApp
                     }
 
                     var duplicatePreview = previewFiles.Cast<CloudBlockBlob>()
-                        .GroupBy(g => g.Properties.ContentMD5).Any(g => g.Count() > 1);
-                    if (duplicatePreview)
+                        .GroupBy(g => new { g.Properties.ContentMD5, g.Properties.Length }).Where(g => g.Count() == Math.Max(previewFiles.Count, 2));
+                    if (duplicatePreview.Any())
                     {
                         foreach (var listBlobItem in previewFiles)
                         {
