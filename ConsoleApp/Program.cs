@@ -26,6 +26,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cloudents.Query.Query;
 using Cloudents.Search.Document;
+using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -100,7 +101,7 @@ namespace ConsoleApp
 
 
 
-            builder.Register(_ => GetSettings(EnvironmentSettings.Prod)).As<IConfigurationKeys>();
+            builder.Register(_ => GetSettings(EnvironmentSettings.Dev)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistence"),
@@ -137,10 +138,7 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             //
-            var c = _container.Resolve<IQueryBus>();
-            var result = await c.QueryAsync(new DocumentSeoByOldId(585984), default);
-
-            // await c.DispatchAsync(command2, default);
+            await ReduPreviewProcessingAsync();
 
             Console.WriteLine("done");
         }
@@ -160,7 +158,7 @@ namespace ConsoleApp
         }
 
 
-        private static async Task ReduWordProcessing()
+        private static async Task ReduPreviewProcessingAsync()
         {
 
 
@@ -171,14 +169,15 @@ namespace ConsoleApp
 
 
             var container = blobClient.GetContainerReference("spitball-files");
-            var dir = container.GetDirectoryReference("files");
+            var dir = container.GetDirectoryReference("files/4782");
 
 
 
             BlobContinuationToken blobToken = null;
             do
             {
-                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
+                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 
+                    5000, blobToken,
                     new BlobRequestOptions(),
                     new OperationContext(), default);
 
@@ -193,20 +192,22 @@ namespace ConsoleApp
                     {
                         continue;
                     }
-                    var fileDir = container.GetDirectoryReference($"files/{id}");
-                    var blobs = fileDir.ListBlobs().ToList();
+                    var fileDir = container.GetDirectoryReference($"files");
+                    var blobs = fileDir.ListBlobs(false,BlobListingDetails.Metadata).ToList();
+                    
                     var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
                     if (textBlobItem != null)
                     {
-                        var textBlob2 = (CloudBlockBlob)textBlobItem;
-                        textBlob2.FetchAttributes();
-                        if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
-                        {
-                            var queue = queueClient.GetQueueReference("generate-search-preview");
-                            var msg = new CloudQueueMessage(id.ToString());
-                            await queue.AddMessageAsync(msg);
-                            Console.WriteLine("Processing tags " + id);
-                        }
+                        
+                        //var textBlob2 = (CloudBlockBlob)textBlobItem;
+                        //textBlob2.FetchAttributes();
+                        //if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
+                        //{
+                        //    var queue = queueClient.GetQueueReference("generate-search-preview");
+                        //    var msg = new CloudQueueMessage(id.ToString());
+                        //    await queue.AddMessageAsync(msg);
+                        //    Console.WriteLine("Processing tags " + id);
+                        //}
                     }
 
                     else
@@ -218,12 +219,12 @@ namespace ConsoleApp
                         continue;
                     }
 
-                    var count = blobs.Count(a => a.Uri.AbsoluteUri.Contains("preview"));
+                    var previewFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("preview")).ToList();
                     var textBlob = (CloudBlockBlob)textBlobItem;
-                    textBlob.FetchAttributes();
+                   // textBlob.FetchAttributes();
                     textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
                     int.TryParse(pageCountStr, out var pageCount);
-                    if (count == 0 || count < pageCount)
+                    if (previewFiles.Count == 0 || previewFiles.Count < pageCount)
                     {
                         var queue = queueClient.GetQueueReference("generate-blob-preview");
                         var msg = new CloudQueueMessage(id.ToString());
@@ -239,6 +240,32 @@ namespace ConsoleApp
                         continue;
                     }
 
+                    var duplicatePreview = previewFiles.Cast<CloudBlockBlob>()
+                        .GroupBy(g => g.Properties.ContentMD5).Any(g => g.Count() > 1);
+                    if (duplicatePreview)
+                    {
+                        foreach (var listBlobItem in previewFiles)
+                        {
+                            if (listBlobItem is CloudBlockBlob p)
+                            {
+                                p.Delete();
+                            }
+                            
+                        }
+
+                        foreach (var listBlobItem in blobs.Where(a => a.Uri.AbsoluteUri.Contains("blur")))
+                        {
+                            if (listBlobItem is CloudBlockBlob p)
+                            {
+                                p.Delete();
+                            }
+                        }
+                        var queue = queueClient.GetQueueReference("generate-blob-preview");
+                        var msg = new CloudQueueMessage(id.ToString());
+                        await queue.AddMessageAsync(msg);
+                        Console.WriteLine("Duplicate preview " + id);
+                        continue;
+                    }
                     var blobBlurCount = blobs.Count(a => a.Uri.AbsoluteUri.Contains("blur"));
                     if (blobBlurCount == 0 || blobBlurCount < Math.Min(pageCount, 10))
                     {
@@ -266,7 +293,6 @@ namespace ConsoleApp
 
         }
 
-        private static readonly Regex SpaceReg = new Regex(@"\s+", RegexOptions.Compiled);
 
 
         private static List<(Guid, string, string, Guid, string, string)> FindSimilarStringsUniversity(
