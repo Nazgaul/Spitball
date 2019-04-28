@@ -34,13 +34,13 @@ namespace Cloudents.Core.EventHandler
                 await _serviceBusProvider.InsertMessageAsync(message, token);
             }
 
-            //if (redeemEventMessage.Transaction.Action == TransactionActionType.AnswerCorrect &&
-            //    redeemEventMessage.Transaction.Type == TransactionType.Earned)
-            //{
-            //    var message = new AnswerAcceptedMessage(redeemEventMessage.Transaction.Id);
+            if (redeemEventMessage.Transaction.Action == TransactionActionType.AnswerCorrect &&
+                redeemEventMessage.Transaction.Type == TransactionType.Earned)
+            {
+                var message = new AnswerAcceptedMessage(redeemEventMessage.Transaction.Id);
 
-            //    await _serviceBusProvider.InsertMessageAsync(message, token);
-            //}
+                await _serviceBusProvider.InsertMessageAsync(message, token);
+            }
         }
     }
 }

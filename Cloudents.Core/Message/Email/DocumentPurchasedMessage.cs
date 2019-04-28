@@ -14,16 +14,16 @@ namespace Cloudents.Core.Message.Email
         public Guid TransactionId { get; private set; }
     }
 
-    //public class AnswerAcceptedMessage : ISystemQueueMessage
-    //{
-    //    public AnswerAcceptedMessage(Guid transactionId)
-    //    {
-    //        TransactionId = transactionId;
-    //    }
+    public class AnswerAcceptedMessage : ISystemQueueMessage
+    {
+        public AnswerAcceptedMessage(Guid transactionId)
+        {
+            TransactionId = transactionId;
+        }
 
 
-    //    public Guid TransactionId { get; private set; }
-    //}
+        public Guid TransactionId { get; private set; }
+    }
 
 
     public class EndTutoringSessionMessage : ISystemQueueMessage
