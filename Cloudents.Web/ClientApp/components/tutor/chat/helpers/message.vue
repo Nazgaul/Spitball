@@ -1,8 +1,8 @@
 <template>
     <div class="chat-bubble">
-        <div class="message" :class="[isMine ? 'own-message' : 'not-own-message' ]">
+        <div class="old-chat-message" :class="[isMine ? 'old-chat-own-message' : 'old-chat-not-own-message' ]">
             <!--<div class="username">{{message.data ? message.data.identity : ''}}</div>-->
-            <div class="chat-message-wrap-text" :class="[isMine ? 'own-message' : 'not-own-message' ]">
+            <div class="chat-message-wrap-text" :class="[isMine ? 'old-chat-own-message' : 'old-chat-not-own-message' ]">
                 <div class="message-text"
                     v-html="$options.filters.renderUrl(message.data ? message.data.text : '')">
                     <!--{{message.data ? message.data.text : ''}}-->
@@ -69,21 +69,20 @@
         .username {
             font-size: 10px;
         }
-        .message {
-            display: flex;
-            flex-direction: column;
-
-            &.own-message {
+    .old-chat-message {
+        display: flex;
+        flex-direction: column;
+        &.old-chat-own-message {
                 align-items: flex-end;
             }
-            &.not-own-message {
-                align-items: flex-start;
-            }
+    &.old-chat-not-own-message {
+        align-items: flex-start;
+    }
         }
-        .chat-message-wrap-text {
-            display: inline-flex;
-            flex-direction: row;
-            &.own-message{
+    .chat-message-wrap-text {
+        display: inline-flex;
+        flex-direction: row;
+        &.old-chat-own-message{
                 justify-items: flex-start;
                 background: #f6f6f6;
                 font-size: 12px;
@@ -96,14 +95,14 @@
                 }
 
             }
-            &.not-own-message{
-                justify-items: flex-end;
-                background-color: #e1e1e1;
-                font-size: 12px;
-                color: rgba(0, 0, 0, 0.87);
-                padding: 6px 12px;
-                border-radius: 16px;
-                .message-text{
+    &.old-chat-not-own-message {
+        justify-items: flex-end;
+        background-color: #e1e1e1;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.87);
+        padding: 6px 12px;
+        border-radius: 16px;
+        .message-text{
                     text-align: right;
                 }
             }
