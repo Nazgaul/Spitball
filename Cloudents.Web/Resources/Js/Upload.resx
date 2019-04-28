@@ -149,16 +149,16 @@
     <comment>Ram Change</comment>
   </data>
   <data name="multiple_confirm_btn_cancel" xml:space="preserve">
-    <value>Continue</value>
+    <value>Resume</value>
   </data>
   <data name="multiple_confirm_btn_close" xml:space="preserve">
     <value>Stop upload</value>
   </data>
   <data name="multiple_confirm_stop_title" xml:space="preserve">
-    <value>Stop Uploading?</value>
+    <value>Stop Uploading</value>
   </data>
   <data name="multiple_confirm_text" xml:space="preserve">
-    <value>Closing this window will end the uploading process</value>
+    <value>Are you sure you want to end the uploading process?</value>
   </data>
   <data name="multiple_files_type_default" xml:space="preserve">
     <value>Document</value>
