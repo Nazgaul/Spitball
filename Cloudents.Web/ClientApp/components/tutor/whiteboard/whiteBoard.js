@@ -114,6 +114,7 @@ export default {
                 inputImgElm.click();
                 this.selectDefaultTool();
             }
+            this.hideColorPicker();
         },
         showColorPicker() {
             this.showPickColorInterface = true;
