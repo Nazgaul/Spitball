@@ -236,7 +236,6 @@ const actions = {
         //fetch all the data before returning the value to the component
         accountService.getProfile(id).then(val => {
             let profileUserData = accountService.createUserProfileData(val);
-
             context.commit('setProfile', profileUserData);
             // cause of multiple profile requests to server
             context.dispatch('setProfileByActiveTab', activeTab);
@@ -258,9 +257,14 @@ const actions = {
         if(!!context.state.profile && !!context.state.profile.user) {
             let id = context.state.profile.user.id;
             if(activeTab === 1) {
-                let p1 = accountService.getProfile(id);
+                /*
+                 TODO v21 prevent duplication of gtProfile call, no need cause profile data loaded via 'syncProfile',
+                  and here only the active  tab content is set
+                */
+                // let p1 = accountService.getProfile(id);
                 let p2 = accountService.getProfileAbout(id);
-                return Promise.all([p1, p2]).then((vals) => {
+                // return Promise.all([p1, p2]).then((vals) => {
+                    return Promise.all([p2]).then((vals) => {
                     console.log(vals);
                     let profileData = accountService.createProfileAbout(vals);
                     context.commit('setProfileAbout', profileData);
