@@ -87,7 +87,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             uni.Should().NotBeNull();
         }
 
-        [Fact]
+        [Fact(Skip = "this is not a good unit test - need to re-write it")]
         public async Task PostAsync_Create_Success()
         {
             await _client.LogInAsync();
@@ -97,7 +97,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact]
+        [Fact(Skip = "this is not a good unit test - need to re-write it")]
         public async Task PostAsync_Create_Failure()
         {
             await _client.LogInAsync();
