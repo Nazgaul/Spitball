@@ -75,6 +75,8 @@ namespace Cloudents.Core.DTOs
         public int Score { get; set; }
         public bool IsTutor { get; set; }
 
+        public bool NeedPayment { get; set; }
+
     }
 
 
