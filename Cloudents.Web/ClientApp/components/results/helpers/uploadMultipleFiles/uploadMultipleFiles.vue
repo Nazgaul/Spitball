@@ -63,7 +63,7 @@
                 <v-stepper-header v-show="courseSelected && !lastStep" class="sb-stepper-header footer px-2"
                                   :class="{'slim': firstStep || lastStep || isEdge}">
                     <v-flex xs12 sm12 md12 class="text-xs-center" v-show="!firstStep && !lastStep">
-                        <span class="caption mb-1" v-language:inner>upload_multiple_legal_text</span>
+                        <span class="caption mb-1 legal-text" v-language:inner>upload_multiple_legal_text</span>
                     </v-flex>
                     <v-flex xs12 sm12 md12 v-show="!firstStep && !lastStep" class="text-xs-center">
                         <v-btn :loading="loading" class="upload-btn d-inline-flex" :disabled="!isLoaded || disableBtn"
