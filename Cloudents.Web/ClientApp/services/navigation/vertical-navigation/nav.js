@@ -47,7 +47,7 @@ const nav = {
             sort: [],
             icon: "sbf-tutor",
             visible: true,
-            soon: !nonIsraeliUser
+            soon: true
         }
     },
     // book: {
