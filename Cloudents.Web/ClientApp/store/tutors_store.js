@@ -4,7 +4,7 @@ import searchService from "./../services/searchService";
 const state = {
     items: {},
     itemsSkeleton: skeletonData.tutor,
-    dataLoaded: false
+    dataLoaded: false,
 };
 
 const mutations = {
