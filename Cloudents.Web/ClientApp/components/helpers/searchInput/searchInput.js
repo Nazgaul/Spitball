@@ -134,6 +134,9 @@ export default {
                     return;
                 }
             }
+            if(this.msg === this.$route.query.term){
+                return
+            }
             this.UPDATE_SEARCH_LOADING(true);
             let query = this.prepareQuery(id);
             this.$router.push({
