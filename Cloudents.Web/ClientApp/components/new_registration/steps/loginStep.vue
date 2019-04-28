@@ -127,7 +127,6 @@
         },
         created(){
             this.password = '';
-            // let input = sbInput.querySelector('.input-field');
             this.$nextTick(function() {
                 let sbInput = document.getElementsByClassName('input-field')[1];
                 sbInput ?  sbInput.focus() : '';
