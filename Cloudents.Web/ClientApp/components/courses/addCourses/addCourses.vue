@@ -33,7 +33,6 @@
 
                 ></v-text-field>
             </v-flex>
-
             <v-flex v-show="quantatySelected" transition="fade-transition" style="position: relative">
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
                     <div class="class-list selected-classes-list py-3 px-3" :class="{'higher': isFirefox || isEdge}"
@@ -51,7 +50,12 @@
                 </div>
             </v-flex>
         </v-layout>
-        <v-layout align-center class="mt-3 px-2">
+        <v-layout align-center class="mt-3 px-2" row wrap>
+            <v-flex v-if="!classes && !classes.length" xs12 md12 sm12 class="text-xs-center">
+                <div>
+                    <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
+                </div>
+            </v-flex>
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list">
                     <div class="list-item subheading search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
@@ -147,8 +151,8 @@
             },
 
             showBox() {
-                return true;
-                // return !!this.search && this.search.length > 0;
+                return true
+                    // return !!this.search && this.search.length > 0;
             },
             classes() {
                 let classesList = this.getClasses();

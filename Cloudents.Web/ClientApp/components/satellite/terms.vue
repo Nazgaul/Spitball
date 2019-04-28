@@ -112,6 +112,18 @@
             <br><br>
             15. The Program and these terms and conditions will be governed by Israeli Law and any disputes will be subject to the exclusive jurisdiction of the courts of Israel.
         </p>
+        <h2>Spitball Upload Policy</h2>
+        <p>
+            Users are prohibited from uploading or submitting copyright infringing materials (including without limitation copies made without the consent of the copyright owner of testing materials, textbooks, instructor's solution manuals, test banks, lecture notes, slide presentations or related copyrighted works, in whole or in part).
+
+        </p>
+        <p>
+            By submitting Documents you are representing that: (1) you own the copyrights covering the files to be uploaded or have express permission from the copyright owners to upload those files; (2) your uploading of the files you have selected will not violate any law, regulation or ethics code; and (3) uploading the files to be uploaded will not violate Spitball's terms of use.
+        </p>
+        <p>
+            Documents should add value to the Spitball community; be tagged to their relevant course or subject; not be blank, duplicates, or have random filler content; and not contain any obscene or offensive material. Spitball reserves the right to remove any uploaded content from our site at any time, for any reason in our sole discretion, and without notice.
+        </p>
+
         <p>
             Copyright Agent<br />
             Cloudents LTD.<br />
