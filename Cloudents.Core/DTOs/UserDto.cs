@@ -61,7 +61,6 @@ namespace Cloudents.Core.DTOs
 
     public class UserAccountDto 
     {
-        public string Token { get; set; }
         public decimal Balance { get; set; }
 
         public string Email { get; set; }

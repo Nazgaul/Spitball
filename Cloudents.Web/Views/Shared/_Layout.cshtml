@@ -113,7 +113,6 @@
     window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(4)';
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @isAuth.ToString().ToLower();
-    window.talkJsId = '@Configuration["TalkJs"]';
         window.paypalEnv = '@(Environment.IsProduction() ? "production" : "sandbox")';
 
     @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@
