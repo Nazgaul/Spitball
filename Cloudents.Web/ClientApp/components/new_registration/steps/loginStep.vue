@@ -13,9 +13,11 @@
                     <sb-input :errorMessage="errorMessage.email" :required="true" class="email-field" type="email"
                               name="email" id="input-url" v-model="userEmail" :bottomError="true"
                               placeholder="login_placeholder_email" v-language:placeholder></sb-input>
-                    <sb-input :errorMessage="errorMessage.password" :required="true" class="email-field mt-3"
+
+                    <sb-input :errorMessage="errorMessage.password" :required="true" class="email-field pass-field mt-3"
                               :type="'password'" :bottomError="true"
-                              name="user password"  v-model="password"
+                              :autofocus="true"
+                              name="pass"  v-model="password"
                               placeholder="login_placeholder_enter_password" v-language:placeholder></sb-input>
 
                     <v-btn class="continue-btn loginBtn"
@@ -90,8 +92,8 @@
                 var options = {}
                 Fingerprint2.getPromise(options)
                     .then(function (components) {
-                        var values = components.map(function (component) { return component.value })
-                        var murmur = Fingerprint2.x64hash128(values.join(''), 31)
+                        var values = components.map(function (component) { return component.value });
+                        var murmur = Fingerprint2.x64hash128(values.join(''), 31);
                         data.fingerprint = murmur;
                         registrationService.signIn(data)
                             .then((response) => {
@@ -125,6 +127,13 @@
         },
         created(){
             this.password = '';
+            // let input = sbInput.querySelector('.input-field');
+            this.$nextTick(function() {
+                let sbInput = document.getElementsByClassName('input-field')[1];
+                sbInput ?  sbInput.focus() : '';
+
+            })
+
         }
     }
 </script>
