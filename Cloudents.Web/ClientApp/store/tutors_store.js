@@ -3,7 +3,7 @@ import searchService from "./../services/searchService";
 
 const state = {
     items: {},
-    itemsSkeleton: skeletonData.note,
+    itemsSkeleton: skeletonData.tutor,
     dataLoaded: false
 };
 
