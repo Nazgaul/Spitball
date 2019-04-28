@@ -68,9 +68,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var cred = new
             {
+                confirmPassword = "123456789",
                 email = "elad+99@cloudents.com",
-                password = "123456789",
-                fingerPrint = "string"
+                password = "123456789"
             };
 
             var phone = new
@@ -92,9 +92,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var cred = new
             {
+                confirmPassword = "123456789",
                 email = "elad+99@cloudents.com",
-                password = "123456789",
-                fingerPrint = "string"
+                password = "123456789"
             };
 
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
