@@ -53,9 +53,7 @@ export default {
                 pan: 'panTool',
             },
             currentOptionSelected: whiteBoardService.init('liveDraw'),
-            selectedOptionString: 'liveDraw',
             canvasData: {
-                shapesSelected: {},
                 shouldPaint: false,
                 context: null,
                 helper: helperUtil.HelperObj,
@@ -77,7 +75,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['isRoomCreated', 'getDragData','getZoom']),
+        ...mapGetters(['isRoomCreated', 'getDragData','getZoom', 'selectedOptionString']),
         helperStyle(){
             return helperUtil.HelperObj.style
         },
@@ -103,13 +101,13 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan']),
+        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString']),
         selectDefaultTool(){
             this.setOptionType(this.enumOptions.select);
         },
         setOptionType(selectedOption) {
             this.currentOptionSelected = whiteBoardService.init.bind(this.canvasData, selectedOption)();
-            this.selectedOptionString = selectedOption;
+            this.setSelectedOptionString(selectedOption);
             helperUtil.HelperObj.isActive = false;
             if(selectedOption === this.enumOptions.image){
                 let inputImgElm = document.getElementById('imageUpload');
