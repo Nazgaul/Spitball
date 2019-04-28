@@ -103,7 +103,7 @@ namespace Cloudents.Web.Api
         /// <param name="configuration"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpPost("GenerateSale")]
+        [HttpPost("AddPayment")]
         public async Task<ActionResult<SaleResponse>> GenerateLink([FromServices] IPayment payment,
             [FromServices] IHostingEnvironment configuration,
             CancellationToken token)
