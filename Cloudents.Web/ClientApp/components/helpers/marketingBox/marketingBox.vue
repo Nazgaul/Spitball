@@ -40,11 +40,12 @@
             ...mapActions(['changemobileMarketingBoxState']),
             promotionOpen() {
                 if (this.isLogedIn) {
-                    analyticsService.sb_unitedEvent('MARKETING_BOX', 'OPEN_TUTOR');
+                    analyticsService.sb_unitedEvent('MARKETING_BOX', 'REGISTERED OPEN_TUTOR');
                 } else {
-                    analyticsService.sb_unitedEvent('MARKETING_BOX', 'GO TO LOGIN');
+                    analyticsService.sb_unitedEvent('MARKETING_BOX', 'NOT REGISTERED OPEN_TUTOR');
                 }
-                return this.isLogedIn ? this.goToWebForm() : this.goToRegister();
+                return this.isLogedIn ? this.goToWebForm() : this.goToWebForm();
+                // return this.isLogedIn ? this.goToWebForm() : this.goToRegister();
             },
             goToRegister() {
                 // this.changemobileMarketingBoxState();
