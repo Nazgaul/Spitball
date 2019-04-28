@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
@@ -95,6 +96,13 @@ namespace Cloudents.Web.Api
 
         #region PayMe
 
+        /// <summary>
+        /// Generate a buyer for - don't forget to run ngrok if you run it locally
+        /// </summary>
+        /// <param name="payment"></param>
+        /// <param name="configuration"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpPost("GenerateSale")]
         public async Task<ActionResult<SaleResponse>> GenerateLink([FromServices] IPayment payment,
             [FromServices] IHostingEnvironment configuration,
@@ -102,7 +110,7 @@ namespace Cloudents.Web.Api
         {
 
             var user = await _userManager.GetUserAsync(User);
-            if (!string.IsNullOrEmpty(user.BuyerKey))
+            if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
             {
                 return BadRequest();
             }
@@ -114,7 +122,7 @@ namespace Cloudents.Web.Api
             var uri = new UriBuilder(url);
             if (configuration.IsDevelopment())
             {
-                uri.Host = "077633e4.ngrok.io";
+                uri.Host = "80ec9aba.ngrok.io";
                 uri.Port = 80;
             };
 
@@ -134,8 +142,10 @@ namespace Cloudents.Web.Api
         [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> PayMeCallbackAsync([FromQuery]long userId, [FromForm] PayMeCallback model, CancellationToken token)
         {
+            var paymentKeyExpiration = DateTime.ParseExact(model.BuyerCardExp, "MMyy", CultureInfo.InvariantCulture);
+            paymentKeyExpiration = paymentKeyExpiration.AddMonths(1).AddMinutes(-1);
 
-            var command = new AddBuyerTokenCommand(userId, model.BuyerKey);
+            var command = new AddBuyerTokenCommand(userId, model.BuyerKey, paymentKeyExpiration);
             await _commandBus.DispatchAsync(command, token);
             //TODO: send signalR buyer exists
             return Ok();

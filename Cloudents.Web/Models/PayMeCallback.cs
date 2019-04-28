@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -16,5 +12,8 @@ namespace Cloudents.Web.Models
 
         [ModelBinder(Name = "buyer_key")]
         public string BuyerKey { get; set; }
+
+        [ModelBinder(Name = "buyer_card_exp")]
+        public string BuyerCardExp { get; set; }
     }
 }

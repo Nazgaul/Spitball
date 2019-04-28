@@ -22,13 +22,10 @@ namespace Cloudents.Core.Entities
         {
             UserLogins = new List<UserLogin>();
             Transactions = Transactions ?? new UserTransactions();
-            //UserCourses = new HashSet<UserCourse>();
             Tags = new HashSet<Tag>();
-            //UserRoles = new HashSet<UserRole>();
 
         }
 
-        //public virtual int FraudScore { get; set; }
 
 
         public virtual void DeleteQuestionAndAnswers()
@@ -98,7 +95,19 @@ namespace Cloudents.Core.Entities
         public virtual string Description { get; set; }
         public virtual Tutor Tutor { get; set; }
 
-        public virtual string BuyerKey { get; set; }
+        public virtual BuyerPayment BuyerPayment { get; set; }
+        //public virtual string BuyerKey
+        //{
+        //    set { _buyer.BuyerKey = value; }
+        //    get { return _buyer.BuyerKey; }
+        //}
+
+        //public virtual DateTime BuyerKeyExpiration
+        //{
+        //    set { _buyer.BuyerKeyExpiration = value; }
+        //    get { return _buyer.BuyerKeyExpiration; }
+        //}
+
         public virtual void ChangeOnlineStatus(bool isOnline)
         {
             Online = isOnline;
