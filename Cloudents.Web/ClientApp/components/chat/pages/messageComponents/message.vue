@@ -30,6 +30,7 @@ export default {
 <style lang='less'>
 .message-wrapper{
     max-width:211px;
+    width: max-content; // firefox fallback
     width: fit-content;
     margin-left: auto;
     margin-right: unset;
