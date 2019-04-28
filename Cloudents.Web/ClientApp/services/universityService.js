@@ -102,7 +102,7 @@ const getProfileCourses = () => {
     });
 };
 const deleteCourse = (name) => {
-    return connectivityModule.http.delete(`course?name=${encodeURIComponent(name)}`).then((resp)=>{
+    return connectivityModule.http.delete(`course?name=${name}`).then((resp)=>{
         return resp
     })
 };
