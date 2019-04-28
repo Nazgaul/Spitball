@@ -59,18 +59,18 @@ const nav = {
     //         soon: !nonIsraeliUser
     //     },
     // },
-    job: {
-        data:{
-            id: routes.jobRoute,
-            name: LanguageService.getValueByKey("navigation_nav_name_job"),
-            needLocation: true,
-            filter: [],
-            sort: [],
-            icon: "sbf-job",
-            visible: nonIsraeliUser,
-            soon: !nonIsraeliUser
-        }
-    }
+    // job: {
+    //     data:{
+    //         id: routes.jobRoute,
+    //         name: LanguageService.getValueByKey("navigation_nav_name_job"),
+    //         needLocation: true,
+    //         filter: [],
+    //         sort: [],
+    //         icon: "sbf-job",
+    //         visible: nonIsraeliUser,
+    //         soon: !nonIsraeliUser
+    //     }
+    // }
 };
 
 let strNew = LanguageService.getValueByKey("navigation_nav_bookDetails_filter_new");

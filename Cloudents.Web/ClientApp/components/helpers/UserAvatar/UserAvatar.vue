@@ -39,7 +39,8 @@ import utilitiesService from '../../../services/utilities/utilitiesService';
                 return sum
             },
             imageUrl(){
-                return utilitiesService.proccessImageURL(this.userImageUrl, 32, 32)
+                let size = this.size ? this.size : 32;
+                return utilitiesService.proccessImageURL(this.userImageUrl, size, size)
             }
         },
     }

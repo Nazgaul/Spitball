@@ -45,12 +45,12 @@
                             </div>
                         </div>
                 </v-flex>
+                    <!--TODO V 20  SPITBALL-851 Remove the discussion board from question pages -->
+                <!--<v-flex v-if ="accountUser" class="chat-wrapper" :class="{'position-static': isEdgeRtl}">-->
+                    <!--<div class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>-->
+                    <!--<div ref="chat-area" class="chat-container"></div>-->
 
-                <v-flex v-if ="accountUser" class="chat-wrapper" :class="{'position-static': isEdgeRtl}">
-                    <div class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>
-                    <div ref="chat-area" class="chat-container"></div>
-
-                </v-flex>
+                <!--</v-flex>-->
 
             </v-layout>
         </div>
@@ -60,7 +60,8 @@
             <v-tabs grow>
                     <v-tabs-slider color="blue"></v-tabs-slider>
                     <v-tab :href="'#tab-1'" :key="'1'"><span v-language:inner>questionDetails_Question</span></v-tab>
-                    <v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser"><span v-language:inner>questionDetails_Chat</span></v-tab>
+                      <!--TODO V 20  SPITBALL-851 Remove the discussion board from question pages -->
+                    <!--<v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser"><span v-language:inner>questionDetails_Chat</span></v-tab>-->
 
                 <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12 class="question-data" >
@@ -90,11 +91,12 @@
                                 </div>
                         </v-flex>
                 </v-tab-item>
-                <v-tab-item :key="'2'" :id="'tab-2'">
-                        <v-flex xs12>
-                        <div ref="chat-area" class="chat-iframe"></div>
-                        </v-flex>
-                </v-tab-item>
+                <!--TODO V 20  SPITBALL-851 Remove the discussion board from question pages -->
+                <!--<v-tab-item :key="'2'" :id="'tab-2'">-->
+                        <!--<v-flex xs12>-->
+                        <!--<div ref="chat-area" class="chat-iframe"></div>-->
+                        <!--</v-flex>-->
+                <!--</v-tab-item>-->
             </v-tabs>
         </div>
         <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'" :content-class="'question-suggest'">

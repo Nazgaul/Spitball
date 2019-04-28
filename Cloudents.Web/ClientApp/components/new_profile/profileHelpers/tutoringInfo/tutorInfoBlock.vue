@@ -1,7 +1,7 @@
 <template>
     <v-layout class="tutoring-info-section" align-center :class="{'mobile-view': $vuetify.breakpoint.xsOnly}">
         <v-flex xs12>
-            <v-card class="py-4 tutoring-info-card "
+            <v-card class="tutoring-info-card"
                     :class="[$vuetify.breakpoint.xsOnly ? 'mobile-view elevation-0 px-0 py-2': 'py-4']">
                 <v-flex v-if="$vuetify.breakpoint.smAndUp">
                     <div>
@@ -51,12 +51,13 @@
         .mobile-btn-fixed-bottom {
             align-items: baseline;
             position: fixed;
-            bottom: 6px;
+            bottom: 0px;
             right: 0;
             width: 100%;
             z-index: 9;
             margin: 0;
             padding: 0;
+            background-color: @systemBackgroundColor;
             .ct-btn{
                 width: 98%;
                 border-radius: 4px;

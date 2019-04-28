@@ -4,40 +4,34 @@
                          width="260"
                          @input="updateDrawerValue" :value="getShowSchoolBlock"
                          :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
+      <!--<v-list>-->
+        <!--<v-list-tile class="group-header search-university-title">-->
+          <!--<v-list-tile-action class="mr-1">-->
+            <!--<v-icon>sbf-uni-default</v-icon>-->
+          <!--</v-list-tile-action>-->
+          <!--<v-list-tile-title class="font-weight-regular" @click="openPersonalizeUniversity()">{{uniHeaderText}}</v-list-tile-title>-->
+          <!--<v-list-tile-action v-if="!schoolName" class="edit-course">-->
+            <!--<v-icon @click="openPersonalizeUniversity()">sbf-close</v-icon>-->
+          <!--</v-list-tile-action>-->
+        <!--</v-list-tile>-->
+      <!--</v-list>-->
       <v-list>
-        <v-list-tile class="group-header search-university-title">
-          <v-list-tile-action class="mr-1">
-            <v-icon>sbf-uni-default</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title class="font-weight-regular" @click="openPersonalizeUniversity()">{{uniHeaderText}}</v-list-tile-title>
-          <v-list-tile-action v-if="!schoolName" class="edit-course">
-            <v-icon @click="openPersonalizeUniversity()">sbf-close</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-      </v-list>
-      <v-list>
-        <v-list-tile class="group-header search-university-title">
+        <v-list-tile class="group-header search-university-title pl-1" :class="{'active': inStudyRoomLobby}">
           <v-list-tile-action>
-            <v-icon>sbf-university-columns</v-icon>
+            <v-icon>sbf-studyroom-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openStudyRooms()">My Study Rooms</v-list-tile-title>
+          <v-list-tile-title @click="openStudyRooms()" v-text="dictionary.myStudyRooms" class="pl-1"></v-list-tile-title>
         </v-list-tile>
       </v-list>
       <v-list class="class-list">
-        <v-list-tile class="group-header">
+        <v-list-tile class="group-header cursor-pointer" :class="{'active': !selectedCourse && !inStudyRoomLobby}">
           <v-list-tile-action class="mr-1">
             <v-icon>sbf-courses-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openPersonalizeCourse()">{{coursesHeaderText}}</v-list-tile-title>
-          <v-list-tile-action class="edit-course">
-            <v-icon @click="openPersonalizeCourse()">sbf-close</v-icon>
+          <v-list-tile-title @click="selectCourse(null, true)" v-text="dictionary.allCourses"></v-list-tile-title>
+          <v-list-tile-action class="edit-course px-3" @click="openPersonalizeCourse()">
+            <v-icon>sbf-close</v-icon>
           </v-list-tile-action>
-        </v-list-tile>
-        <v-list-tile
-          class="group-items"
-          :class="{'active': !selectedCourse && !inUniselect}"
-          @click="selectCourse(null, true)">
-          <v-list-tile-title style="font-weight: bold;" v-text="dictionary.allCourses"></v-list-tile-title>
         </v-list-tile>
         <v-list-tile
           class="group-items"
@@ -46,7 +40,7 @@
           :key="i"
           @click="selectCourse(item)"
         >
-          <v-list-tile-title v-text="item.text ? item.text : item"></v-list-tile-title>
+          <v-list-tile-title v-text="item.text ? item.text : item" class="pad-left"></v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -68,8 +62,10 @@ export default {
         addcourses: LanguageService.getValueByKey('schoolBlock_add_your_courses'),
         myCourses: LanguageService.getValueByKey('schoolBlock_my_courses'),
         allCourses: LanguageService.getValueByKey('schoolBlock_all_courses'),
+        myStudyRooms: LanguageService.getValueByKey('schoolBlock_my_study_rooms'),
       },
-      inUniselect: this.$route.path.indexOf('courses') > -1 || this.$route.path.indexOf('university') > -1
+      inUniselect: this.$route.path.indexOf('courses') > -1 || this.$route.path.indexOf('university') > -1,
+      inStudyRoomLobby: this.$route.path.indexOf('study-rooms') > -1
     };
   },
   props: {
@@ -116,6 +112,7 @@ export default {
     },
     $route(val) {
       this.inUniselect = val.path.indexOf('courses') > -1 || val.path.indexOf('university') > -1;
+      this.inStudyRoomLobby = val.path.indexOf('study-rooms') > -1;
       if (!!this.$route.query) {
         if (!this.$route.query.Course) {
           this.selectedCourse = "";
@@ -142,7 +139,7 @@ export default {
       return (!!this.$route.query && !!this.$route.query.term) || (!!this.$route.query && (!!this.$route.query.Filter || !!this.$route.query.Source))
     },
     selectCourse(item, isDefault) {
-      if(this.inUniselect && !item){
+      if((this.inUniselect || this.inStudyRoomLobby) && !item){
         this.updateFilter();
         return;
       }
@@ -161,7 +158,6 @@ export default {
             this.selectedCourse = ""
           }
         }else{
-          
           let text = item.text ? item.text : item;
           if (this.selectedCourse === text) {
             if(this.isInSearchMode()){

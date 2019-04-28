@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    public class UpdateUserSettingsCommandHandler: ICommandHandler<UpdateUserSettingsCommand>
+    public class UpdateUserSettingsCommandHandler : ICommandHandler<UpdateUserSettingsCommand>
     {
         private readonly IRepository<RegularUser> _userRepository;
 
@@ -22,10 +22,8 @@ namespace Cloudents.Command.CommandHandler
             user.Description = message.Description;
             if (user.Tutor != null)
             {
-                user.Tutor.Bio = message.Bio;
+                user.Tutor.UpdateSettings(message.Bio, message.Price);
             }
-
-
             await _userRepository.UpdateAsync(user, token);
         }
     }

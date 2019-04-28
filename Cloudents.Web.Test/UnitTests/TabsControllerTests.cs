@@ -6,7 +6,8 @@ using Xunit;
 
 namespace Cloudents.Web.Test.UnitTests
 {
-    public class TabsControllerTests : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class TabsControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 
@@ -17,7 +18,6 @@ namespace Cloudents.Web.Test.UnitTests
 
         [Theory]
         [InlineData("flashcard")]
-        [InlineData("tutor")]
         [InlineData("book")]
         [InlineData("job")]
         public async Task GetAsync_Redirect_ToHomePage(string url)

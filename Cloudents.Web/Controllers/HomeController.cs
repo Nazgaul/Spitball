@@ -14,6 +14,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Web.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
@@ -32,6 +33,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true), SignInWithToken]
+        [ApiNotFoundFilter]
         public IActionResult Index(
             [FromServices] Lazy<ICrawlerResolver> crawlerResolver,
             [FromHeader(Name = "User-Agent")] string userAgent,
@@ -53,8 +55,8 @@ namespace Cloudents.Web.Controllers
             }
             catch (Exception ex)
             {
-                
-                _logger.Exception(ex,new Dictionary<string, string>()
+
+                _logger.Exception(ex, new Dictionary<string, string>()
                 {
                     ["userAgent"] = userAgent
                 });
@@ -82,7 +84,10 @@ namespace Cloudents.Web.Controllers
             [FromServices] SignInManager<RegularUser> signInManager,
             [FromServices] IHubContext<SbHub> hubContext, CancellationToken token)
         {
-
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/");
+            }
             var message = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
                 new object());
 

@@ -1,51 +1,54 @@
-﻿using System.Threading.Tasks;
-using Xunit;
-using Newtonsoft.Json.Linq;
-using FluentAssertions;
+﻿//using System.Threading.Tasks;
+//using Xunit;
+//using Newtonsoft.Json.Linq;
+//using FluentAssertions;
 
-namespace Cloudents.Web.Test.IntegrationTests
-{
-    public class BookApiTests : IClassFixture<SbWebApplicationFactory>
-    {
+//namespace Cloudents.Web.Test.IntegrationTests
+//{
 
-        private readonly SbWebApplicationFactory _factory;
 
-        public BookApiTests(SbWebApplicationFactory factory)
-        {
-            _factory = factory;
-        }
+//    [Collection(SbWebApplicationFactory.WebCollection)]
+//    public class BookApiTests //: IClassFixture<SbWebApplicationFactory>
+//    {
 
-        [Theory]
-        [InlineData("api/book/search?term=kjhgfd")]
-        [InlineData("api/book/search?term=%2Cmnhbg")]
-        [InlineData("api/book/search?term=The%20medical")]
-        [InlineData("/api/book/search?page=2&term=super mario 64 ds")]
-        [InlineData("/api/book/buy?isbn13=9781292099170")]
-        public async Task Search_ReturnResult(string url)
-        {
-            var client = _factory.CreateClient();
+//        private readonly SbWebApplicationFactory _factory;
 
-            // Act
-            var response = await client.GetAsync(url);
+//        public BookApiTests(SbWebApplicationFactory factory)
+//        {
+//            _factory = factory;
+//        }
 
-            // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
-        }
+//        [Theory]
+//        [InlineData("api/book/search?term=kjhgfd")]
+//        [InlineData("api/book/search?term=%2Cmnhbg")]
+//        [InlineData("api/book/search?term=The%20medical")]
+//        [InlineData("/api/book/search?page=2&term=super mario 64 ds")]
+//        [InlineData("/api/book/buy?isbn13=9781292099170")]
+//        public async Task Search_ReturnResult(string url)
+//        {
+//            var client = _factory.CreateClient();
 
-        [Fact]
-        public async Task Search_Return_OK_Result()
-        {
-            var client = _factory.CreateClient();
+//            // Act
+//            var response = await client.GetAsync(url);
 
-            var response = await client.GetAsync("api/book/search?term=merk");
+//            // Assert
+//            response.EnsureSuccessStatusCode(); // Status Code 200-299
+//        }
 
-            var str = await response.Content.ReadAsStringAsync();
+//        [Fact]
+//        public async Task Search_Return_OK_Result()
+//        {
+//            var client = _factory.CreateClient();
 
-            var d = JObject.Parse(str);
+//            var response = await client.GetAsync("api/book/search?term=merk");
 
-            var result = d["result"]?.Value<JArray>();
+//            var str = await response.Content.ReadAsStringAsync();
 
-            result.Should().HaveCount(8);
-        }
-    }
-}
+//            var d = JObject.Parse(str);
+
+//            var result = d["result"]?.Value<JArray>();
+
+//            result.Should().HaveCount(8);
+//        }
+//    }
+//}

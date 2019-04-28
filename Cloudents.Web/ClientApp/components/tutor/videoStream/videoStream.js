@@ -14,6 +14,7 @@ export default {
             loaded: false,
             data: {},
             isCopied: false,
+            sessionStartClickedOnce: false,
             localTrackAval: false,
             remoteTrack: '',
             screenShareTrack: null,
@@ -24,7 +25,6 @@ export default {
                 'local_player': true,
                 'remote_player': true
             },
-            btnLoading : false
         };
     },
     props: {
@@ -42,7 +42,9 @@ export default {
                           'getCurrentRoomState',
                           'getStudyRoomData',
                           'getJwtToken',
-                          'accountUser'
+                          'accountUser',
+                          'getNotAllowedDevices',
+                          'getNotAvaliableDevices'
                       ]),
         roomIsPending() {
             return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
@@ -56,9 +58,9 @@ export default {
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         },
-        accountUserID(){
-            if(this.accountUser && this.accountUser.id){
-                return this.accountUser.id
+        accountUserID() {
+            if(this.accountUser && this.accountUser.id) {
+                return this.accountUser.id;
             }
         }
     },
@@ -69,31 +71,50 @@ export default {
         ...mapActions([
                           'updateRoomID',
                           'updateRoomLoading',
-                          'updateCurrentRoomState'
+                          'updateCurrentRoomState',
+                          'updateTestDialogState'
                       ]),
 
         biggerRemoteVideo() {
+            //check browser support
             let video = document.querySelectorAll("#remoteTrack video")[0];
-            video.requestFullscreen();
+            if(video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if(video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if(video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            } else if(video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+            console.log();
         },
         minimize(type) {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
         enterRoom() {
-            if(this.isTutor) {
-                this.btnLoading = true;
-                tutorService.enterRoom(this.id).then(() => {
+            //if blocked or not available  use of media devices do not allow session start
+            if(this.getNotAllowedDevices || this.getNotAvaliableDevices) {
+                this.updateTestDialogState(true);
+                return;
+            }
+            if(!this.sessionStartClickedOnce){
+                this.sessionStartClickedOnce = true;
+                if(this.isTutor) {
+                    tutorService.enterRoom(this.id).then(() => {
+                        this.createVideoSession();
+                    });
+                } else {
+                    //join
                     this.createVideoSession();
-                });
-            } else {
-                //join
-                this.createVideoSession();
+                }
             }
         },
         endSession() {
             tutorService.endTutoringSession(this.id)
                         .then((resp) => {
                             console.log('ended session', resp);
+                            this.sessionStartClickedOnce = false;
                         }, (error) => {
                             console.log('error', error);
                         });
@@ -118,8 +139,14 @@ export default {
                          let audioTrackName = `audio_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
                          let videoTrackName = `video_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
                          createLocalTracks({
-                                               audio: {audio: self.availableDevices.includes('audioinput'), name: `${audioTrackName}`},
-                                               video: {video: self.availableDevices.includes('videoinput'), name: `${videoTrackName}`}
+                                               audio: {
+                                                   audio: self.availableDevices.includes('audioinput'),
+                                                   name: `${audioTrackName}`
+                                               },
+                                               video: {
+                                                   video: self.availableDevices.includes('videoinput'),
+                                                   name: `${videoTrackName}`
+                                               }
                                            }).then((tracksCreated) => {
                              let localMediaContainer = document.getElementById('localTrack');
                              tracksCreated.forEach((track) => {
@@ -132,7 +159,7 @@ export default {
                                  networkQuality: true
                              };
                              tutorService.connectToRoom(token, connectOptions);
-                             self.isTutor ?  self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.loading) :  self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active);
+                             self.isTutor ? self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.loading) : self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active);
 
                          }, (error) => {
                              console.log(error, 'error create tracks before connect');

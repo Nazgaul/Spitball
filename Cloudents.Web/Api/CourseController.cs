@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using System;
+using Cloudents.Command;
 using Cloudents.Command.Courses;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
@@ -13,6 +14,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -39,16 +42,14 @@ namespace Cloudents.Web.Api
         }
 
         /// <summary>
-        /// Perform course search
+        /// Perform course search - we can't put cache because the user can re-enter the page
         /// </summary>
         /// <param name="request">params</param>
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour,
-            Location = ResponseCacheLocation.Client,
-            VaryByQueryKeys = new[] { "*" })]
+      
         public async Task<CoursesResponse> GetAsync(
            [FromQuery] CourseSearchRequest request,
             CancellationToken token)
@@ -76,14 +77,25 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("create")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> CreateCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new CreateCourseCommand(userId, model.Name);
-            await _commandBus.DispatchAsync(command, token);
-            var user = await _userManager.GetUserAsync(User);
-            await _signInManager.RefreshSignInAsync(user);
-            return Ok(model);
+            try
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var command = new CreateCourseCommand(userId, model.Name);
+                await _commandBus.DispatchAsync(command, token);
+                var user = await _userManager.GetUserAsync(User);
+                await _signInManager.RefreshSignInAsync(user);
+                return Ok(model);
+            }
+            catch (DuplicateRowException)
+            {
+                return Conflict();
+            }
         }
 
         [HttpPost("teach")]

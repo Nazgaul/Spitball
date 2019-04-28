@@ -1,26 +1,29 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class ProfileApiTests : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class ProfileApiTests //: IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
+        private readonly System.Net.Http.HttpClient _client;
 
         public ProfileApiTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Fact]
         public async Task Get_About_Tutor_Profile()
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync("api/profile/159039/about");
+            var response = await _client.GetAsync("api/profile/159039/about");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -40,9 +43,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task Get_About_Regular_Profile()
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync("api/profile/160171/about");
+            var response = await _client.GetAsync("api/profile/160171/about");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -61,9 +62,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [InlineData("/api/profile/160171")]
         public async Task GetAsync_OK(string url)
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync(url);
+            var response = await _client.GetAsync(url);
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -82,12 +81,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_NotFound()
         {
-            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
-            {
-                AllowAutoRedirect = false
-            });
-
-            var response = await client.GetAsync("api/profile/1");
+            var response = await _client.GetAsync("api/profile/1");
 
             //var str = await response.Content.ReadAsStringAsync();
 
@@ -95,7 +89,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             //var status = d["status"]?.Value<int?>();
 
-            response.StatusCode.Should().Be(302);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [Theory]
@@ -105,9 +99,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [InlineData("api/profile/159039/purchaseDocuments")]
         public async Task GetAsync_UserTabs_OK(string url)
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync(url);
+            var response = await _client.GetAsync(url);
 
             var str = await response.Content.ReadAsStringAsync();
 

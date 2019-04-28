@@ -1,14 +1,14 @@
 <template>
-    <v-container v-show="visible" py-0 px-0 class="sb-chat-container" :style="{'height': height}" :class="{'minimized': isMinimized}">
-        <v-layout @click="expandChat" class="chat-header">
-            <v-icon :class="{'rtl':isRtl}" @click="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
+    <v-container v-if="visible" py-0 px-0 class="sb-chat-container"  :class="[ $route.name == 'tutoring' ?  'chat-right': '', {'minimized': isMinimized}]">
+        <v-layout @click="toggleMinimizeChat" class="chat-header">
+            <v-icon :class="{'rtl':isRtl}" @click.stop="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
-            <span class="other-side" v-show="!isMobile">
-                <v-icon @click.stop="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
+            <span class="other-side">
+                <v-icon v-show="!isMobile" @click.stop="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
                 <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
             </span>
         </v-layout>
-        <v-layout v-show="!isMinimized" class="general-chat-style">
+        <v-layout v-show="!isMinimized" class="general-chat-style" :style="{'height': mobileHeight}">
             <component :is="`chat-${state}`"></component>
         </v-layout>
     </v-container>
@@ -28,7 +28,7 @@
         data(){
             return{
                 enumChatState: this.getEnumChatState(),
-                mobileFooterHeight: 48,
+                mobileHeaderHeight: 39,
                 isRtl: global.isRtl
             }
         },
@@ -40,29 +40,21 @@
             isMobile(){
                 return this.$vuetify.breakpoint.smAndDown;
             },
-            height(){
+            mobileHeight(){
                 if(this.isMobile){
-                    return `${global.innerHeight - this.mobileFooterHeight}px`;
+                    return `${global.innerHeight - this.mobileHeaderHeight}px`;
                 }else{
-                    if(this.isMinimized){
-                        return 'unset';
-                    }else{
-                        return '595px';
-                    }
+                    return '';
                 }
             },
             state(){
                 return this.getChatState;
             },
             visible(){
-                if(this.isMobile){
-                    return true;
+                if(this.accountUser === null){
+                    return false;
                 }else{
-                    if(this.accountUser === null){
-                        return false;
-                    }else{
-                        return this.getIsChatVisible;
-                    }
+                    return this.getIsChatVisible;
                 }
             },
             isMinimized(){
@@ -89,7 +81,7 @@
             }
         },
         methods:{
-            ...mapActions(['updateChatState', 'getAllConversations', 'toggleChatMinimize', 'closeChat', 'openChatInterface']),
+            ...mapActions(['updateChatState', 'toggleChatMinimize', 'closeChat', 'openChatInterface']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
                 if(!this.isLocked){
@@ -106,6 +98,7 @@
                 this.toggleChatMinimize();
             },
             closeChatWindow(){
+                this.OriginalChatState();
                 this.closeChat();
             }
         },
@@ -116,7 +109,7 @@
 <style lang="less">
 @import '../../styles/mixin.less';
 .sb-chat-container{
-    .scrollBarStyle(3px, #43425d);
+    .scrollBarStyle(6px, #43425d);
     position: fixed;
     bottom: 0;
     right: 130px;
@@ -124,12 +117,20 @@
     height: 595px;
     z-index: 3;
     background: #fff;
-    border-radius: 4px;
-    box-shadow: 0 3px 13px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 3px 16px 0 rgba(0, 0, 0, .3);
+    &.chat-right{
+        right: 130px/*rtl:ignore*/;
+        left: unset /*rtl:ignore*/;
+    }
     @media (max-width: @screen-xs) {
-        position: unset;
         width: 100%;
-        border-radius: unset;
+        height: unset !important;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 999;
     }
     &.minimized{
         height: unset;
@@ -166,9 +167,6 @@
             }
             
         }
-        
-        
-        
         .other-side{
             margin-left:auto;
             i{
@@ -181,7 +179,7 @@
         height:93%; //minus chat header
         width:100%;    
         @media (max-width: @screen-xs) {
-            height:92%;
+            height:95%;
         }    
     }
 }

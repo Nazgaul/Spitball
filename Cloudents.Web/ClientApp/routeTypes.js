@@ -8,7 +8,7 @@ export const bookRoute = "book";
 export const bookDetailsRoute = "bookDetails";
 export const foodRoute = "food";//TODo no more used
 export const foodDetailsRoute = "foodDetails";//TODo no more used
-export const jobRoute = "job";
+// export const jobRoute = "job";
 
 
 

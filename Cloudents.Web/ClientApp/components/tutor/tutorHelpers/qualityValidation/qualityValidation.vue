@@ -2,8 +2,8 @@
     <v-stepper v-model="step" class="quality-test-container">
         <div class="header-text-wrap pt-3 pb-2 px-4">
             <span class="header-text" v-if="!isErorrGettingMedia">Camera & Sound Test</span>
-            <span class="header-text" v-if="isErorrGettingMedia && !notAvaliableDevices">Browser Permissions</span>
-            <span class="header-text" v-if="isErorrGettingMedia && notAvaliableDevices">Device Access</span>
+            <span class="header-text" v-if="isErorrGettingMedia && !getNotAvaliableDevices">Browser Permissions</span>
+            <span class="header-text" v-if="isErorrGettingMedia && getNotAvaliableDevices">Device Access</span>
         </div>
 
         <v-stepper-header v-if="!isErorrGettingMedia">
@@ -19,7 +19,7 @@
             <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" step="3">Video Test</v-stepper-step>
         </v-stepper-header>
         <!--header unable to get device-->
-        <v-stepper-header class="device-error-header px-4 py-2" v-if="isErorrGettingMedia && notAvaliableDevices">
+        <v-stepper-header class="device-error-header px-4 py-2" v-if="isErorrGettingMedia && getNotAvaliableDevices">
             <span>Unable to access device.</span></v-stepper-header>
         <v-stepper-items>
             <v-stepper-content v-for="n in steps"
@@ -30,7 +30,7 @@
                         color="grey lighten-1"
                         max-height="450px">
                     <!--if there is an error requesting user media show helper component-->
-                    <not-allowed v-if="isErorrGettingMedia" :isNotFound="notAvaliableDevices"></not-allowed>
+                    <not-allowed v-if="isErorrGettingMedia" :isNotFound="getNotAvaliableDevices"></not-allowed>
                     <!--in case devices are avaliable show regular test steps-->
                     <component :is="'validation_step_'+step" v-if="n === step && !isErorrGettingMedia"></component>
 
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import validation_step_1 from './qualitySteps/audioInputValidation.vue';
     import validation_step_2 from './qualitySteps/audioOutputValidation.vue';
     import validation_step_3 from './qualitySteps/videoValidation.vue';
@@ -74,20 +74,21 @@
         },
         data() {
             return {
-                notAvaliableDevices: false,
-                notAllowedDevices: false,
+                // notAvaliableDevices: false,
+                // notAllowedDevices: false,
                 steps: 3,
                 step: 1
             };
         },
         computed: {
+            ...mapGetters(['getNotAllowedDevices', 'getNotAvaliableDevices']),
             isErorrGettingMedia() {
-                return this.notAvaliableDevices || this.notAllowedDevices;
+                return this.getNotAllowedDevices || this.getNotAvaliableDevices;
             }
 
         },
         methods: {
-            ...mapActions(['updateTestDialogState']),
+            ...mapActions(['updateTestDialogState', 'setAllowedDevicesStatus', 'setAvaliableDevicesStatus']),
             checkPermission() {
                 let self = this;
                 navigator.mediaDevices.getUserMedia({audio: true, video: true})
@@ -98,11 +99,12 @@
                          ).catch((err) => {
                     console.log(err.name + ": " + err.message, err);
                     if(err.name === 'NotAllowedError') {
-                        console.log('please grant permission Unable to access device.');
-                        self.notAllowedDevices = true;
+                        // self.notAllowedDevices = true;
+                        self.setAllowedDevicesStatus(true)
                         self.updateTestDialogState(true);
                     } else if(err.name === 'NotFoundError') {
-                        self.notAvaliableDevices = true;
+                        // self.notAvaliableDevices = true;
+                        self.setAvaliableDevicesStatus(true);
                         self.updateTestDialogState(true);
                     }
                 }); // always check for errors at the end.

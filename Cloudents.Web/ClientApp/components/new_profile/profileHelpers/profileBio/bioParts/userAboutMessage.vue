@@ -2,10 +2,10 @@
     <v-layout class="bio-text-container" column>
         <v-flex>
             <h4 class="intro-name">
-                <span class="icon-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'mr-2' : 'ml-2']"><v-icon>sbf-hand-icon</v-icon></span>&nbsp;
+                <!--<span class="icon-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'mr-2' : 'ml-2']"><v-icon>sbf-hand-icon</v-icon></span>&nbsp;-->
                 <span class="text-wrap headline font-weight-bold">
                     <span v-language:inner>profile_hey_there</span>
-                    <span>&nbsp;{{userName}}!</span>
+                    <span class="word-break">&nbsp;{{userName}}!</span>
                   </span>
             </h4>
         </v-flex>
@@ -44,6 +44,9 @@
     @import '../../../../../styles/mixin.less';
 
     .bio-text-container {
+        .word-break{
+            word-break: break-word;
+        }
         .intro-name {
             font-family: @fontOpenSans;
             font-size: 30px;

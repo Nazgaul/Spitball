@@ -4,7 +4,7 @@
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
-                    <v-icon @click="lastStep()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
+                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
                     </v-icon>
                     <span class="subheading font-weight-bold" v-language:inner>courses_join</span>
                     <span class="subheading font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
@@ -197,8 +197,8 @@
                                "addClasses"
                           ]),
             ...mapGetters(["getClasses"]),
-            lastStep() {
-                this.$router.go(-1);
+            goToEditCourses() {
+                this.$router.push({name: 'editCourse'})
             },
             concatCourses(paramObj) {
                 let self = this;
@@ -329,7 +329,7 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
     .add-courses-wrap {
-        .scrollBarStyle(3px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
+        .scrollBarStyle(6px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .sbf-search{
             height: 22px;
             min-width: 34px;
@@ -391,7 +391,7 @@
             }
         }
         .selected-classes-container{
-            .scrollBarStyle(3px, #a3a0fb, @color-blue-new);
+            .scrollBarStyle(6px, #a3a0fb, @color-blue-new);
         }
         .search-class-item{
             padding-top: 10px;

@@ -12,4 +12,14 @@ namespace Cloudents.Core.Event
 
         public ChatMessage ChatMessage { get;  }
     }
+
+    public class OfflineChatMessageEvent : IEvent
+    {
+        public OfflineChatMessageEvent(ChatUser chatUser)
+        {
+            ChatUser = chatUser;
+        }
+
+        public ChatUser ChatUser { get; }
+    }
 }

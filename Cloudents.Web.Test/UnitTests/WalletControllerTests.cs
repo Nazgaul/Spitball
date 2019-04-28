@@ -9,7 +9,8 @@ using Xunit;
 
 namespace Cloudents.Web.Test.UnitTests
 {
-    public class WalletControllerTests : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class WalletControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 
@@ -24,12 +25,9 @@ namespace Cloudents.Web.Test.UnitTests
             var client = _factory.CreateClient();
             string[] types = { "Earned", "Stake", "Spent" };
             
+            await client.LogInAsync();
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
-
-            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
-
-            response = await client.GetAsync("api/wallet/balance");
+            var response = await client.GetAsync("api/wallet/balance");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -51,11 +49,8 @@ namespace Cloudents.Web.Test.UnitTests
         {
             var client = _factory.CreateClient();
 
-            string crad = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\"}";
-
-            var response = await client.PostAsync("api/LogIn", new StringContent(crad, Encoding.UTF8, "application/json"));
-
-            response = await client.GetAsync("api/wallet/transaction");
+            await client.LogInAsync();
+            var response = await client.GetAsync("api/wallet/transaction");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -72,6 +67,20 @@ namespace Cloudents.Web.Test.UnitTests
             type.Should().Be("Earned");
             amount.Should().Be(150);
             balance.Should().BeGreaterThan(0);
+        }
+
+        [Fact]
+        public async Task PostAsync_Redeem()
+        {
+            var client = _factory.CreateClient();
+
+            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+
+            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
+
+            var response = await client.PostAsync("api/Wallet/redeem", new StringContent("{amount:1000}", Encoding.UTF8, "application/json"));
+
+            response.EnsureSuccessStatusCode();
         }
     }
 }
