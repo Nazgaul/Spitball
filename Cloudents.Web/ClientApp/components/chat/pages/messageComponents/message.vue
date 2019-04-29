@@ -30,6 +30,7 @@ export default {
 <style lang='less'>
 .message-wrapper{
     max-width:211px;
+    width: max-content; // firefox fallback
     width: fit-content;
     margin-left: auto;
     margin-right: unset;
@@ -45,6 +46,7 @@ export default {
     border-radius: 8px 8px 0 8px;
     background-color: #f5f5f5;
     padding: 10px;
+    word-break: break-all; //firefox fallback
     word-break: break-word;
     display: flex;
     flex-direction: column;
@@ -64,8 +66,10 @@ export default {
         color: rgba(0, 0, 0, 0.38);
         display: flex;
         font-size: 11px;
+        padding-top: 7px;
+        justify-content: flex-end;
         &.myMessage{
-            justify-content: flex-end;
+            justify-content: flex-start;
         }
     }
 }

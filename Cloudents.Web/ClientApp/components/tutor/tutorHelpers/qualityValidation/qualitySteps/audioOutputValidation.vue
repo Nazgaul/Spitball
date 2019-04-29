@@ -21,8 +21,7 @@
         components: {speakerImage},
         data() {
             return {
-                // soundUrl: 'https://blue-online-static.wyzantcdn.com//static/dist/assets/12_short_working-solutions_0066.mp3',
-                soundUrl: 'http://freemusicdownloads.world/wp-content/uploads/2017/07/Nirvana20-20Smells20Like20Teen20Spirit-hTWKbfoikeg.mp3',
+                soundUrl: `https://zboxstorage.blob.core.windows.net/zboxhelp/new/music-check.mp3`,
                 audio: null
             }
         },

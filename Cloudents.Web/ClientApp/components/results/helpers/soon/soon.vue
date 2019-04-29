@@ -1,14 +1,19 @@
 <template>
     <div class="soon-container-overlay">
         <div class="soon-img-container">
-            <img src="./img/soonPic.png" alt="" />
+            <img v-if="isRtl" src="./img/soonPic.png" alt="" />
+            <img v-else src="./img/soon-Pic-english.png" alt="" />
         </div>
     </div>
 </template>
 
 <script>
 export default {
-
+    data(){
+        return{
+            isRtl: global.isRtl
+        }
+    }
 }
 </script>
 

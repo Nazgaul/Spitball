@@ -45,6 +45,7 @@
                                       :rules="[rules.required, rules.minimum, rules.maximum]"
                                       v-model="price"
                                       prefix="₪"
+                                      type="number"
                                       :label="placePrice"></v-text-field>
                     </v-flex>
                     </v-form>

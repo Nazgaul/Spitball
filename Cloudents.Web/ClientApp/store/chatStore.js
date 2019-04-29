@@ -238,7 +238,8 @@ const actions = {
         }else{
             id = state.activeConversationObj.conversationId;
         }
-        if(!!id && !state.messages[id]){
+        
+        if(!!id && (!state.messages[id] || (!!state.conversations[id] && state.conversations[id].unread > 0))){
             chatService.getMessageById(id).then(({data})=>{
                 if(!data) return;
                 data.forEach(message => {

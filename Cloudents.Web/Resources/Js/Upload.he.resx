@@ -133,16 +133,16 @@
     <value>העלה</value>
   </data>
   <data name="multiple_confirm_btn_cancel" xml:space="preserve">
-    <value>המשך</value>
+    <value>התחרטתי</value>
   </data>
   <data name="multiple_confirm_btn_close" xml:space="preserve">
     <value>בטל העלאה</value>
   </data>
   <data name="multiple_confirm_stop_title" xml:space="preserve">
-    <value>לעצור העלאת מסמך?</value>
+    <value>ביטול העלאת מסמך</value>
   </data>
   <data name="multiple_confirm_text" xml:space="preserve">
-    <value>סגירת חלון זה תבטל תהליך העלאת המסמך</value>
+    <value>האם אתה בטוח שברצונך לבטל תהליך העלאת המסמך?</value>
   </data>
   <data name="multiple_error_extensions_support" xml:space="preserve">
     <value>קבצים נתמכים:</value>

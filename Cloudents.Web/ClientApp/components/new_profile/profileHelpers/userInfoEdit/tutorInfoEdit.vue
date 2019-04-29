@@ -50,6 +50,7 @@
                                       v-model="price"
                                       outline
                                       prefix="₪"
+                                      type="number"
                                       :hide-details="$vuetify.breakpoint.xsOnly"
                         ></v-text-field>
                     </v-flex>

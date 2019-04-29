@@ -45,10 +45,10 @@ namespace Cloudents.Web.Test.IntegrationTests
             var question = new
             {
                 subjectId = "",
-                text = "Blah blah blah...",
-                price = 10,
-                files = new { },
                 course = "Economics",
+                text = "Blah blah blah...",
+                price = 1M,
+                files = new { }
             };
 
             await _client.PostAsync("api/LogIn", HttpClient.CreateString(cred));
@@ -69,14 +69,14 @@ namespace Cloudents.Web.Test.IntegrationTests
                 course = "Economics",
                 tags = new { },
                 professor = "Mr. Elad",
-                price = 0
+                price = 0M
             };
 
             await _client.PostAsync("api/LogIn", HttpClient.CreateString(cred));
 
             var response = await _client.PostAsync("api/Upload", HttpClient.CreateString(upload));
 
-            response.EnsureSuccessStatusCode();
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [Fact]
