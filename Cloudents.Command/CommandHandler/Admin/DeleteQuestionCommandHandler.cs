@@ -11,14 +11,12 @@ namespace Cloudents.Command.CommandHandler.Admin
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> _questionRepository;
-        private readonly IRegularUserRepository _userRepository;
 
 
 
-        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository, IRegularUserRepository userRepository)
+        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository)
         {
             _questionRepository = questionRepository;
-            _userRepository = userRepository;
         }
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
@@ -29,13 +27,11 @@ namespace Cloudents.Command.CommandHandler.Admin
                 return;
             }
             question.DeleteQuestionAdmin();
-            if (question.CorrectAnswer == null)
-            { 
-                t.MakeTransaction(QuestionTransaction.Deleted(question));
-                //t.MakeTransaction(TransactionType2.UnStakeMoney(question.Price,
-                //    TransactionActionType.DeleteQuestion));
-                await _userRepository.UpdateAsync(t, token);
-            }
+            //if (question.CorrectAnswer == null)
+            //{ 
+            //    t.MakeTransaction(QuestionTransaction.Deleted(question));
+            //    await _userRepository.UpdateAsync(t, token);
+            //}
             
             await _questionRepository.DeleteAsync(question, token);
         }

@@ -110,24 +110,6 @@ namespace ConsoleApp
 
                         }, _token);
 
-
-                        //var z = await d.WithConnectionAsync(async f =>
-                        //{
-                        //    using (var multi = f.QueryMultiple(@"select Id from sb.Document where CourseName = @oldId;", 
-                        //        new { oldId = item.Name }))
-                        //{
-                        //        var docs = multi.Read<long>();
-                        //        var deleteStatment = await multi.Command.Connection.ExecuteAsync(
-                        //            @"delete from sb.UsersCourses where CourseId = @oldId;
-                        //                    delete from sb.Question where CourseId = @oldId;
-                        //                    delete from sb.Document where CourseName = @oldId;
-                        //                    delete from sb.Course where[Name] = @oldId;",
-                        //            new { oldId = item.Name });
-                        //        return docs;
-                        //}
-                        //}, token);
-
-
                         foreach (var doc in docs)
                         {
                             await blobProvider.DeleteDirectoryAsync(doc.ToString(), _token);

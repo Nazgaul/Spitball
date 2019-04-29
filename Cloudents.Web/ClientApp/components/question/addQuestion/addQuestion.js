@@ -7,11 +7,16 @@ import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue'
 import questionService from '../../../services/questionService'
 import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 import addQuestionUtilities from './addQuestionUtilities'
-import QuestionRegular from './helpers/question-regular.vue'
+// import QuestionRegular from './helpers/question-regular.vue'
 import analyticsService from '../../../services/analytics.service';
 import {LanguageService} from "../../../services/language/languageService";
 
 export default {
+    components: {
+        UserAvatar,
+        // QuestionRegular,
+        FileUpload
+    },
     data() {
         return {
             addQuestionButtonLoading: false,
@@ -64,11 +69,6 @@ export default {
                 classPlaceholder: LanguageService.getValueByKey('addQuestion_class_placeholder'),
             }
         }
-    },
-    components: {
-        UserAvatar,
-        QuestionRegular,
-        FileUpload
     },
     computed: {
         ...mapGetters(['accountUser', 'getSelectedClasses', 'newQuestionDialogSate']),
@@ -158,15 +158,13 @@ export default {
                 this.addQuestionButtonLoading = true;
                 console.log('add question');
                 this.UPDATE_LOADING(true);
-                let price = 0;
-                if(this.currentComponentselected.name === 'regular'){
-                    price = this.currentComponentselected.returnedObj.result;
-                }
+                // if(this.currentComponentselected.name === 'regular'){
+                //     price = this.currentComponentselected.returnedObj.result;
+                // }
                 let serverQuestionObj = {
                     text:this.questionMessage,
                     subjectId:this.questionSubjct,
                     course : this.questionClass,
-                    price,
                     files:this.uploadProp.uploadedFileNames
                 };
                 questionService.postQuestion(serverQuestionObj).then((response) => {

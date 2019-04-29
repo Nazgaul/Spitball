@@ -17,7 +17,7 @@ namespace Cloudents.Query.Admin
         private const int PageSize = 200;
         public async Task<(IEnumerable<UserFlagsOthersDto>, int)> GetAsync(AdminUserFlagsOthersQuery query, CancellationToken token)
         {
-            string sql = @"select Id, Country, (select count(1) from sb.Document where FlaggedUserId = U.Id) + 
+            var sql = @"select Id, Country, (select count(1) from sb.Document where FlaggedUserId = U.Id) + 
 			                                (select count(1) from sb.Question where FlaggedUserId = U.Id) +
 			                                (select count(1) from sb.Answer where FlaggedUserId = U.Id) as flags
                                 from sb.[User] U
@@ -30,7 +30,7 @@ namespace Cloudents.Query.Admin
 
             if (query.Page == 0)
             {
-                sql = sql + @"select count(1) as rows
+                sql += @"select count(1) as rows
                             from (
                             select Id, Country, (select count(1) from sb.Document where FlaggedUserId = U.Id) + 
 			                            (select count(1) from sb.Question where FlaggedUserId = U.Id) +

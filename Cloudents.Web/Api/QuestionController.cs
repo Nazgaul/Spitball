@@ -73,7 +73,7 @@ namespace Cloudents.Web.Api
             var toasterMessage = _localizer["PostedQuestionToasterOk"];
             try
             {
-                var command = new CreateQuestionCommand(model.SubjectId, model.Text, model.Price,
+                var command = new CreateQuestionCommand(model.SubjectId, model.Text, 
                     userId, model.Files, model.Course);
                 await _commandBus.DispatchAsync(command, token);
             }

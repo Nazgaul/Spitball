@@ -50,7 +50,7 @@ namespace Cloudents.Command.CommandHandler.Admin
 
             var course = await _courseRepository.LoadAsync(message.CourseName, token);
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
-            var question = new Question(course, message.Text, message.Price, message.Files?.Count() ?? 0,
+            var question = new Question(course, message.Text, message.Files?.Count() ?? 0,
                 user,
                 textLanguage, university);
            

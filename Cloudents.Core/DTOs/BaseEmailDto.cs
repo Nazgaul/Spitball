@@ -33,6 +33,9 @@ namespace Cloudents.Core.DTOs
         [DtoToEntityConnection(nameof(Answer.Text))]
         private string _answerText;
 
+        [DtoToEntityConnection(nameof(Question.Id))]
+        public long QuestionId { get; set; }
+
         public string QuestionText
         {
             get => _questionText.Replace("\n", "<br>").Truncate(40, true);
@@ -45,8 +48,8 @@ namespace Cloudents.Core.DTOs
             set => _answerText = value;
         }
 
-        public decimal Tokens { get; set; }
+        //public decimal Tokens { get; set; }
     }
 
-  
+
 }

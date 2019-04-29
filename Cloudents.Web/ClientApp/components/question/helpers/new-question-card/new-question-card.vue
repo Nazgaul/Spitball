@@ -12,36 +12,22 @@
                     </div>
                     <div class="rank-date-container">
                         <div class="rank-area">
-                            <user-rank :score="cardData && cardData.user && cardData.user.score ? cardData.user.score : ''"></user-rank>
+                            <user-rank
+                                    :score="cardData && cardData.user && cardData.user.score ? cardData.user.score : ''"></user-rank>
                         </div>
                         <div class="date-area">{{uploadDate}}</div>
                     </div>
                 </div>
                 <div class="question-header-small-sagment">
-                    <div class="sold-area" v-if="isSold">
-                        <div class="sold-container">
-                            <div class="sold-wrap">
-                                <span v-language:inner>questionCard_Sold</span>
-                                <!-- <v-icon>sbf-curved-arrow</v-icon> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="price-area" :class="{'sold': isSold}">
-                        <bdi> {{cardPrice}}
-                            <span v-language:inner>questionCard_Currency</span></bdi>
-
-                    </div>
                     <div class="menu-area">
                         <v-menu bottom left content-class="card-user-actions">
                             <v-btn :depressed="true" @click.prevent slot="activator" icon>
                                 <v-icon>sbf-3-dot</v-icon>
                             </v-btn>
                             <v-list class="report-list">
-                                <v-list-tile v-show="item.isVisible" :disabled="item.isDisabled()" class="report-list-item"
+                                <v-list-tile v-show="item.isVisible" :disabled="item.isDisabled()"
+                                             class="report-list-item"
                                              v-for="(item, i) in actions" :key="i">
-                                    <!--<v-list-tile-action>-->
-                                        <!--<v-icon class="list-item-icon">{{ item.icon }}</v-icon>-->
-                                    <!--</v-list-tile-action>-->
                                     <v-list-tile-content>
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile-content>
@@ -63,7 +49,7 @@
                 </div>
                 <div class="question-right-body-container">
                     <div class="question-body-header-container">
-                        <span class="question-subject"  v-line-clamp:18="'1'">{{cardData.course ? cardData.course : cardData.subject}}
+                        <span class="question-subject" v-line-clamp:18="'1'">{{cardData.course ? cardData.course : cardData.subject}}
                         </span>
                         <span v-show="!!cardData.course && !!cardData.subject" class="question-course"> 
                             <span class="dot"></span>  
@@ -87,11 +73,11 @@
                         </v-carousel>
                     </div>
                 </div>
-                <v-dialog  v-if="showDialog"
-                           v-model="showDialog"
-                           max-width="720px"
+                <v-dialog v-if="showDialog"
+                          v-model="showDialog"
+                          max-width="720px"
                           transition="scale-transition"
-                           content-class="zoom-image">
+                          content-class="zoom-image">
                     <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
                 </v-dialog>
             </div>

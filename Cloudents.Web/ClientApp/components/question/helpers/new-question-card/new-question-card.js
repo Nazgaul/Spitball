@@ -83,11 +83,6 @@ export default {
         isSold() {
             return this.cardData.hasCorrectAnswer || this.cardData.correctAnswerId;
         },
-        cardPrice() {
-            if (!!this.cardData && !!this.cardData.price) {
-                return this.cardData.price.toFixed(2);
-            }
-        },
         randomRank() {
             return Math.floor(Math.random() * 3);
         },
@@ -209,7 +204,6 @@ export default {
         },
         deleteQuestion() {
             let questionId = this.cardData.id;
-            let questionPrice = this.cardData.price;
             this.delete({id: questionId, type: 'Question'})
                 .then((success) => {
                         this.updateToasterParams({
@@ -219,7 +213,6 @@ export default {
                         let objToDelete = {
                             id: parseInt(questionId)
                         };
-                        this.updateBalance(questionPrice);
                         this.$ga.event("Delete_question", "Homework help");
                         this.removeQuestionItemAction(objToDelete);
                         if (this.$route.name === 'question') {
