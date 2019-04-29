@@ -1,10 +1,12 @@
 <template>
-    <div class="marketing-box-component">
+    <div class="marketing-box-component ">
         <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
             <span class="heading-text" v-language:inner>marketingBox_title</span>
         </div>
-        <v-card class="main-marketing-content transparent"  :class="imageClassABtest"
-                :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
+        <v-card class="main-marketing-content transparent"
+                @click="promotionOpen()">
+            <img v-if="isIsrael" src="./images/heb_lessons.png" alt="Private lessons">
+            <img v-else src="./images/eng_lessons.png" alt="Private lessons">
         </v-card>
     </div>
 </template>
@@ -28,12 +30,6 @@
             },
             isLogedIn() {
                 return (this.accountUser != null)
-            },
-            imgSrc() {
-                return this.isIsrael ? './images/heb_lessons.png' :  './images/eng_lessons.png'
-            },
-            imageClassABtest() {
-                return this.imgSrc.replace('./images/', '');
             },
         },
         methods: {

@@ -3,12 +3,15 @@ const analyticsService = {
     sb_unitedEvent: (category, action, label = '') => {
         if (category && action) {
             global.ga( 'send', 'event', `${category}`, `${action}`, `${label}`);
-            global.dataLayer.push({
-                'event': 'Spitball',
-                'category': `${category}`,
-                'action': `${action}`,
-                'label': `${label}`
-            });
+            if(!!global.dataLayer){
+                global.dataLayer.push({
+                    'event': 'Spitball',
+                    'category': `${category}`,
+                    'action': `${action}`,
+                    'label': `${label}`
+                });
+            }
+            
         } else {
             console.error('united event does not have data required')
         }
