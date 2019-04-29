@@ -44,7 +44,6 @@
                 // return this.isLogedIn ? this.goToWebForm() : this.goToRegister();
             },
             goToRegister() {
-                // this.changemobileMarketingBoxState();
                 this.$router.push({name: 'registration'});
             },
             goToWebForm(){
