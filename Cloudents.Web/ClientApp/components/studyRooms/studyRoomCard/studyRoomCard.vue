@@ -106,7 +106,10 @@ export default {
         display: flex;
         flex-direction: column;
         @media (max-width: @screen-xs) {
-            margin:5px;
+            margin:6px;
+            /*&:last-child{*/
+                /*align-self: flex-end;*/
+            /*}*/
         }
         .study-card-upper-area{
             background-color: #f0f0f7;
