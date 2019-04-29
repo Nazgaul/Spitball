@@ -169,7 +169,7 @@
     <value>שאלות שנענו</value>
   </data>
   <data name="QuestionFilterSold" xml:space="preserve">
-    <value>שאלות שנמכרו</value>
+    <value>שאלות שנענו</value>
   </data>
   <data name="QuestionFilterUnanswered" xml:space="preserve">
     <value>שאלות שלא נענו</value>
