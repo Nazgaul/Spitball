@@ -66,8 +66,10 @@ export default {
         color: rgba(0, 0, 0, 0.38);
         display: flex;
         font-size: 11px;
+        padding-top: 7px;
+        justify-content: flex-end;
         &.myMessage{
-            justify-content: flex-end;
+            justify-content: flex-start;
         }
     }
 }
