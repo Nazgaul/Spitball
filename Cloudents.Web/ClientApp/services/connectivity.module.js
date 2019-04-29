@@ -42,14 +42,14 @@ export const connectivityModule = {
             let timeProps = new timerObject(path, 'GET');
             if (callback) {
                 // axios.get(path, params)
-                axios.get(encodeURI(path), params)
+                axios.get(path, params)
                     .then(function (data) {
                         callback(data);
                     }, function (err) {
                         callback(err, true);
                     });
             } else {
-                return axios.get(encodeURI(path), params)
+                return axios.get(path, params)
                 // return axios.get(path, params)
                             .then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
@@ -95,7 +95,7 @@ export const connectivityModule = {
         delete: function (path, callback) {
             let timeProps = new timerObject(path, 'DELETE');
             if (callback) {
-                axios.delete(encodeURI(path)).then(function (data) {
+                axios.delete(path).then(function (data) {
                     callback(data);
                 }, function (err) {
                     callback(err, true);
