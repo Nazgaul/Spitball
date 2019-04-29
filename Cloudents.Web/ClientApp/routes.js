@@ -3,6 +3,8 @@ import * as RouteTypes from "./routeTypes";
 import resultContent from './components/results/Result.vue';
 import HomeworkHelpComponent from './components/results/HomeworkHelp/HomeworkHelp.vue';
 import StudyDocumentsComponent from './components/results/StudyDocuments/StudyDocuments.vue';
+import TutorsComponent from './components/results/Tutors/Tutors.vue';
+
 import pageHeader from './components/header/header.vue';
 // import landingHeader from './components/landingPage/helpers/landingHeader.vue'
 import landingPage from './components/landingPage/landingPage.vue';
@@ -84,6 +86,13 @@ const homeworkHelpPage = {
     schoolBlock: schoolBlock,
     verticals: verticalsTabs
 };
+const tutorPage = {
+    default: TutorsComponent,
+    header: pageHeader,
+    schoolBlock: schoolBlock,
+    verticals: verticalsTabs
+};
+
 const studyDocumentsPage = {
     default: StudyDocumentsComponent,
     header: pageHeader,
@@ -124,7 +133,7 @@ let routes2 = [
             // "/" + RouteTypes.questionRoute,
             // "/" + RouteTypes.flashcardRoute,
             // "/" + RouteTypes.notesRoute,
-            "/" + RouteTypes.tutorRoute,
+            // "/" + RouteTypes.tutorRoute,
             // "/" + RouteTypes.bookRoute,
             // "/" + RouteTypes.jobRoute
         ],
@@ -163,6 +172,27 @@ let routes2 = [
             }
         }
     },
+
+    {
+        path: "/" + RouteTypes.tutorRoute,
+        name: "tutors",
+        components: tutorPage,
+        props: resultProps,
+        meta: {
+            isAcademic: true,
+            showMobileFooter: true,
+            analytics: {
+                pageviewTemplate(route) {
+                    return {
+                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
+                        path: route.path,
+                        location: window.location.href
+                    };
+                }
+            }
+        }
+    },
+
     {
         path: "/" + RouteTypes.notesRoute,
         name: "note",

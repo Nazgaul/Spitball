@@ -10,7 +10,7 @@
 </template>
 <script>
     import {mapGetters, mapActions} from 'vuex';
-    import tutorCard from "./tutorCard.vue";
+    import tutorCard from "../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue";
     export default {
         name: "tutorList",
         components: {tutorCard},

@@ -85,6 +85,17 @@ function QuestionItem(objInit) {
     this.watchingNow = questionOlderTheOneMinute ? (questionYoungerThenThreshHold ? ((Math.random() * 2) | 0) : 0) : 0; //Todo get value from server
 }
 
+function TutorItem(objInit) {
+        this.userId = objInit.userId || 12;
+        this.name = objInit.name || 'Elad Levavi';
+        this.image = objInit.image;
+        this.courses = objInit.courses || '';
+        this.price = objInit.price || 50;
+        this.score = objInit.score;
+        this.rating = objInit.rate || null;
+        this.reviews = objInit.reviews || 7
+
+}
 
 function DocumentItem(objInit) {
     this.id = objInit.id || 1;
@@ -112,6 +123,10 @@ function DocumentItem(objInit) {
 function createDocumentItem(objInit){
     return new DocumentItem(objInit)
 }
+function createTutorItem(objInit){
+    return new TutorItem(objInit)
+}
+
 
 let transferResultAsk = response => {
     let res = response.data;
@@ -157,12 +172,14 @@ let transferResultTutor = response => {
     return {
         sort: body.sort,
         filters: body.filters,
-        data: body.result.map((val) => {
-            return {
-                ...val,
-                template: "tutor"
-            }
-        }),
+        // data: body.result.map((val) => {
+        // data: body.map((val) => {
+        //     return {
+        //         ...val,
+        //         template: "tutor"
+        //     }
+        // }),
+        data: body.map(createTutorItem),
         nextPage: body.nextPageLink
     };
 };
@@ -291,8 +308,11 @@ export default {
     createFilters: (objInit)=>{
        return new Filters(objInit)
     },
+    createTutorItem: (objInit)=>{
+        return createTutorItem(objInit)
+},
 
     createDocumentItem: (objInit)=>{
-        return createDocumentItem(objInit)
+        return new TutorItem(objInit)
     },
 }
