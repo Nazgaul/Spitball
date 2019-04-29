@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btn_student" xml:space="preserve">
-    <value>A Student</value>
+    <value>סטונדנט</value>
   </data>
   <data name="btn_tutor" xml:space="preserve">
-    <value>A Tutor</value>
+    <value>מתרגל</value>
   </data>
   <data name="currently" xml:space="preserve">
-    <value>I am Currently</value>
+    <value>כיום אתה</value>
   </data>
   <data name="subtitle" xml:space="preserve">
-    <value>Where students learn from students</value>
+    <value>המקום בו סטודנטים לומדים מסטודנטים</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>Welcome to Spitball</value>
+    <value>ברוך הבא לספיטבול</value>
   </data>
 </root>
