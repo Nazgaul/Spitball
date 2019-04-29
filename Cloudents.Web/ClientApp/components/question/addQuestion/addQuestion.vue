@@ -126,15 +126,11 @@
           ></v-select>
         </div>
       </div>
-      <div class="question-component-container">
-        <div class="question-component-floating-error" v-show="hasExternalError">
+      <div class="question-component-container"  v-show="hasExternalError">
+        <div class="question-component-floating-error">
           {{currentComponentselected.returnedObj.message}}
           <span class="component-error-triangle"></span>
         </div>
-        <component
-          :is="`question-${currentComponentselected.name}`"
-          :callback="currentComponentselected.callback"
-        ></component>
       </div>
       <div class="question-add-button-container">
         <v-btn

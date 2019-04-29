@@ -126,7 +126,6 @@
 import { mapGetters, mapActions } from "vuex";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
-import NewQuestion from "../question/newQuestion/newQuestion.vue";
 import AddQuestion from "../question/addQuestion/addQuestion.vue";
 
 import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
@@ -153,7 +152,6 @@ import tutorList from "../helpers/tutorList/tutorList.vue";
 export default {
   components: {
     AddQuestion,
-    NewQuestion,
     sbDialog,
     loginToAnswer,
     uniSelectPop,

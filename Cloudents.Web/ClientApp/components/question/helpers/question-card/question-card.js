@@ -142,9 +142,6 @@ export default {
             let isOwner, account, notEnough;
             isOwner = this.cardOwner();
             account = this.accountUser();
-            // if (account && account.score) {
-            //     notEnough = account.score < 400
-            // }
             if (isOwner || !account || notEnough) {
                 return true
             }
@@ -228,7 +225,6 @@ export default {
                             let objToDelete = {
                                 id: parseInt(this.$route.params.id)
                             }
-                            this.updateBalance(this.cardData.price);
                             this.$ga.event("Delete_question", "Homework help");
                             //ToDO change to router link use and not text URL
                             this.removeQuestionItemAction(objToDelete)

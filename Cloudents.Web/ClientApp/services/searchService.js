@@ -60,10 +60,8 @@ function QuestionItem(objInit) {
     let oneMinute = 60000;
     let oneHour = oneMinute * 60;
     let threshhold = oneHour * 4;
-
     this.id = objInit.id;
     this.subject = objInit.subject;
-    this.price = objInit.price;
     this.text = objInit.text;
     this.files = objInit.files;
     this.answers = objInit.answers !== undefined ?  (typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem)) : undefined;
