@@ -83,7 +83,6 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getToasterText', 'getShowToaster']),
         gallery() {
             return this.cardData.files
         },

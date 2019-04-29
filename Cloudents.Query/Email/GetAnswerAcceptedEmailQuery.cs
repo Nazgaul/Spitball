@@ -8,12 +8,12 @@ namespace Cloudents.Query.Email
 {
     public class GetAnswerAcceptedEmailQuery : IQuery<AnswerAcceptedEmailDto>
     {
-        public GetAnswerAcceptedEmailQuery(Guid transactionId)
+        public GetAnswerAcceptedEmailQuery(long questionId)
         {
-            TransactionId = transactionId;
+            QuestionId = questionId;
         }
 
-        private Guid TransactionId { get; }
+        private long QuestionId { get; }
 
 
         internal sealed class GetAnswerAcceptedEmailQueryQueryHandler : IQueryHandler<GetAnswerAcceptedEmailQuery, AnswerAcceptedEmailDto>
@@ -31,21 +31,20 @@ namespace Cloudents.Query.Email
 u.Email as ToEmailAddress,
 u.Language,
  u.id as userId,
- t.Price as tokens,
  q.Text as questionText,
 q.Id as questionId,
  a.Text as answerText
-  from  sb.[Transaction] t
-join sb.[User] u on t.User_id = u.Id
-join sb.Question q on q.id = t.QuestionId
-join sb.Answer a on a.Id = t.AnswerId
-where t.id = @id ";
+  from  sb.Question q 
+
+join sb.Answer a on a.Id = q.CorrectAnswer_id
+join sb.[User] u on a.UserId = u.Id
+where q.id = @id";
                 using (var connection = _dapper.OpenConnection())
                 {
                     return await connection.QuerySingleAsync<AnswerAcceptedEmailDto>(sql,
                         new
                         {
-                            id = query.TransactionId,
+                            id = query.QuestionId,
                         });
                 }
             }

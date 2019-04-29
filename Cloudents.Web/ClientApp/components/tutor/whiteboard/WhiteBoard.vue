@@ -105,7 +105,7 @@
             </v-tooltip>
 
             <!--Upload Image-->
-            <input class="nav-action" type="file" name="Image Upload" id="imageUpload" v-show="false"/>
+            <input class="nav-action" type="file" name="Image Upload" id="imageUpload" accept="image/*" v-show="false"/>
                 
             
             <v-tooltip right>

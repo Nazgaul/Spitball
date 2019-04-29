@@ -1,4 +1,6 @@
-﻿using Cloudents.Web.Test.IntegrationTests;
+﻿using System.Net.Http;
+using System.Text;
+using Cloudents.Web.Test.IntegrationTests;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Threading.Tasks;
@@ -6,7 +8,8 @@ using Xunit;
 
 namespace Cloudents.Web.Test.UnitTests
 {
-    public class HomeControllerTests :IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class HomeControllerTests //:IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 
@@ -23,6 +26,7 @@ namespace Cloudents.Web.Test.UnitTests
                 AllowAutoRedirect = false
             });
 
+            await client.LogInAsync();
             var response = await client.GetAsync("logout");
 
             response.StatusCode.Should().Be(302);

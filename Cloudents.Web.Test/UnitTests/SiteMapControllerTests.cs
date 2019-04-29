@@ -4,7 +4,8 @@ using Xunit;
 
 namespace Cloudents.Web.Test.UnitTests
 {
-    public class SiteMapControllerTests :IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class SiteMapControllerTests //:IClassFixture<SbWebApplicationFactory>
     {
         private readonly SbWebApplicationFactory _factory;
 

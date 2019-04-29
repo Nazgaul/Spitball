@@ -16,13 +16,13 @@ namespace Cloudents.Core.Message.Email
 
     public class AnswerAcceptedMessage : ISystemQueueMessage
     {
-        public AnswerAcceptedMessage(Guid transactionId)
+        public AnswerAcceptedMessage(long questionId)
         {
-            TransactionId = transactionId;
+            QuestionId = questionId;
         }
 
 
-        public Guid TransactionId { get; private set; }
+        public long QuestionId { get; private set; }
     }
 
 

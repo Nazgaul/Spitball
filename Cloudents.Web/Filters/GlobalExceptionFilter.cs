@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Exceptions;
 using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
 {
-    public class GlobalExceptionFilter : IAsyncExceptionFilter
+    public class GlobalExceptionFilter : ExceptionFilterAttribute
     {
-        public async Task OnExceptionAsync(ExceptionContext context)
+        public GlobalExceptionFilter()
         {
+            Order = 999;
+        }
+
+        public override async Task OnExceptionAsync(ExceptionContext context)
+        {
+            if (context.ExceptionHandled)
+            {
+                return;
+            }
             string body = null;
             if (string.Equals(context.HttpContext.Request.Method, "post", StringComparison.OrdinalIgnoreCase))
             {
@@ -40,28 +45,7 @@ namespace Cloudents.Web.Filters
                 ["body"] = body
             });
         }
-    }
-
-    public class UserLockedExceptionFilter : ExceptionFilterAttribute
-    {
-        private readonly SignInManager<RegularUser> _signInManager;
-
-        public UserLockedExceptionFilter(SignInManager<RegularUser> signInManager)
-        {
-            _signInManager = signInManager;
-        }
 
         
-
-        public override async Task OnExceptionAsync(ExceptionContext context)
-        {
-            if (context.Exception.GetType() == typeof(UserLockoutException))
-            {
-                await _signInManager.SignOutAsync();
-                context.Result = new UnauthorizedResult();
-                context.ExceptionHandled = true;
-            }
-        }
     }
-
 }

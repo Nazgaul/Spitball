@@ -16,7 +16,7 @@
             v-for="singleNav in navs"
             :class="{ 'active-nav': singleNav.value === activeItem}"
           >
-            <v-icon class="mr-2" @click="updateActiveNav(singleNav.value)">{{singleNav.icon}}</v-icon>
+            <v-icon class="nav-icon" @click="updateActiveNav(singleNav.value)">{{singleNav.icon}}</v-icon>
             <a
               class="tutor-nav-item-link"
               @click="updateActiveNav(singleNav.value)"
@@ -27,7 +27,8 @@
         <div style="display: flex; align-items: center;">
           <share-screen-btn class="nav-share-btn"></share-screen-btn>
           <button class="outline-btn" @click="changeQualityDialogState(true)">
-            <testIcon class="test-icon mr-1"></testIcon>System Check
+            <testIcon class="test-icon mr-1"></testIcon>
+            System Check
           </button>
           <div class="mr-4 pr-1 d-flex">
             <component
@@ -40,7 +41,7 @@
       </nav>
       <transition name="slide-x-transition">
         <keep-alive>
-          <component :is="activeItem" v-if="showCurrentCondition"></component>
+          <component :is="activeItem" :roomId="id"></component>
         </keep-alive>
       </transition>
     </v-flex>
@@ -127,7 +128,7 @@ export default {
       return this.activeNavItem;
     },
     showCurrentCondition() {
-      return this.activeItem === "white-board" ? true : this.isRoomCreated;
+      return this.activeItem === "white-board" ? true : true;
     },
     zoom() {
       let gridSize = (40 * Number(this.getZoom.toFixed())) / 100;

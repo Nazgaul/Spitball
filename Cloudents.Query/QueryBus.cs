@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using JetBrains.Annotations;
@@ -19,12 +20,24 @@ namespace Cloudents.Query
         {
             using (var child = _container.BeginLifetimeScope())
             {
-                var handlerType =
-                    typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TQueryResult));
+                try
+                {
+                    var handlerType =
+                        typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TQueryResult));
 
-                dynamic handler = child.Resolve(handlerType);
-                var t = handler.GetAsync((dynamic)query, token);
-                return await t;
+                    dynamic handler = child.Resolve(handlerType);
+                    var t = handler.GetAsync((dynamic)query, token);
+                    return await t;
+                }
+                catch (InvalidOperationException e) //db return this type of exception and not cancellation token
+                {
+                    if (token.IsCancellationRequested)
+                    {
+                        throw new OperationCanceledException("on query", e);
+                    }
+
+                    throw;
+                }
             }
         }
 

@@ -14,7 +14,7 @@ namespace Cloudents.Query.Query
             UserId = userId;
             if (!string.IsNullOrEmpty(term))
             {
-                Term = term;
+                Term = term.Replace('"',' ');
             }
 
             Page = page;
@@ -38,14 +38,16 @@ namespace Cloudents.Query.Query
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
             {
                 const int pageSize = 50;
-                const string sql = "declare @t nvarchar(255) = CONCAT('\"* ', replace(COALESCE( @Term,''), ' ', ' * \" AND \" * '), ' *\"')" +
-                            @"     select Name,
+                const string sql =
+                            @"     
+Select @Term = COALESCE( @Term,'""')
+select Name,
 	                            case when uc.CourseId is not null then 1 else null end as IsFollowing,
 	                            c.count as Students
                             from sb.Course c
                             left join sb.UsersCourses uc
 	                            on c.Name = uc.CourseId and uc.UserId = @Id
-                            where (@Term is null or CONTAINS(Name, @t))
+                             where (@Term = '""' or FreeText(Name,  @Term))
 							and State = 'OK'
                             order by case when uc.CourseId is not null
                                     then 1 else null end desc,
@@ -56,7 +58,8 @@ namespace Cloudents.Query.Query
                 {
                     return await conn.QueryAsync<CourseDto>(sql, new
                     {
-                        query.Term, Id = query.UserId,
+                        query.Term,
+                        Id = query.UserId,
                         PageSize = pageSize,
                         query.Page
                     });

@@ -122,11 +122,11 @@ let routes2 = [
         alias: [
             "/" + RouteTypes.marketRoute,
             // "/" + RouteTypes.questionRoute,
-            "/" + RouteTypes.flashcardRoute,
+            // "/" + RouteTypes.flashcardRoute,
             // "/" + RouteTypes.notesRoute,
             "/" + RouteTypes.tutorRoute,
-            "/" + RouteTypes.bookRoute,
-            "/" + RouteTypes.jobRoute
+            // "/" + RouteTypes.bookRoute,
+            // "/" + RouteTypes.jobRoute
         ],
         components: resultPage,
         props: resultProps,
@@ -264,15 +264,15 @@ let routes2 = [
     },
 
 
-    {
-        path: "/book/:id",
-        name: RouteTypes.bookDetailsRoute,
-        components: {
-            default: bookDetails,
-            header: bookDetailsHeader
-        },
-        props: bookDetailsProps
-    },
+    // {
+    //     path: "/book/:id",
+    //     name: RouteTypes.bookDetailsRoute,
+    //     components: {
+    //         default: bookDetails,
+    //         header: bookDetailsHeader
+    //     },
+    //     props: bookDetailsProps
+    // },
     {
         path: "/note/:universityName/:courseName/:id/:name",
         alias: ['/document/:universityName/:courseName/:id/:name'],
@@ -297,7 +297,6 @@ let routes2 = [
         name: 'tutoring',
         components: {
             default: tutorComponent,
-            // header: bookDetailsHeader
         },
         header: () => ({
             submitRoute: '/tutoring',
@@ -318,19 +317,19 @@ let routes2 = [
             })
         }
     },
-    {
-        path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
-        name: "flashcard",
-        components: {
-            default: showFlashcard,
-            header: previewHeader
-        },
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
+    // {
+    //     path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
+    //     name: "flashcard",
+    //     components: {
+    //         default: showFlashcard,
+    //         header: previewHeader
+    //     },
+    //     props: {
+    //         default: (route) => ({
+    //             id: route.params.id
+    //         })
+    //     }
+    // },
     {
         path: "/question/:id",
         components: {
@@ -352,11 +351,13 @@ let routes2 = [
     {
         path: "/profile/:id",
         components: {
-            // default: viewProfile,
             default: newProfile,
             header: profilePageHeader,
         },
         name: "profile",
+        // meta:{
+        //     showMobileFooter: true,
+        // },
         props: {
             default: (route) => ({
                 id: route.params.id
@@ -396,25 +397,6 @@ let routes2 = [
             }
         }
     },
-
-    {
-        path: "/conversations",
-        name: "conversations",
-        components: {
-            default: () => import("./components/conversations/conversations.vue"),
-            header: pageHeader
-        },
-        meta: {
-            requiresAuth: true
-        },
-        props: {
-
-            header: () => ({
-                currentSelection: "ask"
-            })
-        },
-    }
-
 ];
 
 for (let v in staticRoutes) {

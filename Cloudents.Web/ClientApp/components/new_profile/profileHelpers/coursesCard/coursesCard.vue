@@ -26,12 +26,13 @@
                             </v-card>
                         </v-flex>
                         <!--</transition-group>-->
-                        <v-flex xs12 sm6 md6 v-if="userCourses.length >= showQuantity" class="course-name show-more">
+                        <v-flex xs12 sm6 md6 v-if="userCourses.length > showQuantity" class="course-name show-more">
                             <v-card :class="{'mr-0': $vuetify.breakpoint.smAndUp}" class="elevation-0 border  py-3" @click="expanded ? showLess() : showAll()">
                                 <span class="font-weight-bold course-name">
                                     <span v-show="!expanded">
                                         <span> {{moreQuantity}}&nbsp;</span>
-                                    <span v-language:inner>profile_expand_more_courses</span>
+                                    <span v-if="moreQuantity > 1" v-language:inner>profile_expand_more_courses</span>
+                                        <span v-else v-language:inner>profile_expand_more_single_course</span>
                                     </span>
                                     <span v-show="expanded" v-language:inner>profile_expand_less</span>
                                 </span>

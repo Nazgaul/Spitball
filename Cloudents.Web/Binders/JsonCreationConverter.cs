@@ -7,13 +7,7 @@ namespace Cloudents.Web.Binders
 {
     public abstract class JsonCreationConverter<T> : JsonConverter
     {
-        public override bool CanWrite
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool CanWrite => false;
 
         protected abstract T Create(Type objectType, JObject jObject);
 
@@ -25,13 +19,13 @@ namespace Cloudents.Web.Binders
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (reader == null) throw new ArgumentNullException("reader");
-            if (serializer == null) throw new ArgumentNullException("serializer");
+            if (reader == null) throw new ArgumentNullException(nameof(reader));
+            if (serializer == null) throw new ArgumentNullException(nameof(serializer));
             if (reader.TokenType == JsonToken.Null)
                 return null;
 
-            JObject jObject = JObject.Load(reader);
-            T target = Create(objectType, jObject);
+            var jObject = JObject.Load(reader);
+            var target = Create(objectType, jObject);
             serializer.Populate(jObject.CreateReader(), target);
             return target;
         }
@@ -42,15 +36,27 @@ namespace Cloudents.Web.Binders
         }
     }
 
+    public class StringHtmlEncoderConverter : JsonConverter<string>
+    {
+        public override void WriteJson(JsonWriter writer, string value, JsonSerializer serializer)
+        {
+            writer.WriteValue(System.Net.WebUtility.HtmlEncode(value));
+        }
 
-  
+        public override string ReadJson(JsonReader reader, Type objectType, string existingValue, bool hasExistingValue,
+            JsonSerializer serializer)
+        {
+            var str = reader.Value.ToString();
+            return System.Net.WebUtility.HtmlEncode(str);
+        }
+    }
 
 
     public class UploadRequestJsonConverter : JsonCreationConverter<UploadRequestBase>
     {
         protected override UploadRequestBase Create(Type objectType, JObject jObject)
         {
-            if (jObject == null) throw new ArgumentNullException("jObject");
+            if (jObject == null) throw new ArgumentNullException(nameof(jObject));
 
             var phaseStr = jObject.GetValue("phase", StringComparison.OrdinalIgnoreCase)?.Value<string>();
 
@@ -73,18 +79,6 @@ namespace Cloudents.Web.Binders
             }
 
             throw new ArgumentException();
-            //if (jObject["Phase"] != null)
-            //{
-            //    return new UploadRequestStart();
-            //}
-            //else if (jObject["hospitalName"] != null)
-            //{
-            //    return new Doctor();
-            //}
-            //else
-            //{
-            //    return new Person();
-            //}
         }
     }
 }

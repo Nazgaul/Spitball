@@ -1,6 +1,6 @@
 <template>
     <v-card class="user-edit-wrap pb-3">
-        <v-form v-model="validUserForm" ref="form">
+        <v-form v-model="validUserForm" ref="formUser">
         <v-layout class="header px-3 py-3 mb-3">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
@@ -33,13 +33,14 @@
                 <v-textarea
                         rows="2"
                         outline
+                        :rules="[rules.maximumChars]"
                         v-model="userDescription"
                         name="input-about"
                         :label="titleLabel"
                 ></v-textarea>
             </v-flex>
         </v-layout>
-        <v-layout  align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-around px-1' : 'justify-end px-3']">
+        <v-layout  align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between  px-3' : 'justify-end px-3']">
             <v-flex xs5 sm2 md2 >
                 <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
                     <span v-language:inner>profile_btn_cancel</span>
@@ -59,6 +60,7 @@
     import accountService from '../../../../services/accountService';
     import { mapGetters, mapActions } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
+    import { validationRules } from "../../../../services/utilities/formValidationRules";
 
     export default {
         name: "userInfoEdit",
@@ -69,7 +71,8 @@
                 editedDescription: '',
                 editedUserName: '',
                 rules: {
-                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
+                    required:(value)=> validationRules.required(value),
+                    maximumChars:(value)=>  validationRules.maximumChars(value, 255)
                 },
                 validUserForm: false,
 
@@ -106,7 +109,7 @@
         methods: {
             ...mapActions(['updateEditedProfile']),
             saveChanges() {
-                if(this.$refs.form.validate()) {
+                if(this.$refs.formUser.validate()) {
                     let editsData = {
                         name: this.editedUserName || this.userName,
                         // description: this.editedDescription || this.userDescription spitball-712
@@ -122,6 +125,9 @@
                 this.closeCallback ? this.closeCallback() : ''
             },
         },
+        created(){
+            this.editedDescription =  this.getProfile.user.description || ''
+        }
     }
 </script>
 
@@ -129,6 +135,9 @@
     @import '../../../../styles/mixin.less';
 
     .user-edit-wrap {
+        @media(max-width: @screen-xs){
+            overflow-x: hidden;
+        }
         .prev-grow{
             @media(max-width: @screen-xs){
                 flex-grow: 0;
@@ -143,7 +152,8 @@
             border: 1px solid  @color-blue-new;
             color:  @color-blue-new;
             @media(max-width: @screen-xs){
-                min-width:180px;
+                min-width: 100%;
+                padding: 0 16px ;
                 border-radius: 0;
             }
         }
@@ -153,7 +163,8 @@
             color: @color-white;
             box-shadow: none!important;
             @media(max-width: @screen-xs){
-                min-width:180px;
+                min-width: 100%;
+                padding: 0 16px ;
                 border-radius: 0;
             }
         }

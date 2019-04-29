@@ -27,7 +27,7 @@ namespace Cloudents.FunctionsV2.System
         public async Task DoOperationAsync(AnswerAcceptedMessage msg, IBinder binder, CancellationToken token)
         {
             //await Task.Delay(TimeSpan.FromSeconds(30), token);
-            var query = new GetAnswerAcceptedEmailQuery(msg.TransactionId);
+            var query = new GetAnswerAcceptedEmailQuery(msg.QuestionId);
             var data = await _queryBus.QueryAsync(query, token);
 
 

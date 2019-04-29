@@ -15,10 +15,10 @@
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SignalRService" Version="1.0.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="3.0.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Twilio" Version="3.0.0" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.26" />
-    <PackageReference Include="Sendgrid" Version="9.10.0" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.27" />
+    <PackageReference Include="Sendgrid" Version="9.11.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
-    <PackageReference Include="Twilio" Version="5.28.2" />
+    <PackageReference Include="Twilio" Version="5.28.3" />
     <PackageReference Include="Willezone.Azure.WebJobs.Extensions.DependencyInjection" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>

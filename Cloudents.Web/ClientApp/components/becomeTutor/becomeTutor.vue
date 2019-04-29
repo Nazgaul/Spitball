@@ -1,25 +1,32 @@
 <template>
     <div class="become-tutor-wrap d-flex" >
-        <v-stepper v-model="currentStep" :class="[isLastStep ?  'back-image' : '']">
+        <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="[isLastStep ?  'back-image' : '']">
             <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
                 <v-flex xs12 sm12 md12 class="text-xs-center mt-1">
                     <v-icon class="become-title face-icon mr-2">sbf-face-icon</v-icon>
-                    <span class="subheading font-weight-bold become-title">Become a tutor</span>
+                    <span class="subheading font-weight-bold become-title" v-language:inner>becomeTutor_title_become</span>
                 </v-flex>
             </v-layout>
             <v-stepper-header class="sb-box" v-show="!isLastStep" :class="[$vuetify.breakpoint.smAndUp ? '' : '' ]">
-                <v-stepper-step class="step-control justify-center" color="#4452FC" :complete="currentStep > 1"
-                                :complete-icon="'sbf-checkmark'" step="1">Personal details
+                <v-stepper-step class="step-control justify-center"
+                                color="#4452FC"
+                                :complete="currentStep > 1"
+                                :complete-icon="'sbf-checkmark'" step="1">
+                    <span v-language:inner>becomeTutor_personal_details</span>
                 </v-stepper-step>
-                <v-stepper-step class="step-control justify-center" color="#4452FC" :complete="currentStep > 2"
-                                :complete-icon="'sbf-checkmark'" step="2">Who are you
+                <v-stepper-step class="step-control justify-center" color="#4452FC"
+                                :complete="currentStep > 2"
+                                :complete-icon="'sbf-checkmark'" step="2">
+                    <span v-language:inner>becomeTutor_who</span>
                 </v-stepper-step>
             </v-stepper-header>
             <v-stepper-items>
                 <v-stepper-content v-for="n in steps" class="mt-3"
                                    :key="`step_${n}`"
                                    :step="n">
+                    <keep-alive>
                         <component :is="`step_${currentStep}`"></component>
+                    </keep-alive>
                 </v-stepper-content>
             </v-stepper-items>
         </v-stepper>
@@ -37,7 +44,7 @@
         data() {
             return {
                 steps: 3,
-                currentStep: 1
+                currentStep: 1,
             };
         },
         computed: {
@@ -48,11 +55,6 @@
         methods: {
             nextStep(n) {
                 this.currentStep = n;
-                // if(n === this.steps) {
-                //     this.currentStep = 1;
-                // } else {
-                //     this.currentStep = n;
-                // }
             },
         },
         created(){
@@ -76,6 +78,12 @@
 
     .become-tutor-wrap {
         width: 100%;
+        .stepper{
+            @media(max-width: @screen-xs){
+              overflow-y: auto;
+
+            }
+        }
         .theme--light.v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline){
             background-color: rgba(68, 82, 252, 0.5)!important; //vuetify overwrite
             color: @color-white!important;
@@ -118,6 +126,9 @@
         .v-stepper:not(.v-stepper--vertical) .v-stepper__label{
             display: flex;
             padding-left: 12px;
+            @media(max-width: @screen-xs){
+                padding-left: 6px;
+            }
         }
         .become-title {
             color: @profileTextColor;

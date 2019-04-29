@@ -12,21 +12,14 @@
       <div class="loader" v-show="getIsLoading">
         <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
       </div>
-      <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
-        <!-- <marketing-box></marketing-box> -->
         <chat-component v-if="isMobile"></chat-component>
-      </div>
       <div v-if="showLeadersMobile && getMobileFooterState">
           <tutor-list></tutor-list>
-        <!--<leaders-board></leaders-board>-->
       </div>
-      <!-- <div class="school-block-container">
-                <router-view name="schoolBlock"></router-view>
-      </div>-->
+
       <router-view name="verticals"></router-view>
       <router-view class="main-container" v-show="showFeed" ref="mainPage"></router-view>
       <chat-component v-if="!isMobile"></chat-component>
-      <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
       <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
         <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
         <span class="cookie-approve">
@@ -58,7 +51,7 @@
                        :popUpType="'newQuestion'"
                        :max-width="'500px'"
                        :content-class="'newQuestionDialog'">
-
+                
                 <Add-Question></Add-Question>
                 <!-- <New-Question></New-Question> -->
             </sb-dialog>
@@ -117,7 +110,7 @@
             <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
                            :onStepChange="onFooterStepChange"></mobile-footer>
         </v-content>
-        <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
+        <v-snackbar absolute top :timeout="toasterTimeout" :class="getShowToasterType" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
     </v-app>
@@ -199,6 +192,7 @@ export default {
       "getDialogState",
       "confirmationDialog",
       "getShowToaster",
+      "getShowToasterType",
       "getToasterText",
       "getMobileFooterState",
       "showMarketingBox",
@@ -265,52 +259,52 @@ export default {
         }, this.toasterTimeout);
       }
     },
-    HomeworkHelp_isDataLoaded: function(val) {
-      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-      let self = this;
-      if (val && !supressed && !!self.accountUser) {
-        setTimeout(() => {
-          if (self.$route.name === "ask") {
-            if (self.$vuetify.breakpoint.xsOnly) {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].HWSteps.mobile;
-              if (self.getIsFeedTabActive()) {
-                self.$tours["myTour"].start();
-              }
-            } else {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].HWSteps.desktop;
-              self.$tours["myTour"].start();
-            }
-          }
-        }, 3000);
-      }
-    },
-    StudyDocuments_isDataLoaded: function(val) {
-      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-      let self = this;
-      if (val && !supressed && !!self.accountUser) {
-        setTimeout(() => {
-          if (self.$route.name === "note") {
-            if (self.$vuetify.breakpoint.xsOnly) {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
-              if (self.getIsFeedTabActive()) {
-                self.$tours["myTour"].start();
-              }
-            } else {
-              self.tourObject.tourSteps =
-                tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
-              self.$tours["myTour"].start();
-            }
-          }
-        }, 3000);
-      }
-    },
-    $route: function(val) {
-      this.tourTempClose();
-      this.openOnboardGuide();
-    }
+    //HomeworkHelp_isDataLoaded: function(val) {
+    //  let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+    //  let self = this;
+    //  if (val && !supressed && !!self.accountUser) {
+    //    setTimeout(() => {
+    //      if (self.$route.name === "ask") {
+    //        if (self.$vuetify.breakpoint.xsOnly) {
+    //          self.tourObject.tourSteps =
+    //            tourService[self.tourObject.region].HWSteps.mobile;
+    //          if (self.getIsFeedTabActive()) {
+    //            self.$tours["myTour"].start();
+    //          }
+    //        } else {
+    //          self.tourObject.tourSteps =
+    //            tourService[self.tourObject.region].HWSteps.desktop;
+    //          self.$tours["myTour"].start();
+    //        }
+    //      }
+    //    }, 3000);
+    //  }
+    //},
+    //StudyDocuments_isDataLoaded: function(val) {
+    //  let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+    //  let self = this;
+    //  if (val && !supressed && !!self.accountUser) {
+    //    setTimeout(() => {
+    //      if (self.$route.name === "note") {
+    //        if (self.$vuetify.breakpoint.xsOnly) {
+    //          self.tourObject.tourSteps =
+    //            tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
+    //          if (self.getIsFeedTabActive()) {
+    //            self.$tours["myTour"].start();
+    //          }
+    //        } else {
+    //          self.tourObject.tourSteps =
+    //            tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
+    //          self.$tours["myTour"].start();
+    //        }
+    //      }
+    //    }, 3000);
+    //  }
+    //},
+    //$route: function(val) {
+    // // this.tourTempClose();
+    //  this.openOnboardGuide();
+    //}
   },
   methods: {
     ...mapActions([
@@ -333,17 +327,17 @@ export default {
     closeSblToken() {
       this.updateShowBuyDialog(false);
     },
-    openOnboardGuide() {
-      let isLogedIn = this.accountUser;
-      let supressed = global.localStorage.getItem("sb-onboard-supressed");
-      let validRoutesNames = ["ask", "note"].indexOf(this.$route.name) > -1;
+    //openOnboardGuide() {
+    //  let isLogedIn = this.accountUser;
+    //  let supressed = global.localStorage.getItem("sb-onboard-supressed");
+    //  let validRoutesNames = ["ask", "note"].indexOf(this.$route.name) > -1;
 
-      if (isLogedIn && !supressed && validRoutesNames) {
-        setTimeout(() => {
-          this.updateOnBoardState(true);
-        });
-      }
-    },
+    //  if (isLogedIn && !supressed && validRoutesNames) {
+    //    setTimeout(() => {
+    //      this.updateOnBoardState(true);
+    //    });
+    //  }
+    //},
     tourClosed: function() {
       console.log("tourClosed");
       global.localStorage.setItem("sb_walkthrough_supressed", true);
@@ -381,7 +375,7 @@ export default {
     }
   },
   created() {
-    this.openOnboardGuide();
+    //this.openOnboardGuide();
     this.$root.$on("closePopUp", name => {
       if (name === "suggestions") {
         this.showDialogSuggestQuestion = false;

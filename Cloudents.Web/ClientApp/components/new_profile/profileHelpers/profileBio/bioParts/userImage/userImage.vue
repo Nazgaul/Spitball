@@ -6,7 +6,9 @@
             <user-rating :size="'20'" :rating="tutorRank" :readonly="true" class="px-4 line-height-1"></user-rating>
             <span class="reviews-quantity">
                     <span>{{reviewCount}}</span>
-                    <span class="ml-1" v-language:inner>profile_reviews</span>
+                    <span v-if="reviewCount > 1" class="ml-1" v-language:inner>profile_reviews</span>
+                    <span v-else="reviewCount" class="ml-1" v-language:inner>profile_single_review</span>
+
                     </span>
         </div>
         <!-- <div class="bottom-section" v-else>
@@ -16,7 +18,7 @@
              class="hover-block d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3 white--text">
             <uploadImage></uploadImage>
         </div>
-        <userOnlineStatus class="user-status" v-if="isTutorProfile" :isOnline="isOnline"></userOnlineStatus>
+        <userOnlineStatus class="user-status" v-if="isTutorProfile" :userId="userId"></userOnlineStatus>
     </div>
 </template>
 
@@ -24,7 +26,7 @@
     import { mapGetters } from 'vuex';
     import userRating from '../userRating.vue';
     import uploadImage from '../uploadImage/uploadImage.vue';
-    import userOnlineStatus from '../userOnlineStatus.vue';
+    import userOnlineStatus from '../../../../../helpers/userOnlineStatus/userOnlineStatus.vue';
     import utilitiesService from '../../../../../../services/utilities/utilitiesService';
 
 
@@ -72,6 +74,12 @@
                     return this.getProfile.user.tutorData.online || false
                 }
                 return false
+            },
+            userId(){
+                if (this.getProfile && this.getProfile.user) {
+                    return this.getProfile.user.id
+                }
+                return -1;
             },
             profUserBal() {
                 if (this.getProfile && this.getProfile.user) {
@@ -133,6 +141,7 @@
         }
         .user-picture {
             border-radius: 4px;
+            border: 1px solid @systemBackgroundColor;
             @media (max-width: @screen-xs) {
                 box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.41);
             }

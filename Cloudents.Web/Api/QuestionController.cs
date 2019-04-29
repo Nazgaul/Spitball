@@ -31,14 +31,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Models;
 using Cloudents.Web.Binders;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
-    
+
     [Produces("application/json")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
-    [Authorize/*, ApiController*/]
+    [Authorize, ApiController]
     public class QuestionController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
@@ -305,8 +305,8 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpPost("ask")]
-        public async Task<UploadAskFileResponse> UploadFileAsync(UploadAskFileRequest model,
+        [HttpPost("ask"), Consumes("multipart/form-data")]
+        public async Task<UploadAskFileResponse> UploadFileAsync(IFormFile file, 
         CancellationToken token)
         {
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
@@ -314,30 +314,30 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetUserId(User);
 
             var fileNames = new List<string>();
-            foreach (var formFile in model.File)
+            //foreach (var formFile in files)
+            //{
+            if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
             {
-                if (!formFile.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
-                {
-                    throw new ArgumentException("not an image");
-                }
-
-                var extension = Path.GetExtension(formFile.FileName);
-
-                if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
-                {
-                    throw new ArgumentException("not an image");
-                }
-
-                using (var sr = formFile.OpenReadStream())
-                {
-                    //Image.FromStream(sr);
-                    var fileName = $"{userId}.{Guid.NewGuid()}.{formFile.FileName}";
-                    await _blobProvider
-                        .UploadStreamAsync(fileName, sr, formFile.ContentType, TimeSpan.FromSeconds(60 * 24), token);
-
-                    fileNames.Add(fileName);
-                }
+                throw new ArgumentException("not an image");
             }
+
+            var extension = Path.GetExtension(file.FileName);
+
+            if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("not an image");
+            }
+
+            using (var sr = file.OpenReadStream())
+            {
+                //Image.FromStream(sr);
+                var fileName = $"{userId}.{Guid.NewGuid()}.{file.FileName}";
+                await _blobProvider
+                    .UploadStreamAsync(fileName, sr, file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
+
+                fileNames.Add(fileName);
+            }
+            //}
             return new UploadAskFileResponse(fileNames);
         }
     }

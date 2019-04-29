@@ -172,7 +172,7 @@
     @import '../../../styles/mixin.less';
 
     .courses-list-wrap {
-        .scrollBarStyle(3px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
+        .scrollBarStyle(6px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .rounded-btn {
             border-radius: 36px!important; //vuetify
         }

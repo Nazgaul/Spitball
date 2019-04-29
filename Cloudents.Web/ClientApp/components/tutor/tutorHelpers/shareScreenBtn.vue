@@ -2,7 +2,7 @@
     <div class="share-screen-btn-wrap">
         <v-flex>
             <button v-if="!isSharing" @click="showScreen" class="outline-btn">
-                    <castIcon  class="cast-icon mr-1"></castIcon>
+                    <castIcon  class="cast-icon"></castIcon>
                 Share Screen</button>
             <button class="outline-btn" v-else @click="stopSharing">Stop Sharing</button>
         </v-flex>
@@ -118,6 +118,7 @@
         .cast-icon{
             fill: #ffffff;
             height: 16px;
+            margin-right: 4px/*rtl:ignore*/;
 
         }
     }

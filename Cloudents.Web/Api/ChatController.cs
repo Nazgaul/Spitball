@@ -18,13 +18,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Cloudents.Web.Api
 {
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize, ApiController]
     public class ChatController : UploadControllerBase
     {
         private readonly ICommandBus _commandBus;
@@ -32,7 +33,7 @@ namespace Cloudents.Web.Api
         private readonly UserManager<RegularUser> _userManager;
 
 
-     
+
 
         public ChatController(ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus,
             IChatDirectoryBlobProvider blobProvider,
@@ -74,7 +75,7 @@ namespace Cloudents.Web.Api
                 if (!(s is ChatAttachmentDto p)) return s;
                 var url = BlobProvider.GetBlobUrl($"{p.ChatRoomId}/{p.Id}/{p.Attachment}");
                 p.Src = Url.ImageUrl(new ImageProperties(url), serializer);
-                p.Href = Url.RouteUrl("ChatDownload",new
+                p.Href = Url.RouteUrl("ChatDownload", new
                 {
                     chatRoomId = p.ChatRoomId,
                     chatId = p.Id
@@ -86,21 +87,39 @@ namespace Cloudents.Web.Api
 
         // POST api/<controller>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> Post([FromBody]ChatMessageRequest model, CancellationToken token)
         {
-            var command = new SendChatTextMessageCommand(model.Message, _userManager.GetLongUserId(User),
+            var userId = _userManager.GetLongUserId(User);
+            if (userId == model.OtherUser)
+            {
+                return BadRequest();
+            }
+            var command = new SendChatTextMessageCommand(model.Message, userId,
                 new[] { model.OtherUser });
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
         [HttpPost("read")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> ResetUnread(ChatResetRequest model, CancellationToken token)
         {
-            var command = new ResetUnreadInChatCommand( _userManager.GetLongUserId(User),
-                new[] { model.OtherUser });
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var command = new ResetUnreadInChatCommand(_userManager.GetLongUserId(User),
+                    new[] { model.OtherUserId });
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest();
+            }
         }
 
         [NonAction]
@@ -108,7 +127,12 @@ namespace Cloudents.Web.Api
         {
             if (model is FinishChatUpload chatModel)
             {
-                var command = new SendChatFileMessageCommand(blobName, _userManager.GetLongUserId(User), new[] { chatModel.OtherUser });
+                var userId = _userManager.GetLongUserId(User);
+                if (userId == chatModel.OtherUser)
+                {
+                    throw new ArgumentException();
+                }
+                var command = new SendChatFileMessageCommand(blobName, userId, new[] { chatModel.OtherUser });
                 await _commandBus.DispatchAsync(command, token);
 
             }

@@ -40,8 +40,9 @@ namespace Cloudents.Core.DTOs
         public string UniversityName { get; set; }
         [DtoToEntityConnection(nameof(RegularUser.Description))]
         public string Description { get; set; }
+        [DtoToEntityConnection(nameof(RegularUser.Online))]
+        public bool Online { get; set; }
 
-        
         //[DtoToEntityConnection(nameof(Tutor.Id))]
         public UserTutorProfileDto Tutor { get; set; }
     }
@@ -50,7 +51,6 @@ namespace Cloudents.Core.DTOs
     {
         public decimal Price { get; set; }
 
-        public bool Online { get; set; }
         public float Rate { get; set; }
         public int ReviewCount { get; set; }
         [DtoToEntityConnection(nameof(RegularUser.FirstName))]
@@ -61,7 +61,6 @@ namespace Cloudents.Core.DTOs
 
     public class UserAccountDto 
     {
-        public string Token { get; set; }
         public decimal Balance { get; set; }
 
         public string Email { get; set; }
@@ -102,5 +101,7 @@ namespace Cloudents.Core.DTOs
         [DtoToEntityConnection(nameof(StudyRoom.Id))]
 
         public Guid? StudyRoomId { get; set; }
+
+        public string LastMessage { get; set; }
     }
 }

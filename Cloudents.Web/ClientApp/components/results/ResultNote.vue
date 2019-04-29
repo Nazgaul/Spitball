@@ -25,9 +25,9 @@
                                 <span v-language:inner>app_currency_dynamic</span>
                             </bdi>
                         </div>
-                        <div v-show="!item.price" class="price-area" :class="{'isPurchased': isPurchased}"
-                             v-language:inner>resultNote_free
-                        </div>
+                        <!--<div v-show="!item.price" class="price-area" :class="{'isPurchased': isPurchased}"-->
+                             <!--v-language:inner>resultNote_free-->
+                        <!--</div>-->
                         <div class="menu-area">
                             <v-menu bottom left content-class="card-user-actions" v-model="showMenu">
                                 <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()"

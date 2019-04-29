@@ -16,7 +16,7 @@
                            accept="image/*"
                            ref="tutorImage" v-show="false"/>
                     <label for="tutor-picture">
-                        <span class="image-edit-text">Upload Your Photo</span>
+                        <span class="image-edit-text" v-language:inner>becomeTutor_upload_image</span>
                     </label>
                 </button>
 
@@ -24,37 +24,36 @@
             </v-flex>
             <v-flex xs12 sm6 md6 class="inputs-wrap" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
                 <v-layout column shrink  justify-start>
+                    <v-form v-model="validBecomeFirst" ref="becomeFormFirst">
                     <v-flex xs12  shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-3']">
                         <v-text-field outline
                                       v-model="firstName"
-                                      placeholder="First Name"
+                                      :placeholder="placeFirstName"
                                       hide-details
-                                      :label="'First Name'"></v-text-field>
+                                      :label="placeFirstName"></v-text-field>
                     </v-flex>
                     <v-flex xs12 :class="[$vuetify.breakpoint.smAndUp ? 'mb-4' : 'mb-3']">
                         <v-text-field outline
                                       v-model="lastName"
-                                      placeholder="Last Name"
+                                      :placeholder="placeLastName"
                                       hide-details
-                                      :label="'Last Name'"></v-text-field>
+                                      :label="placeLastName"></v-text-field>
 
                     </v-flex>
                     <v-flex xs12 class="mt-2">
-                        <v-text-field outline class="bg-greyed font-weight-bold price-input"
+                        <v-text-field outline class="font-weight-bold price-input"
+                                      :rules="[rules.required, rules.minimum, rules.maximum]"
                                       v-model="price"
-                                      :disabled="true"
-                                      hide-details
-                                      :label="'Fixed Price per hour'"></v-text-field>
+                                      prefix="₪"
+                                      :label="placePrice"></v-text-field>
                     </v-flex>
-                    <v-flex xs12 class="contact-price">
-                        <div class="blue-text caption cursor-pointer">Contact us to change price</div>
-                    </v-flex>
+                    </v-form>
                 </v-layout>
             </v-flex>
         </v-layout>
         <v-layout  class="mt-5 px-1" :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
             <v-btn   @click="closeDialog()" class="cancel-btn elevation-0" round outline flat>
-                <span>Cancel</span>
+                <span v-language:inner>becomeTutor_btn_cancel</span>
             </v-btn>
             <v-btn
                    color="#4452FC"
@@ -62,7 +61,7 @@
                    class="white-text elevation-0"
                    :disabled="btnDisabled"
                    @click="nextStep()">
-                <span>Next</span>
+                <span v-language:inner>becomeTutor_btn_next</span>
             </v-btn>
 
         </v-layout>
@@ -72,31 +71,43 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import utilitiesService from '../../../services/utilities/utilitiesService';
+    import {validationRules} from '../../../services/utilities/formValidationRules';
+    import { LanguageService } from "../../../services/language/languageService";
 
     export default {
         name: "firstStep",
         data() {
             return {
+                placeFirstName: LanguageService.getValueByKey("becomeTutor_placeholder_first_name"),
+                placeLastName:  LanguageService.getValueByKey("becomeTutor_placeholder_last_name"),
+                placePrice:  LanguageService.getValueByKey("becomeTutor_placeholder_price"),
                 firstName: '',
                 lastName: '',
-                price: '₪50',
+                price: 50,
+                validBecomeFirst:false,
+                rules: {
+                    required:(value)=> validationRules.required(value),
+                    minimum:(value)=> validationRules.positiveNumber(value),
+                    maximum:(value)=> validationRules.maxVal(value, 200000),
+                },
                 isLoaded: false
             };
         },
         computed: {
             ...mapGetters(['becomeTutorData', 'accountUser']),
             btnDisabled(){
-                return !this.firstName || !this.lastName
+                return !this.firstName || !this.lastName || !this.price
             },
             userImage() {
                 if(this.accountUser && this.accountUser.image) {
-                    return utilitiesService.proccessImageURL(this.accountUser.image, 240, 214, 'crop');
+                    return utilitiesService.proccessImageURL(this.accountUser.image, 214, 240);
                 } else {
                     return '';
                 }
             },
 
         },
+
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),
             loaded(){
@@ -111,9 +122,16 @@
 
             },
             nextStep(){
-                let data = { image: this.userImage, firstName: this.firstName, lastName: this.lastName };
-                this.updateTutorInfo(data);
-                this.$root.$emit('becomeTutorStep', 2);
+                if(this.$refs.becomeFormFirst.validate()) {
+                    let data = {
+                        image: this.userImage,
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        price: this.price
+                    };
+                    this.updateTutorInfo(data);
+                    this.$root.$emit('becomeTutorStep', 2);
+                }
             },
             closeDialog(){
                 this.updateTutorDialog(false)
@@ -133,9 +151,6 @@
             position: relative;
             min-width: 214px;
             max-width: 214px;
-        }
-        .bg-greyed{
-            background-color: #f5f5f5;
         }
         .price-input{
             color: @textColor;
@@ -166,10 +181,10 @@
             padding: 12px 18px;
         }
         .user-image {
-            min-width: 214px;
             max-width: 214px;
             min-height: 240px;
             border-radius: 4px;
+            border: 1px solid #f0f0f7;
         }
         .blue-text {
             color: @colorBlue;
