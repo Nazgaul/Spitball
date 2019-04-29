@@ -33,7 +33,7 @@
                         </v-flex>
                         <v-flex xs12 sm12 md12>
                             <userRating
-                                    :rating="4.86"
+                                    :rating="tutorData.rating"
                                     :starColor="'#ffca54'"
                                     :rateNumColor="'#43425D'"
                                     :size="'20'"
