@@ -32,11 +32,6 @@
                 }
             }
         },
-
-        created() {
-        console.log('created do shred component')
-
-        }
     }
 </script>
 
@@ -49,10 +44,10 @@
         }
 
         .iframe-container iframe {
-
             position: absolute;
             top: 0;
-            left: 0 /*rtl:ignore*/;
+            /*rtl:ignore*/
+            left: 0;
             width: 100%;
             max-width: 1280px;
             height: 100%;

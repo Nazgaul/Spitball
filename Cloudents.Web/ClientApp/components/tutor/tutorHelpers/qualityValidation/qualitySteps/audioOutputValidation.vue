@@ -4,7 +4,7 @@
            <speakerImage class="speaker-icon"></speakerImage>
        </v-flex>
        <v-flex class="mt-3">
-           <h4 class="auidio-out-title subheading">Audio Output quality test</h4>
+           <h4 class="auidio-out-title subheading" v-language:inner>tutor_quality_out_title</h4>
        </v-flex>
        <v-flex class="mt-3 mb-4">
            <img class="eq-image" src="../../../images/eq.gif" alt="">

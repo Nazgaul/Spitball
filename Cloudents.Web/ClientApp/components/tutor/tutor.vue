@@ -28,7 +28,7 @@
           <share-screen-btn class="nav-share-btn"></share-screen-btn>
           <button class="outline-btn" @click="changeQualityDialogState(true)">
             <testIcon class="test-icon mr-1"></testIcon>
-            System Check
+            <span v-language:inner>tutor_btn_system_check</span>
           </button>
           <div class="mr-4 pr-1 d-flex">
             <component
@@ -45,7 +45,7 @@
         </keep-alive>
       </transition>
     </v-flex>
-    <v-layout column align-start style="position: fixed; right: 0; top: 60px;">
+    <v-layout column align-start class="video-stream-wraper">
       <v-flex xs6 sm6 md6>
         <video-stream :id="id"></video-stream>
       </v-flex>
@@ -80,6 +80,7 @@ import signal_level_4 from "./images/wifi-4.svg";
 import signal_level_5 from "./images/wifi-4.svg";
 import tutorService from "./tutorService";
 import chatService from "../../services/chatService";
+import { LanguageService } from "../../services/language/languageService";
 export default {
   components: {
     videoStream,
@@ -104,9 +105,9 @@ export default {
       showQualityDialog: false,
       showContent: false,
       navs: [
-        { name: "Canvas", value: "white-board", icon: "sbf-canvas" },
-        { name: "Code Editor", value: "code-editor", icon: "sbf-code-editor" },
-        { name: "Text Editor", value: "shared-document", icon: "sbf-text-icon" }
+        { name: LanguageService.getValueByKey("tutor_nav_canvas"), value: "white-board", icon: "sbf-canvas" },
+        { name: LanguageService.getValueByKey("tutor_nav_code"), value: "code-editor", icon: "sbf-code-editor" },
+        { name: LanguageService.getValueByKey("tutor_nav_text"), value: "shared-document", icon: "sbf-text-icon" }
       ],
     };
   },

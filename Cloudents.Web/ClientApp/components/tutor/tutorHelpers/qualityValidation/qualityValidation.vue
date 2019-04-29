@@ -1,26 +1,29 @@
 <template>
     <v-stepper v-model="step" class="quality-test-container">
         <div class="header-text-wrap pt-3 pb-2 px-4">
-            <span class="header-text" v-if="!isErorrGettingMedia">Camera & Sound Test</span>
-            <span class="header-text" v-if="isErorrGettingMedia && !getNotAvaliableDevices">Browser Permissions</span>
-            <span class="header-text" v-if="isErorrGettingMedia && getNotAvaliableDevices">Device Access</span>
+            <span class="header-text" v-if="!isErorrGettingMedia" v-language:inner>tutor_quality_title</span>
+            <span class="header-text" v-if="isErorrGettingMedia && !getNotAvaliableDevices"  v-language:inner>tutor_quality_permission</span>
+            <span class="header-text" v-if="isErorrGettingMedia && getNotAvaliableDevices v-language:inner>tutor_quality_access_device</span>
         </div>
 
         <v-stepper-header v-if="!isErorrGettingMedia">
-            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 1" step="1">Audio Input
-                Test
+            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 1" step="1">
+                <span v-language:inner> tutor_quality_audio_test_in</span>
             </v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 2" step="2">Audio Output
-                Test
+            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" :complete="step > 2" step="2">
+                <span v-language:inner>tutor_quality_audio_test_out</span>
             </v-stepper-step>
             <v-divider></v-divider>
 
-            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" step="3">Video Test</v-stepper-step>
+            <v-stepper-step class="step-indicator" color="#4452fc" :complete-icon="'sbf-checkmark'" step="3">
+                <span v-language:inner>tutor_quality_video_test_title</span>
+            </v-stepper-step>
         </v-stepper-header>
         <!--header unable to get device-->
         <v-stepper-header class="device-error-header px-4 py-2" v-if="isErorrGettingMedia && getNotAvaliableDevices">
-            <span>Unable to access device.</span></v-stepper-header>
+            <span v-language:inner>tutor_quality_unable</span>
+        </v-stepper-header>
         <v-stepper-items>
             <v-stepper-content v-for="n in steps"
                                :key="`${n}-content`"
@@ -40,14 +43,16 @@
                         <button class="blue-btn" v-if="step !== steps && !isErorrGettingMedia"
                                 @click="nextStep(n)"
                         >
-                            Continue
+                            <span v-language:inner>tutor_quality_btn_continue</span>
                         </button>
                         <button class="blue-btn" v-if="isErorrGettingMedia"
                                 @click="closeDialog(n)"
-                        >Got
-                        it
+                        >
+                            <span v-language:inner>tutor_quality_btn_got</span>
                         </button>
-                        <button class="blue-btn" v-if="step === steps" @click="closeDialog()">Done</button>
+                        <button class="blue-btn" v-if="step === steps" @click="closeDialog()">
+                            <span v-language:inner>tutor_quality_btn_done</span>
+                        </button>
 
                     </v-flex>
                 </v-layout>
@@ -125,11 +130,9 @@
 
 <style lang="less">
     .quality-test-container {
-        /*rtl:begin:ignore*/
-        direction: ltr;
         .step-indicator{
             .v-stepper__step__step{
-                margin-right: 8px/*rtl:ignore*/;
+                margin-right: 8px;
             }
         }
         .device-error-header {
@@ -168,7 +171,6 @@
                 color: #000000;
             }
         }
-        /*rtl:end:ignore*/
     }
 
 </style>

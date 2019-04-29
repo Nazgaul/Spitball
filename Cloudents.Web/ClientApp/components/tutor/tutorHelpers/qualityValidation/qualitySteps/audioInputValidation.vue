@@ -6,7 +6,7 @@
                     <microphoneImage class="mic-image"></microphoneImage>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
-                    <h4 class="audio-title subheading">Audio Input Quality Test</h4>
+                    <h4 class="audio-title subheading" v-language:inner>tutor_quality_input_title</h4>
                     <div class="audio-input-validation mt-3">
                         <div id="audio-input-meter"></div>
                     </div>
@@ -84,11 +84,11 @@
 </script>
 <style  lang="less">
     //keep cause of mount of select box to root of dom by vuetify
-    .select-direction{
-        .v-select-list{
-            direction: ltr/*rtl:ignore*/;
-        }
-    }
+    /*.select-direction{*/
+        /*.v-select-list{*/
+            /*direction: ltr!*rtl:ignore*!;*/
+        /*}*/
+    /*}*/
     .audio-input-quality-wrap {
         .audio-title{
             font-weight: 600;

@@ -2,8 +2,8 @@
     <v-layout v-if="!isNotFound" column align-center justify-center class="error-permisson-wrap">
         <v-flex class="mb-2" xs12 sm12 md12>
             <p>
-                To communicate with the other participant, allow your web browser to access the camera and microphone.
-                <span class="font-weight-bold">Press Refresh after allowing access.</span>
+                <span v-language:inner>tutor_quality_allowed_title</span>
+                <span class="font-weight-bold" v-language:inner>tutor_quality_allowed_press</span>
             </p>
         </v-flex>
         <v-flex xs6 sm6 md6 class="mb-5">
@@ -17,11 +17,10 @@
         </v-flex>
         <v-flex class="mb-5">
             <!--<h3>Unable to access device.</h3>-->
-            <p class="font-weight-bold">It looks like one of your devices is in use by another application, or is
-                disabled in your system settings.</p>
+            <p class="font-weight-bold" v-language:inner>tutor_quality_allowed_looks_like</p>
             <ol class="numbered pl-3">
-                <li>Make sure your camera and microphone are enabled in your system settings</li>
-                <li>Close any other tabs or applications, and reconnect.</li>
+                <li v-language:inner>tutor_quality_allowed_tip_one</li>
+                <li v-language:inner>tutor_quality_allowed_tip_two</li>
             </ol>
 
         </v-flex>
@@ -44,10 +43,8 @@
     };
 </script>
 
-<style scoped lang="less">
+<style  lang="less">
     .error-permisson-wrap {
-        /*rtl:begin:ignore*/
-        direction: ltr;
         .enable-explanation {
             width: 100%;
             max-width: 368px;
@@ -64,7 +61,6 @@
             width: 100%;
             height: auto;
         }
-        /*rtl:end:ignore*/
     }
 
 </style>

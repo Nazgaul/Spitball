@@ -3,7 +3,6 @@ import {
 } from 'vue-color'
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
-import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
 import { mapGetters, mapActions } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue"
@@ -12,7 +11,6 @@ import tutorService from "../tutorService";
 export default {
     components: {
         'sliderPicker': Compact,
-         shareRoomBtn,
          equationMapper
     },
     data() {
