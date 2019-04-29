@@ -4,8 +4,9 @@
             <v-flex class="study-rooms-header-text" v-language:inner>schoolBlock_my_study_rooms</v-flex>
         </v-layout>
         <v-layout mt-3 class="study-rooms-cards-container">
-            <study-card v-for="(card, index) in studyRooms" :key="index" :card="card"></study-card>
-            <study-card-tutor v-if="!isTutor"></study-card-tutor>
+            <study-card xs6 v-for="(card, index) in studyRooms" :key="index" :card="card"></study-card>
+            <v-spacer style="max-width:170px;" xs6 v-show="studyRooms.length % 2 !== 0 && $vuetify.breakpoint.xsOnly"></v-spacer>
+            <study-card-tutor  v-if="!isTutor"></study-card-tutor>
         </v-layout>
     </v-container>
 
@@ -53,7 +54,7 @@ export default {
     padding-left: 48px;
     color:#fff;
     @media (max-width: @screen-xs) {
-        padding: 5px;
+        padding: 6px;
     }
     .study-rooms-header-container{
         border-bottom: solid 1px rgba(255, 255, 255, 0.24);
