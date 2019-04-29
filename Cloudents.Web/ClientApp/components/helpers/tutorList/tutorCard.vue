@@ -8,7 +8,7 @@
             <!-- <v-flex grow>
                 <user-rank class="tutor-rank" :score="tutorData.score"></user-rank>
             </v-flex> -->
-            <v-flex @click.prevent.stop="sendMessage" class="rounded" shrink style="z-index: 99;">
+            <v-flex @click.prevent.stop="sendMessage" class="rounded" shrink style="z-index: 3;">
                 <commentIcon class="chat-icon"></commentIcon>
             </v-flex>
         </v-layout>
