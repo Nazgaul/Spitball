@@ -85,37 +85,40 @@
                             </div>
                             <scroll-list v-if="activeTab === 2" :scrollFunc="loadQuestions" :isLoading="questions.isLoading"
                                          :isComplete="questions.isComplete">
-                                <router-link class="question-card-wrapper"
+                                <!-- <router-link class="question-card-wrapper"
                                              :to="{name:'question',params:{id:questionData.id}}"
-                                             v-for="(questionData,index) in profileData.questions" :key="index">
-                                    <question-card :cardData="questionData"></question-card>
+                                             v-for="(questionData,index) in profileData.questions" :key="index"> -->
+                                             <div class="mb-3"  v-for="(questionData,index) in profileData.questions" :key="index"     >
+                                    <question-card :cardData="questionData"
+                                                                  ></question-card>
+                                    </div>
 
-                                </router-link>
+                                <!-- </router-link> -->
                             </scroll-list>
                             <scroll-list v-if="activeTab === 3" :scrollFunc="loadAnswers" :isLoading="answers.isLoading"
                                          :isComplete="answers.isComplete">
-                                <router-link :to="{name:'question',params:{id:answerData.id}}"
+                                <div 
                                              v-for="(answerData,index) in profileData.answers"
                                              :key="index" class="mb-3">
-                                    <question-card :cardData="answerData" class="mb-3 limit-width"></question-card>
-                                </router-link>
+                                    <question-card :cardData="answerData"></question-card>
+                                </div>
                             </scroll-list>
                             <scroll-list v-if="activeTab === 4" :scrollFunc="loadDocuments" :isLoading="documents.isLoading"
                                          :isComplete="documents.isComplete">
-                                <router-link :to="{name:'document',params:{id:document.id}}"
+                                <div 
                                              v-for="(document ,index) in profileData.documents"
                                              :key="index" class="mb-3">
-                                    <result-note style="padding: 16px; " :item="document" class="mb-3 limit-width"></result-note>
-                                </router-link>
+                                    <result-note :item="document" class="pa-3 "></result-note>
+                                </div>
                             </scroll-list>
                             <scroll-list v-if="activeTab === 5" :scrollFunc="loadPurchasedDocuments"
                                          :isLoading="purchasedDocuments.isLoading"
                                          :isComplete="purchasedDocuments.isComplete">
-                                <router-link :to="{name:'document',params:{id:document.id}}"
+                                <div 
                                              v-for="(document ,index) in profileData.purchasedDocuments"
                                              :key="index" class="mb-3">
-                                    <result-note style="padding: 16px;" :item="document" class="mb-3 limit-width"></result-note>
-                                </router-link>
+                                    <result-note :item="document" class="pa-3 "></result-note>
+                                </div>
                             </scroll-list>
                         </v-flex>
                     </v-flex>

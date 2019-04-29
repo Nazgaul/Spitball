@@ -67,7 +67,7 @@ export default {
         display: flex;
         font-size: 11px;
         &.myMessage{
-            justify-content: flex-end;
+            justify-content: flex-start;
         }
     }
 }
