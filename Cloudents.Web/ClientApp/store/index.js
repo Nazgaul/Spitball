@@ -31,6 +31,7 @@ import becomeTutor from './becomeTutor';
 import studyRoomsStore from './studyRoomsStore';
 import tutorList from './tutorList';
 import userOnlineStatus from './userOnlineStatus';
+import leaveReview from './leaveReview';
 
 
 
@@ -66,6 +67,7 @@ const store = new Vuex.Store({
         becomeTutor,
         studyRoomsStore,
         tutorList,
+        leaveReview,
         userOnlineStatus
     }
 });

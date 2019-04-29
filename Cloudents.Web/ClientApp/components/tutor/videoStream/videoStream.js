@@ -19,7 +19,6 @@ export default {
             remoteTrack: '',
             screenShareTrack: null,
             identity: '',
-            roomLink: '',
             availableDevices: [],
             visible: {
                 'local_player': true,
@@ -34,7 +33,6 @@ export default {
         ...mapState(['tutoringMainStore']),
         ...mapGetters([
                           'sharedDocUrl',
-                          'roomLinkID',
                           'activeRoom',
                           'localOffline',
                           'remoteOffline',
@@ -44,6 +42,7 @@ export default {
                           'getJwtToken',
                           'accountUser',
                           'getNotAllowedDevices',
+                          'getAllowReview',
                           'getNotAvaliableDevices'
                       ]),
         roomIsPending() {
@@ -69,10 +68,10 @@ export default {
     },
     methods: {
         ...mapActions([
-                          'updateRoomID',
                           'updateRoomLoading',
                           'updateCurrentRoomState',
-                          'updateTestDialogState'
+                          'updateTestDialogState',
+                          'updateReviewDialog'
                       ]),
 
         biggerRemoteVideo() {
@@ -115,6 +114,9 @@ export default {
                         .then((resp) => {
                             console.log('ended session', resp);
                             this.sessionStartClickedOnce = false;
+                            if(!this.isTutor && this.getAllowReview){
+                                this.updateReviewDialog(true);
+                            }
                         }, (error) => {
                             console.log('error', error);
                         });

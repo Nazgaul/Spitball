@@ -245,11 +245,13 @@ function RoomProps(ObjInit) {
     this.conversationId = ObjInit.conversationId || '';
     this.onlineDocument = ObjInit.onlineDocument || '';
     this.isTutor = store.getters['accountUser'].id == ObjInit.tutorId;
+    this.roomId = ObjInit.roomId || '';
+    this.allowReview = ObjInit.allowReview;
 }
 
 const createRoomProps = function createLeaderBoardItem(ObjInit){
     return new RoomProps(ObjInit)
-}
+};
 
 export default {
     dataTrack,

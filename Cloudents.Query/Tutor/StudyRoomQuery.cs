@@ -39,10 +39,12 @@ namespace Cloudents.Query.Tutor
 Select 
 onlineDocumentUrl as OnlineDocument, 
 cr.Id as ConversationId,
-sr.tutorId
+sr.tutorId,
+ case when tr.Id is null then 1 else 0 end as AllowReview
 
 from sb.StudyRoom sr join sb.ChatRoom cr on sr.Identifier = cr.Identifier
 join sb.StudyRoomUser sru on sr.Id = sru.StudyRoomId and sru.UserId = @UserId
+left join sb.TutorReview tr on sr.Id = tr.RoomId
 where sr.id = @Id;",
                         new { query.Id, query.UserId });
 
