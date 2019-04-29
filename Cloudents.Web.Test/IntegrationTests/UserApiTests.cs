@@ -75,7 +75,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var phone = new
             {
                 phoneNumber = "542473699",
-                countryCode = "972"
+                countryCode = 972
             };
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
 

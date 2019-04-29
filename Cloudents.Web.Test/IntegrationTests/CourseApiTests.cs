@@ -47,7 +47,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 subjectId = "",
                 course = "Economics",
                 text = "Blah blah blah...",
-                price = 1M,
+                price = 1,
                 files = new { }
             };
 
