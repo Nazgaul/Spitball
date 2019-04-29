@@ -28,28 +28,30 @@ const errorHandler = function (err) {
     } else {
         return Promise.reject(err);
     }
-}
+};
 
 const timerObject = function (path, requestMethod) {
     this.startTime = new Date().getTime();
     this.path = path;
     this.requestMethod = requestMethod;
-}
+};
 
 export const connectivityModule = {
     http: {
         get: function (path, params = "", callback) {
             let timeProps = new timerObject(path, 'GET');
             if (callback) {
-                axios.get(path, params)
+                // axios.get(path, params)
+                axios.get(encodeURI(path), params)
                     .then(function (data) {
                         callback(data);
                     }, function (err) {
                         callback(err, true);
                     });
             } else {
-                return axios.get(path, params)
-                    .then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
+                return axios.get(encodeURI(path), params)
+                // return axios.get(path, params)
+                            .then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         },
         post: function (path, body, callback) {
@@ -93,7 +95,7 @@ export const connectivityModule = {
         delete: function (path, callback) {
             let timeProps = new timerObject(path, 'DELETE');
             if (callback) {
-                axios.delete(path).then(function (data) {
+                axios.delete(encodeURI(path)).then(function (data) {
                     callback(data);
                 }, function (err) {
                     callback(err, true);
