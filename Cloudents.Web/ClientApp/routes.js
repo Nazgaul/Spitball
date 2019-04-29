@@ -34,6 +34,8 @@ const addUniversity = () => import("./components/university/addUniversity/addUni
 
 const tutorComponent = () => import("./components/tutor/tutor.vue");
 const studyRoomsComponent = () => import("./components/studyRooms/studyRooms.vue");
+const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.vue");
+
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
 
@@ -365,6 +367,25 @@ let routes2 = [
         },
     },
     {
+        path: "/student-or-tutor",
+        components: {
+            // default: viewProfile,
+            default: studentOrTutor,
+            schoolBlock: schoolBlock,
+            header: pageHeader,
+        },
+        name: "studentTutor",
+        meta: {
+            requiresAuth: true
+        },
+        props: {
+            default: (route) => ({
+                id: route.params.id
+            })
+        },
+    },
+
+    {
         path: "/wallet",
         components: {
             default: wallet,
@@ -372,7 +393,7 @@ let routes2 = [
         },
         name: "wallet",
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         },
         props: {
             header: () => ({
