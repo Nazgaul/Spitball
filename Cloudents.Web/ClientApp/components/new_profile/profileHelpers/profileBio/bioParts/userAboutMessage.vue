@@ -24,17 +24,29 @@
             return {}
         },
         computed: {
-            ...mapGetters(['getProfile']),
+            ...mapGetters(['getProfile', 'isTutorProfile']),
             userDescription() {
                 if (this.getProfile && this.getProfile.user) {
                     return this.getProfile.user.description;
                 }
             },
-            userName() {
-                if (this.getProfile && this.getProfile.user) {
-                    return this.getProfile.user.name;
+            userName(){
+                if(this.isTutorProfile){
+                    if(this.getProfile && this.getProfile.user && this.getProfile.user.tutorData){
+                        return `${this.getProfile.user.tutorData.firstName} ${this.getProfile.user.tutorData.lastName}`
+                    }
+                }else{
+                    if (this.getProfile && this.getProfile.user) {
+                        return this.getProfile.user.name;
+                    }
                 }
+
             },
+            // userName() {
+            //     if (this.getProfile && this.getProfile.user) {
+            //         return this.getProfile.user.name;
+            //     }
+            // },
         },
 
     }
