@@ -45,12 +45,13 @@ export default {
 <style lang="less">
 @import '../../styles/mixin.less';
 .study-rooms-container{
+    
     height: 100%;
     width: 100%;
     background-image: url('./img/studyRoomBg.jpg');
     background-size: cover;
     background-position-y: bottom;
-    padding-left: 48px;
+    padding: 24px 48px; //padding left somehow the rtl doesnt process it. better solution
     color:#fff;
     @media (max-width: @screen-xs) {
         padding: 5px;
