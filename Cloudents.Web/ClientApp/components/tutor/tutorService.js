@@ -187,7 +187,7 @@ const connectToRoom = function (token, options) {
                                 if(Data.type === 'passData') {
                                     whiteBoardService.passData(parsedData.canvasContext, parsedData.dataContext);
                                 } else if(Data.type === 'undoData') {
-                                    whiteBoardService.undo(parsedData);
+                                    whiteBoardService.undo(parsedData, Data.tab);
                                 }
                             });
                             attachTracks([track], previewContainer);

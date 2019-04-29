@@ -75,7 +75,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['isRoomCreated', 'getDragData','getZoom', 'selectedOptionString']),
+        ...mapGetters(['isRoomCreated', 'getDragData','getZoom', 'selectedOptionString','getCanvasTabs', 'getCurrentSelectedTab']),
         helperStyle(){
             return helperUtil.HelperObj.style
         },
@@ -98,10 +98,13 @@ export default {
             set(val){
                 this.formula = val;
             }
+        },
+        canvasTabs(){
+            return this.getCanvasTabs
         }
     },
     methods: {
-        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString']),
+        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab']),
         selectDefaultTool(){
             this.setOptionType(this.enumOptions.select);
         },
@@ -128,17 +131,22 @@ export default {
             helperUtil.HelperObj.isActive = false;
         },
         addShape(dragObj, callback) {
-            this.updateDragData(dragObj);
+            let dragUpdate = {
+                tab: this.getCurrentSelectedTab,
+                data: dragObj
+            }
+            this.updateDragData(dragUpdate);
             if(callback){
                 callback();
             }
             let canvasData = {
                 context: this.canvasData.context,
-                metaData: this.canvasData.metaData
+                metaData: this.canvasData.metaData,
+                tab: this.getCurrentSelectedTab
             };
             let data = {
                 canvasContext: canvasData,
-                dataContext: dragObj
+                dataContext: dragObj,
             };
             let transferDataObj = {
                 type: "passData",
@@ -153,7 +161,8 @@ export default {
         undo(){
             let transferDataObj = {
                 type: "undoData",
-                data: this.canvasData
+                data: this.canvasData,
+                tab: this.getCurrentSelectedTab,
             };
             let normalizedData = JSON.stringify(transferDataObj);
             tutorService.dataTrack.send(normalizedData);
@@ -172,6 +181,11 @@ export default {
                //enter or escape in text mode
                 this.currentOptionSelected.enterPressed.bind(this.canvasData)();
             }
+        },
+        changeTab(tab){
+            this.changeSelectedTab(tab);
+            whiteBoardService.hideHelper();
+            whiteBoardService.redraw(this.canvasData)
         },
         // resetZoom(){
         //     whiteBoardService.hideHelper();

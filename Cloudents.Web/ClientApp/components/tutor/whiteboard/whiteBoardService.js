@@ -107,10 +107,11 @@ const redraw = function(canvasData){
     }
 }
 
-const undo = function(canvasData){
-    dragData = store.getters['getDragData'];
+const undo = function(canvasData, tab){
+    let undoTab = !!tab ? tab.id : store.getters['getCurrentSelectedTab'].id
+    dragData = store.getters['getAllDragData'][undoTab];
     if(dragData.length > 0){
-        store.dispatch('popDragData').then((lastAction)=>{
+        store.dispatch('popDragData', undoTab).then((lastAction)=>{
             if(lastAction.isGhost){
                 ghostByAction[lastAction.actionType](lastAction.actionObj, true)  
                 hideHelper();
@@ -140,7 +141,12 @@ const passData = function(canvasData, changedDragData){
     if(changedDragData.isGhost){
         ghostByAction[changedDragData.actionType](changedDragData.actionObj)        
     }
-    store.dispatch('updateDragData', changedDragData)
+    let tabToDraw = canvasData.tab;
+    let data = {
+        tab: tabToDraw,
+        data: changedDragData
+    }
+    store.dispatch('updateDragData', data)
     redraw(canvasData);
 }
 

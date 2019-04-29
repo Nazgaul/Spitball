@@ -219,6 +219,9 @@
             
         </div>
         </div>
+        <div class="canvas-tabs">
+             <button v-for="(tab) in canvasTabs" :key="tab.id" @click="changeTab(tab)">{{tab.name}}</button>
+        </div>
         <!--<div>-->
             <!--<ul>-->
                 <!--<li v-for="(shape, index) in canvasData.dragData" :key="index">{{shape.type}}</li>-->
@@ -404,6 +407,10 @@
                     }
                 }
             
+        }
+        .canvas-tabs{
+            position: fixed;
+            bottom: 5px;
         }
     }
 </style>
