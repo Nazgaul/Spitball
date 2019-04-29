@@ -238,14 +238,19 @@ export default {
   },
   updated: function() {
     this.$nextTick(function() {
-      dataLayer.push({ event: "optimize.activate" });
+      if(!!dataLayer){
+        dataLayer.push({ event: "optimize.activate" });
+      }
       // Code that will run only after the
       // entire question-details has been re-rendered
     });
   },
   mounted: function() {
     this.$nextTick(function() {
-      dataLayer.push({ event: "optimize.activate" });
+      if(!!dataLayer){
+        dataLayer.push({ event: "optimize.activate" });
+      }
+      
       // Code that will run only after the
       // entire question-details has been rendered
     });
