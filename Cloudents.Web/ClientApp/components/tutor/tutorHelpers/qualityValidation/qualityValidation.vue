@@ -3,7 +3,7 @@
         <div class="header-text-wrap pt-3 pb-2 px-4">
             <span class="header-text" v-if="!isErorrGettingMedia" v-language:inner>tutor_quality_title</span>
             <span class="header-text" v-if="isErorrGettingMedia && !getNotAvaliableDevices"  v-language:inner>tutor_quality_permission</span>
-            <span class="header-text" v-if="isErorrGettingMedia && getNotAvaliableDevices v-language:inner>tutor_quality_access_device</span>
+            <span class="header-text" v-if="isErorrGettingMedia && getNotAvaliableDevices" v-language:inner>tutor_quality_access_device</span>
         </div>
 
         <v-stepper-header v-if="!isErorrGettingMedia">
