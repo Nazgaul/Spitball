@@ -28,14 +28,21 @@
                       class="price-review-column section-tutor-price-review ml-1">
                 <v-flex xs12 sm12 md12 grow>
                     <v-flex xs12 sm12 md12 shrink>
-                        <span class="pricing">
-                        <span class="font-weight-medium headline  pricing">₪{{tutorData.price}}</span>
-                        <span class="pricing caption">/&nbsp;<span v-language:inner>resultTutor_hour</span></span>
+                        <span class="font-weight-medium headline pricing">₪{{tutorData.price}}</span>
+                        <span class="pricing caption">
+                            <span v-language:inner>resultTutor_hour</span>
                         </span>
                     </v-flex>
                     <v-flex xs12 sm12 md12 shrink class="pt-2">
+                        <!--<userRating-->
+                                <!--:rating="tutorData.rating"-->
+                                <!--:starColor="'#ffca54'"-->
+                                <!--:rateNumColor="'#43425D'"-->
+                                <!--:size="'24'"-->
+                                <!--:rate-num-color="'#43425D'"></userRating>-->
+                           <!--Hardcoded rating to check design remove after returned from server -->
                         <userRating
-                                :rating="tutorData.rating"
+                                :rating="4.86"
                                 :starColor="'#ffca54'"
                                 :rateNumColor="'#43425D'"
                                 :size="'24'"
@@ -50,7 +57,7 @@
                     </v-flex>
                 </v-flex>
 
-                <v-flex xs12 sm12 md12 class="d-flex" style="justify-self: flex-end; margin-top: auto">
+                <v-flex xs12 sm12 md12 class="d-flex btn-bottom-holder">
                     <v-btn round class="blue-btn rounded elevation-0 ma-0" block
                            @click="goToTutorProfile(tutorData.userId)">
                         <span class="font-weight-bold text-capitalize" v-language:inner>resultTutor_btn_view</span>
@@ -129,6 +136,9 @@
                 padding: 12px;
             }
         }
+        .user-rating-val{
+            font-weight: bold;
+        }
         .section-tutor-price-review {
             width: 260px;
             background-color: @color-white;
@@ -138,6 +148,10 @@
             @media (max-width: @screen-xs) {
                 padding: 12px;
             }
+        }
+        .btn-bottom-holder{
+            justify-self: flex-end;
+            margin-top: auto
         }
         .blue-btn {
             background-color: @colorBlue !important;

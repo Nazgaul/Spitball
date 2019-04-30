@@ -1,41 +1,51 @@
 <template>
 
-    <v-card class="tutor-card-wrap px-3 pb-small mb-2 elevation-0 cursor-pointer " @click.native="goToTutorProfile(tutorData.userId)">
-        <v-layout align-start justify-space-between class="pt-small pb-1">
-            <v-flex shrink class="mr-2">
-                <!--<v-flex xs2 sm2 md2 shrink>-->
+    <v-card class="tutor-card-wrap px-3 py-12 mb-2 elevation-0 cursor-pointer "
+            @click.native="goToTutorProfile(tutorData.userId)">
+        <div class="section-tutor-info">
+            <v-layout>
+                <v-flex class="image-wrap d-flex" shrink >
                     <img class="tutor-image" :src="userImageUrl" alt="">
-                <!--</v-flex>-->
-            </v-flex>
-            <v-flex @click.prevent.stop="sendMessage" xs10 sm10 md10>
-                <v-layout row wrap align-start >
-                    <v-flex xs6 sm6 md6 grow class="tutor-name font-weight-bold body-2">
-                        <span>{{tutorData.name}}</span>
-                    </v-flex>
-                    <v-flex shrink xs6 sm6 md6 class="text-xs-right text-sm-right">
-                        <span class="pricing">
-                        <span class="font-weight-medium  pricing">₪{{tutorData.price}}</span>
-                        <span class="pricing caption">/&nbsp;<span v-language:inner>tutorList_per_hour</span></span>
+                </v-flex>
+                <v-flex>
+                    <v-layout align-start row wrap fill-height>
+                        <v-flex xs12 grow>
+                            <v-layout row justify-space-between align-baseline class="top-section">
+                                <v-flex grow class="">
+                                    <span class="tutor-name font-weight-bold subheading"
+                                          v-line-clamp:18="1">{{tutorData.name}}</span>
+                                </v-flex>
+                                <v-flex shrink>
+                                    <span class="font-weight-bold pricing">₪{{tutorData.price}}</span>
+                                    <span class="pricing caption">
+                            <span v-language:inner>resultTutor_hour</span>
                         </span>
-                    </v-flex>
-                </v-layout>
-                <v-layout column class="pt-1">
-                    <v-flex xs12 sm12 md12 class="pb-1">
-                        <userRating
-                        :rating="tutorData.rating"
-                        :starColor="'#ffca54'"
-                        :rateNumColor="'#43425D'"
-                        :size="'15'"
-                        :rate-num-color="'#43425D'"></userRating>
-                    </v-flex>
+                                </v-flex>
+                            </v-layout>
+                        </v-flex>
+                        <v-flex class="bottom-section">
+                            <!--<userRating-->
+                                    <!--:rating="tutorData.rating"-->
+                                    <!--:starColor="'#ffca54'"-->
+                                    <!--:rateNumColor="'#43425D'"-->
+                                    <!--:size="'20'"-->
+                                    <!--:rate-num-color="'#43425D'"></userRating> -->
+                            <userRating
+                                    class="rating-holder"
+                                    :rating="4.86"
+                                    :starColor="'#ffca54'"
+                                    :rateNumColor="'#43425D'"
+                                    :size="'20'"
+                                    :rate-num-color="'#43425D'"></userRating>
+                            <v-flex shrink class="tutor-courses">
+                                <span class="blue-text body-1" v-line-clamp:18="1">{{tutorData.courses}}</span>
+                            </v-flex>
+                        </v-flex>
 
-                    <v-flex xs4 sm4 md4 class="text-truncate pt-1" style="max-width: 140px">
-                        <span class="tutor-courses caption">{{tutorData.courses}}</span>
-                    </v-flex>
-                </v-layout>
-
-            </v-flex>
-        </v-layout>
+                    </v-layout>
+                </v-flex>
+            </v-layout>
+        </div>
     </v-card>
 </template>
 
@@ -65,18 +75,18 @@
         computed: {
             ...mapGetters(['accountUser', 'getConversations']),
             userImageUrl() {
-                if(this.tutorData.image){
-                    return utilitiesService.proccessImageURL(this.tutorData.image, 56, 64)
-                }else{
-                    return './images/placeholder-profile.png'
+                if(this.tutorData.image) {
+                    return utilitiesService.proccessImageURL(this.tutorData.image, 76, 96);
+                } else {
+                    return './images/placeholder-profile.png';
                 }
 
             }
         },
         methods: {
             ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface', 'changeFooterActiveTab']),
-            goToTutorProfile(userId){
-                this.$router.push({name:'profile', params:{id: userId}})
+            goToTutorProfile(userId) {
+                this.$router.push({name: 'profile', params: {id: userId}});
             },
             sendMessage() {
                 if(this.accountUser == null) {
@@ -95,41 +105,47 @@
 <style lang="less">
     @import '../../../../styles/mixin.less';
 
-    .pb-small {
-        padding-bottom: 12px;
-    }
-
     .tutor-card-wrap {
         border-radius: 4px;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
         min-width: 304px;
-        &:first-child{
-            border-radius:  0 0 4px 4px;
+        /*&:first-child{*/
+        /*border-radius:  0 0 4px 4px;*/
+        /*}*/
+        &.py-12 {
+            padding: 12px 0;
         }
-
-        .pt-small {
-            padding-top: 12px;
+        .user-rating-val {
+            font-weight: bold;
         }
         .tutor-name {
             color: @profileTextColor;
             line-height: 12px;
             word-break: break-all;
         }
-        .tutor-image{
-            border-radius: 4px;
-            width: 56px;
-            height: 64px;
+        .image-wrap{
+            margin-right: 12px;
         }
-        .tutor-rank {
-            font-size: 10px;
-            margin-top: 0;
-            line-height: 14px;
-            width: 60px;
+        .tutor-image {
+            border-radius: 4px;
+            width: 76px;
+            height: 96px;
+        }
+        .top-section{
+
+        }
+        .bottom-section{
+            justify-self: flex-end;
+            margin-top: auto
+        }
+        .rating-holder{
+            margin-bottom: 12px;
         }
         .pricing {
             font-family: @fontOpenSans;
             color: @profileTextColor;
             font-size: 18px;
+            line-height: 16px;
         }
         .small-text {
             font-size: 10px;
@@ -139,8 +155,9 @@
             color: @profileTextColor;
             line-height: 1.33;
         }
-        .tutor-courses{
+        .tutor-courses {
             color: @colorBlue;
+            max-width: 140px;
         }
         .rounded {
             min-height: 32px;

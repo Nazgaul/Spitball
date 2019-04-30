@@ -17,7 +17,7 @@
             </v-flex>
             <v-flex>
                 <div class="">
-                   <span :style="{ color: rateNumColor }" class="caption ml-1">
+                   <span :style="{ color: rateNumColor }" class="caption ml-1 user-rating-val">
        {{ rating }}
       </span>
                 </div>
