@@ -78,7 +78,6 @@
                 } else {
                     return './images/placeholder-profile.png';
                 }
-
             }
         },
         methods: {
