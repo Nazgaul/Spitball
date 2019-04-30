@@ -1,18 +1,17 @@
 <template>
-
-    <v-card class="tutor-card-wrap px-3 py-12 mb-2 elevation-0 cursor-pointer "
+    <v-card class="tutor-card-wrap px-3 py-12 mb-2 elevation-0 cursor-pointer " :class="{'list-tutor-card': isInTutorList}"
             @click.native="goToTutorProfile(tutorData.userId)">
         <div class="section-tutor-info">
             <v-layout>
                 <v-flex class="image-wrap d-flex" shrink >
-                    <img class="tutor-image" :src="userImageUrl" alt="">
+                    <img class="tutor-image" :src="userImageUrl" alt="tutor user image">
                 </v-flex>
                 <v-flex>
                     <v-layout align-start row wrap fill-height>
                         <v-flex xs12 grow>
                             <v-layout row justify-space-between align-baseline class="top-section">
                                 <v-flex grow class="">
-                                    <span class="tutor-name font-weight-bold subheading"
+                                    <span class="tutor-name"
                                           v-line-clamp:18="1">{{tutorData.name}}</span>
                                 </v-flex>
                                 <v-flex shrink>
@@ -35,10 +34,10 @@
                                     :rating="4.86"
                                     :starColor="'#ffca54'"
                                     :rateNumColor="'#43425D'"
-                                    :size="'20'"
+                                    :size="isInTutorList ? '16' : '20'"
                                     :rate-num-color="'#43425D'"></userRating>
                             <v-flex shrink class="tutor-courses">
-                                <span class="blue-text body-1" v-line-clamp:18="1">{{tutorData.courses}}</span>
+                                <span class="blue-text" v-line-clamp:18="1">{{tutorData.courses}}</span>
                             </v-flex>
                         </v-flex>
 
@@ -65,12 +64,17 @@
         },
         props: {
             tutorData: {},
+            isInTutorList:{
+                type: Boolean,
+                default: false
+            }
         },
         computed: {
             ...mapGetters(['accountUser', 'getConversations']),
             userImageUrl() {
                 if(this.tutorData.image) {
-                    return utilitiesService.proccessImageURL(this.tutorData.image, 76, 96);
+                    let size = this.isInTutorList ? [56, 64] : [76, 96];
+                    return utilitiesService.proccessImageURL(this.tutorData.image, ...size);
                 } else {
                     return './images/placeholder-profile.png';
                 }
@@ -98,14 +102,28 @@
 
 <style lang="less">
     @import '../../../../styles/mixin.less';
-
     .tutor-card-wrap {
         border-radius: 4px;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
         min-width: 304px;
-        /*&:first-child{*/
-        /*border-radius:  0 0 4px 4px;*/
-        /*}*/
+        // START styles for card rendered inside tutor list only
+        &.list-tutor-card{
+            .tutor-name {
+                font-size: 14px;
+                font-weight: 500;
+            }
+            .rating-holder{
+                margin-bottom: 0;
+            }
+            .tutor-courses {
+                font-size: 12px;
+            }
+            .tutor-image {
+                width: 56px;
+                height: 64px;
+            }
+        }
+        // END styles for card rendered inside tutor list only
         &.py-12 {
             padding: 12px 0;
         }
@@ -116,6 +134,8 @@
             color: @profileTextColor;
             line-height: 12px;
             word-break: break-all;
+            font-size: 16px;
+            font-weight: bold;
         }
         .image-wrap{
             margin-right: 12px;
@@ -144,6 +164,7 @@
         .tutor-courses {
             color: @colorBlue;
             max-width: 140px;
+            font-size: 14px;
         }
 
     }

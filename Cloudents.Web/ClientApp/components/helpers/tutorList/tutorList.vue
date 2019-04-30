@@ -4,7 +4,7 @@
             <span class="subheading font-weight-bold tutors-title" v-language:inner>tutorList_title</span>
         </v-flex>
         <v-flex>
-            <tutorCard v-for="singleTutor in tutorList" :tutorData="singleTutor"></tutorCard>
+            <tutorCard v-for="singleTutor in tutorList" :tutorData="singleTutor" :isInTutorList="true"></tutorCard>
         </v-flex>
     </v-layout>
 </template>
