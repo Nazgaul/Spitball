@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
@@ -30,6 +31,8 @@ namespace Cloudents.FunctionsV2.System
         {
             var query = new PaymentDetailEmailQuery(msg.StudyRoomId);
             var usersData = await _queryBus.QueryAsync(query, token);
+            var dataProtector = _dataProtectProvider.CreateProtector("Spitball")
+                .ToTimeLimitedDataProtector();
             const string category = "Student-Payment";
             var emailProvider = await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
             {
@@ -38,7 +41,10 @@ namespace Cloudents.FunctionsV2.System
             }, token);
             foreach (var data in usersData)
             {
-                var language = (Language) data.Language;
+
+
+                var code = dataProtector.Protect(data.Id.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+                var language = (Language)data.Language;
                 var message = new SendGridMessage
                 {
                     Asm = new ASM { GroupId = 10926 },
@@ -49,9 +55,9 @@ namespace Cloudents.FunctionsV2.System
                     TemplateData = new
                     {
                         tutorName = data.TutorName,
-                        paymentLink = "www.spitball.co",
+                        paymentLink = _urlBuilder.BuildPayMeBuyerEndPoint(code), //"www.spitball.co",
                         to = data.Email
-                    } 
+                    }
                 };
 
 

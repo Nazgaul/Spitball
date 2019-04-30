@@ -16,7 +16,9 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.Extension;
+using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR;
@@ -33,13 +35,15 @@ namespace Cloudents.Web.Api
         private readonly UserManager<RegularUser> _userManager;
         private readonly ILogger _logger;
         private readonly ICommandBus _commandBus;
+        private readonly Lazy<IPayment> _payment;
 
-        public WalletController(UserManager<RegularUser> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus)
+        public WalletController(UserManager<RegularUser> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus, Lazy<IPayment> payment)
         {
             _userManager = userManager;
             _queryBus = queryBus;
             _logger = logger;
             _commandBus = commandBus;
+            _payment = payment;
         }
 
         // GET
@@ -101,44 +105,41 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Generate a buyer for - don't forget to run ngrok if you run it locally
         /// </summary>
-        /// <param name="payment"></param>
-        /// <param name="configuration"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost("AddPayment")]
-        public async Task<ActionResult<SaleResponse>> GenerateLink([FromServices] IPayment payment,
-            [FromServices] IHostingEnvironment configuration,
+        public async Task<ActionResult<SaleResponse>> GenerateLink(
             CancellationToken token)
         {
+            var result = await GenerateLinkAsync(token);
+            //var user = await _userManager.GetUserAsync(User);
+            //if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
+            //{
+            //    return BadRequest();
+            //}
+            //var url = Url.RouteUrl("PayMeCallback", new
+            //{
+            //    userId = user.Id
+            //}, "http");
 
-            var user = await _userManager.GetUserAsync(User);
-            if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
-            {
-                return BadRequest();
-            }
-            var url = Url.RouteUrl("PayMeCallback", new
-            {
-                userId = user.Id
-            }, "http");
+            //var uri = new UriBuilder(url);
+            //if (configuration.IsDevelopment())
+            //{
+            //    uri.Host = "80ec9aba.ngrok.io";
+            //    uri.Port = 80;
+            //};
 
-            var uri = new UriBuilder(url);
-            if (configuration.IsDevelopment())
-            {
-                uri.Host = "80ec9aba.ngrok.io";
-                uri.Port = 80;
-            };
+            //var result = await payment.CreateBuyerAsync(uri.Uri.AbsoluteUri, token);
+            //var saleUrl = new UriBuilder(result.SaleUrl);
+            //saleUrl.AddQuery(new NameValueCollection()
+            //{
+            //    ["first_name"] = user.FirstName,
+            //    ["last_name"] = user.LastName,
+            //    ["phone"] = user.PhoneNumber,
+            //    ["email"] = user.Email
+            //});
 
-            var result = await payment.CreateBuyerAsync(uri.Uri.AbsoluteUri, token);
-            var saleUrl = new UriBuilder(result.SaleUrl);
-            saleUrl.AddQuery(new NameValueCollection()
-            {
-                ["first_name"] = user.FirstName,
-                ["last_name"] = user.LastName,
-                ["phone"] = user.PhoneNumber,
-                ["email"] = user.Email
-            });
-
-            return new SaleResponse(saleUrl.Uri);
+            return new SaleResponse(result);
         }
 
         [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
@@ -165,6 +166,44 @@ namespace Cloudents.Web.Api
             //TODO: send signalR buyer exists
             return Ok();
         }
+
+        private async Task<Uri> GenerateLinkAsync(
+             CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
+            {
+                throw new ArgumentException();
+            }
+
+            var url = Url.RouteUrl("PayMeCallback", new
+            {
+                userId = user.Id
+            }, "http");
+
+            var uri = new UriBuilder(url);
+
+
+            var result = await _payment.Value.CreateBuyerAsync(uri.Uri.AbsoluteUri, token);
+            var saleUrl = new UriBuilder(result.SaleUrl);
+            saleUrl.AddQuery(new NameValueCollection()
+            {
+                ["first_name"] = user.FirstName,
+                ["last_name"] = user.LastName,
+                ["phone"] = user.PhoneNumber,
+                ["email"] = user.Email
+            });
+            return saleUrl.Uri;
+        }
+
+
+        [SignInWithToken, Route("/" + UrlConst.GeneratePaymentLink)]
+        public async Task<RedirectResult> Payment(CancellationToken token)
+        {
+            var result = await GenerateLinkAsync(token);
+            return Redirect(result.AbsoluteUri);
+        }
+
         #endregion
     }
 }
