@@ -16,4 +16,17 @@ namespace Cloudents.Command.Command
 
         public DateTime Expiration { get;  }
     }
+
+    public class AddSellerTokenCommand : ICommand
+    {
+        public AddSellerTokenCommand(string userEmail, string token)
+        {
+            UserEmail = userEmail;
+            Token = token;
+        }
+
+        public string UserEmail { get; }
+        public string Token { get; }
+
+    }
 }

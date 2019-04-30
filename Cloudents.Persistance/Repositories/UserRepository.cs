@@ -40,9 +40,16 @@ namespace Cloudents.Persistence.Repositories
                 .SingleOrDefaultAsync<decimal>(token);
         }
 
-       
+        public  Task<RegularUser> GetUserByEmailAsync(string userEmail, CancellationToken token)
+        {
+            return
+                Session.QueryOver<RegularUser>()
+                    .Where(w => w.Email == userEmail)
+                    .SingleOrDefaultAsync(token);
+        }
 
-      /*  public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
+
+        /*  public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
         {
             return
                 Session.QueryOver<Transaction>()
@@ -50,15 +57,15 @@ namespace Cloudents.Persistence.Repositories
                     .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
         }*/
 
-        internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
-        {
+        //internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
+        //{
    
-            return
-              Session.QueryOver<Transaction>()
-                  .Where(w => w.User.Id == userId)
-                  .Where(w => w.Type == type)
-                  .Select(Projections.Sum<Transaction>(x => x.Price));
-        }
+        //    return
+        //      Session.QueryOver<Transaction>()
+        //          .Where(w => w.User.Id == userId)
+        //          .Where(w => w.Type == type)
+        //          .Select(Projections.Sum<Transaction>(x => x.Price));
+        //}
 
         private IQueryOver<Transaction, Transaction> UserAvailableBalance(long userId)
         {

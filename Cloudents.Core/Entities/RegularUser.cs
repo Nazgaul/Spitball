@@ -95,7 +95,13 @@ namespace Cloudents.Core.Entities
         public virtual string Description { get; set; }
         public virtual Tutor Tutor { get; set; }
 
-        public virtual BuyerPayment BuyerPayment { get; set; }
+        public virtual BuyerPayment BuyerPayment { get; protected set; }
+
+        public virtual void AddPayment(string token, DateTime expiration)
+        {
+            BuyerPayment = new BuyerPayment(token, expiration);
+            AddEvent(new StudentPaymentReceivedEvent(this));
+        }
         //public virtual string BuyerKey
         //{
         //    set { _buyer.BuyerKey = value; }

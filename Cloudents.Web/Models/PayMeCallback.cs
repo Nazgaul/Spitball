@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Web.Models
 {
-    [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
-    public class PayMeCallback
+    public class PayMeBuyerCallbackRequest
     {
         [ModelBinder(Name = "status_code")]
         public int StatusCode { get; set; }
@@ -15,5 +12,17 @@ namespace Cloudents.Web.Models
 
         [ModelBinder(Name = "buyer_card_exp")]
         public string BuyerCardExp { get; set; }
+    }
+
+    public class PayMeSellerCallbackRequest
+    {
+        [ModelBinder(Name = "status_code")]
+        public int StatusCode { get; set; }
+
+        [ModelBinder(Name = "seller_payme_id")]
+        public string SellerKey { get; set; }
+
+        [ModelBinder(Name = "seller_email")]
+        public string Email { get; set; }
     }
 }
