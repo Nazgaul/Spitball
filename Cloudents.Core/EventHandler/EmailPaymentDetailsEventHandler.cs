@@ -20,9 +20,17 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(StudyRoomCreatedEvent eventMessage, CancellationToken token)
         {
-            //eventMessage.StudyRoom.Users.Where(w=>w.)
+            //var users = eventMessage.StudyRoom.Users.Where(w => w.User.Id != w.Room.Tutor.Id)
+            //    .Select(s => s.User).Where(w => w.BuyerPayment?.IsValid() ?? false);
+
+            //foreach (var user in users)
+            //{
+            await _serviceBusProvider.InsertMessageAsync(new StudentPaymentMessage(eventMessage.StudyRoom.Id), token);
+
+
+            //}
             //StudentPaymentMessage
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
     }
 }

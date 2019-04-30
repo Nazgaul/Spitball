@@ -45,7 +45,7 @@ namespace Cloudents.Query
 
             const string paymentSql =
                 @"select top 1 cast(1 as bit) from sb.StudyRoomUser sru join sb.studyroom sr on sru.StudyRoomId = sr.Id
-join sb.[user] u on sru.UserId = u.Id --and u.PaymentKey is null
+join sb.[user] u on sru.UserId = u.Id 
 where u.Id = @id and sr.TutorId <> sru.UserId
 and (u.PaymentKey is null or u.PaymentKeyExpiration  < GETUTCDATE());";
             using (var conn = _dapperRepository.OpenConnection())
