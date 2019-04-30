@@ -23,6 +23,7 @@ namespace Cloudents.Web.Controllers
     public class HomeController : Controller
     {
         internal const string Referral = "referral";
+        internal const string RootRoute = "Root";
         private readonly SignInManager<RegularUser> _signInManager;
         private readonly ILogger _logger;
 
@@ -34,6 +35,7 @@ namespace Cloudents.Web.Controllers
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true), SignInWithToken]
         [ApiNotFoundFilter]
+        [Route("", Name = RootRoute)]
         public IActionResult Index(
             [FromServices] Lazy<ICrawlerResolver> crawlerResolver,
             [FromHeader(Name = "User-Agent")] string userAgent,
@@ -106,7 +108,7 @@ namespace Cloudents.Web.Controllers
 
         [Route("image/{hash}", Name = "imageUrl")]
         [ResponseCache(
-            Duration = TimeConst.Month, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new []{"*"})]
+            Duration = TimeConst.Month, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { "*" })]
         public IActionResult ImageRedirect([FromRoute]string hash, [FromServices] IConfiguration configuration)
         {
             return Redirect(

@@ -13,7 +13,7 @@ namespace Cloudents.Web.Controllers
         [Route("flashcard")]
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToRoute(HomeController.RootRoute);
         }
     }
 }

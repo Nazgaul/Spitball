@@ -34,13 +34,13 @@ namespace Cloudents.Web.Controllers
             if (!ModelState.IsValid)
             {
                 _logger.Warning($"url is not valid model: {model}");
-                return RedirectToAction("Index", "Home");
+                return RedirectToRoute(HomeController.RootRoute);
             }
 
             if (!model.Url.IsAbsoluteUri)
             {
                 _logger.Warning($"url is not valid model: {model}");
-                return RedirectToAction("Index", "Home");
+                return RedirectToRoute(HomeController.RootRoute);
             }
 
             var referer = Request.Headers["Referer"].ToString();
@@ -49,7 +49,7 @@ namespace Cloudents.Web.Controllers
 
             if (!Uri.TryCreate(referer, UriKind.Absolute, out _))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToRoute(HomeController.RootRoute);
             }
 
             //if (refererUri.PathAndQuery.Contains(new[] { "flashcard", "note" }, StringComparison.OrdinalIgnoreCase))

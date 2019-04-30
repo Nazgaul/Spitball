@@ -11,7 +11,7 @@ namespace Cloudents.Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToRoute(HomeController.RootRoute);
             }
             return View();
         }
