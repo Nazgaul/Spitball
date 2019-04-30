@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
+using FluentAssertions;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -108,13 +109,16 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         [Theory]
         [InlineData(638,null,0)]
-        [InlineData(638, "ממ\"ן",0)]
+        [InlineData(638, "ארה\"ב",0)]
         [InlineData(638, "ממ\"",0)]
+        [InlineData(638, "אלגברה ל", 0)]
         public async Task CourseSearchQuery_Ok(long userId,string term,int page)
         {
             var query = new CourseSearchQuery(userId, term, page);
 
             var result = await fixture._queryBus.QueryAsync(query, default);
+
+            result.Should().HaveCountGreaterOrEqualTo(1);
         }
 
 
