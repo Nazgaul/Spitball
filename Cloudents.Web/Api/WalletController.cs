@@ -152,7 +152,6 @@ namespace Cloudents.Web.Api
 
             var command = new AddBuyerTokenCommand(userId, model.BuyerKey, paymentKeyExpiration);
             await _commandBus.DispatchAsync(command, token);
-            //TODO: send signalR buyer exists
             return Ok();
         }
 

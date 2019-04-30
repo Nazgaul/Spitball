@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Query.Query;
 using Cloudents.Search.University;
 using FluentNHibernate.Data;
@@ -141,8 +142,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var c = _container.Resolve<AzureDocumentSearch>();
-            var z = await c.ItemAsync(28886, default);
+            var queryBus = _container.Resolve<IQueryBus>();
+            var query = new UserDataByIdQuery(638);
+            var taskUser = await queryBus.QueryAsync<UserAccountDto>(query, default);
+
+            var query2 = new UserDataByIdQuery(159039);
+            var taskUser2 = await queryBus.QueryAsync<UserAccountDto>(query2, default);
             // await c.DispatchAsync(command2, default);
 
             Console.WriteLine("done");
