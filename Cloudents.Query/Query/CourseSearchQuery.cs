@@ -40,14 +40,15 @@ namespace Cloudents.Query.Query
                 const int pageSize = 50;
                 const string sql =
                             @"     
-Select @Term = COALESCE( @Term,'""')
+Select @Term = case when @Term is null then '""""' else '""' + @Term+ '*""' end 
+
 select Name,
 	                            case when uc.CourseId is not null then 1 else null end as IsFollowing,
 	                            c.count as Students
                             from sb.Course c
                             left join sb.UsersCourses uc
 	                            on c.Name = uc.CourseId and uc.UserId = @Id
-                             where (@Term = '""' or FreeText(Name,  @Term))
+                             where (@Term = '""""' or Contains(Name,  @Term))
 							and State = 'OK'
                             order by case when uc.CourseId is not null
                                     then 1 else null end desc,

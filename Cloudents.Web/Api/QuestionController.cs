@@ -39,6 +39,7 @@ namespace Cloudents.Web.Api
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize, ApiController]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     public class QuestionController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
