@@ -37,6 +37,7 @@ namespace Cloudents.Core.EventHandler
                 Language = dbQuestion.Language.TwoLetterISOLanguageName,
                 Subject = dbQuestion.Subject,
                 State = QuestionFilter.Unanswered,
+                // ReSharper disable once ConstantConditionalAccessQualifier this is later stuff - we still have null courses
                 Course = dbQuestion.Course?.Id,
                 UniversityName = dbQuestion.University?.Name
             };

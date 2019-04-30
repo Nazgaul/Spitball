@@ -1,3 +1,4 @@
+import store from '../../../../store/index.js'
 import {createShape, createGhostShape} from '../utils/factories'
 import whiteBoardService from '../whiteBoardService'
 import helper from '../utils/helper'
@@ -29,6 +30,25 @@ const init = function(){
     clearMark();
 }
 
+const selectedShapes = function(id){
+    if(id){
+        return store.getters['getShapesSelected'][id];
+    }else{
+        return store.getters['getShapesSelected'];
+    }
+    
+}
+
+const setSelectedShapes = function(shape){
+    if(Object.keys(shape).length > 0){
+        Object.keys(shape).forEach(shapeId=>{
+            store.dispatch('setShapesSelected', shape[shapeId]);
+        })
+    }else{
+        store.dispatch('clearShapesSelected');
+    }
+}
+
 const getHelperObj = function(sx, sy, ex, ey, supressOffset){
         let leftOffset = supressOffset ? 0 : this.context.canvas.getBoundingClientRect().left;
         let topOffset = supressOffset ? 0 : this.context.canvas.getBoundingClientRect().top;
@@ -44,7 +64,7 @@ const getHelperObj = function(sx, sy, ex, ey, supressOffset){
             currentY: endY,
             width: endX - startX,
             height: endY - startY,
-            strokeStyle: this.color.hex
+            strokeStyle: '#000000'
         }
 }
 
@@ -61,9 +81,9 @@ const liveDraw = function(helperObj){
 const markShapes = function(){
     //console.log(this.shapesSelected);
     let points = [];
-    Object.keys(this.shapesSelected).forEach(shapeId=>{
-        if(this.shapesSelected[shapeId].visible){
-            points = points.concat(this.shapesSelected[shapeId].points);
+    Object.keys(selectedShapes()).forEach(shapeId=>{
+        if(selectedShapes(shapeId).visible){
+            points = points.concat(selectedShapes(shapeId).points);
         }
     })
     let rectangleBoundries = canvasFinder.getBoundriesPoints(points, this);
@@ -89,10 +109,10 @@ const mousedown = function(e){
     this.shouldPaint = true;
     if(!currentHelperObj){
         let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, currentX - e.target.offsetLeft, currentY);
-        this.shapesSelected = canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData());
-        if(Object.keys(this.shapesSelected).length > 0){
-            Object.keys(this.shapesSelected).forEach(shapeId=>{
-                startShapes[shapeId] = createShape(this.shapesSelected[shapeId])
+        setSelectedShapes(canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData()));
+        if(Object.keys(selectedShapes()).length > 0){
+            Object.keys(selectedShapes()).forEach(shapeId=>{
+                startShapes[shapeId] = createShape(selectedShapes(shapeId))
             })
             markShapes.bind(this)();
             mouseInsideSelectedRectangle = true;
@@ -127,9 +147,9 @@ const mousedown = function(e){
         if(!mouseInsideSelectedRectangle){
             clearMark();
         }else{
-            if(Object.keys(this.shapesSelected).length > 0){
-                Object.keys(this.shapesSelected).forEach(shapeId=>{
-                    startShapes[shapeId] = createShape(this.shapesSelected[shapeId])
+            if(Object.keys(selectedShapes()).length > 0){
+                Object.keys(selectedShapes()).forEach(shapeId=>{
+                    startShapes[shapeId] = createShape(selectedShapes(shapeId))
                 })
                 markShapes.bind(this)();
             }
@@ -139,8 +159,8 @@ const mousedown = function(e){
 
 const moveShapes = function(){
     let {a, b, c, d, e, f} = this.context.getTransform();
-    Object.keys(this.shapesSelected).forEach(shapeId=>{
-        let shape = this.shapesSelected[shapeId];
+    Object.keys(selectedShapes()).forEach(shapeId=>{
+        let shape = selectedShapes(shapeId);
         shape.points.forEach((point, index)=>{
             dragoffx =  (currentX - startingMousePosition.x)/a;
             dragoffy =  (currentY - startingMousePosition.y)/d;
@@ -207,10 +227,10 @@ const defineEndPosition = function(e){
                     w,
                     h,
                 }
-                this.shapesSelected = canvasFinder.getShapesByRectangle(this, rect, whiteBoardService.getDragData());
-                if(Object.keys(this.shapesSelected).length > 0){
-                    Object.keys(this.shapesSelected).forEach(shapeId=>{
-                        startShapes[shapeId] = createShape(this.shapesSelected[shapeId])
+                setSelectedShapes(canvasFinder.getShapesByRectangle(this, rect, whiteBoardService.getDragData()));
+                if(Object.keys(selectedShapes()).length > 0){
+                    Object.keys(selectedShapes()).forEach(shapeId=>{
+                        startShapes[shapeId] = createShape(selectedShapes(shapeId))
                     })
                     markShapes.bind(this)();
                 }else{
@@ -221,7 +241,7 @@ const defineEndPosition = function(e){
             }
         }else{
             // object was just moved
-            let moveAction = new moveObjAction(Object.keys(this.shapesSelected), dragoffx, dragoffy)
+            let moveAction = new moveObjAction(Object.keys(selectedShapes()), dragoffx, dragoffy)
             addShape.bind(this, "move", moveAction)();
             dragoffx = 0;
             dragoffy = 0;
@@ -238,12 +258,12 @@ const mouseleave = function(e){
 
 
 const deleteSelectedShape = function(e){
-    if(Object.keys(this.shapesSelected).length> 0){
-        Object.keys(this.shapesSelected).forEach(shapeId=>{
-            startShapes[shapeId] = createShape(this.shapesSelected[shapeId])
-            this.shapesSelected[shapeId].visible = false;
+    if(Object.keys(selectedShapes()).length> 0){
+        Object.keys(selectedShapes()).forEach(shapeId=>{
+            startShapes[shapeId] = createShape(selectedShapes(shapeId))
+            selectedShapes(shapeId).visible = false;
         })
-        let deleteAction = new deleteObjAction(Object.keys(this.shapesSelected));
+        let deleteAction = new deleteObjAction(Object.keys(selectedShapes()));
         addShape.bind(this, "delete" ,deleteAction)();
         whiteBoardService.redraw(this);
         clearMark();

@@ -9,6 +9,24 @@ using Cloudents.Core.Message.Email;
 
 namespace Cloudents.Core.EventHandler
 {
+
+    public class EmailQuestionAcceptedEventHandler: IEventHandler<MarkAsCorrectEvent>
+    {
+        private readonly IQueueProvider _serviceBusProvider;
+
+        public EmailQuestionAcceptedEventHandler(IQueueProvider serviceBusProvider)
+        {
+            _serviceBusProvider = serviceBusProvider;
+        }
+
+        public async Task HandleAsync(MarkAsCorrectEvent eventMessage, CancellationToken token)
+        {
+            var message = new AnswerAcceptedMessage(eventMessage.Answer.Question.Id);
+
+            await _serviceBusProvider.InsertMessageAsync(message, token);
+        }
+    }
+
     public class EmailRedeemEventHandler : IEventHandler<TransactionEvent>
     {
         private readonly IQueueProvider _serviceBusProvider;
@@ -34,13 +52,13 @@ namespace Cloudents.Core.EventHandler
                 await _serviceBusProvider.InsertMessageAsync(message, token);
             }
 
-            if (redeemEventMessage.Transaction.Action == TransactionActionType.AnswerCorrect &&
-                redeemEventMessage.Transaction.Type == TransactionType.Earned)
-            {
-                var message = new AnswerAcceptedMessage(redeemEventMessage.Transaction.Id);
+            //if (redeemEventMessage.Transaction.Action == TransactionActionType.AnswerCorrect &&
+            //    redeemEventMessage.Transaction.Type == TransactionType.Earned)
+            //{
+            //    var message = new AnswerAcceptedMessage(redeemEventMessage.Transaction.Id);
 
-                await _serviceBusProvider.InsertMessageAsync(message, token);
-            }
+            //    await _serviceBusProvider.InsertMessageAsync(message, token);
+            //}
         }
     }
 }

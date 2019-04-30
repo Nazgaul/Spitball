@@ -40,7 +40,6 @@ namespace Cloudents.Query
                     .Select(s => s.Subject).WithAlias(() => dto.Subject)
                     .Select(s => s.Id).WithAlias(() => dto.Id)
                     .Select(s => s.Text).WithAlias(() => dto.Text)
-                    .Select(s => s.Price).WithAlias(() => dto.Price)
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
                     .Select(s => s.Updated).WithAlias(() => dto.DateTime)
                     .Select(s => s.Language).WithAlias(() => dto.CultureInfo)

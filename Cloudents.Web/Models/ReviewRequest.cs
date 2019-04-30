@@ -13,7 +13,6 @@ namespace Cloudents.Web.Models
         [Range(0, 5)]
         [Required(ErrorMessage = "Required")]
         public float Rate { get; set; }
-        [Required(ErrorMessage = "Required")]
-        public long Tutor { get; set; }
+       
     }
 }

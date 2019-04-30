@@ -47,6 +47,7 @@ function ReviewItem(objInit){
     this.reviewText = objInit.reviewText;
     this.score = objInit.score;
     this.name = objInit.name || '';
+    this.id = objInit.id|| '';
 }
 
 function createReviewItem(objInit) {
@@ -96,7 +97,7 @@ function profileDocumentData(arrInit){
    return arrInit.data.map(searchService.createDocumentItem) || [];
 }
 function profileAboutData(arrInit){
-    let structuredData = createAboutItem(arrInit[1].data);
+    let structuredData = createAboutItem(arrInit[0].data);
     let data = {
         bio: structuredData.bio,
         courses: structuredData.courses,
@@ -154,6 +155,7 @@ export default {
             description: data.description,
             lastName: data.lastName,
             bio: data.bio,
+            price: data.price
         };
         return connectivityModule.http.post("/Account/settings", serverFormatt)
     },
@@ -169,7 +171,7 @@ export default {
     //     return new ProfileData(arrInit);
     // },
     becomeTutor: (data) => {
-        return connectivityModule.http.post("/Account/settings", data)
+        return connectivityModule.http.post("/Account/becomeTutor", data)
     },
     createUserProfileData: (objInit)=>{
         return new profileUserData(objInit);

@@ -1,16 +1,26 @@
 <template>
     <div class="messages-container">
-        <div ml-2 class="avatar-container"><user-avatar :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/></div>
+        <div ml-2 class="avatar-container">
+            <user-avatar :size="'40'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/>
+            <userOnlineStatus class="user-status" :userId="activeConversationObj.userId"></userOnlineStatus>
+        </div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <span v-if="isTutor" @click="createRoom" v-language:inner>chat_studyRoom</span>
+                <div v-if="isTutor && messages && messages.length > 0" @click="createRoom">
+                    <span v-show="studyRoomExists" v-language:inner >chat_studyRoom_enter</span>
+                    <span v-show="!studyRoomExists" v-language:inner>chat_studyRoom_create</span>
+                </div>
+                <div v-if="isTutor && messages &&  messages.length > 0">
+                    <v-icon style="font-size: 16px; color:#bcbccb">sbf-studyroom-icon</v-icon>
+                </div>
+              
             </v-flex>
             <v-flex class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
             </v-flex>
             <v-flex class="messages-input">
                 <chat-upload-file></chat-upload-file>
-                <v-text-field solo type="text" placeholder="Type a message" @keyup.enter="sendMessage" v-model="messageText"></v-text-field>
+                <v-text-field solo type="text" :placeholder="placeHolderText" v-language:placeholder @keyup.enter="sendMessage" v-model="messageText"></v-text-field>
             </v-flex>
         </v-layout>
     </div>
@@ -19,17 +29,22 @@
 <script>
 import message from "./messageComponents/message.vue"
 import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
+import userOnlineStatus from '../../helpers/userOnlineStatus/userOnlineStatus.vue';
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
 import {mapGetters, mapActions} from 'vuex';
+import { LanguageService } from '../../../services/language/languageService'
 export default {
     components:{
         message,
         UserAvatar,
-        chatUploadFile
+        chatUploadFile,
+        userOnlineStatus
     },
     data(){
         return{
-            messageText: ""
+            messageText: "",
+            placeHolderText: LanguageService.getValueByKey("chat_type_message"),
+
         }
     },
     computed:{
@@ -43,7 +58,13 @@ export default {
         },
         activeConversationObj(){
             return this.getActiveConversationObj;
+        },
+        studyRoomExists(){
+            if(this.activeConversationObj && this.activeConversationObj.studyRoomId){
+                return this.activeConversationObj.studyRoomId.length > 1
+            }
         }
+
     },
     methods:{
         ...mapActions(['sendChatMessage', 'createStudyRoom']),
@@ -83,6 +104,7 @@ export default {
 </script>
 
 <style lang="less">
+@import "../../../styles/mixin.less";
     .messages-container{
         width: 100%;
         height: 100%;
@@ -90,23 +112,30 @@ export default {
             position:absolute;
             top: 55px;
             left: 10px;
+            .user-status{
+                position: absolute;
+                bottom: 0px;
+                right: -2px;
+            }
         }
         .messages-wrapper{
             height: 100%;
             .messages-header{
                 display:flex;
                 background-color: #f7f7f7;
-                padding: 8px;
+                padding: 8px 10px 8px 8px ;
                 max-height: 34px;
                 min-height: 34px;
                 span{
                     padding: 0 10px 0  10px;
                     cursor: pointer;
+                    font-size: 12px;
+                    color: @purpleNewColor;
                 }
             }
             .messages-body{
                 padding: 15px 10px 0 10px;
-                margin: 2px 0 4px 0;
+                margin: 22px 0 4px 0;
                 overflow: auto;
             }
             .messages-input{

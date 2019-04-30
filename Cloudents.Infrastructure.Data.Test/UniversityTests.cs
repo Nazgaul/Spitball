@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Testing;
 using Xunit;
 
@@ -12,6 +13,7 @@ namespace Cloudents.Infrastructure.Data.Test
             new PersistenceSpecification<University>(Session)
                 .CheckProperty(c => c.Name, "Some University")
                 .CheckProperty(c => c.Country, "IL")
+                .CheckProperty(c => c.State, ItemState.Pending)
                 .VerifyTheMappings();
         }
     }

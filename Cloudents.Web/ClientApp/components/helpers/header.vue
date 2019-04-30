@@ -21,7 +21,7 @@
                                     <div class="header-messages" v-if="loggedIn && !isMobile">
                                         <span @click="openChatWindow" class="header-messages-text" v-language:inner>chat_messages</span>
                                         <v-icon @click="openChatWindow">sbf-forum-icon</v-icon>
-                                        <span class="unread-circle" v-show="totalUnread > 0">{{totalUnread}}</span>
+                                        <span @click="openChatWindow" class="unread-circle" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer' :'']">{{totalUnread}}</span>
                                     </div>
                                     <div class="header-wallet" v-if="loggedIn">
                                         <button class="setting-buysbl-button" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span></button>     
@@ -32,8 +32,7 @@
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
                                                          :userImageUrl="userImageUrl" :user-name="accountUser.name"/>
 
-                                            <menu-list :isAuthUser="loggedIn"
-                                                       v-if=!$vuetify.breakpoint.xsOnly></menu-list>
+                                            <menu-list :isAuthUser="loggedIn" v-if=!$vuetify.breakpoint.xsOnly></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
@@ -132,8 +131,6 @@
             ...mapGetters([
                 'accountUser',
                 'unreadMessages',
-                'getShowToaster',
-                'getToasterText',
                 'showMobileFeed',
                 'getTotalUnread'
             ]),

@@ -1,6 +1,6 @@
 <template>
     <div class="contact-btn-wrap">
-        <button class="ct-btn">
+        <button class="ct-btn" @click="sendMessage">
             <v-icon class="ct-btn-icon mr-2">sbf-message-icon</v-icon>
             <span class="btn-text text-uppercase" v-language:inner>profile_tutor_contact_btn</span>
         </button>
@@ -8,14 +8,43 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+import chatService from '../../../../services/chatService'
     export default {
-        name: "contactBtn"
+        name: "contactBtn",
+        computed:{
+            ...mapGetters(['accountUser']),
+        },
+        methods:{
+            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface']),
+            ...mapGetters(['getProfile']),
+            sendMessage(){
+                if ( this.accountUser == null) {
+                    this.updateLoginDialogState(true);
+                } else {
+                    let currentProfile = this.getProfile();
+                    let conversationObj = {
+                        userId: currentProfile.user.id,
+                        image: currentProfile.user.image,
+                        name: currentProfile.user.name
+                    }
+                    let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
+                    this.setActiveConversationObj(currentConversationObj);
+                    let isMobile = this.$vuetify.breakpoint.smAndDown;
+                    this.openChatInterface();                    
+                }
+            }
+        }
     }
 </script>
 
 <style lang="less">
     @import '../../../../styles/mixin.less';
     .contact-btn-wrap {
+        @media(max-width: @screen-xs){
+            margin-top: 2px;
+            margin-bottom: 6px;
+        }
         .ct-btn {
             display: flex;
             align-items: center;

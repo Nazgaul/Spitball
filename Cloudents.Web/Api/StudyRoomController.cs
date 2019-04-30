@@ -14,9 +14,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.StudyRooms;
+using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
@@ -49,10 +51,17 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<IActionResult> CreateStudyRoomAsync(CreateStudyRoomRequest model, CancellationToken token)
         {
-            var tutorId = _userManager.GetLongUserId(User);
-            var command = new CreateStudyRoomCommand(tutorId, model.UserId);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var tutorId = _userManager.GetLongUserId(User);
+                var command = new CreateStudyRoomCommand(tutorId, model.UserId);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest("Already active study room");
+            }
         }
 
         /// <summary>
@@ -85,6 +94,26 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadAsync(IFormFile file,
+            [FromHeader(Name = "referer")] Uri referer,
+            [FromServices] IDocumentDirectoryBlobProvider blobProvider,
+            CancellationToken token)
+        {
+            var fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName());
+            await blobProvider
+                .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
+
+            var uri = blobProvider.GetBlobUrl(fileName);
+            var link = blobProvider.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
+
+            return Ok(new
+            {
+                link
+            });
+
+        }
+
         /// <summary>
         /// Get study rooms data of user - used in study room url
         /// </summary>
@@ -109,13 +138,8 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            //var result = await GetStudyRoomAsync(id, userId, token);
-            //var session = result.SessionId;
-            //if (string.IsNullOrEmpty(result.SessionId))
-            //{
-
             var session = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-            await _videoProvider.CreateRoomAsync(session, configuration.IsProduction());
+            await _videoProvider.CreateRoomAsync(session, true);// configuration.IsProduction());
             var command = new CreateStudyRoomSessionCommand(id, session, userId);
             await _commandBus.DispatchAsync(command, token);
 
@@ -145,12 +169,12 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = userManager.GetLongUserId(User);
-            if (userId == model.Tutor)
-            {
-                return BadRequest();
-            }
+            //if (userId == model.Tutor)
+            //{
+            //    return BadRequest();
+            //}
 
-            var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, model.Tutor, userId);
+            var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, userId);
             try
             {
                 await _commandBus.DispatchAsync(command, token);

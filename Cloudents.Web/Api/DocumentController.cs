@@ -73,7 +73,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] ICrawlerResolver crawlerResolver,
-            [FromServices] IConfiguration configuration,
+            //[FromServices] IConfiguration configuration,
             [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
@@ -133,6 +133,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
             CancellationToken token)
@@ -366,6 +369,10 @@ namespace Cloudents.Web.Api
             {
                 var command = new PurchaseDocumentCommand(model.Id, userId);
                 await _commandBus.DispatchAsync(command, token);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
             }
             catch (InsufficientFundException)
             {

@@ -2,23 +2,29 @@
     <div class="share-screen-btn-wrap">
         <v-flex>
             <button v-if="!isSharing" @click="showScreen" class="outline-btn">
-                    <castIcon  class="cast-icon mr-1"></castIcon>
-                Share Screen</button>
-            <button class="outline-btn" v-else @click="stopSharing">Stop Sharing</button>
+                    <castIcon  class="cast-icon"></castIcon>
+                <span v-language:inner>tutor_btn_share_screen</span>
+               </button>
+            <button class="outline-btn" v-else @click="stopSharing">
+                <span v-language:inner>tutor_btn_stop_sharing</span>
+                </button>
         </v-flex>
         <v-dialog class="install-extension-dialog"
                 v-model="extensionDialog"
-                max-width="290"
-        >
+                max-width="290"        >
             <v-card>
-                <v-card-title class="headline">Chrome Extension Installation</v-card-title>
+                <v-card-title class="headline">
+                    <span v-language:inner>tutor_chrome_ext_title</span>
+                </v-card-title>
+
                 <v-card-text>
-                    Please install and authorize the Spitball Chrome extension to enable screen sharing on your computer.
+                    <span v-language:inner>tutor_chrome_ext_install</span>
                 </v-card-text>
                 <v-card-text>
-                    Once the extension is installed please
-                    <a @click="reloadPage()">reload</a>
-                    the page for the screen sharing feature to be effective.
+                    <a>
+                        <span @click="reloadPage()" v-language:inner>tutor_chrome_ext_text</span>
+
+                    </a>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -26,11 +32,14 @@
                             target="_blank"
                            class="btn px-3 py-2 mr-3"
                             @click="dialog = false"
-                    >Install</a>
+                    >
+                        <span v-language:inner>tutor_chrome_ext_btn_install</span>
+                    </a>
                     <v-btn
                             color="green darken-1"
                             flat="flat"
-                            @click="extensionDialog = false" >Cancel
+                            @click="extensionDialog = false" >
+                        <span v-language:inner>tutor_chrome_ext_btn_cancel</span>
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -118,6 +127,7 @@
         .cast-icon{
             fill: #ffffff;
             height: 16px;
+            margin-right: 4px/*rtl:ignore*/;
 
         }
     }

@@ -9,8 +9,8 @@ export default {
         let cacheControl = `?v=${global.version}&l=${global.lang}`;
         return connectivityModule.http.get(`/Question/subject${cacheControl}`)
     },
-    postQuestion: ({subjectId, course, text, price, files}) => {
-       return connectivityModule.http.post("/Question", {subjectId, course, text, price, files})
+    postQuestion: ({subjectId, course, text, files}) => {
+       return connectivityModule.http.post("/Question", {subjectId, course, text, files})
     },
     getQuestion: (id) => connectivityModule.http.get("/Question/"+id).then(({data}) => {
         let res = searchService.createQuestionItem(data);

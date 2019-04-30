@@ -76,7 +76,7 @@
                 if (!!this.userEmail) {
                     let self = this;
                     self.loading = true;
-                    registrationService.validateEmail(self.userEmail)
+                    registrationService.validateEmail(encodeURIComponent(self.userEmail))
                         .then((response) => {
                             self.loading = false;
                             let step = response.data.step;

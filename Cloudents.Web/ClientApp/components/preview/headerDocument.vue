@@ -40,7 +40,7 @@
                         <span class="downloaded-text">{{item && item.downloads ? item.downloads : 0}}</span>
                     </div>
                 </div>
-                <div class="details" v-if="$vuetify.breakpoint.smAndUp">
+                <div class="details text-truncate" v-if="$vuetify.breakpoint.smAndUp">
                     <div class="school detail-cell">
                         <v-icon class="scool-icon icon mr-2">sbf-university</v-icon>
                         <span class="detail-name mr-2" v-language:inner>headerDocument_item_school</span>
@@ -52,10 +52,10 @@
                         <span class="detail-title">{{item ? item.course: ''}}</span>
 
                     </div>
-                    <div class="prof detail-cell">
+                    <div class="prof detail-cell text-truncate">
                         <v-icon class="prof-icon icon mr-2" v-show=" item && item.professor">sbf-professor</v-icon>
                         <span v-show="item && item.professor" class="detail-name mr-3" v-language:inner>headerDocument_item_prof</span>
-                        <span class="detail-title">{{item ?  item.professor : ''}}</span>
+                        <span class="detail-title text-truncate">{{item ?  item.professor : ''}}</span>
                     </div>
                 </div>
                 <div class="views details">

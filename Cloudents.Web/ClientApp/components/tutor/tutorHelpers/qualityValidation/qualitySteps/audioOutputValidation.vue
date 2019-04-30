@@ -4,7 +4,7 @@
            <speakerImage class="speaker-icon"></speakerImage>
        </v-flex>
        <v-flex class="mt-3">
-           <h4 class="auidio-out-title subheading">Audio Output quality test</h4>
+           <h4 class="auidio-out-title subheading" v-language:inner>tutor_quality_out_title</h4>
        </v-flex>
        <v-flex class="mt-3 mb-4">
            <img class="eq-image" src="../../../images/eq.gif" alt="">
@@ -21,8 +21,7 @@
         components: {speakerImage},
         data() {
             return {
-                // soundUrl: 'https://blue-online-static.wyzantcdn.com//static/dist/assets/12_short_working-solutions_0066.mp3',
-                soundUrl: 'http://freemusicdownloads.world/wp-content/uploads/2017/07/Nirvana20-20Smells20Like20Teen20Spirit-hTWKbfoikeg.mp3',
+                soundUrl: `https://zboxstorage.blob.core.windows.net/zboxhelp/new/music-check.mp3`,
                 audio: null
             }
         },

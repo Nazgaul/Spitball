@@ -34,6 +34,8 @@ const addUniversity = () => import("./components/university/addUniversity/addUni
 
 const tutorComponent = () => import("./components/tutor/tutor.vue");
 const studyRoomsComponent = () => import("./components/studyRooms/studyRooms.vue");
+const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.vue");
+
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
 
@@ -122,11 +124,11 @@ let routes2 = [
         alias: [
             "/" + RouteTypes.marketRoute,
             // "/" + RouteTypes.questionRoute,
-            "/" + RouteTypes.flashcardRoute,
+            // "/" + RouteTypes.flashcardRoute,
             // "/" + RouteTypes.notesRoute,
             "/" + RouteTypes.tutorRoute,
-            "/" + RouteTypes.bookRoute,
-            "/" + RouteTypes.jobRoute
+            // "/" + RouteTypes.bookRoute,
+            // "/" + RouteTypes.jobRoute
         ],
         components: resultPage,
         props: resultProps,
@@ -264,15 +266,15 @@ let routes2 = [
     },
 
 
-    {
-        path: "/book/:id",
-        name: RouteTypes.bookDetailsRoute,
-        components: {
-            default: bookDetails,
-            header: bookDetailsHeader
-        },
-        props: bookDetailsProps
-    },
+    // {
+    //     path: "/book/:id",
+    //     name: RouteTypes.bookDetailsRoute,
+    //     components: {
+    //         default: bookDetails,
+    //         header: bookDetailsHeader
+    //     },
+    //     props: bookDetailsProps
+    // },
     {
         path: "/note/:universityName/:courseName/:id/:name",
         alias: ['/document/:universityName/:courseName/:id/:name'],
@@ -297,7 +299,6 @@ let routes2 = [
         name: 'tutoring',
         components: {
             default: tutorComponent,
-            // header: bookDetailsHeader
         },
         header: () => ({
             submitRoute: '/tutoring',
@@ -318,19 +319,19 @@ let routes2 = [
             })
         }
     },
-    {
-        path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
-        name: "flashcard",
-        components: {
-            default: showFlashcard,
-            header: previewHeader
-        },
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
+    // {
+    //     path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
+    //     name: "flashcard",
+    //     components: {
+    //         default: showFlashcard,
+    //         header: previewHeader
+    //     },
+    //     props: {
+    //         default: (route) => ({
+    //             id: route.params.id
+    //         })
+    //     }
+    // },
     {
         path: "/question/:id",
         components: {
@@ -352,17 +353,38 @@ let routes2 = [
     {
         path: "/profile/:id",
         components: {
-            // default: viewProfile,
             default: newProfile,
             header: profilePageHeader,
         },
         name: "profile",
+        // meta:{
+        //     showMobileFooter: true,
+        // },
         props: {
             default: (route) => ({
                 id: route.params.id
             })
         },
     },
+    {
+        path: "/student-or-tutor",
+        components: {
+            // default: viewProfile,
+            default: studentOrTutor,
+            schoolBlock: schoolBlock,
+            header: pageHeader,
+        },
+        name: "studentTutor",
+        meta: {
+            requiresAuth: true
+        },
+        props: {
+            default: (route) => ({
+                id: route.params.id
+            })
+        },
+    },
+
     {
         path: "/wallet",
         components: {
@@ -371,7 +393,7 @@ let routes2 = [
         },
         name: "wallet",
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         },
         props: {
             header: () => ({
@@ -396,25 +418,6 @@ let routes2 = [
             }
         }
     },
-
-    {
-        path: "/conversations",
-        name: "conversations",
-        components: {
-            default: () => import("./components/conversations/conversations.vue"),
-            header: pageHeader
-        },
-        meta: {
-            requiresAuth: true
-        },
-        props: {
-
-            header: () => ({
-                currentSelection: "ask"
-            })
-        },
-    }
-
 ];
 
 for (let v in staticRoutes) {

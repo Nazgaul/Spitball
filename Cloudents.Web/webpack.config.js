@@ -150,7 +150,7 @@ module.exports = (env) => {
                
                 new ExtractTextPlugin({filename: "site.[contenthash].css", allChunks: true}),
                 new WebpackRTLPlugin({
-                    filename: '[name].[contenthash].rtl.css',
+                    filename: 'site.[contenthash].rtl.css',
                     minify: false
                 }),
                 new OptimizeCssAssetsPlugin({

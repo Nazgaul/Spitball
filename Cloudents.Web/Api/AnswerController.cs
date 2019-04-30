@@ -22,6 +22,7 @@ namespace Cloudents.Web.Api
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize, ApiController]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     public class AnswerController : ControllerBase
     {
         //internal const string CreateAnswerPurpose = "CreateAnswer";

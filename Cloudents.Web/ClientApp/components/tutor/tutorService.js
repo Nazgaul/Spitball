@@ -1,12 +1,13 @@
 import Twilio, { connect, createLocalTracks, createLocalVideoTrack, LocalDataTrack } from 'twilio-video';
 import { connectivityModule } from '../../services/connectivity.module';
+import { LanguageService } from '../../services/language/languageService';
 import store from '../../store/index.js';
 import whiteBoardService from "./whiteboard/whiteBoardService";
 
 const dataTrack = new LocalDataTrack();
 
 const uploadCanvasImage = function (formData) {
-    return connectivityModule.http.post("Tutoring/upload", formData);
+    return connectivityModule.http.post("StudyRoom/upload", formData);
 };
 // Attach the Tracks to the DOM.
 const attachTracks = function (tracks, container) {
@@ -132,7 +133,7 @@ const connectToRoom = function (token, options) {
                         store.dispatch('updateRemoteStatus', false);
 
                     });
-
+                    //disconnected room
                     store.getters['activeRoom'].on('disconnected', (room, error) => {
                         if (error.code === 20104) {
                             console.log('Signaling reconnection failed due to expired AccessToken!');
@@ -143,13 +144,17 @@ const connectToRoom = function (token, options) {
                         }else{
                             console.log('final disconnect')
                         }
-                        console.log('room closed', store.state.tutoringMainStore.roomStateEnum.ready);
                         if(store.getters['getStudyRoomData'].isTutor){
                             store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
                         }else{
                             store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
 
                         }
+                        let toasterParams = {
+                            text: LanguageService.getValueByKey('studyRoom_session_ended'),
+                            type: 'error-toaster'
+                        }
+                        store.dispatch('showRoomToasterMessage', toasterParams);
                         //detach all local tracks to prevent multiple added tracks
                         store.getters['activeRoom'].localParticipant.tracks.forEach(function(track) {
                             detachTracks([track]);
@@ -240,11 +245,13 @@ function RoomProps(ObjInit) {
     this.conversationId = ObjInit.conversationId || '';
     this.onlineDocument = ObjInit.onlineDocument || '';
     this.isTutor = store.getters['accountUser'].id == ObjInit.tutorId;
+    this.roomId = ObjInit.roomId || '';
+    this.allowReview = ObjInit.allowReview;
 }
 
 const createRoomProps = function createLeaderBoardItem(ObjInit){
     return new RoomProps(ObjInit)
-}
+};
 
 export default {
     dataTrack,

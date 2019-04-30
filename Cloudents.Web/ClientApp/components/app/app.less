@@ -194,10 +194,16 @@ html {
 }
 
 .v-snack--top {
-  margin-top: 150px;
+  margin-top: 37px;
   position: fixed;
   @media (max-width: @screen-xs) {
     margin-top: 0;
+  }
+}
+
+.error-toaster{
+  .v-snack__content{
+    background-image: linear-gradient(93deg, #db3e3e, #be0303) !important;
   }
 }
 
@@ -209,10 +215,12 @@ html {
   line-height: 1.35;
   letter-spacing: -0.4px;
   color: #ffffff;
+  
   .text-wrap {
     width: 100%;
     text-align: center;
   }
+  
   @media (max-width: @screen-xs) {
     height: 88px;
   }

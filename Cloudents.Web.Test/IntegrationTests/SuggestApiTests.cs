@@ -3,13 +3,14 @@ using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class SuggestApiTests : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class SuggestApiTests //: IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
+        private readonly System.Net.Http.HttpClient _client;
 
         public SuggestApiTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
+            _client = factory.CreateClient();
         }
 
         [Theory]
@@ -19,11 +20,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         [InlineData("/api/suggest")]
         public async Task GetAsync_Ok(string url)
         {
-            // Arrange
-            var client = _factory.CreateClient();
+            var response = await _client.GetAsync(url);
 
-            // Act
-            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
         }
     }

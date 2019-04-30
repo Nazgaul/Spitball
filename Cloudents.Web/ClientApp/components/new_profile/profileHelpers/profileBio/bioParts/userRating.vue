@@ -1,8 +1,8 @@
 <template>
         <v-layout align-center justify-center class="rating-container">
             <v-flex shrink class="mr-2">
-                <v-rating
-                        v-model="rating"
+                <v-rating :class="{'rtl-rating': isRtl}"
+                        v-model="dynamicRating"
                         :color="starColor"
                         :background-color="starColor"
                         :length="ratingLength"
@@ -16,12 +16,11 @@
                 ></v-rating>
             </v-flex>
             <v-flex>
-                <div class="mb-1">
-                   <span :style="{ color: rateNumColor }" class="caption ml-1 pb-1 ">
+                <div class="">
+                   <span v-show="showRateNumber" :style="{ color: rateNumColor }" class="caption ml-1 pb-1 rating-number">
        {{ rating }}
       </span>
                 </div>
-
             </v-flex>
         </v-layout>
 </template>
@@ -31,10 +30,15 @@
         name: "userReviews",
         data() {
             return {
-                ratingLength: 5
+                ratingLength: 5,
+                isRtl: global.isRtl
             }
         },
         props: {
+            callbackFn: {
+                type: Function,
+                required: false
+            },
             starColor: {
                 type: String,
                 default: '#ffca54'
@@ -55,12 +59,37 @@
                 type: Number,
                 default: 0
             },
+            showRateNumber:{
+                type: Boolean,
+                default: true
+            }
+        },
+        computed: {
+            dynamicRating:{
+             get(){
+                 return this.rating
+             },
+            set(newValue){
+                if(this.callbackFn){
+                    this.callbackFn(newValue)
+                }
+            }
+            }
         },
     }
 </script>
 
 <style lang="less">
     .rating-container{
+        .rtl-rating{
+            .sbf-star-rating-half{
+                -moz-transform: scaleX(-1)/*rtl:ignore*/;
+                -o-transform: scaleX(-1)/*rtl:ignore*/;
+                -webkit-transform: scaleX(-1)/*rtl:ignore*/;
+                transform: scaleX(-1)/*rtl:ignore*/;
+
+            }
+        }
         .v-rating{
             .v-icon{
                 padding: 0;

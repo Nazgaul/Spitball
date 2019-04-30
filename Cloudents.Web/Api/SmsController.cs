@@ -34,6 +34,7 @@ namespace Cloudents.Web.Api
         private readonly ILogger _logger;
 
         private const string SmsTime = "SmsTime";
+        private const string PhoneCallTime = "phoneCallTime";
 
         public SmsController(SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager,
             ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
@@ -88,8 +89,6 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-
-         
             user.Country = phoneNumber.country;
 
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber.phoneNumber);
@@ -114,6 +113,7 @@ namespace Cloudents.Web.Api
             if (retVal.Succeeded)
             {
                 TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                TempData[PhoneCallTime] = DateTime.UtcNow.AddMinutes(-2).ToString(CultureInfo.InvariantCulture);
                 await _client.SendSmsAsync(user, token);
                 return Ok();
             }
@@ -196,14 +196,18 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> ResendAsync(CancellationToken token)
         {
             var t = TempData.Peek(SmsTime);
-            if (t != null)
+            if (t == null)
             {
-                var temp = DateTime.Parse(t.ToString(), CultureInfo.InvariantCulture);
-                if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
-                {
-                    return Ok();
-                }
+                TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                return Ok();
             }
+
+            var temp = DateTime.Parse(t.ToString(), CultureInfo.InvariantCulture);
+            if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+            {
+                return Ok();
+            }
+
 
             if (User.Identity.IsAuthenticated)
             {
@@ -226,17 +230,12 @@ namespace Cloudents.Web.Api
         [HttpPost("call")]
         public async Task<IActionResult> CallUserAsync(CancellationToken token)
         {
-            var phoneCallTime = "phoneCallTime";
-            var t = TempData.Peek(phoneCallTime);
-            if (t != null)
+            var t = TempData.Peek(PhoneCallTime);
+            if (t == null)
             {
-                var temp = DateTime.Parse(t.ToString(), CultureInfo.InvariantCulture);
-                if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
-                {
-                    return Ok();
-                }
+                TempData[PhoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                return Ok();
             }
-
             if (User.Identity.IsAuthenticated)
             {
                 _logger.Error("Set User Phone number User is already sign in");
@@ -250,7 +249,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            TempData[phoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+            TempData[PhoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await _client.SendPhoneAsync(user, token);
             return Ok();
         }

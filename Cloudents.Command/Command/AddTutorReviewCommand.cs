@@ -1,22 +1,19 @@
-﻿using Cloudents.Core.Entities;
-using System;
+﻿using System;
 
 namespace Cloudents.Command.Command
 {
     public class AddTutorReviewCommand : ICommand
     {
-        public AddTutorReviewCommand(Guid roomId, string review, float rate, long tutorId, long userId)
+        public AddTutorReviewCommand(Guid roomId, string review, float rate, long userId)
         {
             RoomId = roomId;
             Review = review;
             Rate = rate;
-            TutorId = tutorId;
             UserId = userId;
         }
-        public virtual Guid RoomId { get; set; }
-        public virtual string Review { get; }
-        public virtual float Rate { get; }
-        public long TutorId { get;  }
+        public Guid RoomId { get; set; }
+        public string Review { get; }
+        public float Rate { get; }
         public long UserId { get; }
     }
 }

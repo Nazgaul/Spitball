@@ -170,3 +170,4 @@ Cloudents.Web/wwwroot/dist/main.js
 /Cloudents.Web/.idea
 /Cloudents.Web/publicsuffixcache.dat
 .idea/
+/Cloudents.Web/package-lock.json

@@ -3,7 +3,6 @@ using Cloudents.Search.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Search.Entities

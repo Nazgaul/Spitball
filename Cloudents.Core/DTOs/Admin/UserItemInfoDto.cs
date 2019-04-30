@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using System;
+using Cloudents.Core.Enum;
 
 
 namespace Cloudents.Core.DTOs.Admin
@@ -19,7 +20,7 @@ namespace Cloudents.Core.DTOs.Admin
         [DtoToEntityConnection(nameof(Answer.Question.Text))]
         public string QuestionText { get; set; }
         [DtoToEntityConnection(nameof(Answer.Status.State))]
-        public string State { get; set; }
+        public ItemState State { get; set; }
 
     }
 
@@ -32,7 +33,7 @@ namespace Cloudents.Core.DTOs.Admin
         [DtoToEntityConnection(nameof(Question.Created))]
         public DateTime Created { get; set; }
         [DtoToEntityConnection(nameof(Question.Status.State))]
-        public string State { get; set; }
+        public ItemState State { get; set; }
     }
     public class UserDocumentsDto
     {

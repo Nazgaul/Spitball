@@ -18,6 +18,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Controllers
 {
@@ -98,9 +99,10 @@ namespace Cloudents.Web.Controllers
             return t;
         }
 
-        [Route("document/{universityName}/{courseName}/{id:long}/{name}", Name = SeoTypeString.Document)]
-        [ActionName("Index")]
-        public async Task<IActionResult> IndexAsync(long id, string courseName, string name, string universityName,
+        [Route("document/{universityName}/{courseName}/{id:long}/{name}", 
+            Name = SeoTypeString.Document)]
+        [ActionName("Index"), SignInWithToken]
+        public async Task<IActionResult> IndexAsync(long id, string courseName, string name,
             CancellationToken token)
         {
             var query = new DocumentSeoById(id);

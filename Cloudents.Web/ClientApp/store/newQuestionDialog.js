@@ -23,8 +23,7 @@ const actions = {
                 2: "BLOCK_CARD",
                 3: "FAB_ICON",
                 4: "STRIP_BUTTON",
-                5: "PROFILE_ORIGINAL"
-            }
+                5: "PROFILE_ORIGINAL"}
             //fire event only when dialog opens
             analyticsService.sb_unitedEvent('AB_TESTING', 'ASK_QUESTION_CLICKED', FromTypes[fromButton])
         }

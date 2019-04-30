@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Runtime.Serialization;
 
 namespace Cloudents.Core.DTOs
 {
     public class TutorListDto
     {
-        [DataMember] public long UserId { get; set; }
-        [DataMember] public string Name { get; set; }
-        [DataMember] public string Image { get; set; }
-        [DataMember] public string Bio { get; set; }
-        [DataMember] public decimal Price { get; set; }
-        [DataMember] public int Score { get; set; }
-        [DataMember] public float? Rate { get; set; }
+       public long UserId { get; set; }
+       public string Name { get; set; }
+       public string Image { get; set; }
+       public string Courses { get; set; }
+       public decimal Price { get; set; }
+       public int Score { get; set; }
+       public float? Rate { get; set; }
     }
 }

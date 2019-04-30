@@ -1,6 +1,6 @@
 <template>
     <v-card class="tutor-edit-wrap pb-3"  >
-        <v-form v-model="valid" ref="form">
+        <v-form v-model="valid" ref="formTutor">
         <v-layout class="header px-3 py-3 mb-3">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
@@ -44,13 +44,14 @@
                         <span class="subtitle" v-language:inner>profile_pricing</span>
                     </v-flex>
                     <v-flex>
-                        <v-text-field class="disabled-background"
+                        <v-text-field class=""
+                                      :rules="[rules.required, rules.minimum, rules.maximum]"
                                       :label="priceLabel"
-                                      v-model="priceHour"
+                                      v-model="price"
                                       outline
                                       prefix="₪"
-                                      readonly
-                                      hide-details
+                                      type="number"
+                                      :hide-details="$vuetify.breakpoint.xsOnly"
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
@@ -66,6 +67,7 @@
                         rows="2"
                         outline
                         v-model="description"
+                        :rules="[rules.maximumChars]"
                         name="input-about"
                         :label="titleLabel"
                 ></v-textarea>
@@ -76,13 +78,14 @@
                 <v-textarea
                         rows="5"
                         outline
+                        :rules="[rules.maximumChars]"
                         v-model="bio"
                         name="input-bio"
                         :label="bioLabel"
                 ></v-textarea>
             </v-flex>
         </v-layout>
-        <v-layout align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-around px-1' : 'justify-end px-3']">
+        <v-layout align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between px-3' : 'justify-end px-3']">
             <v-flex xs5 sm2 md2>
                 <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
                     <span v-language:inner>profile_btn_cancel</span>
@@ -102,7 +105,7 @@
     import accountService from '../../../../services/accountService';
     import { mapGetters, mapActions } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
-
+    import {validationRules} from '../../../../services/utilities/formValidationRules'
     export default {
         name: "tutorInfoEdit",
         data() {
@@ -116,9 +119,12 @@
                 editedDescription: '',
                 editedFirstName: '',
                 editedLastName: '',
-                priceHour: 50,
+                editedPrice: 1,
                 rules: {
-                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
+                    required:(value)=> validationRules.required(value),
+                    minimum:(value)=>  validationRules.positiveNumber(value),
+                    maximum:(value)=>  validationRules.maxVal(value, 200000),
+                    maximumChars:(value)=>  validationRules.maximumChars(value, 255)
                 },
                 valid: false,
 
@@ -148,6 +154,14 @@
                     this.editedFirstName = newVal;
                 }
             },
+            price: {
+                get(){
+                    return this.getProfile.user.tutorData.price
+                },
+                set(newVal){
+                    this.editedPrice = newVal;
+                }
+            },
             lastName: {
                 get() {
                     // return this.getProfile.user.lastName
@@ -155,7 +169,7 @@
                 },
                 set(newVal) {
                     console.log('new val::', newVal)
-                    this. editedLastName = newVal;
+                    this.editedLastName = newVal;
                 }
             },
             description: {
@@ -171,12 +185,13 @@
         methods: {
             ...mapActions(['updateEditedProfile']),
             saveChanges() {
-                if(this.$refs.form.validate()){
+                if(this.$refs.formTutor.validate()){
                     let editsData ={
                         name: this.editedFirstName || this.firstName,
                         lastName: this.editedLastName || this.lastName,
-                        bio: this.editedBio || this.bio,
-                        description: this.editedDescription || this.description
+                        price: this.editedPrice || this.price,
+                        bio: this.editedBio,
+                        description: this.editedDescription
                     };
                     accountService.saveTutorInfo(editsData)
                         .then((success) => {
@@ -191,6 +206,11 @@
             },
 
         },
+        created(){
+            this.editedBio = this.getProfile.about.bio || '';
+            this.editedDescription = this.getProfile.user.description || '';
+        }
+
     }
 </script>
 
@@ -198,6 +218,9 @@
     @import '../../../../styles/mixin.less';
 
     .tutor-edit-wrap {
+        @media(max-width: @screen-xs){
+            overflow-x: hidden;
+        }
         .disabled-background {
             .v-input__slot {
                 background-color: #f5f5f5 !important;
@@ -207,7 +230,8 @@
             border: 1px solid #4452fc;
             color: @color-blue-new;
             @media (max-width: @screen-xs) {
-                min-width: 180px;
+                min-width: 100%;
+                padding: 0 16px ;
                 border-radius: 0;
             }
         }
@@ -217,7 +241,8 @@
             color: @color-white;
             box-shadow: none !important;
             @media (max-width: @screen-xs) {
-                min-width: 180px;
+                min-width: 100%;
+                padding: 0 16px ;
                 border-radius: 0;
             }
         }

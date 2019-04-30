@@ -1,23 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
+using FluentAssertions;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
-    [CollectionDefinition("Database collection")]
-    public class DatabaseCollection : ICollectionFixture<DatabaseFixture>
-    {
-        // This class has no code, and is never created. Its purpose is simply
-        // to be the place to apply [CollectionDefinition] and all the
-        // ICollectionFixture<> interfaces.
-    }
-
     [Collection("Database collection")]
     public class ReadTests
     {
@@ -36,17 +28,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentAggregateQuery_Ok()
         {
-            var query = new DocumentAggregateQuery(638, 0,null,"IL");
+            var query = new DocumentAggregateQuery(638, 0, null, "IL");
 
             var result = await fixture._queryBus.QueryAsync(query, default);
 
-            
+
         }
 
         [Fact]
         public async Task DocumentAggregateQuery_WithFilter_Ok()
         {
-            var query = new DocumentAggregateQuery(638, 0, new []{"x", "y" },"IL");
+            var query = new DocumentAggregateQuery(638, 0, new[] { "x", "y" }, "IL");
 
             var result = await fixture._queryBus.QueryAsync(query, default);
         }
@@ -54,7 +46,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentAggregateQuery_NoUser_Ok()
         {
-            var query = new DocumentAggregateQuery(0, 0, new[] { "x", "y" },"IL");
+            var query = new DocumentAggregateQuery(0, 0, new[] { "x", "y" }, "IL");
 
             var result = await fixture._queryBus.QueryAsync(query, default);
         }
@@ -62,7 +54,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentCourseQuery_Ok()
         {
-            var query = new DocumentCourseQuery(638, 0, "economics",  null);
+            var query = new DocumentCourseQuery(638, 0, "economics", null);
 
             var result = await fixture._queryBus.QueryAsync(query, default);
         }
@@ -114,7 +106,32 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             var result = await fixture._queryBus.QueryAsync(query, default);
         }
-        //UserStudyRoomQuery
 
+        [Theory]
+        [InlineData(638,null,0)]
+        [InlineData(638, "ארה\"ב",0)]
+        [InlineData(638, "ממ\"",0)]
+        [InlineData(638, "אלגברה ל", 0)]
+        public async Task CourseSearchQuery_Ok(long userId,string term,int page)
+        {
+            var query = new CourseSearchQuery(userId, term, page);
+
+            var result = await fixture._queryBus.QueryAsync(query, default);
+
+            result.Should().HaveCountGreaterOrEqualTo(1);
+        }
+
+
+        [Fact]
+        
+        public async Task UserProfileQuery_Ok()
+        {
+            var query = new UserProfileQuery(638);
+
+            var result = await fixture._queryBus.QueryAsync(query, default);
+        }
+
+
+        //UserProfileQuery
     }
 }

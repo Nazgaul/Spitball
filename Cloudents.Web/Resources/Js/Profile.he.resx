@@ -121,16 +121,16 @@
     <value>אודות</value>
   </data>
   <data name="aboutme" xml:space="preserve">
-    <value>אודותי</value>
+    <value>קצת עלי</value>
   </data>
   <data name="Answers" xml:space="preserve">
     <value>תשובות</value>
   </data>
   <data name="become_tutor_btn" xml:space="preserve">
-    <value>הפוך למרצה</value>
+    <value>צור פרופיל מתרגל</value>
   </data>
   <data name="bio_label" xml:space="preserve">
-    <value>אודותי</value>
+    <value>הניסיון שלי</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>ביטול</value>
@@ -154,7 +154,7 @@
     <value>הקורסים שלי</value>
   </data>
   <data name="cta_section_title" xml:space="preserve">
-    <value>השגת תוצאות במהירות!</value>
+    <value>השג תוצאות במהירות!</value>
   </data>
   <data name="description_label" xml:space="preserve">
     <value>כותרת</value>
@@ -195,6 +195,9 @@
   <data name="expand_more_courses" xml:space="preserve">
     <value>קורסים נוספים</value>
   </data>
+  <data name="expand_more_single_course" xml:space="preserve">
+    <value>קורס נוסף</value>
+  </data>
   <data name="firstName_label" xml:space="preserve">
     <value>שם פרטי</value>
   </data>
@@ -228,6 +231,9 @@
   <data name="reviews" xml:space="preserve">
     <value>חוות דעת</value>
   </data>
+  <data name="single_review" xml:space="preserve">
+    <value>חוות דעת</value>
+  </data>
   <data name="subjects" xml:space="preserve">
     <value>נושאים</value>
   </data>
@@ -247,10 +253,10 @@
     <value>מחובר</value>
   </data>
   <data name="user_sidebar_text" xml:space="preserve">
-    <value>עזור לאחרים במה שיש לך הכי הרבה ידע</value>
+    <value>עזור לאחרים באמצעות הידע שלך</value>
   </data>
   <data name="user_sidebar_title" xml:space="preserve">
-    <value>הרווח</value>
+    <value>בוא להרוויח</value>
   </data>
   <data name="who_am_i" xml:space="preserve">
     <value>מי אני?</value>

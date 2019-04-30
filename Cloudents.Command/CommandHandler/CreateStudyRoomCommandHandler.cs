@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
@@ -22,6 +23,10 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(CreateStudyRoomCommand message, CancellationToken token)
         {
             var userTutor = await _userRepository.LoadAsync(message.TutorId, token);
+            if (userTutor.Tutor == null)
+            {
+                throw new InvalidOperationException("user is not a tutor");
+            }
             var student = await _userRepository.LoadAsync(message.StudentId, token);
             var url = await _googleDocument.CreateOnlineDocAsync(
                 ChatRoom.BuildChatRoomIdentifier(new[] {userTutor.Id, student.Id}), token);

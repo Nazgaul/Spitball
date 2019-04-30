@@ -35,9 +35,9 @@ namespace Cloudents.Query.Query
                     //TODO : change to nhibernate
                     
                     var t =  await conn.QueryAsync<UserProfileDto, UserTutorProfileDto, UserProfileDto>(@"
-select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description,
+select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description,u.online,
 t.price as price, u.FirstName,u.LastName,
-u.online,
+
 (Select avg(rate) from sb.tutorReview where tutorId = t.Id) as rate,
 (Select count(*) from sb.tutorReview where tutorId = t.Id) as ReviewCount
 from sb.[user] u 
@@ -45,7 +45,7 @@ left join sb.[University] u2 on u.UniversityId2 = u2.Id
 left join sb.Tutor t
 	on U.Id = t.Id
 where u.id = @Id
-and (u.LockoutEnd is null or u.LockoutEnd < GETUTCDATE())
+and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())
 ", (dto, profileDto) =>
                     {
                         dto.Tutor = profileDto;

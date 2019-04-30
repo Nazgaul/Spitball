@@ -1,12 +1,10 @@
 ﻿using Cloudents.Core.Interfaces;
 using Cloudents.Search.Document;
-using Cloudents.Search.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

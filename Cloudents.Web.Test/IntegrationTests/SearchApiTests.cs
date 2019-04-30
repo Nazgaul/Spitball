@@ -1,33 +1,42 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class SearchApiTests : IClassFixture<SbWebApplicationFactory>
+    [Collection(SbWebApplicationFactory.WebCollection)]
+    public class SearchApiTests //: IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
+        private readonly System.Net.Http.HttpClient _client;
 
         public SearchApiTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
+        }
+
+        [Theory]
+        [InlineData("/api/search/flashcards")]
+        public async Task SearchDocumentAsync_Ok(string url)
+        {
+            var response = await _client.GetAsync(url);
+
+            response.EnsureSuccessStatusCode();
         }
 
         [Theory]
         [InlineData("/api/Search/documents?Format=none")]
         [InlineData("/api/search/document")]
-        [InlineData("/api/search/flashcards")]
         [InlineData("api/search/documents?query=>\"'><script>alert(72)<%2Fscript>&university=>\"'><script>alert(72)<%2Fscript>")]
-        public async Task SearchDocumentAsync_Ok(string url)
+        public async Task SearchDocumentAsync_Not_Found(string url)
         {
-            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions
-            {
-                AllowAutoRedirect = false
-            });
+            var response = await _client.GetAsync(url);
 
-            // Act
-            var response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
      

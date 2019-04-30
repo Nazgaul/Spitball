@@ -3,15 +3,6 @@
 </template>
 
 <script>
-    /*
-    * Receives object item as prop
-    * required item.id -> integer (helps to apply specific formatter)
-    * required item.data -> integer ( data to tween)
-    * accept conditional prop, startValue, value to start animation from
-    *
-    * */
-
-    //var TWEEN = require('./tweenJS.js');
     export default {
         name: "tweenNumber",
         props: {

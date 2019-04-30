@@ -9,6 +9,7 @@ function Conversation(objInit){
     this.dateTime = objInit.dateTime || new Date().toISOString();
     this.image = objInit.image;
     this.studyRoomId = objInit.studyRoomId;
+    this.lastMessage = objInit.lastMessage
 }
 
 function createConversation(objInit){
@@ -20,6 +21,9 @@ function TextMessage(objInit, id){
     this.text = objInit.text;
     this.conversationId = id;
     this.type = objInit.type;
+    this.dateTime = objInit.dateTime || new Date().toISOString();
+    this.name = objInit.name;
+    this.image = objInit.image;
 }
 function FileMessage(objInit, id){
     this.userId= objInit.userId;
@@ -27,6 +31,9 @@ function FileMessage(objInit, id){
     this.src = objInit.src;
     this.href = objInit.href;
     this.type = objInit.type;
+    this.dateTime = objInit.dateTime || new Date().toISOString();
+    this.name = objInit.name;
+    this.image = objInit.image;
 }
 
 function activeConversationObj(objInit){
@@ -75,7 +82,10 @@ const sendChatMessage = (messageObj) => {
 }
 
 const clearUnread = (otherUserId) => {
-    return connectivityModule.http.post(`Chat/read?otherUser=${otherUserId}`);
+    let serverObj = {
+        otherUserId:otherUserId
+    }
+    return connectivityModule.http.post(`Chat/read`, serverObj);
 }
 
 export default {

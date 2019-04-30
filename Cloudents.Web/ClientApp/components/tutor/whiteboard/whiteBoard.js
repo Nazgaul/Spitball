@@ -3,7 +3,6 @@ import {
 } from 'vue-color'
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
-import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
 import { mapGetters, mapActions } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue"
@@ -12,7 +11,6 @@ import tutorService from "../tutorService";
 export default {
     components: {
         'sliderPicker': Compact,
-         shareRoomBtn,
          equationMapper
     },
     data() {
@@ -53,9 +51,7 @@ export default {
                 pan: 'panTool',
             },
             currentOptionSelected: whiteBoardService.init('liveDraw'),
-            selectedOptionString: 'liveDraw',
             canvasData: {
-                shapesSelected: {},
                 shouldPaint: false,
                 context: null,
                 helper: helperUtil.HelperObj,
@@ -77,7 +73,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['isRoomCreated', 'getDragData','getZoom']),
+        ...mapGetters(['isRoomCreated', 'getDragData','getZoom', 'selectedOptionString']),
         helperStyle(){
             return helperUtil.HelperObj.style
         },
@@ -103,19 +99,20 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan']),
+        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString']),
         selectDefaultTool(){
             this.setOptionType(this.enumOptions.select);
         },
         setOptionType(selectedOption) {
             this.currentOptionSelected = whiteBoardService.init.bind(this.canvasData, selectedOption)();
-            this.selectedOptionString = selectedOption;
+            this.setSelectedOptionString(selectedOption);
             helperUtil.HelperObj.isActive = false;
             if(selectedOption === this.enumOptions.image){
                 let inputImgElm = document.getElementById('imageUpload');
                 inputImgElm.click();
                 this.selectDefaultTool();
             }
+            this.hideColorPicker();
         },
         showColorPicker() {
             this.showPickColorInterface = true;

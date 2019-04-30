@@ -1,9 +1,7 @@
 import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
 import {mapActions} from 'vuex'
-import disableForm from "../mixins/submitDisableMixin";
 
 export default {
-    mixins: [disableForm],
     components: {
         questionCard
     },

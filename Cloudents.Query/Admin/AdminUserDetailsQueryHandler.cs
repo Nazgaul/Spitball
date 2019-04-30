@@ -48,13 +48,7 @@ namespace Cloudents.Query.Admin
                     {
                         id = query.UserId,
                     });
-            };
-
-                    
-         
-
-         
-
+            }
         }
     }
 }

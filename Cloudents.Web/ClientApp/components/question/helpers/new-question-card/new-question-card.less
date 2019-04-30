@@ -1,28 +1,16 @@
 @import "../../../../styles/mixin.less";
 //keep it ont his level due to v-menu attached at higher level
 .card-user-actions {
-  //.report-list{
-  //  .report-list-item {
-  //    animation-duration: 0ms;
-  //    &:hover {
-  //      background: @color-blue-new!important;
-  //      color: @color-white;
-  //      .list-item-icon{
-  //        color: @color-white;
-  //      }
-  //    }
-  //  }
-  //}
   cursor: pointer;
 }
 
 .cursor-text {
-  cursor: text !important;
+  cursor: text !important; //TODO: do we use it
 }
 
 .question-container {
   width: 100%;
-  max-width: @cellWidth;
+  //max-width: @cellWidth;
   padding: 16px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
   background-color: #ffffff;
@@ -37,7 +25,7 @@
     white-space: nowrap;
     .question-header-large-sagment {
       display: flex;
-      width: 90%;
+      width: 95%;
       @media (max-width: @screen-xs) {
         margin-top: -10px;
       }

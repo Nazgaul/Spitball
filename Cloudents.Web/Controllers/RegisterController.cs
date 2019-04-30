@@ -33,7 +33,7 @@ namespace Cloudents.Web.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return Redirect("/");
             }
 
             if (!step.HasValue) return View();

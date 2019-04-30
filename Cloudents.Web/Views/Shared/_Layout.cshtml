@@ -13,7 +13,7 @@
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
     var cdnEndPoint = Constants.GetCdnEndpoint(Configuration);
-    var isAuth = ViewBag.Auth ?? User.Identity.IsAuthenticated;
+    var isAuth = User.Identity.IsAuthenticated;
 }
 <!DOCTYPE html>
 
@@ -113,7 +113,6 @@
     window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(4)';
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @isAuth.ToString().ToLower();
-    window.talkJsId = '@Configuration["TalkJs"]';
         window.paypalEnv = '@(Environment.IsProduction() ? "production" : "sandbox")';
 
     @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@

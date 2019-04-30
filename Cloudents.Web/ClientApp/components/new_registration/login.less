@@ -285,7 +285,7 @@
           .email-text {
             color: @color-black;
             &.click {
-              color: @color-main-purple;
+              color: @color-blue;
               margin-left: 3px;
             }
           }
@@ -563,11 +563,6 @@
           background: @color-main-purple;
           color: @color-white;
         }
-        // @media (max-width: @screen-xs) {
-        //   width: 312px;
-        //   max-width: 312px;
-        //   min-width: 312px;
-        // }
       }
       .google-signin {
         background: @google-btn-bg;
@@ -577,9 +572,9 @@
         color: #ffffff;
         width: 100%;
         height: @registrationFieldHeight;
-        margin-top: 40px;
         text-transform: capitalize;
         font-weight: normal;
+        margin: 40px 0 6px 0;
         &:hover {
           background: lighten(@google-btn-bg, 10%);
           border: 1px solid @google-btn-bg;
@@ -591,9 +586,6 @@
         .transition (all .2s ease-in-out);
         @media (max-width: @screen-xs) {
           margin: 0 auto;
-         // width: 312px;
-          // max-width: 312px;
-          // min-width: 312px;
           width:100%;
         }
       }
@@ -1029,7 +1021,7 @@
         font-weight: 600;
       }
       .email-change {
-        color: @color-main-purple;
+        color:@color-blue;
         font-size: 18px;
         cursor: pointer;
         margin-left: 6px;

@@ -124,7 +124,7 @@
     <value>Ask your question here…</value>
   </data>
   <data name="class_placeholder" xml:space="preserve">
-    <value>For what class?</value>
+    <value>For what course?</value>
   </data>
   <data name="error_general" xml:space="preserve">
     <value>Something went wrong, try again.</value>
@@ -139,7 +139,7 @@
     <value>Don’t forget to select the subject for your question</value>
   </data>
   <data name="no_class" xml:space="preserve">
-    <value>There are no classes</value>
+    <value>There are no courses</value>
   </data>
   <data name="regular_error_invalidValue" xml:space="preserve">
     <value>Invalid value</value>

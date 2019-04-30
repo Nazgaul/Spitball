@@ -71,17 +71,6 @@
                     <v-list-tile-title class="subheading" v-language:inner>menuList_my_wallet</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
-            <router-link tag="v-list-tile" :to="{name:'conversations'}">
-                <v-list-tile-action>
-                    <v-icon>sbf-comment</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title class="subheading" v-language:inner>menuList_messages</v-list-tile-title>
-                </v-list-tile-content>
-                <v-list-tile-avatar>
-                    <span class="red-counter subheading" v-if="unreadMessages">{{unreadMessages}}</span>
-                </v-list-tile-avatar>
-            </router-link>
             <router-link tag="v-list-tile" :to="{name:'profile',params:{id:accountUser.id}}">
                 <v-list-tile-action>
                     <v-icon>sbf-user</v-icon>

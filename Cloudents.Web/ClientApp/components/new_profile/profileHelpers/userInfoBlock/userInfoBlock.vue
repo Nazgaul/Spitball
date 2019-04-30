@@ -5,7 +5,7 @@
                     <v-flex  v-if="$vuetify.breakpoint.smAndUp">
                         <div>
                             <div class="mb-2 text-sm-center text-xs-center">
-                                <h2 class="box-title font-weight-black" v-language:inner>profile_user_sidebar_title</h2>
+                                <h2 class="box-title" v-language:inner>profile_user_sidebar_title</h2>
                                     <span class="tutoring-info-heading caption d-block font-weight-bold font-italic" v-language:inner>profile_user_sidebar_text
 
                                     </span>

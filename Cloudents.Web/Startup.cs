@@ -34,6 +34,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -99,8 +101,9 @@ namespace Cloudents.Web
                 .AddMvcOptions(o =>
                 {
                     //TODO: check in source code
+                    o.Filters.Add<OperationCancelledExceptionFilter>();
                     o.Filters.Add<UserLockedExceptionFilter>();
-                    o.Filters.Add(new GlobalExceptionFilter());
+                    o.Filters.Add<GlobalExceptionFilter>();
                     o.Filters.Add(new ResponseCacheAttribute
                     {
                         NoStore = true,
@@ -309,7 +312,6 @@ namespace Cloudents.Web
                 routes.MapHub<StudyRoomHub>("/StudyRoomHub");
             });
 
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -324,19 +326,20 @@ namespace Cloudents.Web
                 );
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-            app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
-            {
-                builder.UseMvc(routes =>
-                {
-                    routes.MapSpaFallbackRoute(
-                        name: "spa-fallback",
-                        defaults: new { controller = "Home", action = "Index" });
-                });
+                    template: "{controller}/{action}/{id?}");
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new
+                    {
+                       // routeName = "MyRoute",
+                        controller = "Home",
+                        action = "Index"
+                    });
             });
         }
     }
+
+    
 
 
 }

@@ -1,8 +1,6 @@
 ﻿using Autofac;
-using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Search.Document;
 using Cloudents.Search.Question;
 using Cloudents.Search.Tutor;

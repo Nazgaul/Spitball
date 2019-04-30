@@ -16,9 +16,11 @@
                           v-model="msg" @input="changeMsg"
                           :placeholder="placeholder"
                           prepend-icon="sbf-search"
-                          :hide-on-scroll="isHome?hideOnScroll:false"></v-text-field>
+                          :hide-on-scroll="isHome?hideOnScroll:false">
+
+            </v-text-field>
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
-                <v-list class="search-menu" v-show="showSuggestions">
+                <v-list class="search-menu" v-click-outside="outsideClick" v-show="showSuggestions">
                     <template v-for="(item, index) in suggestList">
                         <v-list-tile class="suggestion" @click="selectos(item)" :key="index">
                             <v-list-tile-action hidden-xs-only>

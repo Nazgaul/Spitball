@@ -5,7 +5,7 @@
                 <videoCameraImage class="video-cam-icon"></videoCameraImage>
             </v-flex>
             <v-flex class="ml-2">
-                <h4 class="video-title subheading">Video quality test</h4>
+                <h4 class="video-title subheading" v-language:inner>tutor_quality_video_title</h4>
 
             </v-flex>
         </v-layout>
@@ -24,7 +24,7 @@
                     hide-details
                     :prepend-icon="''"
                     @change="createVideoQualityPreview()"
-                    :placeholder="'Please select camera'"
+                    :placeholder="placeCamera"
                     :append-icon="'sbf-arrow-down'"
                     solo
                     single-line
@@ -38,6 +38,7 @@
     import { createLocalVideoTrack, } from 'twilio-video';
     import tutorService from '../../../tutorService';
     import videoCameraImage from '../../../images/video-camera.svg'
+    import { LanguageService } from "../../../../../services/language/languageService";
 
     export default {
         name: "videoValidation",
@@ -47,7 +48,8 @@
                 videoEl: null,
                 localTrack: null,
                 avalCameras: [],
-                singleCameraId: ''
+                singleCameraId: '',
+                placeCamera: LanguageService.getValueByKey("tutor_quality_camera_placeholder")
             }
         },
         methods: {
@@ -96,11 +98,11 @@
 </script>
 
 <style lang="less">
-    .select-direction{
-        .v-select-list{
-            direction: ltr/*rtl:ignore*/;
-        }
-    }
+    /*.select-direction{*/
+        /*.v-select-list{*/
+            /*direction: ltr!*rtl:ignore*!;*/
+        /*}*/
+    /*}*/
     .video-quality-wrap {
         .width-force{
             width: 98%;

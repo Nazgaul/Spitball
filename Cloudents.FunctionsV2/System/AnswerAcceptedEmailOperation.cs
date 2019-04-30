@@ -27,10 +27,10 @@ namespace Cloudents.FunctionsV2.System
         public async Task DoOperationAsync(AnswerAcceptedMessage msg, IBinder binder, CancellationToken token)
         {
             //await Task.Delay(TimeSpan.FromSeconds(30), token);
-            var query = new GetAnswerAcceptedEmailQuery(msg.TransactionId);
+            var query = new GetAnswerAcceptedEmailQuery(msg.QuestionId);
             var data = await _queryBus.QueryAsync(query, token);
 
-           
+
             var template = await DocumentPurchasedEmailOperation.GetEmail("AnswerAccepted", data.Language, _queryBus, token);
             var dataProtector = _dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
@@ -38,24 +38,24 @@ namespace Cloudents.FunctionsV2.System
 
             foreach (var block in template.Blocks)
             {
-                block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", data.Tokens.ToString("f2"));
+                // block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", data.Tokens.ToString("f2"));
                 block.Body = block.Body.Replace("\n", "<br>").Inject(data);
                 block.Body = block.Body.Inject(new
                 {
                     data.QuestionText,
                     data.AnswerText
                 });
-              
+
             }
 
             var templateData = new TemplateData()
             {
                 Blocks = template.Blocks
                     .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
-                        _urlBuilder.BuildWalletEndPoint(code))),
+                        _urlBuilder.BuildQuestionEndPoint(data.QuestionId, new { code }))),
                 Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
-                Subject = template.Subject.InjectSingleValue("Tokens", data.Tokens.ToString("f2")),
-                To = data.ToEmailAddress,
+                Subject = template.Subject,//.InjectSingleValue("Tokens", data.Tokens.ToString("f2")),
+                To = data.ToEmailAddress
             };
             await DocumentPurchasedEmailOperation.BuildEmail(data.ToEmailAddress, data.Language, binder, templateData, "AnswerCorrect", token);
         }

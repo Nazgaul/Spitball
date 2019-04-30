@@ -9,9 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
@@ -20,54 +23,50 @@ namespace Cloudents.Web.Controllers
     public class HomeController : Controller
     {
         internal const string Referral = "referral";
-        private readonly IDataProtect _dataProtect;
-        private readonly ILogger _logger;
+        //internal const string RootRoute = "Root";
         private readonly SignInManager<RegularUser> _signInManager;
-        private readonly UserManager<RegularUser> _userManager;
-        private readonly IRestClient _client;
+        private readonly ILogger _logger;
 
-        public HomeController(IDataProtect dataProtect, SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager, ILogger logger, IRestClient client)
+        public HomeController(SignInManager<RegularUser> signInManager, ILogger logger)
         {
-            _dataProtect = dataProtect;
             _signInManager = signInManager;
-            _userManager = userManager;
             _logger = logger;
-            _client = client;
         }
 
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> Index(
-            [FromServices] ICrawlerResolver crawlerResolver,
-            //  [FromHeader(Name = "User-Agent")] string userAgent,
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true), SignInWithToken]
+        [ApiNotFoundFilter]
+        //[Route("", Name = RootRoute)]
+        public IActionResult Index(
+            [FromServices] Lazy<ICrawlerResolver> crawlerResolver,
+            [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral,
-            [FromQuery] string open,
-            [FromQuery] string token
+            [FromQuery] string open
             )
         {
             if (!string.IsNullOrEmpty(referral))
             {
                 TempData[Referral] = referral;
             }
-            if (crawlerResolver.Crawler?.Type == CrawlerType.LinkedIn)
+
+            try
             {
-                ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
+                if (crawlerResolver.Value.Crawler?.Type == CrawlerType.LinkedIn)
+                {
+                    ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                _logger.Exception(ex, new Dictionary<string, string>()
+                {
+                    ["userAgent"] = userAgent
+                });
             }
 
             if (_signInManager.IsSignedIn(User))
             {
                 return View();
-            }
-
-            if (token != null)
-            {
-                await SignInUserAsync(token);
-                return RedirectToAction("Index", new
-                {
-                    referral,
-                    open
-                });
-
-
             }
 
             if (open?.Equals("referral", StringComparison.OrdinalIgnoreCase) == true)
@@ -82,35 +81,15 @@ namespace Cloudents.Web.Controllers
             return View();
         }
 
-
-        public async Task SignInUserAsync(string code)
-        {
-            try
-            {
-
-                var userId = _dataProtect.Unprotect(code);
-                var user = await _userManager.FindByIdAsync(userId);
-                if (user != null)
-                {
-                    ViewBag.Auth = true;
-                    await _signInManager.SignInAsync(user, false);
-                }
-
-            }
-            catch (CryptographicException ex)
-            {
-                //We just log the exception. user open the email too later and we can't sign it.
-                //If we see this persist then maybe we need to increase the amount of time
-                _logger.Exception(ex);
-            }
-        }
-
         [Route("logout")]
         public async Task<IActionResult> LogOutAsync(
             [FromServices] SignInManager<RegularUser> signInManager,
             [FromServices] IHubContext<SbHub> hubContext, CancellationToken token)
         {
-
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/");
+            }
             var message = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
                 new object());
 
@@ -129,7 +108,7 @@ namespace Cloudents.Web.Controllers
 
         [Route("image/{hash}", Name = "imageUrl")]
         [ResponseCache(
-            Duration = TimeConst.Month, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new []{"*"})]
+            Duration = TimeConst.Month, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { "*" })]
         public IActionResult ImageRedirect([FromRoute]string hash, [FromServices] IConfiguration configuration)
         {
             return Redirect(

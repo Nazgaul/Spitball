@@ -6,7 +6,6 @@ using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Question;
 using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Search.Document;
 using Cloudents.Infrastructure.Suggest;
@@ -21,7 +20,6 @@ namespace Cloudents.Infrastructure
         [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]
         protected override void Load(ContainerBuilder builder)
         {
-            var currentAssembly = Assembly.GetExecutingAssembly();
            
             builder.RegisterType<DapperRepository>().AsSelf();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();

@@ -1,4 +1,5 @@
 import chatService from '../services/chatService';
+import { LanguageService } from '../services/language/languageService'
 
 const state = {
     conversations: {},
@@ -10,7 +11,7 @@ const state = {
     },
     chatState:"conversation",
     activeConversationObj: chatService.createActiveConversationObj({}), //points to conversation Obj
-    isVisible: true,
+    isVisible: global.innerWidth < 600 ? false : true,
     isMinimized: true,
     totalUnread: 0,
     chatLocked: false
@@ -49,6 +50,10 @@ const getters = {
 const mutations = {
     addConversationUnread:(state, message)=>{
         state.conversations[message.conversationId].unread++
+        if(message.type === 'text'){
+            state.conversations[message.conversationId].lastMessage = message.text;
+        }
+        state.conversations[message.conversationId].dateTime = message.dateTime;
     },
     addMessage:(state, message)=>{
         let id = message.conversationId || state.activeConversationObj.conversationId;
@@ -57,6 +62,10 @@ const mutations = {
             state.messages = { ...state.messages, [id]:[] };
         }
         state.messages[id].push(message);
+        if(message.type === 'text'){
+            state.conversations[id].lastMessage = message.text;
+        }
+        state.conversations[id].dateTime = message.dateTime;
     },
     setActiveConversationObj(state, obj){
         if(!!state.conversations[obj.conversationId]){
@@ -71,7 +80,6 @@ const mutations = {
     setActiveConversationStudyRoom(state, id){
         state.activeConversationObj.studyRoomId = id;
     },
-    
     addConversation: (state, conversationObj)=>{
         let id = conversationObj.conversationId;
         // add a properly this way allow the computed to be fired!
@@ -82,8 +90,8 @@ const mutations = {
             state.chatState = newChatState;
         }
     },
-    toggleChatMinimize:(state)=>{
-        state.isMinimized = !state.isMinimized;
+    collapseChat:(state)=>{
+        state.isMinimized = true;
     },
     expandChat:()=>{
         state.isMinimized = false;
@@ -114,6 +122,10 @@ const actions = {
             //check if message sent is part of the current conversation
             if(state.activeConversationObj.conversationId === message.conversationId){
                 commit('addMessage', message)
+                if(state.isMinimized){
+                    commit('addConversationUnread', message)
+                    commit('updateTotalUnread', 1);
+                }
             }else{
                 // check if conversation with this user is exists
                 if(!!state.conversations[message.conversationId]){
@@ -121,13 +133,16 @@ const actions = {
                     commit('addConversationUnread', message)
                     commit('updateTotalUnread', 1);
                 }else{
-                    //no conversation should be added
-                    // TODO get conversation by id
+                    //conversationId should be added to the current conversation
                     dispatch('getChatById', message.conversationId).then(({data})=>{
                         let ConversationObj = chatService.createConversation(data);
-                        commit('addConversation', ConversationObj)
-                        commit('setActiveConversationId', ConversationObj.conversationId)
-                        commit('addMessage', message)
+                        commit('addConversation', ConversationObj);
+                        commit('setActiveConversationId', ConversationObj.conversationId);
+                        commit('addMessage', message);
+                        if(state.isMinimized){
+                            commit('addConversationUnread', message)
+                            commit('updateTotalUnread', 1);
+                        }
                     })
                 }
             }
@@ -141,8 +156,10 @@ const actions = {
                 //no conversation should be added
                 let ConversationObj = chatService.createConversation(message);
                 commit('addConversation', ConversationObj)
+                commit('addConversationUnread', message)
+                commit('updateTotalUnread', 1);
             }
-        }      
+        }
         
     },
     getChatById:(context, conversationId)=>{
@@ -152,6 +169,9 @@ const actions = {
         commit('updateTotalUnread', totalUnread)
     },
     clearUnread:({commit, state}, conversationId)=>{
+        if(!conversationId) {
+            conversationId = state.activeConversationObj.conversationId;
+        }
         if(state.conversations[conversationId]){
             let otherUserId = state.conversations[conversationId].userId;
             chatService.clearUnread(otherUserId);
@@ -168,7 +188,7 @@ const actions = {
         let messageObj ={
             message: {
                 userId: roomInfo.userId,
-                text: `Room created ${global.location.origin}/studyroom/${roomInfo.id}`,
+                text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
                 type: 'text'
             },
             //TODO signalR should return Conversation ID
@@ -184,9 +204,9 @@ const actions = {
         dispatch('syncMessagesByConversationId');
         dispatch('updateChatState', state.enumChatState.messages);
     },
-    getAllConversations:({commit, getters})=>{
+    getAllConversations:({commit, getters, dispatch})=>{
         if(!getters.accountUser) {
-            commit('closeChat')
+            commit('closeChat');
             return;
         };
         chatService.getAllConversations().then(({data})=>{
@@ -195,6 +215,11 @@ const actions = {
                     let ConversationObj = chatService.createConversation(conversation);
                         commit('addConversation', ConversationObj);
                         commit('updateTotalUnread', ConversationObj.unread);
+                        let userStatus = {
+                            id: ConversationObj.userId,
+                            online: ConversationObj.online
+                        }
+                        dispatch('setUserStatus', userStatus);
                 })
             }
         });
@@ -212,7 +237,8 @@ const actions = {
         }else{
             id = state.activeConversationObj.conversationId;
         }
-        if(!!id && !state.messages[id]){
+        
+        if(!!id && (!state.messages[id] || (!!state.conversations[id] && state.conversations[id].unread > 0))){
             chatService.getMessageById(id).then(({data})=>{
                 if(!data) return;
                 data.forEach(message => {
@@ -229,11 +255,18 @@ const actions = {
         let messageObj = chatService.createServerMessageObj({
             message: message,
             otherUser: state.activeConversationObj.userId
-        })
+        });
         chatService.sendChatMessage(messageObj);
     },
-    toggleChatMinimize:({commit})=>{
-        commit('toggleChatMinimize')
+    toggleChatMinimize:({commit, state, dispatch})=>{
+        if(!state.isMinimized){
+            commit('collapseChat')
+        }else{
+            if(state.chatState === state.enumChatState.messages){
+                dispatch('clearUnread');
+            }
+            commit('expandChat')
+        }
     },
     closeChat:({commit})=>{
         commit('closeChat')
@@ -241,7 +274,10 @@ const actions = {
     openChat:({commit})=>{
         commit('openChat')
     },
-    openChatInterface:({commit, dispatch})=>{
+    openChatInterface:({commit, dispatch, state})=>{
+        if(state.chatState === state.enumChatState.messages){
+            dispatch('clearUnread');
+        }
         commit('expandChat');
         dispatch('openChat');
     },
