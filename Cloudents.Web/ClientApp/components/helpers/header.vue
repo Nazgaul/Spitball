@@ -32,8 +32,7 @@
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
                                                          :userImageUrl="userImageUrl" :user-name="accountUser.name"/>
 
-                                            <menu-list :isAuthUser="loggedIn"
-                                                       v-if=!$vuetify.breakpoint.xsOnly></menu-list>
+                                            <menu-list :isAuthUser="loggedIn" v-if=!$vuetify.breakpoint.xsOnly></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
