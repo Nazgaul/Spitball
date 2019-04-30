@@ -31,12 +31,12 @@ namespace Cloudents.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToRoute(HomeController.RootRoute);
+                return Redirect("/");
             }
 
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToRoute(HomeController.RootRoute);
+                return Redirect("/");
             }
             model.Code = System.Net.WebUtility.UrlDecode(model.Code);
             var user = await _userManager.FindByIdAsync(model.Id.ToString());
