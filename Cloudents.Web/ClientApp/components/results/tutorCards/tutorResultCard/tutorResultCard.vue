@@ -102,7 +102,7 @@
             }
         },
         methods: {
-            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface', 'changeFooterActiveTab']),
+            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface']),
             goToTutorProfile(userId) {
                 this.$router.push({name: 'profile', params: {id: userId}});
             },

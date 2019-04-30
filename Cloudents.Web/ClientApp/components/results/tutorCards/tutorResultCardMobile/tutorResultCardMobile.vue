@@ -50,10 +50,7 @@
 </template>
 
 <script>
-    import userRank from '../../../helpers/UserRank/UserRank.vue';
     import userRating from '../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
-    import commentIcon from '../../../../font-icon/message-icon.svg';
-    import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import chatService from '../../../../services/chatService';
     import { mapActions, mapGetters } from 'vuex';
     import utilitiesService from "../../../../services/utilities/utilitiesService";
@@ -61,10 +58,7 @@
     export default {
         name: "tutorCard",
         components: {
-            userRank,
             userRating,
-            commentIcon,
-            userAvatar
         },
         data() {
             return {};
@@ -84,20 +78,20 @@
             }
         },
         methods: {
-            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface', 'changeFooterActiveTab']),
+            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface']),
             goToTutorProfile(userId) {
                 this.$router.push({name: 'profile', params: {id: userId}});
             },
-            sendMessage() {
-                if(this.accountUser == null) {
-                    this.updateLoginDialogState(true);
-                } else {
-                    let currentConversationObj = chatService.createActiveConversationObj(this.tutorData);
-                    this.setActiveConversationObj(currentConversationObj);
-                    let isMobile = this.$vuetify.breakpoint.smAndDown;
-                    this.openChatInterface();
-                }
-            }
+            // sendMessage() {
+            //     if(this.accountUser == null) {
+            //         this.updateLoginDialogState(true);
+            //     } else {
+            //         let currentConversationObj = chatService.createActiveConversationObj(this.tutorData);
+            //         this.setActiveConversationObj(currentConversationObj);
+            //         let isMobile = this.$vuetify.breakpoint.smAndDown;
+            //         this.openChatInterface();
+            //     }
+            // }
         }
     };
 </script>
@@ -131,9 +125,6 @@
             width: 76px;
             height: 96px;
         }
-        .top-section{
-
-        }
         .bottom-section{
             justify-self: flex-end;
             margin-top: auto
@@ -150,20 +141,9 @@
         .small-text {
             font-size: 10px;
         }
-        .tutor-text {
-            font-family: @fontOpenSans;
-            color: @profileTextColor;
-            line-height: 1.33;
-        }
         .tutor-courses {
             color: @colorBlue;
             max-width: 140px;
-        }
-        .rounded {
-            min-height: 32px;
-            min-width: 32px;
-            border-radius: 50%;
-            background-color: @profileTextColor;
         }
 
     }
