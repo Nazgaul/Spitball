@@ -47,8 +47,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 subjectId = "",
                 course = "Economics",
                 text = "Blah blah blah...",
-                price = 1M,
-                files = new { }
+                price = 1
             };
 
             await _client.PostAsync("api/LogIn", HttpClient.CreateString(cred));

@@ -127,7 +127,7 @@
     <value>תשובות</value>
   </data>
   <data name="become_tutor_btn" xml:space="preserve">
-    <value>הפוך למרצה</value>
+    <value>צור פרופיל מתרגל</value>
   </data>
   <data name="bio_label" xml:space="preserve">
     <value>הניסיון שלי</value>
@@ -154,7 +154,7 @@
     <value>הקורסים שלי</value>
   </data>
   <data name="cta_section_title" xml:space="preserve">
-    <value>השגת תוצאות במהירות!</value>
+    <value>השג תוצאות במהירות!</value>
   </data>
   <data name="description_label" xml:space="preserve">
     <value>כותרת</value>

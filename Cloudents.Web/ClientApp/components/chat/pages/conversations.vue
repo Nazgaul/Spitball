@@ -1,5 +1,5 @@
 <template>
-    <div class="conversations-container">
+    <div v-if="hasConversations" class="conversations-container">
         <v-layout class="conversations-wrapper"
         @click="openConversation(conversation)"
         justify-start
@@ -7,6 +7,11 @@
         v-for="conversation in converations"
         :key="conversation.conversationId">
         <conversation-comp :conversation="conversation"></conversation-comp>
+        </v-layout>
+    </div>
+    <div v-else>
+        <v-layout>
+            <span class="conversations-empty-state" v-language:inner>chat_conversations_empty_state</span>
         </v-layout>
     </div>
 </template>
@@ -24,6 +29,9 @@ export default {
         converations(){
             return this.getConversations;
         },
+        hasConversations(){
+            return Object.keys(this.converations).length > 0;
+        }
     },
     methods:{
         ...mapActions(['setActiveConversationObj']),
@@ -47,5 +55,12 @@ export default {
         cursor: pointer;
         
     }
+}
+.conversations-empty-state{
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 112px;
 }
 </style>

@@ -202,10 +202,10 @@
     <value>סטודנטים</value>
   </data>
   <data name="teach" xml:space="preserve">
-    <value>להיות מרצה</value>
+    <value>הפוך למתרגל</value>
   </data>
   <data name="teaching" xml:space="preserve">
-    <value>מלמד קורס</value>
+    <value>מתרגל קורס</value>
   </data>
   <data name="try_again" xml:space="preserve">
     <value>נסה שוב</value>

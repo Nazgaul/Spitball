@@ -124,10 +124,10 @@
     <value>A Tutor</value>
   </data>
   <data name="currently" xml:space="preserve">
-    <value>Im Currently</value>
+    <value>I am Currently</value>
   </data>
   <data name="subtitle" xml:space="preserve">
-    <value>Student learn from students</value>
+    <value>Where students learn from students</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Welcome to Spitball</value>

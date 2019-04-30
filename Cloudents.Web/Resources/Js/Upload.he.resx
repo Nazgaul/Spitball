@@ -132,6 +132,9 @@
   <data name="multiple_btn_upload" xml:space="preserve">
     <value>העלה</value>
   </data>
+  <data name="multiple_btn_uploading" xml:space="preserve">
+    <value>מעלה</value>
+  </data>
   <data name="multiple_confirm_btn_cancel" xml:space="preserve">
     <value>התחרטתי</value>
   </data>
@@ -199,6 +202,9 @@
   <data name="multiple_label_icon_text" xml:space="preserve">
     <value>העלה</value>
   </data>
+  <data name="multiple_legal_text" xml:space="preserve">
+    <value>העלאת מסמכי לימוד כרוכה בהסכמה לתנאי השירות שלנו</value>
+  </data>
   <data name="multiple_or_browse_label" xml:space="preserve">
     <value>או בחר קובץ</value>
   </data>
@@ -225,8 +231,5 @@
   </data>
   <data name="multiple_select_filetype" xml:space="preserve">
     <value>תייג מסמך</value>
-  </data>
-  <data name="multiple_btn_uploading" xml:space="preserve">
-    <value>מעלה</value>
   </data>
 </root>

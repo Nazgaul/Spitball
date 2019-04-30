@@ -148,7 +148,7 @@
     <value>Report this item</value>
   </data>
   <data name="Sold" xml:space="preserve">
-    <value>ACCEPTED</value>
+    <value>Answer acccpted</value>
   </data>
   <data name="Someone_answering" xml:space="preserve">
     <value>Someone is answering now…</value>
