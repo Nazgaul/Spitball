@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Cloudents.Command.Command
+﻿namespace Cloudents.Command.Command
 {
     public class UpdateUserSettingsCommand: ICommand
     {

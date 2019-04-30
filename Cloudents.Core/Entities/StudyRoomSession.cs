@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "Nhibernate")]
     public class StudyRoomSession : Entity<Guid>
     {
         public StudyRoomSession(StudyRoom studyRoom,string sessionId)

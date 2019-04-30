@@ -1,7 +1,5 @@
 ﻿using Cloudents.Web.Test.IntegrationTests;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +12,6 @@ namespace Cloudents.Web.Test.UnitTests.Api
     {
 
         private readonly SbWebApplicationFactory _factory;
-        private readonly string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
         public TutoringTestsApi(SbWebApplicationFactory factory)
         {

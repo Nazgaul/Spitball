@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Dapper;
 

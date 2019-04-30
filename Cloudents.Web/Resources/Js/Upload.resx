@@ -229,4 +229,7 @@
   <data name="multiple_btn_uploading" xml:space="preserve">
     <value>Uploading...</value>
   </data>
+  <data name="multiple_legal_text" xml:space="preserve">
+    <value>By uploading this content you agree to Spitball's terms and conditions</value>
+  </data>
 </root>

@@ -1,6 +1,6 @@
 <template>
     <v-container v-if="visible" py-0 px-0 class="sb-chat-container"  :class="[ $route.name == 'tutoring' ?  'chat-right': '', {'minimized': isMinimized}]">
-        <v-layout @click="toggleMinimizeChat" class="chat-header">
+        <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
             <v-icon :class="{'rtl':isRtl}" @click.stop="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
             <span class="chat-header-text">{{headerTitle}}</span>
             <span class="other-side">
@@ -33,7 +33,7 @@
             }
         },
         computed:{
-            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked', 'accountUser']),
+            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked', 'accountUser', 'getTotalUnread']),
             isLocked(){
                 return this.getIsChatLocked;
             },
@@ -78,7 +78,10 @@
                     return true;
                 }
                return this.state === this.enumChatState.conversation
-            }
+            },
+            hasUnread(){
+                return this.getTotalUnread > 0
+            },
         },
         methods:{
             ...mapActions(['updateChatState', 'toggleChatMinimize', 'closeChat', 'openChatInterface']),
@@ -141,12 +144,19 @@
         padding:10px;
         color:#fff;
         z-index:1;
+        transition: background-color 0.2s ease-in-out;
+        -moz-transition: background-color 0.2s ease-in-out;
+        -webkit-transition: background-color 0.2s ease-in-out;
+        -o-transition: background-color 0.2s ease-in-out;
+        &.new-messages{
+            background-color:#33cea9;
+        }
         @media (max-width: @screen-xs) {
             border-radius: unset;
         }
         .chat-header-text{
             font-family: @fontOpenSans;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             color: #ffffff;
             word-break: break-all;
@@ -156,7 +166,7 @@
             overflow: hidden;
         }
         i{
-            color: #a5a4bf;
+            color: #ffffff;
             font-size:16px;
             margin-right: 14px;
             z-index:2;

@@ -102,6 +102,9 @@ const redraw = function(canvasData){
         })
         
     })
+    if( store.getters['selectedOptionString'] === 'selectShape'){
+        selectShape.reMarkSelectedShapes.bind(canvasData)();
+    }
 }
 
 const undo = function(canvasData){

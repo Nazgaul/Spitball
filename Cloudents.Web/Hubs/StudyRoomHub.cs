@@ -2,9 +2,7 @@
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Web.Api;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Hubs

@@ -24,7 +24,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var response = await _client.GetAsync(url);
             var p = response.Headers.Location;
-            p.OriginalString.Should().Be("/");
+            p.OriginalString.Should().Be("/Home/Index");
         }
     }
 }

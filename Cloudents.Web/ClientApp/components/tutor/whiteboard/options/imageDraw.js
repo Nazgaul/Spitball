@@ -67,6 +67,7 @@ const liveDraw = function (imgObj) {
 
 const handleImage = function (e) {
     //Set Click Position
+    if(e.target.value === "") return;
     let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, imageXDefaultPosition, imageYDefaultPosition);
     this.methods.hideColorPicker();
 
@@ -101,6 +102,8 @@ const handleImage = function (e) {
         }
         img.src = url;
     })
+    //reset the element to allow same image to be uploaded
+    e.target.value = "";
 }
 
 const mousedown = function (e) {

@@ -12,8 +12,6 @@ using Cloudents.Query;
 using Cloudents.Query.Query;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
-using NHibernate;
-using NHibernate.Linq;
 
 namespace Cloudents.Identity
 {

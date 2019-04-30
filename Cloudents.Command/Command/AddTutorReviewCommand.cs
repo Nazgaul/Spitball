@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Entities;
-using System;
+﻿using System;
 
 namespace Cloudents.Command.Command
 {
@@ -13,10 +12,10 @@ namespace Cloudents.Command.Command
             TutorId = tutorId;
             UserId = userId;
         }
-        public virtual Guid RoomId { get; set; }
-        public virtual string Review { get; }
-        public virtual float Rate { get; }
-        public long TutorId { get;  }
+        public Guid RoomId { get; set; }
+        public string Review { get; }
+        public float Rate { get; }
+        public long TutorId { get; }
         public long UserId { get; }
     }
 }

@@ -62,7 +62,7 @@ namespace Cloudents.Query.Admin
                 return (resList, rows);
             }
                 // return resList;
-            };
+            }
         }
     }
 }

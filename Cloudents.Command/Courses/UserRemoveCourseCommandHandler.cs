@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.Courses
@@ -7,9 +8,9 @@ namespace Cloudents.Command.Courses
     public class UserRemoveCourseCommandHandler : ICommandHandler<UserRemoveCourseCommand>
     {
         private readonly IRegularUserRepository _userRepository;
-        private readonly ICourseRepository _courseRepository;
+        private readonly IRepository<Course> _courseRepository;
 
-        public UserRemoveCourseCommandHandler(IRegularUserRepository userRepository, ICourseRepository courseRepository)
+        public UserRemoveCourseCommandHandler(IRegularUserRepository userRepository, IRepository<Course> courseRepository)
         {
             _userRepository = userRepository;
             _courseRepository = courseRepository;

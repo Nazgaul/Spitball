@@ -99,7 +99,7 @@ export default {
           
         }
         .conversation-unread{
-          background: #4452fc;
+          background: #33cea9;
           color: #fff;
           border-radius: 50%;
           height: 16px;

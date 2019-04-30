@@ -78,7 +78,7 @@ namespace Cloudents.Infrastructure.Mail
 
         public async Task CreateRoomAsync(string id, bool needRecord)
         {
-            var t = await RoomResource.CreateAsync(
+           await RoomResource.CreateAsync(
                 uniqueName: id,
                 maxParticipants: 2,
                 type: RoomResource.RoomTypeEnum.GroupSmall, //this is smaller fee

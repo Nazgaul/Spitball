@@ -107,7 +107,7 @@
         position: absolute;
         top: 10px;
         right: 30px;
-        background: #4452fc;
+        background: #33cea9;
         color: #fff;
         border-radius: 50%;
         height: 13px;

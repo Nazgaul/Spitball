@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Cloudents.Web.Models
+﻿namespace Cloudents.Web.Models
 {
     /// <summary>
     /// University request object

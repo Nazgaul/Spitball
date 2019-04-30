@@ -11,13 +11,11 @@ namespace Cloudents.Command.CommandHandler
     public class AddTutorReviewCommandHandler : ICommandHandler<AddTutorReviewCommand>
     {
         private readonly IRegularUserRepository _regularUserRepository;
-        private readonly IRepository<TutorReview> _repository;
         private readonly IRepository<StudyRoom> _studyRoomRepository;
 
-        public AddTutorReviewCommandHandler(IRepository<TutorReview> repository, IRegularUserRepository regularUserRepository,
+        public AddTutorReviewCommandHandler(IRegularUserRepository regularUserRepository,
                 IRepository<StudyRoom> studyRoomRepository)
         {
-            _repository = repository;
             _regularUserRepository = regularUserRepository;
             _studyRoomRepository = studyRoomRepository;
         }

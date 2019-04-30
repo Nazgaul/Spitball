@@ -132,4 +132,7 @@
   <data name="type_message" xml:space="preserve">
     <value>Type something</value>
   </data>
+  <data name="conversations_empty_state" xml:space="preserve">
+    <value>You don’t have any messages yet</value>
+  </data>
 </root>

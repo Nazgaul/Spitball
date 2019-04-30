@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Command.Courses
+﻿namespace Cloudents.Command.Courses
 {
     public class TeachCourseCommand : ICommand
     {

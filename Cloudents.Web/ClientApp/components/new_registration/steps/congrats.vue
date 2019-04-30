@@ -67,7 +67,9 @@
                 let self = this;
                 //show selectUni interface
                 self.updateSelectForTheFirstTime(true);
-                this.$router.push({name:'addUniversity'})
+                // this.$router.push({name:'addUniversity'})
+                // V20 go to choose student or tutor route
+                this.$router.push({name:'studentTutor'})
             },
         },
     }

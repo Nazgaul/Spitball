@@ -97,7 +97,7 @@ function profileDocumentData(arrInit){
    return arrInit.data.map(searchService.createDocumentItem) || [];
 }
 function profileAboutData(arrInit){
-    let structuredData = createAboutItem(arrInit[1].data);
+    let structuredData = createAboutItem(arrInit[0].data);
     let data = {
         bio: structuredData.bio,
         courses: structuredData.courses,

@@ -15,12 +15,12 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<University> _universityRepository;
         private readonly IRepository<Document> _documentRepository;
-        private readonly ICourseRepository _courseRepository;
+        private readonly IRepository<Course> _courseRepository;
         private readonly ITagRepository _tagRepository;
 
         public CreateDocumentCommandHandler(IDocumentDirectoryBlobProvider blobProvider,
             IRepository<User> userRepository,
-            IRepository<Document> documentRepository, ICourseRepository courseRepository,
+            IRepository<Document> documentRepository, IRepository<Course> courseRepository,
             ITagRepository tagRepository, IRepository<University> universityRepository)
         {
             _blobProvider = blobProvider;
