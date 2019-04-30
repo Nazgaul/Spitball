@@ -17,25 +17,16 @@ namespace Cloudents.Core.EventHandler
 
         protected Task SendEmail(BaseEmail obj, CancellationToken token)
         {
-            //if (!EmailValidate(user)) return Task.CompletedTask;
             return _serviceBusProvider.InsertMessageAsync(obj, token);
 
         }
 
         protected Task SendEmail(BaseEmail obj, TimeSpan delay, CancellationToken token)
         {
-            // if (!EmailValidate(user)) return Task.CompletedTask;
             return _serviceBusProvider.InsertMessageAsync(obj, delay, token);
 
         }
 
-        //private static bool EmailValidate(RegularUser user)
-        //{
-        //    if (!user.EmailConfirmed)
-        //    {
-        //        return false;
-        //    }
-        //    return true;
-        //}
+        
     }
 }
