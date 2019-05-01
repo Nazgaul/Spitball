@@ -20,10 +20,9 @@
                 </div>
                 <div class="question-header-small-sagment">
                     <!--TODO SOLD IS ACCEPTED-->
-                    <!--<div class="price-area" v-if="isSold" :class="{'sold': isSold}">-->
-                    <!--<bdi>sdfds-->
-                    <!--<span v-language:inner>questionCard_Currency</span></bdi>-->
-                    <!--</div>-->
+                    <div class="price-area" v-if="isSold" :class="{'sold': isSold}">
+                        <v-icon class="has-correct">sbf-check-circle</v-icon>
+                    </div>
                     <div class="menu-area">
                         <v-menu bottom left content-class="card-user-actions">
                             <v-btn :depressed="true" @click.prevent slot="activator" icon>
