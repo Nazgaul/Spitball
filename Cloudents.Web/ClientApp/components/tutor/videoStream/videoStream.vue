@@ -11,8 +11,8 @@
             <v-flex xs8 class="d-inline-flex">
                 <button v-if="!roomIsActive && !waitingStudent" class="create-session"  color="primary" :class="{'disabled': roomIsPending}" @click="enterRoom()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
-                    <span v-if="isTutor" v-language:inner>tutor_stream_btn_start_session</span>
-                    <span v-else v-language:inner>tutor_stream_btn_join_session</span>
+                    <span v-show="isTutor" v-language:inner>tutor_stream_btn_start_session</span>
+                    <span v-show="!isTutor" v-language:inner>tutor_stream_btn_join_session</span>
                 </button>
                 <button class="create-session" v-else-if="waitingStudent && isTutor">
                     <span v-language:inner>tutor_stream_btn_waiting</span>

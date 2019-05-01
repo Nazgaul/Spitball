@@ -114,7 +114,7 @@ export default {
                         .then((resp) => {
                             console.log('ended session', resp);
                             this.sessionStartClickedOnce = false;
-                            if(!this.isTutor && this.getAllowReview){
+                            if(!this.isTutor && this.getAllowReview) {
                                 this.updateReviewDialog(true);
                             }
                         }, (error) => {
