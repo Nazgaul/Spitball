@@ -231,6 +231,9 @@
 
 <style lang="less">
     .canvas-container {
+        .canvas-wrapper{
+            direction:ltr/*rtl:ignore*/;
+        }
         .formula-text{
                 top: 25px;
                 position: absolute;
