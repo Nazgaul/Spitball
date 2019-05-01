@@ -117,76 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActionTypeAnswerCorrect" xml:space="preserve">
-    <value>תשובה נכונה</value>
+  <data name="btn_send_review" xml:space="preserve">
+    <value>אישור</value>
   </data>
-  <data name="ActionTypeAwarded" xml:space="preserve">
-    <value>הוענק</value>
+  <data name="final_goTo" xml:space="preserve">
+    <value>לך לחוות הדעת שלך</value>
   </data>
-  <data name="ActionTypeBuy" xml:space="preserve">
-    <value>קניה</value>
+  <data name="final_title" xml:space="preserve">
+    <value>תודה על הדירוג</value>
   </data>
-  <data name="ActionTypeCashOut" xml:space="preserve">
-    <value>פדיון</value>
+  <data name="press_star" xml:space="preserve">
+    <value>לחץ על כוכב כדי לדרג</value>
   </data>
-  <data name="ActionTypeCommission" xml:space="preserve">
-    <value>עמלה</value>
+  <data name="review_placeholder" xml:space="preserve">
+    <value>כתוב חוות דעת</value>
   </data>
-  <data name="ActionTypeDeleteQuestion" xml:space="preserve">
-    <value>מחיקת שאלה</value>
+  <data name="subtitle" xml:space="preserve">
+    <value>האם השיעור עזר לך?</value>
   </data>
-  <data name="ActionTypeNone" xml:space="preserve">
-    <value>ללא</value>
+  <data name="title" xml:space="preserve">
+    <value>דירוג וחוות דעת</value>
   </data>
-  <data name="ActionTypePurchaseDocument" xml:space="preserve">
-    <value>קניית מסמך</value>
-  </data>
-  <data name="ActionTypeQuestion" xml:space="preserve">
-    <value>שאילת שאלה</value>
-  </data>
-  <data name="ActionTypeReferringUser" xml:space="preserve">
-    <value>הפניית משתמש</value>
-  </data>
-  <data name="ActionTypeSignUp" xml:space="preserve">
-    <value>הרשמה</value>
-  </data>
-  <data name="ActionTypeSoldDocument" xml:space="preserve">
-    <value>מכירת מסמך</value>
-  </data>
-  <data name="BookConditionEBook" xml:space="preserve">
-    <value>דיגיטלי</value>
-  </data>
-  <data name="BookConditionNew" xml:space="preserve">
-    <value>חדש</value>
-  </data>
-  <data name="BookConditionRental" xml:space="preserve">
-    <value>השכרה</value>
-  </data>
-  <data name="BookConditionUsed" xml:space="preserve">
-    <value>משומש</value>
-  </data>
-  <data name="QuestionFilterAnswered" xml:space="preserve">
-    <value>שאלות שנענו</value>
-  </data>
-  <data name="QuestionFilterSold" xml:space="preserve">
-    <value>תשובה התקבלה</value>
-  </data>
-  <data name="QuestionFilterUnanswered" xml:space="preserve">
-    <value>שאלות שלא נענו</value>
-  </data>
-  <data name="SearchRequestSortDate" xml:space="preserve">
-    <value>תאריך</value>
-  </data>
-  <data name="SearchRequestSortRelevance" xml:space="preserve">
-    <value>רלוונטיות</value>
-  </data>
-  <data name="TransactionTypeEarned" xml:space="preserve">
-    <value>הכנסה</value>
-  </data>
-  <data name="TransactionTypeSpent" xml:space="preserve">
-    <value>הוצאה</value>
-  </data>
-  <data name="TransactionTypeStake" xml:space="preserve">
-    <value>במשמורת</value>
+  <data name="write" xml:space="preserve">
+    <value>כתוב חוות דעת</value>
   </data>
 </root>
