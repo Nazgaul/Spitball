@@ -162,36 +162,36 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
         [SuppressMessage("ReSharper", "ClassNeverInstantiated.Local")]
         private class DbResult
         {
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Id))]
+            [Core.Attributes.EntityBind(nameof(Question.Id))]
             public long QuestionId { get; set; }
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Language))]
+            [Core.Attributes.EntityBind(nameof(Question.Language))]
             public string Language { get; set; }
-            [Core.Attributes.DtoToEntityConnection(nameof(User.Country))]
+            [Core.Attributes.EntityBind(nameof(User.Country))]
             public string Country { get; set; }
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Answers))]
+            [Core.Attributes.EntityBind(nameof(Question.Answers))]
             public int AnswerCount { get; set; }
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Updated))]
+            [Core.Attributes.EntityBind(nameof(Question.Updated))]
             public DateTime DateTime { get; set; }
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.CorrectAnswer))]
+            [Core.Attributes.EntityBind(nameof(Question.CorrectAnswer))]
             public bool? HasCorrectAnswer { get; set; }
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Text))]
+            [Core.Attributes.EntityBind(nameof(Question.Text))]
             public string Text { get; set; }
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Status.State))]
+            [Core.Attributes.EntityBind(nameof(Question.Status.State))]
             public ItemState State { get; set; }
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Subject))]
+            [Core.Attributes.EntityBind(nameof(Question.Subject))]
             public QuestionSubject? Subject { get; set; }
             public long SYS_CHANGE_VERSION { get; set; }
             public string SYS_CHANGE_OPERATION { get; set; }
             //public string SYS_CHANGE_COLUMNS { get; set; }
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Id))]
+            [Core.Attributes.EntityBind(nameof(Question.Id))]
             public long Id { get; set; }
 
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Course.Id))]
+            [Core.Attributes.EntityBind(nameof(Question.Course.Id))]
             public string Course { get; set; }
 
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.University.Name))]
+            [Core.Attributes.EntityBind(nameof(Question.University.Name))]
             public string University { get; set; }
-            [Core.Attributes.DtoToEntityConnection(nameof(Question.Course), nameof(Document.Tags), nameof(Tag.Name))]
+            [Core.Attributes.EntityBind(nameof(Question.Course), nameof(Document.Tags), nameof(Tag.Name))]
             public string Tags { get; set; }
         }
 

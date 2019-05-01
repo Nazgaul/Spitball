@@ -28,22 +28,22 @@ namespace Cloudents.Core.DTOs
 
     public class UserProfileDto 
     {
-        [DtoToEntityConnection(nameof(User.Id))]
+        [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
-        [DtoToEntityConnection(nameof(User.Name))]
+        [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
-        [DtoToEntityConnection(nameof(User.Image))]
+        [EntityBind(nameof(User.Image))]
         public string Image { get; set; }
-        [DtoToEntityConnection(nameof(User.Score))]
+        [EntityBind(nameof(User.Score))]
         public int Score { get; set; }
-        [DtoToEntityConnection(nameof(University.Name))]
+        [EntityBind(nameof(University.Name))]
         public string UniversityName { get; set; }
-        [DtoToEntityConnection(nameof(RegularUser.Description))]
+        [EntityBind(nameof(RegularUser.Description))]
         public string Description { get; set; }
-        [DtoToEntityConnection(nameof(RegularUser.Online))]
+        [EntityBind(nameof(RegularUser.Online))]
         public bool Online { get; set; }
 
-        //[DtoToEntityConnection(nameof(Tutor.Id))]
+        //[EntityBind(nameof(Tutor.Id))]
         public UserTutorProfileDto Tutor { get; set; }
     }
 
@@ -53,9 +53,9 @@ namespace Cloudents.Core.DTOs
 
         public float Rate { get; set; }
         public int ReviewCount { get; set; }
-        [DtoToEntityConnection(nameof(RegularUser.FirstName))]
+        [EntityBind(nameof(RegularUser.FirstName))]
         public string FirstName { get; set; }
-        [DtoToEntityConnection(nameof(RegularUser.LastName))]
+        [EntityBind(nameof(RegularUser.LastName))]
         public string LastName { get; set; }
     }
 
@@ -80,26 +80,26 @@ namespace Cloudents.Core.DTOs
 
     public class ChatUserDto
     {
-        [DtoToEntityConnection(nameof(User.Id))]
+        [EntityBind(nameof(User.Id))]
         public long UserId { get; set; }
-        [DtoToEntityConnection(nameof(User.Name))]
+        [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
-        [DtoToEntityConnection(nameof(User.Image))]
+        [EntityBind(nameof(User.Image))]
         public string Image { get; set; }
 
-        [DtoToEntityConnection(nameof(ChatUser.Unread))]
+        [EntityBind(nameof(ChatUser.Unread))]
         public int Unread { get; set; }
 
-        [DtoToEntityConnection(nameof(RegularUser.Online))]
+        [EntityBind(nameof(RegularUser.Online))]
         public bool Online { get; set; }
 
-        [DtoToEntityConnection(nameof(ChatRoom.Id))]
+        [EntityBind(nameof(ChatRoom.Id))]
         public Guid ConversationId { get; set; }
 
-        [DtoToEntityConnection(nameof(ChatRoom.UpdateTime))]
+        [EntityBind(nameof(ChatRoom.UpdateTime))]
         public DateTime DateTime { get; set; }
 
-        [DtoToEntityConnection(nameof(StudyRoom.Id))]
+        [EntityBind(nameof(StudyRoom.Id))]
 
         public Guid? StudyRoomId { get; set; }
 

@@ -6,31 +6,31 @@ namespace Cloudents.Core.DTOs
 {
     public class EmailDto
     {
-        [DtoToEntityConnection(nameof(RegularUser.Email))]
+        [EntityBind(nameof(RegularUser.Email))]
         public string ToEmailAddress { get; set; }
-        [DtoToEntityConnection(nameof(RegularUser.Language))]
+        [EntityBind(nameof(RegularUser.Language))]
         public string Language { get; set; }
 
         
-        [DtoToEntityConnection(nameof(RegularUser.Id))]
+        [EntityBind(nameof(RegularUser.Id))]
         public long UserId { get; set; }
     }
 
     public class DocumentPurchaseEmailDto : EmailDto
     {
-        [DtoToEntityConnection(nameof(Document.Course.Id))]
+        [EntityBind(nameof(Document.Course.Id))]
         public string CourseName { get; set; }
-        [DtoToEntityConnection(nameof(Document.Name))]
+        [EntityBind(nameof(Document.Name))]
         public string DocumentName { get; set; }
-        [DtoToEntityConnection(nameof(Transaction.Price))]
+        [EntityBind(nameof(Transaction.Price))]
         public decimal Tokens { get; set; }
     }
 
     public class AnswerAcceptedEmailDto : EmailDto
     {
-        [DtoToEntityConnection(nameof(Question.Text))]
+        [EntityBind(nameof(Question.Text))]
         private string _questionText;
-        [DtoToEntityConnection(nameof(Answer.Text))]
+        [EntityBind(nameof(Answer.Text))]
         private string _answerText;
 
         public string QuestionText

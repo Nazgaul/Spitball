@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Query.Query;
+using Cloudents.Query.Tutor;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -19,7 +20,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task TutorListByCourseQuery_Ok()
         {
-            var query = new TutorListByCourseQuery("xxx",0,0);
+            var query = new TutorListByCourseQuery("xxx", 0);
             _ = await _fixture._queryBus.QueryAsync(query, default);
 
 
@@ -29,7 +30,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task TutorListQuery_Ok()
         {
-            var query = new TutorListQuery( 0,0);
+            var query = new TutorListQuery(0);
             _ = await _fixture._queryBus.QueryAsync(query, default);
 
 
