@@ -4,8 +4,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Payment;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -14,10 +16,12 @@ namespace Cloudents.Infrastructure
     public class PayMePaymentProvider : IPayment
     {
         private readonly HttpClient _client;
+        private readonly PayMeCredentials _credentials;
 
-        public PayMePaymentProvider(HttpClient client)
+        public PayMePaymentProvider(HttpClient client, [NotNull] PayMeCredentials credentials)
         {
             _client = client;
+            _credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
         }
 
         private static readonly DefaultContractResolver ContractResolver = new DefaultContractResolver
@@ -48,7 +52,7 @@ namespace Cloudents.Infrastructure
             });
             using (var sr = new StringContent(json, Encoding.UTF8, "application/json"))
             {
-                var response = await _client.PostAsync("https://preprod.paymeservice.com/api/generate-sale", sr, token);
+                var response = await _client.PostAsync($"{_credentials}/generate-sale", sr, token);
                 if (!response.IsSuccessStatusCode)
                 {
                     var str = await response.Content.ReadAsStringAsync();

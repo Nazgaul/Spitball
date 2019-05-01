@@ -180,7 +180,7 @@ namespace Cloudents.Web
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();
             services.AddHttpClient();
-
+            services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
 
 
             var assembliesOfProgram = new[]
@@ -198,6 +198,7 @@ namespace Cloudents.Web
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
+            
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
