@@ -129,7 +129,6 @@ import { LanguageService } from "../../services/language/languageService";
                               "qualityDialog",
                               "localNetworkQuality",
                               "isRoomCreated",
-                              "sharedDocUrl",
                               "getZoom",
                               "getPanX",
                               "getPanY",
