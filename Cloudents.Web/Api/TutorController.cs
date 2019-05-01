@@ -36,24 +36,19 @@ namespace Cloudents.Web.Api
         /// Used for tutor tab
         /// </summary>
         /// <param name="term"></param>
+        /// <param name="page"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search")]
-        public WebResponseWithFacet<TutorListDto> GetAsync([RequiredFromQuery]string term, int page, CancellationToken token)
+        public async Task<WebResponseWithFacet<TutorListDto>> GetAsync([RequiredFromQuery]string term, int page, CancellationToken token)
         {
             //TutorListTabQuery
-
+            var query = new TutorListTabSearchQuery(term, page);
+            var result = await _queryBus.QueryAsync(query, token);
             return new WebResponseWithFacet<TutorListDto>
             {
-                Result = new TutorListDto[0],
-                //Sort = EnumExtension.GetValues<TutorRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
-                //Filters = new IFilters[]
-                //{
-                //    new Filters<string>(nameof(TutorRequest.Filter),_localizer["StatusFilter"],
-                //        EnumExtension.GetValues<TutorRequestFilter>()
-                //            .Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization())))
-                //},
-                NextPageLink = null
+                Result = result,
+                NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term })
             };
         }
 
@@ -67,13 +62,6 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<TutorListDto>
             {
                 Result = result,
-                //Sort = EnumExtension.GetValues<TutorRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
-                //Filters = new IFilters[]
-                //{
-                //    new Filters<string>(nameof(TutorRequest.Filter),_localizer["StatusFilter"],
-                //        EnumExtension.GetValues<TutorRequestFilter>()
-                //            .Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization())))
-                //},
                 NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page })
             };
         }
