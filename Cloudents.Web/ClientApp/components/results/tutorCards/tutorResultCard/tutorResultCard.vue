@@ -3,7 +3,7 @@
         <v-layout>
             <div class="section-tutor-info">
                 <v-layout>
-                    <v-flex class="mr-3">
+                    <v-flex class="mr-3" shrink>
                         <img class="tutor-image" :src="userImageUrl" alt="">
                     </v-flex>
                     <v-flex>
@@ -33,24 +33,18 @@
                         </span>
                     </v-flex>
                     <v-flex xs12 sm12 md12 shrink class="pt-2">
-                        <!--<userRating-->
-                                <!--:rating="tutorData.rating"-->
-                                <!--:starColor="'#ffca54'"-->
-                                <!--:rateNumColor="'#43425D'"-->
-                                <!--:size="'24'"-->
-                                <!--:rate-num-color="'#43425D'"></userRating>-->
-                           <!--Hardcoded rating to check design remove after returned from server -->
                         <userRating
-                                :rating="4.86"
+                                v-if="tutorData.reviews > 0"
+                                :rating="tutorData.rating"
                                 :starColor="'#ffca54'"
                                 :rateNumColor="'#43425D'"
                                 :size="'24'"
                                 :rate-num-color="'#43425D'"></userRating>
-
                     </v-flex>
                     <v-flex xs12 sm12 md12 class="pt-1" shrink>
-                            <span class="blue-text body-2">{{tutorData.reviews}}
-                                <span v-if="tutorData.reviews > 1" v-language:inner>resultTutor_reviews_many</span>
+                            <span class="blue-text body-2" v-if="tutorData.reviews > 0">{{tutorData.reviews}}
+                                <span v-if="tutorData.reviews > 1 || tutorData.reviews === 0" v-language:inner>resultTutor_reviews_many</span>
+
                                 <span v-else v-language:inner>resultTutor_review_one</span>
                             </span>
                     </v-flex>
@@ -126,7 +120,7 @@
         width: 100%;
         margin: 0 auto;
         .section-tutor-info {
-            max-width: @cellWidth;
+            width: @cellWidth;
             background-color: @color-white;
             border-radius: 4px;
             padding: 16px;
@@ -135,7 +129,7 @@
                 padding: 12px;
             }
         }
-        .user-rating-val{
+        .user-rating-val {
             font-weight: bold;
         }
         .section-tutor-price-review {
@@ -148,7 +142,7 @@
                 padding: 12px;
             }
         }
-        .btn-bottom-holder{
+        .btn-bottom-holder {
             justify-self: flex-end;
             margin-top: auto
         }
