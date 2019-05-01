@@ -1,5 +1,5 @@
 <template>
-    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
+    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name" >
         <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
         <div slot="main">
             <div class="d-flex mobile-filter">
@@ -34,9 +34,12 @@
                                     <set-uni-class class="cell"></set-uni-class>
                                 </v-flex>
                                 
-                                <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
+                                <v-flex class="result-cell mb-2" xs-12 v-for="(item, index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
+                                    <!--<component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>-->
+                                    <tutor-result-card v-if="$vuetify.breakpoint.smAndUp" :tutorData="item"></tutor-result-card>
+                                    <tutor-result-card-mobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="item"></tutor-result-card-mobile>
+
                                 </v-flex>
                                 <router-link tag="v-flex"
                                              class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 "
@@ -63,12 +66,12 @@
             </component>
         </template>
 
-        <template slot="rightSide">
-            <slot name="rightSide">
-                <faq-block :isAsk="false" :isNotes="false" :name="currentSuggest" :text="userText"></faq-block>
+        <!--<template slot="rightSide">-->
+            <!--<slot name="rightSide">-->
+                <!--<faq-block :isAsk="false" :isNotes="false" :name="currentSuggest" :text="userText"></faq-block>-->
 
-            </slot>
-        </template>
+            <!--</slot>-->
+        <!--</template>-->
         <slot name="suggestCell">
             <router-link slot="suggestCell" tag="v-flex"
                          class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 "

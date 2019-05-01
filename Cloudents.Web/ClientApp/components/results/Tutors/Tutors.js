@@ -21,6 +21,10 @@ import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 import resultFilter from '../helpers/resultFilter/resultFilter.vue'
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 
+import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
+import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
+
+
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
 //The vue functionality for result page
@@ -40,7 +44,10 @@ export default {
         setUniClass,
         schoolBlock,
         resultFilter,
-        emptyStateCard
+        emptyStateCard,
+        tutorResultCard,
+        tutorResultCardMobile
+
     },
     data() {
         return {
@@ -92,9 +99,9 @@ export default {
             let schoolName = this.getSchoolName;
             return schoolName.length === 0;
         },
-        isNote() {
-            return this.$route.path.slice(1) === 'note'
-        },
+        // isNote() {
+        //     return this.$route.path.slice(1) === 'note'
+        // },
         //not interesting
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page)

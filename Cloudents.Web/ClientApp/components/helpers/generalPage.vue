@@ -8,9 +8,9 @@
                     <v-flex class="first-grid hidden-xs-only left-side-bar">
                         <slot name="sideBar">
                         </slot>
-                    </v-flex> 
+                    </v-flex>
                     <v-layout class="main-section" row>
-                        <v-flex class="sec-result">
+                        <v-flex class="sec-result" :class="[props.name ==='tutor' ? 'tutor-result'  : '']">
                             <slot name="main"></slot>
                         </v-flex>
                         <v-flex :class="['side-bar']" v-if="props.breakPointSideBar">
