@@ -122,7 +122,9 @@ const actions = {
             //check if message sent is part of the current conversation
             if(state.activeConversationObj.conversationId === message.conversationId){
                 commit('addMessage', message)
-                if(state.isMinimized){
+                if(state.isMinimized && message.fromSignalR){
+                    //in tutor room the conversation is auto loaded, so in case of refresh 
+                    //we dont want to update the total unread unless signalR message arrives
                     commit('addConversationUnread', message)
                     commit('updateTotalUnread', 1);
                 }
@@ -141,7 +143,7 @@ const actions = {
                         commit('addMessage', message);
                         if(state.isMinimized){
                             commit('addConversationUnread', message)
-                            commit('updateTotalUnread', 1);
+                            commit('updateTotalUnread', 1);                            
                         }
                     })
                 }
@@ -169,6 +171,7 @@ const actions = {
         commit('updateTotalUnread', totalUnread)
     },
     clearUnread:({commit, state}, conversationId)=>{
+        if(state.isMinimized) return; //when inside study room and activating chat dont clear unread unless chat is maximized 
         if(!conversationId) {
             conversationId = state.activeConversationObj.conversationId;
         }
@@ -181,7 +184,7 @@ const actions = {
         }
     },
     signalRAddMessage({dispatch}, messageObj){
-        let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
+        let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId, true);
         dispatch('addMessage', MessageObj);
     },
     signalRAddRoomInformationMessage({commit, dispatch, state}, roomInfo){
@@ -262,10 +265,10 @@ const actions = {
         if(!state.isMinimized){
             commit('collapseChat')
         }else{
+            commit('expandChat')
             if(state.chatState === state.enumChatState.messages){
                 dispatch('clearUnread');
             }
-            commit('expandChat')
         }
     },
     closeChat:({commit})=>{
@@ -275,11 +278,11 @@ const actions = {
         commit('openChat')
     },
     openChatInterface:({commit, dispatch, state})=>{
+        commit('expandChat');
+        dispatch('openChat');
         if(state.chatState === state.enumChatState.messages){
             dispatch('clearUnread');
         }
-        commit('expandChat');
-        dispatch('openChat');
     },
     lockChat:({commit})=>{
         commit('lockChat');

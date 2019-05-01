@@ -16,7 +16,7 @@ function createConversation(objInit){
     return new Conversation(objInit)
 }
 
-function TextMessage(objInit, id){
+function TextMessage(objInit, id, fromSignalR){
     this.userId= objInit.userId;
     this.text = objInit.text;
     this.conversationId = id;
@@ -24,8 +24,9 @@ function TextMessage(objInit, id){
     this.dateTime = objInit.dateTime || new Date().toISOString();
     this.name = objInit.name;
     this.image = objInit.image;
+    this.fromSignalR = fromSignalR || false;
 }
-function FileMessage(objInit, id){
+function FileMessage(objInit, id, fromSignalR){
     this.userId= objInit.userId;
     this.conversationId = id;
     this.src = objInit.src;
@@ -34,6 +35,7 @@ function FileMessage(objInit, id){
     this.dateTime = objInit.dateTime || new Date().toISOString();
     this.name = objInit.name;
     this.image = objInit.image;
+    this.fromSignalR = fromSignalR || false;
 }
 
 function activeConversationObj(objInit){
@@ -48,11 +50,11 @@ function createActiveConversationObj(objInit){
 }
 
 
-function createMessage(objInit, id){
+function createMessage(objInit, id, fromSignalR){
     if(objInit.type === 'text'){
-        return new TextMessage(objInit, id)
+        return new TextMessage(objInit, id, fromSignalR)
     }else{
-        return new FileMessage(objInit, id)
+        return new FileMessage(objInit, id, fromSignalR)
     }
 }
 
