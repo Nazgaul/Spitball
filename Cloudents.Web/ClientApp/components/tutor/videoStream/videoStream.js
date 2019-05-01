@@ -32,7 +32,6 @@ export default {
     computed: {
         ...mapState(['tutoringMainStore']),
         ...mapGetters([
-                          'sharedDocUrl',
                           'activeRoom',
                           'localOffline',
                           'remoteOffline',
