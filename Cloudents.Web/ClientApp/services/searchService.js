@@ -16,7 +16,7 @@ const getFlashcard = (params) => {
 }
 
 const getTutor = (params) => {
-    return connectivityModule.http.get("tutor", {params: transformLocation(params)})
+    return connectivityModule.http.get("tutor/search", {params: transformLocation(params)})
 }
 
 const getJob = (params) => {
