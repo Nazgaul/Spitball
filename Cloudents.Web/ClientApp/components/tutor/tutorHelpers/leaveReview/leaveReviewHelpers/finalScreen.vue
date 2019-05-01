@@ -8,7 +8,7 @@
                 <span class="font-weight-black final-review-title" v-language:inner>leaveReview_final_title</span>
             </v-flex>
             <v-flex xs12 md12 sm12 class="text-xs-center pt-3 pb-5">
-                <span class="body-2 blue-text" v-language:inner>leaveReview_final_goTo</span>
+                <span @click="goToReview()" class="body-2 blue-text cursor-pointer" v-language:inner>leaveReview_final_goTo</span>
             </v-flex>
         </v-layout>
     </div>
@@ -16,7 +16,19 @@
 
 <script>
     export default {
-        name: "finalScreen"
+        name: "finalScreen",
+        props: {
+            tutorId: {
+                type: Number,
+                default: 0
+            },
+        },
+        methods: {
+            goToReview() {
+                this.$router.push({ path : `/profile/${this.tutorId}`});
+
+            }
+        },
     };
 </script>
 

@@ -15,7 +15,7 @@
                 </v-flex>
                 <v-flex xs12 sm12 md12 class="text-xs-center text-sm-center pt-2">
                     <span class="body-2" v-language:inner>leaveReview_press_star</span>
-                    <span class="body-2">{{tutorName}}</span>
+                    <span class="body-2 pl-1">{{tutorName}}</span>
                 </v-flex>
             </v-layout>
             <v-layout align-center justify-center class="py-2">
@@ -65,7 +65,7 @@
                 </v-flex>
             </v-layout>
         </div>
-        <finalReviewStep v-else></finalReviewStep>
+        <finalReviewStep v-else :tutorId="tutorId"></finalReviewStep>
     </div>
 </template>
 

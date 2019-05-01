@@ -68,6 +68,14 @@
         font-weight: 600;
         &.sold {
           color: rgba(0, 0, 0, 0.38);
+          .has-correct{
+            color: #7ed321;
+            font-size: 25px;
+            padding-top: 4px;
+            @media (max-width: @screen-xs) {
+              padding-top: 0;
+            }
+          }
         }
         span {
           //font-size: 10px;

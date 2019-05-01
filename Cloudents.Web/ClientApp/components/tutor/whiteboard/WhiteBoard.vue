@@ -2,7 +2,7 @@
     <div class="canvas-container" id="canvasDiv">
         <div class="nav-container elevation-2">
             <!--Select-->
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.pan}"
                             class="nav-action" @click="setOptionType(enumOptions.pan)">
@@ -13,7 +13,7 @@
             </v-tooltip>
 
             <!--Select-->
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.select}"
                             class="nav-action" @click="setOptionType(enumOptions.select)">
@@ -24,7 +24,7 @@
             </v-tooltip>
 
             <!--Text-->
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button  v-on="on"
                              :class="{'active-tool': selectedOptionString === enumOptions.text}"
@@ -35,7 +35,7 @@
                 <span v-language:inner>tutor_tooltip_text</span>
             </v-tooltip>
             <!--Equation-->
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button  v-on="on"
                              :class="{'active-tool': selectedOptionString === enumOptions.equation}"
@@ -46,7 +46,7 @@
                 <span v-language:inner>tutor_tooltip_equation</span>
             </v-tooltip>
             <!--Color Picker-->
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': showPickColorInterface}" class="nav-action"
                             @click="showColorPicker">
@@ -60,7 +60,7 @@
             <!--<button class="nav-action" @click="clearCanvas">clear</button>-->
 
             <!--Draw-->
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.draw}"
                             class="nav-action" @click="setOptionType(enumOptions.draw)">
@@ -71,7 +71,7 @@
             </v-tooltip>
 
             <!--Line-->
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.line}"
                             class="nav-action" @click="setOptionType(enumOptions.line)">
@@ -82,7 +82,7 @@
             </v-tooltip>
 
             <!--Circle-->
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.circle}"
                             class="nav-action" @click="setOptionType(enumOptions.circle)">
@@ -93,7 +93,7 @@
             </v-tooltip>
 
             <!--Square-->
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.rectangle}"
                             class="nav-action" @click="setOptionType(enumOptions.rectangle)">
@@ -107,7 +107,7 @@
             <input class="nav-action" type="file" name="Image Upload" id="imageUpload" accept="image/*" v-show="false"/>
                 
             
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.image}"
                              class="nav-action" @click="setOptionType(enumOptions.image)">
@@ -123,7 +123,7 @@
             <!--</button>-->
 
             <!--Undo-->
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo()">
                         <v-icon>sbf-undo</v-icon>
@@ -231,6 +231,9 @@
 
 <style lang="less">
     .canvas-container {
+        .canvas-wrapper{
+            direction:ltr/*rtl:ignore*/;
+        }
         .formula-text{
                 top: 25px;
                 position: absolute;
