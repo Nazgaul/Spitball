@@ -11,7 +11,6 @@ function AccountUser(ObjInit){
     this.phoneNumber = ObjInit.phoneNumber;
     this.isTutor = ObjInit.isTutor || false;
     this.image = ObjInit.image || '';
-    this.isTutor = ObjInit.isTutor || false;
 }
  function TutorData(objOnit) {
      this.online = objOnit.online || false;
