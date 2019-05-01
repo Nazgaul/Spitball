@@ -21,12 +21,12 @@
             <v-layout align-center justify-center class="py-2">
                 <v-flex xs12 sm7 md7 class="text-xs-center d-inline-flex border-grey py-3">
                     <user-avatar size="54" :userImageUrl="tutorImage" :user-name="tutorId"/>
-                    <userRating :rating="0"
+                    <userRating :rating="1"
                                 :rateNumColor="'#43425D'"
                                 :size="'30'"
                                 :readonly="false"
                                 :showRateNumber="false"
-                                :callbackFn="updateReviewStars"
+                                :callbackFn="setRateStar"
                                 :rate-num-color="'#43425D'"></userRating>
                 </v-flex>
             </v-layout>
@@ -108,6 +108,12 @@
             ...mapActions(['submitReview', 'updateReviewDialog', 'updateReviewStars', 'updateReview']),
             toggleReviewInput() {
                 return this.reviewInputHidden = !this.reviewInputHidden;
+            },
+            setRateStar(val){
+                console.log('rate',val);
+                if(val >0){
+                    this.updateReviewStars(val)
+                }
             },
             sendReview() {
                 this.btnLoading = true;

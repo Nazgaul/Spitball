@@ -8,9 +8,8 @@ namespace Cloudents.Web.Models
         [Required]
         public Guid RoomId { get; set; }
         [StringLength(1000)]
-        [Required(ErrorMessage = "Required")]
         public string Review { get; set; }
-        [Range(0, 5)]
+        [Range(1, 5)]
         [Required(ErrorMessage = "Required")]
         public float Rate { get; set; }
        
