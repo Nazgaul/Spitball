@@ -1,5 +1,5 @@
 <template>
-    <div class="tutor-card-wrap-desk">
+    <div class="tutor-card-wrap-desk cursor-pointer"  @click="goToTutorProfile(tutorData.userId)">
         <v-layout>
             <div class="section-tutor-info">
                 <v-layout>
@@ -51,8 +51,7 @@
                 </v-flex>
 
                 <v-flex xs12 sm12 md12 class="d-flex btn-bottom-holder">
-                    <v-btn round class="blue-btn rounded elevation-0 ma-0" block
-                           @click="goToTutorProfile(tutorData.userId)">
+                    <v-btn round class="blue-btn rounded elevation-0 ma-0" block>
                         <span class="font-weight-bold text-capitalize" v-language:inner>resultTutor_btn_view</span>
                     </v-btn>
                 </v-flex>
