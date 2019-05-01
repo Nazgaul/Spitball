@@ -148,12 +148,14 @@ const connectToRoom = function (token, options) {
                             store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
                         }else{
                             store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
-
+                            if(store.getters['getAllowReview']){
+                                store.dispatch('updateReviewDialog', true);
+                            }
                         }
                         let toasterParams = {
                             text: LanguageService.getValueByKey('studyRoom_session_ended'),
                             type: 'error-toaster'
-                        }
+                        };
                         store.dispatch('showRoomToasterMessage', toasterParams);
                         //detach all local tracks to prevent multiple added tracks
                         store.getters['activeRoom'].localParticipant.tracks.forEach(function(track) {
