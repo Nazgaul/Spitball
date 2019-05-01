@@ -93,7 +93,7 @@ function TutorItem(objInit) {
     this.price = objInit.price || 50;
     this.score = objInit.score;
     this.rating = objInit.rate || null;
-    this.reviews = objInit.reviews || 7;
+    this.reviews = objInit.reviewsCount || 0;
     this.template = 'tutor';
     this.bio = objInit.bio || '';
 
