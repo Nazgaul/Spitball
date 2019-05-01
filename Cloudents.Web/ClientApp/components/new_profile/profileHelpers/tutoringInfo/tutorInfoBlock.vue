@@ -12,7 +12,7 @@
                     </div>
                 </v-flex>
                 <v-flex xs12 sm12 md12 :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-3']">
-                    <contactBtn ></contactBtn>
+                    <contactBtn v-if="!isMyProfile" ></contactBtn>
                 </v-flex>
                 <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}" v-if="false">
                     <div class="info-item mb-2" v-for="one in 3">
@@ -31,10 +31,19 @@
 
 <script>
     import contactBtn from '../../profileHelpers/contactBtn/contactBtn.vue';
-
+    import {mapGetters, mapActions } from 'vuex';
     export default {
         name: "tutorInfoBlock",
-        components: {contactBtn}
+        components: {contactBtn},
+        computed: {
+            ...mapGetters(['getProfile', 'accountUser']),
+            isMyProfile() {
+                if(!!this.getProfile) {
+                    // return false
+                    return this.accountUser && this.accountUser.id && this.getProfile ? this.getProfile.user.id == this.accountUser.id : false;
+                }
+            }
+        },
     }
 </script>
 
