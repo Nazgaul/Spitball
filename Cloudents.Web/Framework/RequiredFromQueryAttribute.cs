@@ -19,17 +19,48 @@ namespace Cloudents.Web.Framework
     {
         public void Apply(ParameterModel parameter)
         {
-            if (parameter.Action.Selectors != null && parameter.Action.Selectors.Any())
+            if (parameter.Action.Selectors == null || !parameter.Action.Selectors.Any()) return;
+            var type = parameter.BindingInfo?.BinderType ?? parameter.ParameterType;
+            if (type.GetProperties().Any(p => p.GetCustomAttribute<RequiredPropertyForQueryAttribute>() != null))
             {
                 parameter.Action.Selectors.Last().ActionConstraints.Add(
-                    new RequiredFromQueryActionConstraint(parameter.BindingInfo?.BinderType ?? parameter.ParameterType));
+                    new RequiredFromQueryActionConstraint(type));
             }
+            else
+            {
+
+                parameter.Action.Selectors.Last().ActionConstraints.Add(
+                    new RequiredFromQuerySimpleActionConstraint(parameter.BindingInfo?.BinderModelName ?? parameter.ParameterName));
+            }
+
         }
     }
 
     public class RequiredPropertyForQueryAttribute : RequiredAttribute
     {
 
+    }
+
+    public class RequiredFromQuerySimpleActionConstraint : IActionConstraint
+    {
+        private readonly string _parameter;
+
+        public RequiredFromQuerySimpleActionConstraint(string parameter)
+        {
+            _parameter = parameter;
+        }
+
+        public int Order => 999;
+
+        public bool Accept(ActionConstraintContext context)
+        {
+            if (!context.RouteContext.HttpContext.Request.Query.ContainsKey(_parameter))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 
 
@@ -42,61 +73,47 @@ namespace Cloudents.Web.Framework
             _parameter = parameter;
         }
 
-        //public RequiredFromQueryActionConstraint(string[] parameters)
-        //{
-        //    _parameters = parameters;
-        //}
-
-        //public int Order => 999;
-
-        //public bool Accept(ActionConstraintContext context)
-        //{
-
-        //}
-        private static ConcurrentDictionary<(string path,string method), Dictionary<ApiDescription, List<string>>> _dic =
+        private static ConcurrentDictionary<(string path, string method), Dictionary<ApiDescription, List<string>>> _dic =
             new ConcurrentDictionary<(string, string), Dictionary<ApiDescription, List<string>>>();
 
         public override bool IsValidForRequest(RouteContext routeContext, ActionDescriptor action)
         {
-           // var dic = new Dictionary<ApiDescription, List<string>>();
             var requiredParameters = _parameter.GetProperties().Where(p => p.GetCustomAttribute<RequiredPropertyForQueryAttribute>() != null);
 
             var query = routeContext.HttpContext.Request.Query;
             var t = requiredParameters.All(a => query.ContainsKey(a.Name));
 
-            if (t)
-            {
-                
-               var val = _dic.GetOrAdd((routeContext.HttpContext.Request.Path,routeContext.HttpContext.Request.Method), descriptor =>
-               {
-                   var dic = new Dictionary<ApiDescription, List<string>>();
-                   var x = routeContext.HttpContext.RequestServices.GetService<IApiDescriptionGroupCollectionProvider>();
-                   var apiDescription = x.ApiDescriptionGroups.Items.SelectMany(g => g.Items)
-                       .First(w => w.ActionDescriptor == action);
+            if (!t) return false;
+            var val = _dic.GetOrAdd((routeContext.HttpContext.Request.Path, routeContext.HttpContext.Request.Method),
+                descriptor =>
+                {
+                    var dic = new Dictionary<ApiDescription, List<string>>();
+                    var x =
+                        routeContext.HttpContext.RequestServices.GetService<IApiDescriptionGroupCollectionProvider>();
+                    var apiDescription = x.ApiDescriptionGroups.Items.SelectMany(g => g.Items)
+                        .First(w => w.ActionDescriptor == action);
 
-                   var allApis = x.ApiDescriptionGroups.Items.SelectMany(g => g.Items)
-                       .Where(w => w.RelativePath == apiDescription.RelativePath &&
-                                   w.HttpMethod == apiDescription.HttpMethod);
-                   foreach (var api in allApis)
-                   {
-                       var z3 = api.ParameterDescriptions.Where(w =>
-                               w.CustomAttributes()
-                                   .Any(attr => attr.GetType() == typeof(RequiredPropertyForQueryAttribute)))
-                           .ToList();
-                       dic.Add(api, z3.Select(s => s.Name).ToList());
-                   }
+                    var allApis = x.ApiDescriptionGroups.Items.SelectMany(g => g.Items)
+                        .Where(w => w.RelativePath == apiDescription.RelativePath &&
+                                    w.HttpMethod == apiDescription.HttpMethod);
+                    foreach (var api in allApis)
+                    {
+                        var z3 = api.ParameterDescriptions.Where(w =>
+                                w.CustomAttributes()
+                                    .Any(attr => attr.GetType() == typeof(RequiredPropertyForQueryAttribute)))
+                            .ToList();
+                        dic.Add(api, z3.Select(s => s.Name).ToList());
+                    }
 
-                   return dic;
-               });
+                    return dic;
+                });
 
-                var z = val.Where(w => w.Value.TrueForAll(a => query.ContainsKey(a))).ToList();
-                var z2 = z.OrderByDescending(o => o.Value.Count(c => query.ContainsKey(c)));
+            var z = val.Where(w => w.Value.TrueForAll(a => query.ContainsKey(a))).ToList();
+            var z2 = z.OrderByDescending(o => o.Value.Count(c => query.ContainsKey(c)));
 
-                var correctRoute = z2.First();
-                return correctRoute.Key.ActionDescriptor == action;
-            }
+            var correctRoute = z2.First();
+            return correctRoute.Key.ActionDescriptor == action;
 
-            return false;
         }
     }
 

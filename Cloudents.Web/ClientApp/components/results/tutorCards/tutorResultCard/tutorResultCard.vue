@@ -13,8 +13,7 @@
                             </v-flex>
                             <v-flex grow>
                                 <span class="tutor-about subheading" v-line-clamp:18="2">
-                                    Lorem ipsum dolor amet plaid shaman vinyl hashtag lyft stumptown readymade tofu flexitarian.
-                                    Lorem ipsum dolor amet plaid shaman vinyl hashtag lyft stumptown readymade tofu flexitarian.
+                                    {{tutorData.bio}}
                                 </span>
                             </v-flex>
                             <v-flex shrink class="tutor-courses">

@@ -39,9 +39,9 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search")]
-        public WebResponseWithFacet<TutorListDto> GetAsync(string term, CancellationToken token)
+        public WebResponseWithFacet<TutorListDto> GetAsync([RequiredFromQuery]string term, int page, CancellationToken token)
         {
-
+            //TutorListTabQuery
 
             return new WebResponseWithFacet<TutorListDto>
             {
@@ -57,7 +57,28 @@ namespace Cloudents.Web.Api
             };
         }
 
-     
+
+        [HttpGet("search", Name = "TutorSearch")]
+        public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(int page, CancellationToken token)
+        {
+            //TutorListTabQuery
+            var query = new TutorListTabQuery(page);
+            var result = await _queryBus.QueryAsync(query, token);
+            return new WebResponseWithFacet<TutorListDto>
+            {
+                Result = result,
+                //Sort = EnumExtension.GetValues<TutorRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
+                //Filters = new IFilters[]
+                //{
+                //    new Filters<string>(nameof(TutorRequest.Filter),_localizer["StatusFilter"],
+                //        EnumExtension.GetValues<TutorRequestFilter>()
+                //            .Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization())))
+                //},
+                NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page })
+            };
+        }
+
+
         /// <summary>
         /// Return relevant tutors base on user courses
         /// </summary>
@@ -67,7 +88,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<TutorListDto>> GetTutorsAsync(
             CancellationToken token)
         {
-            _userManager.TryGetLongUserId(User,out var userId);
+            _userManager.TryGetLongUserId(User, out var userId);
             var query = new TutorListQuery(userId);
             var retValTask = await _queryBus.QueryAsync(query, token);
             return retValTask;

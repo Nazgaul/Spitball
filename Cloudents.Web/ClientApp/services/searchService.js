@@ -4,43 +4,43 @@ import { connectivityModule } from "./connectivity.module"
 let currentVertical = 'item';
 
 const getQuestions = (params) => {
-    return connectivityModule.http.get("/Question", {params});
+    return connectivityModule.http.get("/Question", { params });
 }
 
 const getDocument = (params) => {
-    return connectivityModule.http.get("/Document", {params});
+    return connectivityModule.http.get("/Document", { params });
 }
 
 const getFlashcard = (params) => {
-    return connectivityModule.http.get("search/flashcards", {params});
+    return connectivityModule.http.get("search/flashcards", { params });
 }
 
 const getTutor = (params) => {
-    return connectivityModule.http.get("tutor/search", {params: transformLocation(params)})
+    return connectivityModule.http.get("tutor/search", { params: transformLocation(params) })
 }
 
 const getJob = (params) => {
-    return connectivityModule.http.get("job", {params: transformLocation(params)})
+    return connectivityModule.http.get("job", { params: transformLocation(params) })
 }
 
 const getBook = (params) => {
-    return connectivityModule.http.get("book/search", {params})
+    return connectivityModule.http.get("book/search", { params })
 }
 
-const getBookDetails = ({type, isbn13}) => {
-    return connectivityModule.http.get(`book/${type}`, {params: {isbn13}})
+const getBookDetails = ({ type, isbn13 }) => {
+    return connectivityModule.http.get(`book/${type}`, { params: { isbn13 } })
 }
 
-const getNextPage = ({url, vertical}) => {
+const getNextPage = ({ url, vertical }) => {
     currentVertical = vertical;
-    return connectivityModule.http.get(url, {baseURL: ""})
+    return connectivityModule.http.get(url, { baseURL: "" })
 }
 
 const autoComplete = (data) => {
-    return connectivityModule.http.get("suggest", {params: {sentence: data.term, vertical: data.vertical}})
+    return connectivityModule.http.get("suggest", { params: { sentence: data.term, vertical: data.vertical } })
 }
 
-function AnswerItem(objInit){
+function AnswerItem(objInit) {
     this.id = objInit.id;
     this.text = objInit.text;
     this.create = objInit.create;
@@ -48,11 +48,11 @@ function AnswerItem(objInit){
     this.user = objInit.user;
     this.isRtl = objInit.isRtl;
     this.votes = !!objInit.vote ? objInit.vote.votes : undefined;
-    this.upvoted =!!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : undefined;
+    this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : undefined;
     this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : undefined;
 }
 
-function createAnswerItem(objInit){
+function createAnswerItem(objInit) {
     return new AnswerItem(objInit)
 }
 
@@ -66,7 +66,7 @@ function QuestionItem(objInit) {
     this.price = objInit.price;
     this.text = objInit.text;
     this.files = objInit.files;
-    this.answers = objInit.answers !== undefined ?  (typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem)) : undefined;
+    this.answers = objInit.answers !== undefined ? (typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem)) : undefined;
     this.user = objInit.user;
     this.dateTime = objInit.dateTime || objInit.create;
     this.hasCorrectAnswer = objInit.hasCorrectAnswer;
@@ -86,14 +86,16 @@ function QuestionItem(objInit) {
 }
 
 function TutorItem(objInit) {
-        this.userId = objInit.userId || 12;
-        this.name = objInit.name || 'Elad Levavi';
-        this.image = objInit.image;
-        this.courses = objInit.courses || '';
-        this.price = objInit.price || 50;
-        this.score = objInit.score;
-        this.rating = objInit.rate || null;
-        this.reviews = objInit.reviews || 7
+    this.userId = objInit.userId || 12;
+    this.name = objInit.name || 'Elad Levavi';
+    this.image = objInit.image;
+    this.courses = objInit.courses || '';
+    this.price = objInit.price || 50;
+    this.score = objInit.score;
+    this.rating = objInit.rate || null;
+    this.reviews = objInit.reviews || 7;
+    this.template = 'tutor';
+    this.bio = objInit.bio || '';
 
 }
 
@@ -101,7 +103,7 @@ function DocumentItem(objInit) {
     this.id = objInit.id || 1;
     this.course = objInit.course;
     this.dateTime = objInit.dateTime;
-    this.downloads= objInit.downloads;
+    this.downloads = objInit.downloads;
     this.professor = objInit.professor;
     this.snippet = objInit.snippet;
     this.source = objInit.source;
@@ -116,14 +118,14 @@ function DocumentItem(objInit) {
     this.isPurchased = objInit.isPurchased;
     this.votes = !!objInit.vote ? objInit.vote.votes : null;
     this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
-    this.downvoted = !!objInit.vote ? ( !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
+    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
 }
 
 
-function createDocumentItem(objInit){
+function createDocumentItem(objInit) {
     return new DocumentItem(objInit)
 }
-function createTutorItem(objInit){
+function createTutorItem(objInit) {
     return new TutorItem(objInit)
 }
 
@@ -145,7 +147,7 @@ let transferResultAsk = response => {
 let transferResultNote = response => {
     let res = response.data;
     let result = res ? res.result : [];
-    if (!res) return {data: []};
+    if (!res) return { data: [] };
     return {
         sort: res.sort,
         filters: res.filters,
@@ -156,12 +158,12 @@ let transferResultNote = response => {
 let transferResultFlashcard = response => {
     let res = response.data;
     let result = res ? res.result : [];
-    if (!res) return {data: []};
+    if (!res) return { data: [] };
     return {
         sort: res.sort,
         filters: res.filters,
         data: result.map(val => {
-            return {...val, template: 'item'}
+            return { ...val, template: 'item' }
         }), nextPage: res.nextPageLink
     }
 };
@@ -172,21 +174,14 @@ let transferResultTutor = response => {
     return {
         sort: body.sort,
         filters: body.filters,
-        // data: body.result.map((val) => {
-        // data: body.map((val) => {
-        //     return {
-        //         ...val,
-        //         template: "tutor"
-        //     }
-        // }),
-        data: body.map(createTutorItem),
+        data: body.result.map(createTutorItem),
         nextPage: body.nextPageLink
     };
 };
 
 let transferJob = response => {
     let body = response.data;
-    let {result: items, nextPageLink: nextPage} = body;
+    let { result: items, nextPageLink: nextPage } = body;
     return {
         filters: body.filters,
         data: items ? items.map((val) => {
@@ -203,9 +198,9 @@ let transferBook = response => {
     let body = response.data;
     body = body || {};
     let data = body.result.map(val => {
-        return {...val, template: "book"}
+        return { ...val, template: "book" }
     });
-    return {data, nextPage: body.nextPageLink}
+    return { data, nextPage: body.nextPageLink }
 };
 
 let transferBookDetails = response => {
@@ -213,14 +208,14 @@ let transferBookDetails = response => {
     let prices = body.prices || [];
     return {
         details: body.details, data: prices.map(val => {
-            return {...val, template: "book-price"}
+            return { ...val, template: "book-price" }
         })
     }
 };
 
 let transferNextPage = (res) => {
-    let {data, nextPage} = transferMap[currentVertical](res);
-    return {data, nextPage}
+    let { data, nextPage } = transferMap[currentVertical](res);
+    return { data, nextPage }
 };
 
 const transferMap = {
@@ -234,26 +229,26 @@ const transferMap = {
 
 
 
-function FilterItem(ObjInit){
+function FilterItem(ObjInit) {
     this.key = ObjInit.key;
     this.value = ObjInit.value;
 }
 
-function FilterChunk(ObjInit){
+function FilterChunk(ObjInit) {
     this.id = ObjInit.id;
     this.title = ObjInit.title;
     this.data = [];
     this.dictionaryData = {};
-    ObjInit.data.forEach((filterItem)=>{
+    ObjInit.data.forEach((filterItem) => {
         this.data.push(new FilterItem(filterItem));
         this.dictionaryData[filterItem.key] = filterItem.value
     })
 }
 
-function Filters(ObjInit){
+function Filters(ObjInit) {
     this.filterChunkList = [];
     this.filterChunkDictionary = [];
-    ObjInit.forEach((filterChunk)=>{
+    ObjInit.forEach((filterChunk) => {
         let createdFilterChunk = new FilterChunk(filterChunk);
         this.filterChunkList.push(createdFilterChunk);
         this.filterChunkDictionary[createdFilterChunk.id] = createdFilterChunk;
@@ -285,8 +280,8 @@ export default {
         book(params) {
             return getBook(params).then(transferBook);
         },
-        bookDetails({type, isbn13}) {
-            return getBookDetails({type, isbn13}).then(transferBookDetails);
+        bookDetails({ type, isbn13 }) {
+            return getBookDetails({ type, isbn13 }).then(transferBookDetails);
         }
     },
     autoComplete: (term) => {
@@ -301,18 +296,18 @@ export default {
         return new QuestionItem(objInit);
     },
 
-    createAnswerItem: (objInit)=>{
+    createAnswerItem: (objInit) => {
         return createAnswerItem(objInit);
     },
 
-    createFilters: (objInit)=>{
-       return new Filters(objInit)
+    createFilters: (objInit) => {
+        return new Filters(objInit)
     },
-    createTutorItem: (objInit)=>{
+    createTutorItem: (objInit) => {
         return createTutorItem(objInit)
-},
+    },
 
-    createDocumentItem: (objInit)=>{
+    createDocumentItem: (objInit) => {
         return new TutorItem(objInit)
     },
 }
