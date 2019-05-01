@@ -80,7 +80,7 @@
                                 <coursesCard :isMyProfile="isMyProfile" v-if="!isEmptyCourses"></coursesCard>
                                 <!--<subjectsCard></subjectsCard>-->
                                 <!--TODO HIDDEN FOR NOW-->
-                                <ctaBlock v-if="$vuetify.breakpoint.smAndUp && isMyProfile"></ctaBlock>
+                                <ctaBlock v-if="$vuetify.breakpoint.smAndUp"></ctaBlock>
                                 <reviewsList v-if="isTutorProfile"></reviewsList>
                             </div>
                             <scroll-list v-if="activeTab === 2" :scrollFunc="loadQuestions" :isLoading="questions.isLoading"
