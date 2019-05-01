@@ -36,9 +36,12 @@
                                 
                                 <v-flex class="result-cell mb-2" xs-12 v-for="(item, index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <!--<component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>-->
-                                    <tutor-result-card v-if="$vuetify.breakpoint.smAndUp" :tutorData="item"></tutor-result-card>
-                                    <tutor-result-card-mobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="item"></tutor-result-card-mobile>
+                                    <component v-if="showSkelaton" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
+                                    <template v-else>
+                                        <tutor-result-card v-if="$vuetify.breakpoint.smAndUp" :tutorData="item"></tutor-result-card>
+                                        <tutor-result-card-mobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="item"></tutor-result-card-mobile>
+                                    </template>
+
 
                                 </v-flex>
                                 <router-link tag="v-flex"
