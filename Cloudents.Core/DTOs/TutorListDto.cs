@@ -23,6 +23,6 @@ namespace Cloudents.Core.DTOs
        public string Bio { get; set; }
 
        [EntityBind(nameof(TutorReview))]
-       public string ReviewsCount { get; set; }
+       public int ReviewsCount { get; set; }
     }
 }
