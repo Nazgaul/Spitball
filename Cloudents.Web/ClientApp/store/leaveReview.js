@@ -2,7 +2,7 @@ import reviewService from '../services/reviewService';
 
 const state = {
     review: {
-        rate: 1,
+        rate: 0,
         reviewText: '',
         roomId: '',
     },

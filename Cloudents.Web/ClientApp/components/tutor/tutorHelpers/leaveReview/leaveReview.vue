@@ -21,7 +21,7 @@
             <v-layout align-center justify-center class="py-2">
                 <v-flex xs12 sm7 md7 class="text-xs-center d-inline-flex border-grey py-3">
                     <user-avatar size="54" :userImageUrl="tutorImage" :user-name="tutorId"/>
-                    <userRating :rating="1"
+                    <userRating :rating="rating"
                                 :rateNumColor="'#43425D'"
                                 :size="'30'"
                                 :readonly="false"
@@ -59,8 +59,10 @@
                            :loading="btnLoading"
                            color="#4452FC"
                            round
+                           :disabled="btnDisabled"
                            class="white-text elevation-0 py-2 submit-review">
-                        <span class="text-capitalize px-4 subheading" v-language:inner>leaveReview_btn_send_review</span>
+                        <span class="text-capitalize px-4 subheading"
+                              v-language:inner>leaveReview_btn_send_review</span>
                     </v-btn>
                 </v-flex>
             </v-layout>
@@ -88,6 +90,8 @@
                 btnLoading: false,
                 reviewVal: 0,
                 roomId: 0,
+                rating: 0,
+                starNotSet: false,
                 reviewPlaceholder: LanguageService.getValueByKey("leaveReview_review_placeholder")
             };
         },
@@ -101,6 +105,9 @@
             },
             tutorName() {
                 return this.getActiveConversationObj.name;
+            },
+            btnDisabled() {
+                return this.rating === 0;
             }
 
         },
@@ -109,10 +116,10 @@
             toggleReviewInput() {
                 return this.reviewInputHidden = !this.reviewInputHidden;
             },
-            setRateStar(val){
-                console.log('rate',val);
-                if(val >0){
-                    this.updateReviewStars(val)
+            setRateStar(val) {
+                this.rating = val;
+                if(val > 0) {
+                    this.updateReviewStars(val);
                 }
             },
             sendReview() {
