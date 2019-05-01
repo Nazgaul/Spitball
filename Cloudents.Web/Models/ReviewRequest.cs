@@ -10,7 +10,7 @@ namespace Cloudents.Web.Models
         [StringLength(1000)]
         [Required(ErrorMessage = "Required")]
         public string Review { get; set; }
-        [Range(0, 5)]
+        [Range(0.5, 5)]
         [Required(ErrorMessage = "Required")]
         public float Rate { get; set; }
         [Required(ErrorMessage = "Required")]
