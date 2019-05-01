@@ -93,11 +93,11 @@ export default {
         },
         enterRoom() {
             //if blocked or not available  use of media devices do not allow session start
-            if(this.getNotAllowedDevices || this.getNotAvaliableDevices) {
+            if(this.getNotAllowedDevices && this.getNotAvaliableDevices) {
                 this.updateTestDialogState(true);
                 return;
             }
-            if(!this.sessionStartClickedOnce){
+            if(!this.sessionStartClickedOnce) {
                 this.sessionStartClickedOnce = true;
                 if(this.isTutor) {
                     tutorService.enterRoom(this.id).then(() => {
@@ -114,7 +114,7 @@ export default {
                         .then((resp) => {
                             console.log('ended session', resp);
                             this.sessionStartClickedOnce = false;
-                            if(!this.isTutor && this.getAllowReview){
+                            if(!this.isTutor && this.getAllowReview) {
                                 this.updateReviewDialog(true);
                             }
                         }, (error) => {
@@ -140,15 +140,17 @@ export default {
                          //create local track with custom names
                          let audioTrackName = `audio_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
                          let videoTrackName = `video_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
+                         let audioSetObj = {
+                             audio: self.availableDevices.includes('audioinput'),
+                             name: `${audioTrackName}`
+                         };
+                         let videoSetObj = {
+                             video: self.availableDevices.includes('videoinput'),
+                             name: `${videoTrackName}`
+                         };
                          createLocalTracks({
-                                               audio: {
-                                                   audio: self.availableDevices.includes('audioinput'),
-                                                   name: `${audioTrackName}`
-                                               },
-                                               video: {
-                                                   video: self.availableDevices.includes('videoinput'),
-                                                   name: `${videoTrackName}`
-                                               }
+                                               audio: self.availableDevices.includes('audioinput') ? audioSetObj : false,
+                                               video: self.availableDevices.includes('videoinput') ? videoSetObj : false
                                            }).then((tracksCreated) => {
                              let localMediaContainer = document.getElementById('localTrack');
                              tracksCreated.forEach((track) => {
