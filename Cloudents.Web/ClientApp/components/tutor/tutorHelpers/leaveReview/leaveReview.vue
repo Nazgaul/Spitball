@@ -65,7 +65,7 @@
                 </v-flex>
             </v-layout>
         </div>
-        <finalReviewStep v-else></finalReviewStep>
+        <finalReviewStep v-else :tutorId="tutorId"></finalReviewStep>
     </div>
 </template>
 
