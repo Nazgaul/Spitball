@@ -98,11 +98,11 @@
                 let self = this;
                 navigator.mediaDevices.getUserMedia({audio: true, video: true})
                          .then(stream => {
-                                   console.log('got permissins');
+                                   console.log('got permissins', stream);
                                },
                                //handle all error types in catch
                          ).catch((err) => {
-                    console.log(err.name + ": " + err.message, err);
+                    console.log(err.name + ":!!!!!!!!!!!!!!!! " + err.message, err);
                     if(err.name === 'NotAllowedError') {
                         // self.notAllowedDevices = true;
                         self.setAllowedDevicesStatus(true)

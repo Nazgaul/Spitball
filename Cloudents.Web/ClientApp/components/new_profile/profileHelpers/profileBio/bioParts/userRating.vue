@@ -11,9 +11,10 @@
                         empty-icon="sbf-star-rating-empty"
                         half-increments
                         :readonly="readonly"
-                        hover
                         :size="size"
+                        :hover="!isRtl"
                 ></v-rating>
+                <!--  :hover="!isRtl" hover binded to rtl, if rtl true prevent hover effect cause of half star wrong side animation-->
             </v-flex>
             <v-flex>
                 <div class="">
