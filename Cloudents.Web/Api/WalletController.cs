@@ -111,35 +111,15 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<SaleResponse>> GenerateLink(
             CancellationToken token)
         {
-            var result = await GenerateLinkAsync(token);
-            //var user = await _userManager.GetUserAsync(User);
-            //if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
-            //{
-            //    return BadRequest();
-            //}
-            //var url = Url.RouteUrl("PayMeCallback", new
-            //{
-            //    userId = user.Id
-            //}, "http");
-
-            //var uri = new UriBuilder(url);
-            //if (configuration.IsDevelopment())
-            //{
-            //    uri.Host = "80ec9aba.ngrok.io";
-            //    uri.Port = 80;
-            //};
-
-            //var result = await payment.CreateBuyerAsync(uri.Uri.AbsoluteUri, token);
-            //var saleUrl = new UriBuilder(result.SaleUrl);
-            //saleUrl.AddQuery(new NameValueCollection()
-            //{
-            //    ["first_name"] = user.FirstName,
-            //    ["last_name"] = user.LastName,
-            //    ["phone"] = user.PhoneNumber,
-            //    ["email"] = user.Email
-            //});
-
-            return new SaleResponse(result);
+            try
+            {
+                var result = await GenerateLinkAsync(token);
+                return new SaleResponse(result);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]

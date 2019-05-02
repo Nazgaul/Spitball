@@ -36,6 +36,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Options;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -180,7 +181,9 @@ namespace Cloudents.Web
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();
             services.AddHttpClient();
+            services.AddOptions();
             services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
+           
 
 
             var assembliesOfProgram = new[]
@@ -197,6 +200,11 @@ namespace Cloudents.Web
 
 
             var containerBuilder = new ContainerBuilder();
+            containerBuilder.Register(c =>
+            {
+                var val = c.Resolve<IOptionsMonitor<PayMeCredentials>>();
+                return val.CurrentValue;
+            }).AsSelf();
             services.AddSingleton<WebPackChunkName>();
             
             var keys = new ConfigurationKeys(Configuration["Site"])
