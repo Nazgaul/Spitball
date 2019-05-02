@@ -108,14 +108,19 @@
         &.list-tutor-card{
             margin-bottom: 4px;
             border-radius: 0;
+            &.pa-12{
+                padding: 16px 12px;
+            }
             &:first-child{
                 border-radius: 4px 4px 0 0 ;
             }
             &:last-child{
                 border-radius: 0 0 4px 4px;
             }
+            .top-section{
+            }
             .tutor-name {
-                font-size: 14px;
+                font-size: 13px;
                 font-weight: 700;
                 line-height: 18px;
             }
