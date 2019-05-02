@@ -30,7 +30,7 @@
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <v-flex v-show="!showSkelaton && showSelectUni" class="result-cell mb-2" xs-12>
+                                <v-flex v-show="!showSkelaton && showSelectUni" class="result-cell mb-3 empty-state-tutor" xs-12>
                                     <set-uni-class class="cell"></set-uni-class>
                                 </v-flex>
                                 
