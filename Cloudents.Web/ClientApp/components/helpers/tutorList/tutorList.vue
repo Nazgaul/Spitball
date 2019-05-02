@@ -1,16 +1,16 @@
 <template>
-    <v-layout column wrap align-center v-if="tutorList.length >= 1" class="tutor-list-wrap" :class="{'mx-2 mt-3': $vuetify.breakpoint.xsOnly}">
+    <v-layout column wrap align-center v-if="tutorList.length >= 1" class="tutor-list-wrap px-2" :class="{'px-0 mx-2 mt-3': $vuetify.breakpoint.xsOnly}">
         <v-flex class="title-holder">
             <span class="subheading font-weight-bold tutors-title" v-language:inner>tutorList_title</span>
         </v-flex>
         <v-flex>
-            <tutorCard v-for="singleTutor in tutorList" :tutorData="singleTutor"></tutorCard>
+            <tutorCard v-for="singleTutor in tutorList" :tutorData="singleTutor" :isInTutorList="true"></tutorCard>
         </v-flex>
     </v-layout>
 </template>
 <script>
     import {mapGetters, mapActions} from 'vuex';
-    import tutorCard from "./tutorCard.vue";
+    import tutorCard from "../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue";
     export default {
         name: "tutorList",
         components: {tutorCard},
@@ -47,12 +47,13 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
 .tutor-list-wrap{
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.04);
     .title-holder{
         text-align: center;
-        background: #fff;
-        border-radius: 4px 4px 0 0;
         margin-bottom: 1px!important;
         width: 100%;
+        padding: 10px 12px;
     }
     .tutors-title{
         color: @profileTextColor;

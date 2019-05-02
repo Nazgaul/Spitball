@@ -3,18 +3,23 @@ using System.Collections.Generic;
 
 namespace Cloudents.Core.Attributes
 {
-    public class DtoToEntityConnectionAttribute : Attribute
+    public class EntityBindAttribute : Attribute
     {
-        public DtoToEntityConnectionAttribute(string entityName): this()
+        public EntityBindAttribute(string entityName): this()
         {
             EntityNames.Add(entityName);
         }
-        public DtoToEntityConnectionAttribute(params string[] entityNames) : this()
+        public EntityBindAttribute(params string[] entityNames) : this()
         {
             EntityNames = entityNames;
         }
 
-        protected DtoToEntityConnectionAttribute()
+        public EntityBindAttribute(dynamic x)
+        {
+
+        }
+
+        protected EntityBindAttribute()
         {
             EntityNames = new List<string>();
         }

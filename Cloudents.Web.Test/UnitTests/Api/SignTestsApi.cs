@@ -1,4 +1,5 @@
-﻿using Cloudents.Web.Test.IntegrationTests;
+﻿using System;
+using Cloudents.Web.Test.IntegrationTests;
 using FluentAssertions;
 using System;
 using System.Net.Http;

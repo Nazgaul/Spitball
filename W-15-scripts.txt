@@ -1,35 +1,27 @@
-﻿alter table sb.question
-ALTER COLUMN price decimal(19,5) null;
-need to upload azure function v2.
-update sb.[Email]
-set template = N'{
-  "socialShare": true,
-  "eventName": "AnswerAccepted",
-  "subject": "Awesome you just helped someone out!",
-  "cultureInfo": "en",
-  "blocks": [
-    {
-      "title": "Great job!",
-      "body": "Q: {QuestionText}\nA: {AnswerText}",
-      "cta": "Check it out",
-      "minorTitle": "Your answer was accepted"
-    }
-  ]
-}'
-where id = 6
-update sb.[Email]
-set template = N'{
-  "socialShare": true,
-  "eventName": "AnswerAccepted",
-  "subject": "מעריכים את ההשקעה שלך בספיטבול!",
-  "cultureInfo": "he",
-  "blocks": [
-    {
-      "title": "שיחקת אותה",
-      "body": "ש: {QuestionText}\nת: {AnswerText}",
-      "cta": " לבירור לחץ כאן ",
-      "minorTitle": "תשובתך התקבלה"
-    }
-  ]
-}'
-where id = 23
+﻿CREATE FULLTEXT CATALOG tutor_catalog;
+
+CREATE FULLTEXT INDEX ON sb.[user]  
+ (   
+  Name  
+     Language 0  
+ )   
+  KEY INDEX PK__User__3214EC072F3475B5   
+      ON tutor_catalog;  
+
+
+CREATE FULLTEXT INDEX ON sb.CourseSubject  
+ (   
+  Name  
+     Language 0  
+ )   
+  KEY INDEX PK__CourseSu__3214EC0782F3F7B0   
+      ON tutor_catalog;  	
+
+
+CREATE FULLTEXT INDEX ON sb.tutor  
+ (   
+  Bio  
+     Language 0  
+ )   
+  KEY INDEX PK__Tutor__3214EC07CC07DAC0   
+      ON tutor_catalog;  	  

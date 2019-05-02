@@ -19,6 +19,7 @@ import University from "./university";
 import homeLanding from "./homeLanding"
 import homeworkHelpStore from './homeworkHelp_store'
 import studyDocumentsStore from './studyDocuments_store';
+import tutorsStore from './tutors_store';
 import marketingBox from './marketingBox'
 import leaderBoard from './leaderBoard'
 import mobileFooter from './mobileFooter';
@@ -56,6 +57,7 @@ const store = new Vuex.Store({
         homeLanding,
         homeworkHelpStore,
         studyDocumentsStore,
+        tutorsStore,
         marketingBox,
         leaderBoard,
         mobileFooter,

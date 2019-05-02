@@ -159,6 +159,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpPost("{id:guid}/end")]
         public async Task<IActionResult> EndSessionAsync(Guid id, CancellationToken token)
+
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new EndStudyRoomSessionCommand(id, userId);

@@ -5,9 +5,9 @@ namespace Cloudents.Core.DTOs.Admin
 {
     public class UserFlagsOthersDto
     {
-        [DtoToEntityConnection(nameof(User.Id))]
+        [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
-        [DtoToEntityConnection(nameof(User.Country))]
+        [EntityBind(nameof(User.Country))]
         public string Country { get; set; }
         public int Flags { get; set; }
         public static int Rows { get; set; }
