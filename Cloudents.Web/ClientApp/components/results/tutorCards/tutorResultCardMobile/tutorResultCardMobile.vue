@@ -1,5 +1,5 @@
 <template>
-    <v-card class="tutor-card-wrap px-3 py-12 mb-2 elevation-0 cursor-pointer " :class="{'list-tutor-card': isInTutorList}"
+    <v-card class="tutor-card-wrap pa-12 elevation-0 cursor-pointer " :class="{'list-tutor-card': isInTutorList}"
             @click.native="goToTutorProfile(tutorData.userId)">
         <div class="section-tutor-info">
             <v-layout>
@@ -15,7 +15,9 @@
                                           v-line-clamp:18="1">{{tutorData.name}}</span>
                                 </v-flex>
                                 <v-flex shrink>
-                                    <span class="font-weight-bold pricing pr-1">₪{{tutorData.price}}</span>
+                                    <span class="font-weight-bold pricing pr-1">
+                                        <span class="body-2">₪</span>
+                                        {{tutorData.price}}</span>
                                     <span class="pricing caption">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
@@ -24,16 +26,16 @@
                         </v-flex>
                         <v-flex class="bottom-section">
                             <userRating
-                            v-if="tutorData.reviews > 0"
+                            v-if="true"
                             class="rating-holder"
-                                    :rating="tutorData.rating"
+                                    :rating="4.86"
                                     :starColor="'#ffca54'"
                                     :rateNumColor="'#43425D'"
                                     :size="isInTutorList ? '16' : '20'"
                                     :rate-num-color="'#43425D'"></userRating>
 
-                            <v-flex shrink class="tutor-courses">
-                                <span class="blue-text" v-line-clamp:18="1">{{tutorData.courses}}</span>
+                            <v-flex shrink class="tutor-courses text-truncate">
+                                <span class="blue-text courses-text ">{{tutorData.courses}}</span>
                             </v-flex>
                         </v-flex>
 
@@ -101,11 +103,20 @@
         border-radius: 4px;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
         min-width: 304px;
+        margin-bottom: 8px;
         // START styles for card rendered inside tutor list only
         &.list-tutor-card{
+            margin-bottom: 4px;
+            border-radius: 0;
+            &:first-child{
+                border-radius: 4px 4px 0 0 ;
+            }
+            &:last-child{
+                border-radius: 0 0 4px 4px;
+            }
             .tutor-name {
                 font-size: 14px;
-                font-weight: 500;
+                font-weight: 700;
                 line-height: 18px;
             }
             .rating-holder{
@@ -120,8 +131,8 @@
             }
         }
         // END styles for card rendered inside tutor list only
-        &.py-12 {
-            padding: 12px 0;
+        &.pa-12 {
+            padding: 12px;
         }
         .user-rating-val {
             font-weight: bold;
@@ -140,6 +151,9 @@
             border-radius: 4px;
             width: 76px;
             height: 96px;
+        }
+        .rating-number{
+            font-weight: bold;
         }
         .bottom-section{
             justify-self: flex-end;
@@ -162,6 +176,10 @@
             max-width: 140px;
             font-size: 14px;
             min-height: 19px; //keep it to prevent rating stars shift
+        }
+        .courses-text{
+            vertical-align: text-bottom;
+            line-height: 1;
         }
 
     }

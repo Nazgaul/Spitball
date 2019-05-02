@@ -18,9 +18,11 @@
                     <span class="body-2 pl-1">{{tutorName}}</span>
                 </v-flex>
             </v-layout>
-            <v-layout align-center justify-center class="py-2">
-                <v-flex xs12 sm7 md7 class="text-xs-center d-inline-flex border-grey py-3">
-                    <user-avatar size="54" :userImageUrl="tutorImage" :user-name="tutorId"/>
+            <v-layout align-center justify-center row wrap class="py-2 border-grey mx-5">
+                <v-flex xs12 sm1 md1 shrink class="text-xs-center d-inline-flex py-3 mr-4">
+                    <user-avatar class="tutor-img-wrap" size="54" :userImageUrl="tutorImage" :user-name="tutorName" :user-id="tutorId"/>
+                </v-flex>
+                <v-flex xs12 sm4 md4 shrink>
                     <userRating :rating="rating"
                                 :rateNumColor="'#43425D'"
                                 :size="'30'"
@@ -30,7 +32,7 @@
                                 :rate-num-color="'#43425D'"></userRating>
                 </v-flex>
             </v-layout>
-            <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-2"
+            <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-3"
                       :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
                 <v-flex @click="toggleReviewInput()" xs12 sm8 md8 class="text-xs-center  cursor-pointer">
                 <span class="mr-2">
@@ -59,6 +61,7 @@
                            :loading="btnLoading"
                            color="#4452FC"
                            round
+                           id="submit-review-id"
                            :disabled="btnDisabled"
                            class="white-text elevation-0 py-2 submit-review">
                         <span class="text-capitalize px-4 subheading"
@@ -101,7 +104,7 @@
                 return utilitiesService.proccessImageURL(this.getActiveConversationObj.image, 54, 54);
             },
             tutorId() {
-                return this.getActiveConversationObj && this.getActiveConversationObj.userId && this.getActiveConversationObj.userId.toString();
+                return this.getActiveConversationObj && this.getActiveConversationObj.userId && this.getActiveConversationObj.userId;
             },
             tutorName() {
                 return this.getActiveConversationObj.name;
@@ -164,6 +167,12 @@
         .review-close-icon {
             color: #a4a3be;
         }
+        .user-avatar-img{
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.38);
+        }
+        .tutor-img-wrap{
+            max-width: 54px;
+        }
         .v-text-field--outline > .v-input__control > .v-input__slot {
             border: 1px solid rgba(0, 0, 0, 0.19);
             font-size: 14px;
@@ -187,6 +196,11 @@
         }
         .submit-review {
             height: 42px;
+        }
+        #submit-review-id{
+            &:disabled {
+                background-color: #f0f0f7!important; //vuetify
+            }
         }
         .review-heading {
             height: 46px;
