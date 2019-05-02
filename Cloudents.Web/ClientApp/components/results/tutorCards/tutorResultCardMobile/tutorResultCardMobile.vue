@@ -15,7 +15,7 @@
                                           v-line-clamp:18="1">{{tutorData.name}}</span>
                                 </v-flex>
                                 <v-flex shrink>
-                                    <span class="font-weight-bold pricing">₪{{tutorData.price}}</span>
+                                    <span class="font-weight-bold pricing pr-1">₪{{tutorData.price}}</span>
                                     <span class="pricing caption">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
