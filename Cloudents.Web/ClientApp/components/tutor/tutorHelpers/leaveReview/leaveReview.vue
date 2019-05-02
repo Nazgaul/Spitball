@@ -47,6 +47,7 @@
                         <v-textarea
                                 rows="1"
                                 outline
+                                autofocus
                                 v-model="reviewText"
                                 name="input-review"
                                 auto-grow
@@ -101,7 +102,12 @@
         computed: {
             ...mapGetters(['getActiveConversationObj', 'getReview', 'getStudyRoomData']),
             tutorImage() {
-                return utilitiesService.proccessImageURL(this.getActiveConversationObj.image, 54, 54);
+                if(this.getActiveConversationObj && this.getActiveConversationObj.image){
+                    return utilitiesService.proccessImageURL(this.getActiveConversationObj.image, 54, 54);
+                }else{
+                    return ''
+                }
+
             },
             tutorId() {
                 return this.getActiveConversationObj && this.getActiveConversationObj.userId && this.getActiveConversationObj.userId;
