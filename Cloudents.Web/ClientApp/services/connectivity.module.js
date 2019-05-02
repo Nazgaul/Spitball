@@ -12,7 +12,6 @@ const promiseReturn = function (data) {
     // "this" is bound to the timerObject
     let endTime = new Date().getTime();
     analyticsService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "SUCCESS")
-
     return data;
 }
 
