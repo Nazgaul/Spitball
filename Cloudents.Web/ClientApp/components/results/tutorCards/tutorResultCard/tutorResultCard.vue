@@ -27,7 +27,7 @@
                       class="price-review-column section-tutor-price-review ml-1">
                 <v-flex xs12 sm12 md12 grow>
                     <v-flex xs12 sm12 md12 shrink>
-                        <span class="font-weight-medium headline pricing">₪{{tutorData.price}}</span>
+                        <span class="font-weight-bold headline pricing">₪{{tutorData.price}}</span>
                         <span class="pricing caption">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
@@ -43,15 +43,15 @@
                     </v-flex>
                     <v-flex xs12 sm12 md12 class="pt-1" shrink>
                             <span class="blue-text body-2" v-if="tutorData.reviews > 0">{{tutorData.reviews}}
-                                <span v-if="tutorData.reviews > 1 || tutorData.reviews === 0" v-language:inner>resultTutor_reviews_many</span>
-
+                                <span v-if="tutorData.reviews > 1" v-language:inner>resultTutor_reviews_many</span>
                                 <span v-else v-language:inner>resultTutor_review_one</span>
                             </span>
+                        <span class="body-2" v-else v-language:inner>resultTutor_no_reviews</span>
                     </v-flex>
                 </v-flex>
 
-                <v-flex xs12 sm12 md12 class="d-flex btn-bottom-holder">
-                    <v-btn round class="blue-btn rounded elevation-0 ma-0" block>
+                <v-flex xs12 sm12 md12 class="d-flex btn-bottom-holder text-xs-center">
+                    <v-btn style="max-width: 80%; margin: 0 auto;" round class="blue-btn rounded elevation-0 ma-0" block>
                         <span class="font-weight-bold text-capitalize" v-language:inner>resultTutor_btn_view</span>
                     </v-btn>
                 </v-flex>
@@ -118,6 +118,9 @@
     .tutor-card-wrap-desk {
         width: 100%;
         margin: 0 auto;
+        .rating-number{
+            font-weight: bold;
+        }
         .section-tutor-info {
             width: @cellWidth;
             background-color: @color-white;
@@ -143,7 +146,9 @@
         }
         .btn-bottom-holder {
             justify-self: flex-end;
-            margin-top: auto
+            margin-top: auto;
+            justify-content: center;
+
         }
         .blue-btn {
             background-color: @colorBlue !important;

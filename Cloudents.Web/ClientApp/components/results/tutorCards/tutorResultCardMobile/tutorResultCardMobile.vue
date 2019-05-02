@@ -23,19 +23,15 @@
                             </v-layout>
                         </v-flex>
                         <v-flex class="bottom-section">
-                            <!--<userRating-->
-                                    <!--:rating="tutorData.rating"-->
-                                    <!--:starColor="'#ffca54'"-->
-                                    <!--:rateNumColor="'#43425D'"-->
-                                    <!--:size="'20'"-->
-                                    <!--:rate-num-color="'#43425D'"></userRating> -->
                             <userRating
-                                    class="rating-holder"
-                                    :rating="4.86"
+                            v-if="tutorData.reviews > 0"
+                            class="rating-holder"
+                                    :rating="tutorData.rating"
                                     :starColor="'#ffca54'"
                                     :rateNumColor="'#43425D'"
                                     :size="isInTutorList ? '16' : '20'"
                                     :rate-num-color="'#43425D'"></userRating>
+
                             <v-flex shrink class="tutor-courses">
                                 <span class="blue-text" v-line-clamp:18="1">{{tutorData.courses}}</span>
                             </v-flex>
@@ -74,7 +70,7 @@
             userImageUrl() {
                 if(this.tutorData.image) {
                     let size = this.isInTutorList ? [56, 64] : [76, 96];
-                    return utilitiesService.proccessImageURL(this.tutorData.image, ...size);
+                    return utilitiesService.proccessImageURL(this.tutorData.image, ...size, 'crop');
                 } else {
                     return './images/placeholder-profile.png';
                 }
@@ -149,7 +145,7 @@
             margin-top: auto
         }
         .rating-holder{
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         .pricing {
             font-family: @fontOpenSans;
@@ -164,6 +160,7 @@
             color: @colorBlue;
             max-width: 140px;
             font-size: 14px;
+            min-height: 19px; //keep it to prevent rating stars shift
         }
 
     }
