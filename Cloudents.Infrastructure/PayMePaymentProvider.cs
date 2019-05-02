@@ -52,7 +52,9 @@ namespace Cloudents.Infrastructure
             });
             using (var sr = new StringContent(json, Encoding.UTF8, "application/json"))
             {
-                var response = await _client.PostAsync($"{_credentials}/generate-sale", sr, token);
+                Uri.TryCreate(new Uri(_credentials.EndPoint), "generate-sale", out var uri);
+
+                var response = await _client.PostAsync(uri, sr, token);
                 if (!response.IsSuccessStatusCode)
                 {
                     var str = await response.Content.ReadAsStringAsync();
