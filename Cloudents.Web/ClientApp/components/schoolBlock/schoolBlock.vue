@@ -174,7 +174,7 @@ export default {
       }
     },
     isOutsideNoteAsk(){
-        return this.$route.name !== 'ask' && this.$route.name !== 'note'
+        return this.$route.name !== 'ask' && this.$route.name !== 'note' && this.$route.name !== 'tutors'
     },
     updateFilter() {
       this.UPDATE_SEARCH_LOADING(true);

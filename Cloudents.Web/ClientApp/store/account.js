@@ -221,9 +221,10 @@ const actions = {
         context.commit("updateEditedData", newdata);
     },
     uploadAccountImage(context, obj) {
-        accountService.uploadImage(obj).then((resp) => {
+      return  accountService.uploadImage(obj).then((resp) => {
                                                  let imageUrl = resp.data;
                                                  context.commit('setProfilePicture', imageUrl);
+                                                 return true
                                              },
                                              (error) => {
                                                  console.log(error, 'error upload account image');
