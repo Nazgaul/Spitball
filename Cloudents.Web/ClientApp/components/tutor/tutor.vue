@@ -142,7 +142,7 @@ import { LanguageService } from "../../services/language/languageService";
       return this.activeItem === "white-board" ? true : true;
             },
             zoom() {
-                let gridSize = (40 * Number(this.getZoom.toFixed())) / 100;
+                let gridSize = (20 * Number(this.getZoom.toFixed())) / 100;
                 return `${gridSize}px ${gridSize}px`;
             },
             panX() {
