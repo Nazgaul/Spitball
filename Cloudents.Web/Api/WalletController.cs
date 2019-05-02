@@ -197,7 +197,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [SignInWithToken, Route("/" + UrlConst.GeneratePaymentLink)]
+        [SignInWithToken, Route("/" + UrlConst.GeneratePaymentLink), ApiExplorerSettings(IgnoreApi = true)]
         public async Task<RedirectResult> Payment(CancellationToken token)
         {
             var result = await GenerateLinkAsync(token);
