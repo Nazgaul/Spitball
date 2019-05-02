@@ -106,6 +106,7 @@
             .tutor-name {
                 font-size: 14px;
                 font-weight: 500;
+                line-height: 14px;
             }
             .rating-holder{
                 margin-bottom: 0;
@@ -127,7 +128,7 @@
         }
         .tutor-name {
             color: @profileTextColor;
-            line-height: 12px;
+            line-height: 20px;
             word-break: break-all;
             font-size: 16px;
             font-weight: bold;
