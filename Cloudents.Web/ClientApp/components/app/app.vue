@@ -113,6 +113,15 @@
         <v-snackbar absolute top :timeout="toasterTimeout" :class="getShowToasterType" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
+
+        <v-snackbar absolute top :timeout="0" :class="getShowToasterType" :value="getShowPayMeToaster">
+            <div class="text-wrap">
+              <a @click="enterPayme()" style="text-decoration: none;" v-language:inner>app_payme_toaster_text</a>
+            </div>
+            <div>
+              <v-icon style="font-size:14px;color:#FFF;" @click="closePayMe">sbf-close</v-icon>
+            </div>
+        </v-snackbar>
     </v-app>
 </template>
 <script>
@@ -202,6 +211,7 @@ export default {
       "StudyDocuments_isDataLoaded",
       "getOnBoardState",
       "getShowBuyDialog",
+      "getShowPayMeToaster",
       "getCurrentStep",
       "newBallerDialog",
       "becomeTutorDialog"
@@ -321,28 +331,26 @@ export default {
       "setCookieAccepted",
       "updateOnBoardState",
       "updateShowBuyDialog",
+      "updateShowPayMeToaster",
       "updateCurrentStep",
       "changeSelectUniState"
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
-
+    enterPayme(){
+      walletService.getPaymeLink().then(({data})=>{
+        global.open(data.link, '_blank', 'height=520,width=440');
+        this.closePayMe();
+      })
+    },
     onFooterStepChange() {
       this.tourTempClose();
     },
     closeSblToken() {
       this.updateShowBuyDialog(false);
     },
-    //openOnboardGuide() {
-    //  let isLogedIn = this.accountUser;
-    //  let supressed = global.localStorage.getItem("sb-onboard-supressed");
-    //  let validRoutesNames = ["ask", "note"].indexOf(this.$route.name) > -1;
-
-    //  if (isLogedIn && !supressed && validRoutesNames) {
-    //    setTimeout(() => {
-    //      this.updateOnBoardState(true);
-    //    });
-    //  }
-    //},
+    closePayMe(){
+      this.updateShowPayMeToaster(false);
+    },
     tourClosed: function() {
       console.log("tourClosed");
       global.localStorage.setItem("sb_walkthrough_supressed", true);
@@ -380,6 +388,9 @@ export default {
     }
   },
   created() {
+    if(!!this.accountUser && this.accountUser.needPayment){
+      this.updateShowPayMeToaster(true);
+    }
     //this.openOnboardGuide();
     this.$root.$on("closePopUp", name => {
       if (name === "suggestions") {

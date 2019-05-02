@@ -126,4 +126,7 @@
   <data name="currency_dynamic" xml:space="preserve">
     <value>Pts</value>
   </data>
+  <data name="payme_toaster_text" xml:space="preserve">
+    <value>click here to enter credit card</value>
+  </data>
 </root>
