@@ -7,15 +7,20 @@
   font-family: @fontOpenSans;
   font-size: 18px;
   margin: 0 8px;
-
+  max-width: @cellWidth;
+  @media(max-width:@screen-xs){
+    min-height: 270px;
+  }
   .empty-state-top-layout {
-    background-image: url('./img/emptyStateBackground.png');
-    background-position-x: center;
-    background-position-y: bottom;
-    background-repeat: no-repeat;
+    background-image: url('./img/empty-state-picture.png');
+    background-position: 350px bottom;
+    background-size: 220px;
     padding-bottom: 45px !important;
+    //background-position-y: bottom;
     @media (max-width: @screen-xs) {
       padding-bottom: 30px !important;
+      height: 270px;
+      background-position: 140px bottom;
     }
     .user-search-text-container {
       font-size: 18px;

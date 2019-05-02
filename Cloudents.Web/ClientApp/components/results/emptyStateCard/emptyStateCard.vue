@@ -19,7 +19,7 @@
             </ul>
           </div>
           <div class="empty-state-img-container">
-            <img class="empty-state-img" src="./img/binoculars.png" alt>
+            <!--<img class="empty-state-img" src="./img/binoculars.png" alt>-->
           </div>
         </v-flex>
       </v-flex>
