@@ -24,4 +24,6 @@ CREATE FULLTEXT INDEX ON sb.tutor
      Language 0  
  )   
   KEY INDEX PK__Tutor__3214EC07CC07DAC0   
-      ON tutor_catalog;  	  
+      ON tutor_catalog;  	 
+	  
+	upload azure function v2
