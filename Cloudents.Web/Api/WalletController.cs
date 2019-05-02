@@ -107,7 +107,7 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpPost("AddPayment")]
+        [HttpGet("GetPaymentLink")]
         public async Task<ActionResult<SaleResponse>> GenerateLink(
             CancellationToken token)
         {
