@@ -45,8 +45,8 @@ cte.rate as Rate,
 t.Bio,
 cte.rateCount as ReviewsCount
 from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
-join sb.UsersCourses tc on u.id = tc.UserId and tc.CanTeach = 1
-join sb.Course c on tc.CourseId = c.Name
+left join sb.UsersCourses tc on u.id = tc.UserId and tc.CanTeach = 1
+left join sb.Course c on tc.CourseId = c.Name
 left join sb.CourseSubject cs on c.SubjectId = cs.Id
 where ( contains(u.Name,@term) or  contains(t.Bio,@term) or contains(c.Name,@term)  or contains(cs.Name,@term))
 order by u.id

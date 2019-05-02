@@ -156,7 +156,7 @@ namespace Cloudents.FunctionsV2
 
             await options.AddAsync(new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
-                Body = "Your code to enter into Spitball is: " + msg.Message
+                Body = /*"Your code to enter into Spitball is: " +*/ msg.Message
             }, token);
         }
 
