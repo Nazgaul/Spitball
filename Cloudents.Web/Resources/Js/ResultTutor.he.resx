@@ -117,13 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btn_view" xml:space="preserve">
+    <value>צפה בפרופיל</value>
+  </data>
   <data name="currency" xml:space="preserve">
     <value>$</value>
   </data>
   <data name="hour" xml:space="preserve">
     <value>/ שעה</value>
   </data>
+  <data name="no_reviews" xml:space="preserve">
+    <value>עדיין אין חוות דעת</value>
+  </data>
   <data name="online_lessons" xml:space="preserve">
     <value>מציע שיעורים מקוונים</value>
+  </data>
+  <data name="reviews_many" xml:space="preserve">
+    <value>חוות דעת</value>
+  </data>
+  <data name="review_one" xml:space="preserve">
+    <value>חוות דעת</value>
   </data>
 </root>
