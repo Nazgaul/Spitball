@@ -1,6 +1,5 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
-import questionService from '../../services/questionService';
 import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 import { LanguageService } from "../../services/language/languageService";
 
@@ -12,7 +11,6 @@ export default {
     },
     data() {
         return {
-            subjectList: [],
             tutorCourse: '',
             tutorRequestText: '',
             coursePlaceholder: LanguageService.getValueByKey("tutorRequest_select_course_placeholder"),
@@ -55,19 +53,6 @@ export default {
                 return `${this.accountUser.image}`;
             }
             return '';
-        },
-    },
-    watch: {
-        getRequestTutorDialog: {
-            immediate: true,
-            handler(val) {
-                if(val) {
-                    // get subject if questionDialog state is true(happens only if accountUser is true)
-                    questionService.getSubjects().then((response) => {
-                        this.subjectList = response.data;
-                    });
-                }
-            },
         },
     },
     methods: {

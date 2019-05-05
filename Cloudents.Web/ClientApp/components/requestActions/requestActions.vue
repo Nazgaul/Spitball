@@ -1,14 +1,21 @@
 <template>
-    <div class="request-box-wrap">
-        <v-layout>
-            <v-flex xs12 sm12 md12 class="text-xs-center pt-4">
+    <div class="request-box-wrap px-4">
+        <v-layout align-center justify-start class="pt-3">
+            <v-flex xs1 md1 sm1 shrink v-if="$vuetify.breakpoint.smAndUp && accountUser" >
+                <userAvatar
+                        class="avatar-circle  mr-2"
+                        :userImageUrl="userImageUrl"
+                        :user-name="userName"
+                        :user-id="userID"></userAvatar>
+            </v-flex>
+            <v-flex xs11 sm11 md11 grow :class="[$vuetify.breakpoint.xsOnly ? 'text-xs-center' : 'text-xs-left']">
                 <span class="subheading font-weight-bold request-box-title" v-language:inner>requestActions_title
                 </span>
             </v-flex>
         </v-layout>
-        <v-layout align-center class="pt-3 pb-3">
-            <v-flex sm4 md4 class="btn-wrap text-xs-center">
-                <v-btn round class="light-btn px-4 elevation-0" @click="openAskQuestion()">
+        <v-layout align-space-between class="pt-3 pb-3">
+            <v-flex sm4 md4 class="btn-wrap text-xs-left">
+                <v-btn round class="light-btn elevation-0 ma-0" @click="openAskQuestion()">
                     <v-icon class="light-btn-icon subheading mr-2">sbf-message-icon-new</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-bold"
                           v-language:inner>requestActions_btn_ask</span>
@@ -17,7 +24,7 @@
                 </v-btn>
             </v-flex>
             <v-flex sm4 md4 class="btn-wrap text-xs-center">
-                <v-btn round class="light-btn px-4 elevation-0" @click="openUpload()">
+                <v-btn round class="light-btn elevation-0 ma-0" @click="openUpload()">
                     <v-icon class="light-btn-icon subheading mr-2">sbf-upload-icon</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-bold"
                           v-language:inner>requestActions_btn_upload</span>
@@ -25,8 +32,8 @@
                           v-language:inner>requestActions_btn_upload_mob</span>
                 </v-btn>
             </v-flex>
-            <v-flex sm4 md4 class="btn-wrap text-xs-center">
-                <v-btn round class="light-btn px-4 elevation-0" @click="openRequestTutor()">
+            <v-flex sm4 md4 class="btn-wrap text-xs-right">
+                <v-btn round class="light-btn elevation-0 ma-0" @click="openRequestTutor()">
                     <v-icon class="light-btn-icon subheading mr-2">sbf-person-icon</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-bold"
                           v-language:inner>requestActions_btn_tutor</span>
@@ -40,12 +47,28 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
+    import userAvatar from '../helpers/UserAvatar/UserAvatar.vue';
+
     export default {
         name: "requestActions",
+        components: {userAvatar},
         computed: {
             ...mapGetters(['accountUser', 'getSchoolName', 'getSelectedClasses']),
-            name() {
-                return this.data;
+            userImageUrl() {
+                if(this.accountUser && this.accountUser.image.length > 1) {
+                    return `${this.accountUser.image}`;
+                }
+                return '';
+            },
+            userName(){
+                if(this.accountUser && this.accountUser.name.length > 1) {
+                    return `${this.accountUser.name}`;
+                }
+            },
+            userID(){
+                if(this.accountUser && this.accountUser.id) {
+                    return this.accountUser.id
+                }
             }
         },
         methods: {
@@ -86,9 +109,9 @@
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
                 } else {
-                    this.updateRequestDialog(true)
+                    this.updateRequestDialog(true);
                 }
-                console.log('open tutor request dialog')
+                console.log('open tutor request dialog');
             }
         },
     };
@@ -106,17 +129,16 @@
             letter-spacing: -0.4px;
         }
         .light-btn {
-            border: solid 1px @lightBtnBorderColor;
             border-radius: 16px;
             height: 32px;
-            color: @textColor;
+            color: @color-white;
             width: 189px;
-            background: @lightBtnColor !important;
+            background: @btnGreen !important;
             @media (max-width: @screen-xs) {
                 width: 110px;
             }
             .light-btn-icon {
-                color: @lightBtnIconColor;
+                color: @color-white;
             }
         }
 
