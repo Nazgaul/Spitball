@@ -153,18 +153,6 @@
   <data name="ActionTypeSoldDocument" xml:space="preserve">
     <value>מכירת מסמך</value>
   </data>
-  <data name="BookConditionEBook" xml:space="preserve">
-    <value>דיגיטלי</value>
-  </data>
-  <data name="BookConditionNew" xml:space="preserve">
-    <value>חדש</value>
-  </data>
-  <data name="BookConditionRental" xml:space="preserve">
-    <value>השכרה</value>
-  </data>
-  <data name="BookConditionUsed" xml:space="preserve">
-    <value>משומש</value>
-  </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>שאלות שנענו</value>
   </data>
