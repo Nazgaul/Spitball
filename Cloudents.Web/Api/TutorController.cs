@@ -5,8 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Models;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
+using Cloudents.Web.Binders;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
@@ -36,14 +38,19 @@ namespace Cloudents.Web.Api
         /// Used for tutor tab
         /// </summary>
         /// <param name="term"></param>
+        /// <param name="profile"></param>
         /// <param name="page"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search")]
-        public async Task<WebResponseWithFacet<TutorListDto>> GetAsync([RequiredFromQuery]string term, int page, CancellationToken token)
+        public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
+            [RequiredFromQuery]string term,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            int page,
+            CancellationToken token)
         {
             //TutorListTabQuery
-            var query = new TutorListTabSearchQuery(term, page);
+            var query = new TutorListTabSearchQuery(term, profile.Country, page);
             var result = await _queryBus.QueryAsync(query, token);
             return new WebResponseWithFacet<TutorListDto>
             {
@@ -54,10 +61,12 @@ namespace Cloudents.Web.Api
 
 
         [HttpGet("search", Name = "TutorSearch")]
-        public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(int page, CancellationToken token)
+        public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            int page, CancellationToken token)
         {
             //TutorListTabQuery
-            var query = new TutorListTabQuery(page);
+            var query = new TutorListTabQuery(profile.Country, page: page);
             var result = await _queryBus.QueryAsync(query, token);
             return new WebResponseWithFacet<TutorListDto>
             {
