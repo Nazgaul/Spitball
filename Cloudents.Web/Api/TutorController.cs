@@ -8,6 +8,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Framework;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
@@ -74,6 +75,18 @@ namespace Cloudents.Web.Api
             var query = new TutorListByCourseQuery(courseName, userId, page);
             var retValTask = await _queryBus.QueryAsync(query, token);
             return retValTask;
+        }
+
+        [HttpPost("request")]
+        public IActionResult RequestTutorAsync(RequestTutorRequest model)
+        {
+
+            return Ok(new
+            {
+                text = model.Text,
+                course = model.Course,
+                fileExists = model.File != null
+            });
         }
     }
 }
