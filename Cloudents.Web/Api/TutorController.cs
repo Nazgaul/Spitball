@@ -104,7 +104,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost("request/upload"), Consumes("multipart/form-data")]
         public async Task<UploadAskFileResponse> UploadFileAsync(IFormFile file,
-            IRequestTutorDirectoryBlobProvider blobProvider,
+          [FromServices]  IRequestTutorDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
