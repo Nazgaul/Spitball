@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div class="add-request-container">
-            <v-layout class="request-header px-2 py-2">
+            <v-layout class="request-header  py-2" :class="[$vuetify.breakpoint.xsOnly ? 'px-4' : 'px-2']">
                 <v-flex xs11 sm11 md11>
                     <span class="request-tutor-header-title">
                         <v-icon class="header-icon mr-2">sbf-person-icon</v-icon>
