@@ -13,15 +13,4 @@ namespace Cloudents.Core.Event
         public StudyRoom StudyRoom { get;  }
 
     }
-
-
-    public class StudyRoomOnlineChangeEvent : IEvent
-    {
-        public StudyRoomOnlineChangeEvent(StudyRoomUser studyUser)
-        {
-            StudyUser = studyUser;
-        }
-
-        public StudyRoomUser StudyUser { get; }
-    }
 }

@@ -214,6 +214,7 @@ const getters = {
 };
 
 const actions = {
+    
     updateUniExists(context, val){
         context.commit("setUniExists", val);
     },
@@ -449,7 +450,10 @@ const actions = {
     },
     profileVote({commit}, data) {
         commit('updateProfileVote', data);
-    }
+    },
+    signalR_userPaymentReceived({state}){
+        state.user.needPayment = false;
+    },
 };
 
 

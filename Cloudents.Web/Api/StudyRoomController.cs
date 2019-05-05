@@ -33,9 +33,6 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
 
-
-
-
         public StudyRoomController(IVideoProvider videoProvider,
             ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus)
         {
@@ -189,6 +186,20 @@ namespace Cloudents.Web.Api
             }
             return Ok();
         }
+
+        //[HttpPost("Money")]
+        //public async Task<IActionResult> PayMeCallbackAsync([FromServices] IPayment payment,
+        //    CancellationToken token)
+        //{
+        //    var result = await payment.TransferPaymentAsync("MPL15546-31186SKB-53ES24ZG-WGVCBKO2",
+        //        "BUYER155-6007037T-PTSXP1TO-AZ5ULFC9", 100, token);
+        //    if (result.StatusCode == 0)
+        //    {
+        //        return Ok();
+        //    }
+
+        //    return BadRequest();
+        //}
 
 
 

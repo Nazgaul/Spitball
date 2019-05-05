@@ -4,6 +4,7 @@ import tutorService from '../tutorService';
 import timerIcon from '../images/timer.svg';
 import stopIcon from '../images/stop-icon.svg';
 import fullScreenIcon from '../images/fullscreen.svg';
+import walletService from '../../../services/walletService';
 
 export default {
     name: "videoStream",
@@ -42,7 +43,7 @@ export default {
                           'accountUser',
                           'getNotAllowedDevices',
                           'getAllowReview',
-                          'getNotAvaliableDevices'
+                          'getNotAvaliableDevices',
                       ]),
         roomIsPending() {
             return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
@@ -70,7 +71,7 @@ export default {
                           'updateRoomLoading',
                           'updateCurrentRoomState',
                           'updateTestDialogState',
-                          'updateReviewDialog'
+                          'updateReviewDialog',
                       ]),
 
         biggerRemoteVideo() {
@@ -91,6 +92,13 @@ export default {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
         enterRoom() {
+            if(!!this.accountUser && this.accountUser.needPayment){
+                    walletService.getPaymeLink().then(({data})=>{
+                    global.open(data.link, '_blank', 'height=520,width=440');
+                    this.closePayMe();
+                })  
+                return;
+            }
             //if blocked or not available  use of media devices do not allow session start
             if(this.getNotAllowedDevices && this.getNotAvaliableDevices) {
                 this.updateTestDialogState(true);

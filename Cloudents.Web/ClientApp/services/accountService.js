@@ -12,6 +12,7 @@ function AccountUser(ObjInit){
     this.isTutor = ObjInit.isTutor || false;
     this.image = ObjInit.image || '';
     this.online = ObjInit.online || false;
+    this.needPayment = ObjInit.needPayment;
 }
  function TutorData(objOnit) {
      this.price= objOnit.price || 0;

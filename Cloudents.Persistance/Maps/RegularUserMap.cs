@@ -43,7 +43,11 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.Description);
-
+            Component(x => x.BuyerPayment, y =>
+            {
+                y.Map(z => z.PaymentKey);
+                y.Map(z => z.PaymentKeyExpiration);
+            });
             //HasManyToMany(x => x.Courses)
             //    .ParentKeyColumn("UserId")
             //    .ChildKeyColumn("CourseId")
@@ -62,6 +66,7 @@ namespace Cloudents.Persistence.Maps
                 .ChildKeyColumn("TagId")
                 .ForeignKeyConstraintNames("User_Tags", "Tags_User")
                 .Table("UsersTags").AsSet();
+
 
 
             /*HasMany(x => x.UserRoles)
