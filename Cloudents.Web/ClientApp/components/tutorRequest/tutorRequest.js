@@ -1,7 +1,9 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
 import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
+import tutorService from "../../services/tutorService";
 import { LanguageService } from "../../services/language/languageService";
+import { validationRules } from "../../services/utilities/formValidationRules";
 
 export default {
     components: {
@@ -13,6 +15,13 @@ export default {
         return {
             tutorCourse: '',
             tutorRequestText: '',
+            btnRequestLoading: false,
+            validRequestTutorForm: false,
+            rules: {
+                required:(value)=> validationRules.required(value),
+                maximumChars:(value)=> validationRules.maximumChars(value, 255)
+
+            },
             coursePlaceholder: LanguageService.getValueByKey("tutorRequest_select_course_placeholder"),
             topicPlaceholder: LanguageService.getValueByKey("tutorRequest_topic_placeholder"),
             uploadProp: {
@@ -58,6 +67,21 @@ export default {
     methods: {
         ...mapActions(['updateRequestDialog']),
         ...mapMutations(['UPDATE_LOADING']),
+        sendRequest() {
+            let self = this;
+            if(self.$refs.tutorRequestForm.validate()) {
+                self.btnRequestLoading = true;
+                tutorService.requestTutor()
+                            .then((success) => {
+                                      self.btnRequestLoading = false;
+                                      self.tutorRequestDialogClose()
+                                  },
+                                  (error) => {
+                                      self.btnRequestLoading = false;
+                                  });
+            }
+        },
+
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
         },

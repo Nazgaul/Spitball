@@ -16,6 +16,9 @@
     width: 100%;
     display: inline-block;
   }
+  .pt-12{
+    padding-top: 12px;
+  }
   .header-icon {
     font-size: 16px;
     color: @lightBtnIconColor;
@@ -30,13 +33,7 @@
     }
     .request-header {
       background: @systemBackgroundColor;
-      .request-tutor-header-title {
-        font-family: @fontOpenSans;
-        font-size: 12px;
-        font-weight: 600;
-        color: rgba(0, 0, 0, 0.87);
-        text-align: left;
-      }
+      border-bottom: 2px solid rgba(151, 151, 151, 0.32);
       .back-button {
         font-size: 12px;
         outline: none;
@@ -60,7 +57,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        height: 40px;
+        height: auto;
         border-radius: 4px;
         &.left {
           margin-left: 8px;
@@ -105,6 +102,7 @@
               }
               .v-select__selections {
                 width: 100%;
+                padding-top: 0;
                 :not(:first-child) {
                   display: none; //remove the label element from taking mass
                 }
@@ -193,6 +191,16 @@
           left: auto !important;
           right: auto !important;
         }
+        &.error--text{
+          .v-input__slot{
+            .v-text-field__slot{
+              .v-label {
+                color: #ff5252 !important;
+              }
+            }
+          }
+        }
+
       }
       .v-textarea {
         .v-input__control {
@@ -305,16 +313,9 @@
       box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
       position: relative;
     }
-    .request-component-container {
-      background: #fff;
-      margin-top: 19px;
-      position: relative;
-    }
-    .pt-12{
-      padding-top: 12px;
-    }
     .request-add-button-container {
       background-color: @systemBackgroundColor;
+      border-top: 2px solid rgba(151, 151, 151, 0.32);
 
       .request-add-button {
         font-family: @fontOpenSans;
