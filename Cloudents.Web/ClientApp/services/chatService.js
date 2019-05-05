@@ -4,7 +4,7 @@ function Conversation(objInit){
     this.userId = objInit.userId;
     this.name = objInit.name;
     this.unread = objInit.unread || 0;
-    this.online = objInit.online || true;
+    this.online = objInit.online;
     this.conversationId = objInit.conversationId;
     this.dateTime = objInit.dateTime || new Date().toISOString();
     this.image = objInit.image;
