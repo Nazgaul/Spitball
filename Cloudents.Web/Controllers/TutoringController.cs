@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class TutoringController : Controller
     {
         // GET: /<controller>/
