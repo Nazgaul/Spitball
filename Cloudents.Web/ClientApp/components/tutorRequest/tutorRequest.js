@@ -20,7 +20,6 @@ export default {
             rules: {
                 required:(value)=> validationRules.required(value),
                 maximumChars:(value)=> validationRules.maximumChars(value, 255)
-
             },
             coursePlaceholder: LanguageService.getValueByKey("tutorRequest_select_course_placeholder"),
             topicPlaceholder: LanguageService.getValueByKey("tutorRequest_topic_placeholder"),
@@ -71,7 +70,12 @@ export default {
             let self = this;
             if(self.$refs.tutorRequestForm.validate()) {
                 self.btnRequestLoading = true;
-                tutorService.requestTutor()
+                let serverObj = {
+                    course: self.tutorCourse,
+                    text: self.tutorRequestText,
+                    files: self.uploadProp.uploadedFiles
+                };
+                tutorService.requestTutor(serverObj)
                             .then((success) => {
                                       self.btnRequestLoading = false;
                                       self.tutorRequestDialogClose()
