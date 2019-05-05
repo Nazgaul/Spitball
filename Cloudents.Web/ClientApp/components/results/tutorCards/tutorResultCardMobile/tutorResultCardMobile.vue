@@ -28,7 +28,7 @@
                             <userRating
                             v-if="true"
                             class="rating-holder"
-                                    :rating="4.86"
+                                    :rating="tutorData.rating"
                                     :starColor="'#ffca54'"
                                     :rateNumColor="'#43425D'"
                                     :size="isInTutorList ? '16' : '20'"
