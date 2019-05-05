@@ -5,7 +5,6 @@ import Vuex from "vuex";
 import Search from "./search";
 import User from "./User";
 import Question from "./question";
-import SpitballPreview from "./SpitballPreview";
 import LuisData from "./luisData";
 import Account from "./account";
 import Toaster from "./Toaster";
@@ -43,7 +42,6 @@ const store = new Vuex.Store({
     modules: {
         Search,
         User,
-        SpitballPreview,
         LuisData,
         Account,
         Question,
