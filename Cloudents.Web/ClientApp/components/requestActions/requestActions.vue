@@ -109,7 +109,11 @@
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
                 } else {
-                    this.updateRequestDialog(true);
+                    if(this.getSelectedClasses.length){
+                        this.updateRequestDialog(true);
+                    }else {
+                        this.$router.push({name: 'addCourse'});
+                    }
                 }
                 console.log('open tutor request dialog');
             }
