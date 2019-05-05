@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Models
 {
@@ -7,6 +8,7 @@ namespace Cloudents.Web.Models
         public string Text { get; set; }
         public string Course { get; set; }
 
-        public IFormFile File { get; set; }
+        [MaxLength(4, ErrorMessage = "MaxLength")]
+        public string[] Files { get; set; }
     }
 }
