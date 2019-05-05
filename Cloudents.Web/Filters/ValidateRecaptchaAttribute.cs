@@ -27,6 +27,7 @@ namespace Cloudents.Web.Filters
                 context.Result = new NotFoundResult();
                 return;
             }
+            base.OnActionExecuting(context);
             // do something before the action executes
         }
 

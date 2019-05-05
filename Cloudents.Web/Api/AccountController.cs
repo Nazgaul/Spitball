@@ -19,8 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -37,16 +35,14 @@ namespace Cloudents.Web.Api
     {
         private readonly UserManager<RegularUser> _userManager;
         private readonly SignInManager<RegularUser> _signInManager;
-        private readonly IConfiguration _configuration;
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
 
         public AccountController(UserManager<RegularUser> userManager,
-            SignInManager<RegularUser> signInManager, IConfiguration configuration, ICommandBus commandBus, IQueryBus queryBus)
+            SignInManager<RegularUser> signInManager, ICommandBus commandBus, IQueryBus queryBus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _configuration = configuration;
             _commandBus = commandBus;
             _queryBus = queryBus;
         }

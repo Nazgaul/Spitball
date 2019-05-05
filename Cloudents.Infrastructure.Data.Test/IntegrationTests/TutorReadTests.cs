@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
 using Xunit;
 

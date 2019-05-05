@@ -11,7 +11,6 @@ namespace Cloudents.Web.Identity
     [UsedImplicitly]
     public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<RegularUser>
     {
-        private readonly IQueryBus _queryBus;
         internal const string Country = "country";
         internal const string University = "university";
         internal const string Score = "score";
@@ -23,7 +22,6 @@ namespace Cloudents.Web.Identity
             IOptions<IdentityOptions> options) :
             base(userManager,  options)
         {
-            _queryBus = queryBus;
         }
 
         protected override async Task<ClaimsIdentity> GenerateClaimsAsync(RegularUser user)

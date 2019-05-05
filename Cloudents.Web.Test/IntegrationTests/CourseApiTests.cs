@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
 using FluentAssertions;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using Xunit;
-using Newtonsoft.Json;
 using System.Net;
 
 namespace Cloudents.Web.Test.IntegrationTests

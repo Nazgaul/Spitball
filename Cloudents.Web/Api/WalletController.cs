@@ -20,9 +20,7 @@ using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Api
 {

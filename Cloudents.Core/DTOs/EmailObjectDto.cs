@@ -28,7 +28,7 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         public string Email { get; set; }
         public string TutorName { get; set; }
-        [DtoToEntityConnection(nameof(RegularUser.Language))]
+        [EntityBind(nameof(RegularUser.Language))]
         public string Language { get; set; }
     }
 }
