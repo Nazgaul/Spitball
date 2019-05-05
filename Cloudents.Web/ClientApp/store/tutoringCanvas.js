@@ -84,6 +84,18 @@ const mutations = {
         }
         state.currentSelectedTab.name = tab.name;
         state.currentSelectedTab.id = tab.id;
+    },
+    removeCanvasTab(state, deletedTab){
+        let tabIndex = null;
+        if(state.canvasTabs.length > 1){
+            state.canvasTabs.forEach((canvasTab, index)=>{
+                if(canvasTab.id === deletedTab.id){
+                    tabIndex = index;
+                }
+            })
+            state.canvasTabs.splice(tabIndex, 1);
+        }
+        return Promise.resolve(tabIndex);
     }
 };
 
@@ -126,8 +138,16 @@ const actions = {
     clearShapesSelected({commit}){
         commit('clearShapesSelected');
     },
-    changeSelectedTab({commit}, tab){
-        commit('changeSelectedTab', tab);
+    changeSelectedTab({commit, state}, tab){
+        let isExists = state.canvasTabs.filter((currentTab)=>{
+            return currentTab.id === tab.id;
+        })
+        if(isExists.length > 0){
+            commit('changeSelectedTab', tab);
+        }
+    },
+    removeCanvasTab({commit}, tab){
+        return commit('removeCanvasTab', tab)
     }
 };
 export default {

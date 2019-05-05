@@ -23,6 +23,7 @@ export default {
             windowHeight: global.innerHeight - 64, // 64 stands for the header
             showPickColorInterface: false,
             showHelper: false,
+            tabEditId: null,
             formula: 'x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.',
             predefinedColors:[
                 '#000000',
@@ -104,11 +105,30 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab']),
+        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab']),
+        renameTab(){
+            console.log("Rename Tab");
+        },
+        deleteTab(tab){
+            this.removeCanvasTab(tab);
+            this.changeTab(this.getCanvasTabs[0]);
+            console.log("Delete Tab");
+        },
+        clearTabOption(){
+            this.tabEditId = null;
+        },
+        showTabOption(id){
+            if(this.tabEditId === id){
+                this.clearTabOption();
+            }else{
+                this.tabEditId = id;
+            }
+        },
         selectDefaultTool(){
             this.setOptionType(this.enumOptions.select);
         },
         setOptionType(selectedOption) {
+            this.clearTabOption();
             this.currentOptionSelected = whiteBoardService.init.bind(this.canvasData, selectedOption)();
             this.setSelectedOptionString(selectedOption);
             helperUtil.HelperObj.isActive = false;
@@ -177,15 +197,21 @@ export default {
             if(((e.which == 46 || e.keyCode == 46)||(e.which == 8 || e.keyCode == 8)) && this.selectedOptionString === this.enumOptions.select){
                 this.currentOptionSelected.deleteSelectedShape.bind(this.canvasData)();
             }
-            if(((e.which == 13 || e.keyCode == 13) || (e.which == 27 || e.keyCode == 27)) && this.selectedOptionString === this.enumOptions.text){
+            if(((e.which == 13 || e.keyCode == 13) || (e.which == 27 || e.keyCode == 27))){
                //enter or escape in text mode
-                this.currentOptionSelected.enterPressed.bind(this.canvasData)();
+               if(this.selectedOptionString === this.enumOptions.text){
+                    this.currentOptionSelected.enterPressed.bind(this.canvasData)();
+               }
+                
             }
         },
         changeTab(tab){
-            this.changeSelectedTab(tab);
-            whiteBoardService.hideHelper();
-            whiteBoardService.redraw(this.canvasData)
+            if(tab.id !== this.getCurrentSelectedTab.id){
+                this.clearTabOption();
+                this.changeSelectedTab(tab);
+                whiteBoardService.hideHelper();
+                whiteBoardService.redraw(this.canvasData)
+            }
         },
         // resetZoom(){
         //     whiteBoardService.hideHelper();
@@ -215,9 +241,9 @@ export default {
         // },
         registerCanvasEvents(canvas, canvasWrapper){
             let self = this;
-
             global.addEventListener('resize', this.resizeCanvas, false);
             canvas.addEventListener('mousedown', (e) => {
+                self.clearTabOption();
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
                     self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
                 }
