@@ -119,26 +119,34 @@
   </resheader>
   <data name="action_got" xml:space="preserve">
     <value>Got it</value>
+    <comment>For indian users only</comment>
   </data>
   <data name="bottom_text_one" xml:space="preserve">
     <value>Until we get to know you a bit better, you can only answer up to 3 unaccepted questions at a time.</value>
+    <comment>For indian users only</comment>
   </data>
   <data name="bottom_text_two" xml:space="preserve">
     <value>These answers will have a direct impact on your ability  to earn points and increase your reputation.</value>
+    <comment>For indian users only</comment>
   </data>
   <data name="list_item_one" xml:space="preserve">
     <value>Make sure your answer is genuine and written in your own words</value>
+    <comment>For indian users only</comment>
   </data>
   <data name="list_item_three" xml:space="preserve">
     <value>Double check your answer for grammar and spelling</value>
+    <comment>For indian users only</comment>
   </data>
   <data name="list_item_two" xml:space="preserve">
     <value>Your answer should be short, clear and to the point</value>
+    <comment>For indian users only</comment>
   </data>
   <data name="subtitle" xml:space="preserve">
     <value>How to improve your answer chances to get accepted</value>
+    <comment>For indian users only</comment>
   </data>
   <data name="title" xml:space="preserve">
     <value>You are about to add your first answer!</value>
+    <comment>For indian users only</comment>
   </data>
 </root>
