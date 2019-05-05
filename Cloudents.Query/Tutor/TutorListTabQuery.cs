@@ -8,12 +8,14 @@ namespace Cloudents.Query.Tutor
 {
     public class TutorListTabQuery : IQuery<IEnumerable<TutorListDto>>
     {
-        public TutorListTabQuery(int page)
+        public TutorListTabQuery(string country, int page)
         {
             Page = page;
+            Country = country;
         }
 
-        public int Page { get; private set; }
+        private int Page { get; }
+        private string Country { get; }
 
 
         internal sealed class TutorListTabQueryHandler :IQueryHandler<TutorListTabQuery, IEnumerable<TutorListDto>>
@@ -42,13 +44,18 @@ cte.rate as Rate,
 t.Bio,
 cte.rateCount as ReviewsCount
 from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
-order by u.id
+order by
+case when u.Country = @Country then 0 else 1 end,
+ u.id
+
 OFFSET 50*@Page ROWS
 FETCH NEXT 50 ROWS ONLY;";
-                    return await conn.QueryAsync<TutorListDto>(sql, new {query.Page});
+                    return await conn.QueryAsync<TutorListDto>(sql, new {query.Page, query.Country });
 
                 }
             }
         }
+
+        
     }
 }
