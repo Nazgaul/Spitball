@@ -5,7 +5,7 @@
                 <v-flex xs11 sm11 md11>
                     <span class="request-tutor-header-title">
                         <v-icon class="header-icon mr-2">sbf-person-icon</v-icon>
-                        <span v-language:inner class="caption font-weight-bold">Request a Tutor</span>
+                        <span v-language:inner class="caption font-weight-bold">tutorRequest_title</span>
                     </span>
                 </v-flex>
                 <v-flex xs1 sm1 md1 class="text-xs-right">
@@ -23,7 +23,7 @@
                             solo
                             no-resize
                             name="add-request-textarea"
-                            :label="'placeholder'"
+                            :label="topicPlaceholder"
                             class="request-textarea elevation-0"
                             :rows="3"
                             v-model="tutorRequestText"
@@ -58,12 +58,12 @@
                         <div class="request-subject-class-container">
                             <div class="request-select left">
                                 <v-select
-                                        :menu-props="{contentClass:'question-select-list'}"
+                                        :menu-props="{contentClass:'courses-select-list'}"
                                         height="32"
                                         v-model="tutorCourse"
                                         single-line
                                         :items="getSelectedClasses"
-                                        :label="'sdfsdf'"
+                                        :label="coursePlaceholder"
                                         :append-icon="'sbf-arrow-down'"
                                         outline>
                                     <template slot="no-data">
@@ -73,7 +73,7 @@
                                                     <div class="v-list__tile theme--light">
                                                         <div class="v-list__tile__content">
                                                             <div class="v-list__tile__title" v-language:inner>
-                                                                addQuestion_no_class
+                                                               tutorRequest_no_course
                                                             </div>
                                                         </div>
                                                     </div>
@@ -89,10 +89,10 @@
             </div>
             <div class="add-files px-3 mt-3 pt-1 pb-3">
                 <div class="btn-upload-wrap d-flex align-center justify-center">
-                <span class="caption">Add</span>
+                <span class="caption" v-language:inner>tutorRequest_label_add</span>
                 <span class="request-files-btn d-inline-flex align-center justify-center px-2 ml-3">
                 <v-icon class="attach-icon mr-2">sbf-attach</v-icon>
-                    <span>Attachment</span>
+                    <span v-language:inner>tutorRequest_btn_attachment</span>
                 <file-upload
                         id="file-input"
                         :input-id="uploadProp.componentUniqueId"
@@ -113,10 +113,10 @@
             <v-layout class="request-add-button-container pt-12 pb-3" align-center justify-center>
                 <v-flex xs12 md12 sm12 class="text-xs-center">
                     <v-btn
-                            class="request-add-button subheading font-weight-bold"
+                            class="request-add-button subheading font-weight-bold px-3"
                             @click="requestTutor()"
                     >
-                        <span>Submit Request</span>
+                        <span v-language:inner>tutorRequest_btn_submit</span>
                     </v-btn>
                 </v-flex>
 

@@ -15,6 +15,8 @@ export default {
             subjectList: [],
             tutorCourse: '',
             tutorRequestText: '',
+            coursePlaceholder: LanguageService.getValueByKey("tutorRequest_select_course_placeholder"),
+            topicPlaceholder: LanguageService.getValueByKey("tutorRequest_topic_placeholder"),
             uploadProp: {
                 populatedThumnbailBox: {
                     box_0: {
