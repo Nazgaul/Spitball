@@ -126,6 +126,9 @@
   <data name="label_add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="no_course" xml:space="preserve">
+    <value>Please add courses</value>
+  </data>
   <data name="select_course_placeholder" xml:space="preserve">
     <value>In what course ?</value>
   </data>
