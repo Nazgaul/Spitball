@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         public TutorReadTests(DatabaseFixture fixture)
         {
-            this._fixture = fixture;
+            _fixture = fixture;
             // _autoMock = AutoMock.GetLoose();
 
         }
@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TutorListByCourseQuery_Ok()
         {
             var query = new TutorListByCourseQuery("xxx", 0);
-            _ = await _fixture._queryBus.QueryAsync(query, default);
+            var _ = await _fixture.QueryBus.QueryAsync(query, default);
 
 
         }
@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TutorListQuery_Ok()
         {
             var query = new TutorListQuery(0);
-            _ = await _fixture._queryBus.QueryAsync(query, default);
+            var _ = await _fixture.QueryBus.QueryAsync(query, default);
 
 
         }
@@ -40,7 +40,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TutorListTabSearchQuery_Ok()
         {
             var query = new TutorListTabSearchQuery("eidan", "IL", 0);
-            _ = await _fixture._queryBus.QueryAsync(query, default);
+            var _ = await _fixture.QueryBus.QueryAsync(query, default);
 
 
         }
@@ -49,7 +49,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TutorListTabQuery_Ok()
         {
             var query = new TutorListTabQuery("IL", page: 0);
-            _ = await _fixture._queryBus.QueryAsync(query, default);
+            var _ = await _fixture.QueryBus.QueryAsync(query, default);
 
 
         }
