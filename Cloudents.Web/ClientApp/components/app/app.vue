@@ -114,7 +114,7 @@
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
 
-        <v-snackbar absolute top :timeout="0" :class="getShowToasterType" :value="getShowPayMeToaster">
+        <v-snackbar absolute top :timeout="0" :value="getShowPayMeToaster">
             <div class="text-wrap">
               <a @click="enterPayme()" style="text-decoration: none;" v-language:inner>app_payme_toaster_text</a>
             </div>
@@ -339,7 +339,6 @@ export default {
     enterPayme(){
       walletService.getPaymeLink().then(({data})=>{
         global.open(data.link, '_blank', 'height=520,width=440');
-        this.closePayMe();
       })
     },
     onFooterStepChange() {
