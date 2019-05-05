@@ -306,6 +306,6 @@ export default {
     },
 
     createDocumentItem: (objInit) => {
-        return new TutorItem(objInit)
+        return createDocumentItem(objInit)
     },
 }

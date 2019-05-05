@@ -135,4 +135,7 @@
   <data name="review_one" xml:space="preserve">
     <value>Review</value>
   </data>
+  <data name="no_reviews" xml:space="preserve">
+    <value>No reviews yet</value>
+  </data>
 </root>

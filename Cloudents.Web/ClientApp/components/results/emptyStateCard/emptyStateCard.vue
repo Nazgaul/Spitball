@@ -1,6 +1,6 @@
 <template>
   <div class="elevation-1 mb-2 empty-state-container" xs-12>
-    <v-layout column class="pa-3 empty-state-top-layout">
+    <v-layout column class="pa-3 empty-state-top-layout" :class="[isRtl ? 'rtl-background' : '']">
       <v-flex>
         <div class="mb-1 user-search-text-container text-truncate" v-show="userText">
           <span v-language:inner>result_no_result_found_for</span>&nbsp;
@@ -17,9 +17,6 @@
               <li v-language:inner>result_general_keywords</li>
               <li v-language:inner>result_fewer_keywords</li>
             </ul>
-          </div>
-          <div class="empty-state-img-container">
-            <img class="empty-state-img" src="./img/binoculars.png" alt>
           </div>
         </v-flex>
       </v-flex>
@@ -39,6 +36,11 @@
 
 <script>
 export default {
+    data() {
+        return {
+            isRtl: global.isRtl
+        };
+    },
   props: {
     userText: {
       type: String,

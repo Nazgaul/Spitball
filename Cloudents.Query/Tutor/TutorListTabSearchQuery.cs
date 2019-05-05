@@ -8,14 +8,17 @@ namespace Cloudents.Query.Tutor
 {
     public class TutorListTabSearchQuery : IQuery<IEnumerable<TutorListDto>>
     {
-        public TutorListTabSearchQuery(string term, int page)
+        public TutorListTabSearchQuery(string term, string country, int page)
         {
             Term = term.Replace('"', ' ');
             Page = page;
+            Country = country;
         }
 
-        public string Term { get; }
-        public int Page { get; private set; }
+        private string Term { get; }
+        private int Page { get; }
+
+        private string Country { get; }
 
         internal sealed class TutorListTabSearchQueryHandler : IQueryHandler<TutorListTabSearchQuery, IEnumerable<TutorListDto>>
         {
@@ -43,16 +46,19 @@ u.Image,
 T.Price, 
 cte.rate as Rate,
 t.Bio,
-cte.rateCount as ReviewsCount
+cte.rateCount as ReviewsCount,
+case when u.Country = @Country then 0 else 1 end -- this is because of distinct and order by
 from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
-join sb.UsersCourses tc on u.id = tc.UserId and tc.CanTeach = 1
-join sb.Course c on tc.CourseId = c.Name
+left join sb.UsersCourses tc on u.id = tc.UserId and tc.CanTeach = 1
+left join sb.Course c on tc.CourseId = c.Name
 left join sb.CourseSubject cs on c.SubjectId = cs.Id
 where ( contains(u.Name,@term) or  contains(t.Bio,@term) or contains(c.Name,@term)  or contains(cs.Name,@term))
-order by u.id
+order by
+case when u.Country = @Country then 0 else 1 end,
+ u.id
 OFFSET 50*@Page ROWS
 FETCH NEXT 50 ROWS ONLY;";
-                    return await conn.QueryAsync<TutorListDto>(sql, new {query.Page, query.Term});
+                    return await conn.QueryAsync<TutorListDto>(sql, new { query.Page, query.Term, query.Country });
                 }
             }
         }

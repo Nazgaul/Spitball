@@ -20,7 +20,7 @@
                 </div>
                 <div class="question-header-small-sagment">
                     <!--TODO SOLD IS ACCEPTED-->
-                    <div class="price-area" v-if="isSold" :class="{'sold': isSold}">
+                    <div class="price-area" :class="{'sold': isSold}">
                         <v-icon class="has-correct">sbf-check-circle</v-icon>
                     </div>
                     <div class="menu-area">

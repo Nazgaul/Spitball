@@ -11,9 +11,9 @@ function AccountUser(ObjInit){
     this.phoneNumber = ObjInit.phoneNumber;
     this.isTutor = ObjInit.isTutor || false;
     this.image = ObjInit.image || '';
+    this.online = ObjInit.online || false;
 }
  function TutorData(objOnit) {
-     this.online = objOnit.online || false;
      this.price= objOnit.price || 0;
      this.rate = objOnit.rate || 0;
      this.reviewCount = objOnit.reviewCount || 0;
@@ -36,6 +36,7 @@ function ProfilePersonalData(objInit){
     this.universityName= objInit.universityName;
     this.isTutor= objInit.hasOwnProperty('tutor') || false;
     this.tutorData = objInit.tutor ? CreateTutorData(objInit.tutor) : CreateTutorData({});
+    this.online = objInit.online || false;
 
 }
 

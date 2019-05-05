@@ -35,5 +35,24 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
 
         }
+
+
+        [Fact]
+        public async Task TutorListTabSearchQuery_Ok()
+        {
+            var query = new TutorListTabSearchQuery("eidan", "IL", 0);
+            _ = await _fixture._queryBus.QueryAsync(query, default);
+
+
+        }
+
+        [Fact]
+        public async Task TutorListTabQuery_Ok()
+        {
+            var query = new TutorListTabQuery("IL", page: 0);
+            _ = await _fixture._queryBus.QueryAsync(query, default);
+
+
+        }
     }
 }

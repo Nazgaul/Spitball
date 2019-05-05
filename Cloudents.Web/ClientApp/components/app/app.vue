@@ -37,7 +37,6 @@
       >
         <login-to-answer></login-to-answer>
       </sb-dialog>
-
             <sb-dialog :showDialog="universitySelectPopup"
                        :popUpType="'universitySelectPopup'"
                        :onclosefn="closeUniPopDialog"

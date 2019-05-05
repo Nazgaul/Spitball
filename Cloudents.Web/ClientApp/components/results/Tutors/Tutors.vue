@@ -25,21 +25,23 @@
                             <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
                                 <v-layout row align-center justify-space-between>
                                     <img src="../img/emptyFilter.png" alt=""/>
-                                    <p class="mb-0" v-language:inner>result_filter_not_applied</p>
+                                    <tutor-resultp class="mb-0" v-language:inner>result_filter_not_applied</tutor-resultp>
                                 </v-layout>
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <v-flex v-show="!showSkelaton && showSelectUni" class="result-cell mb-2" xs-12>
+                                <v-flex v-show="!showSkelaton && showSelectUni" class="result-cell mb-3 empty-state-tutor" xs-12>
                                     <set-uni-class class="cell"></set-uni-class>
                                 </v-flex>
                                 
-                                <v-flex class="result-cell mb-2" xs-12 v-for="(item, index) in items" :key="index"
+                                <v-flex class="result-cell" xs-12 v-for="(item, index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component v-if="showSkelaton" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
                                     <template v-else>
-                                        <tutor-result-card v-if="$vuetify.breakpoint.smAndUp" :tutorData="item"></tutor-result-card>
-                                        <tutor-result-card-mobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="item"></tutor-result-card-mobile>
+                                        <tutor-result-card class="mb-3" v-if="$vuetify.breakpoint.smAndUp" :tutorData="item"></tutor-result-card>
+                                        <tutor-result-card-mobile
+                                               class="mb-2"
+                                                v-if="$vuetify.breakpoint.xsOnly" :tutorData="item"></tutor-result-card-mobile>
                                     </template>
 
 
