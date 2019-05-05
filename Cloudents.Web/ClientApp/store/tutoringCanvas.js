@@ -13,20 +13,24 @@ const state = {
     shapesSelected: {},
     canvasTabs: [
         {
-            name: 'Default',
+            name: 'Tab 1',
             id: 'tab-0'
         },
         {
-            name: 'Tab-1',
+            name: 'Tab 2',
             id: 'tab-1'
         },
         {
-            name: 'Tab-2',
+            name: 'Tab 3',
             id: 'tab-2'
+        },
+        {
+            name: 'Tab 4',
+            id: 'tab-3'
         },
     ],
     currentSelectedTab: {
-        name: 'Default',
+        name: 'Tab 1',
         id: 'tab-0'
     }
 };

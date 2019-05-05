@@ -220,7 +220,12 @@
         </div>
         </div>
         <div class="canvas-tabs">
-             <button v-for="(tab) in canvasTabs" :key="tab.id" @click="changeTab(tab)">{{tab.name}}</button>
+            <span @click="changeTab(tab)" class="canvas-tab" v-for="(tab) in canvasTabs" :key="tab.id" :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
+                <button>{{tab.name}}</button>
+                <v-icon>sbf-3-dot</v-icon>
+            </span>
+             
+             
         </div>
         <!--<div>-->
             <!--<ul>-->
@@ -411,6 +416,31 @@
         .canvas-tabs{
             position: fixed;
             bottom: 5px;
+            width: 100%;
+            height: 46px;
+            background-color: #f0f0f7;
+            display: flex;
+            border-top: 1px solid #e1e1ef;
+            .canvas-tab{
+                display: flex;
+                background-color: rgba(67, 66, 93, 0.12);
+                padding: 0 20px;    
+                border-right: 1px solid #c9c9c9;
+                min-width: 100px;
+                justify-content: space-between;
+                &.canvas-tabs-active{
+                    background-color: #FFF;
+                    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+                }
+                button{
+                    outline: none;
+                }
+                i{
+                    font-size: 14px;
+                    color: rgba(67, 66, 93, 0.25);
+                }
+            }
+            
         }
     }
 </style>
