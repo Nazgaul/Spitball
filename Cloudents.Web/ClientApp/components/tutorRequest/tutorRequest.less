@@ -1,9 +1,9 @@
 @import "../../styles/mixin.less";
 
 //detached select list
-.request-select-list{
+.request-select-list {
   @media (max-width: @screen-xs) {
-    max-width:10%;
+    max-width: 10%;
   }
 }
 
@@ -16,35 +16,31 @@
     width: 100%;
     display: inline-block;
   }
-  .add-topic-container{
-    display:flex;
+  .header-icon {
+    font-size: 16px;
+    color: @lightBtnIconColor;
+  }
+  .add-request-container {
+    display: flex;
     flex-direction: column;
-    width:100%;
+    width: 100%;
     justify-content: space-between;
     @media (max-width: @screen-xs) {
       justify-content: unset;
     }
-    .request-header{
-      //padding-top:17px;
-      //padding-left:16px;
-      //padding-right:10px;
-      //display: flex;
-      //flex-direction: row;
-      //width: 100%;
-      //height: 35px;
-      //justify-content: space-between;
+    .request-header {
       background: @systemBackgroundColor;
-      .request-tutor-header-title{
+      .request-tutor-header-title {
         font-family: @fontOpenSans;
         font-size: 12px;
         font-weight: 600;
         color: rgba(0, 0, 0, 0.87);
         text-align: left;
       }
-      .back-button{
+      .back-button {
         font-size: 12px;
         outline: none;
-        i{
+        i {
           font-size: 10px;
           color: rgba(0, 0, 0, 0.38);
           outline: none;
@@ -52,275 +48,77 @@
         }
       }
     }
-    .request-textarea-container{
-      display: flex;
-      flex-direction: column;
-      margin-top:12px;
-      margin-left:8px;
-      margin-right:8px;
-      background-color: #fff;
-      border-radius: 4px;
-      box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
-      position: relative;
-      &.textArea-error{
-        -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54);
-        -moz-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54);
-        box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54);
-      }
-      .request-textarea-floating-error{
-        position: absolute;
-        box-shadow: 0 3px 8px 0 rgba(0,0,0,.19);
-        background-color: #ff6565;
-        color: #fff;
-        top: 63px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        left: 18px;
-        z-index: 5;
-        padding-left: 18px;
-        padding-right: 18px;
-        border-radius: 4px;
-        font-family: @fontOpenSans;
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: -0.4px;
-        color: #ffffff;
-        .textArea-error-triangle{
-          position: absolute;
-          border-style: solid;
-          border-width: 0 6px 10px;
-          border-color: transparent transparent #ff6565;
-          top: -8px;
-          left: 60px;
-        }
-      }
-      .request-textarea-upper-part{
-        display: flex;
-        .request-profile-data-container{
-          padding-top: 12px;
-          padding-left: 12px;
-        }
-        .request-textarea{
-          font-family: @fontOpenSans;
-          font-size: 13px;
-          font-weight: 600;
-          color: rgba(0, 0, 0, 0.87);
-          letter-spacing: -0.4px;
-          text-align: left;
-          .v-label{
-            left: auto !important;
-            right:auto !important;
-          }
-        }
-        .v-textarea{
-          .v-input__control{
-            .v-input__slot{
-              box-shadow: none;
-              padding-right: 15px;
-              .scrollBarStyle(4px, #4e4e4e, none, none);
-            }
-            .v-text-field__details{
-              display:none;
-            }
-          }
-        }
-      }
-      .request-textarea-lower-part{
-        width:100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        .request-options-part{
-          display: flex;
-          background-color: hsla(0,0%,85%,.27);
-          border-radius: 4px;
-          padding-left: 4px;
-          padding-right: 4px;
-          max-width: 98px;
-          justify-content: space-around;
-          margin-bottom: 1px;
-          margin-left: 1px;
-          height: 30px;
-          align-items: center;
-          i{
-            font-size: 16px;
-            line-height: 18px;
-          }
-          span{
-            cursor: pointer;
-            position: relative;
-            margin-left: 5px;
-            margin-right: 6px;
-            margin-top: 2px;
-            .file-uploads{
-              width: 18px;
-              height: 18px;
-              position: absolute;
-              top: 0;
-              right: 0;
-              left: 0;
-              margin:0;
-              label{
-                cursor: pointer;
-              }
-            }
-          }
-        }
-        .request-thumbnails-part{
-          display: none;
-          margin-right: 12px;
-          margin-bottom: 8px;
-          &.show-tumbnails{
-            display: flex;
-          }
-          .request-attachment-box{
-            width: 68px;
-            height: 62px;
-            border-radius: 4px;
-            border: 1px dashed gray;
-            margin-left: 8px;
-            position: relative;
-            @media (max-width: @screen-xs) {
-              width: 56px;
-              height: 48px;
-            }
-            .request-thumb-close-container{
-              display: none;
-              width: 16px;
-              height: 16px;
-              border-radius: 4px;
-              background-color: rgba(0, 0, 0, 0.52);
-              position: absolute;
-              right: 0;
-              z-index: 11;
-              cursor: pointer;
-              &.populated{
-                display: block
-              }
-              i{
-                color: #fff;
-                font-size: 8px;
-                margin: 0 auto;
-                top: 0;
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-              }
-            }
-            .request-thumb-plus-container{
-              display: flex;
-              height: 100%;
-              i{
-                transform: rotate(45deg);
-                margin: 0 auto;
-                font-size: 12px;
-                color: rgba(0,0,0,0.2);
-              }
-              .file-uploads{
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-              }
-            }
-            .request-thumb-img-container{
-              img{
-                position: absolute;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 10;
-              }
-            }
-          }
-        }
-      }
-    }
-    .request-subject-class-container{
+    .request-subject-class-container {
       width: 100%;
       background-color: #fff;
-      margin-top: 16px;
       max-height: 72px;
       display: flex;
       justify-content: space-around;
-      position: relative;
       align-items: center;
-      .request-select{
+      .request-select {
         width: 100%;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
         height: 40px;
         border-radius: 4px;
-        margin-top: 32px;
-        margin-bottom: 32px;
-        &.left{
+        &.left {
           margin-left: 8px;
           margin-right: 4px;
         }
-        &.right{
+        &.right {
           margin-left: 4px;
           margin-right: 8px;
         }
-        //&.subject-error{
-        //  -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54);
-        //  -moz-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54);
-        //  box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54);
-        //}
-        .v-select__selection--comma{
+        .v-select__selection--comma {
           display: unset;
-          // width: 200px;
           line-height: 20px;
           text-overflow: ellipsis;
           overflow: hidden;
         }
       }
-      .v-text-field{
-        &.v-input--is-focused{
-          .v-input__control{
-            .v-input__slot{
+      .v-text-field {
+        &.v-input--is-focused {
+          .v-input__control {
+            .v-input__slot {
               box-shadow: inset 0px 0px 0px 2px rgba(68, 82, 252, 0.54); //prevent clipping
             }
           }
         }
-        .v-input__control{
-          .v-input__slot{
+        .v-input__control {
+          .v-input__slot {
             min-height: unset;
-            border: 1px solid rgba(0,0,0,0.3);
-            &:hover{
-              border: 1px solid rgba(0,0,0,.3);
+            background: @systemBackgroundColor !important; //vuetify overwrite
+            border: solid 1px rgba(67, 66, 93, 0.17);
+            &:hover {
+              border: 1px solid rgba(0, 0, 0, .3);
             }
-            .v-select__slot{
-              label{
-                top:unset;
+            .v-select__slot {
+              label {
+                top: unset;
                 font-family: @fontOpenSans;
                 font-size: 14px;
                 letter-spacing: -0.4px;
                 color: rgba(0, 0, 0, 0.87);
-                left:auto !important;
-                right:auto !important;
+                left: auto !important;
+                right: auto !important;
               }
-              .v-select__selections{
-                width:100%;
-                :not(:first-child){
+              .v-select__selections {
+                width: 100%;
+                :not(:first-child) {
                   display: none; //remove the label element from taking mass
                 }
               }
-              .v-input__append-inner{
+              .v-input__append-inner {
                 //select arrow
                 position: absolute;
                 right: -7px;
-                margin-top:3px;
-                align-self:unset;
-                display:unset;
-                .v-input__icon{
-                  i{
-                    color: rgba(0,0,0,0.54) !important;
-                    &.primary--text{
-                      //display: none;
-                    }
+                margin-top: 3px;
+                align-self: unset;
+                display: unset;
+                .v-input__icon {
+                  i {
+                    color: rgba(0, 0, 0, 0.54) !important;
                   }
                 }
               }
@@ -329,54 +127,204 @@
         }
       }
     }
-    .request-component-container{
-      background: #fff;
-      margin-top: 19px;
+    .add-files{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: start;
+    }
+    .btn-upload-wrap {
+      max-width: 160px;
+    }
+    .request-files-btn {
+      height: 32px;
+      border-radius: 16px;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+      background-color: @color-white;
+      font-size: 12px;
+      color: @textColor;
       position: relative;
-      .request-component-floating-error{
-        position: absolute;
-        box-shadow: 0 3px 8px 0 rgba(0,0,0,.19);
-        background-color: #ff6565;
-        bottom: -20px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        left: 18px;
-        z-index: 5;
-        padding-left: 18px;
-        padding-right: 18px;
-        border-radius: 4px;
+    }
+    .attach-icon {
+      color: @purpleBright;
+      font-size: 12px;
+      transform: rotate(-45deg);
+      border: 1px solid  #2a2a2a;
+      border-radius: 12px;
+      padding: 2px;
+
+    }
+    .file-uploads {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      margin: 0;
+      label {
+        cursor: pointer;
+      }
+    }
+    .request-options-part {
+      display: flex;
+      width: 100%;
+      i {
+        font-size: 16px;
+        line-height: 18px;
+      }
+    }
+    .request-textarea-upper-part {
+      display: flex;
+      max-height: 88px;
+      position: relative;
+      .request-profile-data-container {
+        padding-top: 12px;
+        padding-left: 12px;
+      }
+      .request-textarea {
         font-family: @fontOpenSans;
         font-size: 13px;
         font-weight: 600;
+        color: rgba(0, 0, 0, 0.87);
         letter-spacing: -0.4px;
-        color: #ffffff;
-        .component-error-triangle{
-          position: absolute;
-          border-style: solid;
-          border-width: 0 6px 10px;
-          border-color: transparent transparent #ff6565;
-          top: -8px;
-          left: 60px;
+        text-align: left;
+        .v-label {
+          left: auto !important;
+          right: auto !important;
+        }
+      }
+      .v-textarea {
+        .v-input__control {
+          .v-input__slot {
+            box-shadow: none;
+            padding-right: 15px;
+            .scrollBarStyle(4px, #4e4e4e, none, none);
+          }
+          .v-text-field__details {
+            display: none;
+          }
         }
       }
     }
-    .request-add-button-container{
-      height: 50px;
+    .middle-part{
+      position: relative;
+      width: 100%;
+      height: auto;
       display: flex;
-      margin: 20px auto;
-      .request-add-button{
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .request-thumbnails-part {
+      display: none;
+      margin-right: 12px;
+      margin-bottom: 8px;
+      &.show-tumbnails {
+        display: flex;
+      }
+      .request-attachment-box {
+        width: 68px;
+        height: 62px;
+        border-radius: 4px;
+        border: 1px dashed gray;
+        margin-left: 8px;
+        position: relative;
+        @media (max-width: @screen-xs) {
+          width: 56px;
+          height: 48px;
+        }
+        .request-thumb-close-container {
+          display: none;
+          width: 16px;
+          height: 16px;
+          border-radius: 4px;
+          background-color: rgba(0, 0, 0, 0.52);
+          position: absolute;
+          right: 0;
+          z-index: 11;
+          cursor: pointer;
+          &.populated {
+            display: block
+          }
+          i {
+            color: #fff;
+            font-size: 8px;
+            margin: 0 auto;
+            top: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+        }
+        .request-thumb-plus-container {
+          display: flex;
+          height: 100%;
+          i {
+            transform: rotate(45deg);
+            margin: 0 auto;
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.2);
+          }
+          .file-uploads {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+          }
+        }
+        .request-thumb-img-container {
+          img {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+          }
+        }
+      }
+    }
+
+    .request-textarea-lower-part {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-left: 4px;
+      margin-right: 4px;
+      border-top: solid 1px @Dividers;
+    }
+    .request-textarea-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 12px;
+      margin-left: 8px;
+      margin-right: 8px;
+      background-color: #fff;
+      border-radius: 4px;
+      box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
+      position: relative;
+    }
+    .request-component-container {
+      background: #fff;
+      margin-top: 19px;
+      position: relative;
+    }
+    .pt-12{
+      padding-top: 12px;
+    }
+    .request-add-button-container {
+      background-color: @systemBackgroundColor;
+
+      .request-add-button {
         font-family: @fontOpenSans;
-        font-size: 16px;
-        font-weight: 600;
         letter-spacing: -0.4px;
         color: rgba(255, 255, 255, 0.87);
         height: 40px;
         border-radius: 23.5px;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.33);
-        background-color: @color-blue-new;
+        background-color: @colorBlue;
         outline: none;
-        padding-left: 44px;
-        padding-right: 44px;
         text-transform: unset;
       }
     }

@@ -59,7 +59,7 @@
             <sb-dialog :isPersistent="true"
                        :showDialog="getRequestTutorDialog"
                        :popUpType="'tutorRequestDialog'"
-                       :max-width="'500px'"
+                       :max-width="'640px'"
                        :content-class="'tutor-request-dialog'">
                 <tutor-request></tutor-request>
             </sb-dialog>

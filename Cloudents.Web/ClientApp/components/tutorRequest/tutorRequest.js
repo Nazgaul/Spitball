@@ -2,7 +2,6 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
 import questionService from '../../services/questionService';
 import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
-import analyticsService from '../../services/analytics.service';
 import { LanguageService } from "../../services/language/languageService";
 
 export default {
@@ -13,24 +12,9 @@ export default {
     },
     data() {
         return {
-            addQuestionButtonLoading: false,
-            questionMessage: '',
-            questionSubjct: '',
-            questionClass: '',
             subjectList: [],
-            addQuestionValidtionObj: {
-                errors: {
-                    textArea: {},
-                    class: {},
-                    server: {}
-                }
-            },
-            currentComponentselected: {
-                name: "regular",
-                callback: this.handleResult,
-                returnedObj: {},
-                showError: false
-            },
+            tutorCourse: '',
+            tutorRequestText: '',
             uploadProp: {
                 populatedThumnbailBox: {
                     box_0: {
@@ -57,24 +41,10 @@ export default {
                 uploadedFileNames: [],
                 MAX_FILES_AMOUNT: 4,
             },
-            dictionary: {
-                askPlaceholder: LanguageService.getValueByKey('addQuestion_ask_your_question_placeholder'),
-                selectSubjectPlaceholder: LanguageService.getValueByKey('addQuestion_select_subject_placeholder'),
-                classPlaceholder: LanguageService.getValueByKey('addQuestion_class_placeholder'),
-            }
         };
     },
     computed: {
-        ...mapGetters(['accountUser', 'getSelectedClasses', 'newQuestionDialogSate']),
-        hasTextAreaError() {
-            return !!this.addQuestionValidtionObj.errors['textArea'] && this.addQuestionValidtionObj.errors['textArea'].hasError;
-        },
-        hasClassError() {
-            return !!this.addQuestionValidtionObj.errors['class'] && this.addQuestionValidtionObj.errors['class'].hasError;
-        },
-        hasExternalError() {
-            return !!this.currentComponentselected.showError;
-        },
+        ...mapGetters(['accountUser', 'getSelectedClasses', 'getRequestTutorDialog']),
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -86,13 +56,7 @@ export default {
         },
     },
     watch: {
-        questionMessage() {
-            this.addQuestionValidtionObj.errors['textArea'] = {};
-        },
-        questionClass() {
-            this.addQuestionValidtionObj.errors['class'] = {};
-        },
-        newQuestionDialogSate: {
+        getRequestTutorDialog: {
             immediate: true,
             handler(val) {
                 if(val) {
@@ -105,98 +69,14 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState']),
+        ...mapActions(['updateRequestDialog']),
         ...mapMutations(['UPDATE_LOADING']),
-        requestNewQuestionDialogClose() {
-            this.updateNewQuestionDialogState(false);
+        tutorRequestDialogClose() {
+            this.updateRequestDialog(false);
         },
         openUploadInterface() {
             let uploadFileElement = document.querySelector(`#${this.uploadProp.componentUniqueId}`);
             uploadFileElement.click();
-        },
-        resetErrorObject() {
-            //should be the same as the data object
-            this.addQuestionValidtionObj.errors = {
-                textArea: {},
-                class: {},
-                server: {}
-            };
-        },
-        canAddQuestion() {
-            let canAddQuestion = true;
-            this.resetErrorObject();
-            let trimmedMessage = this.questionMessage.trim();
-            let externalComponent = this.currentComponentselected.returnedObj;
-
-            if(trimmedMessage.length < 15) {
-                const message = LanguageService.getValueByKey('addQuestion_error_minimum_chars');
-                let errorObj = addQuestionUtilities.createErrorObj(true, message);
-                this.addQuestionValidtionObj.errors['textArea'] = errorObj;
-                canAddQuestion = false;
-
-            }
-            if(!this.questionClass) {
-                const message = LanguageService.getValueByKey('addQuestion_error_select_class');
-                let errorObj = addQuestionUtilities.createErrorObj(true, message);
-                this.addQuestionValidtionObj.errors['class'] = errorObj;
-                canAddQuestion = false;
-            }
-            if(!!externalComponent.hasError) {
-                this.currentComponentselected.showError = true;
-                canAddQuestion = false;
-            }
-            return canAddQuestion;
-        },
-        addQuestion() {
-            if(this.canAddQuestion()) {
-                this.addQuestionButtonLoading = true;
-                console.log('add question');
-                this.UPDATE_LOADING(true);
-                // if(this.currentComponentselected.name === 'regular'){
-                //     price = this.currentComponentselected.returnedObj.result;
-                // }
-                let serverQuestionObj = {
-                    text: this.questionMessage,
-                    subjectId: this.questionSubjct,
-                    course: this.questionClass,
-                    files: this.uploadProp.uploadedFileNames
-                };
-                questionService.postQuestion(serverQuestionObj).then((response) => {
-                    analyticsService.sb_unitedEvent("Submit_question", "Homework help");
-                    // let val = self.selectedPrice || this.price;
-                    // this.updateUserBalance(-val);
-                    //close dialog after question submitted
-                    this.requestNewQuestionDialogClose(false);
-                    this.$router.push({
-                                          path: '/ask',
-                                          query: {
-                                              term: ''
-                                          }
-                                      });
-                    this.UPDATE_LOADING(false);
-                }, (error) => {
-                    let errorMessage = LanguageService.getValueByKey('addQuestion_error_general');
-                    if(error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]) {
-                        errorMessage = error.response.data[""][0];
-                    }
-                    this.UPDATE_LOADING(false);
-                    this.addQuestionValidtionObj.errors.server = addQuestionUtilities.createErrorObj(true, errorMessage);
-                    console.error(error);
-                }).finally(() => {
-                    this.addQuestionButtonLoading = false;
-                });
-            }
-        },
-        handleResult(obj) {
-            /*
-             obj = {
-             hasError: boolean,
-             message: string,
-             result: number
-             }
-             */
-            this.currentComponentselected.showError = false;
-            this.currentComponentselected.returnedObj = obj;
         },
         removeImage(img) {
             img.populated = false;
