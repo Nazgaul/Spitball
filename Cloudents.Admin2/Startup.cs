@@ -19,6 +19,7 @@ using System.IO;
 using System.Reflection;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
+using Newtonsoft.Json.Converters;
 
 namespace Cloudents.Admin2
 {
@@ -51,11 +52,11 @@ namespace Cloudents.Admin2
                 o.ApplicationDiscriminator = "spitball";
             }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("https://login.microsoftonline.com"));
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowSpecificOrigin",
+            //        builder => builder.WithOrigins("https://login.microsoftonline.com"));
+            //});
 
 
             services.AddMvc(config =>
@@ -67,8 +68,13 @@ namespace Cloudents.Admin2
                         .Build();
                     config.Filters.Add(new AuthorizeFilter(policy));
                 }
+                
 
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            }).AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             if (HostingEnvironment.IsDevelopment())
             {
