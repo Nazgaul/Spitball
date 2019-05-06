@@ -46,6 +46,7 @@ cte.rateCount as ReviewsCount
 from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
 order by
 case when u.Country = @Country then 0 else 1 end,
+cte.rate desc,
  u.id
 
 OFFSET 50*@Page ROWS

@@ -55,6 +55,7 @@ left join sb.CourseSubject cs on c.SubjectId = cs.Id
 where ( contains(u.Name,@term) or  contains(t.Bio,@term) or contains(c.Name,@term)  or contains(cs.Name,@term))
 order by
 case when u.Country = @Country then 0 else 1 end,
+cte.rate desc,
  u.id
 OFFSET 50*@Page ROWS
 FETCH NEXT 50 ROWS ONLY;";
