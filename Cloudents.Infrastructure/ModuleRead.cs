@@ -2,7 +2,6 @@
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Interceptor;
-using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Question;
 using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
@@ -24,12 +23,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DapperRepository>().AsSelf();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
-
-         
-            
-
-            builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));

@@ -11,7 +11,7 @@ namespace Cloudents.Web.Hubs
     public class StudyRoomHub : Hub
     {
         private readonly ICommandBus _commandBus;
-        private const string CookieName = "studyRoomId";
+        private const string QueryStringName = "studyRoomId";
 
         public StudyRoomHub( ICommandBus commandBus)
         {
@@ -22,7 +22,7 @@ namespace Cloudents.Web.Hubs
         {
             var httpContext = Context.GetHttpContext();
             var request = httpContext.Request;
-            var cookieVal = request.Query["studyRoomId"].ToString();
+            var cookieVal = request.Query[QueryStringName].ToString();
             if (cookieVal == null)
             {
               return;
@@ -43,7 +43,7 @@ namespace Cloudents.Web.Hubs
         {
             //We cant delete the cookie
             var request = Context.GetHttpContext().Request;
-            var cookieVal = request.Query["studyRoomId"].ToString();
+            var cookieVal = request.Query[QueryStringName].ToString();
 
             var roomId = Guid.Parse(cookieVal);
             var userId = long.Parse(Context.UserIdentifier);

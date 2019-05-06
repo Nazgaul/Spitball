@@ -101,12 +101,9 @@
         },
         placeholders: {
             all: LanguageService.getValueByKey("header_Search"),
-            job: LanguageService.getValueByKey("header_placeholder_job"),
             tutor: LanguageService.getValueByKey("header_placeholder_tutor"),
             note: LanguageService.getValueByKey("header_placeholder_note"),
-            book: LanguageService.getValueByKey("header_placeholder_book"),
             ask: LanguageService.getValueByKey("header_placeholder_ask"),
-            flashcard: LanguageService.getValueByKey("header_placeholder_flashcard"),
         },
         data() {
             return {

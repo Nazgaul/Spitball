@@ -14,12 +14,7 @@ namespace Cloudents.Core.Attributes
             EntityNames = entityNames;
         }
 
-        public EntityBindAttribute(dynamic x)
-        {
-
-        }
-
-        protected EntityBindAttribute()
+        private EntityBindAttribute()
         {
             EntityNames = new List<string>();
         }

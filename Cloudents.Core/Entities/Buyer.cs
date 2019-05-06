@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace Cloudents.Core.Entities
 {
@@ -21,7 +20,7 @@ namespace Cloudents.Core.Entities
 
         public bool IsValid()
         {
-            return this.PaymentKey != null && this.PaymentKeyExpiration > DateTime.UtcNow;
+            return PaymentKey != null && PaymentKeyExpiration > DateTime.UtcNow;
         }
     }
 }

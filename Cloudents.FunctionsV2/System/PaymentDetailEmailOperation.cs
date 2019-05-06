@@ -10,7 +10,6 @@ using Cloudents.Query.Email;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Cloudents.FunctionsV2.System
 {
