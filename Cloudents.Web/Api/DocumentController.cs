@@ -55,8 +55,9 @@ namespace Cloudents.Web.Api
              ICommandBus commandBus, UserManager<RegularUser> userManager,
              IDocumentDirectoryBlobProvider blobProvider,
             IStringLocalizer<DocumentController> localizer,
-            ITempDataDictionaryFactory tempDataDictionaryFactory)
-        : base(blobProvider, tempDataDictionaryFactory)
+            ITempDataDictionaryFactory tempDataDictionaryFactory,
+             IStringLocalizer<UploadControllerBase> localizer2)
+        : base(blobProvider, tempDataDictionaryFactory,localizer2)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;

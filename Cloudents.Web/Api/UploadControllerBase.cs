@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Web.Framework;
+using Microsoft.Extensions.Localization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,11 +24,13 @@ namespace Cloudents.Web.Api
 
         protected readonly IBlobProvider BlobProvider;
         protected readonly ITempDataDictionaryFactory TempDataDictionaryFactory;
+        private readonly IStringLocalizer<UploadControllerBase> _localizer;
 
-        protected UploadControllerBase(IBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory)
+        protected UploadControllerBase(IBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory, IStringLocalizer<UploadControllerBase> localizer)
         {
             BlobProvider = blobProvider;
             TempDataDictionaryFactory = tempDataDictionaryFactory;
+            _localizer = localizer;
         }
 
         // GET: api/<controller>
@@ -53,8 +56,17 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<UploadStartResponse>> Upload([FromBody] UploadRequestBase model,
             CancellationToken token)
         {
-            var result = await Upload(model as dynamic, token);
-            return result;
+            try
+            {
+                var result = await Upload(model as dynamic, token);
+                return result;
+            }
+            catch (ArgumentException)
+            {
+                ModelState.AddModelError(nameof(model), string.Format(_localizer["Upload"], string.Join(", ", GetSupportedExtensions())));
+                return BadRequest(ModelState);
+
+            }
         }
 
         [NonAction]
@@ -69,7 +81,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [SuppressMessage("ReSharper", "UnusedParameter.Local",Justification = "need the same method signature")]
+        [SuppressMessage("ReSharper", "UnusedParameter.Local", Justification = "need the same method signature")]
         private Task<UploadStartResponse> Upload(UploadRequestStart model, CancellationToken token)
         {
 
@@ -79,8 +91,6 @@ namespace Cloudents.Web.Api
             if (!GetSupportedExtensions().Contains(extension, StringComparer.OrdinalIgnoreCase))
             {
                 throw new ArgumentException();
-                //ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
-                //return BadRequest(ModelState);
             }
 
 

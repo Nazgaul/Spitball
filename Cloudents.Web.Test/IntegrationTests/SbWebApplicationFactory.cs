@@ -43,7 +43,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             return new StringContent(str, Encoding.UTF8, "application/json");
         }
 
-        public static StringContent CreateString(object obj)
+        public static StringContent CreateJsonString(object obj)
         {
             var str = JsonConvert.SerializeObject(obj);
             return new StringContent(str, Encoding.UTF8, "application/json");

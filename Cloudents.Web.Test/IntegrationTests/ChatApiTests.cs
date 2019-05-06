@@ -36,7 +36,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Chat", HttpClient.CreateString(msg));
+            var response = await _client.PostAsync("api/Chat", HttpClient.CreateJsonString(msg));
 
             response.EnsureSuccessStatusCode();
         }
@@ -59,7 +59,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Chat/read", HttpClient.CreateString(user));
+            var response = await _client.PostAsync("api/Chat/read", HttpClient.CreateJsonString(user));
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
         }

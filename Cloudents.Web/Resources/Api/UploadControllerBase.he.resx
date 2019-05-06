@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Upload" xml:space="preserve">
-    <value>Oops !
-This file is not supported.
-Supported: doc, docx, xls, xlsx,
-pdf, png, jpg, ppt, pptx</value>
+    <value>אופס !  קובץ זה אינו נתמך. קבצים נתמכים : {0}</value>
   </data>
 </root>

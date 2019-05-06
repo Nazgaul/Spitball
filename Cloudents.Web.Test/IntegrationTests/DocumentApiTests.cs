@@ -127,7 +127,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateString(doc1));
+            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateJsonString(doc1));
 
             response.EnsureSuccessStatusCode();
         }
@@ -137,17 +137,17 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateString(doc2));
+            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateJsonString(doc2));
 
             response.EnsureSuccessStatusCode();
         }
 
         [Fact]
-        public async Task PostAsync_Upload_Hebew_FileName()
+        public async Task PostAsync_Upload_Hebrew_FileName()
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateString(doc3));
+            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateJsonString(doc3));
 
             response.EnsureSuccessStatusCode();
         }
@@ -157,9 +157,11 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateString(doc4));
+            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateJsonString(doc4));
 
-            response.Should().Be(HttpStatusCode.BadRequest);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var str = await response.Content.ReadAsStringAsync();
         }
     }
 }

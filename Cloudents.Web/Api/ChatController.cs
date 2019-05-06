@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,8 +38,9 @@ namespace Cloudents.Web.Api
 
         public ChatController(ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus,
             IChatDirectoryBlobProvider blobProvider,
-            ITempDataDictionaryFactory tempDataDictionaryFactory)
-        : base(blobProvider, tempDataDictionaryFactory)
+            ITempDataDictionaryFactory tempDataDictionaryFactory,
+            IStringLocalizer<UploadControllerBase> localizer)
+        : base(blobProvider, tempDataDictionaryFactory,localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;

@@ -5,6 +5,10 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="FilesTest\doc12862620190506110041" />
+  </ItemGroup>
+
   
 
   <!--<ItemGroup>
@@ -23,6 +27,7 @@
   </ItemGroup>-->
 
   <ItemGroup>
+    <EmbeddedResource Include="FilesTest\doc12862620190506110041" />
     <EmbeddedResource Include="UnitTests\help.xml" />
   </ItemGroup>
 

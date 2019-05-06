@@ -41,7 +41,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/university/set", HttpClient.CreateString(uniId));
+            var response = await _client.PostAsync("api/university/set", HttpClient.CreateJsonString(uniId));
 
             response.EnsureSuccessStatusCode();
         }
@@ -90,7 +90,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/University/create", HttpClient.CreateString(uni));
+            var response = await _client.PostAsync("api/University/create", HttpClient.CreateJsonString(uni));
 
             response.EnsureSuccessStatusCode();
         }
@@ -100,7 +100,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/University/create", HttpClient.CreateString(uni));
+            var response = await _client.PostAsync("api/University/create", HttpClient.CreateJsonString(uni));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }

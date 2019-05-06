@@ -45,7 +45,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 fingerPrint = "string"
             };
 
-            await _client.PostAsync("api/LogIn", HttpClient.CreateString(cred));
+            await _client.PostAsync("api/LogIn", HttpClient.CreateJsonString(cred));
 
             var response = await _client.GetAsync("api/sms/code");
 
@@ -77,9 +77,9 @@ namespace Cloudents.Web.Test.IntegrationTests
             };
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
-            await _client.PostAsync("api/Register", HttpClient.CreateString(cred));
+            await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
 
-            var response = await _client.PostAsync("api/Sms", HttpClient.CreateString(phone));
+            var response = await _client.PostAsync("api/Sms", HttpClient.CreateJsonString(phone));
 
             response.EnsureSuccessStatusCode();
         }
@@ -96,7 +96,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
-            await _client.PostAsync("api/Register", HttpClient.CreateString(cred));
+            await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
 
             var response = await _client.PostAsync("api/Sms/resend", null);
 
@@ -121,9 +121,9 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
-            await _client.PostAsync("api/Register", HttpClient.CreateString(cred));
+            await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
 
-            var response = await _client.PostAsync("api/Sms/verify", HttpClient.CreateString(phone));
+            var response = await _client.PostAsync("api/Sms/verify", HttpClient.CreateJsonString(phone));
 
             response.StatusCode.Should().NotBe(HttpStatusCode.InternalServerError);
         }
@@ -138,7 +138,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 fingerPrint = "string"
             };
 
-            await _client.PostAsync("api/Register", HttpClient.CreateString(cred));
+            await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
 
             var response = await _client.PostAsync("api/Register/resend", HttpClient.CreateString("{}"));
 

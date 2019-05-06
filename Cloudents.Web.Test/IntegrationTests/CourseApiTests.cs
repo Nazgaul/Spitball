@@ -47,9 +47,9 @@ namespace Cloudents.Web.Test.IntegrationTests
                 price = 1
             };
 
-            await _client.PostAsync("api/LogIn", HttpClient.CreateString(_credentials));
+            await _client.PostAsync("api/LogIn", HttpClient.CreateJsonString(_credentials));
 
-            var response = await _client.PostAsync("api/Question", HttpClient.CreateString(question));
+            var response = await _client.PostAsync("api/Question", HttpClient.CreateJsonString(question));
 
             response.EnsureSuccessStatusCode();
         }
@@ -68,9 +68,9 @@ namespace Cloudents.Web.Test.IntegrationTests
                 price = 0M
             };
 
-            await _client.PostAsync("api/LogIn", HttpClient.CreateString(_credentials));
+            await _client.PostAsync("api/LogIn", HttpClient.CreateJsonString(_credentials));
 
-            var response = await _client.PostAsync("api/Upload", HttpClient.CreateString(upload));
+            var response = await _client.PostAsync("api/Upload", HttpClient.CreateJsonString(upload));
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -83,11 +83,11 @@ namespace Cloudents.Web.Test.IntegrationTests
                 Name = "Economics"
             };
 
-            await _client.PostAsync("api/LogIn", HttpClient.CreateString(_credentials));
+            await _client.PostAsync("api/LogIn", HttpClient.CreateJsonString(_credentials));
 
-            await _client.PostAsync("api/course/set", HttpClient.CreateString(course));
+            await _client.PostAsync("api/course/set", HttpClient.CreateJsonString(course));
 
-            var response = await _client.PostAsync("api/course/teach", HttpClient.CreateString(course));
+            var response = await _client.PostAsync("api/course/teach", HttpClient.CreateJsonString(course));
 
             response.EnsureSuccessStatusCode();
         }
@@ -113,7 +113,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             await _client.DeleteAsync(uri.Uri);
 
-            var response = await _client.PostAsync("api/Course/create", HttpClient.CreateString(course));
+            var response = await _client.PostAsync("api/Course/create", HttpClient.CreateJsonString(course));
             response.StatusCode.Should().Be(HttpStatusCode.OK, "Create Course Failed");
             response = await _client.DeleteAsync(uri.Uri);
             response.StatusCode.Should().Be(HttpStatusCode.OK, "Delete Course Failed");
