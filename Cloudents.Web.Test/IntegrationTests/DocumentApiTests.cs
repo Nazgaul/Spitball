@@ -5,6 +5,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -12,7 +13,20 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class DocumentApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
-        
+        private readonly object cred = new
+        {
+            email = "elad@cloudents.com",
+            password = "123456789",
+            fingerPrint = "string"
+        };
+        private readonly object doc1 = new
+        {
+            mime_type = "",
+            name = "C:\\Users\apolo\\Downloads\\ACloudFan.pdf",
+            phase = "start",
+            size = 1027962
+        };
+
 
         public DocumentApiTests(SbWebApplicationFactory factory)
         {
@@ -86,6 +100,16 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             filters.Should().NotBeNull();
             type.Should().HaveCountGreaterThan(3);
+        }
+
+        [Fact]
+        public async Task PostAsync_Upload()
+        {
+            await _client.LogInAsync();
+
+            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateString(doc1));
+
+            response.EnsureSuccessStatusCode();
         }
     }
 }
