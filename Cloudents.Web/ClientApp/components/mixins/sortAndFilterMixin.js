@@ -73,37 +73,6 @@ export default {
                         filterOptions.push(filterItem);
                     }
                 });
-            } else if (this.$route.name === 'bookDetails') {
-            //we need to create the filters according to the query string
-                Object.entries(this.query).forEach(([key, vals]) => {
-                    let filterIds = vals; //could be a string not only array (e.g: sort)
-                    if (typeof filterIds === 'object') { // TODO sort could be alos an object
-                        if (filterIds.length === 0) {
-                            return filterOptions;
-                        }
-                        filterIds.forEach((id) => {
-                            let filterId = id;
-                            let filterType = key;
-                            let name = id;
-                            let filterItem = {
-                                filterId,
-                                filterType,
-                                name
-                            };
-                            filterOptions.push(filterItem);
-                        })
-                    } else {
-                        let filterId = filterIds;
-                        let filterType = key;
-                        let name = filterIds;
-                        let filterItem = {
-                            filterId,
-                            filterType,
-                            name
-                        };
-                        filterOptions.push(filterItem);
-                    }
-                });
             }
 
             return filterOptions;

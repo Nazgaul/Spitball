@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-using System.Text;
-using Cloudents.Web.Test.IntegrationTests;
+﻿using Cloudents.Web.Test.IntegrationTests;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Threading.Tasks;

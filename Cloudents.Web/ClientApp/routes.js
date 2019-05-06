@@ -3,6 +3,8 @@ import * as RouteTypes from "./routeTypes";
 import resultContent from './components/results/Result.vue';
 import HomeworkHelpComponent from './components/results/HomeworkHelp/HomeworkHelp.vue';
 import StudyDocumentsComponent from './components/results/StudyDocuments/StudyDocuments.vue';
+import TutorsComponent from './components/results/Tutors/Tutors.vue';
+
 import pageHeader from './components/header/header.vue';
 // import landingHeader from './components/landingPage/helpers/landingHeader.vue'
 import landingPage from './components/landingPage/landingPage.vue';
@@ -11,9 +13,6 @@ import verticalsTabs from './components/header/verticalsTabs.vue';
 import { staticRoutes } from "./components/satellite/satellite-routes";
 
 const showItem = () => import("./components/preview/Item.vue");
-const showFlashcard = () => import("./components/preview/Flashcard.vue");
-const bookDetailsHeader = () => import("./components/book/header.vue");
-const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
@@ -86,6 +85,13 @@ const homeworkHelpPage = {
     schoolBlock: schoolBlock,
     verticals: verticalsTabs
 };
+const tutorPage = {
+    default: TutorsComponent,
+    header: pageHeader,
+    schoolBlock: schoolBlock,
+    verticals: verticalsTabs
+};
+
 const studyDocumentsPage = {
     default: StudyDocumentsComponent,
     header: pageHeader,
@@ -99,15 +105,6 @@ const studyRoomsPage = {
     schoolBlock: schoolBlock
 };
 
-const bookDetailsProps = {
-    default: dynamicDetailsPropsFn,
-    header: (route) => ({
-        name: "textbooks",
-        id: route.params.id,
-        currentSelection: "book",
-        currentPath: "bookDetails"
-    })
-};
 let routes2 = [
     {
         path: "/",
@@ -122,13 +119,9 @@ let routes2 = [
         path: "/result",
         name: "result",
         alias: [
-            "/" + RouteTypes.marketRoute,
             // "/" + RouteTypes.questionRoute,
-            // "/" + RouteTypes.flashcardRoute,
             // "/" + RouteTypes.notesRoute,
-            "/" + RouteTypes.tutorRoute,
-            // "/" + RouteTypes.bookRoute,
-            // "/" + RouteTypes.jobRoute
+            // "/" + RouteTypes.tutorRoute,
         ],
         components: resultPage,
         props: resultProps,
@@ -165,6 +158,27 @@ let routes2 = [
             }
         }
     },
+
+    {
+        path: "/" + RouteTypes.tutorRoute,
+        name: "tutors",
+        components: tutorPage,
+        props: resultProps,
+        meta: {
+            isAcademic: true,
+            showMobileFooter: true,
+            analytics: {
+                pageviewTemplate(route) {
+                    return {
+                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
+                        path: route.path,
+                        location: window.location.href
+                    };
+                }
+            }
+        }
+    },
+
     {
         path: "/" + RouteTypes.notesRoute,
         name: "note",
@@ -265,16 +279,6 @@ let routes2 = [
         },
     },
 
-
-    // {
-    //     path: "/book/:id",
-    //     name: RouteTypes.bookDetailsRoute,
-    //     components: {
-    //         default: bookDetails,
-    //         header: bookDetailsHeader
-    //     },
-    //     props: bookDetailsProps
-    // },
     {
         path: "/note/:universityName/:courseName/:id/:name",
         alias: ['/document/:universityName/:courseName/:id/:name'],
@@ -319,19 +323,6 @@ let routes2 = [
             })
         }
     },
-    // {
-    //     path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
-    //     name: "flashcard",
-    //     components: {
-    //         default: showFlashcard,
-    //         header: previewHeader
-    //     },
-    //     props: {
-    //         default: (route) => ({
-    //             id: route.params.id
-    //         })
-    //     }
-    // },
     {
         path: "/question/:id",
         components: {

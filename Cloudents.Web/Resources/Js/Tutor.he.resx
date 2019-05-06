@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btn_share_screen" xml:space="preserve">
+    <value>שתף מסך</value>
+  </data>
+  <data name="btn_stop_sharing" xml:space="preserve">
+    <value>הפסק שיתוף מסך</value>
+  </data>
+  <data name="btn_system_check" xml:space="preserve">
+    <value>בדיקת מערכת</value>
+  </data>
+  <data name="chrome_ext_btn_cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="chrome_ext_btn_install" xml:space="preserve">
+    <value>התקן</value>
+  </data>
+  <data name="chrome_ext_install" xml:space="preserve">
+    <value>בבקשה בצע התקנה ואישור שימוש בתוסף לדפדפן כרום בכדי לאפשר שיתוף מסך במחשב שלך.</value>
+  </data>
+  <data name="chrome_ext_text" xml:space="preserve">
+    <value>ברגע שהתוסף מותקן, בבקשה בצע רענון כדי שתוכל להשתמש בתוסף שיתוף המסך</value>
+  </data>
+  <data name="chrome_ext_title" xml:space="preserve">
+    <value>התקנת תוסף לדפדפן כרום</value>
+  </data>
+  <data name="nav_canvas" xml:space="preserve">
+    <value>לוח</value>
+  </data>
+  <data name="nav_code" xml:space="preserve">
+    <value>עורך קוד</value>
+  </data>
+  <data name="nav_text" xml:space="preserve">
+    <value>עורך טקסט</value>
+  </data>
+  <data name="quality_access_device" xml:space="preserve">
+    <value>גישה להתקן</value>
+  </data>
+  <data name="quality_allowed_looks_like" xml:space="preserve">
+    <value>נראה כי אחד מההתקנים שלך בשימוש של אפליקציה אחרת, או שההתקן לא מאופשר בהגדרות המערכת.</value>
+  </data>
+  <data name="quality_allowed_press" xml:space="preserve">
+    <value>בבקשה רענן את הדף אחרי אישור הגישה </value>
+  </data>
+  <data name="quality_allowed_tip_one" xml:space="preserve">
+    <value>אנא ודא כי המצלמה והמיקרופון שלך מאופשרים בהגדרות המערכת</value>
+  </data>
+  <data name="quality_allowed_tip_two" xml:space="preserve">
+    <value>סגור לשוניות או אפליקציות אחרות ואז התחבר שנית.</value>
+  </data>
+  <data name="quality_allowed_title" xml:space="preserve">
+    <value>כדי ליצור קשר עם משתתף נוסף, אפשר לדפדפן שלך לגשת למצלמה והמיקרופון</value>
+  </data>
+  <data name="quality_audio_test_in" xml:space="preserve">
+    <value>בדיקת מיקרופון</value>
+  </data>
+  <data name="quality_audio_test_out" xml:space="preserve">
+    <value>בדיקת רמקול</value>
+  </data>
+  <data name="quality_btn_continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="quality_btn_done" xml:space="preserve">
+    <value>סיום</value>
+  </data>
+  <data name="quality_btn_got" xml:space="preserve">
+    <value>הבנתי</value>
+  </data>
+  <data name="quality_camera_placeholder" xml:space="preserve">
+    <value>בחר בבקשה מצלמה</value>
+  </data>
+  <data name="quality_input_title" xml:space="preserve">
+    <value>בדיקת איכות הקול במיקרופון</value>
+  </data>
+  <data name="quality_out_title" xml:space="preserve">
+    <value>בדיקת איכות הקול ברמקול</value>
+  </data>
+  <data name="quality_permission" xml:space="preserve">
+    <value>הרשאות דפדפן</value>
+  </data>
+  <data name="quality_title" xml:space="preserve">
+    <value>בדיקת מצלמה וקול</value>
+  </data>
+  <data name="quality_unable" xml:space="preserve">
+    <value>אין אפשרות גישה להתקן.</value>
+  </data>
+  <data name="quality_video_test_title" xml:space="preserve">
+    <value>בדיקת וידיאו</value>
+  </data>
+  <data name="quality_video_title" xml:space="preserve">
+    <value>בדיקת איכות וידיאו</value>
+  </data>
+  <data name="stream_btn_end_session" xml:space="preserve">
+    <value>סיים שיעור</value>
+  </data>
+  <data name="stream_btn_join_session" xml:space="preserve">
+    <value>הצטרף לשיעור</value>
+  </data>
+  <data name="stream_btn_start_session" xml:space="preserve">
+    <value>התחל שיעור</value>
+  </data>
+  <data name="stream_btn_waiting" xml:space="preserve">
+    <value>ממתין לסטודנט</value>
+  </data>
+  <data name="stream_guest" xml:space="preserve">
+    <value>אורח</value>
+  </data>
+  <data name="tooltip_circle" xml:space="preserve">
+    <value>עיגול</value>
+  </data>
+  <data name="tooltip_color" xml:space="preserve">
+    <value>בחירת צבע</value>
+  </data>
+  <data name="tooltip_equation" xml:space="preserve">
+    <value>משוואה</value>
+  </data>
+  <data name="tooltip_line" xml:space="preserve">
+    <value>קו</value>
+  </data>
+  <data name="tooltip_pan" xml:space="preserve">
+    <value>גרירה</value>
+  </data>
+  <data name="tooltip_pen" xml:space="preserve">
+    <value>עט</value>
+  </data>
+  <data name="tooltip_select" xml:space="preserve">
+    <value>בחירה</value>
+  </data>
+  <data name="tooltip_square" xml:space="preserve">
+    <value>מלבן</value>
+  </data>
+  <data name="tooltip_text" xml:space="preserve">
+    <value>טקסט</value>
+  </data>
+  <data name="tooltip_undo" xml:space="preserve">
+    <value>בטל</value>
+  </data>
+  <data name="tooltip_upload" xml:space="preserve">
+    <value>העלאה תמונה</value>
+  </data>
+</root>

@@ -30,6 +30,7 @@ namespace Cloudents.Core.Interfaces
     public interface IRegularUserRepository : IRepository<RegularUser>
     {
         Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
+        Task<RegularUser> GetUserByEmailAsync(string userEmail, CancellationToken token);
     }
 
  

@@ -11,9 +11,9 @@
           <span class="logo-container">
             <AppLogo></AppLogo>
           </span>
-                    <div class="tutor-nav-item" v-for="singleNav in navs" :class="{ 'active-nav': singleNav.value === activeItem}">
-                        <v-icon class="mr-2 nav-icon" @click="updateActiveNav(singleNav.value)">{{singleNav.icon}}</v-icon>
-                        <a class="tutor-nav-item-link" @click="updateActiveNav(singleNav.value)">{{singleNav.name}}</a>
+                    <div class="tutor-nav-item cursor-pointer" @click="updateActiveNav(singleNav.value)" v-for="singleNav in navs" :class="{ 'active-nav': singleNav.value === activeItem}">
+                        <v-icon class="mr-2 nav-icon" >{{singleNav.icon}}</v-icon>
+                        <a class="tutor-nav-item-link" >{{singleNav.name}}</a>
                     </div>
                 </div>
                 <div style="display: flex; align-items: center;">
@@ -129,7 +129,6 @@ import { LanguageService } from "../../services/language/languageService";
                               "qualityDialog",
                               "localNetworkQuality",
                               "isRoomCreated",
-                              "sharedDocUrl",
                               "getZoom",
                               "getPanX",
                               "getPanY",
@@ -142,7 +141,7 @@ import { LanguageService } from "../../services/language/languageService";
       return this.activeItem === "white-board" ? true : true;
             },
             zoom() {
-                let gridSize = (40 * Number(this.getZoom.toFixed())) / 100;
+                let gridSize = (20 * Number(this.getZoom.toFixed())) / 100;
                 return `${gridSize}px ${gridSize}px`;
             },
             panX() {

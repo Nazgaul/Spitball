@@ -4,7 +4,6 @@ using Newtonsoft.Json.Linq;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
-using Newtonsoft.Json;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {

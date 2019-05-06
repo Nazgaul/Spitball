@@ -12,8 +12,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Extension;
+using Cloudents.Web.Filters;
+using Cloudents.Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
 {
@@ -26,13 +33,15 @@ namespace Cloudents.Web.Api
         private readonly UserManager<RegularUser> _userManager;
         private readonly ILogger _logger;
         private readonly ICommandBus _commandBus;
+        private readonly Lazy<IPayment> _payment;
 
-        public WalletController(UserManager<RegularUser> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus)
+        public WalletController(UserManager<RegularUser> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus, Lazy<IPayment> payment)
         {
             _userManager = userManager;
             _queryBus = queryBus;
             _logger = logger;
             _commandBus = commandBus;
+            _payment = payment;
         }
 
         // GET
@@ -88,5 +97,91 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
         }
+
+        #region PayMe
+
+        /// <summary>
+        /// Generate a buyer for - don't forget to run ngrok if you run it locally
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpGet("GetPaymentLink")]
+        public async Task<ActionResult<SaleResponse>> GenerateLink(
+            CancellationToken token)
+        {
+            try
+            {
+                var result = await GenerateLinkAsync(token);
+                return new SaleResponse(result);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<IActionResult> PayMeCallbackAsync([FromQuery]long userId,
+            [FromForm] PayMeBuyerCallbackRequest model,
+            [FromServices] IHubContext<SbHub> hubContext,
+            CancellationToken token)
+        {
+            var paymentKeyExpiration = DateTime.ParseExact(model.BuyerCardExp, "MMyy", CultureInfo.InvariantCulture);
+            paymentKeyExpiration = paymentKeyExpiration.AddMonths(1).AddMinutes(-1);
+
+            var command = new AddBuyerTokenCommand(userId, model.BuyerKey, paymentKeyExpiration);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+
+        [HttpPost("Seller"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<IActionResult> PayMeSellerBackAsync([FromForm] PayMeSellerCallbackRequest model, CancellationToken token)
+        {
+
+            var command = new AddSellerTokenCommand(model.Email, model.SellerKey);
+            await _commandBus.DispatchAsync(command, token);
+            //TODO: send signalR buyer exists
+            return Ok();
+        }
+
+        private async Task<Uri> GenerateLinkAsync(
+             CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
+            {
+                throw new ArgumentException();
+            }
+
+            var url = Url.RouteUrl("PayMeCallback", new
+            {
+                userId = user.Id
+            }, "http");
+
+            var uri = new UriBuilder(url);
+
+
+            var result = await _payment.Value.CreateBuyerAsync(uri.Uri.AbsoluteUri, token);
+            var saleUrl = new UriBuilder(result.SaleUrl);
+            saleUrl.AddQuery(new NameValueCollection()
+            {
+                ["first_name"] = user.FirstName,
+                ["last_name"] = user.LastName,
+                ["phone"] = user.PhoneNumber,
+                ["email"] = user.Email
+            });
+            return saleUrl.Uri;
+        }
+
+
+        [SignInWithToken, Route("/" + UrlConst.GeneratePaymentLink), ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<RedirectResult> Payment(CancellationToken token)
+        {
+            var result = await GenerateLinkAsync(token);
+            return Redirect(result.AbsoluteUri);
+        }
+
+        #endregion
     }
 }

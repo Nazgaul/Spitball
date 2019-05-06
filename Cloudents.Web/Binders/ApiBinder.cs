@@ -1,5 +1,4 @@
-﻿using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using System;
 
@@ -14,15 +13,15 @@ namespace Cloudents.Web.Binders
                 throw new ArgumentNullException(nameof(context));
             }
 
-            if (context.Metadata.ModelType == typeof(GeographicCoordinate))
-            {
-                return new BinderTypeModelBinder(typeof(GeoPointEntityBinder));
-            }
+            //if (context.Metadata.ModelType == typeof(GeographicCoordinate))
+            //{
+            //    return new BinderTypeModelBinder(typeof(GeoPointEntityBinder));
+            //}
 
-            if (context.Metadata.ModelType == typeof(LocationQuery))
-            {
-                return new BinderTypeModelBinder(typeof(LocationEntityBinder));
-            }
+            //if (context.Metadata.ModelType == typeof(LocationQuery))
+            //{
+            //    return new BinderTypeModelBinder(typeof(LocationEntityBinder));
+            //}
 
             //if (context.Metadata.ModelType == typeof(StorageContainer))
             //{

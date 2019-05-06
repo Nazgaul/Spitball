@@ -107,7 +107,6 @@ const actions = {
         commit('updateAllowedDevices', val);
     },
 updateStudyRoomProps(context, val) {
-
         let roomData = tutorService.createRoomProps(val);
         let allowReview = roomData.allowReview;
         //update leaveReview store, to prevent leaving of multiple reviews

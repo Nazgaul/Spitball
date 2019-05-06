@@ -25,9 +25,13 @@ const init = function(){
 
 const proccessImageURL = function(url, width, height, mode){
   let usedMode = mode ? mode : 'crop';
-  let returnedUrl = `${url}?&width=${width}&height=${height}&mode=${usedMode}`;
-  return returnedUrl;
-}
+  if(url){
+      let returnedUrl = `${url}?&width=${width}&height=${height}&mode=${usedMode}`;
+      return returnedUrl;
+  }else{
+      return ''
+  }
+};
 
 
 const dateFormater = function(dateTime){

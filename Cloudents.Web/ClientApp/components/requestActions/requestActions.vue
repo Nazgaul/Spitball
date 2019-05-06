@@ -107,10 +107,12 @@
                 }
             },
             openRequestTutor() {
+               
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
                 } else {
                     if(this.getSelectedClasses.length){
+                         debugger;
                         this.updateRequestDialog(true);
                     }else {
                         this.$router.push({name: 'addCourse'});

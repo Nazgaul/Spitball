@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
     public class Tutor : Entity<long>
     {
         public const int MaximumPrice = 214748;
@@ -63,6 +65,7 @@ namespace Cloudents.Core.Entities
         private readonly ICollection<TutorReview> _reviews = new HashSet<TutorReview>();
 
         public virtual IReadOnlyCollection<TutorReview> Reviews => _reviews.ToList();
+        public virtual string SellerKey { get; set; }
 
         //protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
      

@@ -38,19 +38,16 @@
 <style scoped lang="less">
     .shared-document-container {
         .iframe-container {
-            overflow: hidden;
-            padding-top: 56.25%;
             position: relative;
+            height: 80vh;
         }
-
         .iframe-container iframe {
             position: absolute;
             top: 0;
-            /*rtl:ignore*/
             left: 0;
             width: 100%;
             max-width: 1280px;
-            height: 100%;
+            height: 80vh;
             border: 0;
         }
 

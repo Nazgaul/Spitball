@@ -9,6 +9,7 @@ namespace Cloudents.Core
     [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
+        public const string GeneratePaymentLink = "generatePaymentLink";
         private readonly Uri _webSiteEndPoint;
 
         public UrlConst(IConfigurationKeys configuration)
@@ -24,22 +25,29 @@ namespace Cloudents.Core
         public string BuildWalletEndPoint(string token)
         {
             var builder = new UriBuilder(_webSiteEndPoint) { Path = "wallet" };
-            builder.AddQuery(new {token});
+            builder.AddQuery(new { token });
             return builder.ToString();
         }
 
         public string BuildShareEndPoint(string token)
         {
             var builder = new UriBuilder(_webSiteEndPoint);
-            builder.AddQuery(new { token, open= "referral" });
+            builder.AddQuery(new { token, open = "referral" });
             return builder.ToString();
         }
 
         public string BuildQuestionEndPoint
             (long id, object parameters = null)
         {
-            var builder = new UriBuilder(_webSiteEndPoint) {Path = $"question/{id}"};
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"question/{id}" };
             builder.AddQuery(parameters);
+            return builder.ToString();
+        }
+
+        public string BuildPayMeBuyerEndPoint(string token)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = GeneratePaymentLink };
+            builder.AddQuery(new { token });
             return builder.ToString();
         }
 
@@ -80,72 +88,5 @@ namespace Cloudents.Core
             uri.AddQuery(nvc);
             return uri.ToString();
         }
-
-        //[Obsolete]
-        //public static string NameToQueryString(string name)
-        //{
-        //    if (string.IsNullOrEmpty(name))
-        //    {
-        //        return name;
-        //    }
-        //    var previousChar = '\0';
-        //    var sb = new StringBuilder();
-
-        //    foreach (var character in name)
-        //    {
-        //        if (!char.IsLetterOrDigit(character) && !char.IsWhiteSpace(character) && !char.IsPunctuation(character))
-        //            continue;
-        //        switch (character)
-        //        {
-        //            case (char)160:
-        //            case '\n':
-        //            case '<':
-        //            case '>':
-        //            case '*':
-        //            case '%':
-        //            case '&':
-        //            case ':':
-        //            case '\\':
-        //            case '/':
-        //            case ';':
-        //            case '?':
-        //            case '@':
-        //            case '=':
-        //            case '+':
-        //            case '$':
-        //            case ',':
-        //            case '{':
-        //            case '}':
-        //            case '|':
-        //            case '^':
-        //            case '[':
-        //            case ']':
-        //            case '`':
-        //            case '"':
-        //            case '#':
-        //            case '\'':
-        //            case '(':
-        //            case ')':
-        //                continue;
-        //            case ' ':
-        //            case '_':
-        //            case '-':
-        //            case (char)65288:
-        //            case (char)65289:
-        //                if (previousChar != '-')
-        //                {
-        //                    sb.Append('-');
-        //                }
-        //                previousChar = '-';
-
-        //                break;
-        //            default:
-        //                previousChar = character;
-        //                sb.Append(character);
-        //                break;
-        //        }
-        //    }
-        //    return sb.ToString().ToLowerInvariant();
-        //}
     }
 }

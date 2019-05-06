@@ -26,13 +26,23 @@ namespace Cloudents.Core.Message.Email
     }
 
 
-    public class EndTutoringSessionMessage : ISystemQueueMessage
+    public class StudentPaymentMessage : ISystemQueueMessage
     {
-        public EndTutoringSessionMessage(string roomId)
+        public StudentPaymentMessage(Guid studyRoomId)
         {
-            RoomId = roomId;
+            StudyRoomId = studyRoomId;
         }
 
-        public string RoomId { get; private set; }
+        public Guid StudyRoomId { get; private set; }
     }
+
+    //public class EndTutoringSessionMessage : ISystemQueueMessage
+    //{
+    //    public EndTutoringSessionMessage(string roomId)
+    //    {
+    //        RoomId = roomId;
+    //    }
+
+    //    public string RoomId { get; private set; }
+    //}
 }

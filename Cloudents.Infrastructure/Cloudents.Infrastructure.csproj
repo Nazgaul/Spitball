@@ -13,13 +13,13 @@
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.2.0" />
     <PackageReference Include="Dapper" Version="1.60.6" />
-    <PackageReference Include="Google.Apis.Docs.v1" Version="1.38.2.1566" />
-    <PackageReference Include="Google.Apis.Drive.v3" Version="1.38.2.1566" />
+    <PackageReference Include="Google.Apis.Docs.v1" Version="1.39.0.1576" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.39.0.1566" />
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Language.TextAnalytics" Version="3.0.0" />
     <PackageReference Include="PayPal" Version="2.0.0-rc2" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
-    <PackageReference Include="Twilio" Version="5.28.3" />
+    <PackageReference Include="Twilio" Version="5.28.4" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
     <PackageReference Include="PayPal" Version="2.0.0-rc2" />
     <!--We have a problem with redis nuget packages.-->

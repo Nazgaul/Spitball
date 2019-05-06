@@ -19,10 +19,7 @@ import askQuestionBtn from './helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "./helpers/uploadFilesBtn/uploadFilesBtn.vue"
 
 const ResultTutor = () => import('./ResultTutor.vue');
-const ResultBook = () => import('./ResultBook.vue');
-const ResultJob = () => import('./ResultJob.vue');
-
-const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
+const ACADEMIC_VERTICALS = ['note', 'tutor'];
 
 //The vue functionality for result page
 export default {
@@ -32,8 +29,6 @@ export default {
         ResultNote,
         SuggestCard,
         ResultTutor,
-        ResultJob,
-        ResultBook,
         faqBlock,
         sbDialog,
         loginToAnswer,

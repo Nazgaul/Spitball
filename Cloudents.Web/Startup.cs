@@ -31,10 +31,10 @@ using Newtonsoft.Json;
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Options;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -178,6 +178,10 @@ namespace Cloudents.Web
             //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();
+            services.AddHttpClient();
+            services.AddOptions();
+            services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
+           
 
 
             var assembliesOfProgram = new[]
@@ -194,7 +198,13 @@ namespace Cloudents.Web
 
 
             var containerBuilder = new ContainerBuilder();
+            containerBuilder.Register(c =>
+            {
+                var val = c.Resolve<IOptionsMonitor<PayMeCredentials>>();
+                return val.CurrentValue;
+            }).AsSelf();
             services.AddSingleton<WebPackChunkName>();
+            
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
@@ -208,6 +218,7 @@ namespace Cloudents.Web
                 PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
+
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterAssemblyModules(assembliesOfProgram.ToArray());
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
@@ -220,7 +231,11 @@ namespace Cloudents.Web
                 .Keyed<IBuildSeo>(SeoType.Static);
             containerBuilder.RegisterType<QuestionSeoBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Question);
-            //
+            containerBuilder.Register(c =>
+            {
+                var z = c.Resolve<IHttpClientFactory>();
+                return z.CreateClient();
+            });
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

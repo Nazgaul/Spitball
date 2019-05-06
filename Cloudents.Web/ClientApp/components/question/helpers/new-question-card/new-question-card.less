@@ -66,11 +66,18 @@
         font-family: @fontOpenSans;
         font-size: 16px;
         font-weight: 600;
+        visibility: hidden;
         &.sold {
+          visibility: visible;
           color: rgba(0, 0, 0, 0.38);
-        }
-        span {
-          //font-size: 10px;
+          .has-correct{
+            color: #7ed321;
+            font-size: 25px;
+            padding-top: 4px;
+            @media (max-width: @screen-xs) {
+              padding-top: 0;
+            }
+          }
         }
       }
 

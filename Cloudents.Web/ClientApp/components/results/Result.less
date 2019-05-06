@@ -1,6 +1,8 @@
 ﻿@import "../../styles/mixin.less";
 @import "../../animations/pageTransitions.less";
-
+.empty-state-tutor{
+  max-width: @cellWidth!important;//keep here
+}
 .right-in {
   border: 1px solid @color-main-purple;
   padding: 16px;
@@ -17,6 +19,7 @@
       font-weight: 700;
     }
   }
+
   &:before {
     content: ' ';
     position: absolute;

@@ -5,7 +5,6 @@ import Vuex from "vuex";
 import Search from "./search";
 import User from "./User";
 import Question from "./question";
-import SpitballPreview from "./SpitballPreview";
 import LuisData from "./luisData";
 import Account from "./account";
 import Toaster from "./Toaster";
@@ -19,11 +18,13 @@ import University from "./university";
 import homeLanding from "./homeLanding"
 import homeworkHelpStore from './homeworkHelp_store'
 import studyDocumentsStore from './studyDocuments_store';
+import tutorsStore from './tutors_store';
 import marketingBox from './marketingBox'
 import leaderBoard from './leaderBoard'
 import mobileFooter from './mobileFooter';
 import onBoardGuide from './onBoardGuide';
 import buyTokens from './buyTokens';
+import payMe from './payMe';
 import tutoringCanvas from './tutoringCanvas';
 import tutoringMainStore from './tutoringMain';
 import chatStore from './chatStore';
@@ -42,7 +43,6 @@ const store = new Vuex.Store({
     modules: {
         Search,
         User,
-        SpitballPreview,
         LuisData,
         Account,
         Question,
@@ -57,11 +57,13 @@ const store = new Vuex.Store({
         homeLanding,
         homeworkHelpStore,
         studyDocumentsStore,
+        tutorsStore,
         marketingBox,
         leaderBoard,
         mobileFooter,
         onBoardGuide,
         buyTokens,
+        payMe,
         tutoringCanvas,
         tutoringMainStore,
         chatStore,

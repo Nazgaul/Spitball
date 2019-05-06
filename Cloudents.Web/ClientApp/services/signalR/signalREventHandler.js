@@ -88,7 +88,10 @@ export const signlaREvents = {
                 }
                 userActions[action.type](action.data)
             }) 
-        }
+        },
+        paymentreceived:function(){
+            store.dispatch('signalR_userPaymentReceived');
+        },
     },
     notification: {
         add: function(arrEventObj){

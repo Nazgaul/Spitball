@@ -1,5 +1,4 @@
-﻿using System;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Universities;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;

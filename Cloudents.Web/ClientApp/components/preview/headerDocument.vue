@@ -186,6 +186,11 @@
             ]),
             ...mapGetters(['accountUser']),
             downloadDoc() {
+                let isLogedIn = this.accountUser();
+                if(!isLogedIn){
+                    this.updateLoginDialogState(true)
+                    return;
+                }
                 let url = this.$route.path + '/download';
                 let user = this.accountUser();
                 let userId = user.id;
@@ -211,6 +216,9 @@
                 let item = this.item;
                 this.purchaseAction(item);
                 this.confirmPurchaseDialog = false;
+            },
+            isGuest(){
+                return this.accountUser() === null;
             }
         },
         computed: {
@@ -225,6 +233,11 @@
             },
             isPurchased: {
                 get() {
+                    if(this.isGuest){
+                        if(!!this.item && !this.item.price){
+                            return true;
+                        }
+                    }
                     return this.item && this.item.isPurchased
                 },
                 set(val) {

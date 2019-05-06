@@ -6,12 +6,13 @@
         </div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <div v-if="isTutor && messages && messages.length > 0" @click="createRoom">
-                    <span v-show="studyRoomExists" v-language:inner >chat_studyRoom_enter</span>
-                    <span v-show="!studyRoomExists" v-language:inner>chat_studyRoom_create</span>
+                <div v-if="showStudyRoomInteraction" @click="createRoom">
+                    <span v-show="studyRoomExists" v-language:inner>chat_studyRoom_enter</span>
+                    <span v-show="!studyRoomExists && isRoomTutor" v-language:inner>chat_studyRoom_create</span>
                 </div>
-                <div v-if="isTutor && messages &&  messages.length > 0">
-                    <v-icon style="font-size: 16px; color:#bcbccb">sbf-studyroom-icon</v-icon>
+                <div v-show="showStudyRoomInteraction">
+                    <v-icon v-show="studyRoomExists" style="font-size:16px; color:#bcbccb;">sbf-studyroom-icon</v-icon>
+                    <v-icon v-show="!studyRoomExists && isRoomTutor" style="font-size:16px; color:#bcbccb;">sbf-studyroom-icon</v-icon>
                 </div>
               
             </v-flex>
@@ -63,8 +64,13 @@ export default {
             if(this.activeConversationObj && this.activeConversationObj.studyRoomId){
                 return this.activeConversationObj.studyRoomId.length > 1
             }
+        },
+        showStudyRoomInteraction(){
+            return this.messages &&  this.messages.length > 0;
+        },
+        isRoomTutor(){
+            return this.isTutor && this.messages &&  this.messages.length > 0 && this.messages[0].userId !== this.accountUser.id;
         }
-
     },
     methods:{
         ...mapActions(['sendChatMessage', 'createStudyRoom']),

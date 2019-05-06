@@ -1,8 +1,6 @@
 using Cloudents.Core.Enum;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
@@ -55,8 +53,8 @@ namespace Cloudents.Core.Entities
 
         public virtual DomainTimeStamp RowDetail { get; protected set; }
 
-        private readonly IList<Document> _documents = new List<Document>();
-        public virtual IReadOnlyList<Document> Documents => _documents.ToList();
+      //  private readonly IList<Document> _documents = new List<Document>();
+       // public virtual IReadOnlyList<Document> Documents => _documents.ToList();
         /*
         private readonly IList<Question> _questions = new List<Question>();
         public virtual IReadOnlyList<Question> Questions => _questions.ToList();

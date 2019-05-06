@@ -15,22 +15,24 @@
                 </v-flex>
                 <v-flex xs12 sm12 md12 class="text-xs-center text-sm-center pt-2">
                     <span class="body-2" v-language:inner>leaveReview_press_star</span>
-                    <span class="body-2">{{tutorName}}</span>
+                    <span class="body-2 pl-1">{{tutorName}}</span>
                 </v-flex>
             </v-layout>
-            <v-layout align-center justify-center class="py-2">
-                <v-flex xs12 sm7 md7 class="text-xs-center d-inline-flex border-grey py-3">
-                    <user-avatar size="54" :userImageUrl="tutorImage" :user-name="tutorId"/>
-                    <userRating :rating="0"
+            <v-layout align-center justify-center row wrap class="py-2 border-grey mx-5">
+                <v-flex xs12 sm1 md1 shrink class="text-xs-center d-inline-flex py-3 mr-4">
+                    <user-avatar class="tutor-img-wrap" size="54" :userImageUrl="tutorImage" :user-name="tutorName" :user-id="tutorId"/>
+                </v-flex>
+                <v-flex xs12 sm4 md4 shrink>
+                    <userRating :rating="rating"
                                 :rateNumColor="'#43425D'"
                                 :size="'30'"
                                 :readonly="false"
                                 :showRateNumber="false"
-                                :callbackFn="updateReviewStars"
+                                :callbackFn="setRateStar"
                                 :rate-num-color="'#43425D'"></userRating>
                 </v-flex>
             </v-layout>
-            <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-2"
+            <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-3"
                       :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
                 <v-flex @click="toggleReviewInput()" xs12 sm8 md8 class="text-xs-center  cursor-pointer">
                 <span class="mr-2">
@@ -45,6 +47,7 @@
                         <v-textarea
                                 rows="1"
                                 outline
+                                autofocus
                                 v-model="reviewText"
                                 name="input-review"
                                 auto-grow
@@ -59,13 +62,16 @@
                            :loading="btnLoading"
                            color="#4452FC"
                            round
+                           id="submit-review-id"
+                           :disabled="btnDisabled"
                            class="white-text elevation-0 py-2 submit-review">
-                        <span class="text-capitalize px-4 subheading" v-language:inner>leaveReview_btn_send_review</span>
+                        <span class="text-capitalize px-4 subheading"
+                              v-language:inner>leaveReview_btn_send_review</span>
                     </v-btn>
                 </v-flex>
             </v-layout>
         </div>
-        <finalReviewStep v-else></finalReviewStep>
+        <finalReviewStep v-else :tutorId="tutorId"></finalReviewStep>
     </div>
 </template>
 
@@ -88,19 +94,29 @@
                 btnLoading: false,
                 reviewVal: 0,
                 roomId: 0,
+                rating: 0,
+                starNotSet: false,
                 reviewPlaceholder: LanguageService.getValueByKey("leaveReview_review_placeholder")
             };
         },
         computed: {
             ...mapGetters(['getActiveConversationObj', 'getReview', 'getStudyRoomData']),
             tutorImage() {
-                return utilitiesService.proccessImageURL(this.getActiveConversationObj.image, 54, 54);
+                if(this.getActiveConversationObj && this.getActiveConversationObj.image){
+                    return utilitiesService.proccessImageURL(this.getActiveConversationObj.image, 54, 54);
+                }else{
+                    return ''
+                }
+
             },
             tutorId() {
-                return this.getActiveConversationObj && this.getActiveConversationObj.userId && this.getActiveConversationObj.userId.toString();
+                return this.getActiveConversationObj && this.getActiveConversationObj.userId && this.getActiveConversationObj.userId;
             },
             tutorName() {
                 return this.getActiveConversationObj.name;
+            },
+            btnDisabled() {
+                return this.rating === 0;
             }
 
         },
@@ -108,6 +124,12 @@
             ...mapActions(['submitReview', 'updateReviewDialog', 'updateReviewStars', 'updateReview']),
             toggleReviewInput() {
                 return this.reviewInputHidden = !this.reviewInputHidden;
+            },
+            setRateStar(val) {
+                this.rating = val;
+                if(val > 0) {
+                    this.updateReviewStars(val);
+                }
             },
             sendReview() {
                 this.btnLoading = true;
@@ -151,6 +173,12 @@
         .review-close-icon {
             color: #a4a3be;
         }
+        .user-avatar-img{
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.38);
+        }
+        .tutor-img-wrap{
+            max-width: 54px;
+        }
         .v-text-field--outline > .v-input__control > .v-input__slot {
             border: 1px solid rgba(0, 0, 0, 0.19);
             font-size: 14px;
@@ -174,6 +202,11 @@
         }
         .submit-review {
             height: 42px;
+        }
+        #submit-review-id{
+            &:disabled {
+                background-color: #f0f0f7!important; //vuetify
+            }
         }
         .review-heading {
             height: 46px;

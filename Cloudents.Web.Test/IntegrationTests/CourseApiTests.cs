@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
 using FluentAssertions;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using Xunit;
-using Newtonsoft.Json;
 using System.Net;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -17,7 +14,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         
         private readonly System.Net.Http.HttpClient _client;
-        private readonly object cred = new
+        private readonly object _credentials = new
         {
             email = "blah@cloudents.com",
             password = "123456789",
@@ -50,7 +47,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 price = 1
             };
 
-            await _client.PostAsync("api/LogIn", HttpClient.CreateString(cred));
+            await _client.PostAsync("api/LogIn", HttpClient.CreateString(_credentials));
 
             var response = await _client.PostAsync("api/Question", HttpClient.CreateString(question));
 
@@ -71,7 +68,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 price = 0M
             };
 
-            await _client.PostAsync("api/LogIn", HttpClient.CreateString(cred));
+            await _client.PostAsync("api/LogIn", HttpClient.CreateString(_credentials));
 
             var response = await _client.PostAsync("api/Upload", HttpClient.CreateString(upload));
 
@@ -86,7 +83,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 Name = "Economics"
             };
 
-            await _client.PostAsync("api/LogIn", HttpClient.CreateString(cred));
+            await _client.PostAsync("api/LogIn", HttpClient.CreateString(_credentials));
 
             await _client.PostAsync("api/course/set", HttpClient.CreateString(course));
 

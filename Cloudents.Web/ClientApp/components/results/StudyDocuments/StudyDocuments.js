@@ -11,15 +11,18 @@ import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
 import { LanguageService } from '../../../services/language/languageService'
 import soonComponent from '../helpers/soon/soon.vue'
 import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
+
 import faqBlock from '../helpers/faq-block/faq-block.vue'
 import notificationCenter from '../../notificationCenter/notificationCenter.vue'
+
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "../helpers/uploadFilesBtn/uploadFilesBtn.vue"
 import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 import resultFilter from '../helpers/resultFilter/resultFilter.vue'
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 import requestBox from '../../requestActions/requestActions.vue'
-const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
+
+const ACADEMIC_VERTICALS = ['note', 'tutor'];
 
 //The vue functionality for result page
 export default {

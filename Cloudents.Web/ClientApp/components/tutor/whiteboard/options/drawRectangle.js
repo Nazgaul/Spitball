@@ -114,7 +114,6 @@ const defineEndPosition = function(e){
         this.shouldPaint = false;
         localShape.path.stroke = rectPath2D;
         this.methods.addShape(localShape, clearLocalShape);
-        whiteBoardService.hideHelper();
     }
 }
 

@@ -214,6 +214,7 @@ const getters = {
 };
 
 const actions = {
+    
     updateUniExists(context, val){
         context.commit("setUniExists", val);
     },
@@ -221,9 +222,10 @@ const actions = {
         context.commit("updateEditedData", newdata);
     },
     uploadAccountImage(context, obj) {
-        accountService.uploadImage(obj).then((resp) => {
+      return  accountService.uploadImage(obj).then((resp) => {
                                                  let imageUrl = resp.data;
                                                  context.commit('setProfilePicture', imageUrl);
+                                                 return true
                                              },
                                              (error) => {
                                                  console.log(error, 'error upload account image');
@@ -448,7 +450,10 @@ const actions = {
     },
     profileVote({commit}, data) {
         commit('updateProfileVote', data);
-    }
+    },
+    signalR_userPaymentReceived({state}){
+        state.user.needPayment = false;
+    },
 };
 
 

@@ -1,1 +1,2 @@
-﻿need to upload azure function v2.
+﻿Need to upload azure function v2
+

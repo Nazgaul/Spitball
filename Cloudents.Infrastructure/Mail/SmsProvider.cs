@@ -69,7 +69,7 @@ namespace Cloudents.Infrastructure.Mail
 
                 return (result.PhoneNumber.ToString(), result.CountryCode);
             }
-            catch (Twilio.Exceptions.ApiException e)
+            catch (Twilio.Exceptions.ApiException)
             {
                 return (null, null);
             }

@@ -76,6 +76,15 @@ namespace Cloudents.Core
         }
     }
 
+    public class PayMeCredentials
+    {
+        public PayMeCredentials()
+        {
+            EndPoint = "https://preprod.paymeservice.com/api/";
+        }
+        public string EndPoint { get; set; }
+    }
+
     public class TwilioCredentials
     {
         /// <summary>

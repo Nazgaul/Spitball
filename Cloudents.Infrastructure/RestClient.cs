@@ -19,14 +19,19 @@ using System.Threading.Tasks;
 namespace Cloudents.Infrastructure
 {
     [UsedImplicitly]
-    public sealed class RestClient : IRestClient, IDisposable
+    public sealed class RestClient : IRestClient
     {
         private readonly HttpClient _client;
 
 
-        public RestClient(ILogger logger)
+        public RestClient()
         {
             _client = new HttpClient();
+        }
+
+        public RestClient(HttpClient client)
+        {
+            _client = client;
         }
 
         [CanBeNull]
@@ -124,10 +129,16 @@ namespace Cloudents.Infrastructure
             }
         }
 
-        public async Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        //public async Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        //{
+        //    var t = await TransferHttpContentAsync(HttpMethod.Post, url, body, headers, token);
+        //    return t.IsSuccessStatusCode;
+        //}
+
+        public async Task<HttpResponseMessage> PostAsync(Uri url, HttpContent body,
+            IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
-            var t = await TransferHttpContentAsync(HttpMethod.Post, url, body, headers, token);
-            return t.IsSuccessStatusCode;
+            return await TransferHttpContentAsync(HttpMethod.Post, url, body, headers, token);
         }
 
         [Log]
@@ -170,6 +181,8 @@ namespace Cloudents.Infrastructure
                 return serializer.Deserialize<TU>(reader);
             }
         }
+
+        
 
         [Log]
         public async Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
@@ -221,9 +234,9 @@ namespace Cloudents.Infrastructure
             }
         }
 
-        public void Dispose()
-        {
-            _client?.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    _client?.Dispose();
+        //}
     }
 }

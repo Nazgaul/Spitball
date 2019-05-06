@@ -6,28 +6,28 @@ namespace Cloudents.Core.DTOs.Admin
 {
     public class NewCourseDto
     {
-        [DtoToEntityConnection(nameof(Course.Id))]
+        [EntityBind(nameof(Course.Id))]
         public string NewCourse { get; set; }
-        [DtoToEntityConnection(nameof(Course.Id))]
+        [EntityBind(nameof(Course.Id))]
         public string OldCourse { get; set; }
     }
 
 
     public class PendingCoursesDto
     {
-        [DtoToEntityConnection(nameof(Course.Id))]
+        [EntityBind(nameof(Course.Id))]
         public string Name { get; set; }
     }
 
-        public class NewUniversitiesDto
+    public class NewUniversitiesDto
     {
-        [DtoToEntityConnection(nameof(University.Id))]
-        public Guid NewId{ get; set; }
-        [DtoToEntityConnection(nameof(University.Name))]
+        [EntityBind(nameof(University.Id))]
+        public Guid NewId { get; set; }
+        [EntityBind(nameof(University.Name))]
         public string NewUniversity { get; set; }
-        [DtoToEntityConnection(nameof(University.Id))]
+        [EntityBind(nameof(University.Id))]
         public Guid OldId { get; set; }
-        [DtoToEntityConnection(nameof(University.Name))]
+        [EntityBind(nameof(University.Name))]
         public string OldUniversity { get; set; }
 
     }
@@ -35,19 +35,19 @@ namespace Cloudents.Core.DTOs.Admin
 
     public class PendingUniversitiesDto
     {
-        [DtoToEntityConnection(nameof(University.Id))]
+        [EntityBind(nameof(University.Id))]
         public Guid Id { get; set; }
-        [DtoToEntityConnection(nameof(University.Name))]
+        [EntityBind(nameof(University.Name))]
         public string Name { get; set; }
-        [DtoToEntityConnection(nameof(University.RowDetail.CreationTime))]
+        [EntityBind(nameof(University.RowDetail.CreationTime))]
         public DateTime Created { get; set; }
     }
 
     public class AllUniversitiesDto
     {
-        [DtoToEntityConnection(nameof(University.Id))]
+        [EntityBind(nameof(University.Id))]
         public Guid Id { get; set; }
-        [DtoToEntityConnection(nameof(University.Name))]
+        [EntityBind(nameof(University.Name))]
         public string Name { get; set; }
     }
-    }
+}

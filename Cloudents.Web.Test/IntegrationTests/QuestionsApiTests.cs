@@ -101,17 +101,17 @@ namespace Cloudents.Web.Test.IntegrationTests
 
 
         [Theory]
-        [InlineData("", "psychology", "Unit testing question",0)]
-        [InlineData("", "", "Unit testing question",3)]
-        [InlineData("", "psychology", "Unit testing q", 3)]
-        [InlineData("", "psychology", "", 3)]
-        public async Task PostAsync_New_Bad_Request(string subjectId, string course, string text, int price)
+        [InlineData("", "", "Unit testing question")]
+        [InlineData("", "psychology", "Unit testing q")]
+        [InlineData("", "psychology", "")]
+        public async Task PostAsync_New_Bad_Request(string subjectId, string course, string text)
         {
+            
             await _client.LogInAsync();
 
             var question = JsonConvert.SerializeObject(new
             {
-                subjectId, course, text, price
+                subjectId, course, text
             });
 
             var response = await _client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
