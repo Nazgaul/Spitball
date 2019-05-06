@@ -118,31 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btn_ask" xml:space="preserve">
-    <value>Ask a question</value>
-    <comment>יצירת שאלה</comment>
+    <value>יצירת שאלה</value>
   </data>
   <data name="btn_ask_mob" xml:space="preserve">
-    <value>Ask</value>
-    <comment>שאלה</comment>
+    <value>שאלה</value>
   </data>
   <data name="btn_tutor" xml:space="preserve">
-    <value>Tutor requets</value>
-    <comment>בקשה לתרגול</comment>
+    <value>בקשה לתרגול</value>
   </data>
   <data name="btn_tutor_mob" xml:space="preserve">
-    <value>Tutor req.</value>
-    <comment>תרגול</comment>
+    <value>תרגול</value>
   </data>
   <data name="btn_upload" xml:space="preserve">
-    <value>Upload Documents</value>
-    <comment>העלאת מסמכים</comment>
+    <value>העלאת מסמכים</value>
   </data>
   <data name="btn_upload_mob" xml:space="preserve">
-    <value>Upload</value>
-    <comment>העלאה</comment>
+    <value>העלאה</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>What would you like to do?</value>
-    <comment>מה היית רוצה לעשות עכשיו?</comment>
+    <value>מה היית רוצה לעשות עכשיו?</value>
   </data>
 </root>
