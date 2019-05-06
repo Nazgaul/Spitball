@@ -23,6 +23,7 @@ import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 
 import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
+import requestBox from '../../requestActions/requestActions.vue'
 
 
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
@@ -46,7 +47,8 @@ export default {
         resultFilter,
         emptyStateCard,
         tutorResultCard,
-        tutorResultCardMobile
+        tutorResultCardMobile,
+        requestBox
 
     },
     data() {

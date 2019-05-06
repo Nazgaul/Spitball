@@ -4,6 +4,9 @@
             <div class="d-flex mobile-filter">
                   <askQuestionBtn :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "></askQuestionBtn>
             </div>
+            <div class="request-box">
+                <request-box></request-box>
+            </div>
             <v-flex v-if="filterCondition" class="filter-container">
                 <result-filter></result-filter>
                 <div class="filter-button-container">
