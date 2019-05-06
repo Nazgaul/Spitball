@@ -7,7 +7,11 @@ namespace Cloudents.Core.Entities
         internal TutorReview(string review, float rate, RegularUser user, Tutor tutor, StudyRoom room)
         {
             if (rate <= 0) throw new ArgumentOutOfRangeException(nameof(rate));
-            Review = review;
+            if (!string.IsNullOrEmpty(review))
+            {
+                Review = review;
+            }
+
             Rate = rate;
             User = user;
             Tutor = tutor;

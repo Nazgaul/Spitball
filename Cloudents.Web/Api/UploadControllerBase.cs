@@ -124,7 +124,8 @@ namespace Cloudents.Web.Api
                 indexes.Add((int)(i / UploadInnerResponse.BlockSize));
             }
 
-            await BlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, tempData2.Name, indexes, token);
+            //original file name can only have ascii chars. hebrew not supported. remove that
+            await BlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, null, indexes, token);
             var result = tempData2.BlobName;
             await FinishUploadAsync(model, result, token);
             return new UploadStartResponse(result);
