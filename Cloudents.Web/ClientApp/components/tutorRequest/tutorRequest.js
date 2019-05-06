@@ -18,8 +18,8 @@ export default {
             btnRequestLoading: false,
             validRequestTutorForm: false,
             rules: {
-                required:(value)=> validationRules.required(value),
-                maximumChars:(value)=> validationRules.maximumChars(value, 255)
+                required: (value) => validationRules.required(value),
+                maximumChars: (value) => validationRules.maximumChars(value, 255)
             },
             coursePlaceholder: LanguageService.getValueByKey("tutorRequest_select_course_placeholder"),
             topicPlaceholder: LanguageService.getValueByKey("tutorRequest_topic_placeholder"),
@@ -78,11 +78,13 @@ export default {
                 tutorService.requestTutor(serverObj)
                             .then((success) => {
                                       self.btnRequestLoading = false;
-                                      self.tutorRequestDialogClose()
+                                      self.tutorRequestDialogClose();
                                   },
                                   (error) => {
                                       self.btnRequestLoading = false;
-                                  });
+                                  }).finally((finish) => {
+                    self.btnRequestLoading = false;
+                });
             }
         },
 
