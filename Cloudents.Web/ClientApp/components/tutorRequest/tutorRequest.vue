@@ -67,7 +67,7 @@
                                         :placeholder="coursePlaceholder"
                                         :rules="[rules.required]"
                                         :append-icon="'sbf-arrow-down'"
-                                        outline>
+                                         outline>
                                     <template slot="no-data">
                                         <div class="v-select-list v-card theme--light">
                                             <div role="list" class="v-list theme--light">
