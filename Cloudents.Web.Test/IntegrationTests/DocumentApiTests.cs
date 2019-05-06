@@ -25,6 +25,27 @@ namespace Cloudents.Web.Test.IntegrationTests
             phase = "start",
             size = 1027962
         };
+        private readonly object doc2 = new
+        {
+            mime_type = "",
+            name = "C:\\Users\apolo\\Downloads\\Capture 2.png",
+            phase = "start",
+            size = 1027962
+        };
+        private readonly object doc3 = new
+        {
+            mime_type = "",
+            name = "C:\\Users\apolo\\Downloads\\ספיטבול.docx",
+            phase = "start",
+            size = 1027962
+        };
+        private readonly object doc4 = new
+        {
+            mime_type = "",
+            name = "C:\\Users\apolo\\Downloads\\doc4",
+            phase = "start",
+            size = 1027962
+        };
 
 
         public DocumentApiTests(SbWebApplicationFactory factory)
@@ -102,13 +123,43 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Fact]
-        public async Task PostAsync_Upload()
+        public async Task PostAsync_Upload_Regular_FileName()
         {
             await _client.LogInAsync();
 
             var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateString(doc1));
 
             response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task PostAsync_Upload_FileName_With_Space()
+        {
+            await _client.LogInAsync();
+
+            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateString(doc2));
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task PostAsync_Upload_Hebew_FileName()
+        {
+            await _client.LogInAsync();
+
+            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateString(doc3));
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task PostAsync_Upload_Without_File_Extension()
+        {
+            await _client.LogInAsync();
+
+            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateString(doc4));
+
+            response.Should().Be(HttpStatusCode.BadRequest);
         }
     }
 }
