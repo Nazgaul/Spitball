@@ -117,52 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="add_button" xml:space="preserve">
-    <value>שליחת שאלה</value>
+  <data name="btn_ask" xml:space="preserve">
+    <value>Ask a question</value>
+    <comment>יצירת שאלה</comment>
   </data>
-  <data name="ask_your_question_placeholder" xml:space="preserve">
-    <value>השאלה שלי...</value>
+  <data name="btn_ask_mob" xml:space="preserve">
+    <value>Ask</value>
+    <comment>שאלה</comment>
   </data>
-  <data name="class_placeholder" xml:space="preserve">
-    <value>עבור איזה קורס?</value>
+  <data name="btn_tutor" xml:space="preserve">
+    <value>Tutor requets</value>
+    <comment>בקשה לתרגול</comment>
   </data>
-  <data name="error_general" xml:space="preserve">
-    <value>משהו השתבש, נסה שוב</value>
+  <data name="btn_tutor_mob" xml:space="preserve">
+    <value>Tutor req.</value>
+    <comment>תרגול</comment>
   </data>
-  <data name="error_minimum_chars" xml:space="preserve">
-    <value>שאלה חייבת להכיל לפחות 15 תווים</value>
+  <data name="btn_upload" xml:space="preserve">
+    <value>Upload Documents</value>
+    <comment>העלאת מסמכים</comment>
   </data>
-  <data name="error_select_class" xml:space="preserve">
-    <value>אל תשכח לבחור קורס לשאלה שלך</value>
-  </data>
-  <data name="error_select_subject" xml:space="preserve">
-    <value>אל תשכח לבחור נושא לשאלה שלך</value>
-  </data>
-  <data name="no_class" xml:space="preserve">
-    <value>אין קורסים</value>
-  </data>
-  <data name="regular_error_invalidValue" xml:space="preserve">
-    <value>ערך שגוי</value>
-  </data>
-  <data name="regular_error_maxLimit" xml:space="preserve">
-    <value>המקסימום להצעה הוא 100 נק'</value>
-  </data>
-  <data name="regular_error_minRequired" xml:space="preserve">
-    <value>נדרשת לפחות נקןדה אחת</value>
-  </data>
-  <data name="regular_error_offerLimit" xml:space="preserve">
-    <value>מעבר לכמות שניתן להציע</value>
-  </data>
-  <data name="regular_offer_reward" xml:space="preserve">
-    <value>בקש מחיר</value>
-  </data>
-  <data name="regular_other" xml:space="preserve">
-    <value>אחר</value>
-  </data>
-  <data name="select_subject_placeholder" xml:space="preserve">
-    <value>בחר נושא</value>
+  <data name="btn_upload_mob" xml:space="preserve">
+    <value>Upload</value>
+    <comment>העלאה</comment>
   </data>
   <data name="title" xml:space="preserve">
-    <value>יצירת שאלה</value>
+    <value>What would you like to do?</value>
+    <comment>מה היית רוצה לעשות עכשיו?</comment>
   </data>
 </root>
