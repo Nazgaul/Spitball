@@ -73,7 +73,7 @@ export default {
                 let serverObj = {
                     course: self.tutorCourse,
                     text: self.tutorRequestText,
-                    files: self.uploadProp.uploadedFiles
+                    files: self.uploadProp.uploadedFileNames
                 };
                 tutorService.requestTutor(serverObj)
                             .then((success) => {
