@@ -190,6 +190,13 @@ export default {
 
         },
         keyPressed(e) {
+            if ((e.which == 121 || e.keyCode == 121)) {
+                //F10
+                let link = document.createElement('a');
+                link.download = `${this.getCurrentSelectedTab.name}.png`;
+                link.href = document.getElementById('canvas').toDataURL("image/png")
+                link.click();
+            }
             //signalR should be fired Here
             if ((e.which == 90 || e.keyCode == 90) && e.ctrlKey) {
                 this.undo();

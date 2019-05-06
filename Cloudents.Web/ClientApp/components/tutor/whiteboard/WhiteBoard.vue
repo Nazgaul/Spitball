@@ -439,7 +439,7 @@
                 padding: 0 20px;    
                 border-right: 1px solid #c9c9c9;
                 min-width: 100px;
-                justify-content: space-between;
+                justify-content: center;
                 position: relative;
                 .canvas-tab-option{
                     position: absolute;
