@@ -4,7 +4,7 @@
             <div class="d-flex mobile-filter">
                   <askQuestionBtn :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "></askQuestionBtn>
             </div>
-            <div class="request-box">
+            <div class="request-box" :class="[$vuetify.breakpoint.xsOnly ? 'pt-3' : '']">
                 <request-box></request-box>
             </div>
             <v-flex v-if="filterCondition" class="filter-container">
