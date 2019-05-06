@@ -17,12 +17,9 @@ const state = {
     sort: "",
     historyTermSet: [],
     historySet: {
-        job: [],
-        flashcard: [],
         ask: [],
         note: [],
         tutor: [],
-        book: []
     }
 };
 const mutations = {

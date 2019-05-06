@@ -54,6 +54,13 @@
                 <Add-Question></Add-Question>
                 <!-- <New-Question></New-Question> -->
             </sb-dialog>
+            <sb-dialog :isPersistent="true"
+                       :showDialog="getRequestTutorDialog"
+                       :popUpType="'tutorRequestDialog'"
+                       :max-width="'640px'"
+                       :content-class="'tutor-request-dialog'">
+                <tutor-request></tutor-request>
+            </sb-dialog>
             <sb-dialog :showDialog="newIsraeliUser"
                        :popUpType="'newIsraeliUserDialog'"
                        :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
@@ -124,17 +131,14 @@
     </v-app>
 </template>
 <script>
+  
 import { mapGetters, mapActions } from "vuex";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
 import AddQuestion from "../question/addQuestion/addQuestion.vue";
-
 import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
 import newBaller from "../helpers/newBaller/newBaller.vue";
-import {
-  GetDictionary,
-  LanguageService
-} from "../../services/language/languageService";
+import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
 import tourService from "../../services/tourService";
 import walletService from "../../services/walletService";
 import uniSelectPop from "../helpers/uni-select-popup/uniSelectPop.vue";
@@ -149,7 +153,7 @@ import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
 import tutorList from "../helpers/tutorList/tutorList.vue";
-
+      import tutorRequest from '../tutorRequest/tutorRequest.vue';
 export default {
   components: {
     AddQuestion,
@@ -168,7 +172,8 @@ export default {
     buyTokens,
     newBaller,
     becomeTutor,
-    tutorList
+        tutorList,
+        tutorRequest
   },
   data() {
     return {
@@ -213,7 +218,9 @@ export default {
       "getShowPayMeToaster",
       "getCurrentStep",
       "newBallerDialog",
-      "becomeTutorDialog"
+        "becomeTutorDialog",
+         "getRequestTutorDialog"
+
     ]),
     isMobile(){
       return this.$vuetify.breakpoint.smAndDown;

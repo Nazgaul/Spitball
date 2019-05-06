@@ -17,7 +17,8 @@ namespace Cloudents.Infrastructure.Storage
         IDocumentDirectoryBlobProvider,
         IQuestionsDirectoryBlobProvider,
         IChatDirectoryBlobProvider,
-        IUserDirectoryBlobProvider
+        IUserDirectoryBlobProvider,
+        IRequestTutorDirectoryBlobProvider
 
     {
         private readonly CloudBlobDirectory _blobDirectory;

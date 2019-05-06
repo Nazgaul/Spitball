@@ -2,7 +2,6 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
-using Cloudents.Web.Services;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +9,9 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Web.Filters;
-using Microsoft.AspNetCore.Authorization;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers

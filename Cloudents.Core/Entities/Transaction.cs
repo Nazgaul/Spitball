@@ -175,13 +175,13 @@ namespace Cloudents.Core.Entities
 
     public class QuestionTransaction : Transaction
     {
-        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        private QuestionTransaction(Question question) 
-        {
-            Question = question;
+        //[SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        //private QuestionTransaction(Question question) 
+        //{
+        //    Question = question;
 
 
-        }
+        //}
 
         //private int _awardScore;
 

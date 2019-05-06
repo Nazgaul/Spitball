@@ -4,7 +4,7 @@ import searchService from "./../services/searchService";
 import reputationService from './../services/reputationService';
 import reportService from "./../services/cardActionService"
 
-const LOCATION_VERTICALS = new Map([["tutor", true], ["job", true]]);
+const LOCATION_VERTICALS = new Map([["tutor", true]]);
 const state = {
     //< -----keep this area ----
     loading: false,
@@ -16,26 +16,17 @@ const state = {
     queItemsPerVertical: {
         //ask: [],
         //note: [],
-        flashcard: [],
         tutor: [],
-        book: [],
-        job: []
     },
     itemsPerVertical: {
         //ask: [],
         //note: [],
-        flashcard: [],
         tutor: [],
-        book: [],
-        job: []
     },
     itemsSkeletonPerVertical: {
         //ask: skeletonData.ask,
         //note: skeletonData.note,
-        flashcard: skeletonData.flashcard,
         tutor: skeletonData.tutor,
-        book: skeletonData.book,
-        job: skeletonData.job
     }
 };
 
@@ -93,9 +84,6 @@ const getters = {
 
 const actions = {
     //Always update the current route according the flow
-    bookDetails: (context, {pageName, isbn13, type}) => {
-        return searchService.activateFunction[pageName]({isbn13, type});
-    },
     getAutocmplete(context, term) {
         return searchService.autoComplete(term);
     },
@@ -109,7 +97,6 @@ const actions = {
             return data;
         });
     },
-
 
     fetchingData(context, {name, params, page, skipLoad}) {
         //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;

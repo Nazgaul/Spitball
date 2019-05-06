@@ -5,7 +5,6 @@ import Vuex from "vuex";
 import Search from "./search";
 import User from "./User";
 import Question from "./question";
-import SpitballPreview from "./SpitballPreview";
 import LuisData from "./luisData";
 import Account from "./account";
 import Toaster from "./Toaster";
@@ -34,6 +33,7 @@ import studyRoomsStore from './studyRoomsStore';
 import tutorList from './tutorList';
 import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
+import requestTutor from './requestTutor';
 
 
 
@@ -43,7 +43,6 @@ const store = new Vuex.Store({
     modules: {
         Search,
         User,
-        SpitballPreview,
         LuisData,
         Account,
         Question,
@@ -72,7 +71,8 @@ const store = new Vuex.Store({
         studyRoomsStore,
         tutorList,
         leaveReview,
-        userOnlineStatus
+        userOnlineStatus,
+        requestTutor
     }
 });
 

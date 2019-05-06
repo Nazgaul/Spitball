@@ -1,10 +1,7 @@
-﻿using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 using System.Net;
-using Newtonsoft.Json;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {

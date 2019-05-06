@@ -113,19 +113,26 @@ namespace Cloudents.FunctionsV2
                     personalization.Substitutions[$"-{prop.Name}-"] = p?.ToString() ?? string.Empty;
                     //personalization.AddSubstitution($"-{prop.Name}-", p?.ToString() ?? string.Empty);
                 }
+                message.Personalizations = new List<Personalization>()
+                {
+                    personalization
+                };
             }
             else
             {
-                message.AddContent("text/plain", topicMessage.ToString());
+                message.AddContent("text/html", topicMessage.ToString());
                 message.Subject = topicMessage.Subject;
-
+                if (topicMessage.Bcc != null)
+                {
+                    foreach (var bcc in topicMessage.Bcc)
+                    {
+                        message.AddBcc(bcc);
+                    }
+                }
                 log.LogWarning("error with template name" + topicMessage.TemplateId);
             }
 
-            message.Personalizations = new List<Personalization>()
-            {
-                personalization
-            };
+            
             message.AddTo(topicMessage.To);
 
             await emailProvider.AddAsync(message, token);

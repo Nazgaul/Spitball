@@ -17,10 +17,10 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Country).Not.Nullable().Length(2).UniqueKey("uq_UniversityNameCountry");
             Component(x => x.RowDetail);
 
-            HasMany(x => x.Documents)
-                .ReadOnly()
-                .Access.CamelCaseField(Prefix.Underscore)
-                .Cascade.None();
+            //HasMany(x => x.Documents)
+            //    .ReadOnly()
+            //    .Access.CamelCaseField(Prefix.Underscore)
+            //    .Cascade.None();
             //HasMany(x => x.Questions)
             //    .ReadOnly()
             //    .Access.CamelCaseField(Prefix.Underscore).Cascade.None();

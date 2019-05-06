@@ -27,6 +27,8 @@ namespace Cloudents.Core.Storage
         public static readonly StorageContainer File = new StorageContainer("spitball-files","files");
         public static readonly StorageContainer User = new StorageContainer("spitball-user","profile");
 
+        public static readonly StorageContainer RequestTutor = new StorageContainer("spitball-user", "tutor-request");
+
         //public static FieldInfo[] GetAllValues()
         //{
         //    var fields = typeof(StorageContainer).GetFields(BindingFlags.Public |

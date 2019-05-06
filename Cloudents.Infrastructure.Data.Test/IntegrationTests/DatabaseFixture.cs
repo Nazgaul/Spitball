@@ -26,8 +26,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
             builder.RegisterType<DapperRepository>().AsSelf();
-            var _container = builder.Build();
-            _queryBus = _container.Resolve<IQueryBus>();
+            var container = builder.Build();
+            QueryBus = container.Resolve<IQueryBus>();
 
             // ... initialize data in the test database ...
         }
@@ -37,6 +37,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             // ... clean up test data from the database ...
         }
 
-        public IQueryBus _queryBus { get; private set; }
+        public IQueryBus QueryBus { get; private set; }
     }
 }

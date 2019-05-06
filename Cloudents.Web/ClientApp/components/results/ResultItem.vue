@@ -35,14 +35,7 @@
     </a>
 </template>
 <script>
-
-    import FlashcardDefault from '../helpers/img/flashcard.svg';
-    import AskDefault from '../helpers/img/ask.svg';
-    import NoteDefault from '../helpers/img/document.svg';
-
     export default {
-        components: {AskDefault, NoteDefault, FlashcardDefault},
-
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
             isOurs() {
