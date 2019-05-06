@@ -157,7 +157,7 @@ namespace Cloudents.Web.Api
             var url = Url.RouteUrl("PayMeCallback", new
             {
                 userId = user.Id
-            }, "http");
+            }, "https");
 
             var uri = new UriBuilder(url);
 
