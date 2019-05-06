@@ -351,10 +351,10 @@ export default {
     if(!!this.accountUser && this.accountUser.needPayment){
       this.updateShowPayMeToaster(true);
     }
-    if(!!this.$route.query && this.$route.query.requestopen){
-        console.log(this.$route.query.requestopen);
-        if(this.$route.query.requestopen.toLowerCase() === 'open'){
-            console.log(this.$route.query.requestopen);
+    if(!!this.$route.query && this.$route.query.requesttutor){
+        console.log(this.$route.query.requesttutor);
+        if(this.$route.query.requesttutor.toLowerCase() === 'open'){
+            console.log(this.$route.query.requesttutor);
             setTimeout(() => {
                 this.updateRequestDialog(true)
             }, 170);
