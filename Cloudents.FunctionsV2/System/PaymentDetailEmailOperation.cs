@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
-using Cloudents.Query.Email;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Azure.WebJobs;
-using SendGrid.Helpers.Mail;
 
 namespace Cloudents.FunctionsV2.System
 {

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac.Features.AttributeFilters;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Message.Email;

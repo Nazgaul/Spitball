@@ -47,7 +47,8 @@ namespace Cloudents.Search.University
                         TokenFilterName.Lowercase,
                         TokenFilterName.Stopwords,
                         //TokenFilterName.Create("my_stopWords"),
-                        TokenFilterName.Create("my_edgeNGram")
+                        "my_edgeNGram"
+                        //TokenFilterName.Create("my_edgeNGram")
                     }),
                    // new StandardAnalyzer("stopWords",stopwords:stopWordsList)
                 },
