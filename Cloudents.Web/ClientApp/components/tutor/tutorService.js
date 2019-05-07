@@ -218,6 +218,11 @@ const connectToRoom = function (token, options) {
                             store.dispatch('updateLocalStatus', true);
                         } else {
                             store.dispatch('updateRemoteStatus', true);
+                            if(store.getters['getStudyRoomData'].isTutor){
+                                store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                            }else{
+                                store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
+                            }
                         }
                         detachParticipantTracks(participant);
                     });

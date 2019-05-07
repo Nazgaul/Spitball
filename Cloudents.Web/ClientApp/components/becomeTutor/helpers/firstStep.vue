@@ -30,15 +30,15 @@
                         <v-flex xs12 shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-3']">
                             <v-text-field outline
                                           v-model="firstName"
+                                          :rules="[rules.required]"
                                           :placeholder="placeFirstName"
-                                          hide-details
                                           :label="placeFirstName"></v-text-field>
                         </v-flex>
                         <v-flex xs12 :class="[$vuetify.breakpoint.smAndUp ? 'mb-4' : 'mb-3']">
                             <v-text-field outline
                                           v-model="lastName"
+                                          :rules="[rules.required]"
                                           :placeholder="placeLastName"
-                                          hide-details
                                           :label="placeLastName"></v-text-field>
 
                         </v-flex>

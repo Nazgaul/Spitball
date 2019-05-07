@@ -17,7 +17,7 @@
                         <v-text-field
                                 :rules="[rules.required]"
                                 :label="firstNameLabel"
-                                v-model="firstName"
+                                v-model.trim="firstName"
                                 outline
                         ></v-text-field>
                     </v-flex>
@@ -32,7 +32,7 @@
                         <v-text-field
                                 :rules="[rules.required]"
                                 :label="lastNameLabel"
-                                v-model="lastName"
+                                v-model.trim="lastName"
                                 outline
                         ></v-text-field>
                     </v-flex>

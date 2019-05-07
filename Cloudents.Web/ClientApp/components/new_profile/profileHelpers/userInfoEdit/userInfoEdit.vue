@@ -126,6 +126,7 @@
             },
         },
         created(){
+
             this.editedDescription =  this.getProfile.user.description || ''
         }
     }
