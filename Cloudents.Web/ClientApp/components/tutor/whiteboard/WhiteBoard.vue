@@ -218,6 +218,26 @@
             
         </div>
         </div>
+        <div class="canvas-tabs">
+            <div @click="changeTab(tab)" class="canvas-tab" v-for="(tab) in canvasTabs" :key="tab.id" :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
+                <button :id="tab.id">{{tab.name}}</button>
+                <!-- <v-icon @click.stop="showTabOption(tab.id)">sbf-3-dot</v-icon>
+                <div class="canvas-tab-option" :class="{'canvas-tab-option-active': tabEditId === tab.id}">
+                    <div>
+                        <div @click="renameTab(tab)">
+                            <v-icon>sbf-close</v-icon>
+                            <span>Rename</span>
+                        </div>
+                        <div @click="deleteTab(tab)">
+                            <v-icon>sbf-close</v-icon>
+                            <span>Delete</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+             
+             
+        </div>
         <!--<div>-->
             <!--<ul>-->
                 <!--<li v-for="(shape, index) in canvasData.dragData" :key="index">{{shape.type}}</li>-->
@@ -403,6 +423,51 @@
                         border: none;
                     }
                 }
+            
+        }
+        .canvas-tabs{
+            position: fixed;
+            bottom: 5px;
+            width: 100%;
+            height: 46px;
+            background-color: #f0f0f7;
+            display: flex;
+            border-top: 1px solid #e1e1ef;
+            .canvas-tab{
+                display: flex;
+                background-color: rgba(67, 66, 93, 0.12);
+                padding: 0 20px;    
+                border-right: 1px solid #c9c9c9;
+                min-width: 100px;
+                justify-content: center;
+                position: relative;
+                .canvas-tab-option{
+                    position: absolute;
+                    width: 127px;
+                    height: 102px;
+                    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+                    bottom: 30px;
+                    right: -80px;
+                    display: none;
+                    background-color: #ffffff !important;
+                    &.canvas-tab-option-active{
+                        display: unset;
+                        z-index: 1;
+                        border-radius: 4px;
+                    }
+                }
+                &.canvas-tabs-active{
+                    background-color: #FFF;
+                    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+                }
+                button{
+                    outline: none;
+                }
+                i{
+                    font-size: 14px;
+                    color: rgba(67, 66, 93, 0.25);
+                }
+            }
             
         }
     }

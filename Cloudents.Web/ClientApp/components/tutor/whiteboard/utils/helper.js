@@ -1,3 +1,5 @@
+import store from "../../../../store";
+
 const HelperObj = {
     isActive: false,
     style:{},
@@ -18,6 +20,7 @@ const showHelper = function(){
 
 const hideHelper = function(){
     HelperObj.isActive = false;
+    store.dispatch('clearShapesSelected');
 }
 
 const setRectangleShape = function(helperObj){
