@@ -117,119 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreateOk" xml:space="preserve">
-    <value>המסמך שלך עלה! תוכל לצפות בו בקרוב</value>
+  <data name="btn_attachment" xml:space="preserve">
+    <value>קובץ/תמונה</value>
   </data>
-  <data name="CreatePending" xml:space="preserve">
-    <value>המסמך שלך זקוק לאישור, בבקשה אל תעלה שוב מסמך זה</value>
+  <data name="btn_submit" xml:space="preserve">
+    <value>שליחת בקשה</value>
   </data>
-  <data name="files_file_upload" xml:space="preserve">
-    <value>העלה קובץ</value>
+  <data name="label_add" xml:space="preserve">
+    <value>הוסף</value>
   </data>
-  <data name="multiple_bnt_apply" xml:space="preserve">
-    <value>החל</value>
+  <data name="no_course" xml:space="preserve">
+    <value>הוסף קורסים</value>
   </data>
-  <data name="multiple_btn_upload" xml:space="preserve">
-    <value>העלה</value>
-  </data>
-  <data name="multiple_btn_uploading" xml:space="preserve">
-    <value>מעלה</value>
-  </data>
-  <data name="multiple_confirm_btn_cancel" xml:space="preserve">
-    <value>התחרטתי</value>
-  </data>
-  <data name="multiple_confirm_btn_close" xml:space="preserve">
-    <value>בטל העלאה</value>
-  </data>
-  <data name="multiple_confirm_stop_title" xml:space="preserve">
-    <value>ביטול העלאת מסמך</value>
-  </data>
-  <data name="multiple_confirm_text" xml:space="preserve">
-    <value>האם אתה בטוח שברצונך לבטל תהליך העלאת המסמך?</value>
-  </data>
-  <data name="multiple_error_extensions_support" xml:space="preserve">
-    <value>קבצים נתמכים:</value>
-  </data>
-  <data name="multiple_error_extension_title" xml:space="preserve">
-    <value>אופס! סוג קובץ לא נתמך</value>
-  </data>
-  <data name="multiple_error_upload_single_file" xml:space="preserve">
-    <value>קובץ זה לא יעלה לאתר</value>
-  </data>
-  <data name="multiple_error_upload_something_wrong" xml:space="preserve">
-    <value>קרתה תקלה, אנא נסה שנית</value>
-  </data>
-  <data name="multiple_fileName_placeholder" xml:space="preserve">
-    <value>שם קובץ</value>
-  </data>
-  <data name="multiple_files_btn_desktop" xml:space="preserve">
-    <value>מהמחשב שלי</value>
-  </data>
-  <data name="multiple_files_btn_dropBox" xml:space="preserve">
-    <value>מדרופבוקס</value>
-  </data>
-  <data name="multiple_files_btn_phone" xml:space="preserve">
-    <value>הטלפון שלך</value>
-  </data>
-  <data name="multiple_files_dopHere" xml:space="preserve">
-    <value>גרור קבצים לכאן</value>
-  </data>
-  <data name="multiple_files_header_title" xml:space="preserve">
-    <value>העלאת קבצים</value>
-  </data>
-  <data name="multiple_files_referral_title" xml:space="preserve">
-    <value>תודה שהעלאת מסמכים שלך!</value>
-  </data>
-  <data name="multiple_files_type_default" xml:space="preserve">
-    <value>סוג המסמך</value>
-  </data>
-  <data name="multiple_files_type_exam" xml:space="preserve">
-    <value>פתרון מבחן</value>
-  </data>
-  <data name="multiple_files_type_lecture" xml:space="preserve">
-    <value>סיכום הרצאה</value>
-  </data>
-  <data name="multiple_files_type_textbook" xml:space="preserve">
-    <value>ספר לימוד</value>
-    <comment>Ram Change</comment>
-  </data>
-  <data name="multiple_help_and_make" xml:space="preserve">
-    <value>אתה על הגל, עכשיו עזור לחברים לספסל הלימודים (ותרוויח נקודות) על ידי שיתוף הקישור למסמך זה.</value>
-  </data>
-  <data name="multiple_keywords_optional" xml:space="preserve">
-    <value>מילות מפתח/זיהוי (לא חובה)</value>
-  </data>
-  <data name="multiple_label_icon_text" xml:space="preserve">
-    <value>מעלה לקורס</value>
-  </data>
-  <data name="multiple_legal_text" xml:space="preserve">
-    <value>העלאת מסמכי לימוד כרוכה בהסכמה לתנאי השירות שלנו</value>
-  </data>
-  <data name="multiple_or_browse_label" xml:space="preserve">
-    <value>בחר קובץ</value>
-  </data>
-  <data name="multiple_or_browse_label_mobile" xml:space="preserve">
-    <value>בחר קובץ</value>
-  </data>
-  <data name="multiple_placeholder_doctype_all" xml:space="preserve">
-    <value>שנה סוג מסמך להכל</value>
-  </data>
-  <data name="multiple_placeholder_setAll" xml:space="preserve">
-    <value>שנה מחיר 0.00 להכל</value>
-  </data>
-  <data name="multiple_price_placeholder" xml:space="preserve">
-    <value>נקודות</value>
-  </data>
-  <data name="multiple_professor_placeholder" xml:space="preserve">
-    <value>שם המרצה (לא חובה)</value>
-  </data>
-  <data name="multiple_selected_class_label" xml:space="preserve">
-    <value>קורס</value>
-  </data>
-  <data name="multiple_select_course_placeholder" xml:space="preserve">
+  <data name="select_course_placeholder" xml:space="preserve">
     <value>עבור איזה קורס?</value>
   </data>
-  <data name="multiple_select_filetype" xml:space="preserve">
-    <value>תייג מסמך</value>
+  <data name="title" xml:space="preserve">
+    <value>בקשה לתרגול</value>
+  </data>
+  <data name="topic_placeholder" xml:space="preserve">
+    <value>רציתי לבקש תרגול בנושא...</value>
   </data>
 </root>

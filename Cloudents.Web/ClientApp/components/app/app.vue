@@ -279,53 +279,7 @@ export default {
           });
         }, this.toasterTimeout);
       }
-    },
-    //HomeworkHelp_isDataLoaded: function(val) {
-    //  let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-    //  let self = this;
-    //  if (val && !supressed && !!self.accountUser) {
-    //    setTimeout(() => {
-    //      if (self.$route.name === "ask") {
-    //        if (self.$vuetify.breakpoint.xsOnly) {
-    //          self.tourObject.tourSteps =
-    //            tourService[self.tourObject.region].HWSteps.mobile;
-    //          if (self.getIsFeedTabActive()) {
-    //            self.$tours["myTour"].start();
-    //          }
-    //        } else {
-    //          self.tourObject.tourSteps =
-    //            tourService[self.tourObject.region].HWSteps.desktop;
-    //          self.$tours["myTour"].start();
-    //        }
-    //      }
-    //    }, 3000);
-    //  }
-    //},
-    //StudyDocuments_isDataLoaded: function(val) {
-    //  let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-    //  let self = this;
-    //  if (val && !supressed && !!self.accountUser) {
-    //    setTimeout(() => {
-    //      if (self.$route.name === "note") {
-    //        if (self.$vuetify.breakpoint.xsOnly) {
-    //          self.tourObject.tourSteps =
-    //            tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
-    //          if (self.getIsFeedTabActive()) {
-    //            self.$tours["myTour"].start();
-    //          }
-    //        } else {
-    //          self.tourObject.tourSteps =
-    //            tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
-    //          self.$tours["myTour"].start();
-    //        }
-    //      }
-    //    }, 3000);
-    //  }
-    //},
-    //$route: function(val) {
-    // // this.tourTempClose();
-    //  this.openOnboardGuide();
-    //}
+    }
   },
   methods: {
     ...mapActions([
@@ -339,7 +293,8 @@ export default {
       "updateShowBuyDialog",
       "updateShowPayMeToaster",
       "updateCurrentStep",
-      "changeSelectUniState"
+      "changeSelectUniState",
+      "updateRequestDialog"
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
     enterPayme(){
@@ -396,6 +351,16 @@ export default {
     if(!!this.accountUser && this.accountUser.needPayment){
       this.updateShowPayMeToaster(true);
     }
+    if(!!this.$route.query && this.$route.query.requesttutor){
+        console.log(this.$route.query.requesttutor);
+        if(this.$route.query.requesttutor.toLowerCase() === 'open'){
+            console.log(this.$route.query.requesttutor);
+            setTimeout(() => {
+                this.updateRequestDialog(true)
+            }, 170);
+        }
+    }
+
     //this.openOnboardGuide();
     this.$root.$on("closePopUp", name => {
       if (name === "suggestions") {

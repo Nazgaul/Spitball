@@ -5,7 +5,7 @@
             <div class="d-flex mobile-filter">
                   <upload-files-btn class="upload-card hidden-md-and-up"></upload-files-btn>
             </div>
-            <div class="request-box">
+            <div class="request-box" :class="[$vuetify.breakpoint.xsOnly ? 'pt-3' : '']">
                 <request-box></request-box>
             </div>
             <v-flex v-if="filterCondition" class="filter-container">
