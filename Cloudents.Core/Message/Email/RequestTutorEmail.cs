@@ -8,13 +8,13 @@ namespace Cloudents.Core.Message.Email
     public class RequestTutorEmail : BaseEmail
     {
         public RequestTutorEmail(long userId, string text, string course, string[] links) :
-            base("support@spitball.co", $"Request Tutor Email", null)
+            base("support@spitball.co", $"Request Tutor Email {userId}", null)
         {
             UserId = userId;
             Text = text;
             Course = course;
             Links = links ?? new string[0];
-            Bcc = new[] { "eidan@cloudents.com", "jaron@spitball.co", "ram@cloudents.com" };
+            Bcc = new[] { "eidan@cloudents.com", "jaron@spitball.co", "ram@cloudents.com", "elad@cloudents.com" };
         }
 
         public long UserId { get; private set; }
@@ -36,6 +36,7 @@ namespace Cloudents.Core.Message.Email
                 sb.Append($" {nameof(Links)}: {string.Join("<br>", Links.Select((s, i) => $"<a href='{s}'> attachment {i}</a>"))}");
             }
 
+            sb.Append("<br>");
             return sb.ToString();
         }
 

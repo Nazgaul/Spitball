@@ -122,7 +122,8 @@ namespace Cloudents.Web.Api
         { 
             //RequestTutorEmail
             var userId = _userManager.GetLongUserId(User);
-            var email = new RequestTutorEmail(userId, model.Text, model.Course, model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsolutePath).ToArray());
+            var email = new RequestTutorEmail(userId, model.Text, model.Course,
+                model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray());
 
             await queueProvider.InsertMessageAsync(email, token);
 
