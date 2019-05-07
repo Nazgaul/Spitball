@@ -36,6 +36,7 @@ namespace Cloudents.Core.Message.Email
                 sb.Append($" {nameof(Links)}: {string.Join("<br>", Links.Select((s, i) => $"<a href='{s}'> attachment {i}</a>"))}");
             }
 
+            sb.Append("<br>");
             return sb.ToString();
         }
 
