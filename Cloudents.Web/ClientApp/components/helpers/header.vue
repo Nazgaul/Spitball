@@ -18,7 +18,7 @@
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <!--TODO HIDDEN FOR NOW-->
-                                    <div class="header-messages" v-if="loggedIn && !isMobile">
+                                    <div class="header-messages" v-if="loggedIn && !isMobile && hasConversations">
                                         <span @click="openChatWindow" class="header-messages-text" v-language:inner>chat_messages</span>
                                         <v-icon @click="openChatWindow">sbf-forum-icon</v-icon>
                                         <span @click="openChatWindow" class="unread-circle" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer' :'']">{{totalUnread}}</span>
@@ -129,7 +129,8 @@
                 'accountUser',
                 'unreadMessages',
                 'showMobileFeed',
-                'getTotalUnread'
+                'getTotalUnread',
+                'getConversations'
             ]),
             userImageUrl(){
                 if(this.accountUser.image.length > 1){
@@ -137,6 +138,9 @@
                 }
                 return ''
 
+            },
+            hasConversations(){
+                return Object.keys(this.getConversations).length > 0;
             },
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
