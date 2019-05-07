@@ -9,7 +9,7 @@
                         :user-name="userName"
                         :user-id="userID"></userAvatar>
             </v-flex>
-            <v-flex xs10 sm11 md11 grow class="text-xs-left" :class="[$vuetify.breakpoint.xsOnly ? 'ml-2 pl-1' : '']">
+            <v-flex xs10 sm11 md11 grow class="text-xs-left" :class="[$vuetify.breakpoint.xsOnly ? 'ml-2 pl-1' : '']"tutor-courses >
                 <span class="subheading font-weight-bold request-box-title" v-language:inner>requestActions_title
                 </span>
             </v-flex>
