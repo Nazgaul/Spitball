@@ -14,10 +14,6 @@
     export default {
         name: "tutorList",
         components: {tutorCard},
-        data() {
-            return {
-            };
-        },
         computed: {
             ...mapGetters(['tutorList']),
         },
@@ -30,16 +26,20 @@
                 }else{
                     objReq ={page: 0, courseName: ''};
                 }
-                this.getTutorList(objReq);
+                this.getList(objReq);
             }
         },
         methods: {
-            ...mapActions(['getTutorList'])
+            ...mapActions(['getTutorList', 'resetList']),
+            getList(objReq){
+                this.resetList([]);
+                this.getTutorList(objReq);
+            }
         },
         created(){
                 let courseInFilter =  this.$route.query.Course ? this.$route.query.Course : '';
                 let objReq ={page: 0, courseName: courseInFilter};
-                this.getTutorList(objReq);
+                this.getList(objReq);
         }
     };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="request-box-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'px-3 mx-2' : 'px-4']">
+    <div class="request-box-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'px-3 mx-2' : 'px-3']">
         <v-layout align-center justify-start class="pt-3">
             <!--<v-flex xs1 md1 sm1 shrink v-if="$vuetify.breakpoint.smAndUp && accountUser" >-->
             <v-flex xs1 md1 sm1 shrink >
@@ -9,7 +9,7 @@
                         :user-name="userName"
                         :user-id="userID"></userAvatar>
             </v-flex>
-            <v-flex xs10 sm11 md11 grow class="text-xs-left" :class="[$vuetify.breakpoint.xsOnly ? 'ml-2 pl-1' : '']">
+            <v-flex xs10 sm11 md11 grow class="text-xs-left" :class="[$vuetify.breakpoint.xsOnly ? 'ml-2 pl-1' : '']"tutor-courses >
                 <span class="subheading font-weight-bold request-box-title" v-language:inner>requestActions_title
                 </span>
             </v-flex>
