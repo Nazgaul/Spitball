@@ -72,9 +72,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task StudyRoomQuery_Ok()
         {
-            var query = new StudyRoomQuery(Guid.Parse("083318E9-9CA0-4328-95BC-AA2F00E2D4FC"), 638);
+            var query = new StudyRoomQuery(Guid.Parse("0F70AF05-BAD4-4299-8341-AA38007858CF"), 159039);
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            var x = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
