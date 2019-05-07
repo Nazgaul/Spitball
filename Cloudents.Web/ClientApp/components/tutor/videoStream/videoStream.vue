@@ -2,20 +2,33 @@
     <v-container class="videos-wrapper py-0">
 
         <v-layout align-center justify-end>
-            <v-flex xs8 class="d-inline-flex">
-                <button v-show="!roomIsActive && !waitingStudent" class="create-session"  color="primary" :class="{'disabled': roomIsPending}" @click="enterRoom()">
+            <v-flex xs8 class="d-inline-flex" v-if="isTutor">
+                <button v-if="!roomIsActive && !waitingStudent " class="create-session" color="primary" :class="{'disabled': roomIsPending}" @click="enterRoom()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
-                    <span v-show="isTutor" v-language:inner>tutor_stream_btn_start_session</span>
-                    <span v-show="!isTutor" v-language:inner>tutor_stream_btn_join_session</span>
+                    <span v-language:inner>tutor_stream_btn_start_session</span>
                 </button>
-                <button class="create-session" v-show="waitingStudent && isTutor">
+                <button class="create-session" v-else-if="waitingStudent">
                     <span v-language:inner>tutor_stream_btn_waiting</span>
                 </button>
 
-                <button v-show="roomIsActive && !waitingStudent" class="end-session"  @click="endSession()">
+                <button v-else class="end-session" @click="endSession()">
                     <stopIcon class="stop-icon mr-2"></stopIcon>
                     <span v-language:inner>tutor_stream_btn_end_session</span>
 
+                </button>
+            </v-flex>
+            <v-flex xs8 class="d-inline-flex" v-else>
+                <button v-if="!roomIsActive && !waitingStudent" class="create-session" color="primary" :class="{'disabled': roomIsPending && !accountUser.needPayment}" @click="enterRoom()">
+                    <timerIcon class="timer-icon mr-2"></timerIcon>
+                    <span>
+                        <span v-language:inner v-if="accountUser.needPayment">tutor_stream_btn_add_payment</span>
+                        <span v-language:inner v-else>tutor_stream_btn_join_session</span>
+                    </span>
+                </button>
+
+                <button v-else class="end-session" @click="endSession()">
+                    <stopIcon class="stop-icon mr-2"></stopIcon>
+                    <span v-language:inner>stream_btn_end_session</span>
                 </button>
             </v-flex>
         </v-layout>
