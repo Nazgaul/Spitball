@@ -207,6 +207,9 @@
   <data name="quality_video_title" xml:space="preserve">
     <value>Video quality test</value>
   </data>
+  <data name="stream_btn_add_payment" xml:space="preserve">
+    <value>Add payment details</value>
+  </data>
   <data name="stream_btn_end_session" xml:space="preserve">
     <value>End Session</value>
   </data>
