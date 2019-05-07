@@ -123,6 +123,7 @@
                 font-size: 13px;
                 font-weight: 700;
                 line-height: 18px;
+                max-width: 120px;
             }
             .rating-holder{
                 margin-bottom: 0;
