@@ -2,25 +2,23 @@
     <v-container class="videos-wrapper py-0">
 
         <v-layout align-center justify-end>
-            <v-flex xs8 class="d-inline-flex" v-if="isTutor">
+            <v-flex xs8 v-show="isTutor">
                 <button v-show="!roomIsActive && !waitingStudent " class="create-session" color="primary" :class="{'disabled': roomIsPending || needPayment}" @click="enterRoom()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
                     <span v-language:inner v-show="needPayment">tutor_stream_btn_pending_tutor</span>
                     <span v-language:inner v-show="!needPayment">tutor_stream_btn_start_session</span>
                 </button>
-                <button class="create-session" v-show="waitingStudent">
+                <button class="create-session" v-show="!roomIsActive && waitingStudent">
                     <span v-language:inner>tutor_stream_btn_waiting</span>
                 </button>
 
                 <button v-show="roomIsActive && !waitingStudent" class="end-session" @click="endSession()">
                     <stopIcon class="stop-icon mr-2"></stopIcon>
                     <span v-language:inner>tutor_stream_btn_end_session</span>
-
                 </button>
             </v-flex>
-            <v-flex xs8 class="d-inline-flex" v-else>
-                
-                <button v-if="!roomIsActive && !waitingStudent" class="create-session" color="primary" :class="{'disabled': roomIsPending && !needPayment}" @click="enterRoom()">
+            <v-flex xs8 v-show="!isTutor">
+                <button v-show="!roomIsActive && !waitingStudent" class="create-session" color="primary" :class="{'disabled': roomIsPending && !needPayment}" @click="enterRoom()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
                     <span>
                         <span v-language:inner v-show="needPayment">tutor_stream_btn_add_payment</span>
@@ -28,7 +26,7 @@
                     </span>
                 </button>
 
-                <button v-else class="end-session" @click="endSession()">
+                <button v-show="roomIsActive" class="end-session" @click="endSession()">
                     <stopIcon class="stop-icon mr-2"></stopIcon>
                     <span v-language:inner>tutor_stream_btn_end_session</span>
                 </button>
