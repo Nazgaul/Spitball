@@ -56,7 +56,7 @@ and (u.PaymentKey is null or u.PaymentKeyExpiration  < GETUTCDATE());";
                 using (var grid = await conn.QueryMultipleAsync(sql+paymentSql, new { id = query.Id }))
                 {
                     var retVal = await grid.ReadSingleAsync<UserAccountDto>();
-                    retVal.NeedPayment = await grid.ReadSingleOrDefaultAsync<bool>();
+                    //retVal.NeedPayment = await grid.ReadSingleOrDefaultAsync<bool>();
                     return retVal;
                 }
             }
