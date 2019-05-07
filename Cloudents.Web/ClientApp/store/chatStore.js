@@ -224,6 +224,8 @@ const actions = {
                         }
                         dispatch('setUserStatus', userStatus);
                 })
+            }else{
+                commit('closeChat');
             }
         });
     },
