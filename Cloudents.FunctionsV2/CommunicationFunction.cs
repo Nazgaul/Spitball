@@ -80,14 +80,14 @@ namespace Cloudents.FunctionsV2
         {
             var message = new SendGridMessage();
             var personalization = new Personalization();
-            message.Asm = new ASM
-            {
-                GroupId = 10926
-            };
+           
 
             if (topicMessage.TemplateId != null)
             {
-
+                message.Asm = new ASM
+                {
+                    GroupId = 10926
+                };
                 message.TemplateId = topicMessage.TemplateId;
                 message.Subject = topicMessage.Subject;
                 if (topicMessage.Campaign != null)

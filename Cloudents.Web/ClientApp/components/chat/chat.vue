@@ -117,7 +117,7 @@
     bottom: 0;
     right: 130px;
     width: 320px;
-    height: 595px;
+    height: 520px;
     z-index: 3;
     background: #fff;
     border-radius: 10px 10px 0 0;
@@ -186,7 +186,7 @@
         }
     }
     .general-chat-style{
-        height:93%; //minus chat header
+        height:92%; //minus chat header
         width:100%;    
         @media (max-width: @screen-xs) {
             height:95%;
