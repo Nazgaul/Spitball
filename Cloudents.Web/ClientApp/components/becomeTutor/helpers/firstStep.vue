@@ -9,7 +9,7 @@
                 <div v-if="!isLoaded ">
                     <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
                 </div>
-                <button v-show="!userImage" class="upload-btn font-weight-bold">
+                <button v-show="!userImage" class="upload-btn font-weight-bold" :class="[errorUpload ?  'error-upload': '']">
                     <span class="font-weight-bold"></span>
                     <input class="become-upload"
                            type="file" name="File Upload"
@@ -89,6 +89,7 @@
                 lastName: '',
                 price: 50,
                 imageAdded: false,
+                errorUpload: false,
                 validBecomeFirst: false,
                 rules: {
                     required: (value) => validationRules.required(value),
@@ -101,7 +102,8 @@
         computed: {
             ...mapGetters(['becomeTutorData', 'accountUser']),
             btnDisabled() {
-                return !this.firstName || !this.lastName || !this.price || !this.imageExists;
+                return false
+                // return !this.firstName || !this.lastName || !this.price || !this.imageExists;
             },
             userImage() {
                 if(this.accountUser && this.accountUser.image) {
@@ -111,7 +113,7 @@
                 }
             },
             imageExists(){
-                return this.userImage || this.imageAdded
+                // return this.userImage || this.imageAdded && this.submitted
             }
 
         },
@@ -133,10 +135,15 @@
                                                            self.imageAdded = false;
                                                        }
                 );
-
             },
             nextStep() {
+                if(!this.imageAdded && !this.userImage ){
+                    this.errorUpload = true;
+                    this.$refs.becomeFormFirst.validate();
+                    return
+                }
                 if(this.$refs.becomeFormFirst.validate()) {
+
                     let data = {
                         image: this.userImage,
                         firstName: this.firstName,
@@ -158,6 +165,9 @@
     @import '../../../styles/mixin.less';
 
     .become-first-wrap {
+        .error-upload{
+            color: red!important;
+        }
         .contact-price {
             margin-top: 20px;
         }
