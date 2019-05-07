@@ -95,7 +95,7 @@ export default {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
         enterRoom() {
-            if(!!this.accountUser && this.accountUser.needPayment){
+            if(!!this.accountUser && this.accountUser.needPayment && !this.isTutor){
                     walletService.getPaymeLink().then(({data})=>{
                     global.open(data.link, '_blank', 'height=520,width=440');
                 })  
