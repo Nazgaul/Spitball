@@ -31,12 +31,14 @@
                             <v-text-field outline
                                           v-model="firstName"
                                           :rules="[rules.required]"
+                                          hide-details
                                           :placeholder="placeFirstName"
                                           :label="placeFirstName"></v-text-field>
                         </v-flex>
                         <v-flex xs12 :class="[$vuetify.breakpoint.smAndUp ? 'mb-4' : 'mb-3']">
                             <v-text-field outline
                                           v-model="lastName"
+                                          hide-details
                                           :rules="[rules.required]"
                                           :placeholder="placeLastName"
                                           :label="placeLastName"></v-text-field>
@@ -46,6 +48,7 @@
                             <v-text-field outline class="font-weight-bold price-input"
                                           :rules="[rules.required, rules.minimum, rules.maximum]"
                                           v-model="price"
+                                          hide-details
                                           prefix="₪"
                                           type="number"
                                           :label="placePrice"></v-text-field>
@@ -117,7 +120,6 @@
             }
 
         },
-
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),
             loaded() {
