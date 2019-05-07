@@ -184,12 +184,12 @@ namespace Cloudents.Infrastructure
 
         
 
-        [Log]
-        public async Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
-        {
-            var t = await TransferJsonBodyAsync(HttpMethod.Put, url, obj, headers, token);
-            return t.IsSuccessStatusCode;
-        }
+        //[Log]
+        //public async Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        //{
+        //    var t = await TransferJsonBodyAsync(HttpMethod.Put, url, obj, headers, token);
+        //    return t.IsSuccessStatusCode;
+        //}
 
         private async Task<HttpResponseMessage> TransferJsonBodyAsync<T>(HttpMethod method, Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {

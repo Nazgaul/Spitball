@@ -1,8 +1,10 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using JetBrains.Annotations;
 
 namespace Cloudents.Persistence.Maps
 {
+    [UsedImplicitly]
     public class RegularUserMap : SubclassMap<RegularUser>
     {
         public RegularUserMap()

@@ -77,9 +77,9 @@ namespace Cloudents.Infrastructure.Framework
             _image?.Dispose();
         }
 
-        public void Init(Func<string> path)
-        {
-            _image = (TiffImage)Image.Load(path());
-        }
+        //public void Init(Func<string> path)
+        //{
+        //    _image = (TiffImage)Image.Load(path());
+        //}
     }
 }

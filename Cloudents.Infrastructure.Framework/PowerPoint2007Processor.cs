@@ -113,9 +113,9 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        public void Init(Func<string> path)
-        {
-            _pptx = new Lazy<Presentation>(() => new Presentation(path()));
-        }
+        //public void Init(Func<string> path)
+        //{
+        //    _pptx = new Lazy<Presentation>(() => new Presentation(path()));
+        //}
     }
 }

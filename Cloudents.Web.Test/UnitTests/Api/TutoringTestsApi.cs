@@ -33,7 +33,7 @@ namespace Cloudents.Web.Test.UnitTests.Api
         {
             var client = _factory.CreateClient();
 
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";;
+            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
 
             string review = "{\"review\":\"Good one\",\"rate\": 3,\"tutor\": 160116}";
 

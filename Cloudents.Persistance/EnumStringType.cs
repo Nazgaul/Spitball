@@ -13,8 +13,7 @@ namespace Cloudents.Persistence
 
         public override object GetInstance(object code)
         {
-            var p = code as string;
-            if (p == null)
+            if (!(code is string p))
             {
                 return null;
             }

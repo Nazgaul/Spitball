@@ -6,6 +6,6 @@ namespace Cloudents.Core.Enum
     public enum Vertical : int
     {
         None,
-        Tutor,
+        Tutor
     }
 }

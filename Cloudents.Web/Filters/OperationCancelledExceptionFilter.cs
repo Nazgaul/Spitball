@@ -13,11 +13,9 @@ namespace Cloudents.Web.Filters
 
         public override void OnException(ExceptionContext context)
         {
-            if (context.Exception is OperationCanceledException)
-            {
-                context.ExceptionHandled = true;
-                context.Result = new StatusCodeResult(400);
-            }
+            if (!(context.Exception is OperationCanceledException)) return;
+            context.ExceptionHandled = true;
+            context.Result = new StatusCodeResult(400);
         }
     }
 }

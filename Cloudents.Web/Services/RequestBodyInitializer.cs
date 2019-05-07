@@ -9,7 +9,7 @@ namespace Cloudents.Web.Services
 {
     public class RequestBodyInitializer : ITelemetryInitializer
     {
-        readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public RequestBodyInitializer(IHttpContextAccessor httpContextAccessor)
         {

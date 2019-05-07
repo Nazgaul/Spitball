@@ -13,7 +13,7 @@ namespace ConsoleApp
     public class MigrateCoursesAndUni
     {
         static string[] _scopes = { SheetsService.Scope.Spreadsheets};
-        static string _applicationName = "Quickstart";
+        static readonly string _applicationName = "Quickstart";
 
         public static IList<CorseToMigratre> Read()
         {
@@ -24,7 +24,7 @@ namespace ConsoleApp
             {
                 // The file token.json stores the user's access and refresh tokens, and is created
                 // automatically when the authorization flow completes for the first time.
-                string credPath = "token.json";
+                var credPath = "token.json";
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
                     _scopes,

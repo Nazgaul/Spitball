@@ -2,9 +2,11 @@
 using Dapper;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Cloudents.Query.Admin
 {
+    [UsedImplicitly]
     public class AdminUserIdFromEmailQueryHandler : IQueryHandler<AdminUserIdFromEmailQuery, long>
     {
         private readonly DapperRepository _dapper;

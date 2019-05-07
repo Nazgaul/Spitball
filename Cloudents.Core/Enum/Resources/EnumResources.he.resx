@@ -162,12 +162,6 @@
   <data name="QuestionFilterUnanswered" xml:space="preserve">
     <value>שאלות שלא נענו</value>
   </data>
-  <data name="SearchRequestSortDate" xml:space="preserve">
-    <value>תאריך</value>
-  </data>
-  <data name="SearchRequestSortRelevance" xml:space="preserve">
-    <value>רלוונטיות</value>
-  </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
     <value>הכנסה</value>
   </data>

@@ -10,7 +10,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class UniversityApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
-        private readonly object uni = new
+        private readonly object _university = new
         {
             name = "Open University",
             country = "IL"
@@ -90,7 +90,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/University/create", HttpClient.CreateJsonString(uni));
+            var response = await _client.PostAsync("api/University/create", HttpClient.CreateJsonString(_university));
 
             response.EnsureSuccessStatusCode();
         }
@@ -100,7 +100,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/University/create", HttpClient.CreateJsonString(uni));
+            var response = await _client.PostAsync("api/University/create", HttpClient.CreateJsonString(_university));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }

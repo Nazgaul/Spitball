@@ -12,12 +12,12 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class DocumentApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
-        private readonly object cred = new
-        {
-            email = "elad@cloudents.com",
-            password = "123456789",
-            fingerPrint = "string"
-        };
+        //private readonly object cred = new
+        //{
+        //    email = "elad@cloudents.com",
+        //    password = "123456789",
+        //    fingerPrint = "string"
+        //};
         private readonly object doc1 = new
         {
             mime_type = "",
