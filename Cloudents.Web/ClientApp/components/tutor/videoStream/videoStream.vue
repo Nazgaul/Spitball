@@ -3,9 +3,10 @@
 
         <v-layout align-center justify-end>
             <v-flex xs8 class="d-inline-flex" v-if="isTutor">
-                <button v-if="!roomIsActive && !waitingStudent " class="create-session" color="primary" :class="{'disabled': roomIsPending}" @click="enterRoom()">
+                <button v-if="!roomIsActive && !waitingStudent " class="create-session" color="primary" :class="{'disabled': roomIsPending || needPayment}" @click="enterRoom()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
-                    <span v-language:inner>tutor_stream_btn_start_session</span>
+                    <span v-language:inner v-show="needPayment">tutor_stream_btn_pending_tutor</span>
+                    <span v-language:inner v-show="!needPayment">tutor_stream_btn_start_session</span>
                 </button>
                 <button class="create-session" v-else-if="waitingStudent">
                     <span v-language:inner>tutor_stream_btn_waiting</span>
@@ -18,11 +19,12 @@
                 </button>
             </v-flex>
             <v-flex xs8 class="d-inline-flex" v-else>
-                <button v-if="!roomIsActive && !waitingStudent" class="create-session" color="primary" :class="{'disabled': roomIsPending && !accountUser.needPayment}" @click="enterRoom()">
+                
+                <button v-if="!roomIsActive && !waitingStudent" class="create-session" color="primary" :class="{'disabled': roomIsPending && !needPayment}" @click="enterRoom()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
                     <span>
-                        <span v-language:inner v-if="accountUser.needPayment">tutor_stream_btn_add_payment</span>
-                        <span v-language:inner v-else>tutor_stream_btn_join_session</span>
+                        <span v-language:inner v-show="needPayment">tutor_stream_btn_add_payment</span>
+                        <span v-language:inner v-show="!needPayment">tutor_stream_btn_join_session</span>
                     </span>
                 </button>
 

@@ -249,6 +249,7 @@ function RoomProps(ObjInit) {
     this.isTutor = store.getters['accountUser'].id == ObjInit.tutorId;
     this.roomId = ObjInit.roomId || '';
     this.allowReview = ObjInit.allowReview;
+    this.needPayment = ObjInit.needPayment;
 }
 
 const createRoomProps = function createLeaderBoardItem(ObjInit){

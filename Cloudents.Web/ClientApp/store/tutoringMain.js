@@ -150,7 +150,7 @@ updateStudyRoomProps(context, val) {
     updateCurrentRoomState({commit}, val) {
         commit('setCurrentRoomState', val);
     },
-    signalRUpdateState({commit, dispatch, state}, notificationObj) {
+    signalR_UpdateState({commit, dispatch, state}, notificationObj) {
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
         let totalOnline = notificationObj.totalOnline;
@@ -192,13 +192,16 @@ updateStudyRoomProps(context, val) {
         }
         dispatch('updateToasterParams', toasterObj);
     },
-    signalRSetJwtToken({commit, dispatch, state}, sessionInformation){
+    signalR_SetJwtToken({commit, dispatch, state}, sessionInformation){
         let token = sessionInformation.data.jwtToken;
         let isTutor = state.studyRoomData.isTutor;
         commit('setJwtToken', token);
         if(!isTutor){
             dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
         }
+    },
+    signalR_ReleasePaymeStatus({commit, dispatch, state}){
+        state.studyRoomData.needPayment = false;
     }
 };
 export default {

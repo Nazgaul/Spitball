@@ -57,6 +57,9 @@ export default {
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         },
+        needPayment(){
+            return this.getStudyRoomData ? this.getStudyRoomData.needPayment : false;
+        },
         accountUserID() {
             if(this.accountUser && this.accountUser.id) {
                 return this.accountUser.id;
@@ -95,7 +98,6 @@ export default {
             if(!!this.accountUser && this.accountUser.needPayment){
                     walletService.getPaymeLink().then(({data})=>{
                     global.open(data.link, '_blank', 'height=520,width=440');
-                    this.closePayMe();
                 })  
                 return;
             }
