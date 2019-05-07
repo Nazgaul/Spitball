@@ -78,7 +78,7 @@ export default {
 
         biggerRemoteVideo() {
             //check browser support
-            let video = document.querySelectorAll("#remoteTrack video")[0];
+            let video = document.querySelector("#remoteTrack video");
             if(video.requestFullscreen) {
                 video.requestFullscreen();
             } else if(video.webkitRequestFullscreen) {
@@ -153,11 +153,11 @@ export default {
                          let videoTrackName = `video_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
                          let audioSetObj = {
                              audio: self.availableDevices.includes('audioinput'),
-                             name: `${audioTrackName}`
+                             name: audioTrackName
                          };
                          let videoSetObj = {
                              video: self.availableDevices.includes('videoinput'),
-                             name: `${videoTrackName}`
+                             name: videoTrackName
                          };
                          createLocalTracks({
                                                audio: self.availableDevices.includes('audioinput') ? audioSetObj : false,
@@ -198,10 +198,6 @@ export default {
             }
             self.isHardawareAvaliable();
         },
-    },
-    created() {
-
     }
-
 };
 
