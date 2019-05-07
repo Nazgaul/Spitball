@@ -3,16 +3,16 @@
 
         <v-layout align-center justify-end>
             <v-flex xs8 class="d-inline-flex" v-if="isTutor">
-                <button v-if="!roomIsActive && !waitingStudent " class="create-session" color="primary" :class="{'disabled': roomIsPending || needPayment}" @click="enterRoom()">
+                <button v-show="!roomIsActive && !waitingStudent " class="create-session" color="primary" :class="{'disabled': roomIsPending || needPayment}" @click="enterRoom()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
                     <span v-language:inner v-show="needPayment">tutor_stream_btn_pending_tutor</span>
                     <span v-language:inner v-show="!needPayment">tutor_stream_btn_start_session</span>
                 </button>
-                <button class="create-session" v-else-if="waitingStudent">
+                <button class="create-session" v-show="waitingStudent">
                     <span v-language:inner>tutor_stream_btn_waiting</span>
                 </button>
 
-                <button v-else class="end-session" @click="endSession()">
+                <button v-show="roomIsActive && !waitingStudent" class="end-session" @click="endSession()">
                     <stopIcon class="stop-icon mr-2"></stopIcon>
                     <span v-language:inner>tutor_stream_btn_end_session</span>
 
@@ -30,7 +30,7 @@
 
                 <button v-else class="end-session" @click="endSession()">
                     <stopIcon class="stop-icon mr-2"></stopIcon>
-                    <span v-language:inner>stream_btn_end_session</span>
+                    <span v-language:inner>tutor_stream_btn_end_session</span>
                 </button>
             </v-flex>
         </v-layout>
