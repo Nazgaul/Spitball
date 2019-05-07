@@ -319,6 +319,11 @@ namespace Cloudents.Web.Api
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
+            catch (DuplicateRowException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), "Cannot vote twice");
+                return BadRequest(ModelState);
+            }
             catch (NoEnoughScoreException)
             {
                 string voteMessage = resource[$"{model.VoteType:G}VoteError"];
