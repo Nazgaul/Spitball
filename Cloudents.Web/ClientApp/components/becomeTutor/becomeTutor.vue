@@ -79,10 +79,7 @@
     .become-tutor-wrap {
         width: 100%;
         .stepper{
-            @media(max-width: @screen-xs){
-              overflow-y: auto;
-
-            }
+            overflow-y: auto;
         }
         .theme--light.v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline){
             background-color: rgba(68, 82, 252, 0.5)!important; //vuetify overwrite
