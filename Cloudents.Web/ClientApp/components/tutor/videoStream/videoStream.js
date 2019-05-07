@@ -71,7 +71,6 @@ export default {
     },
     methods: {
         ...mapActions([
-                          'updateRoomLoading',
                           'updateCurrentRoomState',
                           'updateTestDialogState',
                           'updateReviewDialog',
@@ -109,8 +108,11 @@ export default {
             if(!this.sessionStartClickedOnce) {
                 this.sessionStartClickedOnce = true;
                 if(this.isTutor) {
+                    this.updateCurrentRoomState('loading');
                     tutorService.enterRoom(this.id).then(() => {
-                        this.createVideoSession();
+                        setTimeout(()=>{
+                            this.createVideoSession();
+                        }, 1000);
                     });
                 } else {
                     //join
@@ -172,7 +174,9 @@ export default {
                                  networkQuality: true
                              };
                              tutorService.connectToRoom(token, connectOptions);
-                             self.isTutor ? self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.loading) : self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active);
+                             if(!self.isTutor){
+                                self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active)
+                             }
 
                          }, (error) => {
                              console.log(error, 'error create tracks before connect');
@@ -186,7 +190,6 @@ export default {
 
         // Create a new chat
         createVideoSession() {
-            this.updateRoomLoading(true);
             const self = this;
             // remove any remote track when joining a new room
             let clearEl = document.getElementById('remoteTrack');
