@@ -2,7 +2,7 @@
     <div class="request-box-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'px-3 mx-2' : 'px-3']">
         <v-layout align-center justify-start class="pt-3">
             <!--<v-flex xs1 md1 sm1 shrink v-if="$vuetify.breakpoint.smAndUp && accountUser" >-->
-            <v-flex xs1 md1 sm1 shrink >
+            <v-flex  class="avatar-holder" >
                 <userAvatar
                         class="avatar-circle  mr-2"
                         :userImageUrl="userImageUrl"
@@ -17,28 +17,28 @@
         <v-layout align-space-between class="pt-3 pb-3">
             <v-flex sm4 md4 class="btn-wrap text-xs-left">
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openAskQuestion()">
-                    <v-icon class="light-btn-icon subheading mr-2">sbf-message-icon-new</v-icon>
-                    <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-bold"
+                    <v-icon class="light-btn-icon  mr-2">sbf-message-icon-new</v-icon>
+                    <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_ask</span>
-                    <span v-show="$vuetify.breakpoint.xsOnly" class="text-capitalize body-2 font-weight-bold"
+                    <span v-show="$vuetify.breakpoint.xsOnly" class="text-capitalize body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_ask_mob</span>
                 </v-btn>
             </v-flex>
             <v-flex sm4 md4 class="btn-wrap text-xs-center">
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openUpload()">
-                    <v-icon class="light-btn-icon subheading mr-2">sbf-upload-icon</v-icon>
-                    <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-bold"
+                    <v-icon class="light-btn-icon  mr-2">sbf-upload-icon</v-icon>
+                    <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_upload</span>
-                    <span v-show="$vuetify.breakpoint.xsOnly" class="text-capitalize body-2 font-weight-bold"
+                    <span v-show="$vuetify.breakpoint.xsOnly" class="text-capitalize body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_upload_mob</span>
                 </v-btn>
             </v-flex>
             <v-flex sm4 md4 class="btn-wrap text-xs-right">
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openRequestTutor()">
-                    <v-icon class="light-btn-icon subheading mr-2">sbf-person-icon</v-icon>
-                    <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-bold"
+                    <v-icon class="light-btn-icon  mr-2">sbf-person-icon</v-icon>
+                    <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_tutor</span>
-                    <span v-show="$vuetify.breakpoint.xsOnly" class="text-capitalize body-2 font-weight-bold"
+                    <span v-show="$vuetify.breakpoint.xsOnly" class="text-capitalize body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_tutor_mob</span>
                 </v-btn>
             </v-flex>
@@ -135,17 +135,26 @@
             color: @textColor;
             letter-spacing: -0.4px;
         }
+        .avatar-holder{
+            max-width: 32px;
+            margin-right: 14px;
+        }
         .light-btn {
             border-radius: 16px;
             height: 32px;
             color: @color-white;
-            width: 189px;
+            width: 194px;
             background: @btnGreen !important;
+            .v-btn__content{
+                align-items: flex-end;
+            }
             @media (max-width: @screen-xs) {
                 width: 110px;
             }
             .light-btn-icon {
                 color: @color-white;
+                font-size: 14px;
+                line-height: 17px;
             }
         }
 

@@ -106,6 +106,9 @@
                 :not(:first-child) {
                   display: none; //remove the label element from taking mass
                 }
+                input{
+                  .placeholder-color(@color-black)
+                }
               }
               .v-input__append-inner {
                 //select arrow
@@ -145,7 +148,7 @@
     }
     .attach-icon {
       color: @purpleBright;
-      font-size: 14px;
+      font-size: 18px;
       transform: rotate(-45deg);
       border: 1px solid  #2a2a2a;
       border-radius: 12px;
@@ -168,7 +171,7 @@
       display: flex;
       width: 100%;
       i {
-        font-size: 16px;
+        font-size: 20px;
         line-height: 18px;
       }
     }
