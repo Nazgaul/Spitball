@@ -21,28 +21,28 @@ namespace Cloudents.Web.Test.IntegrationTests
         private readonly object doc1 = new
         {
             mime_type = "",
-            name = "C:\\Users\apolo\\Downloads\\ACloudFan.pdf",
+            name = "ACloudFan.pdf",
             phase = "start",
             size = 1027962
         };
         private readonly object doc2 = new
         {
             mime_type = "",
-            name = "C:\\Users\apolo\\Downloads\\Capture 2.png",
+            name = "Capture 2.png",
             phase = "start",
             size = 1027962
         };
         private readonly object doc3 = new
         {
             mime_type = "",
-            name = "C:\\Users\apolo\\Downloads\\ספיטבול.docx",
+            name = "ספיטבול.docx",
             phase = "start",
             size = 1027962
         };
         private readonly object doc4 = new
         {
             mime_type = "",
-            name = "C:\\Users\apolo\\Downloads\\doc4",
+            name = "Doc4",
             phase = "start",
             size = 1027962
         };
