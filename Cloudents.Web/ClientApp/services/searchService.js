@@ -75,7 +75,7 @@ function TutorItem(objInit) {
     this.courses = objInit.courses || '';
     this.price = objInit.price || 50;
     this.score = objInit.score || null;
-    this.rating =  objInit.rate ? objInit.rate.toFixed(2): null;
+    this.rating =  objInit.rate ? Number(objInit.rate.toFixed(2)): null;
     this.reviews = objInit.reviewsCount || 0;
     this.template = 'tutor';
     this.bio = objInit.bio || '';
