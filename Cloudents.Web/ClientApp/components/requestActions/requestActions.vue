@@ -1,5 +1,5 @@
 <template>
-    <div class="request-box-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'px-3 mx-2' : 'px-4']">
+    <div class="request-box-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'px-3 mx-2' : 'px-3']">
         <v-layout align-center justify-start class="pt-3">
             <!--<v-flex xs1 md1 sm1 shrink v-if="$vuetify.breakpoint.smAndUp && accountUser" >-->
             <v-flex xs1 md1 sm1 shrink >
