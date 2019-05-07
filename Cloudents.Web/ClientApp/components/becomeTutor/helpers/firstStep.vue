@@ -30,14 +30,16 @@
                         <v-flex xs12 shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-3']">
                             <v-text-field outline
                                           v-model="firstName"
-                                          :rules="[rules.required]"
+                                          :rules="[rules.required, rules.notSpaces]"
+                                          hide-details
                                           :placeholder="placeFirstName"
                                           :label="placeFirstName"></v-text-field>
                         </v-flex>
                         <v-flex xs12 :class="[$vuetify.breakpoint.smAndUp ? 'mb-4' : 'mb-3']">
                             <v-text-field outline
                                           v-model="lastName"
-                                          :rules="[rules.required]"
+                                          hide-details
+                                          :rules="[rules.required, rules.notSpaces]"
                                           :placeholder="placeLastName"
                                           :label="placeLastName"></v-text-field>
 
@@ -46,6 +48,7 @@
                             <v-text-field outline class="font-weight-bold price-input"
                                           :rules="[rules.required, rules.minimum, rules.maximum]"
                                           v-model="price"
+                                          hide-details
                                           prefix="₪"
                                           type="number"
                                           :label="placePrice"></v-text-field>
@@ -95,6 +98,7 @@
                     required: (value) => validationRules.required(value),
                     minimum: (value) => validationRules.positiveNumber(value),
                     maximum: (value) => validationRules.maxVal(value, 200000),
+                    notSpaces: (value) => validationRules.notSpaces(value),
                 },
                 isLoaded: false
             };
@@ -117,7 +121,6 @@
             }
 
         },
-
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),
             loaded() {

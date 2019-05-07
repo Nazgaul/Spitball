@@ -92,7 +92,7 @@
             <div class="add-files px-3 mt-3 pt-1 pb-3">
                 <div class="btn-upload-wrap d-flex align-center justify-center">
                     <span class="caption" v-language:inner>tutorRequest_label_add</span>
-                    <span class="request-files-btn d-inline-flex align-center justify-center px-2 ml-3">
+                    <span class="request-files-btn d-inline-flex align-center justify-center pl-2 pr-3 ml-3">
                 <v-icon class="attach-icon mr-2">sbf-attach</v-icon>
                     <span v-language:inner>tutorRequest_btn_attachment</span>
                 <file-upload
