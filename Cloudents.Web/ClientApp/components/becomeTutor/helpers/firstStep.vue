@@ -113,7 +113,7 @@
                 }
             },
             imageExists(){
-                return this.userImage || this.imageAdded && this.submitted
+                // return this.userImage || this.imageAdded && this.submitted
             }
 
         },
