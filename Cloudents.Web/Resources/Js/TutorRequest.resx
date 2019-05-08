@@ -129,6 +129,9 @@
   <data name="no_course" xml:space="preserve">
     <value>Please add courses</value>
   </data>
+  <data name="request_received" xml:space="preserve">
+    <value>We successfully received your request for tutoring, tutors will contact you shortly</value>
+  </data>
   <data name="select_course_placeholder" xml:space="preserve">
     <value>In what course ?</value>
   </data>
