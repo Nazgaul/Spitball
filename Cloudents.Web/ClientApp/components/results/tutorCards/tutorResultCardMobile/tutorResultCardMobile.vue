@@ -1,6 +1,6 @@
 <template>
-    <v-card class="tutor-card-wrap pa-12 elevation-0 cursor-pointer " :class="{'list-tutor-card': isInTutorList}"
-            @click.native="goToTutorProfile(tutorData.userId)">
+    <router-link :to="{name: 'profile', params: {id: tutorData.userId}}">
+    <v-card class="tutor-card-wrap pa-12 elevation-0 cursor-pointer " :class="{'list-tutor-card': isInTutorList}">
         <div class="section-tutor-info">
             <v-layout>
                 <v-flex class="image-wrap d-flex" shrink >
@@ -44,12 +44,11 @@
             </v-layout>
         </div>
     </v-card>
+    </router-link>
 </template>
 
 <script>
     import userRating from '../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
-    import chatService from '../../../../services/chatService';
-    import { mapActions, mapGetters } from 'vuex';
     import utilitiesService from "../../../../services/utilities/utilitiesService";
 
     export default {
@@ -68,7 +67,6 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'getConversations']),
             userImageUrl() {
                 if(this.tutorData.image) {
                     let size = this.isInTutorList ? [56, 64] : [76, 96];
@@ -78,22 +76,6 @@
                 }
             }
         },
-        methods: {
-            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface']),
-            goToTutorProfile(userId) {
-                this.$router.push({name: 'profile', params: {id: userId}});
-            },
-            // sendMessage() {
-            //     if(this.accountUser == null) {
-            //         this.updateLoginDialogState(true);
-            //     } else {
-            //         let currentConversationObj = chatService.createActiveConversationObj(this.tutorData);
-            //         this.setActiveConversationObj(currentConversationObj);
-            //         let isMobile = this.$vuetify.breakpoint.smAndDown;
-            //         this.openChatInterface();
-            //     }
-            // }
-        }
     };
 </script>
 
