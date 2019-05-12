@@ -19,6 +19,7 @@ namespace Cloudents.Core.Enum
     {
         public const string Document = "Document";
         public const string Question = "Question";
+        public const string Static = "Static";
         //public const string Flashcard = "Flashcard";
     }
 }
