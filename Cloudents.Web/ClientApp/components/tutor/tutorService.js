@@ -69,6 +69,7 @@ const createAudioContext = function () {
             let average = values / length;
 
             //console.log(Math.round(average - 40));
+            //TODO fix style to class
             let micVolume = document.getElementById('micVolume_indicator');
             micVolume.style.backgroundColor = 'rgba(66, 224, 113, 0.8)';
             micVolume.style.height = '6px';
@@ -219,6 +220,7 @@ const connectToRoom = function (token, options) {
                             store.dispatch('updateLocalStatus', true);
                         } else {
                             store.dispatch('updateRemoteStatus', true);
+                            endTutoringSession(store.getters['getRoomId']);
                             if(store.getters['getStudyRoomData'].isTutor){
                                 store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
                             }else{
