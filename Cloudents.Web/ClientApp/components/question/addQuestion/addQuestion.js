@@ -167,8 +167,8 @@ export default {
                     course : this.questionClass,
                     files:this.uploadProp.uploadedFileNames
                 };
+                analyticsService.sb_unitedEvent('Action Box', 'Ask_Q', `USER_ID:${this.accountUser.id}, Q_COURSE:${serverQuestionObj.course}`)
                 questionService.postQuestion(serverQuestionObj).then((response) => {
-                    analyticsService.sb_unitedEvent("Submit_question", "Homework help")
                     // let val = self.selectedPrice || this.price;
                     // this.updateUserBalance(-val);
                     //close dialog after question submitted
