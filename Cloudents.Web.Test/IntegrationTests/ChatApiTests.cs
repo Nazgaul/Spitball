@@ -10,6 +10,19 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
+        private readonly object msg = new
+        {
+            message = "string",
+            otherUser = "160116"
+        };
+
+        private readonly object user = new
+        {
+            otherUser = "159039"
+        };
+
+
+
         public ChatApiTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
@@ -28,12 +41,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Send_Message()
         {
-            var msg = new
-            {
-                message = "string",
-                otherUser = "160116"
-            };
-
             await _client.LogInAsync();
 
             var response = await _client.PostAsync("api/Chat", HttpClient.CreateJsonString(msg));
@@ -52,11 +59,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsyncChatRead_NoSuchConversation_BadRequest()
         {
-            var user = new
-            {
-                otherUser = "159039"
-            };
-
             await _client.LogInAsync();
 
             var response = await _client.PostAsync("api/Chat/read", HttpClient.CreateJsonString(user));

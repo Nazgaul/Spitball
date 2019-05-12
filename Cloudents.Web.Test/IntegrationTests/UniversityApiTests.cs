@@ -10,13 +10,20 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class UniversityApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
+
         private readonly object _university = new
         {
             name = "Open University",
             country = "IL"
         };
 
-        public UniversityApiTests(SbWebApplicationFactory factory)
+        private readonly object uniId = new
+        {
+            id = "bdb71a15-62ed-4fab-8a76-a98200e81a53"
+        };
+
+
+    public UniversityApiTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
         }
@@ -34,11 +41,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task Post_Set_Uni()
         {
-            var uniId = new
-            {
-                id = "bdb71a15-62ed-4fab-8a76-a98200e81a53"
-            };
-
             await _client.LogInAsync();
 
             var response = await _client.PostAsync("api/university/set", HttpClient.CreateJsonString(uniId));
