@@ -74,6 +74,7 @@ export default {
                           'updateCurrentRoomState',
                           'updateTestDialogState',
                           'updateReviewDialog',
+                          'setRoomId'
                       ]),
 
         biggerRemoteVideo() {
@@ -112,11 +113,13 @@ export default {
                     tutorService.enterRoom(this.id).then(() => {
                         setTimeout(()=>{
                             this.createVideoSession();
+                            this.sessionStartClickedOnce = false;
                         }, 1000);
                     });
                 } else {
                     //join
                     this.createVideoSession();
+                    this.sessionStartClickedOnce = false;
                 }
             }
         },
@@ -165,6 +168,7 @@ export default {
                                            }).then((tracksCreated) => {
                              let localMediaContainer = document.getElementById('localTrack');
                              tracksCreated.forEach((track) => {
+                                 localMediaContainer.innerHTML = "";
                                  localMediaContainer.appendChild(track.attach());
                                  self.localTrackAval = true;
                              });
@@ -198,6 +202,9 @@ export default {
             }
             self.isHardawareAvaliable();
         },
+    },
+    created(){
+        this.setRoomId(this.id);
     }
 };
 
