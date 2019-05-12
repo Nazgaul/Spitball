@@ -112,6 +112,7 @@ export default {
                     tutorService.enterRoom(this.id).then(() => {
                         setTimeout(()=>{
                             this.createVideoSession();
+                            this.sessionStartClickedOnce = false;
                         }, 1000);
                     });
                 } else {
