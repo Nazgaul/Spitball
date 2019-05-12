@@ -21,6 +21,37 @@ namespace Cloudents.Web.Test.IntegrationTests
             fingerPrint = "string"
         };
 
+        private readonly object question = new
+        {
+            subjectId = "",
+            course = "Economics",
+            text = "Blah blah blah...",
+            price = 1
+        };
+
+        private readonly object course = new
+        {
+            Name = "Economics"
+        };
+
+        private readonly object newCourse = new
+        {
+            name = "NewCourse1"
+        };
+
+        private readonly object upload = new
+        {
+            blobName = "My_Doc.docx",
+            name = "My Document",
+            type = "Document",
+            course = "Economics",
+            tags = new { },
+            professor = "Mr. Elad",
+            price = 0M
+        };
+
+
+
         public CourseApiTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
@@ -39,14 +70,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task Ask_Course_Without_Uni()
         {   
-            var question = new
-            {
-                subjectId = "",
-                course = "Economics",
-                text = "Blah blah blah...",
-                price = 1
-            };
-
             await _client.PostAsync("api/LogIn", HttpClient.CreateJsonString(_credentials));
 
             var response = await _client.PostAsync("api/Question", HttpClient.CreateJsonString(question));
@@ -57,17 +80,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task Upload_Doc_Without_Uni()
         {            
-            var upload = new
-            {
-                blobName = "My_Doc.docx",
-                name = "My Document",
-                type = "Document",
-                course = "Economics",
-                tags = new { },
-                professor = "Mr. Elad",
-                price = 0M
-            };
-
             await _client.PostAsync("api/LogIn", HttpClient.CreateJsonString(_credentials));
 
             var response = await _client.PostAsync("api/Upload", HttpClient.CreateJsonString(upload));
@@ -78,11 +90,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task Teach_Course()
         {
-            var course = new
-            {
-                Name = "Economics"
-            };
-
             await _client.PostAsync("api/LogIn", HttpClient.CreateJsonString(_credentials));
 
             await _client.PostAsync("api/course/set", HttpClient.CreateJsonString(course));
@@ -95,25 +102,21 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact(Skip = "this is not a good unit test - need to think about it")]
         public async Task PostAsync_CreateAndDelete_Course()
         {
-            UriBuilder uri = new UriBuilder();
-            
-            uri.Path = "api/course";
+            UriBuilder uri = new UriBuilder
+            {
+                Path = "api/course"
+            };
 
             uri.AddQuery(new NameValueCollection
             {
                 ["name"] = "NewCourse1"
             });
 
-            var course = new
-            {
-                name = "NewCourse1"
-            };
-
             await _client.LogInAsync();
 
             await _client.DeleteAsync(uri.Uri);
 
-            var response = await _client.PostAsync("api/Course/create", HttpClient.CreateJsonString(course));
+            var response = await _client.PostAsync("api/Course/create", HttpClient.CreateJsonString(newCourse));
             response.StatusCode.Should().Be(HttpStatusCode.OK, "Create Course Failed");
             response = await _client.DeleteAsync(uri.Uri);
             response.StatusCode.Should().Be(HttpStatusCode.OK, "Delete Course Failed");

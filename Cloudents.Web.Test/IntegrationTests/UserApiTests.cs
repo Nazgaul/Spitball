@@ -12,6 +12,27 @@ namespace Cloudents.Web.Test.IntegrationTests
         //private readonly SbWebApplicationFactory _factory;
         private readonly System.Net.Http.HttpClient _client;
 
+        private readonly object cred = new
+        {
+            confirmPassword = "123456789",
+            email = "elad+99@cloudents.com",
+            password = "123456789"
+        };
+
+        private readonly object sms = new
+        {
+            number = "123456",
+            fingerPrint = "string"
+        };
+
+        private readonly object phone = new
+        {
+            phoneNumber = "542473699",
+            countryCode = 972
+        };
+
+
+
         public UserApiTests(SbWebApplicationFactory factory)
         {
             //_factory = factory;
@@ -38,13 +59,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_Code()
         {
-            var cred = new
-            {
-                email = "elad+99@cloudents.com",
-                password = "123456789",
-                fingerPrint = "string"
-            };
-
             await _client.PostAsync("api/LogIn", HttpClient.CreateJsonString(cred));
 
             var response = await _client.GetAsync("api/sms/code");
@@ -63,18 +77,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Sms()
         {
-            var cred = new
-            {
-                confirmPassword = "123456789",
-                email = "elad+99@cloudents.com",
-                password = "123456789"
-            };
-
-            var phone = new
-            {
-                phoneNumber = "542473699",
-                countryCode = 972
-            };
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
             await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
@@ -87,13 +89,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Sms_Resend()
         {
-            var cred = new
-            {
-                confirmPassword = "123456789",
-                email = "elad+99@cloudents.com",
-                password = "123456789"
-            };
-
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
             await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
@@ -106,24 +101,11 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Sms_Verify()
         {
-            var cred = new
-            {
-                email = "elad+99@cloudents.com",
-                password = "123456789",
-                fingerPrint = "string"
-            };
-
-            var phone = new
-            {
-                number = "123456",
-                fingerPrint = "string"
-            };
-
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
             await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
 
-            var response = await _client.PostAsync("api/Sms/verify", HttpClient.CreateJsonString(phone));
+            var response = await _client.PostAsync("api/Sms/verify", HttpClient.CreateJsonString(sms));
 
             response.StatusCode.Should().NotBe(HttpStatusCode.InternalServerError);
         }
@@ -131,13 +113,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Resend_Email()
         {
-            var cred = new
-            {
-                email = "dale@cloudents.com",
-                password = "123456789",
-                fingerPrint = "string"
-            };
-
             await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
 
             var response = await _client.PostAsync("api/Register/resend", HttpClient.CreateString("{}"));
