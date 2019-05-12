@@ -124,10 +124,10 @@
     <value>BECOME A TUTOR</value>
   </data>
   <data name="created" xml:space="preserve">
-    <value>created on</value>
+    <value>Created on</value>
   </data>
   <data name="enter_room" xml:space="preserve">
-    <value>enter room</value>
+    <value>Enter room</value>
   </data>
   <data name="help_others" xml:space="preserve">
     <value>Help others with what you know best</value>
@@ -136,9 +136,9 @@
     <value>Session ended</value>
   </data>
   <data name="student_entered_room" xml:space="preserve">
-    <value>The student entered to the room</value>
+    <value>The student entered the room</value>
   </data>
   <data name="tutor_entered_room" xml:space="preserve">
-    <value>The tutor entered to the room</value>
+    <value>The tutor entered the room</value>
   </data>
 </root>
