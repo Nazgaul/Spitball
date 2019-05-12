@@ -125,6 +125,7 @@ export default {
                             }
 
                             analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
+                            analyticsService.sb_unitedEvent('Action Box', 'Upload_D', `USER_ID:${self.accountUser.id}, DOC_COURSE${self.courseSelected}`);
                             self.loading = false;
                             self.fileSnackbar.visibility = true;
                             self.fileSnackbar.color = '#51ba6c';
