@@ -137,13 +137,13 @@ const connectToRoom = function (token, options) {
                     store.getters['activeRoom'].on('disconnected', (room, error) => {
                         let errorCode = !!error && errorerror.code ? errorerror.code : "";
                         if (errorCode === 20104) {
-                            console.log('Signaling reconnection failed due to expired AccessToken!');
+                            console.error('Signaling reconnection failed due to expired AccessToken!');
                         } else if (errorCode=== 53000) {
-                            console.log('Signaling reconnection attempts exhausted!');
+                            console.error('Signaling reconnection attempts exhausted!');
                         } else if (errorCode === 53204) {
-                            console.log('Signaling reconnection took too long!');
+                            console.error('Signaling reconnection took too long!');
                         }else{
-                            console.log('final disconnect')
+                            console.error('final disconnect')
                         }
                         if(store.getters['getStudyRoomData'].isTutor){
                             store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
