@@ -218,7 +218,7 @@ module.exports = (env) => {
                         drop_debugger :true,
                         //warnings: false,
                         drop_console: true,
-                        pure_funcs: ['console.log']
+                        pure_funcs: ['console.log','console.trace']
                     }
                 }),
             ])
