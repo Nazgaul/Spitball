@@ -326,11 +326,11 @@ namespace Cloudents.Web
                     template: "question/{id:long}",
                     defaults: new { controller = "Home", action = "Index" }
                 );
-                //routes.MapRoute(
-                //    name: SeoTypeString.Static,
-                //    template: "{id}",
-                //    defaults: new { controller = "Home", action = "Index" }
-                //);
+                routes.MapRoute(
+                    name: SeoTypeString.Static,
+                    template: "{id}",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}");

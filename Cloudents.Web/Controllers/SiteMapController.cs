@@ -153,11 +153,11 @@ namespace Cloudents.Web.Controllers
         public IEnumerable<string> GetUrls(int index)
         {
             yield return GetBaseUrl();
-            //yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Static, new
-            //{
-            //    id = "faq"
-            //});
-            
+            yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Static, new
+            {
+                id = "faq"
+            });
+
         }
 
         private string GetBaseUrl()
