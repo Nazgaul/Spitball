@@ -74,6 +74,7 @@ export default {
                           'updateCurrentRoomState',
                           'updateTestDialogState',
                           'updateReviewDialog',
+                          'setRoomId'
                       ]),
 
         biggerRemoteVideo() {
@@ -201,6 +202,9 @@ export default {
             }
             self.isHardawareAvaliable();
         },
+    },
+    created(){
+        this.setRoomId(this.id);
     }
 };
 
