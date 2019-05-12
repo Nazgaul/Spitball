@@ -27,7 +27,7 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class SiteMapController : Controller
     {
-        private const int PageSize = 40000;
+        internal const int PageSize = 20000;
         private readonly IQueryBus _queryBus;
         private readonly XmlWriterSettings _xmlWriterSettings = new XmlWriterSettings
         {
@@ -152,11 +152,26 @@ namespace Cloudents.Web.Controllers
 
         public IEnumerable<string> GetUrls(int index)
         {
-            yield return _linkGenerator.GetUriByAction(_httpContextAccessor.HttpContext, "Index", "Home");
-            yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, "Static", new
+            yield return GetBaseUrl();
+            //yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Static, new
+            //{
+            //    id = "faq"
+            //});
+            
+        }
+
+        private string GetBaseUrl()
+        {
+            var uriBuilder = new UriBuilder
             {
-                page = "faq"
-            });
+                Host = _httpContextAccessor.HttpContext.Request.Host.Host,
+                Scheme = _httpContextAccessor.HttpContext.Request.Scheme
+            };
+            if (_httpContextAccessor.HttpContext.Request.Host.Port.HasValue)
+            {
+                uriBuilder.Port = _httpContextAccessor.HttpContext.Request.Host.Port.Value;
+            }
+            return uriBuilder.Uri.AbsoluteUri;
         }
     }
 
@@ -178,7 +193,7 @@ namespace Cloudents.Web.Controllers
             var t = _session.Query<Document>()
                  .Fetch(f => f.University)
                  .Where(w => w.Status.State == ItemState.Ok)
-                 .Take(4000).Skip(4000 * index)
+                 .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
                  .Select(s => new DocumentSeoDto
                  {
                      Id = s.Id,
@@ -220,7 +235,7 @@ namespace Cloudents.Web.Controllers
         {
             var t = _session.Query<Question>()
                 .Where(w => w.Status.State == ItemState.Ok)
-                .Take(4000).Skip(4000 * index)
+                .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
                 .Select(s => s.Id);
 
             foreach (var item in t)
