@@ -214,13 +214,19 @@ module.exports = (env) => {
             [
                 new webpack.optimize.UglifyJsPlugin({
                     compress: {
-                        dead_code: true,
-                        drop_debugger :true,
-                        //warnings: false,
-                        drop_console: true,
-                        pure_funcs: ['console.log']
+                        warnings: false,
+                        drop_console: true
                     }
                 }),
+                //new webpack.optimize.UglifyJsPlugin({
+                //    compress: {
+                //     //   dead_code: true,
+                //        drop_debugger :true,
+                //        //warnings: false,
+                //        drop_console: true,
+                //        //pure_funcs: ['console.log','console.trace']
+                //    }
+                //}),
             ])
 
     });
