@@ -135,11 +135,12 @@ const connectToRoom = function (token, options) {
                     });
                     //disconnected room
                     store.getters['activeRoom'].on('disconnected', (room, error) => {
-                        if (error.code === 20104) {
+                        let errorCode = !!error && errorerror.code ? errorerror.code : "";
+                        if (errorCode === 20104) {
                             console.log('Signaling reconnection failed due to expired AccessToken!');
-                        } else if (error.code === 53000) {
+                        } else if (errorCode=== 53000) {
                             console.log('Signaling reconnection attempts exhausted!');
-                        } else if (error.code === 53204) {
+                        } else if (errorCode === 53204) {
                             console.log('Signaling reconnection took too long!');
                         }else{
                             console.log('final disconnect')

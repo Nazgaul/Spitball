@@ -167,6 +167,7 @@ export default {
                                            }).then((tracksCreated) => {
                              let localMediaContainer = document.getElementById('localTrack');
                              tracksCreated.forEach((track) => {
+                                 localMediaContainer.innerHTML = "";
                                  localMediaContainer.appendChild(track.attach());
                                  self.localTrackAval = true;
                              });
