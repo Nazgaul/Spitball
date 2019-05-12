@@ -118,6 +118,7 @@ export default {
                 } else {
                     //join
                     this.createVideoSession();
+                    this.sessionStartClickedOnce = false;
                 }
             }
         },
