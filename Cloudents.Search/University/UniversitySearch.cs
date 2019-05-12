@@ -41,13 +41,7 @@ namespace Cloudents.Search.University
                 Skip = PageSize * page,
                 OrderBy = new List<string> { "search.score() desc",
                     $"{Entities.University.UserCountFieldName} desc" },
-                ScoringProfile = UniversitySearchWrite.ScoringProfile,
-                ScoringParameters = new[]
-                {
-                    new ScoringParameter
-                    (UniversitySearchWrite.CountryTagScoringParameters
-                        , new[] {country})
-                }
+                Filter = $"Country eq '{country}'",
             };
 
             term = term?.Replace("\"", "\\");
@@ -69,7 +63,8 @@ namespace Cloudents.Search.University
                     {
                         Select = _listOfSelectParams,
                         UseFuzzyMatching = true,
-                        Top = PageSize
+                        Top = PageSize,
+                        Filter = $"Country eq '{country}'"
                     }, cancellationToken: token);
                 return new UniversitySearchDto(suggesterResult.Results.Select(s =>
                     ToDto(s.Document)));
