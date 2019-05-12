@@ -69,6 +69,7 @@ const createAudioContext = function () {
             let average = values / length;
 
             //console.log(Math.round(average - 40));
+            //TODO fix style to class
             let micVolume = document.getElementById('micVolume_indicator');
             micVolume.style.backgroundColor = 'rgba(66, 224, 113, 0.8)';
             micVolume.style.height = '6px';
@@ -134,15 +135,16 @@ const connectToRoom = function (token, options) {
 
                     });
                     //disconnected room
-                    store.getters['activeRoom'].on('disconnected', (room, error) => {
-                        if (error.code === 20104) {
-                            console.log('Signaling reconnection failed due to expired AccessToken!');
-                        } else if (error.code === 53000) {
-                            console.log('Signaling reconnection attempts exhausted!');
-                        } else if (error.code === 53204) {
-                            console.log('Signaling reconnection took too long!');
+              store.getters['activeRoom'].on('disconnected', (room, error) => {
+                        let errorCode = !!error && error.code ? error.code : "";
+                        if (errorCode === 20104) {
+                            console.error('Signaling reconnection failed due to expired AccessToken!');
+                        } else if (errorCode=== 53000) {
+                            console.error('Signaling reconnection attempts exhausted!');
+                        } else if (errorCode === 53204) {
+                            console.error('Signaling reconnection took too long!');
                         }else{
-                            console.log('final disconnect')
+                            console.error('final disconnect')
                         }
                         if(store.getters['getStudyRoomData'].isTutor){
                             store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
@@ -218,6 +220,7 @@ const connectToRoom = function (token, options) {
                             store.dispatch('updateLocalStatus', true);
                         } else {
                             store.dispatch('updateRemoteStatus', true);
+                            endTutoringSession(store.getters['getRoomId']);
                             if(store.getters['getStudyRoomData'].isTutor){
                                 store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
                             }else{
@@ -228,7 +231,7 @@ const connectToRoom = function (token, options) {
                     });
                 },
                 (error) => {
-                    console.log(error, 'error cant connect');
+                    console.error(error, 'error cant connect');
                 });
 };
 

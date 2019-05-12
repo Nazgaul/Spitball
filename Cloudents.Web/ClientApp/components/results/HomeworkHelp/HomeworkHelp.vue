@@ -24,7 +24,7 @@
                     <v-icon class="refresh-style">sbf-arrow-upward</v-icon> &nbsp;&nbsp; <span v-language:inner>result_new_questions</span>
                 </div>
             </v-snackbar>
-            <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
+            <div class="results-section" :class="{'loading-skeleton mt-5': showSkelaton}">
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
                         <v-layout column>

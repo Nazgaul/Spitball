@@ -129,6 +129,9 @@
   <data name="no_course" xml:space="preserve">
     <value>הוסף קורסים</value>
   </data>
+  <data name="request_received" xml:space="preserve">
+    <value>בקשתך לתרגול נקלטה בהצלחה, מתרגלים ייצרו איתך קשר בהקדם</value>
+  </data>
   <data name="select_course_placeholder" xml:space="preserve">
     <value>עבור איזה קורס?</value>
   </data>

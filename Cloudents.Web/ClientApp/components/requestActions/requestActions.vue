@@ -1,8 +1,8 @@
 <template>
-    <div class="request-box-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'px-3 mx-2' : 'px-3']">
+    <div class="request-box-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'px-2 mx-2' : 'px-3']">
         <v-layout align-center justify-start class="pt-3">
             <!--<v-flex xs1 md1 sm1 shrink v-if="$vuetify.breakpoint.smAndUp && accountUser" >-->
-            <v-flex  class="avatar-holder" >
+            <v-flex class="avatar-holder px-1" >
                 <userAvatar
                         class="avatar-circle  mr-2"
                         :userImageUrl="userImageUrl"
@@ -14,8 +14,8 @@
                 </span>
             </v-flex>
         </v-layout>
-        <v-layout align-space-between class="pt-3 pb-3">
-            <v-flex sm4 md4 class="btn-wrap text-xs-left">
+        <v-layout align-space-between class="pt-3 pb-3" justify-space-between>
+            <v-flex sm4 md4 class="btn-wrap text-xs-left" shrink>
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openAskQuestion()">
                     <v-icon class="light-btn-icon  mr-2">sbf-message-icon-new</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
@@ -24,7 +24,7 @@
                           v-language:inner>requestActions_btn_ask_mob</span>
                 </v-btn>
             </v-flex>
-            <v-flex sm4 md4 class="btn-wrap text-xs-center">
+            <v-flex sm4 md4 class="btn-wrap text-xs-center" shrink>
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openUpload()">
                     <v-icon class="light-btn-icon  mr-2">sbf-upload-icon</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
@@ -33,7 +33,7 @@
                           v-language:inner>requestActions_btn_upload_mob</span>
                 </v-btn>
             </v-flex>
-            <v-flex sm4 md4 class="btn-wrap text-xs-right">
+            <v-flex sm4 md4 class="btn-wrap text-xs-right" shrink>
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openRequestTutor()">
                     <v-icon class="light-btn-icon  mr-2">sbf-person-icon</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
@@ -149,7 +149,7 @@
                 align-items: flex-end;
             }
             @media (max-width: @screen-xs) {
-                width: 110px;
+                width: 100%; //keep it for mobile
             }
             .light-btn-icon {
                 color: @color-white;

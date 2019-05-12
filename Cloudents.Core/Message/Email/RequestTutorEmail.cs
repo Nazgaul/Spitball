@@ -33,7 +33,7 @@ namespace Cloudents.Core.Message.Email
             if (Links != null && Links.Length > 0)
             {
                 sb.Append("<BR>");
-                sb.Append($" {nameof(Links)}: {string.Join("<br>", Links.Select((s, i) => $"<a href='{s}'> attachment {i}</a>"))}");
+                sb.Append($" {nameof(Links)}: {string.Join("<br>", Links.Select((s, i) => $"<a href='{s}'> attachment {++i}</a>"))}");
             }
 
             sb.Append("<br>");
