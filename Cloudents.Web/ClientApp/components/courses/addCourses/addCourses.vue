@@ -345,6 +345,7 @@
         }
         //keep to align course name
         .minimize-width{
+            white-space: nowrap;
             min-width: 90px;
             @media(max-width: @screen-xs){
                 min-width: 90px;

@@ -1,5 +1,6 @@
 <template>
-    <div class="tutor-card-wrap-desk cursor-pointer"  @click="goToTutorProfile(tutorData.userId)">
+    <div class="tutor-card-wrap-desk cursor-pointer">
+        <router-link :to="{name: 'profile', params: {id: tutorData.userId}}">
         <v-layout>
             <div class="section-tutor-info">
                 <v-layout>
@@ -57,15 +58,15 @@
                 </v-flex>
             </v-layout>
         </v-layout>
+        </router-link>
     </div>
 </template>
+
 
 <script>
     import userRank from '../../../helpers/UserRank/UserRank.vue';
     import userRating from '../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
-    import commentIcon from '../../../../font-icon/message-icon.svg';
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
-    import { mapActions, mapGetters } from 'vuex';
     import utilitiesService from "../../../../services/utilities/utilitiesService";
 
     export default {
@@ -73,7 +74,6 @@
         components: {
             userRank,
             userRating,
-            commentIcon,
             userAvatar
         },
         data() {
@@ -83,7 +83,6 @@
             tutorData: {},
         },
         computed: {
-            ...mapGetters(['accountUser', 'getConversations']),
             userImageUrl() {
                 if(this.tutorData.image) {
                     return utilitiesService.proccessImageURL(this.tutorData.image, 166, 186);
@@ -93,21 +92,6 @@
 
             }
         },
-        methods: {
-            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface']),
-            goToTutorProfile(userId) {
-                this.$router.push({name: 'profile', params: {id: userId}});
-            },
-            // sendMessage() {
-            //     if(this.accountUser == null) {
-            //         this.updateLoginDialogState(true);
-            //     } else {
-            //         let currentConversationObj = chatService.createActiveConversationObj(this.tutorData);
-            //         this.setActiveConversationObj(currentConversationObj);
-            //         this.openChatInterface();
-            //     }
-            // }
-        }
     };
 </script>
 

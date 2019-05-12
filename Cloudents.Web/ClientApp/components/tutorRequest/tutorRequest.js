@@ -64,7 +64,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['updateRequestDialog']),
+        ...mapActions(['updateRequestDialog', 'updateToasterParams']),
         ...mapMutations(['UPDATE_LOADING']),
         sendRequest() {
             let self = this;
@@ -79,6 +79,10 @@ export default {
                             .then((success) => {
                                       self.btnRequestLoading = false;
                                       self.tutorRequestDialogClose();
+                                      self.updateToasterParams({
+                                        toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
+                                        showToaster: true,
+                                      })
                                   },
                                   (error) => {
                                       self.btnRequestLoading = false;
