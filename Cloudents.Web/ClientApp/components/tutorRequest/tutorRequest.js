@@ -4,11 +4,11 @@ import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.
 import tutorService from "../../services/tutorService";
 import { LanguageService } from "../../services/language/languageService";
 import { validationRules } from "../../services/utilities/formValidationRules";
+import analyticsService from '../../services/analytics.service';
 
 export default {
     components: {
         UserAvatar,
-        // QuestionRegular,
         FileUpload
     },
     data() {
@@ -67,6 +67,7 @@ export default {
         ...mapActions(['updateRequestDialog', 'updateToasterParams']),
         ...mapMutations(['UPDATE_LOADING']),
         sendRequest() {
+            
             let self = this;
             if(self.$refs.tutorRequestForm.validate()) {
                 self.btnRequestLoading = true;
@@ -75,6 +76,11 @@ export default {
                     text: self.tutorRequestText,
                     files: self.uploadProp.uploadedFileNames
                 };
+                let analyticsObject = {
+                    userId: self.accountUser.id,
+                    course: self.tutorCourse
+                }
+                analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                 tutorService.requestTutor(serverObj)
                             .then((success) => {
                                       self.btnRequestLoading = false;
