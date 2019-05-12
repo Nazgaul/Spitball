@@ -229,7 +229,7 @@ const connectToRoom = function (token, options) {
                     });
                 },
                 (error) => {
-                    console.log(error, 'error cant connect');
+                    console.error(error, 'error cant connect');
                 });
 };
 
