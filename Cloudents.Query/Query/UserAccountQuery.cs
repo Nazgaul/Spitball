@@ -48,7 +48,8 @@ namespace Cloudents.Query.Query
                         from sb.[user] u
                         left join sb.Tutor t
 	                        on u.Id = t.Id
-                        where U.Id = @Id;";
+                        where U.Id = @Id 
+                        and (LockoutEnd is null or GetUtcDate() >= LockoutEnd);";
 
                 const string paymentSql =
                     @"select top 1 cast(1 as bit) 
@@ -63,7 +64,11 @@ and (u.PaymentKey is null or u.PaymentKeyExpiration  < GETUTCDATE());";
                     using (var grid = await conn.QueryMultipleAsync(sql + paymentSql, new { id = query.Id }))
                     {
                         var retVal = await grid.ReadSingleAsync<UserAccountDto>();
-                        retVal.NeedPayment = await grid.ReadSingleOrDefaultAsync<bool>();
+                        if (retVal == null)
+                        {
+                            return null;
+                        }
+                       // retVal.NeedPayment = await grid.ReadSingleOrDefaultAsync<bool>();
                         return retVal;
                     }
                 }

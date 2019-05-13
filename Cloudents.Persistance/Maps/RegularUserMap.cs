@@ -63,6 +63,12 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumn("UserId").Inverse().AsSet();
 
 
+            HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
+                .Cascade.AllDeleteOrphan()
+                .KeyColumn("UserId").Inverse();
+            //StudyRooms
+
+
             HasManyToMany(x => x.Tags)
                 .ParentKeyColumn("UserId")
                 .ChildKeyColumn("TagId")

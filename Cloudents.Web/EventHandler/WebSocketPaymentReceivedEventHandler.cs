@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Event;
@@ -19,9 +21,20 @@ namespace Cloudents.Web.EventHandler
 
         public async Task HandleAsync(StudentPaymentReceivedEvent eventMessage, CancellationToken token)
         {
+
+            var list = new List<Task>();
             var message = new SignalRTransportType(SignalRType.User,
-                SignalREventAction.PaymentReceived,new object());
-            await _hubContext.Clients.User(eventMessage.User.Id.ToString()).SendAsync(SbHub.MethodName, message, token);
+                SignalREventAction.PaymentReceived, new object());
+            foreach (var roomId in eventMessage.User.StudyRooms.Select(s => s.Room.Id))
+            {
+                var t = _hubContext.Clients.Group(roomId.ToString()).SendAsync(SbHub.MethodName, message, token);
+                list.Add(t);
+            }
+            
+            var t1 =  _hubContext.Clients.User(eventMessage.User.Id.ToString())
+                .SendAsync(SbHub.MethodName, message, token);
+            list.Add(t1);
+            await Task.WhenAll(list);
         }
     }
 }

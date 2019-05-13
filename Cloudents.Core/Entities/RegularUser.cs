@@ -57,6 +57,8 @@ namespace Cloudents.Core.Entities
         //protected internal virtual ISet<UserCourse> UserCourses { get; protected set; }
         private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
+
+
         public virtual IReadOnlyCollection<UserCourse> UserCourses => _userCourses.ToList();
 
         public virtual void AssignCourses(IEnumerable<Course> courses)
@@ -69,12 +71,10 @@ namespace Cloudents.Core.Entities
                     course.Count++;
                 }
             }
-           // Courses.IntersectWith(userCourse);
         }
 
         public virtual void RemoveCourse(Course course)
         {
-         //   UserCourses.Remove()
             var p = new UserCourse(this,course);
             if (_userCourses.Remove(p))
             {
@@ -82,6 +82,9 @@ namespace Cloudents.Core.Entities
             }
         }
 
+        private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
+
+        public virtual IReadOnlyCollection<StudyRoomUser> StudyRooms => _studyRooms.ToList();
 
         public virtual ISet<Tag> Tags { get; protected set; }
 
@@ -102,17 +105,7 @@ namespace Cloudents.Core.Entities
             BuyerPayment = new BuyerPayment(token, expiration);
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
-        //public virtual string BuyerKey
-        //{
-        //    set { _buyer.BuyerKey = value; }
-        //    get { return _buyer.BuyerKey; }
-        //}
-
-        //public virtual DateTime BuyerKeyExpiration
-        //{
-        //    set { _buyer.BuyerKeyExpiration = value; }
-        //    get { return _buyer.BuyerKeyExpiration; }
-        //}
+      
 
         public virtual void ChangeOnlineStatus(bool isOnline)
         {
