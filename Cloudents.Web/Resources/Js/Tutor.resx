@@ -228,6 +228,18 @@
   <data name="stream_guest" xml:space="preserve">
     <value>Guest</value>
   </data>
+  <data name="tab1" xml:space="preserve">
+    <value>Tab 1</value>
+  </data>
+  <data name="tab2" xml:space="preserve">
+    <value>Tab 2</value>
+  </data>
+  <data name="tab3" xml:space="preserve">
+    <value>Tab 3</value>
+  </data>
+  <data name="tab4" xml:space="preserve">
+    <value>Tab 4</value>
+  </data>
   <data name="tooltip_circle" xml:space="preserve">
     <value>Circle</value>
   </data>
