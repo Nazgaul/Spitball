@@ -34,6 +34,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Web.Resources;
 using Microsoft.Extensions.Options;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -335,8 +336,8 @@ namespace Cloudents.Web
                     defaults: new { controller = "Home", action = "Index" }
                 );
                 routes.MapRoute(
-                    name: "Static",
-                    template: "/{**page}",
+                    name: SeoTypeString.Static,
+                    template: "{id}",
                     defaults: new { controller = "Home", action = "Index" }
                 );
                 routes.MapRoute(

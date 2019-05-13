@@ -12,7 +12,7 @@
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
+                <v-btn round :disabled="localSelectedClasses.length === 0" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
                     <span v-language:inner>courses_btn_done</span>
                 </v-btn>
             </v-flex>
@@ -376,6 +376,9 @@
             border-radius: 36px;
             border: solid 1px @colorBlue;
             background-color: transparent !important;
+            &.v-btn--disabled{
+                border:none;
+            }
         }
         .class-list {
             background-color: #ffffff;

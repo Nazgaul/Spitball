@@ -19,7 +19,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             });
         }
 
-        [Theory]
+        [Theory(Skip = "We are not using flashcards tab anymore")]
         [InlineData("/api/search/flashcards")]
         public async Task SearchDocumentAsync_Ok(string url)
         {

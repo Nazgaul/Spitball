@@ -93,13 +93,13 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("api/profile/159039/questions")]
-        [InlineData("api/profile/159039/answers")]
-        [InlineData("api/profile/159039/documents")]
-        [InlineData("api/profile/159039/purchaseDocuments")]
-        public async Task GetAsync_UserTabs_OK(string url)
+        [InlineData("questions")]
+        [InlineData("answers")]
+        [InlineData("documents")]
+        [InlineData("purchaseDocuments")]
+        public async Task GetAsync_UserTabs_OK(string tab)
         {
-            var response = await _client.GetAsync(url);
+            var response = await _client.GetAsync("api/profile/159039/" + tab);
 
             var str = await response.Content.ReadAsStringAsync();
 
