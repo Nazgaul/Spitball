@@ -42,7 +42,7 @@
     </environment>
     @await RenderSectionAsync("styleSection", required: false)
     <partial name="_HeaderTags" model="cdnEndPoint" />
-    @*@Html.Raw(JavaScriptSnippet.FullScript)*@
+    @Html.Raw(JavaScriptSnippet.FullScript)
     @Html.Raw(ClickJackingTagHelper.FullScript)
     <style>
         .async-hide {
