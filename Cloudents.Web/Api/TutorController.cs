@@ -118,10 +118,12 @@ namespace Cloudents.Web.Api
             [FromServices]  IQueueProvider queueProvider,
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
             CancellationToken token)
-        { 
+        {
             //RequestTutorEmail
             var userId = _userManager.GetLongUserId(User);
-            var email = new RequestTutorEmail(userId, model.Text, model.Course,
+            var query = new UserEmailInfoQuery(userId);
+            var userInfo = await _queryBus.QueryAsync(query, token);
+            var email = new RequestTutorEmail(userId, model.Text, model.Course, userInfo,
                 model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray());
 
             await queueProvider.InsertMessageAsync(email, token);
@@ -135,7 +137,7 @@ namespace Cloudents.Web.Api
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
-            string[] supportedImages = {".jpg", ".png", ".gif", ".jpeg", ".bmp"};
+            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
 
             var userId = _userManager.GetUserId(User);
 
