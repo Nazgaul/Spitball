@@ -194,6 +194,24 @@ namespace Cloudents.Admin2.Api
         }
 
 
+        [HttpPost("pay")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> PayAsync(PaymentRequest model,
+            CancellationToken token)
+        {
+            var command = new PaymentCommand(model.UserKey, model.TutorKey, model.Anount);
+            try
+            {
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
