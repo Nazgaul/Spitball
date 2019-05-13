@@ -10,7 +10,7 @@ namespace Cloudents.Query.Query
 {
     public class SiteMapQuery : IQuery<IList<SiteMapCountDto>>
     {
-
+        
 
         internal sealed class SeoItemCountQueryHandler : IQueryHandler<SiteMapQuery, IList<SiteMapCountDto>>
         {
@@ -32,16 +32,21 @@ namespace Cloudents.Query.Query
                     .Where(w => w.Status.State == ItemState.Ok)
                     .ToRowCountQuery().FutureValue<int>();
 
+                var tutorCountFuture = _session.QueryOver<Core.Entities.Tutor>()
+                    //.Where(w => w.Status.State == ItemState.Ok)
+                    .ToRowCountQuery().FutureValue<int>();
+
 
 
 
                 var documentCount = await documentCountFuture.GetValueAsync(token);
                 var questionCount = await questionCountFuture.GetValueAsync(token);
+                var tutorCount = await tutorCountFuture.GetValueAsync(token);
                 return new List<SiteMapCountDto>
                 {
                     new SiteMapCountDto(SeoType.Document, documentCount),
-                    new SiteMapCountDto(SeoType.Question,questionCount)
-                    // new SiteMapCountDto(SeoType.Flashcard, flashcardCount),
+                    new SiteMapCountDto(SeoType.Question,questionCount),
+                    new SiteMapCountDto(SeoType.Tutor, tutorCount)
                 };
             }
         }

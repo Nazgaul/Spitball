@@ -227,6 +227,8 @@ namespace Cloudents.Web
 
             containerBuilder.RegisterType<DocumentSeoBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Document);
+            containerBuilder.RegisterType<TutorSeoBuilder>()
+                .Keyed<IBuildSeo>(SeoType.Tutor);
             containerBuilder.RegisterType<StaticSeoBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Static);
             containerBuilder.RegisterType<QuestionSeoBuilder>()

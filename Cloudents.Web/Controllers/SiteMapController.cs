@@ -27,7 +27,7 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class SiteMapController : Controller
     {
-        private const int PageSize = 40000;
+        internal const int PageSize = 40000;
         private readonly IQueryBus _queryBus;
         private readonly XmlWriterSettings _xmlWriterSettings = new XmlWriterSettings
         {
@@ -233,4 +233,36 @@ namespace Cloudents.Web.Controllers
             }
         }
     }
+
+
+    public class TutorSeoBuilder : IBuildSeo
+    {
+        private readonly IStatelessSession _session;
+        private readonly LinkGenerator _linkGenerator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public TutorSeoBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        {
+            _session = session;
+            _linkGenerator = linkGenerator;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        public IEnumerable<string> GetUrls(int index)
+        {
+            var t = _session.Query<Tutor>()
+                .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
+                .Select(s => s.Id);
+
+            foreach (var item in t)
+            {
+                yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Question, new
+                {
+                    Id = item,
+                });
+
+            }
+        }
+    }
+}
 }
