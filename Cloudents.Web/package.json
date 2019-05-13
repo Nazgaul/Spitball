@@ -99,6 +99,7 @@
     "vue-clipboard2": "^0.2.1",
     "vue-color": "^2.7.0",
     "vue-numeric": "^2.3.0",
-    "vuex-router-sync": "^5.0.0"
+    "vuex-router-sync": "^5.0.0",
+    "vue-application-insights": "1.0.6"
   }
 }
