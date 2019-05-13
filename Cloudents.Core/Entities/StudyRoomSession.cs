@@ -25,6 +25,7 @@ namespace Cloudents.Core.Entities
         public virtual TimeSpan? Duration { get; protected set; }
 
         public virtual string SessionId { get; protected set; }
+        public virtual string Receipt { get; protected set; }
 
         public virtual void EndSession()
         {
@@ -34,6 +35,15 @@ namespace Cloudents.Core.Entities
             }
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
+        }
+
+        public virtual void SetReceipt(string receipt)
+        {
+            if (string.IsNullOrEmpty(receipt))
+            {
+                throw new ArgumentException();
+            }
+            Receipt = receipt;
         }
     }
 }

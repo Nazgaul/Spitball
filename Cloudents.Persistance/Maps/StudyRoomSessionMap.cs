@@ -15,6 +15,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Ended);
             Map(x => x.Duration);
             Map(x => x.SessionId).Not.Nullable();
+            Map(x => x.Receipt);
             SchemaAction.Update();
            
         }

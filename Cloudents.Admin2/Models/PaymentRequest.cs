@@ -16,5 +16,7 @@ namespace Cloudents.Admin2.Models
         public string TutorKey { get; set; }
         [Required]
         public decimal Anount { get; set; }
+        [Required]
+        public Guid StudyRoomSessionId { get; set; }
     }
 }

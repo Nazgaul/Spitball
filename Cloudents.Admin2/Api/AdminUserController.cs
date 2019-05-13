@@ -200,7 +200,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> PayAsync(PaymentRequest model,
             CancellationToken token)
         {
-            var command = new PaymentCommand(model.UserKey, model.TutorKey, model.Anount);
+            var command = new PaymentCommand(model.UserKey, model.TutorKey, model.Anount, model.StudyRoomSessionId);
             try
             {
                 await _commandBus.DispatchAsync(command, token);
