@@ -139,12 +139,12 @@ namespace Cloudents.Web.Controllers
 
     }
 
-    public class StaticSeoBuilder : IBuildSeo
+    public class SeoStaticBuilder : IBuildSeo
     {
         private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public StaticSeoBuilder(LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public SeoStaticBuilder(LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
         {
             _linkGenerator = linkGenerator;
             _httpContextAccessor = httpContextAccessor;
@@ -160,13 +160,13 @@ namespace Cloudents.Web.Controllers
         }
     }
 
-    public class DocumentSeoBuilder : IBuildSeo
+    public class SeoDocumentBuilder : IBuildSeo
     {
         private readonly IStatelessSession _session;
         private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DocumentSeoBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public SeoDocumentBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
         {
             _session = session;
             _linkGenerator = linkGenerator;
@@ -203,13 +203,13 @@ namespace Cloudents.Web.Controllers
     }
 
 
-    public class QuestionSeoBuilder : IBuildSeo
+    public class SeoQuestionBuilder : IBuildSeo
     {
         private readonly IStatelessSession _session;
         private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public QuestionSeoBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public SeoQuestionBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
         {
             _session = session;
             _linkGenerator = linkGenerator;
@@ -233,36 +233,4 @@ namespace Cloudents.Web.Controllers
             }
         }
     }
-
-
-    public class TutorSeoBuilder : IBuildSeo
-    {
-        private readonly IStatelessSession _session;
-        private readonly LinkGenerator _linkGenerator;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public TutorSeoBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
-        {
-            _session = session;
-            _linkGenerator = linkGenerator;
-            _httpContextAccessor = httpContextAccessor;
-        }
-
-        public IEnumerable<string> GetUrls(int index)
-        {
-            var t = _session.Query<Tutor>()
-                .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
-                .Select(s => s.Id);
-
-            foreach (var item in t)
-            {
-                yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Question, new
-                {
-                    Id = item,
-                });
-
-            }
-        }
-    }
-}
 }

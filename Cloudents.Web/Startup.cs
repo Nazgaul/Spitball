@@ -225,13 +225,13 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
 
-            containerBuilder.RegisterType<DocumentSeoBuilder>()
+            containerBuilder.RegisterType<SeoDocumentBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Document);
-            containerBuilder.RegisterType<TutorSeoBuilder>()
+            containerBuilder.RegisterType<SeoTutorBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Tutor);
-            containerBuilder.RegisterType<StaticSeoBuilder>()
+            containerBuilder.RegisterType<SeoStaticBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Static);
-            containerBuilder.RegisterType<QuestionSeoBuilder>()
+            containerBuilder.RegisterType<SeoQuestionBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Question);
             containerBuilder.Register(c =>
             {
@@ -326,6 +326,12 @@ namespace Cloudents.Web
                 routes.MapRoute(
                     name: SeoTypeString.Question,
                     template: "question/{id:long}",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
+
+                routes.MapRoute(
+                    name: SeoTypeString.Tutor,
+                    template: "profile/{id:long}",
                     defaults: new { controller = "Home", action = "Index" }
                 );
                 routes.MapRoute(
