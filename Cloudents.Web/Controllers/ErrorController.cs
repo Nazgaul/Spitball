@@ -11,7 +11,7 @@ namespace Cloudents.Web.Controllers
         [ActionName("NotFound")]
         public ActionResult Error404()
         {
-            //Response.StatusCode = 404;
+            Response.StatusCode = 404;
             return View("NotFound");
         }
 
@@ -36,7 +36,7 @@ namespace Cloudents.Web.Controllers
             }
             //return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, ErrorText = text });
 
-            //Response.StatusCode = 500;
+            Response.StatusCode = 500;
             return View();
         }
     }
