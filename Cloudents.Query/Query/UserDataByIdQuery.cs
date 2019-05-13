@@ -5,7 +5,6 @@ using Cloudents.Core.Entities;
 namespace Cloudents.Query.Query
 {
     public class UserDataByIdQuery : IQuery<RegularUser>,
-        IQuery<UserAccountDto>,
         IQuery<IEnumerable<BalanceDto>>,
         IQuery<IEnumerable<TransactionDto>> 
        
@@ -28,18 +27,6 @@ namespace Cloudents.Query.Query
             UserId = userId;
         }
 
-        public long UserId { get; set; }
-    }
-
-    public class UserVotesQuestionQuery : IQuery<IEnumerable<UserVoteAnswerDto>>
-    {
-        public UserVotesQuestionQuery(long userId, long questionId)
-        {
-            UserId = userId;
-            QuestionId = questionId;
-        }
-
-        public long UserId { get; private set; }
-        public long QuestionId { get; private set; }
+        public long UserId { get;}
     }
 }

@@ -134,8 +134,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AccountUserDataById_Ok()
         {
-            var query = new UserDataByIdQuery(638);
-            var user = await fixture.QueryBus.QueryAsync<UserAccountDto>(query, default);
+            var query = new UserAccountQuery(638);
+            var user = await fixture.QueryBus.QueryAsync(query, default);
         }
     }
 }

@@ -57,8 +57,8 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserDataByIdQuery(userId);
-            var user = await queryBus.QueryAsync<UserAccountDto>(query, token);
+            var query = new UserAccountQuery(userId);
+            var user = await queryBus.QueryAsync(query, token);
 
 
             if (user == null)
