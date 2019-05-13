@@ -1,4 +1,5 @@
 import tutorService from '../components/tutor/tutorService'
+import {LanguageService} from '../services/language/languageService'
 
 const state = {
     dragData: {
@@ -13,24 +14,24 @@ const state = {
     shapesSelected: {},
     canvasTabs: [
         {
-            name: 'Tab 1',
+            name: LanguageService.getValueByKey('tutor_tab1'),
             id: 'tab-0'
         },
         {
-            name: 'Tab 2',
+            name: LanguageService.getValueByKey('tutor_tab2'),
             id: 'tab-1'
         },
         {
-            name: 'Tab 3',
+            name: LanguageService.getValueByKey('tutor_tab3'),
             id: 'tab-2'
         },
         {
-            name: 'Tab 4',
+            name: LanguageService.getValueByKey('tutor_tab4'),
             id: 'tab-3'
         },
     ],
     currentSelectedTab: {
-        name: 'Tab 1',
+        name: LanguageService.getValueByKey('tutor_tab1'),
         id: 'tab-0'
     }
 };
