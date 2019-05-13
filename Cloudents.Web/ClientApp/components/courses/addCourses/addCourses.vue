@@ -12,7 +12,7 @@
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
+                <v-btn round :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
                     <span v-language:inner>courses_btn_done</span>
                 </v-btn>
             </v-flex>
@@ -113,6 +113,7 @@
     import { mapActions, mapGetters } from "vuex";
     import { LanguageService } from "../../../services/language/languageService";
     import debounce from "lodash/debounce";
+    import universityService from '../../../services/universityService';
 
     export default {
         data() {
@@ -129,7 +130,8 @@
                 ),
                 isRtl: global.isRtl,
                 global: global,
-                localSelectedClasses: []
+                localSelectedClasses: [],
+                doneButtonLoading: false
             };
         },
 
@@ -144,8 +146,10 @@
             }, 500)
         },
         computed: {
-            ...mapGetters(["getSelectedClasses"]),
-
+            ...mapGetters(["getSelectedClasses", "accountUser"]),
+            isTutor(){
+                return this.accountUser.isTutor;
+            },
             quantatySelected() {
                 return this.selectedClasses.length;
             },
@@ -252,11 +256,29 @@
                     self.isComplete = true;
                 });
             },
+            setTeachActiveOnSelectedClass(){
+                universityService.teachCourse(course.text).then((resp) => {
+                    }, (error) => {
+                });
+            },
             submitAndGo() {
                 //assign all saved in cached list to classes list
                 this.changeClassesToCachedClasses();
+                this.doneButtonLoading = true;
                 this.assignClasses().then(() => {
-                    this.$router.push({name: 'editCourse'});
+                    if(this.isTutor){
+                            this.localSelectedClasses.forEach(course=>{
+                                universityService.teachCourse(course.text).then(resp=>{
+                                    course.isTeaching = true;
+                                    this.doneButtonLoading = false;
+                                    this.$router.push({name: 'editCourse'});
+                                })
+                            });
+                    }else{
+                        this.doneButtonLoading = false;
+                        this.$router.push({name: 'editCourse'});
+                    }
+                    
                 });
             },
             deleteClass(classToDelete, from) {
