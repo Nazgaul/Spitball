@@ -14,20 +14,29 @@ namespace Cloudents.Web.Test.UnitTests
     {
         private readonly SbWebApplicationFactory _factory;
 
+        private readonly System.Net.Http.HttpClient _client;
+
+        private readonly UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/wallet"
+        };
+
+        private readonly string[] types = { "Earned", "Stake", "Spent" };
+        
+
+
         public WalletControllerTests(SbWebApplicationFactory factory)
         {
             _factory = factory;
+            _client = _factory.CreateClient();
         }
 
         [Fact]
         public async Task GetAsync_Balance()
-        {
-            var client = _factory.CreateClient();
-            string[] types = { "Earned", "Stake", "Spent" };
-            
-            await client.LogInAsync();
+        {   
+            await _client.LogInAsync();
 
-            var response = await client.GetAsync("api/wallet/balance");
+            var response = await _client.GetAsync(_uri.Path + "/balance");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -38,6 +47,7 @@ namespace Cloudents.Web.Test.UnitTests
                 var type = d[i]["type"]?.Value<string>();
                 var name = d[i]["name"]?.Value<string>();
                 var points = d[i]["points"]?.Value<decimal?>();
+
                 type.Should().Be(types[i]);
                 name.Should().Be(types[i]);
                 points.Should().NotBeNull();
@@ -47,10 +57,9 @@ namespace Cloudents.Web.Test.UnitTests
         [Fact]
         public async Task GetAsync_Transaction()
         {
-            var client = _factory.CreateClient();
+            await _client.LogInAsync();
 
-            await client.LogInAsync();
-            var response = await client.GetAsync("api/wallet/transaction");
+            var response = await _client.GetAsync(_uri.Path + "/transaction");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -72,13 +81,9 @@ namespace Cloudents.Web.Test.UnitTests
         [Fact]
         public async Task PostAsync_Redeem()
         {
-            var client = _factory.CreateClient();
+            await _client.LogInAsync();
 
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
-
-            await client.PostAsync("api/LogIn", new StringContent(cred, Encoding.UTF8, "application/json"));
-
-            var response = await client.PostAsync("api/Wallet/redeem", new StringContent("{amount:1000}", Encoding.UTF8, "application/json"));
+            var response = await _client.PostAsync(_uri.Path + "/redeem", new StringContent("{amount:1000}", Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
         }

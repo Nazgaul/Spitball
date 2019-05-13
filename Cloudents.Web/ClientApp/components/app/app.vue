@@ -233,7 +233,11 @@ export default {
       }
     },
     cookiesShow() {
-      return this.getCookieAccepted();
+      if(!this.accountUser){
+        return this.getCookieAccepted();
+      }else{
+        return true;
+      }
     },
     universitySelectPopup() {
       return this.getShowSelectUniPopUpInterface;

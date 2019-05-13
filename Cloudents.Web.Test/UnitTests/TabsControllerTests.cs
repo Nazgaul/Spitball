@@ -1,6 +1,8 @@
 ﻿using Cloudents.Web.Test.IntegrationTests;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using System;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,9 +13,21 @@ namespace Cloudents.Web.Test.UnitTests
     {
         private readonly SbWebApplicationFactory _factory;
 
+        private readonly System.Net.Http.HttpClient _client;
+
+        private readonly UriBuilder _uri = new UriBuilder()
+        {
+            Path = "/note"
+        };
+
+
         public TabsControllerTests(SbWebApplicationFactory factory)
         {
             _factory = factory;
+            _client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Theory]
@@ -22,43 +36,33 @@ namespace Cloudents.Web.Test.UnitTests
         [InlineData("job")]
         public async Task GetAsync_Redirect_ToHomePage(string url)
         {
-            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions
-            {
-                AllowAutoRedirect = false
-            });
+            var response = await _client.GetAsync(url);
 
-            var response = await client.GetAsync(url);
+            response.StatusCode.Should().Be(HttpStatusCode.Redirect);
 
-            response.StatusCode.Should().Be(302);
             response.Headers.Location.Should().Be("/");
         }
 
         [Fact]
         public async Task GetAsync_StudyDoc()
         {
-            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions
-            {
-                AllowAutoRedirect = false
-            });
-
-            var response = await client.GetAsync("/note");
+            var response = await _client.GetAsync(_uri.Path);
 
             response.EnsureSuccessStatusCode();
-            response.RequestMessage.RequestUri.Should().Be("http://localhost/note");
+
+            response.RequestMessage.RequestUri.Should().Be(_uri.Host + _uri.Path);
         }
 
         [Fact]
         public async Task GetAsync_HW()
         {
-            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions
-            {
-                AllowAutoRedirect = false
-            });
+            _uri.Path = "/ask";
 
-            var response = await client.GetAsync("/ask");
+            var response = await _client.GetAsync(_uri.Path);
 
             response.EnsureSuccessStatusCode();
-            response.RequestMessage.RequestUri.Should().Be("http://localhost/ask");
+
+            response.RequestMessage.RequestUri.Should().Be(_uri.Host + _uri.Path);
         }
     }
 }
