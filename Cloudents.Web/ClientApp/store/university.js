@@ -252,11 +252,10 @@ const actions = {
         commit('pushClass', val);
     },
     assignClasses({state, dispatch}) {
-        universityService.assaignCourse(state.selectedClasses).then(() => {
+       return universityService.assaignCourse(state.selectedClasses).then(() => {
             //Update Filters in note page
             dispatch('changeReflectChangeToPage');
             Promise.resolve(true);
-
         });
     },
     assignSelectedClassesCache({commit, state}) {

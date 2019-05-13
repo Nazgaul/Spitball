@@ -130,7 +130,6 @@
                               "syncCoursesData",
                               "deleteClass",
                               "updateSelectedClasses",
-                              "assignClasses",
                               "pushClassToSelectedClasses",
                           ]),
             teachCourseToggle(course) {
