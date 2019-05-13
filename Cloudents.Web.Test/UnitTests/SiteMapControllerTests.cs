@@ -9,6 +9,8 @@ namespace Cloudents.Web.Test.UnitTests
     {
         private readonly SbWebApplicationFactory _factory;
 
+        private readonly string sitemapLink = "https://dev.spitball.co/sitemap.xml";
+
         public SiteMapControllerTests(SbWebApplicationFactory factory)
         {
             _factory = factory;
@@ -19,7 +21,7 @@ namespace Cloudents.Web.Test.UnitTests
         {
             XmlDocument sm = new XmlDocument();
 
-            sm.Load("https://dev.spitball.co/sitemap.xml");
+            sm.Load(sitemapLink);
             XmlElement root = sm.DocumentElement;
             XmlNodeList nodes = root.SelectNodes("sitemap");
             

@@ -1,6 +1,8 @@
 ﻿using Cloudents.Web.Test.IntegrationTests;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using System;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,23 +13,33 @@ namespace Cloudents.Web.Test.UnitTests
     {
         private readonly SbWebApplicationFactory _factory;
 
+        private readonly System.Net.Http.HttpClient _client;
+
+        private readonly UriBuilder _uri = new UriBuilder()
+        {
+            Path = "blog"
+        };
+
+        private readonly string _mediumLink = "https://medium.com/@spitballstudy";
+
+
         public BlogControllerTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
+            //_factory = factory;
+            _client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Fact]
         public async Task Redirect_Test()
         {
-            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
-            {
-                AllowAutoRedirect = false
-            });
+            var response = await _client.GetAsync(_uri.Path);
 
-            var response = await client.GetAsync("https://dev.spitball.co/blog");
+            response.StatusCode.Should().Be(HttpStatusCode.Redirect);
 
-            response.StatusCode.Should().Be(302);
-            response.Headers.Location.Should().Be("https://medium.com/@spitballstudy");
+            response.Headers.Location.Should().Be(_mediumLink);
         }
     }
 }
