@@ -1,3 +1,1 @@
-﻿Need to upload azure function v2
-alter table sb.tutorreview
-alter column review nvarchar(1000) null
+﻿Need to resubmit sitemap
