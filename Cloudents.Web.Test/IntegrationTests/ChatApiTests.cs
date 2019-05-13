@@ -2,6 +2,7 @@
 using Xunit;
 using FluentAssertions;
 using System.Net;
+using System;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -10,13 +11,18 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        private readonly object msg = new
+        private readonly UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/chat"
+        };
+
+        private readonly object _msg = new
         {
             message = "string",
             otherUser = "160116"
         };
 
-        private readonly object user = new
+        private readonly object _user = new
         {
             otherUser = "159039"
         };
@@ -33,7 +39,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync("api/Chat");
+            var response = await _client.GetAsync(_uri.Path);
 
             response.EnsureSuccessStatusCode();
         }
@@ -43,7 +49,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Chat", HttpClient.CreateJsonString(msg));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_msg));
 
             response.EnsureSuccessStatusCode();
         }
@@ -51,7 +57,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_NotValidUrl_Messages()
         {   
-            var response = await _client.GetAsync("api/Chat/159039");
+            var response = await _client.GetAsync(_uri.Path + "/159039");
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -61,7 +67,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Chat/read", HttpClient.CreateJsonString(user));
+            var response = await _client.PostAsync(_uri.Path + "/read", HttpClient.CreateJsonString(_user));
+           
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
         }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using System;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -14,6 +15,12 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class QuestionsApiTests //:  IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
+
+        private UriBuilder _uri = new UriBuilder()
+        {
+            Path = "/api/question"
+        };
+
 
         public QuestionsApiTests(SbWebApplicationFactory factory)
         {
@@ -26,7 +33,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_Filters()
         {
-            var response = await _client.GetAsync("/api/question");
+            var response = await _client.GetAsync(_uri.Path);
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -60,19 +67,13 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var d = JObject.Parse(str);
 
-            var subject = d["subject"]?.Value<string>();
-            var id = d["id"]?.Value<long?>();
-            var text = d["text"]?.Value<string>();
-            var price = d["price"]?.Value<decimal?>();
-            var course = d["course"]?.Value<string>();
-            var user = d["user"]?.Value<JObject>();
-            var answers = d["answers"]?.Value<JArray>();
-            var create = d["create"]?.Value<System.DateTime?>();
-            var files = d["files"]?.Value<JArray>();
+            var id = d["id"]?.Value<long?>();            
+            var user = d["user"]?.Value<JObject>();            
             var rtl = d["isRtl"]?.Value<bool?>();
             var vote = d["vote"]?.Value<JObject>();
 
             response.EnsureSuccessStatusCode();
+
             id.Should().NotBeNull();
             user.Should().NotBeNull();
             rtl.Should().NotBeNull();
@@ -82,7 +83,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_Not_Found()
         {
-            var response = await _client.GetAsync("/api/question/123");
+            var response = await _client.GetAsync(_uri.Path + "/123");
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -94,7 +95,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
             
-            var response = await _client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
+            var response = await _client.PostAsync(_uri.Path, new StringContent(question, Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
         }
@@ -114,7 +115,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 subjectId, course, text
             });
 
-            var response = await _client.PostAsync("api/question", new StringContent(question, Encoding.UTF8, "application/json"));
+            var response = await _client.PostAsync(_uri.Path, new StringContent(question, Encoding.UTF8, "application/json"));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }

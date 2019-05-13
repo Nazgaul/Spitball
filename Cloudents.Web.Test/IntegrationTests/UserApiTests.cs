@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using System.Net;
+using System;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -12,24 +13,30 @@ namespace Cloudents.Web.Test.IntegrationTests
         //private readonly SbWebApplicationFactory _factory;
         private readonly System.Net.Http.HttpClient _client;
 
-        private readonly object cred = new
+        private readonly object _cred = new
         {
             confirmPassword = "123456789",
             email = "elad+99@cloudents.com",
             password = "123456789"
         };
 
-        private readonly object sms = new
+        private readonly object _sms = new
         {
             number = "123456",
             fingerPrint = "string"
         };
 
-        private readonly object phone = new
+        private readonly object _phone = new
         {
             phoneNumber = "542473699",
             countryCode = 972
         };
+
+        private UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/course"
+        };
+
 
 
 
@@ -45,7 +52,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync("api/course/search?term=fsdfds");
+            var response = await _client.GetAsync(_uri.Path + "/search?term=fsdfds");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -59,9 +66,13 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_Code()
         {
-            await _client.PostAsync("api/LogIn", HttpClient.CreateJsonString(cred));
+            _uri.Path = "api/login";
 
-            var response = await _client.GetAsync("api/sms/code");
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_cred));
+
+            _uri.Path = "api/sms/code";
+
+            var response = await _client.GetAsync(_uri.Path);
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -79,9 +90,13 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
-            await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
+            _uri.Path = "api/register";
 
-            var response = await _client.PostAsync("api/Sms", HttpClient.CreateJsonString(phone));
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_cred));
+
+            _uri.Path = "api/sms";
+
+            var response = await _client.PostAsync(Uri.Path, HttpClient.CreateJsonString(_phone));
 
             response.EnsureSuccessStatusCode();
         }
@@ -91,9 +106,13 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
-            await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
+            _uri.Path = "api/register";
 
-            var response = await _client.PostAsync("api/Sms/resend", null);
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_cred));
+
+            _uri.Path = "api/sms/resend";
+
+            var response = await _client.PostAsync(_uri.Path, null);
 
             response.EnsureSuccessStatusCode();
         }
@@ -103,9 +122,13 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
 
-            await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
+            _uri.Path = "api/register";
 
-            var response = await _client.PostAsync("api/Sms/verify", HttpClient.CreateJsonString(sms));
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_cred));
+
+            _uri.Path = "api/sms/verify";
+
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_sms));
 
             response.StatusCode.Should().NotBe(HttpStatusCode.InternalServerError);
         }
@@ -113,9 +136,11 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Resend_Email()
         {
-            await _client.PostAsync("api/Register", HttpClient.CreateJsonString(cred));
+            await _client.PostAsync("api/Register", HttpClient.CreateJsonString(_cred));
 
-            var response = await _client.PostAsync("api/Register/resend", HttpClient.CreateString("{}"));
+            _uri.Path = "api/register/resend";
+
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateString("{}"));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -123,7 +148,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_Validate_Email()
         {
-            var response = await _client.GetAsync("api/LogIn/ValidateEmail?email=elad%40cloudents.com");
+            _uri.Path = "api/login";
+
+            var response = await _client.GetAsync(_uri.Path + "/ValidateEmail?email=elad%40cloudents.com");
 
             response.EnsureSuccessStatusCode();
         }
@@ -131,7 +158,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_Non_Validate_Email()
         {
-            var response = await _client.GetAsync("api/LogIn/ValidateEmail?email=fsdfs%40cloudents.com");
+            _uri.Path = "api/login";
+
+            var response = await _client.GetAsync(_uri.Path + "/ValidateEmail?email=fsdfs%40cloudents.com");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -142,6 +171,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var error = d["Email"][0].Value<string>();
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
             error.Should().Be("Account cannot be found, please sign up");
         }
     }

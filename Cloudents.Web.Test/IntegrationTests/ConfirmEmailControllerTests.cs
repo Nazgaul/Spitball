@@ -10,6 +10,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
+
         public ConfirmEmailControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions()

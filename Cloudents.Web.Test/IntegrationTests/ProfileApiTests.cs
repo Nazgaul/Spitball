@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
@@ -11,6 +12,12 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class ProfileApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
+
+        private UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/profile"
+        };
+
 
         public ProfileApiTests(SbWebApplicationFactory factory)
         {
@@ -23,7 +30,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task Get_About_Tutor_Profile()
         {
-            var response = await _client.GetAsync("api/profile/159039/about");
+            var response = await _client.GetAsync(_uri.Path + "/159039/about");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -43,7 +50,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task Get_About_Regular_Profile()
         {
-            var response = await _client.GetAsync("api/profile/160171/about");
+            var response = await _client.GetAsync(_uri.Path + "/160171/about");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -81,13 +88,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_NotFound()
         {
-            var response = await _client.GetAsync("api/profile/1");
-
-            //var str = await response.Content.ReadAsStringAsync();
-
-            //var d = JObject.Parse(str);
-
-            //var status = d["status"]?.Value<int?>();
+            var response = await _client.GetAsync(_uri.Path + "/1");
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -99,7 +100,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [InlineData("purchaseDocuments")]
         public async Task GetAsync_UserTabs_OK(string tab)
         {
-            var response = await _client.GetAsync("api/profile/159039/" + tab);
+            var response = await _client.GetAsync(_uri.Path + "/159039/" + tab);
 
             var str = await response.Content.ReadAsStringAsync();
 

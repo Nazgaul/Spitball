@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
@@ -10,6 +11,13 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
+        private readonly UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/account"
+        };
+
+
+
         public AccountControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
@@ -17,8 +25,8 @@ namespace Cloudents.Web.Test.IntegrationTests
 
         [Fact]
         public async Task GetAsync_Unauthorized_401()
-        {
-            var response = await _client.GetAsync("api/account");
+        {            
+            var response = await _client.GetAsync(_uri.Path);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
@@ -27,7 +35,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task GetAsync_OK_200()
         {
             await _client.LogInAsync();
-            var response = await _client.GetAsync("api/account");
+
+            var response = await _client.GetAsync(_uri.Path);
 
             response.EnsureSuccessStatusCode();
         }

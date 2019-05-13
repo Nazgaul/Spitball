@@ -12,40 +12,41 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class DocumentApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
-        //private readonly object cred = new
-        //{
-        //    email = "elad@cloudents.com",
-        //    password = "123456789",
-        //    fingerPrint = "string"
-        //};
-        private readonly object doc1 = new
+        
+        private readonly object _doc1 = new
         {
             mime_type = "",
             name = "ACloudFan.pdf",
             phase = "start",
             size = 1027962
         };
-        private readonly object doc2 = new
+        private readonly object _doc2 = new
         {
             mime_type = "",
             name = "Capture 2.png",
             phase = "start",
             size = 1027962
         };
-        private readonly object doc3 = new
+        private readonly object _doc3 = new
         {
             mime_type = "",
             name = "ספיטבול.docx",
             phase = "start",
             size = 1027962
         };
-        private readonly object doc4 = new
+        private readonly object _doc4 = new
         {
             mime_type = "",
             name = "Doc4",
             phase = "start",
             size = 1027962
         };
+
+        private UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/document"
+        };
+
 
 
         public DocumentApiTests(SbWebApplicationFactory factory)
@@ -68,57 +69,30 @@ namespace Cloudents.Web.Test.IntegrationTests
             var d = JObject.Parse(str);
             
             var result = d["result"]?.Value<JArray>();
-            var filters = d["filters"]?.Value<JArray>();
-            var type = filters[0]["data"]?.Value<JArray>();
+
             var next = d["nextPageLink"]?.Value<string>();
-            
-            var id = result[0]["id"]?.Value<long?>();
-            var university = result[0]["university"]?.Value<string>();
-            var course = result[0]["course"]?.Value<string>();
-            var title = result[0]["title"]?.Value<string>();
-            var user = result[0]["user"]?.Value<JObject>();
-            var views = result[0]["views"]?.Value<int?>();
-            var downloads = result[0]["downloads"]?.Value<int?>();
-            var docUrl = result[0]["url"]?.Value<string>();
-            //var source = result[0]["source"]?.Value<string>();
-            var dateTime = result[0]["dateTime"]?.Value<DateTime?>();
-            var vote = result[0]["vote"]?.Value<JObject>();
-            var price = result[0]["price"]?.Value<double?>();
 
             result.Should().NotBeNull();
-            filters.Should().NotBeNull();
-            type.Should().HaveCountGreaterThan(3);
 
-            id.Should().NotBeNull();
-            university.Should().NotBeNull();
-            course.Should().NotBeNull();
-            title.Should().NotBeNull();
-            user.Should().NotBeNull();
-            views.Should().NotBeNull();
-            downloads.Should().NotBeNull();
-            docUrl.Should().NotBeNull();
-            //source.Should().NotBeNull();
-            dateTime.Should().NotBeNull();
-            vote.Should().NotBeNull();
-            price.Should().BeGreaterOrEqualTo(0);
-
-            //if (url == "/api/document?page=1")
-                //next.Should().Be("http://localhost:80/api/Document?Page=2");
+            if (url == _uri.Path + "?page=1")
+                next.Should().Be(_uri.Path + "?page=2");
         }
 
         [Fact]
         public async Task GetAsync_Filters()
         {
-            var response = await _client.GetAsync("/api/document");
+            var response = await _client.GetAsync(_uri.Path);
 
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
 
             var filters = d["filters"]?.Value<JArray>();
+
             var type = filters[0]["data"]?.Value<JArray>();
 
             filters.Should().NotBeNull();
+
             type.Should().HaveCountGreaterThan(3);
         }
 
@@ -127,7 +101,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateJsonString(doc1));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc1));
 
             response.EnsureSuccessStatusCode();
         }
@@ -137,7 +111,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateJsonString(doc2));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc2));
 
             response.EnsureSuccessStatusCode();
         }
@@ -147,7 +121,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateJsonString(doc3));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc3));
 
             response.EnsureSuccessStatusCode();
         }
@@ -157,11 +131,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Document/upload", HttpClient.CreateJsonString(doc4));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc4));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
-            var str = await response.Content.ReadAsStringAsync();
         }
     }
 }
