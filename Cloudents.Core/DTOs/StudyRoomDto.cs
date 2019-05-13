@@ -11,7 +11,7 @@ namespace Cloudents.Core.DTOs
         public long TutorId { get; set; }
 
         public bool AllowReview { get; set; }
-        public bool NeedPayment { get; set; }
+        public bool NeedPayment => false;
     }
 
 
