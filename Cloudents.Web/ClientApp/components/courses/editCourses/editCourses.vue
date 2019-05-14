@@ -115,7 +115,10 @@
                 return this.accountUser.isTutor
             },
             isEmpty() {
-                return this.getSelectedClasses.length < 1;
+                if(this.getSelectedClasses.length < 1){
+                    this.$router.push({name:'addCourse'});
+                }
+                 
             },
             coursesQuantaty() {
                 return this.getSelectedClasses.length;
@@ -127,7 +130,6 @@
                               "syncCoursesData",
                               "deleteClass",
                               "updateSelectedClasses",
-                              "assignClasses",
                               "pushClassToSelectedClasses",
                           ]),
             teachCourseToggle(course) {

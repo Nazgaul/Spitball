@@ -162,12 +162,6 @@
   <data name="QuestionFilterUnanswered" xml:space="preserve">
     <value>Unanswered</value>
   </data>
-  <data name="SearchRequestSortDate" xml:space="preserve">
-    <value>Date</value>
-  </data>
-  <data name="SearchRequestSortRelevance" xml:space="preserve">
-    <value>Relevance</value>
-  </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
     <value>Earned</value>
   </data>

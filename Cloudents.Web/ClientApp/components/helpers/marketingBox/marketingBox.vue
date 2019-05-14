@@ -20,7 +20,6 @@
         name: "marketingBox",
         data() {
             return {
-                googleFormUrl: 'https://forms.gle/f5vDdwS3cDNNJUwA7'
             }
         },
         computed: {
@@ -33,21 +32,22 @@
             },
         },
         methods: {
-            ...mapActions(['changemobileMarketingBoxState']),
+            ...mapActions(['changemobileMarketingBoxState', 'updateRequestDialog']),
             promotionOpen() {
                 if (this.isLogedIn) {
                     analyticsService.sb_unitedEvent('MARKETING_BOX', 'REGISTERED OPEN_TUTOR');
                 } else {
                     analyticsService.sb_unitedEvent('MARKETING_BOX', 'NOT REGISTERED OPEN_TUTOR');
                 }
-                return this.isLogedIn ? this.goToWebForm() : this.goToWebForm();
+                return this.isLogedIn ? this.goToWebForm() : this.goToRegister();
                 // return this.isLogedIn ? this.goToWebForm() : this.goToRegister();
             },
             goToRegister() {
                 this.$router.push({name: 'registration'});
             },
             goToWebForm(){
-                global.open(`${this.googleFormUrl}`, '_blank');
+                this.$router.push({name: 'tutors'});
+                this.updateRequestDialog(true);
             }
         },
     }

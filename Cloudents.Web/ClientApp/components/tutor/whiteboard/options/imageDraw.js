@@ -43,6 +43,7 @@ const draw = function (imgObj) {
         this.context.drawImage(img, imgObj.mouseX, imgObj.mouseY, img.width, img.height);
     } else {
         let img = new Image();
+        // img.crossOrigin="anonymous";
         let self = this;
         img.onload = function () {
             let imageSize = imgSizeFit(img.width, img.height, 600, 800);
@@ -78,6 +79,7 @@ const handleImage = function (e) {
     //apiCall
     whiteBoardService.uploadImage(formData).then(url => {
         let img = new Image();
+        // img.crossOrigin="anonymous";
         img.onload = function () {
             let imageSize = imgSizeFit(img.width, img.height, 600, 800);
             img.width = imageSize.width;

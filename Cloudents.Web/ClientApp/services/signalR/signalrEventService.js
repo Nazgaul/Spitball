@@ -66,17 +66,25 @@ function createConnection(connString){
     return newConnection;
 }
 
+async function start(connection) {
+    try {
+        await connection.start();
+        console.log("Reconnection Started!");
+    } catch (err) {
+        console.log(err);
+        setTimeout(() => start(connection), 5000);
+    }
+};
+
 //init function is launched from the main.js
 export default function init(connString = '/sbHub'){
     //create a signalR Connection
     let connection = createConnection(connString)
     
     //reconnect in case connection closes for some reason
-    // connection.onclose(function(){
-    //     console.log("signal-R Disconected");
-    //     connectionState.isConnected = false;
-    //     connectivityModule.sr.reconnect(connection);
-    // });
+    connection.onclose(async () => {
+        await start(connection);
+    });
 
     //open the connection and register the events
     startConnection(connection, "Message"); 

@@ -24,8 +24,8 @@
             <!-- <v-btn flat color="teal" value="promotions"  @click="changeActiveTab(tabs.promotions)"> -->
             <v-btn flat color="teal" value="promotions"  @click="openChat()">
                 <span class="mob-footer-title" v-language:inner>mobileFooter_action_promotion</span>
-                <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.promotions">sbf-icon-promotions</v-icon>
-                <v-icon class="mob-footer-icon" v-else>sbf-icon-promotions-selected</v-icon>
+                <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.promotions">sbf-message-icon</v-icon>
+                <!-- <v-icon class="mob-footer-icon" v-else>sbf-icon-promotions-selected</v-icon> -->
                 <span class="unread-circle" v-show="totalUnread > 0">{{totalUnread}}</span>
             </v-btn>
         </v-bottom-nav>

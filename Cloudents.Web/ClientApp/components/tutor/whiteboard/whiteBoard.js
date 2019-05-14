@@ -21,6 +21,7 @@ export default {
             windowHeight: global.innerHeight - 64, // 64 stands for the header
             showPickColorInterface: false,
             showHelper: false,
+            tabEditId: null,
             formula: 'x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.',
             predefinedColors:[
                 '#000000',
@@ -73,7 +74,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['isRoomCreated', 'getDragData','getZoom', 'selectedOptionString']),
+        ...mapGetters(['isRoomCreated', 'getDragData','getZoom', 'selectedOptionString','getCanvasTabs', 'getCurrentSelectedTab']),
         helperStyle(){
             return helperUtil.HelperObj.style
         },
@@ -96,14 +97,36 @@ export default {
             set(val){
                 this.formula = val;
             }
+        },
+        canvasTabs(){
+            return this.getCanvasTabs
         }
     },
     methods: {
-        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString']),
+        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab']),
+        renameTab(){
+            console.log("Rename Tab");
+        },
+        deleteTab(tab){
+            this.removeCanvasTab(tab);
+            this.changeTab(this.getCanvasTabs[0]);
+            console.log("Delete Tab");
+        },
+        clearTabOption(){
+            this.tabEditId = null;
+        },
+        showTabOption(id){
+            if(this.tabEditId === id){
+                this.clearTabOption();
+            }else{
+                this.tabEditId = id;
+            }
+        },
         selectDefaultTool(){
             this.setOptionType(this.enumOptions.select);
         },
         setOptionType(selectedOption) {
+            this.clearTabOption();
             this.currentOptionSelected = whiteBoardService.init.bind(this.canvasData, selectedOption)();
             this.setSelectedOptionString(selectedOption);
             helperUtil.HelperObj.isActive = false;
@@ -126,17 +149,22 @@ export default {
             helperUtil.HelperObj.isActive = false;
         },
         addShape(dragObj, callback) {
-            this.updateDragData(dragObj);
+            let dragUpdate = {
+                tab: this.getCurrentSelectedTab,
+                data: dragObj
+            }
+            this.updateDragData(dragUpdate);
             if(callback){
                 callback();
             }
             let canvasData = {
                 context: this.canvasData.context,
-                metaData: this.canvasData.metaData
+                metaData: this.canvasData.metaData,
+                tab: this.getCurrentSelectedTab
             };
             let data = {
                 canvasContext: canvasData,
-                dataContext: dragObj
+                dataContext: dragObj,
             };
             let transferDataObj = {
                 type: "passData",
@@ -151,7 +179,8 @@ export default {
         undo(){
             let transferDataObj = {
                 type: "undoData",
-                data: this.canvasData
+                data: this.canvasData,
+                tab: this.getCurrentSelectedTab,
             };
             let normalizedData = JSON.stringify(transferDataObj);
             tutorService.dataTrack.send(normalizedData);
@@ -159,6 +188,13 @@ export default {
 
         },
         keyPressed(e) {
+            if ((e.which == 121 || e.keyCode == 121)) {
+                //F10
+                let link = document.createElement('a');
+                link.download = `${this.getCurrentSelectedTab.name}.png`;
+                link.href = document.getElementById('canvas').toDataURL("image/png")
+                link.click();
+            }
             //signalR should be fired Here
             if ((e.which == 90 || e.keyCode == 90) && e.ctrlKey) {
                 this.undo();
@@ -166,9 +202,20 @@ export default {
             if(((e.which == 46 || e.keyCode == 46)||(e.which == 8 || e.keyCode == 8)) && this.selectedOptionString === this.enumOptions.select){
                 this.currentOptionSelected.deleteSelectedShape.bind(this.canvasData)();
             }
-            if(((e.which == 13 || e.keyCode == 13) || (e.which == 27 || e.keyCode == 27)) && this.selectedOptionString === this.enumOptions.text){
+            if(((e.which == 13 || e.keyCode == 13) || (e.which == 27 || e.keyCode == 27))){
                //enter or escape in text mode
-                this.currentOptionSelected.enterPressed.bind(this.canvasData)();
+               if(this.selectedOptionString === this.enumOptions.text){
+                    this.currentOptionSelected.enterPressed.bind(this.canvasData)();
+               }
+                
+            }
+        },
+        changeTab(tab){
+            if(tab.id !== this.getCurrentSelectedTab.id){
+                this.clearTabOption();
+                this.changeSelectedTab(tab);
+                whiteBoardService.hideHelper();
+                whiteBoardService.redraw(this.canvasData)
             }
         },
         // resetZoom(){
@@ -199,9 +246,9 @@ export default {
         // },
         registerCanvasEvents(canvas, canvasWrapper){
             let self = this;
-
             global.addEventListener('resize', this.resizeCanvas, false);
             canvas.addEventListener('mousedown', (e) => {
+                self.clearTabOption();
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
                     self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
                 }

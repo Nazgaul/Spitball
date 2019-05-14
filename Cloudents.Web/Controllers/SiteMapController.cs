@@ -1,25 +1,18 @@
 ﻿using Autofac.Features.Indexed;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Query;
-using Cloudents.Web.Extensions;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using NHibernate;
-using NHibernate.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using Cloudents.Web.Framework;
+using Cloudents.Web.Services;
 
 namespace Cloudents.Web.Controllers
 {
@@ -27,7 +20,7 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class SiteMapController : Controller
     {
-        private const int PageSize = 40000;
+        internal const int PageSize = 20000;
         private readonly IQueryBus _queryBus;
         private readonly XmlWriterSettings _xmlWriterSettings = new XmlWriterSettings
         {
@@ -129,108 +122,6 @@ namespace Cloudents.Web.Controllers
             await myWriter.WriteEndElementAsync();
 
             await myWriter.WriteEndElementAsync();
-        }
-    }
-
-    public interface IBuildSeo
-    {
-        IEnumerable<string> GetUrls(int index);
-
-
-    }
-
-    public class StaticSeoBuilder : IBuildSeo
-    {
-        private readonly LinkGenerator _linkGenerator;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public StaticSeoBuilder(LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
-        {
-            _linkGenerator = linkGenerator;
-            _httpContextAccessor = httpContextAccessor;
-        }
-
-        public IEnumerable<string> GetUrls(int index)
-        {
-            yield return _linkGenerator.GetUriByAction(_httpContextAccessor.HttpContext, "Index", "Home");
-            yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, "Static", new
-            {
-                page = "faq"
-            });
-        }
-    }
-
-    public class DocumentSeoBuilder : IBuildSeo
-    {
-        private readonly IStatelessSession _session;
-        private readonly LinkGenerator _linkGenerator;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public DocumentSeoBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
-        {
-            _session = session;
-            _linkGenerator = linkGenerator;
-            _httpContextAccessor = httpContextAccessor;
-        }
-
-        public IEnumerable<string> GetUrls(int index)
-        {
-            var t = _session.Query<Document>()
-                 .Fetch(f => f.University)
-                 .Where(w => w.Status.State == ItemState.Ok)
-                 .Take(4000).Skip(4000 * index)
-                 .Select(s => new DocumentSeoDto
-                 {
-                     Id = s.Id,
-                     Name = s.Name,
-                     Country = s.University.Country,
-                     CourseName = s.Course.Id,
-                     UniversityName = s.University.Name
-                 });
-
-            foreach (var item in t)
-            {
-                yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Document, new
-                {
-                    universityName = FriendlyUrlHelper.GetFriendlyTitle(item.UniversityName),
-                    courseName = FriendlyUrlHelper.GetFriendlyTitle(item.CourseName),
-                    item.Id,
-                    name = FriendlyUrlHelper.GetFriendlyTitle(item.Name)
-                });
-
-            }
-        }
-    }
-
-
-    public class QuestionSeoBuilder : IBuildSeo
-    {
-        private readonly IStatelessSession _session;
-        private readonly LinkGenerator _linkGenerator;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public QuestionSeoBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
-        {
-            _session = session;
-            _linkGenerator = linkGenerator;
-            _httpContextAccessor = httpContextAccessor;
-        }
-
-        public IEnumerable<string> GetUrls(int index)
-        {
-            var t = _session.Query<Question>()
-                .Where(w => w.Status.State == ItemState.Ok)
-                .Take(4000).Skip(4000 * index)
-                .Select(s => s.Id);
-
-            foreach (var item in t)
-            {
-                yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Question, new
-                {
-                    Id = item,
-                });
-
-            }
         }
     }
 }

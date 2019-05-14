@@ -23,7 +23,7 @@ namespace Cloudents.Query.Admin
         public async Task<IEnumerable<UserAnswersDto>> GetAsync(AdminUserAnswersQuery query, CancellationToken token)
         {
            return await _session.Query<Answer>()
-                .Fetch(f => f.Question)
+              //  .Fetch(f => f.Question)
                 .Where(w => w.User.Id == query.UserId)
                 .Take(PageSize).Skip(PageSize * query.Page)
                 .OrderBy(o=>o.Id)

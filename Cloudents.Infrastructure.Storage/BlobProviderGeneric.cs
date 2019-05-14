@@ -17,7 +17,8 @@ namespace Cloudents.Infrastructure.Storage
         IDocumentDirectoryBlobProvider,
         IQuestionsDirectoryBlobProvider,
         IChatDirectoryBlobProvider,
-        IUserDirectoryBlobProvider
+        IUserDirectoryBlobProvider,
+        IRequestTutorDirectoryBlobProvider
 
     {
         private readonly CloudBlobDirectory _blobDirectory;
@@ -222,14 +223,14 @@ namespace Cloudents.Infrastructure.Storage
             return result.Results.Select(s => s.Uri);
         }
 
-        public async Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token)
-        {
-            var blob = GetBlob(blobUrl);
-            var ms = new MemoryStream();
-            await blob.DownloadToStreamAsync(ms);
-            ms.Seek(0, SeekOrigin.Begin);
-            return ms;
-        }
+        //public async Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token)
+        //{
+        //    var blob = GetBlob(blobUrl);
+        //    var ms = new MemoryStream();
+        //    await blob.DownloadToStreamAsync(ms);
+        //    ms.Seek(0, SeekOrigin.Begin);
+        //    return ms;
+        //}
 
 
 

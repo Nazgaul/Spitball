@@ -6,13 +6,13 @@ namespace Cloudents.Infrastructure
 {
     public class BinarySerializer : IBinarySerializer
     {
-        public void Serialize(Stream sr, object o)
+        private static void Serialize(Stream sr, object o)
         {
             Serializer.Serialize(sr, o);
 
         }
 
-        public T Deserialize<T>(Stream sr)
+        private static T Deserialize<T>(Stream sr)
         {
             return Serializer.Deserialize<T>(sr);
         }

@@ -54,30 +54,37 @@ export default {
                 background-color: #ebebeb;
                 border-radius: 10px;
                 padding: 2px 12px;
+                white-space: nowrap;
             }
         }
         .level-1 {
             span{
+                //TODO: FIX THE THIS
                 background-color: #acacac;
                 color: #ffffff;
                 border-radius: 10px;
                 padding: 2px 12px;
+                white-space: nowrap;
             }
         }
         .level-2 {
             span{
+                //TODO: FIX THE THIS
                 background-color: #939393;
                 color: #ffffff;
                 border-radius: 10px;
                 padding: 2px 12px;
+                white-space: nowrap;
             }
         }
         .level-3 {
             span{
+                //TODO: FIX THE THIS
                 background-color: #5c5c5c;
                 color: #ffffff;
                 border-radius: 10px;
                 padding: 2px 12px;
+                white-space: nowrap;
             }
         }
         

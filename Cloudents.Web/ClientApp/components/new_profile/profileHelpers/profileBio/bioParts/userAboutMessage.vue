@@ -103,6 +103,7 @@
             letter-spacing: normal;
             color: @profileTextColor;
             word-break: break-word;
+            white-space: pre-line;
             @media(max-width: @screen-xs){
                 font-size: 16px;
                 font-style: italic;

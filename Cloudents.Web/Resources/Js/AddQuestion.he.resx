@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_button" xml:space="preserve">
-    <value>הוסף שאלה</value>
+    <value>שליחת שאלה</value>
   </data>
   <data name="ask_your_question_placeholder" xml:space="preserve">
-    <value>כתוב את השאלה שלך כאן...</value>
+    <value>השאלה שלי...</value>
   </data>
   <data name="class_placeholder" xml:space="preserve">
-    <value>איזה קורס?</value>
+    <value>עבור איזה קורס?</value>
   </data>
   <data name="error_general" xml:space="preserve">
     <value>משהו השתבש, נסה שוב</value>
@@ -163,6 +163,6 @@
     <value>בחר נושא</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>הוסף שאלה</value>
+    <value>יצירת שאלה</value>
   </data>
 </root>

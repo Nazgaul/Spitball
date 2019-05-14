@@ -1,0 +1,65 @@
+@import '../../../../styles/mixin.less';
+
+.tutor-card-wrap-desk {
+  width: 100%;
+  margin: 0 auto;
+  .rating-number{
+    font-weight: bold;
+  }
+  .section-tutor-info {
+    width: @cellWidth;
+    background-color: @color-white;
+    border-radius: 4px;
+    padding: 16px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+    @media (max-width: @screen-xs) {
+      padding: 12px;
+    }
+  }
+  .user-rating-val {
+    font-weight: bold;
+  }
+  .section-tutor-price-review {
+    width: 260px;
+    background-color: @color-white;
+    border-radius: 4px;
+    padding: 16px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+    @media (max-width: @screen-xs) {
+      padding: 12px;
+    }
+  }
+  .btn-bottom-holder {
+    justify-self: flex-end;
+    margin-top: auto;
+    justify-content: center;
+
+  }
+  .blue-btn {
+    background-color: @colorBlue !important;
+    color: @color-white;
+    height: 42px;
+  }
+  .tutor-image {
+    border-radius: 4px;
+    width: 166px;
+    height: 186px;
+  }
+  .pricing{
+    color: @textColor;
+  }
+  .tutor-name {
+    opacity: 0.9;
+    font-size: 18px;
+    letter-spacing: -0.4px;
+    color: @textColor;
+  }
+  .tutor-about {
+    color: @profileTextColor;
+  }
+  .blue-text {
+    color: @colorBlue;
+  }
+  .tutor-courses {
+  }
+}

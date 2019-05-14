@@ -79,6 +79,11 @@ export const signlaREvents = {
                 },
                 onlinestatus: function(data){
                     store.dispatch("setUserStatus", data)
+                },
+                paymentreceived: function(data){
+                    store.dispatch('updateShowPayMeToaster',false);
+                    store.dispatch("signalR_ReleasePaymeStatus");
+                    store.dispatch('signalR_userPaymentReceived');
                 }
             };  
             arrEventObj.forEach((action)=>{
@@ -90,7 +95,7 @@ export const signlaREvents = {
             }) 
         },
         paymentreceived:function(){
-            store.dispatch('signalR_userPaymentReceived');
+            
         },
     },
     notification: {
@@ -157,12 +162,12 @@ export const signlaREvents = {
         },
         update:function(arrEventObj){
             arrEventObj.forEach((roomStatusInformation)=>{
-                store.dispatch("signalRUpdateState", roomStatusInformation);
+                store.dispatch("signalR_UpdateState", roomStatusInformation);
             })
         },
         action:function(arrEventObj){
             arrEventObj.forEach((sessionInformation)=>{
-                store.dispatch("signalRSetJwtToken", sessionInformation);
+                store.dispatch("signalR_SetJwtToken", sessionInformation);
             })
         }
     }

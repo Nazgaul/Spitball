@@ -9,7 +9,7 @@
                 <div v-if="!isLoaded ">
                     <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
                 </div>
-                <button v-show="!userImage" class="upload-btn font-weight-bold">
+                <button v-show="!userImage" class="upload-btn font-weight-bold" :class="[errorUpload ?  'error-upload': '']">
                     <span class="font-weight-bold"></span>
                     <input class="become-upload"
                            type="file" name="File Upload"
@@ -30,15 +30,17 @@
                         <v-flex xs12 shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-3']">
                             <v-text-field outline
                                           v-model="firstName"
-                                          :placeholder="placeFirstName"
+                                          :rules="[rules.required, rules.notSpaces]"
                                           hide-details
+                                          :placeholder="placeFirstName"
                                           :label="placeFirstName"></v-text-field>
                         </v-flex>
                         <v-flex xs12 :class="[$vuetify.breakpoint.smAndUp ? 'mb-4' : 'mb-3']">
                             <v-text-field outline
                                           v-model="lastName"
-                                          :placeholder="placeLastName"
                                           hide-details
+                                          :rules="[rules.required, rules.notSpaces]"
+                                          :placeholder="placeLastName"
                                           :label="placeLastName"></v-text-field>
 
                         </v-flex>
@@ -46,6 +48,7 @@
                             <v-text-field outline class="font-weight-bold price-input"
                                           :rules="[rules.required, rules.minimum, rules.maximum]"
                                           v-model="price"
+                                          hide-details
                                           prefix="₪"
                                           type="number"
                                           :label="placePrice"></v-text-field>
@@ -89,11 +92,13 @@
                 lastName: '',
                 price: 50,
                 imageAdded: false,
+                errorUpload: false,
                 validBecomeFirst: false,
                 rules: {
                     required: (value) => validationRules.required(value),
                     minimum: (value) => validationRules.positiveNumber(value),
                     maximum: (value) => validationRules.maxVal(value, 200000),
+                    notSpaces: (value) => validationRules.notSpaces(value),
                 },
                 isLoaded: false
             };
@@ -101,7 +106,8 @@
         computed: {
             ...mapGetters(['becomeTutorData', 'accountUser']),
             btnDisabled() {
-                return !this.firstName || !this.lastName || !this.price || !this.imageExists;
+                return false
+                // return !this.firstName || !this.lastName || !this.price || !this.imageExists;
             },
             userImage() {
                 if(this.accountUser && this.accountUser.image) {
@@ -111,11 +117,10 @@
                 }
             },
             imageExists(){
-                return this.userImage || this.imageAdded
+                // return this.userImage || this.imageAdded && this.submitted
             }
 
         },
-
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),
             loaded() {
@@ -133,10 +138,15 @@
                                                            self.imageAdded = false;
                                                        }
                 );
-
             },
             nextStep() {
+                if(!this.imageAdded && !this.userImage ){
+                    this.errorUpload = true;
+                    this.$refs.becomeFormFirst.validate();
+                    return
+                }
                 if(this.$refs.becomeFormFirst.validate()) {
+
                     let data = {
                         image: this.userImage,
                         firstName: this.firstName,
@@ -158,6 +168,9 @@
     @import '../../../styles/mixin.less';
 
     .become-first-wrap {
+        .error-upload{
+            color: red!important;
+        }
         .contact-price {
             margin-top: 20px;
         }

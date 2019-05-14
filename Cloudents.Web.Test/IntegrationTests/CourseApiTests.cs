@@ -14,12 +14,49 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         
         private readonly System.Net.Http.HttpClient _client;
+
         private readonly object _credentials = new
         {
             email = "blah@cloudents.com",
             password = "123456789",
             fingerPrint = "string"
         };
+
+        private readonly object _question = new
+        {
+            subjectId = "",
+            course = "Economics",
+            text = "Blah blah blah...",
+            price = 1
+        };
+
+        private readonly object _course = new
+        {
+            Name = "Economics"
+        };
+
+        private readonly object _newCourse = new
+        {
+            name = "NewCourse1"
+        };
+
+        private readonly object _upload = new
+        {
+            blobName = "My_Doc.docx",
+            name = "My Document",
+            type = "Document",
+            course = "Economics",
+            tags = new { },
+            professor = "Mr. Elad",
+            price = 0M
+        };
+
+        private UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/login"
+        };
+
+
 
         public CourseApiTests(SbWebApplicationFactory factory)
         {
@@ -33,44 +70,30 @@ namespace Cloudents.Web.Test.IntegrationTests
             await _client.LogInAsync();
             
             var response = await _client.GetAsync(url);
+
             response.EnsureSuccessStatusCode();
         }
 
         [Fact]
         public async Task Ask_Course_Without_Uni()
-        {   
-            var question = new
-            {
-                subjectId = "",
-                course = "Economics",
-                text = "Blah blah blah...",
-                price = 1
-            };
+        {
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
 
-            await _client.PostAsync("api/LogIn", HttpClient.CreateString(_credentials));
+            _uri.Path = "api/question";
 
-            var response = await _client.PostAsync("api/Question", HttpClient.CreateString(question));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_question));
 
             response.EnsureSuccessStatusCode();
         }
 
         [Fact]
         public async Task Upload_Doc_Without_Uni()
-        {            
-            var upload = new
-            {
-                blobName = "My_Doc.docx",
-                name = "My Document",
-                type = "Document",
-                course = "Economics",
-                tags = new { },
-                professor = "Mr. Elad",
-                price = 0M
-            };
+        {
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
 
-            await _client.PostAsync("api/LogIn", HttpClient.CreateString(_credentials));
+            _uri.Path = "api/upload";
 
-            var response = await _client.PostAsync("api/Upload", HttpClient.CreateString(upload));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_upload));
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -78,16 +101,15 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task Teach_Course()
         {
-            var course = new
-            {
-                Name = "Economics"
-            };
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
 
-            await _client.PostAsync("api/LogIn", HttpClient.CreateString(_credentials));
+            _uri.Path = "api/course/set";
 
-            await _client.PostAsync("api/course/set", HttpClient.CreateString(course));
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_course));
 
-            var response = await _client.PostAsync("api/course/teach", HttpClient.CreateString(course));
+            _uri.Path = "api/course/teach";
+
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_course));
 
             response.EnsureSuccessStatusCode();
         }
@@ -95,27 +117,23 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact(Skip = "this is not a good unit test - need to think about it")]
         public async Task PostAsync_CreateAndDelete_Course()
         {
-            UriBuilder uri = new UriBuilder();
-            
-            uri.Path = "api/course";
+            _uri.Path = "api/course";
 
-            uri.AddQuery(new NameValueCollection
+            _uri.AddQuery(new NameValueCollection
             {
                 ["name"] = "NewCourse1"
             });
 
-            var course = new
-            {
-                name = "NewCourse1"
-            };
-
             await _client.LogInAsync();
 
-            await _client.DeleteAsync(uri.Uri);
+            await _client.DeleteAsync(_uri.Uri);
 
-            var response = await _client.PostAsync("api/Course/create", HttpClient.CreateString(course));
+            var response = await _client.PostAsync(_uri.Path + "/create", HttpClient.CreateJsonString(_newCourse));
+
             response.StatusCode.Should().Be(HttpStatusCode.OK, "Create Course Failed");
-            response = await _client.DeleteAsync(uri.Uri);
+
+            response = await _client.DeleteAsync(_uri.Uri);
+
             response.StatusCode.Should().Be(HttpStatusCode.OK, "Delete Course Failed");
         }
 
@@ -123,14 +141,17 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task PostAsync_Delete_Course()
         {
             await _client.LogInAsync();
-            var uriBuilder = new UriBuilder("api/course");
-            uriBuilder.AddQuery(new NameValueCollection()
+
+            _uri.Path = "api/course";
+
+            _uri.AddQuery(new NameValueCollection()
             {
                 ["name"] = "NewCourse1"
             });
-            var response = await _client.DeleteAsync(uriBuilder.Uri);
 
-            response.StatusCode.Should().Be(200);
+            var response = await _client.DeleteAsync(_uri.Uri);
+
+            response.EnsureSuccessStatusCode();
         }
 
     }

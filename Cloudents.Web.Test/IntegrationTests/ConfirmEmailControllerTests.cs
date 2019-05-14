@@ -10,6 +10,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
+
         public ConfirmEmailControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
@@ -24,7 +25,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var response = await _client.GetAsync(url);
             var p = response.Headers.Location;
-            p.OriginalString.Should().Be("/Home/Index");
+            p.OriginalString.Should().Be("/");
         }
     }
 }

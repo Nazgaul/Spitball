@@ -36,8 +36,15 @@ namespace Cloudents.Infrastructure.Storage
 
             builder.RegisterType<BlobProviderContainer>()
                 .As<IUserDirectoryBlobProvider>()
-                .Keyed<IBlobProvider>(StorageContainer.Chat)
+                .Keyed<IBlobProvider>(StorageContainer.User)
                 .WithParameter("container", StorageContainer.User);
+
+            builder.RegisterType<BlobProviderContainer>()
+                .As<IRequestTutorDirectoryBlobProvider>()
+                //.Keyed<IBlobProvider>(StorageContainer.RequestTutor)
+                .WithParameter("container", StorageContainer.RequestTutor);
+
+            //RequestTutor
 
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
             builder.RegisterType<ServiceBusProvider>().As<IServiceBusProvider>();

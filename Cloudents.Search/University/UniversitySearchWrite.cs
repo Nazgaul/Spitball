@@ -47,7 +47,8 @@ namespace Cloudents.Search.University
                         TokenFilterName.Lowercase,
                         TokenFilterName.Stopwords,
                         //TokenFilterName.Create("my_stopWords"),
-                        TokenFilterName.Create("my_edgeNGram")
+                        "my_edgeNGram"
+                        //TokenFilterName.Create("my_edgeNGram")
                     }),
                    // new StandardAnalyzer("stopWords",stopwords:stopWordsList)
                 },
@@ -92,11 +93,11 @@ namespace Cloudents.Search.University
         }
 
 
-        public  Task DeleteOldDataAsync(DateTime timeToDelete, CancellationToken token)
-        {
-            return DeleteOldDataAsync(nameof(Entities.University.InsertDate), timeToDelete, token);
+        //public  Task DeleteOldDataAsync(DateTime timeToDelete, CancellationToken token)
+        //{
+        //    return DeleteOldDataAsync(nameof(Entities.University.InsertDate), timeToDelete, token);
            
-        }
+        //}
 
     }
 }

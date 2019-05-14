@@ -18,7 +18,7 @@
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <!--TODO HIDDEN FOR NOW-->
-                                    <div class="header-messages" v-if="loggedIn && !isMobile">
+                                    <div class="header-messages" v-if="loggedIn && !isMobile && hasConversations">
                                         <span @click="openChatWindow" class="header-messages-text" v-language:inner>chat_messages</span>
                                         <v-icon @click="openChatWindow">sbf-forum-icon</v-icon>
                                         <span @click="openChatWindow" class="unread-circle" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer' :'']">{{totalUnread}}</span>
@@ -38,8 +38,8 @@
                                     </div>
                                     
 
-                                    <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
-                                    <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/signin', query:{returnUrl : $route.path} }" v-language:inner>header_login</router-link>
+                                    <router-link rel="nofollow" v-if="!loggedIn" class="header-login" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
+                                    <router-link rel="nofollow" v-if="!loggedIn" class="header-login" :to="{ path: '/signin', query:{returnUrl : $route.path} }" v-language:inner>header_login</router-link>
 
                                     <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'" class="gamburger"
                                             v-if="!loggedIn">
@@ -49,15 +49,7 @@
                                         <menu-list :isAuthUser="loggedIn"
                                                    v-if="$vuetify.breakpoint.smAndUp"></menu-list>
                                     </v-menu>
-                                    <!--<v-menu bottom left offset-y class="gamburger"-->
-                                            <!--v-if="!loggedIn && $vuetify.breakpoint.xsOnly">-->
-                                        <!--<v-btn icon slot="activator" @click.native="drawer = !drawer">-->
-                                            <!--<v-icon>sbf-menu</v-icon>-->
-                                        <!--</v-btn>-->
-                                        <!--<menu-list :isAuthUser="loggedIn"-->
-                                                   <!--v-if="$vuetify.breakpoint.smAndUp"></menu-list>-->
-                                    <!--</v-menu>-->
-
+                                   
                                 </div>
                             </v-toolbar-items>
                         </v-layout>
@@ -129,7 +121,8 @@
                 'accountUser',
                 'unreadMessages',
                 'showMobileFeed',
-                'getTotalUnread'
+                'getTotalUnread',
+                'getConversations'
             ]),
             userImageUrl(){
                 if(this.accountUser.image.length > 1){
@@ -137,6 +130,9 @@
                 }
                 return ''
 
+            },
+            hasConversations(){
+                return Object.keys(this.getConversations).length > 0;
             },
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;

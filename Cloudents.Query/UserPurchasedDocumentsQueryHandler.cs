@@ -4,9 +4,11 @@ using Dapper;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Cloudents.Query
 {
+    [UsedImplicitly]
     public class UserPurchasedDocumentsQueryHandler : IQueryHandler<UserPurchaseDocumentByIdQuery, IEnumerable<DocumentFeedDto>>
     {
         private readonly DapperRepository _dapper;

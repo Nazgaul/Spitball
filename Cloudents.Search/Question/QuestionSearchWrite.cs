@@ -36,7 +36,8 @@ namespace Cloudents.Search.Question
                     {
                         TokenFilterName.Lowercase,
                         TokenFilterName.Stopwords,
-                        TokenFilterName.Create("my_edgeNGram")
+                        "my_edgeNGram"
+                        //TokenFilterName.Create("my_edgeNGram")
                     }),
                 },
                 TokenFilters = new List<TokenFilter>

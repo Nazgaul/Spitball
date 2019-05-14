@@ -2,8 +2,11 @@
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name" >
         <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
         <div slot="main">
-            <div class="d-flex mobile-filter">
+            <!-- <div class="d-flex mobile-filter">
                   <upload-files-btn class="upload-card hidden-md-and-up"></upload-files-btn>
+            </div> -->
+            <div class="request-box mb-4" style="max-width: 640px" :class="[$vuetify.breakpoint.xsOnly ? 'pt-3' : '']">
+                <request-box></request-box>
             </div>
             <v-flex v-if="filterCondition" class="filter-container">
                 <result-filter></result-filter>
@@ -30,9 +33,9 @@
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <v-flex v-show="!showSkelaton && showSelectUni" class="result-cell mb-3 empty-state-tutor" xs-12>
-                                    <set-uni-class class="cell"></set-uni-class>
-                                </v-flex>
+                                <!--<v-flex v-show="!showSkelaton && showSelectUni" class="result-cell mb-3 empty-state-tutor" xs-12>-->
+                                    <!--<set-uni-class class="cell"></set-uni-class>-->
+                                <!--</v-flex>-->
                                 
                                 <v-flex class="result-cell" xs-12 v-for="(item, index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">

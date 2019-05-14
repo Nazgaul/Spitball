@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
@@ -10,11 +11,23 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class UniversityApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
-        private readonly object uni = new
+
+        private readonly object _university = new
         {
             name = "Open University",
             country = "IL"
         };
+
+        private readonly object _uniId = new
+        {
+            id = "bdb71a15-62ed-4fab-8a76-a98200e81a53"
+        };
+
+        private UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/university"
+        };
+
 
         public UniversityApiTests(SbWebApplicationFactory factory)
         {
@@ -24,24 +37,23 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_SomeLocation_Ok()
         {
-            var response = await _client.GetAsync("api/university?Location.Longitude=-74.005&Location.Latitude=40.712");
+            var response = await _client.GetAsync(_uri.Path + "?Location.Longitude=-74.005&Location.Latitude=40.712");
+
             var result = await response.Content.ReadAsStringAsync();
+
             var d = JObject.Parse(result);
+
             var p = d["universities"].Values();
+
             p.Should().HaveCountGreaterOrEqualTo(1);
         }
 
         [Fact]
         public async Task Post_Set_Uni()
         {
-            var uniId = new
-            {
-                id = "bdb71a15-62ed-4fab-8a76-a98200e81a53"
-            };
-
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/university/set", HttpClient.CreateString(uniId));
+            var response = await _client.PostAsync(_uri.Path + "/set", HttpClient.CreateJsonString(_uniId));
 
             response.EnsureSuccessStatusCode();
         }
@@ -90,7 +102,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/University/create", HttpClient.CreateString(uni));
+            var response = await _client.PostAsync(_uri.Path + "/create", HttpClient.CreateJsonString(_university));
 
             response.EnsureSuccessStatusCode();
         }
@@ -100,7 +112,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/University/create", HttpClient.CreateString(uni));
+            var response = await _client.PostAsync(_uri.Path + "/create", HttpClient.CreateJsonString(_university));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }

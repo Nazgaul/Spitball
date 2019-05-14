@@ -1,5 +1,6 @@
 <template>
-    <div class="tutor-card-wrap-desk cursor-pointer"  @click="goToTutorProfile(tutorData.userId)">
+    <div class="tutor-card-wrap-desk cursor-pointer">
+        <router-link :to="{name: 'profile', params: {id: tutorData.userId}}">
         <v-layout>
             <div class="section-tutor-info">
                 <v-layout>
@@ -57,15 +58,15 @@
                 </v-flex>
             </v-layout>
         </v-layout>
+        </router-link>
     </div>
 </template>
+
 
 <script>
     import userRank from '../../../helpers/UserRank/UserRank.vue';
     import userRating from '../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
-    import commentIcon from '../../../../font-icon/message-icon.svg';
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
-    import { mapActions, mapGetters } from 'vuex';
     import utilitiesService from "../../../../services/utilities/utilitiesService";
 
     export default {
@@ -73,7 +74,6 @@
         components: {
             userRank,
             userRating,
-            commentIcon,
             userAvatar
         },
         data() {
@@ -83,7 +83,6 @@
             tutorData: {},
         },
         computed: {
-            ...mapGetters(['accountUser', 'getConversations']),
             userImageUrl() {
                 if(this.tutorData.image) {
                     return utilitiesService.proccessImageURL(this.tutorData.image, 166, 186);
@@ -93,88 +92,10 @@
 
             }
         },
-        methods: {
-            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'openChatInterface']),
-            goToTutorProfile(userId) {
-                this.$router.push({name: 'profile', params: {id: userId}});
-            },
-            // sendMessage() {
-            //     if(this.accountUser == null) {
-            //         this.updateLoginDialogState(true);
-            //     } else {
-            //         let currentConversationObj = chatService.createActiveConversationObj(this.tutorData);
-            //         this.setActiveConversationObj(currentConversationObj);
-            //         this.openChatInterface();
-            //     }
-            // }
-        }
     };
 </script>
 
 
-<style lang="less">
-    @import '../../../../styles/mixin.less';
-
-    .tutor-card-wrap-desk {
-        width: 100%;
-        margin: 0 auto;
-        .rating-number{
-            font-weight: bold;
-        }
-        .section-tutor-info {
-            width: @cellWidth;
-            background-color: @color-white;
-            border-radius: 4px;
-            padding: 16px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
-            @media (max-width: @screen-xs) {
-                padding: 12px;
-            }
-        }
-        .user-rating-val {
-            font-weight: bold;
-        }
-        .section-tutor-price-review {
-            width: 260px;
-            background-color: @color-white;
-            border-radius: 4px;
-            padding: 16px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
-            @media (max-width: @screen-xs) {
-                padding: 12px;
-            }
-        }
-        .btn-bottom-holder {
-            justify-self: flex-end;
-            margin-top: auto;
-            justify-content: center;
-
-        }
-        .blue-btn {
-            background-color: @colorBlue !important;
-            color: @color-white;
-            height: 42px;
-        }
-        .tutor-image {
-            border-radius: 4px;
-            width: 166px;
-            height: 186px;
-        }
-        .tutor-name {
-            opacity: 0.9;
-            font-size: 18px;
-            letter-spacing: -0.4px;
-            color: @textColor;
-        }
-        .tutor-about {
-            color: @profileTextColor;
-        }
-        .blue-text {
-            color: @colorBlue;
-        }
-        .tutor-courses {
-            max-width: 180px !important;
-        }
-    }
+<style lang="less" src="./tutorResultCard.less">
 
 </style>

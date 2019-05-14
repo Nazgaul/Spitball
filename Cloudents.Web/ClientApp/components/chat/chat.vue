@@ -117,11 +117,12 @@
     bottom: 0;
     right: 130px;
     width: 320px;
-    height: 595px;
+    height: 520px;
     z-index: 3;
     background: #fff;
     border-radius: 10px 10px 0 0;
     box-shadow: 0 3px 16px 0 rgba(0, 0, 0, .3);
+    max-height: ~"calc( 100vh - 100px)";
     &.chat-right{
         right: 130px/*rtl:ignore*/;
         left: unset /*rtl:ignore*/;
@@ -129,6 +130,7 @@
     @media (max-width: @screen-xs) {
         width: 100%;
         height: unset !important;
+        max-height: unset;
         top: 0;
         left: 0;
         bottom: 0;
@@ -186,7 +188,7 @@
         }
     }
     .general-chat-style{
-        height:93%; //minus chat header
+        height:92%; //minus chat header
         width:100%;    
         @media (max-width: @screen-xs) {
             height:95%;

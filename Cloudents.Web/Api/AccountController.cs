@@ -57,8 +57,8 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserDataByIdQuery(userId);
-            var user = await queryBus.QueryAsync<UserAccountDto>(query, token);
+            var query = new UserAccountQuery(userId);
+            var user = await queryBus.QueryAsync(query, token);
 
 
             if (user == null)
@@ -143,10 +143,16 @@ namespace Cloudents.Web.Api
             [FromServices] IBinarySerializer serializer,
             CancellationToken token)
         {
+            if (file == null)
+            {
+                ModelState.AddModelError("x", "no file");
+                return BadRequest(ModelState);
+            }
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
             if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
             {
-                throw new ArgumentException("not an image");
+                ModelState.AddModelError("x","not an image");
+                return BadRequest(ModelState);
             }
 
 
@@ -154,7 +160,8 @@ namespace Cloudents.Web.Api
 
             if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
             {
-                throw new ArgumentException("not an image");
+                ModelState.AddModelError("x", "not an image");
+                return BadRequest(ModelState);
             }
             var userId = userManager.GetLongUserId(User);
             var fileName = $"{userId}/{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{extension}";

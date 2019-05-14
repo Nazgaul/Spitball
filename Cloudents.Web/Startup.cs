@@ -34,6 +34,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Web.Resources;
 using Microsoft.Extensions.Options;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -225,11 +226,13 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
 
-            containerBuilder.RegisterType<DocumentSeoBuilder>()
+            containerBuilder.RegisterType<SeoDocumentBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Document);
-            containerBuilder.RegisterType<StaticSeoBuilder>()
+            containerBuilder.RegisterType<SeoTutorBuilder>()
+                .Keyed<IBuildSeo>(SeoType.Tutor);
+            containerBuilder.RegisterType<SeoStaticBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Static);
-            containerBuilder.RegisterType<QuestionSeoBuilder>()
+            containerBuilder.RegisterType<SeoQuestionBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Question);
             containerBuilder.Register(c =>
             {
@@ -326,9 +329,15 @@ namespace Cloudents.Web
                     template: "question/{id:long}",
                     defaults: new { controller = "Home", action = "Index" }
                 );
+
                 routes.MapRoute(
-                    name: "Static",
-                    template: "/{**page}",
+                    name: SeoTypeString.Tutor,
+                    template: "profile/{id:long}",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
+                routes.MapRoute(
+                    name: SeoTypeString.Static,
+                    template: "{id}",
                     defaults: new { controller = "Home", action = "Index" }
                 );
                 routes.MapRoute(

@@ -1,8 +1,10 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using JetBrains.Annotations;
 
 namespace Cloudents.Persistence.Maps
 {
+    [UsedImplicitly]
     public class RegularUserMap : SubclassMap<RegularUser>
     {
         public RegularUserMap()
@@ -59,6 +61,12 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
+
+
+            HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
+                .Cascade.AllDeleteOrphan()
+                .KeyColumn("UserId").Inverse();
+            //StudyRooms
 
 
             HasManyToMany(x => x.Tags)

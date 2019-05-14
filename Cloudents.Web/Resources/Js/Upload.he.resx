@@ -163,16 +163,16 @@
     <value>שם קובץ</value>
   </data>
   <data name="multiple_files_btn_desktop" xml:space="preserve">
-    <value>מחשב</value>
+    <value>מהמחשב שלי</value>
   </data>
   <data name="multiple_files_btn_dropBox" xml:space="preserve">
-    <value>Dropbox</value>
+    <value>מדרופבוקס</value>
   </data>
   <data name="multiple_files_btn_phone" xml:space="preserve">
     <value>הטלפון שלך</value>
   </data>
   <data name="multiple_files_dopHere" xml:space="preserve">
-    <value>גרור ושחרר את הקבצים כאן</value>
+    <value>גרור קבצים לכאן</value>
   </data>
   <data name="multiple_files_header_title" xml:space="preserve">
     <value>העלאת קבצים</value>
@@ -181,7 +181,7 @@
     <value>תודה שהעלאת מסמכים שלך!</value>
   </data>
   <data name="multiple_files_type_default" xml:space="preserve">
-    <value>מסמך</value>
+    <value>סוג המסמך</value>
   </data>
   <data name="multiple_files_type_exam" xml:space="preserve">
     <value>פתרון מבחן</value>
@@ -197,19 +197,19 @@
     <value>אתה על הגל, עכשיו עזור לחברים לספסל הלימודים (ותרוויח נקודות) על ידי שיתוף הקישור למסמך זה.</value>
   </data>
   <data name="multiple_keywords_optional" xml:space="preserve">
-    <value>מילות מפתח</value>
+    <value>מילות מפתח/זיהוי (לא חובה)</value>
   </data>
   <data name="multiple_label_icon_text" xml:space="preserve">
-    <value>העלה</value>
+    <value>מעלה לקורס</value>
   </data>
   <data name="multiple_legal_text" xml:space="preserve">
     <value>העלאת מסמכי לימוד כרוכה בהסכמה לתנאי השירות שלנו</value>
   </data>
   <data name="multiple_or_browse_label" xml:space="preserve">
-    <value>או בחר קובץ</value>
+    <value>בחר קובץ</value>
   </data>
   <data name="multiple_or_browse_label_mobile" xml:space="preserve">
-    <value>בחר</value>
+    <value>בחר קובץ</value>
   </data>
   <data name="multiple_placeholder_doctype_all" xml:space="preserve">
     <value>שנה סוג מסמך להכל</value>
@@ -218,16 +218,16 @@
     <value>שנה מחיר 0.00 להכל</value>
   </data>
   <data name="multiple_price_placeholder" xml:space="preserve">
-    <value>מחיר 0.00 נקודות</value>
+    <value>נקודות</value>
   </data>
   <data name="multiple_professor_placeholder" xml:space="preserve">
-    <value>שם מרצה</value>
+    <value>שם המרצה (לא חובה)</value>
   </data>
   <data name="multiple_selected_class_label" xml:space="preserve">
     <value>קורס</value>
   </data>
   <data name="multiple_select_course_placeholder" xml:space="preserve">
-    <value>בחר בבקשה קורס</value>
+    <value>עבור איזה קורס?</value>
   </data>
   <data name="multiple_select_filetype" xml:space="preserve">
     <value>תייג מסמך</value>

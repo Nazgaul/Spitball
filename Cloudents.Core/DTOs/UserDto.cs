@@ -17,7 +17,7 @@ namespace Cloudents.Core.DTOs
         // ReSharper disable once MemberCanBeProtected.Global need that for mark answer as correct.
         public UserDto()
         {
-            
+
         }
 
         public long Id { get; set; }
@@ -26,7 +26,7 @@ namespace Cloudents.Core.DTOs
         public int Score { get; set; }
     }
 
-    public class UserProfileDto 
+    public class UserProfileDto
     {
         [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
@@ -59,7 +59,7 @@ namespace Cloudents.Core.DTOs
         public string LastName { get; set; }
     }
 
-    public class UserAccountDto 
+    public class UserAccountDto
     {
         public decimal Balance { get; set; }
 
@@ -75,8 +75,9 @@ namespace Cloudents.Core.DTOs
         public bool IsTutor { get; set; }
 
         public bool NeedPayment { get; set; }
-
     }
+
+
 
 
     public class ChatUserDto

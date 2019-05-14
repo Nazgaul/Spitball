@@ -5,6 +5,9 @@
             <div class="d-flex mobile-filter">
                   <upload-files-btn class="upload-card hidden-md-and-up"></upload-files-btn>
             </div>
+            <div class="request-box" :class="[$vuetify.breakpoint.xsOnly ? 'pt-3' : '']">
+                <request-box></request-box>
+            </div>
             <v-flex v-if="filterCondition" class="filter-container">
                 <result-filter></result-filter>
                 <div class="filter-button-container">
@@ -17,8 +20,8 @@
                 </v-btn>
                 </div>
             </v-flex>
-            
-            <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
+
+            <div class="results-section" :class="{'loading-skeleton mt-5': showSkelaton}">
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
                         <v-layout column>

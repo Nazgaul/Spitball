@@ -2,6 +2,7 @@
 using Xunit;
 using FluentAssertions;
 using System.Net;
+using System;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -9,6 +10,24 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class ChatApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
+
+        private readonly UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/chat"
+        };
+
+        private readonly object _msg = new
+        {
+            message = "string",
+            otherUser = "160116"
+        };
+
+        private readonly object _user = new
+        {
+            otherUser = "159039"
+        };
+
+
 
         public ChatApiTests(SbWebApplicationFactory factory)
         {
@@ -20,7 +39,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync("api/Chat");
+            var response = await _client.GetAsync(_uri.Path);
 
             response.EnsureSuccessStatusCode();
         }
@@ -28,15 +47,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Send_Message()
         {
-            var msg = new
-            {
-                message = "string",
-                otherUser = "160116"
-            };
-
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Chat", HttpClient.CreateString(msg));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_msg));
 
             response.EnsureSuccessStatusCode();
         }
@@ -44,7 +57,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_NotValidUrl_Messages()
         {   
-            var response = await _client.GetAsync("api/Chat/159039");
+            var response = await _client.GetAsync(_uri.Path + "/159039");
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -52,14 +65,10 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsyncChatRead_NoSuchConversation_BadRequest()
         {
-            var user = new
-            {
-                otherUser = "159039"
-            };
-
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/Chat/read", HttpClient.CreateString(user));
+            var response = await _client.PostAsync(_uri.Path + "/read", HttpClient.CreateJsonString(_user));
+           
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
         }

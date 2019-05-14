@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,13 +33,11 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
 
-
-
-
         public ChatController(ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus,
             IChatDirectoryBlobProvider blobProvider,
-            ITempDataDictionaryFactory tempDataDictionaryFactory)
-        : base(blobProvider, tempDataDictionaryFactory)
+            ITempDataDictionaryFactory tempDataDictionaryFactory,
+            IStringLocalizer<UploadControllerBase> localizer)
+        : base(blobProvider, tempDataDictionaryFactory,localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
@@ -55,10 +54,14 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("conversation/{id:guid}")]
-        public async Task<ChatUserDto> GetConversation(Guid id, CancellationToken token)
+        public async Task<ActionResult<ChatUserDto>> GetConversation(Guid id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await _queryBus.QueryAsync(new ChatConversationQuery(id, userId), token);
+            if (result == null)
+            {
+                return BadRequest();
+            }
             return result;
         }
 

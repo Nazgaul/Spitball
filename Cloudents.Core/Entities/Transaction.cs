@@ -122,10 +122,10 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public AwardMoneyTransaction(decimal price) 
         {
-            if (price < 0)
-            {
-                throw new ArgumentException("you need to award user");
-            }
+            //if (price < 0)
+            //{
+            //    throw new ArgumentException("you need to award user");
+            //}
 
            Price = price;
            Action = TransactionActionType.None;

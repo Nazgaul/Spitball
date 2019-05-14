@@ -8,13 +8,13 @@ namespace Cloudents.Infrastructure.Test.Database
 {
     public class AzureSyncBaseDtoTransformerTests
     {
-        enum ResultEnum
+        private enum ResultEnum
         {
             //Test1,
             Test2
         }
 
-        class ResultTest
+        private class ResultTest
         {
             public string Id { get; set; }
             public ResultEnum SomeEnum { get; set; }

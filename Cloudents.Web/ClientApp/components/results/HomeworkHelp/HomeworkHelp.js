@@ -18,6 +18,7 @@ import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 import resultFilter from '../helpers/resultFilter/resultFilter.vue'
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
+import requestBox from '../../requestActions/requestActions.vue'
 
 //The vue functionality for result page
 export default {
@@ -34,7 +35,8 @@ export default {
         ResultItem,
         schoolBlock,
         resultFilter,
-        emptyStateCard
+        emptyStateCard,
+        requestBox
     },
     data() {
         return {

@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -10,6 +12,13 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class TutorApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
+
+        private UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/tutor"
+        };
+
+        public object HttpsStatusCode { get; private set; }
 
         public TutorApiTests(SbWebApplicationFactory factory)
         {
@@ -34,47 +43,17 @@ namespace Cloudents.Web.Test.IntegrationTests
             var result = d["result"].Value<JArray>();
 
             response.EnsureSuccessStatusCode();
+
             result.Should().NotBeNull();
           
         }
 
-        [Fact(Skip = "We did a hole markup change to tutor")]
+        [Fact]
         public async Task Get_OK_Result()
         {
-            var response = await _client.GetAsync("api/tutor");
+            var response = await _client.GetAsync(_uri.Path);
 
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JObject.Parse(str);
-            
-            var filters = d["filters"].Value<JArray>();
-            var id = filters[0]["id"]?.Value<string>();
-            id.Should().Be("Filter");
-            var title = filters[0]["title"]?.Value<string>();
-            title.Should().Be("Status");
-            var data = filters[0]["data"]?.Value<JArray>();
-            var key = data[0]["key"]?.Value<string>();
-            var value = data[0]["value"]?.Value<string>();
-            key.Should().Be("Online");
-            value.Should().Be("Online");
-            key = data[1]["key"]?.Value<string>();
-            value = data[1]["value"]?.Value<string>();
-            key.Should().Be("InPerson");
-            value.Should().Be("InPerson");
-
-            id.Should().NotBeNull();
-            title.Should().NotBeNull();
-            data.Should().NotBeNull();
-
-            var sort = d["sort"]?.Value<JArray>();
-            key = sort[0]["key"]?.Value<string>();
-            value = sort[0]["value"]?.Value<string>();
-            key.Should().Be("Relevance");
-            value.Should().Be("Relevance");
-            key = sort[1]["key"]?.Value<string>();
-            value = sort[1]["value"]?.Value<string>();
-            key.Should().Be("Price");
-            value.Should().Be("Price");
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [Fact(Skip = "We did a hole markup change to tutor")]
@@ -103,6 +82,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var result = d["name"]?.Value<string>();
 
             response.StatusCode.Should().Be(200);
+
             result.Should().NotBeNull();
         }
     }

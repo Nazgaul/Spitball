@@ -150,155 +150,155 @@ namespace ConsoleApp
             Console.WriteLine("done");
         }
 
-        private static async Task UpdateMethod()
-        {
-            //var c = _container.Resolve<UniversitySearchWrite>();
-            //await c.CreateOrUpdateAsync(default);
+        //private static async Task UpdateMethod()
+        //{
+        //    //var c = _container.Resolve<UniversitySearchWrite>();
+        //    //await c.CreateOrUpdateAsync(default);
 
 
-            var c2 = _container.Resolve<DocumentSearchWrite>();
-            await c2.CreateOrUpdateAsync(default);
+        //    var c2 = _container.Resolve<DocumentSearchWrite>();
+        //    await c2.CreateOrUpdateAsync(default);
 
 
-            //var c3 = _container.Resolve<QuestionSearchWrite>();
-            //await c3.CreateOrUpdateAsync(default);
-        }
+        //    //var c3 = _container.Resolve<QuestionSearchWrite>();
+        //    //await c3.CreateOrUpdateAsync(default);
+        //}
 
 
-        private static async Task ReduPreviewProcessingAsync()
-        {
-
-
-
-            var bus = _container.Resolve<ICloudStorageProvider>();
-            var blobClient = bus.GetBlobClient();
-            var queueClient = bus.GetQueueClient();
-
-
-            var container = blobClient.GetContainerReference("spitball-files");
-            var dir = container.GetDirectoryReference("files/4782");
+        //private static async Task ReduPreviewProcessingAsync()
+        //{
 
 
 
-            BlobContinuationToken blobToken = null;
-            do
-            {
-                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 
-                    5000, blobToken,
-                    new BlobRequestOptions(),
-                    new OperationContext(), default);
+        //    var bus = _container.Resolve<ICloudStorageProvider>();
+        //    var blobClient = bus.GetBlobClient();
+        //    var queueClient = bus.GetQueueClient();
 
-                var list = new HashSet<long>();
-                Console.WriteLine("Receiving a new batch of blobs");
-                foreach (IListBlobItem blob in result.Results)
-                {
 
-                    //var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
-                    var id = long.Parse(blob.Uri.Segments[3].TrimEnd('/'));
-                    if (!list.Add(id))
-                    {
-                        continue;
-                    }
-                    var fileDir = container.GetDirectoryReference($"files/{id}");
-                    var blobs = fileDir.ListBlobs(false,BlobListingDetails.Metadata).ToList();
+        //    var container = blobClient.GetContainerReference("spitball-files");
+        //    var dir = container.GetDirectoryReference("files/4782");
+
+
+
+        //    BlobContinuationToken blobToken = null;
+        //    do
+        //    {
+        //        var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 
+        //            5000, blobToken,
+        //            new BlobRequestOptions(),
+        //            new OperationContext(), default);
+
+        //        var list = new HashSet<long>();
+        //        Console.WriteLine("Receiving a new batch of blobs");
+        //        foreach (IListBlobItem blob in result.Results)
+        //        {
+
+        //            //var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
+        //            var id = long.Parse(blob.Uri.Segments[3].TrimEnd('/'));
+        //            if (!list.Add(id))
+        //            {
+        //                continue;
+        //            }
+        //            var fileDir = container.GetDirectoryReference($"files/{id}");
+        //            var blobs = fileDir.ListBlobs(false,BlobListingDetails.Metadata).ToList();
                     
-                    var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
-                    if (textBlobItem != null)
-                    {
+        //            var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
+        //            if (textBlobItem != null)
+        //            {
                         
-                        //var textBlob2 = (CloudBlockBlob)textBlobItem;
-                        //textBlob2.FetchAttributes();
-                        //if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
-                        //{
-                        //    var queue = queueClient.GetQueueReference("generate-search-preview");
-                        //    var msg = new CloudQueueMessage(id.ToString());
-                        //    await queue.AddMessageAsync(msg);
-                        //    Console.WriteLine("Processing tags " + id);
-                        //}
-                    }
+        //                //var textBlob2 = (CloudBlockBlob)textBlobItem;
+        //                //textBlob2.FetchAttributes();
+        //                //if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
+        //                //{
+        //                //    var queue = queueClient.GetQueueReference("generate-search-preview");
+        //                //    var msg = new CloudQueueMessage(id.ToString());
+        //                //    await queue.AddMessageAsync(msg);
+        //                //    Console.WriteLine("Processing tags " + id);
+        //                //}
+        //            }
 
-                    else
-                    {
-                        var queue = queueClient.GetQueueReference("generate-blob-preview");
-                        var msg = new CloudQueueMessage(id.ToString());
-                        await queue.AddMessageAsync(msg);
-                        Console.WriteLine("Processing regular " + id);
-                        continue;
-                    }
+        //            else
+        //            {
+        //                var queue = queueClient.GetQueueReference("generate-blob-preview");
+        //                var msg = new CloudQueueMessage(id.ToString());
+        //                await queue.AddMessageAsync(msg);
+        //                Console.WriteLine("Processing regular " + id);
+        //                continue;
+        //            }
 
-                    var previewFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("preview")).ToList();
-                    var textBlob = (CloudBlockBlob)textBlobItem;
-                   // textBlob.FetchAttributes();
-                    textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
-                    int.TryParse(pageCountStr, out var pageCount);
-                    if (previewFiles.Count == 0 || previewFiles.Count < pageCount)
-                    {
-                        var queue = queueClient.GetQueueReference("generate-blob-preview");
-                        var msg = new CloudQueueMessage(id.ToString());
-                        await queue.AddMessageAsync(msg);
-                        //             using (var file =
-                        //new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
-                        //             {
+        //            var previewFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("preview")).ToList();
+        //            var textBlob = (CloudBlockBlob)textBlobItem;
+        //           // textBlob.FetchAttributes();
+        //            textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
+        //            int.TryParse(pageCountStr, out var pageCount);
+        //            if (previewFiles.Count == 0 || previewFiles.Count < pageCount)
+        //            {
+        //                var queue = queueClient.GetQueueReference("generate-blob-preview");
+        //                var msg = new CloudQueueMessage(id.ToString());
+        //                await queue.AddMessageAsync(msg);
+        //                //             using (var file =
+        //                //new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
+        //                //             {
 
-                        //                 file.WriteLine(id);
+        //                //                 file.WriteLine(id);
 
-                        //             }
-                        Console.WriteLine("Processing regular " + id);
-                        continue;
-                    }
+        //                //             }
+        //                Console.WriteLine("Processing regular " + id);
+        //                continue;
+        //            }
 
-                    var duplicatePreview = previewFiles.Cast<CloudBlockBlob>()
-                        .GroupBy(g => new { g.Properties.ContentMD5, g.Properties.Length }).Where(g => g.Count() == Math.Max(previewFiles.Count, 2));
-                    if (duplicatePreview.Any())
-                    {
-                        foreach (var listBlobItem in previewFiles)
-                        {
-                            if (listBlobItem is CloudBlockBlob p)
-                            {
-                                p.Delete();
-                            }
+        //            var duplicatePreview = previewFiles.Cast<CloudBlockBlob>()
+        //                .GroupBy(g => new { g.Properties.ContentMD5, g.Properties.Length }).Where(g => g.Count() == Math.Max(previewFiles.Count, 2));
+        //            if (duplicatePreview.Any())
+        //            {
+        //                foreach (var listBlobItem in previewFiles)
+        //                {
+        //                    if (listBlobItem is CloudBlockBlob p)
+        //                    {
+        //                        p.Delete();
+        //                    }
                             
-                        }
+        //                }
 
-                        foreach (var listBlobItem in blobs.Where(a => a.Uri.AbsoluteUri.Contains("blur")))
-                        {
-                            if (listBlobItem is CloudBlockBlob p)
-                            {
-                                p.Delete();
-                            }
-                        }
-                        var queue = queueClient.GetQueueReference("generate-blob-preview");
-                        var msg = new CloudQueueMessage(id.ToString());
-                        await queue.AddMessageAsync(msg);
-                        Console.WriteLine("Duplicate preview " + id);
-                        continue;
-                    }
-                    var blobBlurCount = blobs.Count(a => a.Uri.AbsoluteUri.Contains("blur"));
-                    if (blobBlurCount == 0 || blobBlurCount < Math.Min(pageCount, 10))
-                    {
-                        var queue = queueClient.GetQueueReference("generate-blob-preview-blur");
-                        var msg = new CloudQueueMessage(id.ToString());
-                        await queue.AddMessageAsync(msg);
+        //                foreach (var listBlobItem in blobs.Where(a => a.Uri.AbsoluteUri.Contains("blur")))
+        //                {
+        //                    if (listBlobItem is CloudBlockBlob p)
+        //                    {
+        //                        p.Delete();
+        //                    }
+        //                }
+        //                var queue = queueClient.GetQueueReference("generate-blob-preview");
+        //                var msg = new CloudQueueMessage(id.ToString());
+        //                await queue.AddMessageAsync(msg);
+        //                Console.WriteLine("Duplicate preview " + id);
+        //                continue;
+        //            }
+        //            var blobBlurCount = blobs.Count(a => a.Uri.AbsoluteUri.Contains("blur"));
+        //            if (blobBlurCount == 0 || blobBlurCount < Math.Min(pageCount, 10))
+        //            {
+        //                var queue = queueClient.GetQueueReference("generate-blob-preview-blur");
+        //                var msg = new CloudQueueMessage(id.ToString());
+        //                await queue.AddMessageAsync(msg);
 
-                        //               using (var file =
-                        //new StreamWriter(@"C:\Users\Ram\Documents\blur.txt", true))
-                        //               {
+        //                //               using (var file =
+        //                //new StreamWriter(@"C:\Users\Ram\Documents\blur.txt", true))
+        //                //               {
 
-                        //                   file.WriteLine(id);
+        //                //                   file.WriteLine(id);
 
-                        //               }
-                        Console.WriteLine("Processing blur " + id);
-                    }
+        //                //               }
+        //                Console.WriteLine("Processing blur " + id);
+        //            }
 
-                }
+        //        }
 
-                blobToken = result.ContinuationToken;
-            } while (blobToken != null);
-
-
+        //        blobToken = result.ContinuationToken;
+        //    } while (blobToken != null);
 
 
-        }
+
+
+        //}
 
 
 
@@ -340,99 +340,99 @@ namespace ConsoleApp
             return res;*/
         }
 
-        private static async Task UniversitiesWithSimilarNames()
-        {
-            var d = _container.Resolve<DapperRepository>();
+        //private static async Task UniversitiesWithSimilarNames()
+        //{
+        //    var d = _container.Resolve<DapperRepository>();
 
-            var universities = await d.WithConnectionAsync(async f =>
-            {
-                return await f.QueryAsync<(Guid, string, string)>(
-                    @"Select Id,[Name], Country from sb.University order by Name");
-            }, default);
-            StringBuilder sb = new StringBuilder();
-            string filePath = @"C:\Users\Charlie even\university.csv";
-            //List<(string,string)> output = new List<(string, string)>();
-            foreach (var universityName in universities)
-            {
-                var res = FindSimilarStringsUniversity(universityName, universities.ToList());
+        //    var universities = await d.WithConnectionAsync(async f =>
+        //    {
+        //        return await f.QueryAsync<(Guid, string, string)>(
+        //            @"Select Id,[Name], Country from sb.University order by Name");
+        //    }, default);
+        //    StringBuilder sb = new StringBuilder();
+        //    string filePath = @"C:\Users\Charlie even\university.csv";
+        //    //List<(string,string)> output = new List<(string, string)>();
+        //    foreach (var universityName in universities)
+        //    {
+        //        var res = FindSimilarStringsUniversity(universityName, universities.ToList());
 
-                foreach (var university in res)
-                {
-                    File.AppendAllLines(filePath, new List<string>() { $@"{university.Item1}, {university.Item2}, {university.Item3}, {university.Item4}, {university.Item5}, {university.Item6}" });
-                }
-            }
-        }
+        //        foreach (var university in res)
+        //        {
+        //            File.AppendAllLines(filePath, new List<string>() { $@"{university.Item1}, {university.Item2}, {university.Item3}, {university.Item4}, {university.Item5}, {university.Item6}" });
+        //        }
+        //    }
+        //}
 
-        private static async Task CoursesWithSimilarNames()
-        {
-            var d = _container.Resolve<DapperRepository>();
+        //private static async Task CoursesWithSimilarNames()
+        //{
+        //    var d = _container.Resolve<DapperRepository>();
 
-            var courses = await d.WithConnectionAsync(async f =>
-            {
-                return await f.QueryAsync<string>(
-                    @"Select [Name] from sb.Course where name like N'%[א-ת]%' order by Name");
-            }, default);
-            StringBuilder sb = new StringBuilder();
-            string filePath = @"C:\Users\Charlie even\course.csv";
-            //List<(string,string)> output = new List<(string, string)>();
-            foreach (var courseName in courses)
-            {
-                var res = FindSimilarStringsCourse(courseName, courses.ToList());
+        //    var courses = await d.WithConnectionAsync(async f =>
+        //    {
+        //        return await f.QueryAsync<string>(
+        //            @"Select [Name] from sb.Course where name like N'%[א-ת]%' order by Name");
+        //    }, default);
+        //    StringBuilder sb = new StringBuilder();
+        //    string filePath = @"C:\Users\Charlie even\course.csv";
+        //    //List<(string,string)> output = new List<(string, string)>();
+        //    foreach (var courseName in courses)
+        //    {
+        //        var res = FindSimilarStringsCourse(courseName, courses.ToList());
 
-                foreach (var tuple in res)
-                {
-                    File.AppendAllLines(filePath, new List<string>() { $@"{tuple.Item1}, {tuple.Item2}" });
-                }
-            }
-        }
-        private static async Task AddToExtra()
-        {
+        //        foreach (var tuple in res)
+        //        {
+        //            File.AppendAllLines(filePath, new List<string>() { $@"{tuple.Item1}, {tuple.Item2}" });
+        //        }
+        //    }
+        //}
+        //private static async Task AddToExtra()
+        //{
 
-            var d = _container.Resolve<DapperRepository>();
+        //    var d = _container.Resolve<DapperRepository>();
 
-            var res = await d.WithConnectionAsync(async f =>
-            {
+        //    var res = await d.WithConnectionAsync(async f =>
+        //    {
 
-                return await f.QueryAsync<string>(
-                @"select Name
-                    from sb.University 
-                    where name like N'%ל%'");
+        //        return await f.QueryAsync<string>(
+        //        @"select Name
+        //            from sb.University 
+        //            where name like N'%ל%'");
 
-            }, default);
+        //    }, default);
 
-            foreach (var item in res)
-            {
-                var nameArr = item.Split(' ');
-                string resName = string.Empty;
-                foreach (var name in nameArr)
-                {
-                    if (!string.IsNullOrEmpty(name))
-                    {
-                        if (name.Substring(0, 1).Equals("ל", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            resName += string.Concat(name.Substring(1), ' ');
-                        }
-                        else
-                        {
-                            resName += string.Concat(name, ' ');
-                        }
-                    }
-                }
-                resName = resName.Substring(0, resName.Length - 1);
-                if (!resName.Equals(item))
-                {
-                    //update
-                    var resU = await d.WithConnectionAsync(async f =>
-                    {
+        //    foreach (var item in res)
+        //    {
+        //        var nameArr = item.Split(' ');
+        //        string resName = string.Empty;
+        //        foreach (var name in nameArr)
+        //        {
+        //            if (!string.IsNullOrEmpty(name))
+        //            {
+        //                if (name.Substring(0, 1).Equals("ל", StringComparison.InvariantCultureIgnoreCase))
+        //                {
+        //                    resName += string.Concat(name.Substring(1), ' ');
+        //                }
+        //                else
+        //                {
+        //                    resName += string.Concat(name, ' ');
+        //                }
+        //            }
+        //        }
+        //        resName = resName.Substring(0, resName.Length - 1);
+        //        if (!resName.Equals(item))
+        //        {
+        //            //update
+        //            var resU = await d.WithConnectionAsync(async f =>
+        //            {
 
-                        return await f.ExecuteAsync(
-                        @"update sb.University
-                            set Extra = CONCAT(Extra, ' ', @name)
-                            where name = @oldName", new { name = resName, oldName = item });
-                    }, default);
-                }
-            }
-        }
+        //                return await f.ExecuteAsync(
+        //                @"update sb.University
+        //                    set Extra = CONCAT(Extra, ' ', @name)
+        //                    where name = @oldName", new { name = resName, oldName = item });
+        //            }, default);
+        //        }
+        //    }
+        //}
 
      
 
@@ -521,155 +521,155 @@ namespace ConsoleApp
             return blob.Uri.AbsoluteUri + sas;
         }
 
-        private static async Task FixStorageAsync()
-        {
-            var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
-            var productionOldStorageAccount = CloudStorageAccount.Parse(key);
-            var blobClient = productionOldStorageAccount.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference("spitball-files");
-            var dir = container.GetDirectoryReference("files");
+        //private static async Task FixStorageAsync()
+        //{
+        //    var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
+        //    var productionOldStorageAccount = CloudStorageAccount.Parse(key);
+        //    var blobClient = productionOldStorageAccount.CreateCloudBlobClient();
+        //    var container = blobClient.GetContainerReference("spitball-files");
+        //    var dir = container.GetDirectoryReference("files");
 
 
-            BlobContinuationToken blobToken = null;
-            do
-            {
-                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
-                    new BlobRequestOptions(),
-                    new OperationContext(), default);
+        //    BlobContinuationToken blobToken = null;
+        //    do
+        //    {
+        //        var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
+        //            new BlobRequestOptions(),
+        //            new OperationContext(), default);
 
-                var list = new HashSet<string>();
-                Console.WriteLine("Receiving a new batch of blobs");
-                foreach (IListBlobItem blob in result.Results)
-                {
-                    if (blob.Uri.Segments.Contains("220643"))
-                    {
-                        Console.WriteLine(blob.Uri);
-                    }
+        //        var list = new HashSet<string>();
+        //        Console.WriteLine("Receiving a new batch of blobs");
+        //        foreach (IListBlobItem blob in result.Results)
+        //        {
+        //            if (blob.Uri.Segments.Contains("220643"))
+        //            {
+        //                Console.WriteLine(blob.Uri);
+        //            }
 
-                    Console.WriteLine(blob.Uri);
+        //            Console.WriteLine(blob.Uri);
 
-                    var blobToCheckStr = blob.Uri.Segments[4];
-                    var test = blob.Uri.Segments.Length;
-                    if (test > 5)
-                    {
-                        var dirToRemove = blob.Parent;
-                        string dirToRemoveStr = dirToRemove.Uri.ToString().Split('/')[dirToRemove.Uri.ToString().Split('/').Length - 2];
-                        var blobToMoveList = dirToRemove.ListBlobs();
-
-
-                        string blobToMoveStr = blobToMoveList.First().Uri.ToString().Split('/')[blobToMoveList.First().Uri.ToString().Split('/').Length - 1];
-                        var blobToMove = dirToRemove.GetBlockBlobReference(blobToMoveStr);
-
-                        var name = blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 2].Replace('/', '-');
-                        var ect = Path.GetExtension(blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 1]).TrimStart('.');
-                        var id = blob.Uri.Segments[blob.Uri.Segments.Length - 3].Trim('/');
-
-                        CloudBlockBlob blobDestination = dir.GetBlockBlobReference(
-                            $"{id}/{name}.{ect}");
+        //            var blobToCheckStr = blob.Uri.Segments[4];
+        //            var test = blob.Uri.Segments.Length;
+        //            if (test > 5)
+        //            {
+        //                var dirToRemove = blob.Parent;
+        //                string dirToRemoveStr = dirToRemove.Uri.ToString().Split('/')[dirToRemove.Uri.ToString().Split('/').Length - 2];
+        //                var blobToMoveList = dirToRemove.ListBlobs();
 
 
-                        var sharedAccessUri = GetShareAccessUri(blobToMoveStr, 360, dirToRemove);
+        //                string blobToMoveStr = blobToMoveList.First().Uri.ToString().Split('/')[blobToMoveList.First().Uri.ToString().Split('/').Length - 1];
+        //                var blobToMove = dirToRemove.GetBlockBlobReference(blobToMoveStr);
 
-                        var blobUri = new Uri(sharedAccessUri);
+        //                var name = blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 2].Replace('/', '-');
+        //                var ect = Path.GetExtension(blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 1]).TrimStart('.');
+        //                var id = blob.Uri.Segments[blob.Uri.Segments.Length - 3].Trim('/');
 
-                        await blobDestination.StartCopyAsync(blobUri);
-                        while (blobDestination.CopyState.Status != CopyStatus.Success)
-                        {
-                            Console.WriteLine(blobDestination.CopyState.Status);
-                            await Task.Delay(TimeSpan.FromSeconds(1));
-                            await blobDestination.ExistsAsync();
-                        }
+        //                CloudBlockBlob blobDestination = dir.GetBlockBlobReference(
+        //                    $"{id}/{name}.{ect}");
 
 
-                        blobToMove.DeleteIfExists();
-                    }
-                }
+        //                var sharedAccessUri = GetShareAccessUri(blobToMoveStr, 360, dirToRemove);
 
-                blobToken = result.ContinuationToken;
-            } while (blobToken != null);
+        //                var blobUri = new Uri(sharedAccessUri);
 
-        }
-
-
-        private static async Task ReNameFiles()
-        {
-            var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
-            var productionOldStorageAccount = CloudStorageAccount.Parse(key);
-            var blobClient = productionOldStorageAccount.CreateCloudBlobClient();
+        //                await blobDestination.StartCopyAsync(blobUri);
+        //                while (blobDestination.CopyState.Status != CopyStatus.Success)
+        //                {
+        //                    Console.WriteLine(blobDestination.CopyState.Status);
+        //                    await Task.Delay(TimeSpan.FromSeconds(1));
+        //                    await blobDestination.ExistsAsync();
+        //                }
 
 
-            var container = blobClient.GetContainerReference("spitball-files");
-            var dir = container.GetDirectoryReference("files");
+        //                blobToMove.DeleteIfExists();
+        //            }
+        //        }
+
+        //        blobToken = result.ContinuationToken;
+        //    } while (blobToken != null);
+
+        //}
 
 
-            BlobContinuationToken blobToken = null;
-            do
-            {
-                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
-                    new BlobRequestOptions(),
-                    new OperationContext(), default);
-
-                var list = new HashSet<long>();
-                Console.WriteLine("Receiving a new batch of blobs");
-                foreach (IListBlobItem blob in result.Results)
-                {
-
-                    //var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
-                    var id = long.Parse(blob.Uri.Segments[3].TrimEnd('/'));
-                    if (!list.Add(id))
-                    {
-                        continue;
-                    }
-                    var fileDir = container.GetDirectoryReference($"files/{id}");
-                    var blobs = fileDir.ListBlobs().ToList();
-                    var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("file-"));
-
-                    Regex rgx = new Regex(@"[^\x00-\x7F]+|\s+");
-
-                    var t = rgx.Replace(textBlobItem.Uri.Segments.Last().Replace("%20", " "), string.Empty);
-                    //t = ".pdf";
-                    if (Path.GetFileNameWithoutExtension(t.Split('-').Last()) == string.Empty)
-                    {
-                        t = RandomString(3) + t;
-                    }
-
-                    if ($"/spitball-files/files/{id}/" + t != textBlobItem.Uri.LocalPath.Replace(" ", ""))
-                    {
-                        var dirToRemove = blob.Parent;
-                        string dirToRemoveStr = dirToRemove.Uri.ToString().Split('/')[dirToRemove.Uri.ToString().Split('/').Length - 2];
-                        var blobToMoveList = dirToRemove.ListBlobs();
+        //private static async Task ReNameFiles()
+        //{
+        //    var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
+        //    var productionOldStorageAccount = CloudStorageAccount.Parse(key);
+        //    var blobClient = productionOldStorageAccount.CreateCloudBlobClient();
 
 
-                        string blobToMoveStr = blobToMoveList.First().Uri.ToString().Split('/')[blobToMoveList.First().Uri.ToString().Split('/').Length - 1];
-                        var blobToMove = dirToRemove.GetBlockBlobReference(blobToMoveStr);
-
-                        var name = blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 2].Replace('/', '-');
-                        var ect = Path.GetExtension(blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 1]).TrimStart('.');
-                        var newName = rgx.Replace(name, string.Empty);
-                        CloudBlockBlob blobDestination = dir.GetBlockBlobReference(
-                            $"{id}/{newName}.{ect}");
-
-                        var sharedAccessUri = GetShareAccessUri(blobToMoveStr, 360, dirToRemove);
-
-                        var blobUri = new Uri(sharedAccessUri);
-                        await blobDestination.StartCopyAsync(blobUri);
-                        while (blobDestination.CopyState.Status != CopyStatus.Success)
-                        {
-                            Console.WriteLine(blobDestination.CopyState.Status);
-                            await Task.Delay(TimeSpan.FromSeconds(1));
-                            await blobDestination.ExistsAsync();
-                        }
+        //    var container = blobClient.GetContainerReference("spitball-files");
+        //    var dir = container.GetDirectoryReference("files");
 
 
-                        blobToMove.DeleteIfExists();
-                    }
+        //    BlobContinuationToken blobToken = null;
+        //    do
+        //    {
+        //        var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
+        //            new BlobRequestOptions(),
+        //            new OperationContext(), default);
 
-                }
+        //        var list = new HashSet<long>();
+        //        Console.WriteLine("Receiving a new batch of blobs");
+        //        foreach (IListBlobItem blob in result.Results)
+        //        {
 
-                blobToken = result.ContinuationToken;
-            } while (blobToken != null);
+        //            //var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
+        //            var id = long.Parse(blob.Uri.Segments[3].TrimEnd('/'));
+        //            if (!list.Add(id))
+        //            {
+        //                continue;
+        //            }
+        //            var fileDir = container.GetDirectoryReference($"files/{id}");
+        //            var blobs = fileDir.ListBlobs().ToList();
+        //            var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("file-"));
 
-        }
+        //            Regex rgx = new Regex(@"[^\x00-\x7F]+|\s+");
+
+        //            var t = rgx.Replace(textBlobItem.Uri.Segments.Last().Replace("%20", " "), string.Empty);
+        //            //t = ".pdf";
+        //            if (Path.GetFileNameWithoutExtension(t.Split('-').Last()) == string.Empty)
+        //            {
+        //                t = RandomString(3) + t;
+        //            }
+
+        //            if ($"/spitball-files/files/{id}/" + t != textBlobItem.Uri.LocalPath.Replace(" ", ""))
+        //            {
+        //                var dirToRemove = blob.Parent;
+        //                string dirToRemoveStr = dirToRemove.Uri.ToString().Split('/')[dirToRemove.Uri.ToString().Split('/').Length - 2];
+        //                var blobToMoveList = dirToRemove.ListBlobs();
+
+
+        //                string blobToMoveStr = blobToMoveList.First().Uri.ToString().Split('/')[blobToMoveList.First().Uri.ToString().Split('/').Length - 1];
+        //                var blobToMove = dirToRemove.GetBlockBlobReference(blobToMoveStr);
+
+        //                var name = blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 2].Replace('/', '-');
+        //                var ect = Path.GetExtension(blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 1]).TrimStart('.');
+        //                var newName = rgx.Replace(name, string.Empty);
+        //                CloudBlockBlob blobDestination = dir.GetBlockBlobReference(
+        //                    $"{id}/{newName}.{ect}");
+
+        //                var sharedAccessUri = GetShareAccessUri(blobToMoveStr, 360, dirToRemove);
+
+        //                var blobUri = new Uri(sharedAccessUri);
+        //                await blobDestination.StartCopyAsync(blobUri);
+        //                while (blobDestination.CopyState.Status != CopyStatus.Success)
+        //                {
+        //                    Console.WriteLine(blobDestination.CopyState.Status);
+        //                    await Task.Delay(TimeSpan.FromSeconds(1));
+        //                    await blobDestination.ExistsAsync();
+        //                }
+
+
+        //                blobToMove.DeleteIfExists();
+        //            }
+
+        //        }
+
+        //        blobToken = result.ContinuationToken;
+        //    } while (blobToken != null);
+
+        //}
 
         private static Random _random = new Random();
         public static string RandomString(int length)

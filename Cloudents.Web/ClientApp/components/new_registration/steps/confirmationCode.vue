@@ -63,7 +63,7 @@
         data() {
             return {
                 rules: {
-                    required: value => !!value || 'Required.',
+                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
 
                 },
                 codePlaceholder: LanguageService.getValueByKey("login_placeholder_enter_confirmation_code"),

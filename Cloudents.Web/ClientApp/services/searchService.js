@@ -70,12 +70,12 @@ function QuestionItem(objInit) {
 
 function TutorItem(objInit) {
     this.userId = objInit.userId || 12;
-    this.name = objInit.name || 'Elad Levavi';
+    this.name = objInit.name || '';
     this.image = objInit.image;
     this.courses = objInit.courses || '';
     this.price = objInit.price || 50;
-    this.score = objInit.score;
-    this.rating = objInit.rate || null;
+    this.score = objInit.score || null;
+    this.rating =  objInit.rate ? Number(objInit.rate.toFixed(2)): null;
     this.reviews = objInit.reviewsCount || 0;
     this.template = 'tutor';
     this.bio = objInit.bio || '';

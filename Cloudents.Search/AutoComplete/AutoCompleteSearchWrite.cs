@@ -10,7 +10,7 @@ namespace Cloudents.Search.AutoComplete
         public const string ScoringProfile = "auto-complete-default";
 
         public AutoCompleteSearchWrite(SearchService client, ILogger logger)
-            : base(client, IndexName,logger)
+            : base(client, IndexName, logger)
         {
         }
 
@@ -34,7 +34,7 @@ namespace Cloudents.Search.AutoComplete
                     {
                         IsSearchable = true,
                         SearchAnalyzer = AnalyzerName.StandardLucene,
-                        IndexAnalyzer = AnalyzerName.Create("prefix"),
+                        IndexAnalyzer ="prefix"// AnalyzerName.Create("prefix"),
                     },
                     new Field(nameof(Entities.AutoComplete.Value), DataType.String)
                     {
@@ -51,7 +51,7 @@ namespace Cloudents.Search.AutoComplete
                     new CustomAnalyzer("prefix",TokenizerName.Standard,new List<TokenFilterName>
                     {
                         TokenFilterName.Lowercase,
-                        TokenFilterName.Create("my_edgeNGram")
+                       "my_edgeNGram"
                     }),
                 },
                 TokenFilters = new List<TokenFilter>

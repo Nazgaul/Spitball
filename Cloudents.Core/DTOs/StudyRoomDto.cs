@@ -11,6 +11,7 @@ namespace Cloudents.Core.DTOs
         public long TutorId { get; set; }
 
         public bool AllowReview { get; set; }
+        public bool NeedPayment => false;
     }
 
 
@@ -24,5 +25,7 @@ namespace Cloudents.Core.DTOs
         public DateTime DateTime { get; set; }
 
         public Guid ConversationId { get; set; }
+
+        
     }
 }

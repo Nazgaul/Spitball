@@ -11,7 +11,7 @@ const state = {
     },
     chatState:"conversation",
     activeConversationObj: chatService.createActiveConversationObj({}), //points to conversation Obj
-    isVisible: global.innerWidth < 600 ? false : true,
+    isVisible: global.innerWidth < 600 ? false : false,
     isMinimized: true,
     totalUnread: 0,
     chatLocked: false
@@ -207,7 +207,7 @@ const actions = {
         dispatch('syncMessagesByConversationId');
         dispatch('updateChatState', state.enumChatState.messages);
     },
-    getAllConversations:({commit, getters, dispatch})=>{
+    getAllConversations:({commit, getters, dispatch, state})=>{
         if(!getters.accountUser) {
             commit('closeChat');
             return;
@@ -224,6 +224,9 @@ const actions = {
                         }
                         dispatch('setUserStatus', userStatus);
                 })
+                if(global.innerWidth > 600){
+                    state.isVisible = true;
+                }
             }
         });
     },

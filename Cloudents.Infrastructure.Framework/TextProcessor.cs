@@ -106,21 +106,20 @@ namespace Cloudents.Infrastructure.Framework
         }
 
 
-
-        public static IEnumerable<string> SplitInParts(string s, int partLength)
+        private static IEnumerable<string> SplitInParts(string s, int partLength)
         {
             if (s == null)
-                throw new ArgumentNullException("s");
+                throw new ArgumentNullException(nameof(s));
             if (partLength <= 0)
-                throw new ArgumentException("Part length has to be positive.", "partLength");
+                throw new ArgumentException("Part length has to be positive.", nameof(partLength));
 
             for (var i = 0; i < s.Length; i += partLength)
                 yield return s.Substring(i, Math.Min(partLength, s.Length - i));
         }
 
-        public void Init(Func<string> path)
-        {
-            _text = File.ReadAllText(path());// sr.ReadToEnd();
-        }
+        //public void Init(Func<string> path)
+        //{
+        //    _text = File.ReadAllText(path());// sr.ReadToEnd();
+        //}
     }
 }

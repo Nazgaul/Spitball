@@ -10,15 +10,22 @@ const getters = {
 const mutations = {
     setTutors(state, tutors) {
         state.tutorList = tutors;
+    },
+    resetTutorList(state, val) {
+        state.tutorList = val;
     }
 };
 
 const actions = {
     getTutorList({commit, state}, objReq) {
+        commit('setTutors', []);
         tutorListService.getTutorList(objReq)
                         .then((tutors) => {
                             commit('setTutors', tutors);
                         });
+    },
+    resetList({commit, state}){
+        commit('resetTutorList', []);
     }
 
 };

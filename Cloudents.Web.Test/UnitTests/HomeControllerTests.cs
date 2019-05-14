@@ -1,6 +1,8 @@
 ﻿using Cloudents.Web.Test.IntegrationTests;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using System;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,23 +13,32 @@ namespace Cloudents.Web.Test.UnitTests
     {
         private readonly SbWebApplicationFactory _factory;
 
+        private readonly System.Net.Http.HttpClient _client;
+
+        private readonly UriBuilder _uri = new UriBuilder()
+        {
+            Path = "/logout"
+        };
+
+
+
         public HomeControllerTests(SbWebApplicationFactory factory)
         {
             _factory = factory;
+            _client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Fact]
         public async Task Logout_Redirect()
         {
-            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
-            {
-                AllowAutoRedirect = false
-            });
+            await _client.LogInAsync();
 
-            await client.LogInAsync();
-            var response = await client.GetAsync("logout");
+            var response = await _client.GetAsync(_uri.Path);
 
-            response.StatusCode.Should().Be(302);
+            response.StatusCode.Should().Be(HttpStatusCode.Redirect);
         }
     }
 }

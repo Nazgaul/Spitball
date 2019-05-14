@@ -11,7 +11,7 @@ namespace Cloudents.Web.Test.UnitTests
         {
             const string input = "gfdgdfgdfg";
 
-            var dbValue = input;
+            const string dbValue = input;
 
             var result = FriendlyUrlHelper.CompareTitle(dbValue, input);
 

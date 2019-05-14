@@ -55,8 +55,9 @@ namespace Cloudents.Web.Api
              ICommandBus commandBus, UserManager<RegularUser> userManager,
              IDocumentDirectoryBlobProvider blobProvider,
             IStringLocalizer<DocumentController> localizer,
-            ITempDataDictionaryFactory tempDataDictionaryFactory)
-        : base(blobProvider, tempDataDictionaryFactory)
+            ITempDataDictionaryFactory tempDataDictionaryFactory,
+             IStringLocalizer<UploadControllerBase> localizer2)
+        : base(blobProvider, tempDataDictionaryFactory,localizer2)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
@@ -317,6 +318,11 @@ namespace Cloudents.Web.Api
                 var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
+            }
+            catch (DuplicateRowException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), "Cannot vote twice");
+                return BadRequest(ModelState);
             }
             catch (NoEnoughScoreException)
             {

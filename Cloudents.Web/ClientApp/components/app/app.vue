@@ -54,6 +54,13 @@
                 <Add-Question></Add-Question>
                 <!-- <New-Question></New-Question> -->
             </sb-dialog>
+            <sb-dialog :isPersistent="true"
+                       :showDialog="getRequestTutorDialog"
+                       :popUpType="'tutorRequestDialog'"
+                       :max-width="'640px'"
+                       :content-class="'tutor-request-dialog'">
+                <tutor-request></tutor-request>
+            </sb-dialog>
             <sb-dialog :showDialog="newIsraeliUser"
                        :popUpType="'newIsraeliUserDialog'"
                        :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
@@ -124,17 +131,14 @@
     </v-app>
 </template>
 <script>
+  
 import { mapGetters, mapActions } from "vuex";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
 import AddQuestion from "../question/addQuestion/addQuestion.vue";
-
 import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
 import newBaller from "../helpers/newBaller/newBaller.vue";
-import {
-  GetDictionary,
-  LanguageService
-} from "../../services/language/languageService";
+import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
 import tourService from "../../services/tourService";
 import walletService from "../../services/walletService";
 import uniSelectPop from "../helpers/uni-select-popup/uniSelectPop.vue";
@@ -149,7 +153,7 @@ import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
 import tutorList from "../helpers/tutorList/tutorList.vue";
-
+      import tutorRequest from '../tutorRequest/tutorRequest.vue';
 export default {
   components: {
     AddQuestion,
@@ -168,7 +172,8 @@ export default {
     buyTokens,
     newBaller,
     becomeTutor,
-    tutorList
+        tutorList,
+        tutorRequest
   },
   data() {
     return {
@@ -213,7 +218,9 @@ export default {
       "getShowPayMeToaster",
       "getCurrentStep",
       "newBallerDialog",
-      "becomeTutorDialog"
+        "becomeTutorDialog",
+         "getRequestTutorDialog"
+
     ]),
     isMobile(){
       return this.$vuetify.breakpoint.smAndDown;
@@ -226,7 +233,11 @@ export default {
       }
     },
     cookiesShow() {
-      return this.getCookieAccepted();
+      if(!this.accountUser){
+        return this.getCookieAccepted();
+      }else{
+        return true;
+      }
     },
     universitySelectPopup() {
       return this.getShowSelectUniPopUpInterface;
@@ -272,53 +283,7 @@ export default {
           });
         }, this.toasterTimeout);
       }
-    },
-    //HomeworkHelp_isDataLoaded: function(val) {
-    //  let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-    //  let self = this;
-    //  if (val && !supressed && !!self.accountUser) {
-    //    setTimeout(() => {
-    //      if (self.$route.name === "ask") {
-    //        if (self.$vuetify.breakpoint.xsOnly) {
-    //          self.tourObject.tourSteps =
-    //            tourService[self.tourObject.region].HWSteps.mobile;
-    //          if (self.getIsFeedTabActive()) {
-    //            self.$tours["myTour"].start();
-    //          }
-    //        } else {
-    //          self.tourObject.tourSteps =
-    //            tourService[self.tourObject.region].HWSteps.desktop;
-    //          self.$tours["myTour"].start();
-    //        }
-    //      }
-    //    }, 3000);
-    //  }
-    //},
-    //StudyDocuments_isDataLoaded: function(val) {
-    //  let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-    //  let self = this;
-    //  if (val && !supressed && !!self.accountUser) {
-    //    setTimeout(() => {
-    //      if (self.$route.name === "note") {
-    //        if (self.$vuetify.breakpoint.xsOnly) {
-    //          self.tourObject.tourSteps =
-    //            tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
-    //          if (self.getIsFeedTabActive()) {
-    //            self.$tours["myTour"].start();
-    //          }
-    //        } else {
-    //          self.tourObject.tourSteps =
-    //            tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
-    //          self.$tours["myTour"].start();
-    //        }
-    //      }
-    //    }, 3000);
-    //  }
-    //},
-    //$route: function(val) {
-    // // this.tourTempClose();
-    //  this.openOnboardGuide();
-    //}
+    }
   },
   methods: {
     ...mapActions([
@@ -332,7 +297,8 @@ export default {
       "updateShowBuyDialog",
       "updateShowPayMeToaster",
       "updateCurrentStep",
-      "changeSelectUniState"
+      "changeSelectUniState",
+      "updateRequestDialog"
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
     enterPayme(){
@@ -389,6 +355,16 @@ export default {
     if(!!this.accountUser && this.accountUser.needPayment){
       this.updateShowPayMeToaster(true);
     }
+    if(!!this.$route.query && this.$route.query.requesttutor){
+        console.log(this.$route.query.requesttutor);
+        if(this.$route.query.requesttutor.toLowerCase() === 'open'){
+            console.log(this.$route.query.requesttutor);
+            setTimeout(() => {
+                this.updateRequestDialog(true)
+            }, 170);
+        }
+    }
+
     //this.openOnboardGuide();
     this.$root.$on("closePopUp", name => {
       if (name === "suggestions") {

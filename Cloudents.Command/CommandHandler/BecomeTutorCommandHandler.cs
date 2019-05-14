@@ -21,7 +21,7 @@ namespace Cloudents.Command.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token);
             user.Tutor = new Tutor(message.Bio, user, message.Price);
             user.Description = message.Description;
-            
+            user.CanTeachAllCourses();
             user.ChangeName(message.FirstName,message.LastName);
             await _userRepository.UpdateAsync(user, token);
         }

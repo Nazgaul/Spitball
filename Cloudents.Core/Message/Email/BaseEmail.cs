@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using Cloudents.Core.Entities;
 using JetBrains.Annotations;
@@ -17,9 +16,14 @@ namespace Cloudents.Core.Message.Email
             TemplateId = AssignTemplate(info);
         }
 
-        [DebuggerDisplay("To = {To}")]
+        //protected BaseEmail()
+        //{
+
+        //}
 
         public string To { get; private set; }
+
+        public string[] Bcc { get; protected set; }
 
         public string TemplateId { get; private set; }
         public string Subject { get; private set; }
