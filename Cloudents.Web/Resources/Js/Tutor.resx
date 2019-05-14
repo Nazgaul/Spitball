@@ -154,16 +154,16 @@
     <value>Device Access</value>
   </data>
   <data name="quality_allowed_looks_like" xml:space="preserve">
-    <value>It looks like one of your devices is in use by another application, or is disabled in your system settings.</value>
+    <value>We were not able to access your camera and or your microphone. It looks like one of your devices is in use by another application, or is disabled in your system settings.</value>
   </data>
   <data name="quality_allowed_press" xml:space="preserve">
     <value> Press Refresh after allowing access.</value>
   </data>
   <data name="quality_allowed_tip_one" xml:space="preserve">
-    <value>Make sure your camera and microphone are enabled in your system settings</value>
+    <value>Tip</value>
   </data>
   <data name="quality_allowed_tip_two" xml:space="preserve">
-    <value>Close any other tabs or applications, and reconnect.</value>
+    <value>Make sure your camera and microphone are enabled in your system settings, close any other tabs or applications, and reconnect.</value>
   </data>
   <data name="quality_allowed_title" xml:space="preserve">
     <value>To communicate with the other participant, allow your web browser to access the camera and microphone.</value>
@@ -175,7 +175,7 @@
     <value>Audio Output Test</value>
   </data>
   <data name="quality_btn_continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Continue without video or audio</value>
   </data>
   <data name="quality_btn_done" xml:space="preserve">
     <value>Done</value>
@@ -199,7 +199,7 @@
     <value>Camera &amp; Sound Test</value>
   </data>
   <data name="quality_unable" xml:space="preserve">
-    <value>Unable to access device.</value>
+    <value>Unable to access camera or microphone</value>
   </data>
   <data name="quality_video_test_title" xml:space="preserve">
     <value>Video Test</value>

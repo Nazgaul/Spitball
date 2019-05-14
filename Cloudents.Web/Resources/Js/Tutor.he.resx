@@ -154,16 +154,16 @@
     <value>גישה להתקן</value>
   </data>
   <data name="quality_allowed_looks_like" xml:space="preserve">
-    <value>נראה כי אחד מההתקנים שלך בשימוש של אפליקציה אחרת, או שההתקן לא מאופשר בהגדרות המערכת.</value>
+    <value>לא הצלחנו לזהות מצלמה ו/או מיקרופון. ככל הנרא אחד מהמכשירים הנ״ל בשימוש על ידי תוכנה אחרת או מנותק בהגדרות המשתמש שלך.</value>
   </data>
   <data name="quality_allowed_press" xml:space="preserve">
     <value> בבקשה רענן את הדף אחרי אישור הגישה </value>
   </data>
   <data name="quality_allowed_tip_one" xml:space="preserve">
-    <value>אנא ודא כי המצלמה והמיקרופון שלך מאופשרים בהגדרות המערכת</value>
+    <value>טיפ</value>
   </data>
   <data name="quality_allowed_tip_two" xml:space="preserve">
-    <value>סגור לשוניות או אפליקציות אחרות ואז התחבר שנית.</value>
+    <value>ודא שהמצלמה והמיקרופון שלך מופעלים בהגדרות המערכת. סגור את כל החלונות והאפליקציות הפתוחות והתחבר מחדש</value>
   </data>
   <data name="quality_allowed_title" xml:space="preserve">
     <value>כדי ליצור קשר עם משתתף נוסף, אפשר לדפדפן שלך לגשת למצלמה והמיקרופון.</value>
@@ -175,7 +175,7 @@
     <value>בדיקת רמקול</value>
   </data>
   <data name="quality_btn_continue" xml:space="preserve">
-    <value>המשך</value>
+    <value>המשך ללא מצלמה ומיקרופון</value>
   </data>
   <data name="quality_btn_done" xml:space="preserve">
     <value>סיום</value>
@@ -199,7 +199,7 @@
     <value>בדיקת מצלמה וקול</value>
   </data>
   <data name="quality_unable" xml:space="preserve">
-    <value>אין אפשרות גישה להתקן.</value>
+    <value>לא מזהה מצלמה או מיקרופון</value>
   </data>
   <data name="quality_video_test_title" xml:space="preserve">
     <value>בדיקת וידיאו</value>

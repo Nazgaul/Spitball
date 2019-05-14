@@ -12,27 +12,29 @@
     </v-layout>
 
     <v-layout v-else column align-center justify-center class="error-permisson-wrap">
-        <v-flex class="mb-4">
+        <!-- <v-flex class="mb-4">
             <inputCableImage class="input-icon"></inputCableImage>
-        </v-flex>
+        </v-flex> -->
         <v-flex class="mb-5">
             <!--<h3>Unable to access device.</h3>-->
-            <p class="font-weight-bold" v-language:inner>tutor_quality_allowed_looks_like</p>
-            <ol class="numbered pl-3">
-                <li v-language:inner>tutor_quality_allowed_tip_one</li>
-                <li v-language:inner>tutor_quality_allowed_tip_two</li>
-            </ol>
+            <p class="font-weight-bold" style="font-size: 16px;" v-language:inner>tutor_quality_allowed_looks_like</p>
+            <div v-language:inner>tutor_quality_allowed_tip_one</div>
+            <p v-language:inner style="font-size: 12px;margin-top:10px;max-width: 80%;">tutor_quality_allowed_tip_two</p>
+            <!-- <ol class="numbered pl-3">
+                <li v-language:inner></li>
+                <li v-language:inner></li>
+            </ol> -->
 
         </v-flex>
     </v-layout>
 </template>
 
 <script>
-    import inputCableImage from '../../../images/input.svg';
+    // import inputCableImage from '../../../images/input.svg';
 
     export default {
         name: "notAllowed",
-        components: {inputCableImage},
+        // components: {inputCableImage},
         props: {
             isNotFound: {
                 type: Boolean,
