@@ -124,7 +124,7 @@
                     required:(value)=> validationRules.required(value),
                     minimum:(value)=>  validationRules.positiveNumber(value),
                     maximum:(value)=>  validationRules.maxVal(value, 200000),
-                    maximumChars:(value)=>  validationRules.maximumChars(value, 255)
+                    maximumChars:(value)=>  validationRules.maximumChars(value, 1000)
                 },
                 valid: false,
 

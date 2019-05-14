@@ -66,7 +66,7 @@
                 description: '',
                 bio: '',
                 btnLoading: false,
-                validBecomeSecond:false,
+                validBecomeSecond: false,
                 rules: {
                     maximumChars:(value)=> validationRules.maximumChars(value, 1000)
                 },
