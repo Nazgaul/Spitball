@@ -68,7 +68,7 @@
                 btnLoading: false,
                 validBecomeSecond:false,
                 rules: {
-                    maximumChars:(value)=> validationRules.maximumChars(value, 255)
+                    maximumChars:(value)=> validationRules.maximumChars(value, 1000)
                 },
             };
         },
