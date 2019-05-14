@@ -28,7 +28,5 @@ namespace Cloudents.Core.DTOs.Admin
         public string Email { get; set; }
         [EntityBind(nameof(RegularUser.PhoneNumber))]
         public string PhoneNumber { get; set; }
-        public string Message { get; set; }
-        public DateTime CreationTime { get; set; }
     }
 }

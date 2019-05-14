@@ -29,9 +29,7 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<ConversationDetailsDto>> GetAsync(AdminConversationDetailsQuery query, CancellationToken token)
             {
-                const string sql = @"select u.Name as UserName, u.Email, u.PhoneNumberHash as PhoneNumber, 
-	                                case when cm.Message is not null then cm.Message else cm.blob end as [Message],
-	                                cm.CreationTime
+                const string sql = @"select distinct u.Name as UserName, u.Email, u.PhoneNumberHash as PhoneNumber
                                 from sb.ChatMessage cm
                                 join sb.[User] u
 	                                on cm.UserId = u.Id

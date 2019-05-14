@@ -1,6 +1,10 @@
 ﻿using Cloudents.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -33,11 +37,23 @@ namespace Cloudents.Admin2.Api
 
         [HttpGet("details")]
         public async Task<IEnumerable<ConversationDetailsDto>> ConversationDetailsync(
-            [FromQuery(Name = "id")]Guid id, 
+            [FromQuery(Name = "id")]Guid id,
             CancellationToken token)
         {
             var query = new AdminConversationDetailsQuery(id);
             return await _queryBus.QueryAsync(query, token);
+        }
+
+
+        [HttpGet("{id:guid}")]
+        public async Task<IEnumerable<ChatMessageDto>> Get(Guid id, int page,
+            [FromServices] IChatDirectoryBlobProvider blobProvider,
+            [FromServices] IBinarySerializer serializer,
+            CancellationToken token)
+        {
+            //specific conversation
+            var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(id, page), token);
+            return result;
         }
     }
 }
