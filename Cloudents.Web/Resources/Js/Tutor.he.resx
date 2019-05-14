@@ -157,7 +157,7 @@
     <value>נראה כי אחד מההתקנים שלך בשימוש של אפליקציה אחרת, או שההתקן לא מאופשר בהגדרות המערכת.</value>
   </data>
   <data name="quality_allowed_press" xml:space="preserve">
-    <value>בבקשה רענן את הדף אחרי אישור הגישה </value>
+    <value> בבקשה רענן את הדף אחרי אישור הגישה </value>
   </data>
   <data name="quality_allowed_tip_one" xml:space="preserve">
     <value>אנא ודא כי המצלמה והמיקרופון שלך מאופשרים בהגדרות המערכת</value>
@@ -166,7 +166,7 @@
     <value>סגור לשוניות או אפליקציות אחרות ואז התחבר שנית.</value>
   </data>
   <data name="quality_allowed_title" xml:space="preserve">
-    <value>כדי ליצור קשר עם משתתף נוסף, אפשר לדפדפן שלך לגשת למצלמה והמיקרופון</value>
+    <value>כדי ליצור קשר עם משתתף נוסף, אפשר לדפדפן שלך לגשת למצלמה והמיקרופון.</value>
   </data>
   <data name="quality_audio_test_in" xml:space="preserve">
     <value>בדיקת מיקרופון</value>
@@ -221,6 +221,18 @@
   </data>
   <data name="stream_guest" xml:space="preserve">
     <value>אורח</value>
+  </data>
+  <data name="tab1" xml:space="preserve">
+    <value>לשונית 1</value>
+  </data>
+  <data name="tab2" xml:space="preserve">
+    <value>לשונית 2</value>
+  </data>
+  <data name="tab3" xml:space="preserve">
+    <value>לשונית 3</value>
+  </data>
+  <data name="tab4" xml:space="preserve">
+    <value>לשונית 4</value>
   </data>
   <data name="tooltip_circle" xml:space="preserve">
     <value>עיגול</value>

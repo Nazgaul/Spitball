@@ -157,7 +157,7 @@
     <value>It looks like one of your devices is in use by another application, or is disabled in your system settings.</value>
   </data>
   <data name="quality_allowed_press" xml:space="preserve">
-    <value>Press Refresh after allowing access.</value>
+    <value> Press Refresh after allowing access.</value>
   </data>
   <data name="quality_allowed_tip_one" xml:space="preserve">
     <value>Make sure your camera and microphone are enabled in your system settings</value>
@@ -207,11 +207,17 @@
   <data name="quality_video_title" xml:space="preserve">
     <value>Video quality test</value>
   </data>
+  <data name="stream_btn_add_payment" xml:space="preserve">
+    <value>Add payment details</value>
+  </data>
   <data name="stream_btn_end_session" xml:space="preserve">
     <value>End Session</value>
   </data>
   <data name="stream_btn_join_session" xml:space="preserve">
     <value>Join Session</value>
+  </data>
+  <data name="stream_btn_pending_tutor" xml:space="preserve">
+    <value>Pending student payment details</value>
   </data>
   <data name="stream_btn_start_session" xml:space="preserve">
     <value>Start Session</value>
@@ -221,6 +227,18 @@
   </data>
   <data name="stream_guest" xml:space="preserve">
     <value>Guest</value>
+  </data>
+  <data name="tab1" xml:space="preserve">
+    <value>Tab 1</value>
+  </data>
+  <data name="tab2" xml:space="preserve">
+    <value>Tab 2</value>
+  </data>
+  <data name="tab3" xml:space="preserve">
+    <value>Tab 3</value>
+  </data>
+  <data name="tab4" xml:space="preserve">
+    <value>Tab 4</value>
   </data>
   <data name="tooltip_circle" xml:space="preserve">
     <value>Circle</value>
