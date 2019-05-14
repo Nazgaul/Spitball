@@ -108,7 +108,9 @@ const mousedown = function(e){
     this.methods.hideColorPicker();
     this.shouldPaint = true;
     if(!currentHelperObj){
-        let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, currentX - e.target.offsetLeft, currentY);
+        let scrollLeft = document.getElementsByClassName('canvas-wrapper')[0].scrollLeft;
+        let scrollTop = document.getElementsByClassName('canvas-wrapper')[0].scrollTop;
+        let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, (currentX - e.target.offsetLeft) + scrollLeft, (currentY - e.target.getBoundingClientRect().top));
         setSelectedShapes(canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData()));
         if(Object.keys(selectedShapes()).length > 0){
             Object.keys(selectedShapes()).forEach(shapeId=>{

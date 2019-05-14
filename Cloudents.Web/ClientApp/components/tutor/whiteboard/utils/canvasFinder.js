@@ -36,7 +36,7 @@ const findLiveDraw = function(pointX, pointY, shapeObj, ctx){
 
 const findLineDraw = function(pointX, pointY, shapeObj, ctx){
     let result = false;
-    let acceptedDistance = 2;
+    let acceptedDistance = 4;
     
     let rect = {
         startX: shapeObj.points[0].mouseX,
@@ -60,13 +60,37 @@ const findLineDraw = function(pointX, pointY, shapeObj, ctx){
 }
 
 const findRectangleDraw = function(pointX, pointY, shapeObj, ctx){
-    let path = new Path2D(shapeObj.path.stroke);
-    return ctx.isPointInStroke(path, pointX, pointY);
+    // let path = new Path2D(shapeObj.path.stroke);
+    let boundries= {
+        startX: shapeObj.points[0].mouseX,
+        startY: shapeObj.points[0].mouseY,
+    }
+    
+    let rect = {
+        startX: boundries.startX,
+        startY: boundries.startY,
+        w: shapeObj.points[1].mouseX - shapeObj.points[0].mouseX,
+        h: shapeObj.points[1].mouseY - shapeObj.points[0].mouseY,
+    }
+    return inBox(pointX, pointY, rect);
+    // return ctx.isPointInStroke(path, pointX, pointY);
 }
 
 const findEllipseDraw = function(pointX, pointY, shapeObj, ctx){
-    let path = new Path2D(shapeObj.path.stroke);
-    return ctx.isPointInStroke(path, pointX, pointY);
+    //let path = new Path2D(shapeObj.path.stroke);
+    let boundries= {
+        startX: shapeObj.points[0].mouseX,
+        startY: shapeObj.points[0].mouseY,
+    }
+    
+    let rect = {
+        startX: boundries.startX,
+        startY: boundries.startY,
+        w: shapeObj.points[1].mouseX - shapeObj.points[0].mouseX,
+        h: shapeObj.points[1].mouseY - shapeObj.points[0].mouseY,
+    }
+    return inBox(pointX, pointY, rect);
+    // return ctx.isPointInStroke(path, pointX, pointY);
 }
 
 const findImageDraw = function(pointX, pointY, shapeObj){
