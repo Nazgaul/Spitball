@@ -28,7 +28,7 @@
                       class="price-review-column section-tutor-price-review ml-1">
                 <v-flex xs12 sm12 md12 grow>
                     <v-flex xs12 sm12 md12 shrink>
-                        <span class="font-weight-bold headline pricing">₪{{tutorData.price}}&nbsp;</span>
+                        <span class="font-weight-bold headline pricing">₪{{tutorData.price}}</span>
                         <span class="pricing caption">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
