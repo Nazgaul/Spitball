@@ -96,7 +96,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             _uri.Path = "api/sms";
 
-            var response = await _client.PostAsync(Uri.Path, HttpClient.CreateJsonString(_phone));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_phone));
 
             response.EnsureSuccessStatusCode();
         }
