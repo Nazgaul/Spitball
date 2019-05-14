@@ -124,7 +124,7 @@
     <value>מינימום 4 תווים</value>
   </data>
   <data name="max_chars" xml:space="preserve">
-    <value>תווים חוקיים</value>
+    <value>תווים מקסימום</value>
   </data>
   <data name="max_number" xml:space="preserve">
     <value>הערך המירבי הוא</value>
