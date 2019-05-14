@@ -51,7 +51,7 @@ from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
 left join sb.UsersCourses tc on u.id = tc.UserId and tc.CanTeach = 1
 left join sb.Course c on tc.CourseId = c.Name
 left join sb.CourseSubject cs on c.SubjectId = cs.Id
-where u.Country = @Country and ( contains(u.Name,@term) or  contains(t.Bio,@term) or contains(c.Name,@term)  or contains(cs.Name,@term))
+where (u.Country = @Country or @Country = null) and ( contains(u.Name,@term) or  contains(t.Bio,@term) or contains(c.Name,@term)  or contains(cs.Name,@term))
 order by
 cte.rate desc,
  u.id
