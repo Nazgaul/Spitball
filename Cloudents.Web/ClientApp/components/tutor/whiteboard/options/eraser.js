@@ -1,4 +1,8 @@
+import store from '../../../../store/index.js'
 import {createPointsByOption, createShape} from '../utils/factories'
+import canvasFinder from '../utils/canvasFinder';
+import whiteBoardService from '../whiteBoardService'
+import selectShape from './selectShape';
 
 const OPTION_TYPE = 'eraser';
 
@@ -14,71 +18,57 @@ const clearLocalShape = function(){
     });
 }
 
-const init = function(){
-    
-}
+let wrapperElm = null;
+let lockProtection = false;
+let currentX = null;
+let currentY = null;
 
-const draw = function(dragObj){
-    //determin the stroke color
-    this.context.globalCompositeOperation = "destination-out";  
-    let prevouseDragObj = this.metaData.previouseDrawingPosition;
-    //draw
-    if(dragObj.isDragging && !!prevouseDragObj){
-        this.context.moveTo(prevouseDragObj.mouseX, prevouseDragObj.mouseY);
-    }else{
-        this.context.moveTo(dragObj.mouseX-1, dragObj.mouseY);
-    }
-    this.context.lineTo(dragObj.mouseX, dragObj.mouseY);
-    this.metaData.previouseDrawingPosition = dragObj;
+const init = function(){
+    wrapperElm = document.getElementById('canvas-wrapper');
 }
 const liveDraw = function(dragObj){
-    this.context.beginPath();
-    draw.bind(this, dragObj)();
-    this.context.closePath();
-    this.context.stroke();
-    this.context.globalCompositeOperation = "source-over"; 
+}
+
+const setSelectedShapes = function(shape){
+    if(Object.keys(shape).length > 0){
+        Object.keys(shape).forEach(shapeId=>{
+            store.dispatch('setShapesSelected', shape[shapeId]);
+        })
+    }else{
+        store.dispatch('clearShapesSelected');
+    }
+}
+
+const selectedShapes = function(id){
+    if(id){
+        return store.getters['getShapesSelected'][id];
+    }else{
+        return store.getters['getShapesSelected'];
+    }
+    
 }
 
 const mousedown = function(e){
     //Set Click Position
-    let mouseX = e.pageX - e.target.offsetLeft;
-    let mouseY = e.pageY - e.target.getBoundingClientRect().top;
     this.methods.hideColorPicker();
-
-    let dragObj = createPointsByOption({
-        mouseX,
-        mouseY,
-        isDragging: false,
-        strokeStyle: "rgb(255, 255, 255)",
-        option: OPTION_TYPE,
-        eventName: 'start'
-    })
-
     this.shouldPaint = true;
-    localShape.points.push(dragObj);
-    liveDraw.bind(this, dragObj)();
 }
+
 const mousemove = function(e){
+    currentX = e.clientX;
+    currentY = e.clientY;
     if(this.shouldPaint){
-        let mouseX = e.pageX - e.target.offsetLeft;
-        let mouseY = e.pageY - e.target.getBoundingClientRect().top;
-        let dragObj = createPointsByOption({
-            mouseX,
-            mouseY,
-            isDragging: true,
-            strokeStyle: "rgb(255, 255, 255)",
-            option: OPTION_TYPE,
-            eventName: 'end'
-        })
-        localShape.points.push(dragObj);
-        liveDraw.bind(this, dragObj)();
+        //mark selected shape
+        let scrollLeft = wrapperElm.scrollLeft;
+        let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, (currentX - e.target.offsetLeft) + scrollLeft, (currentY - e.target.getBoundingClientRect().top));
+        setSelectedShapes(canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData()));
+        if(Object.keys(selectedShapes()).length > 0){
+            selectShape.deleteSelectedShape.bind(this)()
+        }        
     }
 }
 
 const defineEndPosition = function(e){
-    if(this.shouldPaint){
-        this.methods.addShape(localShape, clearLocalShape);
-    }
     this.shouldPaint = false;
 }
 

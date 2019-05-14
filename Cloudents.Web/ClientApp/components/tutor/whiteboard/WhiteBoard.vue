@@ -117,6 +117,16 @@
                 <span v-language:inner>tutor_tooltip_upload</span>
             </v-tooltip>
 
+            <v-tooltip bottom>
+                <template v-slot:activator="{on}">
+                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.eraser}"
+                             class="nav-action" @click="setOptionType(enumOptions.eraser)">
+                        <v-icon>sbf-eraser-empty</v-icon>
+                    </button>
+                </template>
+                <span v-language:inner>tutor_tooltip_upload</span>
+            </v-tooltip>
+
             <!--<button :class="[selectedOptionString === enumOptions.eraser ? 'active-tool' : '']"-->
                     <!--class="nav-action" @click="setOptionType(enumOptions.eraser)">-->
                 <!--<v-icon>sbf-eraser-empty</v-icon>-->
@@ -163,7 +173,7 @@
                 <span>zoom</span>
             </v-tooltip>
         </div> -->
-        <div class="canvas-wrapper" style="position:relative; overflow: auto;" :style="`width:${windowWidth}px;height:${windowHeight}px;`">
+        <div id="canvas-wrapper" class="canvas-wrapper" style="position:relative; overflow: auto;" :style="`width:${windowWidth}px;height:${windowHeight}px;`">
             <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
 
         

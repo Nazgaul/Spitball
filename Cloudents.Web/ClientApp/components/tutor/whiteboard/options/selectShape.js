@@ -10,7 +10,7 @@ const startingMousePosition = {
     x:null,
     y:null
 }
-
+let wrapperElm = null;
 let startShapes = {}
 let topOffset = null;
 
@@ -24,6 +24,7 @@ let mouseInsideSelectedRectangle = false;
 let multiSelectActive = false;
 
 const init = function(){
+    wrapperElm = document.getElementById('canvas-wrapper');
     startShapes = {};
     dragoffx = 0;
     dragoffy = 0;   
@@ -108,8 +109,7 @@ const mousedown = function(e){
     this.methods.hideColorPicker();
     this.shouldPaint = true;
     if(!currentHelperObj){
-        let scrollLeft = document.getElementsByClassName('canvas-wrapper')[0].scrollLeft;
-        let scrollTop = document.getElementsByClassName('canvas-wrapper')[0].scrollTop;
+        let scrollLeft = wrapperElm.scrollLeft;
         let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, (currentX - e.target.offsetLeft) + scrollLeft, (currentY - e.target.getBoundingClientRect().top));
         setSelectedShapes(canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData()));
         if(Object.keys(selectedShapes()).length > 0){
@@ -260,6 +260,7 @@ const mouseleave = function(e){
 
 
 const deleteSelectedShape = function(e){
+    console.log("entered Delete Shape")
     if(Object.keys(selectedShapes()).length> 0){
         Object.keys(selectedShapes()).forEach(shapeId=>{
             startShapes[shapeId] = createShape(selectedShapes(shapeId))
@@ -269,7 +270,10 @@ const deleteSelectedShape = function(e){
         addShape.bind(this, "delete" ,deleteAction)();
         whiteBoardService.redraw(this);
         clearMark();
+        store.dispatch('clearShapesSelected');
     }
+    console.log("finish Delete Shape")
+    return true;
 }
 export default{
     mousedown,
