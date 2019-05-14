@@ -27,8 +27,17 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<ConversationDto>> Conversationsync(CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            return await _queryBus.QueryAsync<IEnumerable<ConversationDto>>(query, token);
+            var query = new AdminConversationsQuery();
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("details")]
+        public async Task<IEnumerable<ConversationDetailsDto>> ConversationDetailsync(
+            [FromQuery(Name = "id")]Guid id, 
+            CancellationToken token)
+        {
+            var query = new AdminConversationDetailsQuery(id);
+            return await _queryBus.QueryAsync(query, token);
         }
     }
 }

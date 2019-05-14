@@ -19,4 +19,16 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(ChatMessage.CreationTime))]
         public DateTime LastMessage { get; set; }
     }
+
+    public class ConversationDetailsDto
+    {
+        [EntityBind(nameof(User.Name))]
+        public string UserName { get; set; }
+        [EntityBind(nameof(User.Email))]
+        public string Email { get; set; }
+        [EntityBind(nameof(RegularUser.PhoneNumber))]
+        public string PhoneNumber { get; set; }
+        public string Message { get; set; }
+        public DateTime CreationTime { get; set; }
+    }
 }
