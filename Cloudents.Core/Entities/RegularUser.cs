@@ -82,6 +82,14 @@ namespace Cloudents.Core.Entities
             }
         }
 
+        public virtual void CanTeachAllCourses()
+        {
+            foreach (var userCourse in _userCourses)
+            {
+                userCourse.CanTeach = true;
+            }
+        }
+
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
 
         public virtual IReadOnlyCollection<StudyRoomUser> StudyRooms => _studyRooms.ToList();
