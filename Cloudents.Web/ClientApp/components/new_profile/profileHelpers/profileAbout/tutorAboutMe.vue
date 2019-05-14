@@ -100,6 +100,7 @@
 
         }
         .about-text{
+            word-break: break-all;
             line-height: 1.59;
             color: @textColor;
             @media(max-width: @screen-xs){
