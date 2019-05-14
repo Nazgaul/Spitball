@@ -31,24 +31,27 @@ namespace Cloudents.Search.University
             _client = client.GetClient(UniversitySearchWrite.IndexName);
         }
 
-        public async Task<UniversitySearchDto> SearchAsync(string term, int page, string country,
+        public async Task<UniversitySearchDto> SearchAsync(string term, int page,[CanBeNull] string country,
             CancellationToken token)
         {
+            string CountryFilter(string country1)
+            {
+                return $"{nameof(Entities.University.Country)} eq '{country1}'";
+            }
+
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,
                 Top = PageSize,
                 Skip = PageSize * page,
                 OrderBy = new List<string> { "search.score() desc",
-                    $"{Entities.University.UserCountFieldName} desc" },
-                ScoringProfile = UniversitySearchWrite.ScoringProfile,
-                ScoringParameters = new[]
-                {
-                    new ScoringParameter
-                    (UniversitySearchWrite.CountryTagScoringParameters
-                        , new[] {country})
-                }
+                    $"{Entities.University.UserCountFieldName} desc" }
+
             };
+            if (country != null)
+            {
+                searchParameter.Filter = CountryFilter(country);
+            }
 
             term = term?.Replace("\"", "\\");
             var searchDocumentResult = await
@@ -63,14 +66,21 @@ namespace Cloudents.Search.University
 
             if (page == 0)
             {
+                var suggestParams = new SuggestParameters()
+                {
+                    Select = _listOfSelectParams,
+                    UseFuzzyMatching = true,
+                    Top = PageSize,
+                };
+                if (country != null)
+                {
+                    searchParameter.Filter = CountryFilter(country);
+                }
                 var suggesterResult = await _client.Documents.SuggestAsync<Entities.University>(term,
-                    UniversitySearchWrite.SuggesterName,
-                    new SuggestParameters()
-                    {
-                        Select = _listOfSelectParams,
-                        UseFuzzyMatching = true,
-                        Top = PageSize
-                    }, cancellationToken: token);
+                    UniversitySearchWrite.SuggesterName, suggestParams
+                    , cancellationToken: token);
+
+
                 return new UniversitySearchDto(suggesterResult.Results.Select(s =>
                     ToDto(s.Document)));
             }
