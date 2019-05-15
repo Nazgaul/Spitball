@@ -1,48 +1,38 @@
 import { LanguageService } from './languageService'
-/*
-Hook functions (all optional):
+const swapKeyWithValue = function(el, binding){
+    const INNER_HTML = "inner";
+        
+    //split arguments with delimeter ','
+    let arrArgs = binding.arg.split(",");
 
-bind: 
-called only once, when the directive is first bound to the element. This is where you can do one-time setup work.
+    //iterate threw all args
+    arrArgs.forEach(rawAttr => {
+        let attr = rawAttr.trim();
+        let keyValue = null;
+        let key = null;
+        //inner arg will replace the inner HTML
+        if(attr === INNER_HTML){
+            let fixedKey = binding.value ? binding.value.trim() : el.innerHTML.trim();
+            key = LanguageService.getValueByKey(fixedKey);
+            el.innerHTML = key
+        }else{
+            //other will set the 
+            keyValue = binding.value ? binding.value.trim() : el.getAttribute(attr);
+            key = LanguageService.getValueByKey(keyValue);
+            el.setAttribute(attr, key);
+        }
+    });
+}
 
-inserted: 
-called when the bound element has been inserted into its parent node (this only guarantees parent node presence, not necessarily in-document).
-
-update: 
-called after the containing component’s VNode has updated, but possibly before its children have updated. The directive’s value may or may not have changed, but you can skip unnecessary updates by comparing the binding’s current and old values (see below on hook arguments).
-
-componentUpdated: 
-called after the containing component’s VNode and the VNodes of its children have updated.
-
-unbind: 
-called only once, when the directive is unbound from the element.
-
-*/
-
-// <span shor="a" title="s" v-language:inner,title,shor>lalala</span>
 export const Language = {
     bind: function(el, binding){
-        const INNER_HTML = "inner";
-
-        //split arguments with delimeter ','
-        let arrArgs = binding.arg.split(",");
-
-        //iterate threw all args
-        arrArgs.forEach(rawAttr => {
-            let attr = rawAttr.trim();
-            let keyValue = null;
-            let key = null;
-            //inner arg will replace the inner HTML
-            if(attr === INNER_HTML){
-                let fixedKey = el.innerHTML.trim();
-                key = LanguageService.getValueByKey(fixedKey);
-                el.innerHTML = key
-            }else{
-                //other will set the 
-                keyValue = el.getAttribute(attr);
-                key = LanguageService.getValueByKey(keyValue);
-                el.setAttribute(attr, key);
-            }
-        });
+        swapKeyWithValue(el, binding);
+    },
+    componentUpdated: function(el, binding){
+        if(!binding.value){
+            // if no value then update wont happen because it will try to put value in the key!
+            return;
+        }
+        swapKeyWithValue(el, binding);
     }
 }
