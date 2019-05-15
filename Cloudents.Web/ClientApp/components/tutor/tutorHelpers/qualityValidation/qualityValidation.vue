@@ -22,7 +22,7 @@
         </v-stepper-header>
         <!--header unable to get device-->
         <v-stepper-header class="device-error-header px-4" v-if="isErorrGettingMedia && getNotAvaliableDevices">
-            <v-icon>sbf-close</v-icon><v-icon>sbf-close</v-icon><span v-language:inner>tutor_quality_unable</span>
+            <video-image></video-image><microphone-image></microphone-image><span v-language:inner>tutor_quality_unable</span>
         </v-stepper-header>
         <v-stepper-items>
             <v-stepper-content v-for="n in steps"
@@ -68,6 +68,8 @@
     import validation_step_2 from './qualitySteps/audioOutputValidation.vue';
     import validation_step_3 from './qualitySteps/videoValidation.vue';
     import notAllowed from './qualitySteps/notAllowed.vue';
+    import microphoneImage from '../../images/microphone.svg'
+    import videoImage from '../../images/video-camera.svg'
 
     export default {
         name: "qualityValidation",
@@ -75,7 +77,9 @@
             validation_step_1,
             validation_step_2,
             validation_step_3,
-            notAllowed
+            notAllowed,
+            microphoneImage,
+            videoImage
         },
         data() {
             return {
@@ -146,9 +150,8 @@
             color: rgba(255, 255, 255, 0.87);
             padding: 20px 0;
             height: unset;
-            i{
-                color: #fff;
-                font-size:14px;
+            svg{
+                fill: #fff;
                 margin: 0 6px 0  0;
             }
             span {
