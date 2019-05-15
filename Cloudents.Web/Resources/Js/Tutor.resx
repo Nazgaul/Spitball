@@ -154,7 +154,7 @@
     <value>Device Access</value>
   </data>
   <data name="quality_allowed_looks_like" xml:space="preserve">
-    <value>We were not able to access your camera and or your microphone. It looks like one of your devices is in use by another application, or is disabled in your system settings.</value>
+    <value>We were not able to access your camera and/or your microphone. It looks like one of your devices is in use by another application, or is disabled in your system settings.</value>
   </data>
   <data name="quality_allowed_press" xml:space="preserve">
     <value> Press Refresh after allowing access.</value>

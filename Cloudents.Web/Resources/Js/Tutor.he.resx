@@ -154,13 +154,13 @@
     <value>גישה להתקן</value>
   </data>
   <data name="quality_allowed_looks_like" xml:space="preserve">
-    <value>לא הצלחנו לזהות מצלמה ו/או מיקרופון. ככל הנרא אחד מהמכשירים הנ״ל בשימוש על ידי תוכנה אחרת או מנותק בהגדרות המשתמש שלך.</value>
+    <value>לא הצלחנו לזהות מצלמה ו/או מיקרופון. ככל הנראה אחד מהמכשירים הנ״ל בשימוש על ידי תוכנה אחרת או מנותק בהגדרות המשתמש שלך.</value>
   </data>
   <data name="quality_allowed_press" xml:space="preserve">
     <value> בבקשה רענן את הדף אחרי אישור הגישה </value>
   </data>
   <data name="quality_allowed_tip_one" xml:space="preserve">
-    <value>טיפ</value>
+    <value>עזרה</value>
   </data>
   <data name="quality_allowed_tip_two" xml:space="preserve">
     <value>ודא שהמצלמה והמיקרופון שלך מופעלים בהגדרות המערכת. סגור את כל החלונות והאפליקציות הפתוחות והתחבר מחדש</value>
