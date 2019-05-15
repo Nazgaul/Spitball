@@ -35,7 +35,7 @@ u.Id as UserId,
 u.Image,
 u.Online,
 cu.Unread,
-cr.Id as ConversationId,
+cr.Identifier as ConversationId,
 cr.UpdateTime as DateTime,
 (select id from sb.StudyRoom where Identifier = cr.identifier)  as StudyRoomId,
 (select top 1 cm.Message  from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) as lastMessage

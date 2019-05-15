@@ -8,12 +8,12 @@ namespace Cloudents.Query.Query
 {
     public class ChatConversationQuery : IQuery<ChatUserDto>
     {
-        public ChatConversationQuery(Guid id, long userId)
+        public ChatConversationQuery(string id, long userId)
         {
             Id = id;
             UserId = userId;
         }
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public long UserId { get; set; }
 
 
@@ -33,12 +33,12 @@ namespace Cloudents.Query.Query
                 using (var conn = _dapper.OpenConnection())
                 {
                     return await conn.QueryFirstOrDefaultAsync<ChatUserDto>(@"
-Select u.Name,u.Id as UserId,u.Image,u.Online,cu.Unread, cr.Id as ConversationId, cr.UpdateTime as DateTime
+Select u.Name,u.Id as UserId,u.Image,u.Online,cu.Unread, cr.Identifier as ConversationId, cr.UpdateTime as DateTime
  from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id
 join sb.[User] u on cu2.UserId = u.Id
-where cu.UserId = @UserId and cr.Id = @Id
+where cu.UserId = @UserId and cr.Identifier = @Id
 order by cr.UpdateTime desc", new { id = query.Id, query.UserId });
                 }
             }
