@@ -3,24 +3,24 @@
     <v-flex>
       <button v-if="!isSharing" @click="showScreen" class="outline-btn">
         <castIcon class="cast-icon"></castIcon>
-        <span v-language:inner>tutor_btn_share_screen</span>
+        <span v-language:inner="'tutor_btn_share_screen'"></span>
       </button>
       <button class="outline-btn" v-else @click="stopSharing">
-        <span v-language:inner>tutor_btn_stop_sharing</span>
+        <span v-language:inner="'tutor_btn_stop_sharing'"></span>
       </button>
     </v-flex>
     <v-dialog class="install-extension-dialog" v-model="extensionDialog" max-width="290">
       <v-card>
         <v-card-title class="headline">
-          <span v-language:inner>tutor_chrome_ext_title</span>
+          <span v-language:inner="'tutor_chrome_ext_title'"></span>
         </v-card-title>
 
         <v-card-text>
-          <span v-language:inner>tutor_chrome_ext_install</span>
+          <span v-language:inner="'tutor_chrome_ext_install'"></span>
         </v-card-text>
         <v-card-text>
           <a>
-            <span @click="reloadPage()" v-language:inner>tutor_chrome_ext_text</span>
+            <span @click="reloadPage()" v-language:inner="'tutor_chrome_ext_text'"></span>
           </a>
         </v-card-text>
         <v-card-actions>
@@ -31,10 +31,10 @@
             class="btn px-3 py-2 mr-3"
             @click="dialog = false"
           >
-            <span v-language:inner>tutor_chrome_ext_btn_install</span>
+            <span v-language:inner="'tutor_chrome_ext_btn_install'"></span>
           </a>
           <v-btn color="green darken-1" flat="flat" @click="extensionDialog = false">
-            <span v-language:inner>tutor_chrome_ext_btn_cancel</span>
+            <span v-language:inner="'tutor_chrome_ext_btn_cancel'"></span>
           </v-btn>
         </v-card-actions>
       </v-card>
