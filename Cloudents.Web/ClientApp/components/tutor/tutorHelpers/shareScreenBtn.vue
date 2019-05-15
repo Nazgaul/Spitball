@@ -61,7 +61,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["activeRoom"])
+    ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData"]),
+    accountUserID() {
+      if(this.accountUser && this.accountUser.id) {
+          return this.accountUser.id;
+      }
+    },
+    isTutor() {
+      return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
+    },
   },
   methods: {
     ...mapActions(["updateToasterParams"]),
@@ -72,7 +80,7 @@ export default {
     publishTrackToRoom(track) {
       if (this.activeRoom) {
         this.activeRoom.localParticipant.publishTrack(track, {
-          name:"Ram"
+          name:`shareScreen_${this.isTutor ? 'tutor' : 'student'}_${this.accountUserID}`
         });
       }
     },
