@@ -70,7 +70,11 @@ export default {
       global.reloadPage();
     },
     publishTrackToRoom(track) {
-      this.activeRoom.localParticipant.publishTrack(track);
+      if (this.activeRoom) {
+        this.activeRoom.localParticipant.publishTrack(track, {
+          name:"Ram"
+        });
+      }
     },
     unPublishTrackfromRoom(track) {
       this.activeRoom.localParticipant.unpublishTrack(track);
@@ -81,9 +85,7 @@ export default {
       videoService.getUserScreen().then(
         stream => {
           self.screenShareTrack = stream; //stream.getVideoTracks()[0];
-          self.publishTrackToRoom(self.screenShareTrack,{
-              name : "ram"
-          });
+          self.publishTrackToRoom(self.screenShareTrack);
           self.isSharing = true;
         },
         error => {
@@ -95,14 +97,14 @@ export default {
             self.updateToasterParams({
               toasterText: "Browser not supported",
               showToaster: true,
-              toasterType: self.Toaster.toasterTypes.error //c
+              toasterType: 'error-toaster' //c
             });
             return;
           }
           self.updateToasterParams({
               toasterText: "Error sharing screen",
               showToaster: true,
-              toasterType: self.Toaster.toasterTypes.error //c
+              toasterType:'error-toaster' //c
           });
           console.error("error sharing screen", error);
         }
