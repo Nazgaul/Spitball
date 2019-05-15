@@ -160,7 +160,7 @@
     <value> בבקשה רענן את הדף אחרי אישור הגישה </value>
   </data>
   <data name="quality_allowed_tip_one" xml:space="preserve">
-    <value>עזרה</value>
+    <value>טיפ</value>
   </data>
   <data name="quality_allowed_tip_two" xml:space="preserve">
     <value>ודא שהמצלמה והמיקרופון שלך מופעלים בהגדרות המערכת. סגור את כל החלונות והאפליקציות הפתוחות והתחבר מחדש</value>
