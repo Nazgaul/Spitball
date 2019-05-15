@@ -80,10 +80,10 @@ export default {
       let self = this;
       videoService.getUserScreen().then(
         stream => {
-          debugger;
-          stream.name = "ram";
           self.screenShareTrack = stream; //stream.getVideoTracks()[0];
-          self.publishTrackToRoom(self.screenShareTrack);
+          self.publishTrackToRoom(self.screenShareTrack,{
+              name : "ram"
+          });
           self.isSharing = true;
         },
         error => {
