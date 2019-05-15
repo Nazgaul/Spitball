@@ -15,9 +15,9 @@
         <!-- <v-flex class="mb-4">
             <inputCableImage class="input-icon"></inputCableImage>
         </v-flex> -->
-        <v-flex class="mb-5">
+        <v-flex class="mb-4">
             <!--<h3>Unable to access device.</h3>-->
-            <p class="font-weight-bold" style="font-size: 16px;" v-language:inner>tutor_quality_allowed_looks_like</p>
+            <p style="font-size: 16px;" v-language:inner>tutor_quality_allowed_looks_like</p>
             <div v-language:inner>tutor_quality_allowed_tip_one</div>
             <p v-language:inner style="font-size: 12px;margin-top:10px;max-width: 80%;">tutor_quality_allowed_tip_two</p>
             <!-- <ol class="numbered pl-3">

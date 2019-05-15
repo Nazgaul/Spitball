@@ -1,6 +1,6 @@
 <template>
     <v-stepper v-model="step" class="quality-test-container">
-        <div class="header-text-wrap pt-3 pb-2 px-4">
+        <div class="header-text-wrap px-4 py-2">
             <span class="header-text 1" v-if="!getNotAvaliableDevices" v-language:inner="'tutor_quality_title'"></span>
             <span class="header-text 2" v-if="isErorrGettingMedia && !getNotAvaliableDevices" v-language:inner="'tutor_quality_permission'"></span>
             <span class="header-text 3" v-if="isErorrGettingMedia && getNotAvaliableDevices" v-language:inner="'tutor_quality_access_device'"></span>
@@ -40,7 +40,7 @@
 
                 </v-card>
                 <v-layout align-center justify-end>
-                    <v-flex class="d-flex align-center justify-center" style="max-width: 300px;">
+                    <v-flex class="d-flex align-center justify-center" style="max-width: 250px;">
                         <button class="blue-btn" v-if="step !== steps && !isErorrGettingMedia"
                                 @click="nextStep(n)"
                         >
@@ -135,6 +135,7 @@
 
 <style lang="less">
     .quality-test-container {
+        border-radius: 4px;
         .step-indicator{
             .v-stepper__step__step{
                 margin-right: 8px;
@@ -146,10 +147,10 @@
             justify-content: flex-start;
             height: 32px;
             background-color: #43425d;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.87);
-            padding: 20px 0;
+            padding: 8px 0;
             height: unset;
             svg{
                 fill: #fff;
@@ -161,12 +162,13 @@
 
         }
         .blue-btn {
-            padding: 10px 16px;
-            text-transform: uppercase;
+            padding: 5px 10px;
             border-radius: 4px;
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.16);
             border: solid 1px #43425d;
             color: rgba(67, 66, 93, 0.87);
+            font-size: 14px;
+            font-weight: 600;
         }
         .header-text-wrap {
             display: flex;
