@@ -27,7 +27,7 @@
                                 <span class="tutor-price"  v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">{{tutorPrice}}
                                 <span class="tutor-price small-text">
                                     <!--<span v-language:inner>app_currency_dynamic</span>-->
-                                    <span>/&nbsp;</span>
+                                    <span>/</span>
                                      <span v-language:inner>profile_points_hour</span>
                                 </span>
                                 </span>

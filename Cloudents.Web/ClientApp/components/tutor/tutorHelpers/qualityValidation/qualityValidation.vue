@@ -1,9 +1,9 @@
 <template>
     <v-stepper v-model="step" class="quality-test-container">
         <div class="header-text-wrap pt-3 pb-2 px-4">
-            <span class="header-text" v-if="!isErorrGettingMedia" v-language:inner>tutor_quality_title</span>
-            <span class="header-text" v-if="isErorrGettingMedia && !getNotAvaliableDevices" v-language:inner>tutor_quality_permission</span>
-            <span class="header-text" v-if="isErorrGettingMedia && getNotAvaliableDevices" v-language:inner>tutor_quality_access_device</span>
+            <span class="header-text" v-show="!isErorrGettingMedia" v-language:inner>tutor_quality_title</span>
+            <span class="header-text" v-show="isErorrGettingMedia && !getNotAvaliableDevices" v-language:inner>tutor_quality_permission</span>
+            <span class="header-text" v-show="isErorrGettingMedia && getNotAvaliableDevices" v-language:inner>tutor_quality_access_device</span>
         </div>
 
         <v-stepper-header v-if="!isErorrGettingMedia">
@@ -21,8 +21,8 @@
             </v-stepper-step>
         </v-stepper-header>
         <!--header unable to get device-->
-        <v-stepper-header class="device-error-header px-4 py-2" v-if="isErorrGettingMedia && getNotAvaliableDevices">
-            <span v-language:inner>tutor_quality_unable</span>
+        <v-stepper-header class="device-error-header px-4" v-if="isErorrGettingMedia && getNotAvaliableDevices">
+            <video-image></video-image><microphone-image></microphone-image><span v-language:inner>tutor_quality_unable</span>
         </v-stepper-header>
         <v-stepper-items>
             <v-stepper-content v-for="n in steps"
@@ -38,8 +38,8 @@
                     <component :is="'validation_step_'+step" v-if="n === step && !isErorrGettingMedia"></component>
 
                 </v-card>
-                <v-layout align-center justify-center>
-                    <v-flex xs2 sm2 md2 class="d-flex align-center justify-center">
+                <v-layout align-center justify-end>
+                    <v-flex class="d-flex align-center justify-center" style="max-width: 300px;">
                         <button class="blue-btn" v-if="step !== steps && !isErorrGettingMedia"
                                 @click="nextStep(n)"
                         >
@@ -68,6 +68,8 @@
     import validation_step_2 from './qualitySteps/audioOutputValidation.vue';
     import validation_step_3 from './qualitySteps/videoValidation.vue';
     import notAllowed from './qualitySteps/notAllowed.vue';
+    import microphoneImage from '../../images/microphone.svg'
+    import videoImage from '../../images/video-camera.svg'
 
     export default {
         name: "qualityValidation",
@@ -75,7 +77,9 @@
             validation_step_1,
             validation_step_2,
             validation_step_3,
-            notAllowed
+            notAllowed,
+            microphoneImage,
+            videoImage
         },
         data() {
             return {
@@ -140,25 +144,28 @@
             align-items: center;
             justify-content: flex-start;
             height: 32px;
-            background-color: #ff5a5a;
+            background-color: #43425d;
             font-size: 14px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.87);
+            padding: 20px 0;
+            height: unset;
+            svg{
+                fill: #fff;
+                margin: 0 6px 0  0;
+            }
             span {
                 line-height: 1;
             }
 
         }
         .blue-btn {
-            border-radius: 4px;
             padding: 10px 16px;
             text-transform: uppercase;
+            border-radius: 4px;
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.16);
-            background-color: #4452fc;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            color: rgba(255, 255, 255, 0.87);
+            border: solid 1px #43425d;
+            color: rgba(67, 66, 93, 0.87);
         }
         .header-text-wrap {
             display: flex;

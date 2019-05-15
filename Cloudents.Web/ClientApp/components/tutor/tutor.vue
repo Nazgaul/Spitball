@@ -45,8 +45,7 @@
 
         <v-dialog
                 v-model="qualityDialog"
-                content-class="filter-dialog"
-                :max-width="$vuetify.breakpoint.smAndUp ? '720px' : ''"
+                content-class="quality-dialog"
                 :fullscreen="$vuetify.breakpoint.xsOnly"
                 persistent
         >

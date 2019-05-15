@@ -1,6 +1,14 @@
+@import "../../styles/mixin.less";
 @navColor: #a5a4bf;
 @iconActiveColor:#a3a0fb;
 @white: #ffffff;
+.quality-dialog{
+    max-width: 612px;
+    @media (max-width: @screen-xs) {
+        max-width: unset;
+    
+      }
+}
 .tutoring-page {
     direction: ltr;
     height: 100%;
