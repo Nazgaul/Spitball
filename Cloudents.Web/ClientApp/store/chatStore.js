@@ -118,51 +118,54 @@ const actions = {
     addMessage:({commit, state, dispatch}, message)=>{
         //check if inside conversation
         let isInConversation = state.chatState == state.enumChatState.messages;
-        if(isInConversation){
-            //check if message sent is part of the current conversation
-            if(state.activeConversationObj.conversationId === message.conversationId){
-                commit('addMessage', message)
-                if(state.isMinimized && message.fromSignalR){
-                    //in tutor room the conversation is auto loaded, so in case of refresh 
-                    //we dont want to update the total unread unless signalR message arrives
-                    commit('addConversationUnread', message)
-                    commit('updateTotalUnread', 1);
+        let conversationExists = !!state.conversations[message.conversationId];
+        if(conversationExists){
+            if(isInConversation){
+                //check if message sent is part of the current conversation
+                if(state.activeConversationObj.conversationId === message.conversationId){
+                    commit('addMessage', message)
+                    if(state.isMinimized && message.fromSignalR){
+                        //in tutor room the conversation is auto loaded, so in case of refresh 
+                        //we dont want to update the total unread unless signalR message arrives
+                        commit('addConversationUnread', message)
+                        commit('updateTotalUnread', 1);
+                    }
+                }else{
+                        //update unread conversations
+                        commit('addConversationUnread', message)
+                        commit('updateTotalUnread', 1);
                 }
             }else{
-                // check if conversation with this user is exists
-                if(!!state.conversations[message.conversationId]){
                     //update unread conversations
                     commit('addConversationUnread', message)
                     commit('updateTotalUnread', 1);
-                }else{
-                    //conversationId should be added to the current conversation
+            }
+        }else{
+            if(isInConversation){
+                if(state.activeConversationObj.conversationId === message.conversationId){
                     dispatch('getChatById', message.conversationId).then(({data})=>{
                         let ConversationObj = chatService.createConversation(data);
                         commit('addConversation', ConversationObj);
-                        commit('setActiveConversationId', ConversationObj.conversationId);
-                        commit('addMessage', message);
-                        if(state.isMinimized){
-                            commit('addConversationUnread', message)
-                            commit('updateTotalUnread', 1);                            
-                        }
+                        commit('addMessage', message)
+                    })
+                }else{
+                    dispatch('getChatById', message.conversationId).then(({data})=>{
+                        let ConversationObj = chatService.createConversation(data);
+                        commit('addConversation', ConversationObj);
+                        commit('addConversationUnread', message)
+                        commit('updateTotalUnread', 1);     
                     })
                 }
-            }
-        }else{
-            // check if conversation with this user is exists
-            if(!!state.conversations[message.conversationId]){
-                //update unread conversations
-                commit('addConversationUnread', message)
-                commit('updateTotalUnread', 1);
             }else{
-                //no conversation should be added
-                let ConversationObj = chatService.createConversation(message);
-                commit('addConversation', ConversationObj)
-                commit('addConversationUnread', message)
-                commit('updateTotalUnread', 1);
+                //conversationId should be added to the current conversation
+                dispatch('getChatById', message.conversationId).then(({data})=>{
+                    let ConversationObj = chatService.createConversation(data);
+                    commit('addConversation', ConversationObj);
+                    commit('addConversationUnread', message)
+                    commit('updateTotalUnread', 1);     
+                })
             }
         }
-        
     },
     getChatById:(context, conversationId)=>{
         return chatService.getChatById(conversationId);
@@ -203,8 +206,8 @@ const actions = {
     },
     setActiveConversationObj:({commit, dispatch, state}, Obj)=>{
         commit('setActiveConversationObj', Obj);
-        dispatch('clearUnread', Obj.conversationId);
         dispatch('syncMessagesByConversationId');
+        dispatch('clearUnread', Obj.conversationId);
         dispatch('updateChatState', state.enumChatState.messages);
     },
     getAllConversations:({commit, getters, dispatch, state})=>{
