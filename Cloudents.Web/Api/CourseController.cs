@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using System;
+using Cloudents.Command;
 using Cloudents.Command.Courses;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
@@ -99,10 +100,18 @@ namespace Cloudents.Web.Api
         [HttpPost("teach")]
         public async Task<IActionResult> TeachCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new TeachCourseCommand(userId, model.Name);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var command = new TeachCourseCommand(userId, model.Name);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (InvalidOperationException)
+            {
+                ModelState.AddModelError("x","Not such course");
+                return BadRequest();
+            }
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteCoursesAsync([FromQuery, Required]string name, CancellationToken token)
