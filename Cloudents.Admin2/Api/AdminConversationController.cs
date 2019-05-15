@@ -46,12 +46,13 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("{id:guid}")]
-        public async Task<IEnumerable<ChatMessageDto>> Get(Guid id, int page,
+        public async Task<IEnumerable<ChatMessageDto>> Get(Guid id, 
             [FromServices] IChatDirectoryBlobProvider blobProvider,
             [FromServices] IBinarySerializer serializer,
             CancellationToken token)
         {
             //specific conversation
+            int page = 0;
             var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(id, page), token);
             return result;
         }

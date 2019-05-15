@@ -39,10 +39,12 @@ import userDownVotes from './components/userMainView/userDownVotes/userDownVotes
 import userFlagged from './components/userMainView/userFlaggedItems/userFlaggedItems.vue';
 
 import Management from './components/management/Management.vue';
-import courseMigration from './components/management/courseMigration/courseMigration.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
 import universityPending from './components/management/universityPending/universityPending.vue';
-import universityMigration from './components/management/universityMigration/universityMigration.vue';
+
+import conversation from './components/conversation/conversation.vue';
+import conversations from './components/conversation/conversationComponent/conversationDetalis/conversationDetails.vue';
+import conversationMessages from './components/conversation/conversationComponent/conversationMessages/conversationMessages.vue';
 
 export const routes = [
     {
@@ -249,6 +251,30 @@ export const routes = [
             {
                 path: 'universityPending',
                 component: universityPending
+            }
+        ]
+    },
+
+    {
+        path: '/conversation',
+        name: 'conversation',
+        component: conversation,
+        children: [
+            {
+                path: '',
+                redirect: 'conversationDetails'
+            },
+            {
+                path: 'conversationDetails',
+                component: conversations,
+            },
+            {
+                path: 'conversationDetail/:id',
+                component: conversationMessages,
+                props: (route) => ({
+                        id: route.params.id
+                })
+                
             }
         ]
     },
