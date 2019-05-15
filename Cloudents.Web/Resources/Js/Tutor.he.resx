@@ -151,7 +151,7 @@
     <value>עורך טקסט</value>
   </data>
   <data name="quality_access_device" xml:space="preserve">
-    <value>גישה להתקן</value>
+    <value>גישה למערכת</value>
   </data>
   <data name="quality_allowed_looks_like" xml:space="preserve">
     <value>לא הצלחנו לזהות מצלמה ו/או מיקרופון. ככל הנראה אחד מהמכשירים הנ״ל בשימוש על ידי תוכנה אחרת או מנותק בהגדרות המשתמש שלך.</value>
@@ -163,7 +163,7 @@
     <value>טיפ</value>
   </data>
   <data name="quality_allowed_tip_two" xml:space="preserve">
-    <value>ודא שהמצלמה והמיקרופון שלך מופעלים בהגדרות המערכת. סגור את כל החלונות והאפליקציות הפתוחות והתחבר מחדש</value>
+    <value>ודא שהמצלמה והמיקרופון שלך מופעלים בהגדרות המערכת. סגור את כל החלונות והאפליקציות הפתוחות והתחבר מחדש.</value>
   </data>
   <data name="quality_allowed_title" xml:space="preserve">
     <value>כדי ליצור קשר עם משתתף נוסף, אפשר לדפדפן שלך לגשת למצלמה והמיקרופון.</value>
