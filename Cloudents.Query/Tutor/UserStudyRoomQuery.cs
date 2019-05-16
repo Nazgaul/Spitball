@@ -35,7 +35,7 @@ namespace Cloudents.Query.Tutor
  u.Id as userId,
  sr.Id as id,
  sr.DateTime,
- (select id from sb.ChatRoom where Identifier = sr.Identifier) as conversationId
+ sr.Identifier as conversationId
 from sb.StudyRoom sr
 join sb.StudyRoomUser sru on sr.id = sru.studyRoomId
 join sb.[User] u on sru.UserId = u.Id
