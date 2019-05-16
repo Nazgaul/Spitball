@@ -12,7 +12,7 @@
                         half-increments
                         :readonly="readonly"
                         :size="size"
-                        :hover="!isRtl"
+                        :hover="true"
                 ></v-rating>
                 <!--  :hover="!isRtl" hover binded to rtl, if rtl true prevent hover effect cause of half star wrong side animation-->
             </v-flex>
