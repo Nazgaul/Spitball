@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -19,6 +20,7 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.SellerKey);
             HasMany(x => x.Reviews).Access.CamelCaseField(Prefix.Underscore).Cascade.AllDeleteOrphan().Inverse();
+            Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             /* HasMany(x => x.Courses)
                .Table("TutorsCourses")
                .KeyColumn("TutorId")              
@@ -27,6 +29,7 @@ namespace Cloudents.Persistence.Maps
                .AsSet();
                */
             //Table("Tutor");
+            SchemaAction.Update();
         }
     }
 }
