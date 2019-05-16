@@ -18,8 +18,8 @@
                     <span class="body-2 pl-1">{{tutorName}}</span>
                 </v-flex>
             </v-layout>
-            <v-layout align-center justify-center row wrap class="py-2 border-grey mx-5">
-                <v-flex xs12 sm1 md1 shrink class="text-xs-center d-inline-flex py-3 mr-4">
+            <v-layout align-center justify-center row wrap class="middle-layout-wrapper py-2 border-grey mx-5" :class="{'ltr-style': isRtl}">
+                <v-flex xs12 sm1 md1 shrink class="text-xs-center d-inline-flex image-container py-3 mr-4">
                     <user-avatar class="tutor-img-wrap" size="54" :userImageUrl="tutorImage" :user-name="tutorName" :user-id="tutorId"/>
                 </v-flex>
                 <v-flex xs12 sm4 md4 shrink>
@@ -96,7 +96,8 @@
                 roomId: 0,
                 rating: 0,
                 starNotSet: false,
-                reviewPlaceholder: LanguageService.getValueByKey("leaveReview_review_placeholder")
+                reviewPlaceholder: LanguageService.getValueByKey("leaveReview_review_placeholder"),
+                isRtl: global.isRtl
             };
         },
         computed: {
@@ -176,9 +177,7 @@
         .user-avatar-img{
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.38);
         }
-        .tutor-img-wrap{
-            max-width: 54px;
-        }
+        
         .v-text-field--outline > .v-input__control > .v-input__slot {
             border: 1px solid rgba(0, 0, 0, 0.19);
             font-size: 14px;
@@ -196,10 +195,24 @@
         .blue-text {
             color: @colorBlue;
         }
-        .border-grey {
-            border-top: 1px solid rgba(67, 66, 93, 0.2);
-            border-bottom: 1px solid rgba(67, 66, 93, 0.2);
+        .middle-layout-wrapper{
+            &.ltr-style{
+                direction: rtl;
+            }
+            &.border-grey {
+                border-top: 1px solid rgba(67, 66, 93, 0.2);
+                border-bottom: 1px solid rgba(67, 66, 93, 0.2);
+            }
+            .image-container{
+                margin-right:24px/*rtl:ignore*/;
+                padding: 16px 0/*rtl:ignore*/;
+                .tutor-img-wrap{
+                    max-width: 54px;
+                }
+            }
+            
         }
+        
         .submit-review {
             height: 42px;
         }
@@ -214,9 +227,6 @@
             .heading-text {
                 color: @profileTextColor;
             }
-        }
-        .review-texts {
-
         }
         .review-title {
             font-size: 18px;
