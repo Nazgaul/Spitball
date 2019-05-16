@@ -17,7 +17,7 @@
             </v-layout>
             <div class="request-textarea-container">
                 <div class="request-textarea-upper-part">
-                    <div class="request-profile-data-container">
+                    <div class="request-profile-data-container" v-if="isAuthUser">
                         <user-avatar :userImageUrl="userImageUrl" :user-name="accountUser.name"></user-avatar>
                     </div>
                     <v-textarea
@@ -58,7 +58,7 @@
                 <div class="request-textarea-lower-part pt-2">
                     <div class="request-options-part">
                         <div class="request-subject-class-container">
-                            <div class="request-select left">
+                            <div v-if="isAuthUser" class="request-select left">
                                 <v-select
                                         :menu-props="{contentClass:'courses-select-list'}"
                                         height="32"
@@ -84,6 +84,38 @@
                                         </div>
                                     </template>
                                 </v-select>
+                            </div>
+                            <div v-else class="request-select left">
+                                <v-text-field v-model="guestName"
+                                    class="class-input"
+                                    ref="classInput"
+                                    solo
+                                    :rules="[rules.required]"
+                                    prepend-inner-icon=""
+                                    :placeholder="'Name'"
+                                    autocomplete="off"
+                                    spellcheck="true"
+                                    ></v-text-field>
+                                    <v-text-field v-model="guestMail"
+                                    class="class-input"
+                                    ref="classInput"
+                                    solo
+                                    :rules="[rules.required]"
+                                    prepend-inner-icon=""
+                                    :placeholder="'Email'"
+                                    autocomplete="off"
+                                    spellcheck="true"
+                                    ></v-text-field>
+                                    <v-text-field v-model="guestPhone"
+                                    class="class-input"
+                                    ref="classInput"
+                                    solo
+                                    :rules="[rules.required]"
+                                    prepend-inner-icon=""
+                                    :placeholder="'Phone'"
+                                    autocomplete="off"
+                                    spellcheck="true"
+                                    ></v-text-field>
                             </div>
                         </div>
                     </div>
