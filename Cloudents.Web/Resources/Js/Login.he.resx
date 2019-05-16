@@ -364,4 +364,7 @@
   <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
     <value>תוכל להשתמש בהם כדי לקבל עזרה לגבי</value>
   </data>
+  <data name="error_min_chars" xml:space="preserve">
+    <value>סיסמה חייבת להכיל לפחות 8 תווים</value>
+  </data>
 </root>
