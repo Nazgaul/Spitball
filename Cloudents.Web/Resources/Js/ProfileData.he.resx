@@ -222,8 +222,7 @@
     <value>בדוק &lt;b&gt;דוא"ל&lt;/b&gt;</value>
   </data>
   <data name="HHP_register_stepEight_text" xml:space="preserve">
-    <value>שלחנו לך הודעת דוא"ל עם הסיסמה החדשה
-הוראות איפוס.</value>
+    <value>שלחנו לך הודעת דוא"ל עם הוראות איפוס סיסמה.</value>
   </data>
   <data name="HHP_register_stepFive_boldTextOne" xml:space="preserve">
     <value>הזן קוד אישור</value>
@@ -306,8 +305,7 @@
     <value>בדוק &lt;b&gt;דוא"ל&lt;/b&gt;</value>
   </data>
   <data name="makeMoneyProfile_register_stepEight_text" xml:space="preserve">
-    <value>שלחנו לך הודעת דוא"ל עם הסיסמה החדשה
-הוראות איפוס.</value>
+    <value>שלחנו לך הודעת דוא"ל עם הוראות איפוס סיסמה.</value>
   </data>
   <data name="makeMoneyProfile_register_stepFive_boldTextOne" xml:space="preserve">
     <value>הזן קוד אישור</value>
