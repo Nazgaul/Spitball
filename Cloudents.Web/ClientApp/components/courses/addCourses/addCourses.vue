@@ -265,7 +265,7 @@
                 //assign all saved in cached list to classes list
                 this.changeClassesToCachedClasses();
                 this.doneButtonLoading = true;
-                this.assignClasses().then(() => {
+                this.assignClasses(this.localSelectedClasses).then(() => {
                     if(this.isTutor){
                             this.localSelectedClasses.forEach(course=>{
                                 universityService.teachCourse(course.text).then(resp=>{
