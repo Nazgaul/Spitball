@@ -119,7 +119,7 @@
                 editedDescription: '',
                 editedFirstName: '',
                 editedLastName: '',
-                editedPrice: 1,
+                editedPrice: null,
                 rules: {
                     required:(value)=> validationRules.required(value),
                     minimum:(value)=>  validationRules.positiveNumber(value),
