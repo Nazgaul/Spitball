@@ -23,8 +23,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new AdminUserAnswersQuery(638, 0);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
+        }
 
+        [Fact]
+        public async Task AdminPaymentsQuery_Ok()
+        {
+            var query = new AdminPaymentsQuery();
 
+            var result = await fixture.QueryBus.QueryAsync(query, default);
         }
     }
 }

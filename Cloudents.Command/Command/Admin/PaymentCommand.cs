@@ -6,16 +6,16 @@ namespace Cloudents.Command.Command.Admin
 {
     public class PaymentCommand: ICommand
     {
-        public PaymentCommand(string userKey, string tutorKey, decimal anount, Guid studyRoomSessionId)
+        public PaymentCommand(string userKey, string tutorKey, decimal amount, Guid studyRoomSessionId)
         {
             UserKey = userKey;
             TutorKey = tutorKey;
-            Anount = anount;
+            Amount = amount;
             StudyRoomSessionId = studyRoomSessionId;
         }
         public string UserKey { get; set; }
         public string TutorKey { get; set; }
-        public decimal Anount { get; set; }
+        public decimal Amount { get; set; }
         public Guid StudyRoomSessionId { get; set; }
     }
 }

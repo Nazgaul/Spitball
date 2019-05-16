@@ -25,7 +25,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             var session = await _studyRoomSessionRepository.LoadAsync(message.StudyRoomSessionId, token);
 
             var response = await _payment.TransferPaymentAsync(message.TutorKey, 
-                message.UserKey, message.Anount, token);
+                message.UserKey, message.Amount, token);
 
             session.SetReceipt(response.TransactionCcAuthNumber);
         }

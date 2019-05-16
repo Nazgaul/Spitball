@@ -19,6 +19,7 @@ import UToken from './components/user/token/tokenUser.vue';
 import UCashout from './components/user/cashout/cashoutUser.vue';
 import USuspend from './components/user/suspend/suspendUser.vue';
 import ActiveUsers from './components/user/activeUsers/activeUsers.vue';
+import Payments from './components/user/payments/paymentUser.vue';
 
 import Document from './components/document/document.vue';
 import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue';
@@ -199,6 +200,9 @@ export const routes = [
                 path:'active-users',
                 component: ActiveUsers
             },
+            {
+                path: 'payments',
+                component: Payments},
           {
             path: '*',
             redirect: 'token',

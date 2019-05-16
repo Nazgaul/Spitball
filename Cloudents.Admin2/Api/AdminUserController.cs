@@ -193,6 +193,12 @@ namespace Cloudents.Admin2.Api
 
         }
 
+        [HttpGet("pay")]
+        public async Task<IEnumerable<PaymentDto>> GetPayments(CancellationToken token)
+        {
+            var query = new AdminPaymentsQuery();
+            return await _queryBus.QueryAsync(query, token);
+        }
 
         [HttpPost("pay")]
         [ProducesResponseType(200)]
@@ -200,7 +206,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> PayAsync(PaymentRequest model,
             CancellationToken token)
         {
-            var command = new PaymentCommand(model.UserKey, model.TutorKey, model.Anount, model.StudyRoomSessionId);
+            var command = new PaymentCommand(model.UserKey, model.TutorKey, model.Amount, model.StudyRoomSessionId);
             try
             {
                 await _commandBus.DispatchAsync(command, token);
