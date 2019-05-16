@@ -8,7 +8,7 @@ import walletService from '../../../services/walletService';
 
 export default {
     name: "videoStream",
-    components: {timerIcon, stopIcon, fullScreenIcon},
+    components: { timerIcon, stopIcon, fullScreenIcon },
     data() {
         return {
             loading: false,
@@ -33,18 +33,18 @@ export default {
     computed: {
         ...mapState(['tutoringMainStore']),
         ...mapGetters([
-                          'activeRoom',
-                          'localOffline',
-                          'remoteOffline',
-                          'roomLoading',
-                          'getCurrentRoomState',
-                          'getStudyRoomData',
-                          'getJwtToken',
-                          'accountUser',
-                          'getNotAllowedDevices',
-                          'getAllowReview',
-                          'getNotAvaliableDevices',
-                      ]),
+            'activeRoom',
+            'localOffline',
+            'remoteOffline',
+            'roomLoading',
+            'getCurrentRoomState',
+            'getStudyRoomData',
+            'getJwtToken',
+            'accountUser',
+            'getNotAllowedDevices',
+            'getAllowReview',
+            'getNotAvaliableDevices',
+        ]),
         roomIsPending() {
             return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
         },
@@ -57,11 +57,11 @@ export default {
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         },
-        needPayment(){
+        needPayment() {
             return this.getStudyRoomData ? this.getStudyRoomData.needPayment : false;
         },
         accountUserID() {
-            if(this.accountUser && this.accountUser.id) {
+            if (this.accountUser && this.accountUser.id) {
                 return this.accountUser.id;
             }
         }
@@ -71,22 +71,23 @@ export default {
     },
     methods: {
         ...mapActions([
-                          'updateCurrentRoomState',
-                          'updateTestDialogState',
-                          'updateReviewDialog',
-                          'setRoomId'
-                      ]),
+            'updateCurrentRoomState',
+            'updateTestDialogState',
+            'updateReviewDialog',
+            'setRoomId',
+            "updateToasterParams",
+        ]),
 
         biggerRemoteVideo() {
             //check browser support
             let video = document.querySelector("#remoteTrack video");
-            if(video.requestFullscreen) {
+            if (video.requestFullscreen) {
                 video.requestFullscreen();
-            } else if(video.webkitRequestFullscreen) {
+            } else if (video.webkitRequestFullscreen) {
                 video.webkitRequestFullscreen();
-            } else if(video.mozRequestFullScreen) {
+            } else if (video.mozRequestFullScreen) {
                 video.mozRequestFullScreen();
-            } else if(video.msRequestFullscreen) {
+            } else if (video.msRequestFullscreen) {
                 video.msRequestFullscreen();
             }
             console.log();
@@ -95,23 +96,23 @@ export default {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
         enterRoom() {
-            if(!!this.accountUser && this.accountUser.needPayment && !this.isTutor){
-                    walletService.getPaymeLink().then(({data})=>{
+            if (!!this.accountUser && this.accountUser.needPayment && !this.isTutor) {
+                walletService.getPaymeLink().then(({ data }) => {
                     global.open(data.link, '_blank', 'height=520,width=440');
-                })  
+                })
                 return;
             }
             //if blocked or not available  use of media devices do not allow session start
-            if(this.getNotAllowedDevices && this.getNotAvaliableDevices) {
+            if (this.getNotAllowedDevices && this.getNotAvaliableDevices) {
                 this.updateTestDialogState(true);
                 return;
             }
-            if(!this.sessionStartClickedOnce) {
+            if (!this.sessionStartClickedOnce) {
                 this.sessionStartClickedOnce = true;
-                if(this.isTutor) {
+                if (this.isTutor) {
                     this.updateCurrentRoomState('loading');
                     tutorService.enterRoom(this.id).then(() => {
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             this.createVideoSession();
                             this.sessionStartClickedOnce = false;
                         }, 1000);
@@ -125,71 +126,79 @@ export default {
         },
         endSession() {
             tutorService.endTutoringSession(this.id)
-                        .then((resp) => {
-                            console.log('ended session', resp);
-                            this.sessionStartClickedOnce = false;
-                            if(!this.isTutor && this.getAllowReview) {
-                                this.updateReviewDialog(true);
-                            }
-                        }, (error) => {
-                            console.log('error', error);
-                        });
+                .then((resp) => {
+                    console.log('ended session', resp);
+                    this.sessionStartClickedOnce = false;
+                    if (!this.isTutor && this.getAllowReview) {
+                        this.updateReviewDialog(true);
+                    }
+                }, (error) => {
+                    console.log('error', error);
+                });
         },
         async isHardawareAvaliable() {
             let self = this;
-            if(!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
                 console.log("enumerateDevices() not supported.");
                 return;
             }
             const token = this.getJwtToken; //get jwt from store
             // List cameras and microphones.
-            navigator.mediaDevices.enumerateDevices()
-                     .then(function (devices) {
-                         devices.forEach(function (device) {
-                             console.log(device.kind + ": " + device.label +
-                                 " id = " + device.deviceId);
-                             self.availableDevices.push(device.kind);
-                         });
-                         let connectOptions;
-                         //create local track with custom names
-                         let audioTrackName = `audio_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
-                         let videoTrackName = `video_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
-                         let audioSetObj = {
-                             audio: self.availableDevices.includes('audioinput'),
-                             name: audioTrackName
-                         };
-                         let videoSetObj = {
-                             video: self.availableDevices.includes('videoinput'),
-                             name: videoTrackName
-                         };
-                         createLocalTracks({
-                                               audio: self.availableDevices.includes('audioinput') ? audioSetObj : false,
-                                               video: self.availableDevices.includes('videoinput') ? videoSetObj : false
-                                           }).then((tracksCreated) => {
-                             let localMediaContainer = document.getElementById('localTrack');
-                             tracksCreated.forEach((track) => {
-                                 localMediaContainer.innerHTML = "";
-                                 localMediaContainer.appendChild(track.attach());
-                                 self.localTrackAval = true;
-                             });
-                             tracksCreated.push(tutorService.dataTrack);
-                             connectOptions = {
-                                 tracks: tracksCreated,
-                                 networkQuality: true
-                             };
-                             tutorService.connectToRoom(token, connectOptions);
-                             if(!self.isTutor){
-                                self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active)
-                             }
+            let devices = await navigator.mediaDevices.enumerateDevices();
+            //navigator.mediaDevices.enumerateDevices()
+            //.then(function (devices) {
+            devices.forEach(function (device) {
+                console.log(device.kind + ": " + device.label +
+                    " id = " + device.deviceId);
+                self.availableDevices.push(device.kind);
+            });
+            let connectOptions;
+            //create local track with custom names
+            let audioTrackName = `audio_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
+            let videoTrackName = `video_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
+            let audioSetObj = {
+                audio: self.availableDevices.includes('audioinput'),
+                name: audioTrackName
+            };
+            let videoSetObj = {
+                video: self.availableDevices.includes('videoinput'),
+                name: videoTrackName
+            };
+            let audioDevice = await navigator.mediaDevices.getUserMedia({ audio: true }).then(y => audioSetObj, z => false);
+            let videoDevice = await navigator.mediaDevices.getUserMedia({ video: true }).then(y => videoSetObj, z => false);
+            createLocalTracks({
+                audio: audioDevice,
+                video:videoDevice
+            }).then((tracksCreated) => {
+                let localMediaContainer = document.getElementById('localTrack');
+                tracksCreated.forEach((track) => {
+                    localMediaContainer.innerHTML = "";
+                    localMediaContainer.appendChild(track.attach());
+                    self.localTrackAval = true;
+                });
+                tracksCreated.push(tutorService.dataTrack);
+                connectOptions = {
+                    tracks: tracksCreated,
+                    networkQuality: true
+                };
+                tutorService.connectToRoom(token, connectOptions);
+                if (!self.isTutor) {
+                    self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active)
+                }
 
-                         }, (error) => {
-                             console.log(error, 'error create tracks before connect');
-                         });
+            }, (error) => {
+                self.updateToasterParams({
+                    toasterText: "We having trouble connection you to the room",
+                    showToaster: true,
+                    toasterType: 'error-toaster' //c
+                  });
 
-                     })
-                     .catch(function (err) {
-                         console.log(err.name + ": " + err.message);
-                     });
+            });
+
+            //                     })
+            //.catch(function (err) {
+            //console.log(err.name + ": " + err.message);
+            //});
         },
 
         // Create a new chat
@@ -197,13 +206,13 @@ export default {
             const self = this;
             // remove any remote track when joining a new room
             let clearEl = document.getElementById('remoteTrack');
-            if(clearEl) {
+            if (clearEl) {
                 clearEl.innerHTML = "";
             }
             self.isHardawareAvaliable();
         },
     },
-    created(){
+    created() {
         this.setRoomId(this.id);
     }
 };
