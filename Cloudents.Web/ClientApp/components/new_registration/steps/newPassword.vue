@@ -23,7 +23,7 @@
                 <v-btn class="continue-btn"
                        value="Password"
                        :loading="loading"
-                       :disabled="!(password && confirmPassword) || !isValidPass"
+                       :disabled="!(password && confirmPassword)"
                        @click="changePassword()"
                 ><span v-language:inner>login_continue</span></v-btn>
 
@@ -41,6 +41,7 @@
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
     import { mapActions, mapMutations } from 'vuex'
     import registrationService from "../../../services/registrationService";
+import { LanguageService } from '../../../services/language/languageService';
 
     const defaultSubmitRoute = {path: '/ask'};
 
@@ -55,7 +56,9 @@
                 errorMessage: {
                     code: '',
                     password: '',
-                    confirmPassword: ''
+                    confirmPassword: '',
+                    notMatched: 'login_error_not_matched',
+                    minChars: 'login_error_min_chars'
                 },
                 loading: false,
                 bottomError: false,
@@ -101,24 +104,37 @@
             },
         },
         methods: {
+            isPasswordGood(){
+                if(!this.isValidPass){
+                    return this.errorMessage.minChars
+                }
+                if(this.password !== this.confirmPassword){
+                    return this.errorMessage.notMatched
+                }
+                return false;
+            },
             changePassword() {
                 if (this.password && this.ID && this.passResetCode && this.confirmPassword) {
+                    let passErrors = this.isPasswordGood()
                     // let self = this;
-                    this.loading = true;
-                    registrationService.updatePassword(this.password, this.confirmPassword, this.ID, this.passResetCode)
-                        .then((response) => {
-                            analyticsService.sb_unitedEvent('Forgot Password', 'Updated password');
-                            global.isAuth = true;
-                            this.loading = false;
-                            let url = this.toUrl || defaultSubmitRoute;
-                            //will be always ask cause he came from email
-                            this.$router.push({path: `${url.path }`});
-                        }, (error) => {
-                            this.loading = false;
-                            this.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
-                            this.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
-                        });
-
+                    if(!passErrors){
+                        this.loading = true;
+                        registrationService.updatePassword(this.password, this.confirmPassword, this.ID, this.passResetCode)
+                            .then((response) => {
+                                analyticsService.sb_unitedEvent('Forgot Password', 'Updated password');
+                                global.isAuth = true;
+                                this.loading = false;
+                                let url = this.toUrl || defaultSubmitRoute;
+                                //will be always ask cause he came from email
+                                this.$router.push({path: `${url.path }`});
+                            }, (error) => {
+                                this.loading = false;
+                                this.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
+                                this.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
+                            });
+                    }else{
+                        this.errorMessage.confirmPassword = LanguageService.getValueByKey(passErrors);
+                    }
                 }
             }
 
