@@ -45,8 +45,8 @@ namespace Cloudents.Admin2.Api
         }
 
 
-        [HttpGet("{id:guid}")]
-        public async Task<IEnumerable<ChatMessageDto>> Get(Guid id, 
+        [HttpGet("{id}")]
+        public async Task<IEnumerable<ChatMessageDto>> Get(string id, 
             [FromServices] IChatDirectoryBlobProvider blobProvider,
             [FromServices] IBinarySerializer serializer,
             CancellationToken token)
