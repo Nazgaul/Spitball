@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Dapper;
 
 namespace Cloudents.Query.Tutor
@@ -44,6 +45,7 @@ cte.rate as Rate,
 t.Bio,
 cte.rateCount as ReviewsCount
 from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
+where t.State = @state
 order by
 case when u.Country = @Country then 0 else 1 end,
 cte.rate desc,
@@ -51,7 +53,7 @@ cte.rate desc,
 
 OFFSET 50*@Page ROWS
 FETCH NEXT 50 ROWS ONLY;";
-                    return await conn.QueryAsync<TutorListDto>(sql, new {query.Page, query.Country });
+                    return await conn.QueryAsync<TutorListDto>(sql, new {query.Page, query.Country, state = ItemState.Ok.ToString("G") });
 
                 }
             }
