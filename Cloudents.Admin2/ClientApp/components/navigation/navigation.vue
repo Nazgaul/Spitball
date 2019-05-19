@@ -104,6 +104,15 @@
                     },
                     {
                         setting: {
+                            title: 'Tutor Actions',
+                            path: '/tutor'
+                        },
+                        childrens: [
+                            { name: 'Pending Tutors', link: '/tutor', icon: '' },
+                           ]
+                    },
+                    {
+                        setting: {
                             title: 'Dev Actions',
                             path: '/dev'
                         },

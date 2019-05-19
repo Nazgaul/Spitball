@@ -21,7 +21,7 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<PendingTutorsDto>> GetAsync(AdminPendingTutorsQuery query, CancellationToken token)
             {
-                const string sql = @"select t.Id, u.FirstName, u.LastName, t.Bio, t.Price
+                const string sql = @"select t.Id, u.FirstName, u.LastName, t.Bio, t.Price, u.Email
                                     from sb.Tutor t
                                     join sb.[User] u
 	                                    on t.Id = u.Id

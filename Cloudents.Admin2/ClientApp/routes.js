@@ -44,6 +44,8 @@ import coursesPending from './components/management/coursesPending/coursesPendin
 import universityPending from './components/management/universityPending/universityPending.vue';
 import universityMigration from './components/management/universityMigration/universityMigration.vue';
 
+import pendingTutors from './components/tutor/pendingTutors/pendingTutor.vue';
+
 export const routes = [
     {
        path: '/home/:userId',
@@ -95,6 +97,18 @@ export const routes = [
             //     component: userFlags
             // },
         ]
+    },
+    {
+        path: '/tutor',
+        name: 'tutor',
+        component: pendingTutors,
+        children: [
+            {
+                path: '',
+                component: pendingTutors,
+            }
+            ]
+
     },
     {
         path: '/question',

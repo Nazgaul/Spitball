@@ -41,5 +41,14 @@ namespace Cloudents.Admin2.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTutor(long id,
+                CancellationToken token)
+        {
+            var command = new DeleteTutorCommand(id);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }
