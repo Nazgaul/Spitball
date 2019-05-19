@@ -123,7 +123,11 @@ const actions = {
             if(isInConversation){
                 //check if message sent is part of the current conversation
                 if(state.activeConversationObj.conversationId === message.conversationId){
-                    commit('addMessage', message)
+                    commit('addMessage', message);
+                    if (message.fromSignalR) {
+                        debugger;
+                        chatService.clearUnread(message.userId);
+                    }
                     if(state.isMinimized && message.fromSignalR){
                         //in tutor room the conversation is auto loaded, so in case of refresh 
                         //we dont want to update the total unread unless signalR message arrives
