@@ -8,14 +8,12 @@ namespace Cloudents.Core.DTOs.Admin
 {
     public class ConversationDto
     {
-        [EntityBind(nameof(ChatRoom.Id))]
-        public Guid Id { get; set; }
+        [EntityBind(nameof(ChatRoom.Identifier))]
+        public string Id { get; set; }
         [EntityBind(nameof(User.Name))]
-        public string UserName1 { get; set; }
-        public bool IsTotur1 { get; set; }
+        public string UserName { get; set; }
         [EntityBind(nameof(User.Name))]
-        public string UserName2 { get; set; }
-        public bool IsTotur2 { get; set; }
+        public string TutorName { get; set; }
         [EntityBind(nameof(ChatMessage.CreationTime))]
         public DateTime LastMessage { get; set; }
     }

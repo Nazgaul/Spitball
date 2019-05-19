@@ -28,12 +28,12 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(RegularUser.Balance))]
         public decimal Balance { get; set; }
         public bool IsActive { get; set; }
-        public DateTime Joined { get; set; }
+        public DateTime? Joined { get; set; }
         public bool WasSuspended { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public bool EmailConfirmed { get; set; }
         [EntityBind(nameof(RegularUser.LastOnline))]
-        public DateTime LastOnline { get; set; }
+        public DateTime? LastOnline { get; set; }
         public bool IsTutor{ get; set; }
     }
 }

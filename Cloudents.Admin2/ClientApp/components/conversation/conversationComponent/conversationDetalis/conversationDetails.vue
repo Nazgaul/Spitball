@@ -8,36 +8,13 @@
                       :headers="headers"
                       :expand="expand">
             <template slot="items" slot-scope="props">
-                <tr @click="openItem(props.item)">
-                    <td class="text-xs-left">{{ props.item.userName1 }}</td>
-                    <td class="text-xs-left">{{ props.item.isTotur1 }}</td>
-                    <td class="text-xs-left">{{ props.item.userName2 }}</td>
-                    <td class="text-xs-left">{{ props.item.isTotur2 }}</td>
-                    <td class="text-xs-left">{{ props.item.lastMessage }}</td>
+                <tr @click="openItem(props.item)" :style="{ cursor: 'pointer'}">
+                    <td class="text-xs-left" style="background-color: lightblue">{{ props.item.tutorName }}</td>
+                    <td class="text-xs-left student">{{ props.item.userName }}</td>
+                    <td class="text-xs-left">{{ props.item.lastMessage.toLocaleString() }}</td>
                 </tr>
             </template>
-            <!--<template slot="expand" slot-scope="props">
-            <v-card flat>
-                <v-data-table :items="conversationsDetails"
-                              class="elevation-1"
-                              hide-actions>
-                    <template slot="items" slot-scope="props">
-                        <td class="text-s-left">name: {{ props.item.userName }} <br/>
-                        email: {{props.item.email}} <br/>
-                        phone: {{props.item.phoneNumber}}</td>
-                    </template>
-                </v-data-table>
-                <v-data-table :items="conversationsMessages"
-                              class="elevation-1"
-                              hide-actions
-                              :headers="messageHeaders">
-                    <template slot="items" slot-scope="props">
-                        <td class="text-xs-left">{{ props.item.name }}:</td>
-                        <td class="text-xs-left">{{ props.item.text }}</td>
-                    </template>
-                </v-data-table>
-                </v-card>
-    </template>-->
+           
         </v-data-table>
         </div>
 </template>
@@ -50,21 +27,13 @@
         data() {
             return {
                 headers: [
-                    { text: 'User Name', value: 'userName' },
-                    { text: 'Is Totur', value: 'isTotur' },
-                    { text: 'User Name', value: 'userName2' },
-                    { text: 'Is Totur', value: 'isTotur2' },
-                    { text: 'Last Message', value: 'lastMessage' }
+                    { text: 'Tutor' },
+                    { text: 'Student' },
+                    { text: 'Last Message' }
                 ],
-                //messageHeaders: [
-                //    { text: 'User Name', value: 'userName' },
-                //    { text: 'Text', value: 'text' }
-                //],
                 showLoading: true,
                 showNoResult: false,
                 conversationsList: [],
-                //conversationsDetails: [],
-                //conversationsMessages:[],
                 expand: false,
             }
         },
@@ -93,5 +62,11 @@
     .elevation-1 {
     width: 100%
     }
+
+    .student {
+        background-color: lightgray;
+    }
+
+ 
     
 </style>

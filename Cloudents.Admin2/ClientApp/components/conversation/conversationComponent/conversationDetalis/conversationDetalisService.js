@@ -2,11 +2,9 @@
 
 function ConversationItem(objInit) {
     this.id = objInit.id;
-    this.userName1 = objInit.userName1;
-    this.isTotur1 = objInit.isTotur1;
-    this.userName2 = objInit.userName2;
-    this.isTotur2 = objInit.isTotur2;
-    this.lastMessage = objInit.lastMessage;
+    this.userName = objInit.userName;
+    this.tutorName = objInit.tutorName;
+    this.lastMessage = new Date(objInit.lastMessage);
     this.expanded = false;
 }
 function createConversationItem(objInit) {

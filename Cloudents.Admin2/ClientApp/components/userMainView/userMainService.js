@@ -26,19 +26,38 @@ function UserInfo(objInit) {
     this.referredCount = {value: objInit.referredCount || 0, label: 'People Referred'};
     this.balance = {value: objInit.balance || 0, label: 'Balance'};
     this.status = {value: objInit.isActive ? false : true, label: 'Suspended'};
-    this.wasSuspended = {value: objInit.wasSuspended ? true : false, label: 'Was Suspended'};
-    this.joined =
-        {value: `${new Date(objInit.joined).getUTCMonth() + 1}/${new Date(objInit.joined).getUTCDate()}/${new Date(objInit.joined).getUTCFullYear()}`,
-            label: "Join Date"
+    this.wasSuspended = { value: objInit.wasSuspended ? true : false, label: 'Was Suspended' };
+    if (objInit.joined !== null) {
+        this.joined =
+            {
+                value: new Date(objInit.joined).toLocaleDateString(undefined, { day: 'numeric', month: 'numeric', year: 'numeric' }),
+                label: "Join Date"
+            };
+    }
+    else {
+        this.joined =
+            {
+                value: "Never",
+                label: "Join Date"
+            };
+    }
+    if (objInit.lastOnline !== null) {
+        this.lastOnline = {
+            value: new Date(objInit.lastOnline).toLocaleDateString(undefined, { day: 'numeric', month: 'numeric', year: 'numeric' }),
+            label: "Last On-line"
         };
-    this.lastOnline = {
-        value: `${new Date(objInit.lastOnline).getUTCMonth() + 1}/${new Date(objInit.lastOnline).getUTCDate()}/${new Date(objInit.lastOnline).getUTCFullYear()}`,
-        label: "Last On-line"
-    };
+    }
+    else {
+        this.lastOnline = {
+            value: "Never",
+            label: "Last On-line"
+        };
+    }
     this.isTutor = {
         value: objInit.isTutor,
         label: 'Is Tutor'
     };
+    
 }
 
 function createUserInfoItem(data) {

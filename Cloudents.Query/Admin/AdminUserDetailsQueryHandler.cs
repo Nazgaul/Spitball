@@ -26,7 +26,7 @@ namespace Cloudents.Query.Admin
 	        else 0 end as IsActive,
 			case when U.LockoutEnd is null then 0
 			else 1 end as WasSuspended,
-			isnull((select min(Created) from sb.[Transaction] where [Action] = 'SignUp' and User_id = U.Id),cast(0 as datetime)) as Joined,
+			(select min(Created) from sb.[Transaction] where [Action] = 'SignUp' and User_id = U.Id) as Joined,
 			U.PhoneNumberConfirmed,
 			U.EmailConfirmed,
             U.LastOnline,

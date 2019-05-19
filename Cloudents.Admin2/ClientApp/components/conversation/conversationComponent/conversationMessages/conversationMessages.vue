@@ -6,20 +6,24 @@
                       hide-actions
                       hide-headers>
             <template slot="items" slot-scope="props">
-                <td class="text-s-left">
-                    name: {{ props.item.userName }} <br />
-                    email: {{props.item.email}} <br />
-                    phone: {{props.item.phoneNumber}}
+                <td class="text-s-left" :class="{'student': studentName == props.item.userName, 'tutor': studentName != props.item.userName}">
+                    <span class="userInfo"><b>{{ studentName != props.item.userName ? 'Tutor':'Student'}}</b>: {{props.item.userName}} </span> <br />
+                    <span class="userInfo">email: {{props.item.email}} </span><br />
+                    <span class="userInfo">phone: {{props.item.phoneNumber}}</span>
+                    
                 </td>
             </template>
         </v-data-table>
         <v-data-table :items="conversationsMessages"
                       class="elevation-1"
                       hide-actions
+                      disable-initial-sort
                       :headers="messageHeaders">
-            <template slot="items" slot-scope="props" >
-                <td :class="{'student': studentName == props.item.name}" class="text-xs-left">{{ props.item.name }}:</td>
-                <td :class="{'student': studentName == props.item.name}" class="text-xs-left">{{ props.item.text }}</td>
+            <template slot="items" slot-scope="props">
+                <td :class="{'student': studentName == props.item.name, 'tutor': studentName != props.item.name}" class="text-xs-left">{{ props.item.name }}</td>
+
+                <td :class="{'student': studentName == props.item.name, 'tutor': studentName != props.item.name}" class="text-xs-left">{{ props.item.text }}</td>
+                <td :class="{'student': studentName == props.item.name, 'tutor': studentName != props.item.name}" class="text-xs-left">{{ props.item.dateTime.toLocaleString() }}</td>
             </template>
         </v-data-table>
     </div>
@@ -32,8 +36,9 @@
         data() {
             return {
                 messageHeaders: [
-                    { text: 'User Name', value: 'userName' },
-                    { text: 'Text', value: 'text' }
+                    { text: 'User Name' },
+                    { text: 'Text'},
+                    { text: 'Date' }
                 ],
                 conversationsDetails: [],
                 conversationsMessages: []
@@ -79,14 +84,21 @@
     }
 
     .text-s-left {
-        color: red;
         font-weight: bold;
         font-size: large;
+        text-align:left;
     }
     .text-xs-left {
         background-color: white;
     }
     .student {
-        background-color: aqua;
+        background-color:lightgray;
+    }
+    .tutor {
+        background-color: lightblue;
+    }
+
+    .userInfo {
+        margin-left:40%;
     }
 </style>

@@ -10,11 +10,12 @@ namespace Cloudents.Query.Query.Admin
 {
     public class AdminConversationDetailsQuery: IQuery<IEnumerable<ConversationDetailsDto>>
     {
-        public AdminConversationDetailsQuery(Guid id)
+        public AdminConversationDetailsQuery(string id)
         {
             Id = id;
         }
-        public Guid Id { get; set; }
+
+        private string Id { get; set; }
 
         internal sealed class AdminConversationDetailsQueryHandler : IQueryHandler<AdminConversationDetailsQuery, IEnumerable<ConversationDetailsDto>>
         {
@@ -33,7 +34,9 @@ namespace Cloudents.Query.Query.Admin
                                 from sb.ChatMessage cm
                                 join sb.[User] u
 	                                on cm.UserId = u.Id
-                                where cm.ChatRoomId = @Id";
+                                join sb.ChatRoom cr
+                                    on cm.ChatRoomId = cr.Id
+                                where cr.identifier = @Id";
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<ConversationDetailsDto>(sql, new { query .Id });
