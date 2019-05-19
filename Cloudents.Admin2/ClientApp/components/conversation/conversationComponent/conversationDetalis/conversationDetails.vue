@@ -27,8 +27,8 @@
         data() {
             return {
                 headers: [
-                    { text: 'Tutor Name' },
-                    { text: 'User Name' },
+                    { text: 'Tutor' },
+                    { text: 'Student' },
                     { text: 'Last Message' }
                 ],
                 showLoading: true,
