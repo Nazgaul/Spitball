@@ -95,8 +95,8 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(RegularUser.Online))]
         public bool Online { get; set; }
 
-        [EntityBind(nameof(ChatRoom.Id))]
-        public Guid ConversationId { get; set; }
+        [EntityBind(nameof(ChatRoom.Identifier))]
+        public string ConversationId { get; set; }
 
         [EntityBind(nameof(ChatRoom.UpdateTime))]
         public DateTime DateTime { get; set; }

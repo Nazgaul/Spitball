@@ -168,6 +168,7 @@ updateStudyRoomProps(context, val) {
                     dispatch('showRoomToasterMessage', toasterParams);
                 } else {
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
+                    toasterParams.timeout = 3600000;
                     dispatch('showRoomToasterMessage', toasterParams);
                     dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 }
@@ -184,6 +185,7 @@ updateStudyRoomProps(context, val) {
                 dispatch('showRoomToasterMessage', toasterParams);
             } else {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
+                toasterParams.timeout = 3600000;
                 dispatch('showRoomToasterMessage', toasterParams);
             }
         }
@@ -192,7 +194,8 @@ updateStudyRoomProps(context, val) {
         let toasterObj = {
             toasterText: toasterParams.text,
             showToaster: true,
-            toasterType: toasterParams.type ? toasterParams.type : ''
+            toasterType: toasterParams.type ? toasterParams.type : '',
+            toasterTimeout: toasterParams.timeout
         }
         dispatch('updateToasterParams', toasterObj);
     },

@@ -39,7 +39,7 @@ namespace Cloudents.Web.EventHandler
             var message = new SignalRTransportType(SignalRType.Chat,
                 SignalRAction.Add, new
                 {
-                    conversationId = chatMessage.ChatRoom.Id,
+                    conversationId = chatMessage.ChatRoom.Identifier,
                     message = BuildChatMessage((dynamic)chatMessage)
                 });
             var users = chatMessage.ChatRoom.Users.Select(s => s.User.Id.ToString()).ToList();

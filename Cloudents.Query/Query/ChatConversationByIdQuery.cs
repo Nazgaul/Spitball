@@ -9,13 +9,13 @@ namespace Cloudents.Query.Query
 {
     public class ChatConversationByIdQuery : IQuery<IEnumerable<ChatMessageDto>>
     {
-        public ChatConversationByIdQuery(Guid conversationId, int page)
+        public ChatConversationByIdQuery(string conversationId, int page)
         {
             ConversationId = conversationId;
             Page = page;
         }
 
-        private Guid ConversationId { get; }
+        private string ConversationId { get; }
         private int Page { get; }
 
         internal sealed class ChatConversationByIdQueryHandler : IQueryHandler<ChatConversationByIdQuery, IEnumerable<ChatMessageDto>>
@@ -36,11 +36,11 @@ namespace Cloudents.Query.Query
                     var reader = await conn.ExecuteReaderAsync(@"
 Select
 messageType as discriminator, userId,message as Text,creationTime as DateTime , blob as Attachment,
-cm.id as id, cm.ChatRoomId as chatRoomId, u.Image, u.Name
-from sb.ChatMessage cm
+cm.id as id, cr.Id as chatRoomId, u.Image, u.Name
+from sb.ChatMessage cm join sb.ChatRoom cr on cm.ChatRoomId = cr.Id
 join sb.[user] u
 	on cm.UserId = u.Id
-where ChatRoomId = @Id
+where cr.Identifier = @Id
 order by cm.Id
 OFFSET @PageSize * @PageNumber ROWS 
 FETCH NEXT @PageSize ROWS ONLY;", new { Id = query.ConversationId, PageSize = 50, PageNumber = query.Page });

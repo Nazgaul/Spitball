@@ -43,7 +43,7 @@ and (u.PaymentKey is null or u.PaymentKeyExpiration < GetUtcDate())
 
 Select 
 onlineDocumentUrl as OnlineDocument, 
-cr.Id as ConversationId,
+sr.identifier as ConversationId,
 sr.tutorId,
  case when tr.Id is null then 1 else 0 end as AllowReview,
  coalesce (
@@ -51,7 +51,7 @@ sr.tutorId,
 	case when (select top 1 1 from cte u where sr.Id = u.studyRoomId and u.Id <> sr.TutorId) =1 then 1 else null end,
 	0
 ) as NeedPayment
-from sb.StudyRoom sr join sb.ChatRoom cr on sr.Identifier = cr.Identifier
+from sb.StudyRoom sr 
 join sb.Tutor t on t.Id = sr.TutorId
 join sb.StudyRoomUser sru on sr.Id = sru.StudyRoomId and sru.UserId = @UserId -- to make sure user have permission to enter the room
 left join sb.TutorReview tr on sr.Id = tr.RoomId

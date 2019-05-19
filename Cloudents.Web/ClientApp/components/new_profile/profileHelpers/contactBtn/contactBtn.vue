@@ -26,7 +26,8 @@ import chatService from '../../../../services/chatService'
                     let conversationObj = {
                         userId: currentProfile.user.id,
                         image: currentProfile.user.image,
-                        name: currentProfile.user.name
+                        name: currentProfile.user.name,
+                        conversationId: chatService.createConversationId([currentProfile.user.id, this.accountUser.id]),
                     }
                     let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
                     this.setActiveConversationObj(currentConversationObj);

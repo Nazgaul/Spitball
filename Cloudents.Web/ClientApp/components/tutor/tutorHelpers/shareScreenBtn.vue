@@ -3,24 +3,24 @@
     <v-flex>
       <button v-if="!isSharing" @click="showScreen" class="outline-btn">
         <castIcon class="cast-icon"></castIcon>
-        <span v-language:inner>tutor_btn_share_screen</span>
+        <span v-language:inner="'tutor_btn_share_screen'"></span>
       </button>
       <button class="outline-btn" v-else @click="stopSharing">
-        <span v-language:inner>tutor_btn_stop_sharing</span>
+        <span v-language:inner="'tutor_btn_stop_sharing'"></span>
       </button>
     </v-flex>
     <v-dialog class="install-extension-dialog" v-model="extensionDialog" max-width="290">
       <v-card>
         <v-card-title class="headline">
-          <span v-language:inner>tutor_chrome_ext_title</span>
+          <span v-language:inner="'tutor_chrome_ext_title'"></span>
         </v-card-title>
 
         <v-card-text>
-          <span v-language:inner>tutor_chrome_ext_install</span>
+          <span v-language:inner="'tutor_chrome_ext_install'"></span>
         </v-card-text>
         <v-card-text>
           <a>
-            <span @click="reloadPage()" v-language:inner>tutor_chrome_ext_text</span>
+            <span @click="reloadPage()" v-language:inner="'tutor_chrome_ext_text'"></span>
           </a>
         </v-card-text>
         <v-card-actions>
@@ -31,10 +31,10 @@
             class="btn px-3 py-2 mr-3"
             @click="dialog = false"
           >
-            <span v-language:inner>tutor_chrome_ext_btn_install</span>
+            <span v-language:inner="'tutor_chrome_ext_btn_install'"></span>
           </a>
           <v-btn color="green darken-1" flat="flat" @click="extensionDialog = false">
-            <span v-language:inner>tutor_chrome_ext_btn_cancel</span>
+            <span v-language:inner="'tutor_chrome_ext_btn_cancel'"></span>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -61,7 +61,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["activeRoom"])
+    ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData"]),
+    accountUserID() {
+      if (this.accountUser && this.accountUser.id) {
+        return this.accountUser.id;
+      }
+    },
+    isTutor() {
+      return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
+    }
   },
   methods: {
     ...mapActions(["updateToasterParams"]),
@@ -70,23 +78,32 @@ export default {
       global.reloadPage();
     },
     publishTrackToRoom(track) {
-      this.activeRoom.localParticipant.publishTrack(track);
+      if (this.activeRoom) {
+        this.activeRoom.localParticipant.publishTrack(track, {
+          name: `shareScreen_${this.isTutor ? "tutor" : "student"}_${
+            this.accountUserID
+          }`
+        });
+      }
     },
     unPublishTrackfromRoom(track) {
+         if (this.activeRoom) {
       this.activeRoom.localParticipant.unpublishTrack(track);
+         }
     },
     //screen share start
     showScreen() {
       let self = this;
+        debugger;
       videoService.getUserScreen().then(
         stream => {
+          stream.addEventListener('ended', () => self.stopSharing());
           self.screenShareTrack = stream; //stream.getVideoTracks()[0];
-          self.publishTrackToRoom(self.screenShareTrack,{
-              name : "ram"
-          });
+          self.publishTrackToRoom(self.screenShareTrack);
           self.isSharing = true;
         },
         error => {
+          error = error || {};
           if (error === "noExtension") {
             self.extensionDialog = true;
             return;
@@ -95,14 +112,18 @@ export default {
             self.updateToasterParams({
               toasterText: "Browser not supported",
               showToaster: true,
-              toasterType: self.Toaster.toasterTypes.error //c
+              toasterType: "error-toaster" //c
             });
             return;
           }
+          if (error.name === "NotAllowedError") {
+            //user press cancel.
+            return;
+          }
           self.updateToasterParams({
-              toasterText: "Error sharing screen",
-              showToaster: true,
-              toasterType: self.Toaster.toasterTypes.error //c
+            toasterText: "Error sharing screen",
+            showToaster: true,
+            toasterType: "error-toaster" //c
           });
           console.error("error sharing screen", error);
         }

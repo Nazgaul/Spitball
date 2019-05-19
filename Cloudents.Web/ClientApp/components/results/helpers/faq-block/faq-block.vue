@@ -62,9 +62,9 @@
 
         created() {
             var self = this;
-            help.getFaq().then(function (response) {
-                self.faqList = response.data;
-            })
+            // help.getFaq().then(function (response) {
+            //     self.faqList = response.data;
+            // })
         }
     }
 </script>

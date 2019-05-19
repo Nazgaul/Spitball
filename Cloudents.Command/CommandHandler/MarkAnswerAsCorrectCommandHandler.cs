@@ -49,12 +49,6 @@ namespace Cloudents.Command.CommandHandler
             }
             question.AcceptAnswer(answer);
 
-            QuestionTransaction.Answered(question);
-
-           
-
-            await _userRepository.UpdateAsync(question.User, token);
-            await _userRepository.UpdateAsync(answer.User, token);
             await _questionRepository.UpdateAsync(question, token);
         }
 

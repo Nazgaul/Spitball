@@ -1,5 +1,9 @@
 import { connectivityModule } from "./connectivity.module"
 
+function createConversationId(arrIds){
+    return arrIds.sort((a, b) => a - b).join('_');
+}
+
 function Conversation(objInit){
     this.userId = objInit.userId;
     this.name = objInit.name;
@@ -99,5 +103,6 @@ export default {
     sendChatMessage,
     createServerMessageObj,
     clearUnread,
-    createActiveConversationObj
+    createActiveConversationObj,
+    createConversationId
 }

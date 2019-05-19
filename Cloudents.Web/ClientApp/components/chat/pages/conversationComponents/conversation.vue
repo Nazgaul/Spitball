@@ -7,8 +7,8 @@
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
         <v-flex>
-          <span class="conversation-name">{{conversation.name}}</span>
-          <span class="conversation-desc text-truncate">{{conversation.lastMessage}}</span>
+          <span class="conversation-name" v-html="conversation.name"></span>
+          <span class="conversation-desc text-truncate" v-html="conversation.lastMessage"></span>
       </v-flex>
         <v-flex class="date-unread-container">
           <span class="conversation-date">{{date}}</span>

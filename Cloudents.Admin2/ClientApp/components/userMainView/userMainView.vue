@@ -30,7 +30,7 @@
             </div>
             <div class="questions-answers-wrap">
                 <v-layout row>
-                    <div class="general-info d-flex elevation-2 mb-2" v-if="showActions" style="max-height: 468px;">
+                    <div class="general-info d-flex elevation-2 mb-2" v-if="showActions">
                         <div class="info-item px-2" v-for="(infoItem, index) in userInfo" :key="index">
                             <v-flex row class="d-flex align-baseline justify-center">
                                 <div class="user-info-label">

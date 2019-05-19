@@ -13,7 +13,7 @@ const getDocument = (params) => {
 
 
 const getTutor = (params) => {
-    return connectivityModule.http.get("tutor/search", { params: transformLocation(params) })
+    return connectivityModule.http.get("tutor/search", { params })
 }
 
 const getNextPage = ({ url, vertical }) => {

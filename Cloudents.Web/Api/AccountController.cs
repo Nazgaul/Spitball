@@ -54,6 +54,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<UserAccountDto>> GetAsync(
             [FromServices] IQueryBus queryBus,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
+            [FromServices] ILogger logger,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -64,6 +65,7 @@ namespace Cloudents.Web.Api
             if (user == null)
             {
                 await _signInManager.SignOutAsync();
+                logger.Error($"User is null {userId}");
                 return Unauthorized();
             }
 

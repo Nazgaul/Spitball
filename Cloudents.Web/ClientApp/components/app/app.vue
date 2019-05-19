@@ -116,7 +116,7 @@
             <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
                            :onStepChange="onFooterStepChange"></mobile-footer>
         </v-content>
-        <v-snackbar absolute top :timeout="toasterTimeout" :class="getShowToasterType" :value="getShowToaster">
+        <v-snackbar absolute top :timeout="getToasterTimeout" :class="getShowToasterType" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
 
@@ -179,14 +179,13 @@ export default {
     return {
       acceptIsraeli: true,
       isRtl: global.isRtl,
-      toasterTimeout: 5000,
+      //toasterTimeout: 5000,
       hideFooter: false,
       showOnBoardGuide: true,
       showBuyTokensDialog: false,
-
+      toasterTimeoutObj: null,
       tourObject: {
-        region:
-          global.country.toLocaleLowerCase() === "il" ? "ilTours" : "usTours",
+        region: global.country.toLocaleLowerCase() === "il" ? "ilTours" : "usTours",
         tourCallbacks: {
           onStop: this.tourClosed
         },
@@ -206,6 +205,7 @@ export default {
       "confirmationDialog",
       "getShowToaster",
       "getShowToasterType",
+      "getToasterTimeout",
       "getToasterText",
       "getMobileFooterState",
       "showMarketingBox",
@@ -218,8 +218,8 @@ export default {
       "getShowPayMeToaster",
       "getCurrentStep",
       "newBallerDialog",
-        "becomeTutorDialog",
-         "getRequestTutorDialog"
+      "becomeTutorDialog",
+      "getRequestTutorDialog"
 
     ]),
     isMobile(){
@@ -275,14 +275,23 @@ export default {
   },
   watch: {
     getShowToaster: function(val) {
-      if (val) {
-        var self = this;
-        setTimeout(function() {
+      let self = this;
+      this.toasterTimeoutObj = setTimeout(()=>{
+        if (val) {
           self.updateToasterParams({
-            showToaster: false
+          showToaster: false
           });
-        }, this.toasterTimeout);
-      }
+        }
+      }, this.getToasterTimeout)
+    },
+    getToasterTimeout:function(){
+      let self = this;
+      global.clearTimeout(this.toasterTimeoutObj);
+      this.toasterTimeoutObj = setTimeout(()=>{
+          self.updateToasterParams({
+          showToaster: false
+        });
+      }, this.getToasterTimeout);
     }
   },
   methods: {

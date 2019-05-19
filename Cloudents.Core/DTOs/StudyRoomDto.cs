@@ -6,7 +6,7 @@ namespace Cloudents.Core.DTOs
     {
        
         public string OnlineDocument { get; set; }
-        public Guid ConversationId { get; set; }
+        public string ConversationId { get; set; }
 
         public long TutorId { get; set; }
 
@@ -24,7 +24,7 @@ namespace Cloudents.Core.DTOs
         public Guid Id { get; set; }
         public DateTime DateTime { get; set; }
 
-        public Guid ConversationId { get; set; }
+        public string ConversationId { get; set; }
 
         
     }

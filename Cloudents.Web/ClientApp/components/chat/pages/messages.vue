@@ -156,8 +156,11 @@ export default {
                     box-shadow: none !important;
                     
                 }
+                [contenteditable=true]:empty:before {
+                    content: attr(placeholder);
+                    display: block; /* For Firefox */
+                }
             }
         }
-        
     }
 </style>

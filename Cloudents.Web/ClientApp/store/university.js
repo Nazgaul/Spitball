@@ -251,8 +251,9 @@ const actions = {
     pushClassToSelectedClasses({commit}, val) {
         commit('pushClass', val);
     },
-    assignClasses({state, dispatch}) {
-       return universityService.assaignCourse(state.selectedClasses).then(() => {
+    assignClasses({state, dispatch}, courses) {
+        let coursesToSend = courses ? courses : state.selectedClasses;
+        return universityService.assaignCourse(coursesToSend).then(() => {
             //Update Filters in note page
             dispatch('changeReflectChangeToPage');
             Promise.resolve(true);

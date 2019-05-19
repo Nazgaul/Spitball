@@ -366,4 +366,7 @@ to &lt;b&gt;exit&lt;/b&gt;?</value>
   <data name="click_here_to_send_email" xml:space="preserve">
     <value>Click here to resend</value>
   </data>
+  <data name="error_min_chars" xml:space="preserve">
+    <value>Password needs minimum 8 characters</value>
+  </data>
 </root>

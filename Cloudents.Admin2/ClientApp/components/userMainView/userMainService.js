@@ -29,7 +29,16 @@ function UserInfo(objInit) {
     this.wasSuspended = {value: objInit.wasSuspended ? true : false, label: 'Was Suspended'};
     this.joined =
         {value: `${new Date(objInit.joined).getUTCMonth() + 1}/${new Date(objInit.joined).getUTCDate()}/${new Date(objInit.joined).getUTCFullYear()}`,
-        label: "Join Date"};
+            label: "Join Date"
+        };
+    this.lastOnline = {
+        value: `${new Date(objInit.lastOnline).getUTCMonth() + 1}/${new Date(objInit.lastOnline).getUTCDate()}/${new Date(objInit.lastOnline).getUTCFullYear()}`,
+        label: "Last On-line"
+    };
+    this.isTutor = {
+        value: objInit.isTutor,
+        label: 'Is Tutor'
+    };
 }
 
 function createUserInfoItem(data) {

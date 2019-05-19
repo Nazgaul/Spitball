@@ -173,17 +173,12 @@ namespace Cloudents.Core.Entities
        // public override int AwardScore => _awardScore;
     }
 
+    /// <summary>
+    /// Question Transaction - we keep this because of older transactions
+    /// </summary>
     public class QuestionTransaction : Transaction
     {
-        //[SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        //private QuestionTransaction(Question question) 
-        //{
-        //    Question = question;
-
-
-        //}
-
-        //private int _awardScore;
+      
 
         public virtual Question Question { get;  set; }
         public virtual Answer Answer { get; protected set; }
@@ -193,66 +188,6 @@ namespace Cloudents.Core.Entities
 
         }
 
-        //public static QuestionTransaction Asked(Question question)
-        //{
-        //    var money = -Math.Abs(question.Price);
-        //    return new QuestionTransaction(question)
-        //    {
-        //        Action = TransactionActionType.Question,
-        //        Type = TransactionType.Stake,
-        //        Price = money
-        //    };
-        //}
-
-        //public static QuestionTransaction Deleted(Question question)
-        //{
-        //    var money = Math.Abs(question.Price);
-        //    return new QuestionTransaction(question)
-        //    {
-        //        Question = null,
-        //        Action = TransactionActionType.DeleteQuestion,
-        //        Type = TransactionType.Stake,
-        //        Price = money
-        //    };
-        //}
-
-        public static void Answered(Question question)
-        {
-            var userQuestion = question.User;
-            var correctAnswer = question.CorrectAnswer;
-
-            //var t1 = new QuestionTransaction(question)
-            //{
-            //    Action = TransactionActionType.AnswerCorrect,
-            //    Type = TransactionType.Stake,
-            //    Price = money,
-            //    Answer = correctAnswer
-            //};
-            //var t2 = new QuestionTransaction(question)
-            //{
-            //    Action = TransactionActionType.AnswerCorrect,
-            //    Type = TransactionType.Spent,
-            //    Price = -money,
-            //    Answer = correctAnswer
-            //};
-            var t3 = new AwardMoneyTransaction(AwardsTransaction.QuestionOwnerBonus);
-            userQuestion.MakeTransaction(t3);
-
-            var userAnswer = correctAnswer.User;
-
-            //This will trigger the correct answer email.
-
-            //var ta1 = new QuestionTransaction(question)
-            //{
-            //    Action = TransactionActionType.AnswerCorrect,
-            //    Type = TransactionType.Earned,
-            //    Price = money,
-            //    Answer = correctAnswer,
-            //    //_awardScore = 1
-            //};
-            var ta2 = new AwardMoneyTransaction(AwardsTransaction.QuestionAnswererBonus);
-            userAnswer.MakeTransaction(ta2);
-        }
 
     }
 
@@ -341,8 +276,8 @@ namespace Cloudents.Core.Entities
         //public static readonly AwardsTransaction FirstCourse = new AwardsTransaction(TransactionActionType.FirstCourse, 5);
         //public static readonly AwardsTransaction University = new AwardsTransaction(TransactionActionType.Awarded, 5);
 
-        public static readonly AwardsTransaction QuestionOwnerBonus = new AwardsTransaction(TransactionActionType.Awarded, 1);
-        public static readonly AwardsTransaction QuestionAnswererBonus = new AwardsTransaction(TransactionActionType.Awarded, 10);
+        //public static readonly AwardsTransaction QuestionOwnerBonus = new AwardsTransaction(TransactionActionType.Awarded, 1);
+        //public static readonly AwardsTransaction QuestionAnswererBonus = new AwardsTransaction(TransactionActionType.Awarded, 10);
     }
 
 
