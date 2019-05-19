@@ -1,18 +1,14 @@
 ﻿using System;
-using Cloudents.Web.Test.IntegrationTests;
-using FluentAssertions;
 using System.Threading.Tasks;
-using Xunit;
+using FluentAssertions;
 using Newtonsoft.Json;
+using Xunit;
 
-
-namespace Cloudents.Web.Test.UnitTests.Api
+namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class SignTestsApi //: IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
-
         private readonly System.Net.Http.HttpClient _client;
 
         private readonly string _swaggerLink = "https://localhost/swagger";
@@ -27,8 +23,9 @@ namespace Cloudents.Web.Test.UnitTests.Api
 
         public SignTestsApi(SbWebApplicationFactory factory)
         {
-            _factory = factory;
-            _client = _factory.CreateClient();
+            _client = factory.CreateClient();
+       _client.DefaultRequestHeaders.Referrer = new Uri(_swaggerLink);
+
         }
 
         [Fact]
@@ -40,7 +37,7 @@ namespace Cloudents.Web.Test.UnitTests.Api
         [Fact]
         public async Task Post_Register_With_Email()
         {
-            _client.DefaultRequestHeaders.Referrer = new Uri(_swaggerLink);
+           
 
             var sign = new
             {
@@ -79,7 +76,6 @@ namespace Cloudents.Web.Test.UnitTests.Api
         [Fact]
         public async Task Post_Send_Sms_Code()
         {
-            _client.DefaultRequestHeaders.Referrer = new Uri(_swaggerLink);
 
             var sign = new
             {
