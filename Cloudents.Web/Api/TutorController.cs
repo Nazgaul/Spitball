@@ -49,38 +49,39 @@ namespace Cloudents.Web.Api
         /// <param name="page"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet("search")]
+        [HttpGet("search", Name = "TutorSearch")]
         public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
             [RequiredFromQuery]string term,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
             CancellationToken token)
         {
-            //TutorListTabQuery
-            var query = new TutorListTabSearchQuery(term, profile.Country, page);
-            var result = await _queryBus.QueryAsync(query, token);
-            return new WebResponseWithFacet<TutorListDto>
+            //TODO make it better
+            if (string.IsNullOrEmpty(term))
             {
-                Result = result,
-                NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term })
-            };
+                var query = new TutorListTabQuery(profile.Country, page: page);
+                var result = await _queryBus.QueryAsync(query, token);
+                return new WebResponseWithFacet<TutorListDto>
+                {
+                    Result = result,
+                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page })
+                };
+            }
+            else
+            {
+                var query = new TutorListTabSearchQuery(term, profile.Country, page);
+                var result = await _queryBus.QueryAsync(query, token);
+                return new WebResponseWithFacet<TutorListDto>
+                {
+                    Result = result,
+                    NextPageLink = Url.RouteUrl("TutorSearch", new {page = ++page, term})
+                };
+            }
         }
 
 
-        [HttpGet("search", Name = "TutorSearch")]
-        public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            int page, CancellationToken token)
-        {
-            //TutorListTabQuery
-            var query = new TutorListTabQuery(profile.Country, page: page);
-            var result = await _queryBus.QueryAsync(query, token);
-            return new WebResponseWithFacet<TutorListDto>
-            {
-                Result = result,
-                NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page })
-            };
-        }
+       
+       
 
 
         /// <summary>
