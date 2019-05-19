@@ -6,7 +6,7 @@
                       hide-actions
                       hide-headers>
             <template slot="items" slot-scope="props">
-                <td class="text-s-left">
+                <td class="text-s-left" :class="{'student': studentName == props.item.userName, 'tutor': studentName != props.item.userName}">
                     name: {{ props.item.userName }} <br />
                     email: {{props.item.email}} <br />
                     phone: {{props.item.phoneNumber}}
@@ -19,10 +19,10 @@
                       disable-initial-sort
                       :headers="messageHeaders">
             <template slot="items" slot-scope="props">
-                <td :class="{'student': studentName == props.item.name}" class="text-xs-left">{{ props.item.name }}</td>
+                <td :class="{'student': studentName == props.item.name, 'tutor': studentName != props.item.name}" class="text-xs-left">{{ props.item.name }}</td>
 
-                <td :class="{'student': studentName == props.item.name}" class="text-xs-left">{{ props.item.text }}</td>
-                <td :class="{'student': studentName == props.item.name}" class="text-xs-left">{{ props.item.dateTime.toLocaleString() }}</td>
+                <td :class="{'student': studentName == props.item.name, 'tutor': studentName != props.item.name}" class="text-xs-left">{{ props.item.text }}</td>
+                <td :class="{'student': studentName == props.item.name, 'tutor': studentName != props.item.name}" class="text-xs-left">{{ props.item.dateTime.toLocaleString() }}</td>
             </template>
         </v-data-table>
     </div>
@@ -83,7 +83,6 @@
     }
 
     .text-s-left {
-        color: red;
         font-weight: bold;
         font-size: large;
     }
@@ -91,6 +90,9 @@
         background-color: white;
     }
     .student {
-        background-color: aqua;
+        background-color:lightgray;
+    }
+    .tutor {
+        background-color: lightblue;
     }
 </style>

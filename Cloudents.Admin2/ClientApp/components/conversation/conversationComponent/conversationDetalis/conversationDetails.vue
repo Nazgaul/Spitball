@@ -9,35 +9,12 @@
                       :expand="expand">
             <template slot="items" slot-scope="props">
                 <tr @click="openItem(props.item)">
-                    <td class="text-xs-left">{{ props.item.userName1 }}</td>
-                    <td class="text-xs-left">{{ props.item.isTutor1 }}</td>
-                    <td class="text-xs-left">{{ props.item.userName2 }}</td>
-                    <td class="text-xs-left">{{ props.item.isTutor2 }}</td>
-                    <td class="text-xs-left">{{ props.item.lastMessage }}</td>
+                    <td class="text-xs-left" style="background-color: lightblue">{{ props.item.tutorName }}</td>
+                    <td class="text-xs-left student">{{ props.item.userName }}</td>
+                    <td class="text-xs-left">{{ props.item.lastMessage.toLocaleString() }}</td>
                 </tr>
             </template>
-            <!--<template slot="expand" slot-scope="props">
-            <v-card flat>
-                <v-data-table :items="conversationsDetails"
-                              class="elevation-1"
-                              hide-actions>
-                    <template slot="items" slot-scope="props">
-                        <td class="text-s-left">name: {{ props.item.userName }} <br/>
-                        email: {{props.item.email}} <br/>
-                        phone: {{props.item.phoneNumber}}</td>
-                    </template>
-                </v-data-table>
-                <v-data-table :items="conversationsMessages"
-                              class="elevation-1"
-                              hide-actions
-                              :headers="messageHeaders">
-                    <template slot="items" slot-scope="props">
-                        <td class="text-xs-left">{{ props.item.name }}:</td>
-                        <td class="text-xs-left">{{ props.item.text }}</td>
-                    </template>
-                </v-data-table>
-                </v-card>
-    </template>-->
+           
         </v-data-table>
         </div>
 </template>
@@ -50,10 +27,8 @@
         data() {
             return {
                 headers: [
+                    { text: 'Tutor Name' },
                     { text: 'User Name' },
-                    { text: 'Is Tutor' },
-                    { text: 'User Name' },
-                    { text: 'Is Tutor' },
                     { text: 'Last Message' }
                 ],
                 showLoading: true,
@@ -87,5 +62,11 @@
     .elevation-1 {
     width: 100%
     }
+
+    .student {
+        background-color: lightgray;
+    }
+
+ 
     
 </style>
