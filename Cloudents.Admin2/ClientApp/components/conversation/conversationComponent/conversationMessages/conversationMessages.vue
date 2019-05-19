@@ -35,9 +35,9 @@
         data() {
             return {
                 messageHeaders: [
-                    { text: 'User Name', value: 'userName' },
-                    { text: 'Text', value: 'text' },
-                    { text: 'Date', value: 'Date' }
+                    { text: 'User Name' },
+                    { text: 'Text'},
+                    { text: 'Date' }
                 ],
                 conversationsDetails: [],
                 conversationsMessages: []
