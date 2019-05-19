@@ -64,7 +64,6 @@ namespace Cloudents.Web.Api
 
             if (user == null)
             {
-
                 await _signInManager.SignOutAsync();
                 logger.Error($"User is null {userId}");
                 return Unauthorized();
