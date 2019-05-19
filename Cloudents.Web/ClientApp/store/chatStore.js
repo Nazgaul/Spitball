@@ -125,7 +125,6 @@ const actions = {
                 if(state.activeConversationObj.conversationId === message.conversationId){
                     commit('addMessage', message);
                     if (message.fromSignalR) {
-                        debugger;
                         chatService.clearUnread(message.userId);
                     }
                     if(state.isMinimized && message.fromSignalR){
