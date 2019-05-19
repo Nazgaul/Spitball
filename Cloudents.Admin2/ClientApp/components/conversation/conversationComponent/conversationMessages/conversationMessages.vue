@@ -7,9 +7,10 @@
                       hide-headers>
             <template slot="items" slot-scope="props">
                 <td class="text-s-left" :class="{'student': studentName == props.item.userName, 'tutor': studentName != props.item.userName}">
-                    name: {{ props.item.userName }} <br />
-                    email: {{props.item.email}} <br />
-                    phone: {{props.item.phoneNumber}}
+                    <span class="userInfo"><b>{{ studentName != props.item.userName ? 'Tutor':'Student'}}</b>: {{props.item.userName}} </span> <br />
+                    <span class="userInfo">email: {{props.item.email}} </span><br />
+                    <span class="userInfo">phone: {{props.item.phoneNumber}}</span>
+                    
                 </td>
             </template>
         </v-data-table>
@@ -85,6 +86,7 @@
     .text-s-left {
         font-weight: bold;
         font-size: large;
+        text-align:left;
     }
     .text-xs-left {
         background-color: white;
@@ -94,5 +96,9 @@
     }
     .tutor {
         background-color: lightblue;
+    }
+
+    .userInfo {
+        margin-left:40%;
     }
 </style>

@@ -8,7 +8,7 @@
                       :headers="headers"
                       :expand="expand">
             <template slot="items" slot-scope="props">
-                <tr @click="openItem(props.item)">
+                <tr @click="openItem(props.item)" :style="{ cursor: 'pointer'}">
                     <td class="text-xs-left" style="background-color: lightblue">{{ props.item.tutorName }}</td>
                     <td class="text-xs-left student">{{ props.item.userName }}</td>
                     <td class="text-xs-left">{{ props.item.lastMessage.toLocaleString() }}</td>
