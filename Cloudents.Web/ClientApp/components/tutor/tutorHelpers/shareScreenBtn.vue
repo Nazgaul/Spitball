@@ -63,13 +63,13 @@ export default {
   computed: {
     ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData"]),
     accountUserID() {
-      if(this.accountUser && this.accountUser.id) {
-          return this.accountUser.id;
+      if (this.accountUser && this.accountUser.id) {
+        return this.accountUser.id;
       }
     },
     isTutor() {
       return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
-    },
+    }
   },
   methods: {
     ...mapActions(["updateToasterParams"]),
@@ -80,23 +80,30 @@ export default {
     publishTrackToRoom(track) {
       if (this.activeRoom) {
         this.activeRoom.localParticipant.publishTrack(track, {
-          name:`shareScreen_${this.isTutor ? 'tutor' : 'student'}_${this.accountUserID}`
+          name: `shareScreen_${this.isTutor ? "tutor" : "student"}_${
+            this.accountUserID
+          }`
         });
       }
     },
     unPublishTrackfromRoom(track) {
+         if (this.activeRoom) {
       this.activeRoom.localParticipant.unpublishTrack(track);
+         }
     },
     //screen share start
     showScreen() {
       let self = this;
+        debugger;
       videoService.getUserScreen().then(
         stream => {
+          stream.addEventListener('ended', () => self.stopSharing());
           self.screenShareTrack = stream; //stream.getVideoTracks()[0];
           self.publishTrackToRoom(self.screenShareTrack);
           self.isSharing = true;
         },
         error => {
+          error = error || {};
           if (error === "noExtension") {
             self.extensionDialog = true;
             return;
@@ -105,14 +112,18 @@ export default {
             self.updateToasterParams({
               toasterText: "Browser not supported",
               showToaster: true,
-              toasterType: 'error-toaster' //c
+              toasterType: "error-toaster" //c
             });
             return;
           }
+          if (error.name === "NotAllowedError") {
+            //user press cancel.
+            return;
+          }
           self.updateToasterParams({
-              toasterText: "Error sharing screen",
-              showToaster: true,
-              toasterType:'error-toaster' //c
+            toasterText: "Error sharing screen",
+            showToaster: true,
+            toasterType: "error-toaster" //c
           });
           console.error("error sharing screen", error);
         }

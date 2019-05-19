@@ -28,21 +28,16 @@ export default {
         // function canScreenShare() {
         //     return isFirefox() || isChrome();
         // }
-
-
-
         let displayMediaOptions = {
             video:true,
             audio: false
         };
         try {
         return navigator.mediaDevices.getDisplayMedia(displayMediaOptions).then(stream => {
-
             return stream.getTracks()[0];
         });
         }
         catch(err) {
-
         }
         // if (!canScreenShare()) {
         //     return Promise.reject("notBrowser");
@@ -74,6 +69,7 @@ export default {
                     }
                 });
             }).then(async response => {
+              
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: {
                         mandatory: {
