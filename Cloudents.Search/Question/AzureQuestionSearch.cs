@@ -50,9 +50,14 @@ namespace Cloudents.Search.Question
 
             if (query.FilterByUniversity)
             {
-                var universityStr = $"{nameof(Entities.Question.UniversityName)} eq '{query.UserProfile.UniversityId.GetValueOrDefault().ToString()}'";
+                var universityStr = $"{nameof(Entities.Question.UniversityName)} eq '{query.UniversityId.GetValueOrDefault().ToString()}'";
                 filters.Add($"({universityStr})");
 
+            }
+
+            if (query.Country != null)
+            {
+                filters.Add($"{nameof(Entities.Question.Country)} eq '{query.Country.ToUpperInvariant()}'");
             }
 
 
@@ -77,7 +82,6 @@ namespace Cloudents.Search.Question
                 }
                 
             }
-            filters.Add($"Country eq '{query.UserProfile.Country}'");
             var searchParameter = new SearchParameters
             {
                 Filter = string.Join(" and ", filters),

@@ -74,7 +74,7 @@ namespace Cloudents.Web.Api
             var toasterMessage = _localizer["PostedQuestionToasterOk"];
             try
             {
-                var command = new CreateQuestionCommand(model.SubjectId, model.Text, 
+                var command = new CreateQuestionCommand(model.SubjectId, model.Text,
                     userId, model.Files, model.Course);
                 await _commandBus.DispatchAsync(command, token);
             }
@@ -195,12 +195,12 @@ namespace Cloudents.Web.Api
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
             [FromQuery]QuestionsRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.Country | ProfileServiceQuery.UniversityId)] UserProfile profile,
             [FromServices] IQueryBus queryBus,
            CancellationToken token)
         {
-            var query = new QuestionsQuery(profile, model.Term, model.Course, model.NeedUniversity, model.Source,
-                model.Filter?.Where(w => w.HasValue).Select(s => s.Value))
+            var query = new QuestionsQuery(model.Term, model.Course, model.NeedUniversity, model.Source,
+                model.Filter?.Where(w => w.HasValue).Select(s => s.Value), profile.Country, profile.UniversityId)
             {
                 Page = model.Page
             };
@@ -307,7 +307,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("ask"), Consumes("multipart/form-data")]
-        public async Task<UploadAskFileResponse> UploadFileAsync(IFormFile file, 
+        public async Task<UploadAskFileResponse> UploadFileAsync(IFormFile file,
         CancellationToken token)
         {
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
