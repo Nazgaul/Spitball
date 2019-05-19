@@ -92,10 +92,10 @@
         background-color: white;
     }
     .student {
-        background-color:lightgray;
+        background-color: lightblue;
     }
     .tutor {
-        background-color: lightblue;
+        background-color: lightgray;
     }
 
     .userInfo {
