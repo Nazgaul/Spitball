@@ -51,7 +51,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
         public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
-            [RequiredFromQuery]string term,
+            string term,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
             CancellationToken token)
