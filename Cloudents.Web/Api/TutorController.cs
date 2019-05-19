@@ -134,7 +134,22 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpPost("anonymousRequest")]
+        public async Task<IActionResult> AnonymousRequestTutorAsync(AnonymousRequestTutorRequest model,
+            [FromServices]  IQueueProvider queueProvider,
+            [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
+            CancellationToken token)
+        {
+            var email = new RequestTutorEmail(model.UserId, model.Text, model.Course, model.Email,
+                        model.Name, model.University, model.Country, model.PhoneNumber,
+                        model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray());
 
+            await queueProvider.InsertMessageAsync(email, token);
+
+            return Ok();
+        }
+
+   
         [HttpPost("request/upload"), Consumes("multipart/form-data")]
         public async Task<UploadAskFileResponse> UploadFileAsync(IFormFile file,
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
