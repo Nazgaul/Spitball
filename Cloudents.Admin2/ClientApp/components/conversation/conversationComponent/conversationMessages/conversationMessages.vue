@@ -16,10 +16,13 @@
         <v-data-table :items="conversationsMessages"
                       class="elevation-1"
                       hide-actions
+                      disable-initial-sort
                       :headers="messageHeaders">
-            <template slot="items" slot-scope="props" >
-                <td :class="{'student': studentName == props.item.name}" class="text-xs-left">{{ props.item.name }}:</td>
+            <template slot="items" slot-scope="props">
+                <td :class="{'student': studentName == props.item.name}" class="text-xs-left">{{ props.item.name }}</td>
+
                 <td :class="{'student': studentName == props.item.name}" class="text-xs-left">{{ props.item.text }}</td>
+                <td :class="{'student': studentName == props.item.name}" class="text-xs-left">{{ props.item.dateTime.toLocaleString() }}</td>
             </template>
         </v-data-table>
     </div>
@@ -33,7 +36,8 @@
             return {
                 messageHeaders: [
                     { text: 'User Name', value: 'userName' },
-                    { text: 'Text', value: 'text' }
+                    { text: 'Text', value: 'text' },
+                    { text: 'Date', value: 'Date' }
                 ],
                 conversationsDetails: [],
                 conversationsMessages: []

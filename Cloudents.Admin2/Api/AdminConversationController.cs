@@ -29,15 +29,15 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ConversationDto>> Conversationsync(CancellationToken token)
+        public async Task<IEnumerable<ConversationDto>> ConversationAsync(CancellationToken token)
         {
             var query = new AdminConversationsQuery();
             return await _queryBus.QueryAsync(query, token);
         }
 
         [HttpGet("details")]
-        public async Task<IEnumerable<ConversationDetailsDto>> ConversationDetailsync(
-            [FromQuery(Name = "id")]Guid id,
+        public async Task<IEnumerable<ConversationDetailsDto>> ConversationDetailAsync(
+            string id,
             CancellationToken token)
         {
             var query = new AdminConversationDetailsQuery(id);
@@ -45,8 +45,8 @@ namespace Cloudents.Admin2.Api
         }
 
 
-        [HttpGet("{id:guid}")]
-        public async Task<IEnumerable<ChatMessageDto>> Get(Guid id, 
+        [HttpGet("{id}")]
+        public async Task<IEnumerable<ChatMessageDto>> Get(string id, 
             [FromServices] IChatDirectoryBlobProvider blobProvider,
             [FromServices] IBinarySerializer serializer,
             CancellationToken token)

@@ -10,9 +10,9 @@
             <template slot="items" slot-scope="props">
                 <tr @click="openItem(props.item)">
                     <td class="text-xs-left">{{ props.item.userName1 }}</td>
-                    <td class="text-xs-left">{{ props.item.isTotur1 }}</td>
+                    <td class="text-xs-left">{{ props.item.isTutor1 }}</td>
                     <td class="text-xs-left">{{ props.item.userName2 }}</td>
-                    <td class="text-xs-left">{{ props.item.isTotur2 }}</td>
+                    <td class="text-xs-left">{{ props.item.isTutor2 }}</td>
                     <td class="text-xs-left">{{ props.item.lastMessage }}</td>
                 </tr>
             </template>
@@ -50,21 +50,15 @@
         data() {
             return {
                 headers: [
-                    { text: 'User Name', value: 'userName' },
-                    { text: 'Is Totur', value: 'isTotur' },
-                    { text: 'User Name', value: 'userName2' },
-                    { text: 'Is Totur', value: 'isTotur2' },
-                    { text: 'Last Message', value: 'lastMessage' }
+                    { text: 'User Name' },
+                    { text: 'Is Tutor' },
+                    { text: 'User Name' },
+                    { text: 'Is Tutor' },
+                    { text: 'Last Message' }
                 ],
-                //messageHeaders: [
-                //    { text: 'User Name', value: 'userName' },
-                //    { text: 'Text', value: 'text' }
-                //],
                 showLoading: true,
                 showNoResult: false,
                 conversationsList: [],
-                //conversationsDetails: [],
-                //conversationsMessages:[],
                 expand: false,
             }
         },

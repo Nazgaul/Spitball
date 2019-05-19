@@ -17,7 +17,7 @@ function createMessageItem(objInit) {
 
 function CreateMessageItem(objInit) {
     this.userId = objInit.userId;
-    this.dateTime = objInit.dateTime;
+    this.dateTime = new Date( objInit.dateTime);
     this.type = objInit.type;
     this.name = objInit.name;
     this.text = objInit.text;
@@ -44,7 +44,7 @@ const getMessages = function (id) {
         let arrConversationMessages = [];
         if (newConversationMessages.length > 0) {
             newConversationMessages.forEach((conversationMessages) => {
-                arrConversationMessages.push(createMessageItem(conversationMessages));
+                arrConversationMessages.unshift(createMessageItem(conversationMessages));
             });
         }
         return Promise.resolve(arrConversationMessages);

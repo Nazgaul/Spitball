@@ -3,9 +3,9 @@
 function ConversationItem(objInit) {
     this.id = objInit.id;
     this.userName1 = objInit.userName1;
-    this.isTotur1 = objInit.isTotur1;
+    this.isTutor1 = objInit.isTutor1;
     this.userName2 = objInit.userName2;
-    this.isTotur2 = objInit.isTotur2;
+    this.isTutor2 = objInit.isTutor2;
     this.lastMessage = objInit.lastMessage;
     this.expanded = false;
 }
