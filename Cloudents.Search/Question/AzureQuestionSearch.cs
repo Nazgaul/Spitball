@@ -50,9 +50,14 @@ namespace Cloudents.Search.Question
 
             if (query.FilterByUniversity)
             {
-                var universityStr = $"{nameof(Entities.Question.UniversityName)} eq '{query.UserProfile.UniversityId.GetValueOrDefault().ToString()}'";
+                var universityStr = $"{nameof(Entities.Question.UniversityName)} eq '{query.UniversityId.GetValueOrDefault().ToString()}'";
                 filters.Add($"({universityStr})");
 
+            }
+
+            if (query.Country != null)
+            {
+                filters.Add($"{nameof(Entities.Question.Country)} eq '{query.Country.ToUpperInvariant()}'");
             }
 
 
@@ -75,21 +80,14 @@ namespace Cloudents.Search.Question
                 {
                     filters.Add($"({filterStr})");
                 }
+                
             }
             var searchParameter = new SearchParameters
             {
                 Filter = string.Join(" and ", filters),
                 Select = new[] { nameof(Entities.Question.Id) },
                 Top = PageSize,
-                Skip = query.Page * PageSize,
-                ScoringProfile = QuestionSearchWrite.ScoringProfile,
-                ScoringParameters = new[]
-                             {
-                                 //TagScoringParameter.GenerateTagScoringParameter(QuestionSearchWrite.TagsUniversityParameter,query.UserProfile.UniversityId.ToString()),
-                                 TagScoringParameter.GenerateTagScoringParameter(QuestionSearchWrite.TagsTagsParameter,(IEnumerable<string>) null),
-                                 TagScoringParameter.GenerateTagScoringParameter(QuestionSearchWrite.TagsCountryParameter,query.UserProfile.Country)
-                }
-
+                Skip = query.Page * PageSize
             };
             if (!string.IsNullOrEmpty(query.Term))
             {

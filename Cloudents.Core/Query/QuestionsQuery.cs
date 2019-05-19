@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
@@ -6,22 +7,39 @@ using Cloudents.Core.Models;
 namespace Cloudents.Core.Query
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper initialize")]
-    public class QuestionsQuery : VerticalQuery
+    public class QuestionsQuery //: VerticalQuery
     {
-        public QuestionsQuery(UserProfile userProfile, 
+        public QuestionsQuery(//UserProfile userProfile, 
+
             string term,
             string course, 
             bool filterByUniversity,
             QuestionSubject[] source,
-            IEnumerable<QuestionFilter> filters) : base(userProfile, term, course, filterByUniversity)
+            IEnumerable<QuestionFilter> filters, string country, Guid? universityId) //: base(userProfile, term, course, filterByUniversity)
         {
+            
+           // UserProfile = userProfile;
+            Term = term;
+            Course = course;
+            FilterByUniversity = filterByUniversity;
             Source = source;
             Filters = filters;
+            Country = country;
+            UniversityId = universityId;
         }
 
 
+        //public UserProfile UserProfile { get; }
+        public string Term { get; }
+        public string Course { get; }
+        public bool FilterByUniversity { get; }
         public QuestionSubject[] Source { get; }
 
         public IEnumerable<QuestionFilter> Filters { get; }
+
+        public string Country { get; }
+        public Guid? UniversityId { get; }
+
+        public int Page { get; set; }
     }
 }
