@@ -26,7 +26,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UpdateSettings(string bio, decimal price)
         {
-            if (price <= MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
+            if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
             Price = price;
             Bio = bio;
         }
