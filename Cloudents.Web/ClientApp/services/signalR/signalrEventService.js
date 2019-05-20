@@ -1,5 +1,6 @@
 import { connectivityModule } from '../connectivity.module'
 import { signlaREvents } from './signalREventHandler'
+import store from '../../store/index'
 
 // do not remove this!
 let signalRConnectionPool = [];
@@ -45,6 +46,7 @@ function connectionOn(connection, message, callback){
 function startConnection(connection, messageString){
         connection.start().then(function(){
             //connection ready register the main Events
+            store.dispatch('setIsSignalRConnected', true);
             connectionOn(connection, messageString, messageHandler);
             console.log("signal-R Conected");
             connectionState.isConnected = true;
@@ -69,6 +71,7 @@ function createConnection(connString){
 async function start(connection) {
     try {
         await connection.start();
+        store.dispatch('setIsSignalRConnected', true);
         console.log("Reconnection Started!");
     } catch (err) {
         console.log(err);
@@ -83,6 +86,7 @@ export default function init(connString = '/sbHub'){
     
     //reconnect in case connection closes for some reason
     connection.onclose(async () => {
+        store.dispatch('setIsSignalRConnected', false);
         await start(connection);
     });
 
