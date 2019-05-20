@@ -55,6 +55,7 @@ namespace Cloudents.Web.Api
             var result = t2.Result;
             if (result == SignInResult.Success)
             {
+                await _userManager.ResetAccessFailedCountAsync(user);
                 await _signInManager.SignInAsync(user, false);
                 return Ok(new { user.Country });
             }
