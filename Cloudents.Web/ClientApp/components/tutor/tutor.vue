@@ -11,16 +11,17 @@
           <span class="logo-container">
             <AppLogo></AppLogo>
           </span>
-                    <div class="tutor-nav-item cursor-pointer" @click="updateActiveNav(singleNav.value)" v-for="singleNav in navs" :class="{ 'active-nav': singleNav.value === activeItem}">
-                        <v-icon class="mr-2 nav-icon" >{{singleNav.icon}}</v-icon>
-                        <a class="tutor-nav-item-link" >{{singleNav.name}}</a>
+                    <div class="tutor-nav-item cursor-pointer" @click="updateActiveNav(singleNav.value)"
+                         v-for="singleNav in navs" :class="{ 'active-nav': singleNav.value === activeItem}">
+                        <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
+                        <a class="tutor-nav-item-link">{{singleNav.name}}</a>
                     </div>
                 </div>
                 <div style="display: flex; align-items: center;">
                     <share-screen-btn class="nav-share-btn"></share-screen-btn>
                     <button class="outline-btn" @click="changeQualityDialogState(true)">
-            <testIcon class="test-icon mr-1"></testIcon>
-            <span v-language:inner>tutor_btn_system_check</span>
+                        <testIcon class="test-icon mr-1"></testIcon>
+                        <span v-language:inner>tutor_btn_system_check</span>
                     </button>
                     <div class="mr-4 pr-1 d-flex">
                         <component
@@ -33,16 +34,15 @@
             </nav>
             <transition name="slide-x-transition">
                 <keep-alive>
-          <component :is="activeItem" :roomId="id"></component>
+                    <component :is="activeItem" :roomId="id"></component>
                 </keep-alive>
             </transition>
         </v-flex>
-    <v-layout column align-start class="video-stream-wraper">
+        <v-layout column align-start class="video-stream-wraper">
             <v-flex xs6 sm6 md6>
                 <video-stream :id="id"></video-stream>
             </v-flex>
         </v-layout>
-
         <v-dialog
                 v-model="qualityDialog"
                 content-class="quality-dialog"
@@ -51,7 +51,6 @@
         >
             <quality-validation></quality-validation>
         </v-dialog>
-
         <sb-dialog :showDialog="getReviewDialogState"
                    :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
                    :popUpType="'reviewDilaog'"
@@ -61,6 +60,27 @@
                    :isPersistent="$vuetify.breakpoint.smAndUp"
                    :content-class="'review-dialog'">
             <leave-review></leave-review>
+        </sb-dialog>
+        <sb-dialog :showDialog="getTutorStartDialog"
+                   :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+                   :popUpType="'startSessionTutor'"
+                   :maxWidth="'356'"
+                   :onclosefn="closeStartSessionTutor"
+                   :activateOverlay="false"
+                   :isPersistent="$vuetify.breakpoint.smAndUp"
+                   :content-class="'session-start-tutor-dialog'">
+            <startSessionTutor></startSessionTutor>
+        </sb-dialog>
+
+        <sb-dialog :showDialog="getStudentStartDialog"
+                   :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+                   :popUpType="'startSessionStudent'"
+                   :maxWidth="'356'"
+                   :onclosefn="closeStartSessionStudent"
+                   :activateOverlay="false"
+                   :isPersistent="$vuetify.breakpoint.smAndUp"
+                   :content-class="'session-start-student-dialog'">
+            <startSessionStudent></startSessionStudent>
         </sb-dialog>
     </v-layout>
 </template>
@@ -83,9 +103,11 @@
     import signal_level_5 from "./images/wifi-4.svg";
     import tutorService from "./tutorService";
     import chatService from "../../services/chatService";
-import { LanguageService } from "../../services/language/languageService";
+    import { LanguageService } from "../../services/language/languageService";
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import leaveReview from './tutorHelpers/leaveReview/leaveReview.vue';
+    import startSessionTutor from './tutorHelpers/startSession-popUp-tutor/startSession-popUp-Tutor.vue';
+    import startSessionStudent from './tutorHelpers/startSession-popUp-student/startSession-popUp-student.vue';
 
     export default {
         components: {
@@ -104,7 +126,9 @@ import { LanguageService } from "../../services/language/languageService";
             signal_level_4,
             signal_level_5,
             sbDialog,
-            leaveReview
+            leaveReview,
+            startSessionTutor,
+            startSessionStudent
         },
         name: "tutor",
         data() {
@@ -113,9 +137,17 @@ import { LanguageService } from "../../services/language/languageService";
                 showQualityDialog: false,
                 showContent: false,
                 navs: [
-        { name: LanguageService.getValueByKey("tutor_nav_canvas"), value: "white-board", icon: "sbf-canvas" },
-        { name: LanguageService.getValueByKey("tutor_nav_code"), value: "code-editor", icon: "sbf-code-editor" },
-        { name: LanguageService.getValueByKey("tutor_nav_text"), value: "shared-document", icon: "sbf-text-icon" }
+                    {name: LanguageService.getValueByKey("tutor_nav_canvas"), value: "white-board", icon: "sbf-canvas"},
+                    {
+                        name: LanguageService.getValueByKey("tutor_nav_code"),
+                        value: "code-editor",
+                        icon: "sbf-code-editor"
+                    },
+                    {
+                        name: LanguageService.getValueByKey("tutor_nav_text"),
+                        value: "shared-document",
+                        icon: "sbf-text-icon"
+                    }
                 ],
             };
         },
@@ -131,13 +163,15 @@ import { LanguageService } from "../../services/language/languageService";
                               "getZoom",
                               "getPanX",
                               "getPanY",
-                              "getReviewDialogState"
+                              "getReviewDialogState",
+                              "getStudentStartDialog",
+                              "getTutorStartDialog"
                           ]),
             activeItem() {
                 return this.activeNavItem;
             },
             showCurrentCondition() {
-      return this.activeItem === "white-board" ? true : true;
+                return this.activeItem === "white-board" ? true : true;
             },
             zoom() {
                 let gridSize = (20 * Number(this.getZoom.toFixed())) / 100;
@@ -159,10 +193,18 @@ import { LanguageService } from "../../services/language/languageService";
                               "updateStudyRoomProps",
                               "updateReviewDialog",
                               "updateReview",
-                              "submitReview"
+                              "submitReview",
+                              "updateTutorStartDialog",
+                              "updateStudentStartDialog"
                           ]),
             closeReviewDialog() {
                 this.updateReviewDialog(false);
+            },
+            closeStartSessionTutor() {
+                this.updateTutorStartDialog(false);
+            },
+            closeStartSessionStudent() {
+                this.updateStudentStartDialog(false);
             },
             updateActiveNav(value) {
                 this.activeNavItem = value;
@@ -176,7 +218,7 @@ import { LanguageService } from "../../services/language/languageService";
                 let self = this;
                 tutorService.getRoomInformation(id).then(({data}) => {
                     initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-                    let roomData =  { ...data, roomId: id };
+                    let roomData = {...data, roomId: id};
                     this.updateStudyRoomProps(roomData);
                     self.getChatById(data.conversationId).then(({data}) => {
                         let currentConversationObj = chatService.createActiveConversationObj(data);

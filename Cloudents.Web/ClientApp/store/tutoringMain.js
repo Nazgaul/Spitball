@@ -24,6 +24,8 @@ const state = {
     },
     currentRoomState: "pending",
     jwtToken: null,
+    studentStartDialog: false,
+    tutorStartDialog: false
 };
 const getters = {
     activeRoom: state => state.currentActiveRoom,
@@ -42,11 +44,19 @@ const getters = {
     getStudyRoomData: state => state.studyRoomData,
     getJwtToken: state => state.jwtToken,
     getRoomId: state => state.roomId,
+    getStudentStartDialog: state => state.studentStartDialog,
+    getTutorStartDialog: state => state.tutorStartDialog
 };
 
 const mutations = {
     updateAllowedDevices(state, val){
         state.notAllowedDevices = val
+    },
+    setStudentStartDialog(state, val){
+        state.studentStartDialog = val
+    },
+    setTutorStartDialog(state, val){
+        state.tutorStartDialog = val
     },
     updateAvaliableDevices(state, val){
         state.notAvaliableDevices = val
@@ -129,7 +139,6 @@ updateStudyRoomProps(context, val) {
     updateCodeLoadedOnce({commit, state}, val) {
         commit('changeFirepadLoaded', val);
     },
-
     updateRoomLoading({commit, state}, val) {
         commit('setRoomLoading', val);
     },
@@ -154,6 +163,12 @@ updateStudyRoomProps(context, val) {
     updateCurrentRoomState({commit}, val) {
         commit('setCurrentRoomState', val);
     },
+    updateStudentStartDialog({commit}, val){
+        commit('setStudentStartDialog', val);
+    },
+    updateTutorStartDialog({commit}, val){
+        commit('setTutorStartDialog', val);
+    },
     signalR_UpdateState({commit, dispatch, state}, notificationObj) {
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
@@ -166,6 +181,8 @@ updateStudyRoomProps(context, val) {
                     dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
                     dispatch('showRoomToasterMessage', toasterParams);
+                    //show tutor start session
+                    dispatch("updateTutorStartDialog", true);
                 } else {
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                     toasterParams.timeout = 3600000;
@@ -183,6 +200,8 @@ updateStudyRoomProps(context, val) {
             if(onlineCount == totalOnline) {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
                 dispatch('showRoomToasterMessage', toasterParams);
+                //show student start se3ssion
+                dispatch("updateStudentStartDialog", true);
             } else {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                 toasterParams.timeout = 3600000;
