@@ -258,6 +258,12 @@ function RoomProps(ObjInit) {
     this.roomId = ObjInit.roomId || '';
     this.allowReview = ObjInit.allowReview;
     this.needPayment = ObjInit.needPayment;
+    this.studentId = ObjInit.studentId || null;
+    this.studentImage = ObjInit.studentImage || null;
+    this.tutorImage = ObjInit.tutorImage || null;
+    this.studentName = ObjInit.studentName || null;
+    this.tutorName = ObjInit.tutorName || null;
+
 }
 
 const createRoomProps = function createLeaderBoardItem(ObjInit){
