@@ -87,7 +87,8 @@ namespace Cloudents.Search.Question
                 Filter = string.Join(" and ", filters),
                 Select = new[] { nameof(Entities.Question.Id) },
                 Top = PageSize,
-                Skip = query.Page * PageSize
+                Skip = query.Page * PageSize,
+                OrderBy = new List<string>() { "DateTime desc" }
             };
             if (!string.IsNullOrEmpty(query.Term))
             {
