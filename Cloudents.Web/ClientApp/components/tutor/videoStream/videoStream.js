@@ -5,6 +5,7 @@ import timerIcon from '../images/timer.svg';
 import stopIcon from '../images/stop-icon.svg';
 import fullScreenIcon from '../images/fullscreen.svg';
 import walletService from '../../../services/walletService';
+import videoStreamService from "../../../services/videoStreamService";
 
 export default {
     name: "videoStream",
@@ -136,71 +137,71 @@ export default {
                     console.log('error', error);
                 });
         },
-        async isHardawareAvaliable() {
-            let self = this;
-            if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-                console.log("enumerateDevices() not supported.");
-                return;
-            }
-            const token = this.getJwtToken; //get jwt from store
-            // List cameras and microphones.
-            let devices = await navigator.mediaDevices.enumerateDevices();
-            //navigator.mediaDevices.enumerateDevices()
-            //.then(function (devices) {
-            devices.forEach(function (device) {
-                console.log(device.kind + ": " + device.label +
-                    " id = " + device.deviceId);
-                self.availableDevices.push(device.kind);
-            });
-            let connectOptions;
-            //create local track with custom names
-            let audioTrackName = `audio_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
-            let videoTrackName = `video_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
-            let audioSetObj = {
-                audio: self.availableDevices.includes('audioinput'),
-                name: audioTrackName
-            };
-            let videoSetObj = {
-                video: self.availableDevices.includes('videoinput'),
-                name: videoTrackName
-            };
-            let audioDevice = await navigator.mediaDevices.getUserMedia({ audio: true }).then(y => audioSetObj, z => false);
-            let videoDevice = await navigator.mediaDevices.getUserMedia({ video: true }).then(y => videoSetObj, z => false);
-            createLocalTracks({
-                audio: audioDevice,
-                video:videoDevice
-            }).then((tracksCreated) => {
-                let localMediaContainer = document.getElementById('localTrack');
-                tracksCreated.forEach((track) => {
-                    localMediaContainer.innerHTML = "";
-                    localMediaContainer.appendChild(track.attach());
-                    self.localTrackAval = true;
-                });
-                tracksCreated.push(tutorService.dataTrack);
-                connectOptions = {
-                    tracks: tracksCreated,
-                    networkQuality: true
-                };
-                tutorService.connectToRoom(token, connectOptions);
-                if (!self.isTutor) {
-                    self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active)
-                }
-
-            }, (error) => {
-                self.updateToasterParams({
-                    toasterText: "We having trouble connection you to the room",
-                    showToaster: true,
-                    toasterType: 'error-toaster' //c
-                  });
-
-            });
+         isHardawareAvaliable() {
+            videoStreamService.getAvalHardware();
+            // let self = this;
+            // if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+            //     console.log("enumerateDevices() not supported.");
+            //     return;
+            // }
+            // const token = this.getJwtToken; //get jwt from store
+            // // List cameras and microphones.
+            // let devices = await navigator.mediaDevices.enumerateDevices();
+            // //navigator.mediaDevices.enumerateDevices()
+            // //.then(function (devices) {
+            // devices.forEach(function (device) {
+            //     console.log(device.kind + ": " + device.label +
+            //         " id = " + device.deviceId);
+            //     self.availableDevices.push(device.kind);
+            // });
+            // let connectOptions;
+            // //create local track with custom names
+            // let audioTrackName = `audio_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
+            // let videoTrackName = `video_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
+            // let audioSetObj = {
+            //     audio: self.availableDevices.includes('audioinput'),
+            //     name: audioTrackName
+            // };
+            // let videoSetObj = {
+            //     video: self.availableDevices.includes('videoinput'),
+            //     name: videoTrackName
+            // };
+            // let audioDevice = await navigator.mediaDevices.getUserMedia({ audio: true }).then(y => audioSetObj, z => false);
+            // let videoDevice = await navigator.mediaDevices.getUserMedia({ video: true }).then(y => videoSetObj, z => false);
+            // createLocalTracks({
+            //     audio: audioDevice,
+            //     video:videoDevice
+            // }).then((tracksCreated) => {
+            //     let localMediaContainer = document.getElementById('localTrack');
+            //     tracksCreated.forEach((track) => {
+            //         localMediaContainer.innerHTML = "";
+            //         localMediaContainer.appendChild(track.attach());
+            //         self.localTrackAval = true;
+            //     });
+            //     tracksCreated.push(tutorService.dataTrack);
+            //     connectOptions = {
+            //         tracks: tracksCreated,
+            //         networkQuality: true
+            //     };
+            //     tutorService.connectToRoom(token, connectOptions);
+            //     if (!self.isTutor) {
+            //         self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active)
+            //     }
+            //
+            // }, (error) => {
+            //     self.updateToasterParams({
+            //         toasterText: "We having trouble connection you to the room",
+            //         showToaster: true,
+            //         toasterType: 'error-toaster' //c
+            //       });
+            //
+            // });
 
             //                     })
             //.catch(function (err) {
             //console.log(err.name + ": " + err.message);
             //});
         },
-
         // Create a new chat
         createVideoSession() {
             const self = this;

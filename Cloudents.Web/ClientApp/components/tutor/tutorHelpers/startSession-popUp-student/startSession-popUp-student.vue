@@ -7,11 +7,11 @@
         </v-layout>
         <v-layout column align-center>
             <v-flex xs12 sm12 md12 class="pt-2">
-                <userAvatar :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'" ></userAvatar>
+                <userAvatar :user-name="tutorName"  :userImageUrl="tutorImage" :user-id="tutorId" :size="'58'" ></userAvatar>
             </v-flex>
             <v-flex xs12 sm12 md12 class="pt-12">
                 <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
-                <span class="subheading font-weight-bold">Tony Stark</span>
+                <span class="subheading font-weight-bold">{{tutorName}}</span>
             </v-flex>
             <v-flex xs12 sm12 md12 class="pt-2">
                 <span class="subheading" v-language:inner>tutor_entered_room</span>

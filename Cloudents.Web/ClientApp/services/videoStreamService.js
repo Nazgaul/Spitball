@@ -1,33 +1,71 @@
-// const extensionId = 'dhndcoampgbambhkkjkicnibhbndjaop'; // localhost spitball share
+import tutorService from "../components/tutor/tutorService";
 const extensionId = 'jaimgihanebafnbcpckdkilkeoomkpik'; // dev && prod
-//  const extensionId = 'chombcfbjenobkieohgkjlmmhehfgomf'; // twillio
+import store from '../store/index.js';
+import { createLocalTracks } from 'twilio-video';
 
 export default {
+   async getAvalHardware(){
+        let self = this;
+        if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+            console.log("enumerateDevices() not supported.");
+            return;
+        }
+        const token = store.getters['getJwtToken']; //get jwt from store
+        // List cameras and microphones.
+        let devices = await navigator.mediaDevices.enumerateDevices();
+        //navigator.mediaDevices.enumerateDevices()
+        //.then(function (devices) {
+        devices.forEach(function (device) {
+            console.log(device.kind + ": " + device.label +
+                " id = " + device.deviceId);
+            self.availableDevices.push(device.kind);
+        });
+        let connectOptions;
+        //create local track with custom names
+        let audioTrackName = `audio_${store.getters['getStudyRoomData'].isTutor ? 'tutor' : 'student'}_${store.getters['accountUser'].id}`;
+        let videoTrackName = `video_${store.getters['getStudyRoomData'].isTutor ? 'tutor' : 'student'}_${store.getters['accountUser'].id}`;
+        let audioSetObj = {
+            audio: self.availableDevices.includes('audioinput'),
+            name: audioTrackName
+        };
+        let videoSetObj = {
+            video: self.availableDevices.includes('videoinput'),
+            name: videoTrackName
+        };
+        let audioDevice = await navigator.mediaDevices.getUserMedia({ audio: true }).then(y => audioSetObj, z => false);
+        let videoDevice = await navigator.mediaDevices.getUserMedia({ video: true }).then(y => videoSetObj, z => false);
+        createLocalTracks({
+                              audio: audioDevice,
+                              video:videoDevice
+                          }).then((tracksCreated) => {
+            let localMediaContainer = document.getElementById('localTrack');
+            tracksCreated.forEach((track) => {
+                localMediaContainer.innerHTML = "";
+                localMediaContainer.appendChild(track.attach());
+                self.localTrackAval = true;
+            });
+            tracksCreated.push(tutorService.dataTrack);
+            connectOptions = {
+                tracks: tracksCreated,
+                networkQuality: true
+            };
+            tutorService.connectToRoom(token, connectOptions);
+            if (!store.getters['getStudyRoomData'].isTutor) {
+                store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.active);
+            }
+
+        }, (error) => {
+            store.dispatch('updateToasterParams', {
+                toasterText: "We having trouble connection you to the room",
+                showToaster: true,
+                toasterType: 'error-toaster'
+            });
+
+        });
+    },
     extensionId,
-    //get/try to get share stream via chrome extension
+    //get try to get share stream via chrome extension
     getUserScreen() {
-        // function isFirefox() {
-        //     let mediaSourceSupport = !!navigator.mediaDevices.getSupportedConstraints().mediaSource;
-        //     let matchData = navigator.userAgent.match('Firefox\/([0-9]+)\.');
-        //     let firefoxVersion = 0;
-        //     if (matchData && matchData[1]) {
-        //         firefoxVersion = parseInt(matchData[1], 10);
-        //     }
-        //     return mediaSourceSupport && firefoxVersion >= 52;
-        // }
-
-        // function isChrome() {
-        //     return 'chrome' in window;
-        // }
-        // function getChromeVersion() {
-        //     var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
-
-        //     return raw ? parseInt(raw[2], 10) : false;
-        // }
-
-        // function canScreenShare() {
-        //     return isFirefox() || isChrome();
-        // }
         let displayMediaOptions = {
             video:true,
             audio: false
@@ -39,19 +77,6 @@ export default {
         }
         catch(err) {
         }
-        // if (!canScreenShare()) {
-        //     return Promise.reject("notBrowser");
-        // }
-        // if (isChrome()) {
-
-        //     if (getChromeVersion() > 72) {
-        //         //return navigator.mediaDevices.getUserMedia();
-        //         return navigator.mediaDevices.getDisplayMedia().then(stream => {
-        //             return stream.getTracks()[0];
-
-        //         });
-
-        //     }
         if (chrome.runtime) {
             return new Promise((resolve, reject) => {
                 const request = { sources: ['window', 'screen', 'tab'] };
@@ -81,10 +106,6 @@ export default {
                 return stream.getVideoTracks()[0];
             });
         }
-        // } else if (isFirefox()) {
-
-          
-        // }
         return Promise.reject("notBrowser");
     },
 }
