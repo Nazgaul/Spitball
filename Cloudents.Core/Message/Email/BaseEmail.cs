@@ -16,10 +16,10 @@ namespace Cloudents.Core.Message.Email
             TemplateId = AssignTemplate(info);
         }
 
-        //protected BaseEmail()
-        //{
+        protected BaseEmail()
+        {
 
-        //}
+        }
 
         public string To { get; private set; }
 

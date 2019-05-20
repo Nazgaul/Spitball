@@ -57,6 +57,11 @@ namespace Cloudents.Core.Message.Email
             Bcc = new[] { "eidan@cloudents.com", "jaron@spitball.co", "ram@cloudents.com", "elad@cloudents.com" };
         }
 
+        public RequestTutorEmail()
+        {
+            
+        }
+
 
         public long? UserId { get; private set; }
 
