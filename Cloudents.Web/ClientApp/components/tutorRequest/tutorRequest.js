@@ -89,17 +89,15 @@ export default {
                     }
                     analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                     tutorService.requestTutor(serverObj)
-                                .then((success) => {
-                                          self.btnRequestLoading = false;
+                                .then(() => {
                                           self.tutorRequestDialogClose();
                                           self.updateToasterParams({
                                             toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
                                             showToaster: true,
                                           })
                                       },
-                                      (error) => {
-                                          self.btnRequestLoading = false;
-                                      }).finally((finish) => {
+                                      () => {
+                                      }).finally(() => {
                         self.btnRequestLoading = false;
                     });
                 }else{
@@ -112,18 +110,16 @@ export default {
                         phone: self.guestPhone
                     };
                     
-                    tutorService.requestTutor(serverObj)
-                                .then((success) => {
-                                          self.btnRequestLoading = false;
+                    tutorService.requestTutorAnonymous(serverObj)
+                                .then(() => {
                                           self.tutorRequestDialogClose();
                                           self.updateToasterParams({
                                             toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
                                             showToaster: true,
                                           })
                                       },
-                                      (error) => {
-                                          self.btnRequestLoading = false;
-                                      }).finally((finish) => {
+                                      () => {
+                                      }).finally(() => {
                         self.btnRequestLoading = false;
                     });
                 }
