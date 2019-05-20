@@ -97,6 +97,7 @@ export default {
         debugger;
       videoService.getUserScreen().then(
         stream => {
+          stream.removeEventListener('ended', () => self.stopSharing());
           stream.addEventListener('ended', () => self.stopSharing());
           self.screenShareTrack = stream; //stream.getVideoTracks()[0];
           self.publishTrackToRoom(self.screenShareTrack);
