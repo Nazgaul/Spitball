@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cloudents.Query.Chat;
 using Cloudents.Search.Document;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
@@ -137,6 +138,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var queryBus = _container.Resolve<IQueryBus>();
+            var x = await queryBus.QueryAsync(new UserUnreadMessageQuery(null), default);
             var handler = new HttpClientHandler()
             {
                 AllowAutoRedirect = false
@@ -201,11 +204,11 @@ namespace ConsoleApp
         //            }
         //            var fileDir = container.GetDirectoryReference($"files/{id}");
         //            var blobs = fileDir.ListBlobs(false,BlobListingDetails.Metadata).ToList();
-                    
+
         //            var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
         //            if (textBlobItem != null)
         //            {
-                        
+
         //                //var textBlob2 = (CloudBlockBlob)textBlobItem;
         //                //textBlob2.FetchAttributes();
         //                //if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
@@ -257,7 +260,7 @@ namespace ConsoleApp
         //                    {
         //                        p.Delete();
         //                    }
-                            
+
         //                }
 
         //                foreach (var listBlobItem in blobs.Where(a => a.Uri.AbsoluteUri.Contains("blur")))
@@ -434,17 +437,17 @@ namespace ConsoleApp
         //    }
         //}
 
-     
+
 
         private static async Task HadarMethod()
         {
             var queryBus = _container.Resolve<IQueryBus>();
-          //  var query = new QuestionAggregateQuery(638L, 0);
-//            var test = await queryBus.QueryAsync(query, default);
+            //  var query = new QuestionAggregateQuery(638L, 0);
+            //            var test = await queryBus.QueryAsync(query, default);
 
-           /* var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
-            await commandBus.DispatchAsync(command, default);*/
-          
+            /* var command = new AddTutorReviewCommand("string", (float)0.5, 160347, 160347);
+             await commandBus.DispatchAsync(command, default);*/
+
             //You can register the QueryFactory in the IoC container
 
             //var user = db.Query("sb.User").Where("Id", (long)160347).First();
