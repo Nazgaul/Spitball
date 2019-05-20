@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{name: 'profile', params: {id: tutorData.userId}}">
+    <router-link @click.native="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId}}">
     <v-card class="tutor-card-wrap pa-12 elevation-0 cursor-pointer " :class="{'list-tutor-card': isInTutorList}">
         <div class="section-tutor-info">
             <v-layout>
@@ -50,6 +50,7 @@
 <script>
     import userRating from '../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
     import utilitiesService from "../../../../services/utilities/utilitiesService";
+    import analyticsService from '../../../../services/analytics.service';  
 
     export default {
         name: "tutorCard",
@@ -64,6 +65,11 @@
             isInTutorList:{
                 type: Boolean,
                 default: false
+            }
+        },
+        methods:{
+            tutorCardClicked(){
+                analyticsService.sb_unitedEvent('Tutor_Engagement', 'tutor_page');
             }
         },
         computed: {

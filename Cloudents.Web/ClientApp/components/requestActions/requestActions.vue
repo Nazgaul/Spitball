@@ -49,6 +49,7 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import userAvatar from '../helpers/UserAvatar/UserAvatar.vue';
+    import analyticsService from '../../services/analytics.service';
 
     export default {
         name: "requestActions",
@@ -82,6 +83,7 @@
                               'updateRequestDialog'
                           ]),
             openAskQuestion() {
+                // analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
                     //set user profile
@@ -92,6 +94,7 @@
 
             },
             openUpload() {
+                // analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                 let schoolName = this.getSchoolName;
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
@@ -107,6 +110,7 @@
                 }
             },
             openRequestTutor() {
+                analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
                 if(this.accountUser == null) {
                     //this.updateLoginDialogState(true);
                     this.updateRequestDialog(true);

@@ -88,7 +88,7 @@ namespace Cloudents.Search.Question
                 Select = new[] { nameof(Entities.Question.Id) },
                 Top = PageSize,
                 Skip = query.Page * PageSize,
-                OrderBy = new List<string>() { "DateTime desc" }
+                OrderBy = new List<string> { "search.score() desc", $"{nameof(Entities.Question.DateTime)} desc" }
             };
             if (!string.IsNullOrEmpty(query.Term))
             {

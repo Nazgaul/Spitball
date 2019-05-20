@@ -201,9 +201,13 @@ namespace Cloudents.Web.Api
         {
             try
             {
+                if (model.Price == null)
+                {
+                    return BadRequest();
+                }
                 var userId = _userManager.GetLongUserId(User);
                 var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
-                    model.Description, model.Bio, model.Price);
+                    model.Description, model.Bio, model.Price.GetValueOrDefault());
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
