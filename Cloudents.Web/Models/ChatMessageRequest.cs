@@ -8,7 +8,7 @@ namespace Cloudents.Web.Models
     {
         //public Guid? ChatId { get; set; }
 
-        [Required,JsonConverter(typeof(StringHtmlEncoderConverter))]
+        [Required, JsonConverter(typeof(StringHtmlEncoderConverter))]
         public string Message { get; set; }
 
         public long OtherUser { get; set; }
@@ -17,6 +17,7 @@ namespace Cloudents.Web.Models
 
     public class ChatResetRequest
     {
+        [Required, Range(1, long.MaxValue)]
         public long OtherUserId { get; set; }
     }
 }
