@@ -26,7 +26,7 @@
                       class="face-icon mr-2"
                     >sbf-face-icon</v-icon>
                     <span v-line-clamp="'1'"
-                      class="line-height-1 subheading font-weight-bold"
+                      class="subheading font-weight-bold"
                       style="word-break: break-all;"
                     >{{userName}}</span>
                     <v-icon
