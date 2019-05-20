@@ -122,8 +122,8 @@
                 editedPrice: null,
                 rules: {
                     required:(value)=> validationRules.required(value),
-                    minimum:(value)=>  validationRules.positiveNumber(value),
-                    maximum:(value)=>  validationRules.maxVal(value, 200000),
+                    minimum:(value)=>  validationRules.minVal(value,50),
+                    maximum:(value)=>  validationRules.maxVal(value, 200),
                     maximumChars:(value)=>  validationRules.maximumChars(value, 1000)
                 },
                 valid: false,
@@ -199,6 +199,7 @@
                             this.updateEditedProfile(editsData);
                             this.closeDialog()
                         })
+                        //TODO : error callback
                 }
             },
             closeDialog() {
