@@ -1,6 +1,6 @@
 <template>
     <div class="tutor-card-wrap-desk cursor-pointer">
-        <router-link :to="{name: 'profile', params: {id: tutorData.userId}}">
+        <router-link @click.native="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId}}">
         <v-layout>
             <div class="section-tutor-info">
                 <v-layout>
@@ -69,6 +69,7 @@
     import userRating from '../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import utilitiesService from "../../../../services/utilities/utilitiesService";
+    import analyticsService from '../../../../services/analytics.service';
 
     export default {
         name: "tutorResultCard",
@@ -82,6 +83,11 @@
         },
         props: {
             tutorData: {},
+        },
+        methods:{
+            tutorCardClicked(){
+                analyticsService.sb_unitedEvent('Tutor_Engagement', 'tutor_page');
+            }
         },
         computed: {
             userImageUrl() {
