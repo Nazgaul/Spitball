@@ -51,16 +51,8 @@ namespace Cloudents.Core.EventHandler
                 Vote = new VoteDto()
             };
 
-            if (eventMessage.Question.Language.Name.Equals("en", StringComparison.OrdinalIgnoreCase))
-            {
-                await _queueProvider.InsertMessageAsync(
-                    new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), token);
-            }
-            else
-            {
-                await _queueProvider.InsertMessageAsync(
-                    new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), $"country_{eventMessage.Question.User.Country.ToLowerInvariant()}", token);
-            }
+            await _queueProvider.InsertMessageAsync(
+                new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), $"country_{eventMessage.Question.User.Country.ToLowerInvariant()}", token);
         }
 
 
@@ -90,7 +82,7 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
         {
-           
+
             var user = new UserDto(eventMessage.Answer.User.Id, eventMessage.Answer.User.Name,
 
                 eventMessage.Answer.User.Transactions.Score, eventMessage.Answer.User.Image);
