@@ -33,14 +33,6 @@ namespace Cloudents.Query
 
 
         }
-
-
-
-
-
-
-
-
         public void Dispose()
         {
             if (_transaction.IsActive)

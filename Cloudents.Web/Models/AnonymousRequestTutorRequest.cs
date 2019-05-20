@@ -8,7 +8,6 @@ namespace Cloudents.Web.Models
 {
     public class AnonymousRequestTutorRequest
     {
-        public long UserId { get; set; }
         public string Text { get; set; }
         public string Course { get; set; }
         public string Email { get; set; }

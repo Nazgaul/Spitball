@@ -17,6 +17,9 @@ export default {
             tutorRequestText: '',
             btnRequestLoading: false,
             validRequestTutorForm: false,
+            guestName: '',
+            guestMail: '',
+            guestPhone: '',
             rules: {
                 required: (value) => validationRules.required(value),
                 maximumChars: (value) => validationRules.maximumChars(value, 255)
@@ -62,6 +65,9 @@ export default {
             }
             return '';
         },
+        isAuthUser(){
+            return !!this.accountUser;
+        }
     },
     methods: {
         ...mapActions(['updateRequestDialog', 'updateToasterParams']),
@@ -70,31 +76,53 @@ export default {
             
             let self = this;
             if(self.$refs.tutorRequestForm.validate()) {
-                self.btnRequestLoading = true;
-                let serverObj = {
-                    course: self.tutorCourse,
-                    text: self.tutorRequestText,
-                    files: self.uploadProp.uploadedFileNames
-                };
-                let analyticsObject = {
-                    userId: self.accountUser.id,
-                    course: self.tutorCourse
+                if(this.isAuthUser){
+                    self.btnRequestLoading = true;
+                    let serverObj = {
+                        course: self.tutorCourse,
+                        text: self.tutorRequestText,
+                        files: self.uploadProp.uploadedFileNames
+                    };
+                    let analyticsObject = {
+                        userId: self.accountUser.id,
+                        course: self.tutorCourse
+                    }
+                    analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                    tutorService.requestTutor(serverObj)
+                                .then(() => {
+                                          self.tutorRequestDialogClose();
+                                          self.updateToasterParams({
+                                            toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
+                                            showToaster: true,
+                                          })
+                                      },
+                                      () => {
+                                      }).finally(() => {
+                        self.btnRequestLoading = false;
+                    });
+                }else{
+                    self.btnRequestLoading = true;
+                    let serverObj = {
+                        text: self.tutorRequestText,
+                        files: self.uploadProp.uploadedFileNames,
+                        name: self.guestName,
+                        mail: self.guestMail,
+                        phone: self.guestPhone
+                    };
+                    
+                    tutorService.requestTutorAnonymous(serverObj)
+                                .then(() => {
+                                          self.tutorRequestDialogClose();
+                                          self.updateToasterParams({
+                                            toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
+                                            showToaster: true,
+                                          })
+                                      },
+                                      () => {
+                                      }).finally(() => {
+                        self.btnRequestLoading = false;
+                    });
                 }
-                analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
-                tutorService.requestTutor(serverObj)
-                            .then((success) => {
-                                      self.btnRequestLoading = false;
-                                      self.tutorRequestDialogClose();
-                                      self.updateToasterParams({
-                                        toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
-                                        showToaster: true,
-                                      })
-                                  },
-                                  (error) => {
-                                      self.btnRequestLoading = false;
-                                  }).finally((finish) => {
-                    self.btnRequestLoading = false;
-                });
             }
         },
 

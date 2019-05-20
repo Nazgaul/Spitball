@@ -36,7 +36,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.User)
                 .Not.Nullable().Column("UserId")
                 .ForeignKey("fChatUserUser");
-            SchemaAction.Validate();
+            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
         }
     }
 
