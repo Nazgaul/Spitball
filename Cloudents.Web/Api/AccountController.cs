@@ -22,6 +22,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
+using System.Drawing;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Cloudents.Web.Api
@@ -145,6 +146,15 @@ namespace Cloudents.Web.Api
             [FromServices] IBinarySerializer serializer,
             CancellationToken token)
         {
+            try
+            {
+                Image.FromStream(file.OpenReadStream());
+            }
+            catch
+            {
+                ModelState.AddModelError("x", "unsupported format");
+                return BadRequest(ModelState);
+            }
             if (file == null)
             {
                 ModelState.AddModelError("x", "no file");
