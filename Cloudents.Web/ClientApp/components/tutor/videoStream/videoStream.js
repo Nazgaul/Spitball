@@ -96,34 +96,35 @@ export default {
         minimize(type) {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
+        // move all this function inside to service
         enterRoom() {
-            if (!!this.accountUser && this.accountUser.needPayment && !this.isTutor) {
-                walletService.getPaymeLink().then(({ data }) => {
-                    global.open(data.link, '_blank', 'height=520,width=440');
-                })
-                return;
-            }
-            //if blocked or not available  use of media devices do not allow session start
-            if (this.getNotAllowedDevices && this.getNotAvaliableDevices) {
-                this.updateTestDialogState(true);
-                return;
-            }
-            if (!this.sessionStartClickedOnce) {
-                this.sessionStartClickedOnce = true;
-                if (this.isTutor) {
-                    this.updateCurrentRoomState('loading');
-                    tutorService.enterRoom(this.id).then(() => {
-                        setTimeout(() => {
-                            this.createVideoSession();
-                            this.sessionStartClickedOnce = false;
-                        }, 1000);
-                    });
-                } else {
-                    //join
-                    this.createVideoSession();
-                    this.sessionStartClickedOnce = false;
-                }
-            }
+            // if (!!this.accountUser && this.accountUser.needPayment && !this.isTutor) {
+            //     walletService.getPaymeLink().then(({ data }) => {
+            //         global.open(data.link, '_blank', 'height=520,width=440');
+            //     });
+            //     return;
+            // }
+            // //if blocked or not available  use of media devices do not allow session start
+            // if (this.getNotAllowedDevices && this.getNotAvaliableDevices) {
+            //     this.updateTestDialogState(true);
+            //     return;
+            // }
+            // if (!this.sessionStartClickedOnce) {
+            //     this.sessionStartClickedOnce = true;
+            //     if (this.isTutor) {
+            //         this.updateCurrentRoomState('loading');
+            //         tutorService.enterRoom(this.id).then(() => {
+            //             setTimeout(() => {
+            //                 this.createVideoSession();
+            //                 this.sessionStartClickedOnce = false;
+            //             }, 1000);
+            //         });
+            //     } else {
+            //         //join
+            //         this.createVideoSession();
+            //         this.sessionStartClickedOnce = false;
+            //     }
+            // }
         },
         endSession() {
             tutorService.endTutoringSession(this.id)

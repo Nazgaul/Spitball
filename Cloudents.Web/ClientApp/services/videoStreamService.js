@@ -2,8 +2,47 @@ import tutorService from "../components/tutor/tutorService";
 const extensionId = 'jaimgihanebafnbcpckdkilkeoomkpik'; // dev && prod
 import store from '../store/index.js';
 import { createLocalTracks } from 'twilio-video';
+import walletService from "./walletService";
 
 export default {
+    createVideoSession() {
+        const self = this;
+        // remove any remote track when joining a new room
+        let clearEl = document.getElementById('remoteTrack');
+        if (clearEl) {
+            clearEl.innerHTML = "";
+        }
+        self.getAvalHardware();
+    },
+    enterRoom(){
+        if (!!store.getters['accountUser'] && store.getters['accountUser'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
+            walletService.getPaymeLink().then(({ data }) => {
+                global.open(data.link, '_blank', 'height=520,width=440');
+            });
+            return;
+        }
+        //if blocked or not available  use of media devices do not allow session start
+        if (store.getters['getNotAllowedDevices'] && store.getters['getNotAvaliableDevices'] ) {
+            store.dispatch('updateTestDialogState', true);
+            return;
+        }
+        if (!this.sessionStartClickedOnce) {
+            this.sessionStartClickedOnce = true;
+            if (store.getters['getStudyRoomData'].isTutor) {
+                store.dispatch('updateCurrentRoomState', 'loading');
+                tutorService.enterRoom(this.id).then(() => {
+                    setTimeout(() => {
+                        this.createVideoSession();
+                        this.sessionStartClickedOnce = false;
+                    }, 1000);
+                });
+            } else {
+                //join
+                this.createVideoSession();
+                this.sessionStartClickedOnce = false;
+            }
+        }
+    },
    async getAvalHardware(){
         let self = this;
         if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
