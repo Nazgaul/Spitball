@@ -57,7 +57,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface']),
+        ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface', 'accountUser']),
         enterRoom(){
             let routeData = this.$router.resolve({
                     name: 'tutoring',
@@ -68,6 +68,7 @@ export default {
             global.open(routeData.href, '_blank');
         },
         sendMessage(){
+                
                 let currentConversationObj = chatService.createActiveConversationObj(this.card)
                 this.setActiveConversationObj(currentConversationObj);
                 this.openChatInterface();
