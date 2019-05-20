@@ -52,15 +52,15 @@
           </span>
                 </div>
                 <div class="question-right-body-container">
-                    <div class="question-body-header-container">
-                        <span class="question-subject" v-line-clamp:18="'1'">{{cardData.course ? cardData.course : cardData.subject}}
-                        </span>
-                        <span v-show="!!cardData.course && !!cardData.subject" class="question-course"> 
+                    <v-layout align-center justify-start class="question-body-header-container">
+                        <div class="question-subject" v-line-clamp:18="'1'">{{cardData.course ? cardData.course : cardData.subject}}
+                        </div>
+                        <div v-show="!!cardData.course && !!cardData.subject" class="question-course"> 
                             <span class="dot"></span>  
-                            <span class="" v-line-clamp:18="'1'">{{cardData.subject}}
+                            <span v-line-clamp:18="'1'">{{cardData.subject}}
                             </span>
-                        </span>
-                    </div>
+                        </div>
+                    </v-layout>
                     <div
                             class="question-body-content-container"
                             :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`]"
