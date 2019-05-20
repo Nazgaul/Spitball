@@ -23,10 +23,10 @@ namespace Cloudents.Core.Message.Email
 
         public string To { get; private set; }
 
-        public string[] Bcc { get; protected set; }
+        public virtual string[] Bcc { get; protected set; }
 
         public string TemplateId { get; private set; }
-        public string Subject { get; private set; }
+        public virtual string Subject { get; protected set; }
         [CanBeNull] public abstract string Campaign { get; }
 
         [CanBeNull] protected abstract IDictionary<CultureInfo, string> Templates { get;  }

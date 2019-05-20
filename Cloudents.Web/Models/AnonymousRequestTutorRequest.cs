@@ -13,7 +13,6 @@ namespace Cloudents.Web.Models
         public string Email { get; set; }
         public string Name { get; set; }
         public string University { get; set; }
-        public string Country { get; set; }
         public string PhoneNumber { get; set; }
         [MaxLength(4, ErrorMessage = "MaxLength")]
         public string[] Files { get; set; }

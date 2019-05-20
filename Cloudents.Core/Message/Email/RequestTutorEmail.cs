@@ -26,57 +26,62 @@ namespace Cloudents.Core.Message.Email
         //}
 
         //TODO: this is nor optimal but it working.
-        public RequestTutorEmail(long userId, string text, string course,
-           string email, string name, string university, string country, string phoneNumber, string[] links, bool isProduction) :
-           base("support@spitball.co", $"Request Tutor Email {userId} IsProduction {isProduction}", null)
-        {
-            UserId = userId;
-            Text = text;
-            Course = course;
-            Links = links ?? new string[0];
-            Email = email;
-            Name = name;
-            University = university;
-            Country = country;
-            PhoneNumber = phoneNumber;
-            Bcc = new[] { "eidan@cloudents.com", "jaron@spitball.co", "ram@cloudents.com", "elad@cloudents.com" };
-        }
+        //public RequestTutorEmail(long userId, string text, string course,
+        //   string email, string name, string university, string country, string phoneNumber, string[] links, bool isProduction) :
+        //   base("support@spitball.co", $"Request Tutor Email {userId} IsProduction {isProduction}", null)
+        //{
+        //    UserId = userId;
+        //    Text = text;
+        //    Course = course;
+        //    Links = links ?? new string[0];
+        //    Email = email;
+        //    Name = name;
+        //    University = university;
+        //    Country = country;
+        //    PhoneNumber = phoneNumber;
+        //    Bcc = new[] { "eidan@cloudents.com", "jaron@spitball.co", "ram@cloudents.com", "elad@cloudents.com" };
+        //}
 
-        public RequestTutorEmail( string text, string course,
-            string email, string name, string university, string country, string phoneNumber, string[] links, bool isProduction) :
-            base("support@spitball.co", $"Request Tutor anonymous Email {email} IsProduction {isProduction}", null)
-        {
-            Text = text;
-            Course = course;
-            Links = links ?? new string[0];
-            Email = email;
-            Name = name;
-            University = university;
-            Country = country;
-            PhoneNumber = phoneNumber;
-            Bcc = new[] { "eidan@cloudents.com", "jaron@spitball.co", "ram@cloudents.com", "elad@cloudents.com" };
-        }
+        //public RequestTutorEmail( string text, string course,
+        //    string email, string name, string university, string country, string phoneNumber, string[] links, bool isProduction) :
+        //    base("support@spitball.co", $"Request Tutor anonymous Email {email} IsProduction {isProduction}", null)
+        //{
+        //    Text = text;
+        //    Course = course;
+        //    Links = links ?? new string[0];
+        //    Email = email;
+        //    Name = name;
+        //    University = university;
+        //    Country = country;
+        //    PhoneNumber = phoneNumber;
+        //    Bcc = new[] { "eidan@cloudents.com", "jaron@spitball.co", "ram@cloudents.com", "elad@cloudents.com" };
+        //}
 
         public RequestTutorEmail()
+            : base("support@spitball.co", null, null)
         {
-            
         }
 
 
-        public long? UserId { get; private set; }
+        public long? UserId { get;  set; }
 
-        public string Text { get; private set; }
+        public string Text { get;  set; }
 
-        public string Course { get; private set; }
+        public string Course { get;  set; }
 
-        public string[] Links { get; private set; }
-        public string Email { get; private set; }
-        public string Name { get; private set; }
-        public string University { get; private set; }
-        public string Country { get; private set; }
+        public string[] Links { get;  set; }
+        public string Email { get;  set; }
+        public string Name { get;  set; }
+        public string University { get;  set; }
+        public string Country { get;  set; }
 
-        public string PhoneNumber { get; private set; }
+        public string PhoneNumber { get;  set; }
 
+        public bool IsProduction { get; set; }
+
+        public override string Subject => $"Request Tutor anonymous Email {Email} IsProduction {IsProduction}";
+
+        public override string[] Bcc => new[] { "eidan@cloudents.com", "jaron@spitball.co", "ram@cloudents.com", "elad@cloudents.com" };
 
         public override string ToString()
         {
