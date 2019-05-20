@@ -53,7 +53,7 @@ where cte.Name not in (select top 1 cte.Name
 						join cte on cm.ChatRoomId = cte.ChatRoomId and cm.UserId = cte.UserId
 						where cm.ChatRoomId = cr.id 
 						order by  cm.CreationTime) is not null
-order by (select top 1 cm.CreationTime from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc)";
+order by (select top 1 cm.CreationTime from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) desc";
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<ConversationDto>(sql);
