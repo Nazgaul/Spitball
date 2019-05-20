@@ -27,9 +27,10 @@
             <v-layout row wrap align-start justify-start grow
                       class="price-review-column section-tutor-price-review ml-1">
                 <v-flex xs12 sm12 md12 grow>
-                    <v-flex xs12 sm12 md12 shrink>
-                        <span class="font-weight-bold headline pricing">₪{{tutorData.price}}</span>
-                        <span class="pricing caption">
+                    <v-flex xs12 shrink class="pricing">
+                        <span>₪</span>
+                        <span class="font-weight-bold headline">{{tutorData.price}}</span>
+                        <span class="caption">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
                     </v-flex>
