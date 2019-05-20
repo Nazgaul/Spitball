@@ -135,4 +135,7 @@
   <data name="conversations_empty_state" xml:space="preserve">
     <value>You don’t have any messages yet</value>
   </data>
+  <data name="error_messages" xml:space="preserve">
+    <value>Connection Error</value>
+  </data>
 </root>

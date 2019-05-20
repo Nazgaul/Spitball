@@ -3,7 +3,7 @@ const state = {
 };
 
 const getters = {
-    getIsSignalRConnected:state => state.isConnected,
+    getIsSignalRConnected:state => state.isConnected
 };
 
 const mutations = {

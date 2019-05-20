@@ -19,9 +19,10 @@
             <v-flex class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
             </v-flex>
-            <v-flex class="messages-input">
+            <v-flex class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <chat-upload-file></chat-upload-file>
-                <v-text-field solo type="text" :placeholder="placeHolderText" v-language:placeholder @keyup.enter="sendMessage" v-model="messageText"></v-text-field>
+                <v-text-field solo type="text" :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"
+                 v-language:placeholder @keyup.enter="sendMessage" v-model="messageText"></v-text-field>
             </v-flex>
         </v-layout>
     </div>
@@ -49,7 +50,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj']),
+        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj', 'getIsSignalRConnected']),
         messages(){
             this.scrollToEnd();
             return this.getMessages;
@@ -144,13 +145,18 @@ export default {
                 margin: 22px 0 4px 0;
                 overflow: auto;
             }
+            .messages-body-disabled{
+                padding: 15px 10px 0 10px;
+                margin: 22px 0 4px 0;
+                overflow: auto;
+            }
             .messages-input{
                 display: flex;
                 flex-direction: row-reverse;
                 box-shadow: 0px -3px 0px 0px rgba(240,240,247,1);
                 border-radius: 0 0 16px 16px;
-                max-height: 45px;
-                min-height: 45px;
+                max-height: 48px;
+                min-height: 48px;
                 padding-right: 20px;
                 .v-input__slot{
                     box-shadow: none !important;
@@ -160,6 +166,17 @@ export default {
                     content: attr(placeholder);
                     display: block; /* For Firefox */
                 }
+
+                &.messages-input-disabled{
+                    background: #b9b9b9;
+                    border-radius: 0;
+                    .v-input--is-disabled{
+                        .v-input__slot{
+                            background: #b9b9b9;
+                        }
+                    }
+                }
+                
             }
         }
     }

@@ -34,6 +34,7 @@ import tutorList from './tutorList';
 import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
+import signalRStore from './signalRStore';
 
 
 
@@ -72,7 +73,8 @@ const store = new Vuex.Store({
         tutorList,
         leaveReview,
         userOnlineStatus,
-        requestTutor
+        requestTutor,
+        signalRStore
     }
 });
 
