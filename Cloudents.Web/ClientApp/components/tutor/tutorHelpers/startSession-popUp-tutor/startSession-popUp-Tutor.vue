@@ -2,7 +2,7 @@
     <div class="tutor-start-wrap pb-5">
         <v-layout row class="pt-2">
             <v-flex xs12 sm12 md12 class="text-xs-right px-3">
-                <v-icon class="caption">sbf-close</v-icon>
+                <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
     <v-layout column align-center>
