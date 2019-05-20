@@ -40,7 +40,7 @@ from sb.ChatMessage cm join sb.ChatRoom cr on cm.ChatRoomId = cr.Id
 join sb.[user] u
 	on cm.UserId = u.Id
 where cr.Identifier = @Id
-order by cm.Id
+order by cm.Id desc
 OFFSET @PageSize * @PageNumber ROWS 
 FETCH NEXT @PageSize ROWS ONLY;", new { Id = query.ConversationId, PageSize = 50, PageNumber = query.Page });
 

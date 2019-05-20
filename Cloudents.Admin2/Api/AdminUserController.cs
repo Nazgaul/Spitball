@@ -208,16 +208,8 @@ namespace Cloudents.Admin2.Api
         public async Task<UserDetailsDto> GetUserDetails(string userIdentifier, CancellationToken token)
         {
             AdminUserDetailsQuery query;
-            if (long.TryParse(userIdentifier, out var id))
-            {
-                query = new AdminUserDetailsQuery(id);
-            }
-            else
-            {
-                var userQuery = new AdminUserIdFromEmailQuery(userIdentifier);
-                id = await _queryBus.QueryAsync(userQuery, token);
-                query = new AdminUserDetailsQuery(id);
-            }
+          
+            query = new AdminUserDetailsQuery(userIdentifier);
            
             return await _queryBus.QueryAsync(query, token);
         }
