@@ -125,7 +125,7 @@ const actions = {
                 if(state.activeConversationObj.conversationId === message.conversationId){
                     commit('addMessage', message);
                     if (message.fromSignalR) {
-                        chatService.clearUnread(message.userId);
+                        chatService.clearUnread(state.activeConversationObj.userId);
                     }
                     if(state.isMinimized && message.fromSignalR){
                         //in tutor room the conversation is auto loaded, so in case of refresh 
