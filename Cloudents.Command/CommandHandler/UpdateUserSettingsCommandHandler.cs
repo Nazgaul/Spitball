@@ -22,7 +22,7 @@ namespace Cloudents.Command.CommandHandler
             user.Description = message.Description;
             if (user.Tutor != null)
             {
-                user.Tutor.UpdateSettings(message.Bio, message.Price);
+                user.Tutor.UpdateSettings(message.Bio, message.Price.GetValueOrDefault());
             }
             await _userRepository.UpdateAsync(user, token);
         }
