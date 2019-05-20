@@ -27,8 +27,8 @@ namespace Cloudents.Core.Message.Email
 
         //TODO: this is nor optimal but it working.
         public RequestTutorEmail(long userId, string text, string course,
-           string email, string name, string university, string country, string phoneNumber, string[] links) :
-           base("support@spitball.co", $"Request Tutor Email {userId}", null)
+           string email, string name, string university, string country, string phoneNumber, string[] links, bool isProduction) :
+           base("support@spitball.co", $"Request Tutor Email {userId} IsProduction {isProduction}", null)
         {
             UserId = userId;
             Text = text;
@@ -42,7 +42,23 @@ namespace Cloudents.Core.Message.Email
             Bcc = new[] { "eidan@cloudents.com", "jaron@spitball.co", "ram@cloudents.com", "elad@cloudents.com" };
         }
 
-        public long UserId { get; private set; }
+        public RequestTutorEmail( string text, string course,
+            string email, string name, string university, string country, string phoneNumber, string[] links, bool isProduction) :
+            base("support@spitball.co", $"Request Tutor anonymous Email {email} IsProduction {isProduction}", null)
+        {
+            Text = text;
+            Course = course;
+            Links = links ?? new string[0];
+            Email = email;
+            Name = name;
+            University = university;
+            Country = country;
+            PhoneNumber = phoneNumber;
+            Bcc = new[] { "eidan@cloudents.com", "jaron@spitball.co", "ram@cloudents.com", "elad@cloudents.com" };
+        }
+
+
+        public long? UserId { get; private set; }
 
         public string Text { get; private set; }
 
@@ -60,7 +76,11 @@ namespace Cloudents.Core.Message.Email
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"{nameof(UserId)}: {UserId}");
+            if (UserId.HasValue)
+            {
+                sb.AppendLine($"{nameof(UserId)}: {UserId.Value}");
+            }
+
             sb.AppendLine($"UserName: {Name}");
             sb.AppendLine($"Email: {Email}");
             sb.AppendLine($"University: {University}");

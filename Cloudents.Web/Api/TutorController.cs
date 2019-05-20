@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using Cloudents.Core.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Cloudents.Web.Api
 {
@@ -117,6 +118,7 @@ namespace Cloudents.Web.Api
         [HttpPost("request"), Authorize]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices]  IQueueProvider queueProvider,
+            [FromServices] IHostingEnvironment configuration,
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
@@ -127,7 +129,7 @@ namespace Cloudents.Web.Api
 
             var email = new RequestTutorEmail(userId, model.Text, model.Course, userInfo.Email,
                 userInfo.Name, userInfo.University, userInfo.Country, userInfo.PhoneNumber,
-                model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray());
+                model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(), configuration.IsProduction());
 
             await queueProvider.InsertMessageAsync(email, token);
 
@@ -137,12 +139,13 @@ namespace Cloudents.Web.Api
         [HttpPost("anonymousRequest")]
         public async Task<IActionResult> AnonymousRequestTutorAsync(AnonymousRequestTutorRequest model,
             [FromServices]  IQueueProvider queueProvider,
+            [FromServices] IHostingEnvironment configuration,
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
-            var email = new RequestTutorEmail(model.UserId, model.Text, model.Course, model.Email,
+            var email = new RequestTutorEmail(model.Text, model.Course, model.Email,
                         model.Name, model.University, model.Country, model.PhoneNumber,
-                        model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray());
+                        model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),configuration.IsProduction());
 
             await queueProvider.InsertMessageAsync(email, token);
 
