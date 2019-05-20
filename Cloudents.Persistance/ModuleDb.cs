@@ -36,6 +36,8 @@ namespace Cloudents.Persistence
 
             builder.RegisterType<QuerySession>().InstancePerDependency();
 
+            
+
             base.Load(builder);
         }
     }
