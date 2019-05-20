@@ -53,14 +53,14 @@ from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
 left join sb.UsersCourses tc on u.id = tc.UserId and tc.CanTeach = 1
 left join sb.Course c on tc.CourseId = c.Name
 left join sb.CourseSubject cs on c.SubjectId = cs.Id
-where ( contains(u.Name,@term) or  contains(t.Bio,@term) or contains(c.Name,@term)  or contains(cs.Name,@term)) and t.State = @state
+where ( contains(u.Name,@term) or  contains(t.Bio,@term) or contains(c.Name,@term)  or contains(cs.Name,@term)) and t.State = 'Ok'
 order by
 case when u.Country = @Country then 0 else 1 end,
 cte.rate desc,
  u.id
 OFFSET 50*@Page ROWS
 FETCH NEXT 50 ROWS ONLY;";
-                    return await conn.QueryAsync<TutorListDto>(sql, new { query.Page, query.Term, query.Country, state = ItemState.Ok.ToString("G") });
+                    return await conn.QueryAsync<TutorListDto>(sql, new { query.Page, query.Term, query.Country });
                 }
             }
         }

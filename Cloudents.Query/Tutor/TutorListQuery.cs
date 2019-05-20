@@ -37,7 +37,7 @@ T.Price,
 	                        on U.Id = T.Id
 						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
 						and  uc.CourseId in (select CourseId from sb.UsersCourses where UserId = @UserId)
-                        and T.State = @state
+                        and T.State = 'Ok'
 
 union
 select 1 as position, U.Id as UserId, U.Name, U.Image, 
@@ -50,7 +50,7 @@ T.Price,
 						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
 						join sb.Course c on uc.CourseId = c.Name
 						and c.SubjectId in (Select subjectId  from sb.UsersCourses where UserId = @UserId)
-						and T.State = @state) t
+						and T.State = 'Ok') t
 
 where t.UserId <> @UserId
 order by position desc, Rate desc
@@ -60,8 +60,7 @@ FETCH NEXT 20 ROWS ONLY;";
                 {
                     var retVal = await conn.QueryAsync<TutorListDto>(sql, new
                     {
-                        query.UserId,
-                        state = ItemState.Ok.ToString("G")
+                        query.UserId
                     });
 
                     return retVal;
