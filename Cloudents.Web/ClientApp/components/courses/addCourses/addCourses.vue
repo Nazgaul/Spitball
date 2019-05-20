@@ -202,10 +202,12 @@
                               "addToCachedClasses",
                               "changeCreateDialogState",
                               "removeFromCached",
-                               "addClasses"
+                              "addClasses",
+                              "clearClassesCahce"
                           ]),
             ...mapGetters(["getClasses"]),
             goToEditCourses() {
+                this.clearClassesCahce();
                 this.$router.push({name: 'editCourse'})
             },
             concatCourses(paramObj) {
