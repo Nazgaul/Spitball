@@ -7,11 +7,15 @@ namespace Cloudents.Core.DTOs
        
         public string OnlineDocument { get; set; }
         public string ConversationId { get; set; }
-
         public long TutorId { get; set; }
-
+        public string TutorImage { get; set; }
+        public string TutorName { get; set; }
+        public long StudentId { get; set; }
+        public string StudentImage { get; set; }
+        public string StudentName { get; set; }
         public bool AllowReview { get; set; }
         public bool NeedPayment => false;
+       
     }
 
 
