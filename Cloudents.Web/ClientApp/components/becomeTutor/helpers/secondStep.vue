@@ -67,8 +67,10 @@
                 bio: '',
                 btnLoading: false,
                 validBecomeSecond: false,
+                errorFromServer: '',
                 rules: {
-                    maximumChars:(value)=> validationRules.maximumChars(value, 1000)
+                    maximumChars:(value)=> validationRules.maximumChars(value, 1000),
+                    
                 },
             };
         },
@@ -95,14 +97,12 @@
                     self.btnLoading = true;
                     self.sendBecomeTutorData()
                         .then((resp) => {
-                            self.btnLoading = false;
                             self.$root.$emit('becomeTutorStep', 3);
                             self.updateAccountUserToTutor(true);
                         }, (error) => {
                             console.log('erorr sending data become tutor', error);
-                            self.btnLoading = false;
                         }).finally(() => {
-                        self.btnLoading = false;
+                            self.btnLoading = false;
                     });
                 }
 

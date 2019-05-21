@@ -35,13 +35,7 @@ const actions = {
         commit('assignFields', val);
     },
     sendBecomeTutorData({commit, state}) {
-        return accountService.becomeTutor(state.becomeTutorObj)
-                             .then((resp) => {
-                                       return resp;
-                                   },
-                                   (error) => {
-                                       console.log('error become a tutor', error);
-                                   });
+        return accountService.becomeTutor(state.becomeTutorObj);
     }
 };
 export default {

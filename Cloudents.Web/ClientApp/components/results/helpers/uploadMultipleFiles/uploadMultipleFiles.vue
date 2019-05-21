@@ -66,10 +66,10 @@
                         <span class="caption mb-1 legal-text" v-language:inner>upload_multiple_legal_text</span>
                     </v-flex>
                     <v-flex xs12 sm12 md12 v-show="!firstStep && !lastStep" class="text-xs-center">
-                        <v-btn :loading="loading" class="upload-btn d-inline-flex" :disabled="!isLoaded || disableBtn"
+                        <v-btn :loading="loading" class="upload-btn d-inline-flex" :disabled="!isLoaded || disableBtn || !isNameExists"
                                @click="sendDocumentData()">
                             <span v-show="isLoaded" class="sb-btn-text" v-language:inner>upload_multiple_btn_upload</span>
-                            <span v-show="!isLoaded"  class="sb-btn-text" v-language:inner>upload_multiple_btn_uploading</span>
+                            <span v-show="!isLoaded && !isNameExists"  class="sb-btn-text" v-language:inner>upload_multiple_btn_uploading</span>
                         </v-btn>
                     </v-flex>
 

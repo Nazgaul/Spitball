@@ -22,6 +22,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
+using NHibernate;
+using System.Drawing;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Cloudents.Web.Api
@@ -145,6 +147,15 @@ namespace Cloudents.Web.Api
             [FromServices] IBinarySerializer serializer,
             CancellationToken token)
         {
+            try
+            {
+                Image.FromStream(file.OpenReadStream());
+            }
+            catch
+            {
+                ModelState.AddModelError("x", "unsupported format");
+                return BadRequest(ModelState);
+            }
             if (file == null)
             {
                 ModelState.AddModelError("x", "no file");
@@ -198,11 +209,22 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> BecomeTutorAsync(
             [FromBody]UpdateSettingsRequest model, CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
-                model.Description, model.Bio, model.Price);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                if (model.Price == null)
+                {
+                    return BadRequest();
+                }
+                var userId = _userManager.GetLongUserId(User);
+                var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
+                    model.Description, model.Bio, model.Price.GetValueOrDefault());
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (NonUniqueObjectException)
+            {
+                return BadRequest();
+            }
         }
 
 

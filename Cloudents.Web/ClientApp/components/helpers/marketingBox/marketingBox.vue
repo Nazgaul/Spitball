@@ -43,7 +43,8 @@
                 // return this.isLogedIn ? this.goToWebForm() : this.goToRegister();
             },
             goToRegister() {
-                this.$router.push({name: 'registration'});
+                // this.$router.push({name: 'registration'});
+                this.updateRequestDialog(true);
             },
             goToWebForm(){
                 this.$router.push({name: 'tutors'});

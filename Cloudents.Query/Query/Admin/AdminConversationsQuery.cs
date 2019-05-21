@@ -28,26 +28,33 @@ with cte as (
  from sb.ChatUser cu
  join sb.[user] u
 	on u.Id = cu.UserId
+where u.Email not like '%cloudents%' and u.Email not like '%spitball%'
 )
 select cr.identifier as Id,
 	(select top 1 cm.CreationTime from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) as lastMessage,
 	(select top 1 cte.Name 
 						from sb.ChatMessage cm 
-						join cte on cm.ChatRoomId = cte.ChatRoomId
+						join cte on cm.ChatRoomId = cte.ChatRoomId and cm.UserId = cte.UserId
 						where cm.ChatRoomId = cr.id 
-						order by cm.CreationTime)  as UserName,
+						order by  cm.CreationTime)  as UserName,
 		case when cte.Name not in (select top 1 cte.Name 
 						from sb.ChatMessage cm 
-						join cte on cm.ChatRoomId = cte.ChatRoomId
+						join cte on cm.ChatRoomId = cte.ChatRoomId and cm.UserId = cte.UserId
 						where cm.ChatRoomId = cr.id 
-						order by cm.CreationTime) then cte.Name end as TutorName
+						order by  cm.CreationTime) then cte.Name end as TutorName
 from sb.ChatRoom cr
 join cte on cr.Id = cte.ChatRoomId
 where cte.Name not in (select top 1 cte.Name 
 						from sb.ChatMessage cm 
-						join cte on cm.ChatRoomId = cte.ChatRoomId
+						join cte on cm.ChatRoomId = cte.ChatRoomId and cm.UserId = cte.UserId
 						where cm.ChatRoomId = cr.id 
-						order by cm.CreationTime)";
+						order by  cm.CreationTime)
+	and (select top 1 cte.Name 
+						from sb.ChatMessage cm 
+						join cte on cm.ChatRoomId = cte.ChatRoomId and cm.UserId = cte.UserId
+						where cm.ChatRoomId = cr.id 
+						order by  cm.CreationTime) is not null
+order by (select top 1 cm.CreationTime from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) desc";
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<ConversationDto>(sql);

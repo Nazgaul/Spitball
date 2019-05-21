@@ -123,11 +123,20 @@
   <data name="btn_submit" xml:space="preserve">
     <value>שליחת בקשה</value>
   </data>
+  <data name="email" xml:space="preserve">
+    <value>אימייל</value>
+  </data>
   <data name="label_add" xml:space="preserve">
     <value>הוסף</value>
   </data>
+  <data name="name" xml:space="preserve">
+    <value>שם מלא</value>
+  </data>
   <data name="no_course" xml:space="preserve">
     <value>הוסף קורסים</value>
+  </data>
+  <data name="phoneNumber" xml:space="preserve">
+    <value>טלפון</value>
   </data>
   <data name="request_received" xml:space="preserve">
     <value>בקשתך לתרגול נקלטה בהצלחה, מתרגלים ייצרו איתך קשר בהקדם</value>

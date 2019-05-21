@@ -127,9 +127,23 @@ namespace Cloudents.Web.Api
             var query = new UserEmailInfoQuery(userId);
             var userInfo = await _queryBus.QueryAsync(query, token);
 
-            var email = new RequestTutorEmail(userId, model.Text, model.Course, userInfo.Email,
-                userInfo.Name, userInfo.University, userInfo.Country, userInfo.PhoneNumber,
-                model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(), configuration.IsProduction());
+            var email = new RequestTutorEmail()
+            {
+                Country = userInfo.Country,
+                Links = model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),
+                PhoneNumber = userInfo.PhoneNumber,
+                UserId = userId,
+                Text = model.Text,
+                Course = model.Course,
+                Email = userInfo.Email,
+                Name = userInfo.Name,
+                University = userInfo.University,
+                IsProduction = configuration.IsProduction()
+            };
+
+            //var email = new RequestTutorEmail(userId, model.Text, model.Course, userInfo.Email,
+            //    userInfo.Name, userInfo.University, userInfo.Country, userInfo.PhoneNumber,
+            //    model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(), configuration.IsProduction());
 
             await queueProvider.InsertMessageAsync(email, token);
 
@@ -139,13 +153,26 @@ namespace Cloudents.Web.Api
         [HttpPost("anonymousRequest")]
         public async Task<IActionResult> AnonymousRequestTutorAsync(AnonymousRequestTutorRequest model,
             [FromServices]  IQueueProvider queueProvider,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             [FromServices] IHostingEnvironment configuration,
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
-            var email = new RequestTutorEmail(model.Text, model.Course, model.Email,
-                        model.Name, model.University, model.Country, model.PhoneNumber,
-                        model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),configuration.IsProduction());
+            var email = new RequestTutorEmail()
+            {
+                Country = profile.Country,
+                Links = model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),
+                PhoneNumber = model.PhoneNumber,
+                Text = model.Text,
+              //  Course = model.Course,
+                Email = model.Email,
+                Name = model.Name,
+               // University = model.University,
+                IsProduction = configuration.IsProduction()
+            };
+            //var email = new RequestTutorEmail(model.Text, model.Course, model.Email,
+            //            model.Name, model.University, model.Country, model.PhoneNumber,
+            //            model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),configuration.IsProduction());
 
             await queueProvider.InsertMessageAsync(email, token);
 

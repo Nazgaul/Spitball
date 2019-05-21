@@ -173,24 +173,25 @@
       word-break: break-word;
       padding-top: 3px;
       width: 100%;
-      user-select: text;
       -moz-user-select: text;
       -ms-user-select: text;
       -webkit-user-select: text;
+      user-select: text;
+     
       .question-body-header-container {
         display: flex;
         .question-subject {
           color: rgba(0, 0, 0, 0.87);
           font-weight: bold;
           font-family: @fontOpenSans;
-          max-width: 185px;
 
         }
         .question-course{
+          flex-shrink: 0;
           color: rgba(0, 0, 0, 0.54);
-          font-family: @fontOpenSans;
+         // font-family: @fontOpenSans;
           display: flex;
-          flex-direction: row;
+        //  flex-direction: row;
           align-items: center;
           margin-left: 5px;
 

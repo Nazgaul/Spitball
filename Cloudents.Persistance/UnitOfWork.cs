@@ -43,9 +43,14 @@ namespace Cloudents.Persistence
             }
             /*SELECT * FROM sys.messages
 WHERE text like '%duplicate%' and text like '%key%' and language_id = 1033*/
-            catch (GenericADOException ex) when (ex.InnerException is SqlException sql && (sql.Number == 2601 || sql.Number == 2627))
+            catch (GenericADOException ex) when (ex.InnerException is SqlException sql &&
+                                                 (sql.Number == 2601 || sql.Number == 2627))
             {
                 throw new DuplicateRowException("Duplicate row", sql);
+            }
+            catch (NonUniqueObjectException ex)
+            {
+                throw new DuplicateRowException("Duplicate row", ex);
             }
 
 
