@@ -73,7 +73,13 @@ export default {
         },
         isLoaded() {
             let result = this.getFileData.every((item) => {
-                return item.progress === 100  && item.name !== ''
+                return item.progress === 100
+            });
+            return result;
+        },
+        isNameExists(){
+            let result = this.getFileData.every((item) => {
+                return item.name && item.name.length > 0
             });
             return result;
         }
