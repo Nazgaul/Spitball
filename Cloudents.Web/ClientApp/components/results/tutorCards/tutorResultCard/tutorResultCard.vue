@@ -26,11 +26,17 @@
             </div>
             <v-layout row wrap align-start justify-start grow
                       class="price-review-column section-tutor-price-review ml-1">
-                <v-flex xs12 sm12 md12 grow>
-                    <v-flex xs12 shrink class="pricing">
-                        <span>₪</span>
-                        <span class="font-weight-bold headline">{{tutorData.price}}</span>
-                        <span class="caption">
+                <v-flex xs12 sm12 md12 grow >
+                    <v-flex xs12 sm12 md12 shrink v-if="showStriked" class="strike-through">
+                        <span class="pricing striked-price">₪{{tutorData.price}}</span>
+                        <span class="pricing caption striked-price">
+                            <span v-language:inner>resultTutor_hour</span>
+                        </span>
+                    </v-flex>
+                    <v-flex xs12 sm12 md12 shrink>
+                        <span class="font-weight-bold headline pricing" v-if="showStriked">₪ 50</span>
+                        <span class="font-weight-bold headline pricing" v-else>₪ {{tutorData.price}}</span>
+                        <span class="pricing caption">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
                     </v-flex>
@@ -97,8 +103,12 @@
                     return './images/placeholder-profile.png';
                 }
 
+            },
+            showStriked(){
+                return this.tutorData.price <= 120 && this.tutorData.price > 50
             }
         },
+
     };
 </script>
 
