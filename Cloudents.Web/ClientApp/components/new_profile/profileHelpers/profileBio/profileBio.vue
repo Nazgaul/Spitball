@@ -25,7 +25,7 @@
                       v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
                       class="face-icon mr-2"
                     >sbf-face-icon</v-icon>
-                    <span v-line-clamp="'1'"
+                    <span v-line-clamp:22="'1'"
                       class="subheading font-weight-bold"
                       style="word-break: break-all;"
                     >{{userName}}</span>
