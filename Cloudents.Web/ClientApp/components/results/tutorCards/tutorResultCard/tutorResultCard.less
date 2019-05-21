@@ -6,6 +6,7 @@
   .rating-number{
     font-weight: bold;
   }
+
   .section-tutor-info {
     width: @cellWidth;
     background-color: @color-white;
@@ -47,6 +48,26 @@
   }
   .pricing{
     color: @textColor;
+    &.striked-price{
+      color: @colorBlackNew;
+    }
+  }
+  .strike-through{
+    //text-decoration: line-through;
+    font-size: 18px;
+    position: relative;
+    color: @colorBlackNew;
+    display:table;
+
+    &:after {
+      content: '';
+      width: 100%;
+      border-bottom: solid 1px @colorBlackNew;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      z-index: 1;
+    }
   }
   .tutor-name {
     opacity: 0.9;
