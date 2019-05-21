@@ -8,21 +8,14 @@
 @colorTypeDocThirdParty: rgba(0, 0, 0, 0.54);
 
 //use the class to prevent transition
-.notransition {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -o-transition: none !important;
-  transition: none !important;
-}
+
 
 .inTheMiddle() {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.cursor-pointer{
-  cursor: pointer;
-}
+
 .glowingBorder(){
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
@@ -35,12 +28,7 @@
   box-shadow: 0 0 5px @colorInputFocused;
   border: 1px solid @colorInputFocused;
 }
-.dashed-spaced{
-    background-image: linear-gradient(to right, #333 10%, rgba(255, 255, 255, 0) 30%);
-    background-position: top;
-    background-size: 10px 1px;
-    background-repeat: repeat-x;
-}
+
 
 .edgeStatic(){
   @supports (-ms-ime-align: auto) {
@@ -267,12 +255,7 @@
   }
 }
 
-.general-cell {
-  background: #fff;
-  border-radius: 4px;
-  width: 100%;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-}
+
 
 .limited-width(){
   width: 100%;
