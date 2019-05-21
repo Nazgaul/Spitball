@@ -113,7 +113,7 @@
                   flat
                   height="40"
                   :rules="[rules.required]"
-                  :placeholder="'Name'"
+                  :placeholder="guestNamePlaceHolder"
                   autocomplete="off"
                   spellcheck="true"
                 ></v-text-field>
@@ -123,7 +123,7 @@
                   solo
                   flat
                   type="email"
-                  :placeholder="'Email'"
+                  :placeholder="guestEmailPlaceHolder"
                   autocomplete="off"
                   spellcheck="true"
                 ></v-text-field>
@@ -134,7 +134,7 @@
                   flat
                   type="tel"
                   :rules="[rules.required]"
-                  :placeholder="'Phone'"
+                  :placeholder="guestPhoneNumberPlaceHolder"
                   autocomplete="off"
                   spellcheck="true"
                 ></v-text-field>

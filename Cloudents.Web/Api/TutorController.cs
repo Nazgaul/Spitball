@@ -164,10 +164,10 @@ namespace Cloudents.Web.Api
                 Links = model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),
                 PhoneNumber = model.PhoneNumber,
                 Text = model.Text,
-                Course = model.Course,
+              //  Course = model.Course,
                 Email = model.Email,
                 Name = model.Name,
-                University = model.University,
+               // University = model.University,
                 IsProduction = configuration.IsProduction()
             };
             //var email = new RequestTutorEmail(model.Text, model.Course, model.Email,

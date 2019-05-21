@@ -26,6 +26,9 @@ export default {
             },
             coursePlaceholder: LanguageService.getValueByKey("tutorRequest_select_course_placeholder"),
             topicPlaceholder: LanguageService.getValueByKey("tutorRequest_topic_placeholder"),
+            guestNamePlaceHolder : LanguageService.getValueByKey("tutorRequest_name"),
+            guestEmailPlaceHolder : LanguageService.getValueByKey("tutorRequest_email"),
+            guestPhoneNumberPlaceHolder : LanguageService.getValueByKey("tutorRequest_phoneNumber"),
             uploadProp: {
                 populatedThumnbailBox: {
                     box_0: {
