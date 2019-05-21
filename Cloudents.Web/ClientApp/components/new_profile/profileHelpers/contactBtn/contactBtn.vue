@@ -10,6 +10,8 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import chatService from '../../../../services/chatService'
+import analyticsService from '../../../../services/analytics.service';
+
     export default {
         name: "contactBtn",
         computed:{
@@ -19,6 +21,7 @@ import chatService from '../../../../services/chatService'
             ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface']),
             ...mapGetters(['getProfile']),
             sendMessage(){
+                analyticsService.sb_unitedEvent('Tutor_Engagement', 'profile_page');
                 if ( this.accountUser == null) {
                     this.updateLoginDialogState(true);
                 } else {

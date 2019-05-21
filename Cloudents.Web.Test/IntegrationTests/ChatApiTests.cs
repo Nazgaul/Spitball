@@ -3,6 +3,7 @@ using Xunit;
 using FluentAssertions;
 using System.Net;
 using System;
+using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -56,10 +57,18 @@ namespace Cloudents.Web.Test.IntegrationTests
 
         [Fact]
         public async Task GetAsync_NotValidUrl_Messages()
-        {   
-            var response = await _client.GetAsync(_uri.Path + "/159039");
+        {
+            await _client.LogInAsync();
 
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            var response = await _client.GetAsync(_uri.Path + "/1");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JArray.Parse(str);
+
+            d.Should().NotBeNull();
+
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]

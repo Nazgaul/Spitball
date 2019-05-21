@@ -48,7 +48,9 @@
     @import '../../../styles/mixin.less';
 .tutor-list-wrap{
     border-radius: 4px;
+      @media (min-width: @screen-xs) {
     background-color: rgba(0, 0, 0, 0.04);
+      }
     .title-holder{
         text-align: center;
         margin-bottom: 1px!important;

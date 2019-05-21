@@ -26,6 +26,9 @@ export default {
             },
             coursePlaceholder: LanguageService.getValueByKey("tutorRequest_select_course_placeholder"),
             topicPlaceholder: LanguageService.getValueByKey("tutorRequest_topic_placeholder"),
+            guestNamePlaceHolder : LanguageService.getValueByKey("tutorRequest_name"),
+            guestEmailPlaceHolder : LanguageService.getValueByKey("tutorRequest_email"),
+            guestPhoneNumberPlaceHolder : LanguageService.getValueByKey("tutorRequest_phoneNumber"),
             uploadProp: {
                 populatedThumnbailBox: {
                     box_0: {
@@ -60,10 +63,18 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl() {
-            if(this.accountUser.image.length > 1) {
+            if(this.isAuthUser && this.accountUser.image.length > 1) {
                 return `${this.accountUser.image}`;
             }
             return '';
+        },
+        userName() {
+            if (this.isAuthUser) {
+            return this.accountUser.name
+            }
+            else {
+                return 'JD';
+            }
         },
         isAuthUser(){
             return !!this.accountUser;

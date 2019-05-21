@@ -39,7 +39,7 @@
                                 </v-flex>
                             </v-layout>
 
-                            <v-layout row align-center justify-end class="pr-2">
+                            <v-layout row align-center justify-end class="pr-2 grow">
                                 <v-flex shrink class="d-flex align-center" v-if="!singleClass.isLoading">
                                     <div v-show="isUserTutor">
                                     <v-btn v-if="!singleClass.isTeaching" round @click="teachCourseToggle(singleClass)"

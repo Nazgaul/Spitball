@@ -175,7 +175,7 @@
     <value>בדיקת רמקול</value>
   </data>
   <data name="quality_btn_continue" xml:space="preserve">
-    <value>המשך ללא מצלמה ומיקרופון</value>
+    <value>המשך</value>
   </data>
   <data name="quality_btn_done" xml:space="preserve">
     <value>סיום</value>
