@@ -1,163 +1,193 @@
 <template>
-    <transition name="fade">
-        <div class="add-request-container ">
-            <v-form  v-model="validRequestTutorForm" ref="tutorRequestForm">
-            <v-layout class="request-header py-2" :class="[$vuetify.breakpoint.xsOnly ? 'px-4' : 'px-2']">
-                <v-flex xs11 sm11 md11>
-                    <span class="request-tutor-header-title">
-                        <v-icon class="header-icon mr-2">sbf-person-icon</v-icon>
-                        <span v-language:inner class="caption font-weight-bold">tutorRequest_title</span>
-                    </span>
-                </v-flex>
-                <v-flex xs1 sm1 md1 class="text-xs-right">
-                    <button class="back-button" @click="tutorRequestDialogClose()">
-                        <v-icon right>sbf-close</v-icon>
-                    </button>
-                </v-flex>
-            </v-layout>
-            <div class="request-textarea-container">
+  <transition name="fade">
+    <v-form v-model="validRequestTutorForm" ref="tutorRequestForm">
+      <v-layout column justify-start class="add-request-container">
+        <v-layout
+          shrink
+          align-center
+          justify-space-around
+          class="request-header py-2"
+          :class="[$vuetify.breakpoint.xsOnly ? 'px-4' : 'px-2']"
+        >
+          <v-flex>
+            <span class="request-tutor-header-title">
+              <v-icon class="header-icon mr-2">sbf-person-icon</v-icon>
+              <span v-language:inner class="caption font-weight-bold">tutorRequest_title</span>
+            </span>
+          </v-flex>
+          <v-flex class="text-xs-right">
+            <button class="back-button" @click="tutorRequestDialogClose()">
+              <v-icon right>sbf-close</v-icon>
+            </button>
+          </v-flex>
+        </v-layout>
+        <v-flex grow>
+          <v-layout column class="full-height">
+            <v-flex grow class="ma-2">
+              <div class="request-textarea-container mt-3">
                 <div class="request-textarea-upper-part">
-                    <div class="request-profile-data-container" v-if="isAuthUser">
-                        <user-avatar :userImageUrl="userImageUrl" :user-name="accountUser.name"></user-avatar>
-                    </div>
-                    <v-textarea
-                            solo
-                            no-resize
-                            name="add-request-textarea"
-                            :label="topicPlaceholder"
-                            class="request-textarea elevation-0"
-                            :rows="3"
-                            :rules="[rules.required, rules.maximumChars]"
-                            v-model="tutorRequestText"
-                    ></v-textarea>
+                  <user-avatar :userImageUrl="userImageUrl" :user-name="userName"></user-avatar>
+                  <v-textarea
+                    solo
+                    no-resize
+                    flat
+                    name="add-request-textarea"
+                    :label="topicPlaceholder"
+                    class="request-textarea elevation-0"
+                    :rows="7"
+                    :rules="[rules.required, rules.maximumChars]"
+                    v-model="tutorRequestText"
+                  ></v-textarea>
                 </div>
                 <div class="middle-part">
-                    <div class="request-thumbnails-part"
-                         :class="{'show-tumbnails': uploadProp.uploadedFiles.length > 0}">
-                        <div
-                                v-for="thumbnailBox in [0,1,2,3]"
-                                :key="thumbnailBox"
-                                class="request-attachment-box horizontal-border vertical-border">
-                            <div
-                                    @click="removeImage(uploadProp.populatedThumnbailBox['box_'+thumbnailBox])"
-                                    class="request-thumb-close-container"
-                                    :class="{'populated': uploadProp.populatedThumnbailBox['box_'+thumbnailBox].populated}">
-                                <v-icon>sbf-close</v-icon>
-                            </div>
-                            <div class="request-thumb-plus-container">
-                                <v-icon @click="openUploadInterface()">sbf-close</v-icon>
-                            </div>
-                            <div class="request-thumb-img-container">
-                                <img v-show="uploadProp.populatedThumnbailBox['box_'+thumbnailBox].populated"
-                                     :src="uploadProp.populatedThumnbailBox['box_'+thumbnailBox].src"
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="request-textarea-lower-part pt-2">
-                    <div class="request-options-part">
-                        <div class="request-subject-class-container">
-                            <div v-if="isAuthUser" class="request-select left">
-                                <v-select
-                                        :menu-props="{contentClass:'courses-select-list'}"
-                                        height="32"
-                                        v-model="tutorCourse"
-                                        :items="getSelectedClasses"
-                                        :placeholder="coursePlaceholder"
-                                        :rules="[rules.required]"
-                                        :append-icon="'sbf-arrow-down'"
-                                         outline>
-                                    <template slot="no-data">
-                                        <div class="v-select-list v-card theme--light">
-                                            <div role="list" class="v-list theme--light">
-                                                <div role="listitem">
-                                                    <div class="v-list__tile theme--light">
-                                                        <div class="v-list__tile__content">
-                                                            <div class="v-list__tile__title" v-language:inner>
-                                                                tutorRequest_no_course
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </template>
-                                </v-select>
-                            </div>
-                            <div v-else class="request-select left">
-                                <v-text-field v-model="guestName"
-                                    class="class-input"
-                                    ref="classInput"
-                                    solo
-                                    :rules="[rules.required]"
-                                    prepend-inner-icon=""
-                                    :placeholder="'Name'"
-                                    autocomplete="off"
-                                    spellcheck="true"
-                                    ></v-text-field>
-                                    <v-text-field v-model="guestMail"
-                                    class="class-input"
-                                    ref="classInput"
-                                    solo
-                                    :rules="[rules.required]"
-                                    prepend-inner-icon=""
-                                    :placeholder="'Email'"
-                                    autocomplete="off"
-                                    spellcheck="true"
-                                    ></v-text-field>
-                                    <v-text-field v-model="guestPhone"
-                                    class="class-input"
-                                    ref="classInput"
-                                    solo
-                                    :rules="[rules.required]"
-                                    prepend-inner-icon=""
-                                    :placeholder="'Phone'"
-                                    autocomplete="off"
-                                    spellcheck="true"
-                                    ></v-text-field>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="add-files px-3 mt-3 pt-1 pb-3">
-                <div class="btn-upload-wrap d-flex align-center justify-center">
-                    <span class="caption" v-language:inner>tutorRequest_label_add</span>
-                    <span class="request-files-btn d-inline-flex align-center justify-center pl-2 pr-3 ml-3">
-                <v-icon class="attach-icon mr-2">sbf-attach</v-icon>
-                    <span v-language:inner>tutorRequest_btn_attachment</span>
-                <file-upload
-                        id="file-input"
-                        :input-id="uploadProp.componentUniqueId"
-                        ref="upload"
-                        :drop="false"
-                        v-model="uploadProp.uploadedFiles"
-                        :multiple="true"
-                        :maximum="uploadProp.MAX_FILES_AMOUNT"
-                        :post-action="uploadProp.uploadUrl"
-                        accept="image/*"
-                        :extensions="uploadProp.extensions"
-                        @input-file="inputFile"
-                        @input-filter="inputFilter">
-                </file-upload>
-                </span>
-                </div>
-            </div>
-            <v-layout class="request-add-button-container pt-12 pb-3" align-center justify-center>
-                <v-flex xs12 md12 sm12 class="text-xs-center">
-                    <v-btn :loading="btnRequestLoading"
-                           class="request-add-button subheading font-weight-bold px-3"
-                           @click="sendRequest()"
+                  <div
+                    class="request-thumbnails-part"
+                    :class="{'show-tumbnails': uploadProp.uploadedFiles.length > 0}"
+                  >
+                    <div
+                      v-for="thumbnailBox in [0,1,2,3]"
+                      :key="thumbnailBox"
+                      class="request-attachment-box horizontal-border vertical-border"
                     >
-                        <span v-language:inner>tutorRequest_btn_submit</span>
-                    </v-btn>
-                </v-flex>
+                      <div
+                        @click="removeImage(uploadProp.populatedThumnbailBox['box_'+thumbnailBox])"
+                        class="request-thumb-close-container"
+                        :class="{'populated': uploadProp.populatedThumnbailBox['box_'+thumbnailBox].populated}"
+                      >
+                        <v-icon>sbf-close</v-icon>
+                      </div>
+                      <div class="request-thumb-plus-container">
+                        <v-icon @click="openUploadInterface()">sbf-close</v-icon>
+                      </div>
+                      <div class="request-thumb-img-container">
+                        <img
+                          v-show="uploadProp.populatedThumnbailBox['box_'+thumbnailBox].populated"
+                          :src="uploadProp.populatedThumnbailBox['box_'+thumbnailBox].src"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="request-textarea-lower-part pt-2" v-if="isAuthUser">
+                  <div class="request-options-part">
+                    <!-- <div class="request-subject-class-container"> -->
+                    <div class="request-select">
+                      <v-select
+                        :menu-props="{contentClass:'courses-select-list'}"
+                        height="32"
+                        v-model="tutorCourse"
+                        :items="getSelectedClasses"
+                        :placeholder="coursePlaceholder"
+                        :rules="[rules.required]"
+                        :append-icon="'sbf-arrow-down'"
+                        outline
+                      >
+                        <template slot="no-data">
+                          <div class="v-select-list v-card theme--light">
+                            <div role="list" class="v-list theme--light">
+                              <div role="listitem">
+                                <div class="v-list__tile theme--light">
+                                  <div class="v-list__tile__content">
+                                    <div
+                                      class="v-list__tile__title"
+                                      v-language:inner
+                                    >tutorRequest_no_course</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </template>
+                      </v-select>
+                    </div>
 
+                    <!-- </div> -->
+                  </div>
+                </div>
+              </div>
+              <div v-if="!isAuthUser" class="mt-4 anonymous-extra">
+                <v-text-field
+                  v-model="guestName"
+                  class="class-input"
+                  solo
+                  flat
+                  height="40"
+                  :rules="[rules.required]"
+                  :placeholder="'Name'"
+                  autocomplete="off"
+                  spellcheck="true"
+                ></v-text-field>
+                <v-text-field
+                  v-model="guestMail"
+                  class="class-input"
+                  solo
+                  flat
+                  type="email"
+                  :placeholder="'Email'"
+                  autocomplete="off"
+                  spellcheck="true"
+                ></v-text-field>
+                <v-text-field
+                  v-model="guestPhone"
+                  class="class-input"
+                  solo
+                  flat
+                  type="tel"
+                  :rules="[rules.required]"
+                  :placeholder="'Phone'"
+                  autocomplete="off"
+                  spellcheck="true"
+                ></v-text-field>
+              </div>
+
+              <!-- add-files px-3 mt-3 pt-1 pb-3 -->
+              <!-- <div class=""> -->
+              <v-layout align-center justify-center class="mt-3 mb-3">
+                <!-- <span class="caption" v-language:inner>tutorRequest_label_add</span> -->
+                <span
+                  class="request-files-btn d-inline-flex align-center justify-center pl-2 pr-3 ml-3"
+                >
+                  <v-icon class="attach-icon mr-2">sbf-attach</v-icon>
+                  <span v-language:inner>tutorRequest_btn_attachment</span>
+                  <file-upload
+                    id="file-input"
+                    :input-id="uploadProp.componentUniqueId"
+                    ref="upload"
+                    :drop="false"
+                    v-model="uploadProp.uploadedFiles"
+                    :multiple="true"
+                    :maximum="uploadProp.MAX_FILES_AMOUNT"
+                    :post-action="uploadProp.uploadUrl"
+                    accept="image/*"
+                    :extensions="uploadProp.extensions"
+                    @input-file="inputFile"
+                    @input-filter="inputFilter"
+                  ></file-upload>
+                </span>
+              </v-layout>
+              <!-- </div> -->
+            </v-flex>
+            <v-layout
+              shrink
+              class="request-add-button-container pt-12 pb-3"
+              align-center
+              justify-center
+            >
+              <v-flex xs12 md12 sm12 class="text-xs-center">
+                <v-btn
+                  :loading="btnRequestLoading"
+                  class="request-add-button subheading font-weight-bold px-3"
+                  @click="sendRequest()"
+                >
+                  <span v-language:inner>tutorRequest_btn_submit</span>
+                </v-btn>
+              </v-flex>
             </v-layout>
-            </v-form>
-        </div>
-    </transition>
+          </v-layout>
+        </v-flex>
+      </v-layout>
+    </v-form>
+  </transition>
 </template>
 
 

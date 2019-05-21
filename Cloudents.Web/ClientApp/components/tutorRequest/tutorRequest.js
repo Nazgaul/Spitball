@@ -60,10 +60,18 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl() {
-            if(this.accountUser.image.length > 1) {
+            if(this.isAuthUser && this.accountUser.image.length > 1) {
                 return `${this.accountUser.image}`;
             }
             return '';
+        },
+        userName() {
+            if (this.isAuthUser) {
+            return this.accountUser.name
+            }
+            else {
+                return 'JD';
+            }
         },
         isAuthUser(){
             return !!this.accountUser;
