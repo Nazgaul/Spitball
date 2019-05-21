@@ -51,7 +51,7 @@
         >
             <quality-validation></quality-validation>
         </v-dialog>
-        <sb-dialog :showDialog="getReviewDialogState"
+        <sb-dialog :showDialog="getReviewDialogState "
                    :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
                    :popUpType="'reviewDilaog'"
                    :maxWidth="'596'"
@@ -61,7 +61,8 @@
                    :content-class="'review-dialog'">
             <leave-review></leave-review>
         </sb-dialog>
-        <sb-dialog :showDialog="getTutorStartDialog"
+        <!--show only if not avaliable devices dialog is closed by user-->
+        <sb-dialog :showDialog="getTutorStartDialog && !qualityDialog"
                    :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
                    :popUpType="'startSessionTutor'"
                    :maxWidth="'356'"
@@ -69,10 +70,10 @@
                    :activateOverlay="false"
                    :isPersistent="$vuetify.breakpoint.smAndUp"
                    :content-class="'session-start-tutor-dialog'">
-            <startSessionTutor></startSessionTutor>
+            <startSessionTutor :id="id"></startSessionTutor>
         </sb-dialog>
-
-        <sb-dialog :showDialog="getStudentStartDialog"
+        <!--show only if not avaliable devices dialog is closed by user-->
+        <sb-dialog :showDialog="getStudentStartDialog && !qualityDialog"
                    :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
                    :popUpType="'startSessionStudent'"
                    :maxWidth="'356'"
@@ -80,7 +81,7 @@
                    :activateOverlay="false"
                    :isPersistent="$vuetify.breakpoint.smAndUp"
                    :content-class="'session-start-student-dialog'">
-            <startSessionStudent></startSessionStudent>
+            <startSessionStudent :id="id"></startSessionStudent>
         </sb-dialog>
     </v-layout>
 </template>

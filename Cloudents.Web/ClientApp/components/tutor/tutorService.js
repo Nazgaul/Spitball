@@ -124,7 +124,13 @@ const connectToRoom = function (token, options) {
 
                     // Print the initial Network Quality Level
                     // printNetworkQuality(store.getters['localParticipant'].networkQualityLevel);
+                    if(store.getters['getStudentStartDialog']){
+                        store.dispatch('updateStudentStartDialog', false);
 
+                    }else if(store.getters['getTutorStartDialog']){
+                        store.dispatch('updateTutorStartDialog', false);
+
+                    }
                     //event of network quality change
                     store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
                     // Attach the Tracks of all the remote Participants.

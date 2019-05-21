@@ -16,7 +16,6 @@ export default {
             loaded: false,
             data: {},
             isCopied: false,
-            sessionStartClickedOnce: false,
             localTrackAval: false,
             remoteTrack: '',
             screenShareTrack: null,
@@ -76,7 +75,8 @@ export default {
             'updateTestDialogState',
             'updateReviewDialog',
             'setRoomId',
-            "updateToasterParams",
+            'updateToasterParams',
+            'setSesionClickedOnce'
         ]),
 
         biggerRemoteVideo() {
@@ -98,6 +98,7 @@ export default {
         },
         // move all this function inside to service
         enterRoom() {
+            videoStreamService.enterRoom();
             // if (!!this.accountUser && this.accountUser.needPayment && !this.isTutor) {
             //     walletService.getPaymeLink().then(({ data }) => {
             //         global.open(data.link, '_blank', 'height=520,width=440');
@@ -130,7 +131,8 @@ export default {
             tutorService.endTutoringSession(this.id)
                 .then((resp) => {
                     console.log('ended session', resp);
-                    this.sessionStartClickedOnce = false;
+                    this.setSesionClickedOnce(false)
+                    // this.sessionStartClickedOnce = false;
                     if (!this.isTutor && this.getAllowReview) {
                         this.updateReviewDialog(true);
                     }

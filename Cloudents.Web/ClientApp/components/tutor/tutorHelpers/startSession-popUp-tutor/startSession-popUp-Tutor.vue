@@ -7,19 +7,19 @@
         </v-layout>
     <v-layout column align-center>
         <v-flex xs12 sm12 md12 class="pt-2">
-            <userAvatar :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'" ></userAvatar>
+            <userAvatar :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'"></userAvatar>
         </v-flex>
         <v-flex xs12 sm12 md12 class="pt-12">
-            <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_tutor</span>
+            <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
             <span class="subheading font-weight-bold">{{studentName}}</span>
         </v-flex>
         <v-flex xs12 sm12 md12 class="pt-2">
             <span class="subheading" v-language:inner>tutor_entered_room</span>
         </v-flex>
         <v-flex xs12 sm12 md12 class="pt-4">
-            <button class="start-session-btn elevation-0 align-center justify-center">
+            <button class="start-session-btn elevation-0 align-center justify-center" @click="startSession()">
                 <timerIcon class="timer-icon mr-2"></timerIcon>
-                <span class="text-uppercase" v-language:inner>tutor_btn_accept_and_start</span>
+                <span class="text-uppercase" v-language:inner>tutor_stream_btn_start_session</span>
             </button>
         </v-flex>
     </v-layout>
@@ -30,11 +30,17 @@
     import {mapGetters, mapActions} from 'vuex';
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import timerIcon from '../../images/timer.svg';
+    import videoStreamService from "../../../../services/videoStreamService";
     export default {
         name: "startSession-popUp-tutor",
         components: {userAvatar, timerIcon},
         data() {
             return {};
+        },
+        props: {
+            id: {
+                required:true
+            },
         },
         computed: {
             ...mapGetters(['getStudyRoomData']),
@@ -52,7 +58,12 @@
             ...mapActions(['updateTutorStartDialog']),
             closeDialog() {
                 this.updateTutorStartDialog(false)
+            },
+            startSession(){
+                console.log('start session tutor account');
+                videoStreamService.enterRoom();
             }
+
         },
     };
 </script>

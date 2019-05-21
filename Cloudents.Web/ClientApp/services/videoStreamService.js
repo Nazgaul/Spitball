@@ -3,8 +3,9 @@ const extensionId = 'jaimgihanebafnbcpckdkilkeoomkpik'; // dev && prod
 import store from '../store/index.js';
 import { createLocalTracks } from 'twilio-video';
 import walletService from "./walletService";
-
+let availableDevices = [];
 export default {
+
     createVideoSession() {
         const self = this;
         // remove any remote track when joining a new room
@@ -26,20 +27,23 @@ export default {
             store.dispatch('updateTestDialogState', true);
             return;
         }
-        if (!this.sessionStartClickedOnce) {
-            this.sessionStartClickedOnce = true;
+        if (!store.getters['sessionStartClickedOnce']) {
+            store.dispatch('setSesionClickedOnce', true);
+            // this.sessionStartClickedOnce = true;
             if (store.getters['getStudyRoomData'].isTutor) {
                 store.dispatch('updateCurrentRoomState', 'loading');
-                tutorService.enterRoom(this.id).then(() => {
+                tutorService.enterRoom(store.getters['getRoomId']).then(() => {
                     setTimeout(() => {
                         this.createVideoSession();
-                        this.sessionStartClickedOnce = false;
+                        store.dispatch('setSesionClickedOnce', false)
+                        // this.sessionStartClickedOnce = false;
                     }, 1000);
                 });
             } else {
                 //join
                 this.createVideoSession();
-                this.sessionStartClickedOnce = false;
+                store.dispatch('setSesionClickedOnce', false)
+                // this.sessionStartClickedOnce = false;
             }
         }
     },
@@ -57,18 +61,18 @@ export default {
         devices.forEach(function (device) {
             console.log(device.kind + ": " + device.label +
                 " id = " + device.deviceId);
-            self.availableDevices.push(device.kind);
+            availableDevices.push(device.kind);
         });
         let connectOptions;
         //create local track with custom names
         let audioTrackName = `audio_${store.getters['getStudyRoomData'].isTutor ? 'tutor' : 'student'}_${store.getters['accountUser'].id}`;
         let videoTrackName = `video_${store.getters['getStudyRoomData'].isTutor ? 'tutor' : 'student'}_${store.getters['accountUser'].id}`;
         let audioSetObj = {
-            audio: self.availableDevices.includes('audioinput'),
+            audio: availableDevices.includes('audioinput'),
             name: audioTrackName
         };
         let videoSetObj = {
-            video: self.availableDevices.includes('videoinput'),
+            video: availableDevices.includes('videoinput'),
             name: videoTrackName
         };
         let audioDevice = await navigator.mediaDevices.getUserMedia({ audio: true }).then(y => audioSetObj, z => false);
