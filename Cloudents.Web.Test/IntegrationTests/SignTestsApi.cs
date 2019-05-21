@@ -37,11 +37,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task Post_Register_With_Email()
         {
-           
-
             var sign = new
             {
-                email = "elad+6@cloudents.com",
+                email = "elad+99@cloudents.com",
                 password = "123456789",
                 confirmPassword = "123456789"
             };
@@ -56,7 +54,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var responseObject = new
             {
-                code = 972
+                code = "972"
             };
 
 
@@ -76,10 +74,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task Post_Send_Sms_Code()
         {
-
             var sign = new
             {
-                email = "elad+6@cloudents.com",
+                email = "elad+99@cloudents.com",
                 password = "123456789",
                 confirmPassword = "123456789"
             };
