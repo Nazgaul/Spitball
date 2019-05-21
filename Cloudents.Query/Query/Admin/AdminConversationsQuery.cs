@@ -28,6 +28,7 @@ with cte as (
  from sb.ChatUser cu
  join sb.[user] u
 	on u.Id = cu.UserId
+where u.Email not like '%cloudents%' and u.Email not like '%spitball%'
 )
 select cr.identifier as Id,
 	(select top 1 cm.CreationTime from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) as lastMessage,
