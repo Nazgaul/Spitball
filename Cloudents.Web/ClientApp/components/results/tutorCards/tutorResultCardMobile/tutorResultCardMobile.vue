@@ -126,7 +126,7 @@
                 &:after {
                     content: '';
                     width: 100%;
-                    max-width: 64px;
+                    max-width: 56px;
                     border-bottom: solid 1px @colorBlackNew;
                     position: absolute;
                     left: 0;
@@ -204,7 +204,7 @@
         }
         .strike-through {
             //text-decoration: line-through; //will not work cause of different font sizes
-            font-size: 16px;
+            font-size: 14px;
             position: relative;
             &:after {
                 content: '';
@@ -215,6 +215,9 @@
                 left: 0;
                 top: 50%;
                 z-index: 1;
+            }
+            .striked-hour{
+                font-size: 12px;
             }
         }
         .small-text {
