@@ -16,11 +16,16 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query;
+using Cloudents.Query.Chat;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
+using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
@@ -37,7 +42,8 @@ namespace Cloudents.FunctionsV2
         {
             var topicMessage = JsonConvert.DeserializeObject<BaseEmail>(cloudMessage.AsString, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.All
+                TypeNameHandling = TypeNameHandling.All,
+                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
             });
 
             if (topicMessage == null)
@@ -80,7 +86,7 @@ namespace Cloudents.FunctionsV2
         {
             var message = new SendGridMessage();
             var personalization = new Personalization();
-           
+
 
             if (topicMessage.TemplateId != null)
             {
@@ -132,22 +138,55 @@ namespace Cloudents.FunctionsV2
                 log.LogWarning("error with template name" + topicMessage.TemplateId);
             }
 
-            
+
             message.AddTo(topicMessage.To);
 
             await emailProvider.AddAsync(message, token);
         }
 
+        [FunctionName("SmsUnread")]
+        public static async Task SmsUnreadAsync([TimerTrigger("0 */10 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+            [Blob("spitball/chat/unread.txt")]CloudBlockBlob blob,
+            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
+            [Inject] IQueryBus queryBus, CancellationToken token)
+        {
+            byte[] version = null;
+            if (await blob.ExistsAsync())
+            {
+                version = new byte[8];
+                await blob.DownloadToByteArrayAsync(version, 0);
+            }
+
+            var query = new UserUnreadMessageQuery(version);
+            var result = await queryBus.QueryAsync(query, token);
+            var tasks = new List<Task>();
+            foreach (var unreadMessageDto in result)
+            {
+                var t = options.AddAsync(new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
+                {
+                    Body = "You got unread message in www.spitball.co"
+                }, token);
+
+                tasks.Add(t);
+            }
+
+            await Task.WhenAll(tasks);
+            if (result.Count > 0)
+            {
+                version = result.OrderByDescending(o => o.VersionAsLong).First().Version;
+                await blob.UploadFromByteArrayAsync(version, 0, 8);
+            }
+        }
 
 
 
         [FunctionName("FunctionSmsServiceBus")]
         public static async Task SmsServiceBusAsync(
-            [ServiceBusTrigger("communication", "sms", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
-            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
-            ILogger log,
-            CancellationToken token
-        )
+              [ServiceBusTrigger("communication", "sms", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
+              [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
+              ILogger log,
+              CancellationToken token
+          )
         {
             if (msg.Message == null)
             {
@@ -203,10 +242,6 @@ namespace Cloudents.FunctionsV2
 
         }
 
-
-
-
-
         [FunctionName("TwilioMessage")]
         public static IActionResult RunTwilioResult(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "twilio")]
@@ -216,13 +251,15 @@ namespace Cloudents.FunctionsV2
 
             string name = req.Query["code"];
             var twiml = new VoiceResponse();
-            twiml.Say($"Your code to spitball is, {string.Join(". ",name.ToCharArray())}", loop: 3, voice: "alice");
+            twiml.Say($"Your code to spitball is, {string.Join(". ", name.ToCharArray())}", loop: 3, voice: "alice");
             return new ContentResult()
             {
                 Content = twiml.ToString(),
                 ContentType = "application/xml"
             };
         }
+
+
     }
 
 
@@ -289,31 +326,5 @@ namespace Cloudents.FunctionsV2
         [JsonProperty("minorTitle")]
         public string MinorTitle { get; set; }
     }
-
-
-    //public class EmailObject
-    //{
-    //    public string Id { get; set; }
-    //    public bool SocialShare { get; set; }
-    //    public string Event { get; set; }
-
-    //    public string Subject { get; set; }
-
-    //    public CultureInfo CultureInfo { get; set; }
-
-    //    public IEnumerable<EmailBlock> Blocks { get; set; }
-
-    //}
-
-
-
-    //public class EmailBlock
-    //{
-    //    public string Title { get; set; }
-    //    public string Subtitle { get; set; }
-    //    public string Body { get; set; }
-    //    public string Cta { get; set; }
-    //    public string MinorTitle { get; set; }
-    //}
 
 }

@@ -123,11 +123,20 @@
   <data name="btn_submit" xml:space="preserve">
     <value>Submit Request</value>
   </data>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="label_add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="no_course" xml:space="preserve">
     <value>Please add courses</value>
+  </data>
+  <data name="phoneNumber" xml:space="preserve">
+    <value>Phone</value>
   </data>
   <data name="request_received" xml:space="preserve">
     <value>We successfully received your request, tutors will contact you shortly</value>

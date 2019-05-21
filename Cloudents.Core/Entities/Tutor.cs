@@ -9,13 +9,12 @@ namespace Cloudents.Core.Entities
     public class Tutor : Entity<long>
     {
         public const int MaximumPrice = 214748;
+        public const int MinimumPrice = 50;
         public Tutor(string bio, RegularUser user, decimal price) :this()
         {
-            if (price <= 0 || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
             
             User = user;
-            Bio = bio;
-            Price = price;
+            UpdateSettings(bio, price);
         }
 
         protected Tutor()
@@ -27,7 +26,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UpdateSettings(string bio, decimal price)
         {
-            if (price <= 0) throw new ArgumentOutOfRangeException(nameof(price));
+            if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
             Price = price;
             Bio = bio;
         }

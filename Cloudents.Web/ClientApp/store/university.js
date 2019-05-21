@@ -59,10 +59,7 @@ const mutations = {
         let index = state.selectedClasses.indexOf(val);
         state.selectedClasses.splice(index, 1);
     },
-    deleteFromCachedList(state, val){
-        let index = state.selectedClassesCache.indexOf(val);
-        state.selectedClassesCache.splice(index, 1);
-    },
+    
     setUniversities(state, val) {
         state.universities = val;
     },
@@ -78,17 +75,25 @@ const mutations = {
     setClasses(state, val) {
         state.classes = val;
     },
-    updateCachedList(state, val) {
-        state.selectedClassesCache.push(val);
-    },
+    
     pushClass(state, val) {
         state.selectedClasses.unshift(val);
     },
     setSelectedClasses(state, val) {
         state.selectedClasses = val;
     },
+    clearClassesCahce(state) {
+        state.selectedClassesCache.length = 0;
+    },
     setSelectedClassesCahce(state, val) {
         state.selectedClassesCache = [].concat(val);
+    },
+    updateCachedList(state, val) {
+        state.selectedClassesCache.push(val);
+    },
+    deleteFromCachedList(state, val){
+        let index = state.selectedClassesCache.indexOf(val);
+        state.selectedClassesCache.splice(index, 1);
     },
     setSelectUniState(state, val) {
         // state.showSelectUniInterface = val;
@@ -124,6 +129,9 @@ const mutations = {
 };
 
 const actions = {
+    clearClassesCahce({commit}){
+        commit('clearClassesCahce');
+    },
     syncUniData({commit, dispatch}) {
         universityService.getProfileUniversity().then((university) => {
             commit('setSchoolName', university.text);

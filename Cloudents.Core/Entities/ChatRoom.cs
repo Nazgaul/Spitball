@@ -49,10 +49,10 @@ namespace Cloudents.Core.Entities
                 if (userInChat.User != message.User)
                 {
                     userInChat.Unread++;
-                    if (!userInChat.User.Online && userInChat.Unread < 2)
-                    {
-                        AddEvent(new OfflineChatMessageEvent(userInChat));
-                    }
+                    //if (!userInChat.User.Online && userInChat.Unread < 2)
+                    //{
+                    //    AddEvent(new OfflineChatMessageEvent(userInChat));
+                    //}
                 }
                 else
                 {

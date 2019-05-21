@@ -17,6 +17,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Cloudents.Query.Chat;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
@@ -113,7 +114,12 @@ namespace Cloudents.Web.Api
         {
             try
             {
-                var command = new ResetUnreadInChatCommand(_userManager.GetLongUserId(User),
+                var userId = _userManager.GetLongUserId(User);
+                if (userId == model.OtherUserId)
+                {
+                    return BadRequest();
+                }
+                var command = new ResetUnreadInChatCommand(userId,
                     new[] { model.OtherUserId });
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();

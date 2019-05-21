@@ -11,6 +11,9 @@ export const validationRules = {
     maxVal: (value, max) => {
         return value <= max || `${LanguageService.getValueByKey("formErrors_max_number")} ${max}`;
     },
+    minVal: (value, max) => {
+        return value >= max || `${LanguageService.getValueByKey("formErrors_positive_only")} ${max}`;
+    },
     notSpaces: (value) => {
         return value.trim().length >= 1 || `Empty spaces`;
     }

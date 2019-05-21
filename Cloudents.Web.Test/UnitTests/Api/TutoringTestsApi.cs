@@ -1,9 +1,10 @@
 ﻿using Cloudents.Web.Test.IntegrationTests;
 using FluentAssertions;
-using System.Net.Http;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+
 
 namespace Cloudents.Web.Test.UnitTests.Api
 {
@@ -13,6 +14,14 @@ namespace Cloudents.Web.Test.UnitTests.Api
 
         private readonly SbWebApplicationFactory _factory;
 
+        private readonly System.Net.Http.HttpClient _client;
+
+        private UriBuilder _uri = new UriBuilder
+        {
+            Path = "api/tutoring/create"
+        };
+
+
         public TutoringTestsApi(SbWebApplicationFactory factory)
         {
             _factory = factory;
@@ -21,27 +30,26 @@ namespace Cloudents.Web.Test.UnitTests.Api
         [Fact]
         public async Task Post_Create_Room()
         {
-            var client = _factory.CreateClient();
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(""));
 
-            var response = await client.PostAsync("api/tutoring/create", new StringContent("", Encoding.UTF8, "application/json"));
-
-            response.StatusCode.Should().Be(200);
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]
         public async Task Post_Review()
         {
-            var client = _factory.CreateClient();
+            var review = new
+            {
+                review = "Good one",
+                rate = 3,
+                tutor = 160116
+            };
 
-            string cred = "{\"email\":\"elad@cloudents.com\",\"password\":\"123456789\",\"fingerPrint\":\"string\"}";
+            await _client.LogInAsync();
 
-            string review = "{\"review\":\"Good one\",\"rate\": 3,\"tutor\": 160116}";
+            var response = await _client.PostAsync("api/tutoring/review", HttpClient.CreateJsonString(review));
 
-            await client.PostAsync("api/Login", new StringContent(cred, Encoding.UTF8, "application/json"));
-
-            var response = await client.PostAsync("api/tutoring/review", new StringContent(review, Encoding.UTF8, "application/json"));
-
-            response.StatusCode.Should().Be(200);
+            response.EnsureSuccessStatusCode();
         }
     }
 }

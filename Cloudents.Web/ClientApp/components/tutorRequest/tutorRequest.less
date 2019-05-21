@@ -11,31 +11,36 @@
   box-shadow: none;
   justify-content: center;
   background: @color-white;
-  width: 500px;
-  @media (max-width: @screen-xs) {
-    width: 100%;
-    display: inline-block;
-  }
+  width: 100%;
+  //max-width: 500px;
+  // @media (max-width: @screen-xs) {
+    
+  //   display: inline-block;
+  // }
   .pt-12{
     padding-top: 12px;
+  }
+  .user-avatar {
+    margin-left: 12px;
+    margin-top: 12px;
   }
   .header-icon {
     font-size: 16px;
     color: @lightBtnIconColor;
   }
   .add-request-container {
-    display: flex;
-    flex-direction: column;
+   // display: flex;
+   // flex-direction: column;
     width: 100%;
-    justify-content: space-between;
-    @media (max-width: @screen-xs) {
-      justify-content: unset;
-    }
+   // justify-content: space-between;
+    // @media (max-width: @screen-xs) {
+    //   justify-content: unset;
+    // }
     .request-header {
       background: @systemBackgroundColor;
       border-bottom: 2px solid rgba(151, 151, 151, 0.32);
       .back-button {
-        font-size: 12px;
+        //font-size: 12px;
         outline: none;
         i {
           font-size: 10px;
@@ -45,35 +50,33 @@
         }
       }
     }
-    .request-subject-class-container {
+    // .request-subject-class-container {
+    //   width: 100%;
+    //   background-color: #fff;
+    //   //max-height: 72px;
+    //   display: flex;
+    //   justify-content: space-around;
+    //   align-items: center;
+     
+      
+    // }
+
+    .request-select {
       width: 100%;
-      background-color: #fff;
-      max-height: 72px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      .request-select {
-        width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      height: auto;
+      border-radius: 4px;
+      margin-left: 8px;
+      margin-right: 4px;
+      .v-select__selection--comma {
+        display: unset;
+        line-height: 20px;
         text-overflow: ellipsis;
-        white-space: nowrap;
         overflow: hidden;
-        height: auto;
-        border-radius: 4px;
-        &.left {
-          margin-left: 8px;
-          margin-right: 4px;
-        }
-        &.right {
-          margin-left: 4px;
-          margin-right: 8px;
-        }
-        .v-select__selection--comma {
-          display: unset;
-          line-height: 20px;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
       }
+
       .v-text-field {
         &.v-input--is-focused {
           .v-input__control {
@@ -134,9 +137,9 @@
       align-items: center;
       justify-content: start;
     }
-    .btn-upload-wrap {
-      max-width: 160px;
-    }
+    // .btn-upload-wrap {
+    //   max-width: 160px;
+    // }
     .request-files-btn {
       height: 32px;
       border-radius: 16px;
@@ -177,32 +180,24 @@
     }
     .request-textarea-upper-part {
       display: flex;
-      max-height: 88px;
+      //max-height: 120px;
       position: relative;
-      .request-profile-data-container {
-        padding-top: 12px;
-        padding-left: 12px;
-      }
+      // .request-profile-data-container {
+      //   padding-top: 12px;
+      //   padding-left: 12px;
+      // }
       .request-textarea {
-        font-family: @fontOpenSans;
-        font-size: 13px;
+        //font-family: @fontOpenSans;
+        //font-size: 13px;
         font-weight: 600;
         color: rgba(0, 0, 0, 0.87);
         letter-spacing: -0.4px;
-        text-align: left;
-        .v-label {
-          left: auto !important;
-          right: auto !important;
-        }
-        &.error--text{
-          .v-input__slot{
-            .v-text-field__slot{
-              .v-label {
-                //color: #ff5252 !important;
-              }
-            }
-          }
-        }
+        //text-align: left;
+        // .v-label {
+        //   left: auto !important;
+        //   right: auto !important;
+        // }
+        
 
       }
       .v-textarea {
@@ -310,9 +305,7 @@
     .request-textarea-container {
       display: flex;
       flex-direction: column;
-      margin-top: 12px;
-      margin-left: 8px;
-      margin-right: 8px;
+    
       background-color: #fff;
       border-radius: 4px;
       box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
@@ -334,5 +327,22 @@
         text-transform: unset;
       }
     }
+  }
+
+  .anonymous-extra {
+    max-width: 320px;
+    margin: 0 auto;
+ .v-input__slot {
+   border-radius: 4px !important; //vuetify
+   border: solid 1px #c9c9c9;
+   font-size: 14px;
+   letter-spacing: -0.4px;
+//   he
+ }
+    // input {
+    //   border-radius: 4px;
+    //   border: solid 1px #c9c9c9;
+    // }
+
   }
 }

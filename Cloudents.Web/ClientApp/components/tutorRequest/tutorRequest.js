@@ -17,12 +17,18 @@ export default {
             tutorRequestText: '',
             btnRequestLoading: false,
             validRequestTutorForm: false,
+            guestName: '',
+            guestMail: '',
+            guestPhone: '',
             rules: {
                 required: (value) => validationRules.required(value),
                 maximumChars: (value) => validationRules.maximumChars(value, 255)
             },
             coursePlaceholder: LanguageService.getValueByKey("tutorRequest_select_course_placeholder"),
             topicPlaceholder: LanguageService.getValueByKey("tutorRequest_topic_placeholder"),
+            guestNamePlaceHolder : LanguageService.getValueByKey("tutorRequest_name"),
+            guestEmailPlaceHolder : LanguageService.getValueByKey("tutorRequest_email"),
+            guestPhoneNumberPlaceHolder : LanguageService.getValueByKey("tutorRequest_phoneNumber"),
             uploadProp: {
                 populatedThumnbailBox: {
                     box_0: {
@@ -57,11 +63,22 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl() {
-            if(this.accountUser.image.length > 1) {
+            if(this.isAuthUser && this.accountUser.image.length > 1) {
                 return `${this.accountUser.image}`;
             }
             return '';
         },
+        userName() {
+            if (this.isAuthUser) {
+            return this.accountUser.name
+            }
+            else {
+                return 'JD';
+            }
+        },
+        isAuthUser(){
+            return !!this.accountUser;
+        }
     },
     methods: {
         ...mapActions(['updateRequestDialog', 'updateToasterParams']),
@@ -70,31 +87,53 @@ export default {
             
             let self = this;
             if(self.$refs.tutorRequestForm.validate()) {
-                self.btnRequestLoading = true;
-                let serverObj = {
-                    course: self.tutorCourse,
-                    text: self.tutorRequestText,
-                    files: self.uploadProp.uploadedFileNames
-                };
-                let analyticsObject = {
-                    userId: self.accountUser.id,
-                    course: self.tutorCourse
+                if(this.isAuthUser){
+                    self.btnRequestLoading = true;
+                    let serverObj = {
+                        course: self.tutorCourse,
+                        text: self.tutorRequestText,
+                        files: self.uploadProp.uploadedFileNames
+                    };
+                    let analyticsObject = {
+                        userId: self.accountUser.id,
+                        course: self.tutorCourse
+                    }
+                    analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                    tutorService.requestTutor(serverObj)
+                                .then(() => {
+                                          self.tutorRequestDialogClose();
+                                          self.updateToasterParams({
+                                            toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
+                                            showToaster: true,
+                                          })
+                                      },
+                                      () => {
+                                      }).finally(() => {
+                        self.btnRequestLoading = false;
+                    });
+                }else{
+                    self.btnRequestLoading = true;
+                    let serverObj = {
+                        text: self.tutorRequestText,
+                        files: self.uploadProp.uploadedFileNames,
+                        name: self.guestName,
+                        mail: self.guestMail,
+                        phone: self.guestPhone
+                    };
+                    
+                    tutorService.requestTutorAnonymous(serverObj)
+                                .then(() => {
+                                          self.tutorRequestDialogClose();
+                                          self.updateToasterParams({
+                                            toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
+                                            showToaster: true,
+                                          })
+                                      },
+                                      () => {
+                                      }).finally(() => {
+                        self.btnRequestLoading = false;
+                    });
                 }
-                analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
-                tutorService.requestTutor(serverObj)
-                            .then((success) => {
-                                      self.btnRequestLoading = false;
-                                      self.tutorRequestDialogClose();
-                                      self.updateToasterParams({
-                                        toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
-                                        showToaster: true,
-                                      })
-                                  },
-                                  (error) => {
-                                      self.btnRequestLoading = false;
-                                  }).finally((finish) => {
-                    self.btnRequestLoading = false;
-                });
             }
         },
 

@@ -22,8 +22,8 @@ namespace Cloudents.Core.Entities
 
         public virtual int Unread { get;  set; }
 
-        
-       
+
+        public virtual byte[] Version { get; protected set; }
 
     }
 }

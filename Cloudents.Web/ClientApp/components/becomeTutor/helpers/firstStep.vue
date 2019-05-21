@@ -96,8 +96,8 @@
                 validBecomeFirst: false,
                 rules: {
                     required: (value) => validationRules.required(value),
-                    minimum: (value) => validationRules.positiveNumber(value),
-                    maximum: (value) => validationRules.maxVal(value, 200000),
+                    minimum: (value) => validationRules.minVal(value,50),
+                    maximum: (value) => validationRules.maxVal(value, 200),
                     notSpaces: (value) => validationRules.notSpaces(value),
                 },
                 isLoaded: false

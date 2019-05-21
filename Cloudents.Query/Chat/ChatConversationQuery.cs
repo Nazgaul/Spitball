@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Dapper;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Chat
 {
     public class ChatConversationQuery : IQuery<ChatUserDto>
     {
@@ -13,8 +12,9 @@ namespace Cloudents.Query.Query
             Id = id;
             UserId = userId;
         }
-        public string Id { get; set; }
-        public long UserId { get; set; }
+
+        private string Id { get; }
+        private long UserId { get;  }
 
 
         internal sealed class
