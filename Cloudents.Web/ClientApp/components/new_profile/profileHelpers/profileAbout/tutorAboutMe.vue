@@ -4,13 +4,15 @@
                 <v-card class="px-4 pt-4 about-me-card">
                     <v-layout column>
                         <v-flex xs12 sm12 md12>
-                            <div>
+                            <div class="title-wrap">
                                 <div class="about-title subheading font-weight-bold  mb-2" v-language:inner>profile_who_am_i</div>
+                                <v-icon @click="openEdit()" v-if="isMyProfile" class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
                             </div>
                             <div class="mt-2">
                              <p class="about-text body-2">{{aboutMe | truncate(isOpen, '...', textLimit)}}
                              </p>
                             </div>
+
                         </v-flex>
                         <v-flex class="read-more-action mt-2 mb-2" v-if="readMoreVisible">
                             <v-divider style="widabout-textth: 100%; height: 2px;"></v-divider>
@@ -26,7 +28,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     export default {
         name: "tutorAboutMe",
         data() {
@@ -35,6 +37,12 @@
                 defOpen: false
 
             }
+        },
+        props: {
+            isMyProfile: {
+                type: Boolean,
+                default: false
+            },
         },
         computed: {
             ...mapGetters(['getProfile']),
@@ -59,6 +67,12 @@
 
             }
         },
+        methods: {
+            ...mapActions(['updateEditDialog']),
+            openEdit() {
+                this.updateEditDialog(true);
+            },
+        },
         filters: {
             truncate(val, isOpen, suffix, textLimit){
                 if (val.length > textLimit && !isOpen) {
@@ -78,6 +92,21 @@
         .about-me-card{
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.18);
             border-radius: 4px;
+        }
+        .title-wrap{
+            position: relative;
+            .edit-icon{
+                position: absolute;
+                right: 0;
+                top: 0;
+                color: @purpleLight;
+                opacity: 0.41;
+                font-size: 20px;
+                cursor: pointer;
+                @media(max-width: @screen-xs){
+                    color: @purpleDark;
+                }
+            }
         }
         .about-title{
             height: 18px;

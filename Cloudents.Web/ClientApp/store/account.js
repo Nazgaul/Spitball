@@ -56,7 +56,8 @@ const state = {
     lastActiveRoute: null,
     profileData: profileService.getProfileData('profileGeneral'),
     profile: null,
-    usersReferred: 0
+    usersReferred: 0,
+    showEditDataDialog: false
 };
 const mutations = {
     setUniExists(state, val){
@@ -182,6 +183,9 @@ const mutations = {
             state.profile.user.description = newData.description;
         }
 
+    },
+    setEditDialog(state, val){
+        state.showEditDataDialog = val;
     }
 };
 
@@ -210,11 +214,14 @@ const getters = {
         } else {
             return false;
         }
-    }
+    },
+    getShowEditDataDialog: state => state.showEditDataDialog
 };
 
 const actions = {
-    
+    updateEditDialog(context, val){
+        context.commit('setEditDialog', val)
+    },
     updateUniExists(context, val){
         context.commit("setUniExists", val);
     },
