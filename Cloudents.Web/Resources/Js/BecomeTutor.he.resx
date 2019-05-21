@@ -132,9 +132,6 @@
   <data name="btn_next" xml:space="preserve">
     <value>הבא</value>
   </data>
-  <data name="contact_to_change" xml:space="preserve">
-    <value>צור קשר איתנו בכדי לשנות את התמחור</value>
-  </data>
   <data name="label_bio" xml:space="preserve">
     <value>קצת עלי</value>
   </data>

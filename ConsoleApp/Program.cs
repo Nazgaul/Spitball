@@ -28,6 +28,9 @@ using System.Threading.Tasks;
 using Cloudents.Query.Chat;
 using Cloudents.Search.Document;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
+using System.Xml;
+using System.Xml.Linq;
+using System.Resources;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -441,7 +444,8 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            var queryBus = _container.Resolve<IQueryBus>();
+            ResourcesMaintenance.GetOrphanedResources();
+            //var queryBus = _container.Resolve<IQueryBus>();
             //  var query = new QuestionAggregateQuery(638L, 0);
             //            var test = await queryBus.QueryAsync(query, default);
 

@@ -126,33 +126,6 @@
   <data name="ask_triassic" xml:space="preserve">
     <value>facts about the triassic period</value>
   </data>
-  <data name="book_biology" xml:space="preserve">
-    <value>Biology: The Core 2nd Edition</value>
-  </data>
-  <data name="book_gregory" xml:space="preserve">
-    <value>Gregory Mankiw textbook</value>
-  </data>
-  <data name="flashcard_calculus" xml:space="preserve">
-    <value>calculus 2 review set</value>
-  </data>
-  <data name="flashcard_physics_study" xml:space="preserve">
-    <value>physics study set</value>
-  </data>
-  <data name="flashcard_spanish" xml:space="preserve">
-    <value>intermediate spanish vocab</value>
-  </data>
-  <data name="home_flashcards" xml:space="preserve">
-    <value>Flashcards for financial accounting</value>
-  </data>
-  <data name="job_ambassador" xml:space="preserve">
-    <value>brand ambassador jobs</value>
-  </data>
-  <data name="job_design" xml:space="preserve">
-    <value>ux/ui design</value>
-  </data>
-  <data name="job_internship" xml:space="preserve">
-    <value>student internship</value>
-  </data>
   <data name="note_electrical" xml:space="preserve">
     <value>electrical engineering notes</value>
   </data>

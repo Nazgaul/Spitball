@@ -120,40 +120,10 @@
   <data name="Ask" xml:space="preserve">
     <value>Ask</value>
   </data>
-  <data name="fair_prise" xml:space="preserve">
-    <value>A fair price will make the sale</value>
-  </data>
-  <data name="Get_Your_Question_Answered" xml:space="preserve">
-    <value>Get Your Question Answered</value>
-  </data>
-  <data name="max_SBL" xml:space="preserve">
-    <value>The max. number of points is 100 per question</value>
-  </data>
-  <data name="min_SBL" xml:space="preserve">
-    <value>The min. number of points is 1 per question</value>
-  </data>
-  <data name="Pick_a_subject" xml:space="preserve">
-    <value>Pick a subject</value>
-  </data>
   <data name="SBL" xml:space="preserve">
     <value>Pts</value>
   </data>
-  <data name="sufficient_SBL" xml:space="preserve">
-    <value>You do not have sufficient points</value>
-  </data>
-  <data name="Tip" xml:space="preserve">
-    <value>Tip:</value>
-  </data>
   <data name="You_have" xml:space="preserve">
     <value>You have</value>
-  </data>
-  <data name="otherAmount_placeholder" xml:space="preserve">
-    <value>Other amount</value>
-  </data>
-  <data name="max_percent_SBL" xml:space="preserve">
-    <value>You do not have sufficient SBL, Earn more points by answering questions</value>
-  </data>
-  <data name="sbl_calc" xml:space="preserve">
-    <value>You have {1} points, you can offer up to {2} points for your question</value>
   </data>
 </root>

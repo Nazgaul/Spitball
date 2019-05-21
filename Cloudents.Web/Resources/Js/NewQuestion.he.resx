@@ -120,40 +120,10 @@
   <data name="Ask" xml:space="preserve">
     <value>שתף</value>
   </data>
-  <data name="fair_prise" xml:space="preserve">
-    <value>מחיר הוגן יבטיח לך מכירה</value>
-  </data>
-  <data name="Get_Your_Question_Answered" xml:space="preserve">
-    <value>קבל תשובות חכמות ומהירות לשאלה שלך</value>
-  </data>
-  <data name="max_SBL" xml:space="preserve">
-    <value>הסכום המרבי לשאלה הוא 100 נקודות</value>
-  </data>
-  <data name="min_SBL" xml:space="preserve">
-    <value>הסכום המינימלי לשאלה הוא נקודה 1</value>
-  </data>
-  <data name="otherAmount_placeholder" xml:space="preserve">
-    <value>סכום אחר</value>
-  </data>
-  <data name="Pick_a_subject" xml:space="preserve">
-    <value>בחר נושא</value>
-  </data>
   <data name="SBL" xml:space="preserve">
     <value>נק'</value>
   </data>
-  <data name="sufficient_SBL" xml:space="preserve">
-    <value>אין לך מספיק נקודות</value>
-  </data>
-  <data name="Tip" xml:space="preserve">
-    <value>עצה:</value>
-  </data>
   <data name="You_have" xml:space="preserve">
     <value>יש לך</value>
-  </data>
-  <data name="max_percent_SBL" xml:space="preserve">
-    <value>אין לך מספיק &lt;bdi&gt;SBL&lt;/bdi&gt;,  קבל עוד &lt;bdi&gt;SBL&lt;/bdi&gt; על ידי מתן תשובות לשאלות.</value>
-  </data>
-  <data name="sbl_calc" xml:space="preserve">
-    <value>יש לך  &lt;bdi&gt;SBL&lt;/bdi&gt;  {1}, אתה יכול להציע עד &lt;bdi&gt;SBL&lt;/bdi&gt;   {2} לשאלה זו</value>
   </data>
 </root>

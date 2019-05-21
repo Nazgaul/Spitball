@@ -168,9 +168,6 @@
   <data name="share_whatsup" xml:space="preserve">
     <value>Text</value>
   </data>
-  <data name="share_with" xml:space="preserve">
-    <value>or share with</value>
-  </data>
   <data name="spread" xml:space="preserve">
     <value>Spread the Word</value>
   </data>
