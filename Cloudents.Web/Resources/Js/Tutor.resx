@@ -175,7 +175,7 @@
     <value>Audio Output Test</value>
   </data>
   <data name="quality_btn_continue" xml:space="preserve">
-    <value>Continue without video or audio</value>
+    <value>Continue</value>
   </data>
   <data name="quality_btn_done" xml:space="preserve">
     <value>Done</value>
