@@ -4,15 +4,17 @@ namespace Cloudents.Command.StudyRooms
 {
     public class CreateStudyRoomSessionCommand : ICommand
     {
-        public CreateStudyRoomSessionCommand(Guid studyRoomId, string sessionName, long userId)
+        public CreateStudyRoomSessionCommand(Guid studyRoomId,
+            bool recordVideo,
+            long userId)
         {
             StudyRoomId = studyRoomId;
-            SessionName = sessionName;
+            RecordVideo = recordVideo;
             UserId = userId;
         }
         public Guid StudyRoomId { get; }
 
-        public string SessionName { get;  }
+        public bool RecordVideo { get;  }
 
         public long UserId { get;  }
     }

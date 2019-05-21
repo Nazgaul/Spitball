@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
@@ -9,7 +10,8 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.EventHandler
 {
-    public class WebSocketStudyRoomSessionCreatedEventHandler : IEventHandler<StudyRoomSessionCreatedEvent>
+    public class WebSocketStudyRoomSessionCreatedEventHandler 
+        : IEventHandler<StudyRoomSessionCreatedEvent>, IEventHandler<StudyRoomSessionRejoinEvent>
     {
         private readonly IHubContext<StudyRoomHub> _hubContext;
         private readonly IVideoProvider _videoProvider;
@@ -22,8 +24,14 @@ namespace Cloudents.Web.EventHandler
 
         public async Task HandleAsync(StudyRoomSessionCreatedEvent eventMessage, CancellationToken token)
         {
-            var users = eventMessage.StudyRoomSession.StudyRoom.Users;
-            var session = eventMessage.StudyRoomSession.SessionId;
+            var studyRoomSession = eventMessage.StudyRoomSession;
+            await DoProcessAsync(studyRoomSession, token);
+        }
+
+        private async Task DoProcessAsync(StudyRoomSession studyRoomSession, CancellationToken token)
+        {
+            var users = studyRoomSession.StudyRoom.Users;
+            var session = studyRoomSession.SessionId;
             var tasks = new List<Task>();
             foreach (var user in users)
             {
@@ -39,7 +47,12 @@ namespace Cloudents.Web.EventHandler
             }
 
             await Task.WhenAll(tasks);
+        }
 
+        public async Task HandleAsync(StudyRoomSessionRejoinEvent eventMessage, CancellationToken token)
+        {
+            var studyRoomSession = eventMessage.StudyRoomSession;
+            await DoProcessAsync(studyRoomSession, token);
         }
     }
 }

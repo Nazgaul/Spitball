@@ -28,15 +28,13 @@ namespace Cloudents.Web.Api
     [Authorize]
     public class StudyRoomController : ControllerBase
     {
-        private readonly IVideoProvider _videoProvider;
+      
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
 
-        public StudyRoomController(IVideoProvider videoProvider,
-            ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus)
+        public StudyRoomController(ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus)
         {
-            _videoProvider = videoProvider;
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
@@ -138,9 +136,9 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var session = $"{id}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-            await _videoProvider.CreateRoomAsync(session, true);// configuration.IsProduction());
-            var command = new CreateStudyRoomSessionCommand(id, session, userId);
+           
+           
+            var command = new CreateStudyRoomSessionCommand(id, configuration.IsProduction(), userId);
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();

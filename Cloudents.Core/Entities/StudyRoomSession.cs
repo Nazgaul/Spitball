@@ -24,6 +24,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime? Ended { get; protected set; }
         public virtual TimeSpan? Duration { get; protected set; }
 
+        public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
 
         public virtual void EndSession()
@@ -34,6 +35,12 @@ namespace Cloudents.Core.Entities
             }
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
+        }
+
+        public virtual void ReJoinStudyRoom()
+        {
+            RejoinCount++;
+            AddEvent(new StudyRoomSessionRejoinEvent(this));
         }
     }
 }

@@ -13,7 +13,7 @@ using static Twilio.Rest.Video.V1.CompositionResource;
 
 namespace Cloudents.Infrastructure.Mail
 {
-    public class SmsProvider : ISmsProvider, IVideoProvider
+    public class TwilioProvider : ISmsProvider, IVideoProvider
     {
 
 
@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Mail
         private const string AccountSid = "AC1796f09281da07ec03149db53b55db8d";
         private const string AuthToken = "c4cdf14c4f6ca25c345c3600a72e8b49";
 
-        public SmsProvider()
+        public TwilioProvider()
         {
             TwilioClient.Init(AccountSid, AuthToken);
         }
@@ -89,6 +89,24 @@ namespace Cloudents.Infrastructure.Mail
         public Task CloseRoomAsync(string id)
         {
             return RoomResource.UpdateAsync(id, RoomResource.RoomStatusEnum.Completed);
+        }
+
+        public async Task<bool> GetRoomAvailableAsync(string id)
+        {
+            var rooms = await RoomResource.ReadAsync(
+                uniqueName: id);
+            var room = rooms.SingleOrDefault();
+            if (room == null)
+            {
+                return false;
+            }
+            if (room.Status == RoomResource.RoomStatusEnum.Completed)
+            {
+                return false;
+            }
+
+            return true;
+
         }
 
         private const string ApiKey = "SKa10d29f12eb338d91351795847b35883";
