@@ -46,6 +46,8 @@ import conversation from './components/conversation/conversation.vue';
 import conversations from './components/conversation/conversationComponent/conversationDetalis/conversationDetails.vue';
 import conversationMessages from './components/conversation/conversationComponent/conversationMessages/conversationMessages.vue';
 
+import studyRoom from './components/studyRoom/studyRoom.vue';
+import studyRoomSession from './components/studyRoom/studyRoomComponents/sessions/studyRoomsSessions.vue';
 export const routes = [
     {
        path: '/home/:userId',
@@ -277,6 +279,17 @@ export const routes = [
                 
             }
         ]
+    },
+    {
+        path: '/reports',
+        name: 'reports',
+        component: studyRoom,
+        children: [
+            {
+                path: '',
+                component: studyRoomSession
+            }
+            ]
     },
 
      {
