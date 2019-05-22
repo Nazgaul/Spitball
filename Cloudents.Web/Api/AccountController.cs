@@ -215,11 +215,16 @@ namespace Cloudents.Web.Api
                 {
                     return BadRequest();
                 }
+
                 var userId = _userManager.GetLongUserId(User);
                 var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
                     model.Description, model.Bio, model.Price.GetValueOrDefault());
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return Conflict();
             }
             catch (NonUniqueObjectException)
             {

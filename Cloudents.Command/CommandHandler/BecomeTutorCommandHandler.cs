@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
@@ -19,6 +20,10 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(BecomeTutorCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
+            if (user.Tutor != null)
+            {
+                throw new ArgumentException("user is already a tutor");
+            }
             user.Tutor = new Tutor(message.Bio, user, message.Price);
             user.Description = message.Description;
             user.CanTeachAllCourses();
