@@ -1,5 +1,5 @@
 <template>
-    <v-layout
+    <v-layout v-if="!isMobile"
             row
             class="tutoring-page"
             :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
@@ -62,6 +62,15 @@
                    :content-class="'review-dialog'">
             <leave-review></leave-review>
         </sb-dialog>
+    </v-layout>
+    <v-layout v-else class="mobile-no-support">
+        <div class="mobile-no-support-container">
+            <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
+            <div class="no-support-button">
+                <button @click="closeWin" v-language:inner="'tutor_close'"></button>
+            </div>
+        </div>
+        
     </v-layout>
 </template>
 <script>
@@ -148,6 +157,9 @@ import { LanguageService } from "../../services/language/languageService";
             },
             panY() {
                 return `${this.getPanY}px`;
+            },
+            isMobile(){
+                return this.$vuetify.breakpoint.xsOnly;
             }
         },
         methods: {
@@ -184,7 +196,10 @@ import { LanguageService } from "../../services/language/languageService";
                         self.lockChat();
                     });
                 });
-            }
+            },
+            closeWin(){
+                global.close();
+            },
         },
         created() {
             this.setStudyRoom(this.id);

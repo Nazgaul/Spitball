@@ -116,3 +116,32 @@
         background-blend-mode: color-burn;
     }
 }
+.mobile-no-support{
+    z-index: 10000;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    .mobile-no-support-container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        .no-support-text{
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .no-support-button{
+            font-size: 16px;
+            button{
+                background:#4452fc;
+                color:#FFF;
+                padding: 8px 40px;
+                border-radius: 30px;
+                margin-top: 5px;
+                outline: none;
+            }
+        }
+    }
+    
+}
