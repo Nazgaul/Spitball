@@ -28,8 +28,8 @@
                       class="price-review-column section-tutor-price-review ml-1">
                 <v-flex xs12 sm12 md12 grow >
                     <v-flex xs12 sm12 md12 shrink v-if="showStriked" class="strike-through">
-                        <span class="pricing striked-price">₪{{tutorData.price}}</span>
-                        <span class="pricing caption striked-price">
+                            <span class="pricing striked-price">₪{{tutorData.price}}</span>
+                            <span class="pricing caption striked-price">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
                     </v-flex>
