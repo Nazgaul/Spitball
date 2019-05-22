@@ -141,6 +141,9 @@
   <data name="chrome_ext_title" xml:space="preserve">
     <value>התקנת תוסף לדפדפן כרום</value>
   </data>
+  <data name="close" xml:space="preserve">
+    <value>סגור</value>
+  </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>לוח</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="nav_text" xml:space="preserve">
     <value>עורך טקסט</value>
+  </data>
+  <data name="not_supported" xml:space="preserve">
+    <value>דף זה אינו נתמך במובייל.</value>
   </data>
   <data name="quality_access_device" xml:space="preserve">
     <value>גישה למערכת</value>

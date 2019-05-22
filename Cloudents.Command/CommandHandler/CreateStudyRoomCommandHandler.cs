@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler
@@ -24,6 +25,11 @@ namespace Cloudents.Command.CommandHandler
         {
             var userTutor = await _userRepository.LoadAsync(message.TutorId, token);
             if (userTutor.Tutor == null)
+            {
+                throw new InvalidOperationException("user is not a tutor");
+            }
+
+            if (userTutor.Tutor.State != ItemState.Ok)
             {
                 throw new InvalidOperationException("user is not a tutor");
             }
