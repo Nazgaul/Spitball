@@ -28,17 +28,21 @@
                       class="price-review-column section-tutor-price-review ml-1">
                 <v-flex xs12 sm12 md12 grow >
                     <v-flex xs12 sm12 md12 shrink v-if="showStriked" class="strike-through">
+                        <div class="d-inline-flex align-baseline">
                         <span class="pricing striked-price">₪{{tutorData.price}}</span>
                         <span class="pricing caption striked-price">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
+                        </div>
                     </v-flex>
                     <v-flex xs12 sm12 md12 shrink>
+                        <div class="d-inline-flex align-baseline">
                         <span class="font-weight-bold headline pricing" v-if="showStriked">₪50</span>
                         <span class="font-weight-bold headline pricing" v-else>₪{{tutorData.price}}</span>
                         <span class="pricing caption">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
+                        </div>
                     </v-flex>
                     <v-flex xs12 sm12 md12 shrink class="pt-2">
                         <userRating
