@@ -154,7 +154,8 @@
     <value>Text Editor</value>
   </data>
   <data name="not_supported" xml:space="preserve">
-    <value>This feature is not supported with mobile yet.</value>
+    <value>Study Room currently not supported by Mobile.
+Try connecting from a computer browser</value>
   </data>
   <data name="quality_access_device" xml:space="preserve">
     <value>Device Access</value>
