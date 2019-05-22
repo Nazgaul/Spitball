@@ -86,14 +86,16 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Return relevant tutors base on user courses
         /// </summary>
+        /// <param name="profile"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<TutorListDto>> GetTutorsAsync(
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListQuery(userId);
+            var query = new TutorListQuery(userId, profile.Country);
             var retValTask = await _queryBus.QueryAsync(query, token);
             return retValTask;
         }

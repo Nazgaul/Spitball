@@ -8,13 +8,15 @@ namespace Cloudents.Query.Tutor
 {
     public class TutorListQuery : IQuery<IEnumerable<TutorListDto>>
     {
-        public TutorListQuery(long userId)
+        public TutorListQuery(long userId, string country)
         {
             UserId = userId;
+            Country = country;
         }
 
 
         private long UserId { get; }
+        private string Country { get; }
 
         internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, IEnumerable<TutorListDto>>
         {
@@ -35,8 +37,9 @@ T.Price,
                         join sb.Tutor T
 	                        on U.Id = T.Id
 						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
-						and  uc.CourseId in (select CourseId from sb.UsersCourses where UserId = @UserId)
-
+						and (uc.CourseId in (select CourseId from sb.UsersCourses where UserId = @UserId)
+                            or @UserId = 0)
+                        and U.Country = @Country
 union
 select U.Id as UserId, U.Name, U.Image, 
 (select STRING_AGG(dt.CourseId, ', ') FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
@@ -47,10 +50,11 @@ T.Price,
 	                        on U.Id = T.Id
 						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
 						join sb.Course c on uc.CourseId = c.Name
-						and c.SubjectId in (Select subjectId  from sb.UsersCourses where UserId = @UserId)
-						) t
+						and (c.SubjectId in (Select subjectId  from sb.UsersCourses where UserId = @UserId)
+                                or @UserId = 0)
+						and U.Country = @Country) t
 
-where t.UserId <> @UserId
+where t.UserId <> @UserId or @UserId = 0
 order by Rate desc
 OFFSET 0 ROWS
 FETCH NEXT 20 ROWS ONLY;";
@@ -58,8 +62,8 @@ FETCH NEXT 20 ROWS ONLY;";
                 {
                     var retVal = await conn.QueryAsync<TutorListDto>(sql, new
                     {
-                        query.UserId
-
+                        query.UserId,
+                        query.Country
                     });
 
                     return retVal;
