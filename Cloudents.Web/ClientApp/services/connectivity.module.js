@@ -19,7 +19,7 @@ const promiseReturn = function (data) {
 const errorHandler = function (err) {
     // "this" is bound to the timerObject
     let endTime = new Date().getTime();
-    analyticsService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "ERROR")
+    analyticsService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "ERROR");
 
     if (err.response.status === 401) {
         global.location = '/signin';

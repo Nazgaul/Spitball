@@ -2,9 +2,6 @@
     <div class="become-second-wrap">
         <v-layout row wrap>
             <v-form v-model="validBecomeSecond" ref="becomeFormSecond" class="become-second-form">
-                <v-flex xs12 class="text-xs-center mb-2" v-if="errorConflict">
-                    <span  class="error-message" v-language:inner>becomeTutor_already_submitted</span>
-                </v-flex>
                 <v-flex xs12 class="text-xs-center mb-4">
                     <span class="sharing-text" v-language:inner>becomeTutor_sharing</span>
                 </v-flex>
@@ -72,7 +69,6 @@
                 btnLoading: false,
                 validBecomeSecond: false,
                 errorFromServer: '',
-                errorConflict: false,
                 rules: {
                     maximumChars: (value) => validationRules.maximumChars(value, 1000),
 
@@ -86,10 +82,13 @@
             }
         },
         methods: {
-            ...mapActions(['updateTutorInfo', 'sendBecomeTutorData', 'updateTutorDialog', 'updateAccountUserToTutor']),
-            // closeDialog(){
-            //     this.updateTutorDialog(false);
-            // },
+            ...mapActions([
+                              'updateTutorInfo',
+                              'sendBecomeTutorData',
+                              'updateTutorDialog',
+                              'updateAccountUserToTutor',
+                              'updateToasterParams'
+                          ]),
             goToPreviousStep() {
                 this.$root.$emit('becomeTutorStep', 1);
             },
@@ -107,8 +106,12 @@
                         }, (error) => {
                             let isConflict = error.response.status === 409;
                             if(isConflict) {
-                                self.errorConflict = true;
                                 console.log('Conflict become');
+                                self.updateToasterParams({
+                                                             toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                                                             showToaster: true,
+                                                         });
+                                self.updateTutorDialog(false);
                             }
                         }).finally(() => {
                         self.btnLoading = false;
