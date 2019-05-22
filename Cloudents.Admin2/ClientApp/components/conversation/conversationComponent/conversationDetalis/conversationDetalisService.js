@@ -3,7 +3,9 @@
 function ConversationItem(objInit) {
     this.id = objInit.id;
     this.userName = objInit.userName;
+    this.userId = objInit.userId;
     this.tutorName = objInit.tutorName;
+    this.tutorId = objInit.tutorId;
     this.lastMessage = new Date(objInit.lastMessage);
     this.expanded = false;
 }
