@@ -52,14 +52,12 @@ let availableDevices = [];
                               video:videoDevice
                           }).then((tracksCreated) => {
             let localMediaContainer = document.getElementById('localTrack');
+            //clear before attach
             localMediaContainer.innerHTML = "";
+            //attach tracks
             tutorService.attachTracks(tracksCreated, localMediaContainer);
             self.localTrackAval = true;
-            // tracksCreated.forEach((track) => {
-            //     localMediaContainer.innerHTML = "";
-            //     localMediaContainer.appendChild(track.attach());
-            //     self.localTrackAval = true;
-            // });
+            //add datatrack, after created audio and or video tracks
             tracksCreated.push(tutorService.dataTrack);
             connectOptions = {
                 tracks: tracksCreated,
