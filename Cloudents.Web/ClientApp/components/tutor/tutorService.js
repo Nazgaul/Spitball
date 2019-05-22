@@ -80,7 +80,7 @@ const createAudioContext = function () {
 
         // Handle the incoming audio stream
         // Handle the incoming audio stream
-        const audioContext = new (AudioContext || webkitAudioContext)();
+        const audioContext = new (global.AudioContext || global.webkitAudioContext)();
         const input = audioContext.createMediaStreamSource(stream);
         const analyser = audioContext.createAnalyser();
         const scriptProcessor = audioContext.createScriptProcessor();
@@ -102,7 +102,7 @@ const createAudioContext = function () {
 };
 
 const connectToRoom = function (token, options) {
-    // disconnect the user from they joined already
+    // disconnect the user from room if they already joined
     store.dispatch('leaveRoomIfJoined');
     Twilio.connect(token, options)
           .then((room) => {
@@ -117,13 +117,12 @@ const connectToRoom = function (token, options) {
                     let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
                     store.dispatch('updateUserIdentity', localIdentity);
                     store.dispatch('updateLocalStatus', false);
-                    // TODO persistent
-                    localStorage.setItem("identity", localIdentity);
                     //set local participant in store
                     store.dispatch('updateLocalParticipant', room.localParticipant);
 
                     // Print the initial Network Quality Level
                     // printNetworkQuality(store.getters['localParticipant'].networkQualityLevel);
+
                     if(store.getters['getStudentStartDialog']){
                         store.dispatch('updateStudentStartDialog', false);
 
@@ -278,6 +277,7 @@ const createRoomProps = function createLeaderBoardItem(ObjInit){
 
 export default {
     dataTrack,
+    attachTracks,
     detachTracks,
     uploadCanvasImage,
     connectToRoom,
