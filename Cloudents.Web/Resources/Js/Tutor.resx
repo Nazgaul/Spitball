@@ -141,6 +141,9 @@
   <data name="chrome_ext_title" xml:space="preserve">
     <value>Chrome Extension Installation</value>
   </data>
+  <data name="close" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>Canvas</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="nav_text" xml:space="preserve">
     <value>Text Editor</value>
+  </data>
+  <data name="not_supported" xml:space="preserve">
+    <value>This feature is not supported with mobile yet.</value>
   </data>
   <data name="quality_access_device" xml:space="preserve">
     <value>Device Access</value>
