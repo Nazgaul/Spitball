@@ -100,44 +100,6 @@ function PurchasedDocItem(objInit) {
     this.price = Math.abs(objInit.price ) || 'not specified';
 }
 
-function UpVoteItem(objInit) {
-    this.created = objInit.created  || 'no date';
-    this.itemText = objInit.itemText  || 'not specified';
-    this.itemType = objInit.itemType || 'not specified';
-}
-function DownVoteItem(objInit) {
-    this.date = objInit.created  || 'no date';
-    this.text = objInit.itemText  || 'not specified';
-    this.type = objInit.itemType || 'not specified';
-}
-function FlaggedItem(objInit) {
-    this.date = objInit.created  || 'no date';
-    this.text = objInit.text  || 'not specified';
-    this.type = objInit.itemType || 'not specified';
-    this.voteCount = objInit.voteCount || 0;
-    this.flagReason = objInit.flagReason || 'not specified';
-    this.state = objInit.state || 'not specified';
-
-}
-
-function createUpVoteItem(data) {
-    return data.map((item) => {
-        return new UpVoteItem(item);
-    });
-
-}
-
-function createDownVoteItem(data) {
-    return data.map((item) => {
-        return new DownVoteItem(item);
-    });
-}
-function createFlaggedItem(data) {
-    return data.map((item) => {
-        return new FlaggedItem(item);
-    });
-}
-
 function createQuestionItem(data) {
     return data.map((item) => {
         return new QuestionItem(item);
@@ -216,39 +178,6 @@ export default {
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createPurchasedDocItem(resp);
-
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
-            });
-    },
-    getUpvotes: (id, page) => {
-        let path = `AdminUser/upVotes?id=${id}&page=${page}`;
-        return connectivityModule.http.get(path)
-            .then((resp) => {
-                return createUpVoteItem(resp);
-
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
-            });
-    },
-    getDownVotes: (id, page) => {
-        let path = `AdminUser/downVotes?id=${id}&page=${page}`;
-        return connectivityModule.http.get(path)
-            .then((resp) => {
-                return createDownVoteItem(resp);
-
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
-            });
-    },
-    getFlaggedItems: (id, page) => {
-        let path = `AdminUser/flags?id=${id}&page=${page}`;
-        return connectivityModule.http.get(path)
-            .then((resp) => {
-                return createFlaggedItem(resp);
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');

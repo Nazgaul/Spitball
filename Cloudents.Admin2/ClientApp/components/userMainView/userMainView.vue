@@ -56,9 +56,6 @@
                             <v-tab :to="{name: 'userAnswers', params:userId}">Answers</v-tab>
                             <v-tab :to="{name: 'userDocuments', params:userId}">Documents</v-tab>
                             <v-tab :to="{name: 'userPurchasedDocuments', params:userId} ">Purchased Documents</v-tab>
-                            <v-tab :to="{name: 'userUpVotes', params:userId} ">Up Votes</v-tab>
-                            <v-tab :to="{name: 'userDownVotes', params:userId} ">Down Votes</v-tab>
-                            <v-tab :to="{name: 'userFlagged', params:userId} ">Flagged</v-tab>
                         </v-tabs>
                         <div class="filters mb-2">
                             <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"

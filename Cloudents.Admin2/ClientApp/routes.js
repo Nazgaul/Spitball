@@ -34,9 +34,6 @@ import userQuestions from './components/userMainView/userQuestions/userQuestions
 import userAnswers from './components/userMainView/userAnswers/userAnswers.vue';
 import userDocuments from './components/userMainView/userDocuments/userDocuments.vue';
 import userPurchasedDocuments from './components/userMainView/userPurchasedDocuments/userPurchasedDocuments.vue';
-import userUpVotes from './components/userMainView/userUpVotes/userUpVotes.vue';
-import userDownVotes from './components/userMainView/userDownVotes/userDownVotes.vue';
-import userFlagged from './components/userMainView/userFlaggedItems/userFlaggedItems.vue';
 
 import Management from './components/management/Management.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
@@ -72,21 +69,6 @@ export const routes = [
                 name:'userPurchasedDocuments',
                 path:'userPurchasedDocuments',
                 component: userPurchasedDocuments
-            },
-            {
-                name:'userUpVotes',
-                path:'userUpVotes',
-                component: userUpVotes
-            },
-            {
-                name:'userDownVotes',
-                path:'userDownVotes',
-                component: userDownVotes
-            },
-            {
-                name:'userFlagged',
-                path:'userFlaggedItems',
-                component: userFlagged
             },
             // {
             //     path:'userDownvotes',
