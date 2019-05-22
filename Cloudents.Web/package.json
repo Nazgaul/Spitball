@@ -95,7 +95,7 @@
     "npm": "^6.7.0",
     "timeago.js": "^4.0.0-beta.1",
     "tslib": "^1.9.3",
-    "twilio-video": "^1.15.2",
+    "twilio-video": "1.18.0",
     "vue-clipboard2": "^0.2.1",
     "vue-color": "^2.7.0",
     "vue-numeric": "^2.3.0",
