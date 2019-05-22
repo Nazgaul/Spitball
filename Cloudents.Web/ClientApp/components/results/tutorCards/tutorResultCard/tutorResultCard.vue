@@ -34,8 +34,8 @@
                         </span>
                     </v-flex>
                     <v-flex xs12 sm12 md12 shrink>
-                        <span class="font-weight-bold headline pricing" v-if="showStriked">₪ 50</span>
-                        <span class="font-weight-bold headline pricing" v-else>₪ {{tutorData.price}}</span>
+                        <span class="font-weight-bold headline pricing" v-if="showStriked">₪50</span>
+                        <span class="font-weight-bold headline pricing" v-else>₪{{tutorData.price}}</span>
                         <span class="pricing caption">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
