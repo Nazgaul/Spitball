@@ -1,4 +1,4 @@
-import Twilio, { connect, createLocalTracks, createLocalVideoTrack, LocalDataTrack } from 'twilio-video';
+import Twilio, { connect, LocalDataTrack } from 'twilio-video';
 import { connectivityModule } from '../../services/connectivity.module';
 import { LanguageService } from '../../services/language/languageService';
 import store from '../../store/index.js';
