@@ -16,11 +16,11 @@
         <!--</v-list-tile>-->
       <!--</v-list>-->
       <v-list>
-        <v-list-tile class="group-header search-university-title pl-1" :class="{'active': inStudyRoomLobby}">
+        <v-list-tile class="group-header search-university-title pl-1" @click.native.prevent="openStudyRooms()" :class="{'active': inStudyRoomLobby}" :to="{ name: 'studyRooms'}">
           <v-list-tile-action>
             <v-icon>sbf-studyroom-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openStudyRooms()" v-text="dictionary.myStudyRooms" class="pl-1"></v-list-tile-title>
+          <v-list-tile-title v-text="dictionary.myStudyRooms" class="pl-1"></v-list-tile-title>
         </v-list-tile>
       </v-list>
       <v-list class="class-list">
@@ -38,8 +38,7 @@
           v-for="(item, i) in getSelectedClasses"
           :class="{'active': item.text ? item.text === selectedCourse : item === selectedCourse}"
           :key="i"
-          @click="selectCourse(item)"
-        >
+          @click="selectCourse(item)">
           <v-list-tile-title v-text="item.text ? item.text : item" class="pad-left"></v-list-tile-title>
         </v-list-tile>
       </v-list>
