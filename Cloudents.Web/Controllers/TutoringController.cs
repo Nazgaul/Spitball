@@ -12,13 +12,13 @@ namespace Cloudents.Web.Controllers
         [Route("tutoring")]
         public IActionResult Index()
         {
-            return Redirect("https://india.spitball.co/tutoring");
+            return Redirect("/");
         }
 
         [Route("tutoring/{id:guid}")]
         public IActionResult IndexWithId(Guid id)
         {
-            return Redirect($"https://india.spitball.co/tutoring/{id}");
+            return Redirect("/");
         }
     }
 }
