@@ -248,14 +248,20 @@ export default {
             let self = this;
             global.addEventListener('resize', this.resizeCanvas, false);
             canvas.addEventListener('mousedown', (e) => {
-                self.clearTabOption();
-                if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
-                    self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
+                console.log('event which test', e, e.which)
+                if(e.button == 0){
+                    self.clearTabOption();
+                    if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
+                        self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
+                    }
                 }
+
             });
             canvas.addEventListener('mouseup', (e) => {
-                if (!!self.currentOptionSelected && self.currentOptionSelected.mouseup) {
-                    self.currentOptionSelected.mouseup.bind(self.canvasData, e)()
+                if(e.button == 0) {
+                    if(!!self.currentOptionSelected && self.currentOptionSelected.mouseup) {
+                        self.currentOptionSelected.mouseup.bind(self.canvasData, e)()
+                    }
                 }
             });
             canvas.addEventListener('mouseleave', (e) => {

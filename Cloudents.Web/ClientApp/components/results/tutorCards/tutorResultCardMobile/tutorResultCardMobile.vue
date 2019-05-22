@@ -15,14 +15,18 @@
                                           v-line-clamp:18="1">{{tutorData.name}}</span>
                                     </v-flex>
                                     <v-flex shrink>
-                                <span class="font-weight-bold pricing pr-1" v-if="showStriked">
+                                        <!--keep this inline style to fix price / hour spacing-->
+                                <span class="font-weight-bold pricing pr-1" v-if="showStriked" style="display: table;">
                                      <span class="subheading font-weight-bold">₪50</span>
                                     <span class="font-weight-regular caption" v-language:inner>resultTutor_hour</span>
                                 </span>
 
                                 <span class="font-weight-bold pricing pr-1" v-else>
+                                     <!--keep this wraper to fix price / hour spacing-->
+                                    <div class="d-inline-flex align-baseline">
                                 <span class="subheading font-weight-bold">₪{{tutorData.price}}</span>
-                            <span class="pricing caption" v-language:inner>resultTutor_hour</span>
+                            <span class="pricing caption"  v-language:inner>resultTutor_hour</span>
+                                        </div>
                         </span>
                                         <v-flex shrink v-if="showStriked" class="strike-through">
 
