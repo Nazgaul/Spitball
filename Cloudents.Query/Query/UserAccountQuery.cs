@@ -47,7 +47,7 @@ namespace Cloudents.Query.Query
                             case when t.id is null then 0 else 1 end as IsTutor
                         from sb.[user] u
                         left join sb.Tutor t
-	                        on u.Id = t.Id
+	                       on u.Id = t.Id and t.State = 'Ok'
                         where U.Id = @Id 
                         and (LockoutEnd is null or GetUtcDate() >= LockoutEnd);";
 
