@@ -147,20 +147,14 @@ namespace Cloudents.Web.Api
             [FromServices] IBinarySerializer serializer,
             CancellationToken token)
         {
-            try
-            {
-                Image.FromStream(file.OpenReadStream());
-            }
-            catch
-            {
-                ModelState.AddModelError("x", "unsupported format");
-                return BadRequest(ModelState);
-            }
             if (file == null)
             {
                 ModelState.AddModelError("x", "no file");
                 return BadRequest(ModelState);
             }
+
+            
+           
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
             if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
             {
@@ -174,6 +168,18 @@ namespace Cloudents.Web.Api
             if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
             {
                 ModelState.AddModelError("x", "not an image");
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                using (var x = Image.FromStream(file.OpenReadStream()))
+                {
+
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError("x", "unsupported format");
                 return BadRequest(ModelState);
             }
             var userId = userManager.GetLongUserId(User);

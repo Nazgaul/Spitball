@@ -24,11 +24,13 @@
                                 <span class="subheading font-weight-bold">₪{{tutorData.price}}</span>
                             <span class="pricing caption" v-language:inner>resultTutor_hour</span>
                         </span>
-                                        <v-flex shrink v-if="showStriked" class="strike-through ">
-                                            <span class="striked-price">₪{{tutorData.price}}</span>
-                                            <span class="pricing striked-hour">
+                                        <v-flex shrink v-if="showStriked" class="strike-through">
+
+                                                <span class="striked-price">₪{{tutorData.price}}</span>
+                                                <span class="pricing striked-hour">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
+
                                         </v-flex>
                                     </v-flex>
 
@@ -116,7 +118,7 @@
                 //text-decoration: line-through; //will not work cause of different font sizes
                 position: relative;
                 color: @colorBlackNew;
-                display: flex;
+                display: table;
                 .striked-price{
                     font-size: 12px;
                 }
@@ -126,7 +128,6 @@
                 &:after {
                     content: '';
                     width: 100%;
-                    max-width: 64px;
                     border-bottom: solid 1px @colorBlackNew;
                     position: absolute;
                     left: 0;
@@ -204,17 +205,20 @@
         }
         .strike-through {
             //text-decoration: line-through; //will not work cause of different font sizes
-            font-size: 16px;
+            font-size: 14px;
             position: relative;
+            display: table;
             &:after {
                 content: '';
                 width: 100%;
-                max-width: 86px;
                 border-bottom: solid 1px @textColor;
                 position: absolute;
                 left: 0;
                 top: 50%;
                 z-index: 1;
+            }
+            .striked-hour{
+                font-size: 12px;
             }
         }
         .small-text {
