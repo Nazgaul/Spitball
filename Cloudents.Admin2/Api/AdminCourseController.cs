@@ -175,7 +175,7 @@ namespace Cloudents.Admin2.Api
     
 
         [HttpDelete("{name}")]
-        public async Task<IActionResult> ApproveCourse(string name,
+        public async Task<IActionResult> DeleteCourse(string name,
                 CancellationToken token)
         {
             var command = new DeleteCourseCommand(name);

@@ -86,7 +86,7 @@ namespace Cloudents.Web.Api
 
 
         /// <summary>
-        /// Return relevant tutors base on user courses
+        /// Return relevant tutors base on user courses -on all courses tab - feed
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
@@ -101,7 +101,7 @@ namespace Cloudents.Web.Api
         }
 
         /// <summary>
-        /// Return relevant tutors base on user course
+        /// Return relevant tutors base on user course - on specific course tab - feed
         /// </summary>
         /// <param name="courseName">The course name</param>
         /// <param name="token"></param>
