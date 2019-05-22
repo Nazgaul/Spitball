@@ -207,9 +207,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("info")]
         public async Task<UserDetailsDto> GetUserDetails(string userIdentifier, CancellationToken token)
         {
-            AdminUserDetailsQuery query;
-          
-            query = new AdminUserDetailsQuery(userIdentifier);
+            var query = new AdminUserDetailsQuery(userIdentifier);
            
             return await _queryBus.QueryAsync(query, token);
         }

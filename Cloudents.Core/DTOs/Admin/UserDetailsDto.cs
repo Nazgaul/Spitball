@@ -34,6 +34,6 @@ namespace Cloudents.Core.DTOs.Admin
         public bool EmailConfirmed { get; set; }
         [EntityBind(nameof(RegularUser.LastOnline))]
         public DateTime? LastOnline { get; set; }
-        public bool IsTutor{ get; set; }
+        public string IsTutor{ get; set; }
     }
 }
