@@ -34,11 +34,14 @@
                         </span>
                     </v-flex>
                     <v-flex xs12 sm12 md12 shrink>
+                        <!--keep this wraper to fix price / hour spacing-->
+                        <div class="d-inline-flex align-baseline">
                         <span class="font-weight-bold headline pricing" v-if="showStriked">₪50</span>
                         <span class="font-weight-bold headline pricing" v-else>₪{{tutorData.price}}</span>
                         <span class="pricing caption">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
+                        </div>
                     </v-flex>
                     <v-flex xs12 sm12 md12 shrink class="pt-2">
                         <userRating
