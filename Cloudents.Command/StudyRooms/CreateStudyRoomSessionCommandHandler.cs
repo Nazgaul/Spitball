@@ -26,17 +26,17 @@ namespace Cloudents.Command.StudyRooms
             }
 
             var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-            var lastSession = room.Sessions.LastOrDefault();
-            if (lastSession != null && lastSession.Ended == null)
-            {
-                var roomAvailable = await _videoProvider.GetRoomAvailableAsync(lastSession.SessionId);
-                if (roomAvailable)
-                {
-                    lastSession.ReJoinStudyRoom();
-                    return;
-                }
+            //var lastSession = room.Sessions.LastOrDefault();
+            //if (lastSession != null && lastSession.Ended == null)
+            //{
+            //    var roomAvailable = await _videoProvider.GetRoomAvailableAsync(lastSession.SessionId);
+            //    if (roomAvailable)
+            //    {
+            //        lastSession.ReJoinStudyRoom();
+            //        return;
+            //    }
 
-            }
+            //}
             await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo);
             var session = new StudyRoomSession(room, sessionName);
             room.AddSession(session);
