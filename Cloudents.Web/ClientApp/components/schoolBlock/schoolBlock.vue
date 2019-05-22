@@ -28,7 +28,8 @@
           <v-list-tile-action class="mr-1">
             <v-icon>sbf-courses-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="selectCourse(null, true)" v-text="dictionary.allCourses"></v-list-tile-title>
+          <v-list-tile-title @click="accountUser ? selectCourse(null, true) : openPersonalizeCourse()"
+                             v-text="accountUser ? dictionary.allCourses : dictionary.addcourses"></v-list-tile-title>
           <v-list-tile-action class="edit-course px-3" @click="openPersonalizeCourse()">
             <v-icon>sbf-close</v-icon>
           </v-list-tile-action>
@@ -80,7 +81,8 @@ export default {
       "getAllSteps",
       "accountUser",
       "getSearchLoading",
-      "getShowSchoolBlock"
+      "getShowSchoolBlock",
+      "accountUser"
     ]),
     schoolName() {
       return this.getSchoolName;
@@ -205,7 +207,7 @@ export default {
         this.updateLoginDialogState(true);
       } else {
         let steps = this.getAllSteps;
-          this.$router.push({name: 'editCourse'});
+        this.$router.push({name: 'editCourse'});
       }
     },
     openPersonalizeUniversity() {

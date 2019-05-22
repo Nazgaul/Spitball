@@ -3,7 +3,7 @@
     <v-flex class="information-box" v-show="showInformationBlock">
         <div :class="{'information-box-mobile-wrap': isMobile}">
             <v-icon v-show="isMobile" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
-            <span class="information-box-text" :class="{'mobile': isMobile}">{{informationBlockText}}</span>   
+            <span v-if="accountUser" class="information-box-text" :class="{'mobile': isMobile}">{{informationBlockText}}</span>
         </div>
     </v-flex>    
     <v-flex class="line verticals static-card-what-is-hw-question">
