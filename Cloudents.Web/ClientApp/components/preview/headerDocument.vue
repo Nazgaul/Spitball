@@ -134,7 +134,7 @@
                             <span class="doc-type-text">{{docType}}</span>
                         </div>
                         <div class="doc-title">
-                            <span v-line-clamp="1">{{itemName  ? itemName : ''}}</span>
+                            <span v-line-clamp:18="1">{{itemName  ? itemName : ''}}</span>
                         </div>
                     </div>
                     <div class="purchase-actions">
