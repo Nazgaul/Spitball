@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Query.Chat;
 using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
 using FluentAssertions;
@@ -137,5 +139,18 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new UserAccountQuery(638);
             var user = await fixture.QueryBus.QueryAsync(query, default);
         }
+
+
+        [Fact]
+        public async Task UserUnreadMessage_Ok()
+        {
+            var query = new UserUnreadMessageQuery(null);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+
+
+            query = new UserUnreadMessageQuery(result.First().Version);
+            result = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
     }
 }

@@ -168,11 +168,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = userManager.GetLongUserId(User);
-            //if (userId == model.Tutor)
-            //{
-            //    return BadRequest();
-            //}
-
+           
             var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, userId);
             try
             {
