@@ -110,6 +110,7 @@
                                 self.updateToasterParams({
                                                              toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
                                                              showToaster: true,
+                                                             toasterTimeout: 50000000
                                                          });
                                 self.updateTutorDialog(false);
                             }
