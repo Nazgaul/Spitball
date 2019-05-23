@@ -16,7 +16,10 @@
         <!--</v-list-tile>-->
       <!--</v-list>-->
       <v-list>
-        <v-list-tile class="group-header search-university-title pl-1" @click.native.prevent="openStudyRooms()" :class="{'active': inStudyRoomLobby}" :to="{ name: 'studyRooms'}">
+        <v-list-tile class="group-header search-university-title pl-1"
+                     @click.native.prevent="openStudyRooms()"
+                     :class="{'active': inStudyRoomLobby}"
+                     :to="{ name: 'studyRooms'}">
           <v-list-tile-action>
             <v-icon>sbf-studyroom-icon</v-icon>
           </v-list-tile-action>
