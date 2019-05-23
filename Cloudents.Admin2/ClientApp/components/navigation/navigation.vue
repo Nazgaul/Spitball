@@ -116,7 +116,7 @@
                             path: '/tutor'
                         },
                         childrens: [
-                            { name: 'Pending Tutors', link: '/tutor', icon: '' },
+                            { name: 'Pending Tutors', link: '/tutor/pendingTutors', icon: '' },
                            ]
                     },
                     {

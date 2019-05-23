@@ -46,6 +46,7 @@ import conversation from './components/conversation/conversation.vue';
 import conversations from './components/conversation/conversationComponent/conversationDetalis/conversationDetails.vue';
 import conversationMessages from './components/conversation/conversationComponent/conversationMessages/conversationMessages.vue';
 
+import tutors from './components/tutor/tutor.vue';
 import pendingTutors from './components/tutor/pendingTutors/pendingTutor.vue';
 
 export const routes = [
@@ -103,11 +104,15 @@ export const routes = [
     {
         path: '/tutor',
         name: 'tutor',
-        component: pendingTutors,
+        component: tutors,
         children: [
             {
                 path: '',
-                component: pendingTutors,
+                redirect: 'pendingTutors',
+            },
+            {
+            path: 'pendingTutors',
+            component: pendingTutors
             }
             ]
 
