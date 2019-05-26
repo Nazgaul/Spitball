@@ -32,6 +32,7 @@
                     </div>
                 </div>
             </nav>
+            <whiteBoardTools></whiteBoardTools>
             <transition name="slide-x-transition">
                 <keep-alive>
                     <component :is="activeItem" :roomId="id"></component>
@@ -109,6 +110,7 @@
     import leaveReview from './tutorHelpers/leaveReview/leaveReview.vue';
     import startSessionTutor from './tutorHelpers/startSession-popUp-tutor/startSession-popUp-Tutor.vue';
     import startSessionStudent from './tutorHelpers/startSession-popUp-student/startSession-popUp-student.vue';
+    import whiteBoardTools from './whiteboard/whiteboardTools.vue'
 
     export default {
         components: {
@@ -129,7 +131,8 @@
             sbDialog,
             leaveReview,
             startSessionTutor,
-            startSessionStudent
+            startSessionStudent,
+            whiteBoardTools
         },
         name: "tutor",
         data() {
