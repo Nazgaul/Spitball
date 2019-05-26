@@ -197,6 +197,13 @@ const getters = {
             return false;
         }
     },
+    getIsTutorState: state =>{
+        if( state.user && state.user.isTutorState) {
+            return state.user.isTutorState;
+        } else {
+            return false;
+        }
+    },
     getProfile: state => state.profile,
     fromPath: state => state.fromPath,
     unreadMessages: state => state.unreadMessages,

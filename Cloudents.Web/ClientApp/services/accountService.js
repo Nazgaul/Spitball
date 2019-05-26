@@ -9,10 +9,20 @@ function AccountUser(ObjInit){
     this.universityExists= ObjInit.universityExists;
     this.score = ObjInit.score;
     this.phoneNumber = ObjInit.phoneNumber;
-    this.isTutor = ObjInit.isTutor || false;
+    this.isTutor = ObjInit.isTutor && ObjInit.isTutor.toLowerCase() === 'ok';
+    this.isTutorState =  createIsTutorState(ObjInit.isTutor);// state of become tutor request, possible options ok, pending;
     this.image = ObjInit.image || '';
     this.online = ObjInit.online || false;
     this.needPayment = ObjInit.needPayment;
+}
+function createIsTutorState(str){
+    if(str && str.toLowerCase() === 'ok'){
+        return 'ok'
+    }else if(str && str.toLowerCase() === 'pending'){
+        return 'pending'
+    }else{
+        return null
+    }
 }
  function TutorData(objOnit) {
      this.price= objOnit.price || 0;
