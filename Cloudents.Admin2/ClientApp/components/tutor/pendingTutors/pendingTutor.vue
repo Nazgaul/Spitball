@@ -16,10 +16,10 @@
                                 <span>email: {{tutor.email}}</span>
                             </div>
                             <div class="user-id ml-2" @click="doCopy(tutor.bio, 'Bio')">
-                                <span>Bio: {{tutor.bio}}</span>
+                                <span>bio: {{tutor.bio}}</span>
                             </div>
                              <div class="user-id ml-2" @click="doCopy(tutor.created.toLocaleString(), 'Created')">
-                                <span>Created: {{tutor.created.toLocaleString()}}</span>
+                                <span>created: {{tutor.created.toLocaleString()}}</span>
                             </div>
                             <div class="tutor-actions-container">
                                 <v-tooltip left>
