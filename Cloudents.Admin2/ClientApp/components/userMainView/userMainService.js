@@ -164,7 +164,7 @@ function createPurchasedDocItem(data) {
 
 export default {
     getUserData: (id, page) => {
-        let path = `AdminUser/info?userIdentifier=${id}&page=${page}`;
+        let path = `AdminUser/info?userIdentifier=${encodeURIComponent(id)}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
                 if(resp){
@@ -173,9 +173,6 @@ export default {
                     return false;
                 }
 
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
             });
     },
     getUserDocuments: (id, page) => {

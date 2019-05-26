@@ -1,5 +1,5 @@
 <template>
-    <v-layout class="user-info-section" column align-center :class="{'mobile-view': $vuetify.breakpoint.xsOnly}">
+    <v-layout class="user-info-section" column align-center :class="{'mobile-view': $vuetify.breakpoint.xsOnly}" v-if="!tutorPending">
         <!--<v-flex xs12>-->
             <v-card class="px-3 user-info-card" :class="[$vuetify.breakpoint.xsOnly ? 'mobile-view justify-space-betweeen transparent elevation-0 px-0 py-2': 'py-4']">
                     <v-flex  v-if="$vuetify.breakpoint.smAndUp">
@@ -32,10 +32,18 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     import becomeTutorBtn from '../../profileHelpers/becomeTutorBtn/becomeTutorBtn.vue';
     export default {
         name: "userInfoBlock",
-        components: {becomeTutorBtn}
+        components: {becomeTutorBtn},
+        computed: {
+            ...mapGetters(['getIsTutorState']),
+            tutorPending() {
+                return this.getIsTutorState && this.getIsTutorState === 'pending';
+            }
+        },
+
     }
 </script>
 
