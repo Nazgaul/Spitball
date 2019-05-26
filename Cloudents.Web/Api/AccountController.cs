@@ -153,8 +153,6 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            
-           
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
             if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
             {

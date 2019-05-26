@@ -1,6 +1,7 @@
 ﻿using System;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
@@ -72,7 +73,7 @@ namespace Cloudents.Core.DTOs
         public string Name { get; set; }
         public string Image { get; set; }
         public int Score { get; set; }
-        public bool IsTutor { get; set; }
+        public ItemState? IsTutor { get; set; }
 
         public bool NeedPayment { get; set; }
     }
