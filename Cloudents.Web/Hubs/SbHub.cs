@@ -55,8 +55,8 @@ namespace Cloudents.Web.Hubs
                 if (result)
                 {
                     _logger.Value.Info($"Need to change online status true of user {currentUserId}");
-                    var command = new ChangeOnlineStatusCommand(currentUserId, true);
-                    await _commandBus.Value.DispatchAsync(command, default);
+                 //   var command = new ChangeOnlineStatusCommand(currentUserId, true);
+                  //  await _commandBus.Value.DispatchAsync(command, default);
                 }
 
 
@@ -84,11 +84,11 @@ namespace Cloudents.Web.Hubs
 
 
 
-            var t2 = Clients.All.SendAsync(MethodName, message);
+          //  var t2 = Clients.All.SendAsync(MethodName, message);
 
 
-            await Task.WhenAll(t2);
-            await base.OnConnectedAsync();
+          //  await Task.WhenAll(t2);
+          //  await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
@@ -133,9 +133,9 @@ namespace Cloudents.Web.Hubs
 
 
 
-            var t2 = Clients.All.SendAsync(MethodName, message);
-            await Task.WhenAll(t2);
-            await base.OnDisconnectedAsync(exception);
+          //  var t2 = Clients.All.SendAsync(MethodName, message);
+          //  await Task.WhenAll(t2);
+          //  await base.OnDisconnectedAsync(exception);
         }
 
 
