@@ -4,6 +4,7 @@ using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,6 +36,9 @@ namespace Cloudents.Web.Hubs
             await Clients.All.SendAsync(MethodName, entity);
         }
 
+        private static readonly byte dump = new byte();
+        private static readonly ConcurrentDictionary<long,byte> CurrentUserIds = new ConcurrentDictionary<long,byte>();
+
         public override async Task OnConnectedAsync()
         {
             var country = Context.User.Claims.FirstOrDefault(f =>
@@ -45,14 +49,22 @@ namespace Cloudents.Web.Hubs
 
             try
             {
-                var command = new ChangeOnlineStatusCommand(currentUserId, true);
-                await _commandBus.Value.DispatchAsync(command, default);
+                CurrentUserIds.AddOrUpdate()
+                var result = CurrentUserIds.Add(currentUserId);
+
+                if (result)
+                {
+                    _logger.Value.Info($"Need to change online status true of user {currentUserId}");
+                    var command = new ChangeOnlineStatusCommand(currentUserId, true);
+                    await _commandBus.Value.DispatchAsync(command, default);
+                }
+
 
             }
             catch (Exception e)
             {
 
-                _logger.Value.Exception(e,new Dictionary<string, string>()
+                _logger.Value.Exception(e, new Dictionary<string, string>()
                 {
                     ["SignalR"] = "Signalr"
                 });
@@ -75,7 +87,7 @@ namespace Cloudents.Web.Hubs
             var t2 = Clients.All.SendAsync(MethodName, message);
 
 
-            await Task.WhenAll( t2);
+            await Task.WhenAll(t2);
             await base.OnConnectedAsync();
         }
 
@@ -93,8 +105,15 @@ namespace Cloudents.Web.Hubs
             var currentUserId = long.Parse(Context.UserIdentifier);
             try
             {
-                var command = new ChangeOnlineStatusCommand(currentUserId, false);
-                await _commandBus.Value.DispatchAsync(command, default);
+
+                var result = CurrentUserIds.Remove(currentUserId);
+                if (result)
+                {
+                    _logger.Value.Info($"Need to change online status false of user {currentUserId}");
+                    var command = new ChangeOnlineStatusCommand(currentUserId, false);
+                    await _commandBus.Value.DispatchAsync(command, default);
+                }
+
             }
             catch (Exception e)
             {
@@ -115,7 +134,7 @@ namespace Cloudents.Web.Hubs
 
 
             var t2 = Clients.All.SendAsync(MethodName, message);
-            await Task.WhenAll( t2);
+            await Task.WhenAll(t2);
             await base.OnDisconnectedAsync(exception);
         }
 

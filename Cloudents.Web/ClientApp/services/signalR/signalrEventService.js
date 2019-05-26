@@ -5,6 +5,7 @@ import { signlaREvents } from './signalREventHandler'
 let signalRConnectionPool = [];
 let connectionStartCount = 0;
 
+
 var connectionState = {
     isConnected: false,
     connectionQue: []
@@ -88,7 +89,7 @@ export default function init(connString = '/sbHub') {
 
     //reconnect in case connection closes for some reason
     connection.onclose(async () => {
-        await start(connection);
+        //await start(connection);
     });
 
     //open the connection and register the events
