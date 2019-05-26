@@ -10,6 +10,7 @@ const state = {
     userDocuments: [],
     userPurchasedDocs: [],
     userConversations: [],
+    userSessions: [],
     filterVal: 'ok'
 
 };
@@ -22,6 +23,7 @@ const mutations = {
         state.userDocuments = [];
         state.userPurchasedDocs = [];
         state.userConversations = [];
+        state.userSessions = [];
     },
     updateTokensDialog(state, val) {
         state.tokensDilaogState = val;
@@ -63,6 +65,9 @@ const mutations = {
     setUserConversations(state, data) {
         state.userConversations = data;
     },
+    setUserSessions(state, data) {
+        state.userSessions = data;
+    },
     removeQuestion(state, index) {
         state.userQuestions.splice(index, 1);
     },
@@ -86,8 +91,8 @@ const getters = {
     UserAnswers: (state) => state.userAnswers,
     UserDocuments: (state) => state.userDocuments,
     UserPurchasedDocuments: (state) => state.userPurchasedDocs,
-    UserConversations: (state) => state.userConversations
-
+    UserConversations: (state) => state.userConversations,
+    UserSessions: (state) => state.userSessions
 };
 const actions = {
     updateFilterValue({commit}, val) {
@@ -213,7 +218,21 @@ const actions = {
             }
         )
     },
-
+    getUserSessions(context, idPageObj) {
+        return UserMainService.getUserSessions(idPageObj.id).then((data) => {
+                if (data && data.length !== 0) {
+                    context.commit('setUserSessions', data)
+                }
+                if (data.length < quantatyPerPage) {
+                    return true;
+                }
+                context.commit('setUserSessions', data)
+            },
+            (error) => {
+                console.log(error, 'error')
+            }
+        )
+    },
     verifyUserPhone(context, verifyObj) {
         return UserMainService.verifyPhone(verifyObj).then((resp) => {
             context.commit('setPhoneConfirmStatus');

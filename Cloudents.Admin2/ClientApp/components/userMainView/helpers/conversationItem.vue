@@ -17,7 +17,7 @@
     
    
     export default {
-        name: "conversationIitem",
+        name: "conversationItem",
         data () {
       return {
    

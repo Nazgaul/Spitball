@@ -2,9 +2,9 @@
 <v-container  class="item-wrap">
     <v-layout>
         <v-flex xs12>
-            <conversation-item
-                    :conversations="UserConversations"
-            ></conversation-item>
+            <session-item
+                    :sessions="UserSessions"
+            ></session-item>
         </v-flex>
     </v-layout>
     <v-progress-circular
@@ -21,12 +21,12 @@
 </template>
 
 <script>
-    import conversationItem from '../helpers/conversationItem.vue';
+    import sessionItem from '../helpers/sessionItem.vue';
     import { mapGetters, mapActions } from 'vuex';
 
     export default {
-        name: "userConversations",
-        components: {conversationItem},
+        name: "userSessions",
+        components: {sessionItem},
         data() {
             return {
                 loading: false,
@@ -40,18 +40,18 @@
         computed: {
             ...mapGetters([
                 "UserInfo",
-                "UserConversations"
+                "UserSessions"
             ]),
         },
         methods: {
             ...mapActions([
-                "getUserConversations",
+                "getUserSessions",
             ]),
-            getUserConversationsData() {
+            getUserSessionsData() {
                 let id = this.userId;
                 let self = this;
                 self.loading = true;
-                self.getUserConversations({id}).then((isComplete) => {
+                self.getUserSessions({id}).then((isComplete) => {
                   
                     self.loading = false;
 
@@ -59,7 +59,7 @@
             }
         },
         created() {
-            this.getUserConversationsData();
+            this.getUserSessionsData();
         },
 
     }

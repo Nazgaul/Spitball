@@ -243,6 +243,13 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
+        [HttpGet("sessions")]
+        public async Task<IEnumerable<SessionDto>> SessionsAsync(long id, CancellationToken token)
+        {
+            var query = new AdminSessionsQuery(id);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
         [HttpGet("purchased")]
         public async Task<IEnumerable<UserPurchasedDocsDto>> GetUserPurchasedDocsDetails(long id, int page, CancellationToken token)
         {

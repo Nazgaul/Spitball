@@ -55,6 +55,7 @@
                             <v-tab :to="{name: 'userDocuments', params:userId}">Documents</v-tab>
                             <v-tab :to="{name: 'userPurchasedDocuments', params:userId} ">Purchased Documents</v-tab>
                             <v-tab :to="{name: 'userConversations', params:userId}">Conversations</v-tab>
+                            <v-tab :to="{name: 'userSessions', params:userId}">Sessions</v-tab>
                         </v-tabs>
                         <div class="filters mb-2">
                             <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"

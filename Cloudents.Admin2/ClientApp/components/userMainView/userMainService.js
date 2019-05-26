@@ -134,6 +134,16 @@ function createConversationItem(objInit) {
     return new ConversationItem(objInit);
 }
 
+function SessionsItem(objInit) {
+    this.created = new Date(objInit.created);
+    this.tutor = objInit.tutor;
+    this.student = objInit.student;
+    this.duration = objInit.duration;
+}
+
+function createSessionsItem(objInit){
+    return new SessionsItem(objInit)
+};
 
 export default {
     getUserData: (id, page) => {
@@ -208,6 +218,21 @@ export default {
         }, (err) => {
             return Promise.reject(err);
         });
+    },
+    getUserSessions:(id) => {
+        let path = `AdminUser/sessions`;
+        return connectivityModule.http.get(`${path}?id=${id}`).then((newSessionsList) => {
+            let arrSessionsList = [];
+            if (newSessionsList.length > 0) {
+                newSessionsList.forEach((sessions) => {
+                    arrSessionsList.push(createSessionsItem(sessions));
+                });
+            }
+            return Promise.resolve(arrSessionsList);
+        }, (err) => {
+            return Promise.reject(err);
+        });
+
     },
     verifyPhone: (data) => {
         let path = `AdminUser/verify`;
