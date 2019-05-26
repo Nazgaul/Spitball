@@ -144,7 +144,7 @@
             height: 32px;
             color: @color-white;
             width: 194px;
-            background: @btnGreen !important;
+            background: @greenNew !important;
             .v-btn__content{
                 align-items: flex-end;
             }
