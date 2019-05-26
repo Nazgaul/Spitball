@@ -32,7 +32,8 @@ namespace Cloudents.Query.Query.Admin
                         LastName = s.LastName,
                         Bio = s.Tutor.Bio,
                         Price = s.Tutor.Price,
-                        Email = s.Email
+                        Email = s.Email,
+                        Created = s.Tutor.Created
                     }).ToListAsync();
             }
         }

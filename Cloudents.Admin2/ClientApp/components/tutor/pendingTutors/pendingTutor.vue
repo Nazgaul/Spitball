@@ -18,6 +18,9 @@
                             <div class="user-id ml-2" @click="doCopy(tutor.bio, 'User ID')">
                                 <span>Bio: {{tutor.bio}}</span>
                             </div>
+                             <div class="user-id ml-2" @click="doCopy(tutor.bio, 'User ID')">
+                                <span>Created: {{tutor.created.toLocaleString()}}</span>
+                            </div>
                             <div class="tutor-actions-container">
                                 <v-tooltip left>
                                     <v-btn slot="activator" icon @click="decline(tutor, index)">
