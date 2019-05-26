@@ -72,7 +72,7 @@ async function start(connection) {
         console.log("Reconnection Started!");
     } catch (err) {
         console.log(err);
-        setTimeout(() => start(connection), 5000);
+        //setTimeout(() => start(connection), 5000);
     }
 };
 
@@ -83,7 +83,7 @@ export default function init(connString = '/sbHub'){
     
     //reconnect in case connection closes for some reason
     connection.onclose(async () => {
-        await start(connection);
+       // await start(connection);
     });
 
     //open the connection and register the events
