@@ -19,15 +19,6 @@
                
                 </template>
             </v-data-table>
-        <!-- <v-card v-for="(session, index) in sessions" :key="index">
-            <div class="session-toolbar mt-4 back-color-purple">
-                <div class="session-text-title">
-                    TutorName: {{session.tutor}}
-                 
-                </div>
-                <div class="conversation-text-title">LastMessage: {{conversation.lastMessage.toLocaleString()}}</div> 
-            </div>      
-        </v-card> -->
     </div>
 </template>
 
