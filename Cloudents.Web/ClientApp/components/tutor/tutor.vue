@@ -173,7 +173,7 @@
             leaveReview,
             startSessionTutor,
             startSessionStudent,
-            whiteBoardTools
+            whiteBoardTools,
             startEndSessionBtn
         },
         name: "tutor",
