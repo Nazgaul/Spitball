@@ -78,7 +78,7 @@ order by count(*) desc) dt
 				) AS Tags,
 	    c.* 
 From sb.[Question] q 
-CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c
+right outer join CHANGETABLE (CHANGES sb.[question], @Version) AS c ON q.Id = c.id  
 join sb.[User] u 
 	On u.Id = q.UserId
 left join sb.University uni 
