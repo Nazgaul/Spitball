@@ -17,6 +17,7 @@ namespace Cloudents.Core.Entities
             User = user;
             UpdateSettings(bio, price);
             State = ItemState.Pending;
+            Created = DateTime.UtcNow;
         }
 
         protected Tutor()
@@ -76,7 +77,7 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyCollection<TutorReview> Reviews => _reviews.ToList();
         public virtual string SellerKey { get; set; }
         public virtual ItemState State { get; protected set; }
-
+        public virtual DateTime Created { get; protected set; }
         //protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
 
 

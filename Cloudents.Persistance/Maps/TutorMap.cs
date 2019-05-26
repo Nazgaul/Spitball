@@ -29,6 +29,7 @@ namespace Cloudents.Persistence.Maps
                .AsSet();
                */
             //Table("Tutor");
+            Map(e => e.Created).Insert().Not.Update();
             SchemaAction.Update();
         }
     }
