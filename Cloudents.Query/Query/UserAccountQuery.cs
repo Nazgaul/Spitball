@@ -44,10 +44,10 @@ namespace Cloudents.Query.Query
                 const string sql = @"select u.Id, U.Balance, u.Name, u.Image, u.Email, 
                             case when u.UniversityId2 is null then 0 else 1 end as UniversityExists,
                             u.Score, u.PhoneNumberHash,
-                            case when t.id is null then 0 else 1 end as IsTutor
+                             t.State as IsTutor
                         from sb.[user] u
                         left join sb.Tutor t
-	                        on u.Id = t.Id
+	                       on u.Id = t.Id 
                         where U.Id = @Id 
                         and (LockoutEnd is null or GetUtcDate() >= LockoutEnd);";
 

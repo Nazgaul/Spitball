@@ -170,6 +170,8 @@ const connectToRoom = function (token, options) {
                     // Attach the Participant's Media to a <div> element.
                     store.getters['activeRoom'].on('participantConnected', participant => {
                         console.log(`Participant "${participant.identity}" connected`);
+                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.active);
+                        store.dispatch('updateRemoteStatus', false);
                         participant.tracks.forEach(publication => {
                             if(publication.isSubscribed) {
                                 const track = publication.track;
@@ -178,8 +180,7 @@ const connectToRoom = function (token, options) {
                                 attachTracks([track], previewContainer);
                             }
                         });
-                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.active);
-                        store.dispatch('updateRemoteStatus', false);
+
                     });
                     // When a Participant adds a Track, attach it to the DOM.
                     store.getters['activeRoom'].on('trackSubscribed', (track, participant) => {

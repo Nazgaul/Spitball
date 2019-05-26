@@ -25,7 +25,7 @@
                       v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
                       class="face-icon mr-2"
                     >sbf-face-icon</v-icon>
-                    <span v-line-clamp="'1'"
+                    <span v-line-clamp:22="'1'"
                       class="subheading font-weight-bold"
                       style="word-break: break-all;"
                     >{{userName}}</span>
@@ -95,7 +95,7 @@
     <sb-dialog
       :onclosefn="closeEditDialog"
       :activateOverlay="false"
-      :showDialog="showEditDataDialog"
+      :showDialog="getShowEditDataDialog"
       :maxWidth="'760px'"
       :popUpType="'editUserInfo'"
       :content-class="'edit-dialog'"
@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import userImage from "./bioParts/userImage/userImage.vue";
 import userAboutMessage from "./bioParts/userAboutMessage.vue";
 import userRank from "../../../helpers/UserRank/UserRank.vue";
@@ -127,7 +127,7 @@ export default {
   },
   data() {
     return {
-      showEditDataDialog: false
+
     };
   },
   props: {
@@ -137,7 +137,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getProfile", "isTutorProfile"]),
+    ...mapGetters(["getProfile", "isTutorProfile", "getShowEditDataDialog"]),
     xsColumn() {
       const xsColumn = {};
       if (this.$vuetify.breakpoint.xsOnly) {
@@ -184,11 +184,12 @@ export default {
     }
   },
   methods: {
+      ...mapActions(['updateEditDialog']),
     openEditInfo() {
-      this.showEditDataDialog = true;
+      this.updateEditDialog(true);
     },
     closeEditDialog() {
-      this.showEditDataDialog = false;
+        this.updateEditDialog(false);
     }
   }
 };

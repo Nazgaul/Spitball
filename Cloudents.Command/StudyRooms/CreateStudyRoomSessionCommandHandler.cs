@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
@@ -9,9 +10,11 @@ namespace Cloudents.Command.StudyRooms
     public class CreateStudyRoomSessionCommandHandler : ICommandHandler<CreateStudyRoomSessionCommand>
     {
         private readonly IRepository<StudyRoom> _studyRoomRepository;
-        public CreateStudyRoomSessionCommandHandler(IRepository<StudyRoom> studyRoomRepository)
+        private readonly IVideoProvider _videoProvider;
+        public CreateStudyRoomSessionCommandHandler(IRepository<StudyRoom> studyRoomRepository, IVideoProvider videoProvider)
         {
             _studyRoomRepository = studyRoomRepository;
+            _videoProvider = videoProvider;
         }
 
         public async Task ExecuteAsync(CreateStudyRoomSessionCommand message, CancellationToken token)
@@ -22,12 +25,19 @@ namespace Cloudents.Command.StudyRooms
                 throw new ArgumentException();
             }
 
-            //if (room.Sessions.Any(a => a.Ended == null))
-            //{
-            //    throw new ArgumentException("there is already open session");
-            //}
-
-            var session = new StudyRoomSession(room, message.SessionName);
+            var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
+            var lastSession = room.Sessions.LastOrDefault();
+            if (lastSession != null && lastSession.Ended == null)
+            {
+                var roomAvailable = await _videoProvider.GetRoomAvailableAsync(lastSession.SessionId);
+                if (roomAvailable)
+                {
+                    lastSession.ReJoinStudyRoom();
+                    return;
+                }
+            }
+            await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo);
+            var session = new StudyRoomSession(room, sessionName);
             room.AddSession(session);
         }
     }

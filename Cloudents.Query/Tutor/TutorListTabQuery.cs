@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Dapper;
 
 namespace Cloudents.Query.Tutor
@@ -44,6 +45,7 @@ cte.rate as Rate,
 t.Bio,
 cte.rateCount as ReviewsCount
 from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
+where t.State = 'Ok'
 order by
 case when u.Country = @Country then 0 else 1 end,
 cte.rate desc,

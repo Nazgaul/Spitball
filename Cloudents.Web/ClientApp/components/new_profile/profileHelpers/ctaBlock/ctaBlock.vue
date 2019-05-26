@@ -8,7 +8,7 @@
                 </v-flex>
                 <v-flex class="text-xs-center text-sm-center text-md-center mt-3 mb-">
                     <contactBtn v-if="isTutorProfile && !isMyProfile"></contactBtn>
-                    <becomeTutorBtn v-else-if="!isTutorProfile && isMyProfile"></becomeTutorBtn>
+                    <becomeTutorBtn v-else-if="!isTutorProfile && isMyProfile && !tutorPending"></becomeTutorBtn>
                 </v-flex>
             </v-layout>
         </v-flex>
@@ -24,13 +24,16 @@
         name: "ctaBlock",
         components: {contactBtn, becomeTutorBtn},
         computed: {
-            ...mapGetters(['isTutorProfile', 'accountUser', 'getProfile']),
+            ...mapGetters(['isTutorProfile', 'accountUser', 'getProfile', 'getIsTutorState']),
             isMyProfile() {
                 if (!!this.getProfile) {
                     // return false
                     return this.accountUser && this.accountUser.id && this.getProfile ? this.getProfile.user.id == this.accountUser.id : false;
                 }
             },
+            tutorPending(){
+               return this.getIsTutorState && this.getIsTutorState ==='pending';
+            }
         },
     }
 </script>

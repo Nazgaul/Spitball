@@ -16,6 +16,7 @@ export default {
             data: {},
             isCopied: false,
             sessionStartClickedOnce: false,
+            sessionEndClickedOnce: false,
             localTrackAval: false,
             remoteTrack: '',
             screenShareTrack: null,
@@ -108,6 +109,7 @@ export default {
                 return;
             }
             if (!this.sessionStartClickedOnce) {
+                this.sessionEndClickedOnce = false; //unlock end session btn
                 this.sessionStartClickedOnce = true;
                 if (this.isTutor) {
                     this.updateCurrentRoomState('loading');
@@ -125,12 +127,15 @@ export default {
             }
         },
         endSession() {
-            tutorService.endTutoringSession(this.id)
+            if(this.sessionEndClickedOnce) return;
+            let self= this;
+            self.sessionEndClickedOnce = true; //lock end session btn if already clicked
+            tutorService.endTutoringSession(self.id)
                 .then((resp) => {
-                    console.log('ended session', resp);
-                    this.sessionStartClickedOnce = false;
-                    if (!this.isTutor && this.getAllowReview) {
-                        this.updateReviewDialog(true);
+                    self.sessionStartClickedOnce = false; //unlock start session btn
+                    self.sessionEndClickedOnce = false; //unlock end session btn on success
+                    if (!self.isTutor && self.getAllowReview) {
+                        self.updateReviewDialog(true);
                     }
                 }, (error) => {
                     console.log('error', error);

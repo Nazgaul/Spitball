@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Cloudents.Core.Entities
             
             User = user;
             UpdateSettings(bio, price);
+            State = ItemState.Pending;
         }
 
         protected Tutor()
@@ -31,6 +33,14 @@ namespace Cloudents.Core.Entities
             Bio = bio;
         }
 
+        public virtual void Approve()
+        {
+            //TODO: maybe put an event to that
+            if (State == ItemState.Pending)
+            {
+                State = ItemState.Ok;
+            }
+        }
         //public virtual bool Equals(Tutor other)
         //{
         //    if (ReferenceEquals(null, other)) return false;
@@ -65,9 +75,10 @@ namespace Cloudents.Core.Entities
 
         public virtual IReadOnlyCollection<TutorReview> Reviews => _reviews.ToList();
         public virtual string SellerKey { get; set; }
+        public virtual ItemState State { get; protected set; }
 
         //protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
-     
+
 
 
         public virtual void AddReview(string review, float rate, RegularUser user, StudyRoom room)

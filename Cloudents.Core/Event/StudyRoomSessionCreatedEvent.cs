@@ -12,4 +12,15 @@ namespace Cloudents.Core.Event
             StudyRoomSession = studyRoomSession;
         }
     }
+
+
+    public class StudyRoomSessionRejoinEvent : IEvent
+    {
+        public StudyRoomSession StudyRoomSession { get; }
+
+        public StudyRoomSessionRejoinEvent(StudyRoomSession studyRoomSession)
+        {
+            StudyRoomSession = studyRoomSession;
+        }
+    }
 }

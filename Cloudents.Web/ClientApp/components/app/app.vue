@@ -125,7 +125,7 @@
               <a @click="enterPayme()" style="text-decoration: none;" v-language:inner>app_payme_toaster_text</a>
             </div>
             <div>
-              <v-icon style="font-size:10px;color:rgb(255, 255, 255, .54);display: flex;" @click="closePayMe">sbf-close</v-icon>
+              <v-icon style="font-size:10px;color:rgba(255, 255, 255, 0.54);display: flex;" @click="closePayMe">sbf-close</v-icon>
             </div>
         </v-snackbar>
     </v-app>

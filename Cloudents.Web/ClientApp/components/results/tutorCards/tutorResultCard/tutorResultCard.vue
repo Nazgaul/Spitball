@@ -13,7 +13,7 @@
                                 <span class="tutor-name font-weight-bold" v-line-clamp:18="1">{{tutorData.name}}</span>
                             </v-flex>
                             <v-flex grow>
-                                <span class="tutor-about subheading" v-line-clamp:18="2">
+                                <span class="tutor-about subheading" v-line-clamp:22="2">
                                     {{tutorData.bio}}
                                 </span>
                             </v-flex>

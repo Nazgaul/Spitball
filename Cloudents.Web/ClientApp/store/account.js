@@ -56,9 +56,13 @@ const state = {
     lastActiveRoute: null,
     profileData: profileService.getProfileData('profileGeneral'),
     profile: null,
-    usersReferred: 0
+    usersReferred: 0,
+    showEditDataDialog: false
 };
 const mutations = {
+    setIsTutorState(state, val){
+        state.user.isTutorState = val;
+    },
     setUniExists(state, val){
         state.user.universityExists = val;
     },
@@ -182,6 +186,9 @@ const mutations = {
             state.profile.user.description = newData.description;
         }
 
+    },
+    setEditDialog(state, val){
+        state.showEditDataDialog = val;
     }
 };
 
@@ -189,6 +196,13 @@ const getters = {
     isTutorProfile: state => {
         if(state.profile && state.profile.user && state.profile.user.isTutor) {
             return state.profile.user.isTutor;
+        } else {
+            return false;
+        }
+    },
+    getIsTutorState: state =>{
+        if( state.user && state.user.isTutorState) {
+            return state.user.isTutorState;
         } else {
             return false;
         }
@@ -210,11 +224,17 @@ const getters = {
         } else {
             return false;
         }
-    }
+    },
+    getShowEditDataDialog: state => state.showEditDataDialog
 };
 
 const actions = {
-    
+    updateIsTutorState(context, val){
+        context.commit('setIsTutorState', val)
+    },
+    updateEditDialog(context, val){
+        context.commit('setEditDialog', val)
+    },
     updateUniExists(context, val){
         context.commit("setUniExists", val);
     },
@@ -233,6 +253,7 @@ const actions = {
     },
     updateAccountUserToTutor(context, val) {
         context.commit('changeIsUserTutor', val);
+        context.commit('setIsTutorState', 'pending');
     },
     syncProfile(context, {id, activeTab}) {
         //fetch all the data before returning the value to the component

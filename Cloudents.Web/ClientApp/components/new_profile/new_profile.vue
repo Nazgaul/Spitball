@@ -76,7 +76,7 @@
 
                             </div>
                             <div v-if="activeTab === 1" style="max-width: 760px;">
-                                <tutorAboutMe v-if="isTutorProfile"></tutorAboutMe>
+                                <tutorAboutMe v-if="isTutorProfile" :isMyProfile="isMyProfile"></tutorAboutMe>
                                 <coursesCard :isMyProfile="isMyProfile" v-if="!isEmptyCourses"></coursesCard>
                                 <!--<subjectsCard></subjectsCard>-->
                                 <!--TODO HIDDEN FOR NOW-->

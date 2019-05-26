@@ -1,5 +1,5 @@
 <template>
-    <v-layout
+    <v-layout v-if="!isMobile"
             row
             class="tutoring-page"
             :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
@@ -63,6 +63,17 @@
             <leave-review></leave-review>
         </sb-dialog>
     </v-layout>
+    <v-layout v-else class="mobile-no-support">
+        <div class="mobile-no-support-container">
+            <noSupportTop></noSupportTop>
+            <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
+            <div class="no-support-button">
+                <button @click="closeWin" v-language:inner="'tutor_close'"></button>
+            </div>
+            <noSupportBottom></noSupportBottom>
+        </div>
+        
+    </v-layout>
 </template>
 <script>
     import initSignalRService from '../../services/signalR/signalrEventService';
@@ -81,6 +92,8 @@
     import signal_level_3 from "./images/wifi-3.svg";
     import signal_level_4 from "./images/wifi-4.svg";
     import signal_level_5 from "./images/wifi-4.svg";
+    import noSupportTop from "./images/not_supported_top.svg";
+    import noSupportBottom from "./images/not_supported_bottom.svg";
     import tutorService from "./tutorService";
     import chatService from "../../services/chatService";
 import { LanguageService } from "../../services/language/languageService";
@@ -104,7 +117,9 @@ import { LanguageService } from "../../services/language/languageService";
             signal_level_4,
             signal_level_5,
             sbDialog,
-            leaveReview
+            leaveReview,
+            noSupportTop,
+            noSupportBottom
         },
         name: "tutor",
         data() {
@@ -148,6 +163,9 @@ import { LanguageService } from "../../services/language/languageService";
             },
             panY() {
                 return `${this.getPanY}px`;
+            },
+            isMobile(){
+                return this.$vuetify.breakpoint.xsOnly;
             }
         },
         methods: {
@@ -184,7 +202,10 @@ import { LanguageService } from "../../services/language/languageService";
                         self.lockChat();
                     });
                 });
-            }
+            },
+            closeWin(){
+                global.close();
+            },
         },
         created() {
             this.setStudyRoom(this.id);

@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<AzureTextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
-            builder.RegisterType<SmsProvider>().AsSelf().As<ISmsProvider>().As<IVideoProvider>().SingleInstance();
+            builder.RegisterType<TwilioProvider>().AsSelf().As<ISmsProvider>().As<IVideoProvider>().SingleInstance();
 
         }
     }
