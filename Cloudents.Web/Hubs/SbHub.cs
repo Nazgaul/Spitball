@@ -37,7 +37,7 @@ namespace Cloudents.Web.Hubs
         }
 
         private static readonly byte dump = new byte();
-        private static readonly ConcurrentDictionary<long,byte> CurrentUserIds = new ConcurrentDictionary<long,byte>();
+        private static readonly HashSet<long> CurrentUserIds = new HashSet<long>();
 
         public override async Task OnConnectedAsync()
         {
@@ -49,7 +49,7 @@ namespace Cloudents.Web.Hubs
 
             try
             {
-                CurrentUserIds.AddOrUpdate()
+                
                 var result = CurrentUserIds.Add(currentUserId);
 
                 if (result)
