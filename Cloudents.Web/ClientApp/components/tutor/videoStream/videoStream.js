@@ -1,11 +1,9 @@
 import { mapActions, mapGetters, mapState } from 'vuex';
 import { createLocalTracks, createLocalVideoTrack } from 'twilio-video';
-import tutorService from '../tutorService';
 import timerIcon from '../images/timer.svg';
 import stopIcon from '../images/stop-icon.svg';
 import fullScreenIcon from '../images/fullscreen.svg';
 import walletService from '../../../services/walletService';
-import videoStreamService from "../../../services/videoStreamService";
 
 export default {
     name: "videoStream",
@@ -33,27 +31,13 @@ export default {
     computed: {
         ...mapState(['tutoringMainStore']),
         ...mapGetters([
-            'activeRoom',
             'localOffline',
             'remoteOffline',
             'roomLoading',
-            'getCurrentRoomState',
             'getStudyRoomData',
-            'getJwtToken',
             'accountUser',
-            'getNotAllowedDevices',
-            'getAllowReview',
-            'getNotAvaliableDevices',
         ]),
-        roomIsPending() {
-            return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
-        },
-        roomIsActive() {
-            return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.active;
-        },
-        waitingStudent() {
-            return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.loading;
-        },
+
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         },
@@ -71,8 +55,6 @@ export default {
     },
     methods: {
         ...mapActions([
-            'updateCurrentRoomState',
-            'updateTestDialogState',
             'updateReviewDialog',
             'setRoomId',
             'updateToasterParams',
@@ -95,35 +77,6 @@ export default {
         },
         minimize(type) {
             this.visible[`${type}`] = !this.visible[`${type}`];
-        },
-        // move all this function inside to service
-        enterRoom() {
-            videoStreamService.enterRoom();
-        },
-        endSession() {
-            tutorService.endTutoringSession(this.id)
-                .then((resp) => {
-                    console.log('ended session', resp);
-                    this.setSesionClickedOnce(false)
-                    if (!this.isTutor && this.getAllowReview) {
-                        this.updateReviewDialog(true);
-                    }
-                }, (error) => {
-                    console.log('error', error);
-                });
-        },
-         addDevicesToTrack() {
-           videoStreamService.addDevicesTotrack();
-        },
-        // Create a new chat
-        createVideoSession() {
-            const self = this;
-            // remove any remote track when joining a new room
-            let clearEl = document.getElementById('remoteTrack');
-            if (clearEl) {
-                clearEl.innerHTML = "";
-            }
-            self.addDevicesToTrack();
         },
     },
     created() {

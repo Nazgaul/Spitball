@@ -12,7 +12,9 @@
 .tutoring-page {
     direction: ltr;
     height: 100%;
-
+.white-btn{
+    fill: rgba(255, 255, 255, 0.87);
+}
   .video-stream-wraper{
     position: fixed;
     right: 0;
@@ -46,7 +48,7 @@
     .tutoring-navigation {
         display: flex;
         align-items: center;
-        background-color: #43425d;
+        background-color: @greenNew;
         height: 64px;
         justify-content: space-between;
 
@@ -59,37 +61,39 @@
 
         .tutor-nav-item {
             padding: 0 20px;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1.33;
             letter-spacing: 0.1px;
-            text-transform: uppercase;
+            text-transform: capitalize;
             height: 100%;
             display: flex;
             align-items: center;
 
             .tutor-nav-item-link {
-                color: #a5a4bf;
+                color:  rgba(255, 255, 255, 0.87);
             }
 
             .nav-icon {
                 /*rtl:ignore*/
                 margin-right: 12px;
+                font-size: 20px;
             }
 
             .sbf {
-                color: #a5a4bf;
+                color:  rgba(255, 255, 255, 0.87);
             }
 
             &.active-nav {
-                background-color: rgba(0, 0, 0, 0.1);
-                color: @white;
+                background-color: @color-white;
+                color:@greenNew;
 
                 .tutor-nav-item-link {
-                    color: @white;
+                    color:@greenNew;
+                    font-weight: bold;
                 }
 
                 .sbf {
-                    color: @iconActiveColor;
+                    color:@greenNew;
                 }
             }
         }
@@ -104,7 +108,8 @@
 
             svg {
                 height: 100%;
-                fill: #e5e5e5;
+                //fill: #e5e5e5;
+                fill: @color-white;
             }
         }
     }
