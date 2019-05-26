@@ -17,20 +17,55 @@
                         <a class="tutor-nav-item-link">{{singleNav.name}}</a>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center;">
-                    <share-screen-btn class="nav-share-btn"></share-screen-btn>
-                    <button class="outline-btn" @click="changeQualityDialogState(true)">
-                        <testIcon class="test-icon mr-1"></testIcon>
-                        <span v-language:inner>tutor_btn_system_check</span>
-                    </button>
+                <div style="display: flex; align-items: center; max-height: 48px;">
+                    <startEndSessionBtn :id="id"></startEndSessionBtn>
+                    <!--<share-screen-btn class="nav-share-btn"></share-screen-btn>-->
+                    <v-menu
+                            bottom
+                            origin="center center"
+                            transition="scale-transition"
+                    >
+                        <template v-slot:activator="{ on }">
+                            <v-btn flat icon v-on="on" class="mx-3">
+                                <settingIcon class="white-btn"></settingIcon>
+                            </v-btn>
+                            <v-divider color="#eee7e9"
+                                    inset
+                                    vertical
+                            ></v-divider>
+                        </template>
+                        <v-list>
+                            <v-list-tile @click="changeQualityDialogState(true)">
+                                <v-list-tile-action>
+                                    <testIcon class="test-icon mr-1"></testIcon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>
+                                        <span v-language:inner>tutor_btn_system_check</span>
+                                    </v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+
+                            <v-list-tile @click="">
+                                <v-list-tile-action>
+                                   <chat-icon></chat-icon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>
+                                        <span v-language:inner>tutor_hide_chat</span>
+                                    </v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu>
+
                     <div class="mr-4 pr-1 d-flex">
                         <component
-                                v-if="localNetworkQuality"
                                 class="network-icon ml-3"
-                                :is="'signal_level_'+localNetworkQuality"
+                                :is="localNetworkQuality ? 'signal_level_'+localNetworkQuality : 'signal_level_0'"
                         ></component>
                     </div>
-                </div>
+                </div >
             </nav>
             <transition name="slide-x-transition">
                 <keep-alive>
@@ -96,6 +131,8 @@
     import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     import testIcon from "./images/eq-system.svg";
+    import chatIcon from "../../font-icon/message-icon.svg";
+    import settingIcon from "../../font-icon/settings.svg";
     import signal_level_0 from "./images/wifi-0.svg";
     import signal_level_1 from "./images/wifi-1.svg";
     import signal_level_2 from "./images/wifi-2.svg";
@@ -109,6 +146,8 @@
     import leaveReview from './tutorHelpers/leaveReview/leaveReview.vue';
     import startSessionTutor from './tutorHelpers/startSession-popUp-tutor/startSession-popUp-Tutor.vue';
     import startSessionStudent from './tutorHelpers/startSession-popUp-student/startSession-popUp-student.vue';
+    import startEndSessionBtn from './tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue';
+
 
     export default {
         components: {
@@ -120,6 +159,8 @@
             AppLogo,
             qualityValidation,
             testIcon,
+            chatIcon,
+            settingIcon,
             signal_level_0,
             signal_level_1,
             signal_level_2,
@@ -129,7 +170,8 @@
             sbDialog,
             leaveReview,
             startSessionTutor,
-            startSessionStudent
+            startSessionStudent,
+            startEndSessionBtn
         },
         name: "tutor",
         data() {
