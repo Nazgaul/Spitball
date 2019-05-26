@@ -65,11 +65,9 @@
                     <v-flex xs12 sm12 md12 class="text-xs-center" v-show="!firstStep && !lastStep">
                         <span class="caption mb-1 legal-text">
                                                     <span v-language:inner>upload_multiple_legal one</span>
-                            <router-link :to="{path:'terms'}">
+                            <router-link :to="{path:'terms'}" target="_blank">
                                   <span class="blue-text"  v-language:inner>upload_multiple_legal two_terms_conditions</span>
                             </router-link>
-
-
                         </span>
                     </v-flex>
                     <v-flex xs12 sm12 md12 v-show="!firstStep && !lastStep" class="text-xs-center">
