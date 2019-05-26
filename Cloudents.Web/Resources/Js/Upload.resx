@@ -232,4 +232,10 @@
   <data name="multiple_legal_text" xml:space="preserve">
     <value>By uploading this content you agree to Spitball's terms and conditions</value>
   </data>
+  <data name="multiple_legal one" xml:space="preserve">
+    <value>By uploading this content you agree to Spitball's</value>
+  </data>
+  <data name="multiple_legal two_terms_conditions" xml:space="preserve">
+    <value>terms and conditions</value>
+  </data>
 </root>
