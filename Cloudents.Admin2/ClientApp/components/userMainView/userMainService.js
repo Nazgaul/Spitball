@@ -123,6 +123,17 @@ function createPurchasedDocItem(data) {
     });
 }
 
+function ConversationItem(objInit) {
+    this.id = objInit.id;
+    this.userName = objInit.userName;
+    this.tutorName = objInit.tutorName;
+    this.lastMessage = new Date(objInit.lastMessage);
+    this.expanded = false;
+}
+function createConversationItem(objInit) {
+    return new ConversationItem(objInit);
+}
+
 
 export default {
     getUserData: (id, page) => {
@@ -183,6 +194,20 @@ export default {
                 console.log(error, 'error get 20 docs');
                 return Promise.reject(error);
             });
+    },
+    getUserConversations:(id) => {
+        let path = `AdminUser/chat`;
+        return connectivityModule.http.get(`${path}?id=${id}`).then((newConversationList) => {
+            let arrConversationList = [];
+            if (newConversationList.length > 0) {
+                newConversationList.forEach((conversation) => {
+                    arrConversationList.push(createConversationItem(conversation));
+                });
+            }
+            return Promise.resolve(arrConversationList);
+        }, (err) => {
+            return Promise.reject(err);
+        });
     },
     verifyPhone: (data) => {
         let path = `AdminUser/verify`;

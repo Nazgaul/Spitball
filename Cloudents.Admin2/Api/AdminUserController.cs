@@ -235,7 +235,13 @@ namespace Cloudents.Admin2.Api
             AdminUserAnswersQuery query = new AdminUserAnswersQuery(id, page);
             return await _queryBus.QueryAsync(query, token);
         }
-        
+
+        [HttpGet("chat")]
+        public async Task<IEnumerable<ConversationDto>> ConversationAsync(long id, CancellationToken token)
+        {
+            var query = new AdminConversationsQuery(id);
+            return await _queryBus.QueryAsync(query, token);
+        }
 
         [HttpGet("purchased")]
         public async Task<IEnumerable<UserPurchasedDocsDto>> GetUserPurchasedDocsDetails(long id, int page, CancellationToken token)

@@ -9,9 +9,7 @@ const state = {
     userAnswers: [],
     userDocuments: [],
     userPurchasedDocs: [],
-    userUpVotes: [],
-    userDownVotes: [],
-    userFlaggedItems: [],
+    userConversations: [],
     filterVal: 'ok'
 
 };
@@ -23,9 +21,7 @@ const mutations = {
         state.userAnswers = [];
         state.userDocuments = [];
         state.userPurchasedDocs = [];
-        state.userUpVotes = [];
-        state.userDownVotes = [];
-        state.userFlaggedItems = [];
+        state.userConversations = [];
     },
     updateTokensDialog(state, val) {
         state.tokensDilaogState = val;
@@ -64,14 +60,8 @@ const mutations = {
     setUserDocuments(state, data) {
         state.userDocuments = data;
     },
-    setUserUpVotes(state, data) {
-        state.userUpVotes = data;
-    },
-    setUserFlaggedItems(state, data) {
-        state.userFlaggedItems = data;
-    },
-    setUserDownVotes(state, data) {
-        state.userDownVotes = data;
+    setUserConversations(state, data) {
+        state.userConversations = data;
     },
     removeQuestion(state, index) {
         state.userQuestions.splice(index, 1);
@@ -96,9 +86,7 @@ const getters = {
     UserAnswers: (state) => state.userAnswers,
     UserDocuments: (state) => state.userDocuments,
     UserPurchasedDocuments: (state) => state.userPurchasedDocs,
-    UserUpVotes: (state) => state.userUpVotes,
-    UserDownVotes: (state) => state.userDownVotes,
-    UserFlaggedItems: (state) => state.userFlaggedItems
+    UserConversations: (state) => state.userConversations
 
 };
 const actions = {
@@ -210,49 +198,15 @@ const actions = {
             }
         )
     },
-
-    getUserFlaggedItems(context, idPageObj) {
-        return UserMainService.getFlaggedItems(idPageObj.id, idPageObj.page).then((data) => {
+    getUserConversations(context, idPageObj) {
+        return UserMainService.getUserConversations(idPageObj.id).then((data) => {
                 if (data && data.length !== 0) {
-                    context.commit('setUserFlaggedItems', data)
+                    context.commit('setUserConversations', data)
                 }
                 if (data.length < quantatyPerPage) {
                     return true;
                 }
-                context.commit('setUserFlaggedItems', data)
-
-            },
-            (error) => {
-                console.log(error, 'error')
-            }
-        )
-    },
-    getUserUpVotes(context, idPageObj) {
-        return UserMainService.getUpvotes(idPageObj.id, idPageObj.page).then((data) => {
-                if (data && data.length !== 0) {
-                    context.commit('setUserUpVotes', data)
-                }
-                if (data.length < quantatyPerPage) {
-                    return true;
-                }
-                context.commit('setUserUpVotes', data)
-
-            },
-            (error) => {
-                console.log(error, 'error')
-            }
-        )
-    },
-    getUserDownVotes(context, idPageObj) {
-        return UserMainService.getDownVotes(idPageObj.id, idPageObj.page).then((data) => {
-                if (data && data.length !== 0) {
-                    context.commit('setUserDownVotes', data)
-                }
-                if (data.length < quantatyPerPage) {
-                    return true;
-                }
-                context.commit('setUserDownVotes', data)
-
+                context.commit('setUserConversations', data)
             },
             (error) => {
                 console.log(error, 'error')

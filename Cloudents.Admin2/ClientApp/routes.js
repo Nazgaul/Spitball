@@ -34,6 +34,7 @@ import userQuestions from './components/userMainView/userQuestions/userQuestions
 import userAnswers from './components/userMainView/userAnswers/userAnswers.vue';
 import userDocuments from './components/userMainView/userDocuments/userDocuments.vue';
 import userPurchasedDocuments from './components/userMainView/userPurchasedDocuments/userPurchasedDocuments.vue';
+import userConversations from './components/userMainView/userConversations/userConversations.vue';
 
 import Management from './components/management/Management.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
@@ -69,6 +70,11 @@ export const routes = [
                 name:'userPurchasedDocuments',
                 path:'userPurchasedDocuments',
                 component: userPurchasedDocuments
+            },
+            {
+              name:'userConversations',
+              path:'userConversations',
+              component: userConversations
             },
             // {
             //     path:'userDownvotes',

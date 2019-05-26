@@ -32,7 +32,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<ConversationDto>> ConversationAsync(CancellationToken token)
         {
-            var query = new AdminConversationsQuery();
+            var query = new AdminConversationsQuery(0);
             return await _queryBus.QueryAsync(query, token);
         }
 
