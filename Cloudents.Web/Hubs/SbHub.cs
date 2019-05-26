@@ -4,9 +4,11 @@ using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Web.Hubs
 {
@@ -14,10 +16,12 @@ namespace Cloudents.Web.Hubs
     public class SbHub : Hub
     {
         private readonly Lazy<ICommandBus> _commandBus;
+        private readonly Lazy<ILogger> _logger;
 
-        public SbHub(Lazy<ICommandBus> commandBus)
+        public SbHub(Lazy<ICommandBus> commandBus, Lazy<ILogger> logger)
         {
             _commandBus = commandBus;
+            _logger = logger;
         }
 
         public const string MethodName = "Message";
@@ -39,9 +43,20 @@ namespace Cloudents.Web.Hubs
 
             var currentUserId = long.Parse(Context.UserIdentifier);
 
-            var command = new ChangeOnlineStatusCommand(currentUserId, true);
-            var t1 = _commandBus.Value.DispatchAsync(command, default);
+            try
+            {
+                var command = new ChangeOnlineStatusCommand(currentUserId, true);
+                await _commandBus.Value.DispatchAsync(command, default);
 
+            }
+            catch (Exception e)
+            {
+
+                _logger.Value.Exception(e,new Dictionary<string, string>()
+                {
+                    ["SignalR"] = "Signalr"
+                });
+            }
             if (country != null)
             {
 
@@ -60,7 +75,7 @@ namespace Cloudents.Web.Hubs
             var t2 = Clients.All.SendAsync(MethodName, message);
 
 
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll( t2);
             await base.OnConnectedAsync();
         }
 
@@ -76,8 +91,18 @@ namespace Cloudents.Web.Hubs
             }
 
             var currentUserId = long.Parse(Context.UserIdentifier);
-            var command = new ChangeOnlineStatusCommand(currentUserId, false);
-            var t1 = _commandBus.Value.DispatchAsync(command, default);
+            try
+            {
+                var command = new ChangeOnlineStatusCommand(currentUserId, false);
+                await _commandBus.Value.DispatchAsync(command, default);
+            }
+            catch (Exception e)
+            {
+                _logger.Value.Exception(e, new Dictionary<string, string>()
+                {
+                    ["SignalR"] = "Signalr"
+                });
+            }
 
 
             var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
@@ -90,7 +115,7 @@ namespace Cloudents.Web.Hubs
 
 
             var t2 = Clients.All.SendAsync(MethodName, message);
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll( t2);
             await base.OnDisconnectedAsync(exception);
         }
 
