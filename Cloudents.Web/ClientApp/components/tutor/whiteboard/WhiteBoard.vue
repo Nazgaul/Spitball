@@ -56,7 +56,11 @@
         </div>
         </div>
         <div class="canvas-tabs">
-            <div @click="changeTab(tab)" class="canvas-tab" v-for="(tab) in canvasTabs" :key="tab.id" :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
+            <div @click="changeTab(tab)"
+                 class="canvas-tab"
+                 v-for="(tab) in canvasTabs"
+                 :key="tab.id"
+                 :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
                 <button :id="tab.id">{{tab.name}}</button>
                 <!-- <v-icon @click.stop="showTabOption(tab.id)">sbf-3-dot</v-icon>
                 <div class="canvas-tab-option" :class="{'canvas-tab-option-active': tabEditId === tab.id}">

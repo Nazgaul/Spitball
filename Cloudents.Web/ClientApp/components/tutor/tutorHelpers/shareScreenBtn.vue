@@ -1,175 +1,187 @@
 <template>
-  <div class="share-screen-btn-wrap">
-    <v-flex>
-      <button v-if="!isSharing" @click="showScreen" class="outline-btn">
-        <castIcon class="cast-icon"></castIcon>
-        <span v-language:inner="'tutor_btn_share_screen'"></span>
-      </button>
-      <button class="outline-btn" v-else @click="stopSharing">
-        <span v-language:inner="'tutor_btn_stop_sharing'"></span>
-      </button>
-    </v-flex>
-    <v-dialog class="install-extension-dialog" v-model="extensionDialog" max-width="290">
-      <v-card>
-        <v-card-title class="headline">
-          <span v-language:inner="'tutor_chrome_ext_title'"></span>
-        </v-card-title>
+    <div class="share-screen-btn-wrap">
+        <v-flex>
+            <button v-if="!isSharing" @click="showScreen" class="outline-btn-share" :disabled="!roomIsActive">
+                <castIcon class="cast-icon"></castIcon>
+                <span v-language:inner="'tutor_btn_share_screen'"></span>
+            </button>
+            <button class="outline-btn" v-else @click="stopSharing">
+                <span v-language:inner="'tutor_btn_stop_sharing'"></span>
+            </button>
+        </v-flex>
+        <v-dialog class="install-extension-dialog" v-model="extensionDialog" max-width="290">
+            <v-card>
+                <v-card-title class="headline">
+                    <span v-language:inner="'tutor_chrome_ext_title'"></span>
+                </v-card-title>
 
-        <v-card-text>
-          <span v-language:inner="'tutor_chrome_ext_install'"></span>
-        </v-card-text>
-        <v-card-text>
-          <a>
-            <span @click="reloadPage()" v-language:inner="'tutor_chrome_ext_text'"></span>
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <a
-            :href="extensionLink"
-            target="_blank"
-            class="btn px-3 py-2 mr-3"
-            @click="dialog = false"
-          >
-            <span v-language:inner="'tutor_chrome_ext_btn_install'"></span>
-          </a>
-          <v-btn color="green darken-1" flat="flat" @click="extensionDialog = false">
-            <span v-language:inner="'tutor_chrome_ext_btn_cancel'"></span>
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+                <v-card-text>
+                    <span v-language:inner="'tutor_chrome_ext_install'"></span>
+                </v-card-text>
+                <v-card-text>
+                    <a>
+                        <span @click="reloadPage()" v-language:inner="'tutor_chrome_ext_text'"></span>
+                    </a>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <a
+                            :href="extensionLink"
+                            target="_blank"
+                            class="btn px-3 py-2 mr-3"
+                            @click="dialog = false"
+                    >
+                        <span v-language:inner="'tutor_chrome_ext_btn_install'"></span>
+                    </a>
+                    <v-btn color="green darken-1" flat="flat" @click="extensionDialog = false">
+                        <span v-language:inner="'tutor_chrome_ext_btn_cancel'"></span>
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </div>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from "vuex";
-import { createLocalVideoTrack } from "twilio-video";
-import videoService from "../../../services/videoStreamService";
-import castIcon from "../images/cast.svg";
+    import { mapActions, mapGetters, mapState } from "vuex";
+    import { createLocalVideoTrack } from "twilio-video";
+    import videoService from "../../../services/videoStreamService";
+    import castIcon from "../images/cast.svg";
 
-export default {
-  name: "shareScreenBtn",
-  components: { castIcon },
-  data() {
-    return {
-      isSharing: false,
-      extensionDialog: false,
-      extensionLink: `https://chrome.google.com/webstore/detail/${
-        videoService.extensionId
-      }`
-    };
-  },
-  computed: {
-    ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData"]),
-    accountUserID() {
-      if (this.accountUser && this.accountUser.id) {
-        return this.accountUser.id;
-      }
-    },
-    isTutor() {
-      return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
-    }
-  },
-  methods: {
-    ...mapActions(["updateToasterParams"]),
-    ...mapState(["Toaster"]),
-    reloadPage() {
-      global.reloadPage();
-    },
-    publishTrackToRoom(track) {
-      if (this.activeRoom) {
-        this.activeRoom.localParticipant.publishTrack(track, {
-          name: `shareScreen_${this.isTutor ? "tutor" : "student"}_${
-            this.accountUserID
-          }`
-        });
-      }
-    },
-    unPublishTrackfromRoom(track) {
-         if (this.activeRoom) {
-      this.activeRoom.localParticipant.unpublishTrack(track);
-         }
-    },
-    //screen share start
-    showScreen() {
-      let self = this;
-        debugger;
-      videoService.getUserScreen().then(
-        stream => {
-          stream.removeEventListener('ended', () => self.stopSharing());
-          stream.addEventListener('ended', () => self.stopSharing());
-          self.screenShareTrack = stream; //stream.getVideoTracks()[0];
-          self.publishTrackToRoom(self.screenShareTrack);
-          self.isSharing = true;
+    export default {
+        name: "shareScreenBtn",
+        components: {castIcon},
+        data() {
+            return {
+                isSharing: false,
+                extensionDialog: false,
+                extensionLink: `https://chrome.google.com/webstore/detail/${
+                    videoService.extensionId
+                    }`
+            };
         },
-        error => {
-          error = error || {};
-          if (error === "noExtension") {
-            self.extensionDialog = true;
-            return;
-          }
-          if (error === "notBrowser") {
-            self.updateToasterParams({
-              toasterText: "Browser not supported",
-              showToaster: true,
-              toasterType: "error-toaster" //c
-            });
-            return;
-          }
-          if (error.name === "NotAllowedError") {
-            //user press cancel.
-            return;
-          }
-          self.updateToasterParams({
-            toasterText: "Error sharing screen",
-            showToaster: true,
-            toasterType: "error-toaster" //c
-          });
-          console.error("error sharing screen", error);
+        computed: {
+            ...mapState(['tutoringMainStore']),
+            ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData", "getCurrentRoomState"]),
+            accountUserID() {
+                if(this.accountUser && this.accountUser.id) {
+                    return this.accountUser.id;
+                }
+            },
+            roomIsActive() {
+                return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.active;
+            },
+            isTutor() {
+                return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
+            }
+        },
+        methods: {
+            ...mapActions(["updateToasterParams"]),
+            ...mapState(["Toaster"]),
+            reloadPage() {
+                global.reloadPage();
+            },
+            publishTrackToRoom(track) {
+                if(this.activeRoom) {
+                    this.activeRoom.localParticipant.publishTrack(track, {
+                        name: `shareScreen_${this.isTutor ? "tutor" : "student"}_${
+                            this.accountUserID
+                            }`
+                    });
+                }
+            },
+            unPublishTrackfromRoom(track) {
+                if(this.activeRoom) {
+                    this.activeRoom.localParticipant.unpublishTrack(track);
+                }
+            },
+            //screen share start
+            showScreen() {
+                let self = this;
+                debugger;
+                videoService.getUserScreen().then(
+                    stream => {
+                        stream.removeEventListener('ended', () => self.stopSharing());
+                        stream.addEventListener('ended', () => self.stopSharing());
+                        self.screenShareTrack = stream; //stream.getVideoTracks()[0];
+                        self.publishTrackToRoom(self.screenShareTrack);
+                        self.isSharing = true;
+                    },
+                    error => {
+                        error = error || {};
+                        if(error === "noExtension") {
+                            self.extensionDialog = true;
+                            return;
+                        }
+                        if(error === "notBrowser") {
+                            self.updateToasterParams({
+                                                         toasterText: "Browser not supported",
+                                                         showToaster: true,
+                                                         toasterType: "error-toaster" //c
+                                                     });
+                            return;
+                        }
+                        if(error.name === "NotAllowedError") {
+                            //user press cancel.
+                            return;
+                        }
+                        self.updateToasterParams({
+                                                     toasterText: "Error sharing screen",
+                                                     showToaster: true,
+                                                     toasterType: "error-toaster" //c
+                                                 });
+                        console.error("error sharing screen", error);
+                    }
+                );
+            },
+            stopSharing() {
+                let self = this;
+                self.unPublishTrackfromRoom(self.screenShareTrack);
+                //create new video track
+                createLocalVideoTrack()
+                    .then(
+                        videoTrack => {
+                            self.publishTrackToRoom(videoTrack);
+                        },
+                        error => {
+                            console.error("error creating video track", error);
+                        }
+                    )
+                    .finally(() => {
+                        self.isSharing = false;
+                    });
+            }
         }
-      );
-    },
-    stopSharing() {
-      let self = this;
-      self.unPublishTrackfromRoom(self.screenShareTrack);
-      //create new video track
-      createLocalVideoTrack()
-        .then(
-          videoTrack => {
-            self.publishTrackToRoom(videoTrack);
-          },
-          error => {
-            console.error("error creating video track", error);
-          }
-        )
-        .finally(() => {
-          self.isSharing = false;
-        });
-    }
-  }
-};
+    };
 </script>
 
 <style lang="less">
-.share-screen-btn-wrap {
-  .outline-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: solid 2px #a5a4bf;
-    background-color: rgba(165, 164, 191, 0.1);
-    font-size: 11px;
-    line-height: 1.27;
-    letter-spacing: 0.5px;
-    color: #ffffff;
-  }
-  .cast-icon {
-    fill: #ffffff;
-    height: 16px;
-    margin-right: 4px /*rtl:ignore*/;
-  }
-}
+    .share-screen-btn-wrap {
+        .outline-btn-share {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            /*border-radius: 4px;*/
+            /*border: solid 2px #a5a4bf;*/
+            /*background-color: rgba(165, 164, 191, 0.1);*/
+            font-size: 12px;
+            line-height: 1.27;
+            letter-spacing: 0.5px;
+            color: #2d2d2d;
+            /*color: #ffffff;*/
+            .cast-icon {
+                fill: #2d2d2d;
+                height: 18px;
+                margin-right: 4px /*rtl:ignore*/;
+            }
+            &[disabled]{
+                color: lighten(#2d2d2d, 40%);
+                .cast-icon{
+                    fill: lighten(#2d2d2d, 40%);
+                }
+            }
+        }
+
+    }
 </style>

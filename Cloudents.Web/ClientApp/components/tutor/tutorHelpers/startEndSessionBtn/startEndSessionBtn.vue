@@ -137,7 +137,6 @@
         align-items: center;
         justify-content: center;
         padding: 12px 32px;
-        margin: 24px 0;
         border-radius: 4px;
         background-color: @yellowNew;
         font-size: 16px;
@@ -155,18 +154,17 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 8px 14px;
-        text-transform: uppercase;
-        margin: 24px 0;
+        padding: 12px 42px;
+        text-transform: capitalize;
         border-radius: 4px;
-        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.16);
-        border: solid 1px rgba(255, 59, 59, 0.29);
-        background-color: rgba(255, 72, 72, 0.11);
+        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+        border: solid 1px rgba(255, 255, 255, 0.75);
+        background-color: rgba(0, 0, 0, 0.23);
         font-size: 14px;
         font-weight: bold;
         line-height: 1.23;
         letter-spacing: 0.5px;
-        color: rgba(255, 72, 72, 0.66);
+        color: #ffffff;
         outline: none;
         //&.disabled{
         //  pointer-events: none;
@@ -174,7 +172,7 @@
         //}
     }
     .stop-icon{
-        fill: rgba(255, 59, 59, 0.72);
+        fill: #ffffff;
     }
     .timer-icon{
         height: 24px;
