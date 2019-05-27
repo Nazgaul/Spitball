@@ -137,7 +137,7 @@ export default {
                 }, (err) => {
                     if(id > 0)
                     {
-                        self.$toaster.error(`Error can't fine user with given identifier`);
+                        self.$toaster.error(`Error can't fined user with given identifier`);
                     }
                 });
         },
