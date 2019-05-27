@@ -213,6 +213,9 @@
   <data name="quality_video_title" xml:space="preserve">
     <value>Video quality test</value>
   </data>
+  <data name="session_finished" xml:space="preserve">
+    <value>Finished the sesson?</value>
+  </data>
   <data name="start_dialog_your_student" xml:space="preserve">
     <value>Your student</value>
   </data>

@@ -1,12 +1,16 @@
 <template>
     <div class="btn-wrapper">
         <v-flex v-show="isTutor">
-            <button v-show="!roomIsActive && !waitingStudent " class="create-session text-capitalize" color="primary" :class="{'disabled': roomIsPending || needPayment}" @click="enterRoom()">
+            <button v-show="!roomIsActive && !waitingStudent "
+                    class="create-session text-capitalize"
+                    color="primary"
+                    :class="{'disabled': roomIsPending || needPayment}"
+                    @click="enterRoom()">
                 <timerIcon class="timer-icon mr-2"></timerIcon>
                 <span v-language:inner v-show="needPayment">tutor_stream_btn_pending_tutor</span>
                 <span v-language:inner v-show="!needPayment" >tutor_stream_btn_start_session</span>
             </button>
-            <button class="create-session" v-show="!roomIsActive && waitingStudent">
+            <button class="create-session waiting" v-show="!roomIsActive && waitingStudent">
                 <span v-language:inner>tutor_stream_btn_waiting</span>
             </button>
 
@@ -23,7 +27,6 @@
                         <span v-language:inner v-show="!needPayment">tutor_stream_btn_join_session</span>
                     </span>
             </button>
-
             <button v-show="roomIsActive" class="end-session" @click="endSession()">
                 <stopIcon class="stop-icon mr-2"></stopIcon>
                 <span v-language:inner>tutor_stream_btn_end_session</span>
@@ -88,7 +91,8 @@
                               'updateReviewDialog',
                               'setRoomId',
                               'updateToasterParams',
-                              'setSesionClickedOnce'
+                              'setSesionClickedOnce',
+                              "updateEndDialog"
                           ]),
 
             minimize(type) {
@@ -99,16 +103,17 @@
                 videoStreamService.enterRoom();
             },
             endSession() {
-                tutorService.endTutoringSession(this.id)
-                            .then((resp) => {
-                                console.log('ended session', resp);
-                                this.setSesionClickedOnce(false)
-                                if (!this.isTutor && this.getAllowReview) {
-                                    this.updateReviewDialog(true);
-                                }
-                            }, (error) => {
-                                console.log('error', error);
-                            });
+                this.updateEndDialog(true)
+                // tutorService.endTutoringSession(this.id)
+                //             .then((resp) => {
+                //                 console.log('ended session', resp);
+                //                 this.setSesionClickedOnce(false)
+                //                 if (!this.isTutor && this.getAllowReview) {
+                //                     this.updateReviewDialog(true);
+                //                 }
+                //             }, (error) => {
+                //                 console.log('error', error);
+                //             });
             },
             addDevicesToTrack() {
                 videoStreamService.addDevicesTotrack();
@@ -145,9 +150,13 @@
         letter-spacing: 0.5px;
         color: @color-white;
         outline: none;
+        &.waiting{
+            padding: 12px 24px;
+        }
         &.disabled{
             pointer-events: none;
-            background-color:  @yellowNew;
+            background-color: rgba(0, 0, 0, 0.27);
+            color: rgba(255, 255, 255, 0.27);
         }
     }
     .end-session{

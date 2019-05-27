@@ -26,7 +26,8 @@ const state = {
     currentRoomState: "pending",
     jwtToken: null,
     studentStartDialog: false,
-    tutorStartDialog: false
+    tutorStartDialog: false,
+    endDialog: false
 };
 const getters = {
     activeRoom: state => state.currentActiveRoom,
@@ -47,10 +48,15 @@ const getters = {
     getRoomId: state => state.roomId,
     getStudentStartDialog: state => state.studentStartDialog,
     getTutorStartDialog: state => state.tutorStartDialog,
+    getEndDialog: state => state.endDialog,
     getSessionStartClickedOnce: state => state.sessionStartClickedOnce
 };
 
 const mutations = {
+    setEndDialog(state, val) {
+        state.endDialog = val;
+    },
+
     updateSessionClickedOnce(state, val) {
         state.sessionStartClickedOnce = val;
     },
@@ -119,6 +125,9 @@ const mutations = {
 };
 
 const actions = {
+    updateEndDialog({commit, state}, val){
+        commit('setEndDialog', val)
+    },
     setSesionClickedOnce({commit, state}, val) {
         commit('updateSessionClickedOnce', val);
     },

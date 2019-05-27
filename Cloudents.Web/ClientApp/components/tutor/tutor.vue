@@ -128,6 +128,17 @@
                    :content-class="'session-start-tutor-dialog'">
             <startSessionTutor :id="id"></startSessionTutor>
         </sb-dialog>
+        <!--end session confirmation-->
+        <sb-dialog :showDialog="getEndDialog"
+                   :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+                   :popUpType="'endSessionConfirm'"
+                   :maxWidth="'356'"
+                   :onclosefn="closeEndDialog"
+                   :activateOverlay="false"
+                   :isPersistent="$vuetify.breakpoint.smAndUp"
+                   :content-class="'session-end-confirm'">
+            <endSessionConfirm :id="id"></endSessionConfirm>
+        </sb-dialog>
         <!--show only if not avaliable devices dialog is closed by user-->
         <sb-dialog :showDialog="getStudentStartDialog && !qualityDialog"
                    :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -169,6 +180,7 @@
     import startSessionStudent from './tutorHelpers/startSession-popUp-student/startSession-popUp-student.vue';
     import whiteBoardTools from './whiteboard/whiteboardTools.vue';
     import startEndSessionBtn from './tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue';
+    import endSessionConfirm from './tutorHelpers/endSessionConfirm/endSessionConfirm.vue';
 
 
     export default {
@@ -195,7 +207,7 @@
             startSessionStudent,
             whiteBoardTools,
             startEndSessionBtn,
-            videoChat: true
+            endSessionConfirm,
         },
         name: "tutor",
         data() {
@@ -243,7 +255,8 @@
                               "getPanY",
                               "getReviewDialogState",
                               "getStudentStartDialog",
-                              "getTutorStartDialog"
+                              "getTutorStartDialog",
+                              "getEndDialog"
                           ]),
             activeItem() {
                 return this.activeNavItem;
@@ -279,6 +292,9 @@
                           ]),
             closeReviewDialog() {
                 this.updateReviewDialog(false);
+            },
+            closeEndDialog(){
+                this.updateEndDialog(false);
             },
             closeStartSessionTutor() {
                 this.updateTutorStartDialog(false);

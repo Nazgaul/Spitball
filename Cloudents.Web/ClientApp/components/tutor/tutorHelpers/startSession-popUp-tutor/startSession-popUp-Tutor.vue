@@ -74,7 +74,7 @@
         padding-top: 12px;
     }
     .tutor-start-wrap{
-        @greenBtnBackground: #00d983;
+        @BtnBackground: #ffc739;
         background: @color-white;
         border-radius: 4px;
         box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
@@ -84,7 +84,7 @@
             height: 48px;
             width: 210px;
             color: @color-white;
-            background-color:  @greenBtnBackground;
+            background-color: @BtnBackground;
             border-radius: 4px;
             .timer-icon{
                 fill: @color-white;
