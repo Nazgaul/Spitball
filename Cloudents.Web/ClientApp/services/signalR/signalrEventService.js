@@ -45,7 +45,6 @@ function connectionOn(connection, message, callback) {
 }
 
 function startConnection(connection, messageString) {
-    debugger;
     connection.start().then(function () {
         //connection ready register the main Events
         connectionOn(connection, messageString, messageHandler);
@@ -71,7 +70,6 @@ function createConnection(connString) {
 
 async function start(connection) {
     try {
-        debugger;
         await connection.start();
         console.log("Reconnection Started!");
         connectionStartCount = 0;
@@ -91,9 +89,9 @@ export default function init(connString = '/sbHub') {
 
 
     //reconnect in case connection closes for some reason
-    connection.onclose(async () => {
-        await start(connection);
-    });
+    // connection.onclose(async () => {
+    //     await start(connection);
+    // });
 
     //open the connection and register the events
     startConnection(connection, "Message");

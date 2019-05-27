@@ -50,6 +50,15 @@ const GetDictionary = (type) => {
     })
 }
 
+const GetVersion = () => {
+    return connectivityModule.http.get(`/homepage/version`).then( (response) =>{
+        let version = response.data.version;
+        return Promise.resolve(version);
+    }, (err)=>{
+        return Promise.reject(err);
+    })
+}
+
 //debug purposes
 global.dictionaryFindKey = function(value){
     for(let key in locale){
@@ -69,5 +78,6 @@ global.dictionaryContainsKey = function(value){
 export{
     LanguageService,
     LanguageChange,
-    GetDictionary
+    GetDictionary,
+    GetVersion
 }

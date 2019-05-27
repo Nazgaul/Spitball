@@ -1,4 +1,5 @@
-﻿using Cloudents.Core;
+﻿using System.Reflection;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Query;
@@ -26,6 +27,13 @@ namespace Cloudents.Web.Api
         {
             var query = new HomePageQuery();
             return await _queryBus.QueryAsync(query, token);
+        }
+
+
+        [HttpGet("version")]
+        public IActionResult Version()
+        {
+            return Ok(new {version = Assembly.GetExecutingAssembly().GetName().Version.ToString(4)});
         }
     }
 }

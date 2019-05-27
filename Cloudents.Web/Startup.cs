@@ -157,7 +157,7 @@ namespace Cloudents.Web
                 .AddSignInManager<SbSignInManager>();
             services.ConfigureApplicationCookie(o =>
             {
-                o.Cookie.Name = "sb4";
+                o.Cookie.Name = "sb5";
                 o.SlidingExpiration = true;
 
                 o.Events.OnRedirectToLogin = context =>
