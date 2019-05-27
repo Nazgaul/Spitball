@@ -135,7 +135,7 @@ export default {
                         self.$router.push({name: 'userMainView', params: {userId: ''}});
                     }
                 }, (err) => {
-                    if(id > 0)
+                    if(id > 0 || this.userIdentifier != '')
                     {
                         self.$toaster.error(`Error can't fined user with given identifier`);
                     }
