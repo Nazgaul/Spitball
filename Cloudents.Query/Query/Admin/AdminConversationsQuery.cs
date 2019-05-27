@@ -28,7 +28,7 @@ with cte as (
  from sb.ChatUser cu
  join sb.[user] u
 	on u.Id = cu.UserId
-where u.Email not like '%cloudents%' and u.Email not like '%spitball%'
+--where u.Email not like '%cloudents%' and u.Email not like '%spitball%'
 )
 select cr.identifier as Id,
 	(select top 1 cm.CreationTime from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) as lastMessage,
@@ -36,12 +36,22 @@ select cr.identifier as Id,
 						from sb.ChatMessage cm 
 						join cte on cm.ChatRoomId = cte.ChatRoomId and cm.UserId = cte.UserId
 						where cm.ChatRoomId = cr.id 
-						order by  cm.CreationTime)  as UserName,
+						order by  cm.CreationTime) as UserName,
+	(select top 1 cte.UserId 
+						from sb.ChatMessage cm 
+						join cte on cm.ChatRoomId = cte.ChatRoomId and cm.UserId = cte.UserId
+						where cm.ChatRoomId = cr.id 
+						order by  cm.CreationTime) as UserId,
 		case when cte.Name not in (select top 1 cte.Name 
 						from sb.ChatMessage cm 
 						join cte on cm.ChatRoomId = cte.ChatRoomId and cm.UserId = cte.UserId
 						where cm.ChatRoomId = cr.id 
-						order by  cm.CreationTime) then cte.Name end as TutorName
+						order by  cm.CreationTime) then cte.Name end as TutorName,
+		case when cte.UserId not in (select top 1 cte.UserId 
+						from sb.ChatMessage cm 
+						join cte on cm.ChatRoomId = cte.ChatRoomId and cm.UserId = cte.UserId
+						where cm.ChatRoomId = cr.id 
+						order by  cm.CreationTime) then cte.UserId end as TutorId
 from sb.ChatRoom cr
 join cte on cr.Id = cte.ChatRoomId
 where cte.Name not in (select top 1 cte.Name 

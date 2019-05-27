@@ -35,8 +35,8 @@
         computed:{
             ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked', 'accountUser', 'getTotalUnread']),
             isLocked(){
-                // return this.getIsChatLocked;
-                return false;
+                return this.getIsChatLocked;
+                // return false;
             },
             isMobile(){
                 return this.$vuetify.breakpoint.smAndDown;

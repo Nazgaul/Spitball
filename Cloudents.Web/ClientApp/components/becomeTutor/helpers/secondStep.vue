@@ -2,39 +2,40 @@
     <div class="become-second-wrap">
         <v-layout row wrap>
             <v-form v-model="validBecomeSecond" ref="becomeFormSecond" class="become-second-form">
-            <v-flex xs12 class="text-xs-center mb-4">
-                <span class="sharing-text" v-language:inner>becomeTutor_sharing</span>
-            </v-flex>
-            <v-flex xs12 :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
-                <v-textarea
-                        rows="2"
-                        class="sb-text-area"
-                        outline
-                        no-resize
-                        v-model="description"
-                        name="input-about"
-                        :rules="[rules.maximumChars]"
-                        :placeholder="placeDescription"
-                        :label="labelDescription"
-                ></v-textarea>
-            </v-flex>
-            <v-flex xsw12>
-                <v-textarea
-                        no-resize
-                        class="sb-text-area"
-                        rows="5"
-                        outline
-                        :rules="[rules.maximumChars]"
-                        v-model="bio"
-                        name="input-bio"
-                        :placeholder="placeBio"
-                        :label="labelBio"
-                ></v-textarea>
-            </v-flex>
+                <v-flex xs12 class="text-xs-center mb-4">
+                    <span class="sharing-text" v-language:inner>becomeTutor_sharing</span>
+                </v-flex>
+                <v-flex xs12 :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
+                    <v-textarea
+                            rows="2"
+                            class="sb-text-area"
+                            outline
+                            no-resize
+                            v-model="description"
+                            name="input-about"
+                            :rules="[rules.maximumChars]"
+                            :placeholder="placeDescription"
+                            :label="labelDescription"
+                    ></v-textarea>
+                </v-flex>
+                <v-flex xsw12>
+                    <v-textarea
+                            no-resize
+                            class="sb-text-area"
+                            rows="5"
+                            outline
+                            :rules="[rules.maximumChars]"
+                            v-model="bio"
+                            name="input-bio"
+                            :placeholder="placeBio"
+                            :label="labelBio"
+                    ></v-textarea>
+                </v-flex>
             </v-form>
         </v-layout>
-        <v-layout  class="mt-2 px-1" :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
-            <v-btn   @click="goToPreviousStep()" class="cancel-btn elevation-0" round outline flat>
+        <v-layout class="mt-2 px-1"
+                  :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
+            <v-btn @click="goToPreviousStep()" class="cancel-btn elevation-0" round outline flat>
                 <span v-language:inner>becomeTutor_btn_back</span>
             </v-btn>
             <v-btn
@@ -69,24 +70,27 @@
                 validBecomeSecond: false,
                 errorFromServer: '',
                 rules: {
-                    maximumChars:(value)=> validationRules.maximumChars(value, 1000),
-                    
+                    maximumChars: (value) => validationRules.maximumChars(value, 1000),
+
                 },
             };
         },
         computed: {
             ...mapGetters(['becomeTutorData']),
             btnDisabled() {
-                return !this.description || !this.bio || !this.becomeTutorData.firstName || !this.becomeTutorData.lastName || !this.becomeTutorData.price
+                return !this.description || !this.bio || !this.becomeTutorData.firstName || !this.becomeTutorData.lastName || !this.becomeTutorData.price;
             }
         },
         methods: {
-            ...mapActions(['updateTutorInfo', 'sendBecomeTutorData', 'updateTutorDialog', 'updateAccountUserToTutor']),
-            // closeDialog(){
-            //     this.updateTutorDialog(false);
-            // },
-            goToPreviousStep(){
-                    this.$root.$emit('becomeTutorStep', 1);
+            ...mapActions([
+                              'updateTutorInfo',
+                              'sendBecomeTutorData',
+                              'updateTutorDialog',
+                              'updateAccountUserToTutor',
+                              'updateToasterParams'
+                          ]),
+            goToPreviousStep() {
+                this.$root.$emit('becomeTutorStep', 1);
             },
             submitData() {
                 if(this.$refs.becomeFormSecond.validate()) {
@@ -100,9 +104,18 @@
                             self.$root.$emit('becomeTutorStep', 3);
                             self.updateAccountUserToTutor(true);
                         }, (error) => {
-                            console.log('erorr sending data become tutor', error);
+                            let isConflict = error.response.status === 409;
+                            if(isConflict) {
+                                console.log('Conflict become');
+                                self.updateToasterParams({
+                                                             toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                                                             showToaster: true,
+                                                             toasterTimeout: 50000000
+                                                         });
+                                self.updateTutorDialog(false);
+                            }
                         }).finally(() => {
-                            self.btnLoading = false;
+                        self.btnLoading = false;
                     });
                 }
 
@@ -115,11 +128,11 @@
     @import '../../../styles/mixin.less';
 
     .become-second-wrap {
-        .become-second-form{
+        .become-second-form {
             width: 100%;
         }
-        .sb-text-area{
-            textarea{
+        .sb-text-area {
+            textarea {
                 padding: 12px 0 8px;
             }
         }

@@ -12,8 +12,12 @@ namespace Cloudents.Core.DTOs.Admin
         public string Id { get; set; }
         [EntityBind(nameof(User.Name))]
         public string UserName { get; set; }
+        [EntityBind(nameof(User.Id))]
+        public long UserId { get; set; }
         [EntityBind(nameof(User.Name))]
         public string TutorName { get; set; }
+        [EntityBind(nameof(User.Id))]
+        public long TutorId { get; set; }
         [EntityBind(nameof(ChatMessage.CreationTime))]
         public DateTime LastMessage { get; set; }
     }

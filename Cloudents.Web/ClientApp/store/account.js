@@ -60,6 +60,9 @@ const state = {
     showEditDataDialog: false
 };
 const mutations = {
+    setIsTutorState(state, val){
+        state.user.isTutorState = val;
+    },
     setUniExists(state, val){
         state.user.universityExists = val;
     },
@@ -197,6 +200,13 @@ const getters = {
             return false;
         }
     },
+    getIsTutorState: state =>{
+        if( state.user && state.user.isTutorState) {
+            return state.user.isTutorState;
+        } else {
+            return false;
+        }
+    },
     getProfile: state => state.profile,
     fromPath: state => state.fromPath,
     unreadMessages: state => state.unreadMessages,
@@ -219,6 +229,9 @@ const getters = {
 };
 
 const actions = {
+    updateIsTutorState(context, val){
+        context.commit('setIsTutorState', val)
+    },
     updateEditDialog(context, val){
         context.commit('setEditDialog', val)
     },
@@ -240,6 +253,7 @@ const actions = {
     },
     updateAccountUserToTutor(context, val) {
         context.commit('changeIsUserTutor', val);
+        context.commit('setIsTutorState', 'pending');
     },
     syncProfile(context, {id, activeTab}) {
         //fetch all the data before returning the value to the component

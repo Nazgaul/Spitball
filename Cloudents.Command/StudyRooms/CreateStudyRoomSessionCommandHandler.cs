@@ -35,7 +35,6 @@ namespace Cloudents.Command.StudyRooms
                     lastSession.ReJoinStudyRoom();
                     return;
                 }
-
             }
             await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo);
             var session = new StudyRoomSession(room, sessionName);
