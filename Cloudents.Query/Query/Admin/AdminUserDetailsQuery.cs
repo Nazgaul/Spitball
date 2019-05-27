@@ -44,7 +44,6 @@ namespace Cloudents.Query.Query.Admin
 						left join sb.Tutor T
 							on U.Id = T.Id
                         where U.Id = @Id or U.Email = @Email or U.PhoneNumberHash = @Email
-                            or U.PhoneNumberHash = CONCAT('+972',right(@Email,9))
             group by U.Id, U.Name, Email, PhoneNumberHash, Un.Name, U.Country, U.Score, U.FraudScore, U.Balance, 
             case when U.LockOutEnd is null or U.LockOutEnd < getutcdate() then 1
 	            else 0 end,

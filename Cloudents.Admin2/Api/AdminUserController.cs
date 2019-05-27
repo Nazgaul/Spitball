@@ -13,6 +13,7 @@ using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Storage;
 using System.Linq;
 using Cloudents.Command.Command;
+using System.Text.RegularExpressions;
 
 namespace Cloudents.Admin2.Api
 {
@@ -207,6 +208,12 @@ namespace Cloudents.Admin2.Api
         [HttpGet("info")]
         public async Task<UserDetailsDto> GetUserDetails(string userIdentifier, CancellationToken token)
         {
+            var regex = new Regex("^[0-9]+$");
+            if (userIdentifier[0] == '0' && regex.IsMatch(userIdentifier))
+            {
+                userIdentifier = $"+972{userIdentifier.Remove(0, 1)}";
+            }
+          
             var query = new AdminUserDetailsQuery(userIdentifier);
            
             return await _queryBus.QueryAsync(query, token);
