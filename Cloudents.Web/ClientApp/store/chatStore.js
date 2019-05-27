@@ -253,7 +253,7 @@ const actions = {
         if(!!id && (!state.messages[id] || (!!state.conversations[id] && state.conversations[id].unread > 0))){
             chatService.getMessageById(id).then(({data})=>{
                 if(!data) return;
-                data.forEach(message => {
+                data.reverse().forEach(message => {
                     let MessageObj = chatService.createMessage(message, id);
                     dispatch('addMessage', MessageObj);
                 })
