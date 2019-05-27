@@ -118,7 +118,8 @@ const actions = {
         commit('setUserData', data)
     },
     getUserData(context, id) {
-        return UserMainService.getUserData(id).then((data) => {
+        return UserMainService.getUserData(id)
+        .then((data) => {
                 if (data) {
                     context.commit('setUserInfo', data);
                     return data
@@ -127,7 +128,8 @@ const actions = {
                 }
             },
             (error) => {
-                console.log(error, 'error')
+                throw 'error';
+                //console.log(error, 'error')
             }
         )
     },

@@ -206,7 +206,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("info")]
-        public async Task<UserDetailsDto> GetUserDetails(string userIdentifier, CancellationToken token)
+        public async Task<ActionResult<UserDetailsDto>> GetUserDetails(string userIdentifier, CancellationToken token)
         {
             var regex = new Regex("^[0-9]+$");
             if (userIdentifier[0] == '0' && regex.IsMatch(userIdentifier))
@@ -216,7 +216,12 @@ namespace Cloudents.Admin2.Api
           
             var query = new AdminUserDetailsQuery(userIdentifier);
            
-            return await _queryBus.QueryAsync(query, token);
+            var res = await _queryBus.QueryAsync(query, token);
+            if (res == null)
+            {
+                return NotFound();
+            }
+            return res;
         }
 
         [HttpGet("questions")]
