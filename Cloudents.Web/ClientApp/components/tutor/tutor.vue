@@ -67,19 +67,19 @@
                                @click.stop="selectViewOption(enumViewOptions.videoChat)"
                                :input-value="activeViewOption == enumViewOptions.videoChat"
                                active-class="v-btn--active control-btn-active">
-                            <span>Video & Chat</span>
+                            <span v-language:inner>tutor_option_videoChat</span>
                         </v-btn>
                         <v-btn @click="selectViewOption(enumViewOptions.fullScreenVideo)"
                                class="control-btn text-capitalize elevation-0  cursor-pointer"
                                :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
                                active-class="v-btn--active control-btn-active">
-                            <span>Full Video</span>
+                            <span v-language:inner>tutor_option_videoFull</span>
                         </v-btn>
                         <v-btn class="control-btn text-capitalize elevation-0  cursor-pointer"
                                @click.stop="selectViewOption(enumViewOptions.fullBoard)"
                                :input-value="activeViewOption == enumViewOptions.fullBoard"
                                active-class="v-btn--active control-btn-active">
-                            <span>Full Board</span>
+                            <span v-language:inner>tutor_option_fullBoard</span>
                         </v-btn>
                         <v-layout column align-start class="video-stream-wraper"
                                   v-show="activeViewOption !== enumViewOptions.fullBoard">

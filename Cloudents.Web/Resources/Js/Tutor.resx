@@ -156,6 +156,15 @@
   <data name="nav_text" xml:space="preserve">
     <value>Text Editor</value>
   </data>
+  <data name="option_fullBoard" xml:space="preserve">
+    <value>Full Board</value>
+  </data>
+  <data name="option_videoChat" xml:space="preserve">
+    <value>Video &amp; Chat</value>
+  </data>
+  <data name="option_videoFull" xml:space="preserve">
+    <value>Full Video</value>
+  </data>
   <data name="quality_access_device" xml:space="preserve">
     <value>Device Access</value>
   </data>
