@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.ServiceBus;
 
@@ -79,11 +80,27 @@ namespace Cloudents.Web.Hubs
                     }
 
                 }
+                catch (UserLockoutException e)
+                {
+                    _logger.Value.Exception(e, new Dictionary<string, string>()
+                    {
+                        ["SignalR"] = "Signalr",
+                        ["currentUserId"] = "currentUserId"
+                    });
+                    var message2 = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
+                        new object());
+                    await Clients.User(Context.UserIdentifier).SendCoreAsync("Message", new object[]
+                    {
+                        message2
+                    });
+                    return;
+                }
                 catch (Exception e)
                 {
                     _logger.Value.Exception(e, new Dictionary<string, string>()
                     {
-                        ["SignalR"] = "Signalr"
+                        ["SignalR"] = "Signalr",
+                        ["currentUserId"] = "currentUserId"
                     });
                     _canUpdateDb = false;
                 }
@@ -168,8 +185,25 @@ namespace Cloudents.Web.Hubs
                         await _commandBus.Value.DispatchAsync(command, default);
                     }
                 }
+                catch (UserLockoutException e)
+                {
+                    var message2 = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
+                        new object());
+                    await Clients.User(Context.UserIdentifier).SendCoreAsync("Message", new object[]
+                    {
+                        message2
+                    });
+                    _logger.Value.Exception(e, new Dictionary<string, string>()
+                    {
+                        ["SignalR"] = "Signalr",
+                        ["currentUserId"] = "currentUserId"
+                    });
+                    return;
+                }
                 catch (Exception e)
                 {
+                   
+                   
                     _logger.Value.Exception(e, new Dictionary<string, string>()
                     {
                         ["SignalR"] = "Signalr"
