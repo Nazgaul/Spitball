@@ -36,6 +36,9 @@ namespace Cloudents.Web.Controllers
             {
                 case HttpStatusCode.NotFound:
                     return RedirectToAction("NotFound");
+
+                case HttpStatusCode.Unauthorized:
+                    return Redirect("/");
             }
             //return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, ErrorText = text });
 
