@@ -19,10 +19,13 @@ namespace Cloudents.Web.Controllers
         [Route("error")]
         public ActionResult Index()
         {
-            var statusCode = (HttpStatusCode)Response.StatusCode;
 
+            var statusCode = (HttpStatusCode)Response.StatusCode;
             var x = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
-            
+            if (x == null)
+            {
+                return RedirectToAction("NotFound");
+            }
 
             // For API errors, responds with just the status code (no page).
             if (x.OriginalPath.StartsWith("/api/", StringComparison.OrdinalIgnoreCase))

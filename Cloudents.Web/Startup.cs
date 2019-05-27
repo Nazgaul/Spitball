@@ -251,11 +251,8 @@ namespace Cloudents.Web
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             app.UseClickJacking();
 
-            // BuildCsp(app);
-
             if (env.IsDevelopment())
             {
-                //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
@@ -273,7 +270,7 @@ namespace Cloudents.Web
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
-                //reWriterOptions.Add(new RedirectToWww());
+                reWriterOptions.Add(new RedirectToWww());
             }
 
             app.UseRewriter(reWriterOptions);
