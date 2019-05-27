@@ -63,26 +63,26 @@
                         <share-screen-btn class="nav-share-btn"></share-screen-btn>
                     </v-flex>
                     <v-flex shrink class="text-xs-left" style="box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12);">
-                        <v-btn class="control-btn text-capitalize elevation-0"
+                        <v-btn class="control-btn text-capitalize elevation-0  cursor-pointer"
                                @click.stop="selectViewOption(enumViewOptions.videoChat)"
                                :input-value="activeViewOption == enumViewOptions.videoChat"
                                active-class="v-btn--active control-btn-active">
                             <span>Video & Chat</span>
                         </v-btn>
                         <v-btn @click="selectViewOption(enumViewOptions.fullScreenVideo)"
-                               class="control-btn text-capitalize elevation-0 "
+                               class="control-btn text-capitalize elevation-0  cursor-pointer"
                                :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
                                active-class="v-btn--active control-btn-active">
                             <span>Full Video</span>
                         </v-btn>
-                        <v-btn class="control-btn text-capitalize elevation-0"
+                        <v-btn class="control-btn text-capitalize elevation-0  cursor-pointer"
                                @click.stop="selectViewOption(enumViewOptions.fullBoard)"
                                :input-value="activeViewOption == enumViewOptions.fullBoard"
                                active-class="v-btn--active control-btn-active">
                             <span>Full Board</span>
                         </v-btn>
                         <v-layout column align-start class="video-stream-wraper"
-                                  v-show="activeViewOption === enumViewOptions.videoChat">
+                                  v-show="activeViewOption !== enumViewOptions.fullBoard">
                             <v-flex xs6 sm6 md6 >
                                 <video-stream :id="id"></video-stream>
                             </v-flex>
@@ -273,7 +273,9 @@
                               "updateReview",
                               "submitReview",
                               "updateTutorStartDialog",
-                              "updateStudentStartDialog"
+                              "updateStudentStartDialog",
+                              "closeChat",
+                              "openChatInterface"
                           ]),
             closeReviewDialog() {
                 this.updateReviewDialog(false);
@@ -295,8 +297,10 @@
                 this.activeViewOption = param;
                 if( this.activeViewOption === this.enumViewOptions.videoChat) {
                     this.videoChat = !this.videoChat;
+                    this.openChatInterface();
                 } else if(this.activeViewOption === this.enumViewOptions.fullBoard) {
                     this.videoChat = !this.videoChat;
+                    this.closeChat()
                 }else if (this.activeViewOption === this.enumViewOptions.fullScreenVideo){
                     this.biggerRemoteVideo()
                 }

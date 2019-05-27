@@ -85,7 +85,11 @@
             },
         },
         methods:{
-            ...mapActions(['updateChatState', 'toggleChatMinimize', 'closeChat', 'openChatInterface']),
+            ...mapActions([
+                              'updateChatState',
+                              'toggleChatMinimize',
+                              'closeChat',
+                              'openChatInterface']),
             ...mapGetters(['getEnumChatState']),
             OriginalChatState(){
                 if(!this.isLocked){
@@ -125,7 +129,7 @@
     box-shadow: 0 3px 16px 0 rgba(0, 0, 0, .3);
     max-height: ~"calc( 100vh - 100px)";
     &.chat-right{
-        right: 130px/*rtl:ignore*/;
+        right: 0px/*rtl:ignore*/;
         left: unset /*rtl:ignore*/;
     }
     @media (max-width: @screen-xs) {
