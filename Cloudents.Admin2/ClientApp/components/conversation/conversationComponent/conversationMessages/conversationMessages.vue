@@ -49,8 +49,8 @@
         },
         computed: {
             studentName() {
-                return this.conversationsMessages[this.conversationsMessages.length - 1] ?
-                        this.conversationsMessages[this.conversationsMessages.length - 1].name : ''
+                return this.conversationsMessages[0] ?
+                        this.conversationsMessages[0].name : ''
             }
         },
         created() {
