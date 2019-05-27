@@ -47,7 +47,7 @@
             },
         },
         computed: {
-            ...mapGetters(['getStudyRoomData', 'accountUser']),
+            ...mapGetters(['getStudyRoomData', 'accountUser', 'getRoomId']),
             userImageUrl(){
                 if(this.accountUser.image.length > 1){
                     return `${this.accountUser.image}`
@@ -67,11 +67,10 @@
                 this.updateEndDialog(false)
             },
             endSession(){
-                tutorService.endTutoringSession(this.id)
+                let self = this;
+                tutorService.endTutoringSession(self.getRoomId)
                             .then((resp) => {
-                                if (!this.isTutor && this.getAllowReview) {
-                                    this.updateReviewDialog(true);
-                                }
+                                self.updateEndDialog(false);
                             }, (error) => {
                                 console.log('error', error);
                             });
