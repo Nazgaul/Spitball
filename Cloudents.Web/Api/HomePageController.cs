@@ -36,6 +36,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpGet("version")]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Version()
         {
             if (User.Identity.IsAuthenticated)
