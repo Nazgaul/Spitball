@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Query;
@@ -6,6 +7,8 @@ using Cloudents.Query.Query;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -15,10 +18,12 @@ namespace Cloudents.Web.Api
     public class HomePageController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
+        private readonly UserManager<RegularUser> _userManager;
 
-        public HomePageController(IQueryBus queryBus)
+        public HomePageController(IQueryBus queryBus, UserManager<RegularUser> userManager)
         {
             _queryBus = queryBus;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -31,9 +36,19 @@ namespace Cloudents.Web.Api
 
 
         [HttpGet("version")]
-        public IActionResult Version()
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> Version()
         {
-            return Ok(new {version = Assembly.GetExecutingAssembly().GetName().Version.ToString(4)});
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user.LockoutEnd.HasValue && user.LockoutEnd.Value > DateTime.UtcNow)
+                {
+                    return Unauthorized();
+                }
+            }
+
+            return Ok(new { version = Assembly.GetExecutingAssembly().GetName().Version.ToString(4) });
         }
     }
 }
