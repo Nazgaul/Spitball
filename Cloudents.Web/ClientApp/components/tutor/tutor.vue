@@ -288,7 +288,8 @@
                               "updateTutorStartDialog",
                               "updateStudentStartDialog",
                               "closeChat",
-                              "openChatInterface"
+                              "openChatInterface",
+                              "updateEndDialog"
                           ]),
             closeReviewDialog() {
                 this.updateReviewDialog(false);

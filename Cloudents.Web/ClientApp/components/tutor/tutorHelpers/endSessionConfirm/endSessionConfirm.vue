@@ -70,7 +70,7 @@
                 let self = this;
                 tutorService.endTutoringSession(self.getRoomId)
                             .then((resp) => {
-                                self.updateEndDialog(false);
+                                self.closeDialog();
                             }, (error) => {
                                 console.log('error', error);
                             });
