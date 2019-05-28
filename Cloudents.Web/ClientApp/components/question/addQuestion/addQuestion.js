@@ -175,9 +175,9 @@ export default {
                     this.requestNewQuestionDialogClose(false);
                     this.$router.push({
                         path: '/ask',
-                        query: {
-                            term: ''
-                        }
+                        // query: {
+                        //     term: ''
+                        // }
                     });
                     this.UPDATE_LOADING(false);
                 }, (error) => {
