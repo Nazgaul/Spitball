@@ -150,6 +150,11 @@
         letter-spacing: 0.5px;
         color: @color-white;
         outline: none;
+        .timer-icon{
+            height: 24px;
+            width: 24px;
+            fill: #FFF;
+        }
         &.waiting{
             padding: 12px 24px;
         }
@@ -157,6 +162,9 @@
             pointer-events: none;
             background-color: rgba(0, 0, 0, 0.27);
             color: rgba(255, 255, 255, 0.27);
+            .timer-icon{
+                fill: rgba(255, 255, 255, 0.27);
+            }
         }
     }
     .end-session{
@@ -175,18 +183,14 @@
         letter-spacing: 0.5px;
         color: #ffffff;
         outline: none;
+        .stop-icon{
+            fill: #ffffff;
+        }
         //&.disabled{
         //  pointer-events: none;
         //  background-color: rgba(0, 217, 131, 0.24);
         //}
     }
-    .stop-icon{
-        fill: #ffffff;
-    }
-    .timer-icon{
-        height: 24px;
-        width: 24px;
-        fill: #FFF;
-    }
+
 }
 </style>
