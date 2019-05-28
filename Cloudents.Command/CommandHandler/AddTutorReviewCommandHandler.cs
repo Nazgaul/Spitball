@@ -28,7 +28,8 @@ namespace Cloudents.Command.CommandHandler
 
             if (studyRoom.Users.Any(a => a.User.Id == message.UserId))
             {
-                if (userTutor.Tutor.Reviews.Any(w => w.Room.Id == message.RoomId))
+                //Room can be null because of fake reviews
+                if (userTutor.Tutor.Reviews.Any(w => w.Room?.Id == message.RoomId))
                 {
                     throw new DuplicateRowException();
                 }
