@@ -17,7 +17,7 @@
             <span class="subheading" v-language:inner>tutor_entered_room</span>
         </v-flex>
         <v-flex xs12 sm12 md12 class="pt-4">
-            <button class="start-session-btn elevation-0 align-center justify-center" @click="startSession()">
+            <button class="start-session-btn elevation-0 align-center justify-center" @click.once="startSession()">
                 <timerIcon class="timer-icon mr-2"></timerIcon>
                 <span class="text-uppercase" v-language:inner>tutor_stream_btn_start_session</span>
             </button>
