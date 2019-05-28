@@ -8,9 +8,13 @@ function PendingTutorItem(objInit) {
     this.bio = objInit.bio;
     this.price = objInit.price;
     this.email = objInit.email;
-    
+    objInit.courses = objInit.courses || '';
     this.courses =  objInit.courses.split(",");
     this.created = new Date(objInit.created);
+    if (objInit.image) {
+        objInit.image += "?width=125&height=125";
+    }
+    this.image = objInit.image;
 }
 
 
@@ -27,9 +31,7 @@ const getAllTutors = function () {
                 arrTutors.push(createPendingTutorsItem(tutors));
             });
         }
-        return Promise.resolve(arrTutors);
-    }, (err) => {
-        return Promise.reject(err);
+        return arrTutors;
     });
 };
 
@@ -39,23 +41,13 @@ const aproveTutor = function (id) {
         id: id
     };
     return connectivityModule.http.post(path, idObj).then(() => {
-        return Promise.resolve(true);
-    }, (err) => {
-        return Promise.reject(err);
+        return true;
     });
 };
 
 const deleteTutor = function (id) {
     let path = 'AdminTutor/';
-    return connectivityModule.http.delete(`${path}${id}`)
-        .then((resp) => {
-        console.log(resp, 'success deleted');
-        return Promise.resolve(resp);
-    }, (error) => {
-        console.log(error, 'error deleted');
-        return Promise.reject(error);
-    });
-
+    return connectivityModule.http.delete(`${path}${id}`);
 };
 
 
