@@ -1,10 +1,21 @@
 <template>
     <div class="share-screen-btn-wrap">
         <v-flex>
-            <button v-if="!isSharing" @click="showScreen" class="outline-btn-share" :disabled="!roomIsActive">
-                <castIcon class="cast-icon"></castIcon>
-                <span v-language:inner="'tutor_btn_share_screen'"></span>
-            </button>
+            <!--Select-->
+            <div v-if="!isSharing" >
+                <v-tooltip bottom >
+                    <template v-slot:activator="{on}">
+                        <!--keep this div, due to tooltip not appearing on disabled btn bug of vuetify-->
+                        <div v-on="on" >
+                            <button @click="showScreen" class="outline-btn-share" :disabled="!roomIsActive">
+                                <castIcon class="cast-icon"></castIcon>
+                                <span v-language:inner="'tutor_btn_share_screen'"></span>
+                            </button>
+                        </div>
+                    </template>
+                    <span v-language:inner>tutor_start_to_share</span>
+                </v-tooltip>
+            </div>
             <button class="outline-btn" v-else @click="stopSharing">
                 <span v-language:inner="'tutor_btn_stop_sharing'"></span>
             </button>
