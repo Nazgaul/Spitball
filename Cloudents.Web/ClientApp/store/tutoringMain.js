@@ -192,6 +192,7 @@ const actions = {
                     //show tutor start session
                     dispatch("updateTutorStartDialog", true);
                 } else {
+                    dispatch("updateTutorStartDialog", false);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                     toasterParams.timeout = 3600000;
                     dispatch('showRoomToasterMessage', toasterParams);
@@ -208,12 +209,12 @@ const actions = {
             if(onlineCount == totalOnline) {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
                 dispatch('showRoomToasterMessage', toasterParams);
-                //show student start se3ssion
-                // dispatch("updateStudentStartDialog", true);
             } else {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                 toasterParams.timeout = 3600000;
                 dispatch('showRoomToasterMessage', toasterParams);
+                //hide student start se3ssion
+                dispatch("updateStudentStartDialog", false);
             }
         }
     },
