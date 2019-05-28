@@ -62,7 +62,7 @@
                     <v-flex xs1 md1 sm1>
                         <share-screen-btn class="nav-share-btn"></share-screen-btn>
                     </v-flex>
-                    <v-flex shrink class="text-xs-left">
+                    <v-flex shrink class="controls-holder">
                         <v-btn class="control-btn text-capitalize elevation-0  cursor-pointer"
                                @click.stop="selectViewOption(enumViewOptions.videoChat)"
                                :input-value="activeViewOption == enumViewOptions.videoChat"

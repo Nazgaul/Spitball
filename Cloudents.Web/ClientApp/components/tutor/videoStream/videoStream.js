@@ -60,20 +60,6 @@ export default {
             'updateToasterParams',
             'setSesionClickedOnce'
         ]),
-
-        // biggerRemoteVideo() {
-        //     //check browser support
-        //     let video = document.querySelector("#remoteTrack video");
-        //     if (video.requestFullscreen) {
-        //         video.requestFullscreen();
-        //     } else if (video.webkitRequestFullscreen) {
-        //         video.webkitRequestFullscreen();
-        //     } else if (video.mozRequestFullScreen) {
-        //         video.mozRequestFullScreen();
-        //     } else if (video.msRequestFullscreen) {
-        //         video.msRequestFullscreen();
-        //     }
-        // },
         minimize(type) {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },

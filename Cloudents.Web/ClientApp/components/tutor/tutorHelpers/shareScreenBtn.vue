@@ -3,7 +3,7 @@
         <v-flex>
             <!--Select-->
             <div v-if="!isSharing" >
-                <v-tooltip bottom >
+                <v-tooltip left >
                     <template v-slot:activator="{on}">
                         <!--keep this div, due to tooltip not appearing on disabled btn bug of vuetify-->
                         <div v-on="on" >
