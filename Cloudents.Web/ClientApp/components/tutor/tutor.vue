@@ -16,14 +16,14 @@
                         <a class="tutor-nav-item-link">{{singleNav.name}}</a>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center; max-height: 48px;">
+                <div style="display: flex; align-items: center; max-height: 48px; width: 320px; justify-content: space-between;">
                     <startEndSessionBtn :id="id"></startEndSessionBtn>
                     <v-menu
                             bottom
                             origin="center center"
                             transition="scale-transition">
                         <template v-slot:activator="{ on }">
-                            <v-btn flat icon v-on="on" class="mx-3">
+                            <v-btn flat icon v-on="on">
                                 <settingIcon class="white-btn"></settingIcon>
                             </v-btn>
                             <v-divider color="#eee7e9"
@@ -45,9 +45,9 @@
                         </v-list>
                     </v-menu>
 
-                    <div class="mr-4 pr-1 d-flex">
+                    <div class="d-flex pr-3">
                         <component
-                                class="network-icon ml-3"
+                                class="network-icon"
                                 :is="localNetworkQuality ? 'signal_level_'+localNetworkQuality : 'signal_level_0'"
                         ></component>
                     </div>
