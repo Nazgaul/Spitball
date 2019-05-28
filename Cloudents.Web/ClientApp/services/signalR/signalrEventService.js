@@ -5,10 +5,11 @@ import store from '../../store/index'
 // do not remove this!
 let signalRConnectionPool = [];
 
-var connectionState = {
+let connectionState = {
     isConnected:false,
     connectionQue: []
 }
+
 
 //Signal R Objects ------------------------ start
 export function Notification(eventObj){
@@ -75,7 +76,11 @@ async function start(connection) {
         console.log("Reconnection Started!");
     } catch (err) {
         console.log(err);
-        setTimeout(() => start(connection), 5000);
+        setTimeout(() => {
+            if(!connectionState.isConnected){
+                start(connection);
+            }
+        }, 5000);
     }
 };
 
@@ -87,6 +92,7 @@ export default function init(connString = '/sbHub'){
     //reconnect in case connection closes for some reason
     connection.onclose(async () => {
         store.dispatch('setIsSignalRConnected', false);
+        connectionState.isConnected = false;
         await start(connection);
     });
 
