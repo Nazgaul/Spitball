@@ -51,7 +51,8 @@ namespace Cloudents.Admin2
             {
                 o.ApplicationDiscriminator = "spitball";
             }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
-
+            services.AddResponseCompression();
+            services.AddResponseCaching();
             //services.AddCors(options =>
             //{
             //    options.AddPolicy("AllowSpecificOrigin",
@@ -134,6 +135,8 @@ namespace Cloudents.Admin2
 
             }
 
+            app.UseResponseCompression();
+            app.UseResponseCaching();
             app.UseCors("AllowSpecificOrigin");
 
             app.UseHttpsRedirection();

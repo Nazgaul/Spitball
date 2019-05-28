@@ -1,3 +1,4 @@
+
 import Twilio, { connect, LocalDataTrack } from 'twilio-video';
 import { connectivityModule } from '../../services/connectivity.module';
 import { LanguageService } from '../../services/language/languageService';
@@ -5,7 +6,6 @@ import store from '../../store/index.js';
 import whiteBoardService from "./whiteboard/whiteBoardService";
 
 const dataTrack = new LocalDataTrack();
-
 const uploadCanvasImage = function (formData) {
     return connectivityModule.http.post("StudyRoom/upload", formData);
 };

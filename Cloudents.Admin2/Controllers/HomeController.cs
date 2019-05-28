@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Admin2.Controllers
 {
@@ -39,6 +41,16 @@ namespace Cloudents.Admin2.Controllers
             var extension = Path.GetExtension(file.Segments.Last());
             var url = blobProvider2.GenerateDownloadLink(file, TimeSpan.FromMinutes(30), "Temp" + extension);
             return Redirect(url.AbsoluteUri);
+        }
+
+
+        [Route("image/{hash}", Name = "imageUrl")]
+        [ResponseCache(
+            Duration = TimeConst.Month, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { "*" })]
+        public IActionResult ImageRedirect([FromRoute]string hash, [FromServices] IConfiguration configuration)
+        {
+            return Redirect(
+                $"{configuration["functionCdnEndpoint"]}/api/image/{hash}{Request.QueryString}");
         }
     }
 }
