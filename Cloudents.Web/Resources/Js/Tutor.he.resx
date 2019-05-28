@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btn_accept_and_start" xml:space="preserve">
+    <value>קבל שיעור</value>
+  </data>
   <data name="btn_share_screen" xml:space="preserve">
     <value>שתף מסך</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="close" xml:space="preserve">
     <value>סגור</value>
+  </data>
+  <data name="entered_room" xml:space="preserve">
+    <value>נכנס לחדר</value>
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>לוח</value>
@@ -212,6 +218,12 @@
   </data>
   <data name="quality_video_title" xml:space="preserve">
     <value>בדיקת איכות וידיאו</value>
+  </data>
+  <data name="start_dialog_your_student" xml:space="preserve">
+    <value>הסטודנט</value>
+  </data>
+  <data name="start_dialog_your_tutor" xml:space="preserve">
+    <value>המתרגל</value>
   </data>
   <data name="stream_btn_end_session" xml:space="preserve">
     <value>סיים שיעור</value>
