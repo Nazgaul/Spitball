@@ -229,7 +229,7 @@
     <value>סיים שיעור</value>
   </data>
   <data name="stream_btn_join_session" xml:space="preserve">
-    <value>הצטרף לשיעור</value>
+    <value>התחל שיעור</value>
   </data>
   <data name="stream_btn_start_session" xml:space="preserve">
     <value>התחל שיעור</value>
