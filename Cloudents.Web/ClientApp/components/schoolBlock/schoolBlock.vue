@@ -4,17 +4,6 @@
                          width="260"
                          @input="updateDrawerValue" :value="getShowSchoolBlock"
                          :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
-      <!--<v-list>-->
-        <!--<v-list-tile class="group-header search-university-title">-->
-          <!--<v-list-tile-action class="mr-1">-->
-            <!--<v-icon>sbf-uni-default</v-icon>-->
-          <!--</v-list-tile-action>-->
-          <!--<v-list-tile-title class="font-weight-regular" @click="openPersonalizeUniversity()">{{uniHeaderText}}</v-list-tile-title>-->
-          <!--<v-list-tile-action v-if="!schoolName" class="edit-course">-->
-            <!--<v-icon @click="openPersonalizeUniversity()">sbf-close</v-icon>-->
-          <!--</v-list-tile-action>-->
-        <!--</v-list-tile>-->
-      <!--</v-list>-->
       <v-list>
         <v-list-tile class="group-header search-university-title pl-1"
                      @click.native.prevent="openStudyRooms()"
