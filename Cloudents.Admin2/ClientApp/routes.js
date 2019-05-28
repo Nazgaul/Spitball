@@ -50,7 +50,7 @@ import pendingTutors from './components/tutor/pendingTutors/pendingTutor.vue';
 
 export const routes = [
     {
-       path: '/home/:userId',
+       path: '/home/:userId?',
        name: 'userMainView',
        component: userMain,
        props: true,
@@ -317,7 +317,7 @@ export const routes = [
     },
     {
          path: '/*',
-         redirect: '/home/-1',
+         redirect: '/home',
        },
 ]
 
