@@ -209,7 +209,7 @@ const actions = {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
                 dispatch('showRoomToasterMessage', toasterParams);
                 //show student start se3ssion
-                dispatch("updateStudentStartDialog", true);
+                // dispatch("updateStudentStartDialog", true);
             } else {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                 toasterParams.timeout = 3600000;
@@ -232,6 +232,8 @@ const actions = {
         commit('setJwtToken', token);
         if(!isTutor) {
             dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
+            //show student start se3ssion
+            dispatch("updateStudentStartDialog", true);
         }
     },
     signalR_ReleasePaymeStatus({commit, dispatch, state}) {
