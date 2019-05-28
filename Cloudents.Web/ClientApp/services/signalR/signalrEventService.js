@@ -71,19 +71,18 @@ function createConnection(connString){
 
 async function start(connection) {
     try {
-        await connection.start().then(()=>{
-            store.dispatch('setIsSignalRConnected', true);
-            connectionState.isConnected = true;
-            console.log("signal-R Reconected");
+        await connection.start()
+        store.dispatch('setIsSignalRConnected', true);
+        connectionState.isConnected = true;
+        console.log("signal-R Reconected");
 
-            //if we have events that cought in the que, then shift them one by one
-            if(connectionState.connectionQue.length > 0){
-                while(connectionState.connectionQue.length){
-                    let que = connectionState.connectionQue.shift()
-                    NotifyServer(que.connection, que.message, que.data)
-                }
+        //if we have events that cought in the que, then shift them one by one
+        if(connectionState.connectionQue.length > 0){
+            while(connectionState.connectionQue.length){
+                let que = connectionState.connectionQue.shift()
+                NotifyServer(que.connection, que.message, que.data)
             }
-        });
+        }
     } catch (err) {
         console.log(err);
         setTimeout(() => {
