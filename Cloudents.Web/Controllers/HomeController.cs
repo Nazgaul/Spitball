@@ -30,7 +30,7 @@ namespace Cloudents.Web.Controllers
             _logger = logger;
         }
 
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true), SignInWithToken]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
         [ApiNotFoundFilter]
         //[Route("", Name = RootRoute)]
         public IActionResult Index(

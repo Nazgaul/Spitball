@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities
 {
@@ -114,9 +115,14 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
       
+        
 
         public virtual void ChangeOnlineStatus(bool isOnline)
         {
+            if (IsSuspended())
+            {
+                throw new UserLockoutException();
+            }
             Online = isOnline;
             LastOnline = DateTime.UtcNow;
         }
@@ -140,6 +146,16 @@ namespace Cloudents.Core.Entities
             LockoutEnd = lockTime;
             LockoutReason = reason;
             AddEvent(new UserSuspendEvent(this));
+        }
+
+        public virtual bool IsSuspended()
+        {
+            if (LockoutEnd.HasValue && LockoutEnd.Value > DateTimeOffset.UtcNow)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public virtual void UnSuspendUser()

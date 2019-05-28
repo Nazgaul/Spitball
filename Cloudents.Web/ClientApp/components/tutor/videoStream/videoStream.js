@@ -82,6 +82,9 @@ export default {
         biggerRemoteVideo() {
             //check browser support
             let video = document.querySelector("#remoteTrack video");
+            if (!video) {
+                return;
+            }
             if (video.requestFullscreen) {
                 video.requestFullscreen();
             } else if (video.webkitRequestFullscreen) {
