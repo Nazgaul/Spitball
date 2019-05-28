@@ -263,12 +263,26 @@ const actions = {
     updateChatState:({commit}, val)=>{
         commit('changeChatState', val);
     },
-    sendChatMessage:({state}, message)=>{
+    sendChatMessage:({state, dispatch, getters}, message)=>{
+        //send message to server
         let messageObj = chatService.createServerMessageObj({
             message: message,
             otherUser: state.activeConversationObj.userId
         });
         chatService.sendChatMessage(messageObj);
+
+        //add message localy
+        let id = state.activeConversationObj.conversationId;
+        let userId = getters.accountUser.id;
+        let localMessageObj = {
+            userId,
+            text: message,
+            type: 'text',
+            dateTime: new Date().toISOString(),
+            fromSignalR:true
+        }
+        localMessageObj = chatService.createMessage(localMessageObj, id);
+        dispatch('addMessage', localMessageObj)
     },
     toggleChatMinimize:({commit, state, dispatch})=>{
         if(!state.isMinimized){
