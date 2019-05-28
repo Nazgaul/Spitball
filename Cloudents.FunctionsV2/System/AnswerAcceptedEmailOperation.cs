@@ -52,7 +52,7 @@ namespace Cloudents.FunctionsV2.System
             {
                 Blocks = template.Blocks
                     .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
-                        _urlBuilder.BuildQuestionEndPoint(data.QuestionId, new { code }))),
+                        _urlBuilder.BuildQuestionEndPoint(data.QuestionId, new { token = code }))),
                 Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
                 Subject = template.Subject,//.InjectSingleValue("Tokens", data.Tokens.ToString("f2")),
                 To = data.ToEmailAddress

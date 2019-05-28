@@ -11,7 +11,7 @@
             </v-flex>
             <v-flex xs12 sm12 md12 class="pt-12">
                 <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_tutor</span>
-                <span class="subheading font-weight-bold">{{tutorName}}</span>
+                <span class="subheading font-weight-bold">&nbsp;{{tutorName}}</span>
             </v-flex>
             <v-flex xs12 sm12 md12 class="pt-2">
                 <span class="subheading" v-language:inner>tutor_entered_room</span>
