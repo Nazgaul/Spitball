@@ -86,10 +86,10 @@ export default {
       deleteTutor(id).then(
         () => {
           this.tutors.splice(index, 1);
-          this.$toaster.success(`Tutor Declined`);
+          this.$toaster.success('Tutor Declined');
         },
         () => {
-          this.$toaster.error(`Tutor Declined Failed`);
+          this.$toaster.error('Tutor Declined Failed');
         }
       );
     }
@@ -99,7 +99,9 @@ export default {
         
       this.tutors = questionsResp;
       this.loading = false;
-    });
+      }, () => {
+this.$toaster.error('Failed to bring data');
+      });
   }
 };
 </script>
