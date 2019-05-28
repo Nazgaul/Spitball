@@ -13,6 +13,8 @@ using Cloudents.Core;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.ServiceBus;
+using Cloudents.Query;
+using Dapper;
 
 namespace Cloudents.Web.Hubs
 {
@@ -21,6 +23,7 @@ namespace Cloudents.Web.Hubs
     {
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly Lazy<ILogger> _logger;
+        private readonly DapperRepository _dapper;
 
         private static readonly ConnectionMapping<long> _connections =
             new ConnectionMapping<long>();
@@ -28,10 +31,11 @@ namespace Cloudents.Web.Hubs
 
         private static bool _canUpdateDb = true;
 
-        public SbHub(Lazy<ICommandBus> commandBus, Lazy<ILogger> logger)
+        public SbHub(Lazy<ICommandBus> commandBus, Lazy<ILogger> logger, DapperRepository dapper)
         {
             _commandBus = commandBus;
             _logger = logger;
+            _dapper = dapper;
         }
 
         public const string MethodName = "Message";
@@ -45,6 +49,57 @@ namespace Cloudents.Web.Hubs
             await Clients.All.SendAsync(MethodName, entity);
         }
 
+
+        private async Task ChangeOnlineStatus(long currentUserId, bool isTurnOn)
+        {
+            _logger.Value.Info($"current user online {currentUserId}");
+            try
+            {
+                if (_canUpdateDb)
+                {
+                    var sql = @"update sb.[user] set Online = @IsOnline, LastOnline = GETUTCDATE() where Id = @Id
+	                        and (LockoutEnd is null or LockoutEnd < GETUTCDATE())";
+                    int rows;
+                    using (var connection = _dapper.OpenConnection())
+                    {
+                        rows = await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isTurnOn });
+                    }
+
+                    if (rows == 0)
+                    {
+                        _logger.Value.Exception(new UserLockoutException(), new Dictionary<string, string>()
+                        {
+                            ["SignalR"] = "Signalr",
+                            ["currentUserId"] = "currentUserId"
+                        });
+                        var message2 = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
+                            new object());
+                        await Clients.User(Context.UserIdentifier).SendCoreAsync("Message", new object[]
+                        {
+                        message2
+                        });
+                        return;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                _logger.Value.Exception(e, new Dictionary<string, string>()
+                {
+                    ["SignalR"] = "Signalr",
+                    ["currentUserId"] = "currentUserId"
+                });
+                _canUpdateDb = false;
+            }
+            var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
+                new
+                {
+                    id = currentUserId,
+                    online = true
+                });
+            await Clients.All.SendAsync(MethodName, message);
+        }
 
         public override async Task OnConnectedAsync()
         {
@@ -70,47 +125,7 @@ namespace Cloudents.Web.Hubs
             //}
             if (connectionCount == 1)
             {
-                _logger.Value.Info($"current user online {currentUserId}");
-                try
-                {
-                    if (_canUpdateDb)
-                    {
-                        var command = new ChangeOnlineStatusCommand(currentUserId, true);
-                        await _commandBus.Value.DispatchAsync(command, default);
-                    }
-
-                }
-                catch (UserLockoutException e)
-                {
-                    _logger.Value.Exception(e, new Dictionary<string, string>()
-                    {
-                        ["SignalR"] = "Signalr",
-                        ["currentUserId"] = "currentUserId"
-                    });
-                    var message2 = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
-                        new object());
-                    await Clients.User(Context.UserIdentifier).SendCoreAsync("Message", new object[]
-                    {
-                        message2
-                    });
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _logger.Value.Exception(e, new Dictionary<string, string>()
-                    {
-                        ["SignalR"] = "Signalr",
-                        ["currentUserId"] = "currentUserId"
-                    });
-                    _canUpdateDb = false;
-                }
-                var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
-                    new
-                    {
-                        id = currentUserId,
-                        online = true
-                    });
-                await Clients.All.SendAsync(MethodName, message);
+                await ChangeOnlineStatus(currentUserId, true);
             }
             else
             {
@@ -176,48 +191,7 @@ namespace Cloudents.Web.Hubs
 
             if (connectionCount == 0)
             {
-                _logger.Value.Info($"current user online {currentUserId}");
-                try
-                {
-                    if (_canUpdateDb)
-                    {
-                        var command = new ChangeOnlineStatusCommand(currentUserId, false);
-                        await _commandBus.Value.DispatchAsync(command, default);
-                    }
-                }
-                catch (UserLockoutException e)
-                {
-                    var message2 = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
-                        new object());
-                    await Clients.User(Context.UserIdentifier).SendCoreAsync("Message", new object[]
-                    {
-                        message2
-                    });
-                    _logger.Value.Exception(e, new Dictionary<string, string>()
-                    {
-                        ["SignalR"] = "Signalr",
-                        ["currentUserId"] = "currentUserId"
-                    });
-                    return;
-                }
-                catch (Exception e)
-                {
-                   
-                   
-                    _logger.Value.Exception(e, new Dictionary<string, string>()
-                    {
-                        ["SignalR"] = "Signalr"
-                    });
-                    _canUpdateDb = false;
-                }
-
-                var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
-                    new
-                    {
-                        id = currentUserId,
-                        online = false
-                    });
-                await Clients.All.SendAsync(MethodName, message);
+                await ChangeOnlineStatus(currentUserId, false);
             }
             else
             {
