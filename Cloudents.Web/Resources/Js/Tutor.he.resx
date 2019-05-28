@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btn_accept_and_start" xml:space="preserve">
-    <value>קבל שיעור</value>
+    <value>התחל שיעור</value>
   </data>
   <data name="btn_share_screen" xml:space="preserve">
     <value>שתף מסך</value>
