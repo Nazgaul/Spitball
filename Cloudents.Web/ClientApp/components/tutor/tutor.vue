@@ -55,7 +55,7 @@
             </nav>
             <v-flex xs12 md12 sm12 class="study-tools-wrapper">
                 <v-layout class="pl-2" align-center>
-                    <v-flex shrink class="canvas-tools-wrapper">
+                    <v-flex shrink class="canvas-tools-wrapper" v-if="isWhiteBoardActive">
                         <whiteBoardTools></whiteBoardTools>
                     </v-flex>
                     <v-spacer></v-spacer>
@@ -261,8 +261,8 @@
             activeItem() {
                 return this.activeNavItem;
             },
-            showCurrentCondition() {
-                return this.activeItem === "white-board" ? true : true;
+            isWhiteBoardActive() {
+                return this.activeItem === "white-board" ? true : false;
             },
             zoom() {
                 let gridSize = (20 * Number(this.getZoom.toFixed())) / 100;
