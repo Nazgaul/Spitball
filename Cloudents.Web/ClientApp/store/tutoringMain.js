@@ -22,8 +22,11 @@ const state = {
         loading: "loading",
         active: "active"
     },
+    sessionStartClickedOnce: false,
     currentRoomState: "pending",
     jwtToken: null,
+    studentStartDialog: false,
+    tutorStartDialog: false
 };
 const getters = {
     activeRoom: state => state.currentActiveRoom,
@@ -37,19 +40,31 @@ const getters = {
     firepadLoadedOnce: state => state.isFirepadLoadedOnce,
     qualityDialog: state => state.qualityDialogVisibility,
     getNotAllowedDevices: state => state.notAllowedDevices,
-    getNotAvaliableDevices: state=> state.notAvaliableDevices,
+    getNotAvaliableDevices: state => state.notAvaliableDevices,
     getCurrentRoomState: state => state.currentRoomState,
     getStudyRoomData: state => state.studyRoomData,
     getJwtToken: state => state.jwtToken,
     getRoomId: state => state.roomId,
+    getStudentStartDialog: state => state.studentStartDialog,
+    getTutorStartDialog: state => state.tutorStartDialog,
+    getSessionStartClickedOnce: state => state.sessionStartClickedOnce
 };
 
 const mutations = {
-    updateAllowedDevices(state, val){
-        state.notAllowedDevices = val
+    updateSessionClickedOnce(state, val) {
+        state.sessionStartClickedOnce = val;
     },
-    updateAvaliableDevices(state, val){
-        state.notAvaliableDevices = val
+    updateAllowedDevices(state, val) {
+        state.notAllowedDevices = val;
+    },
+    setStudentStartDialog(state, val) {
+        state.studentStartDialog = val;
+    },
+    setTutorStartDialog(state, val) {
+        state.tutorStartDialog = val;
+    },
+    updateAvaliableDevices(state, val) {
+        state.notAvaliableDevices = val;
     },
     setStudyRoomProps(state, val) {
         state.studyRoomData = val;
@@ -95,22 +110,25 @@ const mutations = {
             state.currentRoomState = val;
         }
     },
-    setJwtToken(state, val){
+    setJwtToken(state, val) {
         state.jwtToken = val;
     },
-    setRoomId(state, val){
-        state.roomId = val
+    setRoomId(state, val) {
+        state.roomId = val;
     }
 };
 
 const actions = {
+    setSesionClickedOnce({commit, state}, val) {
+        commit('updateSessionClickedOnce', val);
+    },
     setAvaliableDevicesStatus({commit, state}, val) {
         commit('updateAvaliableDevices', val);
     },
     setAllowedDevicesStatus({commit, state}, val) {
         commit('updateAllowedDevices', val);
     },
-updateStudyRoomProps(context, val) {
+    updateStudyRoomProps(context, val) {
         let roomData = tutorService.createRoomProps(val);
         let allowReview = roomData.allowReview;
         //update leaveReview store, to prevent leaving of multiple reviews
@@ -129,7 +147,6 @@ updateStudyRoomProps(context, val) {
     updateCodeLoadedOnce({commit, state}, val) {
         commit('changeFirepadLoaded', val);
     },
-
     updateRoomLoading({commit, state}, val) {
         commit('setRoomLoading', val);
     },
@@ -154,18 +171,26 @@ updateStudyRoomProps(context, val) {
     updateCurrentRoomState({commit}, val) {
         commit('setCurrentRoomState', val);
     },
+    updateStudentStartDialog({commit}, val) {
+        commit('setStudentStartDialog', val);
+    },
+    updateTutorStartDialog({commit}, val) {
+        commit('setTutorStartDialog', val);
+    },
     signalR_UpdateState({commit, dispatch, state}, notificationObj) {
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
         let totalOnline = notificationObj.totalOnline;
         let isTutor = state.studyRoomData.isTutor;
         let toasterParams = {};
-        if(isTutor){
+        if(isTutor) {
             if(state.currentRoomState !== state.roomStateEnum.active) {
                 if(onlineCount == totalOnline) {
                     dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
                     dispatch('showRoomToasterMessage', toasterParams);
+                    //show tutor start session
+                    dispatch("updateTutorStartDialog", true);
                 } else {
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                     toasterParams.timeout = 3600000;
@@ -179,10 +204,12 @@ updateStudyRoomProps(context, val) {
                     // think what to do in case session is active and not all are connected
                 }
             }
-        }else{
+        } else {
             if(onlineCount == totalOnline) {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
                 dispatch('showRoomToasterMessage', toasterParams);
+                //show student start se3ssion
+                dispatch("updateStudentStartDialog", true);
             } else {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                 toasterParams.timeout = 3600000;
@@ -190,28 +217,28 @@ updateStudyRoomProps(context, val) {
             }
         }
     },
-    showRoomToasterMessage({dispatch}, toasterParams){
+    showRoomToasterMessage({dispatch}, toasterParams) {
         let toasterObj = {
             toasterText: toasterParams.text,
             showToaster: true,
             toasterType: toasterParams.type ? toasterParams.type : '',
             toasterTimeout: toasterParams.timeout
-        }
+        };
         dispatch('updateToasterParams', toasterObj);
     },
-    signalR_SetJwtToken({commit, dispatch, state}, sessionInformation){
+    signalR_SetJwtToken({commit, dispatch, state}, sessionInformation) {
         let token = sessionInformation.data.jwtToken;
         let isTutor = state.studyRoomData.isTutor;
         commit('setJwtToken', token);
-        if(!isTutor){
+        if(!isTutor) {
             dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
         }
     },
-    signalR_ReleasePaymeStatus({commit, dispatch, state}){
+    signalR_ReleasePaymeStatus({commit, dispatch, state}) {
         state.studyRoomData.needPayment = false;
     },
-    setRoomId({commit}, val){
-        commit('setRoomId', val)
+    setRoomId({commit}, val) {
+        commit('setRoomId', val);
     }
 };
 export default {

@@ -5,6 +5,7 @@ import timerIcon from '../images/timer.svg';
 import stopIcon from '../images/stop-icon.svg';
 import fullScreenIcon from '../images/fullscreen.svg';
 import walletService from '../../../services/walletService';
+import videoStreamService from "../../../services/videoStreamService";
 
 export default {
     name: "videoStream",
@@ -15,7 +16,6 @@ export default {
             loaded: false,
             data: {},
             isCopied: false,
-            sessionStartClickedOnce: false,
             sessionEndClickedOnce: false,
             localTrackAval: false,
             remoteTrack: '',
@@ -76,7 +76,8 @@ export default {
             'updateTestDialogState',
             'updateReviewDialog',
             'setRoomId',
-            "updateToasterParams",
+            'updateToasterParams',
+            'setSesionClickedOnce'
         ]),
 
         biggerRemoteVideo() {
@@ -99,35 +100,10 @@ export default {
         minimize(type) {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
+        // move all this function inside to service
         enterRoom() {
-            if (!!this.accountUser && this.accountUser.needPayment && !this.isTutor) {
-                walletService.getPaymeLink().then(({ data }) => {
-                    global.open(data.link, '_blank', 'height=520,width=440');
-                })
-                return;
-            }
-            //if blocked or not available  use of media devices do not allow session start
-            if (this.getNotAllowedDevices && this.getNotAvaliableDevices) {
-                this.updateTestDialogState(true);
-                return;
-            }
-            if (!this.sessionStartClickedOnce) {
+            videoStreamService.enterRoom();
                 this.sessionEndClickedOnce = false; //unlock end session btn
-                this.sessionStartClickedOnce = true;
-                if (this.isTutor) {
-                    this.updateCurrentRoomState('loading');
-                    tutorService.enterRoom(this.id).then(() => {
-                        setTimeout(() => {
-                            this.createVideoSession();
-                            this.sessionStartClickedOnce = false;
-                        }, 1000);
-                    });
-                } else {
-                    //join
-                    this.createVideoSession();
-                    this.sessionStartClickedOnce = false;
-                }
-            }
         },
         endSession() {
             if(this.sessionEndClickedOnce) return;
@@ -136,7 +112,7 @@ export default {
             tutorService.endTutoringSession(self.id)
                 .then((resp) => {
                     self.sessionStartClickedOnce = false; //unlock start session btn
-                    self.sessionEndClickedOnce = false; //unlock end session btn on success
+                    this.setSesionClickedOnce(false)
                     if (!self.isTutor && self.getAllowReview) {
                         self.updateReviewDialog(true);
                     }
@@ -144,71 +120,9 @@ export default {
                     console.log('error', error);
                 });
         },
-        async isHardawareAvaliable() {
-            let self = this;
-            if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-                console.log("enumerateDevices() not supported.");
-                return;
-            }
-            const token = this.getJwtToken; //get jwt from store
-            // List cameras and microphones.
-            let devices = await navigator.mediaDevices.enumerateDevices();
-            //navigator.mediaDevices.enumerateDevices()
-            //.then(function (devices) {
-            devices.forEach(function (device) {
-                console.log(device.kind + ": " + device.label +
-                    " id = " + device.deviceId);
-                self.availableDevices.push(device.kind);
-            });
-            let connectOptions;
-            //create local track with custom names
-            let audioTrackName = `audio_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
-            let videoTrackName = `video_${self.isTutor ? 'tutor' : 'student'}_${self.accountUserID}`;
-            let audioSetObj = {
-                audio: self.availableDevices.includes('audioinput'),
-                name: audioTrackName
-            };
-            let videoSetObj = {
-                video: self.availableDevices.includes('videoinput'),
-                name: videoTrackName
-            };
-            let audioDevice = await navigator.mediaDevices.getUserMedia({ audio: true }).then(y => audioSetObj, z => false);
-            let videoDevice = await navigator.mediaDevices.getUserMedia({ video: true }).then(y => videoSetObj, z => false);
-            createLocalTracks({
-                audio: audioDevice,
-                video:videoDevice
-            }).then((tracksCreated) => {
-                let localMediaContainer = document.getElementById('localTrack');
-                tracksCreated.forEach((track) => {
-                    localMediaContainer.innerHTML = "";
-                    localMediaContainer.appendChild(track.attach());
-                    self.localTrackAval = true;
-                });
-                tracksCreated.push(tutorService.dataTrack);
-                connectOptions = {
-                    tracks: tracksCreated,
-                    networkQuality: true
-                };
-                tutorService.connectToRoom(token, connectOptions);
-                if (!self.isTutor) {
-                    self.updateCurrentRoomState(self.tutoringMainStore.roomStateEnum.active)
-                }
-
-            }, (error) => {
-                self.updateToasterParams({
-                    toasterText: "We having trouble connection you to the room",
-                    showToaster: true,
-                    toasterType: 'error-toaster' //c
-                  });
-
-            });
-
-            //                     })
-            //.catch(function (err) {
-            //console.log(err.name + ": " + err.message);
-            //});
+         addDevicesToTrack() {
+           videoStreamService.addDevicesTotrack();
         },
-
         // Create a new chat
         createVideoSession() {
             const self = this;
@@ -217,7 +131,7 @@ export default {
             if (clearEl) {
                 clearEl.innerHTML = "";
             }
-            self.isHardawareAvaliable();
+            self.addDevicesToTrack();
         },
     },
     created() {
