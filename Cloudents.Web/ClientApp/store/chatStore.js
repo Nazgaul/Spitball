@@ -264,7 +264,7 @@ const actions = {
         commit('changeChatState', val);
     },
     sendChatMessage:({state, dispatch, getters}, message)=>{
-        //send message to server
+        //send message to server.
         let messageObj = chatService.createServerMessageObj({
             message: message,
             otherUser: state.activeConversationObj.userId
