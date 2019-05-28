@@ -8,7 +8,8 @@ function PendingTutorItem(objInit) {
     this.bio = objInit.bio;
     this.price = objInit.price;
     this.email = objInit.email;
-    this.courses = objInit.courses;
+    
+    this.courses =  objInit.courses.split(",");
     this.created = new Date(objInit.created);
 }
 

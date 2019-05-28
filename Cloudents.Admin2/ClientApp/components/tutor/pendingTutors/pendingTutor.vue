@@ -7,47 +7,46 @@
             <v-toolbar-title>Pending Tutors</v-toolbar-title>
           </v-toolbar>
           <v-card v-for="(tutor, index) in tutors" :key="index" style="padding: 0 12px;">
-            <v-toolbar class="tutor-toolbar mt-4 back-color-purple">
-              <v-toolbar-title
-                class="tutor-text-title cursor-default"
-              >Name: {{tutor.firstName}} {{tutor.lastName}}</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <div class="user-email" @click="doCopy(tutor.email, 'User Email')">
-                <span>Email: {{tutor.email}}</span>
-              </div>
-                            <div class="user-id ml-2" @click="doCopy(tutor.bio, 'Bio')">
-                                <span>bio: {{tutor.bio}}</span>
-                            </div>
-                             <div class="user-id ml-2" @click="doCopy(tutor.created.toLocaleString(), 'Created')">
-                                <span>created: {{tutor.created.toLocaleString()}}</span>
-              </div>
-              <div class="user-id ml-2" @click="doCopy(tutor.bio, 'User ID')">
-                <span>Price: {{tutor.price}}</span>
-              </div>
-              <br>
-              <div class="user-id ml-2" @click="doCopy(tutor.bio, 'User ID')">
-                <span>Courses: {{tutor.courses}}</span>
-              </div>
-              <div class="tutor-actions-container">
-                <v-tooltip left>
-                  <v-btn slot="activator" icon @click="decline(tutor, index)">
-                    <v-icon color="red">close</v-icon>
+              <v-card-title primary-title>
+                  <div class="text-xs-left">
+                      <div class="headline"><b> Name:</b> {{tutor.firstName}} {{tutor.lastName}}</div>
+                      <span><b>Email:</b> {{tutor.email}}</span>
+                      <div><b>Bio:</b> {{tutor.bio}}</div>
+                  </div>
+              </v-card-title>
+              <v-card-text>
+                  <v-layout justify-start row>
+                      <div><b>Created:</b> {{tutor.created.toLocaleString()}}</div>
+                      <div>&nbsp;&nbsp;</div>
+                      <div><b>Price:</b> {{tutor.price}}</div>
+                  </v-layout>
+                  <div class="text-xs-left">
+                      <b>Courses:</b>
+                      <v-container fluid grid-list-sm >
+                          <v-layout row wrap>
+                              <v-flex xs4 v-for="(course, index) in tutor.courses" :key="index">
+                                  {{course}}
+                              </v-flex>
+                          </v-layout>
+                      </v-container>
+                  </div>
+
+              </v-card-text>
+              <v-card-actions>
+                  <v-btn class="white--text" color="green" @click="aprove(tutor, index)">
+                      Approve
+                      <v-icon color="white">done</v-icon>
                   </v-btn>
-                  <span>Delete</span>
-                </v-tooltip>
-                <v-tooltip left>
-                  <v-btn slot="activator" icon @click="aprove(tutor, index)">
-                    <v-icon color="green">done</v-icon>
+                  <v-btn class="white--text" color="red" @click="decline(tutor, index)">
+                      Decline
+                      <v-icon color="white">close</v-icon>
                   </v-btn>
-                  <span>Accept</span>
-                </v-tooltip>
-              </div>
-            </v-toolbar>
+              </v-card-actions>
           </v-card>
         </v-flex>
       </v-layout>
       <div v-if="loading">Loading tutors, please wait...</div>
-      <div v-show="tutors.length === 0 && !loading">No more pending tutors</div>
+      <div v-show="tutors.length === 0 && !loading">No pending tutors</div>
     </div>
   </div>
 </template>
@@ -69,9 +68,7 @@ export default {
       this.$copyText(id).then(
         () => {
           self.$toaster.success(`${dataType} Copied`);
-        },
-        () => {}
-      );
+        });
     },
     aprove(tutor, index) {
       aproveTutor(tutor.id).then(
@@ -98,7 +95,8 @@ export default {
     }
   },
   created() {
-    getAllTutors().then(questionsResp => {
+      getAllTutors().then(questionsResp => {
+        
       this.tutors = questionsResp;
       this.loading = false;
     });
@@ -106,7 +104,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<!--<style lang="scss" scoped>
 .panding-tutor-container {
   margin: 0 auto;
   .user-id,
@@ -156,4 +154,4 @@ export default {
     cursor: default;
   }
 }
-</style>
+</style>-->
