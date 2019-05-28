@@ -30,16 +30,19 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<ConversationDetailsDto>> GetAsync(AdminConversationDetailsQuery query, CancellationToken token)
             {
-                const string sql = @"select distinct u.Name as UserName, u.Email, u.PhoneNumberHash as PhoneNumber
-                                from sb.ChatMessage cm
-                                join sb.[User] u
-	                                on cm.UserId = u.Id
-                                join sb.ChatRoom cr
-                                    on cm.ChatRoomId = cr.Id
-                                where cr.identifier = @Id";
+                const string sql = @"select u.Name as UserName, u.Email, u.PhoneNumberHash as PhoneNumber,
+case when u.Id = (select top 1 UserId from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by cm.CreationTime) then 1
+else 0 end as Student
+from sb.ChatRoom cr
+join sb.[User] u
+	on cast(u.Id as nvarchar(15)) = left(cr.Identifier, CHARINDEX('_', cr.Identifier)-1)
+	    or cast(u.Id as nvarchar(15)) = right(cr.Identifier, CHARINDEX('_', cr.Identifier)-1) 
+    where cr.identifier = @Id
+    order by case when u.Id = (select top 1 UserId from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by cm.CreationTime) then 1
+else 0 end";
                 using (var connection = _dapper.OpenConnection())
                 {
-                    var res = await connection.QueryAsync<ConversationDetailsDto>(sql, new { query .Id });
+                    var res = await connection.QueryAsync<ConversationDetailsDto>(sql, new { query.Id });
                     return res;
                 }
             }

@@ -13,6 +13,7 @@ using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Storage;
 using System.Linq;
 using Cloudents.Command.Command;
+using System.Text.RegularExpressions;
 
 namespace Cloudents.Admin2.Api
 {
@@ -205,11 +206,22 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("info")]
-        public async Task<UserDetailsDto> GetUserDetails(string userIdentifier, CancellationToken token)
+        public async Task<ActionResult<UserDetailsDto>> GetUserDetails(string userIdentifier, CancellationToken token)
         {
+            var regex = new Regex("^[0-9]+$");
+            if (userIdentifier[0] == '0' && regex.IsMatch(userIdentifier))
+            {
+                userIdentifier = $"+972{userIdentifier.Remove(0, 1)}";
+            }
+          
             var query = new AdminUserDetailsQuery(userIdentifier);
            
-            return await _queryBus.QueryAsync(query, token);
+            var res = await _queryBus.QueryAsync(query, token);
+            if (res == null)
+            {
+                return NotFound();
+            }
+            return res;
         }
 
         [HttpGet("questions")]
@@ -226,24 +238,17 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
-        [HttpGet("upVotes")]
-        public async Task<IEnumerable<UserVotesDto>> GetUserUpVotsDetails(long id, int page, CancellationToken token)
+        [HttpGet("chat")]
+        public async Task<IEnumerable<ConversationDto>> ConversationAsync(long id, CancellationToken token)
         {
-            var query = new AdminUserVotesQuery(id, page, 1);
+            var query = new AdminConversationsQuery(id);
             return await _queryBus.QueryAsync(query, token);
         }
 
-        [HttpGet("downVotes")]
-        public async Task<IEnumerable<UserVotesDto>> GetUserDownVotsDetails(long id, int page, CancellationToken token)
+        [HttpGet("sessions")]
+        public async Task<IEnumerable<SessionDto>> SessionsAsync(long id, CancellationToken token)
         {
-            var query = new AdminUserVotesQuery(id, page, -1);
-            return await _queryBus.QueryAsync(query, token);
-        }
-
-        [HttpGet("flags")]
-        public async Task<IEnumerable<UserFlagsDto>> GetUserFlagsDetails(long id, int page, CancellationToken token)
-        {
-            var query = new AdminUserFlagsQuery(id, page);
+            var query = new AdminSessionsQuery(id);
             return await _queryBus.QueryAsync(query, token);
         }
 

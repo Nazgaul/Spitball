@@ -45,6 +45,7 @@ export default {
         return{
             messageText: "",
             placeHolderText: LanguageService.getValueByKey("chat_type_message"),
+            alreadyCreated: false
 
         }
     },
@@ -100,8 +101,12 @@ export default {
                 });
                 global.open(routeData.href, '_blank');
             }else{
-                let userId = conversationObj.userId;
-                this.createStudyRoom(userId);
+                if(!this.alreadyCreated){
+                    let userId = conversationObj.userId;
+                    this.createStudyRoom(userId);
+                    this.alreadyCreated = true;
+                }
+
             }
             
         }

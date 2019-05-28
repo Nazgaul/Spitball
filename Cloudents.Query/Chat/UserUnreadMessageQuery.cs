@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,9 +32,11 @@ namespace Cloudents.Query.Chat
             public async Task<IList<UnreadMessageDto>> GetAsync(UserUnreadMessageQuery query, CancellationToken token)
             {
                 RegularUser userAlias = null;
+                ChatUser chatUserAlias = null;
                 UnreadMessageDto resultAlias = null;
+                Core.Entities.Tutor tutorAlias = null;
 
-                var z = _querySession.StatelessSession.QueryOver<ChatUser>()
+                var z = _querySession.StatelessSession.QueryOver<ChatUser>(() => chatUserAlias)
                         .JoinAlias(x => x.User, () => userAlias)
                         .Where(w => w.Unread > 0);
                 if (query.Version != null)
@@ -45,6 +48,15 @@ namespace Cloudents.Query.Chat
                         s.Select(() => userAlias.PhoneNumber).WithAlias(() => resultAlias.PhoneNumber)
                             .Select(() => userAlias.Id).WithAlias(() => resultAlias.UserId)
                             .Select(x => x.Version).WithAlias(() => resultAlias.Version)
+                            .Select(() => userAlias.Language).WithAlias(() => resultAlias.CultureInfo)
+                            
+                            .SelectSubQuery(QueryOver.Of<ChatMessage>()
+                                .Where(w=>w.ChatRoom.Id == chatUserAlias.ChatRoom.Id)
+                                .Select(s1 => s1.User.Id)
+                                .OrderBy(o => o.Id).Asc
+                                .Take(1)
+                                
+                                ).WithAlias(() => resultAlias.ChatUserId)
                      )
                     .TransformUsing(Transformers.AliasToBean<UnreadMessageDto>())
                      .ListAsync<UnreadMessageDto>(token);
@@ -61,6 +73,12 @@ namespace Cloudents.Query.Chat
         public long UserId { get; set; }
 
         public byte[] Version { get; set; }
+
+        public CultureInfo CultureInfo { get; set; }
+
+        public bool IsTutor => UserId != ChatUserId;
+
+        public long ChatUserId { get; set; }
 
         public long VersionAsLong => BitConverter.ToInt64(Version.Reverse().ToArray(), 0);
     }

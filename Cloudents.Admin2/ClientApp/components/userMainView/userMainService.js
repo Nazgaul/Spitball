@@ -100,44 +100,6 @@ function PurchasedDocItem(objInit) {
     this.price = Math.abs(objInit.price ) || 'not specified';
 }
 
-function UpVoteItem(objInit) {
-    this.created = objInit.created  || 'no date';
-    this.itemText = objInit.itemText  || 'not specified';
-    this.itemType = objInit.itemType || 'not specified';
-}
-function DownVoteItem(objInit) {
-    this.date = objInit.created  || 'no date';
-    this.text = objInit.itemText  || 'not specified';
-    this.type = objInit.itemType || 'not specified';
-}
-function FlaggedItem(objInit) {
-    this.date = objInit.created  || 'no date';
-    this.text = objInit.text  || 'not specified';
-    this.type = objInit.itemType || 'not specified';
-    this.voteCount = objInit.voteCount || 0;
-    this.flagReason = objInit.flagReason || 'not specified';
-    this.state = objInit.state || 'not specified';
-
-}
-
-function createUpVoteItem(data) {
-    return data.map((item) => {
-        return new UpVoteItem(item);
-    });
-
-}
-
-function createDownVoteItem(data) {
-    return data.map((item) => {
-        return new DownVoteItem(item);
-    });
-}
-function createFlaggedItem(data) {
-    return data.map((item) => {
-        return new FlaggedItem(item);
-    });
-}
-
 function createQuestionItem(data) {
     return data.map((item) => {
         return new QuestionItem(item);
@@ -161,6 +123,27 @@ function createPurchasedDocItem(data) {
     });
 }
 
+function ConversationItem(objInit) {
+    this.id = objInit.id;
+    this.userName = objInit.userName;
+    this.tutorName = objInit.tutorName;
+    this.lastMessage = new Date(objInit.lastMessage);
+    this.expanded = false;
+}
+function createConversationItem(objInit) {
+    return new ConversationItem(objInit);
+}
+
+function SessionsItem(objInit) {
+    this.created = new Date(objInit.created);
+    this.tutor = objInit.tutor;
+    this.student = objInit.student;
+    this.duration = objInit.duration;
+}
+
+function createSessionsItem(objInit){
+    return new SessionsItem(objInit)
+};
 
 export default {
     getUserData: (id, page) => {
@@ -219,38 +202,34 @@ export default {
                 return Promise.reject(error);
             });
     },
-    getUpvotes: (id, page) => {
-        let path = `AdminUser/upVotes?id=${id}&page=${page}`;
-        return connectivityModule.http.get(path)
-            .then((resp) => {
-                return createUpVoteItem(resp);
-
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
-            });
+    getUserConversations:(id) => {
+        let path = `AdminUser/chat`;
+        return connectivityModule.http.get(`${path}?id=${id}`).then((newConversationList) => {
+            let arrConversationList = [];
+            if (newConversationList.length > 0) {
+                newConversationList.forEach((conversation) => {
+                    arrConversationList.push(createConversationItem(conversation));
+                });
+            }
+            return Promise.resolve(arrConversationList);
+        }, (err) => {
+            return Promise.reject(err);
+        });
     },
-    getDownVotes: (id, page) => {
-        let path = `AdminUser/downVotes?id=${id}&page=${page}`;
-        return connectivityModule.http.get(path)
-            .then((resp) => {
-                return createDownVoteItem(resp);
+    getUserSessions:(id) => {
+        let path = `AdminUser/sessions`;
+        return connectivityModule.http.get(`${path}?id=${id}`).then((newSessionsList) => {
+            let arrSessionsList = [];
+            if (newSessionsList.length > 0) {
+                newSessionsList.forEach((sessions) => {
+                    arrSessionsList.push(createSessionsItem(sessions));
+                });
+            }
+            return Promise.resolve(arrSessionsList);
+        }, (err) => {
+            return Promise.reject(err);
+        });
 
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
-            });
-    },
-    getFlaggedItems: (id, page) => {
-        let path = `AdminUser/flags?id=${id}&page=${page}`;
-        return connectivityModule.http.get(path)
-            .then((resp) => {
-                return createFlaggedItem(resp);
-
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
-            });
     },
     verifyPhone: (data) => {
         let path = `AdminUser/verify`;

@@ -16,11 +16,14 @@
         <!--</v-list-tile>-->
       <!--</v-list>-->
       <v-list>
-        <v-list-tile class="group-header search-university-title pl-1" :class="{'active': inStudyRoomLobby}">
+        <v-list-tile class="group-header search-university-title pl-1"
+                     @click.native.prevent="openStudyRooms()"
+                     :class="{'active': inStudyRoomLobby}"
+                     :to="{ name: 'studyRooms'}">
           <v-list-tile-action>
             <v-icon>sbf-studyroom-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openStudyRooms()" v-text="dictionary.myStudyRooms" class="pl-1"></v-list-tile-title>
+          <v-list-tile-title v-text="dictionary.myStudyRooms" class="pl-1"></v-list-tile-title>
         </v-list-tile>
       </v-list>
       <v-list class="class-list">
@@ -28,7 +31,8 @@
           <v-list-tile-action class="mr-1">
             <v-icon>sbf-courses-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="selectCourse(null, true)" v-text="dictionary.allCourses"></v-list-tile-title>
+          <v-list-tile-title @click="accountUser ? selectCourse(null, true) : openPersonalizeCourse()"
+                             v-text="accountUser ? dictionary.allCourses : dictionary.addcourses"></v-list-tile-title>
           <v-list-tile-action class="edit-course px-3" @click="openPersonalizeCourse()">
             <v-icon>sbf-close</v-icon>
           </v-list-tile-action>
@@ -38,8 +42,7 @@
           v-for="(item, i) in getSelectedClasses"
           :class="{'active': item.text ? item.text === selectedCourse : item === selectedCourse}"
           :key="i"
-          @click="selectCourse(item)"
-        >
+          @click="selectCourse(item)">
           <v-list-tile-title v-text="item.text ? item.text : item" class="pad-left"></v-list-tile-title>
         </v-list-tile>
       </v-list>
@@ -81,7 +84,8 @@ export default {
       "getAllSteps",
       "accountUser",
       "getSearchLoading",
-      "getShowSchoolBlock"
+      "getShowSchoolBlock",
+      "accountUser"
     ]),
     schoolName() {
       return this.getSchoolName;
@@ -206,7 +210,7 @@ export default {
         this.updateLoginDialogState(true);
       } else {
         let steps = this.getAllSteps;
-          this.$router.push({name: 'editCourse'});
+        this.$router.push({name: 'editCourse'});
       }
     },
     openPersonalizeUniversity() {

@@ -2,7 +2,7 @@
     <div class="request-box-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'px-2 mx-2' : 'px-3']">
         <v-layout align-center justify-start class="pt-3">
             <!--<v-flex xs1 md1 sm1 shrink v-if="$vuetify.breakpoint.smAndUp && accountUser" >-->
-            <v-flex class="avatar-holder px-1" >
+            <v-flex class="avatar-holder px-1" v-if="accountUser" >
                 <userAvatar
                         class="avatar-circle  mr-2"
                         :userImageUrl="userImageUrl"

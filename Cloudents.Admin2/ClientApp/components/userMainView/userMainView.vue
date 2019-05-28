@@ -46,19 +46,16 @@
                         </div>
                     </div>
                     <div class="tabs-holder">
-                        <v-tabs
-                                centered
+                        <v-tabs centered
                                 color="cyan"
                                 dark
-                                icons-and-text
-                        >
-                            <v-tab :to="{name: 'userQuestions', params : userId }">Question</v-tab>
-                            <v-tab :to="{name: 'userAnswers', params:userId}">Answers</v-tab>
-                            <v-tab :to="{name: 'userDocuments', params:userId}">Documents</v-tab>
-                            <v-tab :to="{name: 'userPurchasedDocuments', params:userId} ">Purchased Documents</v-tab>
-                            <v-tab :to="{name: 'userUpVotes', params:userId} ">Up Votes</v-tab>
-                            <v-tab :to="{name: 'userDownVotes', params:userId} ">Down Votes</v-tab>
-                            <v-tab :to="{name: 'userFlagged', params:userId} ">Flagged</v-tab>
+                                icons-and-text>
+                            <v-tab :to="{name: 'userQuestions', params : {userId: userId} }">Question</v-tab>
+                            <v-tab :to="{name: 'userAnswers', params:{userId: userId}}">Answers</v-tab>
+                            <v-tab :to="{name: 'userDocuments', params:{userId: userId}}">Documents</v-tab>
+                            <v-tab :to="{name: 'userPurchasedDocuments', params:{userId: userId}}">Purchased Documents</v-tab>
+                            <v-tab :to="{name: 'userConversations', params:{userId: userId}}">Conversations</v-tab>
+                            <v-tab :to="{name: 'userSessions', params:{userId: userId}}">Sessions</v-tab>
                         </v-tabs>
                         <div class="filters mb-2">
                             <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"

@@ -11,7 +11,7 @@ import tutorService from "../tutorService";
 export default {
     components: {
         'sliderPicker': Compact,
-         equationMapper
+        equationMapper
     },
     data() {
         return {
@@ -23,7 +23,7 @@ export default {
             showHelper: false,
             tabEditId: null,
             formula: 'x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.',
-            predefinedColors:[
+            predefinedColors: [
                 '#000000',
                 '#FF0000',
                 '#00ff00',
@@ -73,56 +73,98 @@ export default {
             }
         }
     },
-    computed:{
-        ...mapGetters(['isRoomCreated', 'getDragData','getZoom', 'selectedOptionString','getCanvasTabs', 'getCurrentSelectedTab']),
-        helperStyle(){
+    computed: {
+        ...mapGetters([
+            'isRoomCreated',
+            'getDragData',
+            'getZoom',
+            'selectedOptionString',
+            'getCanvasTabs',
+            'getCurrentSelectedTab',
+            'activeRoom', 
+            'getCurrentRoomState',
+            "accountUser", 
+            "getStudyRoomData"
+        ]),
+        helperStyle() {
             return helperUtil.HelperObj.style
         },
-        helperClass(){
+        helperClass() {
             return helperUtil.HelperObj.cssClass
         },
-        helperShow(){
+        helperShow() {
             return helperUtil.HelperObj.isActive;
         },
-        dragData(){
+        dragData() {
             return this.getDragData;
         },
-        zoom(){
+        zoom() {
             return this.getZoom.toFixed();
         },
-        computedFormula:{
-            get(){
+        computedFormula: {
+            get() {
                 return `$$${this.formula}$$`;
             },
-            set(val){
+            set(val) {
                 this.formula = val;
             }
         },
-        canvasTabs(){
+        canvasTabs() {
             return this.getCanvasTabs
-        }
+        },
+        accountUserID() {
+            if (this.accountUser && this.accountUser.id) {
+                return this.accountUser.id;
+            }
+        },
+        isTutor() {
+            return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
+        },
+      
+    },
+    watch: {
+        activeRoom:  function(val) {
+            
+            if (this.getCurrentRoomState !== "active") {
+                return
+            }
+            try {
+                //Adding canvas stream to twilio
+                let stream = canvas.captureStream(60);
+                this.activeRoom.localParticipant.publishTrack(stream.getTracks()[0], {
+                    name: `canvas_${this.isTutor ? "tutor" : "student"}_${
+                        this.accountUserID
+                        }`
+                });
+            }
+            catch (e) {
+                //TODO: not all browsers support this probably....
+                //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/captureStream
+            }
+        },
     },
     methods: {
         ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab']),
-        renameTab(){
+        renameTab() {
             console.log("Rename Tab");
         },
-        deleteTab(tab){
+
+        deleteTab(tab) {
             this.removeCanvasTab(tab);
             this.changeTab(this.getCanvasTabs[0]);
             console.log("Delete Tab");
         },
-        clearTabOption(){
+        clearTabOption() {
             this.tabEditId = null;
         },
-        showTabOption(id){
-            if(this.tabEditId === id){
+        showTabOption(id) {
+            if (this.tabEditId === id) {
                 this.clearTabOption();
-            }else{
+            } else {
                 this.tabEditId = id;
             }
         },
-        selectDefaultTool(){
+        selectDefaultTool() {
             this.setOptionType(this.enumOptions.select);
         },
         setOptionType(selectedOption) {
@@ -130,7 +172,7 @@ export default {
             this.currentOptionSelected = whiteBoardService.init.bind(this.canvasData, selectedOption)();
             this.setSelectedOptionString(selectedOption);
             helperUtil.HelperObj.isActive = false;
-            if(selectedOption === this.enumOptions.image){
+            if (selectedOption === this.enumOptions.image) {
                 let inputImgElm = document.getElementById('imageUpload');
                 inputImgElm.click();
                 this.selectDefaultTool();
@@ -154,7 +196,7 @@ export default {
                 data: dragObj
             }
             this.updateDragData(dragUpdate);
-            if(callback){
+            if (callback) {
                 callback();
             }
             let canvasData = {
@@ -172,11 +214,11 @@ export default {
             };
             let normalizedData = JSON.stringify(transferDataObj);
             tutorService.dataTrack.send(normalizedData);
-            if(!dragObj.isGhost && this.selectedOptionString !== this.enumOptions.draw){
+            if (!dragObj.isGhost && this.selectedOptionString !== this.enumOptions.draw) {
                 this.selectDefaultTool(); //case SPITBALL-647
             }
         },
-        undo(){
+        undo() {
             let transferDataObj = {
                 type: "undoData",
                 data: this.canvasData,
@@ -199,19 +241,19 @@ export default {
             if ((e.which == 90 || e.keyCode == 90) && e.ctrlKey) {
                 this.undo();
             }
-            if(((e.which == 46 || e.keyCode == 46)||(e.which == 8 || e.keyCode == 8)) && this.selectedOptionString === this.enumOptions.select){
+            if (((e.which == 46 || e.keyCode == 46) || (e.which == 8 || e.keyCode == 8)) && this.selectedOptionString === this.enumOptions.select) {
                 this.currentOptionSelected.deleteSelectedShape.bind(this.canvasData)();
             }
-            if(((e.which == 13 || e.keyCode == 13) || (e.which == 27 || e.keyCode == 27))){
-               //enter or escape in text mode
-               if(this.selectedOptionString === this.enumOptions.text){
+            if (((e.which == 13 || e.keyCode == 13) || (e.which == 27 || e.keyCode == 27))) {
+                //enter or escape in text mode
+                if (this.selectedOptionString === this.enumOptions.text) {
                     this.currentOptionSelected.enterPressed.bind(this.canvasData)();
-               }
-                
+                }
+
             }
         },
-        changeTab(tab){
-            if(tab.id !== this.getCurrentSelectedTab.id){
+        changeTab(tab) {
+            if (tab.id !== this.getCurrentSelectedTab.id) {
                 this.clearTabOption();
                 this.changeSelectedTab(tab);
                 whiteBoardService.hideHelper();
@@ -223,20 +265,20 @@ export default {
         //     this.updateZoom(100);
         //     this.updatePan({e:0, f:0})
         // },
-        resizeCanvas(){
+        resizeCanvas() {
             let canvas = document.getElementById('canvas');
             let ctx = canvas.getContext("2d");
-            ctx.setTransform(1,0,0,1,0,0);
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
             // this.resetZoom();
             this.windowWidth = global.innerWidth,
-            this.windowHeight = global.innerHeight - 64,
-            canvas.width = this.canvasWidth;
+                this.windowHeight = global.innerHeight - 64,
+                canvas.width = this.canvasWidth;
             canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
         },
-        injectToTextArea(textToInject){
+        injectToTextArea(textToInject) {
             let textAreaElm = document.getElementById('textArea-tutoring');
-            let newValue = textAreaElm.insertAtCaret(textToInject);            
+            let newValue = textAreaElm.insertAtCaret(textToInject);
             this.helperStyle.text = newValue;
         },
         // doZoom(zoomType){
@@ -244,18 +286,24 @@ export default {
         //     let panTool = whiteBoardService.init.bind(this.canvasData, this.enumOptions.pan)();
         //     panTool.manualScroll.bind(this.canvasData, zoomType)();
         // },
-        registerCanvasEvents(canvas, canvasWrapper){
+        registerCanvasEvents(canvas, canvasWrapper) {
             let self = this;
             global.addEventListener('resize', this.resizeCanvas, false);
             canvas.addEventListener('mousedown', (e) => {
-                self.clearTabOption();
-                if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
-                    self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
+                console.log('event which test', e, e.which)
+                if (e.button == 0) {
+                    self.clearTabOption();
+                    if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
+                        self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
+                    }
                 }
+
             });
             canvas.addEventListener('mouseup', (e) => {
-                if (!!self.currentOptionSelected && self.currentOptionSelected.mouseup) {
-                    self.currentOptionSelected.mouseup.bind(self.canvasData, e)()
+                if (e.button == 0) {
+                    if (!!self.currentOptionSelected && self.currentOptionSelected.mouseup) {
+                        self.currentOptionSelected.mouseup.bind(self.canvasData, e)()
+                    }
                 }
             });
             canvas.addEventListener('mouseleave', (e) => {
@@ -264,9 +312,9 @@ export default {
                 }
             });
             canvas.addEventListener('mousemove', (e) => {
-                    if (!!self.currentOptionSelected && self.currentOptionSelected.mousemove) {
-                        self.currentOptionSelected.mousemove.bind(self.canvasData, e)()
-                    }
+                if (!!self.currentOptionSelected && self.currentOptionSelected.mousemove) {
+                    self.currentOptionSelected.mousemove.bind(self.canvasData, e)()
+                }
             });
             canvas.addEventListener('DOMMouseScroll', (e) => {
                 if (!!self.currentOptionSelected && self.currentOptionSelected.mouseScroll) {
@@ -274,12 +322,12 @@ export default {
                 }
             });
             canvasWrapper.addEventListener('scroll', (e) => {
-                if(this.selectedOptionString === this.enumOptions.select){
+                if (this.selectedOptionString === this.enumOptions.select) {
                     self.currentOptionSelected.reMarkSelectedShapes.bind(self.canvasData, e)()
                 }
-                let transform={
-                    x:e.target.scrollLeft*-1,
-                    y:e.target.scrollTop*-1
+                let transform = {
+                    x: e.target.scrollLeft * -1,
+                    y: e.target.scrollTop * -1
                 }
                 self.updatePan(transform)
             });
@@ -335,6 +383,9 @@ export default {
         canvasFinder.trackTransforms(this.canvasData.context);
         this.registerCanvasEvents(canvas, canvasWrapper);
         global.document.addEventListener("keydown", this.keyPressed);
-        
+
+
+
+
     }
 }

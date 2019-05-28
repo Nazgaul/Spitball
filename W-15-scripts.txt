@@ -1,1 +1,1 @@
-﻿Need to Upload function v2
+﻿update sb.tutor set state = 'Ok' where state is null

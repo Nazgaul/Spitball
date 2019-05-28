@@ -15,8 +15,11 @@
               <div class="user-email" @click="doCopy(tutor.email, 'User Email')">
                 <span>Email: {{tutor.email}}</span>
               </div>
-              <div class="user-id ml-2" @click="doCopy(tutor.bio, 'User ID')">
-                <span>Bio: {{tutor.bio}}</span>
+                            <div class="user-id ml-2" @click="doCopy(tutor.bio, 'Bio')">
+                                <span>bio: {{tutor.bio}}</span>
+                            </div>
+                             <div class="user-id ml-2" @click="doCopy(tutor.created.toLocaleString(), 'Created')">
+                                <span>created: {{tutor.created.toLocaleString()}}</span>
               </div>
               <div class="user-id ml-2" @click="doCopy(tutor.bio, 'User ID')">
                 <span>Price: {{tutor.price}}</span>

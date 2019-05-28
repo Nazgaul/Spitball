@@ -9,6 +9,7 @@ function PendingTutorItem(objInit) {
     this.price = objInit.price;
     this.email = objInit.email;
     this.courses = objInit.courses;
+    this.created = new Date(objInit.created);
 }
 
 

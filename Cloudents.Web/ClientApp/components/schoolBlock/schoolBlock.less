@@ -19,6 +19,16 @@
   .v-list {
     background: transparent;
     .group-header {
+      :hover{
+        background: rgba(0,0,0,.04);
+      }
+      &.search-university-title{
+        .v-list__tile{
+          &.primary--text{
+            color: @color-white!important;
+          }
+        }
+      }
       &.active {
         background-color: rgba(0, 0, 0, 0.1);
         border-left: 3px solid @purpleLight;

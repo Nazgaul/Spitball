@@ -60,23 +60,26 @@
         <!--mobile side menu open template-->
         <v-list class="menu-list" v-else>
             <user-block :user=user :showExtended="true" :classType="'university authenticated-user'" v-if=isMobile></user-block>
-            <router-link tag="v-list-tile" :to="{name:'wallet'}">
+            <!--!!!this wont generate link in dom!!!-->
+            <!--<router-link tag="v-list-tile" :to="{name:'wallet'}">-->
+            <!--!!!!Use this instead, v-list tile with :to !!!!!-->
+                <v-list-tile :to="{name:'wallet'}">
                 <v-list-tile-action>
                     <v-icon>sbf-wallet</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_my_wallet</v-list-tile-title>
                 </v-list-tile-content>
-            </router-link>
-            <router-link tag="v-list-tile" :to="{name:'profile',params:{id:accountUser.id}}">
+                </v-list-tile>
+                <v-list-tile :to="{name:'profile',params:{id:accountUser.id}}">
                 <v-list-tile-action>
                     <v-icon>sbf-user</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_my_profile</v-list-tile-title>
                 </v-list-tile-content>
-            </router-link>
-            <v-list-tile @click="openPersonalizeUniversity()">
+                </v-list-tile>
+            <v-list-tile @click.native.prevent="openPersonalizeUniversity()"  :to="{name: 'addUniversity'}">
                 <v-list-tile-action>
                     <v-icon>sbf-university</v-icon>
                 </v-list-tile-action>
@@ -90,7 +93,7 @@
 
                 </v-list-tile-action>
             </v-list-tile>
-            <v-list-tile v-show="showClassesProp" @click="openPersonalizeCourse()">
+            <v-list-tile v-show="showClassesProp" @click.native.prevent="openPersonalizeCourse()" :to="{name: 'editCourse'}">
                 <v-list-tile-action>
                     <v-icon>sbf-classes</v-icon>
                 </v-list-tile-action>
@@ -141,38 +144,41 @@
                     </v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <router-link tag="v-list-tile" :to="{name:'about'}">
+                <v-list-tile :to="{name:'about'}">
                 <v-list-tile-action>
                     <v-icon>sbf-about</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_about_spitball</v-list-tile-title>
                 </v-list-tile-content>
-            </router-link>
-            <router-link tag="v-list-tile" :to="{name:'faq'}">
+                </v-list-tile>
+
+                <v-list-tile :to="{name:'faq'}">
                 <v-list-tile-action>
                     <v-icon>sbf-help</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_help</v-list-tile-title>
                 </v-list-tile-content>
-            </router-link>
-            <router-link tag="v-list-tile" :to="{name:'terms'}">
+                </v-list-tile>
+
+                <v-list-tile :to="{name:'terms'}">
                 <v-list-tile-action>
                     <v-icon>sbf-terms</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_terms_of_service</v-list-tile-title>
                 </v-list-tile-content>
-            </router-link>
-            <router-link tag="v-list-tile" :to="{name:'privacy'}">
+                </v-list-tile>
+
+                <v-list-tile :to="{name:'privacy'}">
                 <v-list-tile-action>
                     <v-icon>sbf-privacy</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_privacy_policy</v-list-tile-title>
                 </v-list-tile-content>
-            </router-link>
+                </v-list-tile>
         </v-list>
 
         <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'"
