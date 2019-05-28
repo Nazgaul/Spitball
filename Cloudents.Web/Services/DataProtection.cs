@@ -20,7 +20,8 @@ namespace Cloudents.Web.Services
 
         public string Unprotect(string protectedData)
         {
-            var dataProtector = _dataProtectionProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
+            var dataProtector = _dataProtectionProvider.CreateProtector("Spitball")
+                .ToTimeLimitedDataProtector();
             return dataProtector.Unprotect(protectedData);
         }
     }
