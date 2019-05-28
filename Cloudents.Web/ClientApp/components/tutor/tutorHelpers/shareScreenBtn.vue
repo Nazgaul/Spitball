@@ -1,7 +1,6 @@
 <template>
     <div class="share-screen-btn-wrap">
         <v-flex class="text-xs-center">
-            <!--Select-->
             <div v-if="!isSharing" >
                 <v-tooltip top >
                     <template v-slot:activator="{on}">

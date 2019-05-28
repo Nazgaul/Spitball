@@ -26,8 +26,9 @@
                             <v-btn flat icon v-on="on">
                                 <settingIcon class="white-btn"></settingIcon>
                             </v-btn>
-                            <v-divider color="#eee7e9"
+                            <v-divider color="#000000"
                                        inset
+                                       style="opacity: 0.12; height: 30px;"
                                        vertical
                             ></v-divider>
                         </template>
@@ -45,7 +46,7 @@
                         </v-list>
                     </v-menu>
 
-                    <div class="d-flex pr-3">
+                    <div class="d-flex pr-3 pl-2" >
                         <component
                                 class="network-icon"
                                 :is="localNetworkQuality ? 'signal_level_'+localNetworkQuality : 'signal_level_0'"

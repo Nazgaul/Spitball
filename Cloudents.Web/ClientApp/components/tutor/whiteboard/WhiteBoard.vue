@@ -183,12 +183,13 @@
             bottom: 5px;
             width: 100%;
             height: 46px;
-            background-color: #f0f0f7;
+            /*background-color: #f0f0f7;*/
+            background-color:#f1f1f1;
             display: flex;
             border-top: 1px solid #e1e1ef;
             .canvas-tab{
                 display: flex;
-                background-color: rgba(67, 66, 93, 0.12);
+                background-color: #dbdbdb;
                 padding: 0 20px;    
                 border-right: 1px solid #c9c9c9;
                 min-width: 100px;
