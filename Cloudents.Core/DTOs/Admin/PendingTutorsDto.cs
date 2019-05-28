@@ -20,6 +20,9 @@ namespace Cloudents.Core.DTOs.Admin
         public decimal Price { get; set; }
         [EntityBind(nameof(User.Email))]
         public string Email{ get; set; }
+
+        [EntityBind(nameof(User.Image))]
+        public string Image { get; set; }
         public string Courses { get; set; }
         [EntityBind(nameof(Tutor.Created))]
         public DateTime? Created { get; set; }
