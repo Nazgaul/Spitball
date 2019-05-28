@@ -41,7 +41,13 @@ select cr.identifier as Id,
 						join cte on cm.ChatRoomId = cte.ChatRoomId
 						where cm.ChatRoomId = cr.id and cm.UserId = cte.UserId
 						order by cm.CreationTime) as UserName,
-						c2.Name as TutorName
+	(select top 1 cte.UserId 
+						from sb.ChatMessage cm 
+						join cte on cm.ChatRoomId = cte.ChatRoomId
+						where cm.ChatRoomId = cr.id and cm.UserId = cte.UserId
+						order by cm.CreationTime) as UserId,
+						c2.Name as TutorName,
+						c2.UserId as TutorId
 from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id and (cu.UserId = @UserId or @UserId = 0)
 join cte on cr.Id = cte.ChatRoomId and cu.UserId = cte.UserId
