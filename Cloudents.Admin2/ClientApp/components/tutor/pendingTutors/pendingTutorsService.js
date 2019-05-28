@@ -8,9 +8,13 @@ function PendingTutorItem(objInit) {
     this.bio = objInit.bio;
     this.price = objInit.price;
     this.email = objInit.email;
-    objInit.courses = objInit.courses || [];
+    objInit.courses = objInit.courses || '';
     this.courses =  objInit.courses.split(",");
     this.created = new Date(objInit.created);
+    if (objInit.image) {
+        objInit.image += "?width=125&height=125";
+    }
+    this.image = objInit.image;
 }
 
 
