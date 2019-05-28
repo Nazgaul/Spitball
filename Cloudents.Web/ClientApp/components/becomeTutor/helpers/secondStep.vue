@@ -103,6 +103,11 @@
                         .then((resp) => {
                             self.$root.$emit('becomeTutorStep', 3);
                             self.updateAccountUserToTutor(true);
+                            self.updateToasterParams({
+                                                         toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                                                         showToaster: true,
+                                                         toasterTimeout: 5000
+                                                     });
                         }, (error) => {
                             let isConflict = error.response.status === 409;
                             if(isConflict) {
