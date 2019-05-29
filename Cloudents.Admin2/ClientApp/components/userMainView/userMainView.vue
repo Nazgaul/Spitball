@@ -1,17 +1,21 @@
 <template>
     <v-container>
-        <v-form ref="form" lazy-validation>
+        <v-form ref="form" lazy-validation  
+         @submit.prevent="submit"
+          >
             <v-layout row>
                 <v-flex xs3>
-                    <v-text-field autocomplete solo v-model="userIdentifier"
+                    <v-text-field solo v-model="userIdentifier"
                                   autofocus
                                   type="text"
                                   required
                                   :rules="requiredRules"
-                                  placeholder="Insert user identifier..." />
+                                  placeholder="Insert user identifier..." 
+                                  @keyup.enter="submitUserData()"/>
                 </v-flex>
                 <v-btn color="success"
-                       @click="submitUserData()">
+                       @click="submitUserData()"
+                       >
                     Get User
                 </v-btn>
                 <v-spacer></v-spacer>

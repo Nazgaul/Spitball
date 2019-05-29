@@ -70,7 +70,7 @@
             return {
                 messageHeaders: [
                     { text: 'User Name' },
-                    { text: 'Text'},
+                    { text: 'Text' },
                     { text: 'Date' }
                 ],
                 conversationsDetails: [],

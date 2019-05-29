@@ -7,16 +7,6 @@
                         :filterVal="filterValue"></purchased-doc-item>
             </v-flex>
         </v-layout>
-        <v-progress-circular
-                style="position: absolute; top: 300px; left: auto; right: auto;"
-                :size="150"
-                class="loading-spinner"
-                color="#00bcd4"
-                v-show="loading"
-                indeterminate
-        >
-            <span>Loading...</span>
-        </v-progress-circular>
     </v-container>
 
 </template>
