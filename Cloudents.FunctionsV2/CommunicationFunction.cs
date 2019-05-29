@@ -173,7 +173,7 @@ namespace Cloudents.FunctionsV2
 
                 var code = dataProtector.Protect(unreadMessageDto.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
                 var text = string.Format(
-                      "You have a new message from your {0} on Spitball.Click on the link to read your message ",
+                      "You have a new message from your {0} on Spitball. Click on the link to read your message ",
                       unreadMessageDto.IsTutor ? "student" : "tutor");
 
                 var url = urlBuilder.BuildChatEndpoint(code);
