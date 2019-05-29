@@ -12,6 +12,7 @@ namespace ConsoleApp
     {
         public static void GetOrphanedResources()
         {
+            //TODO: :// we need to think about landing page and other instances of resources string interpolation!
             //TODO :// maybe some performance tweaks and thats it.
             Console.WriteLine(Directory.GetCurrentDirectory());
             
