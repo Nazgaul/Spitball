@@ -17,10 +17,12 @@
             <span class="subheading" v-language:inner>tutor_entered_room</span>
         </v-flex>
         <v-flex xs12 sm12 md12 class="pt-4">
-            <button class="start-session-btn elevation-0 align-center justify-center" @click.once="startSession()">
+            <v-btn class="start-session-btn elevation-0 align-center justify-center"
+                    :loading="getSessionStartClickedOnce"
+                    @click="startSession()">
                 <timerIcon class="timer-icon mr-2"></timerIcon>
                 <span class="text-uppercase" v-language:inner>tutor_stream_btn_start_session</span>
-            </button>
+            </v-btn>
         </v-flex>
     </v-layout>
     </div>
@@ -43,7 +45,7 @@
             },
         },
         computed: {
-            ...mapGetters(['getStudyRoomData']),
+            ...mapGetters(['getStudyRoomData', 'getSessionStartClickedOnce']),
             studentName() {
                 return this.getStudyRoomData.studentName;
             },
@@ -55,16 +57,18 @@
             }
         },
         methods: {
-            ...mapActions(['updateTutorStartDialog']),
+            ...mapActions(['updateTutorStartDialog', 'setSesionClickedOnce']),
             closeDialog() {
                 this.updateTutorStartDialog(false)
             },
             startSession(){
-                console.log('start session tutor account');
                 videoStreamService.enterRoom();
             }
 
         },
+        beforeDestroy(){
+            this.setSesionClickedOnce(false);
+        }
     };
 </script>
 
@@ -84,7 +88,7 @@
             height: 48px;
             width: 210px;
             color: @color-white;
-            background-color:  @greenBtnBackground;
+            background-color:  @greenBtnBackground!important;
             border-radius: 4px;
             .timer-icon{
                 fill: @color-white;

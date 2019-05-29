@@ -112,7 +112,8 @@ export default {
             tutorService.endTutoringSession(self.id)
                 .then((resp) => {
                     self.sessionStartClickedOnce = false; //unlock start session btn
-                    this.setSesionClickedOnce(false)
+                    // this.setSesionClickedOnce(false)
+                    self.sessionEndClickedOnce = false;
                     if (!self.isTutor && self.getAllowReview) {
                         self.updateReviewDialog(true);
                     }
