@@ -16,6 +16,7 @@ let availableDevices = [];
     }
    function enterRoom(){
        store.dispatch('setSesionClickedOnce', true);
+       if (!store.getters['sessionStartClickedOnce']) {
         if (!!store.getters['accountUser'] && store.getters['accountUser'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
             walletService.getPaymeLink().then(({ data }) => {
                 global.open(data.link, '_blank', 'height=520,width=440');
@@ -27,7 +28,7 @@ let availableDevices = [];
             store.dispatch('updateTestDialogState', true);
             return;
         }
-        if (!store.getters['sessionStartClickedOnce']) {
+
             // store.dispatch('setSesionClickedOnce', true);
             if (store.getters['getStudyRoomData'].isTutor) {
                 store.dispatch('updateCurrentRoomState', 'loading');
