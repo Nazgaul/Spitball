@@ -215,10 +215,10 @@ Try connecting from a computer browser</value>
     <value>Audio Output quality test</value>
   </data>
   <data name="quality_permission" xml:space="preserve">
-    <value>Browser Permissions</value>
+    <value> Browser Permissions</value>
   </data>
   <data name="quality_title" xml:space="preserve">
-    <value>Camera &amp; Sound Test</value>
+    <value>Camera &amp; Sound Test -</value>
   </data>
   <data name="quality_unable" xml:space="preserve">
     <value>Unable to access camera or microphone</value>
