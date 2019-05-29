@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -62,7 +63,7 @@ FETCH NEXT 20 ROWS ONLY;";
                         query.UserId
                     });
 
-                    return retVal;
+                    return retVal.Distinct(TutorListDto.UserIdComparer);
                 }
             }
         }
