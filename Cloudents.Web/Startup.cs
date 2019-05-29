@@ -6,7 +6,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Identity;
 using Cloudents.Web.Binders;
-using Cloudents.Web.Controllers;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;

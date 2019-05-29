@@ -3,7 +3,6 @@ using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Dapper;
 using System;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;

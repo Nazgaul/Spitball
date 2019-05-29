@@ -1,15 +1,11 @@
-﻿using Cloudents.Command;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Query.Chat;
@@ -20,12 +16,10 @@ namespace Cloudents.Admin2.Api
     [ApiController]
     public class AdminConversationController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
 
-        public AdminConversationController(ICommandBus commandBus, IQueryBus queryBus)
+        public AdminConversationController(IQueryBus queryBus)
         {
-            _commandBus = commandBus;
             _queryBus = queryBus;
         }
 

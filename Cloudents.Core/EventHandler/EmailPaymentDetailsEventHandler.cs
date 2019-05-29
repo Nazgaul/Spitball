@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
