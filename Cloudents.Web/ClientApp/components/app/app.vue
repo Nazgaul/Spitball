@@ -302,7 +302,8 @@ export default {
       "updateShowPayMeToaster",
       "updateCurrentStep",
       "changeSelectUniState",
-      "updateRequestDialog"
+      "updateRequestDialog",
+      "openChat"
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
     enterPayme(){
@@ -360,14 +361,21 @@ export default {
       this.updateShowPayMeToaster(true);
     }
     if(!!this.$route.query && this.$route.query.requesttutor){
-        console.log(this.$route.query.requesttutor);
         if(this.$route.query.requesttutor.toLowerCase() === 'open'){
-            console.log(this.$route.query.requesttutor);
             setTimeout(() => {
                 this.updateRequestDialog(true)
             }, 170);
         }
     }
+      if(this.$vuetify.breakpoint.xsOnly){
+          if(!!this.$route.query && this.$route.query.chat){
+              if(this.$route.query.chat.toLowerCase() === 'expand'){
+                  setTimeout(() => {
+                      this.openChat(true)
+                  }, 170);
+              }
+          }
+      }
 
     this.$root.$on("closePopUp", name => {
       if (name === "suggestions") {

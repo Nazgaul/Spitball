@@ -227,6 +227,7 @@ const connectToRoom = function (token, options) {
                         } else {
                             store.dispatch('updateRemoteStatus', true);
                             endTutoringSession(store.getters['getRoomId']);
+                            store.dispatch('setSesionClickedOnce', false);
                             if(store.getters['getStudyRoomData'].isTutor){
                                 store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
                             }else{
@@ -238,6 +239,7 @@ const connectToRoom = function (token, options) {
                 },
                 (error) => {
                     console.error(error, 'error cant connect');
+
                 });
 };
 
