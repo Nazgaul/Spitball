@@ -123,15 +123,6 @@
   <data name="placeholder_ask" xml:space="preserve">
     <value>חפש שאלה על...</value>
   </data>
-  <data name="placeholder_book" xml:space="preserve">
-    <value>כותרת או קוד ISBN של ספר לימוד...</value>
-  </data>
-  <data name="placeholder_flashcard" xml:space="preserve">
-    <value>חפש כרטיסיות לימוד...</value>
-  </data>
-  <data name="placeholder_job" xml:space="preserve">
-    <value>תחום ההתמחות שלך...</value>
-  </data>
   <data name="placeholder_note" xml:space="preserve">
     <value>אתר מסמכי לימוד ב...</value>
   </data>

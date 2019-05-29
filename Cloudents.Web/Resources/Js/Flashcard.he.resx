@@ -123,31 +123,13 @@
   <data name="Back" xml:space="preserve">
     <value>חזרה</value>
   </data>
-  <data name="Both" xml:space="preserve">
-    <value>גם וגם</value>
-  </data>
-  <data name="both_l" xml:space="preserve">
-    <value>גם וגם</value>
-  </data>
   <data name="Cards" xml:space="preserve">
     <value>קלפים</value>
   </data>
   <data name="F" xml:space="preserve">
     <value>כ</value>
   </data>
-  <data name="flashcard_pin_l" xml:space="preserve">
-    <value>נעץ</value>
-  </data>
-  <data name="flipdown" xml:space="preserve">
-    <value>הפוך מטה</value>
-  </data>
-  <data name="flipup" xml:space="preserve">
-    <value>הפוך מעלה</value>
-  </data>
   <data name="Front" xml:space="preserve">
-    <value>קדמי</value>
-  </data>
-  <data name="front_l" xml:space="preserve">
     <value>קדמי</value>
   </data>
   <data name="K" xml:space="preserve">
@@ -170,9 +152,6 @@
   </data>
   <data name="shuffle" xml:space="preserve">
     <value>ערבוב</value>
-  </data>
-  <data name="shuffle_cards" xml:space="preserve">
-    <value>ערבוב קלפים</value>
   </data>
   <data name="Study" xml:space="preserve">
     <value>לימוד</value>

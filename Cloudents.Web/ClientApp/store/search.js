@@ -1,8 +1,6 @@
 ﻿import { SEARCH } from "./mutation-types";
 import { skeletonData } from '../components/results/consts';
 import searchService from "./../services/searchService";
-import reputationService from './../services/reputationService';
-import reportService from "./../services/cardActionService"
 
 const LOCATION_VERTICALS = new Map([["tutor", true]]);
 const state = {

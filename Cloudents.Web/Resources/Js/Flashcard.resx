@@ -124,12 +124,6 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
-  <data name="Both" xml:space="preserve">
-    <value>Both</value>
-  </data>
-  <data name="both_l" xml:space="preserve">
-    <value>both</value>
-  </data>
   <data name="Cards" xml:space="preserve">
     <value>Cards</value>
   </data>
@@ -137,20 +131,8 @@
     <value>F</value>
     <comment>Front</comment>
   </data>
-  <data name="flashcard_pin_l" xml:space="preserve">
-    <value>pin</value>
-  </data>
-  <data name="flipdown" xml:space="preserve">
-    <value>FlipDown</value>
-  </data>
-  <data name="flipup" xml:space="preserve">
-    <value>FlipUp</value>
-  </data>
   <data name="Front" xml:space="preserve">
     <value>Front</value>
-  </data>
-  <data name="front_l" xml:space="preserve">
-    <value>front</value>
   </data>
   <data name="K" xml:space="preserve">
     <value>K</value>
@@ -175,9 +157,6 @@
   </data>
   <data name="shuffle" xml:space="preserve">
     <value>Shuffle</value>
-  </data>
-  <data name="shuffle_cards" xml:space="preserve">
-    <value>Shuffle cards</value>
   </data>
   <data name="Study" xml:space="preserve">
     <value>Study</value>

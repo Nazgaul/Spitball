@@ -104,12 +104,9 @@
             }, 200)
             },
             goToLogin() {
-                console.log('login sdfsdf')
                 this.$router.push({path: '/signin'});
             },
             goToRegister() {
-                console.log('register sdfsdf')
-
                 this.$router.push({path: '/register'});
             },
             calculateOffSet() {

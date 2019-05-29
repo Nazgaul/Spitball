@@ -51,6 +51,13 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
+        public string BuildChatEndpoint(string token)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint);
+            builder.AddQuery(new { token, chat = "expand" });
+            return builder.ToString();
+        }
+
         //public string BuildDocumentEndPoint(long id, object parameters = null)
         //{
         //    var base62 = new Base62(id);

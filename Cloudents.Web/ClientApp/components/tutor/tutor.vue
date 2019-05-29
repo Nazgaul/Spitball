@@ -1,10 +1,9 @@
 <template>
     <v-layout v-if="!isMobile"
-            row
+            column
             class="tutoring-page"
             :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
-            :class="{'gridBackground': $route.name === 'tutoring'} "
-    >
+            :class="{'gridBackground': $route.name === 'tutoring'}">
         <v-flex>
             <nav class="tutoring-navigation">
                 <div class="logo-nav-wrap">
@@ -17,28 +16,90 @@
                         <a class="tutor-nav-item-link">{{singleNav.name}}</a>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center;">
-                    <share-screen-btn class="nav-share-btn"></share-screen-btn>
-                    <button class="outline-btn" @click="changeQualityDialogState(true)">
-                        <testIcon class="test-icon mr-1"></testIcon>
-                        <span v-language:inner>tutor_btn_system_check</span>
-                    </button>
-                    <div class="mr-4 pr-1 d-flex">
-                        <networkLevel class="network-icon ml-3" :signalLevel="localNetworkQuality"></networkLevel>
+                <div style="display: flex; align-items: center; max-height: 48px; width: 320px; justify-content: space-between;">
+                    <startEndSessionBtn :id="id"></startEndSessionBtn>
+                    <v-menu
+                            bottom
+                            origin="center center"
+                            transition="scale-transition">
+                        <template v-slot:activator="{ on }">
+                            <v-btn flat icon v-on="on">
+                                <settingIcon class="white-btn"></settingIcon>
+                            </v-btn>
+                            <v-divider color="#000000"
+                                       inset
+                                       style="opacity: 0.12; height: 30px;"
+                                       vertical
+                            ></v-divider>
+                        </template>
+                        <v-list>
+                            <v-list-tile @click="changeQualityDialogState(true)">
+                                <v-list-tile-action>
+                                    <testIcon class="test-icon mr-1"></testIcon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>
+                                        <span v-language:inner>tutor_btn_system_check</span>
+                                    </v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu>
+
+                    <div class="d-flex pr-3 pl-2" >
+                        <component
+                                class="network-icon"
+                                :is="localNetworkQuality ? 'signal_level_'+localNetworkQuality : 'signal_level_0'"
+                        ></component>
                     </div>
                 </div>
             </nav>
+            <v-flex xs12 md12 sm12 class="study-tools-wrapper">
+                <v-layout class="pl-2" align-center>
+                    <v-flex shrink class="canvas-tools-wrapper" v-if="isWhiteBoardActive">
+                        <whiteBoardTools></whiteBoardTools>
+                    </v-flex>
+                    <v-spacer></v-spacer>
+                    <v-flex xs1 md1 sm1>
+                        <share-screen-btn class="nav-share-btn"></share-screen-btn>
+                    </v-flex>
+                    <v-flex shrink class="controls-holder">
+                        <v-btn class="control-btn text-capitalize elevation-0  cursor-pointer"
+                               @click.stop="selectViewOption(enumViewOptions.videoChat)"
+                               :input-value="activeViewOption == enumViewOptions.videoChat"
+                               active-class="v-btn--active control-btn-active">
+                            <span v-language:inner>tutor_option_videoChat</span>
+                        </v-btn>
+                        <v-btn @click="selectViewOption(enumViewOptions.fullScreenVideo)"
+                               class="control-btn text-capitalize elevation-0  cursor-pointer"
+                               :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
+                               active-class="v-btn--active control-btn-active">
+                            <span v-language:inner>tutor_option_videoFull</span>
+                        </v-btn>
+                        <v-btn class="control-btn text-capitalize elevation-0  cursor-pointer"
+                               @click.stop="selectViewOption(enumViewOptions.fullBoard)"
+                               :input-value="activeViewOption == enumViewOptions.fullBoard"
+                               active-class="v-btn--active control-btn-active">
+                            <span v-language:inner>tutor_option_fullBoard</span>
+                        </v-btn>
+                        <v-layout column align-start class="video-stream-wraper"
+                                  v-show="activeViewOption !== enumViewOptions.fullBoard">
+                            <v-flex xs6 sm6 md6 >
+                                <video-stream :id="id"></video-stream>
+                            </v-flex>
+                        </v-layout>
+                    </v-flex>
+                </v-layout>
+            </v-flex>
+
+
             <transition name="slide-x-transition">
                 <keep-alive>
                     <component :is="activeItem" :roomId="id"></component>
                 </keep-alive>
             </transition>
         </v-flex>
-        <v-layout column align-start class="video-stream-wraper">
-            <v-flex xs6 sm6 md6>
-                <video-stream :id="id"></video-stream>
-            </v-flex>
-        </v-layout>
+
         <v-dialog
                 v-model="qualityDialog"
                 content-class="quality-dialog"
@@ -67,6 +128,17 @@
                    :isPersistent="$vuetify.breakpoint.smAndUp"
                    :content-class="'session-start-tutor-dialog'">
             <startSessionTutor :id="id"></startSessionTutor>
+        </sb-dialog>
+        <!--end session confirmation-->
+        <sb-dialog :showDialog="getEndDialog"
+                   :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+                   :popUpType="'endSessionConfirm'"
+                   :maxWidth="'356'"
+                   :onclosefn="closeEndDialog"
+                   :activateOverlay="false"
+                   :isPersistent="$vuetify.breakpoint.smAndUp"
+                   :content-class="'session-end-confirm'">
+            <endSessionConfirm :id="id"></endSessionConfirm>
         </sb-dialog>
         <!--show only if not avaliable devices dialog is closed by user-->
         <sb-dialog :showDialog="getStudentStartDialog && !qualityDialog"
@@ -103,7 +175,14 @@
     import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     import testIcon from "./images/eq-system.svg";
-    import networkLevel from './tutorHelpers/networkLevel.vue'
+    import chatIcon from "../../font-icon/message-icon.svg";
+    import settingIcon from "../../font-icon/settings.svg";
+    import signal_level_0 from "./images/wifi-0.svg";
+    import signal_level_1 from "./images/wifi-1.svg";
+    import signal_level_2 from "./images/wifi-2.svg";
+    import signal_level_3 from "./images/wifi-3.svg";
+    import signal_level_4 from "./images/wifi-4.svg";
+    import signal_level_5 from "./images/wifi-4.svg";
     import noSupportTop from "./images/not_supported_top.svg";
     import noSupportBottom from "./images/not_supported_bottom.svg";
     import tutorService from "./tutorService";
@@ -113,6 +192,10 @@
     import leaveReview from './tutorHelpers/leaveReview/leaveReview.vue';
     import startSessionTutor from './tutorHelpers/startSession-popUp-tutor/startSession-popUp-Tutor.vue';
     import startSessionStudent from './tutorHelpers/startSession-popUp-student/startSession-popUp-student.vue';
+    import whiteBoardTools from './whiteboard/whiteboardTools.vue';
+    import startEndSessionBtn from './tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue';
+    import endSessionConfirm from './tutorHelpers/endSessionConfirm/endSessionConfirm.vue';
+
 
     export default {
         components: {
@@ -124,13 +207,23 @@
             AppLogo,
             qualityValidation,
             testIcon,
-            networkLevel,
+            chatIcon,
+            settingIcon,
+            signal_level_0,
+            signal_level_1,
+            signal_level_2,
+            signal_level_3,
+            signal_level_4,
+            signal_level_5,
             sbDialog,
             leaveReview,
             noSupportTop,
             noSupportBottom,
             startSessionTutor,
-            startSessionStudent
+            startSessionStudent,
+            whiteBoardTools,
+            startEndSessionBtn,
+            endSessionConfirm,
         },
         name: "tutor",
         data() {
@@ -139,7 +232,11 @@
                 showQualityDialog: false,
                 showContent: false,
                 navs: [
-                    {name: LanguageService.getValueByKey("tutor_nav_canvas"), value: "white-board", icon: "sbf-canvas"},
+                    {
+                        name: LanguageService.getValueByKey("tutor_nav_canvas"),
+                        value: "white-board",
+                        icon: "sbf-canvas"
+                    },
                     {
                         name: LanguageService.getValueByKey("tutor_nav_code"),
                         value: "code-editor",
@@ -151,6 +248,13 @@
                         icon: "sbf-text-icon"
                     }
                 ],
+                videoChat: true,
+                enumViewOptions:{
+                    videoChat: 'videoChat',
+                    fullBoard: 'fullBoard',
+                    fullScreenVideo: 'fullScreenVideo',
+                },
+                activeViewOption: 'videoChat'
             };
         },
 
@@ -167,13 +271,14 @@
                               "getPanY",
                               "getReviewDialogState",
                               "getStudentStartDialog",
-                              "getTutorStartDialog"
+                              "getTutorStartDialog",
+                              "getEndDialog"
                           ]),
             activeItem() {
                 return this.activeNavItem;
             },
-            showCurrentCondition() {
-                return this.activeItem === "white-board" ? true : true;
+            isWhiteBoardActive() {
+                return this.activeItem === "white-board" ? true : false;
             },
             zoom() {
                 let gridSize = (20 * Number(this.getZoom.toFixed())) / 100;
@@ -200,10 +305,16 @@
                               "updateReview",
                               "submitReview",
                               "updateTutorStartDialog",
-                              "updateStudentStartDialog"
+                              "updateStudentStartDialog",
+                              "closeChat",
+                              "openChatInterface",
+                              "updateEndDialog"
                           ]),
             closeReviewDialog() {
                 this.updateReviewDialog(false);
+            },
+            closeEndDialog(){
+                this.updateEndDialog(false);
             },
             closeStartSessionTutor() {
                 this.updateTutorStartDialog(false);
@@ -218,7 +329,32 @@
             changeQualityDialogState(val) {
                 this.updateTestDialogState(val);
             },
-
+            selectViewOption(param) {
+                this.activeViewOption = param;
+                if( this.activeViewOption === this.enumViewOptions.videoChat) {
+                    this.videoChat = !this.videoChat;
+                    this.openChatInterface();
+                } else if(this.activeViewOption === this.enumViewOptions.fullBoard) {
+                    this.videoChat = !this.videoChat;
+                    this.closeChat()
+                }else if (this.activeViewOption === this.enumViewOptions.fullScreenVideo){
+                    this.biggerRemoteVideo()
+                }
+            },
+            biggerRemoteVideo() {
+                //check browser support
+                var video = document.querySelector("#remoteTrack video");
+                if(!video) return;
+                if(video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if(video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen();
+                } else if(video.mozRequestFullScreen) {
+                    video.mozRequestFullScreen();
+                } else if(video.msRequestFullscreen) {
+                    video.msRequestFullscreen();
+                }
+            },
             setStudyRoom(id) {
                 let self = this;
                 tutorService.getRoomInformation(id).then(({data}) => {

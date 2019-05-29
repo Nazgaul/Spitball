@@ -71,6 +71,7 @@ const createAudioContext = function () {
             //console.log(Math.round(average - 40));
             //TODO fix style to class
             let micVolume = document.getElementById('micVolume_indicator');
+            if(!micVolume)return
             micVolume.style.backgroundColor = 'rgba(66, 224, 113, 0.8)';
             micVolume.style.height = '6px';
             micVolume.style.maxWidth = '150px';
@@ -106,8 +107,8 @@ const connectToRoom = function (token, options) {
     store.dispatch('leaveRoomIfJoined');
     Twilio.connect(token, options)
           .then((room) => {
-                    // add microphone indicator
-                    createAudioContext();
+                    // add microphone indicator, comment if not in use, otherwise will throw errors cause cant get element
+                    // createAudioContext();
                     store.dispatch('updateRoomInstance', room);
                     console.log('Successfully joined a Room: ', room);
                     store.dispatch('updateRoomLoading', false);
@@ -227,6 +228,7 @@ const connectToRoom = function (token, options) {
                         } else {
                             store.dispatch('updateRemoteStatus', true);
                             endTutoringSession(store.getters['getRoomId']);
+                            store.dispatch('setSesionClickedOnce', false);
                             if(store.getters['getStudyRoomData'].isTutor){
                                 store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
                             }else{
@@ -238,6 +240,7 @@ const connectToRoom = function (token, options) {
                 },
                 (error) => {
                     console.error(error, 'error cant connect');
+
                 });
 };
 

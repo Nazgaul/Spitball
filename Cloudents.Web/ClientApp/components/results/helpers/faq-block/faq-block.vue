@@ -21,14 +21,12 @@
     import askQuestionBtn from '../askQuestionBtn/askQuestionBtn.vue';
     import uploadFilesBtn from "../uploadFilesBtn/uploadFilesBtn.vue";
     import marketingBox from "../../../helpers/marketingBox/marketingBox.vue";
-    import leadersBoard from "../../../helpers/leadersBoard/leadersBoard.vue";
     import tutorList from "../../../helpers/tutorList/tutorList.vue";
     export default {
         components:{
             askQuestionBtn,
             uploadFilesBtn,
             marketingBox,
-            leadersBoard,
             tutorList
         },
         data() {
