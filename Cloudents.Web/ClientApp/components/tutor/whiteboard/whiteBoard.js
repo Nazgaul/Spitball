@@ -84,30 +84,13 @@ export default {
             //activated from watch
             this.canvasData.color = this.canvasDataStore.color;
             return this.canvasDataStore.color;
-        }
-    },
-    watch:{
-        canvasDataColor(newVal){
-            //watch is activating the canvasDataColor computed
-            this.canvasData.color = newVal;
-        },
-        undoClicked(){
-            this.undo();
-        },
-        addImage(newVal){
-            if(!!newVal){
-                this.addShape(newVal.dragObj, newVal.callback)
-            }
-            }
         },
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         },
-      
     },
-    watch: {
+    watch:{
         activeRoom:  function(val) {
-            
             if (this.getCurrentRoomState !== "active") {
                 return
             }
@@ -125,7 +108,19 @@ export default {
                 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/captureStream
             }
         },
-    },
+        canvasDataColor(newVal){
+            //watch is activating the canvasDataColor computed
+            this.canvasData.color = newVal;
+        },
+        undoClicked(){
+            this.undo();
+        },
+        addImage(newVal){
+                if(!!newVal){
+                    this.addShape(newVal.dragObj, newVal.callback)
+                }
+            }
+        },
     methods: {
         ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface']),
         renameTab() {

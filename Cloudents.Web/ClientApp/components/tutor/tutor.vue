@@ -47,15 +47,12 @@
                     </v-menu>
 
                     <div class="d-flex pr-3 pl-2" >
-                        <component
-                                class="network-icon"
-                                :is="localNetworkQuality ? 'signal_level_'+localNetworkQuality : 'signal_level_0'"
-                        ></component>
+                        <networkLevel class="network-icon ml-3" :signalLevel="localNetworkQuality"></networkLevel>
                     </div>
                 </div>
             </nav>
             <v-flex xs12 md12 sm12 class="study-tools-wrapper">
-                <v-layout class="pl-2" align-center>
+                <v-layout class="pl-2" align-center shrink>
                     <v-flex shrink class="canvas-tools-wrapper" v-if="isWhiteBoardActive">
                         <whiteBoardTools></whiteBoardTools>
                     </v-flex>
@@ -177,12 +174,7 @@
     import testIcon from "./images/eq-system.svg";
     import chatIcon from "../../font-icon/message-icon.svg";
     import settingIcon from "../../font-icon/settings.svg";
-    import signal_level_0 from "./images/wifi-0.svg";
-    import signal_level_1 from "./images/wifi-1.svg";
-    import signal_level_2 from "./images/wifi-2.svg";
-    import signal_level_3 from "./images/wifi-3.svg";
-    import signal_level_4 from "./images/wifi-4.svg";
-    import signal_level_5 from "./images/wifi-4.svg";
+    import networkLevel from './tutorHelpers/networkLevel.vue';
     import noSupportTop from "./images/not_supported_top.svg";
     import noSupportBottom from "./images/not_supported_bottom.svg";
     import tutorService from "./tutorService";
@@ -209,12 +201,7 @@
             testIcon,
             chatIcon,
             settingIcon,
-            signal_level_0,
-            signal_level_1,
-            signal_level_2,
-            signal_level_3,
-            signal_level_4,
-            signal_level_5,
+            networkLevel,
             sbDialog,
             leaveReview,
             noSupportTop,

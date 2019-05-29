@@ -88,7 +88,7 @@
             height: 48px;
             width: 210px;
             color: @color-white;
-            background-color: @BtnBackground;
+            background-color: @BtnBackground!important;
             border-radius: 4px;
             .timer-icon{
                 fill: @color-white;
