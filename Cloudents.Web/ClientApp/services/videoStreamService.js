@@ -15,6 +15,7 @@ let availableDevices = [];
         self.addDevicesTotrack();
     }
    function enterRoom(){
+       store.dispatch('setSesionClickedOnce', true);
         if (!!store.getters['accountUser'] && store.getters['accountUser'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
             walletService.getPaymeLink().then(({ data }) => {
                 global.open(data.link, '_blank', 'height=520,width=440');
@@ -27,19 +28,18 @@ let availableDevices = [];
             return;
         }
         if (!store.getters['sessionStartClickedOnce']) {
-            store.dispatch('setSesionClickedOnce', true);
+            // store.dispatch('setSesionClickedOnce', true);
             if (store.getters['getStudyRoomData'].isTutor) {
                 store.dispatch('updateCurrentRoomState', 'loading');
                 tutorService.enterRoom(store.getters['getRoomId']).then(() => {
                     setTimeout(() => {
                         this.createVideoSession();
-                        store.dispatch('setSesionClickedOnce', false)
                     }, 1000);
                 });
             } else {
                 //join
+                // store.dispatch('setSesionClickedOnce', true);
                 this.createVideoSession();
-                store.dispatch('setSesionClickedOnce', false)
             }
         }
     }
@@ -66,6 +66,7 @@ let availableDevices = [];
             tutorService.connectToRoom(token, connectOptions);
             if (!store.getters['getStudyRoomData'].isTutor) {
                 store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.active);
+                store.dispatch('setSesionClickedOnce', false)
             }
 
         }, (error) => {
@@ -74,6 +75,7 @@ let availableDevices = [];
                 showToaster: true,
                 toasterType: 'error-toaster'
             });
+            store.dispatch('setSesionClickedOnce', false)
 
         });
     }
