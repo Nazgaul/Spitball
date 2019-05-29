@@ -19,7 +19,7 @@
             <v-flex>
                 <div class="">
                    <span v-show="showRateNumber" :style="{ color: rateNumColor }" class="caption ml-1 pb-1 rating-number">
-       {{ rating }}
+       {{ dynamicRating }}
       </span>
                 </div>
             </v-flex>
@@ -68,7 +68,11 @@
         computed: {
             dynamicRating:{
              get(){
-                 return this.rating
+                 if(this.rating > 0){
+                    return Number.parseFloat(Number.parseFloat(this.rating).toFixed(2));
+                 }else{
+                    return this.rating
+                 }
              },
             set(newValue){
                 if(this.callbackFn){
