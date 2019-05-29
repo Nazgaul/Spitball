@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -39,7 +40,7 @@ T.Price,
 						and  uc.CourseId in (select CourseId from sb.UsersCourses where UserId = @UserId)
                         and T.State = 'Ok'
 
-union
+union all
 select 1 as position, U.Id as UserId, U.Name, U.Image, 
 (select STRING_AGG(dt.CourseId, ', ') FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
 T.Price, 
@@ -63,7 +64,7 @@ FETCH NEXT 20 ROWS ONLY;";
                         query.UserId
                     });
 
-                    return retVal;
+                    return retVal.Distinct(TutorListDto.UserIdComparer);
                 }
             }
         }

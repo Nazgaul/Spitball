@@ -121,7 +121,6 @@
                         this.$router.push({name: 'addCourse'});
                     }
                 }
-                console.log('open tutor request dialog');
             }
         },
     };

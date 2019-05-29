@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btn_accept_and_start" xml:space="preserve">
+    <value>Accept and Start</value>
+  </data>
   <data name="btn_share_screen" xml:space="preserve">
     <value>Share Screen</value>
   </data>
@@ -143,6 +146,10 @@
   </data>
   <data name="close" xml:space="preserve">
     <value>Close</value>
+    </data>
+
+  <data name="entered_room" xml:space="preserve">
+    <value>has entered the room</value>
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>Canvas</value>
@@ -213,6 +220,12 @@ Try connecting from a computer browser</value>
   </data>
   <data name="quality_video_title" xml:space="preserve">
     <value>Video quality test</value>
+  </data>
+  <data name="start_dialog_your_student" xml:space="preserve">
+    <value>Your student</value>
+  </data>
+  <data name="start_dialog_your_tutor" xml:space="preserve">
+    <value>Your tutor</value>
   </data>
   <data name="stream_btn_add_payment" xml:space="preserve">
     <value>Add payment details</value>
