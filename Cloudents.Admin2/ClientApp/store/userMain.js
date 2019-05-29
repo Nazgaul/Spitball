@@ -11,7 +11,8 @@ const state = {
     userPurchasedDocs: [],
     userConversations: [],
     userSessions: [],
-    filterVal: 'ok'
+    filterVal: 'ok',
+    loader : false
 
 };
 const mutations = {
@@ -24,6 +25,9 @@ const mutations = {
         state.userPurchasedDocs = [];
         state.userConversations = [];
         state.userSessions = [];
+    },
+    setShowLoader(state, val) {
+        state.loader = val;
     },
     updateTokensDialog(state, val) {
         state.tokensDilaogState = val;
@@ -82,6 +86,7 @@ const mutations = {
     }
 };
 const getters = {
+    getShowLoader: (state) => state.loader,
     filterValue: (state) => state.filterVal,
     getTokensDialogState: (state) => state.tokensDilaogState,
     suspendDialogState: (state) => state.suspendDialog,
@@ -97,6 +102,9 @@ const getters = {
 const actions = {
     updateFilterValue({commit}, val) {
         commit('setFilterStr', val);
+    },
+    setShowLoader({ commit }, val) {
+        commit('setShowLoader',val)
     },
 
     clearUserState({commit}) {
@@ -145,6 +153,7 @@ const actions = {
     },
 
     getUserQuestions(context, idPageObj) {
+        context.commit("setShowLoader", true);
         return UserMainService.getUserQuestions(idPageObj.id, idPageObj.page).then((data) => {
                 if (data && data.length !== 0) {
                     context.commit('setUserQuestions', data);
@@ -157,7 +166,7 @@ const actions = {
             (error) => {
                 console.log(error, 'error')
             }
-        )
+        ).finally(() => context.commit("setShowLoader", false));
     },
     getUserAnswers(context, idPageObj) {
         return UserMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {

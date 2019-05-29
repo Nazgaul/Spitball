@@ -48,7 +48,11 @@ export default {
             suspendDialog: false,
             userComponentsShow: false,
             activeUserComponent: '',
-            deleteUserQuestions: false
+            deleteUserQuestions: false,
+            valid: true,
+            requiredRules: [
+                v => !!v || 'Name is required',
+            ],
         };
     },
 
@@ -58,8 +62,12 @@ export default {
             "suspendDialogState",
             "getUserObj",
             "UserInfo",
-            "filterValue"
+            "filterValue",
+            "getShowLoader"
         ]),
+        loader() {
+            return this.getShowLoader;
+        },
         userInfo() {
             return this.UserInfo;
         },
@@ -87,8 +95,10 @@ export default {
             "verifyUserPhone",
             "getUserPurchasedDocuments",
             "clearUserState",
-            "updateFilterValue"
+            "updateFilterValue",
+           
         ]),
+       
         resetUserData() {
             // reinit scrollfunc data and clear store ib new user data requested
             this.clearUserState();
@@ -120,12 +130,14 @@ export default {
         updateFilter(val) {
             return this.updateFilterValue(val);
         },
-        getUserInfoData(paramId) {
-            if (!!this.UserInfo) {
-                this.resetUserData();
+        submitUserData() {
+            if (!this.$refs.form.validate()) {
+                return;
             }
-            let id = this.userIdentifier || paramId;
-            let self = this;
+            this.getUserInfoData(this.userIdentifier);
+        },
+        getUserInfoData(id) {
+            var self = this;
             self.getUserData(id)
                 .then((data) => {
                     if(data &&  data.id && data.id.value){
@@ -165,7 +177,6 @@ export default {
         if(this.$route.params && this.$route.params.userId){
             this. getUserInfoData(this.$route.params.userId);
         }
-        console.log('usr main view created' + this.userId, this.$route);
 
     }
 }

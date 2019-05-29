@@ -8,6 +8,7 @@ import store from "./store";
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import VueClipboard from 'vue-clipboard2'
+import colors from 'vuetify/es5/util/colors'
 
 const VueUploadComponent = require('vue-upload-component');
 Vue.component('file-upload', VueUploadComponent);
@@ -15,9 +16,15 @@ Vue.component('file-upload', VueUploadComponent);
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(Toaster, {timeout: 5000});
-Vue.use(Vuetify);
+Vue.use(Vuetify,
+    {
+        theme: {
+            primary: colors.red.darken1, // #E53935
+            secondary: colors.red.lighten4, // #FFCDD2
+            accent: colors.indigo.base // #3F51B5
+        }
+    });
 Vue.use(VueClipboard);
-console.log(routes);
 // 10/12/2018
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
