@@ -46,7 +46,7 @@
                         </v-list>
                     </v-menu>
 
-                    <div class="d-flex pr-3 pl-2" >
+                    <div class="d-flex pr-4" >
                         <networkLevel class="network-icon ml-3" :signalLevel="localNetworkQuality"></networkLevel>
                     </div>
                 </div>
