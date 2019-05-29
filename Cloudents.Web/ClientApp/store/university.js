@@ -125,10 +125,20 @@ const mutations = {
     },
     updtaeShowSchoolBlock(state, val) {
         state.showSchoolBlock = val;
+    },
+    setAllClassesTeaching(state){
+        if(state.selectedClasses && state.selectedClasses.length){
+            state.selectedClasses.forEach((item, index)=>{
+                return state.selectedClasses[index].isTeaching = true;
+            })
+        }
     }
 };
 
 const actions = {
+    updateTeachingClasses({commit}){
+        commit('setAllClassesTeaching')
+    },
     clearClassesCahce({commit}){
         commit('clearClassesCahce');
     },

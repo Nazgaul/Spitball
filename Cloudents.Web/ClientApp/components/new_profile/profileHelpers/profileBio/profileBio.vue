@@ -44,9 +44,9 @@
                 >{{university}}</div>
               </v-flex>
               <div class="tutor-price mr-3">
-                <span class="subheading" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">₪</span>
+                <!--<span class="subheading" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">₪</span>-->
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  {{tutorPrice}}
+                  ₪{{tutorPrice}}
                   <span class="tutor-price small-text">
                     /
                     <span v-language:inner>profile_points_hour</span>

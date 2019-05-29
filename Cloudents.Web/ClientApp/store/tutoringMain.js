@@ -23,6 +23,7 @@ const state = {
         active: "active"
     },
     sessionStartClickedOnce: false,
+    sessionEndClicked: false,
     currentRoomState: "pending",
     jwtToken: null,
     studentStartDialog: false,
@@ -47,12 +48,16 @@ const getters = {
     getRoomId: state => state.roomId,
     getStudentStartDialog: state => state.studentStartDialog,
     getTutorStartDialog: state => state.tutorStartDialog,
-    getSessionStartClickedOnce: state => state.sessionStartClickedOnce
+    getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
+    getSessionEndClicked: state => state.sessionEndClicked
 };
 
 const mutations = {
     updateSessionClickedOnce(state, val) {
         state.sessionStartClickedOnce = val;
+    },
+    updateSessionEndClicked(state, val) {
+        state.sessionEndClicked = val;
     },
     updateAllowedDevices(state, val) {
         state.notAllowedDevices = val;
@@ -121,6 +126,9 @@ const mutations = {
 const actions = {
     setSesionClickedOnce({commit, state}, val) {
         commit('updateSessionClickedOnce', val);
+    },
+    setSesionEndClicked({commit, state}, val) {
+        commit('updateSessionEndClicked', val);
     },
     setAvaliableDevicesStatus({commit, state}, val) {
         commit('updateAvaliableDevices', val);
@@ -192,6 +200,7 @@ const actions = {
                     //show tutor start session
                     dispatch("updateTutorStartDialog", true);
                 } else {
+                    dispatch("updateTutorStartDialog", false);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                     toasterParams.timeout = 3600000;
                     dispatch('showRoomToasterMessage', toasterParams);
@@ -208,12 +217,12 @@ const actions = {
             if(onlineCount == totalOnline) {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
                 dispatch('showRoomToasterMessage', toasterParams);
-                //show student start se3ssion
-                dispatch("updateStudentStartDialog", true);
             } else {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                 toasterParams.timeout = 3600000;
                 dispatch('showRoomToasterMessage', toasterParams);
+                //hide student start se3ssion
+                dispatch("updateStudentStartDialog", false);
             }
         }
     },
@@ -232,6 +241,8 @@ const actions = {
         commit('setJwtToken', token);
         if(!isTutor) {
             dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
+            //show student start se3ssion
+            dispatch("updateStudentStartDialog", true);
         }
     },
     signalR_ReleasePaymeStatus({commit, dispatch, state}) {
