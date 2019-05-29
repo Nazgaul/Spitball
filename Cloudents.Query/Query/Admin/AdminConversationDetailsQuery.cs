@@ -30,7 +30,7 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<ConversationDetailsDto>> GetAsync(AdminConversationDetailsQuery query, CancellationToken token)
             {
-                const string sql = @"select u.Name as UserName, u.Email, u.PhoneNumberHash as PhoneNumber,
+                const string sql = @"select u.Name as UserName, u.Email, u.PhoneNumberHash as PhoneNumber, u.Image,
 case when u.Id = (select top 1 UserId from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by cm.CreationTime) then 1
 else 0 end as Student
 from sb.ChatRoom cr

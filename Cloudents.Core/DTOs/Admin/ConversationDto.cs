@@ -30,5 +30,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string Email { get; set; }
         [EntityBind(nameof(RegularUser.PhoneNumber))]
         public string PhoneNumber { get; set; }
+        [EntityBind(nameof(RegularUser.Image))]
+        public string Image { get; set; }
     }
 }

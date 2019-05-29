@@ -5,6 +5,10 @@ function DetailsItem(objInit) {
     this.userName = objInit.userName;
     this.email = objInit.email;
     this.phoneNumber = objInit.phoneNumber;
+    if (objInit.image) {
+        objInit.image += "?width=50&height=50";
+    }
+    this.image = objInit.image;
 }
 
 function createDetailsItem(objInit) {
