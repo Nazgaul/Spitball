@@ -282,9 +282,6 @@
             isVisible(val) {
                 return val
             },
-            showEvent(event) {
-                console.log(event)
-            },
             submitNewPrice() {
                 let data = {id: this.item.id, price: this.newPrice};
                 let self = this;
@@ -336,8 +333,6 @@
                             showToaster: true,
                         });
                         this.updateProfile(id);
-
-
                     },
                     (error) => {
                         this.updateToasterParams({

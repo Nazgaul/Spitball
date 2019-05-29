@@ -116,7 +116,6 @@
             item: {
                 deep: true,
                 handler(newVal, oldVal) {
-                    console.log(newVal)
                     let fileObj = {
                         index: this.singleFileIndex,
                         data: newVal
