@@ -16,7 +16,6 @@ export default {
             loaded: false,
             data: {},
             isCopied: false,
-            sessionEndClickedOnce: false,
             localTrackAval: false,
             remoteTrack: '',
             screenShareTrack: null,
@@ -45,6 +44,7 @@ export default {
             'getNotAllowedDevices',
             'getAllowReview',
             'getNotAvaliableDevices',
+            'getSessionEndClicked'
         ]),
         roomIsPending() {
             return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
@@ -77,7 +77,8 @@ export default {
             'updateReviewDialog',
             'setRoomId',
             'updateToasterParams',
-            'setSesionClickedOnce'
+            'setSesionClickedOnce',
+            'setSesionEndClicked'
         ]),
 
         biggerRemoteVideo() {
@@ -106,18 +107,21 @@ export default {
                 this.sessionEndClickedOnce = false; //unlock end session btn
         },
         endSession() {
-            if(this.sessionEndClickedOnce) return;
+            if(!!this.getSessionEndClicked) return;
             let self= this;
-            self.sessionEndClickedOnce = true; //lock end session btn if already clicked
+            self.setSesionEndClicked(true); //lock end session btn if already clicked
+            console.log('End end end')
             tutorService.endTutoringSession(self.id)
                 .then((resp) => {
                     self.sessionStartClickedOnce = false; //unlock start session btn
-                    this.setSesionClickedOnce(false)
+                    // this.setSesionClickedOnce(false)
+                    self.setSesionEndClicked(false);
                     if (!self.isTutor && self.getAllowReview) {
                         self.updateReviewDialog(true);
                     }
                 }, (error) => {
                     console.log('error', error);
+                    self.setSesionEndClicked(false);
                 });
         },
          addDevicesToTrack() {

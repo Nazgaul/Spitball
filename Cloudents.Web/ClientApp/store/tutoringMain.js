@@ -23,6 +23,7 @@ const state = {
         active: "active"
     },
     sessionStartClickedOnce: false,
+    sessionEndClicked: false,
     currentRoomState: "pending",
     jwtToken: null,
     studentStartDialog: false,
@@ -47,12 +48,16 @@ const getters = {
     getRoomId: state => state.roomId,
     getStudentStartDialog: state => state.studentStartDialog,
     getTutorStartDialog: state => state.tutorStartDialog,
-    getSessionStartClickedOnce: state => state.sessionStartClickedOnce
+    getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
+    getSessionEndClicked: state => state.sessionEndClicked
 };
 
 const mutations = {
     updateSessionClickedOnce(state, val) {
         state.sessionStartClickedOnce = val;
+    },
+    updateSessionEndClicked(state, val) {
+        state.sessionEndClicked = val;
     },
     updateAllowedDevices(state, val) {
         state.notAllowedDevices = val;
@@ -121,6 +126,9 @@ const mutations = {
 const actions = {
     setSesionClickedOnce({commit, state}, val) {
         commit('updateSessionClickedOnce', val);
+    },
+    setSesionEndClicked({commit, state}, val) {
+        commit('updateSessionEndClicked', val);
     },
     setAvaliableDevicesStatus({commit, state}, val) {
         commit('updateAvaliableDevices', val);
