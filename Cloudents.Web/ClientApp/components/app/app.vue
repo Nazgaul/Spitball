@@ -366,9 +366,7 @@ export default {
       this.updateShowPayMeToaster(true);
     }
     if(!!this.$route.query && this.$route.query.requesttutor){
-        console.log(this.$route.query.requesttutor);
         if(this.$route.query.requesttutor.toLowerCase() === 'open'){
-            console.log(this.$route.query.requesttutor);
             setTimeout(() => {
                 this.updateRequestDialog(true)
             }, 170);
