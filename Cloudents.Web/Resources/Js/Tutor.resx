@@ -146,8 +146,7 @@
   </data>
   <data name="close" xml:space="preserve">
     <value>Close</value>
-    </data>
-
+  </data>
   <data name="entered_room" xml:space="preserve">
     <value>has entered the room</value>
   </data>
@@ -166,11 +165,10 @@
   <data name="option_videoChat" xml:space="preserve">
     <value>Video &amp; Chat</value>
   </data>
-    <data name="not_supported" xml:space="preserve">
+  <data name="not_supported" xml:space="preserve">
     <value>Study Room currently not supported by Mobile.
 Try connecting from a computer browser</value>
   </data>
-
   <data name="option_videoFull" xml:space="preserve">
     <value>Full Video</value>
   </data>
@@ -308,5 +306,8 @@ Try connecting from a computer browser</value>
   </data>
   <data name="tooltip_upload" xml:space="preserve">
     <value>Upload Image</value>
+  </data>
+  <data name="finished_session" xml:space="preserve">
+    <value>Finished the sesson?</value>
   </data>
 </root>
