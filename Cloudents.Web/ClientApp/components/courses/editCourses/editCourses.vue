@@ -112,7 +112,7 @@
                 return this.getSelectedClasses;
             },
             isUserTutor(){
-                return this.accountUser.isTutor
+                return this.accountUser.isTutor || this.getIsTutorState && this.getIsTutorState === 'pending';            
             },
             isEmpty() {
                 if(this.getSelectedClasses.length < 1){
