@@ -6,15 +6,10 @@
         </div>
         <v-layout column class="messages-wrapper">
             <v-flex justify-end class="messages-header">
-                <div v-if="showStudyRoomInteraction" @click="createRoom">
-                    <span v-show="studyRoomExists" v-language:inner>chat_studyRoom_enter</span>
-                    <span v-show="!studyRoomExists && isRoomTutor" v-language:inner>chat_studyRoom_create</span>
+                <div class="messages-study-room" v-if="showStudyRoomInteraction" @click="createRoom">
+                    <button v-show="studyRoomExists"><v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon><span v-language:inner="'chat_studyRoom_enter'"></span></button>
+                    <button v-show="!studyRoomExists && isRoomTutor"><v-icon style="font-size:10px; transform: rotate(45deg); margin: 0 4px 3px 0; color:#fff;">sbf-close</v-icon>&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span></button>
                 </div>
-                <div v-show="showStudyRoomInteraction">
-                    <v-icon v-show="studyRoomExists" style="font-size:16px; color:#bcbccb;">sbf-studyroom-icon</v-icon>
-                    <v-icon v-show="!studyRoomExists && isRoomTutor" style="font-size:16px; color:#bcbccb;">sbf-studyroom-icon</v-icon>
-                </div>
-              
             </v-flex>
             <v-flex class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
@@ -130,15 +125,21 @@ export default {
             .messages-header{
                 display:flex;
                 background-color: #f7f7f7;
-                padding: 8px 10px 8px 8px ;
+                // padding: 8px 10px 8px 8px ;
                 max-height: 34px;
                 min-height: 34px;
-                span{
-                    padding: 0 10px 0  10px;
-                    cursor: pointer;
-                    font-size: 12px;
-                    color: @purpleNewColor;
+                .messages-study-room{
+                        background: #2ec293;
+                        color: #FFF;
+                        text-align: center;
+                        display: flex;
+                        button{
+                            padding: 5px 10px;
+                            font-size: 12px;
+                            outline: none;
+                        }
                 }
+               
             }
             .messages-body{
                 padding: 15px 10px 0 10px;
