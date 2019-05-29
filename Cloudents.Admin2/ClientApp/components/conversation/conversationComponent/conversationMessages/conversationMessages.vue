@@ -134,7 +134,4 @@
         background-color: lightgray;
     }
 
-    .userInfo {
-        margin-left:40%;
-    }
 </style>
