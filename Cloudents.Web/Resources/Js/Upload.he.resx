@@ -183,16 +183,6 @@
   <data name="multiple_files_type_default" xml:space="preserve">
     <value>סוג המסמך</value>
   </data>
-  <data name="multiple_files_type_exam" xml:space="preserve">
-    <value>פתרון מבחן</value>
-  </data>
-  <data name="multiple_files_type_lecture" xml:space="preserve">
-    <value>סיכום הרצאה</value>
-  </data>
-  <data name="multiple_files_type_textbook" xml:space="preserve">
-    <value>ספר לימוד</value>
-    <comment>Ram Change</comment>
-  </data>
   <data name="multiple_help_and_make" xml:space="preserve">
     <value>אתה על הגל, עכשיו עזור לחברים לספסל הלימודים (ותרוויח נקודות) על ידי שיתוף הקישור למסמך זה.</value>
   </data>

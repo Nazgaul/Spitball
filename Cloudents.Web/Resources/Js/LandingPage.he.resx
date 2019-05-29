@@ -117,24 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="earn_knowledge_subTitle" xml:space="preserve">
-    <value>פשוט להעלות מסמכי לימוד מהקורס שלך ולהתחיל להרוויח כסף</value>
-  </data>
-  <data name="earn_knowledge_title" xml:space="preserve">
-    <value>מסמכי הלימוד שלך שווים כסף</value>
-  </data>
-  <data name="earn_question_section_subTitle" xml:space="preserve">
-    <value>צברו נקודות ופדו אותן ב- BuyMe</value>
-  </data>
-  <data name="earn_question_section_title" xml:space="preserve">
-    <value>עונים על שאלות - צוברים נקודות!</value>
-  </data>
-  <data name="earn_upload_section_subTitle" xml:space="preserve">
-    <value>העלו עכשיו מסמכי לימוד שיצרתם וסייעו לסטודנטים אחרים</value>
-  </data>
-  <data name="earn_upload_section_title" xml:space="preserve">
-    <value>תחלקו ותרוויחו מהידע האקדמי שלכם</value>
-  </data>
   <data name="find_by_subject" xml:space="preserve">
     <value>מצא שיעורי בית לפי נושא</value>
   </data>
@@ -226,24 +208,6 @@
   </data>
   <data name="join_spitball_free" xml:space="preserve">
     <value>הצטרפו, זה בחינם!</value>
-  </data>
-  <data name="learn_knowledge_subTitle" xml:space="preserve">
-    <value>שפרו ציונים וקבלו גם סיוע בשיעורי הבית וגם גישה לאלפי מסמכי לימוד</value>
-  </data>
-  <data name="learn_knowledge_title" xml:space="preserve">
-    <value>חולמים על שיעורי בית מושלמים?</value>
-  </data>
-  <data name="learn_question_section_subTitle" xml:space="preserve">
-    <value>80% מהשאלות שעולות בקהילת ספיטבול, זוכות למענה תוך פחות מדקה!  </value>
-  </data>
-  <data name="learn_question_section_title" xml:space="preserve">
-    <value>עבודה להגשה שתקועה בשאלה קשה?</value>
-  </data>
-  <data name="learn_upload_section_subTitle" xml:space="preserve">
-    <value>מצאו את הקובץ המתאים לכיתתכם עכשיו</value>
-  </data>
-  <data name="learn_upload_section_title" xml:space="preserve">
-    <value>קבלו גישה לאלפי חומרי לימוד רלוונטיים אליכם</value>
   </data>
   <data name="placeholder_subjects" xml:space="preserve">
     <value>בחר נושא</value>

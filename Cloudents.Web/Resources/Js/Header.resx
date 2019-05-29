@@ -126,17 +126,8 @@
   <data name="sbl" xml:space="preserve">
     <value>Pts</value>
   </data>
-  <data name="placeholder_book" xml:space="preserve">
-    <value>Textbook title or ISBN...</value>
-  </data>
   <data name="sign_up" xml:space="preserve">
     <value>Sign Up</value>
-  </data>
-  <data name="placeholder_flashcard" xml:space="preserve">
-    <value>Look for flashcards...</value>
-  </data>
-  <data name="placeholder_job" xml:space="preserve">
-    <value>Your field of expertise...</value>
   </data>
   <data name="placeholder_note" xml:space="preserve">
     <value>Find study documents in...</value>

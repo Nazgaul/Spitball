@@ -97,9 +97,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="images_png_jpg" xml:space="preserve">
-    <value>פורמט התמונה חייב להיות PNG או JPG ובגודל של עד 5 מ"ב</value>
-  </data>
   <data name="menu_item_about_spitball" xml:space="preserve">
     <value>אודות Spitball</value>
   </data>
@@ -118,14 +115,8 @@
   <data name="my_courses" xml:space="preserve">
     <value>הקורסים שלי</value>
   </data>
-  <data name="Save" xml:space="preserve">
-    <value>שמור</value>
-  </data>
   <data name="Settings" xml:space="preserve">
     <value>הגדרות</value>
-  </data>
-  <data name="tap_to_cange" xml:space="preserve">
-    <value>לחץ על התמונה כדי לשנות אותה</value>
   </data>
   <data name="university_choose" xml:space="preserve">
     <value>בחירת מוסד לימודים</value>

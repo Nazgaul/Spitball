@@ -117,26 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="nav_bookDetails_filter_new" xml:space="preserve">
-    <value>new</value>
-  </data>
-  <data name="nav_bookDetails_filter_rental" xml:space="preserve">
-    <value>rental</value>
-  </data>
-  <data name="nav_bookDetails_filter_used" xml:space="preserve">
-    <value>used</value>
-  </data>
   <data name="nav_name_ask" xml:space="preserve">
     <value>Homework Help</value>
-  </data>
-  <data name="nav_name_book" xml:space="preserve">
-    <value>Textbooks</value>
-  </data>
-  <data name="nav_name_flashcards" xml:space="preserve">
-    <value>Flashcards</value>
-  </data>
-  <data name="nav_name_job" xml:space="preserve">
-    <value>Jobs</value>
   </data>
   <data name="nav_name_note" xml:space="preserve">
     <value>Study Documents</value>
