@@ -24,11 +24,7 @@
                         <span v-language:inner>tutor_btn_system_check</span>
                     </button>
                     <div class="mr-4 pr-1 d-flex">
-                        <component
-                                v-if="localNetworkQuality"
-                                class="network-icon ml-3"
-                                :is="'signal_level_'+localNetworkQuality"
-                        ></component>
+                        <networkLevel class="network-icon ml-3" :signalLevel="localNetworkQuality"></networkLevel>
                     </div>
                 </div>
             </nav>
@@ -107,12 +103,7 @@
     import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     import testIcon from "./images/eq-system.svg";
-    import signal_level_0 from "./images/wifi-0.svg";
-    import signal_level_1 from "./images/wifi-1.svg";
-    import signal_level_2 from "./images/wifi-2.svg";
-    import signal_level_3 from "./images/wifi-3.svg";
-    import signal_level_4 from "./images/wifi-4.svg";
-    import signal_level_5 from "./images/wifi-4.svg";
+    import networkLevel from './tutorHelpers/networkLevel.vue'
     import noSupportTop from "./images/not_supported_top.svg";
     import noSupportBottom from "./images/not_supported_bottom.svg";
     import tutorService from "./tutorService";
@@ -133,12 +124,7 @@
             AppLogo,
             qualityValidation,
             testIcon,
-            signal_level_0,
-            signal_level_1,
-            signal_level_2,
-            signal_level_3,
-            signal_level_4,
-            signal_level_5,
+            networkLevel,
             sbDialog,
             leaveReview,
             noSupportTop,
