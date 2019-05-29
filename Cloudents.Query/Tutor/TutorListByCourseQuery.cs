@@ -43,7 +43,7 @@ T.Price,
 						and uc.CourseId = @CourseId
                         and T.State = 'Ok'
 
-union
+union all
 select 1 as position, U.Id as UserId, U.Name, U.Image, 
 (select STRING_AGG(dt.CourseId, ', ') FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
 T.Price, 
