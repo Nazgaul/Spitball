@@ -107,12 +107,12 @@
             };
         },
         computed: {
-            ...mapGetters(['getSelectedClasses', 'accountUser']),
+            ...mapGetters(['getSelectedClasses', 'accountUser', 'getIsTutorState']),
             classesSelected() {
                 return this.getSelectedClasses;
             },
             isUserTutor(){
-                return this.accountUser.isTutor || this.getIsTutorState && this.getIsTutorState === 'pending';            
+                return this.accountUser.isTutor || (this.getIsTutorState && this.getIsTutorState === 'pending');            
             },
             isEmpty() {
                 if(this.getSelectedClasses.length < 1){
