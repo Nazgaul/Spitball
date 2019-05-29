@@ -1,6 +1,4 @@
-import {
-    Compact
-} from 'vue-color'
+
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
 import { mapGetters, mapActions } from "vuex";
@@ -10,7 +8,6 @@ import tutorService from "../tutorService";
 
 export default {
     components: {
-        'sliderPicker': Compact,
         equationMapper
     },
     data() {
@@ -23,22 +20,7 @@ export default {
             showHelper: false,
             tabEditId: null,
             formula: 'x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.',
-            predefinedColors: [
-                '#000000',
-                '#FF0000',
-                '#00ff00',
-                '#40e0d0',
-                '#800000',
-                '#0000ff',
-                '#008000',
-                '#ffd700',
-                '#8a2be2',
-                '#ff00ff',
-                '#c0c0c0',
-                '#ffff00',
-                '#088da5',
-                '#003366'
-            ],
+            
             enumOptions: {
                 draw: 'liveDraw',
                 line: 'lineDraw',
@@ -51,7 +33,6 @@ export default {
                 select: 'selectShape',
                 pan: 'panTool',
             },
-            currentOptionSelected: whiteBoardService.init('liveDraw'),
             canvasData: {
                 shouldPaint: false,
                 context: null,
@@ -61,9 +42,7 @@ export default {
                 },
                 lineJoin: "round",
                 lineWidth: 2,
-                color: {
-                    hex: '#000000'
-                },
+                color: this.canvasDataColor,
                 methods: {
                     addShape: this.addShape,
                     hideColorPicker: this.hideColorPicker,
@@ -74,18 +53,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters([
-            'isRoomCreated',
-            'getDragData',
-            'getZoom',
-            'selectedOptionString',
-            'getCanvasTabs',
-            'getCurrentSelectedTab',
-            'activeRoom', 
-            'getCurrentRoomState',
-            "accountUser", 
-            "getStudyRoomData"
-        ]),
+        ...mapGetters(['isRoomCreated', 'getDragData','getZoom', 'selectedOptionString','getCanvasTabs', 'getCurrentSelectedTab', 'currentOptionSelected', 'canvasDataStore','undoClicked', 'addImage']),
         helperStyle() {
             return helperUtil.HelperObj.style
         },
@@ -112,9 +80,24 @@ export default {
         canvasTabs() {
             return this.getCanvasTabs
         },
-        accountUserID() {
-            if (this.accountUser && this.accountUser.id) {
-                return this.accountUser.id;
+        canvasDataColor(){
+            //activated from watch
+            this.canvasData.color = this.canvasDataStore.color;
+            return this.canvasDataStore.color;
+        }
+    },
+    watch:{
+        canvasDataColor(newVal){
+            //watch is activating the canvasDataColor computed
+            this.canvasData.color = newVal;
+        },
+        undoClicked(){
+            this.undo();
+        },
+        addImage(newVal){
+            if(!!newVal){
+                this.addShape(newVal.dragObj, newVal.callback)
+            }
             }
         },
         isTutor() {
@@ -144,7 +127,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab']),
+        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface']),
         renameTab() {
             console.log("Rename Tab");
         },
@@ -154,37 +137,14 @@ export default {
             this.changeTab(this.getCanvasTabs[0]);
             console.log("Delete Tab");
         },
-        clearTabOption() {
-            this.tabEditId = null;
-        },
-        showTabOption(id) {
-            if (this.tabEditId === id) {
-                this.clearTabOption();
-            } else {
-                this.tabEditId = id;
-            }
-        },
-        selectDefaultTool() {
-            this.setOptionType(this.enumOptions.select);
-        },
-        setOptionType(selectedOption) {
-            this.clearTabOption();
-            this.currentOptionSelected = whiteBoardService.init.bind(this.canvasData, selectedOption)();
-            this.setSelectedOptionString(selectedOption);
-            helperUtil.HelperObj.isActive = false;
-            if (selectedOption === this.enumOptions.image) {
-                let inputImgElm = document.getElementById('imageUpload');
-                inputImgElm.click();
-                this.selectDefaultTool();
-            }
-            this.hideColorPicker();
-        },
         showColorPicker() {
-            this.showPickColorInterface = true;
+            this.setShowPickColorInterface(true);
         },
         hideColorPicker() {
-            this.showPickColorInterface = false;
+            this.setShowPickColorInterface(false);
         },
+        
+        
         clearCanvas() {
             this.resetDragData();
             whiteBoardService.redraw(this.canvasData)
@@ -215,7 +175,10 @@ export default {
             let normalizedData = JSON.stringify(transferDataObj);
             tutorService.dataTrack.send(normalizedData);
             if (!dragObj.isGhost && this.selectedOptionString !== this.enumOptions.draw) {
-                this.selectDefaultTool(); //case SPITBALL-647
+                // this.selectDefaultTool();
+                //case SPITBALL-647
+                this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
+                this.setSelectedOptionString(this.enumOptions.select);
             }
         },
         undo() {
@@ -254,22 +217,16 @@ export default {
         },
         changeTab(tab) {
             if (tab.id !== this.getCurrentSelectedTab.id) {
-                this.clearTabOption();
+                // this.clearTabOption();
                 this.changeSelectedTab(tab);
                 whiteBoardService.hideHelper();
                 whiteBoardService.redraw(this.canvasData)
             }
         },
-        // resetZoom(){
-        //     whiteBoardService.hideHelper();
-        //     this.updateZoom(100);
-        //     this.updatePan({e:0, f:0})
-        // },
         resizeCanvas() {
             let canvas = document.getElementById('canvas');
             let ctx = canvas.getContext("2d");
             ctx.setTransform(1, 0, 0, 1, 0, 0);
-            // this.resetZoom();
             this.windowWidth = global.innerWidth,
                 this.windowHeight = global.innerHeight - 64,
                 canvas.width = this.canvasWidth;
@@ -290,9 +247,8 @@ export default {
             let self = this;
             global.addEventListener('resize', this.resizeCanvas, false);
             canvas.addEventListener('mousedown', (e) => {
-                console.log('event which test', e, e.which)
+                // self.clearTabOption();
                 if (e.button == 0) {
-                    self.clearTabOption();
                     if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
                         self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
                     }

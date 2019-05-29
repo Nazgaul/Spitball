@@ -1,5 +1,5 @@
 <template>
-    <v-container class="shared-document-container">
+    <div class="shared-document-container">
         <v-layout row>
             <v-flex>
                 <div class="iframe-container">
@@ -7,7 +7,7 @@
                 </div>
             </v-flex>
         </v-layout>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -39,15 +39,16 @@
     .shared-document-container {
         .iframe-container {
             position: relative;
-            height: 80vh;
+            width: ~"calc(100% - 320px)"; //minus chat& vide width
+            height: ~"calc(100vh - 104px)"; // minus toop toolbar menu height
         }
         .iframe-container iframe {
             position: absolute;
             top: 0;
             left: 0;
+            right: 0;
             width: 100%;
-            max-width: 1280px;
-            height: 80vh;
+            height: 100%;
             border: 0;
         }
 

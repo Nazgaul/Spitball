@@ -157,5 +157,6 @@ export default {
     getDragData,
     uploadImage,
     passData,
-    hideHelper
+    hideHelper,
+    getContext
 }

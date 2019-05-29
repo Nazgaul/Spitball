@@ -1,10 +1,20 @@
 import tutorService from '../components/tutor/tutorService'
 import {LanguageService} from '../services/language/languageService'
+import whiteBoardService from '../components/tutor/whiteboard/whiteBoardService'
 
 const state = {
+    canvasDataStore:{
+        color: {
+            hex: '#000000'
+        },
+    },
     dragData: {
         'tab-0':[]
     },
+    undoClicked: false,
+    addImage: null,
+    currentOptionSelected: whiteBoardService.init('liveDraw'),
+    showPickColorInterface: false,
     zoom: 100,
     pan:{
         x:0,
@@ -44,7 +54,16 @@ const getters = {
     getShapesSelected: state => state.shapesSelected,
     getCanvasTabs: state => state.canvasTabs,
     getCurrentSelectedTab: state => state.currentSelectedTab,
-    getAllDragData: state => state.dragData
+    getAllDragData: state => state.dragData,
+    currentOptionSelected: state => state.currentOptionSelected,
+    showPickColorInterface: state => state.showPickColorInterface,
+    canvasDataStore: state => state.canvasDataStore,
+    undoClicked: state => state.undoClicked,
+    addImage: (state) => {
+        if(!!state.addImage){
+            return state.addImage;
+        }
+    }
 };
 
 const mutations = {
@@ -97,6 +116,21 @@ const mutations = {
             state.canvasTabs.splice(tabIndex, 1);
         }
         return Promise.resolve(tabIndex);
+    },
+    setCurrentOptionSelected(state, val){
+        state.currentOptionSelected = val;
+    },
+    setShowPickColorInterface(state, val){
+        state.showPickColorInterface = val;
+    },
+    setCanvasDataStore(state, val){
+        state.canvasDataStore = {...state.canvasDataStore, val}
+    },
+    setUndoClicked(state){
+        state.undoClicked = !state.undoClicked
+    },
+    setAddImage(state, val){
+        state.addImage = val;
     }
 };
 
@@ -149,6 +183,21 @@ const actions = {
     },
     removeCanvasTab({commit}, tab){
         return commit('removeCanvasTab', tab)
+    },
+    setCurrentOptionSelected({commit}, val){
+        commit('setCurrentOptionSelected', val);
+    },
+    setShowPickColorInterface({commit}, val){
+        commit('setShowPickColorInterface', val);
+    }, 
+    setCanvasDataStore({commit}, val){
+        commit('setCanvasDataStore', val)
+    },
+    setUndoClicked({commit}){
+        commit('setUndoClicked')
+    },
+    setAddImage({commit}, val){
+        commit('setAddImage', val)
     }
 };
 export default {
