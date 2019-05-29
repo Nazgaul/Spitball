@@ -147,7 +147,7 @@ import walletService from "../../services/walletService";
 import reportItem from "../results/helpers/reportItem/reportItem.vue";
 import mobileFooter from "../footer/mobileFooter/mobileFooter.vue";
 import marketingBox from "../helpers/marketingBox/marketingBox.vue";
-import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
+//import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
 //import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
 import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
@@ -166,7 +166,7 @@ export default {
     reportItem,
     mobileFooter,
     marketingBox,
-    leadersBoard,
+    //leadersBoard,
     //boardGuide,
     uploadMultipleFiles,
     buyTokens,

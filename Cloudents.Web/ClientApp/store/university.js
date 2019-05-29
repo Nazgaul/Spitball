@@ -193,7 +193,7 @@ const actions = {
             let currentProfID = this.getters.accountUser.id;
             dispatch('updateUniExists', true);
             //dispatch("syncProfile", currentProfID);
-            Promise.resolve(true);
+            return true;
         });
     },
     updateUniversities({commit}, val) {
