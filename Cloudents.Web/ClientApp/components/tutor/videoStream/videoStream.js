@@ -95,7 +95,6 @@ export default {
             } else if(video.msRequestFullscreen) {
                 video.msRequestFullscreen();
             }
-            console.log();
         },
         minimize(type) {
             this.visible[`${type}`] = !this.visible[`${type}`];

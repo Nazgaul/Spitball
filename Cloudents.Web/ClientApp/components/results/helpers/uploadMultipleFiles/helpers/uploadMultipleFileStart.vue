@@ -250,7 +250,6 @@
         created() {
             this.loadDropBoxSrc(); // load Drop box script
             analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_START');
-            console.log('DOC_UPLOAD_START');
         }
     }
 </script>
