@@ -165,6 +165,7 @@ const connectToRoom = function (token, options) {
                             type: 'error-toaster'
                         };
                         store.dispatch('showRoomToasterMessage', toasterParams);
+                        store.dispatch('updateEndDialog', false);
                         //detach all local tracks to prevent multiple added tracks
                         store.getters['activeRoom'].localParticipant.tracks.forEach(function(track) {
                             detachTracks([track]);
