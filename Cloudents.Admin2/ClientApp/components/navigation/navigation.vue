@@ -94,13 +94,23 @@
                             /*{ name: 'University', link: '/management/universityMigration', icon: 'people_outline' },*/
                             { name: 'Pending Universities', link: '/management/universityPending', icon: 'people_outline' },
                         ]
-                    }, {
+                    },
+                    {
                         setting: {
                             title: 'Conversations',
                             path: '/conversation'
                         },
                         childrens: [
                             { name: 'All Conversations', link: '/conversation/conversationDetails', icon: '' },
+                        ]
+                    },
+                    {
+                        setting: {
+                            title: 'Reports',
+                            path: '/reports'
+                        },
+                        childrens: [
+                            { name: 'Study rooms', link: '/reports', icon: '' },
                         ]
                     },
                     {
