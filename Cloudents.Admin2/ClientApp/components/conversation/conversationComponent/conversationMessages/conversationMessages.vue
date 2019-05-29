@@ -1,6 +1,5 @@
 ﻿<template>
     <div>
-        
         <v-data-table :items="conversationsDetails"
                       class="elevation-1"
                       hide-actions
@@ -21,7 +20,6 @@
                       :headers="messageHeaders">
             <template slot="items" slot-scope="props">
                 <td :class="{'student': studentName == props.item.name, 'tutor': studentName != props.item.name}" class="text-xs-left">{{ props.item.name }}</td>
-
                 <td :class="{'student': studentName == props.item.name, 'tutor': studentName != props.item.name}" class="text-xs-left">{{ props.item.text }}</td>
                 <td :class="{'student': studentName == props.item.name, 'tutor': studentName != props.item.name}" class="text-xs-left">{{ props.item.dateTime.toLocaleString() }}</td>
             </template>
