@@ -177,7 +177,7 @@ export default {
   },
   data() {
     return {
-      acceptIsraeli: true,
+     // acceptIsraeli: true,
       isRtl: global.isRtl,
       //toasterTimeout: 5000,
       hideFooter: false,
@@ -337,10 +337,10 @@ export default {
     setUploadDialogState() {
       this.updateDialogState(false);
     },
-    closeNewIsraeli() {
-      //the set to the local storage happens in the component itself
-      this.acceptIsraeli = true;
-    },
+    // closeNewIsraeli() {
+    //   //the set to the local storage happens in the component itself
+    //   this.acceptIsraeli = true;
+    // },
     tryBuyTokens(transactionObjectError) {
       walletService.buyTokens(transactionObjectError).then(
         () => {
@@ -388,11 +388,11 @@ export default {
     });
 
     this.acceptedCookies = this.getCookieAccepted();
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.acceptIsraeli = !!global.localStorage.getItem("sb-newIsraei");
-      }, 130);
-    });
+    // this.$nextTick(() => {
+    //   setTimeout(() => {
+    //     this.acceptIsraeli = !!global.localStorage.getItem("sb-newIsraei");
+    //   }, 130);
+    // });
 
     global.addEventListener("resize", event => {
       if (global.isMobileAgent) {
