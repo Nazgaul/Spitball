@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -31,24 +32,29 @@ namespace Cloudents.Query.Tutor
 
             public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
             {
-                const string sql = @"select distinct *  from (select (select max(case when uc1.CourseId = @CourseId then 2 else 1 end)
-	from sb.UsersCourses uc1 where uc1.UserId = U.Id and CanTeach = 1) as position, 
-	U.Id as UserId, U.Name, U.Image,
-	(select STRING_AGG(dt.CourseId, ', ') 
-	FROM sb.UsersCourses dt 
-	where u.Id = dt.UserId and dt.CanTeach = 1
-	) as courses,
-	T.Price, 
-	(select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
-from sb.[user] U
-join sb.Tutor T
-	on U.Id = T.Id
-join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
-join sb.Course c on uc.CourseId = c.Name
-and (uc.CourseId = @CourseId 
-or c.SubjectId = (Select subjectId from sb.Course where Name = @CourseId)
-	)
-and T.State = 'Ok'
+                const string sql = @"select *  from (select 2 as position, U.Id as UserId, U.Name, U.Image,
+(select STRING_AGG(dt.CourseId, ', ') FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
+T.Price, 
+	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
+                        from sb.[user] U
+                        join sb.Tutor T
+	                        on U.Id = T.Id
+						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
+						and uc.CourseId = @CourseId
+                        and T.State = 'Ok'
+
+union all
+select 1 as position, U.Id as UserId, U.Name, U.Image, 
+(select STRING_AGG(dt.CourseId, ', ') FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
+T.Price, 
+	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
+                        from sb.[user] U
+                        join sb.Tutor T
+	                        on U.Id = T.Id
+						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
+						join sb.Course c on uc.CourseId = c.Name
+						and c.SubjectId = (Select subjectId from sb.Course where Name = @CourseId)
+                        and T.State = 'Ok'
 ) t
 where t.UserId <> @UserId
 order by position desc, Rate desc
@@ -62,7 +68,7 @@ FETCH NEXT 20 ROWS ONLY;";
                         query.UserId
                     });
 
-                    return retVal;
+                    return retVal.Distinct(TutorListDto.UserIdComparer);
                 }
             }
         }

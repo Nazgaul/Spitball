@@ -74,7 +74,7 @@ namespace Cloudents.Search.University
                 };
                 if (country != null)
                 {
-                    searchParameter.Filter = CountryFilter(country);
+                    suggestParams.Filter = CountryFilter(country);
                 }
                 var suggesterResult = await _client.Documents.SuggestAsync<Entities.University>(term,
                     UniversitySearchWrite.SuggesterName, suggestParams
