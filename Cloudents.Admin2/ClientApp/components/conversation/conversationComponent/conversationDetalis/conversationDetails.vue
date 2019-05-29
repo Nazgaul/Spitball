@@ -54,47 +54,7 @@
                                 </v-flex>
                             </v-layout>
                       </v-layout>
-                      <!-- <v-container fluid class="px-0"> -->
-                      <!-- <v-layout justify-start row class="pl-2">
-                        <div>
-                          <b>Tutor Id:</b>
-                          {{conversation.tutorId}}
-                        </div>
-                        <div>&nbsp;&nbsp;&nbsp;</div>
-                        <div>
-                          <b>Tutor Name:</b>
-                          {{conversation.tutorName}}
-                        </div>
-                      </v-layout>
-
-                      <v-layout justify-start row xs6 class="pl-2">
-                        <div>
-                          <b>User Id:</b>
-                          {{conversation.userId}}
-                        </div>
-                        <div>&nbsp;&nbsp;&nbsp;</div>
-                        <div>
-                          <b>User Name:</b>
-                          {{conversation.userName}}
-                        </div>
-                        <v-spacer></v-spacer>
-                        <div>
-                          <b>Last Message:</b>
-                          {{conversation.lastMessage.toLocaleString()}}
-                        </div>
-                      </v-layout> -->
                     </v-card-text>
-                    <!-- </v-container> -->
-                    <!-- <div class="text-xs-left">
-                                                <b>Courses:</b>
-                                                <v-container fluid grid-list-sm>
-                                                    <v-layout row wrap>
-                                                        <v-flex xs4 v-for="(course, index) in tutor.courses" :key="index">
-                                                            {{course}}
-                                                        </v-flex>
-                                                    </v-layout>
-                                                </v-container>
-                    </div>-->
                   </v-card>
                 </v-flex>
               </v-layout>
@@ -106,26 +66,7 @@
       <div v-show="conversationsList.length === 0 && !loading">No conversations</div>
     </div>
   </div>
-  <!-- <div>
- 
-
-        <v-data-table :items="conversationsList"
-                      class="elevation-1"
-                      hide-actions
-                      :headers="headers"
-                      :expand="expand">
-            <template slot="items" slot-scope="props">
-                <tr @click="openItem(props.item)" :style="{ cursor: 'pointer'}">
-                    <td class="text-xs-left" style="background-color: lightgray">{{ props.item.tutorId }}</td>
-                    <td class="text-xs-left" style="background-color: lightgray">{{ props.item.tutorName }}</td>
-                    <td class="text-xs-left" style="background-color: lightblue">{{ props.item.userId }}</td>
-                    <td class="text-xs-left" style="background-color: lightblue">{{ props.item.userName }}</td>
-                    <td class="text-xs-left">{{ props.item.lastMessage.toLocaleString() }}</td>
-                </tr>
-            </template>
-           
-        </v-data-table>
-  </div>-->
+  
 </template>
 
 <script>
