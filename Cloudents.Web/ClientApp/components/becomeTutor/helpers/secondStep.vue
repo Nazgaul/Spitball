@@ -87,7 +87,8 @@
                               'sendBecomeTutorData',
                               'updateTutorDialog',
                               'updateAccountUserToTutor',
-                              'updateToasterParams'
+                              'updateToasterParams',
+                              'updateTeachingClasses'
                           ]),
             goToPreviousStep() {
                 this.$root.$emit('becomeTutorStep', 1);
@@ -108,6 +109,8 @@
                                                          showToaster: true,
                                                          toasterTimeout: 5000
                                                      });
+                            //set all courses as teaching
+                            self.updateTeachingClasses();
                         }, (error) => {
                             let isConflict = error.response.status === 409;
                             if(isConflict) {

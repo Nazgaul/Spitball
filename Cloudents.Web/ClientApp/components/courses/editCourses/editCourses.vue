@@ -13,7 +13,9 @@
                     <finishBtn></finishBtn>
                 </v-flex>
                 <v-flex shrink class="d-flex justify-start">
-                    <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0 elevation-0" :class="{'mr-2': $vuetify.breakpoint.xsOnly }" @click="goToAddMore()">
+                    <v-btn round color="#4452FC" class="add-btn py-1 font-weight-bold my-0 elevation-0"
+                           :class="{'mr-2': $vuetify.breakpoint.xsOnly }"
+                           @click="goToAddMore()">
                         <v-icon class="mr-1">sbf-plus-regular</v-icon>
                         <span v-language:inner>courses_add</span>
                     </v-btn>
