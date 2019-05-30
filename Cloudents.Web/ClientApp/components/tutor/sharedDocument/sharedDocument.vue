@@ -39,7 +39,7 @@
     .shared-document-container {
         .iframe-container {
             position: relative;
-            width: ~"calc(100% - 320px)"; //minus chat& vide width
+            width: ~"calc(100% - 322px)"; //minus chat& vide width
             height: ~"calc(100vh - 104px)"; // minus toop toolbar menu height
         }
         .iframe-container iframe {
