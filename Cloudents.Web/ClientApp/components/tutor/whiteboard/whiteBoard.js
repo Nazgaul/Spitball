@@ -6,6 +6,8 @@ import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue"
 import tutorService from "../tutorService";
 
+const HeaderHeight = 108;
+
 export default {
     components: {
         equationMapper
@@ -15,7 +17,7 @@ export default {
             canvasWidth: 2800,
             canvasHeight: 850,
             windowWidth: global.innerWidth, // 10 stands for the scroll offset
-            windowHeight: global.innerHeight - 64, // 64 stands for the header
+            windowHeight: global.innerHeight - HeaderHeight, 
             showPickColorInterface: false,
             showHelper: false,
             tabEditId: null,
@@ -223,7 +225,7 @@ export default {
             let ctx = canvas.getContext("2d");
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             this.windowWidth = global.innerWidth,
-                this.windowHeight = global.innerHeight - 64,
+                this.windowHeight = global.innerHeight - HeaderHeight,
                 canvas.width = this.canvasWidth;
             canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
