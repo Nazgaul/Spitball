@@ -123,7 +123,7 @@
                         <v-icon>sbf-eraser-empty</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_upload</span>
+                <span v-language:inner>tutor_tooltip_eraser</span>
             </v-tooltip>
 
             <!--<button :class="[selectedOptionString === enumOptions.eraser ? 'active-tool' : '']"-->

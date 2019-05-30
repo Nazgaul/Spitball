@@ -313,4 +313,7 @@ Try connecting from a computer browser</value>
   <data name="quality_mic_placeholder" xml:space="preserve">
     <value>Please select microphone</value>
   </data>
+  <data name="tooltip_eraser" xml:space="preserve">
+    <value>Eraser</value>
+  </data>
 </root>
