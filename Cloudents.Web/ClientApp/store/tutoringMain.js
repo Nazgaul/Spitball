@@ -249,9 +249,13 @@ const actions = {
         let isTutor = state.studyRoomData.isTutor;
         commit('setJwtToken', token);
         if(!isTutor) {
-            dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
             //show student start se3ssion
-            dispatch("updateStudentStartDialog", true);
+            // SPITBALL-1197 Tutoring - Session stuck on start (fix)
+            setTimeout(()=>{
+                dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
+                dispatch("updateStudentStartDialog", true);
+            }, 3000)
+            
         }
     },
     signalR_ReleasePaymeStatus({commit, dispatch, state}) {
