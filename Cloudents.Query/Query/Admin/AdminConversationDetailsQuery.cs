@@ -13,7 +13,7 @@ namespace Cloudents.Query.Query.Admin
             Id = id;
         }
 
-        private string Id { get; set; }
+        private string Id { get;  }
 
         internal sealed class AdminConversationDetailsQueryHandler : IQueryHandler<AdminConversationDetailsQuery, IEnumerable<ConversationDetailsDto>>
         {
@@ -32,9 +32,8 @@ namespace Cloudents.Query.Query.Admin
 case when u.Id = (select top 1 UserId from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by cm.CreationTime) then 1
 else 0 end as Student
 from sb.ChatRoom cr
-join sb.[User] u
-	on cast(u.Id as nvarchar(15)) = left(cr.Identifier, CHARINDEX('_', cr.Identifier)-1)
-	    or cast(u.Id as nvarchar(15)) = right(cr.Identifier, CHARINDEX('_', cr.Identifier)-1) 
+join sb.ChatUser cu on cr.id = cu.ChatRoomId
+join sb.[User] u on cu.UserId = u.Id
     where cr.identifier = @Id
     order by case when u.Id = (select top 1 UserId from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by cm.CreationTime) then 1
 else 0 end";
