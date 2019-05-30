@@ -269,6 +269,7 @@ function RoomProps(ObjInit) {
     this.allowReview = ObjInit.allowReview;
     this.needPayment = ObjInit.needPayment;
     this.studentId = ObjInit.studentId || null;
+    this.tutorId = ObjInit.tutorId || null;
     this.studentImage = ObjInit.studentImage || null;
     this.tutorImage = ObjInit.tutorImage || null;
     this.studentName = ObjInit.studentName || null;
