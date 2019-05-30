@@ -28,7 +28,7 @@ namespace ConsoleApp
             string[] jsFiles = Directory.GetFiles($@"{s}\Cloudents.Web\ClientApp",
                 "*", SearchOption.AllDirectories);
             
-            var dic = new Dictionary<string,string[]>();
+            //var dic = new Dictionary<string,string[]>();
             foreach (var f in files)
             {
                 string content;
