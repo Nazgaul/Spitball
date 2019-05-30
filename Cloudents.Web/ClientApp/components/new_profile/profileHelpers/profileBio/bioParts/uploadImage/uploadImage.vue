@@ -1,7 +1,6 @@
 <template>
     <div class="profile-upload-wrap align-start justify-center">
         <!--Upload Image-->
-        <h4 v-if="loading">loading...</h4>
         <div class="profile-image-input-container align-center justify-center column">
             <input class="profile-upload"
                    type="file" name="File Upload"
@@ -24,13 +23,13 @@
         name: "uploadImage",
         data() {
             return {
-                loading: false
             }
         },
         methods: {
-            ...mapActions(['uploadAccountImage']),
+            ...mapActions(['uploadAccountImage', 'updateProfileImageLoader']),
             uploadProfilePicture() {
                 let self = this;
+                self.updateProfileImageLoader(true);
                 let formData = new FormData();
                 let file = self.$refs.profileImage.files[0];
                 formData.append("file", file);

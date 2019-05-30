@@ -57,9 +57,13 @@ const state = {
     profileData: profileService.getProfileData('profileGeneral'),
     profile: null,
     usersReferred: 0,
-    showEditDataDialog: false
+    showEditDataDialog: false,
+    profileImageLoading: false
 };
 const mutations = {
+    setProfileImageLoading(state, val){
+        state.profileImageLoading = val;
+    },
     setIsTutorState(state, val){
         state.user.isTutorState = val;
     },
@@ -193,6 +197,9 @@ const mutations = {
 };
 
 const getters = {
+    getProfileImageLoading: state =>{
+       return state.profileImageLoading
+    },
     isTutorProfile: state => {
         if(state.profile && state.profile.user && state.profile.user.isTutor) {
             return state.profile.user.isTutor;
@@ -229,6 +236,9 @@ const getters = {
 };
 
 const actions = {
+    updateProfileImageLoader(context, val){
+        context.commit('setProfileImageLoading', val)
+    },
     updateIsTutorState(context, val){
         context.commit('setIsTutorState', val)
     },
@@ -245,9 +255,11 @@ const actions = {
       return  accountService.uploadImage(obj).then((resp) => {
                                                  let imageUrl = resp.data;
                                                  context.commit('setProfilePicture', imageUrl);
+                                                       context.commit('setProfileImageLoading', false);
                                                  return true
                                              },
                                              (error) => {
+                                                 context.commit('setProfileImageLoading', false);
                                                  console.log(error, 'error upload account image');
                                              });
     },
