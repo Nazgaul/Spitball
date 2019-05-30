@@ -310,4 +310,7 @@ Try connecting from a computer browser</value>
   <data name="end_session" xml:space="preserve">
     <value>Finished the sesson?</value>
   </data>
+  <data name="quality_mic_placeholder" xml:space="preserve">
+    <value>Please select microphone</value>
+  </data>
 </root>
