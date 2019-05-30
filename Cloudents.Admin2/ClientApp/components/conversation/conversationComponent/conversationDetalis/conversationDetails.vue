@@ -38,12 +38,12 @@
                                 <v-flex >
                                     <v-layout  justify-start row >
                          <v-flex  xs3 >
-                            <b>User Id:</b>
+                            <b>Student Id:</b>
                             {{conversation.userId}}
                          </v-flex>
                           <div>&nbsp;&nbsp;&nbsp;</div>
                           <v-flex  xs3 >
-                            <b>User Name:</b>
+                            <b>Student Name:</b>
                             {{conversation.userName}}
                           </v-flex>
                           <v-flex xs3>
