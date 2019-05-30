@@ -10,8 +10,8 @@
                 <userAvatar :user-name="userName"  :userImageUrl="userImageUrl" :user-id="userId" :size="'58'" ></userAvatar>
             </v-flex>
             <v-flex xs12 sm12 md12 class="pt-12">
-                <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_tutor</span>
-                <span class="subheading font-weight-bold">{{userName}}</span>
+                <span class="subheading font-weight-bold" v-language:inner>tutor_finished_session</span>
+                <!--<span class="subheading font-weight-bold">{{userName}}</span>-->
             </v-flex>
             <v-flex xs12 sm12 md12 class="pt-2">
                 <span class="subheading" v-language:inner>tutor_entered_room</span>
