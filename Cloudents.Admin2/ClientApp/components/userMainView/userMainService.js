@@ -112,7 +112,7 @@ function createDocumentItem(data) {
     });
 }
 
-function createAnswertItem(data) {
+function createAnswerItem(data) {
     return data.map((item) => {
         return new AnswerItem(item);
     });
@@ -142,11 +142,11 @@ function SessionsItem(objInit) {
 }
 
 function createSessionsItem(objInit){
-    return new SessionsItem(objInit)
+    return new SessionsItem(objInit);
 };
 
 export default {
-    getUserData: (id, page) => {
+    getUserData: (id) => {
         let path = `AdminUser/info?userIdentifier=${encodeURIComponent(id)}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
@@ -166,7 +166,7 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
+                return error;
             });
     },
     getUserQuestions: (id, page) => {
@@ -177,18 +177,18 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
+                return error;
             });
     },
     getUserAnswers: (id, page) => {
         let path = `AdminUser/answers?id=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
-                return createAnswertItem(resp);
+                return createAnswerItem(resp);
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
+                return error;
             });
     },
     getPurchasedDocs: (id, page) => {
@@ -199,11 +199,11 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
+                return error;
             });
     },
     getUserConversations:(id) => {
-        let path = `AdminUser/chat`;
+        const path = `AdminUser/chat`;
         return connectivityModule.http.get(`${path}?id=${id}`).then((newConversationList) => {
             let arrConversationList = [];
             if (newConversationList.length > 0) {
@@ -211,9 +211,9 @@ export default {
                     arrConversationList.push(createConversationItem(conversation));
                 });
             }
-            return Promise.resolve(arrConversationList);
+            return arrConversationList;
         }, (err) => {
-            return Promise.reject(err);
+            return err;
         });
     },
     getUserSessions:(id) => {
@@ -225,9 +225,9 @@ export default {
                     arrSessionsList.push(createSessionsItem(sessions));
                 });
             }
-            return Promise.resolve(arrSessionsList);
+            return arrSessionsList;
         }, (err) => {
-            return Promise.reject(err);
+            return err;
         });
 
     },
@@ -238,7 +238,7 @@ export default {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
+                return error;
             });
     }
 }

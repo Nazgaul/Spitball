@@ -19,7 +19,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Chat;

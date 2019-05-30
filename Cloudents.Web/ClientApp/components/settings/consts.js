@@ -43,7 +43,7 @@ export let settingMenu = [
         name: "Feedback",
         click: function () {
             Intercom('showNewMessage', '');
-        },
+        }
 
     }
 ];
@@ -55,7 +55,7 @@ export let notRegMenu = [
         id: typesPersonalize.aboutSpitball,
         title:  LanguageService.getValueByKey("settings_menu_item_about_spitball"),
         name:"about",
-        icon:"sbf-about",
+        icon:"sbf-about"
 
     },
     {
@@ -81,9 +81,9 @@ export let notRegMenu = [
         title:  LanguageService.getValueByKey("settings_menu_item_feedback"),
         name: 'feedback',
         icon:"sbf-feedbackNew",
-        click:()=>Intercom('showNewMessage'),
+        click:()=>Intercom('showNewMessage')
 
-    },
+    }
 
    
 ];

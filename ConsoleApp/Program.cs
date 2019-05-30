@@ -23,9 +23,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Query.Chat;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using System.Xml;
-using System.Xml.Linq;
-using System.Resources;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 

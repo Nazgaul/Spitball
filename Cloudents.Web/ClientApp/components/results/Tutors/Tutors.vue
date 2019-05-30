@@ -21,7 +21,7 @@
                 </div>
             </v-flex>
             
-            <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
+            <div class="results-section" :class="{'loading-skeleton': showSkeleton}">
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
                         <v-layout column>
@@ -39,7 +39,7 @@
                                 
                                 <v-flex class="result-cell" xs-12 v-for="(item, index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component v-if="showSkelaton" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
+                                    <component v-if="showSkeleton" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
                                     <template v-else>
                                         <tutor-result-card class="mb-3" v-if="$vuetify.breakpoint.smAndUp" :tutorData="item"></tutor-result-card>
                                         <tutor-result-card-mobile

@@ -17,7 +17,6 @@ Vue.use(VueRouter);
 Vue.use(Toaster, {timeout: 5000});
 Vue.use(Vuetify);
 Vue.use(VueClipboard);
-console.log(routes);
 // 10/12/2018
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
@@ -29,7 +28,7 @@ Vue.filter('dateFromISO', function (value) {
 Vue.use(VueClipboard);
 const router = new VueRouter({
     mode: "history",
-    routes: routes,
+    routes: routes
 });
 
 const app = new Vue({

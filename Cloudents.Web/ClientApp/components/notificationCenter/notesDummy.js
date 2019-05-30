@@ -75,6 +75,6 @@ const notificationItems = [
         title: 'Your question was answered',
         timeago: "2018-09-04T00:58:34.2096593Z",
         type: 'help'
-    },
+    }
 ];
 export default notificationItems;
