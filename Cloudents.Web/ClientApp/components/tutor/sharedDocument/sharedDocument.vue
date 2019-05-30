@@ -40,7 +40,8 @@
         .iframe-container {
             position: relative;
             width: ~"calc(100% - 322px)"; //minus chat& vide width
-            height: ~"calc(100vh - 104px)"; // minus toop toolbar menu height
+            height: ~"calc(100vh - 106px)"; // minus toop toolbar menu height
+            margin-top: 2px;
         }
         .iframe-container iframe {
             position: absolute;
