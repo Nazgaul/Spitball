@@ -104,5 +104,7 @@ namespace Cloudents.Core.Entities
         {
             _questions.Clear();
         }
+
+        public virtual byte[] Version { get; protected set; }
     }
 }

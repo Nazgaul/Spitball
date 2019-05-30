@@ -56,5 +56,7 @@ namespace Cloudents.Core.Entities
         {
             return !Equals(left, right);
         }
+
+        public virtual byte[] Version { get; protected set; }
     }
 }

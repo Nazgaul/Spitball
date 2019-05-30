@@ -30,7 +30,9 @@ namespace Cloudents.Persistence.Maps
                */
             //Table("Tutor");
             Map(e => e.Created).Insert().Not.Update();
-            SchemaAction.Update();
+            DynamicUpdate();
+            OptimisticLock.Version();
+            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
         }
     }
 }

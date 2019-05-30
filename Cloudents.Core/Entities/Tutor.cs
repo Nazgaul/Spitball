@@ -81,7 +81,7 @@ namespace Cloudents.Core.Entities
         //protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
 
 
-
+        public virtual byte[] Version { get; protected set; }
         public virtual void AddReview(string review, float rate, RegularUser user, StudyRoom room)
         {
             var newReview = new TutorReview(review,rate,user,this, room);
