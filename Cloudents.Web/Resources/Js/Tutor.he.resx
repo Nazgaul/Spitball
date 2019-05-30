@@ -279,6 +279,9 @@
   <data name="tooltip_equation" xml:space="preserve">
     <value>משוואה</value>
   </data>
+  <data name="tooltip_eraser" xml:space="preserve">
+    <value>מחק</value>
+  </data>
   <data name="tooltip_line" xml:space="preserve">
     <value>קו</value>
   </data>
