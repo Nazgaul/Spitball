@@ -192,6 +192,12 @@
   <data name="multiple_label_icon_text" xml:space="preserve">
     <value>מעלה לקורס</value>
   </data>
+  <data name="multiple_legal one" xml:space="preserve">
+    <value>בהעלאת החומר אני מסכים ל-</value>
+  </data>
+  <data name="multiple_legal two_terms_conditions" xml:space="preserve">
+    <value>תנאי השירות של ספיטבול</value>
+  </data>
   <data name="multiple_legal_text" xml:space="preserve">
     <value>העלאת מסמכי לימוד כרוכה בהסכמה לתנאי השירות שלנו</value>
   </data>
