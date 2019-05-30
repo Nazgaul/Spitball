@@ -13,7 +13,7 @@ export default {
         userSuspend
     },
     props: {
-        userId: {}
+        userId: {},
     },
     data() {
         return {
@@ -26,6 +26,8 @@ export default {
                 {name: 'Flagged', value: 'flagged'}
             ],
             loading: false,
+            needScroll :false,
+
             userActions: [
                 {
                     title: "Suspend",
@@ -61,23 +63,23 @@ export default {
             "getTokensDialogState",
             "suspendDialogState",
             "getUserObj",
-            "UserInfo",
+            "userInfo",
             "filterValue",
             "getShowLoader"
         ]),
         loader() {
             return this.getShowLoader;
         },
-        userInfo() {
-            return this.UserInfo;
+        info() {
+            return this.userInfo;
         },
         showActions() {
-            return Object.keys(this.UserInfo).length !== 0;
+            return Object.keys(this.info).length !== 0;
         },
         userStatusActive: {
             get() {
-                if (this.userInfo && this.userInfo.status) {
-                    return this.userInfo.status.value;
+                if (this.info && this.info.status) {
+                    return this.info.status.value;
                 }
             },
             set(val) {
@@ -96,7 +98,7 @@ export default {
             "getUserPurchasedDocuments",
             "clearUserState",
             "updateFilterValue",
-           
+            "setNeedPaging"
         ]),
        
         resetUserData() {
@@ -113,7 +115,7 @@ export default {
         userInfoAction(actionItem) {
             if (actionItem === "phoneNumber") {
                 let userObj = {
-                    id: this.userInfo.id.value
+                    id: this.info.id.value
                 };
                 this.verifyUserPhone(userObj).then((resp) => {
                     console.log(resp);
@@ -178,5 +180,21 @@ export default {
             this. getUserInfoData(this.$route.params.userId);
         }
 
-    }
+    } ,
+    mounted() {
+        let self = this;
+            window.addEventListener("scroll",() => {
+                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+                if (bottomOfWindow) {
+                    self.needScroll = true;
+                }
+                else {
+                    self.needScroll = false;
+                }
+            })
+        },
+        beforeDestroy() {
+            //let containerElm = document.querySelector('.item-wrap');
+            window.removeEventListener('scroll', this.handleScroll);
+        }
 }

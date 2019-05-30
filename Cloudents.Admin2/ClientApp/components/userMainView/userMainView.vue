@@ -64,23 +64,23 @@
                     </v-btn>
                 </div>
                 <v-tabs-items>
-                    <router-view :userId="userId">
+                    <router-view :userId="userId" :needScroll="needScroll">
                     </router-view>
                     <div class="d-flex justify-center align-center" v-if="loader">
-                        <v-progress-circular :size="150"
-                                             class="text-md-center"
-                                             color="#00bcd4"
+                        <div class="text-xs-center">
+                        <v-progress-circular :size="100"
+                                            :width="5"
+                                             color="primary"
                                              indeterminate>
-                            <span>Loading...</span>
+                            Loading...
                         </v-progress-circular>
+                        </div>
                     </div>
+                  
+
                 </v-tabs-items>
             </v-flex>
         </v-layout>
-
-
-
-
         <v-dialog v-model="suspendDialogState" persistent max-width="600px" v-if="suspendDialogState">
             <v-card>
                 <v-card-title>

@@ -91,13 +91,13 @@ const getters = {
     getTokensDialogState: (state) => state.tokensDilaogState,
     suspendDialogState: (state) => state.suspendDialog,
     getUserBalance: (state) => state.userBalance,
-    UserInfo: (state) => state.userInfo,
-    UserQuestions: (state) => state.userQuestions,
-    UserAnswers: (state) => state.userAnswers,
-    UserDocuments: (state) => state.userDocuments,
-    UserPurchasedDocuments: (state) => state.userPurchasedDocs,
-    UserConversations: (state) => state.userConversations,
-    UserSessions: (state) => state.userSessions
+    userInfo: (state) => state.userInfo,
+    userQuestions: (state) => state.userQuestions,
+    userAnswers: (state) => state.userAnswers,
+    userDocuments: (state) => state.userDocuments,
+    userPurchasedDocuments: (state) => state.userPurchasedDocs,
+    userConversations: (state) => state.userConversations,
+    userSessions: (state) => state.userSessions
 };
 const actions = {
     updateFilterValue({commit}, val) {
@@ -169,6 +169,7 @@ const actions = {
         ).finally(() => context.commit("setShowLoader", false));
     },
     getUserAnswers(context, idPageObj) {
+        context.commit("setShowLoader", true);
         return UserMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {
                 if (data && data.length !== 0) {
                     context.commit('setUserAnswers', data);
@@ -182,9 +183,10 @@ const actions = {
             (error) => {
                 console.log(error, 'error')
             }
-        )
+        ).finally(() => context.commit("setShowLoader", false));
     },
     getUserPurchasedDocuments(context, idPageObj) {
+        context.commit("setShowLoader", true);
         return UserMainService.getPurchasedDocs(idPageObj.id, idPageObj.page).then((data) => {
                 if (data && data.length !== 0) {
                     context.commit('setUserPurchasedDocs', data);
@@ -196,9 +198,10 @@ const actions = {
             (error) => {
                 console.log(error, 'error')
             }
-        )
+        ).finally(() => context.commit("setShowLoader", false));
     },
     getUserDocuments(context, idPageObj) {
+        context.commit("setShowLoader", true);
         return UserMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
                 if (data && data.length !== 0) {
                     context.commit('setUserDocuments', data)
@@ -212,9 +215,10 @@ const actions = {
             (error) => {
                 console.log(error, 'error')
             }
-        )
+        ).finally(() => context.commit("setShowLoader", false));
     },
     getUserConversations(context, idPageObj) {
+        context.commit("setShowLoader", true);
         return UserMainService.getUserConversations(idPageObj.id).then((data) => {
                 if (data && data.length !== 0) {
                     context.commit('setUserConversations', data)
@@ -227,9 +231,10 @@ const actions = {
             (error) => {
                 console.log(error, 'error')
             }
-        )
+        ).finally(() => context.commit("setShowLoader", false));
     },
     getUserSessions(context, idPageObj) {
+        context.commit("setShowLoader", true);
         return UserMainService.getUserSessions(idPageObj.id).then((data) => {
                 if (data && data.length !== 0) {
                     context.commit('setUserSessions', data)
@@ -242,7 +247,7 @@ const actions = {
             (error) => {
                 console.log(error, 'error')
             }
-        )
+        ).finally(() => context.commit("setShowLoader", false));
     },
     verifyUserPhone(context, verifyObj) {
         return UserMainService.verifyPhone(verifyObj).then((resp) => {

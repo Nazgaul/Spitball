@@ -50,7 +50,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(Document.Price))]
         public decimal? Price { get; set; }
         [EntityBind(nameof(Document.Status.State))]
-        public string State { get; set; }
+        public ItemState State { get; set; }
         
         public Uri Preview { get; set; }
         public string SiteLink { get; set; }

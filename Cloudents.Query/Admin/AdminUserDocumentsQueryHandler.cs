@@ -19,7 +19,7 @@ namespace Cloudents.Query.Admin
         {
             _session = session.StatelessSession;
         }
-        private const int PageSize = 50;
+        private const int PageSize = 25;
 
         public async Task<IEnumerable<UserDocumentsDto>> GetAsync(AdminUserDocumentsQuery query, CancellationToken token)
         {
