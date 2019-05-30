@@ -251,7 +251,11 @@ const actions = {
         if(!isTutor) {
             dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
             //show student start se3ssion
-            dispatch("updateStudentStartDialog", true);
+            // SPITBALL-1197 Tutoring - Session stuck on start (fix)
+            setTimeout(()=>{
+                dispatch("updateStudentStartDialog", true);
+            }, 3000)
+            
         }
     },
     signalR_ReleasePaymeStatus({commit, dispatch, state}) {
