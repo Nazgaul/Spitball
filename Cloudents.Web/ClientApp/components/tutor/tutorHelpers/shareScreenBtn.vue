@@ -15,7 +15,7 @@
                     <span v-language:inner>tutor_start_to_share</span>
                 </v-tooltip>
             </div>
-            <button class="outline-btn" v-else @click="stopSharing">
+            <button class="outline-btn-share" v-else @click="stopSharing">
                 <span v-language:inner="'tutor_btn_stop_sharing'"></span>
             </button>
         </v-flex>
