@@ -103,7 +103,8 @@
                                 global.isAuth = true;
                                 global.country = response.data.country;
                                 const isIl = global.country.toLowerCase() === 'il';
-                                const defaultSubmitRoute = isIl ? { path: '/note' } : { path: '/ask' };
+                                // const defaultSubmitRoute = isIl ? { path: '/note' } : { path: '/ask' };
+                                const defaultSubmitRoute = { path: '/ask' };
                                 let url = self.toUrl || defaultSubmitRoute;
                                 //will be always ask cause he came from email
                                 self.$router.push({ path: `${url.path}` });
