@@ -39,6 +39,8 @@
                     </div>
                     <div class="half-grid-center">
                         <div class="intro-image-warraper">
+                            <!-- <img src="/assets/homepage_img2.png" alt=""> -->
+
                             <img src="/assets/group-15-no-floor.svg" alt="">
                         </div>
                     </div>

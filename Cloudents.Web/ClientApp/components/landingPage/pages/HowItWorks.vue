@@ -33,7 +33,7 @@
                     </div>
                     <div class="half-grid-center">
                         <div class="intro-image-warraper">
-                            <img src="/assets/group-18.png" alt="">
+                            <img src="assets/group-18.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -45,6 +45,8 @@
                     <div class="space-around-box reverse-grid">
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
+                            <img src="../assets/homepage_img3.png" alt="">
+
                                 <img src="/assets/group-15.svg" alt="">
                             </div>
                         </div>

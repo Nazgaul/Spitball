@@ -48,8 +48,9 @@
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
                                 <picture>
-                                    <source media="(min-width: 1108px)" srcset="../assets/group-15.svg">
-                                    <img src="../assets/group-15-small.svg" alt="">
+                                    <!-- <source media="(min-width: 1108px)" srcset="../assets/group-15.svg"> -->
+                                    <img src="../assets/homepage_img1.png" alt="">
+                                    <!-- <img src="../assets/group-15-small.svg" alt=""> -->
                                 </picture>
                                 <div class="float-background"></div>
                             </div>
