@@ -26,7 +26,7 @@
                             name="add-question-textarea"
                             :label="topicPlaceholder"
                             class="question-textarea elevation-0"
-                            :rows="3"
+                            :rows="7"
                             :rules="[rules.required, rules.maximumChars, rules.minimumChars]"
                             v-model="questionText" :value="questionText"
                     ></v-textarea>
