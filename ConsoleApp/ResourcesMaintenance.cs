@@ -11,15 +11,23 @@ namespace ConsoleApp
     {
         public static void GetOrphanedResources()
         {
-            //TODO :// Make is work not in your computer as well ( any machine)
+            //TODO: :// we need to think about landing page and other instances of resources string interpolation!
             //TODO :// maybe some performance tweaks and thats it.
+            Console.WriteLine(Directory.GetCurrentDirectory());
+            
+            var dir = Directory.GetCurrentDirectory();
+            var s = Directory.GetParent(dir);
+            while (Path.GetFileName(s.ToString()) != "Zbox")
+            {
+                s = Directory.GetParent(s.ToString());
+            }
             string[] files =
-                Directory.GetFiles(@"C:\Users\Charlie even\source\repos\Zbox\Cloudents.Web\Resources\Js\",
+                Directory.GetFiles($@"{s}\Cloudents.Web\Resources\Js\",
                 "*.resx", SearchOption.AllDirectories);
-            string[] jsFiles = Directory.GetFiles(@"C:\Users\Charlie even\source\repos\Zbox\Cloudents.Web\ClientApp",
+            string[] jsFiles = Directory.GetFiles($@"{s}\Cloudents.Web\ClientApp",
                 "*", SearchOption.AllDirectories);
             
-            var dic = new Dictionary<string,string[]>();
+            //var dic = new Dictionary<string,string[]>();
             foreach (var f in files)
             {
                 string content;

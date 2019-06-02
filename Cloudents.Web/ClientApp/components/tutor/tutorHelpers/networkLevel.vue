@@ -1,6 +1,6 @@
 <template>
     <div class="network-icon-wrap">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 16" v-if="!signalLevel || signalLevel === 0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 16" v-if="signalLevel === 0">
             <g fill="none" fill-rule="evenodd">
                 <path fill="#000" fill-opacity=".3" fill-rule="nonzero" d="M8.91 15.818a1.35 1.35 0 1 0 0-2.701 1.35 1.35 0 0 0 0 2.701z"/>
                 <path fill="#000" fill-rule="nonzero" d="M8.96 1.273c-3.168 0-6.285 1.143-8.675 3.273-.311.26-.363.779-.051 1.09.26.312.779.364 1.09.052 2.13-1.87 4.831-2.857 7.689-2.857 2.805 0 5.506 1.039 7.688 2.857.156.104.312.208.52.208a.835.835 0 0 0 .57-.26c.209-.363.157-.83-.155-1.09-2.39-2.079-5.506-3.273-8.675-3.273z" opacity=".3"/>
@@ -93,7 +93,7 @@
                 if(this.signalLevel){
                     return this.signalColoring[`${this.signalLevel}`];
                 }else{
-                    return this.signalColoring["0"];
+                    return this.signalColoring["4"];
                 }
             },
         }

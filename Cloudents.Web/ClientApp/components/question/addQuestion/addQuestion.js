@@ -133,7 +133,6 @@ export default {
             this.resetErrorObject();
             let trimmedMessage = this.questionMessage.trim();
             let externalComponent = this.currentComponentselected.returnedObj;
-
             if (trimmedMessage.length < 15) {
                 const message = LanguageService.getValueByKey('addQuestion_error_minimum_chars');
                 let errorObj = addQuestionUtilities.createErrorObj(true, message)
@@ -158,9 +157,6 @@ export default {
                 this.addQuestionButtonLoading = true;
                 console.log('add question');
                 this.UPDATE_LOADING(true);
-                // if(this.currentComponentselected.name === 'regular'){
-                //     price = this.currentComponentselected.returnedObj.result;
-                // }
                 let serverQuestionObj = {
                     text:this.questionMessage,
                     subjectId:this.questionSubjct,
