@@ -9,8 +9,8 @@
                                 <v-icon @click="openEdit()" v-if="isMyProfile" class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
                             </div>
                             <div class="mt-2">
-                             <p class="about-text body-2">{{aboutMe | truncate(isOpen, '...', textLimit)}}
-                             </p>
+                             <h3 class="about-text body-2">{{aboutMe | truncate(isOpen, '...', textLimit)}}
+                             </h3>
                             </div>
 
                         </v-flex>
