@@ -129,6 +129,9 @@
   <data name="max_number" xml:space="preserve">
     <value>הערך המירבי הוא</value>
   </data>
+  <data name="min_chars" xml:space="preserve">
+    <value>מינימום אורך</value>
+  </data>
   <data name="positive_only" xml:space="preserve">
     <value>רק ערכים חיוביים</value>
   </data>
