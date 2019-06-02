@@ -110,7 +110,7 @@
 
 
     <script>
-    window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(4)';
+    window.version = '@typeof(HomePageController).Assembly.GetName().Version.ToString(4)';
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @isAuth.ToString().ToLower();
         window.paypalEnv = '@(Environment.IsProduction() ? "production" : "sandbox")';
