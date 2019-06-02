@@ -22,6 +22,11 @@
             <v-flex class="messages-input">
                 <chat-upload-file></chat-upload-file>
                 <v-text-field solo type="text" :placeholder="placeHolderText" v-language:placeholder @keyup.enter="sendMessage" v-model="messageText"></v-text-field>
+               <v-layout align-center justify center class="chat-upload-loader" v-if="getChatLoader" >
+                   <v-flex class="text-xs-center">
+                       <v-progress-circular indeterminate v-bind:size="50" color="#43425d"></v-progress-circular>
+                   </v-flex>
+               </v-layout>
             </v-flex>
         </v-layout>
     </div>
@@ -50,7 +55,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj']),
+        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj', 'getChatLoader']),
         messages(){
             this.scrollToEnd();
             return this.getMessages;
@@ -149,6 +154,14 @@ export default {
                 margin: 22px 0 4px 0;
                 overflow: auto;
             }
+            .chat-upload-loader{
+                position: absolute;
+                width: 100%;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                top: 0;
+            }
             .messages-input{
                 display: flex;
                 flex-direction: row-reverse;
@@ -156,7 +169,8 @@ export default {
                 border-radius: 0 0 16px 16px;
                 max-height: 45px;
                 min-height: 45px;
-                padding-right: 20px;
+                /*padding-right: 20px; // what for ????*/
+                position: relative;
                 .v-input__slot{
                     box-shadow: none !important;
                     

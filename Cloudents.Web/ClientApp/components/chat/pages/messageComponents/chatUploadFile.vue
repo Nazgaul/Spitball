@@ -47,7 +47,7 @@
             }
         },
         methods: {
-            ...mapActions(['uploadChatFile']),
+            ...mapActions(['uploadChatFile', 'updateChatUploadLoading']),
         inputFile: function (newFile, oldFile) {
             let self = this;
             if (self.uploadedFiles && self.uploadedFiles.length > 1) {
@@ -56,10 +56,22 @@
             if (newFile && oldFile && !newFile.active && oldFile.active) {
                 console.log('upload Complete');
                 self.uploadedFiles.length = 0;
+                this.updateChatUploadLoading(false);
+            }
+            // Uploaded successfully
+            if (newFile && !!newFile.success) {
+                console.log('success upload', newFile, newFile);
+            }
+            if (newFile && newFile.error && !oldFile.error) {
+                // error
+                //TODO ADD ERROR HANDLER Gaby?
+                //release loader in case of errror
+                this.updateChatUploadLoading(false);
             }
             if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
                 if (!this.$refs.upload.active) {
-                    this.$refs.upload.active = true
+                    this.$refs.upload.active = true;
+                    this.updateChatUploadLoading(true);
                 }
             }
         },
