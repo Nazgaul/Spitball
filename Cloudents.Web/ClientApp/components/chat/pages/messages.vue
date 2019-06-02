@@ -24,7 +24,7 @@
                 <v-text-field solo type="text" :placeholder="placeHolderText" v-language:placeholder @keyup.enter="sendMessage" v-model="messageText"></v-text-field>
                <v-layout align-center justify center class="chat-upload-loader" v-if="getChatLoader" >
                    <v-flex class="text-xs-center">
-                       <v-progress-circular indeterminate v-bind:size="50" color="#43425d"></v-progress-circular>
+                       <v-progress-circular indeterminate v-bind:size="25" color="#43425d"></v-progress-circular>
                    </v-flex>
                </v-layout>
             </v-flex>

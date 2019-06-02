@@ -28,7 +28,7 @@
                             class="question-textarea elevation-0"
                             :rows="3"
                             :rules="[rules.required, rules.maximumChars, rules.minimumChars]"
-                            v-model="questionText"
+                            v-model="questionText" :value="questionText"
                     ></v-textarea>
                 </div>
                 <div class="middle-part">
