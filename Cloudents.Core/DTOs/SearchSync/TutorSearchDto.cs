@@ -4,11 +4,7 @@ namespace Cloudents.Core.DTOs.SearchSync
 {
     public class TutorSearchDto
     {
-        public TutorSearchDto(IList<string> courses, IList<string> subjects)
-        {
-            Courses = courses;
-            Subjects = subjects;
-        }
+       
 
         public long Id { get; set; } //key readonly
 
@@ -21,5 +17,8 @@ namespace Cloudents.Core.DTOs.SearchSync
         public byte[] Version { get; set; } //key readonly
         public IList<string> Courses { get; set; } //key readonly
         public IList<string> Subjects { get; set; } //key readonly
+
+        public long SYS_CHANGE_VERSION { get; set; }
+        public string SYS_CHANGE_OPERATION { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
@@ -62,23 +63,25 @@ left join sb.TutorReview tr on t.Id = tr.TutorId
 ";
 
                 var sql = query.Version == 0 ? FirstQuery : FirstQuery;
+                long version = 0;
                 using (var conn = _dapperRepository.OpenConnection())
                 {
                     var orderDictionary = new Dictionary<long, TutorSearchDto>();
                     var result = await conn.QueryAsync<TutorSearchDto, string, string, TutorSearchDto>(sql,
                         (dto, course, subject) =>
                         {
-                            TutorSearchDto orderEntry;
+                            version = Math.Max(dto.SYS_CHANGE_VERSION, version);
+                            if (!orderDictionary.TryGetValue(dto.Id, out var tutorEntry))
+                            {
+                                tutorEntry = dto;
+                                tutorEntry.Courses = new List<string>();
+                                tutorEntry.Subjects = new List<string>();
+                                orderDictionary.Add(tutorEntry.Id, tutorEntry);
+                            }
 
-                            //if (!orderDictionary.TryGetValue(dto.Id, out orderEntry))
-                            //{
-                            //    orderEntry = order;
-                            //    orderEntry.OrderDetails = new List<OrderDetail>();
-                            //    orderDictionary.Add(orderEntry.OrderID, orderEntry);
-                            //}
-
-                            //orderEntry.OrderDetails.Add(orderDetail);
-                            return dto;
+                            tutorEntry.Courses.Add(course);
+                            tutorEntry.Subjects.Add(subject);
+                            return tutorEntry;
                         }, new
                         {
                             query.Version,
@@ -86,9 +89,9 @@ left join sb.TutorReview tr on t.Id = tr.TutorId
                         }, splitOn: "CourseName,CourseSubject");
                     return new SearchWrapperDto<TutorSearchDto>()
                     {
-                        Update = result,
+                        Update = result.Distinct(),
                         Delete = null,
-                        Version = 1
+                        Version = version
 
                     };
                 }
