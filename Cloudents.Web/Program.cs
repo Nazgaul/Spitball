@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using System.Reflection;
 
+
+[assembly: AssemblyVersion("1.0.9.*")]
 namespace Cloudents.Web
 {
     public static class Program
