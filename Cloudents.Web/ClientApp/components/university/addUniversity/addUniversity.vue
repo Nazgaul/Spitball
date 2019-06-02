@@ -222,7 +222,7 @@
                     //new if changed
                     this.updateSchoolName(objToSend)
                         .then((success) => {
-                                this.UPDATE_SEARCH_LOADING(true)
+                                this.UPDATE_SEARCH_LOADING(true);
                                 this.getOut();
                               },
                               (error) => {

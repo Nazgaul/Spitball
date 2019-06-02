@@ -8,6 +8,10 @@ export const validationRules = {
     maximumChars: (value, maxLength) => {
         return value.length <= maxLength || ` ${maxLength} ${LanguageService.getValueByKey("formErrors_max_chars")}`;
     },
+    minimumChars: (value, minLength) => {
+        let trimmed = value.trim();
+        return trimmed.length >= minLength || `${LanguageService.getValueByKey("formErrors_min_chars")} ${minLength}`;
+    },
     maxVal: (value, max) => {
         return value <= max || `${LanguageService.getValueByKey("formErrors_max_number")} ${max}`;
     },

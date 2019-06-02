@@ -134,7 +134,7 @@ export default {
                         //clean id from url if not valid and nopthing reterned from server
                         self.$router.push({name: 'userMainView', params: {userId: ''}});
                     }
-                }, (err) => {
+                }, () => {
                     if(id > 0 || this.userIdentifier != '')
                     {
                         self.$toaster.error(`Error can't fined user with given identifier`);
@@ -165,7 +165,7 @@ export default {
         if(this.$route.params && this.$route.params.userId){
             this. getUserInfoData(this.$route.params.userId);
         }
-        console.log('usr main view created' + this.userId, this.$route);
+        console.log('user main view created' + this.userId, this.$route);
 
     }
 }

@@ -21,7 +21,7 @@
                 </div>
             </v-flex>
 
-            <div class="results-section" :class="{'loading-skeleton mt-5': showSkelaton}">
+            <div class="results-section" :class="{'loading-skeleton mt-5': showSkeleton}">
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
                         <v-layout column>

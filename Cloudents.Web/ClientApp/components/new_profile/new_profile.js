@@ -52,12 +52,12 @@ export default {
             answers: {
                 isLoading: false,
                 isComplete: false,
-                page: 1,
+                page: 1
             },
             questions: {
                 isLoading: false,
                 isComplete: false,
-                page: 1,
+                page: 1
             },
             documents: {
                 isLoading: false,
@@ -69,7 +69,7 @@ export default {
                 isComplete: false,
                 page: 1
             }
-        }
+        };
     },
     methods: {
         ...mapActions([
@@ -97,7 +97,7 @@ export default {
             this.loadingContent = true;
             this.setProfileByActiveTab(this.activeTab).then(() => {
                 this.loadingContent = false;
-            })
+            });
         },
         loadAnswers() {
             if (this.profileData.answers.length < this.itemsPerTab) {
@@ -105,19 +105,19 @@ export default {
                 return;
             }
             this.answers.isLoading = true;
-            let AnswersInfo = {
+            let answersInfo = {
                 id: this.id,
                 page: this.answers.page
             };
-            this.getAnswers(AnswersInfo).then((hasData) => {
+            this.getAnswers(answersInfo).then((hasData) => {
                 if (!hasData) {
                     this.answers.isComplete = true;
                 }
                 this.answers.isLoading = false;
                 this.answers.page++;
-            }, (err) => {
+            }, () => {
                 this.answers.isComplete = true;
-            })
+            });
         },
         loadQuestions() {
             if (this.profileData.questions.length < this.itemsPerTab) {
@@ -125,20 +125,20 @@ export default {
                 return;
             }
             this.questions.isLoading = true;
-            let QuestionsInfo = {
+            let questionsInfo = {
                 id: this.id,
                 page: this.questions.page,
                 user: this.profileData.user
-            }
-            this.getQuestions(QuestionsInfo).then((hasData) => {
+            };
+            this.getQuestions(questionsInfo).then((hasData) => {
                 if (!hasData) {
                     this.questions.isComplete = true;
                 }
                 this.questions.isLoading = false;
                 this.questions.page++;
-            }, (err) => {
+            }, () => {
                 this.questions.isComplete = true;
-            })
+            });
         },
         loadDocuments() {
             if (this.profileData.documents.length < this.itemsPerTab) {
@@ -146,20 +146,20 @@ export default {
                 return;
             }
             this.documents.isLoading = true;
-            let DocumentsInfo = {
+            let documentsInfo = {
                 id: this.id,
                 page: this.documents.page,
                 user: this.profileData.user
-            }
-            this.getDocuments(DocumentsInfo).then((hasData) => {
+            };
+            this.getDocuments(documentsInfo).then((hasData) => {
                 if (!hasData) {
                     this.documents.isComplete = true;
                 }
                 this.documents.isLoading = false;
                 this.documents.page++;
-            }, (err) => {
+            }, () => {
                 this.documents.isComplete = true;
-            })
+            });
         },
         loadPurchasedDocuments() {
             if (this.profileData.purchasedDocuments.length < this.itemsPerTab) {
@@ -167,20 +167,21 @@ export default {
                 return;
             }
             this.purchasedDocuments.isLoading = true;
-            let DocumentsInfo = {
+            let documentsInfo = {
                 id: this.id,
                 page: this.purchasedDocuments.page,
                 user: this.profileData.user
-            }
-            this.getPurchasedDocuments(DocumentsInfo).then((hasData) => {
-                if (!hasData) {
+            };
+            this.getPurchasedDocuments(documentsInfo).then((hasData) => {
+                    if (!hasData) {
+                        this.purchasedDocuments.isComplete = true;
+                    }
+                    this.purchasedDocuments.isLoading = false;
+                    this.purchasedDocuments.page++;
+                },
+                () => {
                     this.purchasedDocuments.isComplete = true;
-                }
-                this.purchasedDocuments.isLoading = false;
-                this.purchasedDocuments.page++;
-            }, (err) => {
-                this.purchasedDocuments.isComplete = true;
-            })
+                });
         }
     },
     computed: {
@@ -190,12 +191,12 @@ export default {
             if (this.$vuetify.breakpoint.xsOnly){
                 xsColumn.column = true;
             }
-            return xsColumn
+            return xsColumn;
         },
 
         profileData() {
             if (!!this.getProfile) {
-                return this.getProfile
+                return this.getProfile;
             }
         },
         isMobile() {
@@ -209,7 +210,7 @@ export default {
         },
 
         isEmptyCourses(){
-            return this.profileData && this.profileData.about && this.profileData.about.courses && !this.profileData.about.courses.length
+            return this.profileData && this.profileData.about && this.profileData.about.courses && !this.profileData.about.courses.length;
         },
         emptyStateData() {
             let questions = {
@@ -217,11 +218,11 @@ export default {
                 boldText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
                 btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
                 btnUrl: () => {
-                    let Obj = {
+                    let obj = {
                         status: true,
                         from: 5
                     };
-                    this.updateNewQuestionDialogState(Obj)
+                    this.updateNewQuestionDialogState(obj);
                 }
             };
             let answers = {
@@ -236,11 +237,11 @@ export default {
                 btnUrl: 'note'
             };
             if (this.activeTab === 2) {
-                return questions
+                return questions;
             } else if (this.activeTab === 3) {
-                return answers
+                return answers;
             } else if (this.activeTab === 4) {
-                return documents
+                return documents;
             }
         }
     },
@@ -253,7 +254,7 @@ export default {
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {
         this.resetProfileData();
-        next()
+        next();
     },
     created() {
         this.fetchData();

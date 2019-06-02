@@ -146,8 +146,7 @@
   </data>
   <data name="close" xml:space="preserve">
     <value>Close</value>
-    </data>
-
+  </data>
   <data name="entered_room" xml:space="preserve">
     <value>has entered the room</value>
   </data>
@@ -166,10 +165,10 @@
   <data name="option_videoChat" xml:space="preserve">
     <value>Video &amp; Chat</value>
   </data>
-      <value>Study Room currently not supported by Mobile.
+  <data name="not_supported" xml:space="preserve">
+    <value>Study Room currently not supported by Mobile.
 Try connecting from a computer browser</value>
   </data>
-
   <data name="option_videoFull" xml:space="preserve">
     <value>Full Video</value>
   </data>
@@ -216,10 +215,10 @@ Try connecting from a computer browser</value>
     <value>Audio Output quality test</value>
   </data>
   <data name="quality_permission" xml:space="preserve">
-    <value>Browser Permissions</value>
+    <value> Browser Permissions</value>
   </data>
   <data name="quality_title" xml:space="preserve">
-    <value>Camera &amp; Sound Test</value>
+    <value>Camera &amp; Sound Test -</value>
   </data>
   <data name="quality_unable" xml:space="preserve">
     <value>Unable to access camera or microphone</value>
@@ -308,4 +307,19 @@ Try connecting from a computer browser</value>
   <data name="tooltip_upload" xml:space="preserve">
     <value>Upload Image</value>
   </data>
+<<<<<<< HEAD
+  <data name="finished_session" xml:space="preserve">
+    <value>Finished the sesson?</value>
+  </data>
+=======
+  <data name="end_session" xml:space="preserve">
+    <value>Finished the sesson?</value>
+  </data>
+  <data name="quality_mic_placeholder" xml:space="preserve">
+    <value>Please select microphone</value>
+  </data>
+  <data name="tooltip_eraser" xml:space="preserve">
+    <value>Eraser</value>
+  </data>
+>>>>>>> version-v31
 </root>

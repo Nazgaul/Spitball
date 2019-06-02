@@ -17,17 +17,17 @@ const mutations = {
     updatePriceToAll(state, price){
         state.fileData.forEach(file=>{
             file.price = price;
-        })
+        });
     },
     updateDocTypeToAll(state, docType){
         state.fileData.forEach(file=>{
             file.type = docType;
-        })
+        });
     },
     updateDocProfessorAll(state, prof){
         state.fileData.forEach(file=>{
             file.professor = prof;
-        })
+        });
     },
     updateFileByIndex(state, fileObj){
         state.fileData[fileObj.index] = fileObj.data;
@@ -37,22 +37,22 @@ const mutations = {
         state.fileData.push(val);
     },
     deleteFileByIndex(state, index){
-        state.fileData.splice(index, 1)
+        state.fileData.splice(index, 1);
     },
     updateCourse(state, course){
-        state.courseSelected = course
+        state.courseSelected = course;
     },
     setDialogUploadState(state, val) {
-        state.showDialog = val
+        state.showDialog = val;
     },
     setFileName(state, data) {
-        state.customFileName = data
+        state.customFileName = data;
     },
     clearUploadData(state) {
         state.fileData.length = 0;
     },
     updateReturnToUpload(state, val) {
-        state.returnToUpload = val
+        state.returnToUpload = val;
     },
     setUploadStep(state, val) {
         state.uploadStep = val;
@@ -75,17 +75,17 @@ const getters = {
     getFileData: (state) => state.fileData,
     getDialogState: (state) => state.showDialog,
     getCustomFileName: (state) => state.customFileName,
-    getReturnToUpload: (state) => state.returnToUpload,
+    getReturnToUpload: (state) => state.returnToUpload
 };
 const actions = {
     deleteFileByIndex({commit}, index){
-        commit('deleteFileByIndex', index)
+        commit('deleteFileByIndex', index);
     },
     updateFileErrorById({commit}, fileInfo){
-        commit('updateErrorByID', fileInfo)
+        commit('updateErrorByID', fileInfo);
     },
     changeFileByIndex({commit}, fileObj){
-        commit('updateFileByIndex', fileObj)
+        commit('updateFileByIndex', fileObj);
     },
     resetUploadData({commit}) {
         commit('clearUploadData');
@@ -97,39 +97,39 @@ const actions = {
         commit('addFile', data);
     },
     updateStep({commit}, val) {
-        commit('setUploadStep', val)
+        commit('setUploadStep', val);
     },
     stopUploadProgress({commit}, val) {
-        commit('setUploadProgress', val)
+        commit('setUploadProgress', val);
     },
     askQuestion({commit, dispatch}, val) {
         //close upload
         commit('setDialogUploadState', val);
         //and open new question
         setTimeout(() => {
-            dispatch('updateNewQuestionDialogState', true)
+            dispatch('updateNewQuestionDialogState', true);
         }, 300);
     },
     updateDialogState({commit}, val) {
         commit('setDialogUploadState', val);
     },
     setReturnToUpload({commit}, val) {
-        commit('updateReturnToUpload', val)
+        commit('updateReturnToUpload', val);
     },
     setAllPrice({commit}, price){
-        commit('updatePriceToAll', price)
+        commit('updatePriceToAll', price);
     },
     setAllDocType({commit}, docType){
-        commit('updateDocTypeToAll', docType)
+        commit('updateDocTypeToAll', docType);
     },
     setAllProfessor({commit}, prof){
-        commit('updateDocProfessorAll', prof)
+        commit('updateDocProfessorAll', prof);
     },
     setCourse({commit}, course){
-        commit('updateCourse', course)
+        commit('updateCourse', course);
     },
     setFileBlobNameById({commit}, fileIdName){
-        commit('updateBlobName', fileIdName)
+        commit('updateBlobName', fileIdName);
     }
 
 

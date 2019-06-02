@@ -48,11 +48,9 @@
             <sb-dialog :isPersistent="true"
                        :showDialog="newQuestionDialogSate"
                        :popUpType="'newQuestion'"
-                       :max-width="'500px'"
-                       :content-class="'newQuestionDialog'">
-                
+                       :max-width="'640px'"
+                       :content-class="'question-request-dialog'">
                 <Add-Question></Add-Question>
-                <!-- <New-Question></New-Question> -->
             </sb-dialog>
             <sb-dialog :isPersistent="true"
                        :showDialog="getRequestTutorDialog"
@@ -135,7 +133,8 @@
 import { mapGetters, mapActions } from "vuex";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
-import AddQuestion from "../question/addQuestion/addQuestion.vue";
+// import AddQuestion from "../question/addQuestion/addQuestion.vue";
+import AddQuestion from "../question/askQuestion/askQuestion.vue";
 import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
 import newBaller from "../helpers/newBaller/newBaller.vue";
 import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
