@@ -1,0 +1,34 @@
+1. Open git extensions.
+
+2. Move to master branch.
+
+3. Click on commands -> merge.
+
+4. Select the relevant version branch.
+
+5. Make sure the first radio button option is selected.
+
+6. Do the merge.
+
+7. Publish the relevant version branch to beta.
+
+8. Check the beta web site.
+
+9. If beta site is ok, push the changes to Git.
+
+10. Create tag with string 'web-v' (v is the current version), make sure the push to origin option is marked.
+
+11. On Azure web site - do the swap.
+
+12. Move to develop branch.
+
+13. Click on commands -> merge.
+
+14. Select the relevant version branch.
+
+15. Make sure the first radio button option is selected.
+
+16. Do the merge.
+
+
+That's it ! You finished.
