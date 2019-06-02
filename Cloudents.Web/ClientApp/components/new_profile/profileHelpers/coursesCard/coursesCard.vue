@@ -22,7 +22,7 @@
                             <v-card @click="goToSelectedClass(course.name)"
                                     class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}"
                                     key="two">
-                                <span class="course-name">{{course.name}}</span>
+                                <h4 class="course-name">{{course.name}}</h4>
                             </v-card>
                         </v-flex>
                         <!--</transition-group>-->
@@ -129,6 +129,7 @@
 
         }
         .course-name {
+            font-weight: 100;
             font-size: 14px;
             color: @linkColor;
             cursor: pointer;

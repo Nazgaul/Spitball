@@ -25,10 +25,10 @@
                       v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
                       class="face-icon mr-2"
                     >sbf-face-icon</v-icon>
-                    <span v-line-clamp:22="'1'"
+                    <h1 v-line-clamp:22="'1'"
                       class="subheading font-weight-bold"
                       style="word-break: break-all;"
-                    >{{userName}}</span>
+                    >{{userName}}</h1>
                     <v-icon
                       @click="openEditInfo()"
                       v-if="$vuetify.breakpoint.xsOnly && isMyProfile"
@@ -39,9 +39,9 @@
                     <userRank v-if="!isTutorProfile" class="ml-2 mt-1" :score="userScore"></userRank>
                   </div>
                 </div>
-                <div
+                <h2
                   class="text-xs-center text-sm-left text-md-left user-university caption text-capitalize"
-                >{{university}}</div>
+                >{{university}}</h2>
               </v-flex>
               <div class="tutor-price mr-3">
                 <!--<span class="subheading" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">₪</span>-->
