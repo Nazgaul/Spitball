@@ -21,7 +21,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Query.Chat;
+using Cloudents.Query.SearchSync;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -134,7 +136,7 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             var queryBus = _container.Resolve<IQueryBus>();
-            var x = await queryBus.QueryAsync(new UserUnreadMessageQuery(null), default);
+            var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0, 0, null),default);
             var handler = new HttpClientHandler()
             {
                 AllowAutoRedirect = false

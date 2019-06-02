@@ -25,6 +25,8 @@
 
 //        public double Fee { get; set; }
 
+
+
 //        public TutorFilter TutorFilter { get; set; }
 
 //        public DateTime? InsertDate { get; set; }
