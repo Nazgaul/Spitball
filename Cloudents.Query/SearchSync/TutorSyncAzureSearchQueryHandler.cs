@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Sync;
 using Dapper;
 
 namespace Cloudents.Query.SearchSync
 {
     public class TutorSyncAzureSearchQuery : SyncAzureQuery, IQuery<SearchWrapperDto<TutorSearchDto>>
-        
+
     {
         public TutorSyncAzureSearchQuery(long version, int page, byte[] rowVersion) : base(version, page)
         {
@@ -20,7 +21,7 @@ namespace Cloudents.Query.SearchSync
         private byte[] RowVersion { get; }
 
 
-        internal sealed class TutorSyncAzureSearchQueryHandler: IQueryHandler<TutorSyncAzureSearchQuery, SearchWrapperDto<TutorSearchDto>>
+        internal sealed class TutorSyncAzureSearchQueryHandler : IQueryHandler<TutorSyncAzureSearchQuery, SearchWrapperDto<TutorSearchDto>>
         {
             private readonly DapperRepository _dapperRepository;
 
@@ -31,7 +32,7 @@ namespace Cloudents.Query.SearchSync
 
             public async Task<SearchWrapperDto<TutorSearchDto>> GetAsync(TutorSyncAzureSearchQuery query, CancellationToken token)
             {
-                const string FirstQuery = @"
+                const string firstQuery = @"
 with cte as(
 select t.TutorId as Id,  avg(Rate) as rate,count(*) as rateCount from sb.TutorReview t
 group by t.TutorId
@@ -42,7 +43,8 @@ u.id as Id,
 u.Name,
 t.Bio,
 u.Image,
-T.Price, 
+T.Price,
+t.State,
 cte.rate as Rate,
 cte.rateCount as ReviewsCount,
  (
@@ -62,8 +64,52 @@ left join sb.CourseSubject cs on c.SubjectId = cs.Id
 left join sb.TutorReview tr on t.Id = tr.TutorId
 ";
 
-                var sql = query.Version == 0 ? FirstQuery : FirstQuery;
+                const string versionQuery = @"
+with cte as(
+select t.TutorId as Id,  avg(Rate) as rate,count(*) as rateCount from sb.TutorReview t
+group by t.TutorId
+)
+
+Select  
+COALESCE(u.id,cTable.id ) as UserId,
+u.Name,
+t.Bio,
+u.Image,
+T.Price, 
+cte.rate as Rate,
+cte.rateCount as ReviewsCount,
+ (
+      SELECT Max(v) 
+       FROM (VALUES (t.version),(u.Version),(tc.Version),(c.Version),(cs.Version),(tr.Version)) AS value(v) 
+   ) as version,
+cTable.*,
+c.Name as CourseName,
+cs.Name as CourseSubject
+from sb.tutor t
+full join CHANGETABLE (changes sb.[Tutor], @version) AS cTable ON t.Id = cTable.id 
+left join sb.[user] u on t.Id = u.Id
+left join cte on t.Id = cte.Id
+left join sb.UsersCourses tc on u.id = tc.UserId and tc.CanTeach = 1
+left join sb.Course c on tc.CourseId = c.Name
+left join sb.CourseSubject cs on c.SubjectId = cs.Id
+left join sb.TutorReview tr on t.Id = tr.TutorId
+where (t.version > @RowVersion  or (t.Version is null))
+
+or u.Version > @RowVersion
+or tc.Version > @RowVersion
+or c.Version > @RowVersion
+or cs.Version > @RowVersion
+or tr.Version > @RowVersion";
+
+                var sql = query.Version == 0 ? firstQuery : versionQuery;
+
+
+                var update = new List<TutorSearchDto>();
+                var delete = new List<string>();
                 long version = 0;
+                
+
+
                 using (var conn = _dapperRepository.OpenConnection())
                 {
                     var orderDictionary = new Dictionary<long, TutorSearchDto>();
@@ -87,10 +133,15 @@ left join sb.TutorReview tr on t.Id = tr.TutorId
                             query.Version,
                             query.RowVersion
                         }, splitOn: "CourseName,CourseSubject");
+
+
+                    var retVal = result.Distinct();
+
+                    var lookUp = retVal.ToLookup(x => x.SYS_CHANGE_OPERATION == "D" || x.State != ItemState.Ok);
                     return new SearchWrapperDto<TutorSearchDto>()
                     {
-                        Update = result.Distinct(),
-                        Delete = null,
+                        Update = lookUp[false],
+                        Delete = lookUp[true].Select(s=>s.Id.ToString()),
                         Version = version
 
                     };

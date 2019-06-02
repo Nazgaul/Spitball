@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
@@ -20,5 +23,15 @@ namespace Cloudents.Core.DTOs.SearchSync
 
         public long SYS_CHANGE_VERSION { get; set; }
         public string SYS_CHANGE_OPERATION { get; set; }
+
+        public ItemState State { get; set; }
+
+        public long VersionAsLong => BitConverter.ToInt64(Version.Reverse().ToArray(), 0);
+    }
+
+
+    public class TutorSearchWrapperDto : SearchWrapperDto<TutorSearchDto>
+    {
+        //public stirng Type { get; set; }
     }
 }

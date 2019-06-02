@@ -137,6 +137,12 @@ namespace ConsoleApp
         {
             var queryBus = _container.Resolve<IQueryBus>();
             var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0, 0, null),default);
+            var v = x.Update.OrderBy(o => o.VersionAsLong).First();
+
+            var x2 = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(152960, 0, v.Version), default);
+
+
+
             var handler = new HttpClientHandler()
             {
                 AllowAutoRedirect = false
