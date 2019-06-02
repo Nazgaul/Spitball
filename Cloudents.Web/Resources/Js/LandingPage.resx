@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="earn_knowledge_subTitle" xml:space="preserve">
+    <value>Upload class-specific study documents and start earning!</value>
+  </data>
+  <data name="earn_knowledge_title" xml:space="preserve">
+    <value>Turn Your Study Docs into Cash</value>
+  </data>
+  <data name="earn_question_section_subTitle" xml:space="preserve">
+    <value>Earn Points And Exchange Them To Gift Cards</value>
+  </data>
+  <data name="earn_question_section_title" xml:space="preserve">
+    <value>Answer Homework Questions, Get Gift Cards</value>
+  </data>
+  <data name="earn_upload_section_subTitle" xml:space="preserve">
+    <value>Upload Class Notes, Study Guides and Exams Preparations now!</value>
+  </data>
+  <data name="earn_upload_section_title" xml:space="preserve">
+    <value>Your study documents have real value</value>
+  </data>
   <data name="find_by_subject" xml:space="preserve">
     <value>Find Homework Help By Subject</value>
   </data>
@@ -206,6 +224,24 @@
   </data>
   <data name="join_spitball_free" xml:space="preserve">
     <value>Join Spitball it's Free!</value>
+  </data>
+  <data name="learn_knowledge_subTitle" xml:space="preserve">
+    <value>Quickly boost your GPA with instant help and thousands of study docs</value>
+  </data>
+  <data name="learn_knowledge_title" xml:space="preserve">
+    <value>Study Faster, Enjoy College</value>
+  </data>
+  <data name="learn_question_section_subTitle" xml:space="preserve">
+    <value>80% of questions get answered in under 1 minute</value>
+  </data>
+  <data name="learn_question_section_title" xml:space="preserve">
+    <value>Get Solutions to Homework Questions</value>
+  </data>
+  <data name="learn_upload_section_subTitle" xml:space="preserve">
+    <value>Download Class Notes, Study Guides And Exam Preparations</value>
+  </data>
+  <data name="learn_upload_section_title" xml:space="preserve">
+    <value>Find study resources</value>
   </data>
   <data name="placeholder_subjects" xml:space="preserve">
     <value>Choose subject</value>

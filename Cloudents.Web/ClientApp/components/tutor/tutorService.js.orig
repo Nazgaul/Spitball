@@ -130,6 +130,7 @@ const connectToRoom = function (token, options) {
             } else if (store.getters['getTutorStartDialog']) {
                 store.dispatch('updateTutorStartDialog', false);
 
+<<<<<<< HEAD
             }
             //event of network quality change
             store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
@@ -138,6 +139,49 @@ const connectToRoom = function (token, options) {
                 let previewContainer = document.getElementById('remoteTrack');
                 attachParticipantTracks(participant, previewContainer);
                 store.dispatch('updateRemoteStatus', false);
+=======
+                    }
+                    //event of network quality change
+                    store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
+                    // Attach the Tracks of all the remote Participants.
+                    store.getters['activeRoom'].participants.forEach((participant, index) => {
+                        let previewContainer = document.getElementById('remoteTrack');
+                        attachParticipantTracks(participant, previewContainer);
+                        store.dispatch('updateRemoteStatus', false);
+
+                    });
+                    //disconnected room
+              store.getters['activeRoom'].on('disconnected', (room, error) => {
+                        let errorCode = !!error && error.code ? error.code : "";
+                        if (errorCode === 20104) {
+                            console.error('Signaling reconnection failed due to expired AccessToken!');
+                        } else if (errorCode=== 53000) {
+                            console.error('Signaling reconnection attempts exhausted!');
+                        } else if (errorCode === 53204) {
+                            console.error('Signaling reconnection took too long!');
+                        }else{
+                            console.error('final disconnect')
+                        }
+                        if(store.getters['getStudyRoomData'].isTutor){
+                            store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                        }else{
+                            store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
+                            if(store.getters['getAllowReview']){
+                                store.dispatch('updateReviewDialog', true);
+                            }
+                        }
+                        let toasterParams = {
+                            text: LanguageService.getValueByKey('studyRoom_session_ended'),
+                            type: 'error-toaster'
+                        };
+                        store.dispatch('showRoomToasterMessage', toasterParams);
+                        store.dispatch('updateEndDialog', false);
+                        //detach all local tracks to prevent multiple added tracks
+                        store.getters['activeRoom'].localParticipant.tracks.forEach(function(track) {
+                            detachTracks([track]);
+                            // track.stop()
+                        });
+>>>>>>> version-v31
 
             });
             //disconnected room
@@ -165,7 +209,6 @@ const connectToRoom = function (token, options) {
                     type: 'error-toaster'
                 };
                 store.dispatch('showRoomToasterMessage', toasterParams);
-                        store.dispatch('updateEndDialog', false);
                 //detach all local tracks to prevent multiple added tracks
                 store.getters['activeRoom'].localParticipant.tracks.forEach(function (track) {
                     detachTracks([track]);

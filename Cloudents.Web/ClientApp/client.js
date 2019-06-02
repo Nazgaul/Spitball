@@ -8,12 +8,15 @@ global.mainCdn = true;
 //TODO change this fix to something else
 /*makes sure user have the latest client version temporary solution*/
 function VersionCheck() {
-    GetVersion().then(version => {
-        if(version != global.version) {
-            analyticsService.sb_unitedEvent('VERSION_UPGRADE', `Previous_Version: ${global.version} Current_Version: ${version}`)
-            location.reload(true);
-        }
-    })
+    let inStudyRoom = global.location.pathname.indexOf('studyroom') > -1;
+    if(!inStudyRoom){
+        GetVersion().then(version => {
+            if(version != global.version) {
+                analyticsService.sb_unitedEvent('VERSION_UPGRADE', `Previous_Version: ${global.version} Current_Version: ${version}`)
+                location.reload(true);
+            }
+        })
+    }
 }
 let fiveMinutes = 10000 * 5;
 window.setInterval(VersionCheck, fiveMinutes);
