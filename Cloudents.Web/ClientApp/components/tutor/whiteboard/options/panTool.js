@@ -12,8 +12,8 @@ let startScrollPositionTop = null;
 let startScrollPositionLeft = null;
 
 const init = function(){
-    lastX = this.context.canvas.width/2;
-    lastY = this.context.canvas.height/2;
+    // lastX = this.context.canvas.width/2;
+    // lastY = this.context.canvas.height/2;
     dragStart = false;
     scaleFactor = 1.1;    
 }

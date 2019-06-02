@@ -123,9 +123,6 @@
   <data name="answer_not_found" xml:space="preserve">
     <value>לא מצאנו תשובה על השאלה שלך</value>
   </data>
-  <data name="ask_question" xml:space="preserve">
-    <value>יש לי שאלה</value>
-  </data>
   <data name="different_keywords" xml:space="preserve">
     <value>נסה מילות מפתח אחרות.</value>
   </data>
@@ -153,9 +150,6 @@
   <data name="record_not_match" xml:space="preserve">
     <value>לא תאם אף רשומה.</value>
   </data>
-  <data name="showme" xml:space="preserve">
-    <value>הראה לי</value>
-  </data>
   <data name="spelling" xml:space="preserve">
     <value>בדוק איות.</value>
   </data>
@@ -168,26 +162,11 @@
   <data name="suggestions_ask" xml:space="preserve">
     <value>יש לך שאלה ואתה חייב תשובה? נסה אותנו.</value>
   </data>
-  <data name="suggestions_book" xml:space="preserve">
-    <value>קונה או מוכר ספר לימוד? אנחנו נוודא שתקבל את המחיר הטוב ביותר!</value>
-  </data>
-  <data name="suggestions_flashcard" xml:space="preserve">
-    <value>מצאנו כרטיסיות לימוד שעשויות לסייע לך בלימודים!</value>
-  </data>
-  <data name="suggestions_job" xml:space="preserve">
-    <value>זקוק לכסף מזומן? אתר את מיטב המשרות והצעות ההתמחות לסטודנטים במוסד שאתה לומד בו.</value>
-  </data>
   <data name="suggestions_note" xml:space="preserve">
     <value>מחפש מסמכי לימוד לשיעורים שלך? הגעת למקום הנכון.</value>
   </data>
   <data name="suggestions_tutor" xml:space="preserve">
     <value>עדיין זקוק לעזרה? צור קשר עם מורה פרטי כדי להבטיח שתצליח בשיעור.</value>
-  </data>
-  <data name="users_answering" xml:space="preserve">
-    <value>משתמשים משיבים כרגע</value>
-  </data>
-  <data name="user_answering" xml:space="preserve">
-    <value>משתמש {1} משיב כרגע</value>
   </data>
   <data name="where_school" xml:space="preserve">
     <value>איפה אתה לומד?</value>

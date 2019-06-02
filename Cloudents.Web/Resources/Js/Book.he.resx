@@ -117,16 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="filter_type" xml:space="preserve">
-    <value>מצב הספר</value>
-  </data>
-  <data name="header_textbook" xml:space="preserve">
-    <value>ספרי לימוד</value>
-  </data>
-  <data name="sort_buy" xml:space="preserve">
-    <value>קנה</value>
-  </data>
-  <data name="sort_sell" xml:space="preserve">
-    <value>מכור</value>
-  </data>
 </root>

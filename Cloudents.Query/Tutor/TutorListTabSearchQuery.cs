@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Dapper;
 
 namespace Cloudents.Query.Tutor
@@ -35,7 +34,7 @@ namespace Cloudents.Query.Tutor
                 {
                     const string sql = @"
 
-Select @Term = '""' + @Term+ '*""'  ;
+Select @Term = '""*' + @Term+ '*""';
 with cte as(
 select t.TutorId as Id,  avg(Rate) as rate,count(*) as rateCount from sb.TutorReview t
 group by t.TutorId
@@ -53,7 +52,8 @@ from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
 left join sb.UsersCourses tc on u.id = tc.UserId and tc.CanTeach = 1
 left join sb.Course c on tc.CourseId = c.Name
 left join sb.CourseSubject cs on c.SubjectId = cs.Id
-where ( contains(u.Name,@term) or  contains(t.Bio,@term) or contains(c.Name,@term)  or contains(cs.Name,@term)) and t.State = 'Ok'
+where ( contains(u.Name,@Term) or  contains(t.Bio,@Term) or freetext(c.Name,@Term)  
+	or contains(cs.Name,@Term)) and t.State = 'Ok'
 order by
 case when u.Country = @Country then 0 else 1 end,
 cte.rate desc,

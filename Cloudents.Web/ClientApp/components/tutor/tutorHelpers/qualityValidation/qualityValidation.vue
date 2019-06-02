@@ -140,11 +140,9 @@
                          .catch(err => {
                              console.log(err.name + ":!!!!!!!!!!!!!!!! " + err.message, err);
                              if(err.name === "NotAllowedError") {
-                                 // self.notAllowedDevices = true;
                                  self.setAllowedDevicesStatus(true);
                                  self.updateTestDialogState(true);
                              } else if(err.name === "NotFoundError") {
-                                 // self.notAvaliableDevices = true;
                                  self.setAvaliableDevicesStatus(true);
                                  self.updateTestDialogState(true);
                              }

@@ -66,6 +66,7 @@
                         <span class="caption mb-1 legal-text">
                                                     <span v-language:inner>upload_multiple_legal one</span>
                             <router-link :to="{path:'terms'}" target="_blank">
+                                &nbsp;
                                   <span class="blue-text"  v-language:inner>upload_multiple_legal two_terms_conditions</span>
                             </router-link>
                         </span>

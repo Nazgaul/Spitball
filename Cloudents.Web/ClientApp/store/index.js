@@ -20,9 +20,9 @@ import homeworkHelpStore from './homeworkHelp_store'
 import studyDocumentsStore from './studyDocuments_store';
 import tutorsStore from './tutors_store';
 import marketingBox from './marketingBox'
-import leaderBoard from './leaderBoard'
+//import leaderBoard from './leaderBoard'
 import mobileFooter from './mobileFooter';
-import onBoardGuide from './onBoardGuide';
+//import onBoardGuide from './onBoardGuide';
 import buyTokens from './buyTokens';
 import payMe from './payMe';
 import tutoringCanvas from './tutoringCanvas';
@@ -59,9 +59,9 @@ const store = new Vuex.Store({
         studyDocumentsStore,
         tutorsStore,
         marketingBox,
-        leaderBoard,
+        //leaderBoard,
         mobileFooter,
-        onBoardGuide,
+        //onBoardGuide,
         buyTokens,
         payMe,
         tutoringCanvas,

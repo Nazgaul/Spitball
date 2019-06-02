@@ -198,12 +198,6 @@
   <data name="tutor_sidebar_title" xml:space="preserve">
     <value>Let me know what you need and i”ll be happy to help</value>
   </data>
-  <data name="user_online_status_offline" xml:space="preserve">
-    <value>Offline</value>
-  </data>
-  <data name="user_online_status_online" xml:space="preserve">
-    <value>Online</value>
-  </data>
   <data name="user_sidebar_text" xml:space="preserve">
     <value>Help others with what you know best</value>
   </data>
@@ -224,9 +218,6 @@
   </data>
   <data name="btn_save_changes" xml:space="preserve">
     <value>Save Changes</value>
-  </data>
-  <data name="contact_to_edit" xml:space="preserve">
-    <value>Contact us to edit price</value>
   </data>
   <data name="description_label" xml:space="preserve">
     <value>Title</value>

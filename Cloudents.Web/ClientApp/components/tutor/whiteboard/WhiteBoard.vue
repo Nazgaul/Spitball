@@ -1,178 +1,5 @@
 <template>
     <div class="canvas-container" id="canvasDiv">
-        <div class="nav-container elevation-2">
-            <!--Select-->
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.pan}"
-                            class="nav-action" @click="setOptionType(enumOptions.pan)">
-                        <v-icon>sbf-pan</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_pan</span>
-            </v-tooltip>
-
-            <!--Select-->
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.select}"
-                            class="nav-action" @click="setOptionType(enumOptions.select)">
-                        <v-icon>sbf-mouse-pointer</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_select</span>
-            </v-tooltip>
-
-            <!--Text-->
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button  v-on="on"
-                             :class="{'active-tool': selectedOptionString === enumOptions.text}"
-                             class="nav-action" @click="setOptionType(enumOptions.text)">
-                        <v-icon>sbf-text-icon</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_text</span>
-            </v-tooltip>
-            <!--Equation-->
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button  v-on="on"
-                             :class="{'active-tool': selectedOptionString === enumOptions.equation}"
-                             class="nav-action" @click="setOptionType(enumOptions.equation)">
-                        <v-icon>sbf-equation-icon</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_equation</span>
-            </v-tooltip>
-            <!--Color Picker-->
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': showPickColorInterface}" class="nav-action"
-                            @click="showColorPicker">
-                        <v-icon class="selected-color"  :style="{ color: canvasData.color.hex}">sbf-color-picked</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_color</span>
-            </v-tooltip>
-            <slider-picker class="color-picker" :palette="predefinedColors" v-show="showPickColorInterface"
-                           v-model="canvasData.color"/>
-            <!--<button class="nav-action" @click="clearCanvas">clear</button>-->
-
-            <!--Draw-->
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.draw}"
-                            class="nav-action" @click="setOptionType(enumOptions.draw)">
-                        <v-icon>sbf-pencil-empty</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_pen</span>
-            </v-tooltip>
-
-            <!--Line-->
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.line}"
-                            class="nav-action" @click="setOptionType(enumOptions.line)">
-                        <v-icon>sbf-connect-line</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_line</span>
-            </v-tooltip>
-
-            <!--Circle-->
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.circle}"
-                            class="nav-action" @click="setOptionType(enumOptions.circle)">
-                        <v-icon>sbf-elipse-stroke</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_circle</span>
-            </v-tooltip>
-
-            <!--Square-->
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.rectangle}"
-                            class="nav-action" @click="setOptionType(enumOptions.rectangle)">
-                        <v-icon>sbf-rectangle-stroke</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_square</span>
-            </v-tooltip>
-
-            <!--Upload Image-->
-            <input class="nav-action" type="file" name="Image Upload" id="imageUpload" accept="image/*" v-show="false"/>
-                
-            
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.image}"
-                             class="nav-action" @click="setOptionType(enumOptions.image)">
-                        <v-icon>sbf-upload</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_upload</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.eraser}"
-                             class="nav-action" @click="setOptionType(enumOptions.eraser)">
-                        <v-icon>sbf-eraser-empty</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_upload</span>
-            </v-tooltip>
-
-            <!--<button :class="[selectedOptionString === enumOptions.eraser ? 'active-tool' : '']"-->
-                    <!--class="nav-action" @click="setOptionType(enumOptions.eraser)">-->
-                <!--<v-icon>sbf-eraser-empty</v-icon>-->
-            <!--</button>-->
-
-            <!--Undo-->
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo()">
-                        <v-icon>sbf-undo</v-icon>
-                    </button>
-                </template>
-                <span v-language:inner>tutor_tooltip_undo</span>
-            </v-tooltip>
-
-        </div>
-        <!-- <div class="nav-container zoom-helper bottom-nav elevation-2">
-            
-            <div class="zoom-container" xs12>
-                <v-tooltip right>
-                      <template v-slot:activator="{on}">
-                          <button v-on="on" class="nav-action mr-2" @click="doZoom(true)">
-                              <v-icon>sbf-zoom-in</v-icon>
-                          </button>
-                      </template>
-                      <span>zoom in</span>
-                  </v-tooltip>
-                  <v-tooltip right>
-                      <template v-slot:activator="{on}">
-                          <button v-on="on" class="nav-action" @click="doZoom(false)">
-                              <v-icon>sbf-zoom-out</v-icon>
-                          </button>
-                      </template>
-                      <span>zoom out</span>
-                </v-tooltip>
-            </div>
-            
-            <v-tooltip right>
-                <template v-slot:activator="{on}">
-                    <span v-on="on" class="nav-action zoom-text">
-                        {{zoom}}%
-                    </span>
-                </template>
-                <span>zoom</span>
-            </v-tooltip>
-        </div> -->
         <div id="canvas-wrapper" class="canvas-wrapper" style="position:relative; overflow: auto;" :style="`width:${windowWidth}px;height:${windowHeight}px;`">
             <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
 
@@ -229,7 +56,11 @@
         </div>
         </div>
         <div class="canvas-tabs">
-            <div @click="changeTab(tab)" class="canvas-tab" v-for="(tab) in canvasTabs" :key="tab.id" :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
+            <div @click="changeTab(tab)"
+                 class="canvas-tab"
+                 v-for="(tab) in canvasTabs"
+                 :key="tab.id"
+                 :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
                 <button :id="tab.id">{{tab.name}}</button>
                 <!-- <v-icon @click.stop="showTabOption(tab.id)">sbf-3-dot</v-icon>
                 <div class="canvas-tab-option" :class="{'canvas-tab-option-active': tabEditId === tab.id}">
@@ -274,94 +105,6 @@
                 margin-top: -84px;
                 border: none;
             }
-        .nav-container {
-            position: fixed;
-            background-color: #FFFFFF;
-            padding: 0px 0;
-            display: flex;
-            flex-direction: row;
-            width: auto;
-            margin-top: 20px;
-            left: 16px;
-            z-index: 5;
-
-            &.bottom-nav{
-                bottom: 16px;
-            }
-            .nav-action {
-                padding: 12px 10px;
-                outline: none!important;
-                .v-icon {
-                    color: #000000;
-                }
-                &.disabled{
-                    pointer-events: none;
-                    .v-icon {
-                        color: rgba(0,0,0,.3);
-                    }
-                }
-                &.active-tool{
-                    .v-icon {
-                        color:#2a79ff;
-                    }
-                }
-                &.active-tool-svg{
-                    svg {
-                        fill:#2a79ff;
-                    }
-                }
-                &:hover {
-                    .v-icon {
-                        color: #2a79ff;
-                    }
-
-                }
-            }
-            // &.zoom-helper{
-            //     padding: 8px 8px;
-            //     flex-direction: column;
-            //     .nav-action{
-            //         padding: 4px 0;
-            //         text-align: center;
-            //         &.zoom-text{
-            //             font-size:12px;
-            //             border-top:1px solid rgba(0, 0, 0, 0.16);
-            //             margin: 0 6px;
-            //             padding-top: 8px;
-            //         }
-            //     }
-            //     .zoom-container{
-            //         display: flex;
-            //         justify-content: space-evenly;
-            //         padding-bottom: 10px;
-            //         i{
-            //             font-size: 28px;
-            //         }
-            //     }
-            // }
-            .selected-color {
-                font-size: 26px;
-                cursor: pointer;
-            }
-            .color-picker {
-                position: absolute;
-                top: 106px;
-                left: 80px;
-                height: auto;
-                .vc-compact-color-item {
-                    list-style: none;
-                    width: 28px;
-                    height: 28px;
-                    border-radius: 28px;
-                    float: left;
-                    margin-right: 5px;
-                    margin-bottom: 5px;
-                    position: relative;
-                    cursor: pointer;
-                }
-            }
-
-        }
         #canvas {
             display: block;
             &.select-object {
@@ -440,12 +183,13 @@
             bottom: 5px;
             width: 100%;
             height: 46px;
-            background-color: #f0f0f7;
+            /*background-color: #f0f0f7;*/
+            background-color:#f1f1f1;
             display: flex;
             border-top: 1px solid #e1e1ef;
             .canvas-tab{
                 display: flex;
-                background-color: rgba(67, 66, 93, 0.12);
+                background-color: #dbdbdb;
                 padding: 0 20px;    
                 border-right: 1px solid #c9c9c9;
                 min-width: 100px;

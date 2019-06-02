@@ -123,20 +123,11 @@
   <data name="buy_btn" xml:space="preserve">
     <value>Send &amp; Download</value>
   </data>
-  <data name="buy_full_btn" xml:space="preserve">
-    <value>Buy to view full document</value>
-  </data>
   <data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="doc_placeholder_text" xml:space="preserve">
     <value>Preview will be avaliable soon</value>
-  </data>
-  <data name="flashcard_beginText_start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="flashcard_beginText_start_over" xml:space="preserve">
-    <value>Start Over</value>
   </data>
   <data name="itemActions_buy" xml:space="preserve">
     <value>Unlock</value>
@@ -146,9 +137,6 @@
   </data>
   <data name="itemActions_title" xml:space="preserve">
     <value>Print</value>
-  </data>
-  <data name="item_by" xml:space="preserve">
-    <value>By</value>
   </data>
   <data name="item_class" xml:space="preserve">
     <value>Class</value>

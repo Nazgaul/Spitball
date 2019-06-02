@@ -207,9 +207,9 @@ Vue.use(VueAnalytics, {
     autoTracking: {
         pageviewOnLoad: false,
         //ignoreRoutes: ['result'],
-        shouldRouterUpdate(to, from) {
-            return to.path != "/result";
-        },
+        // shouldRouterUpdate(to, from) {
+        //     return to.path != "/result";
+        // },
         pageviewTemplate(route) {
             return {
                 page: route.path,

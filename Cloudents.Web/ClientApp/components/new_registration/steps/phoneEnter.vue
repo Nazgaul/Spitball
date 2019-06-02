@@ -105,7 +105,12 @@
                         self.$parent.$emit('changeStep', 'verifyPhone');
                     }, function (error) {
                         self.loading = false;
-                        self.errorMessage.phone = error.response.data["PhoneNumber"] ?  error.response.data["PhoneNumber"][0] : '';
+                        if( error.response.data["PhoneNumber"] && error.response.data["PhoneNumber"][0] ){
+                            self.errorMessage.phone = LanguageService.getValueByKey("login_error_invalid_phone")
+                        }else{
+                            //any other error with phone
+                            self.errorMessage.phone = LanguageService.getValueByKey("login_error_phone")
+                        }
                     })
             },
         },

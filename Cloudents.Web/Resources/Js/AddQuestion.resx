@@ -135,29 +135,8 @@
   <data name="error_select_class" xml:space="preserve">
     <value>Don’t forget to select the class for your question</value>
   </data>
-  <data name="error_select_subject" xml:space="preserve">
-    <value>Don’t forget to select the subject for your question</value>
-  </data>
   <data name="no_class" xml:space="preserve">
     <value>There are no courses</value>
-  </data>
-  <data name="regular_error_invalidValue" xml:space="preserve">
-    <value>Invalid value</value>
-  </data>
-  <data name="regular_error_maxLimit" xml:space="preserve">
-    <value>Maximum offer limit is 100 points</value>
-  </data>
-  <data name="regular_error_minRequired" xml:space="preserve">
-    <value>Minimum 1 point required</value>
-  </data>
-  <data name="regular_error_offerLimit" xml:space="preserve">
-    <value>Offer limit reached</value>
-  </data>
-  <data name="regular_offer_reward" xml:space="preserve">
-    <value>Offer a Reward</value>
-  </data>
-  <data name="regular_other" xml:space="preserve">
-    <value>Other</value>
   </data>
   <data name="select_subject_placeholder" xml:space="preserve">
     <value>Select the subject</value>

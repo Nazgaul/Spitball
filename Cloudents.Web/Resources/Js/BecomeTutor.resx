@@ -135,9 +135,6 @@
   <data name="btn_next" xml:space="preserve">
     <value>Next</value>
   </data>
-  <data name="contact_to_change" xml:space="preserve">
-    <value>Contact us to change price</value>
-  </data>
   <data name="label_bio" xml:space="preserve">
     <value>Bio</value>
   </data>

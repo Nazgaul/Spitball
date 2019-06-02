@@ -129,9 +129,6 @@
   <data name="more" xml:space="preserve">
     <value>More</value>
   </data>
-  <data name="show_me" xml:space="preserve">
-    <value>Show me</value>
-  </data>
   <data name="spitball" xml:space="preserve">
     <value>Spitball</value>
   </data>

@@ -129,17 +129,8 @@
   <data name="final_added" xml:space="preserve">
     <value>יש לך </value>
   </data>
-  <data name="final_away" xml:space="preserve">
-    <value>מפדיון הנקודות שלך בכסף.</value>
-  </data>
   <data name="final_bottom_text" xml:space="preserve">
     <value>גש למסמכים של סטודנטים מעולים מהכיתה שלך עכשיו</value>
-  </data>
-  <data name="final_enter_wallet" xml:space="preserve">
-    <value>גש למסמכים של סטודנטים מעולים מהכיתה שלך עכשיו</value>
-  </data>
-  <data name="final_only" xml:space="preserve">
-    <value>אתה במרחק של </value>
   </data>
   <data name="final_title" xml:space="preserve">
     <value>בואו נתחיל!</value>

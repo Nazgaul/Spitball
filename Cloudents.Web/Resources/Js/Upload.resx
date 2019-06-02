@@ -138,16 +138,6 @@
   <data name="multiple_files_header_title" xml:space="preserve">
     <value>Upload Files</value>
   </data>
-  <data name="multiple_files_type_exam" xml:space="preserve">
-    <value>Exam notes</value>
-  </data>
-  <data name="multiple_files_type_lecture" xml:space="preserve">
-    <value>Lecture notes</value>
-  </data>
-  <data name="multiple_files_type_textbook" xml:space="preserve">
-    <value>Textbook notes</value>
-    <comment>Ram Change</comment>
-  </data>
   <data name="multiple_confirm_btn_cancel" xml:space="preserve">
     <value>Resume</value>
   </data>

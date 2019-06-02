@@ -15,12 +15,12 @@
                 </v-flex>
                 <v-flex xs12 sm12 md12 class="text-xs-center text-sm-center pt-2">
                     <span class="body-2" v-language:inner>leaveReview_press_star</span>
-                    <span class="body-2 pl-1">{{tutorName}}</span>
+                    <span class="body-2 pl-1">{{nameTutor}}</span>
                 </v-flex>
             </v-layout>
             <v-layout align-center justify-center row wrap class="middle-layout-wrapper py-2 border-grey mx-5" :class="{'ltr-style': isRtl}">
                 <v-flex xs12 sm1 md1 shrink class="text-xs-center d-inline-flex image-container py-3 mr-4">
-                    <user-avatar class="tutor-img-wrap" size="54" :userImageUrl="tutorImage" :user-name="tutorName" :user-id="tutorId"/>
+                    <user-avatar class="tutor-img-wrap" size="54" :userImageUrl="tutorImg" :user-name="nameTutor" :user-id="tutorId"/>
                 </v-flex>
                 <v-flex xs12 sm4 md4 shrink>
                     <userRating :rating="rating"
@@ -101,20 +101,20 @@
             };
         },
         computed: {
-            ...mapGetters(['getActiveConversationObj', 'getReview', 'getStudyRoomData']),
-            tutorImage() {
-                if(this.getActiveConversationObj && this.getActiveConversationObj.image){
-                    return utilitiesService.proccessImageURL(this.getActiveConversationObj.image, 54, 54);
+            ...mapGetters(['getReview', 'getStudyRoomData']),
+            tutorImg() {
+                if(this.getStudyRoomData && this.getStudyRoomData.tutorImage){
+                    return utilitiesService.proccessImageURL(this.getStudyRoomData.tutorImage, 54, 54);
                 }else{
                     return ''
                 }
 
             },
             tutorId() {
-                return this.getActiveConversationObj && this.getActiveConversationObj.userId && this.getActiveConversationObj.userId;
+                return this.getStudyRoomData ?  this.getStudyRoomData.tutorId : ''
             },
-            tutorName() {
-                return this.getActiveConversationObj.name;
+            nameTutor() {
+                return this.getStudyRoomData.tutorName;
             },
             btnDisabled() {
                 return this.rating === 0;

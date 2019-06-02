@@ -117,13 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="newQuestion_error_minChars" xml:space="preserve">
-    <value>Enter at least 15 characters</value>
-  </data>
-  <data name="newQuestion_error_minSum" xml:space="preserve">
-    <value>Please select amount you want to pay</value>
-  </data>
-  <data name="newQuestion_error_pickSubject" xml:space="preserve">
-    <value>Pick a subject</value>
-  </data>
 </root>

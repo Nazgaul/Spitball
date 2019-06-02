@@ -27,7 +27,8 @@ const state = {
     currentRoomState: "pending",
     jwtToken: null,
     studentStartDialog: false,
-    tutorStartDialog: false
+    tutorStartDialog: false,
+    endDialog: false
 };
 const getters = {
     activeRoom: state => state.currentActiveRoom,
@@ -49,10 +50,15 @@ const getters = {
     getStudentStartDialog: state => state.studentStartDialog,
     getTutorStartDialog: state => state.tutorStartDialog,
     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
+    getEndDialog: state => state.endDialog,
     getSessionEndClicked: state => state.sessionEndClicked
 };
 
 const mutations = {
+    setEndDialog(state, val) {
+        state.endDialog = val;
+    },
+
     updateSessionClickedOnce(state, val) {
         state.sessionStartClickedOnce = val;
     },
@@ -124,6 +130,9 @@ const mutations = {
 };
 
 const actions = {
+    updateEndDialog({commit, state}, val){
+        commit('setEndDialog', val)
+    },
     setSesionClickedOnce({commit, state}, val) {
         commit('updateSessionClickedOnce', val);
     },
@@ -240,9 +249,13 @@ const actions = {
         let isTutor = state.studyRoomData.isTutor;
         commit('setJwtToken', token);
         if(!isTutor) {
-            dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
             //show student start se3ssion
-            dispatch("updateStudentStartDialog", true);
+            // SPITBALL-1197 Tutoring - Session stuck on start (fix)
+            setTimeout(()=>{
+                dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
+                dispatch("updateStudentStartDialog", true);
+            }, 3000)
+            
         }
     },
     signalR_ReleasePaymeStatus({commit, dispatch, state}) {

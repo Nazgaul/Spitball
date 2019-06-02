@@ -123,20 +123,11 @@
   <data name="buy_btn" xml:space="preserve">
     <value>שליחה והורדה</value>
   </data>
-  <data name="buy_full_btn" xml:space="preserve">
-    <value>רכוש לצפייה במסמך המלא</value>
-  </data>
   <data name="cancel" xml:space="preserve">
     <value>בטל</value>
   </data>
   <data name="doc_placeholder_text" xml:space="preserve">
     <value>תצוגה המקדימה תהיה זמינה בקרוב</value>
-  </data>
-  <data name="flashcard_beginText_start" xml:space="preserve">
-    <value>התחל</value>
-  </data>
-  <data name="flashcard_beginText_start_over" xml:space="preserve">
-    <value>התחל מחדש</value>
   </data>
   <data name="itemActions_buy" xml:space="preserve">
     <value>קבל גישה</value>
@@ -146,9 +137,6 @@
   </data>
   <data name="itemActions_title" xml:space="preserve">
     <value>הדפס</value>
-  </data>
-  <data name="item_by" xml:space="preserve">
-    <value>מאת:</value>
   </data>
   <data name="item_class" xml:space="preserve">
     <value>קורס</value>

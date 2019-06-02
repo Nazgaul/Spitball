@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 using NHibernate.Transform;
 
 namespace Cloudents.Query.Chat

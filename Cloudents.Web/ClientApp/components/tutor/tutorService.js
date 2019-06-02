@@ -1,3 +1,4 @@
+
 import Twilio, { connect, LocalDataTrack } from 'twilio-video';
 import { connectivityModule } from '../../services/connectivity.module';
 import { LanguageService } from '../../services/language/languageService';
@@ -5,7 +6,6 @@ import store from '../../store/index.js';
 import whiteBoardService from "./whiteboard/whiteBoardService";
 
 const dataTrack = new LocalDataTrack();
-
 const uploadCanvasImage = function (formData) {
     return connectivityModule.http.post("StudyRoom/upload", formData);
 };
@@ -71,6 +71,7 @@ const createAudioContext = function () {
             //console.log(Math.round(average - 40));
             //TODO fix style to class
             let micVolume = document.getElementById('micVolume_indicator');
+            if(!micVolume)return
             micVolume.style.backgroundColor = 'rgba(66, 224, 113, 0.8)';
             micVolume.style.height = '6px';
             micVolume.style.maxWidth = '150px';
@@ -106,8 +107,8 @@ const connectToRoom = function (token, options) {
     store.dispatch('leaveRoomIfJoined');
     Twilio.connect(token, options)
           .then((room) => {
-                    // add microphone indicator
-                    createAudioContext();
+                    // add microphone indicator, comment if not in use, otherwise will throw errors cause cant get element
+                    // createAudioContext();
                     store.dispatch('updateRoomInstance', room);
                     console.log('Successfully joined a Room: ', room);
                     store.dispatch('updateRoomLoading', false);
@@ -164,6 +165,7 @@ const connectToRoom = function (token, options) {
                             type: 'error-toaster'
                         };
                         store.dispatch('showRoomToasterMessage', toasterParams);
+                        store.dispatch('updateEndDialog', false);
                         //detach all local tracks to prevent multiple added tracks
                         store.getters['activeRoom'].localParticipant.tracks.forEach(function(track) {
                             detachTracks([track]);
@@ -267,6 +269,7 @@ function RoomProps(ObjInit) {
     this.allowReview = ObjInit.allowReview;
     this.needPayment = ObjInit.needPayment;
     this.studentId = ObjInit.studentId || null;
+    this.tutorId = ObjInit.tutorId || null;
     this.studentImage = ObjInit.studentImage || null;
     this.tutorImage = ObjInit.tutorImage || null;
     this.studentName = ObjInit.studentName || null;

@@ -65,12 +65,12 @@ namespace Cloudents.Identity
 
         public Task<string> GetNormalizedUserNameAsync(RegularUser user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.NormalizedName);
+            return Task.FromResult(user.Name.ToUpperInvariant());
         }
 
         public Task SetNormalizedUserNameAsync(RegularUser user, string normalizedName, CancellationToken cancellationToken)
         {
-            user.NormalizedName = normalizedName;
+            //user.NormalizedName = normalizedName;
             return Task.CompletedTask;
         }
 
@@ -115,7 +115,7 @@ namespace Cloudents.Identity
 
         public async Task<RegularUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            Expression<Func<RegularUser, bool>> expression = s => s.NormalizedName == normalizedUserName;
+            Expression<Func<RegularUser, bool>> expression = s => s.Name == normalizedUserName;
             //return await _session.Query<RegularUser>().FirstOrDefaultAsync(w => w.NormalizedName == normalizedUserName, cancellationToken: cancellationToken);
             return await _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
         }

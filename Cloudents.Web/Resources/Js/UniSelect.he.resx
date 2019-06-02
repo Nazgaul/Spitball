@@ -117,32 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="add_class" xml:space="preserve">
-    <value>צור קורס</value>
-  </data>
-  <data name="add_new_class" xml:space="preserve">
-    <value>הוסף קורס חדש</value>
-  </data>
-  <data name="add_new_university" xml:space="preserve">
-    <value>הוסף אוניברסיטה חדשה</value>
-  </data>
-  <data name="add_university" xml:space="preserve">
-    <value>צור אוניברסיטה</value>
-  </data>
-  <data name="changing_school_question" xml:space="preserve">
-    <value>משנה מוסד לימודים?</value>
-  </data>
-  <data name="class_length_error" xml:space="preserve">
-    <value>חייב להיות יותר משלושה תווים</value>
-  </data>
   <data name="create" xml:space="preserve">
     <value>צור</value>
-  </data>
-  <data name="didnt_find_class" xml:space="preserve">
-    <value>לא מצאת קורס? הוסף כאן</value>
-  </data>
-  <data name="didnt_find_university" xml:space="preserve">
-    <value>לא מצאת אוניברסיטה? הוסף כאן</value>
   </data>
   <data name="done" xml:space="preserve">
     <value>סיים</value>
@@ -150,20 +126,11 @@
   <data name="from" xml:space="preserve">
     <value>ממוסד הלימודים</value>
   </data>
-  <data name="got_it" xml:space="preserve">
-    <value>הבנתי!</value>
-  </data>
-  <data name="keep_school" xml:space="preserve">
-    <value>שמור מוסד לימודים נוכחי</value>
-  </data>
   <data name="keep_typing" xml:space="preserve">
     <value>המשך להקליד אנו מחפשים בשבילך</value>
   </data>
   <data name="next" xml:space="preserve">
     <value>הבא</value>
-  </data>
-  <data name="no_worries" xml:space="preserve">
-    <value>אל דאגה :)</value>
   </data>
   <data name="pop_later" xml:space="preserve">
     <value>לא עכשיו</value>
@@ -174,47 +141,16 @@
   <data name="pop_set_school" xml:space="preserve">
     <value>הגדר את מוסד הלימודים והקורסים שלך</value>
   </data>
-  <data name="school_desc" xml:space="preserve">
-    <value>
-וכל הקורסים שבחרת יימחקו</value>
-  </data>
   <data name="select_class" xml:space="preserve">
     <value>בחר קורס</value>
   </data>
   <data name="select_school" xml:space="preserve">
     <value>בחר מוסד לימודים</value>
   </data>
-  <data name="select_school_any_time" xml:space="preserve">
-    <value>באפשרותך להגדיר מוסד לימודים וקורסים בכל עת בתפריט הצד</value>
-  </data>
-  <data name="select_school_now" xml:space="preserve">
-    <value>הגדר עכשיו</value>
-  </data>
   <data name="select_school_placeholder" xml:space="preserve">
     <value>בחר את מוסד הלימודים שלך</value>
   </data>
-  <data name="set_school_class" xml:space="preserve">
-    <value>הגדר את מוסד הלימודים והקורסים שלך</value>
-  </data>
-  <data name="set_school_class_explain" xml:space="preserve">
-    <value>על ידי הגדרות אלו, יוצגו השאלות הרלוונטיות ביותר וחומרי הלימוד המתאימים ביותר למוסד הלימודים והקורסים שלך</value>
-  </data>
   <data name="show_all_schools" xml:space="preserve">
     <value>הצג את כל מוסדות הלימודים</value>
-  </data>
-  <data name="skip_for_now" xml:space="preserve">
-    <value>דלג בינתיים</value>
-  </data>
-  <data name="type_class_name_placeholder" xml:space="preserve">
-    <value>הקלד את שם הקורס</value>
-  </data>
-  <data name="type_school_name_placeholder" xml:space="preserve">
-    <value>הקלד את שם מוסד הלימודים בו אתה לומד</value>
-  </data>
-  <data name="university_length_error" xml:space="preserve">
-    <value>חייב להיות יותר מעשרה תווים</value>
-  </data>
-  <data name="yes_change" xml:space="preserve">
-    <value>כן, שנה מוסד לימודים</value>
   </data>
 </root>
