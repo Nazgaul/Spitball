@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Admin2.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
 
@@ -28,7 +29,7 @@ namespace Cloudents.Admin2.Controllers
         }
 
 
-        [Route("document/download/{id:long}", Name = "DocumentDownload"), ApiExplorerSettings(IgnoreApi = true)]
+        [Route("document/download/{id:long}", Name = "DocumentDownload")]
         public async Task<IActionResult> DownloadDocument(long id, [FromServices] IQueryBus queryBus,
             [FromServices] IDocumentDirectoryBlobProvider blobProvider,
             [FromServices] IBlobProvider blobProvider2,

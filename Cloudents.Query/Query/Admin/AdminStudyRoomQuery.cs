@@ -23,20 +23,23 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<StudyRoomDto>> GetAsync(AdminStudyRoomQuery query, CancellationToken token)
             {
-                var sql = @"Select	U1.[name] TutorName, 
-		                            U2.[Name] UserName, 
+                var sql = @"Select	T.[name] TutorName, 
+		                            U.[Name] UserName, 
 		                            S.created Created, 
-		                            datediff(minute, S.[Created],S.ended) Duration
+		                            datediff(minute, S.[Created],S.ended) Duration,
+		                            R.TutorId
                             from [sb].[StudyRoomSession] S 
                             join [sb].[StudyRoom] R
 	                            on S.Studyroomid=R.id
-                            Join sb.[User] U1 
-	                            on U1.id=Left (Identifier, CHARINDEX('_', Identifier)-1)
-                            Join Sb.[user] U2 
-	                            on U2.id=Right (Identifier, len(Identifier)-CHARINDEX('_', Identifier))
+                            Join sb.[User] T 
+	                            on T.Id = R.TutorId
+                            join sb.StudyRoomUser sru
+	                            on sru.StudyRoomId = R.Id and sru.UserId != T.Id
+                            Join Sb.[user] u
+	                            on sru.UserId = U.Id
                             where S.Ended is not null 
-                            and U1.email not like '%cloudents%'
-                            and U1.email not like '%spitball%'
+                            and U.email not like '%cloudents%'
+                            and U.email not like '%spitball%'
                             order by S.created desc, S.Id";
 
                 using (var connection = _dapper.OpenConnection())

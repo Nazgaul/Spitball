@@ -28,16 +28,23 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<SessionDto>> GetAsync(AdminSessionsQuery query, CancellationToken token)
             {
-                const string sql = @"Select cast (S.created as date) as Created, U1.[name] As 'Tutor', U2.[Name] As 'Student', 
-		sum (datediff(minute, S.[Created],S.ended)) as Duration
-	 from [sb].[StudyRoomSession] S join [sb].[StudyRoom] R
-		on S.Studyroomid=R.id
-		Join sb.[User] U1 on U1.id=Left (Identifier, CHARINDEX('_', Identifier)-1)
-		Join Sb.[user] U2 on U2.id=Right (Identifier, len(Identifier)-CHARINDEX('_', Identifier))
-		where S.Ended is not null 
-		and (u1.Id = @UserId or u2.Id = @UserId)
-	group by U1.[name], U2.[Name] , cast (S.created as date) 
-	order by cast (S.created as date) desc";
+                const string sql = @"select cast (S.created as date) as Created,
+		                                    sum (datediff(minute, S.[Created],S.ended)) as Duration,
+		                                    T.Name as Tutor,
+		                                    U.Name as Student
+                                    from [sb].[StudyRoomSession] S 
+                                    join [sb].[StudyRoom] R
+	                                    on S.Studyroomid=R.id
+                                    join sb.[user] T 
+	                                    on T.Id = R.TutorId
+                                    join sb.StudyRoomUser sru
+	                                    on sru.StudyRoomId = R.Id and sru.UserId != T.Id
+                                    join sb.[user] u
+	                                    on sru.UserId = U.Id
+                                    where S.Ended is not null 
+                                    group by cast (S.created as date),T.Name,
+		                                    U.Name
+                                    order by cast (S.created as date) desc;";
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<SessionDto>(sql, new { query.UserId});
