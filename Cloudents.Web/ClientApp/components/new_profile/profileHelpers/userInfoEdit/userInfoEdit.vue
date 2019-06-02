@@ -47,7 +47,7 @@
                 </v-btn>
             </v-flex>
             <v-flex xs5 sm2 md2 :class="{'mr-3': $vuetify.breakpoint.smAndUp}">
-                <v-btn class="blue-btn  ml-0" round @click="saveChanges()">
+                <v-btn class="blue-btn  ml-0" round @click="saveChanges()" :loading="btnLoading">
                     <span v-language:inner>profile_btn_save_changes</span>
                 </v-btn>
             </v-flex>
@@ -75,6 +75,7 @@
                     maximumChars:(value)=>  validationRules.maximumChars(value, 255)
                 },
                 validUserForm: false,
+                btnLoading: false
 
             }
         },
@@ -115,9 +116,11 @@
                         // description: this.editedDescription || this.userDescription spitball-712
                         description: this.editedDescription
                     };
+                    this.btnLoading = true;
                     accountService.saveUserInfo(editsData).then((success) => {
                         this.updateEditedProfile(editsData);
-                        this.closeDialog()
+                        this.btnLoading = false;
+                        this.closeDialog();
                     })
                 }
             },
