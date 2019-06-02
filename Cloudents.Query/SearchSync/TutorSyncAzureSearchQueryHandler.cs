@@ -10,15 +10,23 @@ using Dapper;
 
 namespace Cloudents.Query.SearchSync
 {
-    public class TutorSyncAzureSearchQuery : SyncAzureQuery, IQuery<SearchWrapperDto<TutorSearchDto>>
+    public class TutorSyncAzureSearchQuery :  IQuery<SearchWrapperDto<TutorSearchDto>>
 
     {
-        public TutorSyncAzureSearchQuery(long version, int page, byte[] rowVersion) : base(version, page)
+        public TutorSyncAzureSearchQuery(long version, byte[] rowVersion)
         {
+            Version = version;
             RowVersion = rowVersion;
         }
 
-        private byte[] RowVersion { get; }
+        protected TutorSyncAzureSearchQuery()
+        {
+
+        }
+
+        private byte[] RowVersion { get; set; }
+
+        private long Version { get; set; }
 
 
         internal sealed class TutorSyncAzureSearchQueryHandler : IQueryHandler<TutorSyncAzureSearchQuery, SearchWrapperDto<TutorSearchDto>>
@@ -41,6 +49,7 @@ group by t.TutorId
 Select  
 u.id as Id,
 u.Name,
+u.Country,
 t.Bio,
 u.Image,
 T.Price,
@@ -73,6 +82,7 @@ group by t.TutorId
 Select  
 COALESCE(u.id,cTable.id ) as UserId,
 u.Name,
+u.Country,
 t.Bio,
 u.Image,
 T.Price, 

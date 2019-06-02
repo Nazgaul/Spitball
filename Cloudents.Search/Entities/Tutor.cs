@@ -1,38 +1,35 @@
-﻿//using System;
-//using Cloudents.Core.Enum;
-//using Cloudents.Search.Interfaces;
-//using Microsoft.Spatial;
+﻿using System;
+using Cloudents.Search.Interfaces;
+using Microsoft.Azure.Search;
 
-//namespace Cloudents.Search.Entities
-//{
-//    public class Tutor : ISearchObject
-//    {
-//        public string Id { get; set; }
+namespace Cloudents.Search.Entities
+{
+    public class Tutor : ISearchObject
+    {
+        [System.ComponentModel.DataAnnotations.Key]
+        public string Id { get; set; }
 
-//        public string Name { get; set; }
+        [IsSearchable]
+        public string Name { get; set; }
+        [IsSearchable]
+        public string Bio { get; set; }
+        public string Image { get; set; }
+        public double Price { get; set; }
+        public double Rate { get; set; }
+        public int ReviewCount { get; set; }
 
-//        public string Image { get; set; }
+        [IsFilterable]
+        public DateTime? InsertDate { get; set; }
+        [IsSearchable]
+        public string[] Courses { get; set; }
 
-//        public string Url { get; set; }
+        [IsSearchable]
+        public string[] Prefix { get; set; }
 
-//        public string Description { get; set; }
+        [IsSearchable]
+        public string[] Subjects { get; set; }
+        [IsFilterable]
+        public string Country { get; set; }
 
-//        public string City { get; set; }
-
-//        public string State { get; set; }
-
-//        public GeographyPoint Location { get; set; }
-
-//        public double Fee { get; set; }
-
-
-
-//        public TutorFilter TutorFilter { get; set; }
-
-//        public DateTime? InsertDate { get; set; }
-
-//        public string[] Extra { get; set; }
-
-//        public string Source { get; set; }
-//    }
-//}
+    }
+}
