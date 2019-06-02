@@ -6,7 +6,7 @@ import StudyDocumentsComponent from './components/results/StudyDocuments/StudyDo
 import TutorsComponent from './components/results/Tutors/Tutors.vue';
 
 import pageHeader from './components/header/header.vue';
-import landingPage from './components/landingPage/landingPage.vue';
+
 import schoolBlock from './components/schoolBlock/schoolBlock.vue';
 import verticalsTabs from './components/header/verticalsTabs.vue';
 import { staticRoutes } from "./components/satellite/satellite-routes";
@@ -33,6 +33,12 @@ const addUniversity = () => import("./components/university/addUniversity/addUni
 const tutorComponent = () => import("./components/tutor/tutor.vue");
 const studyRoomsComponent = () => import("./components/studyRooms/studyRooms.vue");
 const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.vue");
+
+import landingPage from './components/landingPage/landingPage.vue';
+import FindTutor from './components/landingPage/pages/FindTutor.vue'
+import HowItWorks from "./components/landingPage/pages/HowItWorks.vue";
+import BecomeTutor from "./components/landingPage/pages/BecomeTutor.vue";
+
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -99,12 +105,31 @@ let routes2 = [
     {
         path: "/",
         name: "main",
+        redirect:'/l',
+    },
+    {
+        path: "/l",
+        name: "landingPage",
+        redirect:'/l/find-tutor',
         components: {
             default: landingPage,
-
         },
-
+        children:[
+            {
+                path: 'find-tutor',
+                component: FindTutor
+            },
+            {
+                path: 'how-it-works',
+                component: HowItWorks
+            },
+            {
+                path: 'become-tutor',
+                component: BecomeTutor
+            },
+        ]
     },
+    
     // {
     //     path: "/result",
     //     name: "result",

@@ -449,6 +449,7 @@ global.isMobileAgent = function () {
 sync(store, router);
 utilitiesService.init();
 
+
 Vue.use(VueAppInsights, {
     appInsights: global.appInsights,
     router

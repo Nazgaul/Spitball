@@ -58,6 +58,7 @@
     "vue-jest": "^2.0.0",
     "vue-line-clamp": "^1.2.4",
     "vue-loader": "^13.3.0",
+    "vue-mathjax": "0.0.6",
     "vue-plugin-load-script": "^1.2.0",
     "vue-recaptcha": "^1.1.1",
     "vue-router": "^3.0.1",
@@ -79,8 +80,7 @@
     "webpack-merge": "4.1.1",
     "webpack-rtl-plugin": "1.8.2",
     "webpack-stats-plugin": "0.1.5",
-    "webpack-visualizer-plugin": "0.1.11",
-    "vue-mathjax": "0.0.6"
+    "webpack-visualizer-plugin": "0.1.11"
   },
   "jest": {
     "transform": {
