@@ -26,6 +26,7 @@ function UserInfo(objInit) {
     this.referredCount = {value: objInit.referredCount || 0, label: 'People Referred'};
     this.balance = {value: objInit.balance || 0, label: 'Balance'};
     this.status = {value: objInit.isActive ? false : true, label: 'Suspended'};
+    this.lockoutReason = { value: objInit.lockoutReason ? objInit.lockoutReason : '', label: 'Lockout Reason' };
     this.wasSuspended = { value: objInit.wasSuspended ? true : false, label: 'Was Suspended' };
     if (objInit.joined !== null) {
         this.joined =
