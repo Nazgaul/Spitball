@@ -44,8 +44,11 @@ cte.rate as Rate,
 t.Bio,
 cte.rateCount as ReviewsCount
 from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
+<<<<<<< HEAD
 where t.State = 'Ok'
-and u.Country = @Country or @Country = null
+=======
+where u.Country = @Country or @Country = null
+>>>>>>> feature-tutorByCountry
 order by
 cte.rate desc,
  u.id
