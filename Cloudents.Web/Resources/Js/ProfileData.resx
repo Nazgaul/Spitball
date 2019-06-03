@@ -131,15 +131,9 @@
     <value>We've emailed you a new password
 reset instructions.</value>
   </data>
-  <data name="generalProfile_register_stepFive_boldTextOne" xml:space="preserve">
-    <value>Enter the confirmation code</value>
-  </data>
   <data name="generalProfile_register_stepFive_heading" xml:space="preserve">
     <value>Enter the confirmation code
  We sent the code to you by SMS</value>
-  </data>
-  <data name="generalProfile_register_stepFour_boldTextOne" xml:space="preserve">
-    <value>Enter your phone number</value>
   </data>
   <data name="generalProfile_register_stepFour_heading" xml:space="preserve">
     <value>Enter your phone number
@@ -151,12 +145,6 @@ reset instructions.</value>
   <data name="generalProfile_register_stepNine_heading" xml:space="preserve">
     <value>Enter new &lt;b&gt;password&lt;/b&gt;</value>
   </data>
-  <data name="generalProfile_register_stepOne_boldTextOne" xml:space="preserve">
-    <value>instant help</value>
-  </data>
-  <data name="generalProfile_register_stepOne_boldTextTwo" xml:space="preserve">
-    <value>make money</value>
-  </data>
   <data name="generalProfile_register_stepOne_heading" xml:space="preserve">
     <value>Ask Questions &amp; receive instant help 
  or 
@@ -167,9 +155,6 @@ reset instructions.</value>
   </data>
   <data name="generalProfile_register_stepSeven_heading" xml:space="preserve">
     <value>&lt;b&gt;Welcome back&lt;/b&gt;&lt;br/&gt; please login</value>
-  </data>
-  <data name="generalProfile_register_stepSix_boldTextOne" xml:space="preserve">
-    <value>100 Pts</value>
   </data>
   <data name="generalProfile_register_stepSix_heading" xml:space="preserve">
     <value>CONGRATS!</value>
@@ -199,19 +184,10 @@ questions, or redeem your points for GiftCards.</value>
   <data name="generalProfile_register_stepTen_resettxt" xml:space="preserve">
     <value>Reset your &lt;b&gt;password&lt;/b&gt;</value>
   </data>
-  <data name="generalProfile_register_stepThree_boldTextOne" xml:space="preserve">
-    <value>activate your account</value>
-  </data>
   <data name="generalProfile_register_stepThree_heading" xml:space="preserve">
     <value>Check your email to activate your account</value>
   </data>
-  <data name="generalProfile_register_stepTwo_boldTextOne" xml:space="preserve">
-    <value>contact you.</value>
-  </data>
   <data name="generalProfile_register_stepTwo_heading" xml:space="preserve">
-    <value>We need to know how to contact you</value>
-  </data>
-  <data name="generalProfile_register_stepTwo_text" xml:space="preserve">
     <value>We need to know how to contact you</value>
   </data>
   <data name="HHP_modal_heading" xml:space="preserve">
@@ -221,18 +197,12 @@ questions, or redeem your points for GiftCards.</value>
   <data name="HHP_modal_text" xml:space="preserve">
     <value>You are only a couple clicks away from learning and earning with Spitball.</value>
   </data>
-  <data name="HHP_register_stepEight_boldText" xml:space="preserve">
-    <value>email</value>
-  </data>
   <data name="HHP_register_stepEight_heading" xml:space="preserve">
     <value>Check your &lt;b&gt;email&lt;/b&gt;</value>
   </data>
   <data name="HHP_register_stepEight_text" xml:space="preserve">
     <value>We've emailed you a new password
 reset instructions.</value>
-  </data>
-  <data name="HHP_register_stepFive_boldTextOne" xml:space="preserve">
-    <value>Enter the confirmation code</value>
   </data>
   <data name="HHP_register_stepFive_heading" xml:space="preserve">
     <value>Enter the confirmation code
@@ -248,9 +218,6 @@ reset instructions.</value>
   <data name="HHP_register_stepNine_heading" xml:space="preserve">
     <value>Enter new &lt;b&gt;password&lt;/b&gt;</value>
   </data>
-  <data name="HHP_register_stepOne_boldTextOne" xml:space="preserve">
-    <value>for FREE</value>
-  </data>
   <data name="HHP_register_stepOne_heading" xml:space="preserve">
     <value>Get instant Homework Help, for FREE</value>
   </data>
@@ -259,9 +226,6 @@ reset instructions.</value>
   </data>
   <data name="HHP_register_stepSeven_heading" xml:space="preserve">
     <value>&lt;b&gt;Welcome back&lt;/b&gt;&lt;br/&gt; please login</value>
-  </data>
-  <data name="HHP_register_stepSix_boldTextOne" xml:space="preserve">
-    <value>100 Pts</value>
   </data>
   <data name="HHP_register_stepSix_heading" xml:space="preserve">
     <value>CONGRATS!</value>
@@ -289,14 +253,8 @@ reset instructions.</value>
   <data name="HHP_register_stepTen_resettxt" xml:space="preserve">
     <value>Reset your &lt;b&gt;password&lt;/b&gt;</value>
   </data>
-  <data name="HHP_register_stepThree_boldTextOne" xml:space="preserve">
-    <value>activate your account</value>
-  </data>
   <data name="HHP_register_stepThree_heading" xml:space="preserve">
     <value>Check your email to activate your account</value>
-  </data>
-  <data name="HHP_register_stepTwo_boldTextOne" xml:space="preserve">
-    <value>contact you.</value>
   </data>
   <data name="HHP_register_stepTwo_heading" xml:space="preserve">
     <value>We need to know how to contact you</value>
@@ -315,9 +273,6 @@ reset instructions.</value>
     <value>We've emailed you a new password
 reset instructions.</value>
   </data>
-  <data name="makeMoneyProfile_register_stepFive_boldTextOne" xml:space="preserve">
-    <value>Enter the confirmation code</value>
-  </data>
   <data name="makeMoneyProfile_register_stepFive_heading" xml:space="preserve">
     <value>Enter the confirmation code
  We sent the code to you by SMS</value>
@@ -332,29 +287,14 @@ reset instructions.</value>
   <data name="makeMoneyProfile_register_stepNine_heading" xml:space="preserve">
     <value>Enter new &lt;b&gt;password&lt;/b&gt;</value>
   </data>
-  <data name="makeMoneyProfile_register_stepOne_boldTextOne" xml:space="preserve">
-    <value>Make money</value>
-  </data>
   <data name="makeMoneyProfile_register_stepOne_heading" xml:space="preserve">
     <value>&lt;b&gt;Make money&lt;/b&gt;&lt;br/&gt; while helping  others with their homework.</value>
-  </data>
-  <data name="makeMoneyProfile_register_stepOne_headinmakeMoneyProfile_register_stepOne_heading" xml:space="preserve">
-    <value>Make money
- while helping
- others with 
- their homework.</value>
   </data>
   <data name="makeMoneyProfile_register_stepOne_text" xml:space="preserve">
     <value>Start with your email. We need to know how to contact you</value>
   </data>
   <data name="makeMoneyProfile_register_stepSeven_heading" xml:space="preserve">
     <value>&lt;b&gt;Welcome back&lt;/b&gt;&lt;br/&gt; please login</value>
-  </data>
-  <data name="makeMoneyProfile_register_stepSix_boldTextOne" xml:space="preserve">
-    <value>100 Pts</value>
-  </data>
-  <data name="makeMoneyProfile_register_stepSix_boldTextTwo" xml:space="preserve">
-    <value>making money!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_heading" xml:space="preserve">
     <value>CONGRATS!</value>
@@ -381,14 +321,8 @@ and classes for the best possible experience!</value>
   <data name="makeMoneyProfile_register_stepTen_resetbtn" xml:space="preserve">
     <value>Reset password</value>
   </data>
-  <data name="makeMoneyProfile_register_stepThree_boldTextOne" xml:space="preserve">
-    <value>activate your account</value>
-  </data>
   <data name="makeMoneyProfile_register_stepThree_heading" xml:space="preserve">
     <value>Check your email to activate your account</value>
-  </data>
-  <data name="makeMoneyProfile_register_stepTwo_boldTextOne" xml:space="preserve">
-    <value>contact you.</value>
   </data>
   <data name="makeMoneyProfile_register_stepTwo_heading" xml:space="preserve">
     <value>We need to know how to contact you</value>

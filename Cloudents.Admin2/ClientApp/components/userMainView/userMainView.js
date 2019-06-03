@@ -148,7 +148,7 @@ export default {
                         //clean id from url if not valid and nopthing reterned from server
                         self.$router.push({name: 'userMainView', params: {userId: ''}});
                     }
-                }, (err) => {
+                }, () => {
                     if(id > 0 || this.userIdentifier != '')
                     {
                         self.$toaster.error(`Error can't fined user with given identifier`);

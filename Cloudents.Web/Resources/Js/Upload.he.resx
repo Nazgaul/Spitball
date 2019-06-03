@@ -183,16 +183,6 @@
   <data name="multiple_files_type_default" xml:space="preserve">
     <value>סוג המסמך</value>
   </data>
-  <data name="multiple_files_type_exam" xml:space="preserve">
-    <value>פתרון מבחן</value>
-  </data>
-  <data name="multiple_files_type_lecture" xml:space="preserve">
-    <value>סיכום הרצאה</value>
-  </data>
-  <data name="multiple_files_type_textbook" xml:space="preserve">
-    <value>ספר לימוד</value>
-    <comment>Ram Change</comment>
-  </data>
   <data name="multiple_help_and_make" xml:space="preserve">
     <value>אתה על הגל, עכשיו עזור לחברים לספסל הלימודים (ותרוויח נקודות) על ידי שיתוף הקישור למסמך זה.</value>
   </data>
@@ -201,6 +191,12 @@
   </data>
   <data name="multiple_label_icon_text" xml:space="preserve">
     <value>מעלה לקורס</value>
+  </data>
+  <data name="multiple_legal one" xml:space="preserve">
+    <value>בהעלאת החומר אני מסכים ל-</value>
+  </data>
+  <data name="multiple_legal two_terms_conditions" xml:space="preserve">
+    <value>תנאי השירות של ספיטבול</value>
   </data>
   <data name="multiple_legal_text" xml:space="preserve">
     <value>העלאת מסמכי לימוד כרוכה בהסכמה לתנאי השירות שלנו</value>

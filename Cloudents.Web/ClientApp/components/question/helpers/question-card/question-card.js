@@ -34,7 +34,7 @@ export default {
         },
         suggestion: {
             type: Boolean,
-            default: false,
+            default: false
         },
         isApproved: {
             type: Boolean,
@@ -79,12 +79,12 @@ export default {
             selectedImage: '',
             showDialog: false,
             isFirefox: false,
-            isRtl: global.isRtl,
-        }
+            isRtl: global.isRtl
+        };
     },
     computed: {
         gallery() {
-            return this.cardData.files
+            return this.cardData.files;
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
@@ -101,17 +101,17 @@ export default {
             }
         },
         flaggedAsCorrect() {
-            return this.isCorrectAnswer || this.localMarkedAsCorrect
+            return this.isCorrectAnswer || this.localMarkedAsCorrect;
         },
         isSold() {
-            return !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId
+            return !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId;
         },
         cardTime() {
-            return this.cardData.dateTime || this.cardData.create
+            return this.cardData.dateTime || this.cardData.create;
         },
         cardAnswers() {
-            return this.cardData.answers
-        },
+            return this.cardData.answers;
+        }
     },
     methods: {
         ...mapActions({
@@ -134,15 +134,15 @@ export default {
         },
         isDeleteDisabled(){
             let isDeleteble = this.canDelete();
-            return !isDeleteble
+            return !isDeleteble;
 
         },
         isDisabled() {
-            let isOwner, account, notEnough;
+            let isOwner, account;
             isOwner = this.cardOwner();
             account = this.accountUser();
-            if (isOwner || !account || notEnough) {
-                return true
+            if (isOwner || !account) {
+                return true;
             }
         },
         reportItem() {
@@ -158,7 +158,7 @@ export default {
             this.showReport = !this.showReport;
         },
         closeReportDialog() {
-            this.showReport = false
+            this.showReport = false;
         },
         isAuthUser() {
             let user = this.accountUser();
@@ -190,7 +190,7 @@ export default {
                 let data = {
                     type,
                     id: this.cardData.id
-                }
+                };
                 this.answerVote(data);
             }
         },
@@ -206,7 +206,7 @@ export default {
 
         canDelete() {
            let isOwner = this.cardOwner();
-           return !this.flaggedAsCorrect && isOwner
+           return !this.flaggedAsCorrect && isOwner;
 
         },
         markAsCorrect() {
@@ -215,7 +215,7 @@ export default {
         },
         deleteQuestion() {
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
-                .then((success) => {
+                .then(() => {
                         this.updateToasterParams({
                             toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
                             showToaster: true,
@@ -223,11 +223,11 @@ export default {
                         if (!this.typeAnswer) {
                             let objToDelete = {
                                 id: parseInt(this.$route.params.id)
-                            }
+                            };
                             this.$ga.event("Delete_question", "Homework help");
                             //ToDO change to router link use and not text URL
-                            this.removeQuestionItemAction(objToDelete)
-                            this.$router.push('/ask')
+                            this.removeQuestionItemAction(objToDelete);
+                            this.$router.push('/ask');
                         } else {
                             //emit to root to update array of answers
                             this.$ga.event("Delete_answer", "Homework help");
@@ -240,11 +240,8 @@ export default {
                                 }
                             };
                             this.manualAnswerRemove(answerToRemove);
-                            this.isDeleted = true
+                            this.isDeleted = true;
                         }
-                    },
-                    (error) => {
-                        console.error(error)
                     }
                 );
         },
@@ -277,12 +274,12 @@ export default {
         this.getQuestionColor();
     },
     mounted() {
-        this.renderQuestionTime('.timeago')
+        this.renderQuestionTime('.timeago');
         // use render method to render nodes in real time
     },
     updated() {
         // when signalR adds a question we want the time to be rerendered to show correct time
         // thats why we have same function on mounted and updated
-        this.renderQuestionTime('.timeago')
+        this.renderQuestionTime('.timeago');
     },
 }

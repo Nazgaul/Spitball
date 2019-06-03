@@ -48,11 +48,9 @@
             <sb-dialog :isPersistent="true"
                        :showDialog="newQuestionDialogSate"
                        :popUpType="'newQuestion'"
-                       :max-width="'500px'"
-                       :content-class="'newQuestionDialog'">
-                
+                       :max-width="'640px'"
+                       :content-class="'question-request-dialog'">
                 <Add-Question></Add-Question>
-                <!-- <New-Question></New-Question> -->
             </sb-dialog>
             <sb-dialog :isPersistent="true"
                        :showDialog="getRequestTutorDialog"
@@ -61,11 +59,11 @@
                        :content-class="'tutor-request-dialog'">
                 <tutor-request></tutor-request>
             </sb-dialog>
-            <sb-dialog :showDialog="newIsraeliUser"
+            <!-- <sb-dialog :showDialog="newIsraeliUser"
                        :popUpType="'newIsraeliUserDialog'"
                        :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
                 <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
-            </sb-dialog>
+            </sb-dialog> -->
             <sb-dialog :showDialog="getDialogState"
                        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                        :popUpType="'uploadDialog'"
@@ -90,13 +88,13 @@
 
 
 
-            <sb-dialog :showDialog="getOnBoardState"
+            <!-- <sb-dialog :showDialog="getOnBoardState"
                        :popUpType="'onBoardGuide'"
                        :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
                        :maxWidth="'1280px'"
                        :isPersistent="$vuetify.breakpoint.smAndUp">
                 <board-guide></board-guide>
-            </sb-dialog>
+            </sb-dialog> -->
 
             <sb-dialog :showDialog="newBallerDialog"
                        :popUpType="'newBallerDialog'"
@@ -135,20 +133,21 @@
 import { mapGetters, mapActions } from "vuex";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
-import AddQuestion from "../question/addQuestion/addQuestion.vue";
+// import AddQuestion from "../question/addQuestion/addQuestion.vue";
+import AddQuestion from "../question/askQuestion/askQuestion.vue";
 import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
 import newBaller from "../helpers/newBaller/newBaller.vue";
 import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
 import tourService from "../../services/tourService";
 import walletService from "../../services/walletService";
-import uniSelectPop from "../helpers/uni-select-popup/uniSelectPop.vue";
+//import uniSelectPop from "../helpers/uni-select-popup/uniSelectPop.vue";
 // import uniSelect from "../helpers/uni-select-popup/uniSelect.vue";
-import newIsraeliPop from "../dialogs/israeli-pop/newIsraeliPop.vue";
+//import newIsraeliPop from "../dialogs/israeli-pop/newIsraeliPop.vue";
 import reportItem from "../results/helpers/reportItem/reportItem.vue";
 import mobileFooter from "../footer/mobileFooter/mobileFooter.vue";
 import marketingBox from "../helpers/marketingBox/marketingBox.vue";
-import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
-import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
+//import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
+//import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
 import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
@@ -159,15 +158,15 @@ export default {
     AddQuestion,
     sbDialog,
     loginToAnswer,
-    uniSelectPop,
+    //uniSelectPop,
     // uniSelect,
     chatComponent,
-    newIsraeliPop,
+    //newIsraeliPop,
     reportItem,
     mobileFooter,
     marketingBox,
-    leadersBoard,
-    boardGuide,
+    //leadersBoard,
+    //boardGuide,
     uploadMultipleFiles,
     buyTokens,
     newBaller,
@@ -177,11 +176,11 @@ export default {
   },
   data() {
     return {
-      acceptIsraeli: true,
+     // acceptIsraeli: true,
       isRtl: global.isRtl,
       //toasterTimeout: 5000,
       hideFooter: false,
-      showOnBoardGuide: true,
+     // showOnBoardGuide: true,
       showBuyTokensDialog: false,
       toasterTimeoutObj: null,
       tourObject: {
@@ -213,7 +212,7 @@ export default {
       "showMobileFeed",
       "HomeworkHelp_isDataLoaded",
       "StudyDocuments_isDataLoaded",
-      "getOnBoardState",
+     
       "getShowBuyDialog",
       "getShowPayMeToaster",
       "getCurrentStep",
@@ -247,11 +246,6 @@ export default {
     },
     showLeadersMobile() {
       return this.$vuetify.breakpoint.smAndDown && this.showLeaderBoard;
-    },
-
-    newIsraeliUser() {
-      return false;
-      // return !this.accountUser && global.country.toLowerCase() === "il" && !this.acceptIsraeli && (this.$route.path.indexOf("ask") > -1 || this.$route.path.indexOf("note") > -1);
     }
   },
   updated: function() {
@@ -307,7 +301,8 @@ export default {
       "updateShowPayMeToaster",
       "updateCurrentStep",
       "changeSelectUniState",
-      "updateRequestDialog"
+      "updateRequestDialog",
+      "openChat"
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
     enterPayme(){
@@ -341,10 +336,10 @@ export default {
     setUploadDialogState() {
       this.updateDialogState(false);
     },
-    closeNewIsraeli() {
-      //the set to the local storage happens in the component itself
-      this.acceptIsraeli = true;
-    },
+    // closeNewIsraeli() {
+    //   //the set to the local storage happens in the component itself
+    //   this.acceptIsraeli = true;
+    // },
     tryBuyTokens(transactionObjectError) {
       walletService.buyTokens(transactionObjectError).then(
         () => {
@@ -365,16 +360,22 @@ export default {
       this.updateShowPayMeToaster(true);
     }
     if(!!this.$route.query && this.$route.query.requesttutor){
-        console.log(this.$route.query.requesttutor);
         if(this.$route.query.requesttutor.toLowerCase() === 'open'){
-            console.log(this.$route.query.requesttutor);
             setTimeout(() => {
                 this.updateRequestDialog(true)
             }, 170);
         }
     }
+      if(this.$vuetify.breakpoint.xsOnly){
+          if(!!this.$route.query && this.$route.query.chat){
+              if(this.$route.query.chat.toLowerCase() === 'expand'){
+                  setTimeout(() => {
+                      this.openChat(true)
+                  }, 170);
+              }
+          }
+      }
 
-    //this.openOnboardGuide();
     this.$root.$on("closePopUp", name => {
       if (name === "suggestions") {
         this.showDialogSuggestQuestion = false;
@@ -386,11 +387,11 @@ export default {
     });
 
     this.acceptedCookies = this.getCookieAccepted();
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.acceptIsraeli = !!global.localStorage.getItem("sb-newIsraei");
-      }, 130);
-    });
+    // this.$nextTick(() => {
+    //   setTimeout(() => {
+    //     this.acceptIsraeli = !!global.localStorage.getItem("sb-newIsraei");
+    //   }, 130);
+    // });
 
     global.addEventListener("resize", event => {
       if (global.isMobileAgent) {

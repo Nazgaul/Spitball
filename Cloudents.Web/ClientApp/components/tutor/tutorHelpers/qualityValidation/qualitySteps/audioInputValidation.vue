@@ -23,7 +23,7 @@
                             hide-details
                             :prepend-icon="''"
                             @change="validateMicrophone()"
-                            :placeholder="'Please select microphone'"
+                            :placeholder="micPlaceholder"
                             :append-icon="'sbf-arrow-down'"
                             solo
                             single-line
@@ -39,6 +39,7 @@
 <script>
     import qualityValidationService from '../qualityValidationService';
     import microphoneImage from '../../../images/microphone.svg'
+    import { LanguageService } from "../../../../../services/language/languageService";
 
 
     export default {
@@ -47,7 +48,8 @@
         data() {
             return {
                 avalMics: [],
-                singleMicrophoneId: ''
+                singleMicrophoneId: '',
+                micPlaceholder: LanguageService.getValueByKey("tutor_quality_mic_placeholder")
             }
         },
         methods: {

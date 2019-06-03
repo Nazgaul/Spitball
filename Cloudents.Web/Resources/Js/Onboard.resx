@@ -129,17 +129,8 @@
   <data name="final_added" xml:space="preserve">
     <value>You got</value>
   </data>
-  <data name="final_away" xml:space="preserve">
-    <value>away from your first cashout!</value>
-  </data>
   <data name="final_bottom_text" xml:space="preserve">
     <value>Start and access documents from your class</value>
-  </data>
-  <data name="final_enter_wallet" xml:space="preserve">
-    <value>Start and access documents from your class</value>
-  </data>
-  <data name="final_only" xml:space="preserve">
-    <value>You’re only</value>
   </data>
   <data name="final_title" xml:space="preserve">
     <value>Jump right in!</value>

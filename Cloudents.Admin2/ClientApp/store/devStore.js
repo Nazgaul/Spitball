@@ -1,13 +1,13 @@
 const state = {
-    isDev: false,
+    isDev: false
 };
 const mutations = {
     devStore_setIsDevState(state, data) {
         state.isDev = data;
-    },
+    }
 };
 const getters = {
-    devStore_getIsDev: (state) => state.isDev,
+    devStore_getIsDev: (state) => state.isDev
 
 };
 const actions = {
@@ -15,7 +15,7 @@ const actions = {
         if(MD5(data) === 'c583f119d2d547eaac531e64bba7e430'){
             commit('devStore_setIsDevState', true);
         }
-    },
+    }
 };
 export default {
     state, mutations, getters, actions

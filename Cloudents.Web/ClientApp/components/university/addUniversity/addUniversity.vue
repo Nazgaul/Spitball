@@ -35,7 +35,7 @@
 
         <v-layout align-center :class="[$vuetify.breakpoint.smAndUp ? 'px-2 mt-3': '']">
             <v-flex v-if="showBox">
-                <div class="university-list">
+                <div class="university-list" id="university-list">
                     <div class="list-item subheading cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleUni in universities"
                          @click="selectUniversity(singleUni)">
@@ -222,7 +222,7 @@
                     //new if changed
                     this.updateSchoolName(objToSend)
                         .then((success) => {
-                                this.UPDATE_SEARCH_LOADING(true)
+                                this.UPDATE_SEARCH_LOADING(true);
                                 this.getOut();
                               },
                               (error) => {
@@ -240,10 +240,12 @@
             let paramObj = {term: this.term, page: this.page};
             this.loadUniversities(paramObj);
             this.$nextTick(function(){
-                let scrollableElm = document.querySelector('.university-list');
-                scrollableElm.addEventListener('scroll', (e)=>{
-                    this.scrollUniversities(e)
-                })
+                let scrollableElm = document.getElementById('university-list');
+                if(scrollableElm){
+                    scrollableElm.addEventListener('scroll', (e)=>{
+                        this.scrollUniversities(e)
+                    })
+                }
             })
         },
         filters: {

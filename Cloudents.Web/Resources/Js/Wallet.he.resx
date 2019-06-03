@@ -144,9 +144,6 @@
   <data name="My_Wallet" xml:space="preserve">
     <value>הארנק שלי</value>
   </data>
-  <data name="redeemable_SBL" xml:space="preserve">
-    <value>נקודות שניתן לפדות</value>
-  </data>
   <data name="SBL" xml:space="preserve">
     <value>נק'</value>
   </data>

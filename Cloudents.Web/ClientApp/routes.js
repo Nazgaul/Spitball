@@ -6,7 +6,6 @@ import StudyDocumentsComponent from './components/results/StudyDocuments/StudyDo
 import TutorsComponent from './components/results/Tutors/Tutors.vue';
 
 import pageHeader from './components/header/header.vue';
-// import landingHeader from './components/landingPage/helpers/landingHeader.vue'
 import landingPage from './components/landingPage/landingPage.vue';
 import schoolBlock from './components/schoolBlock/schoolBlock.vue';
 import verticalsTabs from './components/header/verticalsTabs.vue';
@@ -41,15 +40,6 @@ function dynamicPropsFn(route) {
     return {
         name: newName,
         query: route.query,
-        params: route.params,
-    };
-}
-
-function dynamicDetailsPropsFn(route) {
-    return {
-        name: route.name,
-        query: route.query,
-        id: route.params.id,
         params: route.params,
     };
 }
@@ -115,30 +105,30 @@ let routes2 = [
         },
 
     },
-    {
-        path: "/result",
-        name: "result",
-        alias: [
-            // "/" + RouteTypes.questionRoute,
-            // "/" + RouteTypes.notesRoute,
-            // "/" + RouteTypes.tutorRoute,
-        ],
-        components: resultPage,
-        props: resultProps,
-        meta: {
-            isAcademic: true,
-            showMobileFooter: true,
-            analytics: {
-                pageviewTemplate(route) {
-                    return {
-                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
-                        path: route.path,
-                        location: window.location.href
-                    };
-                }
-            }
-        }
-    },
+    // {
+    //     path: "/result",
+    //     name: "result",
+    //     alias: [
+    //         // "/" + RouteTypes.questionRoute,
+    //         // "/" + RouteTypes.notesRoute,
+    //         // "/" + RouteTypes.tutorRoute,
+    //     ],
+    //     components: resultPage,
+    //     props: resultProps,
+    //     meta: {
+    //         isAcademic: true,
+    //         showMobileFooter: true,
+    //         analytics: {
+    //             pageviewTemplate(route) {
+    //                 return {
+    //                     title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
+    //                     path: route.path,
+    //                     location: window.location.href
+    //                 };
+    //             }
+    //         }
+    //     }
+    // },
     {
         path: "/" + RouteTypes.questionRoute,
         name: "ask",

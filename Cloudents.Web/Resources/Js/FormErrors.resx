@@ -129,6 +129,9 @@
   <data name="max_number" xml:space="preserve">
     <value>Max value is</value>
   </data>
+  <data name="min_chars" xml:space="preserve">
+    <value>Minimum length is</value>
+  </data>
   <data name="positive_only" xml:space="preserve">
     <value>Only positive values</value>
   </data>

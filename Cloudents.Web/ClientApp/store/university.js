@@ -15,7 +15,7 @@ const state = {
     createDialog: false,
     creationVerified: false,
     createUniDialog: false,
-    uniCreationVerified: false,
+    uniCreationVerified: false
 
 };
 
@@ -95,7 +95,7 @@ const mutations = {
         let index = state.selectedClassesCache.indexOf(val);
         state.selectedClassesCache.splice(index, 1);
     },
-    setSelectUniState(state, val) {
+    setSelectUniState() {
         // state.showSelectUniInterface = val;
     },
     setCurrentStep(state, val) {
@@ -125,10 +125,20 @@ const mutations = {
     },
     updtaeShowSchoolBlock(state, val) {
         state.showSchoolBlock = val;
+    },
+    setAllClassesTeaching(state){
+        if(state.selectedClasses && state.selectedClasses.length){
+            state.selectedClasses.forEach((item, index)=>{
+                return state.selectedClasses[index].isTeaching = true;
+            });
+        }
     }
 };
 
 const actions = {
+    updateTeachingClasses({commit}){
+        commit('setAllClassesTeaching');
+    },
     clearClassesCahce({commit}){
         commit('clearClassesCahce');
     },
@@ -184,34 +194,34 @@ const actions = {
         commit('setSelectPopUpUniState', val);
     },
     updateSchoolName({commit, dispatch}, val) {
-        if(!val) return;
+        if (!val) return;
+            
         let uniId = val.id;
         let uniName = val.name;
         return universityService.assaignUniversity(uniId).then(() => {
             commit('setSchoolName', uniName);
             //update profile data with new university
-            let currentProfID = this.getters.accountUser.id;
+            //let currentProfID = this.getters.accountUser.id;
             dispatch('updateUniExists', true);
             //dispatch("syncProfile", currentProfID);
-            Promise.resolve(true);
+            return true;
         });
     },
     updateUniversities({commit}, val) {
         if(val || val === ''){
            return universityService.getUni(val).then(data => {
                 commit('setUniversities', data);
-                return data
-            }, err => {
+                return data;
+           }, err => {
                 commit('setUniversities', []);
             });
         }
-
     },
     addUniversities({commit}, val){
         if(val || val === ''){
             return universityService.getUni(val).then(data => {
                 commit('addUniversities', data);
-                return data
+                return data;
             }, err => {
                 commit('setUniversities', []);
             });
@@ -224,14 +234,14 @@ const actions = {
     updateClasses({commit}, val) {
      return  universityService.getCourse(val).then(data => {
             commit('setClasses', data);
-            return data
-        });
+            return data;
+     });
     },
     addClasses({commit}, val){
         if(val || val === ''){
             return universityService.getCourse(val).then(data => {
                 commit('addClasses', data);
-                return data
+                return data;
             }, err => {
                 commit('setClasses', []);
             });
@@ -246,7 +256,7 @@ const actions = {
             commit('deleteCourse', val);
             //clean cached list
             commit('deleteFromCachedList', val);
-            return resp
+            return resp;
         });
 
     },

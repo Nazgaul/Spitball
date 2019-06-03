@@ -129,9 +129,6 @@
   <data name="My_Wallet" xml:space="preserve">
     <value>My Wallet</value>
   </data>
-  <data name="redeemable_SBL" xml:space="preserve">
-    <value>redeemable points</value>
-  </data>
   <data name="SBL" xml:space="preserve">
     <value>Pts</value>
   </data>

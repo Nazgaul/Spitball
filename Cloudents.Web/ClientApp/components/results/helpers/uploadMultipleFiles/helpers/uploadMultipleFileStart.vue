@@ -81,8 +81,8 @@
                 files: [],
                 filesUploaded: [],
                 generatedFileName: '',
-                supportedExtensions: ['doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx', 'tiff', 'tif', 'bmp'],
-                DBsupportedExtensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg', '.pptx', 'tiff', 'tif', 'bmp'],
+                supportedExtensions:   ['doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx', 'tiff', 'tif', 'bmp'],
+                DBsupportedExtensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg', '.pptx', '.tiff', '.tif', '.bmp'],
                 extensionErrror: false,
                 uploadError: false,
                 errorText: '',
@@ -250,7 +250,6 @@
         created() {
             this.loadDropBoxSrc(); // load Drop box script
             analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_START');
-            console.log('DOC_UPLOAD_START');
         }
     }
 </script>

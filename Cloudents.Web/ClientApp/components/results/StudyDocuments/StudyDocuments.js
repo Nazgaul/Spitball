@@ -22,7 +22,7 @@ import resultFilter from '../helpers/resultFilter/resultFilter.vue'
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 import requestBox from '../../requestActions/requestActions.vue'
 
-const ACADEMIC_VERTICALS = ['note', 'tutor'];
+//const ACADEMIC_VERTICALS = ['note', 'tutor'];
 
 //The vue functionality for result page
 export default {
@@ -78,7 +78,7 @@ export default {
     },
     //When route has been updated(query,filter,vertical) 1-%%%
     beforeRouteUpdate(to, from, next) {
-        this.updatePageData(to, from, next)
+        this.updatePageData(to, from, next);
 
     },
 
@@ -95,11 +95,11 @@ export default {
             return schoolName.length === 0;
         },
         isNote() {
-            return this.$route.path.slice(1) === 'note'
+            return this.$route.path.slice(1) === 'note';
         },
         //not interesting
         filterCondition() {
-            return this.filterSelection.length || (this.filterObject && this.page)
+            return this.filterSelection.length || (this.filterObject && this.page);
         },
         content: {
             get() {
@@ -141,27 +141,27 @@ export default {
             }
         },
         currentSuggest() {
-            return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]
+            return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))];
         },
         currentNavData() {
             return verticalsNavbar.filter((navItem) => {
                 return navItem.id === this.name;
-            })[0]
+            })[0];
         },
         userText() {
-            return this.query.term
+            return this.query.term;
         },
-        isAcademic() {
-            return ACADEMIC_VERTICALS.includes(this.name)
-        },
-        showSkelaton() {
-            return this.getSearchLoading || this.loading || this.isLoad
+        //isAcademic() {
+        //    return ACADEMIC_VERTICALS.includes(this.name);
+        //},
+        showSkeleton() {
+            return this.getSearchLoading || this.loading || this.isLoad;
         }
     },
 
     watch: {
         getSchoolName() {
-            console.log("school name changed")
+            console.log("school name changed");
             if (this.getResultLockForSchoolNameChange()) {
                 this.reloadContentOfPage();
             }
@@ -190,7 +190,7 @@ export default {
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
                 //user profile update
-                this.updateUserProfileData('profileHWH')
+                this.updateUserProfileData('profileHWH');
             } else {
                 //ab test original do not delete
                 this.updateNewQuestionDialogState(true);
@@ -207,9 +207,9 @@ export default {
                     } else {
                         this.scrollBehaviour.isComplete = true;
                     }
-                }).catch(reason => {
+                }).catch(() => {
                 this.scrollBehaviour.isComplete = true;
-            })
+            });
         },
         //   2-%%%
         updatePageData(to, from, next) {
@@ -227,7 +227,7 @@ export default {
                     this.showFilterNotApplied = false;
                     this.updateData.call(this, {...data, vertical: toName});
                     next();
-                }).catch(reason => {
+                }).catch(() => {
                 //when error from fetching data remove the loader
                 if (to.path === from.path && to.query.term === from.query.term) {
                     this.showFilterNotApplied = true;
@@ -266,7 +266,7 @@ export default {
             this.UPDATE_SEARCH_LOADING(false);
             (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
             if (this.isAcademic) {
-                this.showPersonalizeField = true
+                this.showPersonalizeField = true;
             }
             //if the vertical or search term has been changed update the filters according
             if (!isFilterUpdate) {
@@ -313,12 +313,12 @@ export default {
             params: {...this.query, ...this.params, term: this.userText},
             skipLoad: this.$route.path.indexOf("question") > -1
         }).then((data) => {
-            this.updateData.call(this, {...data, vertical: this.name})
+            this.updateData.call(this, {...data, vertical: this.name});
         }).catch(reason => {
             console.error(reason);
             //when error from fetching data remove the loader
             this.UPDATE_LOADING(false);
         });
-    },
+    }
 
 };

@@ -168,9 +168,6 @@
   <data name="share_whatsup" xml:space="preserve">
     <value>טקסט</value>
   </data>
-  <data name="share_with" xml:space="preserve">
-    <value>או שתף עם</value>
-  </data>
   <data name="spread" xml:space="preserve">
     <value>הפיצו את השמועה</value>
   </data>

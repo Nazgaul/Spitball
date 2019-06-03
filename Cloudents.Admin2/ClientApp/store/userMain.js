@@ -1,6 +1,6 @@
 import UserMainService from '../components/userMainView/userMainService';
 
-const quantatyPerPage = 200;
+const quantityPerPage = 200;
 const state = {
     tokensDilaogState: false,
     suspendDialog: false,
@@ -82,7 +82,7 @@ const mutations = {
         state.userDocuments.splice(index, 1);
     },
     setFilterStr(state, strVal) {
-        state.filterVal = strVal
+        state.filterVal = strVal;
     }
 };
 const getters = {
@@ -117,39 +117,34 @@ const actions = {
         commit('updateSuspendDialog', val);
     },
     setUserCurrentBalance({commit}, data) {
-        commit('updateBalance', data)
+        commit('updateBalance', data);
     },
     setUserCurrentStatus({commit}, val) {
-        commit('updateStatus', val)
+        commit('updateStatus', val);
     },
     updateUserData({commit}, data) {
-        commit('setUserData', data)
+        commit('setUserData', data);
     },
     getUserData(context, id) {
         return UserMainService.getUserData(id)
         .then((data) => {
                 if (data) {
                     context.commit('setUserInfo', data);
-                    return data
+                    return data;
                 }else{
-                    context.commit('clearUserData')
+                    context.commit('clearUserData');
                 }
-            },
-            (error) => {
-                throw 'error';
-                //console.log(error, 'error')
-            }
-        )
+            });
     },
 
     deleteQuestionItem({commit}, index) {
-        commit('removeQuestion', index)
+        commit('removeQuestion', index);
     },
     deleteAnswerItem({commit}, index) {
-        commit('removeAnswer', index)
+        commit('removeAnswer', index);
     },
     deleteDocumentItem({commit}, index) {
-        commit('removeDocument', index)
+        commit('removeDocument', index);
     },
 
     getUserQuestions(context, idPageObj) {
@@ -158,13 +153,13 @@ const actions = {
                 if (data && data.length !== 0) {
                     context.commit('setUserQuestions', data);
                 }
-                if (data.length < quantatyPerPage) {
+                if (data.length < quantityPerPage) {
                     return true;
                 }
 
             },
             (error) => {
-                console.log(error, 'error')
+                console.log(error, 'error');
             }
         ).finally(() => context.commit("setShowLoader", false));
     },
@@ -174,14 +169,14 @@ const actions = {
                 if (data && data.length !== 0) {
                     context.commit('setUserAnswers', data);
                 }
-                if (data.length < quantatyPerPage) {
+                if (data.length < quantityPerPage) {
                     return true;
                 }
 
 
             },
             (error) => {
-                console.log(error, 'error')
+                console.log(error, 'error');
             }
         ).finally(() => context.commit("setShowLoader", false));
     },
@@ -191,12 +186,12 @@ const actions = {
                 if (data && data.length !== 0) {
                     context.commit('setUserPurchasedDocs', data);
                 }
-                if (data.length < quantatyPerPage) {
+                if (data.length < quantityPerPage) {
                     return true;
                 }
             },
             (error) => {
-                console.log(error, 'error')
+                console.log(error, 'error');
             }
         ).finally(() => context.commit("setShowLoader", false));
     },
@@ -204,16 +199,16 @@ const actions = {
         context.commit("setShowLoader", true);
         return UserMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
                 if (data && data.length !== 0) {
-                    context.commit('setUserDocuments', data)
+                    context.commit('setUserDocuments', data);
                 }
-                if (data.length < quantatyPerPage) {
+                if (data.length < quantityPerPage) {
                     return true;
                 }
-                context.commit('setUserDocuments', data)
+                context.commit('setUserDocuments', data);
 
             },
             (error) => {
-                console.log(error, 'error')
+                console.log(error, 'error');
             }
         ).finally(() => context.commit("setShowLoader", false));
     },
@@ -221,15 +216,15 @@ const actions = {
         context.commit("setShowLoader", true);
         return UserMainService.getUserConversations(idPageObj.id).then((data) => {
                 if (data && data.length !== 0) {
-                    context.commit('setUserConversations', data)
+                    context.commit('setUserConversations', data);
                 }
-                if (data.length < quantatyPerPage) {
+                if (data.length < quantityPerPage) {
                     return true;
                 }
-                context.commit('setUserConversations', data)
+                context.commit('setUserConversations', data);
             },
             (error) => {
-                console.log(error, 'error')
+                console.log(error, 'error');
             }
         ).finally(() => context.commit("setShowLoader", false));
     },
@@ -237,24 +232,24 @@ const actions = {
         context.commit("setShowLoader", true);
         return UserMainService.getUserSessions(idPageObj.id).then((data) => {
                 if (data && data.length !== 0) {
-                    context.commit('setUserSessions', data)
+                    context.commit('setUserSessions', data);
                 }
-                if (data.length < quantatyPerPage) {
+                if (data.length < quantityPerPage) {
                     return true;
                 }
-                context.commit('setUserSessions', data)
+                context.commit('setUserSessions', data);
             },
             (error) => {
-                console.log(error, 'error')
+                console.log(error, 'error');
             }
         ).finally(() => context.commit("setShowLoader", false));
     },
     verifyUserPhone(context, verifyObj) {
         return UserMainService.verifyPhone(verifyObj).then((resp) => {
             context.commit('setPhoneConfirmStatus');
-            return resp
-        })
-    },
+            return resp;
+        });
+    }
 };
 export default {
     state, mutations, getters, actions

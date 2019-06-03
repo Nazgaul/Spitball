@@ -22,7 +22,7 @@
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
                 <v-list class="search-menu" v-click-outside="outsideClick" v-show="showSuggestions">
                     <template v-for="(item, index) in suggestList">
-                        <v-list-tile class="suggestion" @click="selectos(item)" :key="index">
+                        <v-list-tile class="suggestion" @click="selectors(item)" :key="index">
                             <v-list-tile-action hidden-xs-only>
                                 <component :is="item.icon"></component>
                             </v-list-tile-action>

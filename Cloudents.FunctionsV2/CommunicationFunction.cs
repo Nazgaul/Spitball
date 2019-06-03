@@ -19,8 +19,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
@@ -148,7 +150,10 @@ namespace Cloudents.FunctionsV2
         public static async Task SmsUnreadAsync([TimerTrigger("0 */10 * * * *", RunOnStartup = true)]TimerInfo myTimer,
             [Blob("spitball/chat/unread.txt")]CloudBlockBlob blob,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
-            [Inject] IQueryBus queryBus, CancellationToken token)
+            [Inject] IQueryBus queryBus,
+            [Inject]  IDataProtectionProvider dataProtectProvider,
+            [Inject] IUrlBuilder urlBuilder,
+            CancellationToken token)
         {
             byte[] version = null;
             if (await blob.ExistsAsync())
@@ -160,11 +165,20 @@ namespace Cloudents.FunctionsV2
             var query = new UserUnreadMessageQuery(version);
             var result = await queryBus.QueryAsync(query, token);
             var tasks = new List<Task>();
-            foreach (var unreadMessageDto in result)
+            var dataProtector = dataProtectProvider.CreateProtector("Spitball")
+                .ToTimeLimitedDataProtector();
+            foreach (var unreadMessageDto in result.Distinct(UnreadMessageDto.UserIdComparer))
             {
+
+                var code = dataProtector.Protect(unreadMessageDto.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+                var text = string.Format(
+                      "You have a new message from your {0} on Spitball. Click on the link to read your message ",
+                      unreadMessageDto.IsTutor ? "student" : "tutor");
+
+                var url = urlBuilder.BuildChatEndpoint(code);
                 var t = options.AddAsync(new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
                 {
-                    Body = "You got unread message in www.spitball.co"
+                    Body = $"{text} {url}"
                 }, token);
 
                 tasks.Add(t);

@@ -138,14 +138,8 @@
   <data name="Change" xml:space="preserve">
     <value>Change</value>
   </data>
-  <data name="check_your_email" xml:space="preserve">
-    <value>Check your email to activate</value>
-  </data>
   <data name="click_here_to_send" xml:space="preserve">
     <value>Resend a code</value>
-  </data>
-  <data name="confirmation_link_expired" xml:space="preserve">
-    <value>Your confirmation link has expired</value>
   </data>
   <data name="congrats" xml:space="preserve">
     <value>CONGRATS!</value>
@@ -156,17 +150,8 @@
   <data name="continue_registration" xml:space="preserve">
     <value>Continue with registration</value>
   </data>
-  <data name="create_password_button" xml:space="preserve">
-    <value>Create password</value>
-  </data>
-  <data name="create_password_text" xml:space="preserve">
-    <value>Create your password</value>
-  </data>
   <data name="didnt_get_an_email" xml:space="preserve">
     <value>Didn't get an Email?</value>
-  </data>
-  <data name="didnt_get_sms" xml:space="preserve">
-    <value>Didn’t get an sms?</value>
   </data>
   <data name="email_sent" xml:space="preserve">
     <value>Email sent</value>
@@ -174,12 +159,6 @@
   <data name="end_privacy_policy" xml:space="preserve">
     <value>.</value>
     <comment>do not translate to english</comment>
-  </data>
-  <data name="enter_the_confirm_code" xml:space="preserve">
-    <value>Enter the confirmation code.</value>
-  </data>
-  <data name="enter_your_phone_number" xml:space="preserve">
-    <value>Enter your phone number</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
@@ -190,14 +169,8 @@
   <data name="forgot_password_link" xml:space="preserve">
     <value>Forgot password?</value>
   </data>
-  <data name="get_started" xml:space="preserve">
-    <value>Get started</value>
-  </data>
   <data name="happens_to_best" xml:space="preserve">
     <value>Don’t be ashamed. It happens to the best.</value>
-  </data>
-  <data name="homework_questions" xml:space="preserve">
-    <value>Homework questions.</value>
   </data>
   <data name="lets_start" xml:space="preserve">
     <value>Let's Start</value>
@@ -208,20 +181,11 @@
   <data name="login_click_here_to_send" xml:space="preserve">
     <value>Click here to resend.</value>
   </data>
-  <data name="login_didnt_get_sms" xml:space="preserve">
-    <value>Didn’t get an sms?</value>
-  </data>
-  <data name="login_until_activate_account3" xml:space="preserve">
-    <value>until you activate your account</value>
-  </data>
   <data name="need_account_link" xml:space="preserve">
     <value>Sign up</value>
   </data>
   <data name="need_account_text" xml:space="preserve">
     <value>Need an account?</value>
-  </data>
-  <data name="not_complete_registration" xml:space="preserve">
-    <value>You didn't complete the registration process</value>
   </data>
   <data name="or" xml:space="preserve">
     <value>or</value>
@@ -265,9 +229,6 @@
   <data name="please_agree" xml:space="preserve">
     <value>Please agree to Terms And Services in order to proceed</value>
   </data>
-  <data name="please_login" xml:space="preserve">
-    <value>please login</value>
-  </data>
   <data name="privacy_policy" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>
@@ -277,26 +238,11 @@
   <data name="remember_now" xml:space="preserve">
     <value>I remember now</value>
   </data>
-  <data name="reset_password_button" xml:space="preserve">
-    <value>Reset password</value>
-  </data>
-  <data name="reset_password_text" xml:space="preserve">
-    <value>Reset your password</value>
-  </data>
-  <data name="reset_your_password" xml:space="preserve">
-    <value>Reset your password</value>
-  </data>
   <data name="sbl" xml:space="preserve">
     <value>Pts</value>
   </data>
   <data name="select_your_country_code" xml:space="preserve">
     <value>Select your country code</value>
-  </data>
-  <data name="sent_code_by_sms" xml:space="preserve">
-    <value>We sent the code to you by SMS</value>
-  </data>
-  <data name="sent_confirmation_code" xml:space="preserve">
-    <value>We sent a confirmation code to your mobile phone.</value>
   </data>
   <data name="signin_your_email" xml:space="preserve">
     <value>Sign In with Email</value>
@@ -327,32 +273,11 @@ to &lt;b&gt;exit&lt;/b&gt;?</value>
   <data name="until_activate_account" xml:space="preserve">
     <value>You will not be able to log in to Spitball.co until you activate your account</value>
   </data>
-  <data name="until_activate_account1" xml:space="preserve">
-    <value>You will not be able</value>
-  </data>
-  <data name="until_activate_account2" xml:space="preserve">
-    <value>to log in to Spitball.co</value>
-  </data>
-  <data name="until_activate_account3" xml:space="preserve">
-    <value>until you activate your account</value>
-  </data>
   <data name="verification_code_sent_to_phone" xml:space="preserve">
     <value>A verification code was sent to your phone</value>
   </data>
-  <data name="welcome_back" xml:space="preserve">
-    <value>Welcome back</value>
-  </data>
   <data name="Your" xml:space="preserve">
     <value>Your</value>
-  </data>
-  <data name="your_account" xml:space="preserve">
-    <value>your account</value>
-  </data>
-  <data name="you_are_reward_with" xml:space="preserve">
-    <value>You are rewarded with</value>
-  </data>
-  <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
-    <value>You can spend them to get help with your</value>
   </data>
   <data name="call_code" xml:space="preserve">
     <value>You wil get a call shortly</value>
@@ -360,13 +285,16 @@ to &lt;b&gt;exit&lt;/b&gt;?</value>
   <data name="click_here_to_call" xml:space="preserve">
     <value>Call me with a code</value>
   </data>
-  <data name="prefer_call" xml:space="preserve">
-    <value>Call verification</value>
-  </data>
   <data name="click_here_to_send_email" xml:space="preserve">
     <value>Click here to resend</value>
   </data>
   <data name="error_min_chars" xml:space="preserve">
     <value>Password needs minimum 8 characters</value>
+  </data>
+  <data name="error_invalid_phone" xml:space="preserve">
+    <value>Invalid phone number</value>
+  </data>
+  <data name="error_phone" xml:space="preserve">
+    <value>Please try again</value>
   </data>
 </root>

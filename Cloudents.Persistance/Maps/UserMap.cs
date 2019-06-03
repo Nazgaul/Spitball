@@ -14,7 +14,7 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.Name).Not.Nullable();
             Map(e => e.EmailConfirmed);
             
-            Map(e => e.NormalizedName);
+            //Map(e => e.NormalizedName);
             Map(e => e.NormalizedEmail);
             Map(e => e.SecurityStamp);
             Map(e => e.Image).Length(5000).Nullable();

@@ -1,13 +1,16 @@
 <template>
     <div class="user-image-wrap" :class="{'hide-block': hideImageBlock}">
-        <img class="user-picture" style="height: 240px; width: 214px;"
-             :src="profileImage">
+        <div v-if="getProfileImageLoading" class="loader-wrap align-center justify-center">
+            <v-progress-circular indeterminate v-bind:size="50" color="#514f7d"></v-progress-circular>
+        </div>
+        <img v-else class="user-picture" style="height: 240px; width: 214px;"
+             :src="profileImage" :alt="userName" :title="userName">
         <div class="bottom-section" v-if="isTutorProfile">
             <user-rating :size="'20'" :rating="tutorRank" :readonly="true" class="px-4 line-height-1"></user-rating>
             <span class="reviews-quantity">
                     <span>{{reviewCount}}</span>
                     <span v-if="reviewCount > 1" class="ml-1" v-language:inner>profile_reviews</span>
-                    <span v-else="reviewCount" class="ml-1" v-language:inner>profile_single_review</span>
+                    <span v-else class="ml-1" v-language:inner>profile_single_review</span>
 
                     </span>
         </div>
@@ -46,7 +49,10 @@
             },
         },
         computed: {
-            ...mapGetters(['getProfile', 'isTutorProfile']),
+            ...mapGetters(['getProfile', 'isTutorProfile', 'getProfileImageLoading']),
+            userName(){
+                return (this.getProfile && this.getProfile.user.name)? this.getProfile.user.name : '';
+            },
             profileImage() {
                 if(this.getProfile){
                     if (this.getProfile && this.getProfile.user && this.getProfile.user.image && this.getProfile.user.image.length > 1) {
@@ -105,6 +111,11 @@
         max-width: 214px;
         &.hide-block{
             visibility: hidden;
+        }
+        .loader-wrap{
+            display: flex;
+            height: 240px;
+            width: 214px;
         }
         @media (max-width: @screen-xs) {
             margin-bottom: 20px;

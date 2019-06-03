@@ -3,7 +3,6 @@ using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Extensions;

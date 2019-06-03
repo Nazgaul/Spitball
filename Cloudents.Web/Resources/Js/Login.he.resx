@@ -141,9 +141,6 @@
   <data name="Change" xml:space="preserve">
     <value>לשנות</value>
   </data>
-  <data name="check_your_email" xml:space="preserve">
-    <value>בדוק את הדוא"ל כדי להפעיל</value>
-  </data>
   <data name="click_here_to_call" xml:space="preserve">
     <value>התקשר אלי עם קוד</value>
   </data>
@@ -152,9 +149,6 @@
   </data>
   <data name="click_here_to_send_email" xml:space="preserve">
     <value>לחץ כאן לשלוח שוב</value>
-  </data>
-  <data name="confirmation_link_expired" xml:space="preserve">
-    <value>פג תוקף הקישור שלך לאישור</value>
   </data>
   <data name="congrats" xml:space="preserve">
     <value>כל הכבוד!</value>
@@ -165,17 +159,8 @@
   <data name="continue_registration" xml:space="preserve">
     <value>המשך בהרשמה</value>
   </data>
-  <data name="create_password_button" xml:space="preserve">
-    <value>צור סיסמה</value>
-  </data>
-  <data name="create_password_text" xml:space="preserve">
-    <value>צור את הסיסמה שלך</value>
-  </data>
   <data name="didnt_get_an_email" xml:space="preserve">
     <value>לא קיבלת הודעת דוא"ל?</value>
-  </data>
-  <data name="didnt_get_sms" xml:space="preserve">
-    <value>לא קיבלת SMS?</value>
   </data>
   <data name="email_sent" xml:space="preserve">
     <value>נשלח דוא"ל</value>
@@ -183,11 +168,11 @@
   <data name="end_privacy_policy" xml:space="preserve">
     <value> של ספיטבול</value>
   </data>
-  <data name="enter_the_confirm_code" xml:space="preserve">
-    <value>הזן קוד אישור.</value>
+  <data name="error_invalid_phone" xml:space="preserve">
+    <value>מספר טלפון לא חוקי</value>
   </data>
-  <data name="enter_your_phone_number" xml:space="preserve">
-    <value>הזן מספר טלפון</value>
+  <data name="error_min_chars" xml:space="preserve">
+    <value>סיסמה חייבת להכיל לפחות 8 תווים</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>יציאה</value>
@@ -198,14 +183,8 @@
   <data name="forgot_password_link" xml:space="preserve">
     <value>שכחת סיסמה?</value>
   </data>
-  <data name="get_started" xml:space="preserve">
-    <value>תחילת העבודה</value>
-  </data>
   <data name="happens_to_best" xml:space="preserve">
     <value>אל תתבייש, זה קורה לטובים ביותר.</value>
-  </data>
-  <data name="homework_questions" xml:space="preserve">
-    <value>שאלות בנושא שיעורי בית.</value>
   </data>
   <data name="lets_start" xml:space="preserve">
     <value>בואו נתחיל</value>
@@ -216,20 +195,11 @@
   <data name="login_click_here_to_send" xml:space="preserve">
     <value>לחץ כאן כדי לשלוח שוב.</value>
   </data>
-  <data name="login_didnt_get_sms" xml:space="preserve">
-    <value>לא קיבלת סמס?</value>
-  </data>
-  <data name="login_until_activate_account3" xml:space="preserve">
-    <value>עד שתפעיל את חשבונך</value>
-  </data>
   <data name="need_account_link" xml:space="preserve">
     <value>הרשמה</value>
   </data>
   <data name="need_account_text" xml:space="preserve">
     <value>עדיין אין לך חשבון?</value>
-  </data>
-  <data name="not_complete_registration" xml:space="preserve">
-    <value>לא השלמת את תהליך ההרשמה</value>
   </data>
   <data name="or" xml:space="preserve">
     <value>או</value>
@@ -273,12 +243,6 @@
   <data name="please_agree" xml:space="preserve">
     <value>כדי להמשיך, אנא הסכם לתנאים וההתניות</value>
   </data>
-  <data name="please_login" xml:space="preserve">
-    <value>התחבר למערכת</value>
-  </data>
-  <data name="prefer_call" xml:space="preserve">
-    <value>שיחת אימות</value>
-  </data>
   <data name="privacy_policy" xml:space="preserve">
     <value>מדיניות הפרטיות</value>
   </data>
@@ -288,26 +252,11 @@
   <data name="remember_now" xml:space="preserve">
     <value>אני זוכר כעת</value>
   </data>
-  <data name="reset_password_button" xml:space="preserve">
-    <value>אפס סיסמה</value>
-  </data>
-  <data name="reset_password_text" xml:space="preserve">
-    <value>אפס את הסיסמה שלך</value>
-  </data>
-  <data name="reset_your_password" xml:space="preserve">
-    <value>אפס את הסיסמה שלך</value>
-  </data>
   <data name="sbl" xml:space="preserve">
     <value>נק'</value>
   </data>
   <data name="select_your_country_code" xml:space="preserve">
     <value>בחר קוד מדינה</value>
-  </data>
-  <data name="sent_code_by_sms" xml:space="preserve">
-    <value>שלחנו לך את הקוד בסמס</value>
-  </data>
-  <data name="sent_confirmation_code" xml:space="preserve">
-    <value>שלחנו קוד אישור אל הטלפון הנייד שלך.</value>
   </data>
   <data name="signin_your_email" xml:space="preserve">
     <value>התחבר באמצעות דוא"ל</value>
@@ -337,34 +286,10 @@
   <data name="until_activate_account" xml:space="preserve">
     <value>תוכל להיכנס אל Spitball.co רק לאחר שתפעיל את חשבונך</value>
   </data>
-  <data name="until_activate_account1" xml:space="preserve">
-    <value>לא תוכל</value>
-  </data>
-  <data name="until_activate_account2" xml:space="preserve">
-    <value>כדי להיכנס אל Spitball.co</value>
-  </data>
-  <data name="until_activate_account3" xml:space="preserve">
-    <value>עד שתפעיל את חשבונך</value>
-  </data>
   <data name="verification_code_sent_to_phone" xml:space="preserve">
     <value>קוד אימות נשלח לטלפון</value>
   </data>
-  <data name="welcome_back" xml:space="preserve">
-    <value>ברוך השב</value>
-  </data>
   <data name="Your" xml:space="preserve">
     <value>שלך</value>
-  </data>
-  <data name="your_account" xml:space="preserve">
-    <value>החשבון שלך</value>
-  </data>
-  <data name="you_are_reward_with" xml:space="preserve">
-    <value>אנו מזכים אותך ב</value>
-  </data>
-  <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
-    <value>תוכל להשתמש בהם כדי לקבל עזרה לגבי</value>
-  </data>
-  <data name="error_min_chars" xml:space="preserve">
-    <value>סיסמה חייבת להכיל לפחות 8 תווים</value>
   </data>
 </root>

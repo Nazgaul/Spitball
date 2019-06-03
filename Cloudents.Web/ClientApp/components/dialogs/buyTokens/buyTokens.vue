@@ -59,7 +59,7 @@
                         <div>{{products.currency}}{{products.basic.price}}</div>
                         <div class="buy-tokens-text-small">
                             <span>{{products.currency}}</span>
-                            <span>{{basicConvertionRate}}</span>&nbsp;
+                            <span>{{basicConversionRate}}</span>&nbsp;
                             <span v-language:inner>buyTokens_per_point</span>
                         </div>
                         <div>
@@ -82,7 +82,7 @@
                         <div>{{products.currency}}{{products.inter.price}}</div>
                         <div class="buy-tokens-text-small">
                             <span>{{products.currency}}</span>
-                            <span>{{interConvertionRate}}</span>&nbsp;
+                            <span>{{interConversionRate}}</span>&nbsp;
                             <span v-language:inner>buyTokens_per_point</span>
                         </div>
                         <div>
@@ -105,7 +105,7 @@
                         <div>{{products.currency}}{{products.pro.price}}</div>
                         <div class="buy-tokens-text-small">
                             <span>{{products.currency}}</span>
-                            <span>{{proConvertionRate}}</span>&nbsp;
+                            <span>{{proConversionRate}}</span>&nbsp;
                             <span v-language:inner>buyTokens_per_point</span>
                         </div>
                         <div>

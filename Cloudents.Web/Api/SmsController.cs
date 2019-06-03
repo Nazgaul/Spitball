@@ -150,14 +150,17 @@ namespace Cloudents.Web.Api
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
             if (v.Succeeded)
             {
-                return await FinishRegistrationAsync(token, user, country, model.FingerPrint);
+                var agentStr = Request.Headers["User-Agent"].ToString();
+                var agent = agentStr.Substring(0, Math.Min(agentStr.Length, 255));
+                return await FinishRegistrationAsync(token, user, country, model.FingerPrint, agent);
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, RegularUser user, string country, string fingerPrint)
+        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, RegularUser user, string country, 
+            string fingerPrint, string UserAgent)
         {
             if (TempData[HomeController.Referral] != null)
             {
@@ -181,7 +184,7 @@ namespace Cloudents.Web.Api
             }
             TempData.Clear();
 
-            var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress(), fingerPrint);
+            var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress(), fingerPrint, UserAgent);
             var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
             var t1 = _commandBus.DispatchAsync(command2, token);
             var t2 = _signInManager.SignInAsync(user, false);

@@ -117,13 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="newQuestion_error_minChars" xml:space="preserve">
-    <value>הזן לפחות 15 תווים</value>
-  </data>
-  <data name="newQuestion_error_minSum" xml:space="preserve">
-    <value>בחר את הסכום שברצונך לשלם</value>
-  </data>
-  <data name="newQuestion_error_pickSubject" xml:space="preserve">
-    <value>בחר נושא</value>
-  </data>
 </root>

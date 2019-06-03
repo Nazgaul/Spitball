@@ -122,21 +122,22 @@ export default {
                 "emailpassword": 10,
                 "validateemail": 11
             }
-        }
+        };
     },
     watch: {
-        getShowToaster: function (val) {
+        getShowToaster: function(val) {
             if (val) {
                 var self = this;
-                setTimeout(function () {
-                    self.updateToasterParams({
-                        showToaster: false
-                    })
-                }, this.toasterTimeout)
+                setTimeout(function() {
+                        self.updateToasterParams({
+                            showToaster: false
+                        });
+                    },
+                    this.toasterTimeout);
             }
         },
 
-        '$route': function (from, to, next) {
+        '$route': function() {
             if (this.$route.path === signInStr) {
                 return this.isSignIn = true;
 
@@ -156,10 +157,10 @@ export default {
             isCampaignOn: 'isCampaignOn'
         }),
         isSignInComputed() {
-            return this.isSignIn
+            return this.isSignIn;
         },
         isMobile() {
-            return this.$vuetify.breakpoint.xsOnly
+            return this.$vuetify.breakpoint.xsOnly;
         },
         //profile data relevant for each stepNumber
         meta() {
@@ -184,7 +185,7 @@ export default {
                 }
                 this.stepNumber = this.stepsEnum[step];
             }
-            console.log(this.stepNumber)
+            console.log(this.stepNumber);
         },
         goBackStep(stepNumber) {
             let lastStepPoint = this.lastStep.pop();
@@ -202,11 +203,11 @@ export default {
             this.$router.push({ path: `${url.path}` });
         },
         showDialogFunc() {
-            this.showDialog = true
+            this.showDialog = true;
         },
         hideDialog() {
-            this.showDialog = false
-        },
+            this.showDialog = false;
+        }
     },
 
     mounted() {
@@ -214,16 +215,16 @@ export default {
             gapi.load('auth2', function () {
                 auth2 = gapi.auth2.init({
                     client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
-                })
-            })
-        })
+                });
+            });
+        });
     },
 
     created() {
         let self = this;
         //history update event, fires when back btn clicked
         global.onpopstate = (event) => {
-            self.goBackStep()
+            self.goBackStep();
         };
 
         //event liseners for all steps
@@ -241,9 +242,9 @@ export default {
         });
         self.$on('fromCreate', (create) => {
             if (create === 'create') {
-                self.camefromCreate = true
+                self.camefromCreate = true;
             } else if (create === 'forgot') {
-                self.camefromCreate = false
+                self.camefromCreate = false;
             }
         });
         self.$on('updateCountryCodeList', (countryCodes) => {
@@ -274,17 +275,9 @@ export default {
             analyticsService.sb_unitedEvent('Registration', 'Email Verified');
 
         }
-        self.$loadScript("https://unpkg.com/zxcvbn@4.4.2/dist/zxcvbn.js").then(
-            (data) => {
-                //global.zxcvbn = data;
-            }
-        );
-        let captchaLangCode = global.lang === 'he' ? 'iw' : 'en'
+        self.$loadScript("https://unpkg.com/zxcvbn@4.4.2/dist/zxcvbn.js");
+        let captchaLangCode = global.lang === 'he' ? 'iw' : 'en';
         //load vue recaptha
-        self.$loadScript(`https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=${captchaLangCode}`).then(
-            (data) => {
-                console.log('loaded recaptha vue')
-            }
-        );
-    },
+        self.$loadScript(`https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=${captchaLangCode}`);
+    }
 }

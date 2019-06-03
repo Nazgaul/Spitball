@@ -30,7 +30,7 @@ export default {
         },
         suggestionVertical: {
             String
-        },
+        }
     },
     data: () => ({
         autoSuggestList: [],
@@ -54,7 +54,7 @@ export default {
                 name: LanguageService.getValueByKey("searchInput_spitball_search"),
                 icon: "spitballIcon",
                 id: 3
-            },
+            }
         ]
     }),
     computed: {
@@ -71,7 +71,7 @@ export default {
 
         },
         suggestList() {
-            let dynamicSuggest = [];
+            let dynamicSuggest;
             if(this.courseSelected()) {
                 dynamicSuggest = [].concat(this.suggestOptions);
             } else {
@@ -87,7 +87,7 @@ export default {
         },
         maxResults() {
             return this.isHome ? consts.HOME_MAX_SUGGEST_NUM : consts.VERTICAL_MAX_SUGGEST_NUM;
-        },
+        }
     },
     watch: {
         userText(val) {
@@ -103,7 +103,7 @@ export default {
         },
         '$route'() {
             this.$forceUpdate();
-        },
+        }
     },
     methods: {
         ...mapActions(['getAutocmplete', 'changeSelectPopUpUniState', 'setUniversityPopStorage_session']),
@@ -113,7 +113,7 @@ export default {
             this.msg = "";
             this.search();
         },
-        outsideClick(event) {
+        outsideClick() {
             console.log('clicked outside');
             this.closeSuggestions();
         },
@@ -134,8 +134,8 @@ export default {
                     return;
                 }
             }
-            if(this.msg === this.$route.query.term){
-                return
+            if(this.msg === this.$route.query.term) {
+                return;
             }
             this.UPDATE_SEARCH_LOADING(true);
             let query = this.prepareQuery(id);

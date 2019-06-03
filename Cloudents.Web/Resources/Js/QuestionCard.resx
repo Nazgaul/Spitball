@@ -123,9 +123,6 @@
   <data name="Answer" xml:space="preserve">
     <value>Answer</value>
   </data>
-  <data name="Answer_dot" xml:space="preserve">
-    <value>Answer</value>
-  </data>
   <data name="Answer_placeholder" xml:space="preserve">
     <value>Answer...</value>
   </data>
@@ -140,9 +137,6 @@
   </data>
   <data name="error_delete" xml:space="preserve">
     <value>Something went wrong, try again</value>
-  </data>
-  <data name="Question_price" xml:space="preserve">
-    <value>{1} Pts</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Report this item</value>

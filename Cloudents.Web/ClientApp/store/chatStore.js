@@ -14,7 +14,8 @@ const state = {
     isVisible: global.innerWidth < 600 ? false : false,
     isMinimized: true,
     totalUnread: 0,
-    chatLocked: false
+    chatLocked: false,
+    chatLoader: false
 };
 const getters = {
     getIsChatVisible:state=> state.isVisible,
@@ -36,6 +37,7 @@ const getters = {
             }
         }
     },
+    getChatLoader: state=> state.chatLoader,
     getConversationIdCurrentUserId:(state)=>{
         let userId = state.activeConversationObj.userId;
         return Object.keys(state.conversations).filter((conversationId)=>{
@@ -69,7 +71,7 @@ const mutations = {
     },
     setActiveConversationObj(state, obj){
         if(!!state.conversations[obj.conversationId]){
-            state.activeConversationObj = chatService.createConversation(state.conversations[obj.conversationId]); 
+            state.activeConversationObj = chatService.createConversation(state.conversations[obj.conversationId]);
         }else{
             state.activeConversationObj =  chatService.createActiveConversationObj(obj);
         }
@@ -111,10 +113,16 @@ const mutations = {
     },
     lockChat:(state)=>{
         state.chatLocked = true;
+    },
+    activateLoader:(state, val)=>{
+        state.chatLoader = val;
     }
 };
 
 const actions = {
+    updateChatUploadLoading({commit}, val){
+        commit('activateLoader', val);
+},
     addMessage:({commit, state, dispatch}, message)=>{
         //check if inside conversation
         let isInConversation = state.chatState == state.enumChatState.messages;
@@ -128,7 +136,7 @@ const actions = {
                         chatService.clearUnread(state.activeConversationObj.userId);
                     }
                     if(state.isMinimized && message.fromSignalR){
-                        //in tutor room the conversation is auto loaded, so in case of refresh 
+                        //in tutor room the conversation is auto loaded, so in case of refresh
                         //we dont want to update the total unread unless signalR message arrives
                         commit('addConversationUnread', message)
                         commit('updateTotalUnread', 1);
@@ -156,7 +164,7 @@ const actions = {
                         let ConversationObj = chatService.createConversation(data);
                         commit('addConversation', ConversationObj);
                         commit('addConversationUnread', message)
-                        commit('updateTotalUnread', 1);     
+                        commit('updateTotalUnread', 1);
                     })
                 }
             }else{
@@ -165,7 +173,7 @@ const actions = {
                     let ConversationObj = chatService.createConversation(data);
                     commit('addConversation', ConversationObj);
                     commit('addConversationUnread', message)
-                    commit('updateTotalUnread', 1);     
+                    commit('updateTotalUnread', 1);
                 })
             }
         }
@@ -177,7 +185,7 @@ const actions = {
         commit('updateTotalUnread', totalUnread)
     },
     clearUnread:({commit, state}, conversationId)=>{
-        if(state.isMinimized) return; //when inside study room and activating chat dont clear unread unless chat is maximized 
+        if(state.isMinimized) return; //when inside study room and activating chat dont clear unread unless chat is maximized
         if(!conversationId) {
             conversationId = state.activeConversationObj.conversationId;
         }
@@ -249,7 +257,7 @@ const actions = {
         }else{
             id = state.activeConversationObj.conversationId;
         }
-        
+
         if(!!id && (!state.messages[id] || (!!state.conversations[id] && state.conversations[id].unread > 0))){
             chatService.getMessageById(id).then(({data})=>{
                 if(!data) return;

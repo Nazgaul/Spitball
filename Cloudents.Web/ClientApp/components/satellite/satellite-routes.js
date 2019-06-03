@@ -23,7 +23,7 @@ export const staticRoutes = [
     //},
     {
         name: "blog",
-        display: LanguageService.getValueByKey("satellite_routes_blog"),
+        display: LanguageService.getValueByKey("satellite_routes_blog")
         // import: ()=>import("./blog.vue"),
         // params:(route)=>({university:route.query.uni,path:route.query.path})
 

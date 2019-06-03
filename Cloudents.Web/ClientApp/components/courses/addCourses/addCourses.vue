@@ -57,7 +57,7 @@
                 </div>
             </v-flex>
             <v-flex v-if="showBox">
-                <div class="class-list search-classes-list">
+                <div class="class-list search-classes-list" id="search-classes-list">
                     <div class="list-item subheading search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
                         <v-layout column class="pl-3 limit-width">
@@ -313,10 +313,12 @@
             let paramObj = {term: this.term, page: 0};
             this.loadCourses(paramObj);
             this.$nextTick(function () {
-                let scrollableElm = document.querySelector('.search-classes-list');
-                scrollableElm.addEventListener('scroll', (e) => {
-                    this.scrollCourses(e);
-                });
+                let scrollableElm = document.getElementById('search-classes-list');
+                if(scrollableElm){
+                    scrollableElm.addEventListener('scroll', (e) => {
+                        this.scrollCourses(e);
+                    });
+                }
             });
         },
         mounted() {
