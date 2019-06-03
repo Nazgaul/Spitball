@@ -19,11 +19,11 @@ namespace Cloudents.Core.Interfaces
             string country,
             CancellationToken token);
 
-        //[ItemCanBeNull]
-        //Task<UniversityDto> GetApproximateUniversitiesAsync(
-        //    [NotNull]
-        //    GeoPoint location,
-        //    CancellationToken token);
+    }
+
+    public interface ITutorSearch
+    {
+        Task<IEnumerable<TutorListDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token);
     }
 
     public interface IQuestionSearch
@@ -40,8 +40,5 @@ namespace Cloudents.Core.Interfaces
     {
         Task<(IEnumerable<DocumentSearchResultWithScore> result,
             IEnumerable<string> facetSubject)> SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token);
-        // Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken);
     }
-
-
 }

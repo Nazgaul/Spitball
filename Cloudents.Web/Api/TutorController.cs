@@ -18,7 +18,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Cloudents.Web.Api
@@ -48,6 +50,7 @@ namespace Cloudents.Web.Api
         /// <param name="term"></param>
         /// <param name="profile"></param>
         /// <param name="page"></param>
+        /// <param name="tutorSearch"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
@@ -55,6 +58,8 @@ namespace Cloudents.Web.Api
             string term,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
+            [FromServices] ITutorSearch tutorSearch,
+
             CancellationToken token)
         {
             //TODO make it better
@@ -71,7 +76,7 @@ namespace Cloudents.Web.Api
             else
             {
                 var query = new TutorListTabSearchQuery(term, profile.Country, page);
-                var result = await _queryBus.QueryAsync(query, token);
+                var result = await tutorSearch.SearchAsync(query, token);
                 return new WebResponseWithFacet<TutorListDto>
                 {
                     Result = result,

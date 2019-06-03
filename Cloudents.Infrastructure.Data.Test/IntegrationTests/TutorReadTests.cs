@@ -36,14 +36,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task TutorListTabSearchQuery_Ok()
-        {
-            var query = new TutorListTabSearchQuery("eidan", "IL", 0);
-            var _ = await _fixture.QueryBus.QueryAsync(query, default);
-
-
-        }
+     
 
         [Fact]
         public async Task TutorListTabQuery_Ok()
