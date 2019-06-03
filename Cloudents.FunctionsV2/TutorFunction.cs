@@ -20,7 +20,7 @@ namespace Cloudents.FunctionsV2
     public static class TutorFunction
     {
         [FunctionName("TutorFunction")]
-        public static async Task Run([TimerTrigger("0 0 * * * *")]TimerInfo myTimer,
+        public static async Task Run([TimerTrigger("0 */2 * * * *", RunOnStartup = true)]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/tutor-version.txt")] CloudBlockBlob blob,
             [AzureSearchSync(TutorSearchWrite.IndexName)] IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] IQueryBus queryBus,
@@ -33,11 +33,12 @@ namespace Cloudents.FunctionsV2
                 var str = await blob.DownloadTextAsync();
                 query = JsonConvert.DeserializeObject<TutorSyncAzureSearchQuery>(str);
             }
+
             var result = await queryBus.QueryAsync(query, token);
-            
+            var updateOccur = false;
             foreach (var update in result.Update)
             {
-
+                updateOccur = true;
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
                     Item = new Tutor()
@@ -46,14 +47,14 @@ namespace Cloudents.FunctionsV2
                         Id = update.Id.ToString(),
                         Name = update.Name,
                         Price = update.Price,
-                        Courses = update.Courses.ToArray(),
+                        Courses = update.Courses.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray(),
                         Image = update.Image,
                         Bio = update.Bio,
                         Rate = update.Rate,
                         InsertDate = DateTime.UtcNow,
                         Prefix = update.Courses.ToArray(),
                         ReviewCount = update.ReviewsCount,
-                        Subjects = update.Subjects.ToArray()
+                        Subjects = update.Subjects.Where(w=>!string.IsNullOrWhiteSpace(w)).ToArray()
                     },
                     Insert = true
 
@@ -62,6 +63,7 @@ namespace Cloudents.FunctionsV2
 
             foreach (var delete in result.Delete)
             {
+                updateOccur = true;
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
                     Item = new Tutor()
@@ -74,9 +76,14 @@ namespace Cloudents.FunctionsV2
 
             }
 
-            var nextVersion = new TutorSyncAzureSearchQuery(result.Version, result.Update.OrderByDescending(o=>o.VersionAsLong).First().Version);
-            var jsonStr = JsonConvert.SerializeObject(nextVersion);
-            await blob.UploadTextAsync(jsonStr);
+            if (updateOccur)
+            {
+                var nextVersion = new TutorSyncAzureSearchQuery(result.Version,
+                    result.Update.OrderByDescending(o => o.VersionAsLong).First().Version);
+                var jsonStr = JsonConvert.SerializeObject(nextVersion);
+                await blob.UploadTextAsync(jsonStr);
+            }
+
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
         }
     }

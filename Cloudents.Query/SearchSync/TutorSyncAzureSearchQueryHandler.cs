@@ -24,9 +24,12 @@ namespace Cloudents.Query.SearchSync
 
         }
 
-        private byte[] RowVersion { get; set; }
+        
+        // ReSharper disable once MemberCanBePrivate.Global Need for serialization
+        public byte[] RowVersion { get; private set; }
 
-        private long Version { get; set; }
+        // ReSharper disable once MemberCanBePrivate.Global Need for serialization
+        public long Version { get; private set; }
 
 
         internal sealed class TutorSyncAzureSearchQueryHandler : IQueryHandler<TutorSyncAzureSearchQuery, SearchWrapperDto<TutorSearchDto>>
@@ -135,8 +138,16 @@ or tr.Version > @RowVersion";
                                 orderDictionary.Add(tutorEntry.Id, tutorEntry);
                             }
 
-                            tutorEntry.Courses.Add(course);
-                            tutorEntry.Subjects.Add(subject);
+                            if (course != null)
+                            {
+                                tutorEntry.Courses.Add(course);
+                            }
+
+                            if (subject != null)
+                            {
+                                tutorEntry.Subjects.Add(subject);
+                            }
+
                             return tutorEntry;
                         }, new
                         {

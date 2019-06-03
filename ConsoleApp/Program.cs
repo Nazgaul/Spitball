@@ -24,6 +24,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Query.Chat;
 using Cloudents.Query.SearchSync;
+using Cloudents.Search.Tutor;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -135,11 +136,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            await UpdateMethod();
             var queryBus = _container.Resolve<IQueryBus>();
-            var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0, 0, null),default);
+            var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
             var v = x.Update.OrderBy(o => o.VersionAsLong).First();
 
-            var x2 = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(152960, 0, v.Version), default);
+            var x2 = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(152960, v.Version), default);
 
 
 
@@ -156,19 +158,19 @@ namespace ConsoleApp
             Console.WriteLine("done");
         }
 
-        //private static async Task UpdateMethod()
-        //{
-        //    //var c = _container.Resolve<UniversitySearchWrite>();
-        //    //await c.CreateOrUpdateAsync(default);
+        private static async Task UpdateMethod()
+        {
+            //var c = _container.Resolve<UniversitySearchWrite>();
+            //await c.CreateOrUpdateAsync(default);
 
 
-        //    var c2 = _container.Resolve<DocumentSearchWrite>();
-        //    await c2.CreateOrUpdateAsync(default);
+            var c2 = _container.Resolve<TutorSearchWrite>();
+            await c2.CreateOrUpdateAsync(default);
 
 
-        //    //var c3 = _container.Resolve<QuestionSearchWrite>();
-        //    //await c3.CreateOrUpdateAsync(default);
-        //}
+            //var c3 = _container.Resolve<QuestionSearchWrite>();
+            //await c3.CreateOrUpdateAsync(default);
+        }
 
 
         //private static async Task ReduPreviewProcessingAsync()
