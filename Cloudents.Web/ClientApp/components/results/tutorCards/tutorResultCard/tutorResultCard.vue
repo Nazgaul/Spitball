@@ -4,8 +4,11 @@
         <v-layout>
             <div class="section-tutor-info">
                 <v-layout>
-                    <v-flex class="mr-3" shrink>
-                        <img class="tutor-image" :src="userImageUrl" alt="">
+                    <v-flex class="image-wrap mr-3" shrink>
+                        <div v-if="!isLoaded">
+                            <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
+                        </div>
+                        <img class="tutor-image" v-show="isLoaded" @load="loaded" :src="userImageUrl" alt="">
                     </v-flex>
                     <v-flex>
                         <v-layout align-start justify-space-between column fill-height>
@@ -88,24 +91,27 @@
             userAvatar
         },
         data() {
-            return {};
+            return {
+              isLoaded: false
+            };
         },
         props: {
             tutorData: {},
         },
         methods:{
+            loaded() { this.isLoaded = true; },
             tutorCardClicked(){
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'tutor_page');
             }
         },
         computed: {
+
             userImageUrl() {
                 if(this.tutorData.image) {
                     return utilitiesService.proccessImageURL(this.tutorData.image, 166, 186);
                 } else {
                     return './images/placeholder-profile.png';
                 }
-
             },
             showStriked(){
                 return this.tutorData.price <= 120 && this.tutorData.price > 50
