@@ -45,7 +45,7 @@ t.Bio,
 cte.rateCount as ReviewsCount
 from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
 where t.State = 'Ok'
-and u.Country = @Country or @Country = null
+and (u.Country = @Country or @Country is null)
 order by
 cte.rate desc,
  u.id
