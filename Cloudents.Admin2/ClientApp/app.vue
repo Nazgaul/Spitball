@@ -1,10 +1,10 @@
 <template>
-    <div id="template-app">
-        <div id="app-body">
-            <navigation class="navigation-wrap"></navigation>
+    <v-app>
+        <navigation class="navigation-wrap"></navigation>
+        <v-content fluid fill-height>
             <router-view class="router-view-wrap"></router-view>
-        </div>
-    </div>
+        </v-content>
+    </v-app>
 
 </template>
 
@@ -12,11 +12,15 @@
     import navigation from "./components/navigation/navigation.vue"
 
     export default {
-        components: {navigation}
+        components: { navigation }
     }
 </script>
-
 <style lang="scss">
+    body {
+         font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    }
+    </style>
+    <!-- <style lang="scss" >
     html, body {
         //breaks scroll, cannot listen scroll if parent is scrolling
         /*height: 100%;*/
@@ -24,10 +28,11 @@
         padding: 0;
         /*background-color: #e0e0e0;*/
     }
-body{
-    flex-direction: column;
-    display: flex;
-}
+
+    body {
+        flex-direction: column;
+        display: flex;
+    }
 
 
     #template-app {
@@ -41,10 +46,12 @@ body{
         display: flex;
         justify-content: space-between;
         overflow: auto;
-        .nav-container {
-            min-width: 200px;
-        }
-        
+        .nav-container
+
+    {
+        min-width: 200px;
+    }
+
     }
 
     .router-view-wrap {
@@ -73,25 +80,31 @@ body{
         min-width: 200px;
         top: 0;
         border-radius: 25px;
-        
-        a {
-            font-weight: bold;
-            color: #5d5d5d;
-            display: block;
-            height: 45px;
-            line-height: 45px;
-            width: 100%;
-            margin-bottom: 2px;
-            text-decoration: none;
-            border-radius: 25px;
-            &:hover {
-                background-color: #7c7979;
-            }
-        }
-        a.router-link-active {
-            color: #97ed82;
-            background-color: #7c7979;
-        }
+        a
+
+    {
+        font-weight: bold;
+        color: #5d5d5d;
+        display: block;
+        height: 45px;
+        line-height: 45px;
+        width: 100%;
+        margin-bottom: 2px;
+        text-decoration: none;
+        border-radius: 25px;
+        &:hover
+
+    {
+        background-color: #7c7979;
+    }
+
+    }
+
+    a.router-link-active {
+        color: #97ed82;
+        background-color: #7c7979;
+    }
+
     }
 
     #app-body {
@@ -102,6 +115,5 @@ body{
         width: auto;
         justify-content: space-between;
         flex-direction: row;
-
     }
-</style>
+</style>-->

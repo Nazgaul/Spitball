@@ -13,7 +13,7 @@ export default {
         userSuspend
     },
     props: {
-        userId: {}
+        userId: {},
     },
     data() {
         return {
@@ -26,6 +26,8 @@ export default {
                 {name: 'Flagged', value: 'flagged'}
             ],
             loading: false,
+            needScroll :false,
+
             userActions: [
                 {
                     title: "Suspend",
@@ -48,7 +50,11 @@ export default {
             suspendDialog: false,
             userComponentsShow: false,
             activeUserComponent: '',
-            deleteUserQuestions: false
+            deleteUserQuestions: false,
+            valid: true,
+            requiredRules: [
+                v => !!v || 'Name is required',
+            ],
         };
     },
 
@@ -57,19 +63,23 @@ export default {
             "getTokensDialogState",
             "suspendDialogState",
             "getUserObj",
-            "UserInfo",
-            "filterValue"
+            "userInfo",
+            "filterValue",
+            "getShowLoader"
         ]),
-        userInfo() {
-            return this.UserInfo;
+        loader() {
+            return this.getShowLoader;
+        },
+        info() {
+            return this.userInfo;
         },
         showActions() {
-            return Object.keys(this.UserInfo).length !== 0;
+            return Object.keys(this.info).length !== 0;
         },
         userStatusActive: {
             get() {
-                if (this.userInfo && this.userInfo.status) {
-                    return this.userInfo.status.value;
+                if (this.info && this.info.status) {
+                    return this.info.status.value;
                 }
             },
             set(val) {
@@ -87,8 +97,10 @@ export default {
             "verifyUserPhone",
             "getUserPurchasedDocuments",
             "clearUserState",
-            "updateFilterValue"
+            "updateFilterValue",
+            "setNeedPaging"
         ]),
+       
         resetUserData() {
             // reinit scrollfunc data and clear store ib new user data requested
             this.clearUserState();
@@ -103,7 +115,7 @@ export default {
         userInfoAction(actionItem) {
             if (actionItem === "phoneNumber") {
                 let userObj = {
-                    id: this.userInfo.id.value
+                    id: this.info.id.value
                 };
                 this.verifyUserPhone(userObj).then((resp) => {
                     console.log(resp);
@@ -120,12 +132,14 @@ export default {
         updateFilter(val) {
             return this.updateFilterValue(val);
         },
-        getUserInfoData(paramId) {
-            if (!!this.UserInfo) {
-                this.resetUserData();
+        submitUserData() {
+            if (!this.$refs.form.validate()) {
+                return;
             }
-            let id = this.userIdentifier || paramId;
-            let self = this;
+            this.getUserInfoData(this.userIdentifier);
+        },
+        getUserInfoData(id) {
+            var self = this;
             self.getUserData(id)
                 .then((data) => {
                     if(data &&  data.id && data.id.value){
@@ -165,7 +179,22 @@ export default {
         if(this.$route.params && this.$route.params.userId){
             this. getUserInfoData(this.$route.params.userId);
         }
-        console.log('user main view created' + this.userId, this.$route);
 
-    }
+    } ,
+    mounted() {
+        let self = this;
+            window.addEventListener("scroll",() => {
+                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+                if (bottomOfWindow) {
+                    self.needScroll = true;
+                }
+                else {
+                    self.needScroll = false;
+                }
+            })
+        },
+        beforeDestroy() {
+            //let containerElm = document.querySelector('.item-wrap');
+            window.removeEventListener('scroll', this.handleScroll);
+        }
 }

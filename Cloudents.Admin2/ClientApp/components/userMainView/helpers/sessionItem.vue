@@ -1,5 +1,5 @@
 <template>
-    <div class="item-wrap">
+    <!-- <div class="item-wrap">
             <v-data-table
                 :items="sessions"
                 class="elevation-1"
@@ -19,6 +19,21 @@
                
                 </template>
             </v-data-table>
+    </div> -->
+
+    <div class="item-wrap" data-app>
+        <v-card class="elevation-5">
+                <v-card-text>
+                    <v-flex xs3><b>Tutor: </b>{{session.tutor}}</v-flex>
+                    <v-flex xs3><b>Student: </b>{{session.student}}</v-flex>
+                    <v-flex xs3><b>Created: </b>{{session.created.toLocaleString('he-IL', {  
+                    day : 'numeric',
+                    month : 'short',
+                    year : 'numeric'
+                }) }}</v-flex>
+                <v-flex xs3><b>Duration (min): </b>{{session.duration}}</v-flex>
+                </v-card-text>
+        </v-card>
     </div>
 </template>
 
@@ -29,16 +44,10 @@
         name: "sessionItem",
         data () {
       return {
-            headers: [
-                    { text: 'Tutor' },
-                    { text: 'Student' },
-                    { text: 'Created' },
-                    { text: 'Duration (min)' }
-                ],
         }
     },
         props: {
-            sessions: {
+            session: {
                 type: Array,
                 required: false
             },
@@ -46,7 +55,6 @@
         },
 
          methods: {
-           
         }
     }
 

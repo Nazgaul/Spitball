@@ -1,75 +1,86 @@
 <template>
-    <v-layout justify-center class="user-page-wrap">
-        <v-flex xs12 sm12 md12 class="px-2 py-3" style="background: #ffffff;">
-            <h1>Welcome to Admin</h1>
-            <div class="input-wrap d-flex  justify-end">
+    <v-container>
+        <v-form ref="form" lazy-validation  
+         @submit.prevent="submitUserData"
+          >
+            <v-layout row>
                 <v-flex xs3>
-                    <v-text-field autocomplete solo v-model="userIdentifier"
-                                  @keyup.enter.native="getUserInfoData()"
+                    <v-text-field solo v-model="userIdentifier"
                                   autofocus
-                                  clearable
-                                  loading="primary"
-                                  type="text" class="user-id-input"
-                                  placeholder="Insert user identifier..."/>
+                                  type="text"
+                                  required
+                                  :rules="requiredRules"
+                                  placeholder="Insert user identifier..." 
+                                  @keyup.enter="submitUserData()"/>
                 </v-flex>
-                <v-flex xs1>
-                    <v-btn :disabled="!userIdentifier" primary @click="getUserInfoData()">Get User</v-btn>
-                </v-flex>
+                <v-btn color="success"
+                       @click="submitUserData()"
+                       >
+                    Get User
+                </v-btn>
                 <v-spacer></v-spacer>
                 <v-flex xs4 v-if="showActions">
-                    <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!showActions" color="rgb(0, 188, 212)"
-                           class="suspend"
+                    <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!showActions" color="red lighten-2"
                            @click="showSuspendDialog()">
                         Suspend
                     </v-btn>
-                    <v-btn v-else :disabled="!showActions" class="suspend" @click="releaseUser()">UnSuspend</v-btn>
+                    <v-btn v-else color="teal lighten-1" @click="releaseUser()">UnSuspend</v-btn>
 
-                    <v-btn :disabled="!showActions" class="grant" @click="openTokensDialog()">Grant Tokens
+                    <v-btn :disabled="!showActions" color="light-green lighten-2" @click="openTokensDialog()">
+                        Grant Tokens
                     </v-btn>
                 </v-flex>
-            </div>
-            <div class="questions-answers-wrap">
-                <v-layout row>
-                    <div class="general-info d-flex elevation-2 mb-2" v-if="showActions">
-                        <div class="info-item px-2" v-for="(infoItem, index) in userInfo" :key="index">
-                            <v-flex row class="d-flex align-baseline justify-center">
-                                <div class="user-info-label">
-                                    <span>{{infoItem.label}}</span>
-                                </div>
-                                <div class="user-info-value">
-                                    <span>{{infoItem.value}}</span>
-                                </div>
-                                <div class="user-info-button" v-if="infoItem.showButton">
-                                    <button @click="userInfoAction(index)">{{infoItem.buttonText}}</button>
-                                </div>
-                            </v-flex>
+            </v-layout>
+        </v-form>
+        <v-layout>
+            <v-flex xs2 v-if="showActions">
+                <v-list dense class="elevation-2">
+                    <template v-for="(infoItem, name,index) in userInfo">
+                        <v-list-tile :class="[ (index % 2 == 0) ? 'teal lighten-4' : 'cyan lighten-5' ]">
+                            <v-layout justify-space-between>
+                                <span>{{infoItem.label}}</span>
+                                <span>{{infoItem.value}}</span>
+                            </v-layout>
+                        </v-list-tile>
+                        <v-divider></v-divider>
+                    </template>
+                </v-list>
+            </v-flex>
+            <v-spacer></v-spacer>
+            <v-flex xs10 class="ml-2">
+                <v-tabs centered color="light-green">
+                    <v-tab :to="{name: 'userQuestions', params : {userId: userId} }">Question</v-tab>
+                    <v-tab :to="{name: 'userAnswers', params:{userId: userId}}">Answers</v-tab>
+                    <v-tab :to="{name: 'userDocuments', params:{userId: userId}}">Documents</v-tab>
+                    <v-tab :to="{name: 'userPurchasedDocuments', params:{userId: userId}}">Purchased Documents</v-tab>
+                    <v-tab :to="{name: 'userConversations', params:{userId: userId}}">Conversations</v-tab>
+                    <v-tab :to="{name: 'userSessions', params:{userId: userId}}">Sessions</v-tab>
+                </v-tabs>
+                <div class="filters mb-2">
+                    <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
+                           :color="filterValue === filter.value ? 'blue lighten-1' : ''  "
+                           :key="'filter_'+index">
+                        {{filter.name}}
+                    </v-btn>
+                </div>
+                <v-tabs-items>
+                    <router-view :userId="userId" :needScroll="needScroll">
+                    </router-view>
+                    <div class="d-flex justify-center align-center" v-if="loader">
+                        <div class="text-xs-center">
+                        <v-progress-circular :size="100"
+                                            :width="5"
+                                             color="primary"
+                                             indeterminate>
+                            Loading...
+                        </v-progress-circular>
                         </div>
                     </div>
-                    <div class="tabs-holder">
-                        <v-tabs centered
-                                color="cyan"
-                                dark
-                                icons-and-text>
-                            <v-tab :to="{name: 'userQuestions', params : {userId: userId} }">Question</v-tab>
-                            <v-tab :to="{name: 'userAnswers', params:{userId: userId}}">Answers</v-tab>
-                            <v-tab :to="{name: 'userDocuments', params:{userId: userId}}">Documents</v-tab>
-                            <v-tab :to="{name: 'userPurchasedDocuments', params:{userId: userId}}">Purchased Documents</v-tab>
-                            <v-tab :to="{name: 'userConversations', params:{userId: userId}}">Conversations</v-tab>
-                            <v-tab :to="{name: 'userSessions', params:{userId: userId}}">Sessions</v-tab>
-                        </v-tabs>
-                        <div class="filters mb-2">
-                            <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
-                                   :color="filterValue === filter.value ? '#00bcd4' : ''  "
-                                   :key="'filter_'+index">{{filter.name}}
-                            </v-btn>
-                        </div>
-                        <v-tabs-items>
-                            <router-view  :userId="userId"></router-view>
-                        </v-tabs-items>
-                    </div>
-                </v-layout>
-            </div>
-        </v-flex>
+                  
+
+                </v-tabs-items>
+            </v-flex>
+        </v-layout>
         <v-dialog v-model="suspendDialogState" persistent max-width="600px" v-if="suspendDialogState">
             <v-card>
                 <v-card-title>
@@ -111,13 +122,10 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-    </v-layout>
+    </v-container>
 </template>
 
 <script src="./userMainView.js">
 
 </script>
 
-<style scoped lang="scss" src="./userMainView.scss">
-
-</style>

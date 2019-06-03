@@ -45,8 +45,8 @@ t.Bio,
 cte.rateCount as ReviewsCount
 from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
 where t.State = 'Ok'
+and (u.Country = @Country or @Country is null)
 order by
-case when u.Country = @Country then 0 else 1 end,
 cte.rate desc,
  u.id
 

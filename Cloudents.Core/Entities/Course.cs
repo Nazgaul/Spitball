@@ -84,5 +84,7 @@ namespace Cloudents.Core.Entities
   
         public virtual ItemState State { get; protected set; }
         public virtual CourseSubject Subject { get; protected set; }
+
+        public virtual byte[] Version { get; protected set; }
     }
 }

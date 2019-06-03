@@ -1,5 +1,5 @@
 <template>
-    <v-container class="item-wrap">
+    <!-- <v-container class="item-wrap">
         <v-layout>
             <v-flex xs12>
                 <answer-item
@@ -7,17 +7,16 @@
                 ></answer-item>
             </v-flex>
         </v-layout>
-        <v-progress-circular
-                style="position: absolute; top: 300px; left: auto; right: auto;"
-                :size="150"
-                class="loading-spinner"
-                color="#00bcd4"
-                v-show="loading"
-                indeterminate
-        >
-            <span>Loading...</span>
-        </v-progress-circular>
+    </v-container> -->
+    <div>
+    <v-container fluid grid-list-sm>
+      <v-layout row wrap>
+        <v-flex xs12 v-for="(answer, index) in filteredAnswers" :key="index">
+          <answer-item :answer="answer" :filterVal="filterValue"></answer-item>
+        </v-flex>
+      </v-layout>
     </v-container>
+  </div>
 </template>
 
 <script>
@@ -31,78 +30,53 @@
             return {
                 loading: false,
                 scrollFunc: {
-                        page: 0,
-                        getData: this.getUserAnswersData,
-                        scrollLock: false,
-                        wasCalled: false
+                    page: 0,
+                    doingStuff: false
                 },
-
-                searchQuery: ''
             }
         },
         props: {
             userId: {
             },
+            needScroll: {
+            }
         },
         computed: {
-            ...mapGetters([
-                "UserInfo",
-                "UserAnswers",
-                "filterValue"
-            ]),
+            ...mapGetters(["userAnswers", "filterValue"]),
+            filteredAnswers: function() {
+                return this.userAnswers.filter(f => f.state === this.filterValue);
+            }
+        },
+         watch: {
+            needScroll(val, oldval) {
+            if (val && val != oldval) {
+                this.getUserAnswersData();
+                }
+            }
         },
         methods: {
-            ...mapActions([
-                "getUserAnswers",
-            ]),
+            ...mapActions(["getUserAnswers"]),
             nextPage() {
                 this.scrollFunc.page++
             },
             getUserAnswersData() {
                 let self = this;
                 let id = self.userId;
-                let page = self.scrollFunc.page;
-                self.scrollFunc.wasCalled = true;
-                self.loading = true;
-                self.getUserAnswers({id, page}).then((isComplete) => {
+                if (this.scrollFunc.doingStuff) {
+                    return;
+                }
+                let page = this.scrollFunc.page;
+                this.scrollFunc.doingStuff = true;
+                self.getUserAnswers({ id, page }).then(isComplete => {
+                    self.scrollFunc.doingStuff = !isComplete;
                     self.nextPage();
-                    if(!isComplete){
-                        self.scrollFunc.scrollLock = false;
-                    }else{
-                        self.scrollFunc.scrollLock  = true;
-                    }
-                    self.loading = false;
-
                 });
             },
-            handleScroll(event) {
-                let offset = 2000;
-                if (event.target.scrollHeight - offset < event.target.scrollTop) {
-                    if (!this.scrollFunc.scrollLock) {
-                        this.scrollFunc.scrollLock = true;
-                        this.scrollFunc.getData(this.userId, this.scrollFunc.page )
-                    }
-                }
-            },
-            attachToScroll(){
-                let containerElm = document.querySelector('.item-wrap');
-                containerElm.addEventListener('scroll', this.handleScroll)
-            }
-        },
+        },  
 
         created() {
             this.getUserAnswersData()
-            console.log('hello created' + this.userId);
-            this.$nextTick(function () {
-                this.attachToScroll();
-            })
-        },
-        beforeDestroy() {
-            let containerElm = document.querySelector('.item-wrap');
-            if (!containerElm) return;
-            containerElm.removeEventListener('scroll', this.handleScroll);
         }
-
     }
 </script>
 
