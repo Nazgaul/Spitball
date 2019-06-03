@@ -47,6 +47,8 @@ import conversationMessages from './components/conversation/conversationComponen
 
 import tutors from './components/tutor/tutor.vue';
 import pendingTutors from './components/tutor/pendingTutors/pendingTutor.vue';
+import studyRoom from './components/studyRoom/studyRoom.vue';
+import studyRoomSession from './components/studyRoom/studyRoomComponents/sessions/studyRoomsSessions.vue';
 
 export const routes = [
     {
@@ -290,6 +292,17 @@ export const routes = [
                 
             }
         ]
+    },
+    {
+        path: '/reports',
+        name: 'reports',
+        component: studyRoom,
+        children: [
+            {
+                path: '',
+                component: studyRoomSession
+            }
+            ]
     },
 
      {

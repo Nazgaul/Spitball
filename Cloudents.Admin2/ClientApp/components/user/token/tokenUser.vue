@@ -1,6 +1,6 @@
 <template>
     <div class="user-tokens-container">
-        <h1>Send Tokens To User</h1>
+        <h1 align="center">Send Tokens To User</h1>
         <div class="user-inputs-container">
            <v-text-field   solo class="user-input-text" type="text" v-model.number="userId" placeholder="Insert user id..."/>
            <v-text-field solo class="user-input-text" type="text" v-model.number="tokens" placeholder="Set amount of tokens to apply..."/>
@@ -14,10 +14,11 @@
                      :item-value="tokenType"
                     label="Select type"
             ></v-select>
-        </div>
-        <div class="grant-token-container">
+            <div class="grant-token-container">
             <v-btn :loading="loading" color="#78c967" @click="sendTokens">Send</v-btn>
         </div>
+        </div>
+        
     </div>
     
 </template>

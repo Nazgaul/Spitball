@@ -1,63 +1,41 @@
 <template>
-    <div class="item-wrap" data-app>
-   
-        <v-card v-for="(conversation, index) in conversations" :key="index">
-            <div class="conversation-toolbar mt-4 back-color-purple" :style="{cursor: 'pointer'}" @click="openItem(conversation)">
-                <div class="conversation-text-title">
-                    UserName: {{conversation.userName}} &nbsp;&nbsp; TutorName: {{conversation.tutorName}}
-                 
-                </div>
-               <div class="conversation-text-title">LastMessage: {{conversation.lastMessage.toLocaleString()}}</div>
-            </div>      
+ <div class="item-wrap" data-app>
+        <v-card class="elevation-5">
+                <v-card-text :style="{ cursor: 'pointer'}" @click="openItem(conversation)">
+                    <v-flex xs3><b>Tutor Id:</b>{{conversation.tutorId}}</v-flex>
+                    <v-flex xs3><b>Tutor Name:</b>{{conversation.tutorName}}</v-flex>
+              <br>
+                  <v-flex xs3><b>Student Id:</b>{{conversation.userId}}</v-flex>
+                  <v-flex xs3><b>Tutor Name:</b>{{conversation.userName}}</v-flex>
+                  <v-flex xs3><b>Last Message:</b>{{conversation.lastMessage.toLocaleString()}}</v-flex>
+                </v-card-text>
         </v-card>
     </div>
 </template>
 
 <script>
-    
-   
-    export default {
-        name: "conversationItem",
-        data () {
-      return {
-   
-      }
-    },
-        props: {
-            conversations: {
-                type: Array,
-                required: false
-            },
-            
-        },
-
-         methods: {
-            openItem(item) {
-                
-                this.$router.push({ path: `/conversation/conversationDetail/${item.id}` })
-            }
-        },
+export default {
+  name: "conversationItem",
+  data() {
+    return {};
+  },
+  props: {
+    conversation: {
+      type: Array,
+      required: false
     }
+  },
 
-
+  methods: {
+    openItem(item) {
+      this.$router.push({
+        path: `/conversation/conversationDetail/${item.id}`
+      });
+    }
+  }
+};
 </script>
 
 <style  lang="scss">
-    .item-wrap{
-        .conversation-toolbar{
-            max-width: 100%;
-            background-color: transparent!important;
-            box-shadow: none;
-            border-bottom: 1px solid grey;
-        }
-        .v-card{
-            max-width: 100%;
-        }
-    }
-    .conversation-text-title{
-        font-size: 15px;
-        text-align: left;
-    }
-   
 
 </style>

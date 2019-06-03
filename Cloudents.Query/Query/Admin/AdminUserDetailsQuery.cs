@@ -37,6 +37,7 @@ namespace Cloudents.Query.Query.Admin
 			U.PhoneNumberConfirmed,
 			U.EmailConfirmed,
             U.LastOnline,
+            U.LockoutReason,
 			case when T.id is not null then T.State else 'Not a Tutor' end as IsTutor
                         from sb.[User] U
                         left join sb.University Un
@@ -50,7 +51,7 @@ namespace Cloudents.Query.Query.Admin
 			case when U.LockoutEnd is null then 0
 			else 1 end,
 			U.PhoneNumberConfirmed,
-			U.EmailConfirmed, U.LastOnline,
+			U.EmailConfirmed, U.LastOnline,U.LockoutReason,
             case when T.id is not null then T.State else 'Not a Tutor' end";
 
                 using (var connection = _dapper.OpenConnection())

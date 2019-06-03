@@ -13,7 +13,7 @@ namespace Cloudents.Query.Query.Admin
             Id = id;
         }
 
-        private string Id { get;  }
+        private string Id { get; }
 
         internal sealed class AdminConversationDetailsQueryHandler : IQueryHandler<AdminConversationDetailsQuery, IEnumerable<ConversationDetailsDto>>
         {
@@ -28,12 +28,15 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<ConversationDetailsDto>> GetAsync(AdminConversationDetailsQuery query, CancellationToken token)
             {
-                const string sql = @"select u.Name as UserName, u.Email, u.PhoneNumberHash as PhoneNumber,
-case when u.Id = (select top 1 UserId from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by cm.CreationTime) then 1
+                const string sql = @"select u.Name as UserName, u.Email, u.PhoneNumberHash as PhoneNumber, u.Image,
+case when u.Id = (select top 1 UserId from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by cm.CreationTime) 
+	then 1
 else 0 end as Student
 from sb.ChatRoom cr
-join sb.ChatUser cu on cr.id = cu.ChatRoomId
-join sb.[User] u on cu.UserId = u.Id
+join sb.ChatUser cu
+	on cu.ChatRoomId = cr.Id
+join sb.[User] u
+	on u.Id = cu.UserId
     where cr.identifier = @Id
     order by case when u.Id = (select top 1 UserId from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by cm.CreationTime) then 1
 else 0 end";

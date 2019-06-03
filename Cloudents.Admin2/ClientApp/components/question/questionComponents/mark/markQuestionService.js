@@ -41,7 +41,7 @@ function createQuestionItem(objInit){
     return new QuestionItem(objInit);
 }
 
-const getAllQuestions = function(page){
+const getAllQuesitons = function(page){
     let path = `AdminMarkQuestion?page=${page}`;
     return connectivityModule.http.get(path).then((questions)=>{
         let arrQuestions = [];
@@ -73,6 +73,6 @@ const acceptAnswer = function(question){
 
 
 export {
-    getAllQuestions,
+    getAllQuesitons,
     acceptAnswer
 }

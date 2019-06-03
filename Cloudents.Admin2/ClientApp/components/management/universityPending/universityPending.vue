@@ -2,7 +2,7 @@
     <div class="cashout-table-container">
         <span v-if="showLoading">Loading List...</span>
         <span v-if="showNoResult">NO RESULTS!</span>
-        <h4>Pending Universities List</h4>
+        <h1 align="center">Pending Universities List</h1>
         <v-layout>
             <v-spacer></v-spacer>
             <v-flex xs3>

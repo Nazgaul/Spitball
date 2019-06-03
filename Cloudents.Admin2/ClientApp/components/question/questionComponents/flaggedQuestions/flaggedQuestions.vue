@@ -52,8 +52,8 @@
         </v-card>
           </v-flex>
     </v-layout>
-        <div v-if="loading">Loading questions, please wait...</div>
-        <div v-show="questions.length === 0 && !loading">No more flagged questions</div>
+        <div v-if="loading" align="center">Loading questions, please wait...</div>
+        <div v-show="questions.length === 0 && !loading" align="center">No more flagged questions</div>
   </div>
 </template>
 

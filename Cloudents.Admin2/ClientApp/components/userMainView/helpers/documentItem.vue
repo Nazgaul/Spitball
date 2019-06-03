@@ -1,75 +1,37 @@
 <template>
-    <div class="item-wrap">
-        <v-list three-line class="docs-list">
-            <template v-for="(document, index) in documents" v-if="isVisible(document.state)">
-
-                <v-list-tile class="document-tile"
-                             :key="'doc'+index"
-                             avatar
-                             @click=""
-                >
-
-                    <v-list-tile-avatar v-if="!isDeleted">
-                        <img :src="document.preview ?  document.preview : ''"
-                             :class=" [ 'document-preview',
-                             proccessedDocuments.includes(document.id) ? 'blured' : '',
-                             ]" @click="imageView(document.preview)">
-                    </v-list-tile-avatar>
-
-                    <v-list-tile-content>
-                        <v-list-tile-title class="doc-title mb-2"><span class="doc-info-label">Document Title: </span>{{document.name}}
-                        </v-list-tile-title>
-                        <v-list-tile-sub-title class="doc-subtitle mb-1"><span
-                                class="doc-info-label">University: </span>{{document.university}}
-                        </v-list-tile-sub-title>
-                        <v-list-tile-sub-title class="doc-subtitle mb-1"><span class="doc-info-label">Course: </span>{{document.course}}
-                        </v-list-tile-sub-title>
-                        <v-list-tile-sub-title class="doc-subtitle mb-1"><span
-                                class="doc-info-label">Upload Date: </span>
-                            {{document.create | dateFromISO}}
-                        </v-list-tile-sub-title>
-                    </v-list-tile-content>
-
-                    <v-list-tile-action v-if="!isDeleted">
-                        <v-tooltip left attach="tooltip-1" lazy>
-                            <v-btn slot="activator" flat class="doc-action tooltip-1 " v-if="!isOk"
-                                   @click="isFlagged ? unflagSingleDocument(document, index) : approveSingleDocument(document, index)"
+<div>
+    <v-card class="elevation-5">
+          <v-img v-if="document.preview" :src="document.preview" @click="imageView(document.preview)" aspect-ratio="2.75">
+          </v-img>
+          <v-card-title primary-title>
+        {{document.name}}
+        </v-card-title>
+        <v-card-text>
+            <div><b>University:</b> {{document.university}}</div>
+            <div><b>Course:</b> {{document.course}}</div>
+            <div><b>Upload Date:</b>  {{document.create | dateFromISO}}</div>
+        </v-card-text>
+        <v-card-actions>
+            <v-btn flat v-if="!isOk && !isDeleted" @click="isFlagged ? unflagSingleDocument(document, index) : approveSingleDocument(document, index)"
                                    :disabled="proccessedDocuments.includes(document.id)">
-                                <v-icon>check</v-icon>
-                            </v-btn>
-                            <span>{{isFlagged ? 'Accept' : 'Accept' }}</span>
-                        </v-tooltip>
-                        <v-tooltip left attach="tooltip-2" lazy>
-                            <v-btn slot="activator" flat color="purple" class="doc-action tooltip-2"
-                                   :disabled="proccessedDocuments.includes(document.id)"
-                                   @click="deleteDocument(document, index)">
-                                <v-icon>delete</v-icon>
-                            </v-btn>
-                            <span>Delete</span>
-                        </v-tooltip>
-                        <v-tooltip left attach="tooltip-3" lazy>
-                            <v-btn slot="activator" class="doc-action tooltip-3" flat :href="document.siteLink"
-                                   target="_blank">
-
-                                <v-icon>link</v-icon>
-                            </v-btn>
-                            <span>Download</span>
-                        </v-tooltip>
-                        <v-spacer></v-spacer>
-                    </v-list-tile-action>
-                </v-list-tile>
-            </template>
-        </v-list>
-        <v-dialog :max-width="'1280px'" :origin="'bottom center'" :fullscreen="false" v-if="showBigImageDialog"
-                  v-model="showBigImageDialog">
-            <div class="" justify-center>
-                <v-card class="justify-center" column>
-                    <v-icon @click="closeImageView()" class="close-dialog">close</v-icon>
-                    <img :src="imageBigSrc" alt="">
-                </v-card>
-            </div>
-        </v-dialog>
+                                    <v-icon>check</v-icon>
+                                    Accept
+            </v-btn>
+            <v-btn  flat v-if="!isDeleted" :disabled="proccessedDocuments.includes(document.id)"  @click="deleteDocument(document, index)">
+                 <v-icon>delete</v-icon>
+                 Delete
+            </v-btn>
+            <v-btn v-if="!isDeleted"  flat :href="document.siteLink">
+                <v-icon>link</v-icon>
+                Download
+            </v-btn>
+            
+                    
+        </v-card-actions>
+    </v-card>
+   
     </div>
+   
 </template>
 
 <script>
@@ -81,19 +43,11 @@
         name: "documentItem",
         data() {
             return {
-                infoSuccess: '',
-                infoError: '',
-                arrayOfIds: [],
                 proccessedDocuments: [],
-                bottomNav: 'refresh',
-                imageBigSrc: '',
-                showBigImageDialog: false,
-
-
             }
         },
         props: {
-            documents: {},
+            document: {},
             filterVal: {
                 type: String,
                 required: false
@@ -103,6 +57,7 @@
         computed: {
             ...mapActions(['deleteDocumentItem']),
             isOk() {
+                console.log(this.filterVal);
                 return this.filterVal === 'ok'
             },
             isPending() {
@@ -120,13 +75,9 @@
                 return itemState.toLowerCase() === this.filterVal.toLowerCase();
             },
             imageView(src) {
-                this.imageBigSrc = src;
-                this.showBigImageDialog = true;
+                this.$emit("dialog",src);
             },
-            closeImageView() {
-                this.showBigImageDialog = false;
-                this.imageBigSrc = '';
-            },
+           
             markAsProccessed(arrIds) {
                 for (let i = 0; i < arrIds.length; i++) {
                     this.proccessedDocuments.push(arrIds[i])
@@ -184,46 +135,3 @@
 
     }
 </script>
-<style lang="scss">
-    .close-dialog {
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
-    .item-wrap {
-        .v-avatar {
-            img {
-                border-radius: 0;
-            }
-        }
-        .doc-action {
-            height: 24px;
-        }
-        .docs-list {
-            .document-tile {
-                height: 100%;
-                .v-list--two-line {
-                    height: 100% !important;
-                    &.v-list__tile {
-                        height: 100% !important;
-                        &:hover {
-                            background: #00bcd4;
-                        }
-
-                    }
-                }
-                &:nth-child(even) {
-                    background-color: rgba(0, 0, 0, .04);
-                }
-            }
-        }
-
-        .doc-info-label {
-            font-size: 14px;
-            font-weight: 500;
-            color: #000;
-        }
-    }
-
-</style>
-
