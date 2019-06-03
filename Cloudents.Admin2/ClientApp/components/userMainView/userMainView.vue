@@ -18,6 +18,7 @@
                        >
                     Get User
                 </v-btn>
+               
                 <v-spacer></v-spacer>
                 <v-flex xs4 v-if="showActions">
                     <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!showActions" color="red lighten-2"
@@ -29,7 +30,9 @@
                     <v-btn :disabled="!showActions" color="light-green lighten-2" @click="openTokensDialog()">
                         Grant Tokens
                     </v-btn>
+                    
                 </v-flex>
+                
             </v-layout>
         </v-form>
         <v-layout>

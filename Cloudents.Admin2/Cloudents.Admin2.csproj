@@ -4,8 +4,6 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <Deterministic>False</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <AssemblyVersion>19.3.12.2</AssemblyVersion>

@@ -142,11 +142,11 @@ export default {
             var self = this;
             self.getUserData(id)
                 .then((data) => {
-                    if(data &&  data.id && data.id.value){
-                        self.$router.push({name: 'userMainView', params: {userId: data.id.value}});
+                    if(data &&  data.id && data.id.value && !self.$route.params.userId){
+                         self.$router.push({name: 'userQuestions', params: {userId: data.id.value}});
                     }else{
                         //clean id from url if not valid and nopthing reterned from server
-                        self.$router.push({name: 'userMainView', params: {userId: ''}});
+                        // self.$router.push({name: 'userMainView', params: {userId: ''}});
                     }
                 }, () => {
                     if(id > 0 || this.userIdentifier != '')
@@ -177,11 +177,11 @@ export default {
     },
     created() {
         if(this.$route.params && this.$route.params.userId){
-            this. getUserInfoData(this.$route.params.userId);
+            this.getUserInfoData(this.$route.params.userId);
         }
-
     } ,
     mounted() {
+        
         let self = this;
             window.addEventListener("scroll",() => {
                 let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;

@@ -35,5 +35,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(RegularUser.LastOnline))]
         public DateTime? LastOnline { get; set; }
         public string IsTutor{ get; set; }
+        [EntityBind(nameof(RegularUser.LockoutReason))]
+        public string LockoutReason { get; set; }
     }
 }

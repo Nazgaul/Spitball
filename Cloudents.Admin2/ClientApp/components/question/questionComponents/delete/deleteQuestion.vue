@@ -1,6 +1,6 @@
 <template>
     <div class="delete-question-container">
-        <h1>Delete Question</h1>
+        <h1 align="center">Delete Question</h1>
         <div class="wrap">
             <div class="info">
                 <h3>To Delete multiple questions, enter the question Id's seperated with a comma (See example).</h3>

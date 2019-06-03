@@ -26,7 +26,7 @@
                 <v-card-text>
                     <v-flex xs3><b>Tutor: </b>{{session.tutor}}</v-flex>
                     <v-flex xs3><b>Student: </b>{{session.student}}</v-flex>
-                    <v-flex xs3><b>Created: </b>{{session.created.toLocaleString('he-IL', {  
+                    <v-flex xs3><b>Created: </b>{{session.created.toLocaleString('en-US', {  
                     day : 'numeric',
                     month : 'short',
                     year : 'numeric'
