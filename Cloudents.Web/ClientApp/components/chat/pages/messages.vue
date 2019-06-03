@@ -164,10 +164,6 @@ export default {
                     box-shadow: none !important;
                     
                 }
-                [contenteditable=true]:empty:before {
-                    content: attr(placeholder);
-                    display: block; /* For Firefox */
-                }
 
                 &.messages-input-disabled{
                     background: #b9b9b9;
