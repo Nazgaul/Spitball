@@ -16,7 +16,7 @@
             </v-flex>
             <v-flex class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <chat-upload-file></chat-upload-file>
-                <v-textarea rows="1" solo type="text" :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"
+                <v-textarea rows="1" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"
                  v-language:placeholder @keyup.enter="sendMessage" v-model="messageText" auto-grow></v-textarea>
             </v-flex>
         </v-layout>
@@ -146,6 +146,7 @@ export default {
                 padding: 15px 10px 0 10px;
                 margin: 22px 0 4px 0;
                 overflow: auto;
+                flex-grow: 1;
             }
             .messages-body-disabled{
                 padding: 15px 10px 0 10px;
@@ -157,8 +158,10 @@ export default {
                 flex-direction: row-reverse;
                 box-shadow: 0px -3px 0px 0px rgba(240,240,247,1);
                 border-radius: 0 0 16px 16px;
-                max-height: 48px;
-                min-height: 48px;
+              //  max-height: 48px;
+               // min-height: 48px;
+               flex-grow: 0;
+               flex-shrink: 1;
                 padding-right: 20px;
                 .v-input__slot{
                     box-shadow: none !important;
