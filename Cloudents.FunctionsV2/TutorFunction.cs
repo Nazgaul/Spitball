@@ -54,7 +54,7 @@ namespace Cloudents.FunctionsV2
                         InsertDate = DateTime.UtcNow,
                         Prefix = update.Courses.ToArray(),
                         ReviewCount = update.ReviewsCount,
-                        Subjects = update.Subjects.Where(w=>!string.IsNullOrWhiteSpace(w)).ToArray()
+                        Subjects = update.Subjects.Where(w=>!string.IsNullOrWhiteSpace(w)).Distinct().ToArray()
                     },
                     Insert = true
 

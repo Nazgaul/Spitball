@@ -36,7 +36,8 @@ namespace Cloudents.Search.Tutor
                     nameof(Entities.Tutor.Rate),
                     nameof(Entities.Tutor.ReviewCount),
                     nameof(Entities.Tutor.Bio),
-                }
+                },
+                ScoringProfile = "ScoringProfile"
             };
             if (!string.IsNullOrEmpty(query.Country))
             {

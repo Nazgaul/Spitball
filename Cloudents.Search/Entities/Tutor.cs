@@ -1,6 +1,7 @@
 ﻿using System;
 using Cloudents.Search.Interfaces;
 using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Search.Entities
 {
@@ -23,7 +24,7 @@ namespace Cloudents.Search.Entities
         [IsSearchable]
         public string[] Courses { get; set; }
 
-        [IsSearchable]
+        [IsSearchable, IndexAnalyzer("prefix"), SearchAnalyzer(AnalyzerName.AsString.StandardLucene)]
         public string[] Prefix { get; set; }
 
         [IsSearchable]
