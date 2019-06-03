@@ -22,39 +22,6 @@
                  Delete
             </v-btn>
             </v-card-title>
-
-            <!-- <v-list two-line avatar v-show="question.answers">
-                <template v-for="(answer, index) in question.answers">
-                    <v-list-tile class="answers-list-tile">
-                        <v-list-tile-content class="answers-content">
-                            <v-list-tile-sub-title class="answer-subtitle">{{answer.text}}
-                            </v-list-tile-sub-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action class="answer-action">
-                            <v-list-tile-action-text></v-list-tile-action-text>
-                            <v-btn icon @click="deleteAnswerByID(question, answer)">
-                                <v-icon color="red">close</v-icon>
-                            </v-btn>
-                        </v-list-tile-action>
-                        <v-list-tile-action class="answer-action">
-                            <v-list-tile-action-text></v-list-tile-action-text>
-                            <span v-show="answer.imagesCount > 0" title="Number of Attchments"
-                                  class="font-size-14">
-                                                <b>{{answer.imagesCount}}</b>
-                                                <v-icon class="font-size-16">attach_file</v-icon>
-                                            </span>
-                            <v-btn icon @click="acceptQuestion(question, answer)">
-                                <v-icon color="green">done</v-icon>
-                            </v-btn>
-                        </v-list-tile-action>
-
-                    </v-list-tile>
-                    <v-divider
-                            v-if="index + 1 < question.answers.length"
-                            :key="index"
-                    ></v-divider>
-                </template>
-            </v-list> -->
         </v-card>
     </div>
 </template>

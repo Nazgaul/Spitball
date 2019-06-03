@@ -113,17 +113,7 @@
 </script>
 
 <style lang="scss">
-    .elevation-1 {
-        width: 80%;
-        margin-top: 30px;
-        margin-left: 10%;
-    }
-
-    .text-s-left {
-        font-weight: bold;
-        font-size: large;
-        text-align:left;
-    }
+ 
     .text-xs-left {
         background-color: white;
     }

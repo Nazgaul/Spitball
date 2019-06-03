@@ -1,58 +1,21 @@
 <template>
   <div class="item-wrap" data-app>
-    <!-- <v-card class="answer-card" v-for="(answer, index) in answers" :key="index" v-if="isVisible(answer.state)">
-            <v-toolbar class="answer-toolbar mt-4 back-color-purple">
-                <v-toolbar-title class="answer-text-title">
-                    <span class="question-text-label">Answer Text</span>
-
-                    {{answer.text}}
-                </v-toolbar-title>
-                <v-spacer></v-spacer>
-                <span title="Fictive Or Original Question ">{{answer.flaggedUserEmail}}</span>
-                <v-spacer></v-spacer>
-                <v-flex>
-                    <v-tooltip left  attach="tooltip-1">
-                        <v-btn slot="activator" icon @click="declineAnswer(answer, index)" class="tooltip-1">
-                            <v-icon color="red">close</v-icon>
-                        </v-btn>
-                        <span>Delete</span>
-                    </v-tooltip>
-                    <v-list-tile-action-text></v-list-tile-action-text>
-                    <v-tooltip left  attach="tooltip-2">
-                        <v-btn slot="activator" icon @click="aproveA(answer, index)" class="tooltip-2">
-                            <v-icon color="green">done</v-icon>
-                        </v-btn>
-                        <span>Accept</span>
-                    </v-tooltip>
-                </v-flex>
-            </v-toolbar>
-
-            <v-list two-line avatar>
-                <template>
-                    <v-list-tile class="answers-list-tile">
-                        <v-list-tile-content class="answers-content">
-                            <v-list-tile-sub-title class="answer-subtitle">
-                                <span class="question-text-label">Question Text</span>
-                                {{answer.questionText}}
-                            </v-list-tile-sub-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </template>
-            </v-list>
-    </v-card>-->
+   
     <v-card class="elevation-5">
-      <v-card-text>
+      <v-card-title>
         <span>
           <b>Answer Text:</b>
-        </span>
         <br>
         {{answer.text}}
         <br>
+        </span>
+        &nbsp;&nbsp;&nbsp;
         <span>
           <b>Question Text:</b>
-        </span>
         <br>
         {{answer.questionText}}
+        </span>
+        
         <v-spacer></v-spacer>
         <v-btn
           flat
@@ -70,7 +33,7 @@
         >
           <v-icon>delete</v-icon>Delete
         </v-btn>
-      </v-card-text>
+      </v-card-title>
     </v-card>
   </div>
 </template>

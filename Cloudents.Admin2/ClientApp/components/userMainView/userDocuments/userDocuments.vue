@@ -49,8 +49,7 @@ export default {
       dialog: {
           img:'',
           showBigImageDialog:false
-      },
-      searchQuery: ""
+      }
     };
   },
   props: {

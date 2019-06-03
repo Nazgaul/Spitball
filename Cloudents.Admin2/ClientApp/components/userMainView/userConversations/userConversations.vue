@@ -1,13 +1,13 @@
 <template>
-<v-container  class="item-wrap">
-    <v-layout>
-        <v-flex xs12>
-            <conversation-item
-                    :conversations="UserConversations"
-            ></conversation-item>
+<div>
+    <v-container fluid grid-list-sm>
+      <v-layout row wrap>
+        <v-flex xs12 v-for="(conversation, index) in userConversations" :key="index">
+          <conversation-item :conversation="conversation"></conversation-item>
         </v-flex>
-    </v-layout>
-</v-container>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -19,34 +19,25 @@
         components: {conversationItem},
         data() {
             return {
-                loading: false,
+               
             }
         },
         props: {
-            userId: {
-
-            },
+            userId: {}
         },
+       
         computed: {
-            ...mapGetters([
-                "UserInfo",
-                "UserConversations"
-            ]),
+            ...mapGetters(["userConversations"]),
         },
         methods: {
-            ...mapActions([
-                "getUserConversations",
-            ]),
+            ...mapActions(["getUserConversations"]),
+            
             getUserConversationsData() {
+                
                 let id = this.userId;
-                let self = this;
-                self.loading = true;
-                self.getUserConversations({id}).then((isComplete) => {
-                  
-                    self.loading = false;
-
-                });
-            }
+               
+                this.getUserConversations({id});
+                }
         },
         created() {
             this.getUserConversationsData();

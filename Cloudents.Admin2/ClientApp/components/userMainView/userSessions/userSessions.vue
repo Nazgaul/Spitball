@@ -1,5 +1,5 @@
 <template>
-<v-container  class="item-wrap">
+<!-- <v-container  class="item-wrap">
     <v-layout>
         <v-flex xs12>
             <session-item
@@ -7,7 +7,17 @@
             ></session-item>
         </v-flex>
     </v-layout>
-</v-container>
+</v-container> -->
+
+<div>
+    <v-container fluid grid-list-sm>
+      <v-layout row wrap>
+        <v-flex xs12 v-for="(session, index) in userSessions" :key="index">
+          <session-item :session="session"></session-item>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -19,24 +29,16 @@
         components: {sessionItem},
         data() {
             return {
-                loading: false,
             }
         },
         props: {
-            userId: {
-
-            },
+            userId: {},
         },
         computed: {
-            ...mapGetters([
-                "UserInfo",
-                "UserSessions"
-            ]),
+            ...mapGetters(["userSessions"]),
         },
         methods: {
-            ...mapActions([
-                "getUserSessions",
-            ]),
+            ...mapActions(["getUserSessions"]),
             getUserSessionsData() {
                 let id = this.userId;
                 let self = this;
