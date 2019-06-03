@@ -53,7 +53,7 @@ export default {
                 this.$toaster.error("Please Insert A user ID");
                 return;
             }
-            if (!!this.reason || !!this.reason.trim())
+            if (this.reason == null || !this.reason.trim())
             {
                  this.$toaster.error("Please Insert A Reason");
                 return;
