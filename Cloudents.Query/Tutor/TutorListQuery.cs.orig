@@ -38,11 +38,19 @@ T.Price,
                         join sb.Tutor T
 	                        on U.Id = T.Id
 						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
+<<<<<<< HEAD
 						and  uc.CourseId in (select CourseId from sb.UsersCourses where UserId = @UserId)
                         and T.State = 'Ok'
-                        and U.Country = @Country
+
 union all
 select 1 as position, U.Id as UserId, U.Name, U.Image, 
+=======
+						and (uc.CourseId in (select CourseId from sb.UsersCourses where UserId = @UserId)
+                            or @UserId = 0)
+                        and U.Country = @Country
+union
+select U.Id as UserId, U.Name, U.Image, 
+>>>>>>> feature-tutorByCountry
 (select STRING_AGG(dt.CourseId, ', ') FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
 T.Price, 
 	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
@@ -51,20 +59,32 @@ T.Price,
 	                        on U.Id = T.Id
 						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
 						join sb.Course c on uc.CourseId = c.Name
+<<<<<<< HEAD
 						and c.SubjectId in (Select subjectId  from sb.UsersCourses where UserId = @UserId)
-						and T.State = 'Ok'
+						and T.State = 'Ok') t
+
+where t.UserId <> @UserId
+order by position desc, Rate desc
+=======
+						and (c.SubjectId in (Select subjectId  from sb.UsersCourses where UserId = @UserId)
+                                or @UserId = 0)
 						and U.Country = @Country) t
 
 where t.UserId <> @UserId or @UserId = 0
-order by position desc, Rate desc
+order by Rate desc
+>>>>>>> feature-tutorByCountry
 OFFSET 0 ROWS
 FETCH NEXT 20 ROWS ONLY;";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
                     var retVal = await conn.QueryAsync<TutorListDto>(sql, new
                     {
+<<<<<<< HEAD
+                        query.UserId
+=======
                         query.UserId,
                         query.Country
+>>>>>>> feature-tutorByCountry
                     });
 
                     return retVal.Distinct(TutorListDto.UserIdComparer);

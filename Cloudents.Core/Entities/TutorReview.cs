@@ -35,5 +35,7 @@ namespace Cloudents.Core.Entities
                 
         public virtual Tutor Tutor { get; protected set; }
         public virtual StudyRoom Room { get; protected set; }
+
+        public virtual byte[] Version { get; protected set; }
     }
 }

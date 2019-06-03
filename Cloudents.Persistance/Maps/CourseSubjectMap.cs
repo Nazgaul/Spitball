@@ -11,9 +11,10 @@ namespace Cloudents.Persistence.Maps
         {
             Id(x => x.Id).GeneratedBy.Identity();
             Map(e => e.Name).Not.Nullable().Unique().Length(150);
-            Table("CourseSubject");
+            DynamicUpdate();
+            OptimisticLock.Version();
+            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
             ReadOnly();
-            SchemaAction.Validate();
         }
     }
 }

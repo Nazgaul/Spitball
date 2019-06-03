@@ -16,7 +16,9 @@ namespace Cloudents.Persistence.Maps
 
             Table("UsersCourses");
 
-            SchemaAction.Validate();
+            DynamicUpdate();
+            OptimisticLock.Version();
+            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
 
         }
     }

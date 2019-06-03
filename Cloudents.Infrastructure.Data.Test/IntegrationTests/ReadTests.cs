@@ -76,7 +76,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new StudyRoomQuery(Guid.Parse("0F70AF05-BAD4-4299-8341-AA38007858CF"), 159039);
 
-            var x = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
@@ -137,7 +137,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AccountUserDataById_Ok()
         {
             var query = new UserAccountQuery(638);
-            var user = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 
@@ -149,7 +149,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
 
             query = new UserUnreadMessageQuery(result.First().Version);
-            result = await fixture.QueryBus.QueryAsync(query, default);
+            var  _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
     }
