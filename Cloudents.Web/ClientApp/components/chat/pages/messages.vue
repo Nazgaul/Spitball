@@ -17,7 +17,7 @@
             <v-flex class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <chat-upload-file></chat-upload-file>
                 <v-textarea rows="1" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"
-                 v-language:placeholder @keyup.enter="sendMessage" v-model="messageText" auto-grow></v-textarea>
+                 v-language:placeholder @keydown.enter="sendMessage" v-model="messageText" auto-grow></v-textarea>
             </v-flex>
         </v-layout>
     </div>
