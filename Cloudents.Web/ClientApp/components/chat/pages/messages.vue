@@ -165,7 +165,13 @@ export default {
                 padding-right: 20px;
                 .v-input__slot{
                     box-shadow: none !important;
-                    
+                    padding: 0 40px 0 12px;
+                    textarea{
+                        //override vuetify stupid logic
+                        margin-top:0;
+                        max-height: 150px;
+                        overflow: auto;
+                    }
                 }
 
                 &.messages-input-disabled{
