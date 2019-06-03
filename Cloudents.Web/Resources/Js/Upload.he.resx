@@ -214,7 +214,7 @@
     <value>שנה מחיר 0.00 להכל</value>
   </data>
   <data name="multiple_price_placeholder" xml:space="preserve">
-    <value>נקודות</value>
+    <value>מחיר 0.00 נקודות</value>
   </data>
   <data name="multiple_professor_placeholder" xml:space="preserve">
     <value>שם המרצה (לא חובה)</value>
