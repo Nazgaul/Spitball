@@ -29,7 +29,8 @@ import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
 import userOnlineStatus from '../../helpers/userOnlineStatus/userOnlineStatus.vue';
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
 import {mapGetters, mapActions} from 'vuex';
-import { LanguageService } from '../../../services/language/languageService'
+import { LanguageService } from '../../../services/language/languageService';
+import chatService from '../../../services/chatService';
 export default {
     components:{
         message,
@@ -41,14 +42,14 @@ export default {
         return{
             messageText: "",
             placeHolderText: LanguageService.getValueByKey("chat_type_message"),
-
+            emptyStateMessages: [],
         }
     },
     computed:{
         ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj', 'getIsSignalRConnected']),
         messages(){
             this.scrollToEnd();
-            return this.getMessages;
+            return this.getMessages;            
         },
         isTutor(){
             return this.accountUser.isTutor;

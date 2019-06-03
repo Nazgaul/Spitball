@@ -14,7 +14,9 @@ const state = {
     isVisible: global.innerWidth < 600 ? false : false,
     isMinimized: true,
     totalUnread: 0,
-    chatLocked: false
+    chatLocked: false,
+    emptyState: [],
+    isSyncing: true,
 };
 const getters = {
     getIsChatVisible:state=> state.isVisible,
@@ -24,15 +26,41 @@ const getters = {
     getConversations: state=>state.conversations,
     getMessages: (state, {getConversationIdCurrentUserId})=>{
         //can get only messages of the current conversation room
+        state.emptyState.length = 0;
         if(!!state.activeConversationObj.conversationId){
-            return state.messages[state.activeConversationObj.conversationId];
+            if(!!state.messages[state.activeConversationObj.conversationId]){
+                let messages = state.messages[state.activeConversationObj.conversationId];
+                return messages;
+            }else{
+                if(!state.isSyncing){
+                    let messageObjct = chatService.createMessage({
+                        dateTime: null,
+                        fromSignalR: false,
+                        name: state.activeConversationObj.name,
+                        text: `${LanguageService.getValueByKey('chat_emptyState_message1')} ${state.activeConversationObj.name}`,
+                        type: "text",
+                        userId: state.activeConversationObj.userId
+                    }, state.activeConversationObj.conversationId)
+                    state.emptyState.push(messageObjct);
+                    messageObjct = chatService.createMessage({
+                        dateTime: null,
+                        fromSignalR: false,
+                        name: state.activeConversationObj.name,
+                        text: `${LanguageService.getValueByKey('chat_emptyState_message2')}`,
+                        type: "text",
+                        userId: state.activeConversationObj.userId
+                    }, state.activeConversationObj.conversationId)
+                    state.emptyState.push(messageObjct);
+                    return state.emptyState;
+                }
+            }
         }else if(!!state.activeConversationObj.userId){
             //get conversation id From User Id
             let conversationId  = getConversationIdCurrentUserId;
             if(!!conversationId){
                 return state.messages[conversationId];
             }else{
-                return [];
+               return [];
             }
         }
     },
@@ -111,6 +139,9 @@ const mutations = {
     },
     lockChat:(state)=>{
         state.chatLocked = true;
+    },
+    setSyncStatus:(state, val)=>{
+        state.isSyncing = val;
     }
 };
 
@@ -146,12 +177,13 @@ const actions = {
         }else{
             if(isInConversation){
                 if(state.activeConversationObj.conversationId === message.conversationId){
-                    dispatch('getChatById', message.conversationId).then(({data})=>{
-                        let ConversationObj = chatService.createConversation(data);
-                        commit('addConversation', ConversationObj);
-                        commit('addMessage', message)
-                    })
+                    // message here will be sent by local user
+                    //if in conversation and is the first message then create a conversation before adding the message
+                    let ConversationObj = chatService.createConversation(message);
+                    commit('addConversation', ConversationObj);
+                    commit('addMessage', message)
                 }else{
+                    // message here will be sent by remote user
                     dispatch('getChatById', message.conversationId).then(({data})=>{
                         let ConversationObj = chatService.createConversation(data);
                         commit('addConversation', ConversationObj);
@@ -208,10 +240,12 @@ const actions = {
         commit('setActiveConversationStudyRoom', roomInfo.id);
     },
     setActiveConversationObj:({commit, dispatch, state}, Obj)=>{
+        commit('setSyncStatus', true);
         commit('setActiveConversationObj', Obj);
         dispatch('syncMessagesByConversationId');
         dispatch('clearUnread', Obj.conversationId);
         dispatch('updateChatState', state.enumChatState.messages);
+        
     },
     getAllConversations:({commit, getters, dispatch, state})=>{
         if(!getters.accountUser) {
@@ -257,7 +291,10 @@ const actions = {
                     let MessageObj = chatService.createMessage(message, id);
                     dispatch('addMessage', MessageObj);
                 })
+                commit('setSyncStatus', false);
             })
+        }else{
+            commit('setSyncStatus', false);
         }
     },
     updateChatState:({commit}, val)=>{
@@ -278,8 +315,10 @@ const actions = {
             userId,
             text: message,
             type: 'text',
+            name: state.activeConversationObj.name,
             dateTime: new Date().toISOString(),
-            fromSignalR:true
+            fromSignalR:true,
+            image: state.activeConversationObj.image,
         }
         localMessageObj = chatService.createMessage(localMessageObj, id);
         dispatch('addMessage', localMessageObj)

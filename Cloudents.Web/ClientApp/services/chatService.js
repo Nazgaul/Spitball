@@ -13,7 +13,7 @@ function Conversation(objInit){
     this.dateTime = objInit.dateTime || new Date().toISOString();
     this.image = objInit.image;
     this.studyRoomId = objInit.studyRoomId;
-    this.lastMessage = objInit.lastMessage
+    this.lastMessage = objInit.lastMessage || objInit.text
 }
 
 function createConversation(objInit){
