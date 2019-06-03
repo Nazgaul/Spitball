@@ -11,7 +11,9 @@
                 </div>
             </div>
             <div class="half-grid-center">
-                <div class="hero-image"></div>
+                <div class="hero-image">
+                    <img src="../assets/images/FindTutor_1.png" alt="">
+                </div>
             </div>
         </div>
         <div class="extra-details-warraper">
@@ -48,9 +50,8 @@
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
                                 <picture>
-                                    <!-- <source media="(min-width: 1108px)" srcset="../assets/group-15.svg"> -->
-                                    <img src="../assets/homepage_img1.png" alt="">
-                                    <!-- <img src="../assets/group-15-small.svg" alt=""> -->
+                                    <img src="../assets/images/group-42.png" alt="">
+                                    <img class="ovaloval" src="../assets/images/oval.png" alt="">
                                 </picture>
                                 <div class="float-background"></div>
                             </div>
@@ -66,8 +67,7 @@
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
                                 <picture>
-                                    <source media="(min-width: 1175px)" srcset="../assets/group-12.svg">
-                                    <img src="../assets/group-12-small.svg" alt="">
+                                    <img src="../assets/images//group-27.png" alt="">
                                 </picture>
                                 <div class="float-background2"></div>
                             </div>
@@ -103,7 +103,9 @@
                         </div>
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
-                                <img src="../assets/group-18.png" alt=""></div>
+                                <img src="../assets/images/group-18.png" alt="">
+                        </div>
+
                         </div>
                     </div>
                 </div>
@@ -115,7 +117,9 @@
                     <div class="space-around-box reverse-grid">
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
-                                <img src="../assets/group-19.svg" alt=""></div>
+                                <img src="../assets/images/group-20.png" alt="">
+
+                                </div>
                         </div>
                         <div class="half-grid-center">
                             <div class="into-content-warraper">
@@ -211,5 +215,15 @@
 </script>
 
 <style>
-
+.ovaloval{
+    margin-left: -1029px;
+    margin-top: 397px;
+    position: absolute;
+}
+.ovaloval img{
+     margin-left: -1029px;
+    margin-top: 397px;
+    position: absolute;
+    max-width: none;
+}
 </style>

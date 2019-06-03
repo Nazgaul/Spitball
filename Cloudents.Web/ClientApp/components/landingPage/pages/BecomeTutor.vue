@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="half-grid-center">
-                <div class="hero-image" style='background-image: url("../assets/screen-shot-2019-04-17-at-14-58-31.png")'></div>
+                <div class="hero-image" style='{background-image: url("../assets/image/TUTOR_1.png")}'></div>
             </div>
         </div>
 
@@ -39,9 +39,11 @@
                     </div>
                     <div class="half-grid-center">
                         <div class="intro-image-warraper">
+                        
+                            <img src="../assets/images/group-15.png" alt="">
                             <!-- <img src="/assets/homepage_img2.png" alt=""> -->
 
-                            <img src="/assets/group-15-no-floor.svg" alt="">
+                            <!-- <img src="/assets/group-15-no-floor.svg" alt=""> -->
                         </div>
                     </div>
                 </div>
@@ -52,7 +54,8 @@
                 <div class="container">
                     <div class="space-around-box reverse-grid">
                         <div class="half-grid-center">
-                            <div class="intro-image-warraper"><img src="/assets/group-12-small.svg" alt="">
+                            <div class="intro-image-warraper">
+                                <img src="../assets/images/group-19.png" alt="">
                                 <!-- <div class="float-background2"></div> -->
                             </div>
                         </div>
@@ -89,7 +92,7 @@
                     </div>
                     <div class="half-grid-center">
                         <div class="intro-image-warraper">
-                            <img src="/assets/group-10.svg" alt="">
+                                <img src="../assets/images/group-28.png" alt="">                  
                         </div>
                     </div>
                 </div>
@@ -107,7 +110,9 @@
                     <div class="space-around-box reverse-grid">
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
-                                <img src="/assets/group-19.svg" alt="">
+                                <img src="../assets/images/group-29.png" alt="">                  
+                                                         
+                                
                             </div>
                         </div>
                         <div class="half-grid-center">
@@ -179,17 +184,17 @@
             return{
                 features:[
                     {
-                        thumb: '/assets/group-17.svg',
+                        thumb: './group-6.png',
                         title: 'Great pay',
                         text: 'Earn up to 100 NIS/hour. No need to spent time or money on travel. Enjoy.'
                     },
                     {
-                        thumb: '/assets/group-17.svg',
+                        thumb: './spring.png',
                         title: 'Flexible',
                         text: 'Choose where and when you want to teach. All you need is a computer. '
                     },
                     {
-                        thumb: '/assets/group-17.svg',
+                        thumb: './group-34.png',
                         title: 'Feel good',
                         text: 'Help someone succeed and get extra skills to put on your CV'
                     },

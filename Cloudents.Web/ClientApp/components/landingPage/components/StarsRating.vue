@@ -1,6 +1,7 @@
 <template>
     <div class="starts-box">
-        <div class="star" v-for="n in stars"></div>
+        <div class="star" v-for="n in stars">
+        </div>
     </div>
 </template>
 

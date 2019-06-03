@@ -1,5 +1,6 @@
 <template>
     <div>
+        
         <div class="step-box">
             <div class="container">
                 <div class="centered-vertical-grid">
@@ -33,7 +34,8 @@
                     </div>
                     <div class="half-grid-center">
                         <div class="intro-image-warraper">
-                            <img src="assets/group-18.png" alt="">
+                            <!-- <img src="assets/group-18.png" alt=""> -->
+                            <img src="../assets/images/MAIN_3.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -80,7 +82,7 @@
                     </div>
                     <div class="half-grid-center">
                         <div class="intro-image-warraper">
-                            <img src="/assets/group-19.svg" alt="">
+                            <img src="../assets/images/MAIN_4.png" alt="">
                         </div>
                     </div>
                 </div>
