@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-form ref="form" lazy-validation  
-         @submit.prevent="submit"
+         @submit.prevent="submitUserData"
           >
             <v-layout row>
                 <v-flex xs3>

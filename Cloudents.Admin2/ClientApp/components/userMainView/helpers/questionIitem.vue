@@ -86,7 +86,6 @@
         computed:{
             ...mapActions(['deleteQuestionItem']),
             isOk() {
-                console.log(this.filterVal);
                 return this.filterVal === 'ok'
             },
             isPending() {
@@ -113,11 +112,10 @@
                     .then(resp => {
                             self.$toaster.success(`Questions were deleted: ${id}`);
                             this.markAsProccessed(numberArr);
-                            self.deleteQuestionItem(index)
+                            self.deleteQuestionItem;
                         },
                         (error) => {
                             self.$toaster.error('Something went wrong');
-                            console.log('component delete error', error)
                         }
                     )
             },
@@ -133,7 +131,7 @@
                 aproveQuestion(question.id).then(() => {
                     self.$toaster.success(`Question Aproved`);
                     this.markAsProccessed([question.id]);
-                    self.deleteQuestionItem(Index);
+                    self.deleteQuestionItem;
                     
                 }, () => {
                     self.$toaster.error(`Question Aproved Failed`);
@@ -144,7 +142,6 @@
                     .then(resp => {
                             this.$toaster.success(`Question ${question.id} approved`);
                             this.markAsProccessed([question.id]);
-                            this.updateData(index)
                         },
                         (error) => {
                             this.$toaster.error('Something went wrong');

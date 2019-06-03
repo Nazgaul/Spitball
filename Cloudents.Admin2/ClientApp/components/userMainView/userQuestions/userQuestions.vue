@@ -32,10 +32,7 @@ export default {
     return {
       scrollFunc: {
         page: 0,
-        doingStuff: false,
-        getData: this.getUserQuestionsData,
-        scrollLock: false,
-        wasCalled: false
+        doingStuff: false
       }
     };
   },
