@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Delete Document by Id</h1>
+        <h1 align="center">Delete Document by Id</h1>
         <v-layout align-center justify-center column fill-height>
         <div class="input-container">
             <v-text-field solo class="user-input-text" v-model="documentId" placeholder="Insert document id..."/>
