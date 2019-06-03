@@ -1,6 +1,6 @@
 <template>
     <div class="active-users-container">
-        <h4>Active helping users list List</h4>
+        <h1>Active helping users list</h1>
         <v-layout>
             <v-spacer></v-spacer>
             <v-flex xs4 sm4 md4>

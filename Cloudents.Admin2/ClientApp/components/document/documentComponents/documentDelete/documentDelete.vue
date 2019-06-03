@@ -1,12 +1,14 @@
 <template>
     <div>
         <h1>Delete Document by Id</h1>
+        <v-layout align-center justify-center column fill-height>
         <div class="input-container">
             <v-text-field solo class="user-input-text" v-model="documentId" placeholder="Insert document id..."/>
         </div>
         <div class="delete-button-container">
             <v-btn :loading="loading" color="red" :disabled="lock" @click.prevent="deleteDocument(documentId)">Delete</v-btn>
         </div>
+    </v-layout>
     </div>
 </template>
 

@@ -54,10 +54,11 @@
                             </template>
                         </v-list>
                     </v-card>
+                    <div v-if="loading">Loading questions, please wait...</div>
+                     <div v-show="answers.length === 0 && !loading">No more flagged answers</div>
                 </v-flex>
             </v-layout>
-            <div v-if="loading">Loading questions, please wait...</div>
-            <div v-show="answers.length === 0 && !loading">No more flagged answers</div>
+            
         </div>
     </div>
 </template>

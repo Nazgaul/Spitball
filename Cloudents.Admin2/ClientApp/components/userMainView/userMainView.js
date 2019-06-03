@@ -182,6 +182,7 @@ export default {
 
     } ,
     mounted() {
+        
         let self = this;
             window.addEventListener("scroll",() => {
                 let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;

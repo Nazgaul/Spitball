@@ -14,10 +14,11 @@
                      :item-value="tokenType"
                     label="Select type"
             ></v-select>
-        </div>
-        <div class="grant-token-container">
+            <div class="grant-token-container">
             <v-btn :loading="loading" color="#78c967" @click="sendTokens">Send</v-btn>
         </div>
+        </div>
+        
     </div>
     
 </template>

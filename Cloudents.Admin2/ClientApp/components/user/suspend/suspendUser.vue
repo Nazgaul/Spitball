@@ -53,6 +53,11 @@ export default {
                 this.$toaster.error("Please Insert A user ID");
                 return;
             }
+            if (!!this.reason || !!this.reason.trim())
+            {
+                 this.$toaster.error("Please Insert A Reason");
+                return;
+            }
             this.serverIds = [];
             this.ids = '' + this.ids;
             this.ids.split(',').forEach(id=>{

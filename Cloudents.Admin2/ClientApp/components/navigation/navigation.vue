@@ -68,7 +68,7 @@
                         childrens: [
                             { name: 'Pending ', link: '/document/approveDelete', icon: 'done' },
                             { name: 'Delete', link: '/document/documentDelete', icon: 'delete_outline' },
-                            { name: 'Flaged', link: '/document/flaggedDocument', icon: 'outlined_flag' },
+                            { name: 'Flagged', link: '/document/flaggedDocument', icon: 'outlined_flag' },
                         ]
                     },
                     {
