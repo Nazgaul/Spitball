@@ -120,6 +120,9 @@
   <data name="conversations_empty_state" xml:space="preserve">
     <value>לא קיבלת הודעות עדיין</value>
   </data>
+  <data name="error_messages" xml:space="preserve">
+    <value>שגיאה בחיבור רשת</value>
+  </data>
   <data name="messages" xml:space="preserve">
     <value>הודעות</value>
   </data>

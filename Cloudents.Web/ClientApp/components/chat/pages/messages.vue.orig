@@ -16,14 +16,17 @@
             </v-flex>
             <v-flex class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <chat-upload-file></chat-upload-file>
-                <v-textarea rows="1" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"  v-language:placeholder @keydown.enter="sendMessage" v-model="messageText" auto-grow></v-textarea>
-
+<<<<<<< HEAD
+                <v-text-field solo type="text" :placeholder="placeHolderText" v-language:placeholder @keyup.enter="sendMessage" v-model="messageText"></v-text-field>
                <v-layout align-center justify center class="chat-upload-loader" v-if="getChatLoader" >
-                
                    <v-flex class="text-xs-center">
                        <v-progress-circular indeterminate v-bind:size="25" color="#43425d"></v-progress-circular>
                    </v-flex>
                </v-layout>
+=======
+                <v-textarea rows="1" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"
+                 v-language:placeholder @keydown.enter="sendMessage" v-model="messageText" auto-grow></v-textarea>
+>>>>>>> feature-disconnectSignalR
             </v-flex>
         </v-layout>
     </div>
@@ -48,13 +51,20 @@ export default {
         return{
             messageText: "",
             placeHolderText: LanguageService.getValueByKey("chat_type_message"),
-            emptyStateMessages: [],
+<<<<<<< HEAD
             alreadyCreated: false
+
         }
     },
     computed:{
-        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj', 'getChatLoader', 'getIsSignalRConnected']),
-
+        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj', 'getChatLoader']),
+=======
+            emptyStateMessages: [],
+        }
+    },
+    computed:{
+        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj', 'getIsSignalRConnected']),
+>>>>>>> feature-disconnectSignalR
         messages(){
             this.scrollToEnd();
             return this.getMessages;            
@@ -178,13 +188,18 @@ export default {
                 flex-direction: row-reverse;
                 box-shadow: 0px -3px 0px 0px rgba(240,240,247,1);
                 border-radius: 0 0 16px 16px;
+<<<<<<< HEAD
+                max-height: 45px;
+                min-height: 45px;
+                /*padding-right: 20px; // what for ????*/
+                position: relative;
+=======
               //  max-height: 48px;
                // min-height: 48px;
                flex-grow: 0;
                flex-shrink: 1;
                 padding-right: 20px;
-
-                position: relative;
+>>>>>>> feature-disconnectSignalR
                 .v-input__slot{
                     box-shadow: none !important;
                     padding: 0 40px 0 12px;

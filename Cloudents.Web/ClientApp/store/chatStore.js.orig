@@ -15,9 +15,12 @@ const state = {
     isMinimized: true,
     totalUnread: 0,
     chatLocked: false,
-    chatLoader: false,
+<<<<<<< HEAD
+    chatLoader: false
+=======
     emptyState: [],
     isSyncing: true,
+>>>>>>> feature-disconnectSignalR
 };
 const getters = {
     getIsChatVisible:state=> state.isVisible,
@@ -142,11 +145,13 @@ const mutations = {
     lockChat:(state)=>{
         state.chatLocked = true;
     },
+<<<<<<< HEAD
     activateLoader:(state, val)=>{
         state.chatLoader = val;
-        },
+=======
     setSyncStatus:(state, val)=>{
         state.isSyncing = val;
+>>>>>>> feature-disconnectSignalR
     }
 };
 

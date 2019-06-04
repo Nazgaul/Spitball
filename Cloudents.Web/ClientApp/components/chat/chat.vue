@@ -1,8 +1,8 @@
 <template>
-    <v-container v-if="visible" py-0 px-0 class="sb-chat-container"  :class="[ $route.name == 'tutoring' ?  'chat-right': '', {'minimized': isMinimized}]">
+    <v-container v-if="visible" py-0 px-0 class="sb-chat-container" :class="[ $route.name == 'tutoring' ?  'chat-right': '', {'minimized': isMinimized}]">
         <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
             <v-icon :class="{'rtl':isRtl}" @click.stop="OriginalChatState">{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
-            <span class="chat-header-text">{{headerTitle}}</span>
+            <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
             <span class="other-side">
                 <v-icon v-show="!isMobile" @click.stop="toggleMinimizeChat">{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
                 <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
@@ -29,11 +29,11 @@
             return{
                 enumChatState: this.getEnumChatState(),
                 mobileHeaderHeight: 39,
-                isRtl: global.isRtl
+                isRtl: global.isRtl,
             }
         },
         computed:{
-            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked', 'accountUser', 'getTotalUnread']),
+            ...mapGetters(['getChatState', 'getIsChatVisible', 'getIsChatMinimized', 'getActiveConversationObj', 'getIsChatLocked', 'accountUser', 'getTotalUnread', 'getIsSignalRConnected']),
             isLocked(){
                 return this.getIsChatLocked;
                 // return false;
@@ -73,6 +73,9 @@
                         return this.getActiveConversationObj.name;
                     }
                 }
+            },
+            errorTitle(){
+                return LanguageService.getValueByKey('chat_error_messages');
             },
             inConversationState(){
                 if(this.isLocked){

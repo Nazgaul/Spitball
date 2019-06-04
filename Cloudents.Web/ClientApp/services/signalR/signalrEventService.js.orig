@@ -7,8 +7,13 @@ let signalRConnectionPool = [];
 let connectionStartCount = 0;
 
 
-let connectionState = {
+<<<<<<< HEAD
+var connectionState = {
     isConnected: false,
+=======
+let connectionState = {
+    isConnected:false,
+>>>>>>> feature-disconnectSignalR
     connectionQue: []
 }
 
@@ -44,12 +49,12 @@ function messageHandler(message) {
 
 function connectionOn(connection, message, callback) {
     connectivityModule.sr.on(connection, message, callback)
+<<<<<<< HEAD
 }
 
 function startConnection(connection, messageString) {
     connection.start().then(function () {
         //connection ready register the main Events
-            store.dispatch('setIsSignalRConnected', true);
         connectionOn(connection, messageString, messageHandler);
         console.log("signal-R Conected");
         connectionState.isConnected = true;
@@ -59,6 +64,24 @@ function startConnection(connection, messageString) {
             while (connectionState.connectionQue.length) {
                 let que = connectionState.connectionQue.shift()
                 NotifyServer(que.connection, que.message, que.data)
+=======
+ }
+
+function startConnection(connection, messageString){
+        connection.start().then(function(){
+            //connection ready register the main Events
+            store.dispatch('setIsSignalRConnected', true);
+            connectionOn(connection, messageString, messageHandler);
+            console.log("signal-R Conected");
+            connectionState.isConnected = true;
+            
+            //if we have events that cought in the que, then shift them one by one
+            if(connectionState.connectionQue.length > 0){
+                while(connectionState.connectionQue.length){
+                    let que = connectionState.connectionQue.shift()
+                    NotifyServer(que.connection, que.message, que.data)
+                }
+>>>>>>> feature-disconnectSignalR
             }
         }
     });
@@ -73,9 +96,13 @@ function createConnection(connString) {
 
 async function start(connection) {
     try {
+<<<<<<< HEAD
+        await connection.start();
+        console.log("Reconnection Started!");
+        connectionStartCount = 0;
+=======
         await connection.start()
         store.dispatch('setIsSignalRConnected', true);
-        connectionStartCount = 0;
         connectionState.isConnected = true;
         console.log("signal-R Reconected");
 
@@ -86,14 +113,21 @@ async function start(connection) {
                 NotifyServer(que.connection, que.message, que.data)
             }
         }
+>>>>>>> feature-disconnectSignalR
     } catch (err) {
         connectionStartCount++;
         console.log(err);
+<<<<<<< HEAD
+        if (connectionStartCount > 3) {
+            setTimeout(() => start(connection), 5000 * (connectionStartCount + 1));
+        }
+=======
         setTimeout(() => {
             if(!connectionState.isConnected){
                 start(connection);
             }
-        }, 5000 * (connectionStartCount + 1));
+        }, 5000);
+>>>>>>> feature-disconnectSignalR
     }
 };
 
@@ -104,11 +138,17 @@ export default function init(connString = '/sbHub') {
 
 
     //reconnect in case connection closes for some reason
+<<<<<<< HEAD
+    // connection.onclose(async () => {
+    //     await start(connection);
+    // });
+=======
     connection.onclose(async () => {
         store.dispatch('setIsSignalRConnected', false);
         connectionState.isConnected = false;
         await start(connection);
     });
+>>>>>>> feature-disconnectSignalR
 
     //open the connection and register the events
     startConnection(connection, "Message");
