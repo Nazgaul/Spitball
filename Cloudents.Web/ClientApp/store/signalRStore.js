@@ -1,5 +1,5 @@
 const state = {
-    isConnected: false
+    isConnected: true
 };
 
 const getters = {
