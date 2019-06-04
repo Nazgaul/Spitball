@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Enum;
+using Cloudents.Query;
+using Cloudents.Query.Query;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,12 +15,49 @@ namespace Cloudents.Web.Controllers
 {
     public class ProfileController : Controller
     {
-        // GET: /<controller>/
-        [Route("profile/{id:long}/{name:string}")]
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
-        public IActionResult Index(long id)
-        {
+        private readonly IStringLocalizer<ProfileController> _localizer;
+        private readonly IQueryBus _queryBus;
 
+        public ProfileController(IStringLocalizer<ProfileController> localizer, IQueryBus queryBus)
+        {
+            _localizer = localizer;
+            _queryBus = queryBus;
+        }
+
+        [Route("profile/{id:long}")]
+        public async Task<ActionResult<RedirectToRouteResult>> OldIndex(long id, CancellationToken token)
+        {
+            var query = new UserProfileQuery(id);
+            var retVal = await _queryBus.QueryAsync(query, token);
+
+            if (retVal == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToRoutePermanent(SeoTypeString.Tutor, new
+            {
+                id,
+                name = FriendlyUrlHelper.GetFriendlyTitle(retVal.Name)
+            });
+        }
+
+        // GET: /<controller>/
+        [Route("profile/{id:long}/{name}", Name = SeoTypeString.Tutor)]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
+        public async Task<IActionResult> Index(long id, CancellationToken token)
+        {
+            var query = new UserProfileQuery(id);
+            var retVal = await _queryBus.QueryAsync(query, token);
+
+            var localizerSuffix = string.Empty;
+            if (string.IsNullOrEmpty(retVal.UniversityName))
+            {
+                localizerSuffix = "NoUniversity";
+                
+            }
+            ViewBag.title = _localizer[$"Title{localizerSuffix}", retVal.Name,retVal.UniversityName];
+            ViewBag.metaDescription = _localizer[$"Description{localizerSuffix}", retVal.Name, retVal.UniversityName];
             return View();
         }
     }

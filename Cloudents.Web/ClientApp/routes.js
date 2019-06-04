@@ -332,7 +332,7 @@ let routes2 = [
     },
 
     {
-        path: "/profile/:id",
+        path: "/profile/:id/:name",
         components: {
             default: newProfile,
             header: profilePageHeader,
