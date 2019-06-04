@@ -60,6 +60,7 @@
             </div>
           </div>
         </nav>
+
         <v-flex xs12 md12 sm12 class="study-tools-wrapper">
           <v-layout class="pl-2" align-center shrink>
             <v-flex shrink class="canvas-tools-wrapper" v-if="isWhiteBoardActive">
@@ -115,6 +116,18 @@
         </transition>
       </v-flex>
 
+      <sb-dialog
+        :showDialog="getBrowserSupportDialog"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'browserDialog'"
+        :maxWidth="'612.5'"
+        :onclosefn="closeBrowserSupportDialog"
+        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :content-class="'browser-dialog'"
+      >
+          <browserSupport></browserSupport>
+      </sb-dialog>
+
       <v-dialog
         v-model="qualityDialog"
         content-class="quality-dialog"
@@ -123,6 +136,7 @@
       >
         <quality-validation></quality-validation>
       </v-dialog>
+
       <sb-dialog
         :showDialog="getReviewDialogState "
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -203,6 +217,7 @@ import startSessionStudent from "./tutorHelpers/startSession-popUp-student/start
 import whiteBoardTools from "./whiteboard/whiteboardTools.vue";
 import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue";
 import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
+import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 
 export default {
   components: {
@@ -225,12 +240,14 @@ export default {
     startSessionStudent,
     whiteBoardTools,
     startEndSessionBtn,
-    endSessionConfirm
+    endSessionConfirm,
+    browserSupport
   },
   name: "tutor",
   data() {
     return {
       activeNavItem: "white-board",
+      showSupportBrowser: false,
       showQualityDialog: false,
       showContent: false,
       navs: [
@@ -274,7 +291,8 @@ export default {
       "getReviewDialogState",
       "getStudentStartDialog",
       "getTutorStartDialog",
-      "getEndDialog"
+      "getEndDialog",
+      "getBrowserSupportDialog"
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -294,6 +312,9 @@ export default {
     },
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
+    },
+    browserSupportDialog(){
+      return this.getBrowserSupportDialog;
     }
   },
   methods: {
@@ -310,7 +331,8 @@ export default {
       "updateStudentStartDialog",
       "closeChat",
       "openChatInterface",
-      "updateEndDialog"
+      "updateEndDialog",
+      "setBrowserSupportDialog"
     ]),
     closeReviewDialog() {
       this.updateReviewDialog(false);
@@ -376,9 +398,16 @@ export default {
     },
     closeWin() {
       global.close();
-    }
+    },
+    closeBrowserSupportDialog(){
+      this.setBrowserSupportDialog(false);
+    },
   },
   created() {
+    let self = this;
+    setTimeout(()=>{
+      self.setBrowserSupportDialog(true);
+    }, 1000)
     this.setStudyRoom(this.id);
     this.$loadScript(
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"

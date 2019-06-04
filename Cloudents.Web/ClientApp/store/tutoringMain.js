@@ -13,6 +13,7 @@ const state = {
     isRoomLoading: false,
     isFirepadLoadedOnce: false,
     qualityDialogVisibility: false,
+    browserSupportDialog: false,
     notAllowedDevices: false,
     notAvaliableDevices: false,
     studyRoomData: null,
@@ -51,7 +52,8 @@ const getters = {
     getTutorStartDialog: state => state.tutorStartDialog,
     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
     getEndDialog: state => state.endDialog,
-    getSessionEndClicked: state => state.sessionEndClicked
+    getSessionEndClicked: state => state.sessionEndClicked,
+    getBrowserSupportDialog: state => state.browserSupportDialog
 };
 
 const mutations = {
@@ -126,7 +128,10 @@ const mutations = {
     },
     setRoomId(state, val) {
         state.roomId = val;
-    }
+    },
+    setBrowserSupportDialog(state, val){
+      state.browserSupportDialog = val;
+    },
 };
 
 const actions = {
@@ -255,7 +260,7 @@ const actions = {
                 dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
                 dispatch("updateStudentStartDialog", true);
             }, 3000)
-            
+
         }
     },
     signalR_ReleasePaymeStatus({commit, dispatch, state}) {
@@ -263,7 +268,10 @@ const actions = {
     },
     setRoomId({commit}, val) {
         commit('setRoomId', val);
-    }
+    },
+    setBrowserSupportDialog({commit}, val){
+      commit('setBrowserSupportDialog', val);
+    },
 };
 export default {
     state,
