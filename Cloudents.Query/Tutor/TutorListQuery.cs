@@ -53,7 +53,18 @@ T.Price,
 						join sb.Course c on uc.CourseId = c.Name
 						and c.SubjectId in (Select subjectId  from sb.UsersCourses where UserId = @UserId or @UserId = 0)
 						and T.State = 'Ok'
-						and (U.Country = @Country or @Country is null)) t
+						and (U.Country = @Country or @Country is null)
+union all
+select 0 as position, U.Id as UserId, U.Name, U.Image, 
+(select STRING_AGG(dt.CourseId, ', ') FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
+T.Price, 
+	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
+                        from sb.[user] U
+                        join sb.Tutor T
+	                        on U.Id = T.Id
+						and T.State = 'Ok'
+						and (U.Country = @Country or @Country is null)
+						) t
 
 where t.UserId <> @UserId or @UserId = 0
 order by position desc, Rate desc

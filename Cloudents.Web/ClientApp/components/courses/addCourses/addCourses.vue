@@ -141,6 +141,7 @@
                 if(!!val) {
                     searchVal = val.trim();
                 }
+                this.term = searchVal;
                 let paramObj = {term: searchVal, page: 0};
                 this.loadCourses(paramObj);                
             }, 500)

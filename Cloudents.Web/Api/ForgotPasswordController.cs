@@ -38,12 +38,16 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> Post(ForgotPasswordRequest model, [FromHeader] CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
-
+            if (user == null)
+            {
+                ModelState.AddModelError("ForgotPassword", _localizer["UserDoesntExists"]);
+                return BadRequest(ModelState);
+            }
             var emailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
             var phoneConfirmed = await _userManager.IsPhoneNumberConfirmedAsync(user);
             var userLockedOut = await _userManager.GetLockoutEndDateAsync(user) ?? DateTimeOffset.MinValue;
 
-            if (user == null || !emailConfirmed || !phoneConfirmed || userLockedOut == DateTimeOffset.MaxValue)
+            if (!emailConfirmed || !phoneConfirmed || userLockedOut == DateTimeOffset.MaxValue)
             {
                 ModelState.AddModelError("ForgotPassword", _localizer["UserDoesntExists"]);
                 return BadRequest(ModelState);
@@ -94,6 +98,7 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
             model.Code = System.Net.WebUtility.UrlDecode(model.Code);
+            
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {

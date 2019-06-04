@@ -20,7 +20,7 @@ namespace Cloudents.FunctionsV2
     public static class TutorFunction
     {
         [FunctionName("TutorFunction")]
-        public static async Task Run([TimerTrigger("0 */2 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        public static async Task Run([TimerTrigger("0 */15 * * * *", RunOnStartup = true)]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/tutor-version.txt")] CloudBlockBlob blob,
             [AzureSearchSync(TutorSearchWrite.IndexName)] IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] IQueryBus queryBus,
@@ -39,6 +39,8 @@ namespace Cloudents.FunctionsV2
             foreach (var update in result.Update)
             {
                 updateOccur = true;
+                var courses = update.Courses.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray();
+                var subjects = update.Subjects.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray();
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
                     Item = new Tutor()
@@ -47,14 +49,14 @@ namespace Cloudents.FunctionsV2
                         Id = update.Id.ToString(),
                         Name = update.Name,
                         Price = update.Price,
-                        Courses = update.Courses.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray(),
+                        Courses = courses,
                         Image = update.Image,
                         Bio = update.Bio,
                         Rate = update.Rate,
                         InsertDate = DateTime.UtcNow,
-                        Prefix = update.Courses.ToArray(),
+                        Prefix = courses.Union(subjects).Union(new []{update.Name}).ToArray(),
                         ReviewCount = update.ReviewsCount,
-                        Subjects = update.Subjects.Where(w=>!string.IsNullOrWhiteSpace(w)).Distinct().ToArray()
+                        Subjects = subjects
                     },
                     Insert = true
 
