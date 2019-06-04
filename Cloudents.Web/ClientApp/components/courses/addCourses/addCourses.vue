@@ -51,7 +51,7 @@
             </v-flex>
         </v-layout>
         <v-layout align-center class="mt-3 px-2" row wrap>
-            <v-flex v-if="!classes && !classes.length" xs12 md12 sm12 class="text-xs-center">
+            <v-flex v-if="!classes && !classes.length" xs12 class="text-xs-center">
                 <div>
                     <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
                 </div>

@@ -12,7 +12,6 @@ import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.
 import profileBio from './profileHelpers/profileBio/profileBio.vue';
 import tutorAboutMe from './profileHelpers/profileAbout/tutorAboutMe.vue';
 import coursesCard from './profileHelpers/coursesCard/coursesCard.vue';
-// import subjectsCard from './profileHelpers/subjectsCard/subjectsCard.vue';
 import reviewsList from './profileHelpers/reviews/reviewsList.vue';
 import tutorInfoBlock from './profileHelpers/tutoringInfo/tutorInfoBlock.vue';
 import userInfoBlock from './profileHelpers/userInfoBlock/userInfoBlock.vue';
@@ -23,7 +22,6 @@ import courseEmptyState from './profileHelpers/courseEmptyState/courseEmptyState
 export default {
     name: "new_profile",
     components: {
-        // subjectsCard,
         questionCard,
         userBlock,
         resultNote,

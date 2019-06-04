@@ -2,7 +2,7 @@
     <div class="become-tutor-wrap d-flex" >
         <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="[isLastStep ?  'back-image' : '']">
             <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
-                <v-flex xs12 sm12 md12 class="text-xs-center mt-1">
+                <v-flex xs12 sm12  class="text-xs-center mt-1">
                     <v-icon class="become-title face-icon mr-2">sbf-face-icon</v-icon>
                     <span class="subheading font-weight-bold become-title" v-language:inner>becomeTutor_title_become</span>
                 </v-flex>

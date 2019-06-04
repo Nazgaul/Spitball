@@ -173,7 +173,7 @@
               align-center
               justify-center
             >
-              <v-flex xs12 md12 sm12 class="text-xs-center">
+              <v-flex xs12   class="text-xs-center">
                 <v-btn
                   :loading="btnRequestLoading"
                   class="request-add-button subheading font-weight-bold px-3"

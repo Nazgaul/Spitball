@@ -2,7 +2,7 @@
     <v-card class="file-item-card mb-3 elevation-0" :class="{'error-card': item.error}">
         <v-container :class="{'pr-3 pl-3 py-0': $vuetify.breakpoint.smAndUp}">
             <v-layout row class="py-3" v-bind="gridBreakpoint">
-                <v-flex xs12 sm7 md7 order-sm1 order-md1>
+                <v-flex xs12 sm7  order-sm1 >
                     <v-text-field solo class="sb-field  bg-greyed"
                                   :class="$vuetify.breakpoint.xsOnly ? 'mr-0 mb-2' : ' mr-2 mb-2'"
                                   v-model="item.name"
@@ -13,7 +13,7 @@
                         <!--<span v-language:inner>upload_multiple_error_upload_single_file</span>-->
                     </div>
                 </v-flex>
-                <v-flex xs12 sm7 md7 order-sm3 order-md3 :class="$vuetify.breakpoint.xsOnly ? 'mb-2' : ''">
+                <v-flex xs12 sm7  order-sm3  :class="$vuetify.breakpoint.xsOnly ? 'mb-2' : ''">
                     <v-combobox class="sb-field sb-combo"
                                 :class="$vuetify.breakpoint.xsOnly ? 'mr-0' : ' mr-2'"
                                 v-language:placeholder
@@ -41,7 +41,7 @@
                         </template>
                     </v-combobox>
                 </v-flex>
-                <v-flex xs6 sm5 md5 order-sm2 order-md2 :class="$vuetify.breakpoint.xsOnly ? 'pr-1' : ''">
+                <v-flex xs6 sm5  order-sm2  :class="$vuetify.breakpoint.xsOnly ? 'pr-1' : ''">
                     <vue-numeric :currency="currentCurrency"
                                  :placeholder="emptyPricePlaceholder"
                                  class="numeric-input px-2"
@@ -54,7 +54,7 @@
                                  v-model="item.price"></vue-numeric>
                 </v-flex>
 
-                <v-flex xs6 sm5 md5 order-sm4 order-md4>
+                <v-flex xs6 sm5  order-sm4 >
                     <v-text-field
                             solo
                             class="sb-field"

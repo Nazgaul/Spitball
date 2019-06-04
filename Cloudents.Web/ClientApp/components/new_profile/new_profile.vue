@@ -1,23 +1,23 @@
 <template>
     <v-container class="profile-page-container">
-        <button v-if="$vuetify.breakpoint.xsOnly" class="back-button" @click="$router.go(-1)">
+        <button class="back-button hidden-sm-and-up" @click="$router.go(-1)">
             <v-icon :class="{'rtl-icon': isRtl}" right>sbf-arrow-back</v-icon>
         </button>
 
         <v-layout  justify-start v-bind="xsColumn" class="bio-wrap" >
-                <v-flex xs12 sm9 md9 >
+                <v-flex xs12 sm9  >
                     <profile-bio :isMyProfile="isMyProfile"></profile-bio>
                 </v-flex>
 
             <!--TODO HIDDEN FOR NOW-->
-            <v-flex  xs12 sm3 md3 :class="{'pl-4': $vuetify.breakpoint.smAndUp}" v-if="isMyProfile || isTutorProfile">
+            <v-flex  xs12 sm3  :class="{'pl-4': $vuetify.breakpoint.smAndUp}" v-if="isMyProfile || isTutorProfile">
                 <tutorInfoBlock v-if="isTutorProfile && !isMyProfile"></tutorInfoBlock>
                 <userInfoBlock v-else-if="!isTutorProfile"></userInfoBlock>
             </v-flex>
         </v-layout>
                 <v-layout v-bind="xsColumn" align-start  justify-start>
-                    <v-flex xs12 md9 sm9 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
-                        <v-flex xs12 sm12 md12 class="mt-3  limited-760" :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : 'mb-4']">
+                    <v-flex xs12  sm9 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
+                        <v-flex xs12 sm12  class="mt-3  limited-760" :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : 'mb-4']">
                             <v-divider v-if="$vuetify.breakpoint.xsOnly" style="height:2px; color: rgba(163, 160, 251, 0.32);"></v-divider>
                             <v-tabs :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : isRtl? 'rtl' : ''" class="tab-padding" hide-slider xs12>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
@@ -78,7 +78,7 @@
                             <div v-if="activeTab === 1" style="max-width: 760px;">
                                 <tutorAboutMe v-if="isTutorProfile" :isMyProfile="isMyProfile"></tutorAboutMe>
                                 <coursesCard :isMyProfile="isMyProfile" v-if="!isEmptyCourses"></coursesCard>
-                                <!--<subjectsCard></subjectsCard>-->
+                               
                                 <!--TODO HIDDEN FOR NOW-->
                                 <ctaBlock v-if="$vuetify.breakpoint.smAndUp"></ctaBlock>
                                 <reviewsList v-if="isTutorProfile"></reviewsList>
@@ -123,7 +123,7 @@
                         </v-flex>
                     </v-flex>
                     <!--TODO HIDDEN FOR NOW-->
-                    <v-flex sm3 md3 xs12 v-if="isMyProfile || isTutorProfile">
+                    <v-flex sm3 xs12 v-if="isMyProfile || isTutorProfile">
                         <v-spacer></v-spacer>
                     </v-flex>
                 </v-layout>

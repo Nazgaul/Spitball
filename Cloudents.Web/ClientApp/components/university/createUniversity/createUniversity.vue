@@ -9,7 +9,7 @@
             </v-flex>
         </v-layout>
         <v-layout shrink align-center justify-center class="px-4 mt-4 mb-1">
-            <v-flex xs12 sm12 md12 class="text-xs-center">
+            <v-flex xs12   class="text-xs-center">
                 <v-form  ref="uniForm"  v-model="validUniForm">
                 <v-text-field v-model="universityName"
                               class="uni-input"
@@ -24,14 +24,14 @@
             </v-flex>
         </v-layout>
         <v-layout align-start justify-start shrink column class="px-4">
-            <v-flex xs12 md6 sm6 class="text-xs-center mb-1">
+            <v-flex xs12  sm6 class="text-xs-center mb-1">
                 <span class="caption helper-text" v-language:inner>courses_minimum</span>
             </v-flex>
-            <v-flex xs12 md6 sm6 class="text-xs-center mb-1">
+            <v-flex xs12  sm6 class="text-xs-center mb-1">
                 <span class="caption helper-text" v-language:inner>courses_meaningfull</span>
 
             </v-flex>
-            <v-flex xs12 md6 sm6 class="text-xs-center mb-1">
+            <v-flex xs12  sm6 class="text-xs-center mb-1">
                 <span class="caption helper-text" v-language:inner>university_third_tip_for_creating</span>
 
             </v-flex>

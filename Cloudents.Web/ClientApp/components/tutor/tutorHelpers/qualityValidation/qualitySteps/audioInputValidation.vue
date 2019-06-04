@@ -2,16 +2,16 @@
     <div class="audio-input-quality-wrap mt-3">
         <v-container fluid grid-list-xl>
             <v-layout wrap align-center column>
-                <v-flex xs12 sm6 md6>
+                <v-flex xs12 sm6 >
                     <microphoneImage class="mic-image"></microphoneImage>
                 </v-flex>
-                <v-flex xs12 sm6 md6>
+                <v-flex xs12 sm6 >
                     <h4 class="audio-title subheading" v-language:inner>tutor_quality_input_title</h4>
                     <div class="audio-input-validation mt-3">
                         <div id="audio-input-meter"></div>
                     </div>
                 </v-flex>
-                <v-flex xs12 sm6 md6 d-flex class="mt-5">
+                <v-flex xs12 sm6  d-flex class="mt-5">
                     <v-select
                             class="minimum-width"
                             :menu-props="{contentClass:'select-direction'}"

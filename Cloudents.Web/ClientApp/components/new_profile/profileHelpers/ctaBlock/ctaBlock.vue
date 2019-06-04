@@ -1,12 +1,12 @@
 <template>
-    <v-layout class="cta-section mt-5 mb-5">
+    <v-layout class="cta-section my-5">
         <v-flex xs12>
             <v-layout align-center justify-center column>
-                <v-flex v-if="isTutorProfile && !isMyProfile" xs12 sm4 md4 class="text-xs-center text-sm-center text-md-center">
+                <v-flex v-if="isTutorProfile && !isMyProfile" xs12 sm4  class="text-xs-center">
                     <div class="cta-title mb-4 subheading font-weight-bold" v-language:inner>profile_cta_section_title
                     </div>
                 </v-flex>
-                <v-flex class="text-xs-center text-sm-center text-md-center mt-3 mb-">
+                <v-flex class="text-xs-center  mt-3 ">
                     <contactBtn v-if="isTutorProfile && !isMyProfile"></contactBtn>
                     <becomeTutorBtn v-else-if="!isTutorProfile && isMyProfile && !tutorPending"></becomeTutorBtn>
                 </v-flex>

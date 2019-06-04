@@ -1,6 +1,6 @@
 <template>
     <v-card elevation="0" class="sb-step-card files-details-container">
-        <v-flex xs12 sm12 md12 class="error-block align-center justify-center d-flex" v-if="showError">
+        <v-flex xs12 sm12  class="error-block align-center justify-center d-flex" v-if="showError">
             <div class="error-container" style="height: 90px;">
                 <span class="error-title">{{errorText}}</span>
             </div>
@@ -9,13 +9,13 @@
         <v-layout v-bind="gridBreakpoint" row wrap v-show="!showError"
                   :class="['top-block', $vuetify.breakpoint.smAndUp ? 'px-4' : 'px-2', 'py-3', {'justify-center' : isMultiple }] ">
 
-            <v-flex xs12 sm12 md12 class="mb-2" grow>
+            <v-flex xs12 sm12  class="mb-2" grow>
                 <span class="selected-class-label" v-language:inner>upload_multiple_selected_class_label</span>
                 <span>:</span>
                 <span class="selected-class-val ml-2">{{selectedCourse}}</span>
             </v-flex>
             <v-layout wrap>
-                <v-flex xs12 sm3 md3>
+                <v-flex xs12 sm3 >
                     <v-text-field solo
                                   :placeholder="profPlaceholder"
                                   @change="updateProfessorName()"
@@ -23,8 +23,8 @@
                                   :class="[$vuetify.breakpoint.smAndUp ? 'mr-2': ' mt-3']"
                                   class="professor-input sb-field max-heigth-limit"></v-text-field>
                 </v-flex>
-                <v-flex xs12 md9 sm9 class="multiple-controls" style="display: flex; flex-grow: 0;" v-if="isMultiple">
-                    <v-flex xs12 sm6 md6>
+                <v-flex xs12  sm9 class="multiple-controls" style="display: flex; flex-grow: 0;" v-if="isMultiple">
+                    <v-flex xs12 sm6 >
                         <div :class="['all-wrap',  $vuetify.breakpoint.xsOnly ? 'mr-0 mt-3' : 'mr-1' ]">
                             <vue-numeric :currency="currentCurrency"
                                          class="price-for-all"
@@ -42,7 +42,7 @@
                             </v-btn>
                         </div>
                     </v-flex>
-                    <v-flex xs12 sm6 md6>
+                    <v-flex xs12 sm6 >
                         <div :class="['all-wrap', $vuetify.breakpoint.smAndUp ? 'ml-1' : 'mt-2']">
                             <v-text-field
                                     solo
@@ -60,7 +60,7 @@
         </v-layout>
         <v-layout justify-start align-center column class="bottom-block py-3"
                   :class="{'px-2': $vuetify.breakpoint.xsOnly }">
-            <v-flex xs12 sm6 md6 row class="justify-center align-center upload-options">
+            <v-flex xs12 sm6  row class="justify-center align-center upload-options">
                 <transition-group name="slide-x-transition">
                     <file-card
                             v-for="(fileItem, index) in fileItems"

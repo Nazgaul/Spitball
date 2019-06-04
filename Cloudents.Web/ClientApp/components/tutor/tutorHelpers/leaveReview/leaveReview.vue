@@ -1,28 +1,28 @@
 <template>
     <div class="leave-review-wrap">
         <v-layout align-center justify-space-between class="review-heading px-3">
-            <v-flex xs11 sm11 md11 grow>
+            <v-flex xs11  grow>
                 <span class="heading-text font-weight-bold" v-language:inner>leaveReview_title</span>
             </v-flex>
-            <v-flex xs1 sm1 md1 class="text-xs-right">
+            <v-flex xs1 class="text-xs-right">
                 <v-icon class="body-2 review-close-icon" @click="closeReviewDialog()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
         <div v-if="!reviewSent">
             <v-layout row wrap class="pt-4 pb-2" :class="{'pt-5 pb-4': $vuetify.breakpoint.xsOnly}">
-                <v-flex xs12 sm12 md12 class="text-xs-center text-sm-center">
+                <v-flex xs12  class="text-xs-center text-sm-center">
                     <span class="review-title font-weight-bold" v-language:inner>leaveReview_subtitle</span>
                 </v-flex>
-                <v-flex xs12 sm12 md12 class="text-xs-center text-sm-center pt-2">
+                <v-flex xs12  class="text-xs-center text-sm-center pt-2">
                     <span class="body-2" v-language:inner>leaveReview_press_star</span>
                     <span class="body-2 pl-1">{{nameTutor}}</span>
                 </v-flex>
             </v-layout>
             <v-layout align-center justify-center row wrap class="middle-layout-wrapper py-2 border-grey mx-5" :class="{'ltr-style': isRtl}">
-                <v-flex xs12 sm1 md1 shrink class="text-xs-center d-inline-flex image-container py-3 mr-4">
+                <v-flex xs12 sm1  shrink class="text-xs-center d-inline-flex image-container py-3 mr-4">
                     <user-avatar class="tutor-img-wrap" size="54" :userImageUrl="tutorImg" :user-name="nameTutor" :user-id="tutorId"/>
                 </v-flex>
-                <v-flex xs12 sm4 md4 shrink>
+                <v-flex xs12 sm4  shrink>
                     <userRating :rating="rating"
                                 :rateNumColor="'#43425D'"
                                 :size="'30'"
@@ -34,7 +34,7 @@
             </v-layout>
             <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-3"
                       :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
-                <v-flex @click="toggleReviewInput()" xs12 sm8 md8 class="text-xs-center  cursor-pointer">
+                <v-flex @click="toggleReviewInput()" xs12 sm8  class="text-xs-center  cursor-pointer">
                 <span class="mr-2">
                     <v-icon class="blue-text body-2">sbf-edit-icon</v-icon>
                 </span>
@@ -43,7 +43,7 @@
             </v-layout>
             <transition v-else name="fade">
                 <v-layout align-center justify-center class="pt-3 px-3">
-                    <v-flex xs12 sm12 md12 class="text-xs-center">
+                    <v-flex xs12  class="text-xs-center">
                         <v-textarea
                                 rows="1"
                                 outline
@@ -57,7 +57,7 @@
                 </v-layout>
             </transition>
             <v-layout align-center justify-center class="pt-4 pb-3">
-                <v-flex xs12 sm6 md6 class="text-xs-center">
+                <v-flex xs12 sm6  class="text-xs-center">
                     <v-btn @click="sendReview()"
                            :loading="btnLoading"
                            color="#4452FC"

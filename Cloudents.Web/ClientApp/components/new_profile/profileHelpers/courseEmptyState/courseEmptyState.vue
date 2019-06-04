@@ -3,16 +3,16 @@
         <v-flex xs12>
             <v-card class="px-4 py-4 elevation-0 empty-card">
                 <v-layout align-start justify-start >
-                    <v-flex xs12 sm12 md12  class="text-xs-left">
+                    <v-flex xs12    class="text-xs-left">
                             <div class="courses-empty-title mb-4" v-language:inner>profile_courses_empty_state_title</div>
                         <v-divider></v-divider>
                     </v-flex>
                 </v-layout>
                 <v-layout align-center justify-center class="pt-4">
-                    <v-flex xs2 sm1 md1>
+                    <v-flex xs2 sm1 >
                             <v-icon class="empty-course-icon" >sbf-courses-icon</v-icon>
                     </v-flex>
-                    <v-flex xs10 sm8 md8 class="text-xs-left">
+                    <v-flex xs10 sm8  class="text-xs-left">
                         <span class="empty-text" v-language:inner>profile_courses_empty_select_courses</span>
                     </v-flex>
                 </v-layout>

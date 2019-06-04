@@ -21,9 +21,9 @@
         <v-layout justify-center align-center column class="upload-area mx-3">
             <v-flex class="justify-center align-center d-flex" grow v-show="$vuetify.breakpoint.smAndUp">
                 <span v-show="$vuetify.breakpoint.smAndUp"
-                      class="col-blue drop-text text-md-center text-xs-center text-sm-center" v-language:inner>upload_multiple_files_dopHere</span>
+                      class="col-blue drop-text  text-xs-center " v-language:inner>upload_multiple_files_dopHere</span>
             </v-flex>
-            <v-flex xs12 sm6 md6 row class="justify-center align-center upload-options">
+            <v-flex xs12 sm6  row class="justify-center align-center upload-options">
                 <div class="btn-holder">
                     <span v-show="$vuetify.breakpoint.smAndUp" class="browse-text" v-language:inner>upload_multiple_or_browse_label</span>
                     <span v-show="$vuetify.breakpoint.xsOnly" class="browse-text" v-language:inner>upload_multiple_or_browse_label_mobile</span>

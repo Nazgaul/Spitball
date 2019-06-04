@@ -6,7 +6,7 @@
                 <v-icon>sbf-close</v-icon>
             </button>
             <v-layout column v-show="!isUploadReferral">
-                <v-flex xs12 sm12 md12 class="mb-3">
+                <v-flex xs12   class="mb-3">
                     <div v-show="getSchoolName">
                         <span class="ref-title" v-html="text.dialog.title">
                         </span>
@@ -16,9 +16,9 @@
                         <span class="ref-title" v-html="text.dialog.titleSpread"></span>
                     </div>
                 </v-flex>
-                <v-flex xs12 sm12 md12 class="mb-4">
+                <v-flex xs12   class="mb-4">
                     <div>
-                        <span class="text-xs-center ref-subtitle text-md-center text-sm-center"
+                        <span class="text-xs-center ref-subtitle"
                               v-html="text.dialog.subTitle"></span>
                     </div>
                 </v-flex>
@@ -79,7 +79,7 @@
                 </div>
             </v-layout>
             <v-layout align-center justify-center class="mb-2" v-show="!isUploadReferral">
-                <v-flex xs12 sm12 md12>
+                <v-flex xs12>
                     <div>
                         <div class="bottom-sub" v-html="text.dialog.bottomText"></div>
                         <div class="bottom-sub bottom-sub-small" v-html="text.dialog.bottomTextSm"></div>
@@ -88,12 +88,12 @@
             </v-layout>
         </div>
         <v-layout row align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
-            <v-flex xs1 sm1 md1>
+            <v-flex xs1 >
                 <!-- <i class="bottom-five"> -->
                     <spreadOutLoud  class="spread-out-loud-icon"></spreadOutLoud>
                 <!-- </i> -->
             </v-flex>
-            <v-flex xs11 sm11 md11>
+            <v-flex xs11 >
                 <div style="text-align: center">
                     <span class="bottom-text joined-number">{{usersReffered}}</span>
                     <span class="bottom-text" v-html="text.dialog.friendsJoined"></span>

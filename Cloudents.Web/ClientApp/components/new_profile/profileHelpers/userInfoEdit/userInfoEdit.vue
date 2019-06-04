@@ -1,19 +1,19 @@
 <template>
     <v-card class="user-edit-wrap pb-3">
         <v-form v-model="validUserForm" ref="formUser">
-        <v-layout class="header px-3 py-3 mb-3">
+        <v-layout class="header pa-3 mb-3">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
                 <span v-language:inner>profile_edit_user_profile_title</span>
             </v-flex>
         </v-layout>
         <v-layout class="px-3 mt-4 prev-grow"  row wrap>
-            <v-flex xs12 sm6 md6  :class="{'pr-2' : $vuetify.breakpoint.smAndUp}">
+            <v-flex xs12 sm6  :class="{'pr-2' : $vuetify.breakpoint.smAndUp}">
                 <v-layout column>
-                    <v-flex xs12 sm6 md6 class="mb-2 pl-2">
+                    <v-flex xs12 sm6 class="mb-2 pl-2">
                         <span class="subtitle" v-language:inner>profile_personal_details</span>
                     </v-flex>
-                    <v-flex xs12 sm6 md6 >
+                    <v-flex xs12 sm6 >
                         <v-text-field
                                 :rules="[rules.required]"
                                 :label="userNameLabel"
@@ -40,13 +40,13 @@
                 ></v-textarea>
             </v-flex>
         </v-layout>
-        <v-layout  align-center :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between  px-3' : 'justify-end px-3']">
-            <v-flex xs5 sm2 md2 >
+        <v-layout  align-center class="px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
+            <v-flex xs5 sm2  >
                 <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
                     <span v-language:inner>profile_btn_cancel</span>
                 </v-btn>
             </v-flex>
-            <v-flex xs5 sm2 md2 :class="{'mr-3': $vuetify.breakpoint.smAndUp}">
+            <v-flex xs5 sm2  :class="{'mr-3': $vuetify.breakpoint.smAndUp}">
                 <v-btn class="blue-btn  ml-0" round @click="saveChanges()" :loading="btnLoading">
                     <span v-language:inner>profile_btn_save_changes</span>
                 </v-btn>

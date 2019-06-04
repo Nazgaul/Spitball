@@ -1,7 +1,7 @@
 <template>
     <div class="become-first-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
         <v-layout row wrap align-start justify-center>
-            <v-flex xs12 sm4 md4 shrink class="image-wrap text-xs-center">
+            <v-flex xs12 sm4  shrink class="image-wrap text-xs-center">
                 <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image"
                      @load="loaded">
                 <img v-show="!userImage" class="user-image" src="../images/placeholder-image.png" alt="upload image"
@@ -24,7 +24,7 @@
 
 
             </v-flex>
-            <v-flex xs12 sm6 md6 class="inputs-wrap" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
+            <v-flex xs12 sm6  class="inputs-wrap" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
                 <v-layout column shrink justify-start>
                     <v-form v-model="validBecomeFirst" ref="becomeFormFirst">
                         <v-flex xs12 shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-3']">

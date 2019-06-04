@@ -3,7 +3,7 @@
             <v-flex xs12>
                 <v-card class="px-4 py-4 courses-card-wrap">
                     <v-layout>
-                        <v-flex xs11 sm11 md11 grow>
+                        <v-flex xs11 sm11  grow>
                             <div>
                                 <div v-show="isTutorProfile" class="courses-title  subheading font-weight-bold mb-4" v-language:inner>profile_courses_can_help</div>
                                 <div v-show="!isTutorProfile" class="courses-title  subheading font-weight-bold mb-4" v-language:inner>profile_courses_empty_state_title</div>
@@ -15,7 +15,7 @@
                     </v-layout>
                     <v-layout row wrap >
                         <!--<transition-group name="fade"  tag="v-layout" style="flex-direction: row; flex-wrap: wrap;">-->
-                        <v-flex  xs12 sm6 md6 key="one"
+                        <v-flex  xs12 sm6  key="one"
                                 v-for="(course, index) in userCourses"
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
@@ -26,7 +26,7 @@
                             </v-card>
                         </v-flex>
                         <!--</transition-group>-->
-                        <v-flex xs12 sm6 md6 v-if="userCourses.length > showQuantity" class="course-name show-more">
+                        <v-flex xs12 sm6  v-if="userCourses.length > showQuantity" class="course-name show-more">
                             <v-card :class="{'mr-0': $vuetify.breakpoint.smAndUp}" class="elevation-0 border  py-3" @click="expanded ? showLess() : showAll()">
                                 <span class="font-weight-bold course-name">
                                     <span v-show="!expanded">

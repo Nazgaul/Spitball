@@ -29,14 +29,14 @@
             </div>
             <v-layout row wrap align-start justify-start grow
                       class="price-review-column section-tutor-price-review ml-1">
-                <v-flex xs12 sm12 md12 grow >
-                    <v-flex xs12 sm12 md12 shrink v-if="showStriked" class="strike-through">
+                <v-flex xs12   grow >
+                    <v-flex xs12   shrink v-if="showStriked" class="strike-through">
                             <span class="pricing striked-price">₪{{tutorData.price}}</span>
                             <span class="pricing caption striked-price">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
                     </v-flex>
-                    <v-flex xs12 sm12 md12 shrink>
+                    <v-flex xs12   shrink>
                         <!--keep this wraper to fix price / hour spacing-->
                         <div class="d-inline-flex align-baseline">
                         <span class="font-weight-bold headline pricing" v-if="showStriked">₪50</span>
@@ -46,7 +46,7 @@
                         </span>
                         </div>
                     </v-flex>
-                    <v-flex xs12 sm12 md12 shrink class="pt-2">
+                    <v-flex xs12   shrink class="pt-2">
                         <userRating
                                 v-if="tutorData.reviews > 0"
                                 :rating="tutorData.rating"
@@ -55,7 +55,7 @@
                                 :size="'24'"
                                 :rate-num-color="'#43425D'"></userRating>
                     </v-flex>
-                    <v-flex xs12 sm12 md12 class="pt-1" shrink>
+                    <v-flex xs12   class="pt-1" shrink>
                             <span class="blue-text body-2" v-if="tutorData.reviews > 0">{{tutorData.reviews}}
                                 <span v-if="tutorData.reviews > 1" v-language:inner>resultTutor_reviews_many</span>
                                 <span v-else v-language:inner>resultTutor_review_one</span>
@@ -64,7 +64,7 @@
                     </v-flex>
                 </v-flex>
 
-                <v-flex xs12 sm12 md12 class="d-flex btn-bottom-holder text-xs-center">
+                <v-flex xs12   class="d-flex btn-bottom-holder text-xs-center">
                     <v-btn style="max-width: 80%; margin: 0 auto;" round class="blue-btn rounded elevation-0 ma-0" block>
                         <span class="font-weight-bold text-capitalize" v-language:inner>resultTutor_btn_view</span>
                     </v-btn>

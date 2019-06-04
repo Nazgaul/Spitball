@@ -1,12 +1,12 @@
 <template>
     <v-layout v-if="!isNotFound" column align-center justify-center class="error-permisson-wrap">
-        <v-flex class="mb-2" xs12 sm12 md12>
+        <v-flex class="mb-2" xs12  >
             <p>
                 <span v-language:inner>tutor_quality_allowed_title</span>
                 <span class="font-weight-bold" v-language:inner>tutor_quality_allowed_press</span>
             </p>
         </v-flex>
-        <v-flex xs6 sm6 md6 class="mb-5">
+        <v-flex xs6 sm6  class="mb-5">
             <img class="enable-explanation" src="../../../images/chrome-camera-reset.gif" alt="">
         </v-flex>
     </v-layout>

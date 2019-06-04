@@ -3,13 +3,13 @@
         <div class="add-question-container ">
             <v-form  v-model="validQuestionForm" ref="questionForm">
             <v-layout class="question-header py-2" :class="[$vuetify.breakpoint.xsOnly ? 'px-4' : 'px-2']">
-                <v-flex xs11 sm11 md11>
+                <v-flex xs11  >
                     <span class="question-header-title">
                         <v-icon class="header-icon mr-2">sbf-person-icon</v-icon>
                         <span v-language:inner class="caption font-weight-bold">addQuestion_title</span>
                     </span>
                 </v-flex>
-                <v-flex xs1 sm1 md1 class="text-xs-right">
+                <v-flex xs1   class="text-xs-right">
                     <button class="back-button" @click="requestAskClose()">
                         <v-icon right>sbf-close</v-icon>
                     </button>
@@ -113,14 +113,14 @@
                 </div>
             </div>
             <v-layout class="question-add-button-container pt-12 pb-3" align-center justify-center column>
-                <v-flex xs12 md12 sm12 class="text-xs-center">
+                <v-flex xs12   class="text-xs-center">
                     <v-btn :loading="btnQuestionLoading"
                            class="question-add-button subheading font-weight-bold px-3"
                            @click="submitQuestion()">
                         <span v-language:inner>addQuestion_add_button</span>
                     </v-btn>
                 </v-flex>
-                <v-flex xs12 md12 sm12 v-if="errorMessage" class="error--text">{{errorMessage}}</v-flex>
+                <v-flex xs12   v-if="errorMessage" class="error--text">{{errorMessage}}</v-flex>
 
             </v-layout>
             </v-form>

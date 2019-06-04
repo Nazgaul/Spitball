@@ -1,10 +1,6 @@
 <template>
     <div>
-        <!--<v-layout class="ml-3" row align-start>-->
-        <!--<v-flex xs1 sm1 md1 v-for="codeSyntax in codeSet" @click="changeLanguageSyntax(codeSyntax)">-->
-        <!--{{codeSyntax.name}}-->
-        <!--</v-flex>-->
-        <!--</v-layout>-->
+       
         <div id="firepad"></div>
     </div>
 </template>

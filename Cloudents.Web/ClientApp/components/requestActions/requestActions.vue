@@ -1,7 +1,6 @@
 <template>
     <div class="request-box-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'px-2 mx-2' : 'px-3']">
         <v-layout align-center justify-start class="pt-3">
-            <!--<v-flex xs1 md1 sm1 shrink v-if="$vuetify.breakpoint.smAndUp && accountUser" >-->
             <v-flex class="avatar-holder px-1" v-if="accountUser" >
                 <userAvatar
                         class="avatar-circle  mr-2"
@@ -9,13 +8,13 @@
                         :user-name="userName"
                         :user-id="userID"></userAvatar>
             </v-flex>
-            <v-flex xs10 sm11 md11 grow class="text-xs-left" :class="[$vuetify.breakpoint.xsOnly ? 'ml-2 pl-1' : '']"tutor-courses >
+            <v-flex xs10 sm11  grow class="text-xs-left" :class="[$vuetify.breakpoint.xsOnly ? 'ml-2 pl-1' : '']"tutor-courses >
                 <span class="subheading font-weight-bold request-box-title" v-language:inner>requestActions_title
                 </span>
             </v-flex>
         </v-layout>
         <v-layout align-space-between class="pt-3 pb-3" justify-space-between>
-            <v-flex sm4 md4 class="btn-wrap text-xs-left" shrink>
+            <v-flex sm4  class="btn-wrap text-xs-left" shrink>
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openAskQuestion()">
                     <v-icon class="light-btn-icon  mr-2">sbf-message-icon-new</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
@@ -24,7 +23,7 @@
                           v-language:inner>requestActions_btn_ask_mob</span>
                 </v-btn>
             </v-flex>
-            <v-flex sm4 md4 class="btn-wrap text-xs-center" shrink>
+            <v-flex sm4  class="btn-wrap text-xs-center" shrink>
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openUpload()">
                     <v-icon class="light-btn-icon  mr-2">sbf-upload-icon</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
@@ -33,7 +32,7 @@
                           v-language:inner>requestActions_btn_upload_mob</span>
                 </v-btn>
             </v-flex>
-            <v-flex sm4 md4 class="btn-wrap text-xs-right" shrink>
+            <v-flex sm4  class="btn-wrap text-xs-right" shrink>
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openRequestTutor()">
                     <v-icon class="light-btn-icon  mr-2">sbf-person-icon</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"

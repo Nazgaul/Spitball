@@ -9,10 +9,10 @@
 
             </v-flex>
         </v-layout>
-        <v-flex xs12 sm12 md12 class="mt-3 mb-4" >
+        <v-flex xs12   class="mt-3 mb-4" >
             <div id="local-video-test-track"></div>
         </v-flex>
-        <v-flex xs12 sm12 md12 d-flex class="width-force mb-4">
+        <v-flex xs12   d-flex class="width-force mb-4">
             <v-select
                     class="minimum-width"
                     :menu-props="{contentClass:'select-direction'}"

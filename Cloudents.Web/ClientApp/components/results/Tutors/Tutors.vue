@@ -2,9 +2,7 @@
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name" >
         <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
         <div slot="main">
-            <!-- <div class="d-flex mobile-filter">
-                  <upload-files-btn class="upload-card hidden-md-and-up"></upload-files-btn>
-            </div> -->
+            
             <div class="request-box mb-4" style="max-width: 640px" :class="[$vuetify.breakpoint.xsOnly ? 'pt-3' : '']">
                 <request-box></request-box>
             </div>

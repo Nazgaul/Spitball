@@ -16,7 +16,7 @@
                 <i class="five mb-3">
                     <spreadOutLoudIcon style="width: 50px"></spreadOutLoudIcon>
                 </i>
-                <h3 class="sb-title text-xs-center text-sm-center text-md-center" v-language:inner>upload_multiple_files_referral_title</h3>
+                <h3 class="sb-title text-xs-center" v-language:inner>upload_multiple_files_referral_title</h3>
 
             </v-flex>
             <v-flex class="ref-title justify-center align-center flex mt-2">

@@ -60,13 +60,13 @@
             </div>
           </div>
         </nav>
-        <v-flex xs12 md12 sm12 class="study-tools-wrapper">
+        <v-flex xs12   class="study-tools-wrapper">
           <v-layout class="pl-2" align-center shrink>
             <v-flex shrink class="canvas-tools-wrapper" v-if="isWhiteBoardActive">
               <whiteBoardTools></whiteBoardTools>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-flex xs1 md1 sm1>
+            <v-flex xs1  >
               <share-screen-btn class="nav-share-btn"></share-screen-btn>
             </v-flex>
             <v-flex shrink class="controls-holder">
@@ -100,7 +100,7 @@
                 class="video-stream-wraper"
                 v-show="activeViewOption !== enumViewOptions.fullBoard"
               >
-                <v-flex xs6 sm6 md6>
+                <v-flex xs6 >
                   <video-stream :id="id"></video-stream>
                 </v-flex>
               </v-layout>

@@ -1,20 +1,20 @@
 <template>
-    <v-layout class="tutoring-info-section" align-center :class="{'mobile-view': $vuetify.breakpoint.xsOnly}">
+    <v-layout class="tutoring-info-section" align-center>
         <v-flex xs12>
             <v-card class="tutoring-info-card"
-                    :class="[$vuetify.breakpoint.xsOnly ? 'mobile-view elevation-0 px-0 py-2': 'py-4']">
-                <v-flex v-if="$vuetify.breakpoint.smAndUp">
+                    :class="[$vuetify.breakpoint.xsOnly ? 'elevation-0 px-0 py-2': 'py-4']">
+                <v-flex class="hidden-sm-and-up">
                     <div>
-                        <div class="mb-2 text-sm-center text-xs-center px-3">
+                        <div class="mb-2 text-xs-center px-3">
                         <span class="tutoring-info-heading font-italic" v-language:inner>profile_tutor_sidebar_title
                         </span>
                         </div>
                     </div>
                 </v-flex>
-                <v-flex xs12 sm12 md12 :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-3']">
+                <v-flex xs12 sm12  :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-3']">
                     <contactBtn v-if="!isMyProfile" ></contactBtn>
                 </v-flex>
-                <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}" v-if="false">
+                <!-- <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}" v-if="false">
                     <div class="info-item mb-2" v-for="one in 3">
                         <div class="text-xs-center">
                             <span class="tutoring-info-label">Tutoring Hours</span>
@@ -23,7 +23,7 @@
                             <span class="tutoring-info-value">10 hours</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </v-card>
         </v-flex>
     </v-layout>
@@ -53,7 +53,7 @@
     .tutoring-info-section {
         flex-direction: column;
         min-width: 260px;
-        &.mobile-view {
+        @media (max-width: @screen-xs) {
             background-color: transparent;
             flex-direction: row;
         }
@@ -83,7 +83,7 @@
             padding-left: 8px;
             padding-right: 8px;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.18);
-            &.mobile-view {
+            @media (max-width: @screen-xs) {
                 background: transparent;
                 flex-direction: row;
             }
@@ -93,7 +93,7 @@
             flex-direction: column;
             width: 100%;
             justify-content: space-between;
-            &.mobile-view {
+            @media (max-width: @screen-xs) {
                 flex-direction: row;
                 padding: 0 !important;
             }

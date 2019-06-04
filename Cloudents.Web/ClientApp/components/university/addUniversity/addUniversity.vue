@@ -40,7 +40,7 @@
                          v-for="singleUni in universities"
                          @click="selectUniversity(singleUni)">
                         <v-layout shrink>
-                            <v-flex xs1 sm1 md1>
+                            <v-flex xs1  >
                                 <span class="uni-logo">
                                     <img v-if="singleUni.image" :src="singleUni.image" alt="university logo" class="rounded uni-img">
                                     <span v-else>

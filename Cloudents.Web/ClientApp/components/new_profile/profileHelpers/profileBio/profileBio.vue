@@ -9,7 +9,7 @@
           v-bind="xsColumn"
           :class="[$vuetify.breakpoint.smAndUp ? 'align-start' : 'align-center' ]"
         >
-          <v-flex order-xs2 order-sm1 order-md1>
+          <v-flex order-xs2 order-sm1>
             <user-image :isMyProfile="isMyProfile"></user-image>
           </v-flex>
           <v-flex
@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 <h2
-                  class="text-xs-center text-sm-left text-md-left user-university caption text-capitalize"
+                  class="text-xs-center text-sm-left  user-university caption text-capitalize"
                 >{{university}}</h2>
               </v-flex>
               <div class="tutor-price mr-3">
