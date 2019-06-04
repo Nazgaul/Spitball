@@ -41,9 +41,9 @@ export default {
             dictionaryTypesEnum: this.getDictionaryPrefixEnum(),
             player: null,
             openDropdownUniMobile: false,
-            openDropdownSubjectMobile: false,
+            openDropdownSubjectMobile: false
 
-        }
+        };
     },
     props: {
         propName: {
@@ -54,7 +54,7 @@ export default {
     computed: {
         ...mapGetters(['getDictionaryPrefix']),
         dictionaryType(){
-            return this.getDictionaryPrefix
+            return this.getDictionaryPrefix;
         },
 
         statsData(){
@@ -62,12 +62,12 @@ export default {
         },
         showBox() {
             if (this.search && this.search.length > 0) {
-                return true
+                return true;
             }
         },
         showBoxUni() {
             if (this.searchUni && this.searchUni.length > 0) {
-                return true
+                return true;
             }
         },
         isMobileView(){
@@ -76,10 +76,10 @@ export default {
         university: {
             get: function () {
                 let schoolNameFromStore = this.getSchoolName();
-                return schoolNameFromStore || this.universityModel
+                return schoolNameFromStore || this.universityModel;
             },
             set: function (newValue) {
-                this.universityModel = newValue
+                this.universityModel = newValue;
             }
         },
         universities() {
@@ -89,7 +89,7 @@ export default {
         subjectList: {
             get() {
                 let list = this.getSubjectsList();
-                return list
+                return list;
             },
             set() {
 
@@ -98,9 +98,9 @@ export default {
         binding() {
             const binding = {};
             if (this.$vuetify.breakpoint.xsOnly) {
-                binding.column = true
+                binding.column = true;
             }
-            return binding
+            return binding;
         },
 
     },
@@ -127,10 +127,10 @@ export default {
                 let dictionaryType = this.$route.query.type;
                 //check if valid query type
                 if(!!this.dictionaryTypesEnum[dictionaryType]){
-                    this.changeDictionaryType(this.dictionaryTypesEnum[dictionaryType])
+                    this.changeDictionaryType(this.dictionaryTypesEnum[dictionaryType]);
                 }
             }else{
-                this.changeDictionaryType(this.dictionaryTypesEnum['learn'])
+                this.changeDictionaryType(this.dictionaryTypesEnum['learn']);
             }
         }
     },
@@ -154,10 +154,10 @@ export default {
         ]),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         readyPlayer (event) {
-            this.player = event.target
+            this.player = event.target;
         },
         stopPlayer () {
-            this.player.pauseVideo()
+            this.player.pauseVideo();
         },
         changeDictionaryType(val){
             this.scrollTop();
@@ -167,10 +167,10 @@ export default {
             if(val === 'earn'){
                 let typeObj = {
                     type: val
-                }
-                this.$router.push({query: typeObj})
+                };
+                this.$router.push({query: typeObj});
             }else{
-                this.$router.push({query: ``})
+                this.$router.push({query: ``});
             }
             
         },
@@ -178,8 +178,8 @@ export default {
             setTimeout(()=>{
                 this.$nextTick(() => {
                     global.scrollTo(0, 0);
-                })
-            }, 200)
+                });
+            }, 200);
         },
         getAllUniversities() {
             //leave space
@@ -199,14 +199,14 @@ export default {
                 this.playerHeight = '360';
             }
             this.youTubeVideoId = videoID;
-            this.showVideoPlayer()
+            this.showVideoPlayer();
         },
         showVideoPlayer() {
             this.playerVisible = true;
         },
         hideVideoPlayer() {
             this.playerVisible = false;
-            this.stopPlayer()
+            this.stopPlayer();
         },
         goToResulstQuestionsPage(val) {
             this.closeSubjectInputDialog();
@@ -240,10 +240,10 @@ export default {
             });
         },
         closeSubjectInputDialog() {
-            this.mobileSubjectsDialog = false
+            this.mobileSubjectsDialog = false;
         },
         closeUniInputDialog() {
-            this.mobileUniDialog = false
+            this.mobileUniDialog = false;
         }
     },
     created() {
@@ -252,7 +252,7 @@ export default {
             let dictionaryuType = this.$route.query.type;
             //check if valid query type
             if(!!this.dictionaryTypesEnum[dictionaryuType]){
-                this.changeDictionaryType(this.dictionaryTypesEnum[dictionaryuType])
+                this.changeDictionaryType(this.dictionaryTypesEnum[dictionaryuType]);
             }
         }
         if(!user){
@@ -274,7 +274,7 @@ export default {
             let valToFil = value;
             //happens if subject list
             if (value.subject) {
-                valToFil = value.subject
+                valToFil = value.subject;
             }
             let match;
             //mark the text bold according to the search value
@@ -285,8 +285,8 @@ export default {
             if (match) {
                 let startIndex = valToFil.toLowerCase().indexOf(search.toLowerCase());
                 let endIndex = search.length;
-                let word = valToFil.substr(startIndex, endIndex)
-                return valToFil.replace(word, '<b>' + word + '</b>')
+                let word = valToFil.substr(startIndex, endIndex);
+                return valToFil.replace(word, '<b>' + word + '</b>');
             } else {
                 return valToFil;
             }

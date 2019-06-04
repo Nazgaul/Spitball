@@ -37,7 +37,7 @@ export default {
           name: "500 points on Spitball",
           description: "500 points on Spitball",
           quantity: "1",
-          sku: "points_2",
+          sku: "points_2"
         },
         pro: {
             name: "1400 points on Spitball",
@@ -52,10 +52,10 @@ export default {
   },
   computed:{
     basicConvertionRate(){
-        return this.products.basic.price / this.products.basic.pts
+        return this.products.basic.price / this.products.basic.pts;
     },
     interConvertionRate(){
-        return this.products.inter.price / this.products.inter.pts
+        return this.products.inter.price / this.products.inter.pts;
     },
     proConvertionRate(){
         return (this.products.pro.price / this.products.pro.pts).toFixed(3);
@@ -73,31 +73,31 @@ export default {
       }
     },
     closeModal(){
-      this.updateShowBuyDialog(false)
+      this.updateShowBuyDialog(false);
     },
     reflectPaymentToServer(transactionId){
         console.log(`transaction made id is ${transactionId}`);
         let transactionObject = {
           id: transactionId
-        }
+        };
         walletService.buyTokens(transactionObject).then(()=>{
           this.updateShowBuyDialog(false);
           this.updateToasterParams({
             toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
-            showToaster: true,
+            showToaster: true
           });
         }, (error)=>{
           //fallback will be called on app.vue create method.
           global.localStorage.setItem('sb_transactionError', transactionId);
           this.updateToasterParams({
             toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
-            showToaster: true,
+            showToaster: true
           });
           // global.location.reload();
           console.log(error);
         }).finally(()=>{
             this.showOverlay = false;  
-        })
+        });
         // window.alert("Thank you for your purchase!");
     },
     mountPaypalButton() {
@@ -132,17 +132,17 @@ export default {
             payment: (data, actions) => {
               return actions.payment.create({
                 payer: {
-                    payment_method: "paypal",                    
+                    payment_method: "paypal"                    
                 },
                 transactions: [
                   {
                     amount: {
                       total: this.productsForPaypal[this.selectedProduct].price,
-                      currency: this.productsForPaypal[this.selectedProduct].currency,
+                      currency: this.productsForPaypal[this.selectedProduct].currency
                     },
                     item_list: {
                       items: [this.productsForPaypal[this.selectedProduct]]
-                    },
+                    }
                   }
                 ]
               });
@@ -168,7 +168,7 @@ export default {
     this.$loadScript("https://www.paypalobjects.com/api/checkout.js").then(
       () => {
         this.paypalLoaded = true;
-          this.selectProduct('inter')
+          this.selectProduct('inter');
       }
     );
   }

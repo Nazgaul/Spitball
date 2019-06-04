@@ -2,7 +2,6 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,7 +10,6 @@ namespace Cloudents.Web.Test.UnitTests
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class TabsControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
 
         private readonly System.Net.Http.HttpClient _client;
 
@@ -23,25 +21,13 @@ namespace Cloudents.Web.Test.UnitTests
 
         public TabsControllerTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
-            _client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
             {
                 AllowAutoRedirect = false
             });
         }
 
-        [Theory]
-        [InlineData("flashcard")]
-        [InlineData("book")]
-        [InlineData("job")]
-        public async Task GetAsync_Redirect_ToHomePage(string url)
-        {
-            var response = await _client.GetAsync(url);
-
-            response.StatusCode.Should().Be(HttpStatusCode.Redirect);
-
-            response.Headers.Location.Should().Be("/");
-        }
+       
 
         [Fact]
         public async Task GetAsync_StudyDoc()

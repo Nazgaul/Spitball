@@ -14,7 +14,6 @@ export default {
             activeTab: 1,
             isRtl: global.isRtl,
             active: null,
-            walletData: {},
             cashOut: false,
             search: '',
             cash: 0,
@@ -57,7 +56,7 @@ export default {
                     value: 'balance',
                     sortable: false,
                     showOnMobile: false
-                },
+                }
             ],
             allBalanceHeaders: [{
                 text: '',
@@ -67,18 +66,16 @@ export default {
             },
                 {
                     text: LanguageService.getValueByKey('wallet_Tokens'),
-                    align: 'left',
                     value: 'points',
                     align: 'left',
                     showOnMobile: true
                 },
                 {
                     text: LanguageService.getValueByKey('wallet_Value'),
-                    align: 'left',
                     value: 'value',
                     align: 'left',
                     showOnMobile: true
-                },
+                }
             ],
             headers: {
                 balances: [],
@@ -87,7 +84,7 @@ export default {
             items: [],
             cashOutOptions: cashOutCards,
             walletData: []
-        }
+        };
     },
     methods: {
         changeActiveTab(tabId) {
@@ -120,8 +117,8 @@ export default {
                                 parseFloat(item.value);
                                 this.cash += parseFloat(item.value);
                                 if (item.type.toLowerCase() === 'earned') {
-                                    earnedVal = parseFloat(item.value)
-                                    this.earnedPoints = parseFloat(item.points)
+                                    earnedVal = parseFloat(item.value);
+                                    this.earnedPoints = parseFloat(item.points);
                                 }
                             }
                             total.points = total.points + parseFloat(item.points);
@@ -134,17 +131,17 @@ export default {
                         this.walletData = [...this.items];
                     },
                     error => {
-                        console.error('error getting balance:', error)
+                        console.error('error getting balance:', error);
                     }
-                )
+                );
         },
         getTransactions() {
             walletService.getTransactions().then(response => {
                     this.items = response.data;
                 },
                 error => {
-                    console.error('error getting transactions:', error)
-                })
+                    console.error('error getting transactions:', error);
+                });
         },
         recalculate(){
             this.getBalances();
@@ -157,7 +154,7 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         pages() {
-            return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0
+            return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0;
         },
         calculatedEarnedPoints(){
             let typesDictionary = {};
@@ -169,7 +166,7 @@ export default {
             if(reduce < 0){
                 earned = typesDictionary["Earned"] + reduce;
             }else{
-                earned = typesDictionary["Earned"]
+                earned = typesDictionary["Earned"];
             }
             return earned;
         },

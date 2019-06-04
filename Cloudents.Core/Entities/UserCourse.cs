@@ -39,6 +39,7 @@ namespace Cloudents.Core.Entities
             return Equals((UserCourse) obj);
         }
 
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode", Justification = "Nhibernate")]
         public override int GetHashCode()
         {
             unchecked
@@ -57,6 +58,7 @@ namespace Cloudents.Core.Entities
             return !Equals(left, right);
         }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
     }
 }

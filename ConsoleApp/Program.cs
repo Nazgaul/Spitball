@@ -22,7 +22,6 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Query.Chat;
 using Cloudents.Query.SearchSync;
 using Cloudents.Search.Tutor;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;

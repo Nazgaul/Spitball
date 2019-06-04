@@ -75,7 +75,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var d = JObject.Parse(str);
 
-            var university = d["universityName"]?.Value<string>();
+            //var university = d["universityName"]?.Value<string>();
             var id = d["id"]?.Value<long?>();
             var name = d["name"]?.Value<string>();
             var score = d["score"]?.Value<int?>();

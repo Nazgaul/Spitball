@@ -12,7 +12,6 @@ namespace Cloudents.Web.Test.UnitTests
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class WalletControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
 
         private readonly System.Net.Http.HttpClient _client;
 
@@ -21,14 +20,13 @@ namespace Cloudents.Web.Test.UnitTests
             Path = "api/wallet"
         };
 
-        private readonly string[] types = { "Earned", "Stake", "Spent" };
+        private readonly string[] _types = { "Earned", "Stake", "Spent" };
         
 
 
         public WalletControllerTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
-            _client = _factory.CreateClient();
+            _client = factory.CreateClient();
         }
 
         [Fact]
@@ -48,8 +46,8 @@ namespace Cloudents.Web.Test.UnitTests
                 var name = d[i]["name"]?.Value<string>();
                 var points = d[i]["points"]?.Value<decimal?>();
 
-                type.Should().Be(types[i]);
-                name.Should().Be(types[i]);
+                type.Should().Be(_types[i]);
+                name.Should().Be(_types[i]);
                 points.Should().NotBeNull();
             }            
         }

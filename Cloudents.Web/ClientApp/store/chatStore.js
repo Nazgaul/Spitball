@@ -46,12 +46,12 @@ const getters = {
     },
     getActiveConversationObj:state=>state.activeConversationObj,
     getTotalUnread: state=>state.totalUnread,
-    getIsChatLocked: state=>state.chatLocked,
+    getIsChatLocked: state=>state.chatLocked
 };
 
 const mutations = {
     addConversationUnread:(state, message)=>{
-        state.conversations[message.conversationId].unread++
+        state.conversations[message.conversationId].unread++;
         if(message.type === 'text'){
             state.conversations[message.conversationId].lastMessage = message.text;
         }
@@ -99,10 +99,10 @@ const mutations = {
         state.isMinimized = false;
     },
     closeChat:(state)=>{
-        state.isVisible = false
+        state.isVisible = false;
     },
     openChat:(state)=>{
-        state.isVisible = true
+        state.isVisible = true;
     },
     clearUnreadFromConversation:(state, conversationId)=>{
         state.conversations[conversationId].unread = 0;
@@ -138,43 +138,43 @@ const actions = {
                     if(state.isMinimized && message.fromSignalR){
                         //in tutor room the conversation is auto loaded, so in case of refresh
                         //we dont want to update the total unread unless signalR message arrives
-                        commit('addConversationUnread', message)
+                        commit('addConversationUnread', message);
                         commit('updateTotalUnread', 1);
                     }
                 }else{
                         //update unread conversations
-                        commit('addConversationUnread', message)
+                        commit('addConversationUnread', message);
                         commit('updateTotalUnread', 1);
                 }
             }else{
                     //update unread conversations
-                    commit('addConversationUnread', message)
+                    commit('addConversationUnread', message);
                     commit('updateTotalUnread', 1);
             }
         }else{
             if(isInConversation){
                 if(state.activeConversationObj.conversationId === message.conversationId){
                     dispatch('getChatById', message.conversationId).then(({data})=>{
-                        let ConversationObj = chatService.createConversation(data);
-                        commit('addConversation', ConversationObj);
-                        commit('addMessage', message)
-                    })
+                        let conversationObj = chatService.createConversation(data);
+                        commit('addConversation', conversationObj);
+                        commit('addMessage', message);
+                    });
                 }else{
                     dispatch('getChatById', message.conversationId).then(({data})=>{
-                        let ConversationObj = chatService.createConversation(data);
-                        commit('addConversation', ConversationObj);
-                        commit('addConversationUnread', message)
+                        let conversationObj = chatService.createConversation(data);
+                        commit('addConversation', conversationObj);
+                        commit('addConversationUnread', message);
                         commit('updateTotalUnread', 1);
-                    })
+                    });
                 }
             }else{
                 //conversationId should be added to the current conversation
                 dispatch('getChatById', message.conversationId).then(({data})=>{
-                    let ConversationObj = chatService.createConversation(data);
-                    commit('addConversation', ConversationObj);
-                    commit('addConversationUnread', message)
+                    let conversationObj = chatService.createConversation(data);
+                    commit('addConversation', conversationObj);
+                    commit('addConversationUnread', message);
                     commit('updateTotalUnread', 1);
-                })
+                });
             }
         }
     },
@@ -182,7 +182,7 @@ const actions = {
         return chatService.getChatById(conversationId);
     },
     setTotalUnread:({commit}, totalUnread)=>{
-        commit('updateTotalUnread', totalUnread)
+        commit('updateTotalUnread', totalUnread);
     },
     clearUnread:({commit, state}, conversationId)=>{
         if(state.isMinimized) return; //when inside study room and activating chat dont clear unread unless chat is maximized
@@ -209,8 +209,8 @@ const actions = {
                 type: 'text'
             },
             //TODO signalR should return Conversation ID
-            conversationId: state.activeConversationObj.conversationId,
-        }
+            conversationId: state.activeConversationObj.conversationId
+        };
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
         dispatch('addMessage', MessageObj);
         commit('setActiveConversationStudyRoom', roomInfo.id);
@@ -229,15 +229,15 @@ const actions = {
         chatService.getAllConversations().then(({data})=>{
             if(data.length > 0){
                 data.forEach(conversation => {
-                    let ConversationObj = chatService.createConversation(conversation);
-                        commit('addConversation', ConversationObj);
-                        commit('updateTotalUnread', ConversationObj.unread);
+                    let conversationObj = chatService.createConversation(conversation);
+                        commit('addConversation', conversationObj);
+                        commit('updateTotalUnread', conversationObj.unread);
                         let userStatus = {
-                            id: ConversationObj.userId,
-                            online: ConversationObj.online
-                        }
+                            id: conversationObj.userId,
+                            online: conversationObj.online
+                        };
                         dispatch('setUserStatus', userStatus);
-                })
+                });
                 if(global.innerWidth > 600){
                     state.isVisible = true;
                 }
@@ -249,10 +249,10 @@ const actions = {
         let id = null;
         if(!state.activeConversationObj.conversationId) {
             //try to get conversation ID
-            let conversationId = getters.getConversationIdCurrentUserId
+            let conversationId = getters.getConversationIdCurrentUserId;
             if(!!conversationId){
                 id = conversationId;
-                commit('setActiveConversationId', id)
+                commit('setActiveConversationId', id);
             }
         }else{
             id = state.activeConversationObj.conversationId;
@@ -262,10 +262,10 @@ const actions = {
             chatService.getMessageById(id).then(({data})=>{
                 if(!data) return;
                 data.reverse().forEach(message => {
-                    let MessageObj = chatService.createMessage(message, id);
-                    dispatch('addMessage', MessageObj);
-                })
-            })
+                    let messageObj = chatService.createMessage(message, id);
+                    dispatch('addMessage', messageObj);
+                });
+            });
         }
     },
     updateChatState:({commit}, val)=>{
@@ -280,19 +280,19 @@ const actions = {
     },
     toggleChatMinimize:({commit, state, dispatch})=>{
         if(!state.isMinimized){
-            commit('collapseChat')
+            commit('collapseChat');
         }else{
-            commit('expandChat')
+            commit('expandChat');
             if(state.chatState === state.enumChatState.messages){
                 dispatch('clearUnread');
             }
         }
     },
     closeChat:({commit})=>{
-        commit('closeChat')
+        commit('closeChat');
     },
     openChat:({commit})=>{
-        commit('openChat')
+        commit('openChat');
     },
     openChatInterface:({commit, dispatch, state})=>{
         commit('expandChat');

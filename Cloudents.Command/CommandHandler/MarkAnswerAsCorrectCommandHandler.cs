@@ -14,15 +14,13 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
-        private readonly IRepository<User> _userRepository;
 
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository, IRepository<User> userRepository)
+            IRepository<Answer> answerRepository)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
-            _userRepository = userRepository;
         }
 
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)

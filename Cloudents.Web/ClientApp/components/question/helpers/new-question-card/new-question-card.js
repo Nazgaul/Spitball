@@ -35,7 +35,7 @@ export default {
             maximumAnswersToDisplay: 3,
             isRtl: global.isRtl,
             showDialog: false,
-            selectedImage: '',
+            selectedImage: ''
         };
     },
     props: {
@@ -54,17 +54,17 @@ export default {
     computed: {
         userImageUrl(){
             if( this.cardData && this.cardData.user &&  this.cardData.user.image && this.cardData.user.image.length > 1){
-                return `${this.cardData.user.image}`
+                return `${this.cardData.user.image}`;
             }
-            return ''
+            return '';
         },
         lineClampValue(){
            if(this.detailedView && !this.suggestion){
-               return 0
+               return 0;
            }else if(this.suggestion){
-               return 5
+               return 5;
            }else{
-               return 8
+               return 8;
            }
         },
         uploadDate() {
@@ -75,10 +75,10 @@ export default {
             }
         },
         hideAnswerInput() {
-            return this.detailedView
+            return this.detailedView;
         },
         cursorDefault(){
-            return this.detailedView && !this.suggestion
+            return this.detailedView && !this.suggestion;
         },
         isSold() {
             return this.cardData.hasCorrectAnswer || this.cardData.correctAnswerId;
@@ -90,7 +90,7 @@ export default {
             let answersNum = this.cardData.answers;
             let numericValue = 0;
             if (typeof answersNum !== 'number') {
-                numericValue = answersNum.length
+                numericValue = answersNum.length;
             } else {
                 numericValue = answersNum;
             }
@@ -103,7 +103,7 @@ export default {
             let answersNum = this.cardData.answers;
             let numericValue = 0;
             if (typeof answersNum !== 'number') {
-                numericValue = answersNum.length
+                numericValue = answersNum.length;
             } else {
                 numericValue = answersNum;
             }
@@ -115,7 +115,7 @@ export default {
         },
         randomViews() {
             return Math.floor(Math.random() * 1001);
-        },
+        }
 
 
     },
@@ -168,18 +168,20 @@ export default {
             }
         },
         isDisabled() {
-            let isOwner, account, notEnough;
-            isOwner = this.cardOwner();
-            account = this.accountUser();
-            if (isOwner || !account || notEnough) {
-                return true
+            let isOwner = this.cardOwner();
+            let account = this.accountUser();
+            if (isOwner || !account ) {
+                return true;
             }
+            return false;
+
         },
         cardOwner() {
             let userAccount = this.accountUser();
             if (userAccount && this.cardData.user) {
                 return userAccount.id === this.cardData.user.id; // will work once API call will also return userId
             }
+            return false;
         },
         canDelete() {
             let isOwner = this.cardOwner();
@@ -205,10 +207,10 @@ export default {
         deleteQuestion() {
             let questionId = this.cardData.id;
             this.delete({id: questionId, type: 'Question'})
-                .then((success) => {
+                .then(() => {
                         this.updateToasterParams({
                             toasterText: LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
-                            showToaster: true,
+                            showToaster: true
                         });
                         let objToDelete = {
                             id: parseInt(questionId)
@@ -217,16 +219,16 @@ export default {
                         this.removeQuestionItemAction(objToDelete);
                         if (this.$route.name === 'question') {
                             //redirect only if question got deleted from the question page
-                            this.$router.push('/ask')
+                            this.$router.push('/ask');
                         }
                         //if profile refresh profile data
                         this.updateProfile(objToDelete);
                     },
                     (error) => {
-                        console.error(error)
+                        console.error(error);
                         this.updateToasterParams({
                             toasterText: LanguageService.getValueByKey("questionCard_error_delete"),
-                            showToaster: true,
+                            showToaster: true
                         });
                     }
                 );
@@ -236,7 +238,7 @@ export default {
             this.showReportReasons = !this.showReportReasons;
         },
         closeReportDialog() {
-            this.showReportReasons = false
+            this.showReportReasons = false;
         }
-    },
+    }
 };

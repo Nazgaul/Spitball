@@ -16,28 +16,27 @@ const clearLocalShape = function(){
         type: OPTION_TYPE,
         points: []
     });
-}
+};
 
 let wrapperElm = null;
-let lockProtection = false;
 let currentX = null;
 let currentY = null;
 
 const init = function(){
     wrapperElm = document.getElementById('canvas-wrapper');
-}
+};
 const liveDraw = function(dragObj){
-}
+};
 
 const setSelectedShapes = function(shape){
     if(Object.keys(shape).length > 0){
         Object.keys(shape).forEach(shapeId=>{
             store.dispatch('setShapesSelected', shape[shapeId]);
-        })
+        });
     }else{
         store.dispatch('clearShapesSelected');
     }
-}
+};
 
 const selectedShapes = function(id){
     if(id){
@@ -46,13 +45,13 @@ const selectedShapes = function(id){
         return store.getters['getShapesSelected'];
     }
     
-}
+};
 
-const mousedown = function(e){
+const mousedown = function(){
     //Set Click Position
     this.methods.hideColorPicker();
     this.shouldPaint = true;
-}
+};
 
 const mousemove = function(e){
     currentX = e.clientX;
@@ -62,25 +61,25 @@ const mousemove = function(e){
         let scrollLeft = wrapperElm.scrollLeft;
         let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, (currentX - e.target.offsetLeft) + scrollLeft, (currentY - e.target.getBoundingClientRect().top));
         setSelectedShapes(canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData()));
-        if(Object.keys(selectedShapes()).length > 0){
-            selectShape.deleteSelectedShape.bind(this)()
+        if(Object.keys(selectedShapes()).length > 0) {
+            selectShape.deleteSelectedShape.bind(this)();
         }        
     }
-}
+};
 
-const defineEndPosition = function(e){
+const defineEndPosition = function(){
     this.shouldPaint = false;
-}
+};
 
 const mouseup = function(e){
-    console.log('mouseUp')
-    defineEndPosition.bind(this, e)()
-}
+    console.log('mouseUp');
+    defineEndPosition.bind(this, e)();
+};
 
 const mouseleave = function(e){
-    console.log('mouseLeave')
-    defineEndPosition.bind(this, e)()
-}
+    console.log('mouseLeave');
+    defineEndPosition.bind(this, e)();
+};
 
 export default{
     mousedown,

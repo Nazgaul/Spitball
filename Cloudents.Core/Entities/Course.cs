@@ -40,6 +40,7 @@ namespace Cloudents.Core.Entities
             return Equals((Course)obj);
         }
 
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode" , Justification = "Nhibernate")]
         public override int GetHashCode()
         {
             return Id != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Id) : 0;
@@ -85,6 +86,7 @@ namespace Cloudents.Core.Entities
         public virtual ItemState State { get; protected set; }
         public virtual CourseSubject Subject { get; protected set; }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
     }
 }

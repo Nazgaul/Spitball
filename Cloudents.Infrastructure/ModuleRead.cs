@@ -7,7 +7,6 @@ using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Search.Document;
-using Cloudents.Infrastructure.Suggest;
 using Cloudents.Query;
 using Module = Autofac.Module;
 
@@ -29,10 +28,7 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<GoogleService>().As<IGoogleDocument>().As<IGoogleAuth>().SingleInstance();
 
-            builder.RegisterType<BingSuggest>()
-                .As<ISuggestions>()
-                .EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor));
+           
         }
     }
 }
