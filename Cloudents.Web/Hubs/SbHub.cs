@@ -47,19 +47,19 @@ namespace Cloudents.Web.Hubs
         }
 
 
-        private async Task ChangeOnlineStatus(long currentUserId, bool isTurnOn)
+        private async Task ChangeOnlineStatus(long currentUserId, bool isOnline)
         {
             _logger.Value.Info($"current user online {currentUserId}");
             try
             {
                 if (_canUpdateDb)
                 {
-                    var sql = @"update sb.[user] set Online = @IsOnline, LastOnline = GETUTCDATE() where Id = @Id
+                    const string sql = @"update sb.[user] set Online = @IsOnline, LastOnline = GETUTCDATE() where Id = @Id
 	                        and (LockoutEnd is null or LockoutEnd < GETUTCDATE())";
                     int rows;
                     using (var connection = _dapper.OpenConnection())
                     {
-                        rows = await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isTurnOn });
+                        rows = await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isOnline });
                     }
 
                     if (rows == 0)
