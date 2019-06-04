@@ -101,6 +101,7 @@
                 if(!!this.search) {
                     searchVal = this.search.trim();
                 }
+                this.term = searchVal;
                 let paramObj = {term : searchVal, page: 0};
                 this.loadUniversities(paramObj);
             }, 500)

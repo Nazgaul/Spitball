@@ -4,7 +4,10 @@
             <div class="section-tutor-info">
                 <v-layout>
                     <v-flex class="image-wrap d-flex" shrink>
-                        <img class="tutor-image" :src="userImageUrl" alt="tutor user image">
+                        <div v-if="!isLoaded">
+                            <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
+                        </div>
+                        <img class="tutor-image" v-show="isLoaded" @load="loaded" :src="userImageUrl" alt="tutor user image">
                     </v-flex>
                     <v-flex>
                         <v-layout align-start row wrap fill-height>
@@ -66,7 +69,7 @@
 <script>
     import userRating from '../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
     import utilitiesService from "../../../../services/utilities/utilitiesService";
-    import analyticsService from '../../../../services/analytics.service';  
+    import analyticsService from '../../../../services/analytics.service';
 
     export default {
         name: "tutorCard",
@@ -74,7 +77,9 @@
             userRating,
         },
         data() {
-            return {};
+            return {
+              isLoaded: false
+            };
         },
         props: {
             tutorData: {},
@@ -84,6 +89,8 @@
             }
         },
         methods:{
+            loaded() { this.isLoaded = true; },
+
             tutorCardClicked(){
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'tutor_page');
             }
@@ -183,9 +190,15 @@
             font-size: 16px;
             font-weight: bold;
         }
-        .image-wrap {
+        .flex{
+          &.image-wrap {
             margin-right: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #5D62FD;
         }
+          }
         .tutor-image {
             border-radius: 4px;
             width: 76px;

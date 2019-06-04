@@ -174,6 +174,12 @@
   <data name="error_min_chars" xml:space="preserve">
     <value>סיסמה חייבת להכיל לפחות 8 תווים</value>
   </data>
+  <data name="error_not_matched" xml:space="preserve">
+    <value>הסיסמאות צריכות להיות זהות</value>
+  </data>
+  <data name="error_phone" xml:space="preserve">
+    <value>אנא נסה שנית</value>
+  </data>
   <data name="Exit" xml:space="preserve">
     <value>יציאה</value>
   </data>

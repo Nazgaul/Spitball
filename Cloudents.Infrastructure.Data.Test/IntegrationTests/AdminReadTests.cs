@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new AdminUserAnswersQuery(638, 0);
 
-            var result = await fixture.QueryBus.QueryAsync(query, default);
+            await fixture.QueryBus.QueryAsync(query, default);
 
 
         }

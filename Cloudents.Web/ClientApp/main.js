@@ -361,6 +361,9 @@ Vue.filter('currencyLocalyFilter', function (value, hideCurrrency) {
     if (hideCurrrency) {
         return result
     } else {
+        if (amount < 0 && global.isRtl) {
+          return `${result.substr(1,result.length)}${result.slice(0,1)} ${sblCurrency}`
+        }
         return result + " " + sblCurrency;
     }
 

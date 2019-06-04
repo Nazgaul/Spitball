@@ -13,8 +13,6 @@ namespace Cloudents.Search.Question
     {
         public const string IndexName = "question2";
         internal const string TagsCountryParameter = "Country";
-        //internal const string TagsCourseParameter = "Course";
-        //internal const string TagsUniversityParameter = "University";
         internal const string TagsTagsParameter = "Tag";
         internal const string ScoringProfile = "ScoringProfile2";
 

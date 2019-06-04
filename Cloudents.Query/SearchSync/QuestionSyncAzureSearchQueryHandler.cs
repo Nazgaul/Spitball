@@ -44,7 +44,6 @@ group by TagId
 order by count(*) desc) dt
 ) AS Tags	
 From sb.[Question] q 
- CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c
                            join sb.[User] u 
                            On u.Id = q.UserId
 left join sb.University uni on uni.Id = q.UniversityId

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -30,6 +31,10 @@ namespace Cloudents.Web.Services
             if (cookieValue == null)
             {
                 cookieValue = _httpContext.HttpContext.Request.Query["country"].FirstOrDefault();
+                if (cookieValue != null && !Regex.IsMatch(cookieValue, "[A-Za-z]"))
+                {
+                    cookieValue = null;
+                }
             }
             if (cookieValue == null)
             {

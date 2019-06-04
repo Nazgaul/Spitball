@@ -18,7 +18,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Cloudents.Web.Api
@@ -48,6 +50,7 @@ namespace Cloudents.Web.Api
         /// <param name="term"></param>
         /// <param name="profile"></param>
         /// <param name="page"></param>
+        /// <param name="tutorSearch"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
@@ -55,6 +58,8 @@ namespace Cloudents.Web.Api
             string term,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
+            [FromServices] ITutorSearch tutorSearch,
+
             CancellationToken token)
         {
             //TODO make it better
@@ -71,7 +76,7 @@ namespace Cloudents.Web.Api
             else
             {
                 var query = new TutorListTabSearchQuery(term, profile.Country, page);
-                var result = await _queryBus.QueryAsync(query, token);
+                var result = await tutorSearch.SearchAsync(query, token);
                 return new WebResponseWithFacet<TutorListDto>
                 {
                     Result = result,
@@ -88,14 +93,16 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Return relevant tutors base on user courses -on all courses tab - feed
         /// </summary>
+        /// <param name="profile"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<TutorListDto>> GetTutorsAsync(
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListQuery(userId);
+            var query = new TutorListQuery(userId, profile.Country);
             var retValTask = await _queryBus.QueryAsync(query, token);
             return retValTask;
         }
@@ -120,6 +127,7 @@ namespace Cloudents.Web.Api
             [FromServices]  IQueueProvider queueProvider,
             [FromServices] IHostingEnvironment configuration,
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
+            [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
             //RequestTutorEmail
@@ -138,6 +146,7 @@ namespace Cloudents.Web.Api
                 Email = userInfo.Email,
                 Name = userInfo.Name,
                 University = userInfo.University,
+                Referer = referer.AbsoluteUri,
                 IsProduction = configuration.IsProduction()
             };
 
@@ -156,6 +165,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             [FromServices] IHostingEnvironment configuration,
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
+            [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
             var email = new RequestTutorEmail()
@@ -164,10 +174,9 @@ namespace Cloudents.Web.Api
                 Links = model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),
                 PhoneNumber = model.PhoneNumber,
                 Text = model.Text,
-              //  Course = model.Course,
                 Email = model.Email,
                 Name = model.Name,
-               // University = model.University,
+                Referer = referer.AbsoluteUri,
                 IsProduction = configuration.IsProduction()
             };
             //var email = new RequestTutorEmail(model.Text, model.Course, model.Email,

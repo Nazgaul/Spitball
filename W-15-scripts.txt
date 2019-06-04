@@ -1,1 +1,6 @@
-﻿update sb.tutor set state = 'Ok' where state is null
+﻿ALTER TABLE sb.Tutor
+ENABLE CHANGE_TRACKING  
+WITH (TRACK_COLUMNS_UPDATED = ON)
+
+Need to update azure search
+Need to upload azure function V2
