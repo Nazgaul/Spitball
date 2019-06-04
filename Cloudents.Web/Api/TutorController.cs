@@ -127,6 +127,7 @@ namespace Cloudents.Web.Api
             [FromServices]  IQueueProvider queueProvider,
             [FromServices] IHostingEnvironment configuration,
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
+            [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
             //RequestTutorEmail
@@ -145,6 +146,7 @@ namespace Cloudents.Web.Api
                 Email = userInfo.Email,
                 Name = userInfo.Name,
                 University = userInfo.University,
+                Referer = referer.AbsoluteUri,
                 IsProduction = configuration.IsProduction()
             };
 
@@ -163,6 +165,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             [FromServices] IHostingEnvironment configuration,
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
+            [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
             var email = new RequestTutorEmail()
@@ -171,10 +174,9 @@ namespace Cloudents.Web.Api
                 Links = model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),
                 PhoneNumber = model.PhoneNumber,
                 Text = model.Text,
-              //  Course = model.Course,
                 Email = model.Email,
                 Name = model.Name,
-               // University = model.University,
+                Referer = referer.AbsoluteUri,
                 IsProduction = configuration.IsProduction()
             };
             //var email = new RequestTutorEmail(model.Text, model.Course, model.Email,
