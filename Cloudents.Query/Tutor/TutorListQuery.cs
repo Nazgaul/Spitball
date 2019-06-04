@@ -37,7 +37,7 @@ T.Price,
                         from sb.[user] U
                         join sb.Tutor T
 	                        on U.Id = T.Id
-						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
+						left  join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
 						and  uc.CourseId in (select CourseId from sb.UsersCourses where UserId = @UserId or @UserId = 0)
                         and T.State = 'Ok'
                         and (U.Country = @Country or @Country is null)
@@ -49,8 +49,8 @@ T.Price,
                         from sb.[user] U
                         join sb.Tutor T
 	                        on U.Id = T.Id
-						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
-						join sb.Course c on uc.CourseId = c.Name
+						left  join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
+						left join sb.Course c on uc.CourseId = c.Name
 						and c.SubjectId in (Select subjectId  from sb.UsersCourses where UserId = @UserId or @UserId = 0)
 						and T.State = 'Ok'
 						and (U.Country = @Country or @Country is null)) t
