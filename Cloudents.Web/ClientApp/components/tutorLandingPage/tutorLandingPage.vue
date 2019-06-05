@@ -19,13 +19,17 @@
         <v-layout class="tutor-landing-page-body" column>
             <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
                 <tutor-result-card class="mb-3 hidden-sm-and-down" :tutorData="item"></tutor-result-card>
-                <tutor-result-card-mobile
-                       class="mb-2 hidden-sm-and-up"
-                        v-if="$vuetify.breakpoint.xsOnly" :tutorData="item"></tutor-result-card-mobile>
+                <tutor-result-card-mobile class="mb-2 hidden-sm-and-up" :tutorData="item"></tutor-result-card-mobile>
             </v-flex>
         </v-layout>
-        <v-layout></v-layout>
-        <v-layout></v-layout>
+        <v-layout align-center py-5 justify-space-around class="tutor-landing-status-row">
+            <span>95% starts reviews</span>
+            <span>627 Courses</span>
+            <span>533 Tutors</span>
+        </v-layout>
+        <v-layout>
+            
+        </v-layout>
         <Footer></Footer>
     </v-container>
 </template>
@@ -112,6 +116,15 @@ export default {
         .tutor-landing-card-container{
             margin: 0 auto;
             max-width: 900px;
+        }
+    }
+    .tutor-landing-status-row{
+        background-color:#FFF;
+        padding: 0 290px;
+        span{
+            font-size: 22px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.87);
         }
     }
 }
