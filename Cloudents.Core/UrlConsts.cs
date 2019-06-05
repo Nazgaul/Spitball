@@ -46,7 +46,15 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildPayMeBuyerEndPoint(string token, object parameters = null)
+        public string BuildPayMeBuyerEndPoint(string token)
+        {
+           
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = GeneratePaymentLink };
+            builder.AddQuery(token);
+            return builder.ToString();
+        }
+
+        public string BuildChatEndpoint(string token, object parameters = null)
         {
             dynamic expando = new ExpandoObject();
             var dictionary = (IDictionary<string, object>)expando;
@@ -57,15 +65,9 @@ namespace Cloudents.Core
             }
 
             expando.token = token;
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = GeneratePaymentLink };
-            builder.AddQuery((object)expando);
-            return builder.ToString();
-        }
-
-        public string BuildChatEndpoint(string token)
-        {
+            expando.chat = "expand";
             var builder = new UriBuilder(_webSiteEndPoint);
-            builder.AddQuery(new { token, chat = "expand" });
+            builder.AddQuery((object)expando);
             return builder.ToString();
         }
 
