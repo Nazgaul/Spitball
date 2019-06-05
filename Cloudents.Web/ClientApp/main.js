@@ -22,6 +22,7 @@ import VueNumeric from 'vue-numeric'
 import VueMathjax from 'vue-mathjax'
 import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
+import Vue2TouchEvents from 'vue2-touch-events'
 
 import {
     VApp,
@@ -196,7 +197,7 @@ const router = new VueRouter({
 
 Vue.use(VueClipboard);
 Vue.use(lineClamp, {});
-
+Vue.use(Vue2TouchEvents);
 
 Vue.use(VueNumeric);
 

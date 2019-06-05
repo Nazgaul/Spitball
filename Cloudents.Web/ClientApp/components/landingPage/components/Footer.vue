@@ -2,8 +2,8 @@
     <div class="footer">
         <div class="container">
             <div class="footer-content">
-                <ul class="footer-list w-list-unstyled">
-                    <li v-for="link in links">
+                <ul v-if="links" class="footer-list w-list-unstyled">
+                    <li  v-for="(link, index) in links" :key="index">
                         <a href="#" class="footer-link">{{link.title}}</a>
                     </li>
                 </ul>
@@ -19,20 +19,25 @@
 </template>
 
 <script>
+import {LanguageService} from '../../../services/language/languageService'
     export default {
         name: "Footer",
         data(){
             return{
                 links:[
-                    {title: 'About Us', url: ''},
-                    {title: 'Careers', url: ''},
-                    {title: 'Blog', url: ''},
-                    {title: 'Subject answers', url: ''},
-                    {title: 'Become a tutor', url: ''},
-                    {title: 'Schools', url: ''},
+                    {title: LanguageService.getValueByKey('landingPage_footer_links_about'), url: ''},
+                    {title: LanguageService.getValueByKey('landingPage_footer_links_feedback'), url: ''},
+                    {title: LanguageService.getValueByKey('landingPage_footer_links_terms'), url: ''},
+                    {title: LanguageService.getValueByKey('landingPage_footer_links_privacy'), url: ''},
+                    {title: LanguageService.getValueByKey('landingPage_footer_links_faq'), url: ''},
+                    {title: LanguageService.getValueByKey('landingPage_footer_links_ambassadors'), url: ''},
+                    {title: LanguageService.getValueByKey('landingPage_footer_links_blog'), url: ''},
+                    {title: LanguageService.getValueByKey('landingPage_footer_links_contact'), url: ''},
+                    {title: LanguageService.getValueByKey('landingPage_footer_links_partners'), url: ''},
+                    {title: LanguageService.getValueByKey('landingPage_footer_links_pr'), url: ''},
                 ]
             }
-        }
+        },
     }
 </script>
 

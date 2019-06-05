@@ -3,11 +3,11 @@
         <div class="page-hero">
             <div class="half-grid-center">
                 <div class="hero-content-warraper">
-                    <h2 class="hero-title">Find the perfect tutor to boost your child’s grades</h2>
-                    <div class="hero-text">
-                        Private 1 - on - 1 online lessons with expert tutors of your choice for only 55 NIS.
-                    </div>
-                    <a href="#" class="button">Find a tutor</a>
+                    <h2 class="hero-title" v-language:inner="'landingPage_main_title'"></h2>
+                    <div class="hero-text" v-language:inner="'landingPage_main_subtitle'"></div>
+                  <router-link to="/tutor">
+                    <button class="hero-btn" v-language:inner="'landingPage_main_btn'"></button>
+                  </router-link>
                 </div>
             </div>
             <div class="half-grid-center">
@@ -16,43 +16,39 @@
                 </div>
             </div>
         </div>
-        <div class="extra-details-warraper">
-            <div class="container">
-                <div class="space-around-box">
-                    <div class="extra-details-box hide-on-sm">
-                        Used by 300 + schools
+            <div class="extra-details-warraper2 ">
+            <div class="title-bar warraper">
+                <div class="space-around-box2">
+
+                    <div class="extra-details-box hide-on-sm" v-language:inner="'landingPage_main_stats_sources'"></div>
+                    <div class="extra-details-box extra-details-box-stats">
+                        <div class="text-block" v-language:inner="'landingPage_main_stats_reviews_presents'"></div>
+                        <StarsRating :stars="5"></StarsRating>
+                        <div class="text-block-2" v-language:inner="'landingPage_main_stats_reviews'"></div>
                     </div>
-                    <div class="extra-details-box">
-                        <div class="text-block">98, 000</div>
-                        <StarsRating :stars="4"></StarsRating>
-                        <div class="text-block-2">reviews</div>
-                    </div>
-                    <div class="extra-details-box hide-on-sm">
-                        1m + use our study notes
-                    </div>
+                    <div class="extra-details-box hide-on-sm" v-language:inner="'landingPage_main_stats_courses'"></div>
+                    <div class="extra-details-box hide-on-sm" v-language:inner="'landingPage_main_stats_tutors'"></div>
                 </div>
             </div>
         </div>
-        <div class="intro-step">
+
+        <div class="intro-step backgroudDiff">
             <div class="step-box buttom-space">
                 <div class="container">
-                    <div class="space-around-box">
+                    <div class="space-around-box warraper">
                         <div class="half-grid-center">
                             <div class="into-content-warraper">
-                                <h3 class="intro-title">Better grades only for 55 NIS/hr</h3>
-                                <div class="intro-content">
-                                    Helping your kids get better grades doesn’t need to be expensive.For a limited time,
-                                    Spitball offers one on one online lessons at a discount.No subscriptions or upfront
-                                    payments, you only pay for the time you need and only if you’re 100 % satisfied with the lesson.
-                                </div>
+                                <h3 class="intro-title" v-language:inner="'landingPage_section1_title'"></h3>
+                                <div class="intro-content" v-language:inner="'landingPage_section1_pharagraph'"></div>
                             </div>
                         </div>
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
+                                <div class="landingPage-higher-index">
                                 <picture>
                                     <img src="../assets/images/group-42.png" alt="">
-                                    <img class="ovaloval" src="../assets/images/oval.png" alt="">
                                 </picture>
+                                </div>
                                 <div class="float-background"></div>
                             </div>
                         </div>
@@ -60,58 +56,55 @@
                 </div>
             </div>
         </div>
+
         <div class="intro-step green-background">
             <div class="step-box">
                 <div class="container">
                     <div class="space-around-box reverse-grid">
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
+                            <div class="landingPage-higher-index"> 
                                 <picture>
-                                    <img src="../assets/images//group-27.png" alt="">
+                                    <img src="../assets/images/group-27.png" alt="">
                                 </picture>
-                                <div class="float-background2"></div>
+                            </div>
+                                <div class="float-background-bottom"></div>
                             </div>
                         </div>
                         <div class="half-grid-center">
                             <div class="into-content-warraper">
-                                <h3 class="intro-title yellow-title">It’s flexible and fits your family’s schedule</h3>
+                                <h3 class="intro-title yellow-title" v-language:inner="'landingPage_section2_title'"></h3>
                                 <div class="intro-content white-content">
-                                    Because lessons are online there’z no need to travel, so you can get your kids the
-                                    best tutors, no matter where they’re located.Also lessons can happen anytime,
-                                            anywhere so you can fit them in easily between activities and dinner and
-                                    you never need to miss a lesson, even when you’re on vacation.
-                                </div>
+                                <span v-language:inner="'landingPage_section2_pharagraph'"></span> 
+                                <span class="bold" v-language:inner="'landingPage_section2_pharagraph_bold'"></span></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="intro-step">
+
+        <div class="intro-step backgroudDiff">
             <div class="step-box buttom-space">
                 <div class="container">
                     <div class="space-around-box">
                         <div class="half-grid-center">
                             <div class="into-content-warraper">
-                                <h3 class="intro-title red-title">Better grades only for 55 NIS/hr</h3>
-                                <div class="intro-content">
-                                    We know kids learn best when someone talks to them in their language.This is why
-                                    every tutor gets hand picked and reviewed for their ability to communicate on their
-                                    level.Most tutors are young and can easily connect with your kids.
-                                </div>
+                                <h3 class="intro-title red-title"  v-language:inner="'landingPage_section3_title'"></h3>
+                                <div class="intro-content" v-language:inner="'landingPage_section3_pharagraph'"></div>
                             </div>
                         </div>
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
                                 <img src="../assets/images/group-18.png" alt="">
                         </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="intro-step bright-background">
+
+        <div class="intro-step backgroudDiffDarker">
             <div class="step-box buttom-space">
                 <div class="container">
                     <div class="space-around-box reverse-grid">
@@ -123,38 +116,72 @@
                         </div>
                         <div class="half-grid-center">
                             <div class="into-content-warraper">
-                                <h3 class="intro-title dark-blue-text">See your kids progress</h3>
-                                <div class="intro-content">
-                                    Each lesson is recorded for everyone’ s benefit.Your kids can revisit each lesson
-                                    whenever they need and you can see which topics were covered and their progress
-                                    in each lesson
-                                </div>
+                                <h3 class="intro-title dark-blue-text" v-language:inner="'landingPage_section4_title'"></h3>
+                                <div class="intro-content" v-language:inner="'landingPage_section4_pharagraph'"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="intro-step">
+        <div class="intro-step backgroudDiff">
             <div class="step-box buttom-space">
-                <div class="container wide-on-sm">
-                    <Carousel :cards="testimonials"></Carousel>
+                <div class="container">
+                    <div class="space-around-box">
+                        <div class="half-grid-center">
+                            <div class="into-content-warraper">
+                                <h3 class="intro-title red-title" v-language:inner="'landingPage_section5_title'"></h3>
+                                <div class="intro-content" v-language:inner="'landingPage_section5_pharagraph'"></div>
+                            </div>
+                        </div>
+                        <div class="half-grid-center">
+                            <div class="intro-image-warraper">
+                                <img src="../assets/images/group-39.png" alt="">
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="light-thin-grid">
+        <div class="intro-step green-background">
+            <div class="step-box buttom-space">
+                <div class="container">
+                    <div class="space-around-box reverse-grid ">
+                        <div class="half-grid-center">
+                           <div class="intro-image-warraper">
+                                <img src="../assets/images/group-49.png" alt="">
+                            </div>
+                        </div>
+                        <div class="half-grid-center">
+                              <div class="into-content-warraper">
+                                <h3 class="intro-title yellow-title" v-language:inner="'landingPage_section6_title'"></h3>
+                                <div class="intro-content white-content" v-language:inner="'landingPage_section6_pharagraph'"></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="intro-step backgroudDiff">
+            <div class="step-box buttom-space">
+                <div class="container wide-on-sm">
+                    <Carousel v-if="cards" :cards="cards"></Carousel>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="light-thin-grid">
             <div class="container">
                 <div class="space-around-box">
                     <ExtraLinks :links="extraLinks"></ExtraLinks>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="footer-hero">
             <div class="container">
                 <div class="centered-vertical-grid">
-                    <h3 class="hero-footer-title">Talk to a tutor for free today and find out how they can help your
-                        child</h3>
-                    <a href="#" class="button pink-button">Find a tutor</a>
+                    <h3 class="hero-footer-title" v-language:inner="'landingPage_subfooter_title'"></h3>
+                    <a href="#" class="button pink-button" v-language:inner="'landingPage_subfooter_btn'" ></a>
                 </div>
             </div>
         </div>
@@ -165,6 +192,7 @@
     import StarsRating from '../components/StarsRating.vue';
     import ExtraLinks from '../components/ExtraLinks.vue';
     import Carousel from "../components/Carousel.vue";
+    import {reviews} from '../assets/data/testimonialsData'
 
     export default {
         components: {
@@ -175,55 +203,20 @@
         name: "home",
         data() {
             return {
-                extraLinks: [
-                    {title: 'Math', url: ''},
-                    {title: 'Math', url: ''},
-                    {title: 'Math', url: ''},
-                    {title: 'Math', url: ''},
-                    {title: 'Math', url: ''},
-                    {title: 'Math', url: ''}
-                ],
-                testimonials: [
-                    {
-                        src: '',
-                        content: 'It really saves me time and effort. Chamer is exactly what our business has been lacking. Chamer was worth a fortune to my company.',
-                        name: 'ALEX PARKINSON1',
-                        jobTitle: 'Uni name / parent'
-                    },
-                    {
-                        src: '',
-                        content: 'It really saves me time and effort. Chamer is exactly what our business has been lacking. Chamer was worth a fortune to my company.',
-                        name: 'ALEX PARKINSON2',
-                        jobTitle: 'Uni name / parent'
-                    },
-                    {
-                        src: '',
-                        content: 'It really saves me time and effort. Chamer is exactly what our business has been lacking. Chamer was worth a fortune to my company.',
-                        name: 'ALEX PARKINSON3',
-                        jobTitle: 'Uni name / parent'
-                    },
-                    {
-                        src: '',
-                        content: 'It really saves me time and effort. Chamer is exactly what our business has been lacking. Chamer was worth a fortune to my company.',
-                        name: 'ALEX PARKINSON4',
-                        jobTitle: 'Uni name / parent'
-                    },
-                ]
+                // extraLinks: [
+                //     {title: 'Math', url: ''},
+                //     {title: 'Math', url: ''},
+                //     {title: 'Math', url: ''},
+                //     {title: 'Math', url: ''},
+                //     {title: 'Math', url: ''},
+                //     {title: 'Math', url: ''}
+                // ],
+                cards: reviews[0]
             }
-        }
+
+        },
     }
 </script>
 
 <style>
-.ovaloval{
-    margin-left: -1029px;
-    margin-top: 397px;
-    position: absolute;
-}
-.ovaloval img{
-     margin-left: -1029px;
-    margin-top: 397px;
-    position: absolute;
-    max-width: none;
-}
 </style>
