@@ -104,7 +104,7 @@ const actions = {
         commit('setFilterStr', val);
     },
     setShowLoader({ commit }, val) {
-        commit('setShowLoader',val)
+        commit('setShowLoader',val);
     },
 
     clearUserState({commit}) {
