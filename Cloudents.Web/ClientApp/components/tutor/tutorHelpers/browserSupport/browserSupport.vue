@@ -1,39 +1,36 @@
 <template>
     <div class="browserSupport">
-        <v-flex pb-5>
+        <v-flex pb-5 only>
             <v-layout row wrap align-center justify-space-between class="browserSupport-header">
-              <h4>Unsupported Browser</h4>
-              <v-icon class="close">sbf-close</v-icon>
+              <h4 v-language:inner="'browserSupport_unsupported_browser'"></h4>
+              <!-- <v-icon class="close" @click="closeDialog()">sbf-close</v-icon> -->
             </v-layout>
         </v-flex>
 
         <v-flex pb-4>
             <v-layout row wrap align-center justify-center class="browserSupport-center-top">
                     <v-icon class="card" color="#000000">sbf-card</v-icon>
-                    <h3>Update Your Browser</h3>
+                    <h3 v-language:inner="'browserSupport_update_browser'"></h3>
             </v-layout>
         </v-flex>
 
         <div class="browserSupport-center-text">
-            <p>
-              Your’e using a web browser that isn’t fully supported by Spitball.
-              To get a better experience go to on of these sites and get the latest version of your preffered browser
-            </p>
+            <p v-language:inner="'browserSupport_supported_text'"></p>
         </div>
 
         <v-flex pb-3>
-            <v-layout align-center justify-center text-xs-center class="browserSupport-center-footer">
-                <div class="">
+            <v-layout :class="{'column': isMobile}" align-center justify-center text-xs-center class="browserSupport-center-footer">
+                <div>
                     <img src="../../images/Safari.png" alt="Safari">
-                    <p>Safari</p>
+                    <p v-language:inner="'browserSupport_supported_safari'"></p>
                 </div>
-                <div class="">
+                <div>
                     <img src="../../images/Chrome.png" alt="Chrome">
-                    <p>Google Chrome</p>
+                    <p v-language:inner="'browserSupport_supported_chrome'"></p>
                 </div>
-                <div class="">
+                <div>
                     <img src="../../images/Firefox.png" alt="Firefox">
-                    <p>Mozilla Fierfox</p>
+                    <p v-language:inner="'browserSupport_supported_firefox'"></p>
                 </div>
             </v-layout>
         </v-flex>
@@ -42,12 +39,17 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex'
 export default {
-
-  data() {
-    return {
-
+  methods: {
+    // ...mapActions(['setBrowserSupportDialog']),
+    // closeDialog() {
+    //   this.setBrowserSupportDialog(false);
+    // }
+  },
+  computed:{
+    isMobile(){
+      return this.$vuetify.breakpoint.xsOnly;
     }
   }
 
@@ -88,6 +90,11 @@ export default {
          margin: 0 10px 0 0px;
          padding: 0 72px;
        }
+       @media screen and (min-width: 325px) and (max-width: 425px) {
+         .browserSupport-center-text {
+           padding: 0 20px;
+         }
+       }
     }
 
     .browserSupport-center-footer {
@@ -95,6 +102,8 @@ export default {
         color: rgba(68, 82, 252, 0.87);
         font-weight: 600;
       }
-    }
+
+      }
 }
+
 </style>

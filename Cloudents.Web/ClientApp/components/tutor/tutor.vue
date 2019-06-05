@@ -23,9 +23,9 @@
             <div
               class="tutor-nav-item cursor-pointer"
               @click="updateActiveNav(singleNav.value)"
-              v-for="singleNav in navs"
-              :class="{ 'active-nav': singleNav.value === activeItem}"
-            >
+              v-for="(singleNav, index) in navs"
+              :class="{'active-nav': singleNav.value === activeItem}"
+              :key="index">
               <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
               <a class="tutor-nav-item-link">{{singleNav.name}}</a>
             </div>
@@ -123,7 +123,7 @@
         :maxWidth="'612.5'"
         :onclosefn="closeBrowserSupportDialog"
         :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'browser-dialog'"
+        :content-class="'browser-dialog-unsupport'"
       >
           <browserSupport></browserSupport>
       </sb-dialog>
@@ -315,7 +315,8 @@ export default {
     },
     browserSupportDialog(){
       return this.getBrowserSupportDialog;
-    }
+    },
+    
   },
   methods: {
     ...mapActions([
@@ -402,12 +403,17 @@ export default {
     closeBrowserSupportDialog(){
       this.setBrowserSupportDialog(false);
     },
+    isBrowserSupport(){
+      let agent = navigator.userAgent;
+      return agent.match(/Firefox|Chrome|Safari/);
+    }
   },
   created() {
-    let self = this;
-    setTimeout(()=>{
-      self.setBrowserSupportDialog(true);
-    }, 1000)
+    if (!this.isBrowserSupport()) {
+      this.$nextTick(()=>{
+        this.setBrowserSupportDialog(true)
+      })
+    }
     this.setStudyRoom(this.id);
     this.$loadScript(
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"
