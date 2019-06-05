@@ -56,18 +56,19 @@ namespace Cloudents.Core
 
         public string BuildChatEndpoint(string token, object parameters = null)
         {
-            dynamic expando = new ExpandoObject();
-            var dictionary = (IDictionary<string, object>)expando;
+            var nvc = new NameValueCollection();
+            
             if (parameters != null)
             {
                 foreach (var property in parameters.GetType().GetProperties())
-                    dictionary.Add(property.Name, property.GetValue(parameters));
+                    nvc.Add(property.Name, property.GetValue(parameters).ToString());
             }
+            nvc.Add("token",token);
+            nvc.Add("chat", "expand");
 
-            expando.token = token;
-            expando.chat = "expand";
+
             var builder = new UriBuilder(_webSiteEndPoint);
-            builder.AddQuery((object)expando);
+            builder.AddQuery(nvc);
             return builder.ToString();
         }
 
