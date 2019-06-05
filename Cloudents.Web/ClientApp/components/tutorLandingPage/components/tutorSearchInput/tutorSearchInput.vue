@@ -1,8 +1,5 @@
 <template>
     <div class="tutor-search-input">
-        <span class="search-back-arrow" @click="goBackFromSearch()" v-show="isSearchActive">
-            <v-icon :class="{'rtl': isRtl}">sbf-arrow-right</v-icon>
-        </span>
         <div class="search-b-wrapper">
             <v-text-field class="search-b" type="text" solo
                           :class="{'white-background': showSuggestions}"
@@ -18,10 +15,10 @@
             </v-text-field>
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
                 <v-list class="search-menu" v-click-outside="outsideClick" v-show="showSuggestions">
-                    <template v-for="(item, index) in suggest">
+                    <template v-for="(item, index) in suggests">
                         <v-list-tile class="suggestion" @click="selectors(item)" :key="index">
                             <v-list-tile-content>
-                                <v-list-tile-title>{{item.name}}</v-list-tile-title>
+                                <v-list-tile-title>{{item.text}}</v-list-tile-title>
                             </v-list-tile-content>
                         </v-list-tile>
                     </template>

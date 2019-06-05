@@ -31,13 +31,13 @@
 </template>
 
 <script>
-import tempTutorData from './tutorsData'
-
 import tutorResultCard from '../results/tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import topNav from '../landingPageTools/TopNav.vue'
 import Footer from '../landingPageTools/Footer.vue'
 import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue'
+import tutorLandingPageService from './tutorLandingPageService'
+
 export default {
     components:{
         tutorResultCard,
@@ -48,8 +48,29 @@ export default {
     },
     data(){
         return {
-            items: tempTutorData
+            items: [],
+            query: {
+                term: ''
+            },
         }
+    },
+    watch:{
+        '$route'(val){
+            // console.log(val.query.term)
+            this.query.term = val.query.term;
+            this.updateList();
+        }
+    },
+    methods:{
+        updateList(){
+                tutorLandingPageService.getTutorList(this.query).then(data=>{
+                this.items = data;
+            })
+        }
+    },
+    created(){
+        this.query.term = !!this.$route.query && !!this.$route.query.term ? this.$route.query.term : '';
+        this.updateList();
     }
 }
 </script>

@@ -3,14 +3,14 @@
 import debounce from "lodash/debounce";
 import { mapGetters } from 'vuex';
 import { LanguageService } from "../../../../services/language/languageService";
-
+import universityService from "../../../../services/universityService"
 export default {
     name: "tutor-search-input",
     props: {
         placeholder:{
             type:String,
             required:false,
-            default: "some placeholder"
+            default: "Enter a course to find relevant tutors"
         }
     },
     data: () => ({
@@ -20,30 +20,12 @@ export default {
         originalMsg: '',
         isRtl: global.isRtl,
         msg:"",
-        suggest: tempSuggestData
+        suggests: [],
+        term: '',
     }),
     computed: {
-        ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
-        isSearchActive() {
-            if(this.$vuetify.breakpoint.xsOnly) {
-                return !!this.$route.query && !!this.$route.query.term;
-            } else {
-                return false;
-            }
-
-        },
-        suggestList() {
-            //TODO GET THE SUGGEST LIST FROM THE SERVER
-            
-            return [];
-        }
     },
     watch: {
-        userText(val) {
-            this.msg = val;
-            this.isFirst = true;
-            this.showSuggestions = true;
-        },
         '$route'() {
             this.$forceUpdate();
         }
@@ -57,7 +39,12 @@ export default {
             console.log('clicked outside');
             this.closeSuggestions();
         },
-        search() {
+        search(text) {
+            if(!!text){
+                this.msg = text;
+            }
+            let query = {term: this.msg}
+            this.$router.push({path: 'tutor-list', query})
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
@@ -69,7 +56,7 @@ export default {
         },
         changeMsg: debounce(function (val) {
             if(!!val && val.length > 0) {
-                this.openSuggestions();
+                this.getSuggestionList(val);
             } else {
                 this.closeSuggestions();
             }
@@ -82,9 +69,21 @@ export default {
                 this.showSuggestions = false;
                 //this.$el.querySelector('.search-menu').scrollTop = 0;
             }
+        },
+        getSuggestionList(term){
+            universityService.getCourse({term, page:0}).then(data=>{
+                this.suggests = data;
+            }).finally(()=>{
+                this.openSuggestions();
+            })
+            
+        },
+        selectors(item){
+            this.search(item.text);
         }
     },
     created() {
+        this.msg = !!this.$route.query && !!this.$route.query.term ? this.$route.query.term : '';
     }
 
 };
