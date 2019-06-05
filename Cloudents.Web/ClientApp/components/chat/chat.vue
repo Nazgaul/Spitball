@@ -8,7 +8,7 @@
                 <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
             </span>
         </v-layout>
-        <v-layout v-show="!isMinimized" class="general-chat-style" :style="{'height': mobileHeight}">
+        <v-layout v-show="!isMinimized" class="general-chat-style" >
             <component :is="`chat-${state}`"></component>
         </v-layout>
     </v-container>
@@ -42,6 +42,7 @@
                 return this.$vuetify.breakpoint.smAndDown;
             },
             mobileHeight(){
+                console.log(this.$vuetify.breakpoint.smAndDown)
                 if(this.isMobile){
                     return `${global.innerHeight - this.mobileHeaderHeight}px`;
                 }else{
@@ -132,12 +133,12 @@
     box-shadow: 0 3px 16px 0 rgba(0, 0, 0, .3);
     max-height: ~"calc( 100vh - 100px)";
     &.chat-right{
-        right: 0px/*rtl:ignore*/;
+        right: 0/*rtl:ignore*/;
         /*left: unset !*rtl:ignore*!;*/
     }
     @media (max-width: @screen-xs) {
         width: 100%;
-        height: unset !important;
+        height: 100vh;
         max-height: unset;
         top: 0;
         left: 0;
@@ -196,11 +197,14 @@
         }
     }
     .general-chat-style{
-        height:92%; //minus chat header
+        height: 92%;
+        //height:92%; //minus chat header
         width:100%;    
         @media (max-width: @screen-xs) {
-            height:95%;
-        }    
+            height: ~"calc(100vh - 50px)";
+            //height: 100vh;
+            //height:100%;
+        }   
     }
 }
 </style>

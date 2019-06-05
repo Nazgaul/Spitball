@@ -5,16 +5,16 @@
             <userOnlineStatus class="user-status" :userId="activeConversationObj.userId"></userOnlineStatus>
         </div>
         <v-layout column class="messages-wrapper">
-            <v-flex justify-end class="messages-header">
+            <div class="messages-header">
                 <div class="messages-study-room" v-if="showStudyRoomInteraction" @click="createRoom">
                     <button v-show="studyRoomExists"><v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon><span v-language:inner="'chat_studyRoom_enter'"></span></button>
                     <button v-show="!studyRoomExists && isRoomTutor"><v-icon style="font-size:10px; transform: rotate(45deg); margin: 0 4px 3px 0; color:#fff;">sbf-close</v-icon>&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span></button>
                 </div>
-            </v-flex>
-            <v-flex class="messages-body">
+            </div>
+            <div class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
-            </v-flex>
-            <v-flex class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
+            </div>
+            <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <chat-upload-file></chat-upload-file>
                 <v-textarea rows="1" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"  v-language:placeholder @keydown.enter="sendMessage" v-model="messageText" auto-grow></v-textarea>
 
@@ -24,7 +24,7 @@
                        <v-progress-circular indeterminate v-bind:size="25" color="#43425d"></v-progress-circular>
                    </v-flex>
                </v-layout>
-            </v-flex>
+            </div>
         </v-layout>
     </div>
 </template>
@@ -137,6 +137,7 @@ export default {
             height: 100%;
             .messages-header{
                 display:flex;
+                justify-content: flex-end;
                 background-color: #f7f7f7;
                 // padding: 8px 10px 8px 8px ;
                 max-height: 34px;
@@ -155,10 +156,12 @@ export default {
                
             }
             .messages-body{
+                flex :2;
+
                 padding: 15px 10px 0 10px;
                 margin: 22px 0 4px 0;
                 overflow: auto;
-                flex-grow: 1;
+                //flex-grow: 1;
             }
             .messages-body-disabled{
                 padding: 15px 10px 0 10px;
@@ -180,8 +183,8 @@ export default {
                 border-radius: 0 0 16px 16px;
               //  max-height: 48px;
                // min-height: 48px;
-               flex-grow: 0;
-               flex-shrink: 1;
+               //flex-grow: 0;
+               //flex-shrink: 1;
                 padding-right: 20px;
 
                 position: relative;
