@@ -142,7 +142,7 @@ export default {
             var self = this;
             self.getUserData(id)
                 .then((data) => {
-                    if(data &&  data.id && data.id.value && !self.$route.params.userId){
+                    if(data &&  data.id && data.id.value){
                          self.$router.push({name: 'userQuestions', params: {userId: data.id.value}});
                     }else{
                         //clean id from url if not valid and nopthing reterned from server

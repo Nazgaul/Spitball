@@ -51,7 +51,12 @@ export default {
       if (val && val != oldval) {
         this.getUserQuestionsData();
       }
-    }
+    },
+    userId(){
+      this.scrollFunc.page = 0;
+      this.getUserQuestionsData();
+    },
+    
   },
   methods: {
     ...mapActions(["getUserQuestions"]),
