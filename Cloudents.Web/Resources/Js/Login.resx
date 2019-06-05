@@ -291,9 +291,6 @@ to &lt;b&gt;exit&lt;/b&gt;?</value>
   <data name="error_min_chars" xml:space="preserve">
     <value>Password needs minimum 8 characters</value>
   </data>
-  <data name="error_invalid_phone" xml:space="preserve">
-    <value>Invalid phone number</value>
-  </data>
   <data name="error_phone" xml:space="preserve">
     <value>Please try again</value>
   </data>

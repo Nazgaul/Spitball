@@ -107,6 +107,7 @@
                         self.loading = false;
                         if( error.response.data["PhoneNumber"] && error.response.data["PhoneNumber"][0] ){
                             self.errorMessage.phone = LanguageService.getValueByKey("login_error_invalid_phone")
+                            self.errorMessage.phone = error.response.data["PhoneNumber"][0];
                         }else{
                             //any other error with phone
                             self.errorMessage.phone = LanguageService.getValueByKey("login_error_phone")

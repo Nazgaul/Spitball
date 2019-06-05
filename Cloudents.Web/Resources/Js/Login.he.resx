@@ -168,9 +168,6 @@
   <data name="end_privacy_policy" xml:space="preserve">
     <value> של ספיטבול</value>
   </data>
-  <data name="error_invalid_phone" xml:space="preserve">
-    <value>מספר טלפון לא חוקי</value>
-  </data>
   <data name="error_min_chars" xml:space="preserve">
     <value>סיסמה חייבת להכיל לפחות 8 תווים</value>
   </data>
