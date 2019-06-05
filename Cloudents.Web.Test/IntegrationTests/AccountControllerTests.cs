@@ -35,7 +35,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task GetAsync_OK_200()
         {
             await _client.LogInAsync();
-
+            
             var response = await _client.GetAsync(_uri.Path);
 
             response.EnsureSuccessStatusCode();

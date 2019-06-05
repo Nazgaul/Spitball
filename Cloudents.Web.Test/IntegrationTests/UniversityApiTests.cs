@@ -116,5 +116,17 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
+
+        [Fact]
+        public async Task GetAsync_University()
+        {
+            await _client.LogInAsync();
+
+            _uri.Path = "api/university";
+
+            var response = await _client.GetAsync(_uri.Path);
+
+            response.Should().NotBeNull();
+        }
     }
 }

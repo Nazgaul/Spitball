@@ -154,5 +154,17 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.EnsureSuccessStatusCode();
         }
 
+        [Fact]
+        public async Task GetAsync_Get_Courses()
+        {
+            await _client.LogInAsync();
+
+            _uri.Path = "api/course/search";
+
+            var response = await _client.GetAsync(_uri.Path);
+
+            response.Should().NotBeNull();
+        }
+
     }
 }
