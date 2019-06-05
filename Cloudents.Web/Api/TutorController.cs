@@ -22,6 +22,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Hosting;
+using Cloudents.Infrastructure;
 
 namespace Cloudents.Web.Api
 {
@@ -30,17 +31,20 @@ namespace Cloudents.Web.Api
     /// Tutor api controller
     /// </summary>
     [Produces("application/json")]
-    [Route("api/[controller]", Name = "Tutor"), ApiController]
+    [Route("api/[controller]"), ApiController]
     public class TutorController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
+        private readonly IMondayProvider _mondayProvider;
 
 
-        public TutorController(IQueryBus queryBus, UserManager<RegularUser> userManager)
+        public TutorController(IQueryBus queryBus, UserManager<RegularUser> userManager,
+            IMondayProvider mondayProvider)
         {
             _queryBus = queryBus;
             _userManager = userManager;
+            _mondayProvider = mondayProvider;
         }
 
 
@@ -154,8 +158,11 @@ namespace Cloudents.Web.Api
             //    userInfo.Name, userInfo.University, userInfo.Country, userInfo.PhoneNumber,
             //    model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(), configuration.IsProduction());
 
-            await queueProvider.InsertMessageAsync(email, token);
+            var task1 = queueProvider.InsertMessageAsync(email, token);
+            var task2 = _mondayProvider.CreateRecordAsync(email, token);
 
+
+            await Task.WhenAll(task1, task2);
             return Ok();
         }
 
@@ -183,12 +190,14 @@ namespace Cloudents.Web.Api
             //            model.Name, model.University, model.Country, model.PhoneNumber,
             //            model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),configuration.IsProduction());
 
-            await queueProvider.InsertMessageAsync(email, token);
+            var task1 = queueProvider.InsertMessageAsync(email, token);
+            var task2 = _mondayProvider.CreateRecordAsync(email, token);
 
+            
+            await Task.WhenAll(task1, task2);
             return Ok();
         }
 
-   
         [HttpPost("request/upload"), Consumes("multipart/form-data")]
         public async Task<UploadAskFileResponse> UploadFileAsync(IFormFile file,
             [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,

@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
-using Cloudents.Query.Query.Sync;
 using Dapper;
 
 namespace Cloudents.Query.SearchSync
@@ -117,8 +116,6 @@ or tr.Version > @RowVersion";
                 var sql = query.Version == 0 ? firstQuery : versionQuery;
 
 
-                var update = new List<TutorSearchDto>();
-                var delete = new List<string>();
                 long version = 0;
                 
 

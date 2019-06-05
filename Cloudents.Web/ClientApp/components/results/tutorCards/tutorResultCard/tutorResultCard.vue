@@ -1,6 +1,6 @@
 <template>
     <div class="tutor-card-wrap-desk cursor-pointer">
-        <router-link @click.native="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId}}">
+        <router-link @click.native="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.userName}}">
         <v-layout>
             <div class="section-tutor-info">
                 <v-layout>

@@ -11,7 +11,6 @@ namespace Cloudents.Web.Test.UnitTests
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class HomeControllerTests //:IClassFixture<SbWebApplicationFactory>
     {
-        private readonly SbWebApplicationFactory _factory;
 
         private readonly System.Net.Http.HttpClient _client;
 
@@ -24,8 +23,7 @@ namespace Cloudents.Web.Test.UnitTests
 
         public HomeControllerTests(SbWebApplicationFactory factory)
         {
-            _factory = factory;
-            _client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
             {
                 AllowAutoRedirect = false
             });

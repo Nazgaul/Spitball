@@ -71,7 +71,7 @@
                     <v-list-tile-title class="subheading" v-language:inner>menuList_my_wallet</v-list-tile-title>
                 </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile :to="{name:'profile',params:{id:accountUser.id}}">
+                <v-list-tile :to="{name:'profile',params:{id:accountUser.id,name:accountUser.name}}">
                 <v-list-tile-action>
                     <v-icon>sbf-user</v-icon>
                 </v-list-tile-action>

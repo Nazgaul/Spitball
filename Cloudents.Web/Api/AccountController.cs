@@ -170,7 +170,7 @@ namespace Cloudents.Web.Api
             }
             try
             {
-                using (var x = Image.FromStream(file.OpenReadStream()))
+                using (var _ = Image.FromStream(file.OpenReadStream()))
                 {
 
                 }

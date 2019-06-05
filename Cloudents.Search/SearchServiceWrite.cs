@@ -16,14 +16,7 @@ namespace Cloudents.Search
         protected readonly ISearchIndexClient IndexClient;
 
         private readonly ILogger _logger;
-        // private readonly string _indexName;
-
-        protected SearchServiceWrite(SearchService client, string indexName, ILogger logger)
-            : this(client, client.GetOldClient(indexName), logger)
-
-        {
-
-        }
+        
 
         protected SearchServiceWrite(SearchService client, ISearchIndexClient indexClient, ILogger logger)
         {

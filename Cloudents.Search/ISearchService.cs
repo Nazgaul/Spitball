@@ -4,7 +4,7 @@ namespace Cloudents.Search
 {
     public interface ISearchService
     {
-        ISearchIndexClient GetOldClient(string indexName);
+        //ISearchIndexClient GetOldClient(string indexName);
         ISearchIndexClient GetClient(string indexName);
     }
 

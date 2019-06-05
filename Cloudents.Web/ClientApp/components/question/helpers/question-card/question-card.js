@@ -131,6 +131,7 @@ export default {
             if (user && this.cardData.user) {
                 return user.id === this.cardData.user.id; // will work once API call will also return userId
             }
+            return false;
         },
         isDeleteDisabled(){
             let isDeleteble = this.canDelete();
@@ -218,7 +219,7 @@ export default {
                 .then(() => {
                         this.updateToasterParams({
                             toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
-                            showToaster: true,
+                            showToaster: true
                         });
                         if (!this.typeAnswer) {
                             let objToDelete = {
@@ -281,5 +282,5 @@ export default {
         // when signalR adds a question we want the time to be rerendered to show correct time
         // thats why we have same function on mounted and updated
         this.renderQuestionTime('.timeago');
-    },
+    }
 }

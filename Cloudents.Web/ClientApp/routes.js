@@ -270,8 +270,8 @@ let routes2 = [
     },
 
     {
-        path: "/note/:universityName/:courseName/:id/:name",
-        alias: ['/document/:universityName/:courseName/:id/:name'],
+        path: "/note/:courseName/:name/:id",
+        alias: ['/document/:courseName/:name/:id'],
         name: "document",
         components: {
             default: showItem,
@@ -332,7 +332,7 @@ let routes2 = [
     },
 
     {
-        path: "/profile/:id",
+        path: "/profile/:id/:name",
         components: {
             default: newProfile,
             header: profilePageHeader,

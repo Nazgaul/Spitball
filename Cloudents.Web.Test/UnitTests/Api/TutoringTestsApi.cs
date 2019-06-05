@@ -10,7 +10,6 @@ namespace Cloudents.Web.Test.UnitTests.Api
     public class TutoringTestsApi //: IClassFixture<SbWebApplicationFactory>
     {
 
-        private readonly SbWebApplicationFactory _factory;
 
         private readonly System.Net.Http.HttpClient _client;
 
@@ -22,7 +21,7 @@ namespace Cloudents.Web.Test.UnitTests.Api
 
         public TutoringTestsApi(SbWebApplicationFactory factory)
         {
-            _factory = factory;
+            _client = factory.CreateClient();
         }
 
         [Fact]

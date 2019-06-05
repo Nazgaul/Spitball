@@ -22,7 +22,7 @@ export default {
             visible: {
                 'local_player': true,
                 'remote_player': true
-            },
+            }
         };
     },
     props: {
@@ -35,7 +35,7 @@ export default {
             'remoteOffline',
             'roomLoading',
             'getStudyRoomData',
-            'accountUser',
+            'accountUser'
         ]),
 
         isTutor() {
@@ -62,7 +62,7 @@ export default {
         ]),
         minimize(type) {
             this.visible[`${type}`] = !this.visible[`${type}`];
-        },
+        }
     },
     created() {
         this.setRoomId(this.id);

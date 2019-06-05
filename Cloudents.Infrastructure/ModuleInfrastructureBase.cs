@@ -5,7 +5,6 @@ using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Mail;
-using Cloudents.Infrastructure.Search.Places;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
@@ -17,11 +16,6 @@ namespace Cloudents.Infrastructure
         {
             base.Load(builder);
             var assembly = Assembly.GetExecutingAssembly();
-           // builder.RegisterType<SearchService>().As<ISearchService>().SingleInstance();
-
-            builder.RegisterType<GooglePlacesSearch>().As<IGooglePlacesSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor));
-            builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
             builder.RegisterType<RestClient>().As<IRestClient>()
@@ -32,6 +26,7 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<PayPalClient>().As<IPayPal>().SingleInstance();
             builder.RegisterType<PayMePaymentProvider>().As<IPayment>();
+            builder.RegisterType<MondayProvider>().As<IMondayProvider>();
             builder.RegisterType<AzureTextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net.Http;
 using System.Text;
@@ -76,6 +77,8 @@ namespace Cloudents.Infrastructure
             }
         }
 
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Local", Justification = "Need for serialization")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local", Justification = "Need for serialization")]
 
         private class GenerateSale
         {
@@ -113,7 +116,7 @@ namespace Cloudents.Infrastructure
             public string ProductName => "Tutoring";
             public int? CaptureBuyer { get; private set; }
             public string SaleType { get; private set; }
-            public string SaleCallbackUrl { get; private set; }
+             public string SaleCallbackUrl { get; private set; }
             public string BuyerKey { get; private set; }
 
 

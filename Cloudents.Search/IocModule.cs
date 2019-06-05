@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Search.Document;
 using Cloudents.Search.Question;
@@ -11,18 +10,6 @@ namespace Cloudents.Search
 {
     public class SearchModule : Module
     {
-
-        //public SearchModule(string name, string key, bool isDevelop)
-        //{
-        //    Name = name;
-        //    Key = key;
-        //    IsDevelop = isDevelop;
-        //}
-
-        //private string Name { get; }
-        //private string Key { get; }
-
-        //private bool IsDevelop { get; }
 
         protected override void Load(ContainerBuilder builder)
         {
@@ -36,17 +23,7 @@ namespace Cloudents.Search
             builder.RegisterType<QuestionSearchWrite>().AsSelf();
             builder.RegisterType<DocumentSearchWrite>().AsSelf();
             builder.RegisterType<TutorSearchWrite>().AsSelf();
-            //builder.RegisterGeneric(typeof(SearchServiceWrite<>)).AsSelf();
-            //var assembly = Assembly.GetExecutingAssembly();
-            //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ISearchServiceWrite<>))
-            //    .AsImplementedInterfaces();
-
-            //builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>().EnableInterfaceInterceptors()
-            //    .InterceptedBy(typeof(LogInterceptor));
-
-
-            //builder.RegisterType<AzureJobSearch>().As<IJobProvider>().EnableInterfaceInterceptors()
-            //    .InterceptedBy(typeof(CacheResultInterceptor), typeof(LogInterceptor));
+           
 
 
             builder.Register(c=>
@@ -57,8 +34,6 @@ namespace Cloudents.Search
             base.Load(builder);
 
 
-            //builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Tutor).WithParameter(TutorSuggest.VerticalParameter, Vertical.Tutor);
-            builder.RegisterType<TutorSuggest>().As<ITutorSuggestion>().WithParameter(TutorSuggest.VerticalParameter, Vertical.Tutor);
         }
     }
 }

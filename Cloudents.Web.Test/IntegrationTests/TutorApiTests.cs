@@ -18,7 +18,6 @@ namespace Cloudents.Web.Test.IntegrationTests
             Path = "api/tutor"
         };
 
-        public object HttpsStatusCode { get; private set; }
 
         public TutorApiTests(SbWebApplicationFactory factory)
         {

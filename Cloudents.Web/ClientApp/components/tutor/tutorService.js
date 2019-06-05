@@ -261,24 +261,24 @@ const endTutoringSession = function (roomId) {
             return true;
         });
 };
-function RoomProps(ObjInit) {
-    this.conversationId = ObjInit.conversationId || '';
-    this.onlineDocument = ObjInit.onlineDocument || '';
-    this.isTutor = store.getters['accountUser'].id == ObjInit.tutorId;
-    this.roomId = ObjInit.roomId || '';
-    this.allowReview = ObjInit.allowReview;
-    this.needPayment = ObjInit.needPayment;
-    this.studentId = ObjInit.studentId || null;
-    this.tutorId = ObjInit.tutorId || null;
-    this.studentImage = ObjInit.studentImage || null;
-    this.tutorImage = ObjInit.tutorImage || null;
-    this.studentName = ObjInit.studentName || null;
-    this.tutorName = ObjInit.tutorName || null;
+function RoomProps(objInit) {
+    this.conversationId = objInit.conversationId || '';
+    this.onlineDocument = objInit.onlineDocument || '';
+    this.isTutor = store.getters['accountUser'].id == objInit.tutorId;
+    this.roomId = objInit.roomId || '';
+    this.allowReview = objInit.allowReview;
+    this.needPayment = objInit.needPayment;
+    this.studentId = objInit.studentId || null;
+    this.tutorId = objInit.tutorId || null;
+    this.studentImage = objInit.studentImage || null;
+    this.tutorImage = objInit.tutorImage || null;
+    this.studentName = objInit.studentName || null;
+    this.tutorName = objInit.tutorName || null;
 
 }
 
-const createRoomProps = function createLeaderBoardItem(ObjInit) {
-    return new RoomProps(ObjInit);
+const createRoomProps = function createLeaderBoardItem(objInit) {
+    return new RoomProps(objInit);
 };
 
 export default {

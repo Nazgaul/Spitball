@@ -5,25 +5,22 @@ let currentVertical = 'item';
 
 const getQuestions = (params) => {
     return connectivityModule.http.get("/Question", { params });
-}
+};
 
 const getDocument = (params) => {
     return connectivityModule.http.get("/Document", { params });
-}
+};
 
 
 const getTutor = (params) => {
-    return connectivityModule.http.get("tutor/search", { params })
-}
+    return connectivityModule.http.get("tutor/search", { params });
+};
 
 const getNextPage = ({ url, vertical }) => {
     currentVertical = vertical;
-    return connectivityModule.http.get(url, { baseURL: "" })
-}
+    return connectivityModule.http.get(url, { baseURL: "" });
+};
 
-const autoComplete = (data) => {
-    return connectivityModule.http.get("suggest", { params: { sentence: data.term, vertical: data.vertical } })
-}
 
 function AnswerItem(objInit) {
     this.id = objInit.id;
@@ -38,7 +35,7 @@ function AnswerItem(objInit) {
 }
 
 function createAnswerItem(objInit) {
-    return new AnswerItem(objInit)
+    return new AnswerItem(objInit);
 }
 
 function QuestionItem(objInit) {
@@ -106,10 +103,10 @@ function DocumentItem(objInit) {
 
 
 function createDocumentItem(objInit) {
-    return new DocumentItem(objInit)
+    return new DocumentItem(objInit);
 }
 function createTutorItem(objInit) {
-    return new TutorItem(objInit)
+    return new TutorItem(objInit);
 }
 
 
@@ -124,7 +121,7 @@ let transferResultAsk = response => {
         sort: res.sort,
         filters: res.filters,
         nextPage: res.nextPageLink
-    }
+    };
 };
 
 let transferResultNote = response => {
@@ -136,7 +133,7 @@ let transferResultNote = response => {
         filters: res.filters,
         data: result.map(createDocumentItem),
         nextPage: res.nextPageLink
-    }
+    };
 };
 
 let transferResultTutor = response => {
@@ -153,41 +150,41 @@ let transferResultTutor = response => {
 
 let transferNextPage = (res) => {
     let { data, nextPage } = transferMap[currentVertical](res);
-    return { data, nextPage }
+    return { data, nextPage };
 };
 
 const transferMap = {
     ask: (res) => transferResultAsk(res),
     note: (res) => transferResultNote(res),
-    tutor: (res) => transferResultTutor(res),
+    tutor: (res) => transferResultTutor(res)
 };
 
 
 
-function FilterItem(ObjInit) {
-    this.key = ObjInit.key;
-    this.value = ObjInit.value;
+function FilterItem(objInit) {
+    this.key = objInit.key;
+    this.value = objInit.value;
 }
 
-function FilterChunk(ObjInit) {
-    this.id = ObjInit.id;
-    this.title = ObjInit.title;
+function FilterChunk(objInit) {
+    this.id = objInit.id;
+    this.title = objInit.title;
     this.data = [];
     this.dictionaryData = {};
-    ObjInit.data.forEach((filterItem) => {
+    objInit.data.forEach((filterItem) => {
         this.data.push(new FilterItem(filterItem));
-        this.dictionaryData[filterItem.key] = filterItem.value
-    })
+        this.dictionaryData[filterItem.key] = filterItem.value;
+    });
 }
 
-function Filters(ObjInit) {
+function Filters(objInit) {
     this.filterChunkList = [];
     this.filterChunkDictionary = [];
-    ObjInit.forEach((filterChunk) => {
+    objInit.forEach((filterChunk) => {
         let createdFilterChunk = new FilterChunk(filterChunk);
         this.filterChunkList.push(createdFilterChunk);
         this.filterChunkDictionary[createdFilterChunk.id] = createdFilterChunk;
-    })
+    });
 }
 
 
@@ -207,12 +204,10 @@ export default {
             return getTutor(params).then(transferResultTutor);
         },
     },
-    autoComplete: (term) => {
-        return autoComplete(term);
-    },
+   
 
     nextPage: (params) => {
-        return getNextPage(params).then(transferNextPage)
+        return getNextPage(params).then(transferNextPage);
     },
 
     createQuestionItem: (objInit) => {
@@ -224,13 +219,13 @@ export default {
     },
 
     createFilters: (objInit) => {
-        return new Filters(objInit)
+        return new Filters(objInit);
     },
     createTutorItem: (objInit) => {
-        return createTutorItem(objInit)
+        return createTutorItem(objInit);
     },
 
     createDocumentItem: (objInit) => {
-        return createDocumentItem(objInit)
+        return createDocumentItem(objInit);
     },
 }
