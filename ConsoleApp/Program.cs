@@ -26,6 +26,7 @@ using Cloudents.Query.Chat;
 using Cloudents.Query.SearchSync;
 using Cloudents.Search.Tutor;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
+using Cloudents.Infrastructure;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -107,9 +108,8 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Search"),
                 Assembly.Load("Cloudents.Core"));
-
+            builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
             builder.RegisterModule<ModuleFile>();
-
 
             _container = builder.Build();
 
@@ -446,7 +446,14 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            ResourcesMaintenance.GetOrphanedResources();
+            //ResourcesMaintenance.GetOrphanedResources();
+            
+            //var provider = _container.Resolve<IMondayProvider>();
+            //await provider.UpdateTextRecordAsync(244705486, "text9", "רופין", default);
+            //await provider.UpdateTextRecordAsync(244705486, "_____________1",
+            //     string.Concat("ggg", "econ"), default);
+            //await provider.UpdateTextRecordAsync(244705486, "________________________", "ttt", default);
+            //await provider.CreateRecordAsync("api test", default);
             //var queryBus = _container.Resolve<IQueryBus>();
             //  var query = new QuestionAggregateQuery(638L, 0);
             //            var test = await queryBus.QueryAsync(query, default);
