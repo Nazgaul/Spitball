@@ -76,7 +76,7 @@ namespace Cloudents.Admin2.Api
                 await Task.WhenAll(tasks.Value);
             }
 
-            return retVal.Where(w => w.Preview != null);
+            return retVal;
         }
 
         [HttpDelete("{id}")]
@@ -147,8 +147,8 @@ namespace Cloudents.Admin2.Api
                 await Task.WhenAll(tasks.Value);
             }
 
-            return retVal.Where(w => w.Preview != null);
-            //return retVal;
+            //return retVal.Where(w => w.Preview != null);
+            return retVal;
             
         }
 
