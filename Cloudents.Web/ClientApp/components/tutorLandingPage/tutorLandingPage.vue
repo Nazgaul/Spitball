@@ -12,8 +12,11 @@
             <v-flex pt-4>
                 <h3>95% starts reviews</h3>
             </v-flex>
+            <div class="tutor-search-container">
+                <tutor-search-component></tutor-search-component>
+            </div>
         </v-layout>
-        <v-layout mt-5 class="tutor-landing-page-body" column>
+        <v-layout class="tutor-landing-page-body" column>
             <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
                 <tutor-result-card class="mb-3 hidden-sm-and-down" :tutorData="item"></tutor-result-card>
                 <tutor-result-card-mobile
@@ -29,16 +32,19 @@
 
 <script>
 import tempTutorData from './tutorsData'
+
 import tutorResultCard from '../results/tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import topNav from '../landingPageTools/TopNav.vue'
 import Footer from '../landingPageTools/Footer.vue'
+import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue'
 export default {
     components:{
         tutorResultCard,
         tutorResultCardMobile,
         topNav,
-        Footer
+        Footer,
+        tutorSearchComponent
     },
     data(){
         return {
@@ -54,6 +60,7 @@ export default {
     padding: 0;
     margin: 0;
     .tutor-landing-page-header{
+        position: relative;
         background-color: #1b2441;
         h1{
             color: #3dc2ba;
@@ -71,8 +78,16 @@ export default {
             font-weight: 600;
             color: rgba(255, 255, 255, 0.87);
         }
+        .tutor-search-container{
+            width: 740px;
+            position: absolute;
+            bottom: -26px;
+            box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.28);
+            border-radius: 4px;
+        }
     }
     .tutor-landing-page-body{
+            margin-top: 68px;
         .tutor-landing-card-container{
             margin: 0 auto;
             max-width: 900px;
