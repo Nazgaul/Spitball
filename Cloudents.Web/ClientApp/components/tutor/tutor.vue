@@ -400,7 +400,7 @@ export default {
     closeWin() {
       global.close();
     },
-    closeBrowserSupportDialog(){
+    closeBrowserSupportDialog(){ 
       this.setBrowserSupportDialog(false);
     },
     isBrowserSupport(){
