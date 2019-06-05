@@ -104,14 +104,8 @@ namespace Cloudents.Core.Extension
             return char.ToLowerInvariant(str[0]) + str.Substring(1);
         }
 
-        /// <summary>
-        /// Wraps matched strings in HTML span elements styled with a background-color
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="keywords">Comma-separated list of strings to be highlighted</param>
-        /// <param name="fullMatch">false for returning all matches, true for whole word matches only</param>
-        /// <returns>string</returns>
-        /// <remarks>https://www.mikesdotnetting.com/article/139/highlighting-keywords-found-in-search-results</remarks>
+       
+        // <remarks>https://www.mikesdotnetting.com/article/139/highlighting-keywords-found-in-search-results</remarks>
 //        public static string HighlightKeyWords(this string text, IEnumerable<string> keywords, bool fullMatch)
 //        {
 //            if (text?.Length == 0 /*|| keywords == String.Empty*/)

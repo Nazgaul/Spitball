@@ -33,9 +33,9 @@ namespace Cloudents.Query.Chat
                 RegularUser userAlias = null;
                 ChatUser chatUserAlias = null;
                 UnreadMessageDto resultAlias = null;
-                Core.Entities.Tutor tutorAlias = null;
+                //Core.Entities.Tutor tutorAlias = null;
 
-                var z = _querySession.StatelessSession.QueryOver<ChatUser>(() => chatUserAlias)
+                var z = _querySession.StatelessSession.QueryOver(() => chatUserAlias)
                         .JoinAlias(x => x.User, () => userAlias)
                         .Where(w => w.Unread > 0)
                         .And(() => userAlias.PhoneNumber != null);

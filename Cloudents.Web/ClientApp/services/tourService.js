@@ -16,7 +16,7 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       },
       questionTicket:{
@@ -33,7 +33,7 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       },
       vote:{
@@ -50,14 +50,14 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       },
       sbl:{
         target: ".v-list .leader-tile .leader-ammount",
        
         header: {
-          title: LanguageService.getValueByKey('tour_sbl_currency_title'),
+          title: LanguageService.getValueByKey('tour_sbl_currency_title')
         },
         content: LanguageService.getValueByKey('tour_sbl_currency_content'),
         params: {
@@ -67,9 +67,9 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
-      },
+      }
     },
     
     studyDocumentsPage:{
@@ -77,7 +77,7 @@ import { LanguageService } from './language/languageService'
         // target: ".classes-holder .v-chip",university-holder
         target: ".search-university-title",
         header: {
-          title: LanguageService.getValueByKey('tour_classes_title'),
+          title: LanguageService.getValueByKey('tour_classes_title')
         },
         content: LanguageService.getValueByKey('tour_classes_content'),
         params: {
@@ -87,14 +87,14 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       },
       uploadButton:{
         target: ".upload-document-button",
        
         header: {
-          title: LanguageService.getValueByKey('tour_upload_button_title'),
+          title: LanguageService.getValueByKey('tour_upload_button_title')
         },
         content: LanguageService.getValueByKey('tour_upload_button_content'),
         params: {
@@ -104,7 +104,7 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       },
       vote:{
@@ -121,14 +121,14 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       },
       sbl:{
         target: ".v-list .leader-tile .leader-ammount",
        
         header: {
-          title: LanguageService.getValueByKey('tour_sbl_currency_title'),
+          title: LanguageService.getValueByKey('tour_sbl_currency_title')
         },
         content: LanguageService.getValueByKey('tour_sbl_currency_content'),
         params: {
@@ -138,9 +138,9 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
-      },
+      }
     }
     
   }
@@ -161,7 +161,7 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       },
       questionTicket:{
@@ -178,7 +178,7 @@ import { LanguageService } from './language/languageService'
         offset: -450,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       },
       vote:{
@@ -195,7 +195,7 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       }
     },
@@ -204,7 +204,7 @@ import { LanguageService } from './language/languageService'
         target: ".search-university-title",
        
         header: {
-          title: LanguageService.getValueByKey('tour_classes_title'),
+          title: LanguageService.getValueByKey('tour_classes_title')
         },
         content: LanguageService.getValueByKey('tour_classes_content'),
         params: {
@@ -214,14 +214,14 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       },
       uploadButton:{
         target: ".upload-btn",
        
         header: {
-          title: LanguageService.getValueByKey('tour_upload_button_title'),
+          title: LanguageService.getValueByKey('tour_upload_button_title')
         },
         content: LanguageService.getValueByKey('tour_upload_button_content'),
         params: {
@@ -231,7 +231,7 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       },
       vote:{
@@ -248,7 +248,7 @@ import { LanguageService } from './language/languageService'
         offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
-          borderBottomColor: '#4870fd',
+          borderBottomColor: '#4870fd'
         }
       }
     }
@@ -287,12 +287,12 @@ import { LanguageService } from './language/languageService'
           //desktopStepsEnum.studyDocumentsPage.uniClasses,
           desktopStepsEnum.studyDocumentsPage.uploadButton,
           desktopStepsEnum.studyDocumentsPage.vote,
-          desktopStepsEnum.studyDocumentsPage.sbl,          
+          desktopStepsEnum.studyDocumentsPage.sbl          
         ],
           mobile:[
           //mobileStepsEnum.studyDocumentsPage.uniClasses,
           mobileStepsEnum.studyDocumentsPage.uploadButton,
-          mobileStepsEnum.studyDocumentsPage.vote,          
+          mobileStepsEnum.studyDocumentsPage.vote          
         ]
         }
       };
@@ -303,7 +303,7 @@ import { LanguageService } from './language/languageService'
             desktopStepsEnum.homeworkPage.addQuestionButton,
             desktopStepsEnum.homeworkPage.questionTicket,
             desktopStepsEnum.homeworkPage.vote,
-            desktopStepsEnum.homeworkPage.sbl,
+            desktopStepsEnum.homeworkPage.sbl
           ],
           mobile:[
           mobileStepsEnum.homeworkPage.addQuestionButton,
@@ -315,11 +315,11 @@ import { LanguageService } from './language/languageService'
         StudyDocumentsSteps:{
           desktop:[
             //desktopStepsEnum.studyDocumentsPage.uniClasses,
-            desktopStepsEnum.studyDocumentsPage.uploadButton,
+            desktopStepsEnum.studyDocumentsPage.uploadButton
           ],
           mobile:[
             //mobileStepsEnum.studyDocumentsPage.uniClasses,
-            mobileStepsEnum.studyDocumentsPage.uploadButton,
+            mobileStepsEnum.studyDocumentsPage.uploadButton
           ]
         }
       };

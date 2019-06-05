@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IKeyGenerator
-    {
-        string GenerateKey(object sourceObject);
-    }
+    //public interface IKeyGenerator
+    //{
+    //    string GenerateKey(object sourceObject);
+    //}
 
     public interface ITextAnalysis
     {

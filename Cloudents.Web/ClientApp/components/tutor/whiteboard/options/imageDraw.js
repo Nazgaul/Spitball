@@ -18,7 +18,7 @@ const clearLocalShape = function () {
         type: OPTION_TYPE,
         points: []
     });
-}
+};
 
 const imageXDefaultPosition = 100;
 const imageYDefaultPosition = 75;
@@ -28,14 +28,14 @@ const init = function () {
     let imageElm = document.getElementById('imageUpload');
     imageElm.removeEventListener('change', handleImage.bind(this), false);
     imageElm.addEventListener('change', handleImage.bind(this), false);
-}
+};
 
 const imgSizeFit = function(imgWidth, imgHeight, maxWidth, maxHeight) {
     let ratio = Math.min(1, maxWidth / imgWidth, maxHeight / imgHeight);
     let width = imgWidth * ratio;
     let height = imgHeight * ratio;
     return {width, height};
-}
+};
 
 const draw = function (imgObj) {
     if (!!imageDictionary[imgObj.id]) {
@@ -44,7 +44,6 @@ const draw = function (imgObj) {
     } else {
         let img = new Image();
         // img.crossOrigin="anonymous";
-        let self = this;
         img.onload = function () {
             let imageSize = imgSizeFit(img.width, img.height, 600, 800);
             img.width = imageSize.width;
@@ -52,16 +51,16 @@ const draw = function (imgObj) {
             let dictionaryImage = {
                 imgObj,
                 img
-            }
+            };
             imageDictionary[imgObj.id] = dictionaryImage;
             whiteBoardService.getContext().drawImage(img, imgObj.mouseX, imgObj.mouseY, img.width, img.height);
-        }
+        };
         img.src = imgObj.src;
     }
-}
+};
 const liveDraw = function (imgObj) {
     draw.bind(this, imgObj)();
-}
+};
 
 const handleImage = function (e) {
     //Set Click Position
@@ -89,11 +88,11 @@ const handleImage = function (e) {
                 option: OPTION_TYPE,
                 eventName: 'start',
                 src: img.src
-            })
+            });
             let dictionaryImage = {
                 imgObj,
                 img
-            }
+            };
             imageDictionary[imgObj.id] = dictionaryImage;
             localShape.points.push(imgObj);
             liveDraw.bind(self, imgObj)();
@@ -101,39 +100,39 @@ const handleImage = function (e) {
             let addImageObject = {
                 dragObj: localShape,
                 callback: clearLocalShape
-            }
+            };
             store.dispatch("setAddImage", addImageObject);
             setTimeout(()=>{
                 store.dispatch("setAddImage", null);
-            }, 500)
+            }, 500);
             // self.methods.addShape(localShape, clearLocalShape);
-        }
+        };
         img.src = url;
-    })
+    });
     //reset the element to allow same image to be uploaded
     e.target.value = "";
-}
+};
 
-const mousedown = function (e) {
+const mousedown = function () {
     return;
-}
-const mousemove = function (e) {
+};
+const mousemove = function () {
     return;
-}
+};
 
-const defineEndPosition = function (e) {
+const defineEndPosition = function () {
     return;
-}
+};
 
 const mouseup = function (e) {
-    console.log('mouseUp')
-    defineEndPosition.bind(this, e)()
-}
+    console.log('mouseUp');
+    defineEndPosition.bind(this, e)();
+};
 
 const mouseleave = function (e) {
-    console.log('mouseLeave')
-    defineEndPosition.bind(this, e)()
-}
+    console.log('mouseLeave');
+    defineEndPosition.bind(this, e)();
+};
 
 export default {
     mousedown,

@@ -1,33 +1,33 @@
-import Home from './components/Home.vue';
+//import Home from './components/Home.vue';
 
-import Question from './components/question/question.vue';
-import QMark from './components/question/questionComponents/mark/markQuestion.vue';
-import QDelete from './components/question/questionComponents/delete/deleteQuestion.vue';
-import QAdd from './components/question/questionComponents/add/addQuestion.vue';
-import QAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue';
-import QAccept from './components/question/questionComponents/accept/acceptQuestion.vue';
-import QPending from './components/question/questionComponents/pendingQuestions/pendingQuestions.vue';
-import QFlagged from './components/question/questionComponents/flaggedQuestions/flaggedQuestions.vue';
+import question from './components/question/question.vue';
+import qMark from './components/question/questionComponents/mark/markQuestion.vue';
+import qDelete from './components/question/questionComponents/delete/deleteQuestion.vue';
+import qAdd from './components/question/questionComponents/add/addQuestion.vue';
+import qAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue';
+import qAccept from './components/question/questionComponents/accept/acceptQuestion.vue';
+import qPending from './components/question/questionComponents/pendingQuestions/pendingQuestions.vue';
+import qFlagged from './components/question/questionComponents/flaggedQuestions/flaggedQuestions.vue';
 
-import Answer from './components/answer/answer.vue';
-import ADelete from './components/answer/answerComponents/delete/deleteAnswer.vue';
-import AAccept from './components/answer/answerComponents/accept/acceptAnswer.vue';
-import AFlagged from './components/answer/answerComponents/flaggedAnswers/flaggedAnswers.vue';
+import answer from './components/answer/answer.vue';
+import aDelete from './components/answer/answerComponents/delete/deleteAnswer.vue';
+import aAccept from './components/answer/answerComponents/accept/acceptAnswer.vue';
+import aFlagged from './components/answer/answerComponents/flaggedAnswers/flaggedAnswers.vue';
 
-import User from './components/user/user.vue';
-import UToken from './components/user/token/tokenUser.vue';
-import UCashout from './components/user/cashout/cashoutUser.vue';
-import USuspend from './components/user/suspend/suspendUser.vue';
-import ActiveUsers from './components/user/activeUsers/activeUsers.vue';
+import user from './components/user/user.vue';
+import uToken from './components/user/token/tokenUser.vue';
+import uCashout from './components/user/cashout/cashoutUser.vue';
+import uSuspend from './components/user/suspend/suspendUser.vue';
+import activeUsers from './components/user/activeUsers/activeUsers.vue';
 
-import Document from './components/document/document.vue';
+import document from './components/document/document.vue';
 import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue';
 import documentDelete from './components/document/documentComponents/documentDelete/documentDelete.vue';
 import flaggedDocument from './components/document/documentComponents/flaggedDocument/flaggedDocument.vue';
 
-import Dev from './components/dev/dev.vue';
-import UChangeCountry from './components/dev/changeCountry/changeCountry.vue';
-import UDelete from './components/dev/deleteUser/deleteUser.vue';
+import dev from './components/dev/dev.vue';
+import uChangeCountry from './components/dev/changeCountry/changeCountry.vue';
+import uDelete from './components/dev/deleteUser/deleteUser.vue';
 
 import userMain from './components/userMainView/userMainView.vue';
 import userQuestions from './components/userMainView/userQuestions/userQuestions.vue';
@@ -37,7 +37,7 @@ import userPurchasedDocuments from './components/userMainView/userPurchasedDocum
 import userConversations from './components/userMainView/userConversations/userConversations.vue';
 import userSessions from './components/userMainView/userSessions/userSessions.vue';
 
-import Management from './components/management/Management.vue';
+import management from './components/management/Management.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
 import universityPending from './components/management/universityPending/universityPending.vue';
 
@@ -86,7 +86,7 @@ export const routes = [
               name:'userSessions',
               path:'userSessions',
               component: userSessions
-            },
+            }
             // {
             //     path:'userDownvotes',
             //     component: userDownvotes
@@ -104,7 +104,7 @@ export const routes = [
         children: [
             {
                 path: '',
-                redirect: 'pendingTutors',
+                redirect: 'pendingTutors'
             },
             {
             path: 'pendingTutors',
@@ -120,116 +120,116 @@ export const routes = [
         // this generates a separate chunk (question.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         // component: () => import(/* webpackChunkName: "about" */ './components/question/question')
-        component: Question,
+        component: question,
         children: [
           {
             path: '',
-            redirect: 'mark',
+            redirect: 'mark'
           },
           {
             path: 'mark',
-            component: QMark
+            component: qMark
           },
           {
             path:'delete',
-            component: QDelete
+            component: qDelete
           },
           {
             path:'add',
-            component: QAdd
+            component: qAdd
           },
           {
             path:'addBulk',
-            component: QAddBulk
+            component: qAddBulk
           },
           {
             path:'acceptQuestion',
-            component: QAccept
+            component: qAccept
           },
           {
             path:'pendingQuestions',
-            component: QPending
+            component: qPending
           },
           {
             path:'flaggedQuestions',
-            component: QFlagged
+            component: qFlagged
           },
           {
             path: '*',
-            redirect: 'mark',
-          },
+            redirect: 'mark'
+          }
         ]
     },
 
     {
         path: '/answer',
         name: 'answer',
-        component: Answer,
+        component: answer,
         children: [
             {
               path: '',
-              redirect: 'flaggedAnswers',
+              redirect: 'flaggedAnswers'
             },
             {
                 path: 'delete',
-                component: ADelete
+                component: aDelete
             },
           
             {
                 path: 'acceptAnswer',
-                component: AAccept
+                component: aAccept
             },
             {
                 path: 'flaggedAnswers',
-                component: AFlagged
+                component: aFlagged
             },
             {
               path: '*',
-              redirect: 'delete',
-            },
+              redirect: 'delete'
+            }
         ]
     },
 
       {
         path: '/user',
         name: 'user',
-        component: User,
+        component: user,
         children: [
           {
             path: '',
-            redirect: 'token',
+            redirect: 'token'
           },
           {
             path: 'token',
-            component: UToken
+            component: uToken
           },
           {
             path:'cashout',
-            component: UCashout
+            component: uCashout
           },
 
           {
             path:'suspend',
-            component: USuspend
+            component: uSuspend
           },
             {
                 path:'active-users',
-                component: ActiveUsers
+                component: activeUsers
             },
           {
             path: '*',
-            redirect: 'token',
-          },
+            redirect: 'token'
+          }
         ]
      },
     {
         path: '/document',
         name: 'document',
-        component: Document,
+        component: document,
         children: [
             {
                 path: '',
-                redirect: 'approveDelete',
+                redirect: 'approveDelete'
             },
             {
                 path:'approveDelete',
@@ -245,15 +245,15 @@ export const routes = [
             },
             {
                 path: '*',
-                redirect: 'approveDelete',
-            },
+                redirect: 'approveDelete'
+            }
         ]
     },
 
     {
         path: '/management',
         name: 'management',
-        component: Management,
+        component: management,
         children: [
             {
                 path: '',
@@ -281,7 +281,7 @@ export const routes = [
             },
             {
                 path: 'conversationDetails',
-                component: conversations,
+                component: conversations
             },
             {
                 path: 'conversationDetail/:id',
@@ -308,30 +308,30 @@ export const routes = [
      {
       path: '/dev',
       name: 'dev',
-      component: Dev,
+      component: dev,
       children: [
         {
           path: '',
-          redirect: 'change-country',
+          redirect: 'change-country'
         },
         {
           path:'change-country',
-          component: UChangeCountry
+          component: uChangeCountry
         },
         {
           path:'delete-user',
-          component: UDelete
+          component: uDelete
         },
         {
           path: '*',
-          redirect: 'change-country',
-        },
+          redirect: 'change-country'
+        }
       ]
     },
     {
          path: '/*',
-         redirect: '/home',
-       },
-]
+         redirect: '/home'
+       }
+];
 
   

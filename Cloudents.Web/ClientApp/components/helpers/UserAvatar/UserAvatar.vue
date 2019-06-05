@@ -1,5 +1,5 @@
 <template>
-    <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId}}:''">
+    <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
         <v-avatar v-if="isImage"  tag="v-avatar" :size="size" :class="'user-avatar image'">
             <img :src="imageUrl" alt="user avatar" class="user-avatar-img">
         </v-avatar>

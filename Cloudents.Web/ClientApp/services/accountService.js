@@ -1,38 +1,38 @@
 import { connectivityModule } from "./connectivity.module";
 import searchService from "../services/searchService.js";
-function AccountUser(ObjInit){
-    this.balance= ObjInit.balance;
-    this.email= ObjInit.email;
-    this.id= ObjInit.id;
-    this.name= ObjInit.name;
-    this.token= ObjInit.token;
-    this.universityExists= ObjInit.universityExists;
-    this.score = ObjInit.score;
-    this.phoneNumber = ObjInit.phoneNumber;
-    this.isTutor = ObjInit.isTutor && ObjInit.isTutor.toLowerCase() === 'ok';
-    this.isTutorState =  createIsTutorState(ObjInit.isTutor);// state of become tutor request, possible options ok, pending;
-    this.image = ObjInit.image || '';
-    this.online = ObjInit.online || false;
-    this.needPayment = ObjInit.needPayment;
+function AccountUser(objInit){
+    this.balance= objInit.balance;
+    this.email= objInit.email;
+    this.id= objInit.id;
+    this.name= objInit.name;
+    this.token= objInit.token;
+    this.universityExists= objInit.universityExists;
+    this.score = objInit.score;
+    this.phoneNumber = objInit.phoneNumber;
+    this.isTutor = objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok';
+    this.isTutorState =  createIsTutorState(objInit.isTutor);// state of become tutor request, possible options ok, pending;
+    this.image = objInit.image || '';
+    this.online = objInit.online || false;
+    this.needPayment = objInit.needPayment;
 }
 function createIsTutorState(str){
     if(str && str.toLowerCase() === 'ok'){
-        return 'ok'
+        return 'ok';
     }else if(str && str.toLowerCase() === 'pending'){
-        return 'pending'
+        return 'pending';
     }else{
-        return null
+        return null;
     }
 }
- function TutorData(objOnit) {
-     this.price= objOnit.price || 0;
-     this.rate = objOnit.rate || 0;
-     this.reviewCount = objOnit.reviewCount || 0;
-     this.firstName = objOnit.firstName;
-     this.lastName = objOnit.lastName;
+ function TutorData(objInit) {
+     this.price= objInit.price || 0;
+     this.rate = objInit.rate || 0;
+     this.reviewCount = objInit.reviewCount || 0;
+     this.firstName = objInit.firstName;
+     this.lastName = objInit.lastName;
  }
 
- function CreateTutorData(objInit) {
+ function createTutorData(objInit) {
      return new TutorData(objInit);
  }
  function createUserPersonalData(objInit) {
@@ -46,7 +46,7 @@ function ProfilePersonalData(objInit){
     this.image = objInit.image || '';
     this.universityName= objInit.universityName;
     this.isTutor= objInit.hasOwnProperty('tutor') || false;
-    this.tutorData = objInit.tutor ? CreateTutorData(objInit.tutor) : CreateTutorData({});
+    this.tutorData = objInit.tutor ? createTutorData(objInit.tutor) : createTutorData({});
     this.online = objInit.online || false;
 
 }
@@ -62,7 +62,7 @@ function ReviewItem(objInit){
 }
 
 function createReviewItem(objInit) {
-    return new ReviewItem(objInit)
+    return new ReviewItem(objInit);
 
 }
 function CourseItem(objInit) {
@@ -120,45 +120,45 @@ function profileAboutData(arrInit){
 export default {
     getAccount:() => {
        return connectivityModule.http.get("/Account").then(({data})=>{
-           let UserAccount = new AccountUser(data);
-           return UserAccount;
+           let userAccount = new AccountUser(data);
+           return userAccount;
        },(err)=>{
            return err;
-       })
+       });
     },
     setUserName: (data) => {
-        return connectivityModule.http.post("/Account/userName", {name: data})
+        return connectivityModule.http.post("/Account/userName", {name: data});
     },
     getUserName: () => {
-        return connectivityModule.http.get("/Account/userName")
+        return connectivityModule.http.get("/Account/userName");
     },
     uploadImage: (formData) => {
-        return connectivityModule.http.post("/Account/image", formData)
+        return connectivityModule.http.post("/Account/image", formData);
     },
     getProfile:(id) => {
-        return connectivityModule.http.get(`/Profile/${id}`)
+        return connectivityModule.http.get(`/Profile/${id}`);
     },
-    getNumberReffered:(id) => {
-        return connectivityModule.http.get(`/Account/referrals`)
+    getNumberReffered:() => {
+        return connectivityModule.http.get(`/Account/referrals`);
     },
     getProfileAbout:(id) => {
-        return connectivityModule.http.get(`Profile/${id}/about/`)
+        return connectivityModule.http.get(`Profile/${id}/about/`);
     },
     getProfileQuestions:(id, page) => {
         let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`Profile/${id}/questions/${strPage}`)
+        return connectivityModule.http.get(`Profile/${id}/questions/${strPage}`);
     },
     getProfileAnswers:(id, page) => {
         let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`/Profile/${id}/answers/${strPage}`)
+        return connectivityModule.http.get(`/Profile/${id}/answers/${strPage}`);
     },
     getProfileDocuments:(id, page) => {
         let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`)
+        return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`);
     },
     getProfilePurchasedDocuments:(id, page)=>{
         let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`)
+        return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`);
     },
     saveTutorInfo: (data)=> {
         let serverFormatt= {
@@ -168,7 +168,7 @@ export default {
             bio: data.bio,
             price: data.price
         };
-        return connectivityModule.http.post("/Account/settings", serverFormatt)
+        return connectivityModule.http.post("/Account/settings", serverFormatt);
     },
     saveUserInfo: (data)=> {
         let serverFormatt= {
@@ -176,13 +176,13 @@ export default {
                 description: data.description
 
         };
-        return connectivityModule.http.post("/Account/settings", serverFormatt)
+        return connectivityModule.http.post("/Account/settings", serverFormatt);
     },
     // createProfileData: (arrInit)=>{
     //     return new ProfileData(arrInit);
     // },
     becomeTutor: (data) => {
-        return connectivityModule.http.post("/Account/becomeTutor", data)
+        return connectivityModule.http.post("/Account/becomeTutor", data);
     },
     createUserProfileData: (objInit)=>{
         return new profileUserData(objInit);
@@ -191,12 +191,12 @@ export default {
         return new profileQuestionData(arrInit);
     },
     createProfileAnswerData: (arrInit)=>{
-        return new profileAnswerData(arrInit)
+        return new profileAnswerData(arrInit);
     },
     createProfileDocumentData: (arrInit)=>{
-        return new profileDocumentData(arrInit)
+        return new profileDocumentData(arrInit);
     },
     createProfileAbout: (arrInit)=>{
-        return new profileAboutData(arrInit)
+        return new profileAboutData(arrInit);
     }
 }

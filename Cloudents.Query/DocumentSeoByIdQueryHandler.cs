@@ -29,8 +29,8 @@ namespace Cloudents.Query
                  {
                      Id = s.Id,
                      Name = s.Name,
-                     Country = s.University.Country,
-                     MetaContent = s.MetaContent,
+                     //Country = s.University.Country,
+                     //MetaContent = s.MetaContent,
                      CourseName = s.Course.Id,
                      UniversityName = s.University.Name
                  }

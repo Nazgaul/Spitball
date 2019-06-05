@@ -12,10 +12,10 @@ function VersionCheck() {
     if(!inStudyRoom){
         GetVersion().then(version => {
             if(version != global.version) {
-                analyticsService.sb_unitedEvent('VERSION_UPGRADE', `Previous_Version: ${global.version} Current_Version: ${version}`)
+                analyticsService.sb_unitedEvent('VERSION_UPGRADE', `Previous_Version: ${global.version} Current_Version: ${version}`);
                 location.reload(true);
             }
-        })
+        });
     }
 }
 let fiveMinutes = 10000 * 5;
@@ -31,21 +31,21 @@ GetDictionary().then(() => {
     getComponent().then(component => {
         try {
             component.router.onReady(() => {
-                const matchedComponents = component.router.getMatchedComponents()
+                const matchedComponents = component.router.getMatchedComponents();
                 // no matched routes, reject with 404
                 if (!matchedComponents.length) {
-                    window.location = "/error/notfound"
+                    window.location = "/error/notfound";
                 }
                 component.app.$mount("#app");
-            })
+            });
         }
         catch (err) {
             let appEl = document.getElementById("app");
             for (let prop in err) {
                 let el = document.createElement('div');
-                el.innerHTML = err[prop]
-                appEl.appendChild(el)
+                el.innerHTML = err[prop];
+                appEl.appendChild(el);
             }
         }
-    })
-})
+    });
+});

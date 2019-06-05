@@ -30,7 +30,7 @@ namespace Cloudents.Web.Api
     /// Tutor api controller
     /// </summary>
     [Produces("application/json")]
-    [Route("api/[controller]", Name = "Tutor"), ApiController]
+    [Route("api/[controller]"), ApiController]
     public class TutorController : ControllerBase
     {
         private readonly IQueryBus _queryBus;

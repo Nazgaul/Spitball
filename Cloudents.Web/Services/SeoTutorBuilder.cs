@@ -28,16 +28,17 @@ namespace Cloudents.Web.Services
         public IEnumerable<string> GetUrls(int index)
         {
             var t = _session.Query<Tutor>()
-                .Fetch(f=>f.User)
-                .Where(w=> (!w.User.LockoutEnd.HasValue || DateTime.UtcNow >= w.User.LockoutEnd.Value))
+                .Fetch(f => f.User)
+                .Where(w => (!w.User.LockoutEnd.HasValue || DateTime.UtcNow >= w.User.LockoutEnd.Value))
                 .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
-                .Select(s => s.Id);
+                .Select(s => new { s.Id, s.User.Name });
 
             foreach (var item in t)
             {
                 yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Tutor, new
                 {
-                    Id = item,
+                    item.Id,
+                    item.Name
                 });
 
             }

@@ -166,7 +166,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var d = JObject.Parse(str);
 
-            var email = d["Email"]?.Value<JArray>();
+            //var email = d["Email"]?.Value<JArray>();
 
             var error = d["Email"][0].Value<string>();
 

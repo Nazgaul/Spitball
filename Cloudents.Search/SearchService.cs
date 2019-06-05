@@ -19,20 +19,7 @@ namespace Cloudents.Search
             _indexClients = new ConcurrentDictionary<string, ISearchIndexClient>();
         }
 
-        /// <summary>
-        /// Obtains a new IndexClient and avoids Socket Exhaustion by reusing previous clients.
-        /// </summary>
-        /// <param name="indexName"></param>
-        /// <returns></returns>
-        [Obsolete("Use GetClient")]
-        public ISearchIndexClient GetOldClient(string indexName)
-        {
-            if (_isDevelop)
-            {
-                //indexName += "-dev";
-            }
-            return _indexClients.GetOrAdd(indexName, Client.Indexes.GetClient(indexName));
-        }
+       
 
         /// <summary>
         /// Obtains a new IndexClient and avoids Socket Exhaustion by reusing previous clients.

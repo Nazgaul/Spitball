@@ -9,7 +9,7 @@
                 <slot name="text">
                     <div class="text">
                 <span class="user-date">
-                    <router-link v-if="!name" :to="{name:'profile',params:{id:user.id}}">{{user.name}}</router-link>
+                    <router-link v-if="!name" :to="{name:'profile',params:{id:user.id,name:user.name}}">{{user.name}}</router-link>
                     <template v-else>{{name}}</template>
                 <slot></slot>
                 </span>

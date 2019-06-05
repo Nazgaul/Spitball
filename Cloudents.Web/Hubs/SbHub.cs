@@ -18,19 +18,17 @@ namespace Cloudents.Web.Hubs
     [Authorize]
     public class SbHub : Hub
     {
-        private readonly Lazy<ICommandBus> _commandBus;
         private readonly Lazy<ILogger> _logger;
         private readonly DapperRepository _dapper;
 
-        private static readonly ConnectionMapping<long> _connections =
+        private static readonly ConnectionMapping<long> Connections =
             new ConnectionMapping<long>();
 
 
         private static bool _canUpdateDb = true;
 
-        public SbHub(Lazy<ICommandBus> commandBus, Lazy<ILogger> logger, DapperRepository dapper)
+        public SbHub(Lazy<ILogger> logger, DapperRepository dapper)
         {
-            _commandBus = commandBus;
             _logger = logger;
             _dapper = dapper;
         }
@@ -47,19 +45,19 @@ namespace Cloudents.Web.Hubs
         }
 
 
-        private async Task ChangeOnlineStatus(long currentUserId, bool isTurnOn)
+        private async Task ChangeOnlineStatus(long currentUserId, bool isOnline)
         {
             _logger.Value.Info($"current user online {currentUserId}");
             try
             {
                 if (_canUpdateDb)
                 {
-                    var sql = @"update sb.[user] set Online = @IsOnline, LastOnline = GETUTCDATE() where Id = @Id
+                    const string sql = @"update sb.[user] set Online = @IsOnline, LastOnline = GETUTCDATE() where Id = @Id
 	                        and (LockoutEnd is null or LockoutEnd < GETUTCDATE())";
                     int rows;
                     using (var connection = _dapper.OpenConnection())
                     {
-                        rows = await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isTurnOn });
+                        rows = await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isOnline });
                     }
 
                     if (rows == 0)
@@ -114,8 +112,8 @@ namespace Cloudents.Web.Hubs
                 string.Equals(f.Type, AppClaimsPrincipalFactory.Country.ToString(),
                     StringComparison.OrdinalIgnoreCase))?.Value;
 
-            _connections.Add(currentUserId, Context.ConnectionId);
-            var connectionCount = _connections.GetConnections(currentUserId).Count();
+            Connections.Add(currentUserId, Context.ConnectionId);
+            var connectionCount = Connections.GetConnections(currentUserId).Count();
             //if (connectionCount > 5)
             //{
             //    _logger.Value.Warning($"Investigate online {currentUserId}");
@@ -182,9 +180,9 @@ namespace Cloudents.Web.Hubs
             }
 
             var currentUserId = long.Parse(Context.UserIdentifier);
-            _connections.Remove(currentUserId, Context.ConnectionId);
+            Connections.Remove(currentUserId, Context.ConnectionId);
 
-            var connectionCount = _connections.GetConnections(currentUserId).Count();
+            var connectionCount = Connections.GetConnections(currentUserId).Count();
 
             if (connectionCount == 0)
             {
