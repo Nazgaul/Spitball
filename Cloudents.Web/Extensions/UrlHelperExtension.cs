@@ -50,10 +50,10 @@ namespace Cloudents.Web.Extensions
             return Link(urlHelper, routeName, routeValue, queryString);
         }
 
-        public static string NextPageLink(this IUrlHelper urlHelper, string routeName, IPaging queryString)
-        {
-            return NextPageLink(urlHelper, routeName, null, queryString);
-        }
+        //public static string NextPageLink(this IUrlHelper urlHelper, string routeName, IPaging queryString)
+        //{
+        //    return NextPageLink(urlHelper, routeName, null, queryString);
+        //}
 
         private static void AddObject(string prefix, object val, NameValueCollection nvc)
         {
@@ -110,10 +110,10 @@ namespace Cloudents.Web.Extensions
         {
             return helper.RouteUrl(SeoTypeString.Document, new
             {
-                universityName = university.Replace("+", "-"),
-                courseName = course,
+                //universityName = university.Replace("+", "-"),
+                courseName = FriendlyUrlHelper.GetFriendlyTitle(course),
                 id,
-                name = name.Replace("+", "-")
+                name = FriendlyUrlHelper.GetFriendlyTitle(name)
             });
         }
 

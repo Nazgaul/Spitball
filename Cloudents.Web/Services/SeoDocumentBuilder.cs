@@ -35,7 +35,6 @@ namespace Cloudents.Web.Services
                 {
                     Id = s.Id,
                     Name = s.Name,
-                    Country = s.University.Country,
                     CourseName = s.Course.Id,
                     UniversityName = s.University.Name
                 });
@@ -44,7 +43,6 @@ namespace Cloudents.Web.Services
             {
                 yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Document, new
                 {
-                    universityName = FriendlyUrlHelper.GetFriendlyTitle(item.UniversityName),
                     courseName = FriendlyUrlHelper.GetFriendlyTitle(item.CourseName),
                     item.Id,
                     name = FriendlyUrlHelper.GetFriendlyTitle(item.Name)

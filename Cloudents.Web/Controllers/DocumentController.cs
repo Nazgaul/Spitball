@@ -59,7 +59,6 @@ namespace Cloudents.Web.Controllers
             }
             return RedirectToRoutePermanent(SeoTypeString.Document, new
             {
-                universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
                 courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
                 id = model.Id,
                 name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
@@ -91,7 +90,6 @@ namespace Cloudents.Web.Controllers
             }
             var t = RedirectToRoutePermanent(SeoTypeString.Document, new
             {
-                universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
                 courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
                 id = id.Value,
                 name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
@@ -99,11 +97,29 @@ namespace Cloudents.Web.Controllers
             return t;
         }
 
-        [Route("document/{universityName}/{courseName}/{id:long}/{name}", 
+        [Route("document/{universityName}/{courseName}/{id:long}/{name}")]
+        public async Task<ActionResult<RedirectToRouteResult>> OldDocumentLinkRedirect2(long id, CancellationToken token)
+        {
+            var query = new DocumentSeoById(id);
+
+            var model = await _queryBus.QueryAsync(query, token);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return RedirectToRoutePermanent(SeoTypeString.Document, new
+            {
+                courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
+                id,
+                name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
+            });
+        }
+
+
+       [Route("document/{courseName}/{name}/{id:long}", 
             Name = SeoTypeString.Document)]
         [ActionName("Index"), SignInWithToken]
-        public async Task<IActionResult> IndexAsync(long id, string courseName, string name,
-            CancellationToken token)
+        public async Task<IActionResult> IndexAsync(long id, CancellationToken token)
         {
             var query = new DocumentSeoById(id);
 
@@ -114,51 +130,43 @@ namespace Cloudents.Web.Controllers
             }
 
 
-            var compareCourseResult = FriendlyUrlHelper.CompareTitle(model.CourseName, courseName);
-            var compareNameResult = FriendlyUrlHelper.CompareTitle(model.Name, name);
+            //var compareCourseResult = FriendlyUrlHelper.CompareTitle(model.CourseName, courseName);
+            //var compareNameResult = FriendlyUrlHelper.CompareTitle(model.Name, name);
 
-            if (compareCourseResult == FriendlyUrlHelper.TitleCompareResult.NotEqual ||
-                compareNameResult == FriendlyUrlHelper.TitleCompareResult.NotEqual)
-            {
-                return NotFound();
-            }
+            //if (compareCourseResult == FriendlyUrlHelper.TitleCompareResult.NotEqual ||
+            //    compareNameResult == FriendlyUrlHelper.TitleCompareResult.NotEqual)
+            //{
+            //    return NotFound();
+            //}
 
-            if (compareNameResult == FriendlyUrlHelper.TitleCompareResult.EqualNotFriendly ||
-                compareNameResult == FriendlyUrlHelper.TitleCompareResult.EqualNotFriendly)
-            {
-                return RedirectToRoutePermanent(SeoTypeString.Document, new
-                {
-                    universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
-                    courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
-                    id,
-                    name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
-                });
+            //if (compareNameResult == FriendlyUrlHelper.TitleCompareResult.EqualNotFriendly ||
+            //    compareNameResult == FriendlyUrlHelper.TitleCompareResult.EqualNotFriendly)
+            //{
+            //    return RedirectToRoutePermanent(SeoTypeString.Document, new
+            //    {
+            //        universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
+            //        courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
+            //        id,
+            //        name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
+            //    });
 
-            }
+            //}
 
-            if (!FriendlyUrlHelper.GetFriendlyTitle(model.CourseName).Equals(courseName, StringComparison.OrdinalIgnoreCase)
-            || !FriendlyUrlHelper.GetFriendlyTitle(model.Name).Equals(name, StringComparison.OrdinalIgnoreCase)
-                )
-            {
-                return NotFound();
-            }
+            //if (!FriendlyUrlHelper.GetFriendlyTitle(model.CourseName).Equals(courseName, StringComparison.OrdinalIgnoreCase)
+            //|| !FriendlyUrlHelper.GetFriendlyTitle(model.Name).Equals(name, StringComparison.OrdinalIgnoreCase)
+            //    )
+            //{
+            //    return NotFound();
+            //}
             //var metaContent = await _documentSearch.ItemMetaContentAsync(id, token);
-            if (string.IsNullOrEmpty(model.Country)) return View();
+            //if (string.IsNullOrEmpty(model.Country)) return View();
 
-            //TODO: need to be university culture
-            ViewBag.title =
-                $"{model.CourseName} - {model.Name} | {_sharedLocalizer["Spitball"]}";
-
-            ViewBag.metaDescription = _localizer["meta"];
-            if (!string.IsNullOrEmpty(model.MetaContent))
-            {
-                ViewBag.metaDescription += ":" + model.MetaContent.Truncate(200);
-            }
-            ViewBag.metaDescription = WebUtility.HtmlDecode(ViewBag.metaDescription);
+            ViewBag.title = _localizer["Title", model.CourseName, model.Name];
+            ViewBag.metaDescription = _localizer["Description",model.CourseName,model.UniversityName];
             return View();
         }
 
-        [Route("document/{universityName}/{courseName}/{id:long}/{name}/download", Name = "ItemDownload")]
+        [Route("document/{courseName}/{name}/{id:long}/download", Name = "ItemDownload")]
         [Authorize]
         public async Task<ActionResult> DownloadAsync(long id, [FromServices] IBlobProvider blobProvider2, CancellationToken token)
         {
