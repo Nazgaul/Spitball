@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {LanguageService} from '../../../services/language/languageService'
+import {LanguageService} from '../../services/language/languageService'
     export default {
         name: "Footer",
         data(){

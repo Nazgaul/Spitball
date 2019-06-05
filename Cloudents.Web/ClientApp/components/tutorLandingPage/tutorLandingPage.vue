@@ -1,5 +1,7 @@
 <template>
+    
     <v-container class="tutor-landing-page-container">
+        <top-nav></top-nav>
         <v-layout py-5 class="tutor-landing-page-header" align-center justify-center column>
             <v-flex pt-5 pb-3>
                 <h1>Get a 1-on-1 lesson for ₪55/hr</h1>
@@ -21,6 +23,7 @@
         </v-layout>
         <v-layout></v-layout>
         <v-layout></v-layout>
+        <Footer></Footer>
     </v-container>
 </template>
 
@@ -28,10 +31,14 @@
 import tempTutorData from './tutorsData'
 import tutorResultCard from '../results/tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
+import topNav from '../landingPageTools/TopNav.vue'
+import Footer from '../landingPageTools/Footer.vue'
 export default {
     components:{
         tutorResultCard,
-        tutorResultCardMobile
+        tutorResultCardMobile,
+        topNav,
+        Footer
     },
     data(){
         return {

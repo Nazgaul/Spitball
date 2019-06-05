@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import LogoSvg from "../assets/logo.svg";
-import languagesLocales from "../../../services/language/localeLanguage";
-import { LanguageChange } from "../../../services/language/languageService";
+import LogoSvg from "../../../wwwroot/Images/logo-spitball.svg";
+import languagesLocales from "../../services/language/localeLanguage";
+import { LanguageChange } from "../../services/language/languageService";
 
 export default {
   components: {
