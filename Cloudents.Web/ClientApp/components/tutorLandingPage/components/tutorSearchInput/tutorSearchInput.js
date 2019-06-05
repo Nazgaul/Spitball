@@ -1,9 +1,7 @@
-﻿import tempSuggestData from "../../suggestData"
-
+﻿
 import debounce from "lodash/debounce";
-import { mapGetters } from 'vuex';
-import { LanguageService } from "../../../../services/language/languageService";
-import universityService from "../../../../services/universityService"
+// import { LanguageService } from "../../../../services/language/languageService";
+
 export default {
     name: "tutor-search-input",
     props: {
@@ -31,10 +29,6 @@ export default {
         }
     },
     methods: {
-        goBackFromSearch() {
-            this.msg = "";
-            this.search();
-        },
         outsideClick() {
             console.log('clicked outside');
             this.closeSuggestions();
@@ -63,11 +57,8 @@ export default {
 
         }, 250),
         closeSuggestions() {
-            //this.$el.querySelector('.search-b input').blur();
-            //this.msg = this.originalMsg;
             if(this.showSuggestions) {
                 this.showSuggestions = false;
-                //this.$el.querySelector('.search-menu').scrollTop = 0;
             }
         },
         getSuggestionList(term){
