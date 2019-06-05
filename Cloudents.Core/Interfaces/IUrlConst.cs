@@ -12,7 +12,7 @@ namespace Cloudents.Core.Interfaces
         string BuildQuestionEndPoint(long id, object parameters = null);
         string BuildPayMeBuyerEndPoint(string token);
 
-        string BuildChatEndpoint(string token);
+        string BuildChatEndpoint(string token, object parameters = null);
     }
 
     public interface IUrlRedirectBuilder

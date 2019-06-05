@@ -175,7 +175,7 @@ namespace Cloudents.FunctionsV2
                       "You have a new message from your {0} on Spitball. Click on the link to read your message ",
                       unreadMessageDto.IsTutor ? "student" : "tutor");
 
-                var url = urlBuilder.BuildChatEndpoint(code);
+                var url = urlBuilder.BuildChatEndpoint(code,new { utm_source = "SMS-auto" });
                 var t = options.AddAsync(new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
                 {
                     Body = $"{text} {url}"

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Dynamic;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
@@ -44,10 +46,19 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildPayMeBuyerEndPoint(string token)
+        public string BuildPayMeBuyerEndPoint(string token, object parameters = null)
         {
+            dynamic expando = new ExpandoObject();
+            var dictionary = (IDictionary<string, object>)expando;
+            if (parameters != null)
+            {
+                foreach (var property in parameters.GetType().GetProperties())
+                    dictionary.Add(property.Name, property.GetValue(parameters));
+            }
+
+            expando.token = token;
             var builder = new UriBuilder(_webSiteEndPoint) { Path = GeneratePaymentLink };
-            builder.AddQuery(new { token });
+            builder.AddQuery((object)expando);
             return builder.ToString();
         }
 
