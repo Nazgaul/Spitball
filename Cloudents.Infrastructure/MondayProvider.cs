@@ -112,7 +112,7 @@ namespace Cloudents.Infrastructure
                 var id = await CreateRecordAsync(name, token);
 
             
-                var phoneNumberTask = UpdateTextRecordAsync(id, "________________________", email.PhoneNumber, token);
+                var phoneNumberTask = UpdateTextRecordAsync(id, "__________7", email.PhoneNumber, token);
                 var subjectsTask = UpdateTextRecordAsync(id, "_____________1",
                     string.Concat(email.Text, " ", email.Course), token);
                 var universityTask = UpdateTextRecordAsync(id, "text9", email.University, token);
