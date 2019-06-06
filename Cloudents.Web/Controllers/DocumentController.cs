@@ -98,7 +98,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}")]
-        public async Task<ActionResult<RedirectToRouteResult>> OldDocumentLinkRedirect2(long id, CancellationToken token)
+        public async Task<IActionResult> OldDocumentLinkRedirect2(long id, CancellationToken token)
         {
             var query = new DocumentSeoById(id);
 

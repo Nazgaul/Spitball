@@ -1,7 +1,7 @@
 <template>
 <div>
     <v-card class="elevation-5">
-          <v-img v-if="document.preview" :src="document.preview" @click="imageView(document.preview)" aspect-ratio="2.75">
+          <v-img :src="document.preview ? document.preview: `${require('../../../assets/img/document.png')}`" @click="imageView(document.preview)" aspect-ratio="2.75" contain>
           </v-img>
           <v-card-title primary-title>
         {{document.name}}
@@ -29,7 +29,6 @@
                     
         </v-card-actions>
     </v-card>
-   
     </div>
    
 </template>

@@ -74,8 +74,8 @@ case when ds.Course in (select courseId from sb.usersCourses where userid = cte.
 case when ds.UniversityId = cte.UniversityId then 3 else 0 end  +
 case when ds.Country = cte.Country then 2 else 0 end +
 cast(1 as float)/ISNULL(nullif( DATEDIFF(minute, ds.[DateTime], GETUTCDATE()   ),0),1) desc
-OFFSET :page*50 ROWS
-FETCH NEXT 50 ROWS ONLY";
+OFFSET :page*20 ROWS
+FETCH NEXT 20 ROWS ONLY";
 
                 //this is because we don't want to aggregate all the historical data
 
