@@ -83,7 +83,7 @@ export default {
                     self.btnQuestionLoading =false;
                     //close dialog after question submitted
                     self.requestAskClose(false);
-                    debugger;
+                    ;
                     self.$router.push({
                                           path: '/ask'
                                         //   query: {

@@ -62,7 +62,10 @@ let availableDevices = [];
             tracksCreated.push(tutorService.dataTrack);
             connectOptions = {
                 tracks: tracksCreated,
-                networkQuality: true
+                networkQuality: {
+                    local: 3, // LocalParticipant's Network Quality verbosity [1 - 3]
+                    remote: 3 // RemoteParticipants' Network Quality verbosity [0 - 3]
+                  }
             };
             tutorService.connectToRoom(token, connectOptions);
             if (!store.getters['getStudyRoomData'].isTutor) {

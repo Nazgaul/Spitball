@@ -40,7 +40,7 @@ const detachParticipantTracks = function (participant) {
     detachTracks(tracks);
 };
 
-const printNetworkQuality = function (networkQualityLevel) {
+const printNetworkQuality = function (networkQualityLevel,networkQualityStats) {
     store.dispatch('updateLocalParticipantsNetworkQuality', networkQualityLevel);
     console.log({
         1: '▃',
@@ -49,6 +49,11 @@ const printNetworkQuality = function (networkQualityLevel) {
         4: '▃▄▅▆',
         5: '▃▄▅▆▇'
     }[networkQualityLevel] || '');
+    if (networkQualityStats) {
+        // Print in console the networkQualityStats, which is non-null only if Network Quality
+        // verbosity is 2 (moderate) or greater
+        console.log('Network Quality statistics:', networkQualityStats);
+      }
 };
 
 
