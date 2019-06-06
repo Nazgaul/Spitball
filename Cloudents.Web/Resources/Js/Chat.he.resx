@@ -136,10 +136,10 @@
     <value>החדר נפתח</value>
   </data>
   <data name="studyRoom_create" xml:space="preserve">
-    <value>צור חדר לימוד</value>
+    <value> צור חדר לימוד</value>
   </data>
   <data name="studyRoom_enter" xml:space="preserve">
-    <value>כניסה לחדר לימוד</value>
+    <value> כניסה לחדר לימוד</value>
   </data>
   <data name="type_message" xml:space="preserve">
     <value>הקלד הודעה</value>
