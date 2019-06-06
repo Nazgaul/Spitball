@@ -1,6 +1,1 @@
-﻿ALTER TABLE sb.Tutor
-ENABLE CHANGE_TRACKING  
-WITH (TRACK_COLUMNS_UPDATED = ON)
-
-Need to update azure search
-Need to upload azure function V2
+﻿need to update azure function v2

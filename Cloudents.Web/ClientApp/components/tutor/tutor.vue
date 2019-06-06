@@ -404,6 +404,9 @@ export default {
     },
     isBrowserSupport(){
       let agent = navigator.userAgent;
+      if(agent.match(/Edge/)){
+        return false;
+      }
       return agent.match(/Firefox|Chrome|Safari/);
     }
   },

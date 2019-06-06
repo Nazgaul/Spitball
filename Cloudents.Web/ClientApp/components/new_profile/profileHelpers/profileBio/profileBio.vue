@@ -46,7 +46,7 @@
               <div class="tutor-price mr-3">
                 <!--<span class="subheading" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">₪</span>-->
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  ₪{{tutorPrice}}
+                  ₪{{showStriked ? 50 : tutorPrice}}
                   <span class="tutor-price small-text">
                     /
                     <span v-language:inner>profile_points_hour</span>
@@ -59,15 +59,43 @@
                   >sbf-edit-icon</v-icon>
                 </span>
               </div>
+              <div v-if="showStriked && $vuetify.breakpoint.smAndUp" class="tutor-price strike-through mr-3">
+                <!--<span class="subheading" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">₪</span>-->
+                <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
+                  ₪{{tutorPrice}}
+                  <span class="tutor-price small-text">
+                    /
+                    <span v-language:inner>profile_points_hour</span>
+                  </span>
+                </span>
+              </div>
             </v-layout>
             <div class="mt-5" v-if="$vuetify.breakpoint.smAndUp">
               <userAboutMessage></userAboutMessage>
             </div>
           </v-flex>
         </v-layout>
-        <v-flex>
+        <v-flex style="position:relative;">
           <div
             class="tutor-price text-xs-center"
+            v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
+          >
+            <span class="subheading">₪</span>
+            <span class="tutor-price">
+              {{showStriked ? 50 : tutorPrice}}
+              <span class="tutor-price small-text">
+                <!--<span v-language:inner>app_currency_dynamic</span>-->
+                <span>/</span>
+                <span v-language:inner>profile_points_hour</span>
+              </span>
+            </span>
+            <span
+              class="divider mt-4"
+              style="height: 2px; width: 44px; background-color: rgba(67, 66, 93, 0.2); margin: 0 auto; display: block"
+            ></span>
+          </div>
+          <div
+            class="tutor-price strike-through text-xs-center"
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
           >
             <span class="subheading">₪</span>
@@ -79,10 +107,6 @@
                 <span v-language:inner>profile_points_hour</span>
               </span>
             </span>
-            <span
-              class="divider mt-4"
-              style="height: 2px; width: 44px; background-color: rgba(67, 66, 93, 0.2); margin: 0 auto; display: block"
-            ></span>
           </div>
         </v-flex>
         <v-flex>
@@ -154,6 +178,10 @@ export default {
         return this.getProfile.user.tutorData.price;
       }
       return 0;
+    },
+    showStriked(){
+      let price = this.tutorPrice;
+      return price <= 120 && price > 50 && !this.isMyProfile
     },
     university() {
       if (this.getProfile && this.getProfile.user) {
@@ -233,7 +261,38 @@ export default {
     .small-text {
       font-size: 13px;
     }
-  }
+    &.strike-through{
+      position: absolute;
+      top: 50px; 
+      right: 15px;
+        @media (max-width: @screen-xs) {
+          top: 20px;
+          right: 0px;
+          left: 0;
+          width: 25%;
+          margin: 0 auto;
+        }
+      
+      .tutor-price{
+        font-size: 18px;
+        color: @colorBlackNew;
+        .small-text{
+          font-size: 11px;
+        }
+      }
+      &:after {
+        content: '';
+        width: 100%;
+        border-bottom: solid 1px @colorBlackNew;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        z-index: 1;
+        @media (max-width: @screen-xs) {
+          top: 65%
+        }
+      }
+    }
   .edit-profile-action {
     color: @purpleLight;
     opacity: 0.41;
@@ -253,5 +312,6 @@ export default {
     letter-spacing: -0.3px;
     color: @textColor;
   }
+}
 }
 </style>

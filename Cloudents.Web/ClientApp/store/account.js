@@ -473,9 +473,8 @@ const actions = {
     },
     updateUserBalance({commit, state}, payload) {
         return;
-        let newBalance = state.user.balance + payload;
-        // debugger
-        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
+//        let newBalance = state.user.balance + payload;
+        //commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
     },
 
     signalR_SetBalance({commit, state}, newBalance) {

@@ -3,7 +3,7 @@
         <v-flex xs12>
             <v-card class="tutoring-info-card"
                     :class="[$vuetify.breakpoint.xsOnly ? 'elevation-0 px-0 py-2': 'py-4']">
-                <v-flex class="hidden-sm-and-up">
+                <v-flex class="hidden-sm-and-down">
                     <div>
                         <div class="mb-2 text-xs-center px-3">
                         <span class="tutoring-info-heading font-italic" v-language:inner>profile_tutor_sidebar_title
