@@ -135,5 +135,15 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
+
+        [Fact]
+        public async Task GetAsync_OldDocument_OK()
+        {
+            _uri.Path = "document/Box%20Read%20for%20hotmail%20user/Load%20Stress%20Testing%20Multimi2.docx/457";
+
+            var response = await _client.GetAsync(_uri.Path);
+
+            response.EnsureSuccessStatusCode();
+        }
     }
 }
