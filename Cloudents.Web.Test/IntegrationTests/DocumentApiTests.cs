@@ -89,11 +89,14 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var filters = d["filters"]?.Value<JArray>();
 
-            var type = filters[0]["data"]?.Value<JArray>();
+            if (filters != null)
+            {
+                var type = filters[0]["data"]?.Value<JArray>();
 
-            filters.Should().NotBeNull();
+                filters.Should().NotBeNull();
 
-            type.Should().HaveCountGreaterThan(3);
+                type.Should().HaveCountGreaterThan(3);
+            }
         }
 
         [Fact]
