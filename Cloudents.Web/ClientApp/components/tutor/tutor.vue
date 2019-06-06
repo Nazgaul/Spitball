@@ -128,7 +128,7 @@
       </sb-dialog>
 
       <v-dialog
-        v-model="qualityDialog"
+        v-model="showNotConnectedDevicesDialog"
         content-class="quality-dialog"
         :fullscreen="$vuetify.breakpoint.xsOnly"
         persistent
@@ -315,7 +315,10 @@ export default {
     browserSupportDialog(){
       return this.getBrowserSupportDialog;
     },
-    
+    showNotConnectedDevicesDialog(){
+      let browserSupported = this.isBrowserSupport();
+      return this.qualityDialog && browserSupported
+    }
   },
   methods: {
     ...mapActions([
@@ -415,8 +418,11 @@ export default {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)
       })
+      return;
     }
-    this.setStudyRoom(this.id);
+    if(!!this.id){
+      this.setStudyRoom(this.id);
+    }
     this.$loadScript(
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"
     ).then(() => {
