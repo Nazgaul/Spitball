@@ -108,7 +108,6 @@
             //screen share start
             showScreen() {
                 let self = this;
-                debugger;
                 videoService.getUserScreen().then(
                     stream => {
                         stream.removeEventListener('ended', () => self.stopSharing());

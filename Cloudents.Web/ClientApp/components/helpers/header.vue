@@ -165,11 +165,9 @@
             },
             drawer(val){
                 if(!!val && this.$vuetify.breakpoint.xsOnly){
-                    document.getElementsByTagName("body")[0].className="noscroll";
-                    console.log("drawer open")
+                    document.body.className="noscroll";
                 }else{
                     document.body.removeAttribute("class","noscroll");
-                    console.log("drawer closed")
                 }
             }
 
