@@ -12,12 +12,12 @@
                     <LOGO></LOGO>
                 </div>
                 <div class="footer-contact-box-icons">
-                    <v-icon>sbf-social-medium-small</v-icon>
-                    <v-icon>sbf-social-linkedin</v-icon>
-                    <v-icon>sbf-social-facebook</v-icon>
-                    <v-icon>sbf-social-youtube</v-icon>
-                    <v-icon>sbf-social-telegram</v-icon>
-                    <v-icon>sbf-social_twitter</v-icon>
+                    <a href="https://medium.com/@spitballstudy" target="_blank"><v-icon>sbf-social-medium-small</v-icon></a>
+                    <a href="https://linkedin.com/company/spitball" target="_blank"><v-icon>sbf-social-linkedin</v-icon></a>
+                    <a href="https://www.facebook.com/spitballstudy/" target="_blank"><v-icon>sbf-social-facebook</v-icon></a>
+                    <a href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg/" target="_blank"><v-icon>sbf-social-youtube</v-icon></a>
+                    <a href="https://t.me/Spitball" target="_blank"><v-icon>sbf-social-telegram</v-icon></a>
+                    <a href="https://twitter.com/spitballstudy" target="_blank"><v-icon>sbf-social_twitter</v-icon></a>
                 </div>
             </div>
         </v-layout>
@@ -70,6 +70,7 @@ import LOGO from './sp-logo.svg'
         flex-direction: column-reverse;
     }
     .footer-wrap-list {
+        cursor: pointer;
         padding: 0;
         @media (min-width: 768px){
             text-align: center;
@@ -115,6 +116,7 @@ import LOGO from './sp-logo.svg'
             i{
                 margin: 0 10px;
                 color: #FFF;
+                cursor: pointer;
             }
             
         }

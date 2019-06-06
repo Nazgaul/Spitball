@@ -4,13 +4,13 @@
         <top-nav></top-nav>
         <v-layout :class="`${isMobile ? 'pt-2 pb-5' : 'py-5'}`" px-4 class="tutor-landing-page-header" align-center justify-center column>
             <v-flex pt-5 pb-3>
-                <h1>Get a 1-on-1 lesson for ₪55/hr</h1>
+                <h1 v-language:inner="'tutorListLanding_header_get_lesson'"></h1>
             </v-flex>
             <v-flex pb-5>
-                <h2>Find tutors who have experience teaching {your course} online</h2>
+                <h2 v-language:inner="'tutorListLanding_header_find_tutors'"></h2>
             </v-flex>
             <v-flex :class="{'pt-4': !isMobile}">
-                <h3><span>95%</span> <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon> <span>reviews</span></h3>
+                <h3><span v-language:inner="'tutorListLanding_rates'"></span> <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon> <span v-language:inner="'tutorListLanding_reviews'"></span></h3>
             </v-flex>
             <div class="tutor-search-container">
                 <tutor-search-component></tutor-search-component>
@@ -26,9 +26,9 @@
             </v-flex>            
         </v-layout>
         <v-layout align-center py-5 justify-space-around class="tutor-landing-status-row">
-            <span class="hidden-xs-only"><span>95%</span> <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon> <span>reviews</span></span>
-            <span class="hidden-xs-only">627 Courses</span>
-            <span>533 Tutors</span>
+            <span class="hidden-xs-only"><span v-language:inner="'tutorListLanding_rates'"></span> <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon> <span v-language:inner="'tutorListLanding_reviews'"></span></span>
+            <span class="hidden-xs-only" v-language:inner="'tutorListLanding_courses'"></span>
+            <span v-language:inner="'tutorListLanding_tutors'"></span>
         </v-layout>
         <v-layout>
 
