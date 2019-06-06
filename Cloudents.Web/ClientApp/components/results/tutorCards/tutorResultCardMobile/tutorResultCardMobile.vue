@@ -1,5 +1,5 @@
 <template>
-    <router-link @click.native="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+    <router-link @click.native.prevent="tutorCardClicked" :to="''">
         <v-card class="tutor-card-wrap pa-12 elevation-0 cursor-pointer " :class="{'list-tutor-card': isInTutorList}">
             <div class="section-tutor-info">
                 <v-layout>
@@ -70,6 +70,7 @@
     import userRating from '../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
     import utilitiesService from "../../../../services/utilities/utilitiesService";
     import analyticsService from '../../../../services/analytics.service';
+    import { mapActions } from 'vuex';
 
     export default {
         name: "tutorCard",
@@ -86,13 +87,26 @@
             isInTutorList: {
                 type: Boolean,
                 default: false
+            },
+            fromLandingPage: {
+                type: Boolean,
+                default: false
             }
         },
         methods:{
+            ...mapActions(['updateRequestDialog']),
             loaded() { this.isLoaded = true; },
 
             tutorCardClicked(){
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'tutor_page');
+                if(this.fromLandingPage) {
+                    this.openRequestDialog();
+                }else{
+                    this.$router.push({name: 'profile', params: {name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}});
+                }
+            },
+            openRequestDialog() {
+                this.updateRequestDialog(true);
             }
         },
         computed: {

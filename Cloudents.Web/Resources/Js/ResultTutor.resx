@@ -138,4 +138,7 @@
   <data name="no_reviews" xml:space="preserve">
     <value>No reviews yet</value>
   </data>
+  <data name="contact_me" xml:space="preserve">
+    <value>Contact Me</value>
+  </data>
 </root>
