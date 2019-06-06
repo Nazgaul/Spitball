@@ -160,7 +160,8 @@ export default {
 
                 padding: 15px 10px 0 10px;
                 margin: 22px 0 4px 0;
-                overflow: auto;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
                 //flex-grow: 1;
             }
             .messages-body-disabled{

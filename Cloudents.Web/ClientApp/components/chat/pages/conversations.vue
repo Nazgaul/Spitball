@@ -43,6 +43,9 @@ export default {
     mounted(){
         console.log("mounted");
         this.$forceUpdate();
+    },
+    beforeDestroy() {
+        console.log("destroy")
     }
 }
 </script>
