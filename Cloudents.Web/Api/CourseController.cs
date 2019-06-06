@@ -47,13 +47,13 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
       
         public async Task<CoursesResponse> GetAsync(
            [FromQuery] CourseSearchRequest request,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
+            _userManager.TryGetLongUserId(User, out var userId);
             var query = new CourseSearchQuery(userId, request.Term, request.Page);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse

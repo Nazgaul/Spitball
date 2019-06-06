@@ -235,5 +235,13 @@ namespace Cloudents.Web.Api
             //}
             return new UploadAskFileResponse(fileNames);
         }
+
+        [HttpGet("reviews")]
+        public async Task<IEnumerable<AboutTutorDto>> GetReviwesAsync(CancellationToken token)
+        {
+            var query = new AboutTutorQuery();
+            var retValTask = await _queryBus.QueryAsync(query, token);
+            return retValTask;
+        }
     }
 }
