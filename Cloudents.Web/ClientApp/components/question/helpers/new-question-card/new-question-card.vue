@@ -24,7 +24,7 @@
                         <v-icon class="has-correct">sbf-check-circle</v-icon>
                     </div>
                     <div class="menu-area">
-                        <v-menu bottom left content-class="card-user-actions">
+                        <v-menu lazy bottom left content-class="card-user-actions">
                             <v-btn :depressed="true" @click.prevent slot="activator" icon>
                                 <v-icon>sbf-3-dot</v-icon>
                             </v-btn>

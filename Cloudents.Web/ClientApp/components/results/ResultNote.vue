@@ -29,7 +29,7 @@
                              <!--v-language:inner>resultNote_free-->
                         <!--</div>-->
                         <div class="menu-area">
-                            <v-menu bottom left content-class="card-user-actions" v-model="showMenu">
+                            <v-menu lazy bottom left content-class="card-user-actions" v-model="showMenu">
                                 <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()"
                                        slot="activator" icon>
                                     <v-icon>sbf-3-dot</v-icon>
