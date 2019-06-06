@@ -1,6 +1,6 @@
 <template>
     <div class="tutor-card-wrap-desk cursor-pointer">
-        <router-link @click.native="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId}}">
+        <router-link @click.native.prevent="tutorCardClicked" :to="''">
         <v-layout>
             <div class="section-tutor-info">
                 <v-layout>
@@ -66,7 +66,7 @@
 
                 <v-flex xs12   class="d-flex btn-bottom-holder text-xs-center">
                     <v-btn style="max-width: 80%; margin: 0 auto;" round class="blue-btn rounded elevation-0 ma-0" block>
-                        <span class="font-weight-bold text-capitalize" v-language:inner>resultTutor_btn_view</span>
+                        <span class="font-weight-bold text-capitalize" v-language:inner="buttonText"></span>
                     </v-btn>
                 </v-flex>
             </v-layout>
@@ -82,30 +82,48 @@
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import utilitiesService from "../../../../services/utilities/utilitiesService";
     import analyticsService from '../../../../services/analytics.service';
+    import tutorRequest from '../../../tutorRequest/tutorRequest.vue';
+    import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
+    import { mapActions } from "vuex";
 
     export default {
         name: "tutorResultCard",
         components: {
             userRank,
             userRating,
-            userAvatar
+            userAvatar,
+            tutorRequest,
+            sbDialog
         },
         data() {
             return {
-              isLoaded: false
+              isLoaded: false,
+              handleDialogProfile: false
             };
         },
         props: {
             tutorData: {},
+            fromLandingPage: {
+                type: Boolean,
+                default: false
+            }
         },
         methods:{
+            ...mapActions(['updateRequestDialog']),
             loaded() { this.isLoaded = true; },
             tutorCardClicked(){
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'tutor_page');
+                if(this.fromLandingPage) {
+                    this.openRequestDialog();
+                }else{
+                    this.$router.push({name: 'profile', params: {id: this.tutorData.userId}});
+                }
+            },
+            openRequestDialog() {
+                this.updateRequestDialog(true);
             }
         },
         computed: {
-
             userImageUrl() {
                 if(this.tutorData.image) {
                     return utilitiesService.proccessImageURL(this.tutorData.image, 166, 186);
@@ -115,6 +133,9 @@
             },
             showStriked(){
                 return this.tutorData.price <= 120 && this.tutorData.price > 50
+            },
+            buttonText(){
+                return this.fromLandingPage ? 'resultTutor_contact_me' : 'resultTutor_btn_view'
             }
         },
 

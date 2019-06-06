@@ -138,4 +138,7 @@
   <data name="review_one" xml:space="preserve">
     <value>חוות דעת</value>
   </data>
+  <data name="contact_me" xml:space="preserve">
+    <value>צור קשר</value>
+  </data>
 </root>

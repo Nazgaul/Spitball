@@ -10,7 +10,7 @@
                 <h2>Find tutors who have experience teaching {your course} online</h2>
             </v-flex>
             <v-flex :class="{'pt-4': !isMobile}">
-                <h3>95% <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon> reviews</h3>
+                <h3><span>95%</span> <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon> <span>reviews</span></h3>
             </v-flex>
             <div class="tutor-search-container">
                 <tutor-search-component></tutor-search-component>
@@ -21,12 +21,12 @@
                 <empty-state-card v-if="items.length === 0 && query.term" style="margin: 0 auto;" :userText="query.term"></empty-state-card>
             </v-flex>
             <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
-                <tutor-result-card class="mb-3 hidden-sm-and-down" :tutorData="item"></tutor-result-card>
-                <tutor-result-card-mobile class="mb-2 hidden-sm-and-up" :tutorData="item"></tutor-result-card-mobile>
+                <tutor-result-card class="mb-3 hidden-sm-and-down" :fromLandingPage="true" :tutorData="item"></tutor-result-card>
+                <tutor-result-card-mobile class="mb-2 hidden-sm-and-up" :fromLandingPage="true" :tutorData="item"></tutor-result-card-mobile>
             </v-flex>            
         </v-layout>
         <v-layout align-center py-5 justify-space-around class="tutor-landing-status-row">
-            <span class="hidden-xs-only">95% <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon> reviews</span>
+            <span class="hidden-xs-only"><span>95%</span> <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon> <span>reviews</span></span>
             <span class="hidden-xs-only">627 Courses</span>
             <span>533 Tutors</span>
         </v-layout>
@@ -45,6 +45,7 @@ import Footer from '../landingPageTools/Footer.vue'
 import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue'
 import tutorLandingPageService from './tutorLandingPageService'
 import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue'
+
 export default {
     components:{
         tutorResultCard,
