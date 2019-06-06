@@ -15,7 +15,7 @@
               >
               </button>
               <button
-                class="tutor-list-header-right-signup mr-5"
+                class="tutor-list-header-right-signup mr-3"
                 @click="$router.push('../register')"
                 v-language:inner="'tutorListLanding_topnav_btn_signup'"
               >
@@ -101,7 +101,7 @@ export default {
 @import "../../styles/mixin.less";
 .tutor-list {
   background: #fff;
-  padding: 10px;
+  padding: 2px 10px;
   .tutor-list-header {
     max-width: 1500px; 
     margin: 0 auto;
@@ -129,23 +129,21 @@ export default {
       button {
         text-align: center;
         border-radius: 4px;
-        font-size: 20px;
+        font-size: 14px;
         outline: none;
-      }
-      .tutor-list-header-right-signup {
-        width: 121px;
-        height: 41px;
+        &.tutor-list-header-right-signup {
+        padding: 5px;
         background-color: #13374d;
-        font-size: 20px;
         color: rgba(255, 255, 255, 0.87);
       }
-      .tutor-list-header-right-login {
-        width: 121px;
-        height: 41px;
+      &.tutor-list-header-right-login {
+        padding: 5px;
         border: solid 1px #13374d;
         color: #13374d;
         background-color: transparent;
       }
+      }
+      
       a {
         text-decoration: none;
         font-size: 16px;

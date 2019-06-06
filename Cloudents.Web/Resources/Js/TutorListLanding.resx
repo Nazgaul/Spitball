@@ -162,6 +162,9 @@
   <data name="reviews" xml:space="preserve">
     <value>reviews</value>
   </data>
+  <data name="search_placeholder" xml:space="preserve">
+    <value>Enter a course to find relevant tutors</value>
+  </data>
   <data name="topnav_btn_login" xml:space="preserve">
     <value>Login</value>
   </data>
