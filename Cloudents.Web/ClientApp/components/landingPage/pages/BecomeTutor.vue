@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="page-hero">
+        <!-- <div class="page-hero">
             <div class="half-grid-center">
                 <div class="hero-content-warraper">
                     <h2 class="hero-title">
@@ -19,7 +19,7 @@
             <div class="container">
                 <h2 class="intro-title centered-title">Why online tutoring?</h2>
                 <div class="columns-grid">
-                    <Column v-for="(feature, index) in features" :key="index" :column="feature"></Column>
+                  
                 </div>
             </div>
         </div>
@@ -41,9 +41,7 @@
                         <div class="intro-image-warraper">
                         
                             <img src="../assets/images/group-15.png" alt="">
-                            <!-- <img src="/assets/homepage_img2.png" alt=""> -->
-
-                            <!-- <img src="/assets/group-15-no-floor.svg" alt=""> -->
+                 
                         </div>
                     </div>
                 </div>
@@ -56,7 +54,7 @@
                         <div class="half-grid-center">
                             <div class="intro-image-warraper">
                                 <img src="../assets/images/group-19.png" alt="">
-                                <!-- <div class="float-background2"></div> -->
+                              
                             </div>
                         </div>
                         <div class="half-grid-center">
@@ -165,19 +163,15 @@
                     <div class="centered-vertical-grid"><a href="#" class="button pink-button">Apply now</a></div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
 </template>
 
 <script>
-    import Column from '../components/Column.vue';
-    import Carousel from '../components/Carousel.vue'
-
     export default {
         components:{
-            Column,
-            Carousel
+    
         },
         name: "BecomeTotur",
         data(){

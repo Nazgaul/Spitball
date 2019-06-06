@@ -1,7 +1,7 @@
 <template>
     <div>
         
-        <div class="step-box">
+        <!-- <div class="step-box">
             <div class="container">
                 <div class="centered-vertical-grid">
                     <h3 class="hero-title red-title">One-to-one online tutoring that raises grades</h3>
@@ -15,7 +15,6 @@
         <div class="intro-step dark-blue-background">
             <div class="container">
                 <div class="columns-grid">
-                    <Column v-for="(feature, index) in features" :column="feature" :index="++index"></Column>
                 </div>
             </div>
         </div>
@@ -34,7 +33,6 @@
                     </div>
                     <div class="half-grid-center">
                         <div class="intro-image-warraper">
-                            <!-- <img src="assets/group-18.png" alt=""> -->
                             <img src="../assets/images/MAIN_3.png" alt="">
                         </div>
                     </div>
@@ -91,7 +89,6 @@
         <div class="intro-step">
             <div class="container">
                 <div class="columns-grid">
-                    <Column v-for="feature in features2" :column="feature"></Column>
                 </div>
             </div>
         </div>
@@ -102,16 +99,16 @@
                     <a href="#" class="button pink-button">Find a tutor</a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
-    import Column from '../components/Column.vue';
+
 
     export default {
         components:{
-            Column
+           
         },
         name: "FindTotur",
         data(){

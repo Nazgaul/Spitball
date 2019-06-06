@@ -1,4 +1,4 @@
-import { LanguageService } from "../../../../services/language/languageService";
+import { LanguageService } from "../../../../../../../services/language/languageService"
 
 export const reviews =  [
     [{

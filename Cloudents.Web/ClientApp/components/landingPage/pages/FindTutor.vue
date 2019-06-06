@@ -1,222 +1,61 @@
 <template>
-    <div>
-        <div class="page-hero">
-            <div class="half-grid-center">
-                <div class="hero-content-warraper">
-                    <h2 class="hero-title" v-language:inner="'landingPage_main_title'"></h2>
-                    <div class="hero-text" v-language:inner="'landingPage_main_subtitle'"></div>
-                  <router-link to="/tutor">
-                    <button class="hero-btn" v-language:inner="'landingPage_main_btn'"></button>
-                  </router-link>
-                </div>
-            </div>
-            <div class="half-grid-center">
-                <div class="hero-image">
-                    <img src="../assets/images/FindTutor_1.png" alt="">
-                </div>
-            </div>
-        </div>
-            <div class="extra-details-warraper2 ">
-            <div class="title-bar warraper">
-                <div class="space-around-box2">
-
-                    <div class="extra-details-box hide-on-sm" v-language:inner="'landingPage_main_stats_sources'"></div>
-                    <div class="extra-details-box extra-details-box-stats">
-                        <div class="text-block" v-language:inner="'landingPage_main_stats_reviews_presents'"></div>
-                        <StarsRating :stars="5"></StarsRating>
-                        <div class="text-block-2" v-language:inner="'landingPage_main_stats_reviews'"></div>
-                    </div>
-                    <div class="extra-details-box hide-on-sm" v-language:inner="'landingPage_main_stats_courses'"></div>
-                    <div class="extra-details-box hide-on-sm" v-language:inner="'landingPage_main_stats_tutors'"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="intro-step backgroudDiff">
-            <div class="step-box buttom-space">
-                <div class="container">
-                    <div class="space-around-box warraper">
-                        <div class="half-grid-center">
-                            <div class="into-content-warraper">
-                                <h3 class="intro-title" v-language:inner="'landingPage_section1_title'"></h3>
-                                <div class="intro-content" v-language:inner="'landingPage_section1_pharagraph'"></div>
-                            </div>
-                        </div>
-                        <div class="half-grid-center">
-                            <div class="intro-image-warraper">
-                                <div class="landingPage-higher-index">
-                                <picture>
-                                    <img src="../assets/images/group-42.png" alt="">
-                                </picture>
-                                </div>
-                                <div class="float-background"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="intro-step green-background">
-            <div class="step-box">
-                <div class="container">
-                    <div class="space-around-box reverse-grid">
-                        <div class="half-grid-center">
-                            <div class="intro-image-warraper">
-                            <div class="landingPage-higher-index"> 
-                                <picture>
-                                    <img src="../assets/images/group-27.png" alt="">
-                                </picture>
-                            </div>
-                                <div class="float-background-bottom"></div>
-                            </div>
-                        </div>
-                        <div class="half-grid-center">
-                            <div class="into-content-warraper">
-                                <h3 class="intro-title yellow-title" v-language:inner="'landingPage_section2_title'"></h3>
-                                <div class="intro-content white-content">
-                                <span v-language:inner="'landingPage_section2_pharagraph'"></span> 
-                                <span class="bold" v-language:inner="'landingPage_section2_pharagraph_bold'"></span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="intro-step backgroudDiff">
-            <div class="step-box buttom-space">
-                <div class="container">
-                    <div class="space-around-box">
-                        <div class="half-grid-center">
-                            <div class="into-content-warraper">
-                                <h3 class="intro-title red-title"  v-language:inner="'landingPage_section3_title'"></h3>
-                                <div class="intro-content" v-language:inner="'landingPage_section3_pharagraph'"></div>
-                            </div>
-                        </div>
-                        <div class="half-grid-center">
-                            <div class="intro-image-warraper">
-                                <img src="../assets/images/group-18.png" alt="">
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="intro-step backgroudDiffDarker">
-            <div class="step-box buttom-space">
-                <div class="container">
-                    <div class="space-around-box reverse-grid">
-                        <div class="half-grid-center">
-                            <div class="intro-image-warraper">
-                                <img src="../assets/images/group-20.png" alt="">
-
-                                </div>
-                        </div>
-                        <div class="half-grid-center">
-                            <div class="into-content-warraper">
-                                <h3 class="intro-title dark-blue-text" v-language:inner="'landingPage_section4_title'"></h3>
-                                <div class="intro-content" v-language:inner="'landingPage_section4_pharagraph'"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="intro-step backgroudDiff">
-            <div class="step-box buttom-space">
-                <div class="container">
-                    <div class="space-around-box">
-                        <div class="half-grid-center">
-                            <div class="into-content-warraper">
-                                <h3 class="intro-title red-title" v-language:inner="'landingPage_section5_title'"></h3>
-                                <div class="intro-content" v-language:inner="'landingPage_section5_pharagraph'"></div>
-                            </div>
-                        </div>
-                        <div class="half-grid-center">
-                            <div class="intro-image-warraper">
-                                <img src="../assets/images/group-39.png" alt="">
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="intro-step green-background">
-            <div class="step-box buttom-space">
-                <div class="container">
-                    <div class="space-around-box reverse-grid ">
-                        <div class="half-grid-center">
-                           <div class="intro-image-warraper">
-                                <img src="../assets/images/group-49.png" alt="">
-                            </div>
-                        </div>
-                        <div class="half-grid-center">
-                              <div class="into-content-warraper">
-                                <h3 class="intro-title yellow-title" v-language:inner="'landingPage_section6_title'"></h3>
-                                <div class="intro-content white-content" v-language:inner="'landingPage_section6_pharagraph'"></div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="intro-step backgroudDiff">
-            <div class="step-box buttom-space">
-                <div class="container wide-on-sm">
-                    <Carousel v-if="cards" :cards="cards"></Carousel>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="light-thin-grid">
+  <v-container class="landing-page-container">
+    <FindTutorHeadlineSection/>
+    <FindTutorHeadlineStatus/>
+    <component class="component-wrapper" v-for="index in 6" :is="`FindTutor-section${index++}`" :key="index"></component>
+    <FindTutorCarouselSection class="component-wrapper"/>
+    <FindTutorSubfooterSection/>
+    <!-- <div class="light-thin-grid">
             <div class="container">
                 <div class="space-around-box">
                     <ExtraLinks :links="extraLinks"></ExtraLinks>
                 </div>
             </div>
-        </div> -->
-        <div class="footer-hero">
-            <div class="container">
-                <div class="centered-vertical-grid">
-                    <h3 class="hero-footer-title" v-language:inner="'landingPage_subfooter_title'"></h3>
-                    <a href="#" class="button pink-button" v-language:inner="'landingPage_subfooter_btn'" ></a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </div>-->
+    <!-- <v-layout>
+        <v-flex class="centered-vertical-grid">
+          <h3 v-language:inner="'landingPage_subfooter_title'"></h3>
+          <a href="#" v-language:inner="'landingPage_subfooter_btn'"></a>
+        </v-flex>
+    </v-layout> -->
+  </v-container>
 </template>
 
 <script>
-    import StarsRating from '../components/StarsRating.vue';
-    import ExtraLinks from '../components/ExtraLinks.vue';
-    import Carousel from "../components/Carousel.vue";
-    import {reviews} from '../assets/data/testimonialsData'
+import FindTutorHeadlineSection from "../components/findTutorComponents/FindTutor-headlineSection.vue"
+import FindTutorHeadlineStatus from "../components/findTutorComponents/FindTutor-headlineStatus.vue"
+import FindTutorSection1 from "../components/findTutorComponents/FindTutor-section1.vue"
+import FindTutorSection2 from "../components/findTutorComponents/FindTutor-section2.vue"
+import FindTutorSection3 from "../components/findTutorComponents/FindTutor-section3.vue"
+import FindTutorSection4 from "../components/findTutorComponents/FindTutor-section4.vue"
+import FindTutorSection5 from "../components/findTutorComponents/FindTutor-section5.vue"
+import FindTutorSection6 from "../components/findTutorComponents/FindTutor-section6.vue"
+import FindTutorCarouselSection from "../components/findTutorComponents/FindTutor-carouselSection.vue"
+import FindTutorSubfooterSection from '../components/findTutorComponents/FindTutor-subfooterSection.vue'
 
-    export default {
-        components: {
-            StarsRating,
-            ExtraLinks,
-            Carousel
-        },
-        name: "home",
-        data() {
-            return {
-                // extraLinks: [
-                //     {title: 'Math', url: ''},
-                //     {title: 'Math', url: ''},
-                //     {title: 'Math', url: ''},
-                //     {title: 'Math', url: ''},
-                //     {title: 'Math', url: ''},
-                //     {title: 'Math', url: ''}
-                // ],
-                cards: reviews[0]
-            }
-
-        },
-    }
+export default {
+  components: {
+    FindTutorHeadlineSection,
+    FindTutorHeadlineStatus,
+    FindTutorSection1,
+    FindTutorSection2,
+    FindTutorSection3,
+    FindTutorSection4,
+    FindTutorSection5,
+    FindTutorSection6,
+    FindTutorCarouselSection,
+    FindTutorSubfooterSection,
+  },
+  name: "home",
+};
 </script>
 
-<style>
+<style lang="less">
+.landing-page-container{
+  max-width:100%;
+  padding: 0;
+  .component-wrapper{
+    padding: 0 370px;
+  }
+}
 </style>
