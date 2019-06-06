@@ -52,8 +52,7 @@ namespace Cloudents.Web.Hubs
             {
                 if (_canUpdateDb)
                 {
-                    const string sql = @"update sb.[user] set Online = @IsOnline, LastOnline = GETUTCDATE() where Id = @Id
-	                        and (LockoutEnd is null or LockoutEnd < GETUTCDATE())";
+                    const string sql = @"update sb.[user] set Online = @IsOnline, LastOnline = GETUTCDATE() where Id = @Id";
                     int rows;
                     using (var connection = _dapper.OpenConnection())
                     {
