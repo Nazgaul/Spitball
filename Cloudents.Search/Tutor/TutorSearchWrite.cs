@@ -43,10 +43,15 @@ namespace Cloudents.Search.Tutor
                         {
                             [nameof(Entities.Tutor.Prefix)] = 0.9,
                         }),
-                       
+                        Functions = new List<ScoringFunction>
+                        {
+                            new MagnitudeScoringFunction(Entities.Tutor.RateFieldName,1.2,1,5)
+                        }
                     },
                 },
+
             };
+            index.Fields.Add(new Field("Rate", DataType.Double));
             return index;
         }
     }

@@ -2,11 +2,14 @@
 using Cloudents.Search.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Newtonsoft.Json;
 
 namespace Cloudents.Search.Entities
 {
     public class Tutor : ISearchObject
     {
+        internal const string RateFieldName = "Rate2";
+
         [System.ComponentModel.DataAnnotations.Key]
         public string Id { get; set; }
 
@@ -16,6 +19,7 @@ namespace Cloudents.Search.Entities
         public string Bio { get; set; }
         public string Image { get; set; }
         public double Price { get; set; }
+        [IsSortable,JsonProperty(RateFieldName),IsFilterable]
         public double Rate { get; set; }
         public int ReviewCount { get; set; }
 
