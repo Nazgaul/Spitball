@@ -133,11 +133,13 @@ export default {
         outline: none;
         &.tutor-list-header-right-signup {
         padding: 5px;
+        margin: 5px;
         background-color: #13374d;
         color: rgba(255, 255, 255, 0.87);
       }
       &.tutor-list-header-right-login {
         padding: 5px;
+        margin: 5px;
         border: solid 1px #13374d;
         color: #13374d;
         background-color: transparent;
