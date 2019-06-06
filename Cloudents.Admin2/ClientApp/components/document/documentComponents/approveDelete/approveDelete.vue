@@ -52,7 +52,7 @@
     </v-container>
     <v-bottom-nav app shift :active.sync="bottomNav" :value="true" color="#3f51b5">
       <v-btn class="bottom-nav-btn" dark value="approve" @click="approveDocuments()">
-        <span class="btn-text">Approve All</span>
+        <div class="btn-text">Approve All</div>
         <v-icon>check</v-icon>
       </v-btn>
     </v-bottom-nav>
