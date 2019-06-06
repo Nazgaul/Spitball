@@ -45,7 +45,7 @@ namespace Cloudents.Search.Tutor
                         }),
                         Functions = new List<ScoringFunction>
                         {
-                            new MagnitudeScoringFunction(Entities.Tutor.RateFieldName,1.2,1,5)
+                            new MagnitudeScoringFunction(Entities.Tutor.RateFieldName,1.2,0,5)
                         }
                     },
                 },
