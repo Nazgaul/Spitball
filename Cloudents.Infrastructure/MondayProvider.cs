@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -111,7 +112,16 @@ namespace Cloudents.Infrastructure
                 var name = email.IsProduction ? email.Name : $"{email.Name} develop!";
                 var id = await CreateRecordAsync(name, token);
 
-            
+                var refererArr = email.Referer.Split('&');
+                var utmString = refererArr.Where(w => w.Contains("utm_source"))
+                    .FirstOrDefault();
+                string utm = string.Empty;
+                if (!string.IsNullOrEmpty(utmString))
+                {
+                    utm = utmString.Split('=').LastOrDefault();
+                }
+
+                var utmTask = UpdateTextRecordAsync(id, "text38", utm, token);
                 var phoneNumberTask = UpdateTextRecordAsync(id, "________________________", email.PhoneNumber, token);
                 var subjectsTask = UpdateTextRecordAsync(id, "_____________1",
                     string.Concat(email.Text, " ", email.Course), token);
@@ -119,7 +129,7 @@ namespace Cloudents.Infrastructure
                 var dateTask = UpdateDateRecordAsync(id, "date", token);
 
 
-                await Task.WhenAll(phoneNumberTask, subjectsTask, universityTask, dateTask);
+                await Task.WhenAll(utmTask, phoneNumberTask, subjectsTask, universityTask, dateTask);
             }
             catch (Exception e)
             {
