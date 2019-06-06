@@ -61,7 +61,7 @@
     </v-container>
     <v-bottom-nav app shift :active.sync="bottomNav" :value="true" color="#3f51b5">
       <v-btn class="bottom-nav-btn" dark value="approve" @click="unflagDocuments()">
-        <span class="btn-text">Unflag All</span>
+        <div class="btn-text">Unflag All</div>
         <v-icon>check</v-icon>
       </v-btn>
     </v-bottom-nav>
