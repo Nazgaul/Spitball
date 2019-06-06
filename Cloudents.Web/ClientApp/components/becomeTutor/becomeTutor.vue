@@ -1,13 +1,13 @@
 <template>
     <div class="become-tutor-wrap d-flex" >
-        <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="[isLastStep ?  'back-image' : '']">
+        <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="{'back-image': isLastStep}">
             <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
                 <v-flex xs12 sm12  class="text-xs-center mt-1">
                     <v-icon class="become-title face-icon mr-2">sbf-face-icon</v-icon>
                     <span class="subheading font-weight-bold become-title" v-language:inner>becomeTutor_title_become</span>
                 </v-flex>
             </v-layout>
-            <v-stepper-header class="sb-box" v-show="!isLastStep" :class="[$vuetify.breakpoint.smAndUp ? '' : '' ]">
+            <v-stepper-header class="sb-box" v-show="!isLastStep">
                 <v-stepper-step class="step-control justify-center"
                                 color="#4452FC"
                                 :complete="currentStep > 1"
