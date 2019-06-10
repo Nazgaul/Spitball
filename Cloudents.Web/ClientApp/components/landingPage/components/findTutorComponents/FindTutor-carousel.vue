@@ -1,7 +1,7 @@
 <template>
   <div class="landing-carousel-compenent-container" justify-center lg12 v-if="cards">
     <v-flex class="landing-carousel-arrows" @click="moveCarouselClick(-1)" :disabled="atHeadOfList">
-      <img src="./images/FindTutor_next-btn.png">
+      <img class="leftButton" :class="{'rtlButton': isRtl}" src="./images/FindTutor_next-btn.png">
     </v-flex>
 
     <div class="landing-carousel-slider-conteiner">
@@ -33,7 +33,7 @@
 
 
     <v-flex class="landing-carousel-arrows" @click="moveCarouselClick(1)" :disabled="atEndOfList">
-      <img class="rightBtn" src="./images/FindTutor_next-btn.png">
+      <img class="rightBtn" :class="{'rtlButton': isRtl}"  src="./images/FindTutor_next-btn.png">
     </v-flex>
   </div>
 </template>
@@ -52,14 +52,18 @@ export default {
       cards: this.ismobile ? reviews[0]: mobileReviews,
       currentOffset: 0,
       windowSize: window.innerWidth > 757 ? 2 : 1,
-      paginationFactor: 0
+      paginationFactor: 0,
+      isRtl: global.isRtl
     };
   },
   computed: {
     atEndOfList() {
-      return (
-        this.currentOffset <= this.paginationFactor * -1 * (this.cards.length - this.windowSize)
-      );
+      if(this.isRtl){
+        return (this.currentOffset >= this.paginationFactor * 1 * (this.cards.length - this.windowSize));
+      }else{
+        return (this.currentOffset <= this.paginationFactor * -1 * (this.cards.length - this.windowSize));
+      }
+      
     },
     atHeadOfList() {
       return this.currentOffset === 0;
@@ -84,11 +88,20 @@ export default {
       };
     },
     moveCarouselClick(direction) {
-      if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor;
-      } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor;
+      if(this.isRtl){
+        if (direction === 1 && !this.atEndOfList) {
+          this.currentOffset += this.paginationFactor;
+        } else if (direction === -1 && !this.atHeadOfList) {
+          this.currentOffset -= this.paginationFactor;
+        }
+      }else{
+        if (direction === 1 && !this.atEndOfList) {
+          this.currentOffset -= this.paginationFactor;
+        } else if (direction === -1 && !this.atHeadOfList) {
+          this.currentOffset += this.paginationFactor;
+        }
       }
+      
     }
   },
   mounted() {
@@ -138,9 +151,18 @@ export default {
       width: 27px;
       height: 46px;
       object-fit: contain;
+      
+    }
+    .leftButton{
+      &.rtlButton{
+        transform: scaleX(-1);
+      }
     }
     .rightBtn {
       transform: scaleX(-1);
+      &.rtlButton{
+        transform: scaleX(1);
+      }
     }
     @media (max-width: @screen-sm) {
       display: none;
