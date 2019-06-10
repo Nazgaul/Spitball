@@ -34,13 +34,15 @@ const tutorComponent = () => import("./components/tutor/tutor.vue");
 const studyRoomsComponent = () => import("./components/studyRooms/studyRooms.vue");
 const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.vue");
 
+<<<<<<< HEAD
 const tutorLandingPage=()=> import("./components/tutorLandingPage/tutorLandingPage.vue")
-
+=======
 import landingPage from './components/landingPage/landingPage.vue';
 import FindTutor from './components/landingPage/pages/FindTutor.vue'
 import HowItWorks from "./components/landingPage/pages/HowItWorks.vue";
 import BecomeTutor from "./components/landingPage/pages/BecomeTutor.vue";
 
+>>>>>>> origin/feature_newLandingPage
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -131,7 +133,7 @@ let routes2 = [
             },
         ]
     },
-    
+<<<<<<< HEAD
     {
         path: "/tutor-list",
         name: "tutorLandingPage",
@@ -139,6 +141,9 @@ let routes2 = [
             default: tutorLandingPage,
         },
     },
+=======
+    
+>>>>>>> origin/feature_newLandingPage
     // {
     //     path: "/result",
     //     name: "result",
