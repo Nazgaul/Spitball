@@ -187,10 +187,16 @@ namespace Cloudents.FunctionsV2
 
                 var urlShort = urlBuilder.BuildShortUrlEndpoint(identifier);
 
-                var t = options.AddAsync(new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
+                var messageOptions = new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
                 {
-                    Body = $"{text} {urlShort}"
-                }, token);
+                    Body = $"{text} {urlShort}",
+
+                };
+                if (unreadMessageDto.PhoneNumber.StartsWith("+972"))
+                {
+                    messageOptions.From = "Spitball";
+                }
+                var t = options.AddAsync(messageOptions, token);
 
                 tasks.Add(t);
             }
@@ -225,10 +231,15 @@ namespace Cloudents.FunctionsV2
                 return;
             }
 
-            await options.AddAsync(new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
+            var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
                 Body = /*"Your code to enter into Spitball is: " +*/ msg.Message
-            }, token);
+            };
+            if (msg.PhoneNumber.StartsWith("+972"))
+            {
+                messageOptions.From = "Spitball";
+            }
+            await options.AddAsync(messageOptions, token);
         }
 
         [FunctionName("FunctionPhoneServiceBus")]
