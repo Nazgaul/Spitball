@@ -67,7 +67,8 @@
                 extensionDialog: false,
                 extensionLink: `https://chrome.google.com/webstore/detail/${
                     videoService.extensionId
-                    }`
+                    }`,
+                number: 5                    
             };
         },
         computed: {
