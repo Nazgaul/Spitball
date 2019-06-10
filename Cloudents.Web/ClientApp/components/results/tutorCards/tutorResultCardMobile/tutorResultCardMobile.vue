@@ -1,5 +1,5 @@
 <template>
-    <router-link @click.native.prevent="tutorCardClicked" :to="''">
+    <router-link event="" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
         <v-card class="tutor-card-wrap pa-12 elevation-0 cursor-pointer " :class="{'list-tutor-card': isInTutorList}">
             <div class="section-tutor-info">
                 <v-layout>
@@ -7,7 +7,7 @@
                         <div v-if="!isLoaded">
                             <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
                         </div>
-                        <img class="tutor-image" v-show="isLoaded" @load="loaded" :src="userImageUrl" alt="tutor user image">
+                        <img class="tutor-image" v-show="isLoaded" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
                     </v-flex>
                     <v-flex>
                         <v-layout align-start row wrap fill-height>
@@ -98,11 +98,15 @@
             loaded() { this.isLoaded = true; },
 
             tutorCardClicked(){
+                debugger;
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'tutor_page');
                 if(this.fromLandingPage) {
                     this.openRequestDialog();
                 }else{
-                    this.$router.push({name: 'profile', params: {name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}});
+                     this.$router.push({
+          name: "profile",
+          params: { id: this.tutorData.userId, name: this.tutorData.name }
+        });
                 }
             },
             openRequestDialog() {
