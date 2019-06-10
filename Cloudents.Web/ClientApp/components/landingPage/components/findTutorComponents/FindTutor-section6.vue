@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="landing-section6-container" lg6>
+  <v-layout class="landing-section6-container" lg6 xs6>
     <v-flex class="landing-section6-img-container">
       <img src="./images/FindTutor_section6.png" alt>
     </v-flex>
@@ -17,26 +17,71 @@ export default {
 </script>
 
 <style lang='less'>
+@import "../../../../styles/mixin.less";
+
 .landing-section6-container {
   background-color: #21837f;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   .landing-section6-img-container {
+    width: 50%;
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
+    padding : 60px 0 38px; 
+
+    @media (max-width: @screen-sm) {
+      width: 100%;
+      justify-content: center;
+      padding: 38px 0 24px;
+    }
+    @media (max-width: @screen-xs) {
+      img {
+        width: 80%;
+        height: auto;
+      }
+    }
   }
+
   .landing-section6-text-container {
-    padding: 214px 0 170px 152px;
+    width: 36%;
+    @media (max-width: @screen-sm) {
+      width: 100%;
+      padding-bottom: 32px;
+      h4 {
+        padding-top: 24px;
+      }
+    }
+
+    @media (max-width: 1600px) {
+      width: 50%;
+    }
+    @media (max-width: @screen-sm) {
+      width: 100%;
+    }
     h3 {
       font-size: 45px;
-      font-weight: bold;
-      line-height: 1.2;
+      padding-bottom: 6px;
+      line-height: 1.33;
       color: #facb57;
+      @media (max-width: @screen-xs) {
+        font-size: 24px;
+      }
     }
     h4 {
-      font-size: 24px;
-      color: #ffffff;
+      font-size: 22px;
       font-weight: normal;
-      padding-top: 26px;
+      color: #ffffff;
+      @media (max-width: @screen-xs) {
+        font-size: 16px;
+      }
     }
+  }
+
+  @media (max-width: @screen-sm) {
+    flex-direction: column;
+    margin-top: 0px;
   }
 }
 </style>

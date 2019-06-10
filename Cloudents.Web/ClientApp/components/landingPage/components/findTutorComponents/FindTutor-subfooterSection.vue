@@ -20,6 +20,8 @@ export default {
 </script>
 
 <style lang='less'>
+@import "../../../../styles/mixin.less";
+
 .landing-sub-footer-section-container {
 text-align: center;
   background-color: #facb57;
@@ -29,7 +31,13 @@ text-align: center;
     font-weight: 800;
     text-align: center;
     color: #21837f;
-    padding-bottom: 48px; 
+    padding-bottom: 48px;
+      @media (max-width: @screen-sm) {
+      padding-bottom: 36px;
+      text-align: start;
+      font-size: 24px;
+
+    } 
   }
   button{
     padding: 9px 37px 14px 33px;
@@ -40,6 +48,14 @@ text-align: center;
     font-weight: 600;
     text-align: center;
     color: #ffffff;
+      @media (max-width: @screen-sm) {
+      padding: 12px 14px;
+    }
   }
+  @media (max-width: @screen-sm) {
+      width: 100%;
+      padding: 50px 24px 32px 24px;
+      text-align: start;
+    }
 }
 </style>

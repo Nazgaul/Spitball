@@ -1,5 +1,11 @@
 <template>
-  <v-layout class="landing-headelien-headlineStatus-container" align-center justify-space-between row wrap>
+  <v-layout
+    class="landing-headelien-headlineStatus-container"
+    align-center
+    justify-space-between
+    row
+    wrap
+  >
     <span v-language:inner="'landingPage_main_stats_sources'"></span>
     <v-flex class="landing-headelien-headlineStatus-stars">
       <span v-language:inner="'landingPage_main_stats_reviews_presents'"></span>
@@ -14,7 +20,7 @@
 <script>
 import FindTutorStarsRating from "./FindTutor-StarsRating.vue";
 export default {
-  name: 'headlineStatus',
+  name: "headlineStatus",
   components: {
     FindTutorStarsRating
   }
@@ -34,11 +40,35 @@ export default {
     font-weight: 600;
     color: rgba(0, 0, 0, 0.87);
   }
-  .landing-headelien-headlineStatus-stars{
+  .landing-headelien-headlineStatus-stars {
     display: flex;
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: auto;
+
+    @media (max-width: @screen-sm) {
+
+      span {
+        display: block;
+      }
+    }
+  }
+  @media (max-width: 1400px) {
+    padding: 0 150px;
+  }
+  @media (max-width: @screen-md) {
+    padding: 0 100px;
+  }
+  @media (max-width: @screen-mds) {
+    padding: 0 50px;
+  }
+  @media (max-width: @screen-sm) {
+    padding: 0 25px;
+          justify-content: center;
+    span {
+      display: none;
+
+    }
   }
 }
 </style>

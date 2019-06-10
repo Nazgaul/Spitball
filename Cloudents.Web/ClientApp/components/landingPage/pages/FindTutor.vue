@@ -51,11 +51,34 @@ export default {
 </script>
 
 <style lang="less">
+@import "../../../styles/mixin.less";
 .landing-page-container{
+  transition: 0.3s;
   max-width:100%;
   padding: 0;
   .component-wrapper{
     padding: 0 370px;
-  }
+      @media (max-width: 1800px) {
+        padding: 0 300px;
+      }
+      @media (max-width: 1700px) {
+        padding: 0 250px;
+      }
+      @media (max-width: 1400px) {
+        padding: 0 150px;
+      }
+      @media (max-width: @screen-md) {
+        padding: 0 100px;
+      }
+      @media (max-width: @screen-mds) {
+        padding: 0 50px;
+      }
+      @media (max-width: @screen-sm) {
+        padding: 0 38px; ;
+      }
+      @media (max-width: @screen-xss) {
+        padding: 0 25px; ;
+      }
+    }
 }
 </style>
