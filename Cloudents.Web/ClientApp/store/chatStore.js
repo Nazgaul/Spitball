@@ -232,6 +232,7 @@ const actions = {
     signalRAddMessage({dispatch}, messageObj){
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId, true);
         dispatch('addMessage', MessageObj);
+        dispatch('openChatInterface');
     },
     signalRAddRoomInformationMessage({commit, dispatch, state}, roomInfo){
         let messageObj ={
