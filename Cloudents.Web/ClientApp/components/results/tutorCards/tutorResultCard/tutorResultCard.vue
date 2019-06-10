@@ -8,7 +8,7 @@
               <div v-if="!isLoaded">
                 <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
               </div>
-              <img class="tutor-image" v-show="isLoaded" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+              <img class="tutor-image" v-show="isLoaded" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             </v-flex>
             <v-flex>
               <v-layout align-start justify-space-between column fill-height>
@@ -148,6 +148,9 @@ export default {
     },
     openRequestDialog() {
       this.updateRequestDialog(true);
+    },
+    onImageLoadError(event) {
+      event.target.src = "./images/placeholder-profile.png";
     }
   },
   computed: {
