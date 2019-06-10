@@ -30,7 +30,7 @@
 
         <v-data-table :headers="headers"
                       :items="newCourseList"
-                      class="elevation-1 cash-out-table"
+                      class="cash-out-table"
                       disable-initial-sort
                       :search="search">
             <template slot="items" slot-scope="props">

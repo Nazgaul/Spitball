@@ -48,7 +48,6 @@
       </v-layout>
     
         <v-data-table :items="conversationsMessages"
-                      class="elevation-1"
                       hide-actions
                       disable-initial-sort
                       :headers="messageHeaders"
