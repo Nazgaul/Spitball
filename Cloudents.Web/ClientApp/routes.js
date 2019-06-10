@@ -106,13 +106,7 @@ const studyRoomsPage = {
 let routes2 = [
     {
         path: "/",
-        name: "main",
-        redirect:'/l',
-    },
-    {
-        path: "/l",
         name: "landingPage",
-        redirect:'/l/find-tutor',
         components: {
             default: landingPage,
         },
@@ -121,13 +115,17 @@ let routes2 = [
                 path: 'find-tutor',
                 component: FindTutor
             },
+            // {
+            //     path: 'how-it-works',
+            //     component: HowItWorks
+            // },
+            // {
+            //     path: 'become-tutor',
+            //     component: BecomeTutor
+            // },
             {
-                path: 'how-it-works',
-                component: HowItWorks
-            },
-            {
-                path: 'become-tutor',
-                component: BecomeTutor
+                path: '',
+                component: FindTutor
             },
         ]
     },
