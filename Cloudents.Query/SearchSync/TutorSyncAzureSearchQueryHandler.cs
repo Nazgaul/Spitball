@@ -49,7 +49,7 @@ group by t.TutorId
 )
 
 Select  
-u.id as Id,
+u.id as UserId,
 u.Name,
 u.Country,
 t.Bio,
