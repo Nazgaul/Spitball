@@ -25,7 +25,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("profile/{id:long}")]
-        public async Task<ActionResult<RedirectToRouteResult>> OldIndex(long id, CancellationToken token)
+        public async Task<IActionResult> OldIndex(long id, CancellationToken token)
         {
             var query = new UserProfileQuery(id);
             var retVal = await _queryBus.QueryAsync(query, token);
@@ -45,7 +45,7 @@ namespace Cloudents.Web.Controllers
         // GET: /<controller>/
         [Route("profile/{id:long}/{name}", Name = SeoTypeString.Tutor)]
         [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
-        public async Task<IActionResult> Index(long id, CancellationToken token)
+        public async Task<IActionResult> Index(long id,string name, CancellationToken token)
         {
             var query = new UserProfileQuery(id);
             var retVal = await _queryBus.QueryAsync(query, token);

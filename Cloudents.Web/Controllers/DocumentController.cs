@@ -119,7 +119,7 @@ namespace Cloudents.Web.Controllers
        [Route("document/{courseName}/{name}/{id:long}", 
             Name = SeoTypeString.Document)]
         [ActionName("Index"), SignInWithToken]
-        public async Task<IActionResult> IndexAsync(long id, CancellationToken token)
+        public async Task<IActionResult> IndexAsync(string courseName, string name, long id, CancellationToken token)
         {
             var query = new DocumentSeoById(id);
 
