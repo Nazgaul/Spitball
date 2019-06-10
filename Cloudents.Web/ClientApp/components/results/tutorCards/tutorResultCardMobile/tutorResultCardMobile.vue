@@ -4,7 +4,7 @@
             <div class="section-tutor-info">
                 <v-layout>
                     <v-flex class="image-wrap d-flex" shrink>
-                        <div v-if="!isLoaded">
+                        <div class="tutor-image-loader" v-if="!isLoaded">
                             <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
                         </div>
                         <img class="tutor-image" v-show="isLoaded" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
@@ -222,6 +222,13 @@
             justify-content: center;
             align-items: center;
             color: #5D62FD;
+            .tutor-image-loader{
+                width: 76px;
+                height: 96px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
         }
           }
         .tutor-image {
