@@ -113,8 +113,7 @@ namespace Cloudents.Infrastructure
                 var id = await CreateRecordAsync(name, token);
 
                 var refererArr = email.Referer.Split('&');
-                var utmString = refererArr.Where(w => w.Contains("utm_source"))
-                    .FirstOrDefault();
+                var utmString = refererArr.FirstOrDefault(w => w.Contains("utm_source"));
                 string utm = string.Empty;
                 if (!string.IsNullOrEmpty(utmString))
                 {
