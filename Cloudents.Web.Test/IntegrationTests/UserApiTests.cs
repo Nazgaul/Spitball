@@ -86,22 +86,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Fact]
-        public async Task PostAsync_Sms()
-        {
-            _client.DefaultRequestHeaders.Add("Referer", "swagger");
-
-            _uri.Path = "api/register";
-
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_cred));
-
-            _uri.Path = "api/sms";
-
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_phone));
-
-            response.EnsureSuccessStatusCode();
-        }
-
-        [Fact]
         public async Task PostAsync_Sms_Resend()
         {
             _client.DefaultRequestHeaders.Add("Referer", "swagger");
