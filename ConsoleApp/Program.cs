@@ -15,6 +15,7 @@ using SimMetricsMetricUtilities;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Extension;
 using Cloudents.Query.SearchSync;
 using Cloudents.Search.Tutor;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
@@ -135,24 +137,31 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await UpdateMethod();
-            var queryBus = _container.Resolve<IQueryBus>();
-            var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
-            var v = x.Update.OrderBy(o => o.VersionAsLong).First();
+            var uriBuilder = new UriBuilder();
+            var nvc = new NameValueCollection();
+            nvc.Add("token", "dsfklsjdf");
+            nvc.Add("chat", "expand");
+            uriBuilder.AddQuery(nvc);
+            var x = uriBuilder.ToString();
 
-            var x2 = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(152960, v.Version), default);
+            //await UpdateMethod();
+            //var queryBus = _container.Resolve<IQueryBus>();
+            //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
+            //var v = x.Update.OrderBy(o => o.VersionAsLong).First();
+
+            //var x2 = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(152960, v.Version), default);
 
 
 
-            var handler = new HttpClientHandler()
-            {
-                AllowAutoRedirect = false
-            };
+            //var handler = new HttpClientHandler()
+            //{
+            //    AllowAutoRedirect = false
+            //};
 
-            var client = new HttpClient(handler);
-            var result = await client.GetAsync(
-                "http://click.spitball.co/wf/click?upn=XV4ts-2BtYw2hP73xeTfK-2F-2F11DOm1f1KzpqHTVSKp-2FwsGShaeiFOvMwts22ZvxyEldZQlv4IhYizyF-2FZKUPZ4mRw38ICF-2B1hTNPHgM9gRw4-2B6-2Bjf6cDwNV6ZwPZ16Dr6qi8nZKXwi4YFEPXdyC2obIsoDFZEnhGcahar6VmpLxgUT-2FnqU6uHsVfxQHGRk30q8DvT1x6YsYx-2B8nRCaoLzBjM-2BaLD6XULoScU-2B4kDroGonKIrIPm-2FpcsProyyLxbA6QfEt13YbsTcLc6BoeB-2Bj2hP6QYKRELCjPHICNlNRSflvwrSAx5w4WbkMkIROXHSY8Au4MuyNoT485h2sH7kFfkG1cq2P0vH1pNfy44l7tTqk8-2BqeMYh5XY-2BGubs7EQj2cJ2e8pw9GJq2z0kQaY7IiHwKlChjCvZfKFBvmZPH960iHsR4fT2y2z5n4nupjGhSEOCgYrhRE7WuItPtotEH2ea-2FTZo7cOTMp7Ma68LKIbfpoQRTeHyQ8CW0-2B4OxpLcVV4CgKmKwmIafU-2Fv4vtsFitbg-3D-3D_CHFJ-2FeZ00M84gOTHVj89Gp5GsOVHWw-2FmfEDrblRhEwSScJcLFWrTnFRQKwl-2FDGZwkV3-2Bo2pvzKVeloqTDoPZoaaWvLh-2FNS2eEpjxffxwxY-2F9T5p-2Fz99T0z7CVA9tnUjdb6m90DcGd4iugm8fyp0yGFArW0bsvhA91I1Szut8EO4QnrSQ5MXN92uv6mj3QQyMg4Z1oPNwCqYpclEzSz5KObdzmp0i92-2BQtDBxOwnOKouUkXuecZ3MtNBHaYsy4N8rr5VI902J6TjWvuyqGpFkrigoG8l4EgAiqp2-2Ff6Oo3Xc-3D");
-            //
+            //var client = new HttpClient(handler);
+            //var result = await client.GetAsync(
+            //    "http://click.spitball.co/wf/click?upn=XV4ts-2BtYw2hP73xeTfK-2F-2F11DOm1f1KzpqHTVSKp-2FwsGShaeiFOvMwts22ZvxyEldZQlv4IhYizyF-2FZKUPZ4mRw38ICF-2B1hTNPHgM9gRw4-2B6-2Bjf6cDwNV6ZwPZ16Dr6qi8nZKXwi4YFEPXdyC2obIsoDFZEnhGcahar6VmpLxgUT-2FnqU6uHsVfxQHGRk30q8DvT1x6YsYx-2B8nRCaoLzBjM-2BaLD6XULoScU-2B4kDroGonKIrIPm-2FpcsProyyLxbA6QfEt13YbsTcLc6BoeB-2Bj2hP6QYKRELCjPHICNlNRSflvwrSAx5w4WbkMkIROXHSY8Au4MuyNoT485h2sH7kFfkG1cq2P0vH1pNfy44l7tTqk8-2BqeMYh5XY-2BGubs7EQj2cJ2e8pw9GJq2z0kQaY7IiHwKlChjCvZfKFBvmZPH960iHsR4fT2y2z5n4nupjGhSEOCgYrhRE7WuItPtotEH2ea-2FTZo7cOTMp7Ma68LKIbfpoQRTeHyQ8CW0-2B4OxpLcVV4CgKmKwmIafU-2Fv4vtsFitbg-3D-3D_CHFJ-2FeZ00M84gOTHVj89Gp5GsOVHWw-2FmfEDrblRhEwSScJcLFWrTnFRQKwl-2FDGZwkV3-2Bo2pvzKVeloqTDoPZoaaWvLh-2FNS2eEpjxffxwxY-2F9T5p-2Fz99T0z7CVA9tnUjdb6m90DcGd4iugm8fyp0yGFArW0bsvhA91I1Szut8EO4QnrSQ5MXN92uv6mj3QQyMg4Z1oPNwCqYpclEzSz5KObdzmp0i92-2BQtDBxOwnOKouUkXuecZ3MtNBHaYsy4N8rr5VI902J6TjWvuyqGpFkrigoG8l4EgAiqp2-2Ff6Oo3Xc-3D");
+            ////
 
             Console.WriteLine("done");
         }
