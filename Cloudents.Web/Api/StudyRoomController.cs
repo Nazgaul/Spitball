@@ -91,7 +91,7 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-        [HttpPost("upload")]
+        [HttpPost("upload"),AllowAnonymous]
         public async Task<IActionResult> UploadAsync(IFormFile file,
             [FromHeader(Name = "referer")] Uri referer,
             [FromServices] IDocumentDirectoryBlobProvider blobProvider,
