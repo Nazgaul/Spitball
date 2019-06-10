@@ -96,7 +96,7 @@
           </div>
           <div
             class="tutor-price strike-through text-xs-center"
-            v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
+            v-if="$vuetify.breakpoint.xsOnly && isTutorProfile && showStriked"
           >
             <span class="subheading">₪</span>
             <span class="tutor-price">
