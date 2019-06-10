@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -12,7 +13,9 @@ namespace Cloudents.Core.Interfaces
         string BuildQuestionEndPoint(long id, object parameters = null);
         string BuildPayMeBuyerEndPoint(string token);
 
-        string BuildChatEndpoint(string token, object parameters = null);
+        Uri BuildChatEndpoint(string token, object parameters = null);
+
+        Uri BuildShortUrlEndpoint(string identifier);
     }
 
     public interface IUrlRedirectBuilder

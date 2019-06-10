@@ -54,7 +54,7 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildChatEndpoint(string token, object parameters = null)
+        public Uri BuildChatEndpoint(string token, object parameters = null)
         {
             var nvc = new NameValueCollection();
             
@@ -69,7 +69,13 @@ namespace Cloudents.Core
 
             var builder = new UriBuilder(_webSiteEndPoint);
             builder.AddQuery(nvc);
-            return builder.ToString();
+            return builder.Uri;
+        }
+
+        public Uri BuildShortUrlEndpoint(string identifier)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"go/{identifier}" };
+            return builder.Uri;
         }
 
         //public string BuildDocumentEndPoint(long id, object parameters = null)

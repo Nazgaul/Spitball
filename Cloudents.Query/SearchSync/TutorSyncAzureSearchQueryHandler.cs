@@ -49,7 +49,7 @@ group by t.TutorId
 )
 
 Select  
-u.id as Id,
+u.id as UserId,
 u.Name,
 u.Country,
 t.Bio,
@@ -127,12 +127,12 @@ or tr.Version > @RowVersion";
                         (dto, course, subject) =>
                         {
                             version = Math.Max(dto.SYS_CHANGE_VERSION, version);
-                            if (!orderDictionary.TryGetValue(dto.Id, out var tutorEntry))
+                            if (!orderDictionary.TryGetValue(dto.UserId, out var tutorEntry))
                             {
                                 tutorEntry = dto;
                                 tutorEntry.Courses = new List<string>();
                                 tutorEntry.Subjects = new List<string>();
-                                orderDictionary.Add(tutorEntry.Id, tutorEntry);
+                                orderDictionary.Add(tutorEntry.UserId, tutorEntry);
                             }
 
                             if (course != null)
@@ -159,7 +159,7 @@ or tr.Version > @RowVersion";
                     return new SearchWrapperDto<TutorSearchDto>()
                     {
                         Update = lookUp[false],
-                        Delete = lookUp[true].Select(s=>s.Id.ToString()),
+                        Delete = lookUp[true].Select(s=>s.UserId.ToString()),
                         Version = version
 
                     };
