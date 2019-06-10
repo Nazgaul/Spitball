@@ -1,7 +1,6 @@
 ﻿<template>
     <div class="elevation-1">
         <v-data-table :items="sessionsList"
-                      class="elevation-1"
                       hide-actions
                       v-bind:pagination.sync="pagination"
                       :headers="headers">

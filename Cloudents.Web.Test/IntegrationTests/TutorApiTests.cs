@@ -24,22 +24,18 @@ namespace Cloudents.Web.Test.IntegrationTests
             _client = factory.CreateClient();
         }
 
-        
-        [Theory(Skip = "We did a hole markup change to tutor")]
-        [InlineData("/api/Tutor?term=ajax&sort=null&page=0&location.latitude=31.9155609&location.longitude=34.8049517")]
-        [InlineData("/api/Tutor?term=ajax&sort=price&page=0&location.latitude=31.9155609&location.longitude=34.8049517")]
-        [InlineData("/api/Tutor?term=ajax&sort=relevance&page=0&location.latitude=31.9155609&location.longitude=34.8049517")]
-        [InlineData("api/Tutor?term=ajax&sort=price")]
-        [InlineData("api/Tutor")]
-        public async Task Search_ReturnResult(string url)
+        [Fact]
+        public async Task GetAsync_ReturnResult_OK()
         {
-            var response = await _client.GetAsync(url);
+            _uri.Path = "api/tutor";
+
+            var response = await _client.GetAsync(_uri.Path);
 
             var str = await response.Content.ReadAsStringAsync();
 
-            var d = JObject.Parse(str);
+            var d = JArray.Parse(str);
 
-            var result = d["result"].Value<JArray>();
+            var result = d[0]?.Value<JObject>();
 
             response.EnsureSuccessStatusCode();
 
@@ -48,25 +44,29 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Fact]
-        public async Task Get_OK_Result()
+        public async Task GetAsync_Search_Without_Results()
         {
+            _uri.Path = "api/tutor/search?term=gfc";
+
             var response = await _client.GetAsync(_uri.Path);
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
-
-        [Fact(Skip = "We did a hole markup change to tutor")]
-        public async Task Get_Empty_Result()
-        {
-            var response = await _client.GetAsync("api/tutor?term=gfsd");
 
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
 
+            response.EnsureSuccessStatusCode();
+
             var result = d["result"]?.Value<JArray>();
 
-            result.Should().BeEmpty();
+            result?[0].Should().BeNull();
+        }
+
+        [Fact]
+        public async Task Get_OK_Result()
+        {
+            var response = await _client.GetAsync(_uri.Path);
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [Fact(Skip = "We did a hole markup change to tutor")]
@@ -80,7 +80,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var result = d["name"]?.Value<string>();
 
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
 
             result.Should().NotBeNull();
         }

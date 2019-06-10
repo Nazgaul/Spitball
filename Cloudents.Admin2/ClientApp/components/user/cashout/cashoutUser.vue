@@ -19,7 +19,7 @@
         <v-data-table
                 :headers="headers"
                 :items="cashOutList"
-                class="elevation-1 cash-out-table"
+                class="cash-out-table"
                 disable-initial-sort
                 :rows-per-page-items="[25, 50, 100,{text: 'All', value:-1}]"
                 :search="search"
@@ -49,7 +49,7 @@
                         <v-icon small
                                 color="green"
                                 class="mr-2"
-                                :disabled="props.item.approved || props.item.declinedReason"
+                                :disabled="!!props.item.approved || !!props.item.declinedReason"
                                 @click="editItem(props.item)">
                             call_to_action
 

@@ -18,7 +18,7 @@
                 :items="activeUsersList"
                 :pagination.sync="pagination"
                 :loading="loading"
-                class="elevation-1 active-users-table">
+                class="active-users-table">
             <v-progress-linear slot="progress" color="blue" v-show="loading" indeterminate></v-progress-linear>
             <template slot="items" slot-scope="props">
                 <td class="text-xs-left cursor-pointer" @click="openUserView(props.item.userId)">{{ props.item.userId }}</td>
