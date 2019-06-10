@@ -61,12 +61,12 @@
               ></userRating>
             </v-flex>
             <v-flex xs12 class="pt-1" shrink>
-              <span class="blue-text body-2" v-if="tutorData.reviews > 0">
+              <span class="blue-text body-2" v-show="tutorData.reviews > 0">
                 {{tutorData.reviews}}
-                <span v-if="tutorData.reviews > 1" v-language:inner="'resultTutor_reviews_many'"></span>
-                <span v-if="tutorData.reviews === 1" v-language:inner="'resultTutor_review_one'"></span>
+                <span v-show="tutorData.reviews > 1" v-language:inner="'resultTutor_reviews_many'"></span>
+                <span v-show="tutorData.reviews === 1" v-language:inner="'resultTutor_review_one'"></span>
               </span>
-              <span class="body-2" v-else v-language:inner="'resultTutor_no_reviews'"></span>
+              <span class="body-2" v-show="!tutorData.reviews" v-language:inner="'resultTutor_no_reviews'"></span>
             </v-flex>
           </v-flex>
 
