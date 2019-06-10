@@ -39,7 +39,7 @@
                     <v-flex xs12   shrink>
                         <!--keep this wraper to fix price / hour spacing-->
                         <div class="d-inline-flex align-baseline">
-                        <span class="font-weight-bold headline pricing" v-if="showStriked">₪50</span>
+                        <span class="font-weight-bold headline pricing" v-if="showStriked">₪{{discountedPrice}}</span>
                         <span class="font-weight-bold headline pricing" v-else>₪{{tutorData.price}}</span>
                         <span class="pricing caption">
                             <span v-language:inner>resultTutor_hour</span>
@@ -98,7 +98,9 @@
         data() {
             return {
               isLoaded: false,
-              handleDialogProfile: false
+              handleDialogProfile: false,
+              minimumPrice: 55,
+              discountAmount: 70
             };
         },
         props: {
@@ -133,7 +135,13 @@
                 }
             },
             showStriked(){
-                return this.tutorData.price <= 120 && this.tutorData.price > 50
+                let price = this.tutorData.price;
+                return price > this.minimumPrice;
+            },
+            discountedPrice(){
+                let price = this.tutorData.price;
+                let discountedAmount = price - this.discountAmount;
+                return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
             },
             buttonText(){
                 return this.fromLandingPage ? 'resultTutor_contact_me' : 'resultTutor_btn_view'
