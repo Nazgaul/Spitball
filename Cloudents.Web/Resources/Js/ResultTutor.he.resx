@@ -127,16 +127,16 @@
     <value>/שעה</value>
   </data>
   <data name="no_reviews" xml:space="preserve">
-    <value>עדיין אין חוות דעת</value>
+    <value>עדיין אין ביקורות</value>
   </data>
   <data name="online_lessons" xml:space="preserve">
     <value>מציע שיעורים מקוונים</value>
   </data>
   <data name="reviews_many" xml:space="preserve">
-    <value>חוות דעת</value>
+    <value>ביקורות</value>
   </data>
   <data name="review_one" xml:space="preserve">
-    <value>חוות דעת</value>
+    <value>ביקורות</value>
   </data>
   <data name="contact_me" xml:space="preserve">
     <value>צור קשר</value>

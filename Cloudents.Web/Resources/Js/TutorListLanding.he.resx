@@ -151,7 +151,7 @@
     <value>תנאי שימוש</value>
   </data>
   <data name="header_find_tutors" xml:space="preserve">
-    <value>מצא מתרגלים אונליין בקורס שאתה צריך</value>
+    <value>מצא מורים פרטיים בקורס שאתה צריך</value>
   </data>
   <data name="header_get_lesson" xml:space="preserve">
     <value>קבל שיעור פרטי עבור ₪55/שעה</value>
@@ -163,7 +163,7 @@
     <value>ביקורות</value>
   </data>
   <data name="search_placeholder" xml:space="preserve">
-    <value>חפש קורס כדי למצוא מתרגלים רלוונטיים</value>
+    <value>חפש קורס כדי למצוא מורים פרטיים רלוונטיים</value>
   </data>
   <data name="topnav_btn_login" xml:space="preserve">
     <value>כניסה</value>
@@ -172,6 +172,6 @@
     <value>הרשמה</value>
   </data>
   <data name="tutors" xml:space="preserve">
-    <value>533 מרצים</value>
+    <value>533 מורים פרטיים</value>
   </data>
 </root>

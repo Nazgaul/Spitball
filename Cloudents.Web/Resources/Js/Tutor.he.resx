@@ -213,6 +213,9 @@
   <data name="quality_input_title" xml:space="preserve">
     <value>בדיקת איכות הקול במיקרופון</value>
   </data>
+  <data name="quality_mic_placeholder" xml:space="preserve">
+    <value>בבקשה בחר מיקרופון</value>
+  </data>
   <data name="quality_out_title" xml:space="preserve">
     <value>בדיקת איכות הקול ברמקול</value>
   </data>
@@ -220,7 +223,7 @@
     <value> הרשאות דפדפן</value>
   </data>
   <data name="quality_title" xml:space="preserve">
-    <value>בדיקת מצלמה וקול -</value>
+    <value>בדיקת מצלמה וקול</value>
   </data>
   <data name="quality_unable" xml:space="preserve">
     <value>לא מזהה מצלמה או מיקרופון</value>
@@ -235,10 +238,10 @@
     <value>סיימת את השיעור?</value>
   </data>
   <data name="start_dialog_your_student" xml:space="preserve">
-    <value>הסטודנט</value>
+    <value>הסטודנט שלך</value>
   </data>
   <data name="start_dialog_your_tutor" xml:space="preserve">
-    <value>המתרגל</value>
+    <value>המורה הפרטי שלך</value>
   </data>
   <data name="start_to_share" xml:space="preserve">
     <value>זמין במהלך השיעור</value>
