@@ -44,7 +44,7 @@ namespace Cloudents.FunctionsV2
                     Item = new Tutor
                     {
                         Country = update.Country.ToUpperInvariant(),
-                        Id = update.Id.ToString(),
+                        Id = update.UserId.ToString(),
                         Name = update.Name,
                         Price = update.Price,
                         Courses = courses,
