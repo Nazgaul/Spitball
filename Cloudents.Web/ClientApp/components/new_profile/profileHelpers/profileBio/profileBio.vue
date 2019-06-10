@@ -46,7 +46,7 @@
               <div class="tutor-price mr-3">
                 <!--<span class="subheading" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">₪</span>-->
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  ₪{{showStriked ? 50 : tutorPrice}}
+                  ₪{{showStriked ? discountedPrice : tutorPrice}}
                   <span class="tutor-price small-text">
                     /
                     <span v-language:inner>profile_points_hour</span>
@@ -82,7 +82,7 @@
           >
             <span class="subheading">₪</span>
             <span class="tutor-price">
-              {{showStriked ? 50 : tutorPrice}}
+              {{showStriked ? discountedPrice : tutorPrice}}
               <span class="tutor-price small-text">
                 <!--<span v-language:inner>app_currency_dynamic</span>-->
                 <span>/</span>
@@ -151,7 +151,8 @@ export default {
   },
   data() {
     return {
-
+      discountAmount:70,
+      minimumPrice:55
     };
   },
   props: {
@@ -181,7 +182,12 @@ export default {
     },
     showStriked(){
       let price = this.tutorPrice;
-      return price <= 120 && price > 50 && !this.isMyProfile
+      return price > this.minimumPrice;
+    },
+    discountedPrice(){
+      let price = this.tutorPrice;
+      let discountedAmount = price - this.discountAmount;
+      return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
     },
     university() {
       if (this.getProfile && this.getProfile.user) {

@@ -20,7 +20,7 @@
                                     <v-flex shrink>
                                         <!--keep this inline style to fix price / hour spacing-->
                                 <span class="font-weight-bold pricing pr-1" v-if="showStriked" style="display: table;">
-                                     <span class="subheading font-weight-bold">₪50</span>
+                                     <span class="subheading font-weight-bold">₪{{discountedPrice}}</span>
                                     <span class="font-weight-regular caption" v-language:inner>resultTutor_hour</span>
                                 </span>
 
@@ -31,10 +31,9 @@
                             <span class="pricing caption"  v-language:inner>resultTutor_hour</span>
                                         </div>
                         </span>
-                                        <v-flex shrink v-if="showStriked" class="strike-through">
-
-                                                <span class="striked-price">₪{{tutorData.price}}</span>
-                                                <span class="pricing striked-hour">
+                            <v-flex shrink v-if="showStriked" class="strike-through">
+                                <span class="striked-price">₪{{tutorData.price}}</span>
+                                <span class="pricing striked-hour">
                             <span v-language:inner>resultTutor_hour</span>
                         </span>
 
@@ -79,7 +78,9 @@
         },
         data() {
             return {
-              isLoaded: false
+              isLoaded: false,
+              minimumPrice: 55,
+              discountAmount: 70
             };
         },
         props: {
@@ -124,9 +125,15 @@
                     return './images/placeholder-profile.png';
                 }
             },
-            showStriked() {
-                return this.tutorData.price <= 120 && this.tutorData.price > 50;
-            }
+            showStriked(){
+                let price = this.tutorData.price;
+                return price > this.minimumPrice;
+            },
+            discountedPrice(){
+                let price = this.tutorData.price;
+                let discountedAmount = price - this.discountAmount;
+                return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
+            },
         },
     };
 </script>
