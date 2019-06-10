@@ -28,7 +28,7 @@ export default {
   .landing-section6-img-container {
     width: 50%;
     display: flex;
-    justify-content: flex-end;
+    // justify-content: flex-end;
     padding : 60px 0 38px; 
 
     @media (max-width: @screen-sm) {

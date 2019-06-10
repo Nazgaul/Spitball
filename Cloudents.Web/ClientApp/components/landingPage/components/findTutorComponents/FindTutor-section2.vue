@@ -36,7 +36,7 @@ export default {
     z-index: 2;
     width: 50%;
     display: flex;
-    justify-content: flex-end;
+    // justify-content: flex-end;
     padding : 60px 0 38px; 
 
     @media (max-width: @screen-sm) {

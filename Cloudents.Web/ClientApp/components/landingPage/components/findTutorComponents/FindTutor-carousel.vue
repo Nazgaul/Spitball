@@ -111,12 +111,6 @@ export default {
         window.innerWidth > 757 ? parseFloat(style.marginLeft) : parseFloat(style.marginLeft) + parseFloat(style.marginRight);
     this.paginationFactor = width + margin;
   },
-  created() {
-    console.log('mobile',mobileReviews)
-    console.log('desk',reviews)
-
-    
-  },
 };
 </script>
 
