@@ -138,11 +138,11 @@ export default {
         }
     }
     .tutor-landing-page-body{
-            margin-top: 15px;
+        margin-top: 15px;
         .tutor-landing-page-empty-state{
-            margin-bottom: 35px;
+            margin: 35px 0;
             @media (max-width: @screen-xs) {
-                margin: 0 6px 25px;
+                margin: 45px 6px 25px;
             }
         }
         .tutor-landing-card-container{

@@ -130,7 +130,12 @@ export default {
       this.isLoaded = true;
     },
     tutorCardClicked(e) {
-      analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+        if(this.fromLandingPage){
+            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+        }else{
+            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+        }
+      
       debugger;
       if (this.fromLandingPage) {
         this.openRequestDialog();
