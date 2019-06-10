@@ -58,7 +58,16 @@ namespace Cloudents.FunctionsV2
             //using (var sr = await binder.BindAsync<Stream>(new BlobAttribute($"spitball-files/files/{properties.Id}/preview-{properties.Page}.jpg", FileAccess.Read), token))
             using (var sr = await binder.BindAsync<Stream>(new BlobAttribute(properties.Path, FileAccess.Read), token))
             {
-                var image = Image.Load<Rgba32>(sr);
+                Image<Rgba32> image = null;
+                try
+                {
+                    image = Image.Load<Rgba32>(sr);
+                }
+                catch
+                {
+
+                    return null;
+                }
                 image.Mutate(x => x.Resize(new ResizeOptions()
                 {
                     Mode = mode,
