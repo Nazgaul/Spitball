@@ -8,7 +8,7 @@
               <div v-if="!isLoaded">
                 <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
               </div>
-              <img class="tutor-image" v-show="isLoaded" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+              <img class="tutor-image" v-show="isLoaded" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             </v-flex>
             <v-flex>
               <v-layout align-start justify-space-between column fill-height>
@@ -37,7 +37,7 @@
             <v-flex xs12 shrink v-if="showStriked" class="strike-through">
               <span class="pricing striked-price">₪{{tutorData.price}}</span>
               <span class="pricing caption striked-price">
-                <span v-language:inner>resultTutor_hour</span>
+                <span v-language:inner="'resultTutor_hour'"></span>
               </span>
             </v-flex>
             <v-flex xs12 shrink>
@@ -46,7 +46,7 @@
                         <span class="font-weight-bold headline pricing" v-if="showStriked">₪{{discountedPrice}}</span>
                 <span class="font-weight-bold headline pricing" v-else>₪{{tutorData.price}}</span>
                 <span class="pricing caption">
-                  <span v-language:inner>resultTutor_hour</span>
+                  <span v-language:inner="'resultTutor_hour'"></span>
                 </span>
               </div>
             </v-flex>
@@ -63,13 +63,10 @@
             <v-flex xs12 class="pt-1" shrink>
               <span class="blue-text body-2" v-if="tutorData.reviews > 0">
                 {{tutorData.reviews}}
-                <span
-                  v-if="tutorData.reviews > 1"
-                  v-language:inner
-                >resultTutor_reviews_many</span>
-                <span v-else v-language:inner>resultTutor_review_one</span>
+                <span v-if="tutorData.reviews > 1" v-language:inner="'resultTutor_reviews_many'"></span>
+                <span v-if="tutorData.reviews === 1" v-language:inner="'resultTutor_review_one'"></span>
               </span>
-              <span class="body-2" v-else v-language:inner>resultTutor_no_reviews</span>
+              <span class="body-2" v-else v-language:inner="'resultTutor_no_reviews'"></span>
             </v-flex>
           </v-flex>
 
@@ -130,8 +127,12 @@ export default {
       this.isLoaded = true;
     },
     tutorCardClicked(e) {
-      analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
-      debugger;
+        if(this.fromLandingPage){
+            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+        }else{
+            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+        }
+      
       if (this.fromLandingPage) {
         this.openRequestDialog();
       } else {
@@ -143,6 +144,9 @@ export default {
     },
     openRequestDialog() {
       this.updateRequestDialog(true);
+    },
+    onImageLoadError(event) {
+      event.target.src = "./images/placeholder-profile.png";
     }
   },
   computed: {
