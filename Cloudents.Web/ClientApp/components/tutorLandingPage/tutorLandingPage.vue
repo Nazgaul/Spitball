@@ -127,7 +127,8 @@ export default {
             }
         }
         .tutor-search-container{
-            width: 740px;
+            width: 90%;
+            max-width: 740px;
             position: absolute;
             bottom: -26px;
             box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.28);
@@ -147,9 +148,10 @@ export default {
         }
         .tutor-landing-card-container{
             margin: 0 auto;
-            max-width: 900px;
+            padding: 0 15px;
             @media (max-width: @screen-xs) {
                 margin: 0 8px;
+                padding: 0;
             }
         }
     }
