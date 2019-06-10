@@ -24,7 +24,7 @@
               class="tutor-nav-item cursor-pointer"
               @click="updateActiveNav(singleNav.value)"
               v-for="(singleNav, index) in navs"
-              :class="{'active-nav': singleNav.value === activeItem}"
+              :class="{'active-nav': singleNav.value === activeItem, 'tutor-nav-disabled': singleNav.value !== 'white-board' && !id}"
               :key="index">
               <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
               <a class="tutor-nav-item-link">{{singleNav.name}}</a>

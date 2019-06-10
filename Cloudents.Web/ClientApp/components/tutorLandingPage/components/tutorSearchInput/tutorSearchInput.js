@@ -1,15 +1,17 @@
 ﻿
 
 import debounce from "lodash/debounce";
-// import { LanguageService } from "../../../../services/language/languageService";
+import { LanguageService } from "../../../../services/language/languageService";
 import universityService from "../../../../services/universityService";
+import analyticsService from '../../../../services/analytics.service';
+
 export default {
     name: "tutor-search-input",
     props: {
         placeholder:{
             type:String,
             required:false,
-            default: "Enter a course to find relevant tutors"
+            default: LanguageService.getValueByKey('tutorListLanding_search_placeholder'),
         }
     },
     data: () => ({
@@ -37,6 +39,9 @@ export default {
         search(text) {
             if(!!text){
                 this.msg = text;
+            }
+            if(!!this.msg){
+                analyticsService.sb_unitedEvent("Tutor_Engagement", "Search", this.msg);
             }
             let query = {term: this.msg}
             this.$router.push({path: 'tutor-list', query})

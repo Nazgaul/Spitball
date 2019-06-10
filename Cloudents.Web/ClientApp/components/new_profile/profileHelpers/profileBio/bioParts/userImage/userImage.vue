@@ -4,7 +4,7 @@
             <v-progress-circular indeterminate v-bind:size="50" color="#514f7d"></v-progress-circular>
         </div>
         <img v-else class="user-picture" style="height: 240px; width: 214px;"
-             :src="profileImage" :alt="userName" :title="userName">
+             :src="profileImage" @error="onImageLoadError" :alt="userName" :title="userName">
         <div class="bottom-section" v-if="isTutorProfile">
             <user-rating :size="'20'" :rating="tutorRank" :readonly="true" class="px-4 line-height-1"></user-rating>
             <span class="reviews-quantity">
@@ -47,6 +47,11 @@
                 type: Boolean,
                 default: false
             },
+        },
+        methods:{
+            onImageLoadError(event) {
+                event.target.src = '../../images/placeholder-profile.png';
+            }
         },
         computed: {
             ...mapGetters(['getProfile', 'isTutorProfile', 'getProfileImageLoading']),

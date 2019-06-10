@@ -117,13 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="action_earners" xml:space="preserve">
-    <value>מורים פרטיים</value>
+  <data name="courses" xml:space="preserve">
+    <value>627 קורסים</value>
   </data>
-  <data name="action_feed" xml:space="preserve">
-    <value>פיד</value>
+  <data name="footer_links_about" xml:space="preserve">
+    <value>אודות ספיטבול</value>
   </data>
-  <data name="action_promotion" xml:space="preserve">
-    <value>הודעות</value>
+  <data name="footer_links_ambassadors" xml:space="preserve">
+    <value>שגרירים</value>
+  </data>
+  <data name="footer_links_blog" xml:space="preserve">
+    <value>בלוג</value>
+  </data>
+  <data name="footer_links_contact" xml:space="preserve">
+    <value>צור קשר</value>
+  </data>
+  <data name="footer_links_faq" xml:space="preserve">
+    <value>שאלות נפוצות</value>
+  </data>
+  <data name="footer_links_feedback" xml:space="preserve">
+    <value>פידבק</value>
+  </data>
+  <data name="footer_links_partners" xml:space="preserve">
+    <value>שותפויות</value>
+  </data>
+  <data name="footer_links_pr" xml:space="preserve">
+    <value>יחסי ציבור</value>
+  </data>
+  <data name="footer_links_privacy" xml:space="preserve">
+    <value>מדיניות פרטיות</value>
+  </data>
+  <data name="footer_links_terms" xml:space="preserve">
+    <value>תנאי שימוש</value>
+  </data>
+  <data name="header_find_tutors" xml:space="preserve">
+    <value>מצא מורים פרטיים עם ניסיון בלימוד הקורסים שלך אונליין</value>
+  </data>
+  <data name="header_get_lesson" xml:space="preserve">
+    <value>קבל שיעור פרטי עבור ₪55/שעה</value>
+  </data>
+  <data name="rates" xml:space="preserve">
+    <value>95%</value>
+  </data>
+  <data name="reviews" xml:space="preserve">
+    <value>ביקורות</value>
+  </data>
+  <data name="search_placeholder" xml:space="preserve">
+    <value>חפש קורס כדי למצוא מורים פרטיים רלוונטיים</value>
+  </data>
+  <data name="topnav_btn_login" xml:space="preserve">
+    <value>כניסה</value>
+  </data>
+  <data name="topnav_btn_signup" xml:space="preserve">
+    <value>הרשמה</value>
+  </data>
+  <data name="tutors" xml:space="preserve">
+    <value>533 מורים פרטיים</value>
   </data>
 </root>
