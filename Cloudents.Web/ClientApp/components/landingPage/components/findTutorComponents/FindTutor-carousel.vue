@@ -92,12 +92,12 @@ export default {
     }
   },
   mounted() {
+    let totalCardWidth = document.querySelector('.landing-carousel-slider-conteiner').offsetWidth / 2;
     if(!this.isMobile){
       let mobileCard = document.querySelectorAll('.landing-carousel-card');
-      let totalCardWidth = document.querySelector('.landing-carousel-slider-conteiner').offsetWidth / 2;
       let cardWidth = (totalCardWidth * 90) /100;
-      let marginCardLeft = (totalCardWidth * 7) /100;
-      let marginCardRight = (totalCardWidth * 3) /100;
+      let marginCardLeft = (totalCardWidth * 5) /100;
+      let marginCardRight = (totalCardWidth * 5) /100;
       mobileCard.forEach((card)=>{
           card.style.minWidth = `${cardWidth}px`;
           card.style.marginLeft = `${marginCardLeft}px`;
@@ -105,11 +105,16 @@ export default {
       })
     }
     const element = document.getElementsByClassName("landing-carousel-card")[0];
-    let style = element.currentStyle || window.getComputedStyle(element),
-      width = element.offsetWidth,
-      margin =
-        window.innerWidth > 757 ? parseFloat(style.marginLeft) : parseFloat(style.marginLeft) + parseFloat(style.marginRight);
-    this.paginationFactor = width + margin;
+    let margins = (totalCardWidth * 5) /100;
+    let width = element.offsetWidth;
+    if(!this.isMobile){
+      this.paginationFactor = width + (margins*2);
+    }else{
+       let style = element.currentStyle || window.getComputedStyle(element);
+       let margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+       this.paginationFactor = width + margin;
+    }
+    
   },
 };
 </script>
@@ -185,7 +190,7 @@ export default {
             overflow: hidden;
             text-overflow: ellipsis;
             @media (max-width: @screen-sm) {
-              font-size: 16px;
+              font-size: 11px;
             }
           }
         }
