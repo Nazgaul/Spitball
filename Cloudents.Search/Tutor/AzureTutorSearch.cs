@@ -33,11 +33,13 @@ namespace Cloudents.Search.Tutor
                     nameof(Entities.Tutor.Courses),
                     nameof(Entities.Tutor.Image),
                     nameof(Entities.Tutor.Price),
-                    nameof(Entities.Tutor.Rate),
+                    //nameof(Entities.Tutor.Rate),
+                    Entities.Tutor.RateFieldName,
                     nameof(Entities.Tutor.ReviewCount),
                     nameof(Entities.Tutor.Bio),
                 },
-                ScoringProfile = "ScoringProfile"
+                ScoringProfile = "ScoringProfile",
+                //OrderBy = new List<string> { "search.score() desc", $"{Entities.Tutor.RateFieldName} desc" }
             };
             if (!string.IsNullOrEmpty(query.Country))
             {
