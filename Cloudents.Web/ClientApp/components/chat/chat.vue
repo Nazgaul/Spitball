@@ -68,20 +68,12 @@ export default {
       "getIsSignalRConnected"
     ]),
     isLocked() {
-      return this.getIsChatLocked;
-      // return false;
+      // return this.getIsChatLocked;
+      return false;
     },
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
-    // mobileHeight(){
-    //     console.log(this.$vuetify.breakpoint.smAndDown)
-    //     if(this.isMobile){
-    //         return `${global.innerHeight - this.mobileHeaderHeight}px`;
-    //     }else{
-    //         return '';
-    //     }
-    // },
     state() {
       return this.getChatState;
     },
