@@ -92,8 +92,8 @@
         </v-card-text>
         <v-card-actions class="alignEnd">
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click="tutorRequestDialogClose()" :loading="btnRequestLoading">{{btnClosePlaceholder}}</v-btn>
-          <v-btn color="#4452fc" round depressed dark @click="sendRequest()">{{btnSubmitPlaceholder}}</v-btn>
+          <v-btn color="blue darken-1" flat @click="tutorRequestDialogClose()">{{btnClosePlaceholder}}</v-btn>
+          <v-btn color="#4452fc" :loading="btnRequestLoading" round depressed dark @click="sendRequest()">{{btnSubmitPlaceholder}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-form>

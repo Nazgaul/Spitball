@@ -53,63 +53,39 @@ export default {
         sendRequest() {
             let self = this;
             if(self.$refs.tutorRequestForm.validate()) {
+                self.btnRequestLoading = true;
+                let serverObj = {
+                    text: (self.tutorRequestText)? self.tutorRequestText : null,
+                    name: (self.guestName)? self.guestName : null,
+                    email: (self.guestMail)? self.guestMail : null,
+                    phone: (self.guestPhone)? self.guestPhone : null,
+                    course: (self.tutorCourse)? self.tutorCourse : null,
+                    university: (self.guestUniversity)? self.guestUniversity : null,
+                };
                 if(this.isAuthUser){
-                    self.btnRequestLoading = true;
-                    let serverObj = {
-                        course: self.tutorCourse,
-                        text: self.tutorRequestText,
-                    };
                     let analyticsObject = {
                         userId: self.accountUser.id,
                         course: self.tutorCourse
                     }
                     analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
-                    tutorService.requestTutor(serverObj)
-                                .then(() => {
-                                          self.tutorRequestDialogClose();
-                                          self.updateToasterParams({
-                                            toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
-                                            showToaster: true,
-                                          })
-                                      },
-                                      () => {
-                                        self.updateToasterParams({
-                                            toasterText: "We having trouble connection you to the room",
-                                            showToaster: true,
-                                            toasterType: 'error-toaster'
-                                          })
-                                      }).finally(() => {
-                        self.btnRequestLoading = false;
-                    });
-                }else{
-                    self.btnRequestLoading = true;
-                    let serverObj = {
-                        text: self.tutorRequestText,
-                        name: self.guestName,
-                        mail: self.guestMail,
-                        phone: self.guestPhone,
-                        course: self.tutorCourse,
-                        university: self.guestUniversity
-                    };
-                    
-                    tutorService.requestTutorAnonymous(serverObj)
-                                .then(() => {
-                                          self.tutorRequestDialogClose();
-                                          self.updateToasterParams({
-                                            toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
-                                            showToaster: true,
-                                          })
-                                      },
-                                      () => {
-                                        self.updateToasterParams({
-                                            toasterText: "We having trouble connection you to the room",
-                                            showToaster: true,
-                                            toasterType: 'error-toaster'
-                                        })
-                                      }).finally(() => {
-                        self.btnRequestLoading = false;
-                    });
                 }
+                tutorService.requestTutor(serverObj)
+                            .then(() => {
+                                      self.tutorRequestDialogClose();
+                                      self.updateToasterParams({
+                                        toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
+                                        showToaster: true,
+                                      })
+                                  },
+                                  (err) => {
+                                    self.updateToasterParams({
+                                        toasterText: "We having trouble connection you to the room",
+                                        showToaster: true,
+                                        toasterType: 'error-toaster'
+                                      })
+                                  }).finally(() => {
+                                        self.btnRequestLoading = false;
+                                    });
             }
         },
         tutorRequestDialogClose() {
