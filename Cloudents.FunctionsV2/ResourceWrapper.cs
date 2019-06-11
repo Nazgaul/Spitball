@@ -20,7 +20,7 @@ namespace Cloudents.FunctionsV2
 
         private static ResourceSet Load(string lang)
         {
-            var asm = Assembly.LoadFrom(Path.Combine(Environment.CurrentDirectory, "bin", lang, "Cloudents.FunctionsV2.resources.dll"));
+            var asm = Assembly.LoadFrom(Path.Combine(@"D:\home\site\wwwroot", "bin", lang, "Cloudents.FunctionsV2.resources.dll"));
             var resourceName = $"Cloudents.FunctionsV2.Resources.App.{lang}.resources";
            //var tt = asm.GetManifestResourceNames();
             return new ResourceSet(asm.GetManifestResourceStream(resourceName));
