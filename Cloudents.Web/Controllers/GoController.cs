@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class GoController : Controller
     {
         private readonly IQueryBus _queryBus;
