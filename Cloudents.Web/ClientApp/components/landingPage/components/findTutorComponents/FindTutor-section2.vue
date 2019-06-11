@@ -52,7 +52,7 @@ export default {
     @media (max-width: @screen-xs) {
       img {
         width: 80%;
-        height: auto;
+        height: 80%;
       }
     }
   }

@@ -119,6 +119,7 @@ export default {
       .tutor-list-header-left-menu {
         color: #000;
         font-size: 14px;
+        z-index: 99;
       }
     }
     .tutor-list-header-right {
