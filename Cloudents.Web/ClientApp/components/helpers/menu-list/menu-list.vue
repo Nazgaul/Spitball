@@ -226,7 +226,7 @@
         computed: {
             ...mapGetters(['unreadMessages', 'accountUser', 'getSchoolName']),
             isMobile() {
-                return this.$vuetify.breakpoint.xsOnly;
+                return this.$vuetify.breakpoint.width < 1024;
             },
             user() {
                 return {...this.accountUser}
