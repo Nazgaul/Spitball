@@ -130,7 +130,6 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices]  IQueueProvider queueProvider,
             [FromServices] IHostingEnvironment configuration,
-            [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
@@ -142,7 +141,6 @@ namespace Cloudents.Web.Api
             var email = new RequestTutorEmail()
             {
                 Country = userInfo.Country,
-                Links = model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),
                 PhoneNumber = userInfo.PhoneNumber,
                 UserId = userId,
                 Text = model.Text,
@@ -171,14 +169,12 @@ namespace Cloudents.Web.Api
             [FromServices]  IQueueProvider queueProvider,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             [FromServices] IHostingEnvironment configuration,
-            [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
             var email = new RequestTutorEmail()
             {
                 Country = profile.Country,
-                Links = model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),
                 PhoneNumber = model.PhoneNumber,
                 Text = model.Text,
                 Email = model.Email,
@@ -198,43 +194,43 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("request/upload"), Consumes("multipart/form-data")]
-        public async Task<UploadAskFileResponse> UploadFileAsync(IFormFile file,
-            [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
-            CancellationToken token)
-        {
-            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
+        //[HttpPost("request/upload"), Consumes("multipart/form-data")]
+        //public async Task<UploadAskFileResponse> UploadFileAsync(IFormFile file,
+        //    [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
+        //    CancellationToken token)
+        //{
+        //    string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
 
-            var userId = _userManager.GetUserId(User);
+        //    var userId = _userManager.GetUserId(User);
 
-            var fileNames = new List<string>();
-            //foreach (var formFile in files)
-            //{
-            if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
-            {
-                throw new ArgumentException("not an image");
-            }
+        //    var fileNames = new List<string>();
+        //    //foreach (var formFile in files)
+        //    //{
+        //    if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        throw new ArgumentException("not an image");
+        //    }
 
-            var extension = Path.GetExtension(file.FileName);
+        //    var extension = Path.GetExtension(file.FileName);
 
-            if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
-            {
-                throw new ArgumentException("not an image");
-            }
+        //    if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+        //    {
+        //        throw new ArgumentException("not an image");
+        //    }
 
-            using (var sr = file.OpenReadStream())
-            {
-                //Image.FromStream(sr);
-                var fileName = $"{userId}.{Guid.NewGuid()}.{file.FileName}";
-                await blobProvider
-                    .UploadStreamAsync(fileName, sr, file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
+        //    using (var sr = file.OpenReadStream())
+        //    {
+        //        //Image.FromStream(sr);
+        //        var fileName = $"{userId}.{Guid.NewGuid()}.{file.FileName}";
+        //        await blobProvider
+        //            .UploadStreamAsync(fileName, sr, file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
-                fileNames.Add(fileName);
-            }
+        //        fileNames.Add(fileName);
+        //    }
 
-            //}
-            return new UploadAskFileResponse(fileNames);
-        }
+        //    //}
+        //    return new UploadAskFileResponse(fileNames);
+        //}
 
         [HttpGet("reviews")]
         public async Task<IEnumerable<AboutTutorDto>> GetReviwesAsync(CancellationToken token)

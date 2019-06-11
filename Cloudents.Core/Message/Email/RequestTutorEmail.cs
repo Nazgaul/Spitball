@@ -68,7 +68,6 @@ namespace Cloudents.Core.Message.Email
 
         public string Course { get;  set; }
 
-        public string[] Links { get;  set; }
         public string Email { get;  set; }
         public string Name { get;  set; }
         public string University { get;  set; }
@@ -101,11 +100,7 @@ namespace Cloudents.Core.Message.Email
             sb.AppendLine($"Course: {Course}");
             sb.AppendLine($"Referer: {Referer}");
            
-            if (Links != null && Links.Length > 0)
-            {
-               // sb.Append("<BR>");
-                sb.AppendLine($" {nameof(Links)}: {string.Join("<br>", Links.Select((s, i) => $"<a href='{s}'> attachment {++i}</a>"))}");
-            }
+          
 
             sb.Replace(env.NewLine, "<br>");
             return sb.ToString();
