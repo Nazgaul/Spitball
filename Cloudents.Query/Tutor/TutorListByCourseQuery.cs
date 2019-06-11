@@ -16,8 +16,13 @@ namespace Cloudents.Query.Tutor
         }
 
         
-
+        /// <summary>
+        /// The course name we want to get tutors
+        /// </summary>
         private string CourseId { get; }
+        /// <summary>
+        /// Eliminate the current user from the result
+        /// </summary>
         private long UserId { get; }
 
         internal sealed class TutorListByCourseQueryHandler : IQueryHandler<TutorListByCourseQuery, IEnumerable<TutorListDto>>

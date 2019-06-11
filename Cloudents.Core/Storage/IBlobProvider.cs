@@ -58,10 +58,10 @@ namespace Cloudents.Core.Storage
 
     }
 
-    public interface IRequestTutorDirectoryBlobProvider : IBlobProvider
-    {
+    //public interface IRequestTutorDirectoryBlobProvider : IBlobProvider
+    //{
 
-    }
+    //}
 
     public interface IChatDirectoryBlobProvider : IBlobProvider
     {

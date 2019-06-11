@@ -1,15 +1,11 @@
 ﻿using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.Email;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message;
 
 namespace Cloudents.Infrastructure
 {
@@ -105,22 +101,23 @@ namespace Cloudents.Infrastructure
             }
         }
 
-        public async Task CreateRecordAsync(RequestTutorEmail email, CancellationToken token)
+        public async Task CreateRecordAsync(MondayMessage email, CancellationToken token)
         {
             try
             {
                 var name = email.IsProduction ? email.Name : $"{email.Name} develop!";
                 var id = await CreateRecordAsync(name, token);
 
-                var refererArr = email.Referer.Split('&');
-                var utmString = refererArr.FirstOrDefault(w => w.Contains("utm_source"));
-                string utm = string.Empty;
-                if (!string.IsNullOrEmpty(utmString))
-                {
-                    utm = utmString.Split('=').LastOrDefault();
-                }
+                //email.Referer.ParseQueryString()
+                //var refererArr = email.Referer.Split('&');
+                //var utmString = refererArr.FirstOrDefault(w => w.Contains("utm_source"));
+                //string utm = string.Empty;
+                //if (!string.IsNullOrEmpty(utmString))
+                //{
+                //    utm = utmString.Split('=').LastOrDefault();
+                //}
 
-                var utmTask = UpdateTextRecordAsync(id, "text38", utm, token);
+                var utmTask = UpdateTextRecordAsync(id, "text38", email.UtmSource, token);
                 var phoneNumberTask = UpdateTextRecordAsync(id, "__________7", email.PhoneNumber, token);
                 var subjectsTask = UpdateTextRecordAsync(id, "_____________1",
                     string.Concat(email.Text, " ", email.Course), token);
