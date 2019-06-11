@@ -148,7 +148,7 @@
     <value>תנאי שימוש</value>
   </data>
   <data name="main_btn" xml:space="preserve">
-    <value>לשיעור פרטי רק ב₪55</value>
+    <value>לשיעור פרטי רק ב- ₪55</value>
   </data>
   <data name="main_stats_courses" xml:space="preserve">
     <value>627 קורסים</value>
@@ -216,7 +216,7 @@
     <value>מאות אלפי מסמכי לימוד איכותיים ועדכניים לשימושך</value>
   </data>
   <data name="subfooter_btn" xml:space="preserve">
-    <value>לשיעור פרטי ב₪55</value>
+    <value>לשיעור פרטי ב- ₪55</value>
   </data>
   <data name="subfooter_title" xml:space="preserve">
     <value>שיעור פרטי Online ב- 55 ₪ לשעה לזמן מוגבל</value>
