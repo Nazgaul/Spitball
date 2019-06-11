@@ -13,6 +13,7 @@ namespace Cloudents.Core.Message.Email
         public RequestTutorEmail()
             : base("support@spitball.co", null, null)
         {
+            Dictionary = new Dictionary<string, string>();
         }
 
         public Dictionary<string,string> Dictionary { get; set; }

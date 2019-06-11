@@ -2,6 +2,7 @@
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -15,6 +16,8 @@ using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Http;
+using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Models;
@@ -34,14 +37,16 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
         private readonly IMondayProvider _mondayProvider;
+        private readonly ICommandBus _commandBus;
 
 
         public TutorController(IQueryBus queryBus, UserManager<RegularUser> userManager,
-            IMondayProvider mondayProvider)
+            IMondayProvider mondayProvider, ICommandBus commandBus)
         {
             _queryBus = queryBus;
             _userManager = userManager;
             _mondayProvider = mondayProvider;
+            _commandBus = commandBus;
         }
 
 
@@ -120,8 +125,8 @@ namespace Cloudents.Web.Api
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new TutorListByCourseQuery(courseName, userId);
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            return retValTask;
+            var retVal = await _queryBus.QueryAsync(query, token);
+            return retVal;
         }
         [HttpPost("request")]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
@@ -145,8 +150,16 @@ namespace Cloudents.Web.Api
             {
                 //TODO : need to register user
             }
-            // var query = new UserEmailInfoQuery(userId);
-            //var userInfo = await _queryBus.QueryAsync(query, token);
+
+            var query2 = new TutorListByCourseQuery(model.Course, userId);
+            var retVal = await _queryBus.QueryAsync(query2, token);
+
+            foreach (var tutor in retVal.Take(3))
+            {
+                var command =
+                    new SendChatTextMessageCommand("Hi lovely tutor. this a test of a message that i need your help from request tutor pop up", userId, tutor.UserId);
+                await _commandBus.DispatchAsync(command, token);
+            }
 
             var email = new RequestTutorEmail();
             foreach (var propertyInfo in model.GetType().GetProperties())
