@@ -2,7 +2,7 @@
   <v-layout>
     <v-flex class="landing-sub-footer-section-container">
       <h3 v-language:inner="'landingPage_subfooter_title'"></h3>
-      <button v-language:inner="'landingPage_subfooter_btn'"></button>
+      <button @click="goToTutorPage" v-language:inner="'landingPage_subfooter_btn'"></button>
     </v-flex>
   </v-layout>
   <!-- <v-layout>
@@ -15,7 +15,14 @@
 
 <script>
 export default {
-  name: "subfooterSection"
+  name: "subfooterSection",
+  methods:{
+        goToTutorPage(){
+            this.$router.push({
+                path:"/tutor",
+            })
+        }
+    }
 };
 </script>
 
