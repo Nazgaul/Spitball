@@ -7,14 +7,19 @@
     <v-flex class="landing-section1-img-container">
       <img src="./images/FindTutor_section1.png" alt>
     </v-flex>
-    <div class="landing-section1-oval"/>
+    <div class="landing-section1-oval" :class="{'oval-rtl':isRtl}"/>
   </v-layout>
 </template>
 
 <script>
 
 export default {
-  name: 'section1'
+  name: 'section1',
+  data(){
+    return {
+      isRtl: global.isRtl
+    }
+  }
 };
 </script>
 
@@ -94,6 +99,9 @@ export default {
     bottom: -135px;
     right: 0;
     z-index: 1;
+    &.oval-rtl{
+      transform: scalex(-1);
+    }
       @media (max-width: 1600px) {
         display: none;
        

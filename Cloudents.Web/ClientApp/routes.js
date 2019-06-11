@@ -38,8 +38,8 @@ const tutorLandingPage=()=> import("./components/tutorLandingPage/tutorLandingPa
 
 import landingPage from './components/landingPage/landingPage.vue';
 import FindTutor from './components/landingPage/pages/FindTutor.vue'
-import HowItWorks from "./components/landingPage/pages/HowItWorks.vue";
-import BecomeTutor from "./components/landingPage/pages/BecomeTutor.vue";
+// import HowItWorks from "./components/landingPage/pages/HowItWorks.vue";
+// import BecomeTutor from "./components/landingPage/pages/BecomeTutor.vue";
 
 
 function dynamicPropsFn(route) {
@@ -106,39 +106,26 @@ const studyRoomsPage = {
 let routes2 = [
     {
         path: "/",
-        name: "main",
-        redirect:'/l',
-    },
-    {
-        path: "/l",
         name: "landingPage",
-        redirect:'/l/find-tutor',
         components: {
             default: landingPage,
         },
         children:[
             {
-                path: 'find-tutor',
+                path: '',
                 component: FindTutor
             },
             {
-                path: 'how-it-works',
-                component: HowItWorks
+                path: "/tutor-list",
+                name: "tutorLandingPage",
+                components: {
+                    default: tutorLandingPage,
+                },
             },
-            {
-                path: 'become-tutor',
-                component: BecomeTutor
-            },
+            
         ]
     },
     
-    {
-        path: "/tutor-list",
-        name: "tutorLandingPage",
-        components: {
-            default: tutorLandingPage,
-        },
-    },
     // {
     //     path: "/result",
     //     name: "result",

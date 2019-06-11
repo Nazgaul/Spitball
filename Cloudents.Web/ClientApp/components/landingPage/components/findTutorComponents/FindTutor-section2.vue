@@ -11,13 +11,18 @@
         v-language:inner="'landingPage_section2_pharagraph_bold'"
       ></span>
     </v-flex>
-    <div class="landing-section2-oval"/>
+    <div class="landing-section2-oval" :class="{'oval-rtl':isRtl}"/>
   </v-layout>
 </template>
 
 <script>
 export default {
-  name: "section2"
+  name: "section2",
+  data(){
+    return {
+      isRtl: global.isRtl
+    }
+  }
 };
 </script>
 
@@ -103,6 +108,9 @@ export default {
     z-index: 1;
     bottom: -175px;
     left: 0;
+    &.oval-rtl{
+      transform: scalex(-1);
+    }
     @media (max-width: 1600px) {
       display: none;
     }

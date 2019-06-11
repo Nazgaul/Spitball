@@ -83,6 +83,7 @@ import LOGO from './sp-logo.svg'
     .footer-wrap-list {
         cursor: pointer;
         padding: 0;
+        list-style: none;
         @media (min-width: 768px){
             text-align: center;
             -webkit-column-count: 3;
