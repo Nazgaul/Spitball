@@ -2,7 +2,6 @@
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -14,17 +13,13 @@ using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using System.Linq;
 using System.Net.Http;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Hosting;
-using Cloudents.Infrastructure;
 
 namespace Cloudents.Web.Api
 {
@@ -205,7 +200,7 @@ namespace Cloudents.Web.Api
         
 
         [HttpGet("reviews")]
-        public async Task<IEnumerable<AboutTutorDto>> GetReviwesAsync(CancellationToken token)
+        public async Task<IEnumerable<AboutTutorDto>> GetReviewsAsync(CancellationToken token)
         {
             var query = new AboutTutorQuery();
             var retValTask = await _queryBus.QueryAsync(query, token);
