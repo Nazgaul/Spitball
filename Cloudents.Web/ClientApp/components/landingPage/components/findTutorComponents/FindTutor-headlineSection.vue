@@ -31,7 +31,7 @@ export default {
         background-color: #facb57;
         padding: 96px 84px 40px 258px;
         @media (max-width: 1600px){
-            padding: 96px 40px 40px 258px;
+            padding: 96px 40px 40px 220px;
 
         }
         @media (max-width: 1400px){

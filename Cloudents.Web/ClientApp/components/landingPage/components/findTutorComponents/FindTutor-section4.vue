@@ -28,7 +28,6 @@ export default {
   // margin-top: 68px;
 
   .landing-section4-img-container {
-    width: 50%;
     display: flex;
     // justify-content: flex-end;
     padding : 60px 0 38px; 

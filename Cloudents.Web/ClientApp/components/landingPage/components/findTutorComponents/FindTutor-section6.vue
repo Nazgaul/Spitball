@@ -26,7 +26,6 @@ export default {
   justify-content: space-between;
   align-items: center;
   .landing-section6-img-container {
-    width: 50%;
     display: flex;
     // justify-content: flex-end;
     padding : 60px 0 38px; 
