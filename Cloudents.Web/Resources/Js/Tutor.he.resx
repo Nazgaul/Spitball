@@ -223,7 +223,7 @@
     <value> הרשאות דפדפן</value>
   </data>
   <data name="quality_title" xml:space="preserve">
-    <value>בדיקת מצלמה וקול</value>
+    <value>בדיקת מצלמה וקול - </value>
   </data>
   <data name="quality_unable" xml:space="preserve">
     <value>לא מזהה מצלמה או מיקרופון</value>
