@@ -17,7 +17,7 @@
               </div>
               <div class="tutor-carousel-rating">
                 <span class="pb-2"><v-icon v-for="n in 5" :key="n" class="tutor-page-star">sbf-star-rating-full</v-icon></span>
-                <p>name name</p>
+                <p>{{card.name}}</p>
               </div>
             </div>
       </div>
