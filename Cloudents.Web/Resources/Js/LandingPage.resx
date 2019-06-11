@@ -148,7 +148,7 @@
     <value>Terms &amp; Conditions</value>
   </data>
   <data name="main_btn" xml:space="preserve">
-    <value>Private lessons in 55 NIS</value>
+    <value>Only 55 NIS for a private lesson</value>
   </data>
   <data name="main_stats_courses" xml:space="preserve">
     <value>627 courses</value>
@@ -211,7 +211,7 @@
     <value>Hundreds of thousands of excellent and up-to-date study resources at your disposal</value>
   </data>
   <data name="subfooter_btn" xml:space="preserve">
-    <value>Private lesson in 55NIS</value>
+    <value>A private lesson for 55 NIS</value>
   </data>
   <data name="subfooter_title" xml:space="preserve">
     <value>A limited offer of only 55 NIS per private lesson</value>
