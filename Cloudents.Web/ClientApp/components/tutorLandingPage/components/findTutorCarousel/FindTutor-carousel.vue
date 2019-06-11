@@ -1,7 +1,7 @@
 <template>
   <div class="tutor-carousel-component-container" justify-center xs12 v-if="cards">
-    <v-flex class="tutor-carousel-arrows" @click="moveCarouselClick(-1)" :disabled="atHeadOfList">
-      <img class="left-img-arrow-btn" src="./images/arrow.png">
+    <v-flex class="tutor-carousel-arrows" :class="{'disabled': atHeadOfList}" @click="moveCarouselClick(-1)" :disabled="atHeadOfList">
+      <img class="left-img-arrow-btn" :class="{'switchSide':isRtl}" src="./images/arrow.png">
     </v-flex>
   <div class="tutor-carousel-slider-wrapper">
      <div class="tutor-carousel-slider-container" v-touch:swipe="moveCarousel()"
@@ -26,7 +26,7 @@
    
 
     <v-flex class="tutor-carousel-arrows" @click="moveCarouselClick(1)" :disabled="atEndOfList">
-      <img class="right-img-arrow-btn" src="./images/arrow.png">
+      <img class="right-img-arrow-btn" :class="{'switchSide':isRtl}" src="./images/arrow.png">
     </v-flex>
   </div>
 </template>
@@ -45,15 +45,17 @@ export default {
       cards: this.ismobile ? reviews[0] : mobileReviews,
       currentOffset: 0,
       windowSize: window.innerWidth > 757 ? 2 : 1,
-      paginationFactor: 0
+      paginationFactor: 0,
+      isRtl : global.isRtl
     };
   },
   computed: {
-    atEndOfList() {
-      return (
-        this.currentOffset <=
-        this.paginationFactor * -1 * (this.cards.length - this.windowSize)
-      );
+    atEndOfList() {     
+      if(this.isRtl){
+        return (this.currentOffset >= this.paginationFactor * 1 * (this.cards.length - this.windowSize));
+      } else{
+        return (this.currentOffset <= this.paginationFactor * -1 * (this.cards.length - this.windowSize));
+      }
     },
     atHeadOfList() {
       return this.currentOffset === 0;
@@ -67,18 +69,36 @@ export default {
       let self = this;
       return function(dir, event) {
         let direction = dir === "left" ? 1 : -1;
-        if (direction === 1 && !self.atEndOfList) {
-          self.currentOffset -= self.paginationFactor;
-        } else if (direction === -1 && !self.atHeadOfList) {
-          self.currentOffset += self.paginationFactor;
+
+        if (self.isRtl) {
+          direction = direction*-1;
+          if (direction === 1 && !self.atEndOfList) {
+            self.currentOffset += self.paginationFactor;
+          } else if (direction === -1 && !self.atHeadOfList) {          
+            self.currentOffset -= self.paginationFactor;
+          }
+        } else {
+          if (direction === 1 && !self.atEndOfList) {
+            self.currentOffset -= self.paginationFactor;
+          } else if (direction === -1 && !self.atHeadOfList) {          
+            self.currentOffset += self.paginationFactor;
+          }
         }
       };
     },
-    moveCarouselClick(direction) {
-      if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor;
-      } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor;
+    moveCarouselClick(direction) { 
+      if(this.isRtl) {
+        if (direction === 1 && !this.atEndOfList) {
+          this.currentOffset += this.paginationFactor;
+        } else if (direction === -1 && !this.atHeadOfList) {
+          this.currentOffset -= this.paginationFactor;
+        } 
+      } else {
+        if (direction === 1 && !this.atEndOfList) {
+          this.currentOffset -= this.paginationFactor;
+        } else if (direction === -1 && !this.atHeadOfList) {
+          this.currentOffset += this.paginationFactor;
+        } 
       }
     },
     getImgUrl(path) {
@@ -123,12 +143,21 @@ export default {
   align-items: center;
   overflow: hidden;
   .tutor-carousel-arrows{
+    cursor: pointer;
+    &.disabled {opacity: .5;}
     img{
       width:27px; 
       height:46px;
-      &.left-img-arrow-btn{}
+      &.left-img-arrow-btn{
+        &.switchSide{
+          transform: scaleX(-1);
+        }
+      }
       &.right-img-arrow-btn{
         transform: scaleX(-1);
+        &.switchSide{
+          transform: scaleX(1);
+        }
       }
     }
     @media (max-width: @screen-sm) {
@@ -159,8 +188,8 @@ export default {
               border-radius: 50%;
               @media (max-width: @screen-sm) {
                 width: 86px;
-                height: 86px;  
-              }  
+                height: 86px;
+              }
             }
           }
           .tutor-carousel-card-bottom{
