@@ -13,6 +13,7 @@ using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi =true)]
     public class ProfileController : Controller
     {
         private readonly IStringLocalizer<ProfileController> _localizer;

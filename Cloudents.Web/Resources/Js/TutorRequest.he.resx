@@ -120,6 +120,9 @@
   <data name="btn_attachment" xml:space="preserve">
     <value>קובץ/תמונה</value>
   </data>
+  <data name="btn_close" xml:space="preserve">
+    <value>סגירה</value>
+  </data>
   <data name="btn_submit" xml:space="preserve">
     <value>שליחת בקשה</value>
   </data>
@@ -149,5 +152,8 @@
   </data>
   <data name="topic_placeholder" xml:space="preserve">
     <value>רציתי לבקש תרגול בנושא...</value>
+  </data>
+  <data name="university" xml:space="preserve">
+    <value>אוניברסיטה</value>
   </data>
 </root>
