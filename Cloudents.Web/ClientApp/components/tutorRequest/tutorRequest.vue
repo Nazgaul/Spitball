@@ -1,6 +1,77 @@
 <template>
   <transition name="fade">
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm">
+
+    <v-card>
+        <v-card-title><span class="headline" v-language:inner>tutorRequest_title</span></v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+
+              <v-flex xs12 >
+                  <v-text-field 
+                    v-model="guestName"
+                    :rules="[rules.required]"
+                    :placeholder="guestNamePlaceHolder"
+                    autocomplete="off"/>
+              </v-flex>
+              <v-flex xs12>
+                  <v-text-field 
+                    v-model="guestMail"
+                    type="email"
+                    :rules="[rules.required]"
+                    :placeholder="guestEmailPlaceHolder"
+                    autocomplete="off"/>
+              </v-flex>
+              
+              <v-flex xs12>
+                  <v-text-field 
+                    v-model="guestPhone"
+                    type="tel"
+                    :rules="[rules.required]"
+                    :placeholder="guestPhoneNumberPlaceHolder"
+                    autocomplete="off"/>
+              </v-flex>
+
+              <v-flex xs12>
+                  <v-textarea 
+                    auto-grow rows="1" 
+                    no-resize
+                    name="add-request-textarea"
+                    :label="topicPlaceholder"
+                    :rules="[rules.required, rules.maximumChars]"
+                    v-model="tutorRequestText"/>
+            </v-flex>
+
+              <v-flex xs12>
+                  <v-autocomplete
+                    flat
+                    hide-no-data
+                    hide-details
+                    :append-icon="'sbf-arrow-down'"
+                    :menu-props="{contentClass:'courses-select-list'}"
+                    v-model="tutorCourse"
+                    :items="getSelectedClasses"
+                    :placeholder="coursePlaceholder"
+                    :rules="[rules.required]"
+                  ></v-autocomplete>
+
+              </v-flex>
+
+              <v-flex xs12><v-text-field :placeholder="universityPlaceHolder"/></v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click="tutorRequestDialogClose()" :loading="btnRequestLoading">{{btnClosePlaceholder}}</v-btn>
+          <v-btn color="blue darken-1" flat @click="sendRequest()">{{btnSubmitPlaceholder}}</v-btn>
+        </v-card-actions>
+      </v-card>
+</v-form>
+
+
+    <!-- <v-form v-model="validRequestTutorForm" ref="tutorRequestForm">
       <v-layout column justify-start class="add-request-container">
         <v-layout
           shrink
@@ -49,16 +120,6 @@
                       :key="thumbnailBox"
                       class="request-attachment-box horizontal-border vertical-border"
                     >
-                      <div
-                        @click="removeImage(uploadProp.populatedThumnbailBox['box_'+thumbnailBox])"
-                        class="request-thumb-close-container"
-                        :class="{'populated': uploadProp.populatedThumnbailBox['box_'+thumbnailBox].populated}"
-                      >
-                        <v-icon>sbf-close</v-icon>
-                      </div>
-                      <div class="request-thumb-plus-container">
-                        <v-icon @click="openUploadInterface()">sbf-close</v-icon>
-                      </div>
                       <div class="request-thumb-img-container">
                         <img
                           v-show="uploadProp.populatedThumnbailBox['box_'+thumbnailBox].populated"
@@ -70,7 +131,6 @@
                 </div>
                 <div class="request-textarea-lower-part pt-2" v-if="isAuthUser">
                   <div class="request-options-part">
-                    <!-- <div class="request-subject-class-container"> -->
                     <div class="request-select">
                       <v-select
                         :menu-props="{contentClass:'courses-select-list'}"
@@ -100,8 +160,6 @@
                         </template>
                       </v-select>
                     </div>
-
-                    <!-- </div> -->
                   </div>
                 </div>
               </div>
@@ -139,33 +197,15 @@
                   spellcheck="true"
                 ></v-text-field>
               </div>
-
-              <!-- add-files px-3 mt-3 pt-1 pb-3 -->
-              <!-- <div class=""> -->
               <v-layout align-center justify-center class="mt-3 mb-3">
-                <!-- <span class="caption" v-language:inner>tutorRequest_label_add</span> -->
                 <span
                   class="request-files-btn d-inline-flex align-center justify-center pl-2 pr-3 ml-3"
                 >
                   <v-icon class="attach-icon mr-2">sbf-attach</v-icon>
                   <span v-language:inner>tutorRequest_btn_attachment</span>
-                  <file-upload
-                    id="file-input"
-                    :input-id="uploadProp.componentUniqueId"
-                    ref="upload"
-                    :drop="false"
-                    v-model="uploadProp.uploadedFiles"
-                    :multiple="true"
-                    :maximum="uploadProp.MAX_FILES_AMOUNT"
-                    :post-action="uploadProp.uploadUrl"
-                    accept="image/*"
-                    :extensions="uploadProp.extensions"
-                    @input-file="inputFile"
-                    @input-filter="inputFilter"
-                  ></file-upload>
+                  
                 </span>
               </v-layout>
-              <!-- </div> -->
             </v-flex>
             <v-layout
               shrink
@@ -173,7 +213,7 @@
               align-center
               justify-center
             >
-              <v-flex xs12   class="text-xs-center">
+              <v-flex xs12 class="text-xs-center">
                 <v-btn
                   :loading="btnRequestLoading"
                   class="request-add-button subheading font-weight-bold px-3"
@@ -187,6 +227,7 @@
         </v-flex>
       </v-layout>
     </v-form>
+     -->
   </transition>
 </template>
 
