@@ -164,7 +164,11 @@ namespace Cloudents.Web.Api
             var email = new RequestTutorEmail();
             foreach (var propertyInfo in model.GetType().GetProperties())
             {
-                email.Dictionary.Add(propertyInfo.Name, propertyInfo.GetValue(model).ToString());
+                var value = propertyInfo.GetValue(model);
+                if (value != null)
+                {
+                    email.Dictionary.Add(propertyInfo.Name, value.ToString());
+                }
             }
            
             var utmSource = referer.ParseQueryString()["utm_source"];
