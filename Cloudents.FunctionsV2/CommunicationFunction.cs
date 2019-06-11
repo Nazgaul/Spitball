@@ -62,6 +62,23 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("finish sending email");
         }
 
+
+        [FunctionName("Test")]
+        public static void test([TimerTrigger("0 */1 * * * *", RunOnStartup = true)] TimerInfo myTimer,
+            ILogger log)
+        {
+            var str = ResourceWrapper.GetString("he", "cookie_toaster_action");
+            log.LogInformation($"Hebrew translation for key: cookie_toaster_action = {str}");
+
+            var str1 = ResourceWrapper.GetString("en", "cookie_toaster_action");
+            log.LogInformation($"English translation for key: cookie_toaster_action = {str1}");
+
+            var str2 = ResourceWrapper.GetString("he", "currency_dynamic");
+            log.LogInformation($"Hebrew translation for key: currency_dynamic = {str2}");
+
+            var str3 = ResourceWrapper.GetString("en", "currency_dynamic");
+            log.LogInformation($"English translation for key: currency_dynamic = {str3}");
+        }
         //[FunctionName("FunctionEmailTest")]
         //public static async Task EmailFunctionTimerAsync(
         //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
