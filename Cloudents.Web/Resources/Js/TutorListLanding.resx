@@ -151,7 +151,7 @@
     <value>Terms &amp; Conditions</value>
   </data>
   <data name="header_find_tutors" xml:space="preserve">
-    <value>Find tutors who have experience teaching {your course} online</value>
+    <value>Find tutors who have experience teaching your course online</value>
   </data>
   <data name="header_get_lesson" xml:space="preserve">
     <value>Get a 1-on-1 lesson for ₪55/hr</value>
@@ -161,6 +161,9 @@
   </data>
   <data name="reviews" xml:space="preserve">
     <value>reviews</value>
+  </data>
+  <data name="search_placeholder" xml:space="preserve">
+    <value>Enter a course to find relevant tutors</value>
   </data>
   <data name="topnav_btn_login" xml:space="preserve">
     <value>Login</value>

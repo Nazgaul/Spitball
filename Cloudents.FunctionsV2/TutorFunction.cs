@@ -37,14 +37,14 @@ namespace Cloudents.FunctionsV2
             foreach (var update in result.Update)
             {
                 updateOccur = true;
-                var courses = update.Courses.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray();
+                var courses = update.Courses.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray();
                 var subjects = update.Subjects.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray();
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
-                    Item = new Tutor()
+                    Item = new Tutor
                     {
                         Country = update.Country.ToUpperInvariant(),
-                        Id = update.Id.ToString(),
+                        Id = update.UserId.ToString(),
                         Name = update.Name,
                         Price = update.Price,
                         Courses = courses,
@@ -52,7 +52,7 @@ namespace Cloudents.FunctionsV2
                         Bio = update.Bio,
                         Rate = update.Rate,
                         InsertDate = DateTime.UtcNow,
-                        Prefix = courses.Union(subjects).Union(new []{update.Name}).ToArray(),
+                        Prefix = courses.Union(subjects).Union(new []{update.Name}).Distinct().ToArray(),
                         ReviewCount = update.ReviewsCount,
                         Subjects = subjects
                     },

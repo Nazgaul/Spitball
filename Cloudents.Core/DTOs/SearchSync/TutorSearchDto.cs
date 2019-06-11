@@ -9,7 +9,7 @@ namespace Cloudents.Core.DTOs.SearchSync
     {
        
 
-        public long Id { get; set; } 
+        public long UserId { get; set; } 
 
         public string Name { get; set; } 
         public string Bio { get; set; } 

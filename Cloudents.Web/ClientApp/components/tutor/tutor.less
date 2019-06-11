@@ -109,7 +109,16 @@
       height: 100%;
       display: flex;
       align-items: center;
-
+      &.tutor-nav-disabled{
+        background-color: #3cb8b1;
+        pointer-events: none;
+        i{
+          color: #248781;
+        }
+        .tutor-nav-item-link{
+          color: #248781;
+        }
+      }
       .tutor-nav-item-link {
         color: rgba(255, 255, 255, 0.87);
       }

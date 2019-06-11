@@ -3,7 +3,7 @@
         <v-layout row align-center justify-space-around class="footer-warp">
             <ul v-if="links" class="footer-wrap-list w-list-unstyled">
                 <li  v-for="(link, index) in links" :key="index">
-                    <a href="#" class="footer-link">{{link.title}}</a>
+                    <router-link @click.native.prevent="footerLinksRoute(link.url)" :to="''" class="footer-link">{{link.title}}</router-link>
                 </li>
             </ul>
             <div class="footer-warp-divider mt-4"></div>
@@ -36,19 +36,30 @@ import LOGO from './sp-logo.svg'
         data(){
             return{
                 links:[
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_about'), url: ''},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_feedback'), url: ''},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_terms'), url: ''},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_privacy'), url: ''},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_faq'), url: ''},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_ambassadors'), url: ''},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_blog'), url: ''},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_contact'), url: ''},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_partners'), url: ''},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_pr'), url: ''},
+                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_about'), url: 'about'},
+                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_feedback'), url: 'feedback'},
+                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_terms'), url: 'terms'},
+                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_privacy'), url: 'privacy'},
+                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_faq'), url: 'faq'},
+                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_ambassadors'), url: 'reps'},
+                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_blog'), url: 'blog'},
+                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_contact'), url: 'contact'},
+                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_partners'), url: 'partners'},
+                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_pr'), url: 'reps'},
                 ]
             }
         },
+        methods: {
+            footerLinksRoute(link) {
+                if(link === 'blog') {
+                    window.open('https://medium.com/@spitballstudy')
+                }else if(link ===  'feedback') {
+                    Intercom('showNewMessage')
+                }else {
+                    this.$router.push({name: link});
+                }
+            }
+        }
     }
 </script>
 
@@ -72,6 +83,7 @@ import LOGO from './sp-logo.svg'
     .footer-wrap-list {
         cursor: pointer;
         padding: 0;
+        list-style: none;
         @media (min-width: 768px){
             text-align: center;
             -webkit-column-count: 3;
