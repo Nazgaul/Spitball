@@ -64,12 +64,14 @@ namespace Cloudents.Core.Interfaces
     public interface IChatRoomRepository : IRepository<ChatRoom>
     {
         Task<ChatRoom> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token);
-        Task<ChatRoom> GetChatRoomAsync(string identifier, CancellationToken token);
+
+        Task<ChatRoom> GetOrAddChatRoomAsync(IList<long> userIds , CancellationToken token);
+        //Task<ChatRoom> GetChatRoomAsync(string identifier, CancellationToken token);
     }
 
     public interface ITutorRepository : IRepository<Tutor>
     {
-        Task<IEnumerable<long>> GetTutorsByCourse(string course, long userId);
+        Task<IEnumerable<long>> GetTutorsByCourseAsync(string course, long userId, CancellationToken token);
     }
 
    

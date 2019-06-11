@@ -145,21 +145,19 @@ namespace Cloudents.Web.Api
                 model.Email = userInfo.Email;
                 model.University = userInfo.University;
 
+
+                var command = new SendTutorRequestChatTextMessageCommand(model.Course,
+                    "Hi lovely tutor. this a test of a message that i need your help from request tutor pop up", userId);
+                await _commandBus.DispatchAsync(command, token);
+
             }
             else
             {
                 //TODO : need to register user
             }
 
-            var query2 = new TutorListByCourseQuery(model.Course, userId);
-            var retVal = await _queryBus.QueryAsync(query2, token);
-
-            foreach (var tutor in retVal.Take(3))
-            {
-                var command =
-                    new SendChatTextMessageCommand("Hi lovely tutor. this a test of a message that i need your help from request tutor pop up", userId, tutor.UserId);
-                await _commandBus.DispatchAsync(command, token);
-            }
+          
+           
 
             var email = new RequestTutorEmail();
             foreach (var propertyInfo in model.GetType().GetProperties())

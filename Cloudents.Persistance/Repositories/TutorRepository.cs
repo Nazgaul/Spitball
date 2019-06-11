@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -14,7 +15,7 @@ namespace Cloudents.Persistence.Repositories
         {
         }
 
-        public async Task<IEnumerable<long>> GetTutorsByCourse(string course, long userId)
+        public async Task<IEnumerable<long>> GetTutorsByCourseAsync(string course, long userId, CancellationToken token)
         {
             /*
              * Select * from sb.[tutor] t
@@ -30,7 +31,7 @@ where u.Id = uc.UserId and uc.CanTeach = 1 and uc.CourseId = @CourseId
 and not exists (select * from sb.ChatUser cu where cu.ChatRoomId in
 (select ChatRoomId from sb.ChatUser where userid = @userid)
 and not cu.UserId = @userid
-and not cu.UserId = u.Id
+and cu.UserId = u.Id
 )
 and T.State = 'Ok'
 
@@ -43,7 +44,7 @@ and T.State = 'Ok'
                 .WithSubquery.WhereProperty(w => w.ChatRoom.Id).In(
                     QueryOver.Of<ChatUser>().Where(w => w.User.Id == userId).Select(s=>s.ChatRoom.Id))
                 .Where(w => w.User.Id != userId)
-                .And(w => w.User.Id != tutorAlias.Id)
+                .And(w => w.User.Id == tutorAlias.Id)
                 .Select(s=>s.Id);
 
             var courseQuery = QueryOver.Of<UserCourse>(() => userCourse)
@@ -71,7 +72,9 @@ and T.State = 'Ok'
                 .JoinQueryOver(p => p.User)
                 .WithSubquery.WhereExists(courseQuery)
                 .WithSubquery.WhereNotExists(chatRoomQuery)
-                .Select(s => s.User.Id).ListAsync<long>();
+                .Select(s => s.User.Id)
+                .Take(3)
+                .ListAsync<long>(token);
         }
     }
 }
