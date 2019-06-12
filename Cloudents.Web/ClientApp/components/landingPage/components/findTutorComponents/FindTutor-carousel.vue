@@ -4,9 +4,13 @@
       <img class="leftButton" :class="{'rtlButton': isRtl}" src="./images/FindTutor_next-btn.png">
     </v-flex>
 
-    <div class="landing-carousel-slider-conteiner">
+    <div class="landing-carousel-slider-container">
+
       <div
-        v-touch:swipe="moveCarousel()"
+        v-touch="{
+          left: () => moveCarousel('left'),
+          right: () => moveCarousel('right')
+        }"
         class="landing-carousel-slider"
         :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}"
       >
@@ -79,9 +83,8 @@ export default {
     getImgUrl(path) {
       return require(`${path}`);
     },
-    moveCarousel() {
+    moveCarousel(dir, event) {      
       let self = this;
-      return function(dir, event) {
         let direction = dir === "left" ? 1 : -1;
         if (self.isRtl) {
           direction = direction*-1;
@@ -97,7 +100,6 @@ export default {
             self.currentOffset += self.paginationFactor;
           }
         }
-      };
     },
     moveCarouselClick(direction) {
       if (this.isRtl) {
@@ -116,9 +118,7 @@ export default {
     }
   },
   mounted() {
-    let totalCardWidth =
-      document.querySelector(".landing-carousel-slider-conteiner").offsetWidth /
-      2;
+    let totalCardWidth = document.querySelector(".landing-carousel-slider-container").offsetWidth / 2;
     if (!this.isMobile) {
       let mobileCard = document.querySelectorAll(".landing-carousel-card");
       let cardWidth = (totalCardWidth * 90) / 100;
@@ -179,7 +179,7 @@ export default {
       display: none;
     }
   }
-  .landing-carousel-slider-conteiner {
+  .landing-carousel-slider-container {
     overflow: hidden;
     @media (max-width: @screen-sm) {
       overflow: hidden;
@@ -223,7 +223,7 @@ export default {
             overflow: hidden;
             text-overflow: ellipsis;
             @media (max-width: @screen-sm) {
-              font-size: 11px;
+              font-size: 12px;
             }
           }
         }
