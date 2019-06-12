@@ -54,37 +54,44 @@
                     v-model="tutorRequestText"/>
             </v-flex>
 
-              <v-flex xs12 md6 v-if="!isAuthUser">
+              <v-flex xs12 md6 v-if="!isAuthUser" >
                   <v-autocomplete
-                    @keyup="search"
+                    @keyup="searchCourses"
                     flat
                     hide-no-data
                     :append-icon="'sbf-arrow-down'"
                     :menu-props="{contentClass:'courses-select-list'}"
                     v-model="tutorCourse"
-                    :items="suggests"
+                    :items="suggestsCourses"
                     :placeholder="coursePlaceholder"
                     :rules="[rules.required]"
                   ></v-autocomplete>
               </v-flex>
               <v-flex xs12 v-else>
                   <v-autocomplete
-                    @keyup="search"
+                    @keyup="searchCourses"
                     flat
                     hide-no-data
                     :append-icon="'sbf-arrow-down'"
                     :menu-props="{contentClass:'courses-select-list'}"
                     v-model="tutorCourse"
-                    :items="suggests"
+                    :items="suggestsCourses"
                     :placeholder="coursePlaceholder"
                     :rules="[rules.required]"
                   ></v-autocomplete>
               </v-flex>
               
               <v-flex xs12 md6 v-if="!isAuthUser">
-                  <v-text-field 
+                  <v-autocomplete
+                    @keyup="searchUniversities"
+                    flat
+                    hide-no-data
+                    :append-icon="'sbf-arrow-down'"
+                    :menu-props="{contentClass:'courses-select-list'}"
                     v-model="guestUniversity"
-                    :placeholder="universityPlaceHolder"/>
+                    :items="suggestsUniversities"
+                    :placeholder="universityPlaceHolder"
+                  ></v-autocomplete>
               </v-flex>
 
             </v-layout>
