@@ -130,9 +130,9 @@
       </v-list-tile>
 
       <v-list-tile
-        :to="{ name: 'studyRooms'}"
+        :to="{ name: 'tutoring'}"
         v-if="isLoggedIn"
-        @click.native.prevent="openStudyRooms()"
+        target="_blank"
       >
         <v-list-tile-action>
           <v-icon>sbf-studyroom-icon</v-icon>
@@ -302,7 +302,6 @@ export default {
       "changeSelectUniState",
       "updateCurrentStep"
     ]),
-    ...mapGetters(["getAllSteps"]),
     currentTemplate(val) {
       return val ? "router-link" : "v-list-tile";
     },
@@ -345,16 +344,6 @@ export default {
     closeReferralDialog() {
       this.showReferral = false;
     },
-    openStudyRooms() {
-      if (!this.isLoggedIn) {
-        this.updateLoginDialogState(true);
-      } else {
-        let steps = this.getAllSteps;
-        this.$router.push({
-          name: "studyRooms"
-        });
-      }
-    }
   },
 
   created() {
