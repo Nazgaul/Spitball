@@ -22,11 +22,16 @@
                 type: Number,
                 default: 0
             },
+            tutorName:{
+                type: String,
+                default: ''
+            }
         },
         methods: {
             goToReview() {
-                this.$router.push({ path : `/profile/${this.tutorId}`});
-
+                this.$router.push(
+                    {name: 'profile', params: {id: this.tutorId, name:this.tutorName}}
+                );
             }
         },
     };

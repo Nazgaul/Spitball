@@ -66,7 +66,7 @@ function QuestionItem(objInit) {
 }
 
 function TutorItem(objInit) {
-    this.userId = objInit.userId || 12;
+    this.userId = objInit.userId;
     this.name = objInit.name || '';
     this.image = objInit.image;
     this.courses = objInit.courses || '';

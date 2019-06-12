@@ -33,11 +33,13 @@ namespace Cloudents.Search.Tutor
                     nameof(Entities.Tutor.Courses),
                     nameof(Entities.Tutor.Image),
                     nameof(Entities.Tutor.Price),
-                    nameof(Entities.Tutor.Rate),
+                    //nameof(Entities.Tutor.Rate),
+                    Entities.Tutor.RateFieldName,
                     nameof(Entities.Tutor.ReviewCount),
                     nameof(Entities.Tutor.Bio),
                 },
-                ScoringProfile = "ScoringProfile"
+                ScoringProfile = TutorSearchWrite.ScoringProfile,
+                //OrderBy = new List<string> { "search.score() desc", $"{Entities.Tutor.RateFieldName} desc" }
             };
             if (!string.IsNullOrEmpty(query.Country))
             {
@@ -51,7 +53,7 @@ namespace Cloudents.Search.Tutor
                 Courses = string.Join(",", s.Document.Courses.Take(10)),
                 Image = s.Document.Image,
                 Price = (decimal)s.Document.Price,
-                Rate = (int)s.Document.Rate,
+                Rate = (float)s.Document.Rate,
                 ReviewsCount = s.Document.ReviewCount,
                 Bio = s.Document.Bio
             });

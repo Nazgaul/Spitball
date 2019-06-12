@@ -1,7 +1,6 @@
 <template>
     
     <v-container class="tutor-landing-page-container">
-        <top-nav></top-nav>
         <v-layout :class="`${isMobile ? 'pt-2 pb-5' : 'pt-1 pb-3'}`" px-4 class="tutor-landing-page-header" align-center justify-center column>
             <v-flex pt-4 pb-3>
                 <h1 v-language:inner="'tutorListLanding_header_get_lesson'"></h1>
@@ -18,7 +17,7 @@
         </v-layout>
         <v-layout class="tutor-landing-page-body" column>
             <v-flex class="tutor-landing-page-empty-state">
-                <empty-state-card v-if="items.length === 0 && query.term" style="margin: 0 auto;" :userText="query.term"></empty-state-card>
+                <empty-state-card v-if="items.length === 0 && query.term && showEmptyState" style="margin: 0 auto;" :userText="query.term"></empty-state-card>
             </v-flex>
             <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
                 <tutor-result-card class="mb-3 hidden-xs-only" :fromLandingPage="true" :tutorData="item"></tutor-result-card>
@@ -31,7 +30,6 @@
             <span v-language:inner="'tutorListLanding_tutors'"></span>
         </v-layout>
         <v-layout>
-
         </v-layout>
         <Footer></Footer>
     </v-container>
@@ -40,8 +38,7 @@
 <script>
 import tutorResultCard from '../results/tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
-import topNav from '../landingPageTools/TopNav.vue'
-import Footer from '../landingPageTools/Footer.vue'
+
 import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue'
 import tutorLandingPageService from './tutorLandingPageService'
 import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue'
@@ -50,8 +47,6 @@ export default {
     components:{
         tutorResultCard,
         tutorResultCardMobile,
-        topNav,
-        Footer,
         tutorSearchComponent,
         emptyStateCard
     },
@@ -61,6 +56,7 @@ export default {
             query: {
                 term: ''
             },
+            showEmptyState: false
         }
     },
     computed:{
@@ -77,8 +73,10 @@ export default {
     },
     methods:{
         updateList(){
+                this.showEmptyState = false;
                 tutorLandingPageService.getTutorList(this.query).then(data=>{
                 this.items = data;
+                this.showEmptyState = true;
             })
         }
     },

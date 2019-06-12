@@ -19,11 +19,14 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.WindowsAzure.Storage.Blob;
+using shortid;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
@@ -151,7 +154,8 @@ namespace Cloudents.FunctionsV2
             [Blob("spitball/chat/unread.txt")]CloudBlockBlob blob,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
             [Inject] IQueryBus queryBus,
-            [Inject]  IDataProtectionProvider dataProtectProvider,
+            [Inject] ICommandBus commandBus,
+            [Inject] IDataProtectionProvider dataProtectProvider,
             [Inject] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
@@ -171,15 +175,28 @@ namespace Cloudents.FunctionsV2
             {
 
                 var code = dataProtector.Protect(unreadMessageDto.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+                var identifier = ShortId.Generate(true, false);
+
                 var text = string.Format(
                       "You have a new message from your {0} on Spitball. Click on the link to read your message ",
                       unreadMessageDto.IsTutor ? "student" : "tutor");
 
                 var url = urlBuilder.BuildChatEndpoint(code,new { utm_source = "SMS-auto" });
-                var t = options.AddAsync(new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
+                var command = new CreateShortUrlCommand(identifier, url.PathAndQuery, DateTime.UtcNow.AddDays(5));
+                await commandBus.DispatchAsync(command, token);
+
+                var urlShort = urlBuilder.BuildShortUrlEndpoint(identifier);
+
+                var messageOptions = new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
                 {
-                    Body = $"{text} {url}"
-                }, token);
+                    Body = $"{text} {urlShort}",
+
+                };
+                if (unreadMessageDto.PhoneNumber.StartsWith("+972"))
+                {
+                    messageOptions.From = "Spitball";
+                }
+                var t = options.AddAsync(messageOptions, token);
 
                 tasks.Add(t);
             }
@@ -214,10 +231,15 @@ namespace Cloudents.FunctionsV2
                 return;
             }
 
-            await options.AddAsync(new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
+            var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
                 Body = /*"Your code to enter into Spitball is: " +*/ msg.Message
-            }, token);
+            };
+            if (msg.PhoneNumber.StartsWith("+972"))
+            {
+                messageOptions.From = "Spitball";
+            }
+            await options.AddAsync(messageOptions, token);
         }
 
         [FunctionName("FunctionPhoneServiceBus")]

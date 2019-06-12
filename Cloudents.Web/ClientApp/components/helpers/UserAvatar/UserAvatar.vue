@@ -1,7 +1,7 @@
 <template>
     <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
         <v-avatar v-if="isImage"  tag="v-avatar" :size="size" :class="'user-avatar image'">
-            <img :src="imageUrl" alt="user avatar" class="user-avatar-img">
+            <img @error="onImgError" :src="imageUrl" alt="user avatar" class="user-avatar-img">
         </v-avatar>
         <v-avatar v-else tag="v-avatar" :size="size" :class="'user-avatar userColor' + strToACII % 11">
             <span class="white--text font-14">{{userName.slice(0,2).toUpperCase()}}</span>
@@ -27,9 +27,19 @@ import utilitiesService from '../../../services/utilities/utilitiesService';
                 default: '32'
             }
         },
+        data(){
+            return{
+                imgError: false,
+            }
+        },
+        methods:{
+            onImgError(){
+                this.imgError = true;
+            }
+        },
         computed: {
             isImage(){
-               return  this.userImageUrl && this.userImageUrl.length > 1
+               return  this.userImageUrl && this.userImageUrl.length > 1 && !this.imgError
             },
             strToACII() {
                 let sum = 0;

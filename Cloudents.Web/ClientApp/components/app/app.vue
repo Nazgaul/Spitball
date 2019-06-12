@@ -302,7 +302,7 @@ export default {
       "updateCurrentStep",
       "changeSelectUniState",
       "updateRequestDialog",
-      "openChat"
+      "openChatInterface"
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
     enterPayme(){
@@ -370,7 +370,7 @@ export default {
           if(!!this.$route.query && this.$route.query.chat){
               if(this.$route.query.chat.toLowerCase() === 'expand'){
                   setTimeout(() => {
-                      this.openChat(true)
+                      this.openChatInterface(true)
                   }, 170);
               }
           }

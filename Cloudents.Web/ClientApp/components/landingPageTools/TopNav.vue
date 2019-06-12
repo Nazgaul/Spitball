@@ -101,7 +101,7 @@ export default {
 @import "../../styles/mixin.less";
 .tutor-list {
   background: #fff;
-  padding: 2px 10px;
+  padding: 4px 10px;
   .tutor-list-header {
     max-width: 1500px; 
     margin: 0 auto;
@@ -119,6 +119,7 @@ export default {
       .tutor-list-header-left-menu {
         color: #000;
         font-size: 14px;
+        z-index: 99;
       }
     }
     .tutor-list-header-right {
@@ -132,13 +133,13 @@ export default {
         font-size: 14px;
         outline: none;
         &.tutor-list-header-right-signup {
-        padding: 5px;
-        margin: 5px;
+        padding: 8px;
+        margin: 8px;
         background-color: #13374d;
         color: rgba(255, 255, 255, 0.87);
       }
       &.tutor-list-header-right-login {
-        padding: 5px;
+        padding: 8px;
         margin: 5px;
         border: solid 1px #13374d;
         color: #13374d;

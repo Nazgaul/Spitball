@@ -66,7 +66,7 @@ import LOGO from './sp-logo.svg'
 <style lang="less">
 @import "../../styles/mixin.less";
 .footer {
-  height: 574px;
+  height: 400px;
   background-color: #1b2441;
   color: #fff;
   @media (max-width: @screen-sm) {
@@ -83,6 +83,7 @@ import LOGO from './sp-logo.svg'
     .footer-wrap-list {
         cursor: pointer;
         padding: 0;
+        list-style: none;
         @media (min-width: 768px){
             text-align: center;
             -webkit-column-count: 3;

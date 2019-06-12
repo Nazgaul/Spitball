@@ -117,166 +117,109 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="earn_knowledge_subTitle" xml:space="preserve">
-    <value>Upload class-specific study documents and start earning!</value>
-  </data>
-  <data name="earn_knowledge_title" xml:space="preserve">
-    <value>Turn Your Study Docs into Cash</value>
-  </data>
-  <data name="earn_question_section_subTitle" xml:space="preserve">
-    <value>Earn Points And Exchange Them To Gift Cards</value>
-  </data>
-  <data name="earn_question_section_title" xml:space="preserve">
-    <value>Answer Homework Questions, Get Gift Cards</value>
-  </data>
-  <data name="earn_upload_section_subTitle" xml:space="preserve">
-    <value>Upload Class Notes, Study Guides and Exams Preparations now!</value>
-  </data>
-  <data name="earn_upload_section_title" xml:space="preserve">
-    <value>Your study documents have real value</value>
-  </data>
-  <data name="find_by_subject" xml:space="preserve">
-    <value>Find Homework Help By Subject</value>
-  </data>
-  <data name="find_by_subject_desc" xml:space="preserve">
-    <value>Just pick a subject, and find relevant questions for you</value>
-  </data>
-  <data name="footer_about" xml:space="preserve">
+  <data name="footer_links_about" xml:space="preserve">
     <value>About Spitball</value>
   </data>
-  <data name="footer_ambassador" xml:space="preserve">
+  <data name="footer_links_ambassadors" xml:space="preserve">
     <value>Ambassadors</value>
   </data>
-  <data name="footer_blog" xml:space="preserve">
+  <data name="footer_links_blog" xml:space="preserve">
     <value>Blog</value>
   </data>
-  <data name="footer_contact" xml:space="preserve">
-    <value>Contact Us</value>
+  <data name="footer_links_contact" xml:space="preserve">
+    <value>Contact us</value>
   </data>
-  <data name="footer_faq" xml:space="preserve">
-    <value>FAQ</value>
+  <data name="footer_links_faq" xml:space="preserve">
+    <value>FAQs</value>
   </data>
-  <data name="footer_feedback" xml:space="preserve">
+  <data name="footer_links_feedback" xml:space="preserve">
     <value>Feedback</value>
   </data>
-  <data name="footer_partners" xml:space="preserve">
-    <value>Partners</value>
+  <data name="footer_links_partners" xml:space="preserve">
+    <value>Partnerships</value>
   </data>
-  <data name="footer_pr" xml:space="preserve">
-    <value>PR</value>
+  <data name="footer_links_pr" xml:space="preserve">
+    <value>Public Relations</value>
   </data>
-  <data name="footer_privacy" xml:space="preserve">
+  <data name="footer_links_privacy" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>
-  <data name="footer_terms" xml:space="preserve">
+  <data name="footer_links_terms" xml:space="preserve">
     <value>Terms &amp; Conditions</value>
   </data>
-  <data name="get_your_sbl" xml:space="preserve">
-    <value>Get Your Points</value>
+  <data name="main_btn" xml:space="preserve">
+    <value>From 55 NIS for a private lesson</value>
   </data>
-  <data name="header_earn_money" xml:space="preserve">
-    <value>Earn money</value>
+  <data name="main_stats_courses" xml:space="preserve">
+    <value>2673 courses</value>
   </data>
-  <data name="header_learn_faster" xml:space="preserve">
-    <value>Learn Faster</value>
+  <data name="main_stats_reviews" xml:space="preserve">
+    <value>Reviews</value>
   </data>
-  <data name="header_login" xml:space="preserve">
+  <data name="main_stats_reviews_presents" xml:space="preserve">
+    <value>95%</value>
+  </data>
+  <data name="main_stats_sources" xml:space="preserve">
+    <value>250,234 study resources</value>
+  </data>
+  <data name="main_stats_tutors" xml:space="preserve">
+    <value>533 lecturers</value>
+  </data>
+  <data name="main_subtitle" xml:space="preserve">
+    <value>Private lessons with outstanding teachers of your choice</value>
+  </data>
+  <data name="main_title" xml:space="preserve">
+    <value>Ace your exams with the best study tools and tutors</value>
+  </data>
+  <data name="section1_pharagraph" xml:space="preserve">
+    <value>Our tutors are proficient in your course curriculum and the majority of them are outstanding students that have recently completed the same courses. This ensures that the focus will be on what your really need to know and to stay on track throughout the semester and ace the exams.</value>
+  </data>
+  <data name="section1_title" xml:space="preserve">
+    <value>Experienced tutors that have mastered your course material</value>
+  </data>
+  <data name="section2_pharagraph" xml:space="preserve">
+    <value>Find the best tutor for you. Even if you read stellar reviews, we offer the option of checking compatibility with </value>
+  </data>
+  <data name="section2_pharagraph_bold" xml:space="preserve">
+    <value>a free 10-minute trial.</value>
+  </data>
+  <data name="section2_title" xml:space="preserve">
+    <value>Check tutor compatibility, free of charge</value>
+  </data>
+  <data name="section3_pharagraph" xml:space="preserve">
+    <value>With such an abundance of carefully-selected tutors, demo clips, and a system that highlights the highest rated tutors, it'll be easy for you to quickly find a tutor whose teaching style and availability suites you best.</value>
+  </data>
+  <data name="section3_title" xml:space="preserve">
+    <value>It's never been easier to find an excellent and available tutor</value>
+  </data>
+  <data name="section4_pharagraph" xml:space="preserve">
+    <value>Who has the time or patience for transportation and parking? Save yourself the hassle and expense by learning online, from your home or dorm, at your convenience. Who says you need to travel for a good tutor?</value>
+  </data>
+  <data name="section4_title" xml:space="preserve">
+    <value>At your convenience, without leaving home</value>
+  </data>
+  <data name="section5_pharagraph" xml:space="preserve">
+    <value>Want to review the material you learned in the lesson? Is there something you've forgotten or are still unclear about? No worries! After each lesson you'll be sent a recording and you can revisit it whenever and as many times as you want.</value>
+  </data>
+  <data name="section5_title" xml:space="preserve">
+    <value>The lessons are recorded and you can revisit them whenever you want</value>
+  </data>
+  <data name="section6_pharagraph" xml:space="preserve">
+    <value>There are hundreds of thousands of up-to-date study resources that will help you practice and solve problems to ace your exams. These resources are shared by students like you and by tutors that know exactly what you need to succeed.</value>
+  </data>
+  <data name="section6_title" xml:space="preserve">
+    <value>Hundreds of thousands of excellent and up-to-date study resources at your disposal</value>
+  </data>
+  <data name="subfooter_btn" xml:space="preserve">
+    <value>A private lesson from 55 NIS</value>
+  </data>
+  <data name="subfooter_title" xml:space="preserve">
+    <value>A limited offer of only 55 NIS per private lesson</value>
+  </data>
+  <data name="topnav_btn_login" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="header_sign_up" xml:space="preserve">
+  <data name="topnav_btn_signup" xml:space="preserve">
     <value>Sign Up</value>
-  </data>
-  <data name="how_get_sbl" xml:space="preserve">
-    <value>How do I get points?</value>
-  </data>
-  <data name="how_get_sbl_desc" xml:space="preserve">
-    <value>You get points when you register and earn more points by helping others or referring friends.</value>
-  </data>
-  <data name="how_is_catch" xml:space="preserve">
-    <value>Wait, what’s the catch?</value>
-  </data>
-  <data name="how_is_catch_desc" xml:space="preserve">
-    <value>There is no catch. Earned points are redeemable for Amazon gift cards. So there is no reason not to sign up today.</value>
-  </data>
-  <data name="how_it_works" xml:space="preserve">
-    <value>See how it works</value>
-  </data>
-  <data name="how_sbl_money" xml:space="preserve">
-    <value>Wait, Points are worth real money?</value>
-  </data>
-  <data name="how_sbl_money_desc" xml:space="preserve">
-    <value>Pts is the reward system used on the Spitball platform. Points can be converted into real money through Amazon Gift cards.</value>
-  </data>
-  <data name="how_spitball_differs" xml:space="preserve">
-    <value>How does Spitball differ from other websites?</value>
-  </data>
-  <data name="how_spitball_differs_desc" xml:space="preserve">
-    <value>Spitball brings power back to the students, no subscription fees, no ads, no catch. With Spitball you get the tools to learn smarter and earn points so you can enjoy life.</value>
-  </data>
-  <data name="how_spitball_work" xml:space="preserve">
-    <value>How does Spitball work?</value>
-  </data>
-  <data name="how_spitball_work_desc" xml:space="preserve">
-    <value>Students that need help with their studies, choose their campus and class browse study documents or ask homework questions. Students that know the answer will help solve these problems, and the most helpful answer or document gets rewarded with points.</value>
-  </data>
-  <data name="join_spitball" xml:space="preserve">
-    <value>Join Spitball it's 100% Free</value>
-  </data>
-  <data name="join_spitball_free" xml:space="preserve">
-    <value>Join Spitball it's Free!</value>
-  </data>
-  <data name="learn_knowledge_subTitle" xml:space="preserve">
-    <value>Quickly boost your GPA with instant help and thousands of study docs</value>
-  </data>
-  <data name="learn_knowledge_title" xml:space="preserve">
-    <value>Study Faster, Enjoy College</value>
-  </data>
-  <data name="learn_question_section_subTitle" xml:space="preserve">
-    <value>80% of questions get answered in under 1 minute</value>
-  </data>
-  <data name="learn_question_section_title" xml:space="preserve">
-    <value>Get Solutions to Homework Questions</value>
-  </data>
-  <data name="learn_upload_section_subTitle" xml:space="preserve">
-    <value>Download Class Notes, Study Guides And Exam Preparations</value>
-  </data>
-  <data name="learn_upload_section_title" xml:space="preserve">
-    <value>Find study resources</value>
-  </data>
-  <data name="placeholder_subjects" xml:space="preserve">
-    <value>Choose subject</value>
-  </data>
-  <data name="placeholder_uni" xml:space="preserve">
-    <value>What is your school?</value>
-  </data>
-  <data name="sign_up" xml:space="preserve">
-    <value>SIGN UP</value>
-  </data>
-  <data name="spitball_student_title" xml:space="preserve">
-    <value>Students Talk about Spitball</value>
-  </data>
-  <data name="stats_answers" xml:space="preserve">
-    <value>Total Answers</value>
-  </data>
-  <data name="stats_money" xml:space="preserve">
-    <value>Money Earned</value>
-  </data>
-  <data name="stats_sbls" xml:space="preserve">
-    <value>Points Traded</value>
-  </data>
-  <data name="stats_users" xml:space="preserve">
-    <value>Happy Students</value>
-  </data>
-  <data name="upload_and_earn" xml:space="preserve">
-    <value>Upload and Earn</value>
-  </data>
-  <data name="upload_section_subTitle" xml:space="preserve">
-    <value>Class Notes, Study Guides, Exams Preparations</value>
-  </data>
-  <data name="what_is_spitball" xml:space="preserve">
-    <value>What is Spitball?</value>
-  </data>
-  <data name="what_is_spitball_desc" xml:space="preserve">
-    <value>Spitball is The First Online Marketplace where students acquire knowledge while earning from helping each other succeed in school. Our platform allows students to ask and answer homework questions, share study documents, buy books and so much more. On Spitball, students learn and earn while helping each other.</value>
   </data>
 </root>
