@@ -53,7 +53,7 @@ namespace Cloudents.Search.Tutor
                 Courses = string.Join(",", s.Document.Courses.Take(10)),
                 Image = s.Document.Image,
                 Price = (decimal)s.Document.Price,
-                Rate = (int)s.Document.Rate,
+                Rate = (float)s.Document.Rate,
                 ReviewsCount = s.Document.ReviewCount,
                 Bio = s.Document.Bio
             });
