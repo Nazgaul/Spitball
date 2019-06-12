@@ -32,10 +32,11 @@ namespace Cloudents.Query.Tutor
             public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
             {
                 const string sql = @"select *  from (select 2 as position, U.Id as UserId, U.Name, U.Image,
-(select (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
+(select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
 T.Price, 
-	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
+	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
+                            (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
                         from sb.[user] U
                         join sb.Tutor T
 	                        on U.Id = T.Id
@@ -48,7 +49,8 @@ select 1 as position, U.Id as UserId, U.Name, U.Image,
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
 T.Price, 
-	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
+	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
+                            (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
                         from sb.[user] U
                         join sb.Tutor T
 	                        on U.Id = T.Id
