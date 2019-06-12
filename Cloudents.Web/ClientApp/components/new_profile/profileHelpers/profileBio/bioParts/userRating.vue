@@ -9,7 +9,6 @@
                         half-icon="sbf-star-rating-half"
                         full-icon="sbf-star-rating-full"
                         empty-icon="sbf-star-rating-empty"
-                        half-increments
                         :readonly="readonly"
                         :size="size"
                         :hover="true"
