@@ -148,10 +148,10 @@
     <value>תנאי שימוש</value>
   </data>
   <data name="main_btn" xml:space="preserve">
-    <value>לשיעור פרטי רק ב- ₪55</value>
+    <value>לשיעור פרטי רק מ- 55 ₪</value>
   </data>
   <data name="main_stats_courses" xml:space="preserve">
-    <value>627 קורסים</value>
+    <value>2673 קורסים</value>
   </data>
   <data name="main_stats_reviews" xml:space="preserve">
     <value>ביקורות</value>
@@ -198,7 +198,8 @@
     <value>נסיעות? חניות? הרי אין לך זמן לזה בסדר היום העמוס שלך אז חסוך את הוצאות הנסיעה. מעכשיו לומדים אונליין, מהבית, בשעות הנוחות לך כי מי אמר שבשביל מורה פרטי טוב חייבים לנסוע רחוק?</value>
   </data>
   <data name="section4_title" xml:space="preserve">
-    <value>בשעות שנוחות לך ובלי לצאת מהבית</value>
+    <value>בשעות שנוחות לך
+ובלי לצאת מהבית</value>
   </data>
   <data name="section5_pharagraph" xml:space="preserve">
     <value>רוצה לחזור שוב על החומר שלמדת בשיעור? 
@@ -216,7 +217,7 @@
     <value>מאות אלפי מסמכי לימוד איכותיים ועדכניים לשימושך</value>
   </data>
   <data name="subfooter_btn" xml:space="preserve">
-    <value>לשיעור פרטי ב- ₪55</value>
+    <value>לשיעור פרטי מ- 55 ₪</value>
   </data>
   <data name="subfooter_title" xml:space="preserve">
     <value>שיעור פרטי Online ב- 55 ₪ לשעה לזמן מוגבל</value>

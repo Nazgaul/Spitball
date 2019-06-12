@@ -55,7 +55,7 @@ export default {
             margin: 70px 0 42px 0;
             font-size: 28px;
             font-weight: bold;
-            color: #fff;
+            color: #21837f;
             @media (max-width: 1600px){
                 margin: 30px 0 42px 0;
             }
@@ -72,7 +72,7 @@ export default {
             color:#fff;
             border-radius: 28px;
             box-shadow: 0 3px 19px 0 rgba(0, 0, 0, 0.15);
-            background-color: #13374d;
+            background-color: #27ccbb;
             padding:10px 38px;
         }
     } 

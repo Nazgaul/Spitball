@@ -80,6 +80,7 @@ export default {
       color: #facb57;
       @media (max-width: @screen-xs) {
         font-size: 24px;
+        padding-bottom: 24px;
       }
     }
     span {

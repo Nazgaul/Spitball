@@ -46,7 +46,7 @@ export default {
       }
 
     h3 {
-      font-size: 45px;
+      font-size: 40px;
       font-weight: bold;
       color: #21837f;
       line-height: 1.31;
@@ -60,9 +60,12 @@ export default {
       font-weight: normal;
       font-size: 22px;
       color: #6c6c6c;
-             @media (max-width: @screen-xs){
-          font-size: 16px;
-       }
+      margin-bottom: 40px;
+      @media (max-width: @screen-xs){
+        font-size: 16px;
+        margin-bottom: 0;
+        padding-top: 24px;
+      }
     }
     @media (max-width: 1600px) {
         width: 50%; 

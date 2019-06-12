@@ -52,10 +52,6 @@ export default {
         padding-top: 24px;
       }
     }
-
-    @media (max-width: 1600px) {
-      width: 50%;
-    }
     @media (max-width: @screen-sm) {
       width: 100%;
     }
