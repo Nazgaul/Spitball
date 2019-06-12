@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Show_me" xml:space="preserve">
-    <value>Show me</value>
+  <data name="body" xml:space="preserve">
+    <value>Tell what kind of help do you need, and we will find highly rated matching tutors for your needs, that will send a message directly to you.</value>
   </data>
-  <data name="Spitball" xml:space="preserve">
-    <value>Spitball</value>
+  <data name="btn" xml:space="preserve">
+    <value>Tell us what you need</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>Need Help Finding a Recommended Tutor?</value>
+  </data>
+  <data name="title_mobile" xml:space="preserve">
+    <value>Need Help Finding a Tutor?</value>
   </data>
 </root>
