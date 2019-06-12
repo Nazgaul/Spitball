@@ -4,7 +4,11 @@
       <img class="left-img-arrow-btn" :class="{'switchSide':isRtl}" src="./images/arrow.png">
     </v-flex>
   <div class="tutor-carousel-slider-wrapper">
-     <div class="tutor-carousel-slider-container" v-touch:swipe="moveCarousel()"
+     <div class="tutor-carousel-slider-container"
+        v-touch="{
+          left: () => moveCarousel('left'),
+          right: () => moveCarousel('right')
+        }"
         :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
       <div v-for="(card, index) in cards" :key="index" class="tutor-carousel-card elevation-10">
             <div class="tutor-carousel-card-top pb-4">
@@ -65,26 +69,23 @@ export default {
     }
   },
   methods: {
-    moveCarousel() {
-      let self = this;
-      return function(dir, event) {
+    moveCarousel(direction) {
+        let self = this;
         let direction = dir === "left" ? 1 : -1;
-
         if (self.isRtl) {
           direction = direction*-1;
           if (direction === 1 && !self.atEndOfList) {
             self.currentOffset += self.paginationFactor;
-          } else if (direction === -1 && !self.atHeadOfList) {          
+          } else if (direction === -1 && !self.atHeadOfList) {
             self.currentOffset -= self.paginationFactor;
           }
         } else {
           if (direction === 1 && !self.atEndOfList) {
             self.currentOffset -= self.paginationFactor;
-          } else if (direction === -1 && !self.atHeadOfList) {          
+          } else if (direction === -1 && !self.atHeadOfList) {
             self.currentOffset += self.paginationFactor;
           }
         }
-      };
     },
     moveCarouselClick(direction) { 
       if(this.isRtl) {
