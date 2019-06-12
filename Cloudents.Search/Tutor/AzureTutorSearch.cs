@@ -38,7 +38,7 @@ namespace Cloudents.Search.Tutor
                     nameof(Entities.Tutor.ReviewCount),
                     nameof(Entities.Tutor.Bio),
                 },
-                ScoringProfile = "ScoringProfile",
+                ScoringProfile = TutorSearchWrite.ScoringProfile,
                 //OrderBy = new List<string> { "search.score() desc", $"{Entities.Tutor.RateFieldName} desc" }
             };
             if (!string.IsNullOrEmpty(query.Country))
