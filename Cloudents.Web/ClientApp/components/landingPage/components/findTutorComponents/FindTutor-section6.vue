@@ -26,7 +26,6 @@ export default {
   justify-content: space-between;
   align-items: center;
   .landing-section6-img-container {
-    width: 50%;
     display: flex;
     // justify-content: flex-end;
     padding : 60px 0 38px; 
@@ -39,12 +38,13 @@ export default {
     @media (max-width: @screen-xs) {
       img {
         width: 80%;
-        height: auto;
+        height: 80%;
       }
     }
   }
 
   .landing-section6-text-container {
+    padding: 20px 0;
     width: 36%;
     @media (max-width: @screen-sm) {
       width: 100%;
@@ -52,10 +52,6 @@ export default {
       h4 {
         padding-top: 24px;
       }
-    }
-
-    @media (max-width: 1600px) {
-      width: 50%;
     }
     @media (max-width: @screen-sm) {
       width: 100%;

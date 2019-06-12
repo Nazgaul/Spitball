@@ -130,16 +130,16 @@
     <value>Contact us</value>
   </data>
   <data name="footer_links_faq" xml:space="preserve">
-    <value>FAQ</value>
+    <value>FAQs</value>
   </data>
   <data name="footer_links_feedback" xml:space="preserve">
     <value>Feedback</value>
   </data>
   <data name="footer_links_partners" xml:space="preserve">
-    <value>Partners</value>
+    <value>Partnerships</value>
   </data>
   <data name="footer_links_pr" xml:space="preserve">
-    <value>PR</value>
+    <value>Public Relations</value>
   </data>
   <data name="footer_links_privacy" xml:space="preserve">
     <value>Privacy Policy</value>
@@ -148,10 +148,10 @@
     <value>Terms &amp; Conditions</value>
   </data>
   <data name="main_btn" xml:space="preserve">
-    <value>Private lessons in 55 NIS</value>
+    <value>From 55 NIS for a private lesson</value>
   </data>
   <data name="main_stats_courses" xml:space="preserve">
-    <value>627 Courses</value>
+    <value>2673 courses</value>
   </data>
   <data name="main_stats_reviews" xml:space="preserve">
     <value>Reviews</value>
@@ -160,61 +160,61 @@
     <value>95%</value>
   </data>
   <data name="main_stats_sources" xml:space="preserve">
-    <value>250,234 Study Sources</value>
+    <value>250,234 study resources</value>
   </data>
   <data name="main_stats_tutors" xml:space="preserve">
-    <value>533 Tutors</value>
+    <value>533 lecturers</value>
   </data>
   <data name="main_subtitle" xml:space="preserve">
-    <value>Private lessons with exceled students of your choice</value>
+    <value>Private lessons with outstanding teachers of your choice</value>
   </data>
   <data name="main_title" xml:space="preserve">
-    <value>Master your studies with the best sources &amp; tutors</value>
+    <value>Ace your exams with the best study tools and tutors</value>
   </data>
   <data name="section1_pharagraph" xml:space="preserve">
-    <value>Our tutors are up to date with the relevant course curriculum. Most of our tutors are excellent students who recently completed those courses themselves. This assures that the lesson focus will be on what matters to succeed in the semester and your exams.</value>
+    <value>Our tutors are proficient in your course curriculum and the majority of them are outstanding students that have recently completed the same courses. This ensures that the focus will be on what your really need to know and to stay on track throughout the semester and ace the exams.</value>
   </data>
   <data name="section1_title" xml:space="preserve">
-    <value>Tutors who master your course subjects</value>
+    <value>Experienced tutors that have mastered your course material</value>
   </data>
   <data name="section2_pharagraph" xml:space="preserve">
-    <value>Whenever you find a tutor you like, you can book a session risk free! We want to make sure you feel confident about every tutor on our platform. This is why the first</value>
+    <value>Find the best tutor for you. Even if you read stellar reviews, we offer the option of checking compatibility with </value>
   </data>
   <data name="section2_pharagraph_bold" xml:space="preserve">
-    <value>10 minutes of every session are free of charge.</value>
+    <value>a free 10-minute trial.</value>
   </data>
   <data name="section2_title" xml:space="preserve">
-    <value>Check out tutors risk free</value>
+    <value>Check tutor compatibility, free of charge</value>
   </data>
   <data name="section3_pharagraph" xml:space="preserve">
-    <value>With a large inventory of carfully selected &amp; highly rated tutors, it is fast and easy to find the best tutors who fits your studying style, needs and available for you.</value>
+    <value>With such an abundance of carefully-selected tutors, demo clips, and a system that highlights the highest rated tutors, it'll be easy for you to quickly find a tutor whose teaching style and availability suites you best.</value>
   </data>
   <data name="section3_title" xml:space="preserve">
-    <value>So easy to find a great &amp; available tutor</value>
+    <value>It's never been easier to find an excellent and available tutor</value>
   </data>
   <data name="section4_pharagraph" xml:space="preserve">
-    <value>Driving? looking for parking? you don’t have time for that in your busy schedule. Now you can study online on your schedule in the comfort of your home. You don’t need to travel far to get a great tutor.</value>
+    <value>Who has the time or patience for transportation and parking? Save yourself the hassle and expense by learning online, from your home or dorm, at your convenience. Who says you need to travel for a good tutor?</value>
   </data>
   <data name="section4_title" xml:space="preserve">
-    <value>Fits your schedule, without leaving home</value>
+    <value>At your convenience, without leaving home</value>
   </data>
   <data name="section5_pharagraph" xml:space="preserve">
-    <value>At the end of every lesson, a recording will be sent to you, and will always be available for you to revisit. Want to go over the lesson subjects again? Forgot something? no worries.</value>
+    <value>Want to review the material you learned in the lesson? Is there something you've forgotten or are still unclear about? No worries! After each lesson you'll be sent a recording and you can revisit it whenever and as many times as you want.</value>
   </data>
   <data name="section5_title" xml:space="preserve">
-    <value>All lessons recorded &amp; available for recall</value>
+    <value>The lessons are recorded and you can revisit them whenever you want</value>
   </data>
   <data name="section6_pharagraph" xml:space="preserve">
-    <value>Hundreds of thousands of study documents and resources, that will help you solve any task or challenge. The study resources are shared by students and tutors like you who knows what it takes to succeed.</value>
+    <value>There are hundreds of thousands of up-to-date study resources that will help you practice and solve problems to ace your exams. These resources are shared by students like you and by tutors that know exactly what you need to succeed.</value>
   </data>
   <data name="section6_title" xml:space="preserve">
-    <value>A huge pool of up to date Study resources</value>
+    <value>Hundreds of thousands of excellent and up-to-date study resources at your disposal</value>
   </data>
   <data name="subfooter_btn" xml:space="preserve">
-    <value>Private lesson in 55NIS</value>
+    <value>A private lesson from 55 NIS</value>
   </data>
   <data name="subfooter_title" xml:space="preserve">
-    <value>Online Private lesson only for 55NIS for limited time</value>
+    <value>A limited offer of only 55 NIS per private lesson</value>
   </data>
   <data name="topnav_btn_login" xml:space="preserve">
     <value>Login</value>
