@@ -38,7 +38,8 @@ group by t.TutorId
 Select u.id as UserId,
 u.Name,
 u.Image,
-(select STRING_AGG(dt.CourseId, ', ') FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
+(select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
+from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
 T.Price, 
 cte.rate as Rate,
 t.Bio,
