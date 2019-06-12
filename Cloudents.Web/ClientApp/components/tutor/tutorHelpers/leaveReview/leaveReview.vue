@@ -71,7 +71,7 @@
                 </v-flex>
             </v-layout>
         </div>
-        <finalReviewStep v-else :tutorId="tutorId"></finalReviewStep>
+        <finalReviewStep v-else :tutorId="tutorId" :tutorName="tutorName"></finalReviewStep>
     </div>
 </template>
 
@@ -112,6 +112,9 @@
             },
             tutorId() {
                 return this.getStudyRoomData ?  this.getStudyRoomData.tutorId : ''
+            },
+            tutorName() {
+                return this.getStudyRoomData ?  this.getStudyRoomData.tutorName : ''
             },
             nameTutor() {
                 return this.getStudyRoomData.tutorName;

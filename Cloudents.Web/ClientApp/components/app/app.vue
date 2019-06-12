@@ -152,7 +152,7 @@ import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
 import tutorList from "../helpers/tutorList/tutorList.vue";
-      import tutorRequest from '../tutorRequest/tutorRequest.vue';
+import tutorRequest from '../tutorRequest/tutorRequest.vue';
 export default {
   components: {
     AddQuestion,
@@ -302,7 +302,7 @@ export default {
       "updateCurrentStep",
       "changeSelectUniState",
       "updateRequestDialog",
-      "openChat"
+      "openChatInterface"
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
     enterPayme(){
@@ -370,7 +370,7 @@ export default {
           if(!!this.$route.query && this.$route.query.chat){
               if(this.$route.query.chat.toLowerCase() === 'expand'){
                   setTimeout(() => {
-                      this.openChat(true)
+                      this.openChatInterface(true)
                   }, 170);
               }
           }

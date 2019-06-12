@@ -17,7 +17,7 @@
         </v-layout>
         <v-layout class="tutor-landing-page-body" column>
             <v-flex class="tutor-landing-page-empty-state">
-                <empty-state-card v-if="items.length === 0 && query.term" style="margin: 0 auto;" :userText="query.term"></empty-state-card>
+                <empty-state-card v-if="items.length === 0 && query.term && showEmptyState" style="margin: 0 auto;" :userText="query.term"></empty-state-card>
             </v-flex>
             <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
                 <tutor-result-card class="mb-3 hidden-xs-only" :fromLandingPage="true" :tutorData="item"></tutor-result-card>
@@ -56,6 +56,7 @@ export default {
             query: {
                 term: ''
             },
+            showEmptyState: false
         }
     },
     computed:{
@@ -72,8 +73,10 @@ export default {
     },
     methods:{
         updateList(){
+                this.showEmptyState = false;
                 tutorLandingPageService.getTutorList(this.query).then(data=>{
                 this.items = data;
+                this.showEmptyState = true;
             })
         }
     },

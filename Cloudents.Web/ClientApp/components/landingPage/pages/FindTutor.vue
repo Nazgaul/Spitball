@@ -22,16 +22,17 @@
 </template>
 
 <script>
-import FindTutorHeadlineSection from "../components/findTutorComponents/FindTutor-headlineSection.vue"
-import FindTutorHeadlineStatus from "../components/findTutorComponents/FindTutor-headlineStatus.vue"
-import FindTutorSection1 from "../components/findTutorComponents/FindTutor-section1.vue"
-import FindTutorSection2 from "../components/findTutorComponents/FindTutor-section2.vue"
-import FindTutorSection3 from "../components/findTutorComponents/FindTutor-section3.vue"
-import FindTutorSection4 from "../components/findTutorComponents/FindTutor-section4.vue"
-import FindTutorSection5 from "../components/findTutorComponents/FindTutor-section5.vue"
-import FindTutorSection6 from "../components/findTutorComponents/FindTutor-section6.vue"
-import FindTutorCarouselSection from "../components/findTutorComponents/FindTutor-carouselSection.vue"
-import FindTutorSubfooterSection from '../components/findTutorComponents/FindTutor-subfooterSection.vue'
+import {mapGetters} from 'vuex';
+import FindTutorHeadlineSection from "../components/findTutorComponents/FindTutor-headlineSection.vue";
+import FindTutorHeadlineStatus from "../components/findTutorComponents/FindTutor-headlineStatus.vue";
+import FindTutorSection1 from "../components/findTutorComponents/FindTutor-section1.vue";
+import FindTutorSection2 from "../components/findTutorComponents/FindTutor-section2.vue";
+import FindTutorSection3 from "../components/findTutorComponents/FindTutor-section3.vue";
+import FindTutorSection4 from "../components/findTutorComponents/FindTutor-section4.vue";
+import FindTutorSection5 from "../components/findTutorComponents/FindTutor-section5.vue";
+import FindTutorSection6 from "../components/findTutorComponents/FindTutor-section6.vue";
+import FindTutorCarouselSection from "../components/findTutorComponents/FindTutor-carouselSection.vue";
+import FindTutorSubfooterSection from '../components/findTutorComponents/FindTutor-subfooterSection.vue';
 
 export default {
   components: {
@@ -46,7 +47,16 @@ export default {
     FindTutorCarouselSection,
     FindTutorSubfooterSection,
   },
-  name: "home",
+  computed:{
+    ...mapGetters(['accountUser']),
+    },
+    created(){
+    if(!!this.accountUser){
+        const defaultSubmitRoute = {path: '/ask'};
+        defaultSubmitRoute.query = this.$route.query;
+        this.$router.push(defaultSubmitRoute);
+    }
+  }
 };
 </script>
 
@@ -62,7 +72,7 @@ export default {
         padding: 0 300px;
       }
       @media (max-width: 1700px) {
-        padding: 0 250px;
+        padding: 0 200px;
       }
       @media (max-width: 1400px) {
         padding: 0 150px;

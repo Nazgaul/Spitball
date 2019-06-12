@@ -39,10 +39,10 @@ namespace Cloudents.Infrastructure.Storage
                 .Keyed<IBlobProvider>(StorageContainer.User)
                 .WithParameter("container", StorageContainer.User);
 
-            builder.RegisterType<BlobProviderContainer>()
-                .As<IRequestTutorDirectoryBlobProvider>()
-                //.Keyed<IBlobProvider>(StorageContainer.RequestTutor)
-                .WithParameter("container", StorageContainer.RequestTutor);
+            //builder.RegisterType<BlobProviderContainer>()
+            //    .As<IRequestTutorDirectoryBlobProvider>()
+            //    //.Keyed<IBlobProvider>(StorageContainer.RequestTutor)
+            //    .WithParameter("container", StorageContainer.RequestTutor);
 
             //RequestTutor
 

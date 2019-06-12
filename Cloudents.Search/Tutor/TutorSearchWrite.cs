@@ -9,7 +9,7 @@ namespace Cloudents.Search.Tutor
     {
 
         public const string IndexName = "tutor";
-        private const string ScoringProfile = "ScoringProfile";
+        internal const string ScoringProfile = "ScoringProfile";
 
         public TutorSearchWrite(SearchService client, ILogger logger) : base(client, client.GetClient(IndexName), logger)
         {
@@ -41,11 +41,13 @@ namespace Cloudents.Search.Tutor
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
+                            [nameof(Entities.Tutor.Courses)] =2,
+                            [nameof(Entities.Tutor.Subjects)] =1.2,
                             [nameof(Entities.Tutor.Prefix)] = 0.9,
                         }),
                         Functions = new List<ScoringFunction>
                         {
-                            new MagnitudeScoringFunction(Entities.Tutor.RateFieldName,5,0,5)
+                            new MagnitudeScoringFunction(Entities.Tutor.RateFieldName,100,0,5)
                         }
                     },
                 },

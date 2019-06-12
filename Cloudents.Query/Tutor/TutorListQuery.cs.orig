@@ -31,10 +31,15 @@ namespace Cloudents.Query.Tutor
             public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
                 const string sql = @"select *  from (select 2 as position, U.Id as UserId, U.Name, U.Image, 
+<<<<<<< HEAD
+(select left(STRING_AGG(dt.CourseId, ', '), 100) FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
+=======
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
+>>>>>>> hotfix-tutor
 T.Price, 
-	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
+	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
+                            (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
                         from sb.[user] U
                         join sb.Tutor T
 	                        on U.Id = T.Id
@@ -44,10 +49,15 @@ T.Price,
                         and (U.Country = @Country or @Country is null)
 union all
 select 1 as position, U.Id as UserId, U.Name, U.Image, 
+<<<<<<< HEAD
+(select left(STRING_AGG(dt.CourseId, ', '), 100) FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
+=======
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
+>>>>>>> hotfix-tutor
 T.Price, 
-	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
+	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
+                            (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
                         from sb.[user] U
                         join sb.Tutor T
 	                        on U.Id = T.Id
@@ -58,12 +68,17 @@ T.Price,
 						and (U.Country = @Country or @Country is null)
 union all
 select 0 as position, U.Id as UserId, U.Name, U.Image, 
+<<<<<<< HEAD
+(select left(STRING_AGG(dt.CourseId, ', '), 100) FROM sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) as courses,
+=======
 (select STRING_AGG(dt.CourseId, ', ') FROM (select top 10 courseId
                                             from sb.UsersCourses dt 
                                             where u.Id = dt.UserId and dt.CanTeach = 1
                                             ) dt) as courses,
+>>>>>>> hotfix-tutor
 T.Price, 
-	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate
+	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
+                            (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
                         from sb.[user] U
                         join sb.Tutor T
 	                        on U.Id = T.Id
