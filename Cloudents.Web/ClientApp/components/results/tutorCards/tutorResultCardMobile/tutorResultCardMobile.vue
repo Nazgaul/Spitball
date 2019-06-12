@@ -300,12 +300,12 @@ export default {
   }
   .tutor-courses {
     color: @colorBlue;
-    max-width: 140px;
+    max-width: 0;
+    min-width: 100%;
     font-size: 14px;
     min-height: 19px; //keep it to prevent rating stars shift
   }
   .courses-text {
-    vertical-align: text-bottom;
     line-height: 1;
   }
 }
