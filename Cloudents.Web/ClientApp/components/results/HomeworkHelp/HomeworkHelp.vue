@@ -44,11 +44,9 @@
                                                :index="index"
                                                class="cell"></component>
                                 </v-flex>
-                                <router-link tag="v-flex"
-                                             class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 "
-                                             :to="{path:'/'+currentSuggest,query:{term:this.userText}}">
-                                    <suggest-card :name="currentSuggest"></suggest-card>
-                                </router-link>
+                                <v-flex class="suggestCard result-cell mb-2 xs-12 order-xs4">
+                                    <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
+                                </v-flex>
                             </slot>
                         </v-layout>
                     </v-container>
@@ -74,14 +72,9 @@
                 <!--<notificationCenter v-else :isAsk="name==='ask'"></notificationCenter>-->
             </slot>
         </template>
-        <slot name="suggestCell">
-            <router-link slot="suggestCell" tag="v-flex"
-                         class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 "
-                         :to="{path:'/'+currentSuggest,query:{term:this.query.term}}">
-
-                <suggest-card :name="currentSuggest"></suggest-card>
-            </router-link>
-        </slot>
+            <v-flex class="result-cell mb-2 xs-12 order-xs3">
+                <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
+            </v-flex>
     </general-page>
 </template>
 

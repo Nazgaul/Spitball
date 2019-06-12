@@ -5,7 +5,7 @@
     :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}"
   >
     <v-card
-      class="tutor-card-wrap pa-12 elevation-0 cursor-pointer"
+      class="tutor-card-wrap pa-12 elevation-1 cursor-pointer"
       :class="{'list-tutor-card': isInTutorList}"
     >
       <div class="section-tutor-info">

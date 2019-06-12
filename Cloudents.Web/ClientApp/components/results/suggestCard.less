@@ -1,6 +1,50 @@
 ﻿@import "../../styles/mixin.less";
 
+.suggestCard-container{
+    border-radius: 4px;
+    background: #FFF;
+    width: 100%;
+    padding: 0;
+    @media(max-width: @screen-xs) {
+        padding: 18px 13px;
+    }
+    .suggestCard-sections{
+        .suggestCard-texts{
+            color: #000;
+            .responsive-property(max-width, 66%, null, 100%);
+            .responsive-property(padding, 30px 16px, null, 0);
+            h3{
+              .responsive-property(font-size, 18px, null, 20px);
+            }
+            h4{
+                padding-top: 11px;
+                font-weight: normal;
+                color: #43425d;
+                .responsive-property(font-size, 16px, null, 12px);
+                .responsive-property(padding-bottom, 0, null, 12px);
 
+            }
+        }
+        .suggestCard-btn-section{
+            display: flex;
+            .responsive-property(width, 34%, null, 100%);
+                justify-content: flex-end;
+                .responsive-property(padding-right, 32px, null, 0px);
+                @media(max-width: @screen-xs) {
+                    justify-content: flex-start;
+                }
+            button{
+                border: solid 1px rgba(68, 82, 252, 0.38);
+                font-size: 14px;
+                font-weight: bold;
+                color: #4452fc;
+                background-color: #FFF;
+                border-radius: 20.5px;
+                padding: 10px 20px
+            }
+        }
+    }
+}
 
 .suggest {
     background: #FFF;

@@ -11,6 +11,7 @@ import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
 import { LanguageService } from '../../../services/language/languageService'
 import soonComponent from '../helpers/soon/soon.vue'
 import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
+import analyticsService from '../../../services/analytics.service'
 
 import faqBlock from '../helpers/faq-block/faq-block.vue'
 import notificationCenter from '../../notificationCenter/notificationCenter.vue'
@@ -189,7 +190,8 @@ export default {
             'updateUserProfileData',
             'updateNewQuestionDialogState',
             'updateDialogState',
-            'Tutors_nextPage'
+            'Tutors_nextPage',
+            'updateRequestDialog'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING"]),
         ...mapGetters(["getCurrentVertical", "Tutors_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
@@ -292,6 +294,10 @@ export default {
         //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
         $_showSelectedFilter({value, key}) {
             return value;
+        },
+        openRequestTutor() {
+            analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
+            this.updateRequestDialog(true);
         }
     },
 
