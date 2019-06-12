@@ -112,6 +112,8 @@
 </script>
 
 <style lang="less">
+@import "../../../../styles/mixin.less";
+
     .chat-upload-wrap{
         display: flex;
         .chat-input-container{
@@ -119,7 +121,7 @@
             label{
                 position: absolute;
                 z-index: 5;
-                right: 15px;
+                .responsive-property(right, 15px, null, 65px);
                 .file-uploads{
                     position: absolute;
                     top: 0;
@@ -135,8 +137,6 @@
                 vertical-align: middle;
             }
         }
-        
-        
     }
 
 </style>
