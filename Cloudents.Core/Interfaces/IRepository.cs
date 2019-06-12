@@ -50,9 +50,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionRepository : IRepository<Question>
     {
-        //Task<IList<Question>> GetAllQuestionsAsync(int page);
         Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
-        //Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token);
         Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
     }
 
@@ -60,23 +58,23 @@ namespace Cloudents.Core.Interfaces
 
     public interface IAnswerRepository : IRepository<Answer>
     {
-        //Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token);
         Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
     }
 
     public interface IChatRoomRepository : IRepository<ChatRoom>
     {
         Task<ChatRoom> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token);
-        Task<ChatRoom> GetChatRoomAsync(string identifier, CancellationToken token);
+
+        Task<ChatRoom> GetOrAddChatRoomAsync(IList<long> userIds , CancellationToken token);
+        //Task<ChatRoom> GetChatRoomAsync(string identifier, CancellationToken token);
     }
 
-    //public interface IUniversityRepository : IRepository<University>
-    //{
-    //    [ItemCanBeNull]
-    //    Task<University> GetUniversityByNameAsync(string name,
-    //        CancellationToken token);
+    public interface ITutorRepository : IRepository<Tutor>
+    {
+        Task<IEnumerable<long>> GetTutorsByCourseAsync(string course, long userId, CancellationToken token);
+    }
 
-    //}
+   
 
     public interface ITransactionRepository : IRepository<Transaction>
     {

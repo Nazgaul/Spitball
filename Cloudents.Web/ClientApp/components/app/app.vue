@@ -152,7 +152,7 @@ import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
 import tutorList from "../helpers/tutorList/tutorList.vue";
-      import tutorRequest from '../tutorRequest/tutorRequest.vue';
+import tutorRequest from '../tutorRequest/tutorRequest.vue';
 export default {
   components: {
     AddQuestion,

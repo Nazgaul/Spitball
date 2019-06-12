@@ -41,9 +41,6 @@ namespace Cloudents.Command.CommandHandler
             chatRoom.AddMessage(chatMessage);
             await _chatRoomRepository.UpdateAsync(chatRoom, token);
             await _chatMessageRepository.AddAsync(chatMessage, token); // need this in order to get id from nhibernate
-
-
-
         }
     }
 }

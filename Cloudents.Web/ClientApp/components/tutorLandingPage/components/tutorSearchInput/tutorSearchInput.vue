@@ -11,7 +11,6 @@
                           @input="changeMsg"
                           :placeholder="placeholder"
                           prepend-icon="sbf-search">
-
             </v-text-field>
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
                 <v-list class="search-menu" v-click-outside="outsideClick" v-show="showSuggestions">
