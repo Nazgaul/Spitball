@@ -41,7 +41,7 @@ export default {
 
     h3{
       text-overflow: ellipsis;
-      font-size: 45px;
+      font-size: 42px;
       font-weight: bold;
       line-height: 1.33;
       color: #e94567;

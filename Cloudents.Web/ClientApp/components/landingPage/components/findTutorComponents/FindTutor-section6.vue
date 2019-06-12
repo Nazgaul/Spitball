@@ -44,6 +44,7 @@ export default {
   }
 
   .landing-section6-text-container {
+    padding: 20px 0;
     width: 36%;
     @media (max-width: @screen-sm) {
       width: 100%;
@@ -51,10 +52,6 @@ export default {
       h4 {
         padding-top: 24px;
       }
-    }
-
-    @media (max-width: 1600px) {
-      width: 50%;
     }
     @media (max-width: @screen-sm) {
       width: 100%;

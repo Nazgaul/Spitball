@@ -148,10 +148,10 @@
     <value>Terms &amp; Conditions</value>
   </data>
   <data name="main_btn" xml:space="preserve">
-    <value>Only 55 NIS for a private lesson</value>
+    <value>From 55 NIS for a private lesson</value>
   </data>
   <data name="main_stats_courses" xml:space="preserve">
-    <value>627 courses</value>
+    <value>2673 courses</value>
   </data>
   <data name="main_stats_reviews" xml:space="preserve">
     <value>Reviews</value>
@@ -166,7 +166,7 @@
     <value>533 lecturers</value>
   </data>
   <data name="main_subtitle" xml:space="preserve">
-    <value>Private lessons with outstanding student of your choice</value>
+    <value>Private lessons with outstanding teachers of your choice</value>
   </data>
   <data name="main_title" xml:space="preserve">
     <value>Ace your exams with the best study tools and tutors</value>
@@ -211,7 +211,7 @@
     <value>Hundreds of thousands of excellent and up-to-date study resources at your disposal</value>
   </data>
   <data name="subfooter_btn" xml:space="preserve">
-    <value>A private lesson for 55 NIS</value>
+    <value>A private lesson from 55 NIS</value>
   </data>
   <data name="subfooter_title" xml:space="preserve">
     <value>A limited offer of only 55 NIS per private lesson</value>

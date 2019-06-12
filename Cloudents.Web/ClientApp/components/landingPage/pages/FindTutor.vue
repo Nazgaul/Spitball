@@ -62,7 +62,7 @@ export default {
         padding: 0 300px;
       }
       @media (max-width: 1700px) {
-        padding: 0 250px;
+        padding: 0 200px;
       }
       @media (max-width: 1400px) {
         padding: 0 150px;

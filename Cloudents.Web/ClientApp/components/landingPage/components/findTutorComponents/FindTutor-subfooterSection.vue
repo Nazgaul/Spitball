@@ -39,6 +39,7 @@ text-align: center;
     text-align: center;
     color: #21837f;
     padding-bottom: 48px;
+    font-style: italic;
       @media (max-width: @screen-sm) {
       padding-bottom: 36px;
       text-align: start;
@@ -50,7 +51,7 @@ text-align: center;
     padding: 9px 37px 14px 33px;
     border-radius: 28px;
     box-shadow: 0 3px 19px 0 rgba(0, 0, 0, 0.15);
-    background-color: #21837f;
+    background-color: #27CCBB;
     font-size: 24px;
     font-weight: 600;
     text-align: center;

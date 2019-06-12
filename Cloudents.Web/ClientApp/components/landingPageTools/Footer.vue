@@ -66,7 +66,7 @@ import LOGO from './sp-logo.svg'
 <style lang="less">
 @import "../../styles/mixin.less";
 .footer {
-  height: 574px;
+  height: 400px;
   background-color: #1b2441;
   color: #fff;
   @media (max-width: @screen-sm) {
