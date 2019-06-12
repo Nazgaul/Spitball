@@ -211,7 +211,7 @@
     <value>Hundreds of thousands of excellent and up-to-date study resources at your disposal</value>
   </data>
   <data name="subfooter_btn" xml:space="preserve">
-    <value>A private lesson from 55 NIS</value>
+    <value>A private lesson&lt;br&gt;from 55 NIS</value>
   </data>
   <data name="subfooter_title" xml:space="preserve">
     <value>A limited offer of only 55 NIS per private lesson</value>
