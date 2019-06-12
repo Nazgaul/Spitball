@@ -146,18 +146,27 @@ namespace Cloudents.Web.Api
                 model.University = userInfo.University;
 
 
-                var command = new SendTutorRequestChatTextMessageCommand(model.Course,
-                    "Hi lovely tutor. this a test of a message that i need your help from request tutor pop up", userId);
-                await _commandBus.DispatchAsync(command, token);
+               
 
             }
             else
             {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    userId = user.Id;
+                }
                 //TODO : need to register user
             }
 
-          
-           
+            if (userId > 0)
+            {
+                var command = new SendTutorRequestChatTextMessageCommand(model.Course,
+                    "Hi lovely tutor. this a test of a message that i need your help from request tutor pop up",
+                    userId);
+                await _commandBus.DispatchAsync(command, token);
+            }
+
 
             var email = new RequestTutorEmail();
             foreach (var propertyInfo in model.GetType().GetProperties())
@@ -184,35 +193,6 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(task1, task2);
             return Ok();
         }
-
-        //[HttpPost("anonymousRequest")]
-        //public async Task<IActionResult> AnonymousRequestTutorAsync(AnonymousRequestTutorRequest model,
-        //    [FromServices]  IQueueProvider queueProvider,
-        //    [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-        //    [FromServices] IHostingEnvironment configuration,
-        //    [FromHeader(Name = "referer")] Uri referer,
-        //    CancellationToken token)
-        //{
-        //    var email = new RequestTutorEmail()
-        //    {
-        //        Country = profile.Country,
-        //        PhoneNumber = model.PhoneNumber,
-        //        Text = model.Text,
-        //        Email = model.Email,
-        //        Name = model.Name,
-        //        Referer = referer.AbsoluteUri,
-        //        IsProduction = configuration.IsProduction()
-        //    };
-           
-        //    var task1 = queueProvider.InsertMessageAsync(email, token);
-        //    var task2 = _mondayProvider.CreateRecordAsync(email, token);
-
-            
-        //    await Task.WhenAll(task1, task2);
-        //    return Ok();
-        //}
-
-        
 
         [HttpGet("reviews")]
         public async Task<IEnumerable<AboutTutorDto>> GetReviewsAsync(CancellationToken token)
