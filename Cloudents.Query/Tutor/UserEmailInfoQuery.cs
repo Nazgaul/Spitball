@@ -1,7 +1,11 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System.Linq;
+using Cloudents.Core.DTOs;
 using Dapper;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using NHibernate;
+using NHibernate.Linq;
 
 namespace Cloudents.Query.Tutor
 {
@@ -11,26 +15,37 @@ namespace Cloudents.Query.Tutor
         {
             UserId = userId;
         }
-        public long UserId { get; set; }
+
+        private long UserId { get;  }
+
         internal sealed class UserEmailInfoQueryHandler : IQueryHandler<UserEmailInfoQuery, UserEmailInfoDto>
         {
-            private readonly DapperRepository _dapperRepository;
-            public UserEmailInfoQueryHandler(DapperRepository dapperRepository)
+            private readonly IStatelessSession _statelessSession;
+            public UserEmailInfoQueryHandler(QuerySession querySession)
             {
-                _dapperRepository = dapperRepository;
+                _statelessSession = querySession.StatelessSession;
             }
             public async Task<UserEmailInfoDto> GetAsync(UserEmailInfoQuery query, CancellationToken token)
             {
-                using (var conn = _dapperRepository.OpenConnection())
-                {
-                    const string sql = @"select Email, u.Name, un.Name as University, u.Country, 
-                                            u.PhoneNumberHash as PhoneNumber
-                                        from sb.[User] u
-                                        left join sb.University un
-	                                        on u.UniversityId2 = un.Id
-                                        where u.Id = @UserId";
-                    return await conn.QueryFirstOrDefaultAsync<UserEmailInfoDto>(sql, new { query.UserId });
-                }
+                return await _statelessSession.Query<RegularUser>()
+                    .Where(w => w.Id == query.UserId)
+                    .Fetch(f => f.University)
+                    .Select(s => new UserEmailInfoDto()
+                    {
+                        Name = s.Name, Email = s.Email, University = s.University.Name, PhoneNumber = s.PhoneNumber
+                    }).SingleOrDefaultAsync(token);
+
+
+                //using (var conn = _dapperRepository.OpenConnection())
+                //{
+                //    const string sql = @"select Email, u.Name, un.Name as University, u.Country, 
+                //                            u.PhoneNumberHash as PhoneNumber
+                //                        from sb.[User] u
+                //                        left join sb.University un
+                //                         on u.UniversityId2 = un.Id
+                //                        where u.Id = @UserId";
+                //    return await conn.QueryFirstOrDefaultAsync<UserEmailInfoDto>(sql, new { query.UserId });
+                //}
             }
         }
     }
