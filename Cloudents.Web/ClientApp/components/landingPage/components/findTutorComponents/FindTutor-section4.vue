@@ -46,6 +46,7 @@ export default {
   }
 
   .landing-section4-text-container {
+    padding: 20px 0;
     width: 36%;
     @media (max-width: @screen-sm) {
       width: 100%;
