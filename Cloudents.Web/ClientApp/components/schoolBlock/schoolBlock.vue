@@ -71,7 +71,6 @@ export default {
     ...mapGetters([
       "getSelectedClasses",
       "getSchoolName",
-      "getAllSteps",
       "accountUser",
       "getSearchLoading",
       "getShowSchoolBlock",
@@ -189,7 +188,6 @@ export default {
       if (!this.isLoggedIn) {
         this.updateLoginDialogState(true);
       } else {
-        let steps = this.getAllSteps;
         this.$router.push({
             name:'studyRooms',
         })
@@ -199,7 +197,6 @@ export default {
       if (!this.isLoggedIn) {
         this.updateLoginDialogState(true);
       } else {
-        let steps = this.getAllSteps;
         this.$router.push({name: 'editCourse'});
       }
     },
@@ -207,7 +204,6 @@ export default {
       if (!this.isLoggedIn) {
         this.updateLoginDialogState(true);
       } else {
-        let steps = this.getAllSteps;
         this.$router.push({name: 'addUniversity'})
       }
     }
