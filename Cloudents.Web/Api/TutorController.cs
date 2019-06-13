@@ -1,29 +1,29 @@
-﻿using System;
-using Cloudents.Web.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
+using Cloudents.Core.Models;
+using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Identity;
-using System.Net.Http;
-using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Models;
-using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Web.Services;
 
 namespace Cloudents.Web.Api
 {
@@ -89,14 +89,14 @@ namespace Cloudents.Web.Api
                 return new WebResponseWithFacet<TutorListDto>
                 {
                     Result = result,
-                    NextPageLink = Url.RouteUrl("TutorSearch", new {page = ++page, term})
+                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term })
                 };
             }
         }
 
 
-       
-       
+
+
 
 
         /// <summary>
@@ -135,11 +135,12 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices]  IQueueProvider queueProvider,
             [FromServices] IHostingEnvironment configuration,
+            [FromServices] ISmsSender _client,
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
             //RequestTutorEmail
-            if ( _userManager.TryGetLongUserId(User,out var userId))
+            if (_userManager.TryGetLongUserId(User, out var userId))
             {
                 var query = new UserEmailInfoQuery(userId);
                 var userInfo = await _queryBus.QueryAsync(query, token);
@@ -147,18 +148,28 @@ namespace Cloudents.Web.Api
                 model.Name = userInfo.Name;
                 model.Email = userInfo.Email;
                 model.University = userInfo.University;
-
-
-               
-
             }
             else
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
-                    userId = user.Id;
+                    if (user.PhoneNumber == null)
+                    {
+                        var phoneNumber = await _client.ValidateNumberAsync(model.ToString(), token);
+                        if (phoneNumber.phoneNumber != null)
+                        {
+                            user.Country = phoneNumber.country;
+                            await _userManager.SetPhoneNumberAsync(user, model.Phone);
+                            userId = user.Id;
+                        }
+                    }
+                    else
+                    {
+                        userId = user.Id;
+                    }
                 }
+
                 //TODO : need to register user
             }
 
@@ -171,7 +182,11 @@ namespace Cloudents.Web.Api
             }
 
 
-            var email = new RequestTutorEmail();
+            var email = new RequestTutorEmail()
+            {
+                Email = model.Email,
+                IsProduction = configuration.IsProduction()
+            };
             foreach (var propertyInfo in model.GetType().GetProperties())
             {
                 var value = propertyInfo.GetValue(model);
@@ -180,7 +195,7 @@ namespace Cloudents.Web.Api
                     email.Dictionary.Add(propertyInfo.Name, value.ToString());
                 }
             }
-           
+
             var utmSource = referer.ParseQueryString()["utm_source"];
             var task1 = queueProvider.InsertMessageAsync(email, token);
             var task2 = _mondayProvider.CreateRecordAsync(new MondayMessage(model.Course,
