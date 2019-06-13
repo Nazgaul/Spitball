@@ -25,8 +25,10 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<ConversationDto>> GetAsync(AdminConversationsQuery query, CancellationToken token)
             {
-                const string sql = @"with cte as (
- select userid,ChatRoomId, u.Name
+                //TODO: make this quey better
+                const string sql = @"
+with cte as (
+ select userid,ChatRoomId, u.Name, PhoneNumberHash, Email
  from sb.ChatUser cu
  join sb.[user] u
 	on u.Id = cu.UserId
@@ -39,13 +41,23 @@ select cr.identifier as Id,
 						join cte on cm.ChatRoomId = cte.ChatRoomId
 						where cm.ChatRoomId = cr.id and cm.UserId = cte.UserId
 						order by cm.CreationTime) as UserName,
-	(select top 1 cte.UserId 
+	(select top 1 cte.PhoneNumberHash 
 						from sb.ChatMessage cm 
 						join cte on cm.ChatRoomId = cte.ChatRoomId
 						where cm.ChatRoomId = cr.id and cm.UserId = cte.UserId
-						order by cm.CreationTime) as UserId,
+						order by cm.CreationTime) as UserPhoneNumber,
+	(select top 1 cte.Email 
+						from sb.ChatMessage cm 
+						join cte on cm.ChatRoomId = cte.ChatRoomId
+						where cm.ChatRoomId = cr.id and cm.UserId = cte.UserId
+						order by cm.CreationTime) as UserEmail,
 						c2.Name as TutorName,
-						c2.UserId as TutorId
+						c2.PhoneNumberHash as TutorPhoneNumber,
+						c2.Email as TutorEmail,
+	case when (select count(distinct UserId) from sb.ChatMessage cm where cm.ChatRoomId = cr.id) = 1 then 'Student'
+	when (select count(distinct UserId) from sb.ChatMessage cm where cm.ChatRoomId = cr.id) = 2
+		and (select count(1) from sb.ChatMessage cm where cm.ChatRoomId = cr.id) = 2 then 'Tuter'
+	else 'Conversation' end as [Status]
 from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id and (cu.UserId = @UserId or @UserId = 0)
 join cte on cr.Id = cte.ChatRoomId and cu.UserId = cte.UserId
