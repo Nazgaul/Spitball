@@ -196,16 +196,20 @@ namespace Cloudents.FunctionsV2
                     continue;
                 }
                 var text = string.Format(
-                    "You have a new message from your {0} on Spitball. Click on the link to read your message ",
+                    "You have a new message from your {0} on Spitball. Click on the link to read your message {{link}} ",
                     unreadMessageDto.IsTutor ? "student" : "tutor");
-                if (unreadMessageDto.ChatMessagesCount == 1 && unreadMessageDto.IsTutor)
+                if (unreadMessageDto.ChatMessagesCount == 1)
                 {
-                     text = "hi lovely tutor you have new messages";
+                    if (unreadMessageDto.IsTutor)
+                     {
+                         text = "We found a student that wants a tutoring session with you. Click here {link} to chat and schedule a lesson.";
+                     }
+                     else
+                     {
+                         log.LogError($"this is first message and its not tutor {unreadMessageDto}");
+                     }
                 }
-                else
-                {
-                    log.LogError($"this is first message and its not tutor {unreadMessageDto}");
-                }
+              
                 var code = dataProtector.Protect(unreadMessageDto.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
                 var identifier = ShortId.Generate(true, false);
 
@@ -217,9 +221,9 @@ namespace Cloudents.FunctionsV2
 
                 var urlShort = urlBuilder.BuildShortUrlEndpoint(identifier);
 
-                var messageOptions = new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
+                var messageOptions = new CreateMessageOptions(new PhoneNumber("+9725426422020"))
                 {
-                    Body = $"{text} {urlShort}",
+                    Body = text.Inject(new {link = urlShort})
 
                 };
                 if (unreadMessageDto.PhoneNumber.StartsWith("+972"))
