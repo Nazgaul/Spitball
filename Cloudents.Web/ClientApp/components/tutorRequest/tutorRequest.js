@@ -9,7 +9,8 @@ import debounce from "lodash/debounce";
 export default {
     data() {
         return {
-            suggests: [],
+            suggestsUniversities: [],
+            suggestsCourses: [],
             tutorCourse: '',
             tutorRequestText: '',
             btnRequestLoading: false,
@@ -42,11 +43,19 @@ export default {
     },
     methods: {
         ...mapActions(['updateRequestDialog', 'updateToasterParams']),
-        search: debounce(function(ev){
+        searchCourses: debounce(function(ev){
             let term = ev.target.value.trim();
             if(!!term){
                 universityService.getCourse({term, page:0}).then(data=>{
-                    this.suggests = data;
+                    this.suggestsCourses = data;
+                })
+            }
+        },300),
+        searchUniversities: debounce(function(ev){
+            let term = ev.target.value.trim();
+            if(!!term){
+                universityService.getUni({term, page:0}).then(data=>{
+                    this.suggestsUniversities = data;
                 })
             }
         },300),
