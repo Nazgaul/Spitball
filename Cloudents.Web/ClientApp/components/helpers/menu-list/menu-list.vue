@@ -138,7 +138,7 @@
           <v-icon>sbf-studyroom-icon</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>schoolBlock_my_study_rooms</v-list-tile-title>
+          <v-list-tile-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
 

@@ -72,6 +72,7 @@ and T.State = 'Ok'
                 .JoinQueryOver(p => p.User)
                 .WithSubquery.WhereExists(courseQuery)
                 .WithSubquery.WhereNotExists(chatRoomQuery)
+                .And(x => x.Id != userId)
                 .Select(s => s.User.Id)
                 .Take(3)
                 .ListAsync<long>(token);
