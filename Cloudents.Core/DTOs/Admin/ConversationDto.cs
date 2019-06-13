@@ -10,14 +10,19 @@ namespace Cloudents.Core.DTOs.Admin
         public string Id { get; set; }
         [EntityBind(nameof(User.Name))]
         public string UserName { get; set; }
-        [EntityBind(nameof(User.Id))]
-        public long UserId { get; set; }
+        [EntityBind(nameof(RegularUser.PhoneNumber))]
+        public string UserPhoneNumber { get; set; }
+        [EntityBind(nameof(RegularUser.Email))]
+        public string UserEmail { get; set; }
         [EntityBind(nameof(User.Name))]
         public string TutorName { get; set; }
-        [EntityBind(nameof(User.Id))]
-        public long TutorId { get; set; }
-        [EntityBind(nameof(ChatMessage.CreationTime))]
+        
+        [EntityBind(nameof(RegularUser.PhoneNumber))]
+        public string TutorPhoneNumber { get; set; }
+        [EntityBind(nameof(RegularUser.Email))]
+        public string TutorEmail { get; set; }
         public DateTime LastMessage { get; set; }
+        public string Status { get; set; }
     }
 
     public class ConversationDetailsDto
