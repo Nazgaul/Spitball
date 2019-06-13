@@ -2,9 +2,9 @@
   <transition name="fade">
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm">
       <v-card>
-        <v-toolbar class="headline" dark color="#1B2441">
-          <v-icon class="header-icon mr-2">sbf-person-icon</v-icon>
-          <v-toolbar-title v-language:inner>tutorRequest_title</v-toolbar-title>
+        <v-toolbar class="headline" height="45" dark color="#1B2441">
+          <v-icon class="header-icon title">sbf-person-icon</v-icon>
+          <v-toolbar-title class="subheading" v-language:inner>tutorRequest_title</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-card-text>
@@ -36,9 +36,8 @@
               </v-flex>
 
               <v-flex xs12 v-if="!isAuthUser">
-                  <v-textarea 
-                    auto-grow 
-                    rows="1"
+                  <v-textarea  
+                    rows="3"
                     name="add-request-textarea"
                     :label="topicPlaceholder"
                     :rules="[rules.required, rules.maximumChars]"
@@ -46,7 +45,6 @@
             </v-flex>
             <v-flex xs12 v-else>
                   <v-textarea 
-                    auto-grow 
                     rows="2"
                     name="add-request-textarea"
                     :label="topicPlaceholder"
@@ -59,12 +57,12 @@
                     @keyup="searchCourses"
                     flat
                     hide-no-data
-                    :append-icon="'sbf-arrow-down'"
+                    :append-icon="''"
                     :menu-props="{contentClass:'courses-select-list'}"
                     v-model="tutorCourse"
                     :items="suggestsCourses"
                     :placeholder="coursePlaceholder"
-                    :rules="[rules.required]"
+                    :rules="[rules.required]"                  
                   ></v-autocomplete>
               </v-flex>
               <v-flex xs12 v-else>
@@ -72,12 +70,12 @@
                     @keyup="searchCourses"
                     flat
                     hide-no-data
-                    :append-icon="'sbf-arrow-down'"
+                    :append-icon="''"
                     :menu-props="{contentClass:'courses-select-list'}"
                     v-model="tutorCourse"
                     :items="suggestsCourses"
                     :placeholder="coursePlaceholder"
-                    :rules="[rules.required]"
+                    :rules="[rules.required]"  
                   ></v-autocomplete>
               </v-flex>
               
@@ -86,7 +84,7 @@
                     @keyup="searchUniversities"
                     flat
                     hide-no-data
-                    :append-icon="'sbf-arrow-down'"
+                    :append-icon="''"
                     :menu-props="{contentClass:'courses-select-list'}"
                     v-model="guestUniversity"
                     :items="suggestsUniversities"

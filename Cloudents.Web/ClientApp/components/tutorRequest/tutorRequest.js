@@ -74,31 +74,27 @@ export default {
                 if(this.isAuthUser){
                     let analyticsObject = {
                         userId: self.accountUser.id,
-                        course: self.tutorCourse
-                    }
+                        course: self.tutorCourse}
                     analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                 }
                 tutorService.requestTutor(serverObj)
                             .then(() => {
-                                      self.tutorRequestDialogClose();
-                                      self.updateToasterParams({
+                                        self.tutorRequestDialogClose();
+                                        self.updateToasterParams({
                                         toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
                                         showToaster: true,
                                       })
-                                  },
-                                  (err) => {
-                                    self.updateToasterParams({
-                                        toasterText: "We having trouble connection you to the room",
-                                        showToaster: true,
-                                        toasterType: 'error-toaster'
-                                      })
-                                  }).finally(() => {
-                                        self.btnRequestLoading = false;
-                                    });
+                                    }).catch((err)=>{
+                                        self.updateToasterParams({
+                                          toasterText: LanguageService.getValueByKey("tutorRequest_request_error"),
+                                          showToaster: true,
+                                          toasterType: 'error-toaster'
+                                        })
+                                  }).finally(() => self.btnRequestLoading = false);
             }
         },
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
         },
-    }
+    },
 };
