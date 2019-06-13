@@ -1,16 +1,24 @@
+using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Binders;
+using Cloudents.Query;
+using Cloudents.Query.Chat;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
+using shortid;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -19,14 +27,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Core.Interfaces;
-using Cloudents.Query;
-using Cloudents.Query.Chat;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.WindowsAzure.Storage.Blob;
-using shortid;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
@@ -62,23 +62,6 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("finish sending email");
         }
 
-
-        //[FunctionName("Test")]
-        //public static void test([TimerTrigger("0 */1 * * * *", RunOnStartup = true)] TimerInfo myTimer,
-        //    ILogger log)
-        //{
-        //    var str = ResourceWrapper.GetString("he", "cookie_toaster_action");
-        //    log.LogInformation($"Hebrew translation for key: cookie_toaster_action = {str}");
-
-        //    var str1 = ResourceWrapper.GetString("en", "cookie_toaster_action");
-        //    log.LogInformation($"English translation for key: cookie_toaster_action = {str1}");
-
-        //    var str2 = ResourceWrapper.GetString("he", "currency_dynamic");
-        //    log.LogInformation($"Hebrew translation for key: currency_dynamic = {str2}");
-
-        //    var str3 = ResourceWrapper.GetString("en", "currency_dynamic");
-        //    log.LogInformation($"English translation for key: currency_dynamic = {str3}");
-        //}
         //[FunctionName("FunctionEmailTest")]
         //public static async Task EmailFunctionTimerAsync(
         //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
@@ -195,27 +178,26 @@ namespace Cloudents.FunctionsV2
                 {
                     continue;
                 }
-                var text = string.Format(
-                    "You have a new message from your {0} on Spitball. Click on the link to read your message {{link}} ",
-                    unreadMessageDto.IsTutor ? "student" : "tutor");
+                var text =
+                    $"You have a new message from your {(unreadMessageDto.IsTutor ? "student" : "tutor")} on Spitball. Click on the link to read your message {{link}} ";
                 if (unreadMessageDto.ChatMessagesCount == 1)
                 {
                     if (unreadMessageDto.IsTutor)
-                     {
-                         text = "We found a student that wants a tutoring session with you. Click here {link} to chat and schedule a lesson.";
-                     }
-                     else
-                     {
-                         log.LogError($"this is first message and its not tutor {unreadMessageDto}");
-                     }
+                    {
+                        text = "We found a student that wants a tutoring session with you. Click here {link} to chat and schedule a lesson.";
+                    }
+                    else
+                    {
+                        log.LogError($"this is first message and its not tutor {unreadMessageDto}");
+                    }
                 }
-              
+
                 var code = dataProtector.Protect(unreadMessageDto.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
                 var identifier = ShortId.Generate(true, false);
 
-               
 
-                var url = urlBuilder.BuildChatEndpoint(code,new { utm_source = "SMS-auto" });
+
+                var url = urlBuilder.BuildChatEndpoint(code, new { utm_source = "SMS-auto" });
                 var command = new CreateShortUrlCommand(identifier, url.PathAndQuery, DateTime.UtcNow.AddDays(5));
                 await commandBus.DispatchAsync(command, token);
 
@@ -223,7 +205,7 @@ namespace Cloudents.FunctionsV2
 
                 var messageOptions = new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
                 {
-                    Body = text.Inject(new {link = urlShort})
+                    Body = text.Inject(new { link = urlShort })
 
                 };
                 if (unreadMessageDto.PhoneNumber.StartsWith("+972"))
