@@ -8,9 +8,11 @@
           </v-toolbar>
 
           <v-card class="blue lighten-4">
-            <v-container fluid grid-list-lg>
-              <v-layout row wrap>
-                <v-flex
+            <v-container fluid grid-list-lg >
+              <v-layout row wrap >
+
+
+                <!-- <v-flex
                   xs12
                   v-for="(conversation, index) in conversationsList"
                   :key="index"
@@ -31,9 +33,6 @@
                             {{conversation.tutorName}}
                           </v-flex>
                         </v-layout>
-                          
-                     
-                    
                             <v-layout  justify-start row class="pl-2 text-xs-left">
                                 <v-flex >
                                     <v-layout  justify-start row >
@@ -56,7 +55,51 @@
                       </v-layout>
                     </v-card-text>
                   </v-card>
-                </v-flex>
+                </v-flex> -->
+
+      <v-expansion-panel class="elevation-0">
+        <v-expansion-panel-content xs12 v-for="(conversation, index) in conversationsList" :key="index" class="mb-3 elevation-1">
+                  <div slot="header" >
+                    <v-card-text>
+                      <v-layout column>
+                        <v-layout justify-start row class="pl-2 text-xs-left">
+                          <v-flex  xs3 >
+                            <b>Tutor Id:</b>{{conversation.tutorId}}
+                          </v-flex>
+                          <div>&nbsp;&nbsp;&nbsp;</div>
+                          <v-flex xs3>
+                            <b>Tutor Name:</b>
+                            {{conversation.tutorName}}
+                          </v-flex>
+                        </v-layout>
+                            <v-layout  justify-start row class="pl-2 text-xs-left">
+                                <v-flex >
+                                    <v-layout  justify-start row >
+                         <v-flex  xs3 >
+                            <b>Student Id:</b>
+                            {{conversation.userId}}
+                         </v-flex>
+                          <div>&nbsp;&nbsp;&nbsp;</div>
+                          <v-flex  xs3 >
+                            <b>Student Name:</b>
+                            {{conversation.userName}}
+                          </v-flex>
+                          <v-flex >
+                            <b>Last Message:</b>
+                            {{conversation.lastMessage.toLocaleString()}}
+                          </v-flex>
+                          </v-layout>
+                                </v-flex>
+                            </v-layout>
+                      </v-layout>
+                    </v-card-text>
+                  </div>
+
+            <conversationMessages :id="conversation.id"/>  
+              
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
               </v-layout>
             </v-container>
           </v-card>
@@ -70,6 +113,7 @@
 </template>
 
 <script>
+import conversationMessages from '../conversationMessages/conversationMessages.vue'
 import {
   getConversationsList,
   getDetails,
@@ -92,10 +136,8 @@ export default {
       expand: false
     };
   },
-  methods: {
-    openItem(item) {
-      this.$router.push({ path: `conversationDetail/${item.id}` });
-    }
+  components: {
+    conversationMessages
   },
   created() {
     getConversationsList().then(
