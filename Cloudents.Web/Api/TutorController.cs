@@ -23,6 +23,7 @@ using Cloudents.Core.Message;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -38,15 +39,17 @@ namespace Cloudents.Web.Api
         private readonly UserManager<RegularUser> _userManager;
         private readonly IMondayProvider _mondayProvider;
         private readonly ICommandBus _commandBus;
+        private readonly IStringLocalizer<TutorController> _stringLocalizer;
 
 
         public TutorController(IQueryBus queryBus, UserManager<RegularUser> userManager,
-            IMondayProvider mondayProvider, ICommandBus commandBus)
+            IMondayProvider mondayProvider, ICommandBus commandBus, IStringLocalizer<TutorController> stringLocalizer)
         {
             _queryBus = queryBus;
             _userManager = userManager;
             _mondayProvider = mondayProvider;
             _commandBus = commandBus;
+            _stringLocalizer = stringLocalizer;
         }
 
 
@@ -162,7 +165,7 @@ namespace Cloudents.Web.Api
             if (userId > 0)
             {
                 var command = new SendTutorRequestChatTextMessageCommand(model.Course,
-                    "Hi lovely tutor. this a test of a message that i need your help from request tutor pop up",
+                    _stringLocalizer["RequestTutorChatMessage"],
                     userId);
                 await _commandBus.DispatchAsync(command, token);
             }
