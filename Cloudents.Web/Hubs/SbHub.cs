@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Dapper;
@@ -53,29 +52,11 @@ namespace Cloudents.Web.Hubs
                 if (_canUpdateDb)
                 {
                     const string sql = @"update sb.[user] set Online = @IsOnline, LastOnline = GETUTCDATE() where Id = @Id";
-                    int rows;
                     using (var connection = _dapper.OpenConnection())
                     {
-                        rows = await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isOnline });
-                    }
-
-                    if (rows == 0)
-                    {
-                        _logger.Value.Exception(new UserLockoutException(), new Dictionary<string, string>()
-                        {
-                            ["SignalR"] = "Signalr",
-                            ["currentUserId"] = "currentUserId"
-                        });
-                        var message2 = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
-                            new object());
-                        await Clients.User(Context.UserIdentifier).SendCoreAsync("Message", new object[]
-                        {
-                        message2
-                        });
-                        return;
+                         await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isOnline });
                     }
                 }
-
             }
             catch (Exception e)
             {
@@ -125,46 +106,13 @@ namespace Cloudents.Web.Hubs
             {
                 _logger.Value.Warning($"Investigate online {currentUserId}");
             }
-            //try
-            //{
-
-            //    if (result)
-            //    {
-            //        _logger.Value.Info($"Need to change online status true of user {currentUserId}");
-            //       // var command = new ChangeOnlineStatusCommand(currentUserId, true);
-            //       // await _commandBus.Value.DispatchAsync(command, default);
-            //    }
-
-
-            //}
-            //catch (Exception e)
-            //{
-
-            //    _logger.Value.Exception(e, new Dictionary<string, string>()
-            //    {
-            //        ["SignalR"] = "Signalr"
-            //    });
-            //}
+           
             if (country != null)
             {
 
                 await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
             }
 
-            //var message = new SignalRTransportType(SignalRType.User, SignalREventAction.OnlineStatus,
-            //    new
-            //    {
-            //        id = currentUserId,
-            //        online = true
-            //    });
-
-
-
-            //await Clients.All.SendAsync(MethodName, message);
-
-
-            //  await Task.WhenAll(t2);
-            //  await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
