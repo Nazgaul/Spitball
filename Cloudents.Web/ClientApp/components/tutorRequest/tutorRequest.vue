@@ -2,9 +2,9 @@
   <transition name="fade">
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm">
       <v-card>
-        <v-toolbar class="headline" height="50" dark color="#1B2441">
-          <v-icon class="header-icon mr-2">sbf-person-icon</v-icon>
-          <v-toolbar-title v-language:inner>tutorRequest_title</v-toolbar-title>
+        <v-toolbar class="headline" height="45" dark color="#1B2441">
+          <v-icon class="header-icon title">sbf-person-icon</v-icon>
+          <v-toolbar-title class="subheading" v-language:inner>tutorRequest_title</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-card-text>

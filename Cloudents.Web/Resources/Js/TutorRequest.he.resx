@@ -141,6 +141,9 @@
   <data name="phoneNumber" xml:space="preserve">
     <value>טלפון</value>
   </data>
+  <data name="request_error" xml:space="preserve">
+    <value>אופסס... משהו השתבש - נסה שוב</value>
+  </data>
   <data name="request_received" xml:space="preserve">
     <value>בקשתך לתרגול נקלטה בהצלחה, מתרגלים ייצרו איתך קשר בהקדם</value>
   </data>
