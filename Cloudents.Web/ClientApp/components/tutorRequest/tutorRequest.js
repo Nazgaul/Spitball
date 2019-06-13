@@ -27,7 +27,6 @@ export default {
             },
             btnSubmitPlaceholder: LanguageService.getValueByKey("tutorRequest_btn_submit"),
             btnClosePlaceholder: LanguageService.getValueByKey("tutorRequest_btn_close"),
-            fromTutorListTitle: LanguageService.getValueByKey("tutorRequest_title_tutor_list"),
             titlePlaceholder: LanguageService.getValueByKey("tutorRequest_title"),
             coursePlaceholder: LanguageService.getValueByKey("tutorRequest_select_course_placeholder"),
             topicPlaceholder: LanguageService.getValueByKey("tutorRequest_topic_placeholder"),
