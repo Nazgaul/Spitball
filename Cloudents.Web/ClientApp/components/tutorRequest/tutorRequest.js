@@ -9,6 +9,7 @@ import debounce from "lodash/debounce";
 export default {
     data() {
         return {
+            isTutorList: false,
             suggestsUniversities: [],
             suggestsCourses: [],
             tutorCourse: '',
@@ -26,6 +27,7 @@ export default {
             },
             btnSubmitPlaceholder: LanguageService.getValueByKey("tutorRequest_btn_submit"),
             btnClosePlaceholder: LanguageService.getValueByKey("tutorRequest_btn_close"),
+            fromTutorListTitle: LanguageService.getValueByKey("tutorRequest_title_tutor_list"),
             titlePlaceholder: LanguageService.getValueByKey("tutorRequest_title"),
             coursePlaceholder: LanguageService.getValueByKey("tutorRequest_select_course_placeholder"),
             topicPlaceholder: LanguageService.getValueByKey("tutorRequest_topic_placeholder"),
@@ -96,5 +98,8 @@ export default {
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
         },
+    },
+    created() {
+        this.$route.name === 'tutorLandingPage'? this.isTutorList = true : false;
     },
 };

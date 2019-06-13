@@ -153,6 +153,9 @@
   <data name="title" xml:space="preserve">
     <value>בקשה לתרגול</value>
   </data>
+  <data name="title_tutor_list" xml:space="preserve">
+    <value>שלח הודעה למתרגל</value>
+  </data>
   <data name="topic_placeholder" xml:space="preserve">
     <value>רציתי לבקש תרגול בנושא...</value>
   </data>

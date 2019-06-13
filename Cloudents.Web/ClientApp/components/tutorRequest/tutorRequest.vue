@@ -4,7 +4,7 @@
       <v-card>
         <v-toolbar class="headline" height="45" dark color="#1B2441">
           <v-icon class="header-icon title">sbf-person-icon</v-icon>
-          <v-toolbar-title class="subheading" v-language:inner>tutorRequest_title</v-toolbar-title>
+          <v-toolbar-title class="subheading" v-language:inner="isTutorList? 'tutorRequest_title_tutor_list': 'tutorRequest_title'"></v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-card-text>
