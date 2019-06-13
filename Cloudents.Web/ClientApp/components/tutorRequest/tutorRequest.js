@@ -9,6 +9,7 @@ import debounce from "lodash/debounce";
 export default {
     data() {
         return {
+            isTutorList: false,
             suggestsUniversities: [],
             suggestsCourses: [],
             tutorCourse: '',
@@ -96,5 +97,8 @@ export default {
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
         },
+    },
+    created() {
+        this.$route.name === 'profile'? this.isTutorList = true : false;
     },
 };

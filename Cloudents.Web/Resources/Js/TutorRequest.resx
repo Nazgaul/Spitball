@@ -150,8 +150,14 @@
   <data name="select_course_placeholder" xml:space="preserve">
     <value>In what course ?</value>
   </data>
+  <data name="string" xml:space="preserve">
+    <value />
+  </data>
   <data name="title" xml:space="preserve">
     <value>Request a Tutor</value>
+  </data>
+  <data name="title_tutor_list" xml:space="preserve">
+    <value>Send a Message</value>
   </data>
   <data name="topic_placeholder" xml:space="preserve">
     <value>I need help with this topic...</value>
