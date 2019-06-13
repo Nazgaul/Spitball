@@ -33,6 +33,17 @@
       </user-block>
       <!-- start language swith-->
       <v-list-tile
+        :to="{ name: 'tutoring'}"
+        target="_blank"
+      >
+        <v-list-tile-action>
+          <v-icon>sbf-studyroom-icon</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile
         v-for="singleLang in languageChoisesAval"
         :key="singleLang.name"
         @click="changeLanguage(singleLang.id)"
@@ -129,6 +140,7 @@
         </v-list-tile-action>
       </v-list-tile>
 
+     
       <v-list-tile
         :to="{ name: 'tutoring'}"
         target="_blank"
