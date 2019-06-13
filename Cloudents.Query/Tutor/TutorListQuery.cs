@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Cloudents.Core.DTOs;
+using Dapper;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Dapper;
 
 namespace Cloudents.Query.Tutor
 {
@@ -91,14 +91,13 @@ FETCH NEXT 20 ROWS ONLY;";
                 {
                     using (var multi = await conn.QueryMultipleAsync(sql, new { query.UserId, query.Country }))
                     {
-                        var t = multi.Read<TutorListDto>().ToList();
-                        t.AddRange(multi.Read<TutorListDto>().ToList());
-                        t.AddRange(multi.Read<TutorListDto>().ToList());
-                        t = t.Distinct(TutorListDto.UserIdComparer).ToList();
-                        return t.Take(20);
+                        var t1 = await multi.ReadAsync<TutorListDto>();
+                        var t2 = await multi.ReadAsync<TutorListDto>();
+                        var t3 = await multi.ReadAsync<TutorListDto>();
+
+                        return t1.Union(t2).Union(t3).Distinct(TutorListDto.UserIdComparer).Take(20);
                     }
 
-                   // return retVal.Distinct(TutorListDto.UserIdComparer);
                 }
             }
         }
