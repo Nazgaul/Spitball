@@ -131,7 +131,6 @@
 
       <v-list-tile
         :to="{ name: 'tutoring'}"
-        v-if="isLoggedIn"
         target="_blank"
       >
         <v-list-tile-action>
