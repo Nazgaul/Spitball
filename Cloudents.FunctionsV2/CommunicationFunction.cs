@@ -221,7 +221,7 @@ namespace Cloudents.FunctionsV2
 
                 var urlShort = urlBuilder.BuildShortUrlEndpoint(identifier);
 
-                var messageOptions = new CreateMessageOptions(new PhoneNumber("+9725426422020"))
+                var messageOptions = new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
                 {
                     Body = text.Inject(new {link = urlShort})
 
