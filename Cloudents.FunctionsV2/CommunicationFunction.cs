@@ -63,22 +63,22 @@ namespace Cloudents.FunctionsV2
         }
 
 
-        [FunctionName("Test")]
-        public static void test([TimerTrigger("0 */1 * * * *", RunOnStartup = true)] TimerInfo myTimer,
-            ILogger log)
-        {
-            var str = ResourceWrapper.GetString("he", "cookie_toaster_action");
-            log.LogInformation($"Hebrew translation for key: cookie_toaster_action = {str}");
+        //[FunctionName("Test")]
+        //public static void test([TimerTrigger("0 */1 * * * *", RunOnStartup = true)] TimerInfo myTimer,
+        //    ILogger log)
+        //{
+        //    var str = ResourceWrapper.GetString("he", "cookie_toaster_action");
+        //    log.LogInformation($"Hebrew translation for key: cookie_toaster_action = {str}");
 
-            var str1 = ResourceWrapper.GetString("en", "cookie_toaster_action");
-            log.LogInformation($"English translation for key: cookie_toaster_action = {str1}");
+        //    var str1 = ResourceWrapper.GetString("en", "cookie_toaster_action");
+        //    log.LogInformation($"English translation for key: cookie_toaster_action = {str1}");
 
-            var str2 = ResourceWrapper.GetString("he", "currency_dynamic");
-            log.LogInformation($"Hebrew translation for key: currency_dynamic = {str2}");
+        //    var str2 = ResourceWrapper.GetString("he", "currency_dynamic");
+        //    log.LogInformation($"Hebrew translation for key: currency_dynamic = {str2}");
 
-            var str3 = ResourceWrapper.GetString("en", "currency_dynamic");
-            log.LogInformation($"English translation for key: currency_dynamic = {str3}");
-        }
+        //    var str3 = ResourceWrapper.GetString("en", "currency_dynamic");
+        //    log.LogInformation($"English translation for key: currency_dynamic = {str3}");
+        //}
         //[FunctionName("FunctionEmailTest")]
         //public static async Task EmailFunctionTimerAsync(
         //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
@@ -174,6 +174,7 @@ namespace Cloudents.FunctionsV2
             [Inject] ICommandBus commandBus,
             [Inject] IDataProtectionProvider dataProtectProvider,
             [Inject] IUrlBuilder urlBuilder,
+            ILogger log,
             CancellationToken token)
         {
             byte[] version = null;
@@ -190,13 +191,29 @@ namespace Cloudents.FunctionsV2
                 .ToTimeLimitedDataProtector();
             foreach (var unreadMessageDto in result.Distinct(UnreadMessageDto.UserIdComparer))
             {
-
+                if (unreadMessageDto.ChatMessagesCount == 0)
+                {
+                    continue;
+                }
+                var text = string.Format(
+                    "You have a new message from your {0} on Spitball. Click on the link to read your message {{link}} ",
+                    unreadMessageDto.IsTutor ? "student" : "tutor");
+                if (unreadMessageDto.ChatMessagesCount == 1)
+                {
+                    if (unreadMessageDto.IsTutor)
+                     {
+                         text = "We found a student that wants a tutoring session with you. Click here {link} to chat and schedule a lesson.";
+                     }
+                     else
+                     {
+                         log.LogError($"this is first message and its not tutor {unreadMessageDto}");
+                     }
+                }
+              
                 var code = dataProtector.Protect(unreadMessageDto.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
                 var identifier = ShortId.Generate(true, false);
 
-                var text = string.Format(
-                      "You have a new message from your {0} on Spitball. Click on the link to read your message ",
-                      unreadMessageDto.IsTutor ? "student" : "tutor");
+               
 
                 var url = urlBuilder.BuildChatEndpoint(code,new { utm_source = "SMS-auto" });
                 var command = new CreateShortUrlCommand(identifier, url.PathAndQuery, DateTime.UtcNow.AddDays(5));
@@ -206,7 +223,7 @@ namespace Cloudents.FunctionsV2
 
                 var messageOptions = new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
                 {
-                    Body = $"{text} {urlShort}",
+                    Body = text.Inject(new {link = urlShort})
 
                 };
                 if (unreadMessageDto.PhoneNumber.StartsWith("+972"))

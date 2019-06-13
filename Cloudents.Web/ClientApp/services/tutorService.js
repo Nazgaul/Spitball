@@ -4,8 +4,6 @@ export default {
         return connectivityModule.http.post(`tutor/request`, data)
                                  .then((resp) => {
                                      return resp.data;
-                                 }, (error) => {
-                                     return error;
                                  });
     }
 };

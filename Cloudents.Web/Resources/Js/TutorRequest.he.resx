@@ -141,6 +141,9 @@
   <data name="phoneNumber" xml:space="preserve">
     <value>טלפון</value>
   </data>
+  <data name="request_error" xml:space="preserve">
+    <value>אופסס... משהו השתבש - נסה שוב</value>
+  </data>
   <data name="request_received" xml:space="preserve">
     <value>בקשתך לתרגול נקלטה בהצלחה, מתרגלים ייצרו איתך קשר בהקדם</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="title" xml:space="preserve">
     <value>בקשה לתרגול</value>
+  </data>
+  <data name="title_tutor_list" xml:space="preserve">
+    <value>שלח הודעה</value>
   </data>
   <data name="topic_placeholder" xml:space="preserve">
     <value>רציתי לבקש תרגול בנושא...</value>

@@ -7,8 +7,13 @@
         <v-layout column class="messages-wrapper">
             <div class="messages-header">
                 <div class="messages-study-room" v-if="showStudyRoomInteraction" @click="createRoom">
-                    <button v-show="studyRoomExists"><v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon><span v-language:inner="'chat_studyRoom_enter'"></span></button>
-                    <button v-show="!studyRoomExists && isRoomTutor"><v-icon style="font-size:10px; transform: rotate(45deg); margin: 0 4px 3px 0; color:#fff;">sbf-close</v-icon>&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span></button>
+                    <button v-show="studyRoomExists">
+                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>
+                        <span v-language:inner="'chat_studyRoom_enter'"></span>
+                    </button>
+                    <v-btn flat class="white--text messages-study-room-btn-create" v-show="!studyRoomExists && isRoomTutor" :loading="loader">
+                        <v-icon style="font-size:10px; transform: rotate(45deg); margin: 0 4px 0 0; color:#fff;">sbf-close</v-icon>&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
+                    </v-btn>
                 </div>
             </div>
             <div class="messages-body">
@@ -49,7 +54,8 @@ export default {
             messageText: "",
             placeHolderText: LanguageService.getValueByKey("chat_type_message"),
             emptyStateMessages: [],
-            alreadyCreated: false
+            alreadyCreated: false,
+            loader: false
         }
     },
     computed:{
@@ -96,6 +102,7 @@ export default {
         },
         createRoom(){
             let conversationObj = this.activeConversationObj;
+            this.loader = true;
             if(!!this.activeConversationObj.studyRoomId){
                 let routeData = this.$router.resolve({
                     name: 'tutoring',
@@ -107,12 +114,12 @@ export default {
             }else{
                 if(!this.alreadyCreated){
                     let userId = conversationObj.userId;
-                    this.createStudyRoom(userId);
+                    this.createStudyRoom(userId).then(() => {
+                      this.loader = false
+                    });
                     this.alreadyCreated = true;
                 }
-
             }
-            
         }
     }
 }
@@ -151,6 +158,15 @@ export default {
                             padding: 5px 10px;
                             font-size: 12px;
                             outline: none;
+                        }
+                        .messages-study-room-btn-create {
+                           height: auto;
+                           padding: 0 10px;
+                           text-transform: capitalize;
+                        }
+                        .messages-study-room-btn-create::before {
+                           content: "";
+                           color: transparent;
                         }
                 }
                

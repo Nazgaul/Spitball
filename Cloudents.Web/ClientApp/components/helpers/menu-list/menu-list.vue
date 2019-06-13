@@ -33,6 +33,17 @@
       </user-block>
       <!-- start language swith-->
       <v-list-tile
+        :to="{ name: 'tutoring'}"
+        target="_blank"
+      >
+        <v-list-tile-action>
+          <v-icon>sbf-studyroom-icon</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile
         v-for="singleLang in languageChoisesAval"
         :key="singleLang.name"
         @click="changeLanguage(singleLang.id)"
@@ -129,16 +140,16 @@
         </v-list-tile-action>
       </v-list-tile>
 
+     
       <v-list-tile
-        :to="{ name: 'studyRooms'}"
-        v-if="isLoggedIn"
-        @click.native.prevent="openStudyRooms()"
+        :to="{ name: 'tutoring'}"
+        target="_blank"
       >
         <v-list-tile-action>
           <v-icon>sbf-studyroom-icon</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>schoolBlock_my_study_rooms</v-list-tile-title>
+          <v-list-tile-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
 
@@ -302,7 +313,6 @@ export default {
       "changeSelectUniState",
       "updateCurrentStep"
     ]),
-    ...mapGetters(["getAllSteps"]),
     currentTemplate(val) {
       return val ? "router-link" : "v-list-tile";
     },
@@ -345,16 +355,6 @@ export default {
     closeReferralDialog() {
       this.showReferral = false;
     },
-    openStudyRooms() {
-      if (!this.isLoggedIn) {
-        this.updateLoginDialogState(true);
-      } else {
-        let steps = this.getAllSteps;
-        this.$router.push({
-          name: "studyRooms"
-        });
-      }
-    }
   },
 
   created() {

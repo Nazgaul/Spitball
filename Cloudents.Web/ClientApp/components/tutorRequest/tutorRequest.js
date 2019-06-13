@@ -9,7 +9,9 @@ import debounce from "lodash/debounce";
 export default {
     data() {
         return {
-            suggests: [],
+            isTutorList: false,
+            suggestsUniversities: [],
+            suggestsCourses: [],
             tutorCourse: '',
             tutorRequestText: '',
             btnRequestLoading: false,
@@ -42,11 +44,19 @@ export default {
     },
     methods: {
         ...mapActions(['updateRequestDialog', 'updateToasterParams']),
-        search: debounce(function(ev){
+        searchCourses: debounce(function(ev){
             let term = ev.target.value.trim();
             if(!!term){
                 universityService.getCourse({term, page:0}).then(data=>{
-                    this.suggests = data;
+                    this.suggestsCourses = data;
+                })
+            }
+        },300),
+        searchUniversities: debounce(function(ev){
+            let term = ev.target.value.trim();
+            if(!!term){
+                universityService.getUni({term, page:0}).then(data=>{
+                    this.suggestsUniversities = data;
                 })
             }
         },300),
@@ -65,31 +75,30 @@ export default {
                 if(this.isAuthUser){
                     let analyticsObject = {
                         userId: self.accountUser.id,
-                        course: self.tutorCourse
-                    }
+                        course: self.tutorCourse}
                     analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                 }
                 tutorService.requestTutor(serverObj)
                             .then(() => {
-                                      self.tutorRequestDialogClose();
-                                      self.updateToasterParams({
+                                        self.tutorRequestDialogClose();
+                                        self.updateToasterParams({
                                         toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
                                         showToaster: true,
                                       })
-                                  },
-                                  (err) => {
-                                    self.updateToasterParams({
-                                        toasterText: "We having trouble connection you to the room",
-                                        showToaster: true,
-                                        toasterType: 'error-toaster'
-                                      })
-                                  }).finally(() => {
-                                        self.btnRequestLoading = false;
-                                    });
+                                    }).catch((err)=>{
+                                        self.updateToasterParams({
+                                          toasterText: LanguageService.getValueByKey("tutorRequest_request_error"),
+                                          showToaster: true,
+                                          toasterType: 'error-toaster'
+                                        })
+                                  }).finally(() => self.btnRequestLoading = false);
             }
         },
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
         },
-    }
+    },
+    created() {
+        this.$route.name === 'profile'? this.isTutorList = true : false;
+    },
 };

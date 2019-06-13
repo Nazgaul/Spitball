@@ -18,12 +18,12 @@ import analyticsService from '../../../../services/analytics.service';
             ...mapGetters(['accountUser']),
         },
         methods:{
-            ...mapActions(['updateLoginDialogState', 'setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface']),
+            ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface','updateRequestDialog']),
             ...mapGetters(['getProfile']),
             sendMessage(){
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'profile_page');
                 if ( this.accountUser == null) {
-                    this.updateLoginDialogState(true);
+                this.updateRequestDialog(true);
                 } else {
                     let currentProfile = this.getProfile();
                     let conversationObj = {

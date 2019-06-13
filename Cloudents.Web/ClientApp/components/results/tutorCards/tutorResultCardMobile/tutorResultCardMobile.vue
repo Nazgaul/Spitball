@@ -115,15 +115,15 @@ export default {
       this.isLoaded = true;
     },
     tutorCardClicked() {
-      analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
-      if (this.fromLandingPage) {
-        this.openRequestDialog();
-      } else {
+        if(this.fromLandingPage){
+            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+        }else{
+            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+        }
         this.$router.push({
           name: "profile",
           params: { id: this.tutorData.userId, name: this.tutorData.name }
         });
-      }
     },
     openRequestDialog() {
       this.updateRequestDialog(true);
