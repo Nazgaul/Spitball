@@ -132,15 +132,11 @@ export default {
         }else{
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
         }
-      
-      if (this.fromLandingPage) {
-        this.openRequestDialog();
-      } else {
         this.$router.push({
           name: "profile",
           params: { id: this.tutorData.userId, name: this.tutorData.name }
         });
-      }
+      
     },
     openRequestDialog() {
       this.updateRequestDialog(true);

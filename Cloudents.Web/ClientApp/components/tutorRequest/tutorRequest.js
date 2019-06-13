@@ -99,6 +99,6 @@ export default {
         },
     },
     created() {
-        this.$route.name === 'tutorLandingPage'? this.isTutorList = true : false;
+        this.$route.name === 'profile'? this.isTutorList = true : false;
     },
 };
