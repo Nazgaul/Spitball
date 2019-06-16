@@ -80,9 +80,9 @@
                               <v-flex><b>Last Message:</b>{{conversation.lastMessage.toLocaleString()}}</v-flex>
                             </v-layout>
                           </v-flex>
-                              {{conversation.status}}
+                       
                              <select :class="conversation.status" @change="changeStatus($event,conversation.id)">
-                               <option value="default" class="grey">default</option>
+                               <option value="default" selected class="grey"></option>
                                <option value="NoMatch" class="red">No Match</option>
                                <option value="Scheduled" class="green">Scheduled</option>
                                <option value="Active" class="orange">Active</option>
@@ -160,8 +160,8 @@ export default {
       err => {
         console.log(err);
       }
-    );
-  }
+    )
+  },
 };
 </script>
 

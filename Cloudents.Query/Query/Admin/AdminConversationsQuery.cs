@@ -32,13 +32,14 @@ cr.Id ,
 cr.status,
 cr.Identifier ,
 cr.UpdateTime as lastMessage,
+u.id as userId,
 u.Name,
 u.Email,
 u.PhoneNumberHash,
 case when (select top 1 UserId from sb.ChatMessage cm where  cm.ChatRoomId = cr.id ) = cu.userid then 0 else 1 end as isTutor
 
 from sb.ChatUser cu
-join sb.ChatRoom cr on cu.ChatRoomId = cr.Id and (cu.UserId = @UserId or @UserId = 0)
+join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 join sb.[user] u on cu.UserId = u.Id
 )
 select c.Identifier as id,
@@ -63,6 +64,7 @@ where ChatRoomId = c.id
 ) t2) as conversationStatus
  
 from cte c inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
+ where (c.UserId = @UserId or @UserId = 0 or d.userId = @UserId)
 order by c.lastMessage desc";
                 using (var connection = _dapper.OpenConnection())
                 {
