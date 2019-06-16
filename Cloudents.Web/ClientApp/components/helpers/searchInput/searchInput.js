@@ -117,7 +117,7 @@ export default {
             console.log('clicked outside');
             this.closeSuggestions();
         },
-        selectos(item) {
+        selectors(item) {
             //this.msg = item.text;
             //this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ?
             // this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
