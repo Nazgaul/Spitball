@@ -60,10 +60,9 @@ const allModules = [
     "vuetify/es5/components/VTextarea",
     "vuetify/es5/components/VRating",
     "vuetify/es5/components/VForm",
-  
+    "vuetify/es5/components/VAutocomplete",
 
     "webfontloader",
-
 ];
 
 module.exports = (env) => {

@@ -178,7 +178,6 @@
             </router-link>
         </section>
 
-        <!--<v-parallax class="overflowing-parallax"-->
         <!--dark-->
         <!--src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">-->
         <section class="reviews">
@@ -221,7 +220,6 @@
                 </v-carousel>
             </div>
         </section>
-        <!--</v-parallax>-->
         <section class="subjects" v-if="$vuetify.breakpoint.smAndUp">
             <h3 class="subject-title" v-language:inner>landingPage_find_by_subject</h3>
             <span class="subject-sub-title" v-language:inner>landingPage_find_by_subject_desc</span>
