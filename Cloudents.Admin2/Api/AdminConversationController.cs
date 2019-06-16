@@ -52,7 +52,7 @@ namespace Cloudents.Admin2.Api
             return result;
         }
 
-        [HttpPost("{id}/status")]
+        [HttpPost("{identifier}/status")]
         public async Task<IActionResult> ChangeStatus(
             [FromRoute] string identifier,
             ChangeConversationStatusRequest model,
@@ -60,6 +60,10 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
 
         {
+            if (string.IsNullOrEmpty(identifier))
+            {
+                return BadRequest();
+            }
             var command = new ChangeConversationStatusCommand(identifier, model.Status);
             await commandBus.DispatchAsync(command, token);
             return Ok();

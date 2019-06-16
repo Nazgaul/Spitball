@@ -62,9 +62,9 @@
                           </v-layout>
                         </v-layout>
                       </v-card-text>
-
+                       
                              <select :class="conversation.status" @change="changeStatus($event,conversation.id)">
-                               <option value="default" class="grey"></option>
+                               <option value="default" selected class="grey"></option>
                                <option value="NoMatch" class="red">No Match</option>
                                <option value="Scheduled" class="green">Scheduled</option>
                                <option value="Active" class="orange">Active</option>
@@ -120,19 +120,6 @@ export default {
   components: {
     conversationMessages
   },
-  methods: {
-    changeStatus(ev,id){
-      let selected = {
-        "status": ev.target.value
-      }
-        setConversationsStatus(id,selected).then(()=>{
-          if(selected === "NoMatch"){this.selectClass = 'red'}
-          if(selected === "Scheduled"){this.selectClass = 'green'}
-          if(selected === "Active"){this.selectClass = 'orange'}
-          if(selected === "default"){this.selectClass = 'grey'}
-        })
-    }
-  },
   created() {
     getConversationsList().then(
       list => {
@@ -149,6 +136,17 @@ export default {
     );
   },
   methods: {
+     changeStatus(ev,id){
+      let selected = {
+        "status": ev.target.value
+      }
+        setConversationsStatus(id,selected).then(()=>{
+          if(selected === "NoMatch"){this.selectClass = 'red'}
+          if(selected === "Scheduled"){this.selectClass = 'green'}
+          if(selected === "Active"){this.selectClass = 'orange'}
+          if(selected === "default"){this.selectClass = 'grey'}
+        })
+    },
     getConversationData(conversation_id) {
       if (this.currentSelectedId !== conversation_id) {
         this.currentSelectedId = conversation_id;
