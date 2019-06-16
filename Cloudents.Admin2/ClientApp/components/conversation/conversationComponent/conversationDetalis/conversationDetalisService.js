@@ -10,7 +10,8 @@ function ConversationItem(objInit) {
     this.tutorId = objInit.tutorId;
     this.tutorPhoneNumber = objInit.tutorPhoneNumber;
     this.tutorEmail = objInit.tutorEmail;
-    this.status = objInit.autoStatus;
+    this.autoStatus = objInit.autoStatus;
+    this.status = objInit.status || 'default';
     this.lastMessage = new Date(objInit.lastMessage);
     this.expanded = false;
 }
