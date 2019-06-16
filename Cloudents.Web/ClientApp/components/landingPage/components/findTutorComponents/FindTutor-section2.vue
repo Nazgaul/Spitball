@@ -4,12 +4,14 @@
       <img src="./images/FindTutor_section2.png" alt>
     </v-flex>
     <v-flex class="landing-section2-text-container">
-      <h3 v-language:inner="'landingPage_section2_title'"></h3>
-      <span v-language:inner="'landingPage_section2_pharagraph'"></span>
+      <h3 v-language:inner="'landingPage_section2_title'" class="pb-4"></h3>
+      <h4 v-language:inner="'landingPage_section2_pharagraph'">
+        
+      </h4>
       <span
-        class="landing-section2-text-bold"
-        v-language:inner="'landingPage_section2_pharagraph_bold'"
-      ></span>
+          class="landing-section2-text-bold white--text"
+          v-language:inner="'landingPage_section2_pharagraph_bold'">
+      </span>
     </v-flex>
     <div class="landing-section2-oval" :class="{'oval-rtl':isRtl}"/>
   </v-layout>
@@ -30,6 +32,7 @@ export default {
 @import "../../../../styles/mixin.less";
 
 .landing-section2-container {
+  min-height: unset !important;
   z-index: 3;
   background-color: #21837f;
   position: relative;
@@ -41,7 +44,6 @@ export default {
     z-index: 2;
     width: 50%;
     display: flex;
-    // justify-content: flex-end;
     padding : 60px 0 38px; 
 
     @media (max-width: @screen-sm) {
@@ -62,9 +64,6 @@ export default {
     @media (max-width: @screen-sm) {
       width: 100%;
       padding-bottom: 32px;
-      h4 {
-        padding-top: 24px;
-      }
     }
     @media (max-width: 1600px) {
       width: 50%;
@@ -83,17 +82,18 @@ export default {
         padding-bottom: 24px;
       }
     }
-    span {
-      font-size: 22px;
+    h4 {
+      display: inline;
       line-height: 1.45;
       color: #ffffff;
       font-weight: normal;
       @media (max-width: @screen-xs) {
         font-size: 16px;
       }
-      &.landing-section2-text-bold {
+    }
+    .landing-section2-text-bold {
         font-weight: bolder;
-      }
+        font-size: 22px;
     }
   }
   @media (max-width: @screen-sm) {

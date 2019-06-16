@@ -35,11 +35,10 @@ text-align: center;
   padding: 80px 0 108px;
   h3 {
     font-size: 38px;
-    font-weight: 800;
+    font-weight: 700;
     text-align: center;
     color: #21837f;
     padding-bottom: 48px;
-    font-style: italic;
       @media (max-width: @screen-sm) {
       padding-bottom: 36px;
       text-align: start;
@@ -48,13 +47,14 @@ text-align: center;
     } 
   }
   button{
-    padding: 9px 37px 14px 33px;
+    padding: 9px 37px 9px 33px;
     border-radius: 28px;
     box-shadow: 0 3px 19px 0 rgba(0, 0, 0, 0.15);
     background-color: #27CCBB;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
     text-align: center;
+    outline: none;
     color: #ffffff;
       @media (max-width: @screen-sm) {
       padding: 12px 14px;

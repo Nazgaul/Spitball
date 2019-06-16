@@ -1,6 +1,6 @@
 <template>
   <div class="landing-carousel-compenent-container" justify-center lg12 v-if="cards">
-    <v-flex class="landing-carousel-arrows" @click="moveCarouselClick(-1)" :disabled="atHeadOfList">
+    <v-flex class="landing-carousel-arrows" :class="{'carousel-arrow-disable': atHeadOfList}" @click="moveCarouselClick(-1)" :disabled="atHeadOfList">
       <img class="leftButton" :class="{'rtlButton': isRtl}" src="./images/FindTutor_next-btn.png">
     </v-flex>
 
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <v-flex class="landing-carousel-arrows" @click="moveCarouselClick(1)" :disabled="atEndOfList">
+    <v-flex class="landing-carousel-arrows" :class="{'carousel-arrow-disable': atEndOfList}" @click="moveCarouselClick(1)" :disabled="atEndOfList">
       <img class="rightBtn" :class="{'rtlButton': isRtl}" src="./images/FindTutor_next-btn.png">
     </v-flex>
   </div>
@@ -153,6 +153,9 @@ export default {
   padding: 142px 0 155px;
   @media (max-width: @screen-sm) {
     padding: 0;
+  }
+  .carousel-arrow-disable {
+    opacity: .5;
   }
   .landing-carousel-arrows {
     flex-basis: 0;
