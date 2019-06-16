@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using System;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs.Admin
 {
@@ -8,6 +9,10 @@ namespace Cloudents.Core.DTOs.Admin
     {
         [EntityBind(nameof(ChatRoom.Identifier))]
         public string Id { get; set; }
+        [EntityBind(nameof(ChatRoom.UpdateTime))]
+
+        public DateTime LastMessage { get; set; }
+
         [EntityBind(nameof(User.Name))]
         public string UserName { get; set; }
         [EntityBind(nameof(RegularUser.PhoneNumber))]
@@ -21,8 +26,29 @@ namespace Cloudents.Core.DTOs.Admin
         public string TutorPhoneNumber { get; set; }
         [EntityBind(nameof(RegularUser.Email))]
         public string TutorEmail { get; set; }
-        public DateTime LastMessage { get; set; }
-        public string Status { get; set; }
+
+        public ChatRoomStatus Status { get; set; }
+
+        private int ConversationStatus { get; set; }
+
+        public string AutoStatus
+        {
+            get
+            {
+                if (ConversationStatus == 1)
+                {
+                    return "Tutor";
+                }
+
+                if (ConversationStatus == 2)
+                {
+                    return "Students";
+                }
+
+                return "Conversation";
+
+            }
+        }
     }
 
     public class ConversationDetailsDto
