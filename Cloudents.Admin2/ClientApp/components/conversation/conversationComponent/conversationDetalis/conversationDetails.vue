@@ -80,9 +80,9 @@
                               <v-flex><b>Last Message:</b>{{conversation.lastMessage.toLocaleString()}}</v-flex>
                             </v-layout>
                           </v-flex>
-
+                              {{conversation.status}}
                              <select :class="conversation.status" @change="changeStatus($event,conversation.id)">
-                               <option value="default" class="grey"></option>
+                               <option value="default" class="grey">default</option>
                                <option value="NoMatch" class="red">No Match</option>
                                <option value="Scheduled" class="green">Scheduled</option>
                                <option value="Active" class="orange">Active</option>
@@ -144,10 +144,6 @@ export default {
         "status": ev.target.value
       }
         setConversationsStatus(id,selected).then(()=>{
-          if(selected === "NoMatch"){this.selectClass = 'red'}
-          if(selected === "Scheduled"){this.selectClass = 'green'}
-          if(selected === "Active"){this.selectClass = 'orange'}
-          if(selected === "default"){this.selectClass = 'grey'}
         })
     }
   },
