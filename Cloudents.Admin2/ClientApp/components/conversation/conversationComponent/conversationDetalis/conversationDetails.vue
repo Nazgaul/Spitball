@@ -81,7 +81,7 @@
                             </v-layout>
                           </v-flex>
 
-                             <select :class="selectClass" @click="changeStatus">
+                             <select :class="conversation.status" @change="changeStatus($event,conversation.id)">
                                <option value="default" class="grey"></option>
                                <option value="NoMatch" class="red">No Match</option>
                                <option value="Scheduled" class="green">Scheduled</option>
@@ -114,7 +114,8 @@ import conversationMessages from '../conversationMessages/conversationMessages.v
 import {
   getConversationsList,
   getDetails,
-  getMessages
+  getMessages,
+  setConversationsStatus
 } from "./conversationDetalisService";
 
 export default {
@@ -138,12 +139,16 @@ export default {
     conversationMessages
   },
   methods: {
-    changeStatus(ev){
-      let selected = ev.target.value
-      if(selected === "NoMatch"){this.selectClass = 'red'}
-      if(selected === "Scheduled"){this.selectClass = 'green'}
-      if(selected === "Active"){this.selectClass = 'orange'}
-      if(selected === "default"){this.selectClass = 'grey'}
+    changeStatus(ev,id){
+      let selected = {
+        "status": ev.target.value
+      }
+        setConversationsStatus(id,selected).then(()=>{
+          if(selected === "NoMatch"){this.selectClass = 'red'}
+          if(selected === "Scheduled"){this.selectClass = 'green'}
+          if(selected === "Active"){this.selectClass = 'orange'}
+          if(selected === "default"){this.selectClass = 'grey'}
+        })
     }
   },
   created() {

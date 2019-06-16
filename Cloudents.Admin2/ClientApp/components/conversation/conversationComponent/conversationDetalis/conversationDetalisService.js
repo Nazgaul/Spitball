@@ -11,7 +11,6 @@ function ConversationItem(objInit) {
     this.tutorPhoneNumber = objInit.tutorPhoneNumber;
     this.tutorEmail = objInit.tutorEmail;
     this.status = objInit.autoStatus;
-    debugger;
     this.lastMessage = new Date(objInit.lastMessage);
     this.expanded = false;
 }
@@ -43,6 +42,11 @@ function CreateMessageItem(objInit) {
 
 const path = 'AdminConversation/';
 
+const setConversationsStatus = (id,status) => {
+    return connectivityModule.http.post(`${path}${id}/status`,status).then((res)=>{
+        return res
+    })
+}
 const getConversationsList = function () {
     return connectivityModule.http.get(`${path}`).then((newConversationList) => {
         let arrConversationList = [];
@@ -88,5 +92,6 @@ const getMessages = function (id) {
 export {
     getConversationsList,
     getDetails,
-    getMessages
+    getMessages,
+    setConversationsStatus
 };
