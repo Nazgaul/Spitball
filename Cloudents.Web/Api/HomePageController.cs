@@ -11,13 +11,13 @@ namespace Cloudents.Web.Api
     [ApiController]
     public class HomePageController : ControllerBase
     {
-        private readonly IQueryBus _queryBus;
-        private readonly UserManager<RegularUser> _userManager;
+        //private readonly IQueryBus _queryBus;
+        //private readonly UserManager<RegularUser> _userManager;
 
-        public HomePageController(IQueryBus queryBus, UserManager<RegularUser> userManager)
+        public HomePageController(/*IQueryBus queryBus, UserManager<RegularUser> userManager*/)
         {
-            _queryBus = queryBus;
-            _userManager = userManager;
+            //_queryBus = queryBus;
+            //_userManager = userManager;
         }
 
         [HttpGet("version")]
