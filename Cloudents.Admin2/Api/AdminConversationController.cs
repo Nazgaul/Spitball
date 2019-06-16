@@ -48,8 +48,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
             CancellationToken token)
         {
-            int page = 0;
-            var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(identifier, page), token);
+            var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(identifier, 0), token);
             return result;
         }
 
