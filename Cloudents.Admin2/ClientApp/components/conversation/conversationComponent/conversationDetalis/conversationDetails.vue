@@ -19,7 +19,7 @@
                   >
                     <div slot="header">
                       <v-card-text @click="getConversationData(conversation.id)">
-                        <v-layout column>
+                        <v-layout row wrap="">
                           <v-layout justify-start row class="pl-2 text-xs-left">
                             <v-flex xs3>
                               <b>Tutor Tel:</b>
@@ -33,9 +33,18 @@
                               <b>Tutor Email:</b>
                               {{conversation.tutorEmail}}
                             </v-flex>
-                            <v-flex xs3 :class="[`color-${conversation.autoStatus}`]">
+                            <v-flex xs3>
+                              <span style="max-width: fit-content; border-radius: 35px; padding: 10px;" :class="[`color-${conversation.autoStatus}`]">
                               <b>Status:</b>
                               {{conversation.autoStatus}}
+                              </span>
+                          <select @click.stop='' style="margin-left: 15px;padding: 5px;" outline @change="changeStatus($event, conversation.id)" :class="[`color-${conversation.status}`]" v-model="conversation.status">
+                            <option value="default" class="color-default"></option>
+                            <option value="noMatch" class="color-noMatch">No Match</option>
+                            <option value="scheduled" class="color-scheduled">Scheduled</option>
+                            <option value="active" class="color-active">Active</option>
+                          </select> 
+
                             </v-flex>
                           </v-layout>
                           <v-layout justify-start row class="pl-2 text-xs-left">
@@ -60,12 +69,9 @@
                               </v-layout>
                             </v-flex>
                           </v-layout>
-                          <select @click.stop='' @change="changeStatus($event, conversation.id)" :class="[`color-${conversation.status}`]" v-model="conversation.status">
-                            <option value="default" class="color-default">Default</option>
-                            <option value="noMatch" class="color-noMatch">No Match</option>
-                            <option value="scheduled" class="color-scheduled">Scheduled</option>
-                            <option value="active" class="color-active">Active</option>
-                          </select> 
+
+
+
                         </v-layout>
                       </v-card-text>
                     </div>
@@ -176,7 +182,6 @@ export default {
 .student {
   background-color: lightgray;
 }
-
 .color-default{
   background: #d7dde2;
 }
