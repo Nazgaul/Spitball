@@ -6,6 +6,6 @@
         {
             CourseToRemove = courseToRemove;
         }
-        public string CourseToRemove { get; set; }
+        public string CourseToRemove { get; }
     }
 }
