@@ -151,7 +151,9 @@ export default {
       err => {
         console.log(err);
       }
-    );
+    )
+  },
+    methods:{
      changeStatus(ev,id){
       let selected = {
         "status": ev.target.value
