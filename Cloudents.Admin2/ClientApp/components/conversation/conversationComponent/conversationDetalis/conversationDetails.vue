@@ -33,7 +33,7 @@
                               <b>Tutor Email:</b>
                               {{conversation.tutorEmail}}
                             </v-flex>
-                            <v-flex xs3>
+                            <v-flex xs3 :class="[`color-${conversation.autoStatus}`]">
                               <b>Status:</b>
                               {{conversation.autoStatus}}
                             </v-flex>
@@ -188,6 +188,18 @@ export default {
 }
 .color-active{
   background: #eab73e;
+}
+.color-Tutor {
+  background: #d23535;
+  color: white;
+}
+.color-Students {
+  background: #eab73e;
+  color: white;
+}
+.color-Conversation  {
+  background: #95ca31;
+  color: white;
 }
 
 </style>
