@@ -138,6 +138,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> VerifySmsAsync(
             [FromBody]CodeRequest model,
             [ModelBinder(typeof(CountryModelBinder))] string country,
+            [FromHeader(Name = "User-Agent")] string agent,
             CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
@@ -150,8 +151,7 @@ namespace Cloudents.Web.Api
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
             if (v.Succeeded)
             {
-                var agentStr = Request.Headers["User-Agent"].ToString();
-                var agent = agentStr.Substring(0, Math.Min(agentStr.Length, 255));
+                agent = agent.Substring(0, Math.Min(agent.Length, 255));
                 return await FinishRegistrationAsync(token, user, country, model.FingerPrint, agent);
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
