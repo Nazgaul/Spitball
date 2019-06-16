@@ -55,7 +55,6 @@ const allModules = [
     "vuetify/es5/components/VStepper",
     "vuetify/es5/components/VCombobox",
     "vuetify/es5/components/VCheckbox",
-    "vuetify/es5/components/VParallax",
     "vuetify/es5/components/VBottomNav",
     "vuetify/es5/components/VTextarea",
     "vuetify/es5/components/VRating",
