@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <v-form v-model="validRequestTutorForm" ref="tutorRequestForm">
+    <v-form class="request-tutor-container" v-model="validRequestTutorForm" ref="tutorRequestForm">
       <v-card>
         <v-toolbar class="headline" height="45" dark color="#1B2441">
           <v-icon class="header-icon title">sbf-person-icon</v-icon>

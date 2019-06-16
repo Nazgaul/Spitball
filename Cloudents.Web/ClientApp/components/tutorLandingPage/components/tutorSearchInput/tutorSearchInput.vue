@@ -13,7 +13,7 @@
                           prepend-icon="sbf-search">
             </v-text-field>
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
-                <v-list class="search-menu" v-click-outside="outsideClick" v-show="showSuggestions">
+                <v-list class="search-menu" v-show="showSuggestions">
                     <template v-for="(item, index) in suggests">
                         <v-list-tile class="suggestion" @click="selectors(item)" :key="index">
                             <v-list-tile-content>
