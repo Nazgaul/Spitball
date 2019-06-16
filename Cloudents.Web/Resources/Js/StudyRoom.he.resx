@@ -121,7 +121,7 @@
     <value>אתה היחיד שנמצא בחדר</value>
   </data>
   <data name="become_tutor" xml:space="preserve">
-    <value>צור פרופיל של מורה פרטי</value>
+    <value>הירשם כמורה פרטי</value>
   </data>
   <data name="created" xml:space="preserve">
     <value>נוצר ב-</value>
