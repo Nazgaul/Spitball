@@ -16,7 +16,6 @@ import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
 import CloudentsTour from 'cloudents-tour';
-import VueYouTubeEmbed from 'vue-youtube-embed'; //https://github.com/kaorun343/vue-youtube-embed
 import LoadScript from 'vue-plugin-load-script';
 
 import VueNumeric from 'vue-numeric'
