@@ -1,12 +1,6 @@
-﻿using System;
-using System.Reflection;
-using Cloudents.Core;
-using Cloudents.Core.DTOs;
+﻿using System.Reflection;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 
@@ -25,15 +19,6 @@ namespace Cloudents.Web.Api
             _queryBus = queryBus;
             _userManager = userManager;
         }
-
-        [HttpGet]
-        [ResponseCache(Duration = TimeConst.Day, Location = ResponseCacheLocation.Any)]
-        public async Task<ActionResult<StatsDto>> GetAsync(CancellationToken token)
-        {
-            var query = new HomePageQuery();
-            return await _queryBus.QueryAsync(query, token);
-        }
-
 
         [HttpGet("version")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
