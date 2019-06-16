@@ -178,7 +178,6 @@ Vue.directive('clickOutside', {
 });
 
 
-Vue.use(VueYouTubeEmbed, {global: true});
 Vue.component("scroll-list", scrollComponent);
 //Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
