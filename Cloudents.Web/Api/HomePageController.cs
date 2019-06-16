@@ -37,16 +37,16 @@ namespace Cloudents.Web.Api
 
         [HttpGet("version")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> Version()
+        public IActionResult Version()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = await _userManager.GetUserAsync(User);
-                if (user.LockoutEnd.HasValue && user.LockoutEnd.Value > DateTime.UtcNow)
-                {
-                    return Unauthorized();
-                }
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    var user = await _userManager.GetUserAsync(User);
+            //    if (user.LockoutEnd.HasValue && user.LockoutEnd.Value > DateTime.UtcNow)
+            //    {
+            //        return Unauthorized();
+            //    }
+            //}
 
             return Ok(new { version = Assembly.GetExecutingAssembly().GetName().Version.ToString(4) });
         }

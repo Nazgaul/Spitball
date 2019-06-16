@@ -1,28 +1,29 @@
-﻿using System;
-using Cloudents.Web.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
+using Cloudents.Core.Models;
+using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using System.Linq;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
-using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Hosting;
-using Cloudents.Infrastructure;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Web.Services;
 
 namespace Cloudents.Web.Api
 {
@@ -37,14 +38,18 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
         private readonly IMondayProvider _mondayProvider;
+        private readonly ICommandBus _commandBus;
+        private readonly IStringLocalizer<TutorController> _stringLocalizer;
 
 
         public TutorController(IQueryBus queryBus, UserManager<RegularUser> userManager,
-            IMondayProvider mondayProvider)
+            IMondayProvider mondayProvider, ICommandBus commandBus, IStringLocalizer<TutorController> stringLocalizer)
         {
             _queryBus = queryBus;
             _userManager = userManager;
             _mondayProvider = mondayProvider;
+            _commandBus = commandBus;
+            _stringLocalizer = stringLocalizer;
         }
 
 
@@ -84,14 +89,14 @@ namespace Cloudents.Web.Api
                 return new WebResponseWithFacet<TutorListDto>
                 {
                     Result = result,
-                    NextPageLink = Url.RouteUrl("TutorSearch", new {page = ++page, term})
+                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term })
                 };
             }
         }
 
 
-       
-       
+
+
 
 
         /// <summary>
@@ -123,121 +128,92 @@ namespace Cloudents.Web.Api
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new TutorListByCourseQuery(courseName, userId);
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            return retValTask;
+            var retVal = await _queryBus.QueryAsync(query, token);
+            return retVal;
         }
-        [HttpPost("request"), Authorize]
+        [HttpPost("request")]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices]  IQueueProvider queueProvider,
             [FromServices] IHostingEnvironment configuration,
-            [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
+            [FromServices] ISmsSender _client,
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
             //RequestTutorEmail
-            var userId = _userManager.GetLongUserId(User);
-            var query = new UserEmailInfoQuery(userId);
-            var userInfo = await _queryBus.QueryAsync(query, token);
+            if (_userManager.TryGetLongUserId(User, out var userId))
+            {
+                var query = new UserEmailInfoQuery(userId);
+                var userInfo = await _queryBus.QueryAsync(query, token);
+                model.Phone = userInfo.PhoneNumber;
+                model.Name = userInfo.Name;
+                model.Email = userInfo.Email;
+                model.University = userInfo.University;
+            }
+            else
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    if (user.PhoneNumber == null)
+                    {
+                        var phoneNumber = await _client.ValidateNumberAsync(model.ToString(), token);
+                        if (phoneNumber.phoneNumber != null)
+                        {
+                            user.Country = phoneNumber.country;
+                            await _userManager.SetPhoneNumberAsync(user, model.Phone);
+                            userId = user.Id;
+                        }
+                    }
+                    else
+                    {
+                        userId = user.Id;
+                    }
+                }
+
+                //TODO : need to register user
+            }
+
+            if (userId > 0)
+            {
+                var command = new SendTutorRequestChatTextMessageCommand(model.Course,
+                    _stringLocalizer["RequestTutorChatMessage"],
+                    userId);
+                await _commandBus.DispatchAsync(command, token);
+            }
+
 
             var email = new RequestTutorEmail()
             {
-                Country = userInfo.Country,
-                Links = model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),
-                PhoneNumber = userInfo.PhoneNumber,
-                UserId = userId,
-                Text = model.Text,
-                Course = model.Course,
-                Email = userInfo.Email,
-                Name = userInfo.Name,
-                University = userInfo.University,
-                Referer = referer.AbsoluteUri,
-                IsProduction = configuration.IsProduction()
-            };
-
-            //var email = new RequestTutorEmail(userId, model.Text, model.Course, userInfo.Email,
-            //    userInfo.Name, userInfo.University, userInfo.Country, userInfo.PhoneNumber,
-            //    model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(), configuration.IsProduction());
-
-            var task1 = queueProvider.InsertMessageAsync(email, token);
-            var task2 = _mondayProvider.CreateRecordAsync(email, token);
-
-
-            await Task.WhenAll(task1, task2);
-            return Ok();
-        }
-
-        [HttpPost("anonymousRequest")]
-        public async Task<IActionResult> AnonymousRequestTutorAsync(AnonymousRequestTutorRequest model,
-            [FromServices]  IQueueProvider queueProvider,
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            [FromServices] IHostingEnvironment configuration,
-            [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
-            [FromHeader(Name = "referer")] Uri referer,
-            CancellationToken token)
-        {
-            var email = new RequestTutorEmail()
-            {
-                Country = profile.Country,
-                Links = model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),
-                PhoneNumber = model.PhoneNumber,
-                Text = model.Text,
                 Email = model.Email,
-                Name = model.Name,
-                Referer = referer.AbsoluteUri,
                 IsProduction = configuration.IsProduction()
             };
-            //var email = new RequestTutorEmail(model.Text, model.Course, model.Email,
-            //            model.Name, model.University, model.Country, model.PhoneNumber,
-            //            model.Files?.Select(s => blobProvider.GetBlobUrl(s).AbsoluteUri).ToArray(),configuration.IsProduction());
+            foreach (var propertyInfo in model.GetType().GetProperties())
+            {
+                var value = propertyInfo.GetValue(model);
+                if (value != null)
+                {
+                    email.Dictionary.Add(propertyInfo.Name, value.ToString());
+                }
+            }
 
+            var utmSource = referer.ParseQueryString()["utm_source"];
             var task1 = queueProvider.InsertMessageAsync(email, token);
-            var task2 = _mondayProvider.CreateRecordAsync(email, token);
+            var task2 = _mondayProvider.CreateRecordAsync(new MondayMessage(model.Course,
+                configuration.IsProduction(),
+                model.Name,
+                model.Phone,
+                model.Text,
+                model.University,
+                utmSource
+                ), token);
 
-            
+
             await Task.WhenAll(task1, task2);
             return Ok();
-        }
-
-        [HttpPost("request/upload"), Consumes("multipart/form-data")]
-        public async Task<UploadAskFileResponse> UploadFileAsync(IFormFile file,
-            [FromServices] IRequestTutorDirectoryBlobProvider blobProvider,
-            CancellationToken token)
-        {
-            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
-
-            var userId = _userManager.GetUserId(User);
-
-            var fileNames = new List<string>();
-            //foreach (var formFile in files)
-            //{
-            if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
-            {
-                throw new ArgumentException("not an image");
-            }
-
-            var extension = Path.GetExtension(file.FileName);
-
-            if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
-            {
-                throw new ArgumentException("not an image");
-            }
-
-            using (var sr = file.OpenReadStream())
-            {
-                //Image.FromStream(sr);
-                var fileName = $"{userId}.{Guid.NewGuid()}.{file.FileName}";
-                await blobProvider
-                    .UploadStreamAsync(fileName, sr, file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
-
-                fileNames.Add(fileName);
-            }
-
-            //}
-            return new UploadAskFileResponse(fileNames);
         }
 
         [HttpGet("reviews")]
-        public async Task<IEnumerable<AboutTutorDto>> GetReviwesAsync(CancellationToken token)
+        public async Task<IEnumerable<AboutTutorDto>> GetReviewsAsync(CancellationToken token)
         {
             var query = new AboutTutorQuery();
             var retValTask = await _queryBus.QueryAsync(query, token);

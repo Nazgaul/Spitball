@@ -4,23 +4,27 @@ namespace Cloudents.Command.Command
 {
     public class SendChatTextMessageCommand : ICommand
     {
-      
-        public SendChatTextMessageCommand(string message, long userSendingId, IEnumerable<long> usersId
-          )
+
+        public SendChatTextMessageCommand(string message, long userSendingId, IEnumerable<long> usersId)
         {
             Message = message;
             UserSendingId = userSendingId;
             ToUsersId = usersId;
-          //  ChatRoomId = chatRoomId;
-            //Blob = blob;
         }
 
-       // public Guid? ChatRoomId { get;  }
+        public SendChatTextMessageCommand(string message, long userSendingId, long toUsersId)
+        {
+            Message = message;
+            UserSendingId = userSendingId;
+            ToUsersId = new[] { toUsersId };
+        }
 
-        public string Message { get;  }
-        public long UserSendingId { get;  }
+        // public Guid? ChatRoomId { get;  }
 
-       // public string Blob { get; }
+        public string Message { get; }
+        public long UserSendingId { get; }
+
+        // public string Blob { get; }
 
         public IEnumerable<long> ToUsersId { get; }
     }

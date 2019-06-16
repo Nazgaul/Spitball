@@ -29,9 +29,9 @@ export default {
 .landing-headeline-section-container{
     .landing-headeline-section-text-container{
         background-color: #facb57;
-        padding: 96px 84px 40px 258px;
+        padding: 98px 84px 130px 258px;
         @media (max-width: 1600px){
-            padding: 96px 40px 40px 258px;
+            padding: 96px 40px 40px 220px;
 
         }
         @media (max-width: 1400px){
@@ -55,7 +55,7 @@ export default {
             margin: 70px 0 42px 0;
             font-size: 28px;
             font-weight: bold;
-            color: #fff;
+            color: #21837f;
             @media (max-width: 1600px){
                 margin: 30px 0 42px 0;
             }
@@ -67,17 +67,17 @@ export default {
             }
         }
         button{
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 600;
-            color:#fff;
+            color: #fff;
             border-radius: 28px;
             box-shadow: 0 3px 19px 0 rgba(0, 0, 0, 0.15);
-            background-color: #13374d;
-            padding:10px 38px;
+            background-color: #27ccbb;
+            padding: 12px 20px;
         }
     } 
     .landing-headeline-section-img-container{
-        background-image: url('./images/FindTutor_headeline.png');
+        background-image: url('./images/hero-landing-page.jpg');
         background-position: center center;
         background-size: cover;
     }

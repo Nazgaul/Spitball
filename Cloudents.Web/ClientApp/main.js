@@ -9,6 +9,7 @@ import { LanguageService } from './services/language/languageService';
 import VueClipboard from 'vue-clipboard2';
 import lineClamp from 'vue-line-clamp';
 import Scroll from "vuetify/es5/directives/scroll";
+import Touch from "vuetify/es5/directives/touch";
 import scrollComponent from './components/helpers/infinateScroll.vue';
 import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
@@ -22,7 +23,6 @@ import VueNumeric from 'vue-numeric'
 import VueMathjax from 'vue-mathjax'
 import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
-import Vue2TouchEvents from 'vue2-touch-events'
 
 import {
     VApp,
@@ -60,6 +60,7 @@ import {
     VTooltip,
     VRating,
     VForm,
+    VAutocomplete,
     Vuetify
 } from "vuetify";
 import * as route from "./routes";
@@ -103,7 +104,8 @@ const vuetifyComponents = {
     VBottomNav,
     VTextarea,
     VRating,
-    VForm
+    VForm,
+    VAutocomplete
 };
 
 const ilFonts = [
@@ -137,6 +139,7 @@ Vue.use(LoadScript);
 Vue.use(Vuetify, {
     directives: {
         Scroll,
+        Touch
     },
     components: vuetifyComponents
 });
@@ -197,7 +200,6 @@ const router = new VueRouter({
 
 Vue.use(VueClipboard);
 Vue.use(lineClamp, {});
-Vue.use(Vue2TouchEvents);
 
 Vue.use(VueNumeric);
 

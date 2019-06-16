@@ -1,4 +1,5 @@
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Di;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,10 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using static Cloudents.Core.TimeConst;
 
@@ -26,6 +27,7 @@ namespace Cloudents.FunctionsV2
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/{hash}")]
             HttpRequest req, string hash,
             IBinder binder,
+            ILogger logger,
             [Inject] IBinarySerializer serializer,
             CancellationToken token)
         {
@@ -58,36 +60,47 @@ namespace Cloudents.FunctionsV2
             //using (var sr = await binder.BindAsync<Stream>(new BlobAttribute($"spitball-files/files/{properties.Id}/preview-{properties.Page}.jpg", FileAccess.Read), token))
             using (var sr = await binder.BindAsync<Stream>(new BlobAttribute(properties.Path, FileAccess.Read), token))
             {
-                var image = Image.Load<Rgba32>(sr);
-                image.Mutate(x => x.Resize(new ResizeOptions()
+                try
                 {
-                    Mode = mode,
-                    Size = new Size(width, height)
-                }));
-                switch (properties.Blur.GetValueOrDefault())
-                {
-                    case ImageProperties.BlurEffect.None:
-                        break;
-                    case ImageProperties.BlurEffect.Part:
-                        image.Mutate(x => x.BoxBlur(5, new Rectangle(0, height / 2, width, height / 2)));
-                        break;
-                    case ImageProperties.BlurEffect.All:
-                        image.Mutate(x => x.BoxBlur(5));
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    var image = Image.Load<Rgba32>(sr);
+
+                    image.Mutate(x => x.Resize(new ResizeOptions()
+                    {
+                        Mode = mode,
+                        Size = new Size(width, height)
+                    }));
+                    switch (properties.Blur.GetValueOrDefault())
+                    {
+                        case ImageProperties.BlurEffect.None:
+                            break;
+                        case ImageProperties.BlurEffect.Part:
+                            image.Mutate(x => x.BoxBlur(5, new Rectangle(0, height / 2, width, height / 2)));
+                            break;
+                        case ImageProperties.BlurEffect.All:
+                            image.Mutate(x => x.BoxBlur(5));
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                    return new FileCallbackResult("image/jpg", (stream, context) =>
+                    {
+                        context.HttpContext.Response.Headers.Add("Cache-Control",
+                            $"public, max-age={Year}, s-max-age={Year}");
+                        image.SaveAsJpeg(stream);
+                        image?.Dispose();
+                        return Task.CompletedTask;
+                    });
+
                 }
-
-
-
-                return new FileCallbackResult("image/jpg", (stream, context) =>
+                catch (ImageFormatException ex)
                 {
-                    context.HttpContext.Response.Headers.Add("Cache-Control", $"public, max-age={Year}, s-max-age={Year}");
-                    image.SaveAsJpeg(stream);
-                    image?.Dispose();
-                    return Task.CompletedTask;
+                    logger.Exception(ex, new Dictionary<string, string>()
+                    {
+                        ["Image"] = hash
+                    });
+                    return new StatusCodeResult(500);
                 }
-                );
             }
         }
 

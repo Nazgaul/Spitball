@@ -115,16 +115,15 @@ export default {
       this.isLoaded = true;
     },
     tutorCardClicked() {
-      debugger;
-      analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
-      if (this.fromLandingPage) {
-        this.openRequestDialog();
-      } else {
+        if(this.fromLandingPage){
+            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+        }else{
+            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+        }
         this.$router.push({
           name: "profile",
           params: { id: this.tutorData.userId, name: this.tutorData.name }
         });
-      }
     },
     openRequestDialog() {
       this.updateRequestDialog(true);
@@ -301,12 +300,12 @@ export default {
   }
   .tutor-courses {
     color: @colorBlue;
-    max-width: 140px;
+    max-width: 0;
+    min-width: 100%;
     font-size: 14px;
     min-height: 19px; //keep it to prevent rating stars shift
   }
   .courses-text {
-    vertical-align: text-bottom;
     line-height: 1;
   }
 }

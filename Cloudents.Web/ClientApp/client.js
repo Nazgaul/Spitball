@@ -18,8 +18,8 @@ function VersionCheck() {
         });
     }
 }
-let fiveMinutes = 10000 * 5;
-window.setInterval(VersionCheck, fiveMinutes);
+let tenMinutes = 10000 * 10;
+window.setInterval(VersionCheck, tenMinutes);
 VersionCheck();
 
 GetDictionary().then(() => {

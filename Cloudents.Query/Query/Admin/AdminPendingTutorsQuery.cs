@@ -20,7 +20,8 @@ namespace Cloudents.Query.Query.Admin
             {
 
                 const string sql = @"select u.Id, u.FirstName, u.LastName,
-u.Email, t.Bio, t.Price, t.Created, (select STRING_AGG(uc.CourseId, ', ') from sb.UsersCourses uc where u.Id = uc.UserId and CanTeach = 1)  as Courses,
+u.Email, t.Bio, t.Price, t.Created, (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
+from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
 u.image
                                     from sb.[User] u
                                     join sb.Tutor t

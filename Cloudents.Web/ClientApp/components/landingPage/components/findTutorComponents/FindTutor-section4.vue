@@ -4,7 +4,7 @@
       <img src="./images/FindTutor_section4.png" alt>
     </v-flex>
     <v-flex class="landing-section4-text-container">
-      <h3 v-language:inner="'landingPage_section4_title'"></h3>
+      <h3 v-language:inner="'landingPage_section4_title'" class="pb-4"></h3>
       <h4 v-language:inner="'landingPage_section4_pharagraph'"></h4>
     </v-flex>
   </v-layout>
@@ -25,12 +25,9 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // margin-top: 68px;
 
   .landing-section4-img-container {
-    width: 50%;
     display: flex;
-    // justify-content: flex-end;
     padding : 60px 0 38px; 
 
     @media (max-width: @screen-sm) {
@@ -41,23 +38,17 @@ export default {
     @media (max-width: @screen-xs) {
       img {
         width: 80%;
-        height: auto;
+        height: 80%;
       }
     }
   }
 
   .landing-section4-text-container {
+    padding: 20px 0;
     width: 36%;
     @media (max-width: @screen-sm) {
       width: 100%;
       padding-bottom: 32px;
-      h4 {
-        padding-top: 24px;
-      }
-    }
-
-    @media (max-width: 1600px) {
-      width: 50%;
     }
     @media (max-width: @screen-sm) {
       width: 100%;
@@ -72,7 +63,6 @@ export default {
       }
     }
     h4 {
-      font-size: 22px;
       font-weight: normal;
       color: #6c6c6c;
       @media (max-width: @screen-xs) {

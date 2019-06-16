@@ -148,10 +148,10 @@
     <value>תנאי שימוש</value>
   </data>
   <data name="main_btn" xml:space="preserve">
-    <value>לשיעור פרטי רק ב₪55</value>
+    <value>לשיעור פרטי רק מ- 55 ₪</value>
   </data>
   <data name="main_stats_courses" xml:space="preserve">
-    <value>627 קורסים</value>
+    <value>2673 קורסים</value>
   </data>
   <data name="main_stats_reviews" xml:space="preserve">
     <value>ביקורות</value>
@@ -163,22 +163,22 @@
     <value>250,234 מסמכי לימוד</value>
   </data>
   <data name="main_stats_tutors" xml:space="preserve">
-    <value>533 מרצים</value>
+    <value>1,533 מורים פרטיים</value>
   </data>
   <data name="main_subtitle" xml:space="preserve">
     <value>שיעור פרטי אחד על אחד עם סטודנט מצטיין לבחירתך</value>
   </data>
   <data name="main_title" xml:space="preserve">
-    <value>להצליח במבחנים בעזרת מיטב הסיכומים והמתרגלים</value>
+    <value>להצליח במבחנים בעזרת מיטב הסיכומים והמורים הפרטיים</value>
   </data>
   <data name="section1_pharagraph" xml:space="preserve">
-    <value>המתרגלים שלנו מעודכנים בתוכנית הלימודים של הקורס שלך, ומרביתם הם סטודנטים מצטיינים שעשו אותו לאחרונה בעצמם. מה שמבטיח לך שהלימוד יתמקד בכל מה שחשוב לדעת כדי להישאר בעניינים במשך הסמסטר ולהצליח במבחנים.</value>
+    <value>המורים הפרטיים שלנו מעודכנים בתוכנית הלימודים של הקורס שלך, ומרביתם הם סטודנטים מצטיינים שעשו אותו לאחרונה בעצמם. מה שמבטיח לך שהלימוד יתמקד בכל מה שחשוב לדעת כדי להישאר בעניינים במשך הסמסטר ולהצליח במבחנים.</value>
   </data>
   <data name="section1_title" xml:space="preserve">
-    <value>מתרגלים מנוסים השולטים בחומרי הקורסים שלך</value>
+    <value>מורים פרטיים מנוסים השולטים בחומרי הקורסים שלך</value>
   </data>
   <data name="section2_pharagraph" xml:space="preserve">
-    <value>מצא את מתרגל המתאים בדיוק עבורך. 
+    <value>מצא את המורה הפרטי המתאים בדיוק עבורך. 
 גם אם קיבלת המלצות וקראת את הביקורות,
 אנחנו נותנים לך אפשרות לבדוק אם הוא מתאים לך באופן אישי ב- </value>
   </data>
@@ -189,16 +189,17 @@
     <value>לא למדת? לא שילמת</value>
   </data>
   <data name="section3_pharagraph" xml:space="preserve">
-    <value>עם מבחר גדול כל כך של מתרגלים הנבחרים בקפידה, סרטוני הדגמה להתרשמות ומערכת המבליטה עבורך את המתרגלים המובילים בדירוגים, יהיה לך קל למצוא במהירות את המתרגל המתאים ביותר לצרכיך הן בסגנון ההוראה והן ברמת הזמינות.</value>
+    <value>עם מבחר גדול כל כך של מורים פרטיים הנבחרים בקפידה, סרטוני הדגמה להתרשמות ומערכת המבליטה עבורך את המתרגלים המובילים בדירוגים, יהיה לך קל למצוא במהירות את המורה הפרטי המתאים ביותר לצרכיך הן בסגנון ההוראה והן ברמת הזמינות.</value>
   </data>
   <data name="section3_title" xml:space="preserve">
-    <value>מעולם לא היה קל יותר למצוא מתרגל מעולה וזמין</value>
+    <value>מעולם לא היה קל יותר למצוא מורה פרטי מעולה וזמין</value>
   </data>
   <data name="section4_pharagraph" xml:space="preserve">
-    <value>נסיעות? חניות? הרי אין לך זמן לזה בסדר היום העמוס שלך אז חסוך את הוצאות הנסיעה. מעכשיו לומדים ב- Online, מהבית, בשעות הנוחות לך כי מי אמר שבשביל מתרגל טוב חייבים לנסוע רחוק?</value>
+    <value>נסיעות? חניות? הרי אין לך זמן לזה בסדר היום העמוס שלך אז חסוך את הוצאות הנסיעה. מעכשיו לומדים אונליין, מהבית, בשעות הנוחות לך כי מי אמר שבשביל מורה פרטי טוב חייבים לנסוע רחוק?</value>
   </data>
   <data name="section4_title" xml:space="preserve">
-    <value>בשעות שנוחות לך ובלי לצאת מהבית</value>
+    <value>בשעות שנוחות לך
+ובלי לצאת מהבית</value>
   </data>
   <data name="section5_pharagraph" xml:space="preserve">
     <value>רוצה לחזור שוב על החומר שלמדת בשיעור? 
@@ -210,16 +211,16 @@
     <value>השיעורים מוקלטים וזמינים עבורך להאזנות חוזרות</value>
   </data>
   <data name="section6_pharagraph" xml:space="preserve">
-    <value>מאגר עצום של מאות אלפי חומרים ומסמכי לימוד עדכניים שיעזרו לך לפתור מטלות ותרגילים ולהצליח במבחנים. שיתוף המסמכים נעשה על ידי סטודנטים כמוך ומתרגלים שיודעים בדיוק מה צריך כדי להצליח.</value>
+    <value>מאגר עצום של מאות אלפי חומרים ומסמכי לימוד עדכניים שיעזרו לך לפתור מטלות ותרגילים ולהצליח במבחנים. שיתוף המסמכים נעשה על ידי סטודנטים כמוך ומורים פרטיים שיודעים בדיוק מה צריך כדי להצליח.</value>
   </data>
   <data name="section6_title" xml:space="preserve">
     <value>מאות אלפי מסמכי לימוד איכותיים ועדכניים לשימושך</value>
   </data>
   <data name="subfooter_btn" xml:space="preserve">
-    <value>לשיעור פרטי ב₪55</value>
+    <value>לשיעור פרטי מ- 55 ₪</value>
   </data>
   <data name="subfooter_title" xml:space="preserve">
-    <value>שיעור פרטי Online ב- 55 ₪ לשעה בלבד לזמן מוגבל</value>
+    <value>שיעור פרטי Online ב- 55 ₪ לשעה לזמן מוגבל</value>
   </data>
   <data name="topnav_btn_login" xml:space="preserve">
     <value>התחברות</value>

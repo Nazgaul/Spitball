@@ -1,7 +1,7 @@
 <template>
   <v-layout class="landing-section1-container" lg6 xs6>
     <v-flex class="landing-section1-text-container">
-      <h3 v-language:inner="'landingPage_section1_title'"></h3>
+      <h3 v-language:inner="'landingPage_section1_title'" class="pb-4"></h3>
       <h4 v-language:inner="'landingPage_section1_pharagraph'"></h4>
     </v-flex>
     <v-flex class="landing-section1-img-container">
@@ -27,6 +27,7 @@ export default {
 @import "../../../../styles/mixin.less";
 
 .landing-section1-container {
+  min-height: unset !important;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -40,13 +41,10 @@ export default {
       @media (max-width: @screen-sm) {
         width: 100%;
         padding-bottom: 32px;
-        h4{
-          padding-top: 24px;
-        }
       }
 
     h3 {
-      font-size: 45px;
+      font-size: 40px;
       font-weight: bold;
       color: #21837f;
       line-height: 1.31;
@@ -56,13 +54,13 @@ export default {
        }
     }
     h4 {
-      padding-top: 5px;
       font-weight: normal;
-      font-size: 22px;
       color: #6c6c6c;
-             @media (max-width: @screen-xs){
-          font-size: 16px;
-       }
+      margin-bottom: 40px;
+      @media (max-width: @screen-xs){
+        font-size: 16px;
+        margin-bottom: 0;
+      }
     }
     @media (max-width: 1600px) {
         width: 50%; 
@@ -85,7 +83,7 @@ export default {
     @media (max-width: @screen-xs) {
       img{
         width: 80%;
-        height: auto;
+        height: 80%;
       }
     }
   }

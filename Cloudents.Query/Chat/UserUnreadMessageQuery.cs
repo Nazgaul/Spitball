@@ -49,7 +49,10 @@ namespace Cloudents.Query.Chat
                             .Select(() => userAlias.Id).WithAlias(() => resultAlias.UserId)
                             .Select(x => x.Version).WithAlias(() => resultAlias.Version)
                             .Select(() => userAlias.Language).WithAlias(() => resultAlias.CultureInfo)
-
+                            .SelectSubQuery(QueryOver.Of<ChatMessage>()
+                                .Where(w => w.ChatRoom.Id == chatUserAlias.ChatRoom.Id)
+                                .ToRowCountQuery()
+                            ).WithAlias(() => resultAlias.ChatMessagesCount)
                             .SelectSubQuery(QueryOver.Of<ChatMessage>()
                                 .Where(w => w.ChatRoom.Id == chatUserAlias.ChatRoom.Id)
                                 .Select(s1 => s1.User.Id)
@@ -80,7 +83,14 @@ namespace Cloudents.Query.Chat
 
         public long ChatUserId { get; set; }
 
+        public int ChatMessagesCount { get; set; }
+
         public long VersionAsLong => BitConverter.ToInt64(Version.Reverse().ToArray(), 0);
+
+        public override string ToString()
+        {
+            return $"{nameof(UserId)}: {UserId}, {nameof(IsTutor)}: {IsTutor}, {nameof(ChatUserId)}: {ChatUserId}, {nameof(ChatMessagesCount)}: {ChatMessagesCount}, {nameof(VersionAsLong)}: {VersionAsLong}";
+        }
 
         private sealed class UserIdEqualityComparer : IEqualityComparer<UnreadMessageDto>
         {

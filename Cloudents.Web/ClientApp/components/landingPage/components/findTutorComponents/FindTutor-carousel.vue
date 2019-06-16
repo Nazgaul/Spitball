@@ -1,12 +1,16 @@
 <template>
   <div class="landing-carousel-compenent-container" justify-center lg12 v-if="cards">
-    <v-flex class="landing-carousel-arrows" @click="moveCarouselClick(-1)" :disabled="atHeadOfList">
+    <v-flex class="landing-carousel-arrows" :class="{'carousel-arrow-disable': atHeadOfList}" @click="moveCarouselClick(-1)" :disabled="atHeadOfList">
       <img class="leftButton" :class="{'rtlButton': isRtl}" src="./images/FindTutor_next-btn.png">
     </v-flex>
 
-    <div class="landing-carousel-slider-conteiner">
+    <div class="landing-carousel-slider-container">
+
       <div
-        v-touch:swipe="moveCarousel()"
+        v-touch="{
+          left: () => moveCarousel('left'),
+          right: () => moveCarousel('right')
+        }"
         class="landing-carousel-slider"
         :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}"
       >
@@ -31,9 +35,8 @@
       </div>
     </div>
 
-
-    <v-flex class="landing-carousel-arrows" @click="moveCarouselClick(1)" :disabled="atEndOfList">
-      <img class="rightBtn" :class="{'rtlButton': isRtl}"  src="./images/FindTutor_next-btn.png">
+    <v-flex class="landing-carousel-arrows" :class="{'carousel-arrow-disable': atEndOfList}" @click="moveCarouselClick(1)" :disabled="atEndOfList">
+      <img class="rightBtn" :class="{'rtlButton': isRtl}" src="./images/FindTutor_next-btn.png">
     </v-flex>
   </div>
 </template>
@@ -44,12 +47,11 @@
 import { reviews } from "./helpers/testimonials/data/testimonialsData.js";
 import { mobileReviews } from "./helpers/testimonials/data/testimonialsData.js";
 
-
 export default {
   name: "Carousel",
   data() {
     return {
-      cards: this.ismobile ? reviews[0]: mobileReviews,
+      cards: this.ismobile ? reviews[0] : mobileReviews,
       currentOffset: 0,
       windowSize: window.innerWidth > 757 ? 2 : 1,
       paginationFactor: 0,
@@ -58,17 +60,22 @@ export default {
   },
   computed: {
     atEndOfList() {
-      if(this.isRtl){
-        return (this.currentOffset >= this.paginationFactor * 1 * (this.cards.length - this.windowSize));
-      }else{
-        return (this.currentOffset <= this.paginationFactor * -1 * (this.cards.length - this.windowSize));
+      if (this.isRtl) {
+        return (
+          this.currentOffset >=
+          this.paginationFactor * 1 * (this.cards.length - this.windowSize)
+        );
+      } else {
+        return (
+          this.currentOffset <=
+          this.paginationFactor * -1 * (this.cards.length - this.windowSize)
+        );
       }
-      
     },
     atHeadOfList() {
       return this.currentOffset === 0;
     },
-    isMobile(){
+    isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
     }
   },
@@ -76,59 +83,64 @@ export default {
     getImgUrl(path) {
       return require(`${path}`);
     },
-    moveCarousel() {
+    moveCarousel(dir, event) {      
       let self = this;
-      return function(dir, event) {
         let direction = dir === "left" ? 1 : -1;
-        if (direction === 1 && !self.atEndOfList) {
-          self.currentOffset -= self.paginationFactor;
-        } else if (direction === -1 && !self.atHeadOfList) {
-          self.currentOffset += self.paginationFactor;
+        if (self.isRtl) {
+          direction = direction*-1;
+          if (direction === 1 && !self.atEndOfList) {
+            self.currentOffset += self.paginationFactor;
+          } else if (direction === -1 && !self.atHeadOfList) {
+            self.currentOffset -= self.paginationFactor;
+          }
+        } else {
+          if (direction === 1 && !self.atEndOfList) {
+            self.currentOffset -= self.paginationFactor;
+          } else if (direction === -1 && !self.atHeadOfList) {
+            self.currentOffset += self.paginationFactor;
+          }
         }
-      };
     },
     moveCarouselClick(direction) {
-      if(this.isRtl){
+      if (this.isRtl) {
         if (direction === 1 && !this.atEndOfList) {
           this.currentOffset += this.paginationFactor;
         } else if (direction === -1 && !this.atHeadOfList) {
           this.currentOffset -= this.paginationFactor;
         }
-      }else{
+      } else {
         if (direction === 1 && !this.atEndOfList) {
           this.currentOffset -= this.paginationFactor;
         } else if (direction === -1 && !this.atHeadOfList) {
           this.currentOffset += this.paginationFactor;
         }
       }
-      
     }
   },
   mounted() {
-    let totalCardWidth = document.querySelector('.landing-carousel-slider-conteiner').offsetWidth / 2;
-    if(!this.isMobile){
-      let mobileCard = document.querySelectorAll('.landing-carousel-card');
-      let cardWidth = (totalCardWidth * 90) /100;
-      let marginCardLeft = (totalCardWidth * 5) /100;
-      let marginCardRight = (totalCardWidth * 5) /100;
-      mobileCard.forEach((card)=>{
-          card.style.minWidth = `${cardWidth}px`;
-          card.style.marginLeft = `${marginCardLeft}px`;
-          card.style.marginRight = `${marginCardRight}px`;
-      })
+    let totalCardWidth = document.querySelector(".landing-carousel-slider-container").offsetWidth / 2;
+    if (!this.isMobile) {
+      let mobileCard = document.querySelectorAll(".landing-carousel-card");
+      let cardWidth = (totalCardWidth * 90) / 100;
+      let marginCardLeft = (totalCardWidth * 5) / 100;
+      let marginCardRight = (totalCardWidth * 5) / 100;
+      mobileCard.forEach(card => {
+        card.style.minWidth = `${cardWidth}px`;
+        card.style.marginLeft = `${marginCardLeft}px`;
+        card.style.marginRight = `${marginCardRight}px`;
+      });
     }
     const element = document.getElementsByClassName("landing-carousel-card")[0];
-    let margins = (totalCardWidth * 5) /100;
+    let margins = (totalCardWidth * 5) / 100;
     let width = element.offsetWidth;
-    if(!this.isMobile){
-      this.paginationFactor = width + (margins*2);
-    }else{
-       let style = element.currentStyle || window.getComputedStyle(element);
-       let margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
-       this.paginationFactor = width + margin;
+    if (!this.isMobile) {
+      this.paginationFactor = width + margins * 2;
+    } else {
+      let style = element.currentStyle || window.getComputedStyle(element);
+      let margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+      this.paginationFactor = width + margin;
     }
-    
-  },
+  }
 };
 </script>
 
@@ -142,6 +154,9 @@ export default {
   @media (max-width: @screen-sm) {
     padding: 0;
   }
+  .carousel-arrow-disable {
+    opacity: .5;
+  }
   .landing-carousel-arrows {
     flex-basis: 0;
     flex-shrink: 0;
@@ -151,16 +166,15 @@ export default {
       width: 27px;
       height: 46px;
       object-fit: contain;
-      
     }
-    .leftButton{
-      &.rtlButton{
+    .leftButton {
+      &.rtlButton {
         transform: scaleX(-1);
       }
     }
     .rightBtn {
       transform: scaleX(-1);
-      &.rtlButton{
+      &.rtlButton {
         transform: scaleX(1);
       }
     }
@@ -168,10 +182,10 @@ export default {
       display: none;
     }
   }
-  .landing-carousel-slider-conteiner {
+  .landing-carousel-slider-container {
     overflow: hidden;
     @media (max-width: @screen-sm) {
-      overflow: inherit;
+      overflow: hidden;
       width: 100%;
       padding: 38px 0 32px;
     }
@@ -212,7 +226,7 @@ export default {
             overflow: hidden;
             text-overflow: ellipsis;
             @media (max-width: @screen-sm) {
-              font-size: 11px;
+              font-size: 12px;
             }
           }
         }
