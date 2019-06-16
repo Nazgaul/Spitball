@@ -80,6 +80,13 @@
                               <v-flex><b>Last Message:</b>{{conversation.lastMessage.toLocaleString()}}</v-flex>
                             </v-layout>
                           </v-flex>
+
+                             <select :class="selectClass" @click="changeStatus">
+                               <option value="default" class="grey"></option>
+                               <option value="NoMatch" class="red">No Match</option>
+                               <option value="Scheduled" class="green">Scheduled</option>
+                               <option value="Active" class="orange">Active</option>
+                             </select> 
                         </v-layout>
                       </v-layout>
                     </v-card-text>
@@ -113,6 +120,7 @@ import {
 export default {
   data() {
     return {
+      selectClass: 'grey',
       headers: [
         { text: "Tutor Id" },
         { text: "Tutor Name" },
@@ -128,6 +136,15 @@ export default {
   },
   components: {
     conversationMessages
+  },
+  methods: {
+    changeStatus(ev){
+      let selected = ev.target.value
+      if(selected === "NoMatch"){this.selectClass = 'red'}
+      if(selected === "Scheduled"){this.selectClass = 'green'}
+      if(selected === "Active"){this.selectClass = 'orange'}
+      if(selected === "default"){this.selectClass = 'grey'}
+    }
   },
   created() {
     getConversationsList().then(
