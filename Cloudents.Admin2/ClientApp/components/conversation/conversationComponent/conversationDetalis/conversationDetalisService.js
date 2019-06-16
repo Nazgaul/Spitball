@@ -57,7 +57,7 @@ const getConversationsList = function () {
 };
 
 const getDetails = function (id) {
-    return connectivityModule.http.get(`${path}/details?id=${id}`).then((newConversationDetails) => {
+    return connectivityModule.http.get(`${path}${id}/details`).then((newConversationDetails) => {
         let arrConversationDetails = [];
         if (newConversationDetails.length > 0) {
             newConversationDetails.forEach((conversationDetails) => {

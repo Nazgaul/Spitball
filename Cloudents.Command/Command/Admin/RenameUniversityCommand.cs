@@ -9,7 +9,7 @@ namespace Cloudents.Command.Command.Admin
             UniversityId = universityId;
             NewName = newName;
         }
-        public Guid UniversityId { get; set; }
-        public string NewName { get; set; }
+        public Guid UniversityId { get; }
+        public string NewName { get;  }
     }
 }

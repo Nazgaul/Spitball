@@ -196,14 +196,14 @@ namespace Cloudents.Admin2.Api
 
 
 
-        [HttpDelete("{id}")]
-        [ProducesResponseType(200)]
-        public async Task DeleteUserAsync(long id,
-            CancellationToken token)
-        {
-            var command = new DeleteUserCommand(id);
-            await _commandBus.DispatchAsync(command, token);
-        }
+        //[HttpDelete("{id}")]
+        //[ProducesResponseType(200)]
+        //public async Task DeleteUserAsync(long id,
+        //    CancellationToken token)
+        //{
+        //    var command = new DeleteUserCommand(id);
+        //    await _commandBus.DispatchAsync(command, token);
+        //}
 
         [HttpGet("info")]
         public async Task<ActionResult<UserDetailsDto>> GetUserDetails(string userIdentifier, CancellationToken token)

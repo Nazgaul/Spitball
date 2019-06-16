@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Enum;
 
 //[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
@@ -16,12 +17,12 @@ namespace Cloudents.Core.Entities
             Messages = new List<ChatMessage>();
         }
 
-        public ChatRoom(IList<RegularUser> users)
+        public ChatRoom(IList<RegularUser> users) : this()
         {
             Users = users.Select(s => new ChatUser(this, s)).ToList();
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
             UpdateTime = DateTime.UtcNow;
-            
+
         }
 
         public static string BuildChatRoomIdentifier(IEnumerable<long> userIds)
@@ -34,12 +35,13 @@ namespace Cloudents.Core.Entities
             return string.Join("_", userIdsList);
         }
 
-        public virtual DateTime UpdateTime { get; set; }
+        public virtual DateTime UpdateTime { get; protected set; }
 
         public virtual ICollection<ChatUser> Users { get; protected set; }
         public virtual ICollection<ChatMessage> Messages { get; protected set; }
 
-        public virtual string Identifier { get; set; }
+        public virtual string Identifier { get; protected set; }
+        public virtual ChatRoomStatus Status { get;  set; }
 
         public virtual void AddMessage(ChatMessage message)
         {
@@ -55,6 +57,8 @@ namespace Cloudents.Core.Entities
                     userInChat.Unread = 0;
                 }
             }
+
+            Status = ChatRoomStatus.OnGoing;
             AddEvent(new ChatMessageEvent(message));
         }
     }

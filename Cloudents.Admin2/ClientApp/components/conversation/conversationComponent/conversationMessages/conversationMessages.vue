@@ -2,7 +2,7 @@
     
         
     <div class="px-4">
-      <!-- <v-layout justify-center>
+       <v-layout justify-center>
           <v-card>
               <v-container fluid grid-list-lg>
                 <v-layout row wrap>
@@ -22,7 +22,7 @@
                 </v-layout>
               </v-container>
           </v-card>
-      </v-layout> -->
+      </v-layout> 
     
         <v-data-table :items="conversationsMessages"
                       hide-actions
