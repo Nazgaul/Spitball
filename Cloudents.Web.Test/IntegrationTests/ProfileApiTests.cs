@@ -110,5 +110,21 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             id.Should().NotBeNull();
         }
+
+        [Fact]
+        public async Task Get_User()
+        {
+            await _client.LogInAsync();
+
+            var response = await _client.GetAsync(_uri.Path + "/search?term=fsdfds");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var courses = d["courses"]?.Value<JArray>();
+
+            courses.Should().BeEmpty();
+        }
     }
 }
