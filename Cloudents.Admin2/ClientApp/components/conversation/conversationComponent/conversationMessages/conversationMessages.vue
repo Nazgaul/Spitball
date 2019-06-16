@@ -2,7 +2,6 @@
     
         
     <div class="px-4" v-show="!loadMessage">
-    
         <v-data-table :items="messages"
                       hide-actions
                       disable-initial-sort
