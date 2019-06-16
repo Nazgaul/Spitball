@@ -8,11 +8,14 @@ namespace Cloudents.Query.Query.Admin
 {
     public class AdminConversationsQuery : IQuery<IEnumerable<ConversationDto>>
     {
-        public AdminConversationsQuery(long userId)
+        private int Page { get; }
+
+        public AdminConversationsQuery(long userId, int page)
         {
             UserId = userId;
+            Page = page;
         }
-        private long UserId { get; set; }
+        private long UserId { get;  }
         internal sealed class AdminAllConversationsQueryHandler : IQueryHandler<AdminConversationsQuery, IEnumerable<ConversationDto>>
         {
             private readonly DapperRepository _dapper;
@@ -65,11 +68,13 @@ where ChatRoomId = c.id
  
 from cte c inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
  where (c.UserId = @UserId or @UserId = 0 or d.userId = @UserId)
-order by c.lastMessage desc";
+order by c.lastMessage desc
+OFFSET @pageSize * @PageNumber ROWS
+FETCH NEXT @pageSize ROWS ONLY;"; 
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<ConversationDto>(sql,
-                        new { query.UserId });
+                        new { query.UserId, pageSize = 50, PageNumber =query.Page });
                     return res;
                 }
             }

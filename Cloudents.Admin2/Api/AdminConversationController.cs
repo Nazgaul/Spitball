@@ -1,7 +1,8 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Admin2.Models;
+using Cloudents.Command;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Query.Admin;
@@ -9,9 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Admin2.Models;
-using Cloudents.Command;
-using Cloudents.Command.Command.Admin;
 
 namespace Cloudents.Admin2.Api
 {
@@ -27,10 +25,10 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ConversationDto>> ConversationAsync(CancellationToken token)
+        public async Task<IEnumerable<ConversationDto>> ConversationAsync(int page, CancellationToken token)
         {
 
-            var query = new AdminConversationsQuery(0);
+            var query = new AdminConversationsQuery(0, page);
             return await _queryBus.QueryAsync(query, token);
         }
 
