@@ -3,12 +3,15 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Chat;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Chat;
+using Cloudents.Admin2.Models;
+using Cloudents.Command;
+using Cloudents.Command.Command.Admin;
 
 namespace Cloudents.Admin2.Api
 {
@@ -26,30 +29,44 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<ConversationDto>> ConversationAsync(CancellationToken token)
         {
+
             var query = new AdminConversationsQuery(0);
             return await _queryBus.QueryAsync(query, token);
         }
 
-        [HttpGet("details")]
+        [HttpGet("{identifier}/details")]
         public async Task<IEnumerable<ConversationDetailsDto>> ConversationDetailAsync(
-            string id,
+           [FromRoute] string identifier,
             CancellationToken token)
         {
-            var query = new AdminConversationDetailsQuery(id);
+            var query = new AdminConversationDetailsQuery(identifier);
             return await _queryBus.QueryAsync(query, token);
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<IEnumerable<ChatMessageDto>> Get(string id, 
-            [FromServices] IChatDirectoryBlobProvider blobProvider,
-            [FromServices] IBinarySerializer serializer,
+        [HttpGet("{identifier}")]
+        public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
             CancellationToken token)
         {
-            //specific conversation
-            int page = 0;
-            var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(id, page), token);
+            var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(identifier, 0), token);
             return result;
+        }
+
+        [HttpPost("{identifier}/status")]
+        public async Task<IActionResult> ChangeStatus(
+            [FromRoute] string identifier,
+            ChangeConversationStatusRequest model,
+            [FromServices] ICommandBus commandBus,
+            CancellationToken token)
+
+        {
+            if (string.IsNullOrEmpty(identifier))
+            {
+                return BadRequest();
+            }
+            var command = new ChangeConversationStatusCommand(identifier, model.Status);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
         }
     }
 }

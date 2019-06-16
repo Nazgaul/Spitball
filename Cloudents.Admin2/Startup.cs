@@ -19,6 +19,7 @@ using System.IO;
 using System.Reflection;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Cloudents.Admin2
@@ -73,6 +74,7 @@ namespace Cloudents.Admin2
 
             }).AddJsonOptions(options =>
                 {
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                     options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

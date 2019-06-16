@@ -8,7 +8,7 @@
             Country = country;
         }
 
-        public long Id { get; set; }
-        public string Country { get; set; }
+        public long Id { get;  }
+        public string Country { get;  }
     }
 }
