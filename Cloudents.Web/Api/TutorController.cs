@@ -14,6 +14,7 @@ using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Services;
 
 namespace Cloudents.Web.Api
 {
@@ -195,6 +195,7 @@ namespace Cloudents.Web.Api
                     email.Dictionary.Add(propertyInfo.Name, value.ToString());
                 }
             }
+            email.Dictionary.Add("Referer", referer.AbsoluteUri);
 
             var utmSource = referer.ParseQueryString()["utm_source"];
             var task1 = queueProvider.InsertMessageAsync(email, token);
