@@ -8,60 +8,78 @@
           </v-toolbar>
 
           <v-card class="blue lighten-4">
-            <v-container fluid grid-list-lg>
-              <v-layout row wrap>
-                <v-expansion-panel class="elevation-0">
-                  <v-expansion-panel-content
-                    xs12
-                    v-for="(conversation, index) in conversationsList"
-                    :key="index"
-                    class="mb-3 elevation-1"
-                  >
-                    <div slot="header">
-                      <v-card-text @click="getConversationData(conversation.id)">
-                        <v-layout column>
-                          <v-layout justify-start row class="pl-2 text-xs-left">
-                            <v-flex xs3>
-                              <b>Tutor Tel:</b>
-                              {{conversation.tutorPhoneNumber}}
-                            </v-flex>
-                            <v-flex xs3>
-                              <b>Tutor Name:</b>
-                              {{conversation.tutorName}}
-                            </v-flex>
-                            <v-flex xs3>
-                              <b>Tutor Email:</b>
-                              {{conversation.tutorEmail}}
-                            </v-flex>
-                            <v-flex xs3>
-                              <b>Status:</b>
-                              {{conversation.status}}
-                            </v-flex>
-                          </v-layout>
-                          <v-layout justify-start row class="pl-2 text-xs-left">
-                            <v-flex>
-                              <v-layout justify-start row>
-                                <v-flex xs3>
-                                  <b>Student Tel:</b>
-                                  {{conversation.userPhoneNumber}}
-                                </v-flex>
-                                <v-flex xs3>
-                                  <b>Student Name:</b>
-                                  {{conversation.userName}}
-                                </v-flex>
-                                <v-flex xs3>
-                                  <b>Student Email:</b>
-                                  {{conversation.userEmail}}
-                                </v-flex>
-                                <v-flex>
-                                  <b>Last Message:</b>
-                                  {{conversation.lastMessage.toLocaleString()}}
-                                </v-flex>
-                              </v-layout>
-                            </v-flex>
-                          </v-layout>
+            <v-container fluid grid-list-lg >
+              <v-layout row wrap >
+
+
+                <!-- <v-flex
+                  xs12
+                  v-for="(conversation, index) in conversationsList"
+                  :key="index"
+                  @click="openItem(conversation)"
+                  :style="{ cursor: 'pointer'}"
+                >
+                  <v-card>
+                    <v-card-text>
+                      <v-layout column>
+                        <v-layout justify-start row class="pl-2 text-xs-left">
+                          <v-flex  xs3   >
+                            <b>Tutor Id:</b>
+                            {{conversation.tutorId}}
+                          </v-flex>
+                          <div>&nbsp;&nbsp;&nbsp;</div>
+                          <v-flex xs3>
+                            <b>Tutor Name:</b>
+                            {{conversation.tutorName}}
+                          </v-flex>
                         </v-layout>
-                      </v-card-text>
+                            <v-layout  justify-start row class="pl-2 text-xs-left">
+                                <v-flex >
+                                    <v-layout  justify-start row >
+                         <v-flex  xs3 >
+                            <b>Student Id:</b>
+                            {{conversation.userId}}
+                         </v-flex>
+                          <div>&nbsp;&nbsp;&nbsp;</div>
+                          <v-flex  xs3 >
+                            <b>Student Name:</b>
+                            {{conversation.userName}}
+                          </v-flex>
+                          <v-flex xs3>
+                            <b>Last Message:</b>
+                            {{conversation.lastMessage.toLocaleString()}}
+                          </v-flex>
+                          </v-layout>
+                                </v-flex>
+                            </v-layout>
+                      </v-layout>
+                    </v-card-text>
+                  </v-card>
+                </v-flex> -->
+
+      <v-expansion-panel class="elevation-0">
+        <v-expansion-panel-content xs12 v-for="(conversation, index) in conversationsList" :key="index" class="mb-3 elevation-1">
+                  <div slot="header" >
+                    <v-card-text>
+                      <v-layout column>
+                        <v-layout justify-start row class="pl-2 text-xs-left">
+                          <v-flex  xs3 ><b>Tutor Tel:</b>{{conversation.tutorPhoneNumber}}</v-flex>
+                          <!-- <div>&nbsp;&nbsp;</div> -->
+                          <v-flex xs3><b>Tutor Name:</b>{{conversation.tutorName}}</v-flex>
+                          <v-flex xs3><b>Tutor Email:</b>{{conversation.tutorEmail}}</v-flex>
+                          <v-flex xs3><b>Status: </b>{{conversation.status}}</v-flex>
+
+                        </v-layout>
+                        <v-layout justify-start row class="pl-2 text-xs-left">
+                          <v-flex >
+                            <v-layout justify-start row >
+                              <v-flex xs3 ><b>Student Tel:</b>{{conversation.userPhoneNumber}}</v-flex>
+                                <!-- <div>&nbsp;&nbsp;</div> -->
+                              <v-flex xs3><b>Student Name:</b>{{conversation.userName}}</v-flex>
+                              <v-flex xs3><b>Student Email:</b>{{conversation.userEmail}}</v-flex>
+                              <v-flex><b>Last Message:</b>{{conversation.lastMessage.toLocaleString()}}</v-flex>
+                            </v-layout>
+                          </v-flex>
                        
                              <select :class="conversation.status" @change="changeStatus($event,conversation.id)">
                                <option value="default" selected class="grey"></option>
@@ -69,14 +87,16 @@
                                <option value="Scheduled" class="green">Scheduled</option>
                                <option value="Active" class="orange">Active</option>
                              </select> 
-                    </div>
-                    <conversationMessages
-                      :loadMessage="loadMessage"
-                      :id="conversation.id"
-                      :messages="conversationsMsg"
-                    />
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
+                        </v-layout>
+                      </v-layout>
+                    </v-card-text>
+                  </div>
+
+            <conversationMessages :id="conversation.id"/>  
+              
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
               </v-layout>
             </v-container>
           </v-card>
@@ -86,10 +106,11 @@
       <div v-show="conversationsList.length === 0 && !showLoading">No conversations</div>
     </div>
   </div>
+  
 </template>
 
 <script>
-import conversationMessages from "../conversationMessages/conversationMessages.vue";
+import conversationMessages from '../conversationMessages/conversationMessages.vue'
 import {
   getConversationsList,
   getDetails,
@@ -111,10 +132,7 @@ export default {
       showLoading: true,
       showNoResult: false,
       conversationsList: [],
-      expand: false,
-      conversationsMsg: [],
-      loadMessage: false,
-      currentSelectedId: null
+      expand: false
     };
   },
   components: {
@@ -134,8 +152,6 @@ export default {
         console.log(err);
       }
     );
-  },
-  methods: {
      changeStatus(ev,id){
       let selected = {
         "status": ev.target.value
@@ -147,29 +163,6 @@ export default {
           if(selected === "default"){this.selectClass = 'grey'}
         })
     },
-    getConversationData(conversation_id) {
-      if (this.currentSelectedId !== conversation_id) {
-        this.currentSelectedId = conversation_id;
-        this.loadMessage = true;
-        getMessages(conversation_id)
-          .then(
-            messages => {
-              if (messages.length === 0) {
-                this.showNoResult = true;
-              } else {
-                this.conversationsMsg = messages;
-              }
-              this.showLoading = false;
-            },
-            err => {
-              console.log(err);
-            }
-          )
-          .finally(() => {
-            this.loadMessage = false;
-          });
-      }
-    }
   }
 };
 </script>
@@ -181,5 +174,17 @@ export default {
 
 .student {
   background-color: lightgray;
+}
+.default{
+  background-color: lightgray;
+}
+.NoMatch{
+  background-color: red
+}
+.Scheduled{
+  background-color: green
+}
+.Active{
+  background-color: orange
 }
 </style>
