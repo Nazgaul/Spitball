@@ -48,7 +48,7 @@ export default {
     FindTutorSubfooterSection,
   },
   computed:{
-    ...mapGetters(['accountUser']),
+    ...mapGetters(['accountUser'])
     },
     created(){
     if(!!this.accountUser){
@@ -68,6 +68,7 @@ export default {
   padding: 0;
   .component-wrapper{
     padding: 0 370px;
+    .responsive-property(min-height, 750px, null, auto);
       @media (max-width: 1800px) {
         padding: 0 300px;
       }
@@ -79,6 +80,7 @@ export default {
       }
       @media (max-width: @screen-md) {
         padding: 0 100px;
+        min-height: auto;
       }
       @media (max-width: @screen-mds) {
         padding: 0 50px;
@@ -89,6 +91,12 @@ export default {
       @media (max-width: @screen-xss) {
         padding: 0 25px; ;
       }
+    }
+    h4:lang(en) {
+      font-size: 20px;
+    }
+    h4:lang(he) {
+      font-size: 22px;
     }
 }
 </style>
