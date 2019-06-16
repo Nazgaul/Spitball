@@ -25,49 +25,45 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<ConversationDto>> GetAsync(AdminConversationsQuery query, CancellationToken token)
             {
-                //TODO: make this quey better
                 const string sql = @"
 with cte as (
- select userid,ChatRoomId, u.Name, PhoneNumberHash, Email
- from sb.ChatUser cu
- join sb.[user] u
-	on u.Id = cu.UserId
-)
+Select 
+cr.Id , 
+cr.status,
+cr.Identifier ,
+cr.UpdateTime as lastMessage,
+u.Name,
+u.Email,
+u.PhoneNumberHash,
+case when (select top 1 UserId from sb.ChatMessage cm where  cm.ChatRoomId = cr.id ) = cu.userid then 0 else 1 end as isTutor
 
-select cr.identifier as Id,
-	(select top 1 cm.CreationTime from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) as lastMessage,
-	(select top 1 cte.Name 
-						from sb.ChatMessage cm 
-						join cte on cm.ChatRoomId = cte.ChatRoomId
-						where cm.ChatRoomId = cr.id and cm.UserId = cte.UserId
-						order by cm.CreationTime) as UserName,
-	(select top 1 cte.PhoneNumberHash 
-						from sb.ChatMessage cm 
-						join cte on cm.ChatRoomId = cte.ChatRoomId
-						where cm.ChatRoomId = cr.id and cm.UserId = cte.UserId
-						order by cm.CreationTime) as UserPhoneNumber,
-	(select top 1 cte.Email 
-						from sb.ChatMessage cm 
-						join cte on cm.ChatRoomId = cte.ChatRoomId
-						where cm.ChatRoomId = cr.id and cm.UserId = cte.UserId
-						order by cm.CreationTime) as UserEmail,
-						c2.Name as TutorName,
-						c2.PhoneNumberHash as TutorPhoneNumber,
-						c2.Email as TutorEmail,
-	case when (select count(distinct UserId) from sb.ChatMessage cm where cm.ChatRoomId = cr.id) = 1 then 'Student'
-	when (select count(distinct UserId) from sb.ChatMessage cm where cm.ChatRoomId = cr.id) = 2
-		and (select count(1) from sb.ChatMessage cm where cm.ChatRoomId = cr.id) = 2 then 'Tuter'
-	else 'Conversation' end as [Status]
 from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id and (cu.UserId = @UserId or @UserId = 0)
-join cte on cr.Id = cte.ChatRoomId and cu.UserId = cte.UserId
-join cte c2 on c2.ChatRoomId = cr.Id and cu.UserId = cte.UserId and c2.UserId != cte.UserId
-where c2.Name != (select top 1 cte.Name 
-						from sb.ChatMessage cm 
-						join cte on cm.ChatRoomId = cte.ChatRoomId
-						where cm.ChatRoomId = cr.id and cm.UserId = cte.UserId
-						order by cm.CreationTime) 
-order by (select top 1 cm.CreationTime from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) desc";
+join sb.[user] u on cu.UserId = u.Id
+)
+select c.Identifier as id,
+c.lastMessage as lastMessage,
+c.Name as UserName,
+c.PhoneNumberHash as UserPhoneNumber,
+c.Email as UserEmail,
+d.Name as TutorName,
+d.PhoneNumberHash as TutorPhoneNumber,
+d.Email as TutorEmail,
+c.status,
+
+(SELECT max (grp) FROM 
+(
+SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
+FROM (
+SELECT *,
+CASE WHEN ABS(UserId - LAG(UserId) OVER(PARTITION BY ChatRoomId ORDER BY Id)) <= 1 THEN NULL ELSE 1 END AS isstart
+FROM sb.ChatMessage
+where ChatRoomId = c.id
+) t1
+) t2) as conversationStatus
+ 
+from cte c inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
+order by c.lastMessage desc";
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<ConversationDto>(sql,

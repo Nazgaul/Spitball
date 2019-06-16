@@ -2,6 +2,9 @@
 {
     public enum ChatRoomStatus
     {
-        OnGoing,
-}
+        Default,
+        Active,
+        Scheduled,
+        NoMatch
+    }
 }
