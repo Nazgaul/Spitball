@@ -15,7 +15,6 @@ let availableDevices = [];
         self.addDevicesTotrack();
     }
    function enterRoom(){
-       store.dispatch('setSesionClickedOnce', true);
        if (!store.getters['sessionStartClickedOnce']) {
         if (!!store.getters['accountUser'] && store.getters['accountUser'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
             walletService.getPaymeLink().then(({ data }) => {
@@ -23,6 +22,8 @@ let availableDevices = [];
             });
             return;
         }
+        //leave this action here so that people that fills the 'pay me' wont get a loading button
+        store.dispatch('setSesionClickedOnce', true);
         //if blocked or not available  use of media devices do not allow session start
         if (store.getters['getNotAllowedDevices'] && store.getters['getNotAvaliableDevices'] ) {
             store.dispatch('updateTestDialogState', true);

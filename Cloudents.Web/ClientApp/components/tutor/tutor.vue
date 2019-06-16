@@ -31,7 +31,7 @@
             </div>
           </div>
           <div
-            style="display: flex; align-items: center; max-height: 48px; width: 320px; justify-content: space-between;"
+            style="display: flex; align-items: center; max-height: 48px; justify-content: space-between;"
           >
             <startEndSessionBtn :id="id"></startEndSessionBtn>
             <v-menu bottom origin="center center" transition="scale-transition">
@@ -150,7 +150,7 @@
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
       <sb-dialog
-        :showDialog="getTutorStartDialog && !qualityDialog"
+        :showDialog="openStartSessionDialog && !qualityDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'startSessionTutor'"
         :maxWidth="'356'"
@@ -318,6 +318,15 @@ export default {
     showNotConnectedDevicesDialog(){
       let browserSupported = this.isBrowserSupport();
       return this.qualityDialog && browserSupported
+    },
+    needPayment() {
+        return this.getStudyRoomData ? this.getStudyRoomData.needPayment : false;
+    },
+    openStartSessionDialog(){
+      if(this.needPayment){
+        return this.getTutorStartDialog
+      }
+      
     }
   },
   methods: {
