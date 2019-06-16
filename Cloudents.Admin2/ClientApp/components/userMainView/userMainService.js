@@ -132,6 +132,11 @@ function ConversationItem(objInit) {
     this.tutorId = objInit.tutorId;
     this.lastMessage = new Date(objInit.lastMessage);
     this.expanded = false;
+    this.status = objInit.status;
+    this.tutorEmail = objInit.tutorEmail;
+    this.tutorPhoneNumber = objInit.tutorPhoneNumber;
+    this.userEmail = objInit.userEmail;
+    this.userPhoneNumber = objInit.userPhoneNumber;
 }
 function createConversationItem(objInit) {
     return new ConversationItem(objInit);
