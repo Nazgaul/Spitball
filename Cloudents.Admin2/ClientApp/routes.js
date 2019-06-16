@@ -40,6 +40,7 @@ import userSessions from './components/userMainView/userSessions/userSessions.vu
 import management from './components/management/Management.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
 import universityPending from './components/management/universityPending/universityPending.vue';
+import shortUrl from './components/management/shortUrl/shortUrl.vue';
 
 import conversation from './components/conversation/conversation.vue';
 import conversations from './components/conversation/conversationComponent/conversationDetalis/conversationDetails.vue';
@@ -266,6 +267,10 @@ export const routes = [
             {
                 path: 'universityPending',
                 component: universityPending
+            },
+            {
+              path: 'shortUrl',
+              component: shortUrl
             }
         ]
     },
