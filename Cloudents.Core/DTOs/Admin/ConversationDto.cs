@@ -42,10 +42,10 @@ namespace Cloudents.Core.DTOs.Admin
 
                 if (ConversationStatus == 2)
                 {
-                    return "Students";
+                    return "Student";
                 }
 
-                return "Conversation";
+                return $"Conversation {ConversationStatus}";
 
             }
         }
