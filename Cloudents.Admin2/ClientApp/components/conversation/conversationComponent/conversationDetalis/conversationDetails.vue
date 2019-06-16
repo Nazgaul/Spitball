@@ -63,34 +63,24 @@
                     <v-card-text>
                       <v-layout column>
                         <v-layout justify-start row class="pl-2 text-xs-left">
-                          <v-flex  xs3 >
-                            <b>Tutor Id:</b>{{conversation.tutorId}}
-                          </v-flex>
-                          <div>&nbsp;&nbsp;&nbsp;</div>
-                          <v-flex xs3>
-                            <b>Tutor Name:</b>
-                            {{conversation.tutorName}}
+                          <v-flex  xs3 ><b>Tutor Tel:</b>{{conversation.tutorPhoneNumber}}</v-flex>
+                          <!-- <div>&nbsp;&nbsp;</div> -->
+                          <v-flex xs3><b>Tutor Name:</b>{{conversation.tutorName}}</v-flex>
+                          <v-flex xs3><b>Tutor Email:</b>{{conversation.tutorEmail}}</v-flex>
+                          <v-flex xs3><b>Status: </b>{{conversation.status}}</v-flex>
+
+                        </v-layout>
+                        <v-layout justify-start row class="pl-2 text-xs-left">
+                          <v-flex >
+                            <v-layout justify-start row >
+                              <v-flex xs3 ><b>Student Tel:</b>{{conversation.userPhoneNumber}}</v-flex>
+                                <!-- <div>&nbsp;&nbsp;</div> -->
+                              <v-flex xs3><b>Student Name:</b>{{conversation.userName}}</v-flex>
+                              <v-flex xs3><b>Student Email:</b>{{conversation.userEmail}}</v-flex>
+                              <v-flex><b>Last Message:</b>{{conversation.lastMessage.toLocaleString()}}</v-flex>
+                            </v-layout>
                           </v-flex>
                         </v-layout>
-                            <v-layout  justify-start row class="pl-2 text-xs-left">
-                                <v-flex >
-                                    <v-layout  justify-start row >
-                         <v-flex  xs3 >
-                            <b>Student Id:</b>
-                            {{conversation.userId}}
-                         </v-flex>
-                          <div>&nbsp;&nbsp;&nbsp;</div>
-                          <v-flex  xs3 >
-                            <b>Student Name:</b>
-                            {{conversation.userName}}
-                          </v-flex>
-                          <v-flex >
-                            <b>Last Message:</b>
-                            {{conversation.lastMessage.toLocaleString()}}
-                          </v-flex>
-                          </v-layout>
-                                </v-flex>
-                            </v-layout>
                       </v-layout>
                     </v-card-text>
                   </div>

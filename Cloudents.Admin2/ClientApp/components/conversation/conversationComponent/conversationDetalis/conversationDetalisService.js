@@ -4,8 +4,13 @@ function ConversationItem(objInit) {
     this.id = objInit.id;
     this.userName = objInit.userName;
     this.userId = objInit.userId;
+    this.userPhoneNumber = objInit.userPhoneNumber;
+    this.userEmail = objInit.userEmail;
     this.tutorName = objInit.tutorName;
     this.tutorId = objInit.tutorId;
+    this.tutorPhoneNumber = objInit.tutorPhoneNumber;
+    this.tutorEmail = objInit.tutorEmail;
+    this.status = objInit.status;
     this.lastMessage = new Date(objInit.lastMessage);
     this.expanded = false;
 }
