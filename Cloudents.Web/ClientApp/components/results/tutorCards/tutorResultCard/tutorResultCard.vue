@@ -1,6 +1,5 @@
 <template>
-  <div class="tutor-card-wrap-desk cursor-pointer">
-    <router-link event="" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+    <router-link class="tutor-card-wrap-desk cursor-pointer" event="" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
       <v-layout>
         <div class="section-tutor-info">
           <v-layout>
@@ -83,7 +82,6 @@
         </v-layout>
       </v-layout>
     </router-link>
-  </div>
 </template>
 
 
