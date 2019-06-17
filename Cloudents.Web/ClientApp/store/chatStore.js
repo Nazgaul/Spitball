@@ -24,7 +24,14 @@ const getters = {
     getIsChatMinimized:state=> state.isMinimized,
     getChatState:state=>state.chatState,
     getEnumChatState:state=>state.enumChatState,
-    getConversations: state=>state.conversations,
+    getConversations: (state)=>{
+        let conversations = Object.keys(state.conversations).map((prop)=>{
+            return state.conversations[prop]
+        });
+        return conversations.sort(function(a,b){
+            return new Date(b.dateTime) - new Date(a.dateTime);
+          });
+    },
     getMessages: (state, {getConversationIdCurrentUserId})=>{
         //can get only messages of the current conversation room
         state.emptyState.length = 0;

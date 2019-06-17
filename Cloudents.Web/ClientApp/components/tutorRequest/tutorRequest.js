@@ -46,6 +46,10 @@ export default {
         ...mapActions(['updateRequestDialog', 'updateToasterParams']),
         searchCourses: debounce(function(ev){
             let term = ev.target.value.trim();
+            if(!term) {
+                this.tutorCourse = ''
+                return 
+            }
             if(!!term){
                 universityService.getCourse({term, page:0}).then(data=>{
                     this.suggestsCourses = data;
