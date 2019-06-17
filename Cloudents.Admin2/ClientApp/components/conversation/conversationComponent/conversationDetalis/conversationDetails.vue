@@ -19,58 +19,57 @@
                   >
                     <div slot="header">
                       <v-card-text @click="getConversationData(conversation.id)">
-                        <v-layout row wrap="">
+                        <v-layout column wrap>
+
                           <v-layout justify-start row class="pl-2 text-xs-left">
                             <v-flex xs3>
-                              <b>Tutor Tel:</b>
-                              {{conversation.tutorPhoneNumber}}
+                              <b>Tutor</b>
+                              {{conversation.tutorPhoneNumber? conversation.tutorPhoneNumber : '-'}}
                             </v-flex>
                             <v-flex xs3>
-                              <b>Tutor Name:</b>
-                              {{conversation.tutorName}}
+                              {{conversation.tutorName? conversation.tutorName : '-'}}
                             </v-flex>
                             <v-flex xs3>
-                              <b>Tutor Email:</b>
-                              {{conversation.tutorEmail}}
+                              {{conversation.tutorEmail? conversation.tutorEmail : '-'}}
                             </v-flex>
                             <v-flex xs3>
                               <span style="max-width: fit-content; border-radius: 35px; padding: 10px;" :class="[`color-${conversation.autoStatus}`]">
-                              <b>Status:</b>
                               {{conversation.autoStatus}}
                               </span>
-                          <select @click.stop='' style="margin-left: 15px;padding: 5px;" outline @change="changeStatus($event, conversation.id)" :class="[`color-${conversation.status}`]" v-model="conversation.status">
-                            <option value="default" class="color-default"></option>
-                            <option value="noMatch" class="color-noMatch">No Match</option>
-                            <option value="scheduled" class="color-scheduled">Scheduled</option>
-                            <option value="active" class="color-active">Active</option>
-                          </select> 
+                            <select @click.stop='' style="margin-left: 15px;padding: 5px;" outline @change="changeStatus($event, conversation.id)" :class="[`color-${conversation.status}`]" v-model="conversation.status">
+                              <option value="default" class="color-default"></option>
+                              <option value="noMatch" class="color-noMatch">No Match</option>
+                              <option value="scheduled" class="color-scheduled">Scheduled</option>
+                              <option value="active" class="color-active">Active</option>
+                            </select> 
 
                             </v-flex>
                           </v-layout>
+
                           <v-layout justify-start row class="pl-2 text-xs-left">
                             <v-flex>
                               <v-layout justify-start row>
                                 <v-flex xs3>
-                                  <b>Student Tel:</b>
-                                  {{conversation.userPhoneNumber}}
+                                  <b>Student:</b>
+                                  {{conversation.userPhoneNumber? conversation.userPhoneNumber: '-'}}
                                 </v-flex>
                                 <v-flex xs3>
-                                  <b>Student Name:</b>
-                                  {{conversation.userName}}
+                                  {{conversation.userName? conversation.userName : '-'}}
                                 </v-flex>
                                 <v-flex xs3>
-                                  <b>Student Email:</b>
-                                  {{conversation.userEmail}}
+                                  {{conversation.userEmail? conversation.userEmail : '-'}}
                                 </v-flex>
                                 <v-flex>
-                                  <b>Last Message:</b>
-                                  {{conversation.lastMessage.toLocaleString()}}
+                                  <b>Last:</b>
+                                  {{conversation.lastMessage.toLocaleString('he-IL')}}
                                 </v-flex>
                               </v-layout>
                             </v-flex>
                           </v-layout>
-
-
+                          
+                          <v-layout row class="pl-3 text-xs-left">
+                                <span><b>Study Room: </b> {{conversation.studyRoomExists}}</span>
+                          </v-layout>
 
                         </v-layout>
                       </v-card-text>
@@ -88,7 +87,7 @@
           </v-card>
         </v-flex>
       </v-layout>
-      <div v-if="showLoading">Loading conversations, please wait...</div>
+      <div v-if="showLoading" style="text-align: center">Loading conversations, please wait...</div>
       <div v-show="conversationsList.length === 0 && !showLoading">No conversations</div>
     </div>
   </div>
@@ -220,7 +219,7 @@ export default {
   background: #d23535;
   color: white;
 }
-.color-Students {
+.color-Student {
   background: #eab73e;
   color: white;
 }

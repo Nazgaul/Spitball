@@ -45,10 +45,12 @@ namespace Cloudents.Core.DTOs.Admin
                     return "Student";
                 }
 
-                return $"Conversation {ConversationStatus}";
+                return $"Conv ({ConversationStatus})";
 
             }
         }
+
+        public bool StudyRoomExists { get; set; }
     }
 
     public class ConversationDetailsDto
