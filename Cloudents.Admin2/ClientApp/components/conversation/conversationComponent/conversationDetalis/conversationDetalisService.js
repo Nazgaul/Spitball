@@ -13,6 +13,7 @@ function ConversationItem(objInit) {
     this.autoStatus = objInit.autoStatus;
     this.status = objInit.status || 'default';
     this.lastMessage = new Date(objInit.lastMessage);
+    this.studyRoomExists = objInit.studyRoomExists;
     this.expanded = false;
 }
 function createConversationItem(objInit) {
