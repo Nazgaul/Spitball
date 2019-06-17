@@ -78,6 +78,8 @@ export default {
                         course: self.tutorCourse}
                     analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                 }else{
+                    let analyticsObject = {
+                        course: self.tutorCourse}
                     analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:GUEST, T_Course:${analyticsObject.course}`);
                 }
                 tutorService.requestTutor(serverObj)
