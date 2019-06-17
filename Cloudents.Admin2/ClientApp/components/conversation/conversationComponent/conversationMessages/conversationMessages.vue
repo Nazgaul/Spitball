@@ -7,7 +7,7 @@
                       class="elevation-2">
             <template slot="items" slot-scope="props">
                 <tr :class="{'student':studentName === props.item.name,'tutor':studentName !== props.item.name}">
-                    <td>{{ studentName === props.item.name? 'student' : 'tutor' }}</td>
+                    <td>{{ studentName === props.item.name ? 'student' :'tutor' }}</td>
                     <td>{{ props.item.text }}</td>
                     <td>{{ new Date(props.item.dateTime).toLocaleString('he-IL') }}</td>
                 </tr>
@@ -45,7 +45,8 @@
         },
         computed: {
             studentName() {
-                return this.messages[0] ? this.messages[0].name : ''
+                let lastMessage = this.messages.length - 1;
+                return this.messages[lastMessage] ? this.messages[lastMessage].name : ''
             }
         },
     }
