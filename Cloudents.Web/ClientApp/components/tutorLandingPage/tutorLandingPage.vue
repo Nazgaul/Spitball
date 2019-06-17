@@ -20,8 +20,8 @@
                 <empty-state-card v-if="items.length === 0 && query.term && showEmptyState" style="margin: 0 auto;" :userText="query.term"></empty-state-card>
             </v-flex>
             <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
-                <tutor-result-card class="mb-3 hidden-xs-only" :fromLandingPage="true" :tutorData="item"></tutor-result-card>
-                <tutor-result-card-mobile class="mb-2 hidden-sm-and-up" :fromLandingPage="true" :tutorData="item"></tutor-result-card-mobile>
+                <tutor-result-card v-if="!isMobile" class="mb-3 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
+                <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"></tutor-result-card-mobile>
             </v-flex>            
         </v-layout>
         <v-layout align-center py-5 justify-space-around class="tutor-landing-status-row">

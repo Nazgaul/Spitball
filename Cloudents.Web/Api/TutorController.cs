@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Web.Api
 {
@@ -63,6 +64,7 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
+        [ResponseCache(Duration = TimeConst.Hour,Location = ResponseCacheLocation.Client,VaryByQueryKeys = new[] { "*"})]
         public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
             string term,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,

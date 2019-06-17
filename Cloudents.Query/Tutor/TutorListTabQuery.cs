@@ -20,6 +20,7 @@ namespace Cloudents.Query.Tutor
 
         internal sealed class TutorListTabQueryHandler :IQueryHandler<TutorListTabQuery, IEnumerable<TutorListDto>>
         {
+            private const int PageSize = 25;
             private readonly DapperRepository _dapperRepository;
 
             public TutorListTabQueryHandler(DapperRepository dapperRepository)
@@ -51,9 +52,9 @@ order by
 cte.rate desc,
  u.id
 
-OFFSET 50*@Page ROWS
-FETCH NEXT 50 ROWS ONLY;";
-                    return await conn.QueryAsync<TutorListDto>(sql, new {query.Page, query.Country });
+OFFSET @PageSize*@Page ROWS
+FETCH NEXT @PageSize ROWS ONLY;";
+                    return await conn.QueryAsync<TutorListDto>(sql, new {query.Page, query.Country, PageSize });
 
                 }
             }
