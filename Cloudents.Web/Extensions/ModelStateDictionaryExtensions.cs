@@ -7,11 +7,16 @@ namespace Cloudents.Web.Extensions
     {
         public static void AddIdentityModelError(this ModelStateDictionary model, IdentityResult result)
         {
+            AddIdentityModelError(model, string.Empty, result);
+        }
+
+        public static void AddIdentityModelError(this ModelStateDictionary model, string key, IdentityResult result)
+        {
             foreach (var error in result.Errors)
             {
-                model.AddModelError(string.Empty, error.Description);
+                model.AddModelError(key, error.Description);
             }
         }
-       
+
     }
 }
