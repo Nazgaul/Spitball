@@ -1,16 +1,16 @@
-﻿<template>
-    
-        
+﻿<template> 
     <div class="px-4" v-show="!loadMessage">
         <v-data-table :items="messages"
                       hide-actions
                       disable-initial-sort
                       :headers="messageHeaders"
-                      class="elevation-2"  style="border:5px solid green">
+                      class="elevation-2">
             <template slot="items" slot-scope="props">
-                <td :class="{'student':studentName == props.item.name,'tutor':studentName != props.item.name}" class="text-xs-left">{{ props.item.name }}</td>
-                <td :class="{'student':studentName == props.item.name,'tutor':studentName != props.item.name}" class="text-xs-left">{{ props.item.text }}</td>
-                <td :class="{'student':studentName == props.item.name,'tutor':studentName != props.item.name}" class="text-xs-left">{{ props.item.dateTime.toLocaleString() }}</td>
+                <tr :class="{'student':studentName === props.item.name,'tutor':studentName !== props.item.name}">
+                    <td>{{ props.item.name }}</td>
+                    <td>{{ props.item.text }}</td>
+                    <td>{{ props.item.dateTime.toLocaleString() }}</td>
+                </tr>
             </template>
         </v-data-table>
     </div>
@@ -27,15 +27,15 @@
                     { text: 'Text' },
                     { text: 'Date' }
                 ],
-                conversationsDetails: [],
-                conversationsMessages: []
+                // conversationsDetails: [],
+                // conversationsMessages: []
             }
         },
         props: {
-            id: {
-              type: String,
-              required: true
-            },
+            // id: {
+            //   type: String,
+            //   required: true
+            // },
             messages: {
               type: Array,
             },
@@ -45,20 +45,19 @@
         },
         computed: {
             studentName() {
-                return this.conversationsMessages[0] ? this.conversationsMessages[0].name : ''
+                return this.messages[0] ? this.messages[0].name : ''
             }
         },
     }
 </script>
 
 <style lang="scss">
-  .text-xs-left {
-        background-color: white;
-    }
-    td.student {
+tr{
+    &.student {
         background-color: lightblue;
-    }
-    .tutor {
+        }
+    &.tutor {
         background-color: lightgray;
-    }
+        }
+}
 </style>
