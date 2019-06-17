@@ -323,7 +323,7 @@ export default {
         return this.getStudyRoomData ? this.getStudyRoomData.needPayment : false;
     },
     openStartSessionDialog(){
-      if(this.needPayment){
+      if(!this.needPayment){
         return this.getTutorStartDialog
       }
       
