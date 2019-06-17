@@ -76,7 +76,9 @@ export default {
                     let analyticsObject = {
                         userId: self.accountUser.id,
                         course: self.tutorCourse}
-                    analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                    analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                }else{
+                    analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:GUEST, T_Course:${analyticsObject.course}`);
                 }
                 tutorService.requestTutor(serverObj)
                             .then(() => {
