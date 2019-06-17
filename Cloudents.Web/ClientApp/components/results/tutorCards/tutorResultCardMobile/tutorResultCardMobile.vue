@@ -117,13 +117,15 @@ export default {
     tutorCardClicked() {
         if(this.fromLandingPage){
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+            this.$router.push({name: "profile", query: this.$route.query, params: { id: this.tutorData.userId, name: this.tutorData.name }});
         }else{
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+            this.$router.push({
+            name: "profile",
+            params: { id: this.tutorData.userId, name: this.tutorData.name }
+          });
         }
-        this.$router.push({
-          name: "profile",
-          params: { id: this.tutorData.userId, name: this.tutorData.name }
-        });
+        
     },
     openRequestDialog() {
       this.updateRequestDialog(true);
