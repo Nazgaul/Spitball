@@ -97,10 +97,10 @@
 <script>
 import conversationMessages from "../conversationMessages/conversationMessages.vue";
 import {
-  getConversationsList,
   getDetails,
   getMessages,
-  setConversationsStatus
+  setConversationsStatus,
+  getConversationsListPage
 } from "./conversationDetalisService";
 
 export default {
@@ -119,7 +119,11 @@ export default {
       expand: false,
       conversationsMsg: [],
       loadMessage: false,
-      currentSelectedId: null
+      currentSelectedId: null,
+      page: 0,
+      isCompleted: false,
+      EXPECTED_AMOUNT: 50,
+      isLoading: false,
     };
   },
   components: {
@@ -154,23 +158,41 @@ export default {
             this.loadMessage = false;
           });
       }
+    },
+    handleScroll() {     
+      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;      
+      if (bottomOfWindow) {
+          this.page = this.page + 1
+          if(!this.isCompleted && !this.isLoading){
+            this.isLoading = true;
+            this.getConversations()
+          }
+          
+      }
+    },
+    getConversations() {            
+      getConversationsListPage(this.page).then(list => {
+        if (list.length < this.EXPECTED_AMOUNT) {
+          this.isCompleted = true;
+        } 
+          this.conversationsList = [...this.conversationsList, ...list];
+        },
+        err => {
+          console.log(err);
+        }
+      ).finally(()=>{
+        this.isLoading = false;
+        this.showLoading = false;
+      });
     }
   },
-    created() {
-    getConversationsList().then(
-      list => {
-        if (list.length === 0) {
-          this.showNoResult = true;
-        } else {
-          this.conversationsList = list;
-        }
-        this.showLoading = false;
-      },
-      err => {
-        console.log(err);
-      }
-    );
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+    this.getConversations();
   },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
 };
 </script>
 

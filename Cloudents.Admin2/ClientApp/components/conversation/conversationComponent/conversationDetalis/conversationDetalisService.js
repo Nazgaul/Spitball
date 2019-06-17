@@ -48,8 +48,9 @@ const setConversationsStatus = (id,status) => {
         return res
     })
 }
-const getConversationsList = function () {
-    return connectivityModule.http.get(`${path}`).then((newConversationList) => {
+
+const getConversationsListPage = function (page) {
+    return connectivityModule.http.get(`${path}?page=${page}`).then((newConversationList) => {
         let arrConversationList = [];
         if (newConversationList.length > 0) {
             newConversationList.forEach((conversation) => {
@@ -91,8 +92,8 @@ const getMessages = function (id) {
 };
     
 export {
-    getConversationsList,
     getDetails,
     getMessages,
-    setConversationsStatus
+    setConversationsStatus,
+    getConversationsListPage
 };
