@@ -21,10 +21,12 @@ import analyticsService from '../../../../services/analytics.service';
             ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface','updateRequestDialog']),
             ...mapGetters(['getProfile']),
             sendMessage(){
-                analyticsService.sb_unitedEvent('Tutor_Engagement', 'profile_page');
+                
                 if ( this.accountUser == null) {
+                    analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
                 this.updateRequestDialog(true);
                 } else {
+                    analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
                     let currentProfile = this.getProfile();
                     let conversationObj = {
                         userId: currentProfile.user.id,
