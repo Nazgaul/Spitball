@@ -64,7 +64,8 @@ CASE WHEN ABS(UserId - LAG(UserId) OVER(PARTITION BY ChatRoomId ORDER BY Id)) <=
 FROM sb.ChatMessage
 where ChatRoomId = c.id
 ) t1
-) t2) as conversationStatus
+) t2) as conversationStatus,
+case when (Select  id from sb.StudyRoom where Identifier = c.Identifier) is null then 0 else 1 end  as studyRoomExists
  
 from cte c inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
  where (c.UserId = @UserId or @UserId = 0 or d.userId = @UserId)
