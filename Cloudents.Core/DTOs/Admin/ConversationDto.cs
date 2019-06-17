@@ -45,7 +45,7 @@ namespace Cloudents.Core.DTOs.Admin
                     return "Student";
                 }
 
-                return $"Conversation {ConversationStatus}";
+                return $"Conv ({ConversationStatus})";
 
             }
         }
