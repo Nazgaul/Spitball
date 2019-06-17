@@ -88,7 +88,7 @@
             <v-layout align-center class="px-3"
                       :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between' : 'justify-end']">
                 <v-flex xs5 sm2 >
-                    <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
+                    <v-btn :disabled="btnLoading" class="shallow-blue ml-0" round outline primary @click="closeDialog">
                         <span v-language:inner>profile_btn_cancel</span>
                     </v-btn>
                 </v-flex>
@@ -159,10 +159,10 @@
             },
             price: {
                 get() {
-                    return this.getProfile.user.tutorData.price;
+                    return +this.getProfile.user.tutorData.price.toFixed(2)
                 },
                 set(newVal) {
-                    this.editedPrice = newVal;
+                    this.editedPrice = +newVal
                 }
             },
             lastName: {
@@ -186,7 +186,7 @@
             }
         },
         methods: {
-            ...mapActions(['updateEditedProfile']),
+            ...mapActions(['updateEditedProfile','updateEditDialog']),
             saveChanges() {
                 if(this.$refs.formTutor.validate()) {
                     let editsData = {
@@ -203,6 +203,7 @@
                                       this.updateEditedProfile(editsData);
                                       this.btnLoading = false;
                                       this.closeDialog();
+                                      this.updateEditDialog(false)
                                   }, (error) => {
                                       console.log('Error', error);
                                       this.btnLoading = false;
