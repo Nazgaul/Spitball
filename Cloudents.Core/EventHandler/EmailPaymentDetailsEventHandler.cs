@@ -19,7 +19,6 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(StudyRoomCreatedEvent eventMessage, CancellationToken token)
         {
-            //return Task.CompletedTask;
             await _serviceBusProvider.InsertMessageAsync(new StudentPaymentMessage(eventMessage.StudyRoom.Id), token);
         }
     }

@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Models
@@ -34,19 +35,28 @@ namespace Cloudents.Web.Models
             var stringLocalizer =
                 validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as
                     IStringLocalizer<DataAnnotationSharedResource>;
-            if (Tags == null) yield break;
-            foreach (var tag in Tags)
+            if (Tags != null)
             {
-                if (Tag.ValidateTag(tag)) continue;
-                var errorMessage = "Invalid length";
-                if (stringLocalizer != null)
+                foreach (var tag in Tags)
                 {
-                    errorMessage = stringLocalizer["TagCannotContain"];
-                }
+                    if (Tag.ValidateTag(tag)) continue;
+                    var errorMessage = "Invalid length";
+                    if (stringLocalizer != null)
+                    {
+                        errorMessage = stringLocalizer["TagCannotContain"];
+                    }
 
+                    yield return new ValidationResult(
+                        errorMessage,
+                        new[] {nameof(Tags)});
+                }
+            }
+
+            if (string.IsNullOrEmpty(FriendlyUrlHelper.GetFriendlyTitle(Name)))
+            {
                 yield return new ValidationResult(
-                    errorMessage,
-                    new[] { nameof(Tags) });
+                    "File Name is invalid",
+                    new[] { nameof(Name) });
             }
         }
     }
