@@ -50,7 +50,7 @@ namespace Cloudents.Core
         {
            
             var builder = new UriBuilder(_webSiteEndPoint) { Path = GeneratePaymentLink };
-            builder.AddQuery(token);
+            builder.AddQuery(new { token });
             return builder.ToString();
         }
 
