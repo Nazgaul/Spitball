@@ -17,7 +17,6 @@ namespace Cloudents.Core.DTOs
         public bool NeedPayment { get; set; }
     };
        
-    }
 
 
     public class UserStudyRoomDto
