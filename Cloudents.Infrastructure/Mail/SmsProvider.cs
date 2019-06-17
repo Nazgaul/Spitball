@@ -81,9 +81,10 @@ namespace Cloudents.Infrastructure.Mail
            await RoomResource.CreateAsync(
                 uniqueName: id,
                 maxParticipants: 2,
-                type: RoomResource.RoomTypeEnum.GroupSmall, //this is smaller fee
-                enableTurn: false,//no need according to document
-                recordParticipantsOnConnect: needRecord);
+                type: RoomResource.RoomTypeEnum.PeerToPeer //this is smaller fee
+               
+                //recordParticipantsOnConnect: needRecord
+                );
         }
 
         public Task CloseRoomAsync(string id)
