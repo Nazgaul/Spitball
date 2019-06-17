@@ -22,20 +22,17 @@
                         <v-layout row wrap="">
                           <v-layout justify-start row class="pl-2 text-xs-left">
                             <v-flex xs3>
-                              <b>Tutor Tel:</b>
+                              <b>Tutor</b>
                               {{conversation.tutorPhoneNumber}}
                             </v-flex>
                             <v-flex xs3>
-                              <b>Tutor Name:</b>
                               {{conversation.tutorName}}
                             </v-flex>
                             <v-flex xs3>
-                              <b>Tutor Email:</b>
                               {{conversation.tutorEmail}}
                             </v-flex>
                             <v-flex xs3>
                               <span style="max-width: fit-content; border-radius: 35px; padding: 10px;" :class="[`color-${conversation.autoStatus}`]">
-                              <b>Status:</b>
                               {{conversation.autoStatus}}
                               </span>
                           <select @click.stop='' style="margin-left: 15px;padding: 5px;" outline @change="changeStatus($event, conversation.id)" :class="[`color-${conversation.status}`]" v-model="conversation.status">
@@ -51,27 +48,22 @@
                             <v-flex>
                               <v-layout justify-start row>
                                 <v-flex xs3>
-                                  <b>Student Tel:</b>
+                                  <b>Student:</b>
                                   {{conversation.userPhoneNumber}}
                                 </v-flex>
                                 <v-flex xs3>
-                                  <b>Student Name:</b>
                                   {{conversation.userName}}
                                 </v-flex>
                                 <v-flex xs3>
-                                  <b>Student Email:</b>
                                   {{conversation.userEmail}}
                                 </v-flex>
                                 <v-flex>
-                                  <b>Last Message:</b>
-                                  {{conversation.lastMessage.toLocaleString()}}
+                                  <b>Last:</b>
+                                  {{conversation.lastMessage.toLocaleString('he-IL')}}
                                 </v-flex>
                               </v-layout>
                             </v-flex>
                           </v-layout>
-
-
-
                         </v-layout>
                       </v-card-text>
                     </div>
@@ -198,7 +190,7 @@ export default {
   background: #d23535;
   color: white;
 }
-.color-Students {
+.color-Student {
   background: #eab73e;
   color: white;
 }
