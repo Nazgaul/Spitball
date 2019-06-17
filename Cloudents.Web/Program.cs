@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.Reflection;
 
 
-[assembly: AssemblyVersion("19.6.3.*")]
+[assembly: AssemblyVersion("19.6.17.*")]
 namespace Cloudents.Web
 {
     public static class Program

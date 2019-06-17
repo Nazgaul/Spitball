@@ -265,6 +265,10 @@ const actions = {
     },
     signalR_ReleasePaymeStatus({commit, dispatch, state}) {
         state.studyRoomData.needPayment = false;
+        let isTutor = state.studyRoomData.isTutor;
+        if(isTutor) {
+            dispatch("updateStudentStartDialog", true);
+        }
     },
     setRoomId({commit}, val) {
         commit('setRoomId', val);

@@ -13,10 +13,12 @@ namespace Cloudents.Web.EventHandler
     public class WebSocketPaymentReceivedEventHandler : IEventHandler<StudentPaymentReceivedEvent>
     {
         private readonly IHubContext<SbHub> _hubContext;
+        private readonly IHubContext<StudyRoomHub> _studyRoomHubContext;
 
-        public WebSocketPaymentReceivedEventHandler(IHubContext<SbHub> hubContext)
+        public WebSocketPaymentReceivedEventHandler(IHubContext<SbHub> hubContext, IHubContext<StudyRoomHub> studyRoomHub)
         {
             _hubContext = hubContext;
+            _studyRoomHubContext = studyRoomHub;
         }
 
         public async Task HandleAsync(StudentPaymentReceivedEvent eventMessage, CancellationToken token)
@@ -27,7 +29,7 @@ namespace Cloudents.Web.EventHandler
                 SignalREventAction.PaymentReceived, new object());
             foreach (var roomId in eventMessage.User.StudyRooms.Select(s => s.Room.Id))
             {
-                var t = _hubContext.Clients.Group(roomId.ToString()).SendAsync(SbHub.MethodName, message, token);
+                var t = _studyRoomHubContext.Clients.Group(roomId.ToString()).SendAsync(SbHub.MethodName, message, token);
                 list.Add(t);
             }
             
