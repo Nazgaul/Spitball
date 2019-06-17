@@ -10,6 +10,7 @@ export default {
     components: { timerIcon, stopIcon, fullScreenIcon },
     data() {
         return {
+            videoEl: null,
             loading: false,
             loaded: false,
             data: {},
@@ -62,7 +63,19 @@ export default {
         ]),
         minimize(type) {
             this.visible[`${type}`] = !this.visible[`${type}`];
+        },
+        showLocalVideo(){
+            let self = this
+            createLocalVideoTrack({width: 100, height: 75}).then(track => {
+                if(!!track){
+                    self.videoEl = document.getElementById('localTrack');
+                    self.videoEl.appendChild(track.attach());
+                }
+            });
         }
+    },
+    mounted() {
+        this.showLocalVideo()
     },
     created() {
         this.setRoomId(this.id);

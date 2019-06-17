@@ -107,12 +107,12 @@ namespace Cloudents.Web.Api
                     await _signInManager.SignInAsync(user, false);
                     return Ok();
                 }
-                ModelState.AddModelError(string.Empty, _localizer["UserDoesntExists"]);
+                ModelState.AddModelError(nameof(model.Password), _localizer["UserDoesntExists"]);
                 return BadRequest(ModelState);
 
             }
             //TODO: Localize
-            ModelState.AddIdentityModelError(result);
+            ModelState.AddIdentityModelError(nameof(model.Password),result);
             return BadRequest(ModelState);
         }
     }
