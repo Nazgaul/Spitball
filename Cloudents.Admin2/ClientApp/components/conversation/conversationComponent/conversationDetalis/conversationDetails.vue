@@ -80,7 +80,7 @@
           </v-card>
         </v-flex>
       </v-layout>
-      <div v-if="showLoading">Loading conversations, please wait...</div>
+      <div v-if="showLoading" style="text-align: center">Loading conversations, please wait...</div>
       <div v-show="conversationsList.length === 0 && !showLoading">No conversations</div>
     </div>
   </div>

@@ -7,9 +7,9 @@
                       class="elevation-2">
             <template slot="items" slot-scope="props">
                 <tr :class="{'student':studentName === props.item.name,'tutor':studentName !== props.item.name}">
-                    <td>{{ props.item.name }}</td>
+                    <td>{{ studentName === props.item.name? 'student' : 'tutor' }}</td>
                     <td>{{ props.item.text }}</td>
-                    <td>{{ props.item.dateTime.toLocaleString() }}</td>
+                    <td>{{ new Date(props.item.dateTime).toLocaleString('he-IL') }}</td>
                 </tr>
             </template>
         </v-data-table>
