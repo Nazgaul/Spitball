@@ -34,7 +34,7 @@
         >
           <v-flex xs12 grow>
             <v-flex xs12 shrink v-if="showStriked" class="strike-through">
-              <span class="pricing striked-price">₪{{tutorData.price}}</span>
+              <span class="pricing striked-price">₪{{tutorData.price.toFixed(2)}}</span>
               <span class="pricing caption striked-price">
                 <span v-language:inner="'resultTutor_hour'"></span>
               </span>
@@ -163,7 +163,7 @@ export default {
             discountedPrice(){
                 let price = this.tutorData.price;
                 let discountedAmount = price - this.discountAmount;
-                return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
+                return discountedAmount >  this.minimumPrice ? discountedAmount.toFixed(2) : this.minimumPrice.toFixed(2);
     },
     buttonText() {
       return this.fromLandingPage
