@@ -43,6 +43,7 @@ import universityPending from './components/management/universityPending/univers
 
 import conversation from './components/conversation/conversation.vue';
 import conversations from './components/conversation/conversationComponent/conversationDetalis/conversationDetails.vue';
+import startConversations from './components/conversation/startconversation.vue'
 // import conversationMessages from './components/conversation/conversationComponent/conversationMessages/conversationMessages.vue';
 
 import tutors from './components/tutor/tutor.vue';
@@ -283,6 +284,10 @@ export const routes = [
                 path: 'conversationDetails',
                 component: conversations
             },
+            {
+              path:'send',
+              component: startConversations
+            }
             // {
                 // path: 'conversationDetail/:id',
                 // component: conversationMessages,

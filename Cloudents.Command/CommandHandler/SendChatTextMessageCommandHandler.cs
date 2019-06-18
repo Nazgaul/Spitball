@@ -1,7 +1,8 @@
 ﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using System.Linq;
+using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,13 +26,21 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(SendChatTextMessageCommand message, CancellationToken token)
         {
-            var users = message.ToUsersId.ToList();
-            users.Add(message.UserSendingId);
+            //var users = message.ToUsersId.ToList();
+            //users.Add(message.UserSendingId);
+            var users = new[] { message.ToUsersId, message.UserSendingId };
+
             var chatRoom = await _chatRoomRepository.GetChatRoomAsync(users, token);
 
             if (chatRoom == null)
             {
-                chatRoom = new ChatRoom(users.Select(s => _userRepository.Load(s)).ToList());
+                var userSending = await _userRepository.LoadAsync(message.UserSendingId, token);
+                var userReceiving = await _userRepository.LoadAsync(message.ToUsersId, token);
+                if (userReceiving.Tutor == null)
+                {
+                    throw new ArgumentException("sending a message not to tutor");
+                }
+                chatRoom = new ChatRoom(new List<RegularUser>() { userSending, userReceiving });
                 await _chatRoomRepository.AddAsync(chatRoom, token);
             }
 

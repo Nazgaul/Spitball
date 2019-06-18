@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using System;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs.Admin
 {
@@ -34,7 +35,7 @@ namespace Cloudents.Core.DTOs.Admin
         public bool EmailConfirmed { get; set; }
         [EntityBind(nameof(RegularUser.LastOnline))]
         public DateTime? LastOnline { get; set; }
-        public string IsTutor{ get; set; }
+        public ItemState? TutorState{ get; set; }
         [EntityBind(nameof(RegularUser.LockoutReason))]
         public string LockoutReason { get; set; }
     }
