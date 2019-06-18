@@ -12,8 +12,8 @@
                 <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3>
             </v-flex>
         </v-layout>
-        <v-layout class="tutor-landing-page-search" align-center justify-center>
-            <div class="tutor-search-container">
+        <v-layout class="tutor-landing-page-search" :class="{'sticky-active': activateSticky}" align-center justify-center>
+            <div class="tutor-search-container" :class="{'sticky-active': activateSticky}">
                 <tutor-search-component></tutor-search-component>
             </div>
         </v-layout>
@@ -63,12 +63,18 @@ export default {
                 isLoading: false,
                 isComplete: false,
                 MAX_ITEMS: 25
-            }
+            },
+            topOffset: 0
         }
     },
     computed:{
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
+        },
+        activateSticky(){
+            if(!this.isMobile){
+                return this.topOffset > 270;
+            }
         }
     },
     watch:{
@@ -94,11 +100,23 @@ export default {
             this.scrollBehaviour.isLoading = true;
             this.query.page = this.query.page + 1;
             this.updateList();
+        },
+        setTopOffset(){
+            this.topOffset = window.pageYOffset || document.documentElement.scrollTop;
         }
     },
     created(){
         this.query.term = !!this.$route.query && !!this.$route.query.term ? this.$route.query.term : '';
         this.updateList();
+        
+    },
+    beforeMount(){
+        if (window) {
+           window.addEventListener('scroll', this.setTopOffset);
+        }
+    },
+    destroyed(){
+        window.removeEventListener('scroll', this.setTopOffset);
     }
 }
 </script>
@@ -145,6 +163,13 @@ export default {
         position:sticky;
         top:30px;
         z-index: 99;
+        &.sticky-active{
+            top:0;
+            background: #fff;
+            width: 100%;
+            height: 70px;
+            box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.28);
+        }
         .tutor-search-container{
             width: 90%;
             max-width: 740px;
@@ -152,6 +177,11 @@ export default {
             bottom: -26px;
             box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.28);
             border-radius: 4px;
+            &.sticky-active{
+                bottom: 6px;
+                box-shadow: unset;
+                border: 1px solid #b4b4b4;
+            }
             @media (max-width: @screen-xs) {
                 width: 100%;
             }
