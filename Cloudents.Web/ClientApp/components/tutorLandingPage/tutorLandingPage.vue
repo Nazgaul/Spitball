@@ -11,6 +11,8 @@
             <v-flex :class="{'pb-4': !isMobile}">
                 <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3>
             </v-flex>
+        </v-layout>
+        <v-layout class="tutor-landing-page-search" align-center justify-center>
             <div class="tutor-search-container">
                 <tutor-search-component></tutor-search-component>
             </div>
@@ -124,6 +126,11 @@ export default {
                 font-size: 16px;
             }
         }
+    }
+    .tutor-landing-page-search{
+        position:sticky;
+        top:30px;
+        z-index: 99;
         .tutor-search-container{
             width: 90%;
             max-width: 740px;
@@ -132,10 +139,11 @@ export default {
             box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.28);
             border-radius: 4px;
             @media (max-width: @screen-xs) {
-                width: 90%;
+                width: 100%;
             }
         }
     }
+    
     .tutor-landing-page-body{
         margin-top: 15px;
         .tutor-landing-page-empty-state{
