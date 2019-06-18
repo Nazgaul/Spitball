@@ -137,7 +137,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices]  IQueueProvider queueProvider,
             [FromServices] IHostingEnvironment configuration,
-            [FromServices] ISmsSender _client,
+            [FromServices] ISmsSender client,
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
@@ -158,7 +158,7 @@ namespace Cloudents.Web.Api
                 {
                     if (user.PhoneNumber == null)
                     {
-                        var phoneNumber = await _client.ValidateNumberAsync(model.ToString(), token);
+                        var phoneNumber = await client.ValidateNumberAsync(model.ToString(), token);
                         if (phoneNumber.phoneNumber != null)
                         {
                             user.Country = phoneNumber.country;
