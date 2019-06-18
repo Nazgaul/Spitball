@@ -15,8 +15,8 @@ const state = {
     createDialog: false,
     creationVerified: false,
     createUniDialog: false,
-    uniCreationVerified: false
-
+    uniCreationVerified: false,
+    lock_selectedClass:true
 };
 
 const getters = {
@@ -36,7 +36,8 @@ const getters = {
     createDialogVisibility: state => state.createDialog,
     creationVerified: state => state.creationVerified,
     getCreateDialogVisibility: state => state.createUniDialog,
-    uniCreationVerified: state => state.uniCreationVerified
+    uniCreationVerified: state => state.uniCreationVerified,
+    getIsSelectedClassLocked: state => state.lock_selectedClass
 };
 
 const mutations = {
@@ -132,6 +133,9 @@ const mutations = {
                 return state.selectedClasses[index].isTeaching = true;
             });
         }
+    },
+    setLock_selectedClass(state, val){
+        state.lock_selectedClass = val;
     }
 };
 
@@ -143,6 +147,7 @@ const actions = {
         commit('clearClassesCahce');
     },
     syncUniData({commit, dispatch}) {
+        dispatch('setLock_selectedClass', true);
         universityService.getProfileUniversity().then((university) => {
             commit('setSchoolName', university.text);
             setTimeout(() => {
@@ -152,20 +157,18 @@ const actions = {
 
         });
         universityService.getProfileCourses().then((courses) => {
-            if(courses.length > 0) {
-                commit('setSelectedClasses', courses);
+                dispatch('setSelectedClasses', courses);
                 dispatch('assignSelectedClassesCache', courses);
                 setTimeout(() => {
                     dispatch('releaseResultLock', "class");
                 }, 2000);
-            }
         });
     },
     //to sync courses only
     syncCoursesData({commit, dispatch}) {
         universityService.getProfileCourses().then((courses) => {
             if(courses.length > 0) {
-                commit('setSelectedClasses', courses);
+                dispatch('setSelectedClasses', courses);
                 dispatch('assignSelectedClassesCache', courses);
                 setTimeout(() => {
                     dispatch('releaseResultLock', "class");
@@ -263,8 +266,8 @@ const actions = {
     removeFromCached({commit}, val){
         commit('deleteFromCachedList', val);
     },
-    updateSelectedClasses({commit}, val) {
-        commit('setSelectedClasses', val);
+    updateSelectedClasses({dispatch}, val) {
+        dispatch('setSelectedClasses', val);
     },
     pushClassToSelectedClasses({commit}, val) {
         commit('pushClass', val);
@@ -283,9 +286,9 @@ const actions = {
     addToCachedClasses({commit, state}, val) {
         commit("updateCachedList", val);
     },
-    changeClassesToCachedClasses({commit, state}) {
+    changeClassesToCachedClasses({commit, state, dispatch}) {
         if(state.selectedClassesCache.length > 0) {
-            commit('setSelectedClasses', [].concat(state.selectedClassesCache));
+            dispatch('setSelectedClasses', [].concat(state.selectedClassesCache));
         }
     },
     updateCurrentStep({commit, state}, val) {
@@ -334,6 +337,13 @@ const actions = {
     updateUniVerification({commit, state}, val) {
         commit('verifyUniCreation', val);
     },
+    setSelectedClasses({commit, dispatch}, val){
+        commit('setSelectedClasses', val);
+        dispatch('setLock_selectedClass', false);
+    },
+    setLock_selectedClass({commit}, val){
+        commit('setLock_selectedClass', val);
+    }
 
 };
 
