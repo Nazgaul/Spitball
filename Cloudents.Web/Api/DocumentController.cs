@@ -24,6 +24,7 @@ using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -35,12 +36,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Wangkanai.Detection;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]"), ApiController, Authorize]
+    [Route("api/[controller]"), ApiController]
     public class DocumentController : UploadControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -57,7 +57,7 @@ namespace Cloudents.Web.Api
             IStringLocalizer<DocumentController> localizer,
             ITempDataDictionaryFactory tempDataDictionaryFactory,
              IStringLocalizer<UploadControllerBase> localizer2)
-        : base(blobProvider, tempDataDictionaryFactory,localizer2)
+        : base(blobProvider, tempDataDictionaryFactory, localizer2)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
@@ -66,7 +66,7 @@ namespace Cloudents.Web.Api
             _localizer = localizer;
         }
 
-        [HttpGet("{id}"), AllowAnonymous]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -78,6 +78,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             long? userId = null;
+
             if (User.Identity.IsAuthenticated)
             {
                 userId = _userManager.GetLongUserId(User);
@@ -132,7 +133,7 @@ namespace Cloudents.Web.Api
             return new DocumentPreviewResponse(model, files, textTask.Result);
         }
 
-        [HttpPost]
+        [HttpPost,Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
@@ -158,10 +159,10 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpGet(Name = "Documents"), AllowAnonymous]
+        [HttpGet(Name = "Documents")]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> AggregateAllCoursesAsync(
            [FromQuery]DocumentRequestAggregate request,
-           [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile, 
+           [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
            CancellationToken token)
         {
             var page = request.Page;
@@ -218,12 +219,13 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SpecificCourseAsync(
             [RequiredFromQuery]DocumentRequestCourse request,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new DocumentCourseQuery(userId, request.Page, request.Course, request.Filter);
+            _userManager.TryGetLongUserId(User, out var userId);
+            var query = new DocumentCourseQuery(userId, request.Page, request.Course, request.Filter,profile.Country);
             var result = await _queryBus.QueryAsync(query, token);
-            return GenerateResult(result, new { page = ++request.Page, request.Course,request.Filter });
+            return GenerateResult(result, new { page = ++request.Page, request.Course, request.Filter });
         }
 
         [HttpGet]
@@ -265,7 +267,7 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchInSpitballAsync(
           [RequiredFromQuery]  DocumentRequestSearch request,
 
@@ -273,7 +275,7 @@ namespace Cloudents.Web.Api
             [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
         {
-            
+
             var query = new DocumentQuery(profile, request.Term, null,
                 request.University != null, request.Filter?.Where(w => !string.IsNullOrEmpty(w)))
             {
@@ -306,7 +308,7 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpPost("vote")]
+        [HttpPost("vote"), Authorize]
         public async Task<IActionResult> VoteAsync([FromBody]
             AddVoteDocumentRequest model,
             [FromServices] IStringLocalizer<SharedResource> resource,
@@ -342,7 +344,7 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpPost("flag")]
+        [HttpPost("flag"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
@@ -363,7 +365,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("purchase")]
+        [HttpPost("purchase"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
@@ -388,7 +390,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("price")]
+        [HttpPost("price"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
@@ -406,7 +408,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
         public async Task<IActionResult> DeleteDocumentAsync([FromRoute]DeleteDocumentRequest model, CancellationToken token)
@@ -424,7 +426,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("dropBox")]
+        [HttpPost("dropBox"), Authorize]
         public async Task<UploadStartResponse> UploadDropBox([FromBody] DropBoxRequest model,
            [FromServices] IRestClient client,
            [FromServices] IDocumentDirectoryBlobProvider documentDirectoryBlobProvider,
