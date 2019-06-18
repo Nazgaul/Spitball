@@ -1,19 +1,19 @@
 import * as RouteTypes from "./routeTypes";
 
-import resultContent from './components/results/Result.vue';
-import HomeworkHelpComponent from './components/results/HomeworkHelp/HomeworkHelp.vue';
-import StudyDocumentsComponent from './components/results/StudyDocuments/StudyDocuments.vue';
-import TutorsComponent from './components/results/Tutors/Tutors.vue';
+const resultContent = () => import('./components/results/Result.vue');
+const HomeworkHelpComponent = () => import('./components/results/HomeworkHelp/HomeworkHelp.vue');
+const StudyDocumentsComponent = () => import('./components/results/StudyDocuments/StudyDocuments.vue');
+const TutorsComponent = () => import('./components/results/Tutors/Tutors.vue');
 
-import pageHeader from './components/header/header.vue';
+const pageHeader = () => import('./components/header/header.vue');
 
-import schoolBlock from './components/schoolBlock/schoolBlock.vue';
-import verticalsTabs from './components/header/verticalsTabs.vue';
+const schoolBlock = () => import('./components/schoolBlock/schoolBlock.vue');
+const verticalsTabs = () => import('./components/header/verticalsTabs.vue');
 import { staticRoutes } from "./components/satellite/satellite-routes";
 
 const showItem = () => import("./components/preview/Item.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
-const previewHeader = () => import("./components/helpers/header.vue");
+//const previewHeader = () => import("./components/helpers/header.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const wallet = () => import("./components/wallet/wallet.vue");
 const newProfile = () => import("./components/new_profile/new_profile.vue");
@@ -36,8 +36,8 @@ const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.v
 
 const tutorLandingPage=()=> import("./components/tutorLandingPage/tutorLandingPage.vue")
 
-import landingPage from './components/landingPage/landingPage.vue';
-import FindTutor from './components/landingPage/pages/FindTutor.vue'
+const landingPage = () => import('./components/landingPage/landingPage.vue');
+const FindTutor = () => import('./components/landingPage/pages/FindTutor.vue');
 // import HowItWorks from "./components/landingPage/pages/HowItWorks.vue";
 // import BecomeTutor from "./components/landingPage/pages/BecomeTutor.vue";
 
