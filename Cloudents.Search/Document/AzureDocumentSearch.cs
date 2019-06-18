@@ -115,7 +115,7 @@ namespace Cloudents.Search.Document
                 ScoringProfile = DocumentSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsUniversityParameter,userProfile.UniversityId.ToString()),
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsUniversityParameter,userProfile.UniversityId?.ToString()),
                                  TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCourseParameter,userProfile.Courses),
                                  TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCountryParameter,userProfile.Country)
                 },

@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentCourseQuery_Ok()
         {
-            var query = new DocumentCourseQuery(638, 0, "economics", null);
+            var query = new DocumentCourseQuery(638, 0, "economics", null, "IL");
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentCourseQuery_Filter_Ok()
         {
-            var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" });
+            var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" },"IL");
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }

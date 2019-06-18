@@ -9,19 +9,21 @@ namespace Cloudents.Query.Documents
 {
     public class DocumentCourseQuery : IQuery<DocumentFeedWithFacetDto>
     {
-        public DocumentCourseQuery(long userId, int page, string course, string[] filter)
+        public DocumentCourseQuery(long userId, int page, string course, string[] filter, string country)
         {
             Page = page;
             UserId = userId;
             Course = course;
             Filter = filter;
+            Country = country;
         }
 
         private int Page { get; }
         private long UserId { get;  }
         private string Course { get;  }
         private string[] Filter { get; }
-        
+        private string Country { get; }
+
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<DocumentCourseQuery, DocumentFeedWithFacetDto>
         {
@@ -36,9 +38,13 @@ namespace Cloudents.Query.Documents
             public async Task<DocumentFeedWithFacetDto> GetAsync(DocumentCourseQuery query, CancellationToken token)
             {
                 const string sql = @"with cte as (
-select u2.Id as UniversityId, COALESCE(u2.country,u.country) as Country, u.id as userid
-  from sb.[user] u left join sb.University u2 on u.UniversityId2 = u2.Id
-  where u.id = :userid 
+select top 1 * from (select 1 as o, u2.Id as UniversityId, COALESCE(u2.country,u.country) as Country, u.id as userid
+  from sb.[user] u 
+  left join sb.University u2 on u.UniversityId2 = u2.Id
+  where u.id = :userid
+  union
+  select 2,null,:country,0) t
+  order by o
 )
 select ds.Id
 	,ds.University
@@ -78,6 +84,7 @@ and (:typeFilterCount = 0 or d.Type in (:typefilter))";
                 sqlQuery.SetInt32("page", query.Page);
                 sqlQuery.SetInt64("userid", query.UserId);
                 sqlQuery.SetString("course", query.Course);
+                sqlQuery.SetString("country", query.Country);
                 sqlQuery.SetInt32("typeFilterCount", query.Filter?.Length ?? 0);
                 sqlQuery.SetParameterList("typefilter", query.Filter ?? Enumerable.Repeat("x", 1));
                 sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_'));
