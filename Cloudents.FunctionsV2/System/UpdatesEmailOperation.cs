@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
@@ -89,7 +90,7 @@ namespace Cloudents.FunctionsV2.System
                 user.XQuestions = user.Questions.Count();
                 user.XNewItems = user.Documents.Count();
                 user.NumUpdates = user.XQuestions + user.XNewItems;
-                //user.To = "maor@cloudents.com";
+                //user.To = "ram.y@outlook.com";
                 if (user.Id == 160347)
                 {
                     List<Question> questions = new List<Question>();
@@ -108,7 +109,7 @@ namespace Cloudents.FunctionsV2.System
                     {
                         documents.Add(new Document()
                         {
-                            FileUrl = $@"https://dev.spitball.co/{document.FileId}",
+                            FileUrl = $@"https://dev.spitball.co/document/{new Base62(document.FileId).ToString()}",
                             FileName = document.FileName,
                             Uploader = document.Uploader,
                             ImgSource = ""
@@ -116,7 +117,7 @@ namespace Cloudents.FunctionsV2.System
                     }
                     var t = new Update(user.UserName, user.NumUpdates.ToString(), user.XQuestions.ToString(), user.XNewItems.ToString(), documents,
                         questions, user.To);
-                    var te = JsonConvert.SerializeObject(t);
+                   // var ts = JsonConvert.SerializeObject(t);
                     await BuildEmail(t.To, "en", binder,
                           t,
                           category,
