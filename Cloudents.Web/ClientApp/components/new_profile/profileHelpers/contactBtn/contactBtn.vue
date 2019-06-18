@@ -1,7 +1,8 @@
 <template>
     <div class="contact-btn-wrap">
+
         <button class="ct-btn" @click="sendMessage">
-            <v-icon class="ct-btn-icon mr-2">sbf-message-icon</v-icon>
+            <v-icon class="ct-btn-icon mr-2">sbf-message-icon</v-icon>  
             <span class="btn-text text-uppercase" v-language:inner>profile_tutor_contact_btn</span>
         </button>
     </div>
@@ -18,11 +19,14 @@ import analyticsService from '../../../../services/analytics.service';
             ...mapGetters(['accountUser']),
         },
         methods:{
-            ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface','updateRequestDialog']),
+            ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface','updateRequestDialog','updateCurrTutor']),
             ...mapGetters(['getProfile']),
+
             sendMessage(){
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'profile_page');
                 if ( this.accountUser == null) {
+                let currTutor = this.getProfile();
+                this.updateCurrTutor(currTutor.user.name)    
                 this.updateRequestDialog(true);
                 } else {
                     let currentProfile = this.getProfile();
@@ -38,7 +42,7 @@ import analyticsService from '../../../../services/analytics.service';
                     this.openChatInterface();                    
                 }
             }
-        }
+        },
     }
 </script>
 

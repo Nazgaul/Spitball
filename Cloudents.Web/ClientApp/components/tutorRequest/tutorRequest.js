@@ -9,7 +9,7 @@ import debounce from "lodash/debounce";
 export default {
     data() {
         return {
-            isTutorList: false,
+            isProfile: false,
             suggestsUniversities: [],
             suggestsCourses: [],
             tutorCourse: '',
@@ -37,9 +37,15 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(['accountUser']),
+        ...mapGetters(['accountUser','getCurrTutor']),
         isAuthUser(){
             return !!this.accountUser;
+        },
+        dialogTitle(){
+            let currTutor = this.getCurrTutor;
+            let message = this.isProfile || currTutor.name ? LanguageService.getValueByKey('tutorRequest_title_tutor_list'): LanguageService.getValueByKey('tutorRequest_title');
+            let name = currTutor.name ? currTutor.name : '';
+            return `${message} ${name}`;
         }
     },
     methods: {
@@ -99,6 +105,6 @@ export default {
         },
     },
     created() {
-        this.$route.name === 'profile'? this.isTutorList = true : false;
+        this.isProfile = this.$route.name === 'profile'? true : false;
     },
 };
