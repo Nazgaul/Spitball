@@ -81,6 +81,7 @@ export default {
         '$route'(val){
             // console.log(val.query.term)
             this.query.term = val.query.term;
+            this.query.page = 0;
             this.updateList();
         }
     },
@@ -91,7 +92,13 @@ export default {
                 if(data.length < this.scrollBehaviour.MAX_ITEMS){
                     this.scrollBehaviour.isComplete = true;
                 }
-                this.items = this.items.concat(data);
+                if (this.query.page === 0) {
+                    this.scrollBehaviour.isComplete = false;
+                    this.items = data;
+                }
+                else {
+                    this.items = this.items.concat(data);
+                }
                 this.showEmptyState = true;
                 this.scrollBehaviour.isLoading = false;
             })
