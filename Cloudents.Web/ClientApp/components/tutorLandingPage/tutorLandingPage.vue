@@ -93,6 +93,7 @@ export default {
                     this.scrollBehaviour.isComplete = true;
                 }
                 if (this.query.page === 0) {
+                    this.scrollBehaviour.isComplete = false;
                     this.items = data;
                 }
                 else {
