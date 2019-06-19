@@ -12,8 +12,8 @@ namespace Cloudents.Persistence.Maps
             References(x => x.User).Nullable();
             References(x => x.University).Nullable();
             Map(x => x.Phone);
-            Map(x => x.Text);
-            Map(x => x.UtmSource);
+            Map(x => x.Referer).Length(400);
+            Map(x => x.Text).Length(1000);
         }
         
     }

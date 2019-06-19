@@ -29,10 +29,9 @@ namespace Cloudents.Query.Tutor
             {
                 return await _statelessSession.Query<User>()
                     .Where(w => w.Id == query.UserId)
-                    .Fetch(f => f.University)
                     .Select(s => new UserEmailInfoDto()
                     {
-                        Name = s.Name, Email = s.Email, University = s.University.Name, PhoneNumber = s.PhoneNumber
+                        Name = s.Name, Email = s.Email, University = s.University.Id, PhoneNumber = s.PhoneNumber
                     }).SingleOrDefaultAsync(token);
 
 
