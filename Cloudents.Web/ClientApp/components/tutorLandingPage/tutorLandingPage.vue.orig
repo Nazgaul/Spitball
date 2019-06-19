@@ -31,8 +31,12 @@
             <span class="hidden-xs-only" v-language:inner="'tutorListLanding_courses'"></span>
             <span v-language:inner="'tutorListLanding_tutors'"></span>
         </v-layout>
+<<<<<<< HEAD
+        <v-layout>
+=======
         <v-layout class="tutor-landing-card-bottom">
             <findTutorCarousel></findTutorCarousel>
+>>>>>>> origin/feature_tutorLandingCarousel
         </v-layout>
         <Footer></Footer>
     </v-container>
@@ -41,10 +45,18 @@
 <script>
 import tutorResultCard from '../results/tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
+<<<<<<< HEAD
 import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue';
 import tutorLandingPageService from './tutorLandingPageService';
 import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
+=======
+import topNav from '../landingPageTools/TopNav.vue'
+import Footer from '../landingPageTools/Footer.vue'
+import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue'
+import tutorLandingPageService from './tutorLandingPageService'
+import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue'
 import findTutorCarousel from './components/findTutorCarousel/FindTutor-carousel.vue'
+>>>>>>> origin/feature_tutorLandingCarousel
 
 export default {
     components:{
