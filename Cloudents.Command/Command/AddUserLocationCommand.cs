@@ -5,7 +5,7 @@ namespace Cloudents.Command.Command
 {
     public class AddUserLocationCommand : ICommand
     {
-        public AddUserLocationCommand(RegularUser user, string country, IPAddress ip, 
+        public AddUserLocationCommand(User user, string country, IPAddress ip, 
             string fingerPrint, string userAgent)
         {
             User = user;
@@ -15,7 +15,7 @@ namespace Cloudents.Command.Command
             UserAgent = userAgent;
         }
 
-        public RegularUser User { get; }
+        public User User { get; }
 
         public string Country { get; set; }
         public IPAddress Ip { get; set; }

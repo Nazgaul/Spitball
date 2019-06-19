@@ -19,12 +19,12 @@ namespace Cloudents.Web.Filters
         }
         private class SignInToSystemImpl : ActionFilterAttribute
         {
-            private readonly SignInManager<RegularUser> _signInManager;
-            private readonly UserManager<RegularUser> _userManager;
+            private readonly SignInManager<User> _signInManager;
+            private readonly UserManager<User> _userManager;
             private readonly IDataProtect _dataProtect;
             private readonly ILogger _logger;
 
-            public SignInToSystemImpl(SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager,
+            public SignInToSystemImpl(SignInManager<User> signInManager, UserManager<User> userManager,
                 IDataProtect dataProtect, ILogger logger)
             {
                 _signInManager = signInManager;

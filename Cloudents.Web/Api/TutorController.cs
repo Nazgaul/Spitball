@@ -37,13 +37,13 @@ namespace Cloudents.Web.Api
     public class TutorController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IMondayProvider _mondayProvider;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<TutorController> _stringLocalizer;
 
 
-        public TutorController(IQueryBus queryBus, UserManager<RegularUser> userManager,
+        public TutorController(IQueryBus queryBus, UserManager<User> userManager,
             IMondayProvider mondayProvider, ICommandBus commandBus, IStringLocalizer<TutorController> stringLocalizer)
         {
             _queryBus = queryBus;

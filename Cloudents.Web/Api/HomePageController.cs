@@ -18,9 +18,9 @@ namespace Cloudents.Web.Api
     public class HomePageController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public HomePageController(IQueryBus queryBus, UserManager<RegularUser> userManager)
+        public HomePageController(IQueryBus queryBus, UserManager<User> userManager)
         {
             _queryBus = queryBus;
             _userManager = userManager;

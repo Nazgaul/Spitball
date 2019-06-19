@@ -16,11 +16,11 @@ namespace Cloudents.Web.Services
     public class UserIdInitializer : ITelemetryInitializer
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IDataProtectionProvider _dataProtectProvider;
         private readonly ILogger _logger;
 
-        public UserIdInitializer(IHttpContextAccessor httpContextAccessor, UserManager<RegularUser> userManager,
+        public UserIdInitializer(IHttpContextAccessor httpContextAccessor, UserManager<User> userManager,
             IDataProtectionProvider dataProtect, ILogger logger)
 
         {

@@ -8,14 +8,14 @@ namespace Cloudents.Core.Entities
     public class Vote : Entity<Guid>
     {
         public const int VoteCountToFlag = -2;
-        public Vote(RegularUser user, Document document, VoteType voteType) : this()
+        public Vote(User user, Document document, VoteType voteType) : this()
         {
             User = user;
             Document = document;
             VoteType = voteType;
         }
 
-        public Vote(RegularUser user, Answer answer, VoteType voteType) : this()
+        public Vote(User user, Answer answer, VoteType voteType) : this()
         {
             User = user;
             Answer = answer;
@@ -23,7 +23,7 @@ namespace Cloudents.Core.Entities
             VoteType = voteType;
         }
 
-        public Vote(RegularUser user, Question question, VoteType voteType) : this()
+        public Vote(User user, Question question, VoteType voteType) : this()
         {
             User = user;
             Question = question;
@@ -36,7 +36,7 @@ namespace Cloudents.Core.Entities
         }
 
         //public virtual Guid Id { get; set; }
-        public virtual RegularUser User { get;protected set; }
+        public virtual User User { get;protected set; }
         public virtual Document Document { get; protected set; }
         public virtual Answer Answer { get; protected set; }
         public virtual Question Question { get; protected set; }

@@ -13,18 +13,18 @@ namespace Cloudents.Core.DTOs.Admin
 
         public DateTime LastMessage { get; set; }
 
-        [EntityBind(nameof(User.Name))]
+        [EntityBind(nameof(BaseUser.Name))]
         public string UserName { get; set; }
-        [EntityBind(nameof(RegularUser.PhoneNumber))]
+        [EntityBind(nameof(User.PhoneNumber))]
         public string UserPhoneNumber { get; set; }
-        [EntityBind(nameof(RegularUser.Email))]
+        [EntityBind(nameof(User.Email))]
         public string UserEmail { get; set; }
-        [EntityBind(nameof(User.Name))]
+        [EntityBind(nameof(BaseUser.Name))]
         public string TutorName { get; set; }
         
-        [EntityBind(nameof(RegularUser.PhoneNumber))]
+        [EntityBind(nameof(User.PhoneNumber))]
         public string TutorPhoneNumber { get; set; }
-        [EntityBind(nameof(RegularUser.Email))]
+        [EntityBind(nameof(User.Email))]
         public string TutorEmail { get; set; }
 
         public ChatRoomStatus Status { get; set; }
@@ -55,13 +55,13 @@ namespace Cloudents.Core.DTOs.Admin
 
     public class ConversationDetailsDto
     {
-        [EntityBind(nameof(User.Name))]
+        [EntityBind(nameof(BaseUser.Name))]
         public string UserName { get; set; }
-        [EntityBind(nameof(User.Email))]
+        [EntityBind(nameof(BaseUser.Email))]
         public string Email { get; set; }
-        [EntityBind(nameof(RegularUser.PhoneNumber))]
+        [EntityBind(nameof(User.PhoneNumber))]
         public string PhoneNumber { get; set; }
-        [EntityBind(nameof(RegularUser.Image))]
+        [EntityBind(nameof(User.Image))]
         public string Image { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    internal class UserMap : ClassMap<User>
+    internal class UserMap : ClassMap<BaseUser>
     {
         public UserMap()
         {
@@ -37,7 +37,7 @@ namespace Cloudents.Persistence.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
             Map(x => x.Score).ReadOnly();
-            //Table("User]"); //if not there is sql error
+            Table("User"); //if not there is sql error
 
             DynamicUpdate();
             OptimisticLock.Version();

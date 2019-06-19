@@ -24,7 +24,7 @@ namespace Cloudents.Core.Entities
         public const int MinLength = 15;
         public const int MaxLength = 550;
 
-        public Answer(Question question, string text, int attachments, RegularUser user, CultureInfo language)
+        public Answer(Question question, string text, int attachments, User user, CultureInfo language)
             : this()
         {
             Question = question;
@@ -50,7 +50,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string Text { get; set; }
         public virtual int Attachments { get; set; }
-        public virtual RegularUser User { get; set; }
+        public virtual User User { get; set; }
 
         public virtual DateTime Created { get; set; }
 
@@ -84,7 +84,7 @@ namespace Cloudents.Core.Entities
             Status = Public;
 
         }
-        public virtual void Flag(string messageFlagReason, RegularUser user)
+        public virtual void Flag(string messageFlagReason, User user)
         {
             if (User == user)
             {
@@ -93,7 +93,7 @@ namespace Cloudents.Core.Entities
             Status = Status.Flag(messageFlagReason, user);
         }
 
-        public virtual void Vote(VoteType type, RegularUser user)
+        public virtual void Vote(VoteType type, User user)
         {
             if (Status != Public)
             {

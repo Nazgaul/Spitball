@@ -165,7 +165,7 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
             public long QuestionId { get; set; }
             [Core.Attributes.EntityBind(nameof(Question.Language))]
             public string Language { get; set; }
-            [Core.Attributes.EntityBind(nameof(User.Country))]
+            [Core.Attributes.EntityBind(nameof(BaseUser.Country))]
             public string Country { get; set; }
             [Core.Attributes.EntityBind(nameof(Question.Answers))]
             public int AnswerCount { get; set; }

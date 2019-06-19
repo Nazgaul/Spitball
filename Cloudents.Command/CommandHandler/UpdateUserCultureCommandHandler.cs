@@ -10,9 +10,9 @@ namespace Cloudents.Command.CommandHandler
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UpdateUserCultureCommandHandler : ICommandHandler<UpdateUserCultureCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public UpdateUserCultureCommandHandler(IRepository<RegularUser> userRepository)
+        public UpdateUserCultureCommandHandler(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

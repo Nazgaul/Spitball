@@ -28,11 +28,11 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
-        private readonly UserManager<RegularUser> _userManager;
-        private readonly SignInManager<RegularUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<RegularUser> userManager,
-            SignInManager<RegularUser> signInManager)
+        public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;

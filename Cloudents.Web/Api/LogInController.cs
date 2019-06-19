@@ -19,12 +19,12 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]"), ApiController]
     public class LogInController : ControllerBase
     {
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly SbSignInManager _signInManager;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<LogInController> _localizer;
 
-        public LogInController(UserManager<RegularUser> userManager, SbSignInManager signInManager,
+        public LogInController(UserManager<User> userManager, SbSignInManager signInManager,
             IStringLocalizer<LogInController> localizer, ICommandBus commandBus)
         {
             _userManager = userManager;

@@ -34,13 +34,13 @@ namespace Cloudents.Web.Api
 
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<RegularUser> _userManager;
-        private readonly SignInManager<RegularUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
 
-        public AccountController(UserManager<RegularUser> userManager,
-            SignInManager<RegularUser> signInManager, ICommandBus commandBus, IQueryBus queryBus)
+        public AccountController(UserManager<User> userManager,
+            SignInManager<User> signInManager, ICommandBus commandBus, IQueryBus queryBus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -143,7 +143,7 @@ namespace Cloudents.Web.Api
         [HttpPost("image")]
         public async Task<IActionResult> UploadImageAsync(IFormFile file,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
-            [FromServices] UserManager<RegularUser> userManager,
+            [FromServices] UserManager<User> userManager,
             [FromServices] IBinarySerializer serializer,
             CancellationToken token)
         {

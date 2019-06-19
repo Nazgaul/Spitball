@@ -44,12 +44,12 @@ namespace Cloudents.Web.Api
     {
         private readonly ICommandBus _commandBus;
 
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
         private readonly IQuestionSearch _questionSearch;
         private readonly IQuestionsDirectoryBlobProvider _blobProvider;
 
-        public QuestionController(ICommandBus commandBus, UserManager<RegularUser> userManager,
+        public QuestionController(ICommandBus commandBus, UserManager<User> userManager,
             IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch,
             IQuestionsDirectoryBlobProvider blobProvider
            )

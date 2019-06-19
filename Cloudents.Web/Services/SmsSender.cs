@@ -13,10 +13,10 @@ namespace Cloudents.Web.Services
     public class SmsSender : ISmsSender
     {
         private readonly IServiceBusProvider _serviceBusProvider;
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly ISmsProvider _smsProvider;
 
-        public SmsSender(UserManager<RegularUser> userManager, IServiceBusProvider serviceBusProvider, ISmsProvider smsProvider)
+        public SmsSender(UserManager<User> userManager, IServiceBusProvider serviceBusProvider, ISmsProvider smsProvider)
         {
             _userManager = userManager;
             _serviceBusProvider = serviceBusProvider;
@@ -34,13 +34,13 @@ namespace Cloudents.Web.Services
             return _smsProvider.ValidateNumberAsync(phoneNumber, token);
         }
 
-        public async Task SendSmsAsync(RegularUser user, CancellationToken token)
+        public async Task SendSmsAsync(User user, CancellationToken token)
         {
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
             await SendSmsAsync(user.PhoneNumber, code,SmsMessage.MessageType.Sms,  token);
         }
 
-        public async Task SendPhoneAsync(RegularUser user, CancellationToken token)
+        public async Task SendPhoneAsync(User user, CancellationToken token)
         {
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
             await SendSmsAsync(user.PhoneNumber, code, SmsMessage.MessageType.Phone, token);

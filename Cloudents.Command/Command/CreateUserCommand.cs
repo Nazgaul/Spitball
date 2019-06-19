@@ -4,11 +4,11 @@ namespace Cloudents.Command.Command
 {
     public class CreateUserCommand : ICommand
     {
-        public CreateUserCommand(RegularUser user)
+        public CreateUserCommand(User user)
         {
             User = user;
         }
 
-        public RegularUser User { get; }
+        public User User { get; }
     }
 }

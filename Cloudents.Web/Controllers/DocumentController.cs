@@ -26,7 +26,7 @@ namespace Cloudents.Web.Controllers
     public class DocumentController : Controller
     {
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IQueryBus _queryBus;
@@ -38,7 +38,7 @@ namespace Cloudents.Web.Controllers
             IDocumentDirectoryBlobProvider blobProvider,
             IStringLocalizer<SharedResource> sharedLocalizer,
             IStringLocalizer<DocumentController> localizer,
-            IQueryBus queryBus, IQueueProvider queueProvider, UserManager<RegularUser> userManager)
+            IQueryBus queryBus, IQueueProvider queueProvider, UserManager<User> userManager)
         {
             _blobProvider = blobProvider;
             _sharedLocalizer = sharedLocalizer;

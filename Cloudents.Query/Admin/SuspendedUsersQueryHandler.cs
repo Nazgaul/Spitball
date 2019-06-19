@@ -23,7 +23,7 @@ namespace Cloudents.Query.Admin
 
         public async Task<IEnumerable<SuspendedUsersDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            var suspendDto = _session.Query<RegularUser>()
+            var suspendDto = _session.Query<User>()
                 .Where(w => w.LockoutEnd != null)
                 .Select(s => new SuspendedUsersDto
                 {

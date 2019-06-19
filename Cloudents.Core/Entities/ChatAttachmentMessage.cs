@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public ChatAttachmentMessage(RegularUser user, string blob, ChatRoom room) : base(user, room)
+        public ChatAttachmentMessage(User user, string blob, ChatRoom room) : base(user, room)
         {
             Blob = blob;
 

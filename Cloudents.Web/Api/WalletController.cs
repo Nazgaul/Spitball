@@ -30,12 +30,12 @@ namespace Cloudents.Web.Api
     public class WalletController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
         private readonly ICommandBus _commandBus;
         private readonly Lazy<IPayment> _payment;
 
-        public WalletController(UserManager<RegularUser> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus, Lazy<IPayment> payment)
+        public WalletController(UserManager<User> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus, Lazy<IPayment> payment)
         {
             _userManager = userManager;
             _queryBus = queryBus;

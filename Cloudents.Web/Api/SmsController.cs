@@ -26,8 +26,8 @@ namespace Cloudents.Web.Api
 
     public class SmsController : Controller
     {
-        private readonly SignInManager<RegularUser> _signInManager;
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
@@ -37,7 +37,7 @@ namespace Cloudents.Web.Api
         private const string SmsTime = "SmsTime";
         private const string PhoneCallTime = "phoneCallTime";
 
-        public SmsController(SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager,
+        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
             ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
             ILogger logger, IStringLocalizer<SmsController> smsLocalizer)
         {
@@ -159,7 +159,7 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, RegularUser user, string country, 
+        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user, string country, 
             string fingerPrint, string UserAgent)
         {
             if (TempData[HomeController.Referral] != null)

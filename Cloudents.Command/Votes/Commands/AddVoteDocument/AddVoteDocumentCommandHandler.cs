@@ -7,11 +7,11 @@ namespace Cloudents.Command.Votes.Commands.AddVoteDocument
 {
     public class AddVoteDocumentCommandHandler : ICommandHandler<AddVoteDocumentCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IRepository<Document> _repository;
 
         public AddVoteDocumentCommandHandler(
-            IRepository<RegularUser> userRepository,
+            IRepository<User> userRepository,
             IRepository<Document> questionRepository
             )
 

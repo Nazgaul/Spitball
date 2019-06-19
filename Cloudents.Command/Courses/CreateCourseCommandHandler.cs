@@ -8,9 +8,9 @@ namespace Cloudents.Command.Courses
     public class CreateCourseCommandHandler : ICommandHandler<CreateCourseCommand>
     {
         private readonly IRepository<Course> _courseRepository;
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public CreateCourseCommandHandler(IRepository<Course> courseRepository, IRepository<RegularUser> userRepository)
+        public CreateCourseCommandHandler(IRepository<Course> courseRepository, IRepository<User> userRepository)
         {
             _courseRepository = courseRepository;
             _userRepository = userRepository;

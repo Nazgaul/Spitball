@@ -9,10 +9,10 @@ namespace Cloudents.Command.Universities
     [UsedImplicitly]
     public class CreateUniversityCommandHandler : ICommandHandler<CreateUniversityCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IRepository<University> _universityRepository;
 
-        public CreateUniversityCommandHandler(IRepository<RegularUser> userRepository,
+        public CreateUniversityCommandHandler(IRepository<User> userRepository,
             IRepository<University> universityRepository)
         {
             _userRepository = userRepository;

@@ -7,7 +7,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class StudyRoomUser : Entity<Guid>
     {
-        public StudyRoomUser(RegularUser user,StudyRoom room)
+        public StudyRoomUser(User user,StudyRoom room)
         {
             User = user;
             Room = room;
@@ -18,7 +18,7 @@ namespace Cloudents.Core.Entities
             
         }
 
-        public virtual RegularUser User { get; protected set; }
+        public virtual User User { get; protected set; }
         public virtual StudyRoom Room { get; protected set; }
 
         public virtual bool Online { get; protected set; }

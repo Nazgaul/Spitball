@@ -8,9 +8,9 @@ using Cloudents.Core.Exceptions;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
-    public class RegularUser : User
+    public class User : BaseUser
     {
-        public RegularUser(string email, string firstName, string lastName, Language language) : this()
+        public User(string email, string firstName, string lastName, Language language) : this()
         {
             Email = email;
             ChangeName(firstName, lastName);
@@ -19,7 +19,7 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
         }
 
-        protected RegularUser()
+        protected User()
         {
             UserLogins = new List<UserLogin>();
             Transactions = Transactions ?? new UserTransactions();
@@ -201,7 +201,7 @@ namespace Cloudents.Core.Entities
             MakeTransaction(t);
         }
 
-        public virtual void ReferUser(RegularUser user)
+        public virtual void ReferUser(User user)
         {
             MakeTransaction(new ReferUserTransaction(user));
         }

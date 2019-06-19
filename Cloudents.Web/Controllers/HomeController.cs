@@ -21,10 +21,10 @@ namespace Cloudents.Web.Controllers
     {
         internal const string Referral = "referral";
         //internal const string RootRoute = "Root";
-        private readonly SignInManager<RegularUser> _signInManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ILogger _logger;
 
-        public HomeController(SignInManager<RegularUser> signInManager, ILogger logger)
+        public HomeController(SignInManager<User> signInManager, ILogger logger)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -80,7 +80,7 @@ namespace Cloudents.Web.Controllers
 
         [Route("logout")]
         public async Task<IActionResult> LogOutAsync(
-            [FromServices] SignInManager<RegularUser> signInManager,
+            [FromServices] SignInManager<User> signInManager,
             [FromServices] IHubContext<SbHub> hubContext, CancellationToken token)
         {
             if (!User.Identity.IsAuthenticated)
