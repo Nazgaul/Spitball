@@ -55,7 +55,7 @@ function UserInfo(objInit) {
         };
     }
     this.isTutor = {
-        value: objInit.isTutor,
+        value: objInit.tutorState,
         label: 'Is Tutor'
     };
     
@@ -248,5 +248,8 @@ export default {
                 console.log(error, 'error get 20 docs');
                 return error;
             });
+    },
+    removeTutor: (id) => {
+        return connectivityModule.http.delete(`AdminTutor/${id}`);
     }
 }

@@ -77,5 +77,72 @@ and T.State = 'Ok'
                 .Take(3)
                 .ListAsync<long>(token);
         }
+
+        public void DeleteTutorAsync(long tutorId, CancellationToken token)
+        {
+            const string sql = @"
+begin tran
+declare @studyroomId uniqueidentifier;
+
+DECLARE studyroom_cursor CURSOR FOR   
+select studyroomId  from sb.studyroomUser where UserId = :Userid;  
+
+OPEN studyroom_cursor  
+  
+FETCH NEXT FROM studyroom_cursor   
+INTO @studyroomId
+  
+WHILE @@FETCH_STATUS = 0  
+BEGIN  
+  PRINT 'Delete study rooms '  
+delete from sb.studyroomUser where studyroomId = @studyroomId
+delete from sb.StudyRoomSession where studyroomId  = @studyroomId
+delete from sb.StudyRoomSession where studyroomId  = @studyroomId
+delete from sb.TutorReview where RoomId = @studyroomId
+delete from sb.studyroom where id =@studyroomId
+ FETCH NEXT FROM studyroom_cursor INTO @studyroomId  
+END   
+CLOSE studyroom_cursor; 
+DEALLOCATE studyroom_cursor;  
+ 
+--delete studyrooms
+
+
+
+DECLARE chat_cursor CURSOR FOR   
+select ChatRoomId  from sb.ChatUser where UserId = :Userid;  
+
+OPEN chat_cursor  
+  
+FETCH NEXT FROM chat_cursor   
+INTO @studyroomId
+  
+WHILE @@FETCH_STATUS = 0  
+BEGIN  
+PRINT 'Delete chats '  
+delete from sb.ChatMessage where ChatRoomId = @studyroomId
+delete from sb.ChatUser where ChatRoomId  = @studyroomId
+delete from sb.chatroom where Id  = @studyroomId
+ FETCH NEXT FROM chat_cursor INTO @studyroomId  
+END   
+CLOSE chat_cursor; 
+DEALLOCATE chat_cursor;
+
+
+--delete can teach
+PRINT 'upate courses '  
+update sb.UsersCourses
+set CanTeach = 0
+where userid = :Userid
+--delete tutor
+
+PRINT 'delete tutor '  
+delete from sb.TutorReview where TutorId = :Userid
+delete from sb.tutor where id = :Userid;
+
+commit;";
+            
+            _ = Session.CreateSQLQuery(sql).SetParameter("Userid", tutorId).UniqueResult();
+        }
     }
 }

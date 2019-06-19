@@ -98,7 +98,8 @@ export default {
             "getUserPurchasedDocuments",
             "clearUserState",
             "updateFilterValue",
-            "setNeedPaging"
+            "setNeedPaging",
+            "removeTutor"
         ]),
        
         resetUserData() {
@@ -154,6 +155,17 @@ export default {
                         self.$toaster.error(`Error can't fined user with given identifier`);
                     }
                 });
+        },
+        deleteTutor(){
+            var self = this;
+            var id = self.$route.params.userId;
+            self.removeTutor(id)
+            .then(() => {
+                self.$toaster.success(`tutor been deleted ${id}`);
+            },
+            () => {
+                self.$toaster.error(`ERROR: failed to delete tutor ${id}`);
+            });
         },
 
         //keep here cause there is an option to release from within this component
