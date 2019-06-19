@@ -7,7 +7,7 @@
             Course = course;
             Subject = subject;
         }
-        public string Course { get; set; }
-        public string Subject { get; set; }
+        public string Course { get;  }
+        public string Subject { get; }
     }
 }

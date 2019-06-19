@@ -8,6 +8,6 @@ namespace Cloudents.Command.Command.Admin
         {
             UsersIds = usersIds;
         }
-        public IEnumerable<long> UsersIds { get; set; }
+        public IEnumerable<long> UsersIds { get;}
     }
 }

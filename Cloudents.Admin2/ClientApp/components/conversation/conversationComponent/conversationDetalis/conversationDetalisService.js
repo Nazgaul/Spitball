@@ -4,9 +4,16 @@ function ConversationItem(objInit) {
     this.id = objInit.id;
     this.userName = objInit.userName;
     this.userId = objInit.userId;
+    this.userPhoneNumber = objInit.userPhoneNumber;
+    this.userEmail = objInit.userEmail;
     this.tutorName = objInit.tutorName;
     this.tutorId = objInit.tutorId;
+    this.tutorPhoneNumber = objInit.tutorPhoneNumber;
+    this.tutorEmail = objInit.tutorEmail;
+    this.autoStatus = objInit.autoStatus;
+    this.status = objInit.status || 'default';
     this.lastMessage = new Date(objInit.lastMessage);
+    this.studyRoomExists = objInit.studyRoomExists;
     this.expanded = false;
 }
 function createConversationItem(objInit) {
@@ -37,8 +44,14 @@ function CreateMessageItem(objInit) {
 
 const path = 'AdminConversation/';
 
-const getConversationsList = function () {
-    return connectivityModule.http.get(`${path}`).then((newConversationList) => {
+const setConversationsStatus = (id,status) => {
+    return connectivityModule.http.post(`${path}${id}/status`,status).then((res)=>{
+        return res
+    })
+}
+
+const getConversationsListPage = function (page) {
+    return connectivityModule.http.get(`${path}?page=${page}`).then((newConversationList) => {
         let arrConversationList = [];
         if (newConversationList.length > 0) {
             newConversationList.forEach((conversation) => {
@@ -52,7 +65,7 @@ const getConversationsList = function () {
 };
 
 const getDetails = function (id) {
-    return connectivityModule.http.get(`${path}/details?id=${id}`).then((newConversationDetails) => {
+    return connectivityModule.http.get(`${path}${id}/details`).then((newConversationDetails) => {
         let arrConversationDetails = [];
         if (newConversationDetails.length > 0) {
             newConversationDetails.forEach((conversationDetails) => {
@@ -80,7 +93,8 @@ const getMessages = function (id) {
 };
     
 export {
-    getConversationsList,
     getDetails,
-    getMessages
+    getMessages,
+    setConversationsStatus,
+    getConversationsListPage
 };

@@ -1,19 +1,19 @@
 ﻿using Cloudents.Admin2.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
-using Cloudents.Core.Storage;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Command.Command;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Api
 {
@@ -49,7 +49,7 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        
+
         [HttpPost("cashOut/approve")]
         public async Task<IActionResult> ApprovePost(ApproveCashOutRequest model, CancellationToken token)
         {
@@ -77,7 +77,7 @@ namespace Cloudents.Admin2.Api
             var query = new AdminEmptyQuery();
             return await _queryBus.QueryAsync<IEnumerable<CashOutDto>>(query, token);
         }
-        
+
 
         /// <summary>
         /// Suspend a user
@@ -89,7 +89,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>the user email to show on the ui</returns>
         [HttpPost("suspend")]
         [ProducesResponseType(200)]
-        
+
         public async Task<SuspendUserResponse> SuspendUserAsync(SuspendUserRequest model,
             [FromServices] ICommandBus commandBus,
             CancellationToken token)
@@ -181,12 +181,12 @@ namespace Cloudents.Admin2.Api
                 await _commandBus.DispatchAsync(phoneCommand, token);
                 await _commandBus.DispatchAsync(registrationBonusCommand, token);
             }
-            
+
             catch
             {
                 return BadRequest();
             }
-            
+
             return Ok(new
             {
                 model.Id
@@ -196,14 +196,14 @@ namespace Cloudents.Admin2.Api
 
 
 
-        [HttpDelete("{id}")]
-        [ProducesResponseType(200)]
-        public async Task DeleteUserAsync(long id,
-            CancellationToken token)
-        {
-            var command = new DeleteUserCommand(id);
-            await _commandBus.DispatchAsync(command, token);
-        }
+        //[HttpDelete("{id}")]
+        //[ProducesResponseType(200)]
+        //public async Task DeleteUserAsync(long id,
+        //    CancellationToken token)
+        //{
+        //    var command = new DeleteUserCommand(id);
+        //    await _commandBus.DispatchAsync(command, token);
+        //}
 
         [HttpGet("info")]
         public async Task<ActionResult<UserDetailsDto>> GetUserDetails(string userIdentifier, CancellationToken token)
@@ -213,9 +213,9 @@ namespace Cloudents.Admin2.Api
             {
                 userIdentifier = $"+972{userIdentifier.Remove(0, 1)}";
             }
-          
+
             var query = new AdminUserDetailsQuery(userIdentifier);
-           
+
             var res = await _queryBus.QueryAsync(query, token);
             if (res == null)
             {
@@ -241,7 +241,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("chat")]
         public async Task<IEnumerable<ConversationDto>> ConversationAsync(long id, CancellationToken token)
         {
-            var query = new AdminConversationsQuery(id);
+            var query = new AdminConversationsQuery(id, 0);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -265,7 +265,7 @@ namespace Cloudents.Admin2.Api
         {
 
             var query = new AdminUserDocumentsQuery(id, page);
-            
+
 
             var retVal = (await _queryBus.QueryAsync(query, token)).ToList();
             var tasks = new Lazy<List<Task>>();

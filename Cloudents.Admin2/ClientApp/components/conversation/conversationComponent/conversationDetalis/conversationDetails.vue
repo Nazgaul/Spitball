@@ -10,70 +10,96 @@
           <v-card class="blue lighten-4">
             <v-container fluid grid-list-lg>
               <v-layout row wrap>
-                <v-flex
-                  xs12
-                  v-for="(conversation, index) in conversationsList"
-                  :key="index"
-                  @click="openItem(conversation)"
-                  :style="{ cursor: 'pointer'}"
-                >
-                  <v-card>
-                    <v-card-text>
-                      <v-layout column>
-                        <v-layout justify-start row class="pl-2 text-xs-left">
-                          <v-flex  xs3   >
-                            <b>Tutor Id:</b>
-                            {{conversation.tutorId}}
-                          </v-flex>
-                          <div>&nbsp;&nbsp;&nbsp;</div>
-                          <v-flex xs3>
-                            <b>Tutor Name:</b>
-                            {{conversation.tutorName}}
-                          </v-flex>
-                        </v-layout>
-                          
-                     
-                    
-                            <v-layout  justify-start row class="pl-2 text-xs-left">
-                                <v-flex >
-                                    <v-layout  justify-start row >
-                         <v-flex  xs3 >
-                            <b>Student Id:</b>
-                            {{conversation.userId}}
-                         </v-flex>
-                          <div>&nbsp;&nbsp;&nbsp;</div>
-                          <v-flex  xs3 >
-                            <b>Student Name:</b>
-                            {{conversation.userName}}
-                          </v-flex>
-                          <v-flex xs3>
-                            <b>Last Message:</b>
-                            {{conversation.lastMessage.toLocaleString()}}
-                          </v-flex>
+                <v-expansion-panel class="elevation-0">
+                  <v-expansion-panel-content
+                    xs12
+                    v-for="(conversation, index) in conversationsList"
+                    :key="index"
+                    class="mb-3 elevation-1"
+                  >
+                    <div slot="header">
+                      <v-card-text @click="getConversationData(conversation.id)">
+                        <v-layout column wrap>
+
+                          <v-layout justify-start row class="pl-2 text-xs-left">
+                            <v-flex xs3>
+                              <b>Tutor</b>
+                              {{conversation.tutorPhoneNumber? conversation.tutorPhoneNumber : '-'}}
+                            </v-flex>
+                            <v-flex xs3>
+                              {{conversation.tutorName? conversation.tutorName : '-'}}
+                            </v-flex>
+                            <v-flex xs3>
+                              {{conversation.tutorEmail? conversation.tutorEmail : '-'}}
+                            </v-flex>
+                            <v-flex xs3>
+                              <span style="max-width: fit-content; border-radius: 35px; padding: 10px;" :class="[`color-${conversation.autoStatus}`]">
+                              {{conversation.autoStatus}}
+                              </span>
+                            <select @click.stop='' style="margin-left: 15px;padding: 5px;" outline @change="changeStatus($event, conversation.id)" :class="[`color-${conversation.status}`]" v-model="conversation.status">
+                              <option value="default" class="color-default"></option>
+                              <option value="noMatch" class="color-noMatch">No Match</option>
+                              <option value="scheduled" class="color-scheduled">Scheduled</option>
+                              <option value="active" class="color-active">Active</option>
+                            </select> 
+
+                            </v-flex>
                           </v-layout>
+
+                          <v-layout justify-start row class="pl-2 text-xs-left">
+                            <v-flex>
+                              <v-layout justify-start row>
+                                <v-flex xs3>
+                                  <b>Student:</b>
+                                  {{conversation.userPhoneNumber? conversation.userPhoneNumber: '-'}}
                                 </v-flex>
-                            </v-layout>
-                      </v-layout>
-                    </v-card-text>
-                  </v-card>
-                </v-flex>
+                                <v-flex xs3>
+                                  {{conversation.userName? conversation.userName : '-'}}
+                                </v-flex>
+                                <v-flex xs3>
+                                  {{conversation.userEmail? conversation.userEmail : '-'}}
+                                </v-flex>
+                                <v-flex>
+                                  <b>Last:</b>
+                                  {{conversation.lastMessage.toLocaleString('he-IL')}}
+                                </v-flex>
+                              </v-layout>
+                            </v-flex>
+                          </v-layout>
+                          
+                          <v-layout row class="pl-3 text-xs-left">
+                                <span><b>Study Room: </b> {{conversation.studyRoomExists}}</span>
+                          </v-layout>
+
+                        </v-layout>
+                      </v-card-text>
+                    </div>
+                    <conversationMessages
+                      :loadMessage="loadMessage"
+                      :id="conversation.id"
+                      :messages="conversationsMsg"
+                    />
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+                
               </v-layout>
             </v-container>
           </v-card>
         </v-flex>
       </v-layout>
-      <div v-if="loading">Loading conversations, please wait...</div>
-      <div v-show="conversationsList.length === 0 && !loading">No conversations</div>
+      <div v-if="showLoading" style="text-align: center">Loading conversations, please wait...</div>
+      <div v-show="conversationsList.length === 0 && !showLoading">No conversations</div>
     </div>
   </div>
-  
 </template>
 
 <script>
+import conversationMessages from "../conversationMessages/conversationMessages.vue";
 import {
-  getConversationsList,
   getDetails,
-  getMessages
+  getMessages,
+  setConversationsStatus,
+  getConversationsListPage
 } from "./conversationDetalisService";
 
 export default {
@@ -89,28 +115,82 @@ export default {
       showLoading: true,
       showNoResult: false,
       conversationsList: [],
-      expand: false
+      expand: false,
+      conversationsMsg: [],
+      loadMessage: false,
+      currentSelectedId: null,
+      page: 0,
+      isCompleted: false,
+      EXPECTED_AMOUNT: 50,
+      isLoading: false,
     };
   },
+  components: {
+    conversationMessages
+  },
   methods: {
-    openItem(item) {
-      this.$router.push({ path: `conversationDetail/${item.id}` });
+    changeStatus(ev,id){
+    let selected = {
+      "status": ev.target.value
+      }
+      setConversationsStatus(id,selected)
+    },
+    getConversationData(conversation_id) {
+      if (this.currentSelectedId !== conversation_id) {
+        this.currentSelectedId = conversation_id;
+        this.loadMessage = true;
+        getMessages(conversation_id)
+          .then(
+            messages => {
+              if (messages.length === 0) {
+                this.showNoResult = true;
+              } else {
+                this.conversationsMsg = messages;
+              }
+              this.showLoading = false;
+            },
+            err => {
+              console.log(err);
+            }
+          )
+          .finally(() => {
+            this.loadMessage = false;
+          });
+      }
+    },
+    handleScroll() {     
+      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;      
+      if (bottomOfWindow) {
+          this.page = this.page + 1
+          if(!this.isCompleted && !this.isLoading){
+            this.isLoading = true;
+            this.getConversations()
+          }
+          
+      }
+    },
+    getConversations() {            
+      getConversationsListPage(this.page).then(list => {
+        if (list.length < this.EXPECTED_AMOUNT) {
+          this.isCompleted = true;
+        } 
+          this.conversationsList = [...this.conversationsList, ...list];
+        },
+        err => {
+          console.log(err);
+        }
+      ).finally(()=>{
+        this.isLoading = false;
+        this.showLoading = false;
+      });
     }
   },
   created() {
-    getConversationsList().then(
-      list => {
-        if (list.length === 0) {
-          this.showNoResult = true;
-        } else {
-          this.conversationsList = list;
-        }
-        this.showLoading = false;
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    window.addEventListener("scroll", this.handleScroll);
+    this.getConversations();
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   }
 };
 </script>
@@ -123,4 +203,29 @@ export default {
 .student {
   background-color: lightgray;
 }
+.color-default{
+  background: #d7dde2;
+}
+.color-noMatch{
+  background: #d23535;
+}
+.color-scheduled{
+  background: #95ca31;
+}
+.color-active{
+  background: #eab73e;
+}
+.color-Tutor {
+  background: #d23535;
+  color: white;
+}
+.color-Student {
+  background: #eab73e;
+  color: white;
+}
+.color-Conversation  {
+  background: #95ca31;
+  color: white;
+}
+
 </style>
