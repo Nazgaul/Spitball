@@ -139,19 +139,19 @@ export default {
             }
             this.getUserInfoData(this.userIdentifier);
         },
-        getUserInfoData(id) {
+        getUserInfoData(id) {            
             var self = this;
             self.getUserData(id)
                 .then((data) => {
                     if(data &&  data.id && data.id.value){
-                         self.$router.push({name: 'userQuestions', params: {userId: data.id.value}});
+                        this.userIdentifier = id
+                        //  self.$router.push({name: 'userQuestions', params: {userId: data.id.value}});
                     }else{
                         //clean id from url if not valid and nopthing reterned from server
                         // self.$router.push({name: 'userMainView', params: {userId: ''}});
                     }
                 }, () => {
-                    if(id > 0 || this.userIdentifier != '')
-                    {
+                    if(id > 0 || this.userIdentifier != '') {
                         self.$toaster.error(`Error can't fined user with given identifier`);
                     }
                 });
@@ -178,7 +178,7 @@ export default {
                 this.suspendedUser = false;
                 this.setUserCurrentStatus(false);
             }, (err) => {
-                self.$toaster.error(`ERROR: failed to realse user`);
+                self.$toaster.error(`ERROR: failed to release user`);
                 console.log(err);
             }).finally(() => {
                 self.lock = false;
@@ -188,7 +188,7 @@ export default {
         }
     },
     created() {
-        if(this.$route.params && this.$route.params.userId){
+        if(this.$route.params && this.$route.params.userId){            
             this.getUserInfoData(this.$route.params.userId);
         }
     } ,
