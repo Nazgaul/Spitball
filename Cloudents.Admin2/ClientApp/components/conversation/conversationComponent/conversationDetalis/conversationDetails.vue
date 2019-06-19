@@ -68,7 +68,12 @@
                           </v-layout>
                           
                           <v-layout row class="pl-3 text-xs-left">
-                                <span><b>Study Room: </b> {{conversation.studyRoomExists}}</span>
+                            <v-flex xs3>
+                              <span><b>Study Room: </b> {{conversation.studyRoomExists}}</span>
+                            </v-flex>
+                            <v-flex xs3>
+                                <span><b>Hours From Last Message: </b> {{conversation.hoursFromLastMessage}}</span>
+                            </v-flex>
                           </v-layout>
 
                         </v-layout>

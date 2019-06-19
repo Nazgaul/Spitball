@@ -15,6 +15,7 @@ function ConversationItem(objInit) {
     this.lastMessage = new Date(objInit.lastMessage);
     this.studyRoomExists = objInit.studyRoomExists;
     this.expanded = false;
+    this.hoursFromLastMessage = objInit.hoursFromLastMessage;
 }
 function createConversationItem(objInit) {
     return new ConversationItem(objInit);

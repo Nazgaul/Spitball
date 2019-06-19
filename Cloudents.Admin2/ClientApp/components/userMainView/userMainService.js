@@ -137,6 +137,7 @@ function ConversationItem(objInit) {
     this.tutorPhoneNumber = objInit.tutorPhoneNumber;
     this.userEmail = objInit.userEmail;
     this.userPhoneNumber = objInit.userPhoneNumber;
+    this.hoursFromLastMessage = objInit.hoursFromLastMessage;
 }
 function createConversationItem(objInit) {
     return new ConversationItem(objInit);

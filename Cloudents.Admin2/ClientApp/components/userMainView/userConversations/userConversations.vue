@@ -59,6 +59,11 @@
                               </v-layout>
                             </v-flex>
                           </v-layout>
+                           <v-layout justify-start row class="pl-2 text-xs-left">
+                              <v-flex xs3>
+                              <span><b>Hours From Last Message: </b> {{conversation.hoursFromLastMessage}}</span>
+                              </v-flex>
+                             </v-layout>
                         </v-layout>
                       </v-card-text>
                     </div>
