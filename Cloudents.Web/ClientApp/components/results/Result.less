@@ -1,5 +1,17 @@
 ﻿@import "../../styles/mixin.less";
 @import "../../animations/pageTransitions.less";
+
+
+.results-section{
+  .results-wrapper{
+    .suggestCard{
+      cursor: pointer;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+      .responsive-property(margin-bottom, 16px, null, 8px);
+    }
+  }
+}
+
 .empty-state-tutor{
   max-width: @cellWidth!important;//keep here
 }
@@ -209,6 +221,7 @@
 .loading-skeleton {
   .result-cell {
     pointer-events: none;
+
 
     .question-viewer{
       display:none;

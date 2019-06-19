@@ -117,16 +117,57 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="body" xml:space="preserve">
-    <value>Tell what kind of help do you need, and we will find highly rated matching tutors for your needs, that will send a message directly to you.</value>
+  <data name="btn_attachment" xml:space="preserve">
+    <value>Attachment</value>
   </data>
-  <data name="btn" xml:space="preserve">
-    <value>Tell us what you need</value>
+  <data name="btn_close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="btn_submit" xml:space="preserve">
+    <value>Submit Request</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="label_add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="no_course" xml:space="preserve">
+    <value>Please add courses</value>
+  </data>
+  <data name="phoneNumber" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+<<<<<<< HEAD
+  <data name="request_error" xml:space="preserve">
+    <value>Opps .... something went wrong - please try again</value>
+=======
+  <data name="request_denied" xml:space="preserve">
+    <value />
+>>>>>>> origin/feature_newPromoteCard
+  </data>
+  <data name="request_received" xml:space="preserve">
+    <value>We successfully received your request, tutors will contact you shortly</value>
+  </data>
+  <data name="select_course_placeholder" xml:space="preserve">
+    <value>In what course ?</value>
+  </data>
+  <data name="string" xml:space="preserve">
+    <value />
   </data>
   <data name="title" xml:space="preserve">
-    <value>Need Help Finding a Recommended Tutor?</value>
+    <value>Request a Tutor</value>
   </data>
-  <data name="title_mobile" xml:space="preserve">
-    <value>Need Help Finding a Tutor?</value>
+  <data name="title_tutor_list" xml:space="preserve">
+    <value>Send a Message</value>
+  </data>
+  <data name="topic_placeholder" xml:space="preserve">
+    <value>I need help with this topic...</value>
+  </data>
+  <data name="university" xml:space="preserve">
+    <value>University</value>
   </data>
 </root>

@@ -11,6 +11,8 @@ import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
 import { LanguageService } from '../../../services/language/languageService'
 import soonComponent from '../helpers/soon/soon.vue'
 import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
+import analyticsService from '../../../services/analytics.service'
+
 
 import faqBlock from '../helpers/faq-block/faq-block.vue'
 import notificationCenter from '../../notificationCenter/notificationCenter.vue'
@@ -182,7 +184,8 @@ export default {
             'updateUserProfileData',
             'updateNewQuestionDialogState',
             'updateDialogState',
-            'StudyDocuments_nextPage'
+            'StudyDocuments_nextPage',
+            'updateRequestDialog'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING"]),
         ...mapGetters(["getCurrentVertical", "StudyDocuments_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
@@ -301,6 +304,10 @@ export default {
             //'bottom' : sameUser ? '15px' : ''
             }
         },*/
+        openRequestTutor() {
+            analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
+            this.updateRequestDialog(true);
+        }
     },
 
     created() {
