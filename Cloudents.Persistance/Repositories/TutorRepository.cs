@@ -78,7 +78,7 @@ and T.State = 'Ok'
                 .ListAsync<long>(token);
         }
 
-        public void DeleteTutorAsync(long tutorId, CancellationToken token)
+        public void DeleteTutor(long tutorId, CancellationToken token)
         {
             const string sql = @"
 begin tran
