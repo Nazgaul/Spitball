@@ -45,7 +45,7 @@ namespace Cloudents.FunctionsV2.System
             var message = new SendGridMessage
             {
                 Asm = new ASM { GroupId = 10926 },
-                TemplateId = language == Language.English ? "d-535f822f33c341d78253b97b3e35e853" : "d-535f822f33c341d78253b97b3e35e853"
+                TemplateId = language == Language.English ? "d-535f822f33c341d78253b97b3e35e853" : "d-6a6aead697824210b95c60ddd8d495c5"
             };
             templateData.To = toAddress;
             var personalization = new Personalization
@@ -73,6 +73,8 @@ namespace Cloudents.FunctionsV2.System
             await emailProvider.AddAsync(message, token);
         }
 
+        //TODO: add Subject to emails
+        //TODO: fix broken links on templates
         public async Task DoOperationAsync(UpdatesEmailMessage msg, IBinder binder, CancellationToken token)
         {
             var query = new GetUpdatesEmailUsersQuery();
@@ -91,12 +93,13 @@ namespace Cloudents.FunctionsV2.System
                 user.XNewItems = user.Documents.Count();
                 user.NumUpdates = user.XQuestions + user.XNewItems;
                 //user.To = "ram.y@outlook.com";
-                if (user.Id == 160347)
-                {
+                //if (user.Id == 160347)
+                //{
                     List<Question> questions = new List<Question>();
                     List<Document> documents = new List<Document>();
                     foreach (var question in user.Questions)
                     {
+                        //TODO: fix URLs build
                         questions.Add(new Question()
                         {
                             QuestionUrl = $@"https://dev.spitball.co/question/{question.QuestionId}",
@@ -122,7 +125,7 @@ namespace Cloudents.FunctionsV2.System
                           t,
                           category,
                           token);
-                }
+                //}
 
             }
            
