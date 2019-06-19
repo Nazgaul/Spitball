@@ -148,5 +148,25 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             response.EnsureSuccessStatusCode();
         }
+
+        [Theory]
+        [InlineData("document/המסלול-האקדמי-המכללה-למנהל")]
+        public async Task ShortUrl_Invalid_404(string url)
+        {
+            var response = await _client.GetAsync(url);
+
+            var p = response.Headers.Location;
+            p.Should().Be("/Error/NotFound");
+            //Assert.EndsWith("error/notfound", p.AbsolutePath);
+        }
+
+        [Theory]
+        [InlineData("api/document/2999")]
+        public async Task Valid_Url_200(string url)
+        {
+            var response = await _client.GetAsync(url);
+
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

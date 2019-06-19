@@ -20,6 +20,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class SbWebApplicationFactory : WebApplicationFactory<Startup>
     {
         public const string WebCollection = "WebCollection";
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             //builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);

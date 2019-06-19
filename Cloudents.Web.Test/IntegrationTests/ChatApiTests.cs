@@ -4,6 +4,8 @@ using FluentAssertions;
 using System.Net;
 using System;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -33,12 +35,25 @@ namespace Cloudents.Web.Test.IntegrationTests
         public ChatApiTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
+            _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Fact]
         public async Task GetAsync_Get_Chat()
         {
             await _client.LogInAsync();
+
+            var response = await _client.GetAsync(_uri.Path);
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task GetAsync_Get_User_Chat()
+        {
+            await _client.LogInAsync();
+
+            _uri.Path = "api/chat/159039";
 
             var response = await _client.GetAsync(_uri.Path);
 
@@ -72,7 +87,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Fact]
-        public async Task PostAsyncChatRead_NoSuchConversation_BadRequest()
+        public async Task PostAsync_Chat_Read_NoSuchConversation_BadRequest()
         {
             await _client.LogInAsync();
 
@@ -80,6 +95,73 @@ namespace Cloudents.Web.Test.IntegrationTests
            
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
+        }
+
+        [Fact]
+        public async Task PostAsync_Chat_Read_OK()
+        {
+            await _client.LogInAsync();
+
+            _uri.Path = "api/chat";
+
+            object msg = new
+            {
+                message = "Hi",
+                otherUser = 160171
+            };
+
+            object otherUser = new
+            {
+                email = "elad12@cloudents.com",
+                password = "123456789"
+            };
+
+            object read = new
+            {
+                otherUserId = 159039
+            };
+
+
+            var response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(msg)));
+
+            response.EnsureSuccessStatusCode();
+
+            _uri.Path = "api/login";
+
+            response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(otherUser)));
+
+            _uri.Path = "api/chat/read";
+
+            response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(read)));
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task PostAsync_Teach_OK()
+        {
+            await _client.LogInAsync();
+
+            object course = new
+            {
+                name = "Economics"
+            };
+
+            _uri.Path = "api/course/set";
+
+            var response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(course)));
+
+            response.EnsureSuccessStatusCode();
+
+            _uri.Path = "api/course/teach";
+
+            response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(course)));
+
+            response.EnsureSuccessStatusCode();
+
+            response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(course)));
+
+            response.EnsureSuccessStatusCode();
         }
     }
 }
