@@ -22,7 +22,6 @@ import VueNumeric from 'vue-numeric'
 import VueMathjax from 'vue-mathjax'
 import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
-import Vue2TouchEvents from 'vue2-touch-events'
 
 
 

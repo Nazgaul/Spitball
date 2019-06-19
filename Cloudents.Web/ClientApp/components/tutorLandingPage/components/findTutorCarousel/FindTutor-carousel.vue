@@ -69,7 +69,7 @@ export default {
     }
   },
   methods: {
-    moveCarousel(direction) {
+    moveCarousel(dir) {
         let self = this;
         let direction = dir === "left" ? 1 : -1;
         if (self.isRtl) {
