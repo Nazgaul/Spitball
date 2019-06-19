@@ -20,7 +20,7 @@ namespace Cloudents.Query.Query
 
 
         public long Id { get; }
-        public long? UserId { get; }
+        private long? UserId { get; }
 
 
         internal sealed class DocumentByIdQueryHandler : IQueryHandler<DocumentById, DocumentDetailDto>

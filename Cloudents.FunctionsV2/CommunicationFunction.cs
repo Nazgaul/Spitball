@@ -150,7 +150,7 @@ namespace Cloudents.FunctionsV2
         }
 
         [FunctionName("SmsUnread")]
-        public static async Task SmsUnreadAsync([TimerTrigger("0 */10 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        public static async Task SmsUnreadAsync([TimerTrigger("0 */10 5-18 * * *", RunOnStartup = true)]TimerInfo myTimer,
             [Blob("spitball/chat/unread.txt")]CloudBlockBlob blob,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
             [Inject] IQueryBus queryBus,
@@ -169,7 +169,6 @@ namespace Cloudents.FunctionsV2
 
             var query = new UserUnreadMessageQuery(version);
             var result = await queryBus.QueryAsync(query, token);
-            var tasks = new List<Task>();
             var dataProtector = dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
             foreach (var unreadMessageDto in result.Distinct(UnreadMessageDto.UserIdComparer))
@@ -212,12 +211,18 @@ namespace Cloudents.FunctionsV2
                 {
                     messageOptions.From = "Spitball";
                 }
-                var t = options.AddAsync(messageOptions, token);
 
-                tasks.Add(t);
+                try
+                {
+                    await options.AddAsync(messageOptions, token);
+                    await options.FlushAsync(token);
+                }
+                catch (Exception ex)
+                {
+                    log.LogError(ex, $"Cant send sms to {unreadMessageDto}");
+                }
+
             }
-
-            await Task.WhenAll(tasks);
             if (result.Count > 0)
             {
                 version = result.OrderByDescending(o => o.VersionAsLong).First().Version;

@@ -68,7 +68,7 @@ and (u.PaymentKey is null or u.PaymentKeyExpiration  < GETUTCDATE());";
                         {
                             return null;
                         }
-                        retVal.NeedPayment = await grid.ReadSingleOrDefaultAsync<bool>();
+                       // retVal.NeedPayment = await grid.ReadSingleOrDefaultAsync<bool>();
                         return retVal;
                     }
                 }

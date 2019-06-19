@@ -109,7 +109,7 @@
             };
         },
         computed: {
-            ...mapGetters(['getSelectedClasses', 'accountUser', 'getIsTutorState']),
+            ...mapGetters(['getSelectedClasses', 'accountUser', 'getIsTutorState', 'getIsSelectedClassLocked']),
             classesSelected() {
                 return this.getSelectedClasses;
             },
@@ -117,10 +117,11 @@
                 return this.accountUser.isTutor || (this.getIsTutorState && this.getIsTutorState === 'pending');            
             },
             isEmpty() {
-                if(this.getSelectedClasses.length < 1){
-                    this.$router.push({name:'addCourse'});
+                if(!this.getIsSelectedClassLocked){
+                    if(this.getSelectedClasses.length < 1){
+                        this.$router.push({name:'addCourse'});
+                    }
                 }
-                 
             },
             coursesQuantaty() {
                 return this.getSelectedClasses.length;

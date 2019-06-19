@@ -46,6 +46,10 @@ export default {
         ...mapActions(['updateRequestDialog', 'updateToasterParams']),
         searchCourses: debounce(function(ev){
             let term = ev.target.value.trim();
+            if(!term) {
+                this.tutorCourse = ''
+                return 
+            }
             if(!!term){
                 universityService.getCourse({term, page:0}).then(data=>{
                     this.suggestsCourses = data;
@@ -76,7 +80,11 @@ export default {
                     let analyticsObject = {
                         userId: self.accountUser.id,
                         course: self.tutorCourse}
-                    analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                    analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                }else{
+                    let analyticsObject = {
+                        course: self.tutorCourse}
+                    analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:GUEST, T_Course:${analyticsObject.course}`);
                 }
                 tutorService.requestTutor(serverObj)
                             .then(() => {

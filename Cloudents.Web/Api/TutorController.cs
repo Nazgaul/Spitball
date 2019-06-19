@@ -14,6 +14,7 @@ using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Services;
+using Cloudents.Core;
 
 namespace Cloudents.Web.Api
 {
@@ -63,6 +64,7 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
+        [ResponseCache(Duration = TimeConst.Hour,Location = ResponseCacheLocation.Client,VaryByQueryKeys = new[] { "*"})]
         public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
             string term,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
@@ -135,7 +137,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices]  IQueueProvider queueProvider,
             [FromServices] IHostingEnvironment configuration,
-            [FromServices] ISmsSender _client,
+            [FromServices] ISmsSender client,
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
@@ -156,7 +158,7 @@ namespace Cloudents.Web.Api
                 {
                     if (user.PhoneNumber == null)
                     {
-                        var phoneNumber = await _client.ValidateNumberAsync(model.ToString(), token);
+                        var phoneNumber = await client.ValidateNumberAsync(model.ToString(), token);
                         if (phoneNumber.phoneNumber != null)
                         {
                             user.Country = phoneNumber.country;
@@ -195,6 +197,7 @@ namespace Cloudents.Web.Api
                     email.Dictionary.Add(propertyInfo.Name, value.ToString());
                 }
             }
+            email.Dictionary.Add("Referer", referer.AbsoluteUri);
 
             var utmSource = referer.ParseQueryString()["utm_source"];
             var task1 = queueProvider.InsertMessageAsync(email, token);

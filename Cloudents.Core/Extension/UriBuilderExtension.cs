@@ -33,6 +33,7 @@ namespace Cloudents.Core.Extension
             {
                 return;
             }
+
             var properties = from p in obj.GetType().GetProperties()
                              where p.GetValue(obj, null) != null
                              select p.Name + "=" + WebUtility.UrlEncode(p.GetValue(obj, null).ToString());

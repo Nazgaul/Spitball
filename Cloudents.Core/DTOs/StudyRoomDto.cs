@@ -15,8 +15,8 @@ namespace Cloudents.Core.DTOs
         public string StudentName { get; set; }
         public bool AllowReview { get; set; }
         public bool NeedPayment => false;
+    };
        
-    }
 
 
     public class UserStudyRoomDto

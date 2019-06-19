@@ -51,13 +51,13 @@ export default {
     };
   },
   computed:{
-    basicConvertionRate(){
+    basicConversionRate(){
         return this.products.basic.price / this.products.basic.pts;
     },
-    interConvertionRate(){
+    interConversionRate(){
         return this.products.inter.price / this.products.inter.pts;
     },
-    proConvertionRate(){
+    proConversionRate(){
         return (this.products.pro.price / this.products.pro.pts).toFixed(3);
     }
   },

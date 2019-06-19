@@ -22,10 +22,11 @@ namespace Cloudents.Search.Tutor
         }
         public async Task<IEnumerable<TutorListDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token)
         {
+            const int pageSize = 25;
             var searchParams = new SearchParameters()
             {
-                Top = 50,
-                Skip = query.Page * 50,
+                Top = pageSize,
+                Skip = query.Page * pageSize,
                 Select = new []
                 {
                     nameof(Entities.Tutor.Name),

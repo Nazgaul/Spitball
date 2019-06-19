@@ -1,5 +1,4 @@
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Di;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +14,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Microsoft.Extensions.Logging;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using static Cloudents.Core.TimeConst;
 
@@ -27,7 +28,7 @@ namespace Cloudents.FunctionsV2
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/{hash}")]
             HttpRequest req, string hash,
             IBinder binder,
-            ILogger logger,
+            Microsoft.Extensions.Logging.ILogger logger,
             [Inject] IBinarySerializer serializer,
             CancellationToken token)
         {
@@ -82,7 +83,7 @@ namespace Cloudents.FunctionsV2
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-
+                    image.Mutate(x=>x.AutoOrient());
                     return new FileCallbackResult("image/jpg", (stream, context) =>
                     {
                         context.HttpContext.Response.Headers.Add("Cache-Control",
@@ -95,10 +96,7 @@ namespace Cloudents.FunctionsV2
                 }
                 catch (ImageFormatException ex)
                 {
-                    logger.Exception(ex, new Dictionary<string, string>()
-                    {
-                        ["Image"] = hash
-                    });
+                    logger.LogError(ex, hash);
                     return new StatusCodeResult(500);
                 }
             }

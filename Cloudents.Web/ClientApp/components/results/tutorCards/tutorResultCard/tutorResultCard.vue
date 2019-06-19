@@ -1,6 +1,5 @@
 <template>
-  <div class="tutor-card-wrap-desk cursor-pointer">
-    <router-link event="" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+    <router-link class="tutor-card-wrap-desk cursor-pointer" event="" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
       <v-layout>
         <div class="section-tutor-info">
           <v-layout>
@@ -35,7 +34,7 @@
         >
           <v-flex xs12 grow>
             <v-flex xs12 shrink v-if="showStriked" class="strike-through">
-              <span class="pricing striked-price">₪{{tutorData.price}}</span>
+              <span class="pricing striked-price">₪{{tutorData.price.toFixed(2)}}</span>
               <span class="pricing caption striked-price">
                 <span v-language:inner="'resultTutor_hour'"></span>
               </span>
@@ -83,7 +82,6 @@
         </v-layout>
       </v-layout>
     </router-link>
-  </div>
 </template>
 
 
@@ -129,14 +127,15 @@ export default {
     tutorCardClicked(e) {
         if(this.fromLandingPage){
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+            this.$router.push({name: "profile", query: this.$route.query, params: { id: this.tutorData.userId, name: this.tutorData.name }
+          });
         }else{
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+            this.$router.push({
+            name: "profile",
+            params: { id: this.tutorData.userId, name: this.tutorData.name }
+          });
         }
-        this.$router.push({
-          name: "profile",
-          params: { id: this.tutorData.userId, name: this.tutorData.name }
-        });
-      
     },
     openRequestDialog() {
       this.updateRequestDialog(true);
@@ -164,7 +163,7 @@ export default {
             discountedPrice(){
                 let price = this.tutorData.price;
                 let discountedAmount = price - this.discountAmount;
-                return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
+                return discountedAmount >  this.minimumPrice ? discountedAmount.toFixed(2) : this.minimumPrice.toFixed(2);
     },
     buttonText() {
       return this.fromLandingPage

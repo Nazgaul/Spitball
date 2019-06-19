@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <v-form v-model="validRequestTutorForm" ref="tutorRequestForm">
+    <v-form class="request-tutor-container" v-model="validRequestTutorForm" ref="tutorRequestForm">
       <v-card>
         <v-toolbar class="headline" height="45" dark color="#1B2441">
           <v-icon class="header-icon title">sbf-person-icon</v-icon>
@@ -97,7 +97,7 @@
         </v-card-text>
         <v-card-actions class="alignEnd">
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click="tutorRequestDialogClose()">{{btnClosePlaceholder}}</v-btn>
+          <v-btn color="blue darken-1" :disabled="btnRequestLoading" flat @click="tutorRequestDialogClose()">{{btnClosePlaceholder}}</v-btn>
           <v-btn color="#4452fc" :loading="btnRequestLoading" round depressed dark @click="sendRequest()">{{btnSubmitPlaceholder}}</v-btn>
         </v-card-actions>
       </v-card>

@@ -32,11 +32,7 @@
                   </v-flex>
                   <v-flex shrink>
                     <!--keep this inline style to fix price / hour spacing-->
-                    <span
-                      class="font-weight-bold pricing pr-1"
-                      v-if="showStriked"
-                      style="display: table;"
-                    >
+                    <span class="font-weight-bold pricing pr-1" v-if="showStriked" style="display: table;">
                       <span class="subheading font-weight-bold">₪{{discountedPrice}}</span>
                       <span class="font-weight-regular caption" v-language:inner>resultTutor_hour</span>
                     </span>
@@ -49,7 +45,7 @@
                       </div>
                     </span>
                     <v-flex shrink v-if="showStriked" class="strike-through">
-                      <span class="striked-price">₪{{tutorData.price}}</span>
+                      <span class="striked-price">₪{{tutorData.price.toFixed(2)}}</span>
                       <span class="pricing striked-hour">
                         <span v-language:inner>resultTutor_hour</span>
                       </span>
@@ -117,13 +113,15 @@ export default {
     tutorCardClicked() {
         if(this.fromLandingPage){
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+            this.$router.push({name: "profile", query: this.$route.query, params: { id: this.tutorData.userId, name: this.tutorData.name }});
         }else{
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+            this.$router.push({
+            name: "profile",
+            params: { id: this.tutorData.userId, name: this.tutorData.name }
+          });
         }
-        this.$router.push({
-          name: "profile",
-          params: { id: this.tutorData.userId, name: this.tutorData.name }
-        });
+        
     },
     openRequestDialog() {
       this.updateRequestDialog(true);
@@ -155,9 +153,7 @@ export default {
     discountedPrice() {
       let price = this.tutorData.price;
       let discountedAmount = price - this.discountAmount;
-      return discountedAmount > this.minimumPrice
-        ? discountedAmount
-        : this.minimumPrice;
+      return discountedAmount > this.minimumPrice ? discountedAmount.toFixed(2) : this.minimumPrice.toFixed(2);
     }
   }
 };

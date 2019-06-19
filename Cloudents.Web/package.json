@@ -68,7 +68,6 @@
     "vue-svg-loader": "^0.3.0",
     "vue-template-compiler": "2.6.4",
     "vue-upload-component": "^2.8.14",
-    "vue-youtube-embed": "^2.2.1",
     "vuetify": "1.5.1",
     "vuetify-loader": "^0.1.1",
     "vuex": "^3.0.1",
