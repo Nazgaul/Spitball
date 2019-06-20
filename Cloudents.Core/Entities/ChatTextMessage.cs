@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public ChatTextMessage(RegularUser user, string message, ChatRoom room) : base(user, room)
+        public ChatTextMessage(User user, string message, ChatRoom room) : base(user, room)
         {
             Message = message;
 

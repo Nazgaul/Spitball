@@ -45,14 +45,14 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
 
 
 
         public DocumentController(IQueryBus queryBus,
-             ICommandBus commandBus, UserManager<RegularUser> userManager,
+             ICommandBus commandBus, UserManager<User> userManager,
              IDocumentDirectoryBlobProvider blobProvider,
             IStringLocalizer<DocumentController> localizer,
             ITempDataDictionaryFactory tempDataDictionaryFactory,

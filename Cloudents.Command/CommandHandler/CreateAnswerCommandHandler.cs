@@ -19,14 +19,14 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IAnswerRepository _answerRepository;
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly ITextAnalysis _textAnalysis;
 
         private readonly IQuestionsDirectoryBlobProvider _blobProvider;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
-            IAnswerRepository answerRepository, IRepository<RegularUser> userRepository,
+            IAnswerRepository answerRepository, IRepository<User> userRepository,
             IQuestionsDirectoryBlobProvider blobProvider, ITextAnalysis textAnalysis)
         {
             _questionRepository = questionRepository;

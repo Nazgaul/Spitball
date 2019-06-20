@@ -14,12 +14,12 @@ namespace Cloudents.Web.Controllers
     [Route("[controller]", Name = "ConfirmEmail")]
     public class ConfirmEmailController : Controller
     {
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly SbSignInManager _signInManager;
         private readonly ILogger _logger;
 
 
-        public ConfirmEmailController(UserManager<RegularUser> userManager, SbSignInManager signInManager, ILogger logger)
+        public ConfirmEmailController(UserManager<User> userManager, SbSignInManager signInManager, ILogger logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -65,7 +65,7 @@ namespace Cloudents.Web.Controllers
             return await GoToStep(user, NextStep.EnterPhone, true, model.ReturnUrl);
         }
 
-        private async Task<RedirectToRouteResult> GoToStep(RegularUser user, NextStep step, bool isNew, string returnUrl)
+        private async Task<RedirectToRouteResult> GoToStep(User user, NextStep step, bool isNew, string returnUrl)
         {
             await _signInManager.TempSignIn(user);
             return RedirectToRoute(RegisterController.RegisterRouteName,

@@ -24,7 +24,7 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
         {
-            if (eventMessage.Question.User is RegularUser u)
+            if (eventMessage.Question.User is User u)
             {
                 return SendEmailAsync(u, token);
             }
@@ -32,7 +32,7 @@ namespace Cloudents.Core.EventHandler
             return Task.CompletedTask;
         }
 
-        private Task SendEmailAsync(RegularUser user, CancellationToken token)
+        private Task SendEmailAsync(User user, CancellationToken token)
         {
             var invisibleTime = _random.Next(10, 20);
             return SendEmail(

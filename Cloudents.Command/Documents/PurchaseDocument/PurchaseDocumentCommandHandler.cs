@@ -9,11 +9,11 @@ namespace Cloudents.Command.Documents.PurchaseDocument
 {
     public class PurchaseDocumentCommandHandler : ICommandHandler<PurchaseDocumentCommand>
     {
-        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<BaseUser> _userRepository;
         private readonly ITransactionRepository _transactionRepository;
         private readonly IRepository<Document> _documentRepository;
 
-        public PurchaseDocumentCommandHandler(IRepository<User> userRepository, ITransactionRepository transactionRepository, IRepository<Document> documentRepository)
+        public PurchaseDocumentCommandHandler(IRepository<BaseUser> userRepository, ITransactionRepository transactionRepository, IRepository<Document> documentRepository)
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;

@@ -30,9 +30,9 @@ namespace Cloudents.Web.Api
       
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public StudyRoomController(ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus)
+        public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager, IQueryBus queryBus)
         {
             _commandBus = commandBus;
             _userManager = userManager;
@@ -170,7 +170,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost("review")]
         public async Task<IActionResult> CreateReview([FromBody] ReviewRequest model,
-            [FromServices] UserManager<RegularUser> userManager,
+            [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
             var userId = userManager.GetLongUserId(User);

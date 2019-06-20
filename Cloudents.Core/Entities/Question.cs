@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities
     public class Question : Entity<long>, IAggregateRoot, ISoftDelete
     {
         public Question(QuestionSubject? subject, string text,  int attachments,
-            RegularUser user,
+            User user,
              CultureInfo language,  [NotNull] Course course,  University university)
         : this()
         {
@@ -75,7 +75,7 @@ namespace Cloudents.Core.Entities
 
         public virtual int Attachments { get; protected set; }
 
-        public virtual User User { get; protected set; }
+        public virtual BaseUser User { get; protected set; }
 
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime Updated { get; set; }
@@ -94,7 +94,7 @@ namespace Cloudents.Core.Entities
         public virtual IList<QuestionTransaction> Transactions { get; protected set; }
 
 
-        public virtual Answer AddAnswer(string text, int attachments, RegularUser user, CultureInfo language)
+        public virtual Answer AddAnswer(string text, int attachments, User user, CultureInfo language)
         {
             var answer = new Answer(this, text, attachments, user, language);
             _answers.Add(answer);
@@ -119,7 +119,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual void Vote(VoteType type, RegularUser user)
+        public virtual void Vote(VoteType type, User user)
         {
             if (Status != Public)
             {
@@ -196,7 +196,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void Flag(string messageFlagReason, User user)
+        public virtual void Flag(string messageFlagReason, BaseUser user)
         {
             if (User.Id == user.Id)
             {

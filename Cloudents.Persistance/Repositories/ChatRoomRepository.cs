@@ -28,7 +28,7 @@ namespace Cloudents.Persistence.Repositories
             var chatRoom = await GetChatRoomAsync(identifier, token);
             if (chatRoom == null)
             {
-                var users = userIds.Select(s => Session.Load<RegularUser>(s)).ToList();
+                var users = userIds.Select(s => Session.Load<User>(s)).ToList();
                 chatRoom = new ChatRoom(users);
                 await AddAsync(chatRoom, token);
             }

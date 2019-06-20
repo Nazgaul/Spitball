@@ -19,12 +19,12 @@ namespace Cloudents.Web.Services
             {
                 return null;
             }
-            var userManager = httpContext.RequestServices.GetService<UserManager<RegularUser>>();
+            var userManager = httpContext.RequestServices.GetService<UserManager<User>>();
 
             var userId = userManager.GetLongUserId(httpContext.User);
             var query = new UserDataByIdQuery(userId);
             var queryBus = httpContext.RequestServices.GetService<IQueryBus>();
-            var result = await queryBus.QueryAsync<RegularUser>(query, httpContext.RequestAborted);
+            var result = await queryBus.QueryAsync<User>(query, httpContext.RequestAborted);
             if (result.Language == null)
             {
                 return null;

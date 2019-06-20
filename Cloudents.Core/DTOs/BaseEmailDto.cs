@@ -6,13 +6,13 @@ namespace Cloudents.Core.DTOs
 {
     public class EmailDto
     {
-        [EntityBind(nameof(RegularUser.Email))]
+        [EntityBind(nameof(User.Email))]
         public string ToEmailAddress { get; set; }
-        [EntityBind(nameof(RegularUser.Language))]
+        [EntityBind(nameof(User.Language))]
         public string Language { get; set; }
 
         
-        [EntityBind(nameof(RegularUser.Id))]
+        [EntityBind(nameof(User.Id))]
         public long UserId { get; set; }
     }
 

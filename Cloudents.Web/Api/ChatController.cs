@@ -31,9 +31,9 @@ namespace Cloudents.Web.Api
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public ChatController(ICommandBus commandBus, UserManager<RegularUser> userManager, IQueryBus queryBus,
+        public ChatController(ICommandBus commandBus, UserManager<User> userManager, IQueryBus queryBus,
             IChatDirectoryBlobProvider blobProvider,
             ITempDataDictionaryFactory tempDataDictionaryFactory,
             IStringLocalizer<UploadControllerBase> localizer)

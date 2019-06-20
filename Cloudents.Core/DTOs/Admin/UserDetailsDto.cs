@@ -7,35 +7,35 @@ namespace Cloudents.Core.DTOs.Admin
     public class UserDetailsDto
     {
         
-        [EntityBind(nameof(RegularUser.Id))]
+        [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
-        [EntityBind(nameof(RegularUser.Name))]
+        [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(RegularUser.Email))]
+        [EntityBind(nameof(User.Email))]
         public string Email { get; set; }
-        [EntityBind(nameof(RegularUser.PhoneNumber))]
+        [EntityBind(nameof(User.PhoneNumber))]
         public string PhoneNumber { get; set; }
-        [EntityBind(nameof(RegularUser.University))]
+        [EntityBind(nameof(User.University))]
         public string University { get; set; }
-        [EntityBind(nameof(RegularUser.Country))]
+        [EntityBind(nameof(User.Country))]
         public string Country { get; set; }
-        [EntityBind(nameof(RegularUser.Score))]
+        [EntityBind(nameof(User.Score))]
         public int Score { get; set; }
         //[EntityBind(nameof(RegularUser.FraudScore))]
         //public int FraudScore { get; set; }
        
         public int ReferredCount { get; set; }
-        [EntityBind(nameof(RegularUser.Balance))]
+        [EntityBind(nameof(User.Balance))]
         public decimal Balance { get; set; }
         public bool IsActive { get; set; }
         public DateTime? Joined { get; set; }
         public bool WasSuspended { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public bool EmailConfirmed { get; set; }
-        [EntityBind(nameof(RegularUser.LastOnline))]
+        [EntityBind(nameof(User.LastOnline))]
         public DateTime? LastOnline { get; set; }
         public string IsTutor{ get; set; }
-        [EntityBind(nameof(RegularUser.LockoutReason))]
+        [EntityBind(nameof(User.LockoutReason))]
         public string LockoutReason { get; set; }
     }
 }

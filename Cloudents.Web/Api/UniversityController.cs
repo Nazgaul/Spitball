@@ -26,8 +26,8 @@ namespace Cloudents.Web.Api
     public class UniversityController : ControllerBase
     {
         private readonly IUniversitySearch _universityProvider;
-        private readonly UserManager<RegularUser> _userManager;
-        private readonly SignInManager<RegularUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ICommandBus _commandBus;
 
         /// <inheritdoc />
@@ -38,7 +38,7 @@ namespace Cloudents.Web.Api
         /// <param name="userManager"></param>
         /// <param name="commandBus"></param>
         /// <param name="signInManager"></param>
-        public UniversityController(IUniversitySearch universityProvider, UserManager<RegularUser> userManager, ICommandBus commandBus, SignInManager<RegularUser> signInManager)
+        public UniversityController(IUniversitySearch universityProvider, UserManager<User> userManager, ICommandBus commandBus, SignInManager<User> signInManager)
         {
             _universityProvider = universityProvider;
             _userManager = userManager;

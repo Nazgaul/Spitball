@@ -7,10 +7,10 @@ namespace Cloudents.Command.Universities
 {
     public class UserJoinUniversityCommandHandler : ICommandHandler<UserJoinUniversityCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IRepository<University> _universityRepository;
 
-        public UserJoinUniversityCommandHandler(IRepository<RegularUser> userRepository, IRepository<University> universityRepository)
+        public UserJoinUniversityCommandHandler(IRepository<User> userRepository, IRepository<University> universityRepository)
         {
             _userRepository = userRepository;
             _universityRepository = universityRepository;

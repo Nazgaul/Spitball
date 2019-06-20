@@ -9,9 +9,9 @@ namespace Cloudents.Command.CommandHandler
 {
     public class UpdateUserSettingsCommandHandler : ICommandHandler<UpdateUserSettingsCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public UpdateUserSettingsCommandHandler(IRepository<RegularUser> userRepository)
+        public UpdateUserSettingsCommandHandler(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

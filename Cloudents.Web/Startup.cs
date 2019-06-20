@@ -133,9 +133,9 @@ namespace Cloudents.Web
             services.AddSingleton(physicalProvider);
 
             services.AddDetectionCore().AddCrawler();
-            services.AddScoped<SignInManager<RegularUser>, SbSignInManager>();
+            services.AddScoped<SignInManager<User>, SbSignInManager>();
             //RoleStore
-            services.AddDefaultIdentity<RegularUser>(options =>
+            services.AddDefaultIdentity<User>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = true;
@@ -173,8 +173,8 @@ namespace Cloudents.Web
 
 
             //TODO: not sure we need those
-            services.AddScoped<IUserClaimsPrincipalFactory<RegularUser>, AppClaimsPrincipalFactory>();
-            services.AddScoped<IUserStore<RegularUser>, UserStore>();
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
+            services.AddScoped<IUserStore<User>, UserStore>();
             //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();

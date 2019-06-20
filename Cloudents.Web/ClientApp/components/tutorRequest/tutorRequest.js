@@ -74,18 +74,14 @@ export default {
                     email: (self.guestMail)? self.guestMail : null,
                     phone: (self.guestPhone)? self.guestPhone : null,
                     course: (self.tutorCourse)? self.tutorCourse : null,
-                    university: (self.guestUniversity)? self.guestUniversity : null,
+                    university: (self.guestUniversity.id)? self.guestUniversity.id : null,
                 };
-                if(this.isAuthUser){
-                    let analyticsObject = {
-                        userId: self.accountUser.id,
-                        course: self.tutorCourse}
-                    analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
-                }else{
-                    let analyticsObject = {
-                        course: self.tutorCourse}
-                    analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:GUEST, T_Course:${analyticsObject.course}`);
+                let analyticsObject = {
+                    userId: this.isAuthUser ? self.accountUser.id : 'GUEST',
+                    course: self.tutorCourse
                 }
+                analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+
                 tutorService.requestTutor(serverObj)
                             .then(() => {
                                         self.tutorRequestDialogClose();

@@ -13,7 +13,7 @@ namespace Cloudents.Core.Entities
 
        
 
-        protected ChatMessage(RegularUser user, ChatRoom room)
+        protected ChatMessage(User user, ChatRoom room)
         {
             User = user;
             CreationTime = DateTime.UtcNow;
@@ -24,7 +24,7 @@ namespace Cloudents.Core.Entities
 
         // public virtual Guid Id { get; protected set; }
 
-        public virtual RegularUser User { get; protected set; }
+        public virtual User User { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
 
         public virtual ChatRoom ChatRoom { get; protected set; }

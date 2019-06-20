@@ -1,10 +1,9 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Message.Email;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
@@ -21,10 +20,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 
 namespace Cloudents.Web.Api
 {
@@ -37,18 +34,16 @@ namespace Cloudents.Web.Api
     public class TutorController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
-        private readonly UserManager<RegularUser> _userManager;
-        private readonly IMondayProvider _mondayProvider;
+        private readonly UserManager<User> _userManager;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<TutorController> _stringLocalizer;
 
 
-        public TutorController(IQueryBus queryBus, UserManager<RegularUser> userManager,
-            IMondayProvider mondayProvider, ICommandBus commandBus, IStringLocalizer<TutorController> stringLocalizer)
+        public TutorController(IQueryBus queryBus, UserManager<User> userManager,
+             ICommandBus commandBus, IStringLocalizer<TutorController> stringLocalizer)
         {
             _queryBus = queryBus;
             _userManager = userManager;
-            _mondayProvider = mondayProvider;
             _commandBus = commandBus;
             _stringLocalizer = stringLocalizer;
         }
@@ -64,7 +59,7 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
-        [ResponseCache(Duration = TimeConst.Hour,Location = ResponseCacheLocation.Client,VaryByQueryKeys = new[] { "*"})]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
         public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
             string term,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
@@ -135,12 +130,11 @@ namespace Cloudents.Web.Api
         }
         [HttpPost("request")]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
-            [FromServices]  IQueueProvider queueProvider,
-            [FromServices] IHostingEnvironment configuration,
             [FromServices] ISmsSender client,
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
+
             //RequestTutorEmail
             if (_userManager.TryGetLongUserId(User, out var userId))
             {
@@ -171,47 +165,25 @@ namespace Cloudents.Web.Api
                         userId = user.Id;
                     }
                 }
+                else
+                {
 
+                }
                 //TODO : need to register user
             }
 
-            if (userId > 0)
-            {
-                var command = new SendTutorRequestChatTextMessageCommand(model.Course,
-                    _stringLocalizer["RequestTutorChatMessage"],
-                    userId);
-                await _commandBus.DispatchAsync(command, token);
-            }
-
-
-            var email = new RequestTutorEmail()
-            {
-                Email = model.Email,
-                IsProduction = configuration.IsProduction()
-            };
-            foreach (var propertyInfo in model.GetType().GetProperties())
-            {
-                var value = propertyInfo.GetValue(model);
-                if (value != null)
-                {
-                    email.Dictionary.Add(propertyInfo.Name, value.ToString());
-                }
-            }
-            email.Dictionary.Add("Referer", referer.AbsoluteUri);
-
-            var utmSource = referer.ParseQueryString()["utm_source"];
-            var task1 = queueProvider.InsertMessageAsync(email, token);
-            var task2 = _mondayProvider.CreateRecordAsync(new MondayMessage(model.Course,
-                configuration.IsProduction(),
+            // if (userId > 0)
+            // {
+            var command = new RequestTutorCommand(model.Course,
+                _stringLocalizer["RequestTutorChatMessage"],
+                userId,
+                model.University,
+                referer.AbsoluteUri,
                 model.Name,
                 model.Phone,
-                model.Text,
-                model.University,
-                utmSource
-                ), token);
-
-
-            await Task.WhenAll(task1, task2);
+                model.Text,model.Email);
+            await _commandBus.DispatchAsync(command, token);
+        
             return Ok();
         }
 

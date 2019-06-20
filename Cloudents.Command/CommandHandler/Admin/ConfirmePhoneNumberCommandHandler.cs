@@ -8,9 +8,9 @@ namespace Cloudents.Command.CommandHandler.Admin
 {
     public class ConfirmePhoneNumberCommandHandler : ICommandHandler<ConfirmPhoneNumberCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public ConfirmePhoneNumberCommandHandler(IRepository<RegularUser> userRepository)
+        public ConfirmePhoneNumberCommandHandler(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

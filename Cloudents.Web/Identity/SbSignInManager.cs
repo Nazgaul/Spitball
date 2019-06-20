@@ -9,7 +9,7 @@ using Cloudents.Core.Entities;
 
 namespace Cloudents.Web.Identity
 {
-    public class SbSignInManager : SignInManager<RegularUser>
+    public class SbSignInManager : SignInManager<User>
     {
         //public async Task<SignInResult> SignInTwoFactorAsync(User user, bool isPersistent)
         //{
@@ -23,7 +23,7 @@ namespace Cloudents.Web.Identity
         //}
 
 
-        public async Task TempSignIn(RegularUser user)
+        public async Task TempSignIn(User user)
         {
 
             var userId = await UserManager.GetUserIdAsync(user);
@@ -53,7 +53,7 @@ namespace Cloudents.Web.Identity
         //    return base.SignInOrTwoFactorAsync(user, isPersistent, loginProvider, bypassTwoFactor);
         //}
 
-        public SbSignInManager(UserManager<RegularUser> userManager, IHttpContextAccessor contextAccessor, IUserClaimsPrincipalFactory<RegularUser> claimsFactory, IOptions<IdentityOptions> optionsAccessor, ILogger<SignInManager<RegularUser>> logger, IAuthenticationSchemeProvider schemes) : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
+        public SbSignInManager(UserManager<User> userManager, IHttpContextAccessor contextAccessor, IUserClaimsPrincipalFactory<User> claimsFactory, IOptions<IdentityOptions> optionsAccessor, ILogger<SignInManager<User>> logger, IAuthenticationSchemeProvider schemes) : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
         {
         }
 

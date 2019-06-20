@@ -17,7 +17,7 @@ namespace Cloudents.Core.Entities
             Messages = new List<ChatMessage>();
         }
 
-        public ChatRoom(IList<RegularUser> users) : this()
+        public ChatRoom(IList<User> users) : this()
         {
             Users = users.Select(s => new ChatUser(this, s)).ToList();
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));

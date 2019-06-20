@@ -16,11 +16,11 @@ namespace Cloudents.Core.Event
 
     public class StudentPaymentReceivedEvent : IEvent
     {
-        public StudentPaymentReceivedEvent(RegularUser user)
+        public StudentPaymentReceivedEvent(User user)
         {
             User = user;
         }
 
-        public RegularUser User { get; }
+        public User User { get; }
     }
 }

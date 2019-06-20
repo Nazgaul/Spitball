@@ -26,7 +26,7 @@ namespace Cloudents.Query
         {
             QuestionFeedDto dto = null;
             Question questionAlias = null;
-            User userAlias = null;
+            BaseUser userAlias = null;
 
 
             var detachedQuery = QueryOver.Of<Question>()
