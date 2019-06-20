@@ -184,33 +184,6 @@ module.exports = (env) => {
 
         });
 
-    //const serverBundleConfig = merge(sharedConfig(), {
-    //    target: 'node',
-    //    resolve: { mainFields: ['main'] },
-    //    entry: {
-    //        vendor: allModules.concat(['aspnet-prerendering'])
-    //    },
-    //    output: {
-    //        path: path.join(__dirname, 'ClientApp', 'dist'),
-    //        filename: "[name].js",
-    //        libraryTarget: 'commonjs2'
-    //    },
-    //    //module: {
-    //    //    rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] } ]
-    //    //},
-    //    plugins: [
-    //        new webpack.DllPlugin({
-    //            publicPath: 'dist/',
-    //            filename: '[name].js',
-    //            library: '[name]_[hash]',
-    //            path: path.join(__dirname, 'ClientApp', 'dist', '[name]-manifest.json'),
-    //            name: '[name]_[hash]'
-    //        }),
-
-    //    ].concat(isDevBuild ? [
-    //        new CleanWebpackPlugin(path.join(__dirname, "ClientApp", "dist"))
-    //    ] : [])
-    //});
     return [clientBundleConfig];
 
 };
