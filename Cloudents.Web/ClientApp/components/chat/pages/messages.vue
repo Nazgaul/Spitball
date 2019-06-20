@@ -215,6 +215,9 @@ export default {
                         border-radius: 70%;
                         width: 32px;
                         height: 32px;
+                        transform: rotateY(0deg)/*rtl:rotateY(180deg)*/; 
+                        /*rtl:append:transform: rotateY(180deg);*/;
+                            
                     }
                 }
                 .v-input__slot{
