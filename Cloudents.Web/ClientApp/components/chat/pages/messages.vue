@@ -8,7 +8,7 @@
             <div class="messages-header">
                 <div class="messages-study-room" v-if="showStudyRoomInteraction" @click="createRoom">
                     <button v-show="studyRoomExists">
-                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>
+                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
                     <v-btn flat class="white--text messages-study-room-btn-create" v-show="!studyRoomExists && isRoomTutor" :loading="loader">
@@ -20,15 +20,14 @@
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
             </div>
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
+                <span class="messages-mobile-button hidden-sm-and-up" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
                 <chat-upload-file></chat-upload-file>
                 <v-textarea rows="1" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"  v-language:placeholder @keydown.enter="sendMessage" v-model="messageText" auto-grow></v-textarea>
-
-               <v-layout align-center justify center class="chat-upload-loader" v-if="getChatLoader" >
-                
+                <v-layout align-center justify center class="chat-upload-loader" v-if="getChatLoader" >
                    <v-flex class="text-xs-center">
                        <v-progress-circular indeterminate v-bind:size="25" color="#43425d"></v-progress-circular>
                    </v-flex>
-               </v-layout>
+                </v-layout>
             </div>
         </v-layout>
     </div>
@@ -85,7 +84,7 @@ export default {
     },
     methods:{
         ...mapActions(['sendChatMessage', 'createStudyRoom']),
-        sendMessage(){
+        sendMessage(){            
             let messageToSend = this.messageText.trim();
             if(messageToSend !== ''){
                 this.sendChatMessage(this.messageText);
@@ -205,6 +204,24 @@ export default {
                 padding-right: 20px;
 
                 position: relative;
+                .messages-mobile-button {
+                        display: flex;
+                        align-items: center;
+                    i { 
+                        //Do not put it last because then the remark are gone
+                        transform: rotateY(0deg)/*rtl:rotateY(180deg)*/; 
+                        color: #FFF;
+                        font-size: 14px;
+                        background-color: #4452fc;
+                        padding: 10px;
+                        border-radius: 70%;
+                        width: 32px;
+                        height: 32px;
+                        
+                        /*rtl:append:transform: rotateY(180deg);*/;
+                            
+                    }
+                }
                 .v-input__slot{
                     box-shadow: none !important;
                     padding: 0 40px 0 12px;
@@ -225,7 +242,6 @@ export default {
                         }
                     }
                 }
-                
             }
         }
     }

@@ -1,25 +1,25 @@
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+// SERVICES
+import { verticalsName, verticalsNavbar } from "../../../services/navigation/vertical-navigation/nav";
+import { LanguageService } from '../../../services/language/languageService'
+import analyticsService from '../../../services/analytics.service'
+// COMPONENTS 
 import ResultItem from '../ResultItem.vue';
 import ResultAsk from "../ResultAsk.vue"
-import { verticalsName, verticalsNavbar } from "../../../services/navigation/vertical-navigation/nav";
 import SuggestCard from '../suggestCard.vue'
-import emptyState from "../svg/no-match-icon.svg";
-import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
-import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
-import { LanguageService } from '../../../services/language/languageService'
-
 import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
-
 import faqBlock from '../helpers/faq-block/faq-block.vue'
 import notificationCenter from '../../notificationCenter/notificationCenter.vue'
-
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 import resultFilter from '../helpers/resultFilter/resultFilter.vue'
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 import requestBox from '../../requestActions/requestActions.vue'
 
+import emptyState from "../svg/no-match-icon.svg";
+import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
 //The vue functionality for result page
 export default {
     components: {
@@ -178,7 +178,9 @@ export default {
             'updateUserProfileData',
             'updateNewQuestionDialogState',
             'updateDialogState',
-            'HomeworkHelp_nextPage'
+            'HomeworkHelp_nextPage',
+            'analyticsService',
+            'updateRequestDialog'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "HomeworkHelp_injectQuestion"]),
         ...mapGetters(["getCurrentVertical", "HomeworkHelp_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
@@ -298,6 +300,10 @@ export default {
             //'bottom' : sameUser ? '15px' : ''
             }
         },*/
+        openRequestTutor() {
+            analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
+            this.updateRequestDialog(true);
+        }
     },
 
     created() {

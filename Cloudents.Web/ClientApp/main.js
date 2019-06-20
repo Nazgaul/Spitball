@@ -23,6 +23,8 @@ import VueMathjax from 'vue-mathjax'
 import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
 
+
+
 import {
     VApp,
     VAvatar,
@@ -161,7 +163,6 @@ const router = new VueRouter({
 
 Vue.use(VueClipboard);
 Vue.use(lineClamp, {});
-
 Vue.use(VueNumeric);
 
 Vue.use(VueAnalytics, {

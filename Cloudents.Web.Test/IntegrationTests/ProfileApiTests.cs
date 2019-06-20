@@ -28,26 +28,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Fact]
-        public async Task Get_About_Tutor_Profile()
-        {
-            var response = await _client.GetAsync(_uri.Path + "/159039/about");
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JObject.Parse(str);
-
-            var courses = d["courses"]?.Value<JArray>();
-
-            var bio = d["bio"]?.Value<string>();
-
-            var reviews = d["reviews"]?.Value<JArray>();
-
-            courses.Should().NotBeNull();
-            bio.Should().NotBeNull();
-            reviews.Should().NotBeNull();
-        }
-
-        [Fact]
         public async Task Get_About_Regular_Profile()
         {
             var response = await _client.GetAsync(_uri.Path + "/160171/about");
@@ -70,7 +50,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task GetAsync_OK(string url)
         {
             var response = await _client.GetAsync(url);
-
+            
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
@@ -109,6 +89,42 @@ namespace Cloudents.Web.Test.IntegrationTests
             var id = obj.Children();
 
             id.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task Get_User()
+        {
+            await _client.LogInAsync();
+
+            var response = await _client.GetAsync(_uri.Path + "/search?term=fsdfds");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var courses = d["courses"]?.Value<JArray>();
+
+            courses.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task Get_About_Tutor_Profile()
+        {
+            var response = await _client.GetAsync(_uri.Path + "/159039/about");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var courses = d["courses"]?.Value<JArray>();
+
+            var bio = d["bio"]?.Value<string>();
+
+            var reviews = d["reviews"]?.Value<JArray>();
+
+            courses.Should().NotBeNull();
+            bio.Should().NotBeNull();
+            reviews.Should().NotBeNull();
         }
     }
 }

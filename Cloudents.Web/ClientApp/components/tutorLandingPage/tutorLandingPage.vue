@@ -31,7 +31,8 @@
             <span class="hidden-xs-only" v-language:inner="'tutorListLanding_courses'"></span>
             <span v-language:inner="'tutorListLanding_tutors'"></span>
         </v-layout>
-        <v-layout>
+        <v-layout class="tutor-landing-card-bottom">
+            <findTutorCarousel></findTutorCarousel>
         </v-layout>
         <Footer></Footer>
     </v-container>
@@ -43,13 +44,15 @@ import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/t
 import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue';
 import tutorLandingPageService from './tutorLandingPageService';
 import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
+import findTutorCarousel from './components/findTutorCarousel/FindTutor-carousel.vue'
 
 export default {
     components:{
         tutorResultCard,
         tutorResultCardMobile,
         tutorSearchComponent,
-        emptyStateCard
+        emptyStateCard,
+        findTutorCarousel
     },
     data(){
         return {
@@ -223,6 +226,29 @@ export default {
             font-size: 22px;
             font-weight: 600;
             color: rgba(0, 0, 0, 0.87);
+        }
+    }
+    .tutor-landing-card-bottom {
+        height: 528px;
+        padding: 0 385px;
+        display: flex;
+        align-items: center;
+        background-color: #fbfbfb;
+        @media (max-width: @screen-lg) {
+            padding: 0 150px;
+            height: auto;
+        }
+        @media (max-width: @screen-md) {
+            padding: 0 70px;
+            height: auto;
+        }
+        @media (max-width: @screen-sm) {
+            padding: 0 50px;
+            height: auto;
+        }
+        @media (max-width: @screen-xs) {
+            padding: 0 20px;
+            height: auto;
         }
     }
 }

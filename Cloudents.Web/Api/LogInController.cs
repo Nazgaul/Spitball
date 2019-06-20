@@ -38,6 +38,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult> Post(
             [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromBody]LoginRequest model,
+            [FromHeader(Name = "User-Agent")] string agent,
             CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -47,8 +48,8 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
 
             }
-            var agentStr = Request.Headers["User-Agent"].ToString();
-            var agent = agentStr.Substring(0, Math.Min(agentStr.Length, 255));
+           
+            agent = agent.Substring(0, Math.Min(agent.Length, 255));
             var command = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress(), model.FingerPrint, agent);
             var t1 = _commandBus.DispatchAsync(command, token);
             var t2 = _signInManager.CheckPasswordSignInAsync(user, model.Password, true);

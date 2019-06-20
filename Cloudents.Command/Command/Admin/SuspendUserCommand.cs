@@ -13,8 +13,8 @@ namespace Cloudents.Command.Command.Admin
         //public string Email{ get; set; }
 
         public long  Id { get; }
-        public DateTimeOffset LockoutEnd { get; set; }
-        public string Reason { get; set; }
+        public DateTimeOffset LockoutEnd { get; }
+        public string Reason { get;  }
 
     }
 }

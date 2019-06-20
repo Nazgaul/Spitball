@@ -27,6 +27,7 @@ namespace Cloudents.Web.Test.UnitTests
         public WalletControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
+            _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Fact]
@@ -84,6 +85,26 @@ namespace Cloudents.Web.Test.UnitTests
             var response = await _client.PostAsync(_uri.Path + "/redeem", new StringContent("{amount:1000}", Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task GetAsync_PaymentLink()
+        {
+            await _client.LogInAsync();
+
+            _uri.Path = "api/wallet/getpaymentlink";
+
+            var response = await _client.GetAsync(_uri.Path);
+
+            response.EnsureSuccessStatusCode();
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var link = d["link"]?.Value<String>();
+
+            link.Should().NotBeNull();
         }
     }
 }
