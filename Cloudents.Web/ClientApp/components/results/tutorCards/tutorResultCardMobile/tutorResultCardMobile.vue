@@ -3,83 +3,10 @@
     @click.native.prevent="tutorCardClicked"
     :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
     
-    <v-card
-      class="tutor-card-wrap pa-12 cursor-pointer"
-      :class="{'list-tutor-card elevation-0': isInTutorList}"
-    >
-      <div v-if="isInTutorList">
-        <v-layout>
-          <v-flex class="image-wrap d-flex" shrink>
-            <div class="tutor-image-loader" v-if="!isLoaded">
-              <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
-            </div>
-            <img
-              class="tutor-image"
-              v-show="isLoaded"
-              @error="onImageLoadError"
-              @load="loaded"
-              :src="userImageUrl"
-              :alt="tutorData.name"
-              >
-          </v-flex>
-          <v-flex>
-            <v-layout align-start row wrap fill-height>
-              <v-flex xs12 grow>
-                <v-layout row justify-space-between align-baseline class="top-section">
-                  <v-flex grow>
-                    <span class="tutor-name" v-line-clamp:18="1">{{tutorData.name}}</span>
-                  </v-flex>
-                  <v-flex shrink>
-                    <!--keep this inline style to fix price / hour spacing-->
-                    <span
-                      class="font-weight-bold pricing pr-1"
-                      v-if="showStriked"
-                      style="display: table;"
-                    >
-                      <span class="subheading font-weight-bold">₪{{discountedPrice}} </span>
-                      <span class="font-weight-regular caption" v-language:inner>resultTutor_hour</span>
-                    </span>
+    <v-card class="tutor-card-wrap pa-12" :class="{'list-tutor-card elevation-0': isInTutorList}">
 
-                    <span class="font-weight-bold pricing pr-1" v-else>
-                      <!--keep this wraper to fix price / hour spacing-->
-                      <div class="d-inline-flex align-baseline">
-                        <span>
-                        <span class="subheading font-weight-bold">₪{{tutorData.price}} </span>
-                        <span class="pricing caption" v-language:inner>resultTutor_hour</span>
-
-                        </span>
-                      </div>
-                    </span>
-                    <v-flex shrink v-if="showStriked" class="strike-through">
-                      <span class="striked-price">₪{{tutorData.price}}</span>
-                      <span class="pricing striked-hour"> /
-                        <span v-language:inner>resultTutor_hour</span>
-                      </span>
-                    </v-flex>
-                  </v-flex>
-                </v-layout>
-              </v-flex>
-              <v-flex class="bottom-section">
-                <userRating
-                  class="rating-holder"
-                  :rating="tutorData.rating"
-                  :starColor="'#ffca54'"
-                  :rateNumColor="'#43425D'"
-                  :size="isInTutorList ? '16' : '20'"
-                  :rate-num-color="'#43425D'"
-                ></userRating>
-
-                <v-flex shrink class="tutor-courses text-truncate">
-                  <span class="blue-text courses-text">{{tutorData.courses}}</span>
-                </v-flex>
-              </v-flex>
-            </v-layout>
-          </v-flex>
-        </v-layout>
-      </div>
-<!-- the diff!!!!!!!!!!!!!!!! -->
-      <div v-else style="display: flex;flex-direction: column;align-items: center;">
-        <v-layout align-start style="width: 100%;">
+      <div style="display: flex;flex-direction: column;align-items: center;">
+        <v-layout style="width: 100%;">
           <v-flex class="image-wrap d-flex" shrink>
             <div class="tutor-image-loader" v-if="!isLoaded">
               <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
@@ -90,7 +17,6 @@
             <v-layout align-start row wrap fill-height>
               <v-flex xs12 grow>
                 <v-layout row justify-space-between align-baseline class="top-section">
-
                   <v-flex grow>
                     <span class="tutor-name" v-line-clamp:18="1">{{tutorData.name}}</span>
                     <userRating class="rating-holder mt-2" :rating="tutorData.rating" :showRateNumber="false" :size="isInTutorList ? '16' : '20'"/>
@@ -199,8 +125,6 @@ export default {
   computed: {
     userImageUrl() {
       if (this.tutorData.image) {
-        // let size = this.isInTutorList ? [56, 64] : [76, 96];
-        //enlarged due to striked price addition, (didn't fit);
         let size = [76, 96];
         return utilitiesService.proccessImageURL(
           this.tutorData.image,
@@ -237,28 +161,6 @@ export default {
   &.list-tutor-card {
     margin-bottom: 4px;
     border-radius: 0;
-
-    .strike-through {
-      //text-decoration: line-through; //will not work cause of different font sizes
-      position: relative;
-      color: @colorBlackNew;
-      display: table;
-      .striked-price {
-        font-size: 12px;
-      }
-      .striked-hour {
-        font-size: 10px;
-      }
-      &:after {
-        content: "";
-        width: 100%;
-        border-bottom: solid 1px @colorBlackNew;
-        position: absolute;
-        left: 0;
-        top: 50%;
-        z-index: 1;
-      }
-    }
     &.pa-12 {
       padding: 16px 12px;
     }
@@ -267,8 +169,6 @@ export default {
     }
     &:last-child {
       border-radius: 0 0 4px 4px;
-    }
-    .top-section {
     }
     .tutor-name {
       font-size: 13px;
@@ -286,14 +186,19 @@ export default {
       width: 76px;
       height: 96px;
     }
+    .bottom-section {
+    justify-self: flex-end;
+    margin-top: auto;
+    p {
+      .giveMeEllipsis(2,1.7);
+      margin-bottom: 0
+    }
+  }
   }
   // END styles for card rendered inside tutor list only
 
   &.pa-12 {
     padding: 12px;
-  }
-  .user-rating-val {
-    font-weight: bold;
   }
   .tutor-name {
     color: @profileTextColor;
@@ -310,8 +215,7 @@ export default {
       align-items: center;
       color: #5d62fd;
       .tutor-image-loader {
-        width: 76px;
-        height: 96px;
+        width: 96px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -321,13 +225,15 @@ export default {
   .tutor-image {
     border-radius: 4px;
     width: 96px;
-  }
-  .rating-number {
-    font-weight: bold;
+    height: 120px
   }
   .bottom-section {
     justify-self: flex-end;
     margin-top: auto;
+    p {
+      .giveMeEllipsis(3,1.7);
+      margin-bottom: 0
+    }
   }
   .rating-holder {
     margin-bottom: 8px;
@@ -338,7 +244,7 @@ export default {
     font-size: 18px;
     line-height: 16px;
   }
-      .striked{
+  .striked{
       position: relative;
       color: @colorBlackNew;
       &:after {
@@ -351,30 +257,9 @@ export default {
         z-index: 1;
       }
     }
-    .hour{
-  font-size: 12px;
-  color: #43425d;
-    }
-  .strike-through {
-    //text-decoration: line-through; //will not work cause of different font sizes
-    font-size: 14px;
-    position: relative;
-    display: table;
-    &:after {
-      content: "";
-      width: 100%;
-      border-bottom: solid 1px @textColor;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      z-index: 1;
-    }
-    .striked-hour {
-      font-size: 12px;
-    }
-  }
-  .small-text {
-    font-size: 10px;
+  .hour{
+    font-size: 12px;
+    color: #43425d;
   }
   .tutor-courses {
     color: @colorBlue;
@@ -387,14 +272,14 @@ export default {
     line-height: 1;
   }
   .btn-section{
-        border-radius: 4px;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
-        background-color: #facb57;
-        padding: 11px 64px;
-        font-size: 14px;
-        font-weight: bold; 
-        display: flex;
-        align-items: center;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+    background-color: #facb57;
+    padding: 11px 64px;
+    font-size: 14px;
+    font-weight: bold; 
+    display: flex;
+    align-items: center;
   }
 }
 </style>
