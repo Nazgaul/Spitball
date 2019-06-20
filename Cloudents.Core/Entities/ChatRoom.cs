@@ -41,7 +41,7 @@ namespace Cloudents.Core.Entities
         public virtual ICollection<ChatMessage> Messages { get; protected set; }
 
         public virtual string Identifier { get; protected set; }
-        public virtual ChatRoomStatus Status { get;  set; }
+        public virtual ChatRoomAdmin Extra { get;  set; }
 
         public virtual void AddMessage(ChatMessage message)
         {
