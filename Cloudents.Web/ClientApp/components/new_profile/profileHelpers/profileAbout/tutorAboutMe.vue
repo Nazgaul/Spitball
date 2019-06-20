@@ -1,9 +1,9 @@
 <template>
         <v-layout class="aboutme-section">
             <v-flex xs12>
-                <v-card class="px-4 pt-4 about-me-card">
+                <v-card class="px-4 pt-4 about-me-card pb-2">
                     <v-layout column>
-                        <v-flex xs12 sm12>
+                        <v-flex xs12>
                             <div class="title-wrap">
                                 <div class="about-title subheading font-weight-bold  mb-2" v-language:inner>profile_who_am_i</div>
                                 <v-icon @click="openEdit()" v-if="isMyProfile" class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
@@ -14,7 +14,7 @@
                             </div>
 
                         </v-flex>
-                        <v-flex class="read-more-action mt-2 mb-2" v-if="readMoreVisible">
+                        <v-flex class="read-more-action mt-2 " v-if="readMoreVisible">
                             <v-divider style="widabout-textth: 100%; height: 2px;"></v-divider>
                             <a class="read-more-text pt-3 pb-1" @click="isOpen = !isOpen">
                                 <span v-show="!isOpen" v-language:inner>profile_read_more</span>
