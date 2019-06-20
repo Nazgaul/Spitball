@@ -7,7 +7,7 @@ namespace Cloudents.Command.Command
         public RequestTutorCommand(string course, 
             string chatText,
             long userId,
-            Guid universityId,
+            Guid? universityId,
             string referer,
             string name,
             string phoneNumber,
@@ -32,7 +32,7 @@ namespace Cloudents.Command.Command
         public string Course { get;  }
         public long? UserId { get; }
         public string ChatText { get; }
-        public Guid UniversityId { get;  }
+        public Guid? UniversityId { get;  }
         public string Referer { get;  }
         public string Name { get;  }
         public string PhoneNumber { get;}

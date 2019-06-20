@@ -5,7 +5,7 @@ namespace Cloudents.Core.Entities
 {
     public class Lead :Entity<Guid>
     {
-        public Lead(Course course, string text, [CanBeNull] University university, string referer, [CanBeNull] User user, string name, string phone)
+        public Lead(Course course, string text, [CanBeNull] University university, string referer, [CanBeNull] User user, string name, string phone, string email)
         {
             Course = course;
             Text = text;
@@ -14,6 +14,7 @@ namespace Cloudents.Core.Entities
             Referer = referer;
             Name = name;
             Phone = phone;
+            Email = email;
         }
 
       
@@ -22,13 +23,15 @@ namespace Cloudents.Core.Entities
         }
 
         [CanBeNull]
-        public virtual User User { get; set; }
-        public virtual Course Course { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Phone { get; set; }
-        public virtual string Text { get; set; }
+        public virtual User User { get;protected set; }
+        public virtual Course Course { get; protected set; }
+        public virtual string Name { get; protected set; }
+        public virtual string Phone { get; protected set; }
+
+        public virtual string  Email { get; protected set; }
+        public virtual string Text { get; protected set; }
         [CanBeNull]
-        public virtual University University { get; set; }
-        public virtual string Referer { get; set; }
+        public virtual University University { get; protected set; }
+        public virtual string Referer { get; protected set; }
     }
 }

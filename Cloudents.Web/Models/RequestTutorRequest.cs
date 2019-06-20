@@ -12,6 +12,6 @@ namespace Cloudents.Web.Models
         [Required]
         public string Course { get; set; }
 
-        public Guid University { get; set; }
+        public Guid? University { get; set; }
     }
 }
