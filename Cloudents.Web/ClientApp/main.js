@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./components/app/app.vue";
-import { sync } from 'vuex-router-sync'
+import { sync } from 'vuex-router-sync';
 import store from "./store";
 import { Language } from "./services/language/langDirective";
 import { LanguageService } from './services/language/languageService';
@@ -17,8 +17,8 @@ import VueAnalytics from "vue-analytics";
 import CloudentsTour from 'cloudents-tour';
 import LoadScript from 'vue-plugin-load-script';
 
-import VueNumeric from 'vue-numeric'
-import VueMathjax from 'vue-mathjax'
+import VueNumeric from 'vue-numeric';
+import VueMathjax from 'vue-mathjax';
 import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
 

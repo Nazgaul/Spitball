@@ -8,7 +8,7 @@
             <div class="messages-header">
                 <div class="messages-study-room" v-if="showStudyRoomInteraction" @click="createRoom">
                     <button v-show="studyRoomExists">
-                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>
+                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
                     <v-btn flat class="white--text messages-study-room-btn-create" v-show="!studyRoomExists && isRoomTutor" :loading="loader">
@@ -208,6 +208,8 @@ export default {
                         display: flex;
                         align-items: center;
                     i { 
+                        //Do not put it last because then the remark are gone
+                        transform: rotateY(0deg)/*rtl:rotateY(180deg)*/; 
                         color: #FFF;
                         font-size: 14px;
                         background-color: #4452fc;
@@ -215,6 +217,9 @@ export default {
                         border-radius: 70%;
                         width: 32px;
                         height: 32px;
+                        
+                        /*rtl:append:transform: rotateY(180deg);*/;
+                            
                     }
                 }
                 .v-input__slot{
