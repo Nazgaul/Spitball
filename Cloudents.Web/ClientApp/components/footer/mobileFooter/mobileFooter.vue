@@ -105,9 +105,9 @@
     }
     .unread-circle{
         position: absolute;
-        top: 10px;
-        right: 30px;
-        background: #33cea9;
+        top: -6px;
+        right: 37px;
+        background: #ce3333;
         color: #fff;
         border-radius: 50%;
         height: 13px;
