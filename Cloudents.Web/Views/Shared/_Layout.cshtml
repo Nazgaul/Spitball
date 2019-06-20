@@ -25,6 +25,10 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
+    @if (!string.Equals(@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, "he", StringComparison.OrdinalIgnoreCase))
+    {
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans|Open+Sans&display=swap" rel="stylesheet">
+    }
     <environment include="Development">
         <link rel="stylesheet" href="~/dist/@p.GetCss()" />
         <link rel="stylesheet" href="~/dist/@main.GetCss()" />
@@ -52,12 +56,12 @@
     </style>
     <environment exclude="Development">
         <script>
-    (function (a, s, y, n, c, h, i, d, e) {
-        s.className += ' ' + y; h.start = 1 * new Date;
-        h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
-        (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
-    })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
-        { 'GTM-NN2LHCV': true });</script>
+            (function (a, s, y, n, c, h, i, d, e) {
+                s.className += ' ' + y; h.start = 1 * new Date;
+                h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
+                (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
+            })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
+                { 'GTM-NN2LHCV': true });</script>
         <!-- Modified Analytics tracking code with Optimize plugin -->
 
         <script type="text/javascript"
@@ -65,14 +69,14 @@
         </script>
         <!-- Google Tag Manager -->
         <script async>
-    (function (w, d, s, l, i) {
-        w[l] = w[l] || []; w[l].push({
-            'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-        }); var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-M2BGS2G');</script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-M2BGS2G');</script>
         <!-- End Google Tag Manager -->
     </environment>
     <script>
@@ -87,7 +91,7 @@
         ga('require', 'GTM-NN2LHCV');
         //ga('send', 'pageview');
     </script>
-     <script type="text/javascript"
+    <script type="text/javascript"
             src="//www.googleadservices.com/pagead/conversion_async.js">
     </script>
 </head>

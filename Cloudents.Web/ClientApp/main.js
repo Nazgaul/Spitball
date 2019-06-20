@@ -14,7 +14,6 @@ import scrollComponent from './components/helpers/infinateScroll.vue';
 import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
-import WebFont from "webfontloader";
 import CloudentsTour from 'cloudents-tour';
 import LoadScript from 'vue-plugin-load-script';
 
@@ -107,28 +106,6 @@ const vuetifyComponents = {
     VAutocomplete
 };
 
-const ilFonts = [
-    "Assistant:400",
-]
-const usFonts = [
-    "Open+Sans:400",
-    "Fira+Sans:400",
-]
-
-let usedFonts = global.lang.toLowerCase() === 'he' ? ilFonts : usFonts;
-
-//TODO: server side fix
-WebFont.load({
-    google: {
-        families: usedFonts
-    }
-});
-
-//Vue.use(VueLazyload, {
-//    lazyComponent: true,
-//    preLoad: 1.8,
-//    attempt: 1
-//});
 
 Vue.use(VueMathjax);
 Vue.use(CloudentsTour);
