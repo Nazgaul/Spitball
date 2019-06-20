@@ -81,7 +81,7 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumn("UserId")
                 .Inverse()
                 .Cascade.AllDeleteOrphan();*/
-            HasOne(x => x.Tutor).LazyLoad().Cascade.All();
+            HasOne(x => x.Tutor).LazyLoad(Laziness.NoProxy).Constrained().Cascade.All();
 
         }
     }
