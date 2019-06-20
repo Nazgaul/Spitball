@@ -8,7 +8,7 @@
             <div class="messages-header">
                 <div class="messages-study-room" v-if="showStudyRoomInteraction" @click="createRoom">
                     <button v-show="studyRoomExists">
-                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>
+                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
                     <v-btn flat class="white--text messages-study-room-btn-create" v-show="!studyRoomExists && isRoomTutor" :loading="loader">
