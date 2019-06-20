@@ -1,6 +1,6 @@
 import * as RouteTypes from "./routeTypes";
 
-const resultContent = () => import('./components/results/Result.vue');
+//const resultContent = () => import('./components/results/Result.vue');
 const HomeworkHelpComponent = () => import('./components/results/HomeworkHelp/HomeworkHelp.vue');
 const StudyDocumentsComponent = () => import('./components/results/StudyDocuments/StudyDocuments.vue');
 const TutorsComponent = () => import('./components/results/Tutors/Tutors.vue');
@@ -66,12 +66,12 @@ function verticalResultPageFn(route) {
     };
 }
 
-const resultPage = {
-    default: resultContent,
-    header: pageHeader,
-    verticals: verticalsTabs,
-    schoolBlock: schoolBlock,
-};
+// const resultPage = {
+//     default: resultContent,
+//     header: pageHeader,
+//     verticals: verticalsTabs,
+//     schoolBlock: schoolBlock,
+// };
 const resultProps = {
     default: dynamicPropsFn,
     header: headerResultPageFn,

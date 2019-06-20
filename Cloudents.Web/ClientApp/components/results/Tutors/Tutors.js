@@ -1,6 +1,6 @@
 // V14 do we still need this ?
 import ResultItem from '../ResultItem.vue'; //
-import ResultTutor from "../ResultTutor.vue";
+//import ResultTutor from "../ResultTutor.vue";
 import { verticalsName, verticalsNavbar } from "../../../services/navigation/vertical-navigation/nav";
 import SuggestCard from '../suggestCard.vue'
 import emptyState from "../svg/no-match-icon.svg";
@@ -34,7 +34,7 @@ export default {
     components: {
         emptyState,
         ResultItem,
-        ResultTutor,
+      //  ResultTutor,
         SuggestCard,
         faqBlock,
         sbDialog,
