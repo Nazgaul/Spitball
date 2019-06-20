@@ -89,6 +89,8 @@
                     v-model="guestUniversity"
                     :items="suggestsUniversities"
                     :placeholder="universityPlaceHolder"
+                    return-object
+                    no-filter
                   ></v-autocomplete>
               </v-flex>
 

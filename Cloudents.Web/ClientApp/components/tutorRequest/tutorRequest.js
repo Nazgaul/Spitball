@@ -74,7 +74,7 @@ export default {
                     email: (self.guestMail)? self.guestMail : null,
                     phone: (self.guestPhone)? self.guestPhone : null,
                     course: (self.tutorCourse)? self.tutorCourse : null,
-                    university: (self.guestUniversity)? self.guestUniversity : null,
+                    university: (self.guestUniversity.id)? self.guestUniversity.id : null,
                 };
                 let analyticsObject = {
                     userId: this.isAuthUser ? self.accountUser.id : 'GUEST',
