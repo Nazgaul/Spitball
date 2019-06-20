@@ -1,12 +1,10 @@
 <template>
-  <router-link
-    @click.native.prevent="tutorCardClicked"
-    :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+  <router-link @click.native.prevent="tutorCardClicked"
+               :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
     
     <v-card class="tutor-card-wrap pa-12" :class="{'list-tutor-card elevation-0': isInTutorList}">
-
-      <div style="display: flex;flex-direction: column;align-items: center;">
-        <v-layout style="width: 100%;">
+      <div class="tutor-card-flex">
+        <v-layout class="tutor-card-flex-width" >
           <v-flex class="image-wrap d-flex" shrink>
             <div class="tutor-image-loader" v-if="!isLoaded">
               <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
@@ -15,55 +13,37 @@
           </v-flex>
           <v-flex>
             <v-layout align-start row wrap fill-height>
-              <v-flex xs12 grow>
-                <v-layout row justify-space-between align-baseline class="top-section">
+              <v-flex xs12>
+                <v-layout row justify-space-between align-baseline>
+
                   <v-flex grow>
-                    <span class="tutor-name" v-line-clamp:18="1">{{tutorData.name}}</span>
+                    <span class="tutor-name">{{tutorData.name}}</span>
                     <userRating class="rating-holder mt-2" :rating="tutorData.rating" :showRateNumber="false" :size="isInTutorList ? '16' : '20'"/>
                   </v-flex>
 
                   <v-flex shrink>
-                    <div v-if="showStriked" style="display:flex; flex-direction: column">
-                      <span class="font-weight-bold pricing ">
-                        <span class="font-weight-regular caption px-1 striked">₪{{tutorData.price}}</span>
-                        <span class="title font-weight-bold" >₪{{discountedPrice}}</span>
-                      </span>
-                    </div >
-                    <div v-else>
-                    <span class="font-weight-bold pricing " >
-                      <div class="d-inline-flex align-baseline">
-                        <span class="title font-weight-bold" >₪{{tutorData.price}}</span>
-                      </div>
-                    </span>
-
+                    <div v-if="showStriked" class="pricing">
+                        <span class="caption px-1 striked">₪{{tutorData.price}}</span>
+                        <span class="title font-weight-bold">₪{{discountedPrice}}</span>
                     </div>
-                    <v-flex shrink>
-                      <span class="hour" style="display: flex; justify-content: flex-end;">
-                        <span v-language:inner>resultTutor_hour</span>
-                      </span>
-                    </v-flex>
+                    <div v-else class="title font-weight-bold pricing">₪{{tutorData.price}}</div>
+                    <v-flex shrink class="hour" v-language:inner="'resultTutor_hour'"/>
                   </v-flex>
                 </v-layout>
               </v-flex>
-              <v-flex class="bottom-section">
-                <p>{{tutorData.bio}}</p>
-              </v-flex>
+              <v-flex class="bottom-section">{{tutorData.bio}}</v-flex>
             </v-layout>
           </v-flex>
         </v-layout>
-          <v-flex shrink class="tutor-courses text-truncate mt-3">
-            <span class="blue-text courses-text">{{tutorData.courses}}</span>
-          </v-flex>
-          <div @click.prevent="openRequestDialog($event,tutorData)" v-if="!isInTutorList" class="my-3">
-            <div class="btn-section"><commentSVG class="mr-2"/><span v-language:inner="'resultTutor_contact_me'"></span></div>
+
+          <v-flex shrink class="tutor-courses text-truncate mt-3 blue-text">{{tutorData.courses}}</v-flex>
+          <div @click.prevent="openRequestDialog($event,tutorData)" v-if="!isInTutorList" class="my-3 btn-section">
+              <commentSVG class="mr-2"/><span v-language:inner="'resultTutor_contact_me'"/>
           </div>
       </div>
     </v-card>
   </router-link>
 </template>
-
-
-
 
 <script>
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
@@ -161,48 +141,50 @@ export default {
   &.list-tutor-card {
     margin-bottom: 4px;
     border-radius: 0;
-    &.pa-12 {
-      padding: 16px 12px;
-    }
-    &:first-child {
-      border-radius: 4px 4px 0 0;
-    }
-    &:last-child {
-      border-radius: 0 0 4px 4px;
-    }
-    .tutor-name {
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 18px;
-      max-width: 120px;
-    }
-    .rating-holder {
-      margin-bottom: 0;
-    }
-    .tutor-courses {
-      font-size: 12px;
-    }
-    .tutor-image {
-      width: 76px;
-      height: 96px;
-    }
-    .bottom-section {
-    justify-self: flex-end;
-    margin-top: auto;
-    p {
-      .giveMeEllipsis(2,1.7);
-      margin-bottom: 0
-    }
-  }
+      &.pa-12 {
+        padding: 16px 12px;
+      }
+      &:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+      &:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+      .tutor-name {
+        .giveMeEllipsis(1,1.5);
+        font-size: 13px;
+        font-weight: 700;
+        max-width: 120px;
+      }
+      .rating-holder {
+        margin-bottom: 0;
+      }
+      .tutor-courses {
+        font-size: 12px;
+      }
+      .tutor-image {
+        width: 76px;
+        height: 96px;
+      }
+      .bottom-section {
+        .giveMeEllipsis(2,1.7);
+      }
   }
   // END styles for card rendered inside tutor list only
-
+  .tutor-card-flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .tutor-card-flex-width{
+    width: 100%;
+  }
   &.pa-12 {
     padding: 12px;
   }
   .tutor-name {
+    .giveMeEllipsis(1,1.5);
     color: @profileTextColor;
-    line-height: 20px;
     word-break: break-all;
     font-size: 16px;
     font-weight: bold;
@@ -230,10 +212,7 @@ export default {
   .bottom-section {
     justify-self: flex-end;
     margin-top: auto;
-    p {
-      .giveMeEllipsis(3,1.7);
-      margin-bottom: 0
-    }
+    .giveMeEllipsis(3,1.7);
   }
   .rating-holder {
     margin-bottom: 8px;
@@ -260,6 +239,7 @@ export default {
   .hour{
     font-size: 12px;
     color: #43425d;
+    display: flex; justify-content: flex-end
   }
   .tutor-courses {
     color: @colorBlue;
@@ -267,9 +247,6 @@ export default {
     min-width: 100%;
     font-size: 14px;
     min-height: 19px; //keep it to prevent rating stars shift
-  }
-  .courses-text {
-    line-height: 1;
   }
   .btn-section{
     border-radius: 4px;
