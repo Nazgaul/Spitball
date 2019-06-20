@@ -150,7 +150,7 @@
                     console.log(y);
                     devicesObjects.hasVideo = true;
                 }, err => {
-                    console.log(err.name + ":VIDEO!!!!!!!!!!!!!!!! " + err.message, err);
+                    console.error(err.name + ":VIDEO!!!!!!!!!!!!!!!! " + err.message, err);
                     devicesObjects.errors.push(err.name)
                 });
 
@@ -158,7 +158,7 @@
                     console.log(y);
                     devicesObjects.hasAudio = true;
                 }, err => {
-                    console.log(err.name + ":AUDIO!!!!!!!!!!!!!!!! " + err.message, err);
+                    console.error(err.name + ":AUDIO!!!!!!!!!!!!!!!! " + err.message, err);
                     devicesObjects.errors.push(err.name)
                 });
                 if(devicesObjects.errors.length > 0){
