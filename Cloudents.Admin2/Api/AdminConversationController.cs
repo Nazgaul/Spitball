@@ -25,10 +25,11 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ConversationDto>> ConversationAsync(int page, CancellationToken token)
+        public async Task<IEnumerable<ConversationDto>> ConversationAsync([FromQuery] ConversationDetailsRequest request
+            , CancellationToken token)
         {
 
-            var query = new AdminConversationsQuery(0, page);
+            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page, request.Status, request.AssignTo);
             return await _queryBus.QueryAsync(query, token);
         }
 

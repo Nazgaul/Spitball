@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
 using Dapper;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,11 +10,15 @@ namespace Cloudents.Query.Query.Admin
     public class AdminConversationsQuery : IQuery<IEnumerable<ConversationDto>>
     {
         private int Page { get; }
+        private ChatRoomStatus? Status { get; }
+        private string AssignTo { get; }
 
-        public AdminConversationsQuery(long userId, int page)
+        public AdminConversationsQuery(long userId, int page, ChatRoomStatus? status, string assignTo)
         {
             UserId = userId;
             Page = page;
+            Status = status;
+            AssignTo = assignTo;
         }
         private long UserId { get;  }
         internal sealed class AdminAllConversationsQueryHandler : IQueryHandler<AdminConversationsQuery, IEnumerable<ConversationDto>>
@@ -32,7 +37,7 @@ namespace Cloudents.Query.Query.Admin
 with cte as (
 Select 
 cr.Id , 
-cr.status,
+cra.status,
 cr.Identifier ,
 cr.UpdateTime as lastMessage,
 u.id as userId,
@@ -43,6 +48,9 @@ case when (select top 1 UserId from sb.ChatMessage cm where  cm.ChatRoomId = cr.
 
 from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
+join sb.ChatRoomAdmin cra
+	on cr.Id = cra.Id and (cra.AssignTo = @AssignTo or @AssignTo is null) 
+		and (cra.status = @Status or @Status = '')
 join sb.[user] u on cu.UserId = u.Id
 )
 select c.Identifier as id,
@@ -67,15 +75,16 @@ where ChatRoomId = c.id
 ) t2) as conversationStatus,
 case when (Select  id from sb.StudyRoom where Identifier = c.Identifier) is null then 0 else 1 end  as studyRoomExists
  
-from cte c inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
- where (c.UserId = @UserId or @UserId = 0 or d.userId = @UserId)
+from cte c 
+inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
+ where (c.UserId = @UserId or @UserId = 0 or d.userId = @UserId) 
 order by c.lastMessage desc
 OFFSET @pageSize * @PageNumber ROWS
 FETCH NEXT @pageSize ROWS ONLY;"; 
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<ConversationDto>(sql,
-                        new { query.UserId, pageSize = 50, PageNumber =query.Page });
+                        new { query.UserId, pageSize = 50, PageNumber = query.Page , Status = query.Status.ToString(), query.AssignTo});
                     return res;
                 }
             }
