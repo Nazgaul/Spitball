@@ -208,6 +208,8 @@ export default {
                         display: flex;
                         align-items: center;
                     i { 
+                        //Do not put it last because then the remark are gone
+                        transform: rotateY(0deg)/*rtl:rotateY(180deg)*/; 
                         color: #FFF;
                         font-size: 14px;
                         background-color: #4452fc;
@@ -215,7 +217,7 @@ export default {
                         border-radius: 70%;
                         width: 32px;
                         height: 32px;
-                        transform: rotateY(0deg)/*rtl:rotateY(180deg)*/; 
+                        
                         /*rtl:append:transform: rotateY(180deg);*/;
                             
                     }
