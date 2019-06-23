@@ -11,7 +11,7 @@ namespace Cloudents.Query.Query.Admin
     {
         private int Page { get; }
         private ChatRoomStatus? Status { get; }
-        private ChatRoomAssign AssignTo { get; }
+        private ChatRoomAssign? AssignTo { get; }
 
         public AdminConversationsQuery(long userId, int page, ChatRoomStatus? status, ChatRoomAssign assignTo)
         {
@@ -49,9 +49,9 @@ case when (select top 1 UserId from sb.ChatMessage cm where  cm.ChatRoomId = cr.
 
 from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
-join sb.ChatRoomAdmin cra
+left join sb.ChatRoomAdmin cra
 	on cr.Id = cra.Id and (cra.AssignTo = @AssignTo or @AssignTo is null) 
-		and (cra.status = @Status or @Status = '')
+		and (cra.status = @Status or @Status is null)
 join sb.[user] u on cu.UserId = u.Id
 )
 select c.Identifier as id,
@@ -59,9 +59,11 @@ c.lastMessage as lastMessage,
 c.Name as UserName,
 c.PhoneNumberHash as UserPhoneNumber,
 c.Email as UserEmail,
+c.userId as UserId,
 d.Name as TutorName,
 d.PhoneNumberHash as TutorPhoneNumber,
 d.Email as TutorEmail,
+d.UserId as TutorId,
 c.status,
 c.AssignTo,
 (SELECT max (grp) FROM 
@@ -91,7 +93,7 @@ FETCH NEXT @pageSize ROWS ONLY;";
                             pageSize = 50,
                             PageNumber = query.Page,
                             Status = query.Status.ToString(),
-                            AssignTo = query.AssignTo.ToString()
+                            AssignTo = query.AssignTo?.ToString()
                         });
                     return res;
                 }
