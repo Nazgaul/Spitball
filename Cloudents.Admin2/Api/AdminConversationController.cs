@@ -110,10 +110,12 @@ namespace Cloudents.Admin2.Api
         {
             var StatusArr =  Enum.GetValues(typeof(ChatRoomStatus));
             var AssignArr = Enum.GetValues(typeof(ChatRoomAssign));
-            List<string>  WaitingForList = new List<string>();
-            WaitingForList.Add("student");
-            WaitingForList.Add("totur");
-            WaitingForList.Add("other");
+            List<string> WaitingForList = new List<string>()
+            {
+                "student",
+                "totur",
+                "other"
+            };
             return new ConversationParamsResponse()
             {
                 Status = StatusArr.Cast<ChatRoomStatus>().ToList(),
