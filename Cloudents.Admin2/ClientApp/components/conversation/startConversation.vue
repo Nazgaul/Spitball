@@ -57,7 +57,10 @@ export default {
 
       console.log(this.tutorId, this.studentId);
     }
-  }
+  },
+  created() {
+      this.studentId = this.$route.query ? this.$route.query.studentId : ''
+    }
 };
 </script>
 

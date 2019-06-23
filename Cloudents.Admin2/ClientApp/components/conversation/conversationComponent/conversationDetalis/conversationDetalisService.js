@@ -21,6 +21,8 @@ function createConversationItem(objInit) {
     return new ConversationItem(objInit);
 }
 
+const statusList = ["default","noMatch" ,"scheduled" ,"active"];
+
 function DetailsItem(objInit) {
     this.userName = objInit.userName;
     this.email = objInit.email;
@@ -97,5 +99,6 @@ export {
     getDetails,
     getMessages,
     setConversationsStatus,
-    getConversationsListPage
+    getConversationsListPage,
+    statusList
 };
