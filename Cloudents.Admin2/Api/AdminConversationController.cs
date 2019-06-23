@@ -3,11 +3,14 @@ using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -83,6 +86,20 @@ namespace Cloudents.Admin2.Api
             var command = new ChangeConversationAssignCommand(identifier, model.AssignTo);
             await commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpGet("status")]
+        public IEnumerable<ChatRoomStatus> GetStatus()
+        {
+            var resArr =  Enum.GetValues(typeof(ChatRoomStatus));
+            return resArr.Cast<ChatRoomStatus>().ToList();
+        }
+
+        [HttpGet("assign")]
+        public IEnumerable<ChatRoomAssign> GetAssign()
+        {
+            var resArr = Enum.GetValues(typeof(ChatRoomAssign));
+            return resArr.Cast<ChatRoomAssign>().ToList();
         }
     }
 }
