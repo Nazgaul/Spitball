@@ -5,9 +5,9 @@ using JetBrains.Annotations;
 namespace Cloudents.Persistence.Maps
 {
     [UsedImplicitly]
-    public class RegularUserMap : SubclassMap<User>
+    public class UserMap : SubclassMap<User>
     {
-        public RegularUserMap()
+        public UserMap()
         {
 
             DynamicUpdate();
@@ -81,7 +81,7 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumn("UserId")
                 .Inverse()
                 .Cascade.AllDeleteOrphan();*/
-            HasOne(x => x.Tutor).LazyLoad(Laziness.NoProxy).Constrained().Cascade.All();
+            HasOne(x => x.Tutor)/*.LazyLoad(Laziness.NoProxy).Constrained()*/.Cascade.All();
 
         }
     }

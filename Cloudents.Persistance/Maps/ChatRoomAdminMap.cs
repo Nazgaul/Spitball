@@ -13,6 +13,8 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.Foreign("ChatRoom");
             Map(x => x.Status);
             Map(x => x.AssignTo).Length(20);
+
+            HasOne(x => x.ChatRoom).Constrained().Cascade.None();
             References(x => x.Lead).Nullable();
         }
     }

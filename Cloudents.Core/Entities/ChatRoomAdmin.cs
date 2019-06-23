@@ -8,16 +8,22 @@ namespace Cloudents.Core.Entities
 {
     public class ChatRoomAdmin : Entity<Guid>
     {
-        protected ChatRoomAdmin() { }
-        public ChatRoomAdmin(ChatRoomStatus status, Lead lead)
+        protected ChatRoomAdmin()
+        {
+
+        }
+        public ChatRoomAdmin(ChatRoom room, ChatRoomStatus status) :this()
         {
             Status = status;
-            Lead = lead;
+            ChatRoom = room;
         }
         public virtual ChatRoomStatus Status { get; set; }
         public virtual ChatRoomAssign AssignTo { get; set; }
 
+        public virtual ChatRoom ChatRoom { get; protected set; }
+
+
         [CanBeNull]
-        public virtual Lead Lead { get; protected set; }
+        public virtual Lead Lead { get; set; }
     }
 }
