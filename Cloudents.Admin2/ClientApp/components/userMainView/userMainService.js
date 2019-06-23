@@ -213,7 +213,7 @@ export default {
     },
     getUserConversations:(id) => {
         const path = `AdminConversation`;
-        return connectivityModule.http.get(`${path}?request={id=${id}&page=0}`).then((newConversationList) => {
+        return connectivityModule.http.get(`${path}?id=${id}&page=0`).then((newConversationList) => {
             let arrConversationList = [];
             if (newConversationList.length > 0) {
                 newConversationList.forEach((conversation) => {

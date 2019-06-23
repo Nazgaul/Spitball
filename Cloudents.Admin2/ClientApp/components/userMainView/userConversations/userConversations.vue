@@ -13,9 +13,10 @@
                 dense
                 outline
                 label="Waiting for"
-                @change="filterWaitingFor"
+                @change="filterWaitingFor()"
               ></v-select>
               <v-select
+                :items="statusList"
                 class="mr-2 top-card-select"
                 height="40px"
                 hide-details
@@ -24,7 +25,7 @@
                 round
                 outline
                 label="Status"
-                @change="filterStatus"
+                @change="filterStatus()"
               ></v-select>
               <v-select
                 class="top-card-select"
@@ -35,7 +36,7 @@
                 round
                 outline
                 label="Assigned to"
-                @change="filterAssgined"
+                @change="filterAssgined()"
               ></v-select>
           </v-toolbar>
 
@@ -127,6 +128,7 @@
                                 @change="changeStatus($event, conversation.id)"
                               ></v-select>
                               <v-select
+                                :items="assignTo"
                                 @click.native.stop
                                 class="card-converstaion-select"
                                 hide-details
@@ -161,7 +163,7 @@
     import conversationMessages from "../../conversation/conversationComponent/conversationMessages/conversationMessages.vue";
     import { mapGetters, mapActions } from 'vuex';
     import { getDetails, getMessages } from '../../conversation/conversationComponent/conversationMessages/conversationMessagesService'
-    import { statusList } from "../../conversation/conversationComponent/conversationDetalis/conversationDetalisService";
+    import { statusList, assignTo, getFiltersParams, setAssignTo } from "../../conversation/conversationComponent/conversationDetalis/conversationDetalisService";
     export default {
         name: "userConversations",
         components: {
@@ -175,7 +177,8 @@
               currentSelectedId: null,
               showNoResult: false,
               showLoading: true,
-              statusList
+              statusList,
+              assignTo
             }
         },
         props: {
@@ -188,7 +191,6 @@
         methods: {
             ...mapActions(["getUserConversations"]),          
             getUserConversationsData() {
-
                 let id = this.userId;
 
                 this.getUserConversations({id}).then(item => {
@@ -229,71 +231,26 @@
                 "status": selectedStatus
               }
               setConversationsStatus(id, status)
+            },
+            filterWaitingFor() {
+
+            },
+            filterStatus() {
+              
+            },
+            filterAssgined() {
+              
+            },
+            handleAssingTo(id) {
+              setAssignTo(id).then(assignedTo => {
+                console.log(assignedTo);
+              })
             }
         },
         created() {
             this.getUserConversationsData();
+            getFiltersParams
         },
 
     }
 </script>
-
-<style lang="scss">
-.heading-toolbar {
-  .top-card-select{
-    max-width: 120px;
-    // .v-input__slot {
-    //   background-color: #fff !important;
-    // }
-  }
-}
-
-.card-conversation {
-  border-radius: 8px;
-  .v-expansion-panel__header{
-    padding: 12px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)
-  }
-  .card-conversation-wrap {
-
-    .card-converstaion-header {
-      background-color:#d0deff;
-      border-radius: 8px 8px 0 0;
-      font-weight: 600;
-      align-items: center;
-      .card-converstaion-header-btn {
-        color: #4452fc;
-        flex: 0 0 auto !important;
-      }
-    }
-    .card-converstaion-content-col-4 {
-      flex-direction: column;
-    }
-    .card-converstaion-content-col-5 {
-      button {
-        background: #5bbdb7 !important;
-        align-self: center;
-      }  
-    }
-    .card-converstaion-content-col-6 {
-      .card-converstaion-select {
-        .v-text-field--box .v-input__slot, .v-text-field--outline .v-input__slot{
-          min-height: auto !important;
-        }
-        .v-input__slot {
-          background-color: rgba(68, 82, 252, 0.06) !important;
-          border: 1px solid rgba(68, 82, 252, 0.56);
-        }
-        .v-input__slot:hover {
-          border: 1px solid rgba(68, 82, 252, 0.56) !important;
-        }  
-      }
-        
-    }
-  }
-  .body-1,.subheading {
-    color:#4452fc
-  }
-}
-</style>

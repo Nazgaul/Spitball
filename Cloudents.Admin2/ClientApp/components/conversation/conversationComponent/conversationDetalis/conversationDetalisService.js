@@ -1,5 +1,15 @@
 ﻿import { connectivityModule } from '../../../../services/connectivity.module';
 
+function conversationFilters(objInit){
+    this.assignTo = objInit.assignTo
+    this.status = objInit.status
+    this.waitingFor = objInit.waitingFor
+}
+
+function createConversationFilters(objInit){
+    return new conversationFilters(objInit)
+}
+
 function ConversationItem(objInit) {
     this.id = objInit.id;
     this.userName = objInit.userName;
@@ -22,6 +32,7 @@ function createConversationItem(objInit) {
 }
 
 const statusList = ["default","noMatch" ,"scheduled" ,"active"];
+const assignTo = ["eidan","jaron" ,"yaniv" ,"almog", "ron"];
 
 function DetailsItem(objInit) {
     this.userName = objInit.userName;
@@ -53,8 +64,9 @@ const setConversationsStatus = (id,status) => {
     })
 }
 
-const getConversationsListPage = function (page) {
-    return connectivityModule.http.get(`${path}?page=${page}`).then((newConversationList) => {
+const getConversationsListPage = function (id, page) {
+    let userId = id ? `id=${id}&`: '';
+    return connectivityModule.http.get(`${path}?${userId}page=${page}`).then((newConversationList) => {
         let arrConversationList = [];
         if (newConversationList.length > 0) {
             newConversationList.forEach((conversation) => {
@@ -65,6 +77,7 @@ const getConversationsListPage = function (page) {
     }, (err) => {
         return Promise.reject(err);
     });
+    
 };
 
 const getDetails = function (id) {
@@ -89,16 +102,27 @@ const getMessages = function (id) {
                 arrConversationMessages.push(createMessageItem(conversationMessages));
             });
         }
-        return Promise.resolve(arrConversationMessages);
-    }, (err) => {
-        return Promise.reject(err);
+        return arrConversationMessages;
     });
 };
+
+const getFiltersParams = () => {
+    return connectivityModule.http.get(`${path}params`).then((res)=>{
+        return createConversationFilters(res);
+    });
+}
+
+const setAssignTo = (id, assignTo) => {    
+    return connectivityModule.http.post(`${path}${id}/assignTo`, {assignTo})
+}
     
 export {
     getDetails,
     getMessages,
     setConversationsStatus,
     getConversationsListPage,
-    statusList
+    getFiltersParams,
+    statusList,
+    assignTo,
+    setAssignTo
 };

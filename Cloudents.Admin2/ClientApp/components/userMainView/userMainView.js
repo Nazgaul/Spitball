@@ -144,8 +144,9 @@ export default {
             self.getUserData(id)
                 .then((data) => {
                     if(data &&  data.id && data.id.value){
-                        this.userIdentifier = id
-                        //  self.$router.push({name: 'userQuestions', params: {userId: data.id.value}});
+                        this.userIdentifier = id;
+                        let routerName = this.$route.name && this.$route.name !== 'userMainView' ? this.$route.name : 'userQuestions';
+                        self.$router.push({name: routerName, params: {userId: data.id.value}});
                     }else{
                         //clean id from url if not valid and nopthing reterned from server
                         // self.$router.push({name: 'userMainView', params: {userId: ''}});

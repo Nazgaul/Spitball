@@ -81,7 +81,7 @@ export const routes = [
             {
               name:'userConversations',
               path:'userConversations',
-              component: userConversations
+              component: conversations
             },
             {
               name:'userSessions',
