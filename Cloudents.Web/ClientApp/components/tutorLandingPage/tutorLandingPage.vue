@@ -23,7 +23,7 @@
             </v-flex>
             <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
                 <tutor-result-card v-if="!isMobile" class="mb-3 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
-                <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"></tutor-result-card-mobile>
+                <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"/>
             </v-flex>   
         </scroll-list>
         <v-layout align-center py-5 justify-space-around class="tutor-landing-status-row">
@@ -199,11 +199,12 @@ export default {
     }
     
     .tutor-landing-page-body{
-        margin-top: 15px;
+        .responsive-property(margin-top, 15px, null, 0px);
+
         .tutor-landing-page-empty-state{
             margin: 35px 0;
             @media (max-width: @screen-xs) {
-                margin: 45px 6px 25px;
+                margin: 25px 0;
             }
         }
         .tutor-landing-card-container{
