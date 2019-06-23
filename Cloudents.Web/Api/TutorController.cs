@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -172,6 +173,8 @@ namespace Cloudents.Web.Api
                 //TODO : need to register user
             }
 
+
+            var utmSource = referer.ParseQueryString()["utm_source"];
             // if (userId > 0)
             // {
             var command = new RequestTutorCommand(model.Course,
@@ -181,7 +184,7 @@ namespace Cloudents.Web.Api
                 referer.AbsoluteUri,
                 model.Name,
                 model.Phone,
-                model.Text,model.Email, model.TutorId);
+                model.Text,model.Email, model.TutorId, utmSource);
             await _commandBus.DispatchAsync(command, token);
         
             return Ok();

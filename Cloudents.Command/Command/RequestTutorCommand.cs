@@ -12,7 +12,7 @@ namespace Cloudents.Command.Command
             string name,
             string phoneNumber,
             string leadText,
-            string email, long? tutorId)
+            string email, long? tutorId, string utmSource)
         {
             Course = course;
             ChatText = chatText;
@@ -28,6 +28,7 @@ namespace Cloudents.Command.Command
             LeadText = leadText;
             Email = email;
             TutorId = tutorId;
+            UtmSource = utmSource;
         }
 
         public string Course { get;  }
@@ -40,5 +41,6 @@ namespace Cloudents.Command.Command
         public string LeadText { get; }
         public string Email { get; }
         public long? TutorId { get; }
+        public string UtmSource { get; }
     }
 }
