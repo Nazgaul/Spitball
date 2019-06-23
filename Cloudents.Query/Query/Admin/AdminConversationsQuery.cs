@@ -50,8 +50,7 @@ case when (select top 1 UserId from sb.ChatMessage cm where  cm.ChatRoomId = cr.
 from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 left join sb.ChatRoomAdmin cra
-	on cr.Id = cra.Id and (cra.AssignTo = @AssignTo or @AssignTo is null) 
-		and (cra.status = @Status or @Status is null)
+	on cr.Id = cra.Id
 join sb.[user] u on cu.UserId = u.Id
 )
 select c.Identifier as id,
@@ -81,6 +80,8 @@ datediff(HOUR, c.lastMessage, GETUTCDATE()) as HoursFromLastMessage
 from cte c 
 inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
  where (c.UserId = @UserId or @UserId = 0 or d.userId = @UserId) 
+ and (c.AssignTo = @AssignTo or @AssignTo is null) 
+		and (c.status = @Status or @Status is null)
 order by c.lastMessage desc
 OFFSET @pageSize * @PageNumber ROWS
 FETCH NEXT @pageSize ROWS ONLY;"; 
@@ -92,7 +93,7 @@ FETCH NEXT @pageSize ROWS ONLY;";
                             query.UserId,
                             pageSize = 50,
                             PageNumber = query.Page,
-                            Status = query.Status.ToString(),
+                            Status = query.Status?.ToString(),
                             AssignTo = query.AssignTo?.ToString()
                         });
                     return res;
