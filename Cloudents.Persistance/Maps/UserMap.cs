@@ -4,9 +4,9 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    internal class UserMap : ClassMap<BaseUser>
+    public class BaseUserMap : ClassMap<BaseUser>
     {
-        public UserMap()
+        public BaseUserMap()
         {
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
             Map(e => e.Email)/*.Not.Nullable()*/.Unique();

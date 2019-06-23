@@ -141,4 +141,7 @@
   <data name="contact_me" xml:space="preserve">
     <value>Contact Me</value>
   </data>
+  <data name="teaching" xml:space="preserve">
+    <value>teaching </value>
+  </data>
 </root>

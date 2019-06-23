@@ -39,6 +39,7 @@ namespace Cloudents.Search.Tutor
                     nameof(Entities.Tutor.ReviewCount),
                     nameof(Entities.Tutor.Bio),
                 },
+                SearchFields = new [] { nameof(Entities.Tutor.Name), nameof(Entities.Tutor.Prefix), nameof(Entities.Tutor.Courses), nameof(Entities.Tutor.Subjects) },
                 ScoringProfile = TutorSearchWrite.ScoringProfile,
                 //OrderBy = new List<string> { "search.score() desc", $"{Entities.Tutor.RateFieldName} desc" }
             };
