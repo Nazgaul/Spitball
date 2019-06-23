@@ -30,6 +30,7 @@ namespace Cloudents.Core.DTOs.Admin
         public ChatRoomStatus Status { get; set; }
 
         private int ConversationStatus { get; set; }
+        public ChatRoomAssign AssignTo { get; set; }
 
         public string AutoStatus
         {

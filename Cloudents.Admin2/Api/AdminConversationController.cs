@@ -67,5 +67,22 @@ namespace Cloudents.Admin2.Api
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        [HttpPost("{identifier}/assignTo")]
+        public async Task<IActionResult> ChangeAssign(
+            [FromRoute] string identifier,
+            ChangeConversationAssignRequest model,
+            [FromServices] ICommandBus commandBus,
+            CancellationToken token)
+
+        {
+            if (string.IsNullOrEmpty(identifier))
+            {
+                return BadRequest();
+            }
+            var command = new ChangeConversationAssignCommand(identifier, model.AssignTo);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }
