@@ -25,8 +25,12 @@ import analyticsService from '../../../../services/analytics.service';
             sendMessage(){
                 
                 if ( this.accountUser == null) {
+<<<<<<< HEAD
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+=======
+                let currTutor = this.getProfile();
                 this.updateCurrTutor(currTutor.user)    
+>>>>>>> feature_newMobileTutorCard
                 this.updateRequestDialog(true);
                 } else {
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
