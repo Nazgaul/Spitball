@@ -5,6 +5,7 @@
         Default,
         Active,
         Scheduled,
-        NoMatch
+        NoMatch,
+        Archive
     }
 }
