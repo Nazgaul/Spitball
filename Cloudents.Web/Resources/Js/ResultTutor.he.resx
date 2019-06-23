@@ -124,7 +124,7 @@
     <value>$</value>
   </data>
   <data name="hour" xml:space="preserve">
-    <value>/שעה</value>
+    <value>לשעה</value>
   </data>
   <data name="no_reviews" xml:space="preserve">
     <value>עדיין אין ביקורות</value>

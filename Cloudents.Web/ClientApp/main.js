@@ -14,7 +14,6 @@ import scrollComponent from './components/helpers/infinateScroll.vue';
 import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
-import CloudentsTour from 'cloudents-tour';
 import LoadScript from 'vue-plugin-load-script';
 
 import VueNumeric from 'vue-numeric';
@@ -64,7 +63,6 @@ import {
 } from "vuetify";
 import * as route from "./routes";
 
-require('cloudents-tour/dist/cloudents-tour.css');
 
 
 //NOTE: put changes in here in webpack vendor as well
@@ -108,7 +106,6 @@ const vuetifyComponents = {
 
 
 Vue.use(VueMathjax);
-Vue.use(CloudentsTour);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
 
