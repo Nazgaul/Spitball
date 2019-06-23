@@ -127,8 +127,12 @@ export default {
     tutorCardClicked(e) {
         if(this.fromLandingPage){
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
-            
+<<<<<<< HEAD
+            this.$router.push({name: "profile", query: this.$route.query, params: { id: this.tutorData.userId, name: this.tutorData.name }
           });
+=======
+            
+>>>>>>> origin/feature_newMobileTutorCard
         }else{
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
             this.$router.push({
