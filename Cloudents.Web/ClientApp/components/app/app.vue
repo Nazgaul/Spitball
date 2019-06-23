@@ -1,11 +1,11 @@
 ﻿<template>
   <v-app>
-    <v-tour
+    <!-- <v-tour
         name="myTour"
         :steps="tourObject.tourSteps"
         :options="tourObject.toursOptions"
         :callbacks="tourObject.tourCallbacks"
-      ></v-tour>
+      ></v-tour> -->
     <router-view name="header"></router-view>
     <router-view name="schoolBlock"></router-view>
     <v-content class="site-content" :class="{'loading':getIsLoading}">
@@ -138,7 +138,7 @@ import AddQuestion from "../question/askQuestion/askQuestion.vue";
 import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
 import newBaller from "../helpers/newBaller/newBaller.vue";
 import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
-import tourService from "../../services/tourService";
+//import tourService from "../../services/tourService";
 import walletService from "../../services/walletService";
 //import uniSelectPop from "../helpers/uni-select-popup/uniSelectPop.vue";
 // import uniSelect from "../helpers/uni-select-popup/uniSelect.vue";
@@ -183,14 +183,14 @@ export default {
      // showOnBoardGuide: true,
       showBuyTokensDialog: false,
       toasterTimeoutObj: null,
-      tourObject: {
-        region: global.country.toLocaleLowerCase() === "il" ? "ilTours" : "usTours",
-        tourCallbacks: {
-          onStop: this.tourClosed
-        },
-        toursOptions: tourService.toursOptions,
-        tourSteps: []
-      }
+      // tourObject: {
+      //   region: global.country.toLocaleLowerCase() === "il" ? "ilTours" : "usTours",
+      //   tourCallbacks: {
+      //     onStop: this.tourClosed
+      //   },
+      //   toursOptions: tourService.toursOptions,
+      //   tourSteps: []
+      // }
     };
   },
   computed: {
