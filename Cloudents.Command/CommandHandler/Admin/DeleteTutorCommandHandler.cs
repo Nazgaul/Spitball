@@ -18,7 +18,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         public async Task ExecuteAsync(DeleteTutorCommand message, CancellationToken token)
         {
             //var tutorToRemove = await _tutorRepository.LoadAsync(message.Id, token);
-            _tutorRepository.DeleteTutorAsync(message.Id, token);
+           _tutorRepository.DeleteTutor(message.Id, token);
         }
     }
 }
