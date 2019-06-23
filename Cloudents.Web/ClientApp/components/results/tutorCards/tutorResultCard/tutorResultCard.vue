@@ -77,7 +77,7 @@
               class="blue-btn rounded elevation-0 ma-0"
               block
             >
-              <span class="font-weight-bold text-capitalize" v-language:inner="buttonText"></span>
+              <span @click.prevent="openRequestDialog" class="font-weight-bold text-capitalize" v-language:inner="buttonText"></span>
             </v-btn>
           </v-flex>
         </v-layout>
@@ -122,13 +122,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateRequestDialog"]),
+    ...mapActions(["updateRequestDialog",'updateCurrTutor']),
     loaded() {
       this.isLoaded = true;
     },
     tutorCardClicked(e) {
         if(this.fromLandingPage){
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+            
         }else{
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
         }
@@ -138,7 +139,9 @@ export default {
         });
       
     },
-    openRequestDialog() {
+    openRequestDialog(ev) {
+      ev.stopImmediatePropagation()
+      this.updateCurrTutor(this.tutorData)
       this.updateRequestDialog(true);
     },
     onImageLoadError(event) {
