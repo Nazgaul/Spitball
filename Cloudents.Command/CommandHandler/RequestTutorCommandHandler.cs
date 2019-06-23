@@ -1,5 +1,6 @@
 ﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,28 +37,12 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(RequestTutorCommand message, CancellationToken token)
         {
             // var needToRegisterLead = true;
-            if (message.UserId.HasValue)
+            Tutor tutor = null;
+            if (message.TutorId.HasValue)
             {
-                var usersIds = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId.Value, token);
-                var user = await _userRepository.LoadAsync(message.UserId.Value, token);
-                foreach (var userId in usersIds)
-                {
-                    //  needToRegisterLead = false;
-                    var users = new[] { userId, message.UserId.Value };
-                    var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
-
-                    var chatMessage = new ChatTextMessage(user, message.ChatText, chatRoom);
-                    chatRoom.AddMessage(chatMessage);
-                    await _chatRoomRepository.UpdateAsync(chatRoom, token);
-                    await _chatMessageRepository.AddAsync(chatMessage, token);
-
-                }
-
-
+                tutor = await _tutorRepository.LoadAsync(message.TutorId.Value, token);
             }
 
-            // if (needToRegisterLead)
-            // {
             var course = await _courseRepository.LoadAsync(message.Course, token);
             University university = null;
             if (message.UniversityId != null)
@@ -71,8 +56,42 @@ namespace Cloudents.Command.CommandHandler
             {
                 userLead = await _userRepository.LoadAsync(message.UserId.Value, token);
             }
-            var lead = new Lead(course, message.LeadText, university, message.Referer, userLead, message.Name, message.PhoneNumber, message.Email);
+            var lead = new Lead(course, message.LeadText,
+                university, message.Referer, userLead,
+                message.Name, message.PhoneNumber, message.Email, tutor);
             await _leadRepository.AddAsync(lead, token);
+
+
+
+
+            if (message.UserId.HasValue)
+            {
+                var tutorsIds = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId.Value, token);
+                if (tutor != null)
+                {
+                    tutorsIds.Add(tutor.Id);
+
+                }
+                var user = await _userRepository.LoadAsync(message.UserId.Value, token);
+                foreach (var userId in tutorsIds)
+                {
+                    //  needToRegisterLead = false;
+                    var users = new[] { userId, message.UserId.Value };
+                    var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
+
+                    chatRoom.Extra = new ChatRoomAdmin(ChatRoomStatus.Default, lead);
+
+                    var chatMessage = new ChatTextMessage(user, message.ChatText, chatRoom);
+                    chatRoom.AddMessage(chatMessage);
+                    await _chatRoomRepository.UpdateAsync(chatRoom, token);
+                    await _chatMessageRepository.AddAsync(chatMessage, token);
+
+                }
+            }
+
+            // if (needToRegisterLead)
+            // {
+
             // }
         }
     }

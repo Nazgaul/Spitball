@@ -12,8 +12,8 @@ namespace Cloudents.Persistence.Maps
         {
             Id(x => x.Id).GeneratedBy.Foreign("ChatRoom");
             Map(x => x.Status);
-            Map(x => x.AssignTo);
-            SchemaAction.Update();
+            Map(x => x.AssignTo).Length(20);
+            References(x => x.Lead).Nullable();
         }
     }
 }

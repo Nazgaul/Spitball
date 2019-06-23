@@ -2,18 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {
     public class ChatRoomAdmin : Entity<Guid>
     {
-        public ChatRoomAdmin() { }
-        public ChatRoomAdmin(ChatRoomStatus status, string assignTo)
+        protected ChatRoomAdmin() { }
+        public ChatRoomAdmin(ChatRoomStatus status, Lead lead)
         {
             Status = status;
-            AssignTo = assignTo;
+            Lead = lead;
         }
         public virtual ChatRoomStatus Status { get; set; }
-        public virtual string AssignTo { get; set; }
+        public virtual ChatRoomAssign AssignTo { get; set; }
+
+        [CanBeNull]
+        public virtual Lead Lead { get; protected set; }
     }
 }

@@ -13,5 +13,7 @@ namespace Cloudents.Web.Models
         public string Course { get; set; }
 
         public Guid? University { get; set; }
+
+        public long? TutorId { get; set; }
     }
 }

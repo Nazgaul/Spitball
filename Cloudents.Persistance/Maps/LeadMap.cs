@@ -11,6 +11,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.Course).Not.Nullable();
             References(x => x.User).Nullable();
             References(x => x.University).Nullable();
+            References(x => x.Tutor).Nullable();
             Map(x => x.Phone);
             Map(x => x.Name);
             Map(x => x.Email);

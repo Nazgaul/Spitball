@@ -4,7 +4,7 @@ namespace Cloudents.Command.Command
 {
     public class RequestTutorCommand : ICommand
     {
-        public RequestTutorCommand(string course, 
+        public RequestTutorCommand(string course,
             string chatText,
             long userId,
             Guid? universityId,
@@ -12,7 +12,7 @@ namespace Cloudents.Command.Command
             string name,
             string phoneNumber,
             string leadText,
-            string email)
+            string email, long? tutorId)
         {
             Course = course;
             ChatText = chatText;
@@ -27,6 +27,7 @@ namespace Cloudents.Command.Command
             PhoneNumber = phoneNumber;
             LeadText = leadText;
             Email = email;
+            TutorId = tutorId;
         }
 
         public string Course { get;  }
@@ -38,5 +39,6 @@ namespace Cloudents.Command.Command
         public string PhoneNumber { get;}
         public string LeadText { get; }
         public string Email { get; }
+        public long? TutorId { get; }
     }
 }
