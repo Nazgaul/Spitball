@@ -36,7 +36,8 @@
           </v-flex>
         </v-layout>
 
-          <v-flex shrink class="tutor-courses text-truncate mt-3 blue-text">{{tutorData.courses}}</v-flex>
+          <v-flex shrink class="tutor-courses text-truncate mt-3 blue-text">{{courses}}</v-flex>
+
           <div @click.prevent="openRequestDialog($event,tutorData)" v-if="!isInTutorList" class="my-3 btn-section">
               <commentSVG class="mr-2"/><span v-language:inner="'resultTutor_contact_me'"/>
           </div>
@@ -47,6 +48,8 @@
 
 <script>
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
+import { LanguageService } from "../../../../services/language/languageService.js";
+
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import analyticsService from "../../../../services/analytics.service";
 import { mapActions, mapGetters } from "vuex";
@@ -103,6 +106,14 @@ export default {
   },
 
   computed: {
+    courses(){
+      let query = this.$route.query.term
+      if(query) {
+        return `${LanguageService.getValueByKey("resultTutor_teaching")}${query}`
+      } else {
+        return `${this.tutorData.courses}`
+      }
+    },
     userImageUrl() {
       if (this.tutorData.image) {
         let size = [76, 96];
@@ -212,6 +223,7 @@ export default {
   .bottom-section {
     justify-self: flex-end;
     margin-top: auto;
+    color: #4452fc;
     .giveMeEllipsis(3,1.7);
   }
   .rating-holder {

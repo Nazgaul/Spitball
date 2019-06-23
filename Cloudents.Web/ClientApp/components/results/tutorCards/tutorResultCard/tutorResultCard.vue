@@ -30,7 +30,7 @@
                 <span class="tutor-about subheading" v-line-clamp:22="2">{{tutorData.bio}}</span>
               </v-flex>
               <v-flex shrink class="tutor-courses">
-                <span class="blue-text subheading" v-line-clamp:18="1">{{tutorData.courses}}</span>
+                <span class="blue-text subheading" v-line-clamp:18="1">{{courses}}</span>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -120,6 +120,8 @@ import analyticsService from "../../../../services/analytics.service";
 import tutorRequest from "../../../tutorRequest/tutorRequest.vue";
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import { mapActions } from "vuex";
+import { LanguageService } from "../../../../services/language/languageService.js";
+
 
 export default {
   name: "tutorResultCard",
@@ -174,6 +176,14 @@ export default {
     }
   },
   computed: {
+      courses(){
+      let query = this.$route.query.term
+      if(query) {
+        return `${LanguageService.getValueByKey("resultTutor_teaching")}${query}`
+      } else {
+        return `${this.tutorData.courses}`
+      }
+    },
     userImageUrl() {
       if (this.tutorData.image) {
         return utilitiesService.proccessImageURL(
