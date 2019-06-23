@@ -8,17 +8,17 @@ namespace Cloudents.Command.CommandHandler.Admin
 {
     public class DeleteTutorCommandHandler : ICommandHandler<DeleteTutorCommand>
     {
-        private readonly IRepository<Tutor> _tutorRepository;
+        private readonly ITutorRepository _tutorRepository;
 
-        public DeleteTutorCommandHandler(IRepository<Tutor> tutorRepository)
+        public DeleteTutorCommandHandler(ITutorRepository tutorRepository)
         {
             _tutorRepository = tutorRepository;
         }
 
         public async Task ExecuteAsync(DeleteTutorCommand message, CancellationToken token)
         {
-            var tutorToRemove = await _tutorRepository.LoadAsync(message.Id, token);
-            await _tutorRepository.DeleteAsync(tutorToRemove, token);
+            //var tutorToRemove = await _tutorRepository.LoadAsync(message.Id, token);
+           _tutorRepository.DeleteTutor(message.Id, token);
         }
     }
 }

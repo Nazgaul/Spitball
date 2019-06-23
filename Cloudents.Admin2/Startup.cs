@@ -54,13 +54,9 @@ namespace Cloudents.Admin2
             }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
             services.AddResponseCompression();
             services.AddResponseCaching();
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("AllowSpecificOrigin",
-            //        builder => builder.WithOrigins("https://login.microsoftonline.com"));
-            //});
 
 
+            services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddMvc(config =>
             {
                 if (!HostingEnvironment.IsDevelopment())
@@ -77,6 +73,7 @@ namespace Cloudents.Admin2
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                     options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
                 })
+                .AddDataAnnotationsLocalization()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             if (HostingEnvironment.IsDevelopment())
@@ -108,7 +105,7 @@ namespace Cloudents.Admin2
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
-
+            containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             //containerBuilder.RegisterSystemModules(
             //    Application.Enum.System.Admin, assembliesOfProgram);
             containerBuilder.RegisterAssemblyModules(assembliesOfProgram);

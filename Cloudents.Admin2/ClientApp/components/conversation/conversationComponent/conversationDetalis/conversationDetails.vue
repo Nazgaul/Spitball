@@ -5,13 +5,150 @@
         <v-flex xs12 style="background: #ffffff; max-width: 80%; min-width: 960px;">
           <v-toolbar color="indigo" class="heading-toolbar" dark>
             <v-toolbar-title>Conversations</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-select
+                class="mr-2 top-card-select"
+                height="40px"
+                hide-details
+                box
+                dense
+                outline
+                label="Waiting for"
+              ></v-select>
+              <v-select
+                class="mr-2 top-card-select"
+                height="40px"
+                hide-details
+                dense
+                box
+                round
+                outline
+                label="Status"
+              ></v-select>
+              <v-select
+                class="top-card-select"
+                height="40px"
+                hide-details
+                dense
+                box
+                round
+                outline
+                label="Assigned to"
+              ></v-select>
           </v-toolbar>
 
           <v-card class="blue lighten-4">
             <v-container fluid grid-list-lg>
               <v-layout row wrap>
+
                 <v-expansion-panel class="elevation-0">
                   <v-expansion-panel-content
+                    hide-actions
+                    xs12
+                    v-for="(conversation, index) in conversationsList"
+                    :key="index"
+                    class="mb-3 elevation-4 card-conversation">
+                    <div slot="header" class="card-conversation-wrap" @click="getConversationData(conversation.id)">
+                      <v-layout class="card-converstaion-header">
+                          <v-flex xs2 class="pl-3">Student</v-flex>
+                          <v-flex xs2 class="pl-3" d-flex justify-space-between align-center><span>Tutor</span><v-btn outline round small class="card-converstaion-header-btn">New Tutor</v-btn></v-flex>
+                          <v-flex xs2 class="pl-3">Request for</v-flex>
+                          <v-flex xs2 class="pl-3">Last msg</v-flex>
+                          <v-flex xs2 class="pl-3">Study Room</v-flex>
+                          <v-flex xs2 class="pl-3">Actions</v-flex>
+                      </v-layout>
+                      <v-layout class="card-converstaion-content py-3">
+                          <v-flex xs2 class="card-converstaion-content-col-1 pl-3">
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Name</span>
+                                  <span class="body-1  font-weight-bold" color="81C784">{{conversation.userName}}</span>
+                              </v-layout>
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Email</span>
+                                  <span class="">{{conversation.userEmail}}</span>
+                              </v-layout>
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Phone</span>
+                                  <span class="">{{conversation.userPhoneNumber}}</span>
+                              </v-layout>
+                          </v-flex>
+                          <v-divider vertical></v-divider>
+                          <v-flex xs2 class="card-converstaion-content-col-2 pl-3">
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Name</span>
+                                  <span class="body-1  font-weight-bold ">{{conversation.tutorName}}</span>
+                              </v-layout>
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Email</span>
+                                  <span class="">{{conversation.tutorEmail}}</span>
+                              </v-layout>
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Phone</span>
+                                  <span class="">{{conversation.tutorPhoneNumber}}</span>
+                              </v-layout>
+                          </v-flex>
+                          <v-divider vertical></v-divider>
+                          <v-flex xs2 class="card-converstaion-content-col-3 pl-3">
+                              <v-layout row wrap align-center>
+                                  <p class="subheading pl-2 pt-1 font-weight-bold">dsadasd</p>
+                              </v-layout>
+                          </v-flex>
+                          <v-divider vertical></v-divider>
+                          <v-flex xs2 class="card-converstaion-content-col-4 pl-3">
+                              <v-layout row wrap column>
+                                  <p class="body-1 pl-2 pt-1 font-weight-bold">{{conversation.hoursFromLastMessage}}h</p>
+                                  <p class="pl-2">({{conversation.lastMessage.toLocaleString('he-IL')}})</p>
+                              </v-layout>
+                          </v-flex>
+                          <v-divider vertical></v-divider>
+                          <v-flex xs2 class="card-converstaion-content-col-5 pl-3">
+                              <v-layout column>
+                                  <p class="text-xs-center pt-1">{{conversation.studyRoomExists ? 'Yes' : 'No'}}</p>
+                                  <v-btn small round class="white--text">Student</v-btn>
+                              </v-layout>
+                          </v-flex>
+                          <v-divider vertical></v-divider>
+                          <v-flex xs2 class="card-converstaion-content-col-6 pl-3">
+                              <v-select
+                                v-model="conversation.status"
+                                :items="statusList"
+                                @click.native.stop
+                                class="card-converstaion-select pb-2"
+                                hide-details
+                                box
+                                dense
+                                outline
+                                height="20"
+                                color="success"
+                                label="Status"
+                                @change="changeStatus($event, conversation.id)"
+                              ></v-select>
+                              <v-select
+                                @click.native.stop
+                                class="card-converstaion-select"
+                                hide-details
+                                dense
+                                box
+                                round
+                                outline
+                                label="Assign to"
+                              ></v-select>
+                          </v-flex>
+                      </v-layout>
+                    </div>
+                    <conversationMessages
+                      :loadMessage="loadMessage"
+                      :id="conversation.id"
+                      :messages="conversationsMsg"
+                    />
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+
+
+
+                <!-- <v-expansion-panel class="elevation-0">
+                  <v-expansion-panel-content
+                    expand-icon=" "
                     xs12
                     v-for="(conversation, index) in conversationsList"
                     :key="index"
@@ -68,7 +205,12 @@
                           </v-layout>
                           
                           <v-layout row class="pl-3 text-xs-left">
-                                <span><b>Study Room: </b> {{conversation.studyRoomExists}}</span>
+                            <v-flex xs3>
+                              <span><b>Study Room: </b> {{conversation.studyRoomExists}}</span>
+                            </v-flex>
+                            <v-flex xs3>
+                                <span><b>Hours From Last Message: </b> {{conversation.hoursFromLastMessage}}</span>
+                            </v-flex>
                           </v-layout>
 
                         </v-layout>
@@ -80,7 +222,7 @@
                       :messages="conversationsMsg"
                     />
                   </v-expansion-panel-content>
-                </v-expansion-panel>
+                </v-expansion-panel> -->
                 
               </v-layout>
             </v-container>
@@ -99,7 +241,8 @@ import {
   getDetails,
   getMessages,
   setConversationsStatus,
-  getConversationsListPage
+  getConversationsListPage,
+  statusList
 } from "./conversationDetalisService";
 
 export default {
@@ -123,17 +266,18 @@ export default {
       isCompleted: false,
       EXPECTED_AMOUNT: 50,
       isLoading: false,
+      statusList
     };
   },
   components: {
     conversationMessages
   },
   methods: {
-    changeStatus(ev,id){
-    let selected = {
-      "status": ev.target.value
+    changeStatus(selectedStatus,id){
+      let status={
+        "status": selectedStatus
       }
-      setConversationsStatus(id,selected)
+      setConversationsStatus(id, status)
     },
     getConversationData(conversation_id) {
       if (this.currentSelectedId !== conversation_id) {
