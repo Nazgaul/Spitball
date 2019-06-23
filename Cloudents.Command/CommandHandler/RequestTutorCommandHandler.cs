@@ -58,7 +58,7 @@ namespace Cloudents.Command.CommandHandler
             }
             var lead = new Lead(course, message.LeadText,
                 university, message.Referer, userLead,
-                message.Name, message.PhoneNumber, message.Email, tutor);
+                message.Name, message.PhoneNumber, message.Email, tutor, message.UtmSource);
             await _leadRepository.AddAsync(lead, token);
 
 
