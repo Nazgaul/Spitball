@@ -105,18 +105,21 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        [HttpGet("status")]
-        public IEnumerable<ChatRoomStatus> GetStatus()
+        [HttpGet("params")]
+        public ConversationParamsResponse GetParams()
         {
-            var resArr =  Enum.GetValues(typeof(ChatRoomStatus));
-            return resArr.Cast<ChatRoomStatus>().ToList();
-        }
-
-        [HttpGet("assign")]
-        public IEnumerable<ChatRoomAssign> GetAssign()
-        {
-            var resArr = Enum.GetValues(typeof(ChatRoomAssign));
-            return resArr.Cast<ChatRoomAssign>().ToList();
+            var StatusArr =  Enum.GetValues(typeof(ChatRoomStatus));
+            var AssignArr = Enum.GetValues(typeof(ChatRoomAssign));
+            List<string>  WaitingForList = new List<string>();
+            WaitingForList.Add("student");
+            WaitingForList.Add("totur");
+            WaitingForList.Add("other");
+            return new ConversationParamsResponse()
+            {
+                Status = StatusArr.Cast<ChatRoomStatus>().ToList(),
+                AssignTo = AssignArr.Cast<ChatRoomAssign>().ToList(),
+                WaitingFor = WaitingForList
+            };
         }
     }
 }
