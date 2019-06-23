@@ -13,7 +13,7 @@
             </v-flex>
         </v-layout>
         <v-layout class="tutor-landing-page-search" :class="{'sticky-active': activateSticky}" align-center justify-center>
-            <div class="tutor-search-container" :class="{'sticky-active': activateSticky}">
+            <div class="tutor-search-container" :class="{'sticky-active': activateSticky, 'strech': activateStickyMobile}">
                 <tutor-search-component></tutor-search-component>
             </div>
         </v-layout>
@@ -77,6 +77,11 @@ export default {
         activateSticky(){
             if(!this.isMobile){
                 return this.topOffset > 270;
+            }
+        },
+        activateStickyMobile(){
+            if(this.isMobile){
+                return this.topOffset > 280;
             }
         }
     },
@@ -170,7 +175,11 @@ export default {
         }
     }
     .tutor-landing-page-search{
-        position:sticky;
+        position: sticky;
+        position: -webkit-sticky;
+        position: -moz-sticky;
+        position: -ms-sticky;
+        position: -o-sticky;
         top:30px;
         z-index: 99;
         &.sticky-active{
@@ -193,7 +202,10 @@ export default {
                 border: 1px solid #b4b4b4;
             }
             @media (max-width: @screen-xs) {
-                width: 100%;
+                width: 90%;
+                &.strech{
+                    width: 100%;
+                }
             }
         }
     }

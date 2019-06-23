@@ -178,7 +178,7 @@ namespace Cloudents.Web.Api
             // if (userId > 0)
             // {
             var command = new RequestTutorCommand(model.Course,
-                _stringLocalizer["RequestTutorChatMessage"],
+                _stringLocalizer["RequestTutorChatMessage", model.Course],
                 userId,
                 model.University,
                 referer.AbsoluteUri,
