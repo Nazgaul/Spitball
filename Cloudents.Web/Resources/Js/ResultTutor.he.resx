@@ -141,4 +141,7 @@
   <data name="contact_me" xml:space="preserve">
     <value>צור קשר</value>
   </data>
+  <data name="teaching" xml:space="preserve">
+    <value>מלמד שיעורים פרטיים ב</value>
+  </data>
 </root>

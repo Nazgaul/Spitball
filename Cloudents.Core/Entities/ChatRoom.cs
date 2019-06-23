@@ -15,6 +15,7 @@ namespace Cloudents.Core.Entities
         {
             Users = new List<ChatUser>();
             Messages = new List<ChatMessage>();
+            Extra = new ChatRoomAdmin(this, ChatRoomStatus.Default);
         }
 
         public ChatRoom(IList<User> users) : this()
