@@ -1,5 +1,6 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
@@ -7,6 +8,7 @@ using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,10 +20,12 @@ namespace Cloudents.Admin2.Api
     public class AdminConversationController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
+        private readonly ICommandBus _commandBus;
 
-        public AdminConversationController(IQueryBus queryBus)
+        public AdminConversationController(IQueryBus queryBus, ICommandBus commandBus)
         {
             _queryBus = queryBus;
+            _commandBus = commandBus;
         }
 
         [HttpGet]
@@ -55,7 +59,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> ChangeStatus(
             [FromRoute] string identifier,
             ChangeConversationStatusRequest model,
-            [FromServices] ICommandBus commandBus,
+
             CancellationToken token)
 
         {
@@ -64,8 +68,21 @@ namespace Cloudents.Admin2.Api
                 return BadRequest();
             }
             var command = new ChangeConversationStatusCommand(identifier, model.Status);
-            await commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+
+        [HttpPost("start")]
+        public async Task<IActionResult> StartConversation(StartConversationRequest model,
+            [FromServices] IStringLocalizer<AdminConversationController> localizer,
+            CancellationToken token)
+        {
+            var command = new SendChatTextMessageCommand(localizer["RequestTutorChatMessage"], model.UserId,
+                model.TutorId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+
         }
 
         [HttpPost("{identifier}/assignTo")]

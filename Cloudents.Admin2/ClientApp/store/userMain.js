@@ -51,6 +51,10 @@ const mutations = {
             state.userInfo.status.value = val;
         }
     },
+    updateTutorSate(state, val){
+        //state.userInfo.isTutor = val;
+        state.userInfo.isTutor.value = val
+    },
     setUserInfo(state, data) {
         state.userInfo = data;
     },
@@ -134,6 +138,13 @@ const actions = {
                 }else{
                     context.commit('clearUserData');
                 }
+            });
+    },
+    removeTutor(context, id) {
+        return UserMainService.removeTutor(id)
+        .then(() => {
+                    context.commit('updateTutorSate', null);
+                
             });
     },
 

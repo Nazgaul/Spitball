@@ -41,7 +41,7 @@
         },
         props: {
             question: {
-                type: Array,
+                type: Object,
                 required: false
             },
             filterVal: {

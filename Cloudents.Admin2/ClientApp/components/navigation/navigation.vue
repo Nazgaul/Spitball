@@ -102,6 +102,7 @@
                         },
                         childrens: [
                             { name: 'All Conversations', link: '/conversation/conversationDetails', icon: '' },
+                            { name: 'Start', link: '/conversation/send', icon: '' },
                         ]
                     },
                     {

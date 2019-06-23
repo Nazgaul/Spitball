@@ -15,10 +15,13 @@ function ConversationItem(objInit) {
     this.lastMessage = new Date(objInit.lastMessage);
     this.studyRoomExists = objInit.studyRoomExists;
     this.expanded = false;
+    this.hoursFromLastMessage = objInit.hoursFromLastMessage;
 }
 function createConversationItem(objInit) {
     return new ConversationItem(objInit);
 }
+
+const statusList = ["default","noMatch" ,"scheduled" ,"active"];
 
 function DetailsItem(objInit) {
     this.userName = objInit.userName;
@@ -96,5 +99,6 @@ export {
     getDetails,
     getMessages,
     setConversationsStatus,
-    getConversationsListPage
+    getConversationsListPage,
+    statusList
 };

@@ -40,8 +40,9 @@
                 <v-list dense class="elevation-2">
                     <template v-for="(infoItem, name,index) in userInfo">
                         <v-list-tile :class="[ (index % 2 == 0) ? 'teal lighten-4' : 'cyan lighten-5' ]">
-                            <v-layout justify-space-between>
+                            <v-layout align-center justify-space-between>
                                 <span>{{infoItem.label}}</span>
+                                <v-btn small color='red' @click="deleteTutor()" v-if="infoItem.label == 'Is Tutor' && !!infoItem.value"> Delete</v-btn >
                                 <span>{{infoItem.value}}</span>
                             </v-layout>
                         </v-list-tile>

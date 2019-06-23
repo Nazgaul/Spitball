@@ -52,6 +52,7 @@ namespace Cloudents.Core.DTOs.Admin
         }
 
         public bool StudyRoomExists { get; set; }
+        public int HoursFromLastMessage { get; set; }
     }
 
     public class ConversationDetailsDto

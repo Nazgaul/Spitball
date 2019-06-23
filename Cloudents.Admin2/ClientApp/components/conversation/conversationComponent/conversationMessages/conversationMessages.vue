@@ -1,18 +1,13 @@
 ﻿<template> 
-    <div class="px-4" v-show="!loadMessage">
-        <v-data-table :items="messages"
-                      hide-actions
-                      disable-initial-sort
-                      :headers="messageHeaders"
-                      class="elevation-2">
-            <template slot="items" slot-scope="props">
-                <tr :class="{'student':studentName === props.item.name,'tutor':studentName !== props.item.name}">
-                    <td>{{ studentName === props.item.name ? 'student' :'tutor' }}</td>
-                    <td>{{ props.item.text }}</td>
-                    <td>{{ new Date(props.item.dateTime).toLocaleString('he-IL') }}</td>
-                </tr>
-            </template>
-        </v-data-table>
+    <div class="expansion-panel elevation-4 pa-4">
+        <h3>Conversation</h3>
+        <table v-show="!loadMessage">
+            <tr v-for="msg in messages">
+                <td>{{ studentName === msg.name ? 'student' :'tutor' }}</td>
+                <td>{{ msg.text }}</td>
+                <td>{{ new Date(msg.dateTime).toLocaleString('he-IL') }}</td>
+            </tr>
+        </table>
     </div>
 </template>
 
@@ -27,15 +22,9 @@
                     { text: 'Text' },
                     { text: 'Date' }
                 ],
-                // conversationsDetails: [],
-                // conversationsMessages: []
             }
         },
         props: {
-            // id: {
-            //   type: String,
-            //   required: true
-            // },
             messages: {
               type: Array,
             },
@@ -60,5 +49,26 @@ tr{
     &.tutor {
         background-color: lightgray;
         }
+}
+.expansion-panel {
+    height: 256px;
+    background: #fcfcfc;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    overflow: auto;
+    table {
+        border-top: solid 1px #979797;
+        border-bottom: solid 1px #979797;
+        width: 100%;
+        tr {
+            height: 56px;
+        }
+        tr:nth-child(odd) {
+            background: #f7f7f7;
+        }
+        tr:nth-child(even) {
+            background: #fcfcfc;
+        }
+    }
 }
 </style>

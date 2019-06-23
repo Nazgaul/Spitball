@@ -1,9 +1,42 @@
 <template>
  <div class="container">
       <v-layout justify-center>
-        <v-flex xs12 style="background: #ffffff; max-width: 80%; min-width: 960px;">
+        <v-flex xs12 style="background: #ffffff; min-width: 960px;">
           <v-toolbar color="indigo" class="heading-toolbar" dark>
             <v-toolbar-title>Conversations</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-select
+                class="mr-2 top-card-select"
+                height="40px"
+                hide-details
+                box
+                dense
+                outline
+                label="Waiting for"
+                @change="filterWaitingFor"
+              ></v-select>
+              <v-select
+                class="mr-2 top-card-select"
+                height="40px"
+                hide-details
+                dense
+                box
+                round
+                outline
+                label="Status"
+                @change="filterStatus"
+              ></v-select>
+              <v-select
+                class="top-card-select"
+                height="40px"
+                hide-details
+                dense
+                box
+                round
+                outline
+                label="Assigned to"
+                @change="filterAssgined"
+              ></v-select>
           </v-toolbar>
 
           <v-card class="blue lighten-4">
@@ -11,56 +44,100 @@
               <v-layout row wrap>
                 <v-expansion-panel class="elevation-0">
                   <v-expansion-panel-content
+                    hide-actions
                     xs12
                     v-for="(conversation, index) in userConversations"
                     :key="index"
-                    class="mb-3 elevation-1"
-                  >
-                    <div slot="header">
-                      <v-card-text @click="getConversationData(conversation.id)">
-                        <v-layout column>
-                          <v-layout justify-start row class="pl-2 text-xs-left">
-                            <v-flex xs3>
-                              <b>Tutor Tel:</b>
-                              {{conversation.tutorPhoneNumber}}
-                            </v-flex>
-                            <v-flex xs3>
-                              <b>Tutor Name:</b>
-                              {{conversation.tutorName}}
-                            </v-flex>
-                            <v-flex xs3>
-                              <b>Tutor Email:</b>
-                              {{conversation.tutorEmail}}
-                            </v-flex>
-                            <v-flex xs3>
-                              <b>Status:</b>
-                              {{conversation.status}}
-                            </v-flex>
-                          </v-layout>
-                          <v-layout justify-start row class="pl-2 text-xs-left">
-                            <v-flex>
-                              <v-layout justify-start row>
-                                <v-flex xs3>
-                                  <b>Student Tel:</b>
-                                  {{conversation.userPhoneNumber}}
-                                </v-flex>
-                                <v-flex xs3>
-                                  <b>Student Name:</b>
-                                  {{conversation.userName}}
-                                </v-flex>
-                                <v-flex xs3>
-                                  <b>Student Email:</b>
-                                  {{conversation.userEmail}}
-                                </v-flex>
-                                <v-flex>
-                                  <b>Last Message:</b>
-                                  {{conversation.lastMessage.toLocaleString()}}
-                                </v-flex>
+                    class="mb-3 elevation-4 card-conversation">
+                    <div slot="header" class="card-conversation-wrap" @click="getConversationData(conversation.id)">
+                      <v-layout class="card-converstaion-header">
+                          <v-flex xs2 class="pl-3">Student</v-flex>
+                          <v-flex xs2 class="pl-3" d-flex justify-space-between align-center>
+                            <span>Tutor</span><v-btn outline round :to="{path: '/conversation/send', query: {studentId: conversation.studentId}}" small class="card-converstaion-header-btn">New Tutor</v-btn>
+                          </v-flex>
+                          <v-flex xs2 class="pl-3">Request for</v-flex>
+                          <v-flex xs2 class="pl-3">Last msg</v-flex>
+                          <v-flex xs2 class="pl-3">Study Room</v-flex>
+                          <v-flex xs2 class="pl-3">Actions</v-flex>
+                      </v-layout>
+                      <v-layout class="card-converstaion-content py-3">
+                          <v-flex xs2 class="card-converstaion-content-col-1 pl-3">
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Name</span>
+                                  <span class="body-1  font-weight-bold" color="81C784">{{conversation.userName}}</span>
                               </v-layout>
-                            </v-flex>
-                          </v-layout>
-                        </v-layout>
-                      </v-card-text>
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Email</span>
+                                  <span class="">{{conversation.userEmail}}</span>
+                              </v-layout>
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Phone</span>
+                                  <span class="">{{conversation.userPhoneNumber}}</span>
+                              </v-layout>
+                          </v-flex>
+                          <v-divider vertical></v-divider>
+                          <v-flex xs2 class="card-converstaion-content-col-2 pl-3">
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Name</span>
+                                  <span class="body-1  font-weight-bold ">{{conversation.tutorName}}</span>
+                              </v-layout>
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Email</span>
+                                  <span class="">{{conversation.tutorEmail}}</span>
+                              </v-layout>
+                              <v-layout row wrap align-center justify-start>
+                                  <span class="grey--text caption pa-2">Phone</span>
+                                  <span class="">{{conversation.tutorPhoneNumber}}</span>
+                              </v-layout>
+                          </v-flex>
+                          <v-divider vertical></v-divider>
+                          <v-flex xs2 class="card-converstaion-content-col-3 pl-3">
+                              <v-layout row wrap align-center>
+                                  <p class="subheading pl-2 pt-1 font-weight-bold">dsadasd</p>
+                              </v-layout>
+                          </v-flex>
+                          <v-divider vertical></v-divider>
+                          <v-flex xs2 class="card-converstaion-content-col-4 pl-3">
+                              <v-layout row wrap column>
+                                  <p class="body-1 pl-2 pt-1 font-weight-bold">dsadasd</p>
+                                  <p class="pl-2">({{conversation.lastMessage.toLocaleString()}})</p>
+                              </v-layout>
+                          </v-flex>
+                          <v-divider vertical></v-divider>
+                          <v-flex xs2 class="card-converstaion-content-col-5 pl-3">
+                              <v-layout column>
+                                  <p class="text-xs-center pt-1">{{conversation.studyRoomExists ? 'Yes' : 'No'}}</p>
+                                  <v-btn small round class="white--text">Student</v-btn>
+                              </v-layout>
+                          </v-flex>
+                          <v-divider vertical></v-divider>
+                          <v-flex xs2 class="card-converstaion-content-col-6 pl-3">
+                              <v-select
+                                v-model="conversation.status"
+                                :items="statusList"
+                                @click.native.stop
+                                class="card-converstaion-select pb-2"
+                                hide-details
+                                box
+                                dense
+                                outline
+                                height="20"
+                                color="success"
+                                label="Status"
+                                @change="changeStatus($event, conversation.id)"
+                              ></v-select>
+                              <v-select
+                                @click.native.stop
+                                class="card-converstaion-select"
+                                hide-details
+                                dense
+                                box
+                                round
+                                outline
+                                label="Assign to"
+                              ></v-select>
+                          </v-flex>
+                      </v-layout>
                     </div>
                     <conversationMessages
                       :loadMessage="loadMessage"
@@ -84,7 +161,7 @@
     import conversationMessages from "../../conversation/conversationComponent/conversationMessages/conversationMessages.vue";
     import { mapGetters, mapActions } from 'vuex';
     import { getDetails, getMessages } from '../../conversation/conversationComponent/conversationMessages/conversationMessagesService'
-
+    import { statusList } from "../../conversation/conversationComponent/conversationDetalis/conversationDetalisService";
     export default {
         name: "userConversations",
         components: {
@@ -98,6 +175,7 @@
               currentSelectedId: null,
               showNoResult: false,
               showLoading: true,
+              statusList
             }
         },
         props: {
@@ -118,15 +196,15 @@
                 });                  
             },
             getConversationData(conversation_id) {
-              
+                
               if (this.currentSelectedId !== conversation_id) {
                 this.currentSelectedId = conversation_id;
                 this.loadMessage = true;
 
 
                 getMessages(conversation_id)
-                  .then(
-                    messages => {
+                  .then(messages => {
+                      
                       if (messages.length === 0) {
                         this.showNoResult = true;
                       } else {
@@ -142,6 +220,15 @@
                     this.loadMessage = false;
                   });
               }
+            },
+            changeNewTutor(user_id) {
+
+            },
+            changeStatus(selectedStatus,id){
+              let status={
+                "status": selectedStatus
+              }
+              setConversationsStatus(id, status)
             }
         },
         created() {
@@ -151,6 +238,62 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
+.heading-toolbar {
+  .top-card-select{
+    max-width: 120px;
+    // .v-input__slot {
+    //   background-color: #fff !important;
+    // }
+  }
+}
 
+.card-conversation {
+  border-radius: 8px;
+  .v-expansion-panel__header{
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)
+  }
+  .card-conversation-wrap {
+
+    .card-converstaion-header {
+      background-color:#d0deff;
+      border-radius: 8px 8px 0 0;
+      font-weight: 600;
+      align-items: center;
+      .card-converstaion-header-btn {
+        color: #4452fc;
+        flex: 0 0 auto !important;
+      }
+    }
+    .card-converstaion-content-col-4 {
+      flex-direction: column;
+    }
+    .card-converstaion-content-col-5 {
+      button {
+        background: #5bbdb7 !important;
+        align-self: center;
+      }  
+    }
+    .card-converstaion-content-col-6 {
+      .card-converstaion-select {
+        .v-text-field--box .v-input__slot, .v-text-field--outline .v-input__slot{
+          min-height: auto !important;
+        }
+        .v-input__slot {
+          background-color: rgba(68, 82, 252, 0.06) !important;
+          border: 1px solid rgba(68, 82, 252, 0.56);
+        }
+        .v-input__slot:hover {
+          border: 1px solid rgba(68, 82, 252, 0.56) !important;
+        }  
+      }
+        
+    }
+  }
+  .body-1,.subheading {
+    color:#4452fc
+  }
+}
 </style>
