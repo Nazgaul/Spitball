@@ -38,6 +38,7 @@ with cte as (
 Select 
 cr.Id , 
 cra.status,
+cra.AssignTo,
 cr.Identifier ,
 cr.UpdateTime as lastMessage,
 u.id as userId,
@@ -62,7 +63,7 @@ d.Name as TutorName,
 d.PhoneNumberHash as TutorPhoneNumber,
 d.Email as TutorEmail,
 c.status,
-
+c.AssignTo,
 (SELECT max (grp) FROM 
 (
 SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
