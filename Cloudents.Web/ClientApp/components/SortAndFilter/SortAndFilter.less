@@ -1,8 +1,11 @@
 @import "../../styles/mixin.less";
 
 .sort-filter-wrap {
-    position: -webkit-sticky;
     position: sticky;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
     &.position-static{
         position: static;
     }

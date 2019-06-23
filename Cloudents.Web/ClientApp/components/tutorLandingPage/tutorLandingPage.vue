@@ -170,7 +170,11 @@ export default {
         }
     }
     .tutor-landing-page-search{
-        position:sticky;
+        position: sticky;
+        position: -webkit-sticky;
+        position: -moz-sticky;
+        position: -ms-sticky;
+        position: -o-sticky;
         top:30px;
         z-index: 99;
         &.sticky-active{
