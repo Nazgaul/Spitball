@@ -114,7 +114,7 @@ namespace Cloudents.Admin2.Api
             {
                 "student",
                 "totur",
-                "other"
+                "conv"
             };
             return new ConversationParamsResponse()
             {
