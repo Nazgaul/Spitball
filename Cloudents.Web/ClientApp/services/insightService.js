@@ -1,4 +1,4 @@
-EVENT_TYPES = {
+const EVENT_TYPES = {
     LOG: 'LOG',
     ERROR: 'ERROR',
     TRACK: 'TRACK',
@@ -22,13 +22,13 @@ const track={
     },
     event: function(type = EVENT_TYPES.LOG, name, properties, measurements){
         //type defines if the event is ERROR or TRACK
-        let name = createEventName(type, name);
+        let eventName = createEventName(type, name);
         /*  
             Example!
             appInsights.trackEvent("WinGame",{Game: currentGame.name, Difficulty: currentGame.difficulty},{Score: currentGame.score, Opponents: currentGame.opponentCount});
         */
-        global.appInsights.trackEvent(name, properties, measurements);
-    }
+        global.appInsights.trackEvent(eventName, properties, measurements);
+    },
 }
 
 export default{
