@@ -11,9 +11,9 @@ namespace Cloudents.Query.Query.Admin
     {
         private int Page { get; }
         private ChatRoomStatus? Status { get; }
-        private string AssignTo { get; }
+        private ChatRoomAssign AssignTo { get; }
 
-        public AdminConversationsQuery(long userId, int page, ChatRoomStatus? status, string assignTo)
+        public AdminConversationsQuery(long userId, int page, ChatRoomStatus? status, ChatRoomAssign assignTo)
         {
             UserId = userId;
             Page = page;
@@ -85,7 +85,14 @@ FETCH NEXT @pageSize ROWS ONLY;";
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<ConversationDto>(sql,
-                        new { query.UserId, pageSize = 50, PageNumber = query.Page , Status = query.Status.ToString(), query.AssignTo});
+                        new
+                        {
+                            query.UserId,
+                            pageSize = 50,
+                            PageNumber = query.Page,
+                            Status = query.Status.ToString(),
+                            AssignTo = query.AssignTo.ToString()
+                        });
                     return res;
                 }
             }
