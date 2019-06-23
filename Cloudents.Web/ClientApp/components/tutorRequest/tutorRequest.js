@@ -42,6 +42,7 @@ export default {
             return !!this.accountUser;
         },
         dialogTitle(){
+            if(!this.getCurrTutor) return LanguageService.getValueByKey('tutorRequest_title')
             let currTutor = this.getCurrTutor;
             let message = this.isProfile || currTutor.name ? LanguageService.getValueByKey('tutorRequest_title_tutor_list'): LanguageService.getValueByKey('tutorRequest_title');
             let name = currTutor.name ? currTutor.name : '';
@@ -68,6 +69,10 @@ export default {
         },300),
         sendRequest() {
             let self = this;
+            let tutorId = null
+            if(this.getCurrTutor) {
+                tutorId = this.getCurrTutor.userId || this.getCurrTutor.id
+            }
             if(self.$refs.tutorRequestForm.validate()) {
                 self.btnRequestLoading = true;
                 let serverObj = {
@@ -77,6 +82,7 @@ export default {
                     phone: (self.guestPhone)? self.guestPhone : null,
                     course: (self.tutorCourse)? self.tutorCourse : null,
                     university: (self.guestUniversity)? self.guestUniversity : null,
+                    tutorId: tutorId
                 };
                 if(this.isAuthUser){
                     let analyticsObject = {

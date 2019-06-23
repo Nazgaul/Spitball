@@ -1,8 +1,6 @@
 const state = {
     requestDialog: false,
-    currTutor: {
-        name: null
-    }
+    currTutor: null
 };
 
 const getters = {
@@ -14,18 +12,19 @@ const mutations = {
     setRequestDialog(state, val) {
         state.requestDialog = val
     },
-    setCurrTutor: (state, name) => {
-        state.currTutor.name = name;
+    setCurrTutor: (state, tutorObj) => {
+        state.currTutor = tutorObj;
     },
 };
 
 const actions = {
-    updateCurrTutor({commit},name){ 
-        commit('setCurrTutor', name)},
+    updateCurrTutor({commit},tutorObj){ 
+        commit('setCurrTutor', tutorObj)
+    },
     updateRequestDialog({commit, dispatch}, val){
         commit('setRequestDialog', val);
         if(!val){
-            dispatch(updateCurrTutor, null);
+            dispatch('updateCurrTutor', null);
         }
     },
 };

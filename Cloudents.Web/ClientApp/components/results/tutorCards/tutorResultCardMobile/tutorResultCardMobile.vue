@@ -94,7 +94,7 @@ export default {
     },
     openRequestDialog(ev ,tutorData) {
       ev.stopImmediatePropagation()
-      this.updateCurrTutor(tutorData.name)
+      this.updateCurrTutor(tutorData)
       this.updateRequestDialog(true);
     },
     onImageLoadError(event) {

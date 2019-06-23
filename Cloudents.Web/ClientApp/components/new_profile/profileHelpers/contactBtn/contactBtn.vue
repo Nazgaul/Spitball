@@ -26,7 +26,7 @@ import analyticsService from '../../../../services/analytics.service';
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'profile_page');
                 if ( this.accountUser == null) {
                 let currTutor = this.getProfile();
-                this.updateCurrTutor(currTutor.user.name)    
+                this.updateCurrTutor(currTutor.user)    
                 this.updateRequestDialog(true);
                 } else {
                     let currentProfile = this.getProfile();
