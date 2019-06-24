@@ -204,8 +204,20 @@ const actions = {
         let jwtToken = notificationObj.jwtToken;
         let isTutor = state.studyRoomData.isTutor;
         let toasterParams = {};
-        if(isTutor) {
-            if(!jwtToken) {
+        if(jwtToken){
+            //reconnect
+            commit('setJwtToken', jwtToken);
+            dispatch('updateCurrentRoomState', state.roomStateEnum.active);
+            videoStreamService.createVideoSession();
+            if(isTutor){
+                toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
+                dispatch('showRoomToasterMessage', toasterParams);
+            }else{
+                toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
+                dispatch('showRoomToasterMessage', toasterParams);
+            }
+        }else{
+            if(isTutor) {
                 if(onlineCount == totalOnline) {
                     dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
@@ -220,25 +232,18 @@ const actions = {
                     dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 }
             } else {
-                if(onlineCount == totalOnline) {
-                    //reconnect
-                    commit('setJwtToken', jwtToken);
-                    videoStreamService.createVideoSession();
-                } else {
-                    // think what to do in case session is active and not all are connected
-                }
-            }
-        } else {
             if(onlineCount == totalOnline) {
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
                 dispatch('showRoomToasterMessage', toasterParams);
             } else {
+                dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                 toasterParams.timeout = 3600000;
                 dispatch('showRoomToasterMessage', toasterParams);
                 //hide student start se3ssion
                 dispatch("updateStudentStartDialog", false);
             }
+        }
         }
     },
     showRoomToasterMessage({dispatch}, toasterParams) {

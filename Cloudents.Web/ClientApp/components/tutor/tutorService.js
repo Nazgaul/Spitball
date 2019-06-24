@@ -147,7 +147,9 @@ const connectToRoom = function (token, options) {
             });
             //disconnected room
             store.getters['activeRoom'].on('disconnected', (room, error) => {
+                if(!error) return;
                 let errorCode = !!error && error.code ? error.code : "";
+                
                 if (errorCode === 20104) {
                     console.error('Signaling reconnection failed due to expired AccessToken!');
                 } else if (errorCode === 53000) {
@@ -235,13 +237,13 @@ const connectToRoom = function (token, options) {
                     store.dispatch('updateRemoteStatus', true);
                     // endTutoringSession(store.getters['getRoomId']);
                     store.dispatch('setSesionClickedOnce', false);
-                    if (store.getters['getStudyRoomData'].isTutor) {
-                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
-                    } else {
-                        store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
-                    }
+                    // if (store.getters['getStudyRoomData'].isTutor) {
+                    //     store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                    // } else {
+                    //     store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
+                    // }
                 }
-                detachParticipantTracks(participant);
+                // detachParticipantTracks(participant);
             });
         },
             (error) => {
