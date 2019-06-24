@@ -122,6 +122,7 @@ BEGIN
 PRINT 'Delete chats '  
 delete from sb.ChatMessage where ChatRoomId = @studyroomId
 delete from sb.ChatUser where ChatRoomId  = @studyroomId
+delete from sb.ChatRoomAdmin where Id  = @studyroomId
 delete from sb.chatroom where Id  = @studyroomId
  FETCH NEXT FROM chat_cursor INTO @studyroomId  
 END   
@@ -137,6 +138,7 @@ where userid = :Userid
 --delete tutor
 
 PRINT 'delete tutor '  
+update sb.Lead set TutorId = null where TutorId = :Userid
 delete from sb.TutorReview where TutorId = :Userid
 delete from sb.tutor where id = :Userid;
 
