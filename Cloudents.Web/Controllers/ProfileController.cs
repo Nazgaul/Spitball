@@ -50,6 +50,10 @@ namespace Cloudents.Web.Controllers
         {
             var query = new UserProfileQuery(id);
             var retVal = await _queryBus.QueryAsync(query, token);
+            if (retVal == null)
+            {
+                return NotFound();
+            }
 
             var localizerSuffix = string.Empty;
             if (string.IsNullOrEmpty(retVal.UniversityName))
