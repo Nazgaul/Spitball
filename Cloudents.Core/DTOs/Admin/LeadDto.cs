@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Cloudents.Core.DTOs.Admin
 {
     public class LeadDto
     {
+        [EntityBind(nameof(Lead.Id))]
+        public Guid Id { get; set; }
         [EntityBind(nameof(Lead.Name))]
         public string Name { get; set; }
         [EntityBind(nameof(Lead.Email))]
@@ -22,5 +25,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string University { get; set; }
         [EntityBind(nameof(Lead.Referer))]
         public string Referer { get; set; }
+        [EntityBind(nameof(Lead.Status))]
+        public ItemState Status { get; set; }
     }
 }

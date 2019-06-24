@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,11 @@ namespace Cloudents.Query.Query.Admin
 {
     public class AdminLeadsQuery: IQuery<IEnumerable<LeadDto>>
     {
-        public AdminLeadsQuery()
-        { }
+        public ItemState? Status { get; }
+        public AdminLeadsQuery(ItemState? status)
+        {
+            Status = status;
+        }
 
         internal sealed class AdminLeadsQueryHandler : IQueryHandler<AdminLeadsQuery, IEnumerable<LeadDto>>
         {
@@ -27,25 +31,15 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<LeadDto>> GetAsync(AdminLeadsQuery query, CancellationToken token)
             {
-                const string sql = @"select l.Name, Email, Phone, Text, CourseId as Course, u.Name as University, Referer
+                const string sql = @"select l.Id, l.Name, Email, Phone, Text, CourseId as Course, u.Name as University, UtmSource as Referer, l.Status
 from sb.Lead l
 left join sb.University u
-	on l.UniversityId = u.Id";
+	on l.UniversityId = u.Id
+where l.Status = @Status or @Status = ''";
                 using (var connection = _dapper.OpenConnection())
                 {
-                    var res = await connection.QueryAsync<LeadDto>(sql);
-                    foreach (var item in res)
-                    {
-                        if (item.Referer.Contains("utm_source"))
-                        {
-                            var utm = item.Referer.Split('&', '?').Where(w => w.Contains("utm_source")).FirstOrDefault();
-                            item.Referer = utm.Substring(utm.IndexOf('=')+1);
-                        }
-                        else
-                        {
-                            item.Referer = null;
-                        }
-                    }
+                    var res = await connection.QueryAsync<LeadDto>(sql, new { Status = query.Status.ToString() });
+                    
                     return res;
                 }
             }
