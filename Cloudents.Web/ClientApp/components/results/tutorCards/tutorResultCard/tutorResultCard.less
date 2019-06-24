@@ -50,6 +50,7 @@
     background-color: @colorBlue !important;
     color: @color-white;
     height: 42px;
+    max-width: 80%;
   }
   .tutor-image {
     border-radius: 4px;
@@ -84,9 +85,16 @@
     font-size: 18px;
     letter-spacing: -0.4px;
     color: @textColor;
+    .giveMeEllipsis(1, 1.5)
   }
   .tutor-about {
     color: @profileTextColor;
+    .giveMeEllipsis(2, 1.5)
+  }
+  .tutor-courses{
+    span{
+    .giveMeEllipsis(1, 1.5)
+    }
   }
   .blue-text {
     color: @colorBlue;
