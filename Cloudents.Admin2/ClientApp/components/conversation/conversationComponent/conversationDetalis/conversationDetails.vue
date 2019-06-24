@@ -7,6 +7,7 @@
             <v-toolbar-title>Conversations</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-select
+                disabled
                 v-model="filterWaitingFor"
                 :items="filters.waitingFor"
                 class="mr-2 top-card-select"
@@ -16,7 +17,7 @@
                 dense
                 outline
                 label="Waiting for"
-                @change="handleFilter(filterWaitingFor)"
+                @change="handleFilter('waiting', filterWaitingFor)"
               ></v-select>
               <v-select
                 v-model="filterStatus"
@@ -29,7 +30,7 @@
                 round
                 outline
                 label="Status"
-                @change="handleFilter(filterStatus)"
+                @change="handleFilter('status', filterStatus)"
               ></v-select>
               <v-select
                 v-model="filterAssignTo"
@@ -42,7 +43,7 @@
                 round
                 outline
                 label="Assigned to"
-                @change="handleFilter(filterAssignTo)"
+                @change="handleFilter('assignTo', filterAssignTo)"
               ></v-select>
           </v-toolbar>
 
@@ -61,7 +62,7 @@
                       <v-layout class="card-converstaion-header">
                           <v-flex xs2 class="pl-3">Student</v-flex>
                           <v-flex xs2 class="pl-3" d-flex justify-space-between align-center>
-                            <span>Tutor</span><v-btn :to="{path: '/conversation/send', query: {id: conversation.userId}}" @click.native.stop outline round small class="card-converstaion-header-btn">New Tutor</v-btn>
+                            <span>Tutor</span><v-btn :to="{path: '/conversation/send', query: {id: conversation.userId}}" target="_blank" @click.native.stop outline round small class="card-converstaion-header-btn">New Tutor</v-btn>
                           </v-flex>
                           <v-flex xs2 class="pl-3">Request for</v-flex>
                           <v-flex xs2 class="pl-3">Last msg</v-flex>
@@ -145,7 +146,7 @@
                                 round
                                 outline
                                 label="Assign to"
-                                @change="handleAssingTo(conversation.userId, conversation.assignTo)"
+                                @change="handleAssingTo($event, conversation.id)"
                               ></v-select>
                           </v-flex>
                       </v-layout>
@@ -204,9 +205,9 @@ export default {
       EXPECTED_AMOUNT: 50,
       isLoading: false,
       filters: {},
-      filterAssignTo: '',
+      filterAssignTo: 'None',
       filterWaitingFor: '',
-      filterStatus: '',
+      filterStatus: 'Default',
       statusList,
       assignTo
     };
@@ -273,14 +274,15 @@ export default {
         this.showLoading = false;
       });
     },
-    handleAssingTo(id, assignTo) {      
-      setAssignTo(id, assignTo).then(assignedTo => {
-        console.log(assignedTo);
-      })
+    handleAssingTo(assignTo, id) {  
+      setAssignTo(id, assignTo)
     },
-    handleFilter(val) {
-      getFilters(val).then(res => {
-        console.log(res);
+    handleFilter(params, payload) {
+      let assign = this.filterAssignTo === 'None' ? '' : `assignTo=${this.filterAssignTo}&`;
+      let status = this.filterStatus === 'Default' ? '' :  `status=${this.filterStatus}&`;
+      let query = `${assign}${status}`
+      getFilters(this.userId, query).then(res => {        
+        this.conversationsList = res;
       })
     }
   },

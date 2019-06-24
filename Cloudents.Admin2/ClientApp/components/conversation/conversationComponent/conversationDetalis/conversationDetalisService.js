@@ -26,6 +26,7 @@ function ConversationItem(objInit) {
     this.studyRoomExists = objInit.studyRoomExists;
     this.expanded = false;
     this.hoursFromLastMessage = objInit.hoursFromLastMessage;
+    this.assignTo = objInit.assignTo
 }
 function createConversationItem(objInit) {
     return new ConversationItem(objInit);
@@ -59,8 +60,17 @@ function CreateMessageItem(objInit) {
 const path = 'AdminConversation/';
 
 const getFilters = (id, filters) => {
-    return connectivityModule.http.get(`${path}?id=${id}&filters=${filters}`).then((res)=>{
-        return res
+    console.log(filters);
+    
+    let userId = id ? `id=${id}&`: '';
+    return connectivityModule.http.get(`${path}?${userId}${filters}`).then((filtersConversations)=>{
+        let filtersArray = [];   
+        if (filtersConversations.length > 0) {
+            filtersConversations.forEach((conversation) => {
+                filtersArray.push(createConversationItem(conversation));
+            });
+        }
+        return filtersArray
     })
 }
 
@@ -119,9 +129,7 @@ const getFiltersParams = () => {
 }
 
 const setAssignTo = (id, assignTo) => {    
-    return connectivityModule.http.post(`${path}${id}/assignTo`, {assignTo}).then(res => {
-        console.log(res);
-    })
+    return connectivityModule.http.post(`${path}${id}/assignTo`, {assignTo})
 }
     
 export {
