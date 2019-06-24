@@ -45,6 +45,7 @@ u.id as userId,
 u.Name,
 u.Email,
 u.PhoneNumberHash,
+CONCAT(l.CourseId, ' ', l.Text) as RequestFor,
 case when (select top 1 UserId from sb.ChatMessage cm where  cm.ChatRoomId = cr.id ) = cu.userid then 0 else 1 end as isTutor
 
 from sb.ChatUser cu
@@ -52,6 +53,7 @@ join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 left join sb.ChatRoomAdmin cra
 	on cr.Id = cra.Id
 join sb.[user] u on cu.UserId = u.Id
+join sb.Lead l on cra.LeadId = l.Id
 )
 select c.Identifier as id,
 c.lastMessage as lastMessage,
@@ -65,6 +67,7 @@ d.Email as TutorEmail,
 d.UserId as TutorId,
 c.status,
 c.AssignTo,
+c.RequestFor,
 (SELECT max (grp) FROM 
 (
 SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
@@ -83,8 +86,8 @@ inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
  and (c.AssignTo = @AssignTo or @AssignTo is null) 
 		and (c.status = @Status or @Status is null)
 order by c.lastMessage desc
-OFFSET @pageSize * @PageNumber ROWS
-FETCH NEXT @pageSize ROWS ONLY;"; 
+OFFSET 0 ROWS
+FETCH NEXT 50 ROWS ONLY;"; 
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<ConversationDto>(sql,

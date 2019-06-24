@@ -34,6 +34,7 @@ namespace Cloudents.Core.DTOs.Admin
 
         public long UserId { get; set; }
         public long TutorId { get; set; }
+        public string RequestFor { get; set; }
 
         public string AutoStatus
         {
