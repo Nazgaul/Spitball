@@ -151,7 +151,7 @@
     <value>לשיעור פרטי רק מ- 55 ₪</value>
   </data>
   <data name="main_stats_courses" xml:space="preserve">
-    <value>2673 קורסים</value>
+    <value>9,575 קורסים</value>
   </data>
   <data name="main_stats_reviews" xml:space="preserve">
     <value>ביקורות</value>
@@ -163,7 +163,7 @@
     <value>250,234 מסמכי לימוד</value>
   </data>
   <data name="main_stats_tutors" xml:space="preserve">
-    <value>1,533 מורים פרטיים</value>
+    <value>827 מורים פרטיים</value>
   </data>
   <data name="main_subtitle" xml:space="preserve">
     <value>שיעור פרטי אחד על אחד עם מורה מצטיין לבחירתך</value>

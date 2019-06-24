@@ -24,7 +24,7 @@ namespace Cloudents.Query.Query.Admin
                 var sql = @"Select	T.[name] TutorName, 
 		                            U.[Name] UserName, 
 		                            S.created Created, 
-		                            datediff(minute, S.[Created],S.ended) Duration,
+		                            isnull(cast(datediff(minute, S.[Created],S.ended) as nvarchar(15)), 'OnGoing') Duration,
 		                            R.TutorId
                             from [sb].[StudyRoomSession] S 
                             join [sb].[StudyRoom] R
@@ -35,9 +35,9 @@ namespace Cloudents.Query.Query.Admin
 	                            on sru.StudyRoomId = R.Id and sru.UserId != T.Id
                             Join Sb.[user] u
 	                            on sru.UserId = U.Id
-                            where S.Ended is not null 
-                            and U.email not like '%cloudents%'
+                            where U.email not like '%cloudents%'
                             and U.email not like '%spitball%'
+							and (datediff(minute, S.[Created],S.ended) != 0 or datediff(minute, S.[Created],S.ended) is null)
                             order by S.created desc, S.Id";
 
                 using (var connection = _dapper.OpenConnection())

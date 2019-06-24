@@ -33,6 +33,7 @@ import FindTutorSection5 from "../components/findTutorComponents/FindTutor-secti
 import FindTutorSection6 from "../components/findTutorComponents/FindTutor-section6.vue";
 import FindTutorCarouselSection from "../components/findTutorComponents/FindTutor-carouselSection.vue";
 import FindTutorSubfooterSection from '../components/findTutorComponents/FindTutor-subfooterSection.vue';
+import store from '../../../store/index';
 
 export default {
   components: {
@@ -50,13 +51,15 @@ export default {
   computed:{
     ...mapGetters(['accountUser'])
     },
-    created(){
-    if(!!this.accountUser){
-        const defaultSubmitRoute = {path: '/ask'};
-        defaultSubmitRoute.query = this.$route.query;
-        this.$router.push(defaultSubmitRoute);
-    }
-  }
+    beforeRouteEnter (to, from, next) {
+      //makes sure an auth user won't see this page!
+        let isLoggedIn = store.getters['accountUser'];
+        if(!!isLoggedIn){
+            next("/ask");
+        }else{
+            next();
+        }
+    }, 
 };
 </script>
 

@@ -48,6 +48,7 @@
 .verticals.line {
   padding-right: 0px !important;
   padding-left: 48px!important;
+  background-color: #FFF;
   @media (max-width: @screen-md) {
     align-items: stretch;
     padding-right: 0px !important;
@@ -60,8 +61,8 @@
     }
   }
   .v-tabs__container {
-    height: 36px;
-    border-bottom: 1.5px solid rgba(62, 69, 160, 0.22);
+    height: 48px;
+    // border-bottom: 1.5px solid rgba(62, 69, 160, 0.22);
     @media (max-width: @screen-xs) {
       padding-left: 12px !important;
     }
@@ -77,10 +78,10 @@
     font-stretch: normal;
     line-height: normal;
     letter-spacing: -0.1px;
-    color: rgba(0, 0, 0, 0.87);
+    color: @color-main-purple;
     &.v-tabs__item--active {
-      color: @color-main-purple;
       font-weight: 600;
+      border-bottom: 2px solid #514f7d;
     }
   }
 

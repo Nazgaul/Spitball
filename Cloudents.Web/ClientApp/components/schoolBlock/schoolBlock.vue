@@ -17,7 +17,7 @@
       </v-list>
       <v-list class="class-list">
         <v-list-tile class="group-header cursor-pointer" :class="{'active': !selectedCourse && !inStudyRoomLobby}">
-          <v-list-tile-action class="mr-1">
+          <v-list-tile-action class="ml-1 mr-1">
             <v-icon>sbf-courses-icon</v-icon>
           </v-list-tile-action>
           <v-list-tile-title @click="accountUser ? selectCourse(null, true) : openPersonalizeCourse()"
