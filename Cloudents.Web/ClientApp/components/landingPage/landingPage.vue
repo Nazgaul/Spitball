@@ -1,5 +1,5 @@
 <template>
-    <div class="landingPage">
+    <div>
         <top-nav></top-nav>
         <router-view/>
         <Footer></Footer>
@@ -7,13 +7,17 @@
 </template>
 
 <script>   
-import topNav from '../landingPageTools/TopNav.vue'
-import Footer from '../landingPageTools/Footer.vue'
+import topNav from '../landingPageTools/TopNav.vue';
+import Footer from '../landingPageTools/Footer.vue';
+
+
     export default {
         components:{
             topNav,
             Footer
         },
+    
+        
 }
 </script>
 
