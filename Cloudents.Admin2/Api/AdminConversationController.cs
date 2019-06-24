@@ -9,10 +9,8 @@ using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -78,10 +76,9 @@ namespace Cloudents.Admin2.Api
 
         [HttpPost("start")]
         public async Task<IActionResult> StartConversation(StartConversationRequest model,
-            [FromServices] IStringLocalizer<AdminConversationController> localizer,
             CancellationToken token)
         {
-            var command = new SendChatTextMessageCommand(localizer["RequestTutorChatMessage"], model.UserId,
+            var command = new SendChatTextMessageCommand(model.Message, model.UserId,
                 model.TutorId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
@@ -108,19 +105,13 @@ namespace Cloudents.Admin2.Api
         [HttpGet("params")]
         public ConversationParamsResponse GetParams()
         {
-            var StatusArr =  Enum.GetValues(typeof(ChatRoomStatus));
-            var AssignArr = Enum.GetValues(typeof(ChatRoomAssign));
-            List<string> WaitingForList = new List<string>()
-            {
-                "student",
-                "totur",
-                "conv"
-            };
             return new ConversationParamsResponse()
             {
-                Status = StatusArr.Cast<ChatRoomStatus>().ToList(),
-                AssignTo = AssignArr.Cast<ChatRoomAssign>().ToList(),
-                WaitingFor = WaitingForList
+                Status = Enum.GetNames(typeof(ChatRoomStatus)),
+                AssignTo = Enum.GetNames(typeof(ChatRoomAssign)),
+                WaitingFor = new[] { "student",
+                    "tutor",
+                    "conv"}
             };
         }
     }

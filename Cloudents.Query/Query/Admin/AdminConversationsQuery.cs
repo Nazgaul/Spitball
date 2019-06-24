@@ -13,7 +13,7 @@ namespace Cloudents.Query.Query.Admin
         private ChatRoomStatus? Status { get; }
         private ChatRoomAssign? AssignTo { get; }
 
-        public AdminConversationsQuery(long userId, int page, ChatRoomStatus? status, ChatRoomAssign assignTo)
+        public AdminConversationsQuery(long userId, int page, ChatRoomStatus? status, ChatRoomAssign? assignTo)
         {
             UserId = userId;
             Page = page;
