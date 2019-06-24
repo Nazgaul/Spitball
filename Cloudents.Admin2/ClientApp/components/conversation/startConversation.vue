@@ -63,7 +63,7 @@ export default {
     }
   },
   created() {
-      this.studentId = this.$route.query ? this.$route.query.studentId : ''
+      this.studentId = this.$route.query ? this.$route.query.id : ''
     }
 };
 </script>

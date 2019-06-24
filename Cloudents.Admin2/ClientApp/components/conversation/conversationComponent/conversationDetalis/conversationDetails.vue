@@ -2,11 +2,12 @@
   <div>
     <div class="container">
       <v-layout justify-center>
-        <v-flex xs12 style="background: #ffffff; max-width: 80%; min-width: 960px;">
+        <v-flex xs12 style="background: #ffffff; min-width: 960px;">
           <v-toolbar color="indigo" class="heading-toolbar" dark>
             <v-toolbar-title>Conversations</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-select
+                disabled
                 v-model="filterWaitingFor"
                 :items="filters.waitingFor"
                 class="mr-2 top-card-select"
@@ -16,6 +17,7 @@
                 dense
                 outline
                 label="Waiting for"
+                @change="handleFilter('waiting', filterWaitingFor)"
               ></v-select>
               <v-select
                 v-model="filterStatus"
@@ -28,6 +30,7 @@
                 round
                 outline
                 label="Status"
+                @change="handleFilter('status', filterStatus)"
               ></v-select>
               <v-select
                 v-model="filterAssignTo"
@@ -40,10 +43,11 @@
                 round
                 outline
                 label="Assigned to"
+                @change="handleFilter('assignTo', filterAssignTo)"
               ></v-select>
           </v-toolbar>
 
-          <v-card class="blue lighten-4">
+          <v-card class="blue lighten-4" style="max-width:100%;">
             <v-container fluid grid-list-lg>
               <v-layout row wrap>
 
@@ -57,7 +61,9 @@
                     <div slot="header" class="card-conversation-wrap" @click="getConversationData(conversation.id)">
                       <v-layout class="card-converstaion-header">
                           <v-flex xs2 class="pl-3">Student</v-flex>
-                          <v-flex xs2 class="pl-3" d-flex justify-space-between align-center><span>Tutor</span><v-btn outline round small class="card-converstaion-header-btn">New Tutor</v-btn></v-flex>
+                          <v-flex xs2 class="pl-3" d-flex justify-space-between align-center>
+                            <span>Tutor</span><v-btn :to="{path: '/conversation/send', query: {id: conversation.userId}}" target="_blank" @click.native.stop outline round small class="card-converstaion-header-btn">New Tutor</v-btn>
+                          </v-flex>
                           <v-flex xs2 class="pl-3">Request for</v-flex>
                           <v-flex xs2 class="pl-3">Last msg</v-flex>
                           <v-flex xs2 class="pl-3">Study Room</v-flex>
@@ -110,7 +116,7 @@
                           <v-flex xs2 class="card-converstaion-content-col-5 pl-3">
                               <v-layout column>
                                   <p class="text-xs-center pt-1">{{conversation.studyRoomExists ? 'Yes' : 'No'}}</p>
-                                  <v-btn small round class="white--text">Student</v-btn>
+                                  <v-btn @click.stop small round class="white--text">{{conversation.autoStatus}}</v-btn>
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
@@ -140,7 +146,7 @@
                                 round
                                 outline
                                 label="Assign to"
-                                @change="handleAssingTo(conversation.id, conversation.assignTo)"
+                                @change="handleAssingTo($event, conversation.id)"
                               ></v-select>
                           </v-flex>
                       </v-layout>
@@ -173,6 +179,7 @@ import {
   getFiltersParams,
   statusList,
   assignTo,
+  getFilters,
   setAssignTo
 } from "./conversationDetalisService";
 
@@ -198,9 +205,9 @@ export default {
       EXPECTED_AMOUNT: 50,
       isLoading: false,
       filters: {},
-      filterAssignTo: '',
+      filterAssignTo: 'None',
       filterWaitingFor: '',
-      filterStatus: '',
+      filterStatus: 'Default',
       statusList,
       assignTo
     };
@@ -267,9 +274,15 @@ export default {
         this.showLoading = false;
       });
     },
-    handleAssingTo(id, assignTo) {
-      setAssignTo(id, assignTo).then(assignedTo => {
-        console.log(assignedTo);
+    handleAssingTo(assignTo, id) {  
+      setAssignTo(id, assignTo)
+    },
+    handleFilter(params, payload) {
+      let assign = this.filterAssignTo === 'None' ? '' : `assignTo=${this.filterAssignTo}&`;
+      let status = this.filterStatus === 'Default' ? '' :  `status=${this.filterStatus}&`;
+      let query = `${assign}${status}`
+      getFilters(this.userId, query).then(res => {        
+        this.conversationsList = res;
       })
     }
   },
@@ -333,7 +346,7 @@ export default {
       button {
         background: #5bbdb7 !important;
         align-self: center;
-      }  
+      }
     }
     .card-converstaion-content-col-6 {
       .card-converstaion-select {

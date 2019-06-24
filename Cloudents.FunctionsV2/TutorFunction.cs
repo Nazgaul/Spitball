@@ -78,12 +78,16 @@ namespace Cloudents.FunctionsV2
 
             if (updateOccur)
             {
-                var nextVersion = new TutorSyncAzureSearchQuery(result.Version,
-                    result.Update.OrderByDescending(o => o.VersionAsLong).First().Version);
-                var jsonStr = JsonConvert.SerializeObject(nextVersion);
-                await blob.UploadTextAsync(jsonStr);
-            }
+                var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
+                if (versionElement != null)
+                {
+                    var nextVersion = new TutorSyncAzureSearchQuery(result.Version,
+                        versionElement.Version);
+                    var jsonStr = JsonConvert.SerializeObject(nextVersion);
+                    await blob.UploadTextAsync(jsonStr);
+                }
 
+            }
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
         }
     }
