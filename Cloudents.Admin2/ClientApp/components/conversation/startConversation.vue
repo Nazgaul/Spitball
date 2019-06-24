@@ -6,6 +6,7 @@
 
     <v-text-field v-model="studentId" label="Student Id"></v-text-field>
     <v-text-field v-model="tutorId" label="Tutor Id"></v-text-field>
+    <v-text-field v-model="textMessage" label="text"></v-text-field>
     <v-btn :disabled="disable" @click="submit()">Send</v-btn>
 
     <v-snackbar v-model="snackbar" :color="color" :timeout="5000" top>
@@ -25,7 +26,8 @@ export default {
       disable: false,
       color: "green",
       snackbar: false,
-      text: ""
+      text: "",
+      textMessage:""
     };
   },
   methods: {
@@ -35,7 +37,8 @@ export default {
       connectivityModule.http
         .post("AdminConversation/start", {
           userId: this.studentId,
-          tutorId: this.tutorId
+          tutorId: this.tutorId,
+          message:this.textMessage
         })
         .then(
           () => {
@@ -44,6 +47,7 @@ export default {
             this.snackbar = true;
             this.tutorId = "";
             this.studentId = "";
+            this.textMessage = "";
           },
           () => {
             this.color = "red";

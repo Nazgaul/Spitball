@@ -8,8 +8,8 @@ namespace Cloudents.Admin2.Models
 {
     public class ConversationParamsResponse
     {
-        public IEnumerable<ChatRoomStatus> Status { get; set; }
-        public IEnumerable<ChatRoomAssign> AssignTo { get; set; }
+        public IEnumerable<string> Status { get; set; }
+        public IEnumerable<string> AssignTo { get; set; }
         public IEnumerable<string> WaitingFor { get; set; }
       
 
