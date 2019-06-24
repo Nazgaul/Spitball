@@ -116,7 +116,7 @@
                           <v-flex xs2 class="card-converstaion-content-col-5 pl-3">
                               <v-layout column>
                                   <p class="text-xs-center pt-1">{{conversation.studyRoomExists ? 'Yes' : 'No'}}</p>
-                                  <v-btn @click.stop small round class="white--text">Student</v-btn>
+                                  <v-btn @click.stop small round class="white--text">{{conversation.autoStatus}}</v-btn>
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
@@ -346,7 +346,7 @@ export default {
       button {
         background: #5bbdb7 !important;
         align-self: center;
-      }  
+      }
     }
     .card-converstaion-content-col-6 {
       .card-converstaion-select {
