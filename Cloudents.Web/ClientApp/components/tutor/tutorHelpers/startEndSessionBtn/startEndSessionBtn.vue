@@ -103,17 +103,7 @@
                 videoStreamService.enterRoom();
             },
             endSession() {
-                this.updateEndDialog(true)
-                // tutorService.endTutoringSession(this.id)
-                //             .then((resp) => {
-                //                 console.log('ended session', resp);
-                //                 this.setSesionClickedOnce(false)
-                //                 if (!this.isTutor && this.getAllowReview) {
-                //                     this.updateReviewDialog(true);
-                //                 }
-                //             }, (error) => {
-                //                 console.log('error', error);
-                //             });
+                this.updateEndDialog(true);
             },
             addDevicesToTrack() {
                 videoStreamService.addDevicesTotrack();
