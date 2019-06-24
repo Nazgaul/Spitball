@@ -82,7 +82,7 @@ namespace Cloudents.Web.EventHandler
 
             foreach (var user in studyRoom.Users)
             {
-                if (session != null)
+                if (session != null && onlineCount == totalOnline)
                 {
                     var jwtToken =
                         await _videoProvider.ConnectToRoomAsync(session.SessionId, user.User.Id.ToString());

@@ -121,7 +121,7 @@ namespace Cloudents.Web
                 Swagger.Startup.SwaggerInitial(services);
             }
 
-            services.AddSignalR().AddAzureSignalR().AddJsonProtocol(o =>
+            services.AddSignalR()/*.AddAzureSignalR()*/.AddJsonProtocol(o =>
                 {
                     o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
@@ -312,7 +312,7 @@ namespace Cloudents.Web
             });
             app.UseAuthentication();
 
-            app.UseAzureSignalR(routes =>
+            app.UseSignalR(routes =>
             {
                 routes.MapHub<SbHub>("/SbHub");
                 routes.MapHub<StudyRoomHub>("/StudyRoomHub");
