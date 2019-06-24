@@ -16,7 +16,8 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Email);
             Map(x => x.Referer).Length(400);
             Map(x => x.Text).Length(1000);
+            Map(x => x.Status);
+            SchemaAction.Update();
         }
-        
     }
 }
