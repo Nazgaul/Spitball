@@ -123,38 +123,6 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-
-            //var compareCourseResult = FriendlyUrlHelper.CompareTitle(model.CourseName, courseName);
-            //var compareNameResult = FriendlyUrlHelper.CompareTitle(model.Name, name);
-
-            //if (compareCourseResult == FriendlyUrlHelper.TitleCompareResult.NotEqual ||
-            //    compareNameResult == FriendlyUrlHelper.TitleCompareResult.NotEqual)
-            //{
-            //    return NotFound();
-            //}
-
-            //if (compareNameResult == FriendlyUrlHelper.TitleCompareResult.EqualNotFriendly ||
-            //    compareNameResult == FriendlyUrlHelper.TitleCompareResult.EqualNotFriendly)
-            //{
-            //    return RedirectToRoutePermanent(SeoTypeString.Document, new
-            //    {
-            //        universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
-            //        courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
-            //        id,
-            //        name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
-            //    });
-
-            //}
-
-            //if (!FriendlyUrlHelper.GetFriendlyTitle(model.CourseName).Equals(courseName, StringComparison.OrdinalIgnoreCase)
-            //|| !FriendlyUrlHelper.GetFriendlyTitle(model.Name).Equals(name, StringComparison.OrdinalIgnoreCase)
-            //    )
-            //{
-            //    return NotFound();
-            //}
-            //var metaContent = await _documentSearch.ItemMetaContentAsync(id, token);
-            //if (string.IsNullOrEmpty(model.Country)) return View();
-
             ViewBag.title = _localizer["Title", model.CourseName, model.Name];
             ViewBag.metaDescription = _localizer["Description",model.CourseName,model.UniversityName];
             return View();
