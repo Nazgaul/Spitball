@@ -181,6 +181,7 @@ export default {
         position: -o-sticky;
         position: sticky;
 
+
         top:30px;
         z-index: 99;
         &.sticky-active{
