@@ -1,5 +1,5 @@
 <template>
-    <div class="crappyLandingPage">
+    <div class="landingPage">
         <top-nav></top-nav>
         <router-view/>
         <Footer></Footer>

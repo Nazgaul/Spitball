@@ -203,9 +203,8 @@ export default {
                 border: 1px solid #b4b4b4;
             }
             @media (max-width: @screen-xs) {
-                width: 90%;
                 &.strech{
-                    width: 100%;
+                   width: 100%;
                 }
             }
         }
