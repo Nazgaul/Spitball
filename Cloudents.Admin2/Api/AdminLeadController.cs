@@ -31,7 +31,7 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync(query, token);
         }
         [HttpPost("status")]
-        public async Task<IActionResult> changeStatusAsync([FromBody] ChangeLeadStatusrRequest model, CancellationToken token)
+        public async Task<IActionResult> ChangeStatusAsync([FromBody] ChangeLeadStatusrRequest model, CancellationToken token)
         {
             var command = new ChangeLeadStatusCommand(model.LeadId, model.State);
             await _commandBus.DispatchAsync(command, token);
