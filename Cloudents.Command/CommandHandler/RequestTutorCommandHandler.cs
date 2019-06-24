@@ -78,7 +78,10 @@ namespace Cloudents.Command.CommandHandler
                     //  needToRegisterLead = false;
                     var users = new[] { userId, message.UserId.Value };
                     var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
-
+                    if (chatRoom.Extra == null)
+                    {
+                        chatRoom.Extra = new ChatRoomAdmin(chatRoom, ChatRoomStatus.Active);
+                    }
                     chatRoom.Extra.Lead = lead;
                     //chatRoom.Extra = new ChatRoomAdmin(chatRoom, ChatRoomStatus.Default)
                     //{

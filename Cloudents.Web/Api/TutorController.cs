@@ -148,6 +148,11 @@ namespace Cloudents.Web.Api
             }
             else
             {
+                if (model.Email == null)
+                {
+                    ModelState.AddModelError(nameof(model.Email),"Need to have email");
+                    return BadRequest(ModelState);
+                }
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
