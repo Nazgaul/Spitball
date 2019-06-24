@@ -233,7 +233,7 @@ const connectToRoom = function (token, options) {
                     store.dispatch('updateLocalStatus', true);
                 } else {
                     store.dispatch('updateRemoteStatus', true);
-                    endTutoringSession(store.getters['getRoomId']);
+                    // endTutoringSession(store.getters['getRoomId']);
                     store.dispatch('setSesionClickedOnce', false);
                     if (store.getters['getStudyRoomData'].isTutor) {
                         store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
@@ -251,7 +251,10 @@ const connectToRoom = function (token, options) {
 };
 
 const getRoomInformation = function (roomId) {
-    return connectivityModule.http.get(`StudyRoom/${roomId}`);
+    return connectivityModule.http.get(`StudyRoom/${roomId}`).then(({data})=>{
+        data.roomId = roomId;
+        return new RoomProps(data)
+    })
 };
 
 const enterRoom = function (roomId) {
@@ -266,23 +269,23 @@ const endTutoringSession = function (roomId) {
             return true;
         });
 };
+
 function RoomProps(objInit) {
+    this.allowReview = objInit.allowReview;
     this.conversationId = objInit.conversationId || '';
+    this.needPayment = objInit.needPayment;
     this.onlineDocument = objInit.onlineDocument || '';
+    this.studentId = objInit.studentId || null;
+    this.studentImage = objInit.studentImage || null;
+    this.studentName = objInit.studentName || null;
+    this.tutorId = objInit.tutorId || null;
+    this.tutorImage = objInit.tutorImage || null;
+    this.tutorName = objInit.tutorName || null;
     this.isTutor = store.getters['accountUser'].id == objInit.tutorId;
     this.roomId = objInit.roomId || '';
-    this.allowReview = objInit.allowReview;
-    this.needPayment = objInit.needPayment;
-    this.studentId = objInit.studentId || null;
-    this.tutorId = objInit.tutorId || null;
-    this.studentImage = objInit.studentImage || null;
-    this.tutorImage = objInit.tutorImage || null;
-    this.studentName = objInit.studentName || null;
-    this.tutorName = objInit.tutorName || null;
-
 }
 
-const createRoomProps = function createLeaderBoardItem(objInit) {
+const createRoomProps = function (objInit) {
     return new RoomProps(objInit);
 };
 

@@ -1,4 +1,4 @@
-import tutorService from '../components/tutor/tutorService';
+import videoStreamService from '../services/videoStreamService';
 import { LanguageService } from '../services/language/languageService';
 
 const state = {
@@ -151,11 +151,9 @@ const actions = {
         commit('updateAllowedDevices', val);
     },
     updateStudyRoomProps(context, val) {
-        let roomData = tutorService.createRoomProps(val);
-        let allowReview = roomData.allowReview;
         //update leaveReview store, to prevent leaving of multiple reviews
-        context.dispatch('updateAllowReview', allowReview);
-        context.commit('setStudyRoomProps', roomData);
+        context.dispatch('updateAllowReview',  val.allowReview);
+        context.commit('setStudyRoomProps', val);
     },
     updateTestDialogState({commit, state}, val) {
         commit('setqualityDialogState', val);
@@ -203,10 +201,11 @@ const actions = {
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
         let totalOnline = notificationObj.totalOnline;
+        let jwtToken = notificationObj.jwtToken;
         let isTutor = state.studyRoomData.isTutor;
         let toasterParams = {};
         if(isTutor) {
-            if(state.currentRoomState !== state.roomStateEnum.active) {
+            if(!jwtToken) {
                 if(onlineCount == totalOnline) {
                     dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
@@ -223,6 +222,8 @@ const actions = {
             } else {
                 if(onlineCount == totalOnline) {
                     //reconnect
+                    commit('setJwtToken', jwtToken);
+                    videoStreamService.createVideoSession();
                 } else {
                     // think what to do in case session is active and not all are connected
                 }
