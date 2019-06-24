@@ -58,6 +58,12 @@ function CreateMessageItem(objInit) {
 
 const path = 'AdminConversation/';
 
+const getFilters = (id, filters) => {
+    return connectivityModule.http.get(`${path}?id=${id}&filters=${filters}`).then((res)=>{
+        return res
+    })
+}
+
 const setConversationsStatus = (id,status) => {
     return connectivityModule.http.post(`${path}${id}/status`,status).then((res)=>{
         return res
@@ -113,7 +119,9 @@ const getFiltersParams = () => {
 }
 
 const setAssignTo = (id, assignTo) => {    
-    return connectivityModule.http.post(`${path}${id}/assignTo`, {assignTo})
+    return connectivityModule.http.post(`${path}${id}/assignTo`, {assignTo}).then(res => {
+        console.log(res);
+    })
 }
     
 export {
@@ -124,5 +132,6 @@ export {
     getFiltersParams,
     statusList,
     assignTo,
-    setAssignTo
+    setAssignTo,
+    getFilters
 };
