@@ -1,4 +1,5 @@
 ﻿using System;
+using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
@@ -36,11 +37,19 @@ namespace Cloudents.Core.Entities
         [CanBeNull]
         public virtual University University { get; protected set; }
         public virtual string Referer { get; protected set; }
-
-
         [CanBeNull]
         public virtual Tutor Tutor { get; protected set; }
 
-        public virtual string UtmSource { get;protected set; }
+        public virtual string UtmSource { get; protected set; }
+        public virtual ItemState? Status { get; protected set; }
+
+        public virtual void ChangeState(ItemState status)
+        {
+            Status = status;
+            if (Status == ItemState.Pending)
+            {
+                throw new ArgumentOutOfRangeException(nameof(status), status, null);
+            }
+        }
     }
 }
