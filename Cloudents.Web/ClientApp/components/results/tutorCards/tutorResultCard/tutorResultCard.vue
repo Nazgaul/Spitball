@@ -24,13 +24,13 @@
           <v-flex>
             <v-layout align-start justify-space-between column fill-height>
               <v-flex shrink class="pb-3">
-                <span class="tutor-name font-weight-bold" v-line-clamp:18="1">{{tutorData.name}}</span>
+                <span class="tutor-name font-weight-bold">{{tutorData.name}}</span>
               </v-flex>
               <v-flex grow>
-                <span class="tutor-about subheading" v-line-clamp:22="2">{{tutorData.bio}}</span>
+                <span class="tutor-about subheading">{{tutorData.bio}}</span>
               </v-flex>
               <v-flex shrink class="tutor-courses">
-                <span class="blue-text subheading" v-line-clamp:18="1">{{courses}}</span>
+                <span class="blue-text subheading">{{courses}}</span>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -47,21 +47,13 @@
         <v-flex xs12 grow>
           <v-flex xs12 shrink v-if="showStriked" class="strike-through">
             <span class="pricing striked-price">₪{{tutorData.price.toFixed(2)}}</span>
-            <span class="pricing caption striked-price">
-              <span v-language:inner="'resultTutor_hour'"></span>
-            </span>
+            <span class="pricing caption striked-price" v-language:inner="'resultTutor_hour'"/>
           </v-flex>
           <v-flex xs12 shrink>
-            <!--keep this wraper to fix price / hour spacing-->
             <div class="d-inline-flex align-baseline">
-              <span
-                class="font-weight-bold headline pricing"
-                v-if="showStriked"
-              >₪{{discountedPrice}}</span>
+              <span class="font-weight-bold headline pricing" v-if="showStriked">₪{{discountedPrice}}</span>
               <span class="font-weight-bold headline pricing" v-else>₪{{tutorData.price}}</span>
-              <span class="pricing caption">
-                <span v-language:inner="'resultTutor_hour'"></span>
-              </span>
+              <span class="pricing caption" v-language:inner="'resultTutor_hour'"/>
             </div>
           </v-flex>
           <v-flex xs12 shrink class="pt-2">
@@ -71,38 +63,22 @@
               :starColor="'#ffca54'"
               :rateNumColor="'#43425D'"
               :size="'24'"
-              :rate-num-color="'#43425D'"
-            ></userRating>
+              :rate-num-color="'#43425D'"/>
           </v-flex>
           <v-flex xs12 class="pt-1" shrink>
-            <span class="blue-text body-2" v-show="tutorData.reviews > 0">
-              {{tutorData.reviews}}
-              <span
-                v-show="tutorData.reviews > 1"
-                v-language:inner="'resultTutor_reviews_many'"
-              ></span>
-              <span v-show="tutorData.reviews === 1" v-language:inner="'resultTutor_review_one'"></span>
+            <span class="blue-text body-2" v-show="tutorData.reviews > 0"> {{tutorData.reviews}}
+              <span v-show="tutorData.reviews > 1" v-language:inner="'resultTutor_reviews_many'"/>
+              <span v-show="tutorData.reviews === 1" v-language:inner="'resultTutor_review_one'"/>
             </span>
-            <span
-              class="body-2"
-              v-show="!tutorData.reviews"
-              v-language:inner="'resultTutor_no_reviews'"
-            ></span>
+            <span class="body-2" v-show="!tutorData.reviews" v-language:inner="'resultTutor_no_reviews'"/>
           </v-flex>
         </v-flex>
 
         <v-flex xs12 class="d-flex btn-bottom-holder text-xs-center">
-          <v-btn
-            style="max-width: 80%; margin: 0 auto;"
-            round
-            class="blue-btn rounded elevation-0 ma-0"
-            block
-          >
-            <span
-              @click.prevent="openRequestDialog"
-              class="font-weight-bold text-capitalize"
-              v-language:inner="buttonText"
-            ></span>
+          <v-btn @click.prevent="openRequestDialog" 
+                  round block 
+                  class="blue-btn elevation-0 ma-0 font-weight-bold text-capitalize" 
+                  v-language:inner="buttonText">
           </v-btn>
         </v-flex>
       </v-layout>

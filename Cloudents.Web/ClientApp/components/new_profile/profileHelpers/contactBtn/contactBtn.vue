@@ -26,8 +26,9 @@ import analyticsService from '../../../../services/analytics.service';
                 
                 if ( this.accountUser == null) {
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
-                this.updateCurrTutor(currTutor.user)    
-                this.updateRequestDialog(true);
+                    let profile = this.getProfile()
+                    this.updateCurrTutor(profile.user)    
+                    this.updateRequestDialog(true);
                 } else {
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
                     let currentProfile = this.getProfile();

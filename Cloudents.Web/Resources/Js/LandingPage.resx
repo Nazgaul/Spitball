@@ -151,7 +151,7 @@
     <value>From 55 NIS for a private lesson</value>
   </data>
   <data name="main_stats_courses" xml:space="preserve">
-    <value>2673 courses</value>
+    <value>9,575 courses</value>
   </data>
   <data name="main_stats_reviews" xml:space="preserve">
     <value>Reviews</value>
@@ -163,7 +163,7 @@
     <value>250,234 study resources</value>
   </data>
   <data name="main_stats_tutors" xml:space="preserve">
-    <value>1,533 lecturers</value>
+    <value>827 lecturers</value>
   </data>
   <data name="main_subtitle" xml:space="preserve">
     <value>Private lessons with outstanding teachers of your choice</value>

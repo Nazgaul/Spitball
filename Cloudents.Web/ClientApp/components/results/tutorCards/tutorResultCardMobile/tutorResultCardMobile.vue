@@ -5,10 +5,11 @@
     <v-card class="tutor-card-wrap pa-12" :class="{'list-tutor-card elevation-0': isInTutorList}">
       <div class="tutor-card-flex">
         <v-layout class="tutor-card-flex-width" >
-          <v-flex class="image-wrap d-flex" shrink>
-            <div class="tutor-image-loader" v-if="!isLoaded">
-              <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
-            </div>
+          <v-flex class="image-wrap">
+            <!--  -->
+            <!-- <div class="tutor-image-loader" > -->
+              <v-progress-circular indeterminate v-bind:size="50" :width="2" v-if="!isLoaded"></v-progress-circular>
+            <!-- </div> -->
             <img class="tutor-image" v-show="isLoaded" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
           </v-flex>
           <v-flex>
@@ -116,7 +117,7 @@ export default {
     },
     userImageUrl() {
       if (this.tutorData.image) {
-        let size = [76, 96];
+        let size = [94, 118];
         return utilitiesService.proccessImageURL(
           this.tutorData.image,
           ...size,
@@ -200,20 +201,20 @@ export default {
     font-size: 16px;
     font-weight: bold;
   }
-  .flex {
-    &.image-wrap {
-      margin-right: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+ .image-wrap {
+      margin-right: 10px;
+      // width: 94px;
+     .flexSameSize();
+
+      .inTheMiddle();
       color: #5d62fd;
-      .tutor-image-loader {
-        width: 96px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
+      // .tutor-image-loader {
+      //   width: 96px;
+      //   display: flex;
+      //   justify-content: center;
+      //   align-items: center;
+      // }
+    
   }
   .tutor-image {
     border-radius: 4px;
