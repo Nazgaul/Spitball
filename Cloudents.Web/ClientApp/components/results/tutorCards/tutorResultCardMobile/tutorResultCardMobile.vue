@@ -202,8 +202,8 @@ export default {
     font-weight: bold;
   }
  .image-wrap {
-      margin-right: 12px;
-      width: 94px;
+      margin-right: 10px;
+      // width: 94px;
      .flexSameSize();
 
       .inTheMiddle();

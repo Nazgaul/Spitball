@@ -197,11 +197,10 @@
     }
     .header-login {
       height: 32px;
-      //width: 104px;
       font-weight: 400;
       margin-right: 10px;
       border-radius: 26px;
-      border: solid 1px @color-main-purple;
+      border: solid 1px @systemBackgroundColor;
       font-size: 16px;
       outline: none;
       display: flex;
@@ -210,6 +209,7 @@
       color: @color-main-purple;
       letter-spacing: -0.5px;
       padding: 0 20px;
+      background-color: @systemBackgroundColor;
       .widthMinMax(100%, 104px, 104px);
       @media (max-width: @screen-xs) {
         display: none;
@@ -303,10 +303,11 @@
 
   .v-btn {
     .sbf-3-dot, .sbf-wallet, .sbf-menu, .sbf-comment, .sbf-feedback {
-      color: @color-main-purple;
+      color: @systemBackgroundColor;
       font-size: 17px;
       @media (max-width: @screen-xs) {
         font-size: 18px;
+        color: @color-main-purple;
       }
     }
     .sbf-menu {
