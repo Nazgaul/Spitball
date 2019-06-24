@@ -10,9 +10,9 @@ namespace Cloudents.Command.CommandHandler
 {
     public class FinishRegistrationCommandHandler : ICommandHandler<FinishRegistrationCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public FinishRegistrationCommandHandler(IRepository<RegularUser> userRepository
+        public FinishRegistrationCommandHandler(IRepository<User> userRepository
             )
         {
             _userRepository = userRepository;

@@ -96,7 +96,6 @@
     import notAllowed from "./qualitySteps/notAllowed.vue";
     import microphoneImage from "../../images/microphone.svg";
     import videoImage from "../../images/video-camera.svg";
-
     export default {
         name: "qualityValidation",
         components: {
@@ -112,7 +111,7 @@
                 // notAvaliableDevices: false,
                 // notAllowedDevices: false,
                 steps: 3,
-                step: 1
+                step: 1,
             };
         },
         computed: {
@@ -127,26 +126,44 @@
                               "setAllowedDevicesStatus",
                               "setAvaliableDevicesStatus"
                           ]),
-            checkPermission(audioCheck, videoCheck) {
+
+            handleError(devicesObjects){
+                let hasVideo = devicesObjects.hasVideo;
+                let hasAudio = devicesObjects.hasAudio;
+                if(devicesObjects.errors.indexOf("NotAllowedError") > -1) {
+                    this.setAllowedDevicesStatus(true);
+                    this.updateTestDialogState(true);
+                } else if(devicesObjects.errors.indexOf("NotFoundError") > -1) {
+                    this.setAvaliableDevicesStatus(true);
+                    this.updateTestDialogState(true);
+                }
+            },
+            async checkPermission(audioCheck, videoCheck) {
                 let self = this;
-                navigator.mediaDevices
-                         .getUserMedia({audio: audioCheck, video: videoCheck})
-                         .then(
-                             stream => {
-                                 console.log("got permissins", stream);
-                             }
-                             //handle all error types in catch
-                         )
-                         .catch(err => {
-                             console.log(err.name + ":!!!!!!!!!!!!!!!! " + err.message, err);
-                             if(err.name === "NotAllowedError") {
-                                 self.setAllowedDevicesStatus(true);
-                                 self.updateTestDialogState(true);
-                             } else if(err.name === "NotFoundError") {
-                                 self.setAvaliableDevicesStatus(true);
-                                 self.updateTestDialogState(true);
-                             }
-                         }); // always check for errors at the end.
+                let devices = await navigator.mediaDevices.enumerateDevices();
+                let devicesObjects = {
+                    hasAudio: false,
+                    hasVideo: false,
+                    errors: []
+                }
+                await navigator.mediaDevices.getUserMedia({ video: true }).then((y) => {
+                    console.log(y);
+                    devicesObjects.hasVideo = true;
+                }, err => {
+                    console.error(err.name + ":VIDEO!!!!!!!!!!!!!!!! " + err.message, err);
+                    devicesObjects.errors.push(err.name)
+                });
+
+                await navigator.mediaDevices.getUserMedia({ audio: true }).then((y) => {
+                    console.log(y);
+                    devicesObjects.hasAudio = true;
+                }, err => {
+                    console.error(err.name + ":AUDIO!!!!!!!!!!!!!!!! " + err.message, err);
+                    devicesObjects.errors.push(err.name)
+                });
+                if(devicesObjects.errors.length > 0){
+                    this.handleError(devicesObjects)
+                }
             },
             nextStep(n) {
                 this.step = n + 1;

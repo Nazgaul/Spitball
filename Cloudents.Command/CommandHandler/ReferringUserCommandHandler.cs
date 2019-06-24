@@ -9,9 +9,9 @@ namespace Cloudents.Command.CommandHandler
 {
     public class ReferringUserCommandHandler : ICommandHandler<ReferringUserCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public ReferringUserCommandHandler(IRepository<RegularUser> userRepository
+        public ReferringUserCommandHandler(IRepository<User> userRepository
            )
         {
             _userRepository = userRepository;

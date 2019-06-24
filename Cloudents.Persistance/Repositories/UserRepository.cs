@@ -25,7 +25,7 @@ namespace Cloudents.Persistence.Repositories
     }
 
     [UsedImplicitly]
-    public class RegularUserRepository : NHibernateRepository<RegularUser>, IRegularUserRepository
+    public class RegularUserRepository : NHibernateRepository<User>, IRegularUserRepository
     {
         public RegularUserRepository(ISession session) : base(session)
         {
@@ -40,10 +40,10 @@ namespace Cloudents.Persistence.Repositories
                 .SingleOrDefaultAsync<decimal>(token);
         }
 
-        public  Task<RegularUser> GetUserByEmailAsync(string userEmail, CancellationToken token)
+        public  Task<User> GetUserByEmailAsync(string userEmail, CancellationToken token)
         {
             return
-                Session.QueryOver<RegularUser>()
+                Session.QueryOver<User>()
                     .Where(w => w.Email == userEmail)
                     .SingleOrDefaultAsync(token);
         }

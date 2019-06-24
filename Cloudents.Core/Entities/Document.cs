@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities
         public Document(string name,
             University university,
             Course course, [NotNull] string type,
-            IEnumerable<Tag> tags, User user, string professor, decimal price)
+            IEnumerable<Tag> tags, BaseUser user, string professor, decimal price)
         : this()
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
@@ -63,7 +63,7 @@ namespace Cloudents.Core.Entities
 
         public virtual DomainTimeStamp TimeStamp { get; protected set; }
 
-        public virtual User User { get; protected set; }
+        public virtual BaseUser User { get; protected set; }
 
 
         public virtual string Professor { get; protected set; }
@@ -88,7 +88,7 @@ namespace Cloudents.Core.Entities
 
         public virtual int VoteCount { get; protected set; }
 
-        public virtual void Vote(VoteType type, RegularUser user)
+        public virtual void Vote(VoteType type, User user)
         {
             if (Status != Public)
             {
@@ -130,7 +130,7 @@ namespace Cloudents.Core.Entities
             AddEvent(new DocumentDeletedEvent(this));
         }
 
-        public virtual void Flag(string messageFlagReason, User user)
+        public virtual void Flag(string messageFlagReason, BaseUser user)
         {
             if (User == user)
             {

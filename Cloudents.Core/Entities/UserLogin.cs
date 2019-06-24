@@ -7,7 +7,7 @@ namespace Cloudents.Core.Entities
     public class UserLogin 
     {
         public UserLogin(string loginProvider, string providerKey, string providerDisplayName,
-            RegularUser user)
+            User user)
         {
             LoginProvider = loginProvider;
             ProviderKey = providerKey;
@@ -23,7 +23,7 @@ namespace Cloudents.Core.Entities
         public virtual string LoginProvider { get; set; }
         public virtual string ProviderKey { get; set; }
         public virtual string ProviderDisplayName { get; set; }
-        public virtual RegularUser User { get; set; }
+        public virtual User User { get; set; }
 
         public override bool Equals(object obj)
         {

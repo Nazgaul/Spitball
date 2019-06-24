@@ -23,7 +23,7 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]"), ApiController]
     public class RegisterController : Controller
     {
-        private readonly UserManager<RegularUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly SbSignInManager _signInManager;
 
         private readonly IQueueProvider _queueProvider;
@@ -35,7 +35,7 @@ namespace Cloudents.Web.Api
         internal const string Email = "email2";
         private const string EmailTime = "EmailTime";
 
-        public RegisterController(UserManager<RegularUser> userManager, SbSignInManager signInManager,
+        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager,
              IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger)
         {
             _userManager = userManager;
@@ -67,7 +67,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
-            user = new RegularUser(model.Email, null, null, CultureInfo.CurrentCulture);
+            user = new User(model.Email, null, null, CultureInfo.CurrentCulture);
             var p = await _userManager.CreateAsync(user, model.Password);
             if (p.Succeeded)
             {
@@ -79,7 +79,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        private async Task<ReturnSignUserResponse> MakeDecision(RegularUser user,
+        private async Task<ReturnSignUserResponse> MakeDecision(User user,
             bool isExternal,
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
@@ -144,7 +144,7 @@ namespace Cloudents.Web.Api
 
             if (user == null)
             {
-                user = new RegularUser(result.Email,
+                user = new User(result.Email,
                     result.FirstName, result.LastName,
                     result.Language)
                 {
@@ -191,7 +191,7 @@ namespace Cloudents.Web.Api
         //    return rdm.Next(1000, 9999);
         //}
 
-        private async Task GenerateEmailAsync(RegularUser user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
+        private async Task GenerateEmailAsync(User user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
             //if (user.OldUser.GetValueOrDefault() && user.SecurityStamp == null)
             //{

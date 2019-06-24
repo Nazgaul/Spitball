@@ -13,13 +13,13 @@ namespace Cloudents.Core.Entities
         }
 
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public UserCourse(RegularUser user, Course course)
+        public UserCourse(User user, Course course)
         {
             User = user;
             Course = course;
         }
 
-        public virtual RegularUser User { get; protected set; }
+        public virtual User User { get; protected set; }
         public virtual Course Course { get; protected set; }
 
         public virtual bool CanTeach { get; set; }

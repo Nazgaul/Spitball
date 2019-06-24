@@ -15,7 +15,7 @@ namespace Cloudents.Persistence.Repositories
         {
         }
 
-        public async Task<IEnumerable<long>> GetTutorsByCourseAsync(string course, long userId, CancellationToken token)
+        public async Task<IList<long>> GetTutorsByCourseAsync(string course, long userId, CancellationToken token)
         {
             /*
              * Select * from sb.[tutor] t

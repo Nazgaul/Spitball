@@ -17,7 +17,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         public async Task ExecuteAsync(ChangeConversationStatusCommand message, CancellationToken token)
         {
             var chatRoom = await _repository.GetChatRoomAsync(message.Identifier, token);
-            chatRoom.Status = message.Status;
+            chatRoom.Extra.Status = message.Status;
             await _repository.UpdateAsync(chatRoom, token);
         }
     }

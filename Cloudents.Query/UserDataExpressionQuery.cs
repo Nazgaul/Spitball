@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query
 {
-    public class UserDataExpressionQuery : IQuery<RegularUser>
+    public class UserDataExpressionQuery : IQuery<User>
     {
-        public UserDataExpressionQuery(Expression<Func<RegularUser, bool>> expression)
+        public UserDataExpressionQuery(Expression<Func<User, bool>> expression)
         {
             QueryExpression = expression;
         }
 
-        public Expression<Func<RegularUser, bool>> QueryExpression { get; }
+        public Expression<Func<User, bool>> QueryExpression { get; }
 
-        internal sealed class UserDataExpressionQueryHandler : IQueryHandler<UserDataExpressionQuery, RegularUser>
+        internal sealed class UserDataExpressionQueryHandler : IQueryHandler<UserDataExpressionQuery, User>
         {
             private readonly IStatelessSession _session;
 
@@ -26,9 +26,9 @@ namespace Cloudents.Query
             {
                 _session = session.StatelessSession;
             }
-            public async Task<RegularUser> GetAsync(UserDataExpressionQuery query, CancellationToken token)
+            public async Task<User> GetAsync(UserDataExpressionQuery query, CancellationToken token)
             {
-                return await _session.Query<RegularUser>()
+                return await _session.Query<User>()
                     .Where(query.QueryExpression)
                     .SingleOrDefaultAsync(cancellationToken: token);
             }
@@ -36,7 +36,7 @@ namespace Cloudents.Query
 
     }
 
-    public class UserLoginQuery : IQuery<RegularUser>
+    public class UserLoginQuery : IQuery<User>
     {
         public UserLoginQuery(string loginProvider, string providerKey)
         {
@@ -47,7 +47,7 @@ namespace Cloudents.Query
         public string LoginProvider { get; }
         public string ProviderKey { get; }
 
-        internal sealed class UserLoginQueryHandler : IQueryHandler<UserLoginQuery, RegularUser>
+        internal sealed class UserLoginQueryHandler : IQueryHandler<UserLoginQuery, User>
         {
             private readonly IStatelessSession _session;
 
@@ -55,7 +55,7 @@ namespace Cloudents.Query
             {
                 _session = session.StatelessSession;
             }
-            public async Task<RegularUser> GetAsync(UserLoginQuery query, CancellationToken token)
+            public async Task<User> GetAsync(UserLoginQuery query, CancellationToken token)
             {
                 return await _session.Query<UserLogin>()
                     .Fetch(f => f.User)

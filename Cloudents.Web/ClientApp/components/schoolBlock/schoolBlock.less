@@ -4,11 +4,14 @@
 
 
 .school-block {
+  .v-list__tile__title{
+    color: @color-main-purple!important;
+  }
   .pad-left{
     padding-left: 28px;
   }
   &.v-navigation-drawer {
-    background-color: @color-main-purple;
+    background-color: @systemBackgroundColor;
     z-index: 102;
     &.hebrew-drawer {
       // swap of right and left is going to be done by webpack RTL, so real vals are oposite
@@ -17,27 +20,31 @@
     }
   }
   .v-list {
+    padding: 0;
     background: transparent;
     .primary--text{
       color: rgba(255, 255, 255, 0.87) !important;
     }
     .group-header {
-      :hover{
-        background: rgba(0,0,0,.04);
-      }
+      width: 90%;
       &.search-university-title{
         .v-list__tile{
+          &.v-list__tile--link{
+            border-radius: 0 60px 60px 0;
+            &:hover{
+              border-radius: 0 60px 60px 0;
+            }
+          }
           &.primary--text{
-            color: @color-white!important;
+            color: @color-main-purple!important;
           }
         }
       }
       &.active {
         background-color: rgba(0, 0, 0, 0.1);
-        border-left: 3px solid @purpleLight;
-        border-radius: 0;
+        border-left: 3px solid #a3a0fb;
+        border-radius: 0 60px 60px 0;
         font-weight: 500;
-
       }
       .v-list__tile {
         font-family: @fontOpenSans;
@@ -73,13 +80,34 @@
       border-radius: 4px 0 0 4px;
       &.active {
         background-color: rgba(0, 0, 0, 0.1);
-        border-left: 3px solid @purpleLight;
-        border-radius: 0;
+        border-left: 3px solid #a3a0fb;
+        border-radius: 0 60px 60px 0;
         font-weight: 500;
-
+        width: 90%;
+        .v-list__tile__title{
+          font-weight: 600;
+        }
+        .v-list__tile--link{
+          &:hover {
+            background: rgba(0,0,0,.04);
+            width: 100%;
+            border-radius: 0 60px 60px 0;
+          }
+        }
       }
 
+      .v-list__tile--link{
+        &:hover {
+          background: rgba(0,0,0,.04);
+          width: 90%;
+          border-radius: 0 60px 60px 0;
+        }
+      }
+
+      
+
       .v-list__tile {
+        height: 36px;
         font-family: @fontOpenSans;
         letter-spacing: -0.3px;
         color: rgba(255, 255, 255, 0.87);

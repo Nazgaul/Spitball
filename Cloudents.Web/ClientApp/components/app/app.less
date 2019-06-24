@@ -13,66 +13,67 @@ html {
   }
 }
 
+//TODO do we need this.
 .onboard-guide-container {
   min-width: 100%;
   min-height: 100%;
   height: 100vh;
 }
 
-.v-tour {
-  .v-step {
-    z-index: 103;
-    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.35);
-    background-image: linear-gradient(93deg, #4b8ffe, #4452fc) !important;
-    text-align: left !important;
-    .v-step__header {
-      background-color: none !important;
-      font-size: 16px;
-      margin-left: 0;
-      padding-left: 0;
-      padding-top: 1.5rem;
-    }
-    .v-step__content {
-      font-size: 13px;
-      font-weight: 100;
-    }
-    .v-step__buttons {
-      text-align: right;
-      .v-step__button {
-        margin: 0 3px;
-        color: @color-blue-new;
-        background-color: #ffffff;
-        border-radius: 12px;
-        padding: 0.35rem 1.4rem;
-        &.regular_step_button {
-          background: none;
-          border: .05rem solid #ffffff;
-          color: white;
-        }
-      }
-    }
-    &[x-placement^="top"] {
-      top: -10px !important;
-      .v-step__arrow {
-        border-width: .8rem .8rem 0 !important;
-        bottom: -.8rem !important;
-        .v-step__arrow--dark {
-          border-color: #4870fd !important;
-        }
-      }
-    }
-    &[x-placement^="bottom"] {
-      top: 10px !important;
-      .v-step__arrow {
-        border-width: 0px 0.8rem 0.8rem !important;
-        top: -.8rem !important;
-        .v-step__arrow--dark {
-          border-color: #4870fd !important;
-        }
-      }
-    }
-  }
-}
+// .v-tour {
+//   .v-step {
+//     z-index: 103;
+//     box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.35);
+//     background-image: linear-gradient(93deg, #4b8ffe, #4452fc) !important;
+//     text-align: left !important;
+//     .v-step__header {
+//       background-color: none !important;
+//       font-size: 16px;
+//       margin-left: 0;
+//       padding-left: 0;
+//       padding-top: 1.5rem;
+//     }
+//     .v-step__content {
+//       font-size: 13px;
+//       font-weight: 100;
+//     }
+//     .v-step__buttons {
+//       text-align: right;
+//       .v-step__button {
+//         margin: 0 3px;
+//         color: @color-blue-new;
+//         background-color: #ffffff;
+//         border-radius: 12px;
+//         padding: 0.35rem 1.4rem;
+//         &.regular_step_button {
+//           background: none;
+//           border: .05rem solid #ffffff;
+//           color: white;
+//         }
+//       }
+//     }
+//     &[x-placement^="top"] {
+//       top: -10px !important;
+//       .v-step__arrow {
+//         border-width: .8rem .8rem 0 !important;
+//         bottom: -.8rem !important;
+//         .v-step__arrow--dark {
+//           border-color: #4870fd !important;
+//         }
+//       }
+//     }
+//     &[x-placement^="bottom"] {
+//       top: 10px !important;
+//       .v-step__arrow {
+//         border-width: 0px 0.8rem 0.8rem !important;
+//         top: -.8rem !important;
+//         .v-step__arrow--dark {
+//           border-color: #4870fd !important;
+//         }
+//       }
+//     }
+//   }
+// }
 
 .voted {
   color: #FBB205 !important;
@@ -225,15 +226,6 @@ html {
     text-align: center;
   }
   
-  @media (max-width: @screen-xs) {
-    height: 88px;
-  }
-  @media (max-width: @screen-sm) {
-    height: 95px;
-  }
-  @media (max-width: 360px) {
-    height: 88px;
-  }
   .undo-btn {
     text-decoration: underline;
     margin-left: 42px;

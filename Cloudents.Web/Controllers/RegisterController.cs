@@ -11,10 +11,10 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class RegisterController : Controller
     {
-        private readonly SignInManager<RegularUser> _signInManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ISmsSender _client;
 
-        public RegisterController(SignInManager<RegularUser> signInManager, ISmsSender client)
+        public RegisterController(SignInManager<User> signInManager, ISmsSender client)
         {
             _signInManager = signInManager;
             _client = client;

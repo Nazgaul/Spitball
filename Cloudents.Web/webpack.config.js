@@ -8,7 +8,7 @@ const merge = require('webpack-merge');
 var Visualizer = require("webpack-visualizer-plugin");
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 var t = require("./webpack.global.js");
-const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
+//const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const WebpackRTLPlugin = require("webpack-rtl-plugin");
 

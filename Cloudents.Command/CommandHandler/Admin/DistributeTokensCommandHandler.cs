@@ -10,9 +10,9 @@ namespace Cloudents.Command.CommandHandler.Admin
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class DistributeTokensCommandHandler : ICommandHandler<DistributeTokensCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public DistributeTokensCommandHandler(IRepository<RegularUser> userRepository
+        public DistributeTokensCommandHandler(IRepository<User> userRepository
             )
         {
             _userRepository = userRepository;

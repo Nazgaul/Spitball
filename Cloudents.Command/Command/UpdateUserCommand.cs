@@ -4,11 +4,11 @@ namespace Cloudents.Command.Command
 {
     public class UpdateUserCommand : ICommand
     {
-        public UpdateUserCommand(RegularUser user)
+        public UpdateUserCommand(User user)
         {
             User = user;
         }
 
-        public RegularUser User { get; }
+        public User User { get; }
     }
 }

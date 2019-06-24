@@ -7,11 +7,11 @@ namespace Cloudents.Command.Votes.Commands.AddVoteAnswer
 {
     public class AddVoteAnswerCommandHandler : ICommandHandler<AddVoteAnswerCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IAnswerRepository _repository;
 
         public AddVoteAnswerCommandHandler(
-            IRepository<RegularUser> userRepository,
+            IRepository<User> userRepository,
              IAnswerRepository answerRepository)
 
         {

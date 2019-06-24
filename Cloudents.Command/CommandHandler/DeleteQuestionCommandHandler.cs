@@ -15,11 +15,11 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IRepository<Question> _repository;
         private readonly IRepository<Transaction> _transactionRepository;
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
 
         public DeleteQuestionCommandHandler(IRepository<Question> repository,
-            IRepository<Transaction> transactionRepository, IRepository<RegularUser> userRepository)
+            IRepository<Transaction> transactionRepository, IRepository<User> userRepository)
         {
             _repository = repository;
             _transactionRepository = transactionRepository;
@@ -50,7 +50,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("cannot delete question with answers");
             }
 
-            if (!(question.User.Actual is RegularUser user))
+            if (!(question.User.Actual is User user))
             {
                 throw new InvalidOperationException("cannot delete fictive user");
             }

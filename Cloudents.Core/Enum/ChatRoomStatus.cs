@@ -5,6 +5,17 @@
         Default,
         Active,
         Scheduled,
-        NoMatch
+        NoMatch,
+        Archive
+    }
+
+    public enum ChatRoomAssign
+    {
+        None,
+        Eidan,
+        Jaron,
+        Yaniv,
+        Almog,
+        Ron
     }
 }

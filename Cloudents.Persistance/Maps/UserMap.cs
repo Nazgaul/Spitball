@@ -4,9 +4,9 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    internal class UserMap : ClassMap<User>
+    public class BaseUserMap : ClassMap<BaseUser>
     {
-        public UserMap()
+        public BaseUserMap()
         {
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
             Map(e => e.Email)/*.Not.Nullable()*/.Unique();
@@ -37,7 +37,7 @@ namespace Cloudents.Persistence.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
             Map(x => x.Score).ReadOnly();
-            //Table("User]"); //if not there is sql error
+            Table("User"); //if not there is sql error
 
             DynamicUpdate();
             OptimisticLock.Version();

@@ -15,7 +15,7 @@
                                  class="mr-4 vertical">
                         {{tab.name}}
                     </v-tab>
-                    <!-- <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider> -->
+                    <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider>
             </v-tabs>
         </v-layout>
     </v-flex>

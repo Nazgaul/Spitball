@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Core.Entities
 {
-    public class SystemUser : User
+    public class SystemUser : BaseUser
     {
         public override int Score { get; protected set; }
 

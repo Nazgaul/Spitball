@@ -28,7 +28,7 @@ namespace Cloudents.Core.EventHandler
         public async Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
         {
             var score = 0;
-            if (eventMessage.Question.User.Actual is RegularUser p)
+            if (eventMessage.Question.User.Actual is User p)
             {
                 score = p.Transactions.Score;
             }

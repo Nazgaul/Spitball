@@ -11,10 +11,10 @@ namespace Cloudents.Command.Courses
     public class UserJoinCoursesCommandHandler : ICommandHandler<UserJoinCoursesCommand>
     {
         private readonly IRepository<Course> _courseRepository;
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
         public UserJoinCoursesCommandHandler(IRepository<Course> courseRepository,
-            IRepository<RegularUser> userRepository)
+            IRepository<User> userRepository)
         {
             _courseRepository = courseRepository;
             _userRepository = userRepository;

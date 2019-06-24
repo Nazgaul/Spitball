@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./components/app/app.vue";
-import { sync } from 'vuex-router-sync'
+import { sync } from 'vuex-router-sync';
 import store from "./store";
 import { Language } from "./services/language/langDirective";
 import { LanguageService } from './services/language/languageService';
@@ -14,12 +14,10 @@ import scrollComponent from './components/helpers/infinateScroll.vue';
 import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
-import WebFont from "webfontloader";
-import CloudentsTour from 'cloudents-tour';
 import LoadScript from 'vue-plugin-load-script';
 
-import VueNumeric from 'vue-numeric'
-import VueMathjax from 'vue-mathjax'
+import VueNumeric from 'vue-numeric';
+import VueMathjax from 'vue-mathjax';
 import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
 
@@ -33,7 +31,7 @@ import {
     VBtnToggle,
     VCard,
     VCarousel,
-    VCheckbox,
+    //VCheckbox,
     VChip,
     VCombobox,
     VDataTable,
@@ -52,7 +50,7 @@ import {
     VSnackbar,
     VStepper,
     VSubheader,
-    VSwitch,
+   // VSwitch,
     VTabs,
     VTextarea,
     VTextField,
@@ -65,7 +63,6 @@ import {
 } from "vuetify";
 import * as route from "./routes";
 
-require('cloudents-tour/dist/cloudents-tour.css');
 
 
 //NOTE: put changes in here in webpack vendor as well
@@ -89,7 +86,7 @@ const vuetifyComponents = {
     VBtnToggle,
     VTooltip,
     VMenu,
-    VSwitch,
+   // VSwitch,
     VTabs,
     VIcon,
     VSnackbar,
@@ -99,7 +96,7 @@ const vuetifyComponents = {
     VDataTable,
     VStepper,
     VCombobox,
-    VCheckbox,
+    //VCheckbox,
     VBottomNav,
     VTextarea,
     VRating,
@@ -107,31 +104,8 @@ const vuetifyComponents = {
     VAutocomplete
 };
 
-const ilFonts = [
-    "Assistant:400",
-]
-const usFonts = [
-    "Open+Sans:400",
-    "Fira+Sans:400",
-]
-
-let usedFonts = global.lang.toLowerCase() === 'he' ? ilFonts : usFonts;
-
-//TODO: server side fix
-WebFont.load({
-    google: {
-        families: usedFonts
-    }
-});
-
-//Vue.use(VueLazyload, {
-//    lazyComponent: true,
-//    preLoad: 1.8,
-//    attempt: 1
-//});
 
 Vue.use(VueMathjax);
-Vue.use(CloudentsTour);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
 

@@ -7,10 +7,10 @@ namespace Cloudents.Command.Item.Commands.FlagItem
 {
     public class FlagDocumentCommandHandler : ICommandHandler<FlagDocumentCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IRepository<Document> _repository;
 
-        public FlagDocumentCommandHandler(IRepository<RegularUser> userRepository,
+        public FlagDocumentCommandHandler(IRepository<User> userRepository,
             IRepository<Document> documentRepository)
         {
             _userRepository = userRepository;
@@ -20,7 +20,7 @@ namespace Cloudents.Command.Item.Commands.FlagItem
         public async Task ExecuteAsync(FlagDocumentCommand message, CancellationToken token)
         {
             var document = await _repository.LoadAsync(message.Id, token);
-            User user = await _userRepository.LoadAsync(message.UserId, token);
+            BaseUser user = await _userRepository.LoadAsync(message.UserId, token);
 
 
             document.Flag(message.FlagReason, user);

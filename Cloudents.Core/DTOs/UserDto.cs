@@ -29,19 +29,19 @@ namespace Cloudents.Core.DTOs
 
     public class UserProfileDto
     {
-        [EntityBind(nameof(User.Id))]
+        [EntityBind(nameof(BaseUser.Id))]
         public long Id { get; set; }
-        [EntityBind(nameof(User.Name))]
+        [EntityBind(nameof(BaseUser.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(User.Image))]
+        [EntityBind(nameof(BaseUser.Image))]
         public string Image { get; set; }
-        [EntityBind(nameof(User.Score))]
+        [EntityBind(nameof(BaseUser.Score))]
         public int Score { get; set; }
         [EntityBind(nameof(University.Name))]
         public string UniversityName { get; set; }
-        [EntityBind(nameof(RegularUser.Description))]
+        [EntityBind(nameof(User.Description))]
         public string Description { get; set; }
-        [EntityBind(nameof(RegularUser.Online))]
+        [EntityBind(nameof(User.Online))]
         public bool Online { get; set; }
 
         //[EntityBind(nameof(Tutor.Id))]
@@ -54,9 +54,9 @@ namespace Cloudents.Core.DTOs
 
         public float Rate { get; set; }
         public int ReviewCount { get; set; }
-        [EntityBind(nameof(RegularUser.FirstName))]
+        [EntityBind(nameof(User.FirstName))]
         public string FirstName { get; set; }
-        [EntityBind(nameof(RegularUser.LastName))]
+        [EntityBind(nameof(User.LastName))]
         public string LastName { get; set; }
     }
 
@@ -83,17 +83,17 @@ namespace Cloudents.Core.DTOs
 
     public class ChatUserDto
     {
-        [EntityBind(nameof(User.Id))]
+        [EntityBind(nameof(BaseUser.Id))]
         public long UserId { get; set; }
-        [EntityBind(nameof(User.Name))]
+        [EntityBind(nameof(BaseUser.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(User.Image))]
+        [EntityBind(nameof(BaseUser.Image))]
         public string Image { get; set; }
 
         [EntityBind(nameof(ChatUser.Unread))]
         public int Unread { get; set; }
 
-        [EntityBind(nameof(RegularUser.Online))]
+        [EntityBind(nameof(User.Online))]
         public bool Online { get; set; }
 
         [EntityBind(nameof(ChatRoom.Identifier))]

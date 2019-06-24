@@ -9,7 +9,7 @@ import debounce from "lodash/debounce";
 export default {
     data() {
         return {
-            isTutorList: false,
+            isProfile: false,
             suggestsUniversities: [],
             suggestsCourses: [],
             tutorCourse: '',
@@ -37,9 +37,16 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(['accountUser']),
+        ...mapGetters(['accountUser','getCurrTutor']),
         isAuthUser(){
             return !!this.accountUser;
+        },
+        dialogTitle(){
+            if(!this.getCurrTutor) return LanguageService.getValueByKey('tutorRequest_title')
+            let currTutor = this.getCurrTutor;
+            let message = this.isProfile || currTutor.name ? LanguageService.getValueByKey('tutorRequest_title_tutor_list'): LanguageService.getValueByKey('tutorRequest_title');
+            let name = currTutor.name ? currTutor.name : '';
+            return `${message} ${name}`;
         }
     },
     methods: {
@@ -66,6 +73,10 @@ export default {
         },300),
         sendRequest() {
             let self = this;
+            let tutorId = null
+            if(this.getCurrTutor) {
+                tutorId = this.getCurrTutor.userId || this.getCurrTutor.id
+            }
             if(self.$refs.tutorRequestForm.validate()) {
                 self.btnRequestLoading = true;
                 let serverObj = {
@@ -74,18 +85,15 @@ export default {
                     email: (self.guestMail)? self.guestMail : null,
                     phone: (self.guestPhone)? self.guestPhone : null,
                     course: (self.tutorCourse)? self.tutorCourse : null,
-                    university: (self.guestUniversity)? self.guestUniversity : null,
+                    university: (self.guestUniversity.id)? self.guestUniversity.id : null,
+                    tutorId: tutorId
                 };
-                if(this.isAuthUser){
-                    let analyticsObject = {
-                        userId: self.accountUser.id,
-                        course: self.tutorCourse}
-                    analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
-                }else{
-                    let analyticsObject = {
-                        course: self.tutorCourse}
-                    analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:GUEST, T_Course:${analyticsObject.course}`);
+                let analyticsObject = {
+                    userId: this.isAuthUser ? self.accountUser.id : 'GUEST',
+                    course: self.tutorCourse
                 }
+                analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+
                 tutorService.requestTutor(serverObj)
                             .then(() => {
                                         self.tutorRequestDialogClose();
@@ -107,6 +115,6 @@ export default {
         },
     },
     created() {
-        this.$route.name === 'profile'? this.isTutorList = true : false;
+        this.isProfile = this.$route.name === 'profile'? true : false;
     },
 };

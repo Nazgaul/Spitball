@@ -4,7 +4,7 @@ using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Query
 {
-    public class UserDataByIdQuery : IQuery<RegularUser>,
+    public class UserDataByIdQuery : IQuery<User>,
         IQuery<IEnumerable<BalanceDto>>,
         IQuery<IEnumerable<TransactionDto>> 
        

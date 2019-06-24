@@ -9,9 +9,9 @@ namespace Cloudents.Web.Filters
 {
     public class UserLockedExceptionFilter : ExceptionFilterAttribute
     {
-        private readonly SignInManager<RegularUser> _signInManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserLockedExceptionFilter(SignInManager<RegularUser> signInManager)
+        public UserLockedExceptionFilter(SignInManager<User> signInManager)
         {
             _signInManager = signInManager;
             Order = 1;

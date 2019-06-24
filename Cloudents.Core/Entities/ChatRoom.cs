@@ -15,9 +15,10 @@ namespace Cloudents.Core.Entities
         {
             Users = new List<ChatUser>();
             Messages = new List<ChatMessage>();
+            Extra = new ChatRoomAdmin(this, ChatRoomStatus.Default);
         }
 
-        public ChatRoom(IList<RegularUser> users) : this()
+        public ChatRoom(IList<User> users) : this()
         {
             Users = users.Select(s => new ChatUser(this, s)).ToList();
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
@@ -41,7 +42,7 @@ namespace Cloudents.Core.Entities
         public virtual ICollection<ChatMessage> Messages { get; protected set; }
 
         public virtual string Identifier { get; protected set; }
-        public virtual ChatRoomStatus Status { get;  set; }
+        public virtual ChatRoomAdmin Extra { get;  set; }
 
         public virtual void AddMessage(ChatMessage message)
         {
@@ -58,7 +59,7 @@ namespace Cloudents.Core.Entities
                 }
             }
 
-            Status = ChatRoomStatus.Default;
+            //Status = ChatRoomStatus.Default;
             AddEvent(new ChatMessageEvent(message));
         }
     }

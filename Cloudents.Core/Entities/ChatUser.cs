@@ -11,13 +11,13 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public ChatUser(ChatRoom chatRoom, RegularUser user)
+        public ChatUser(ChatRoom chatRoom, User user)
         {
             ChatRoom = chatRoom;
             User = user;
         }
         public virtual ChatRoom ChatRoom { get; protected set; }
-        public virtual RegularUser User { get; protected set; }
+        public virtual User User { get; protected set; }
 
 
         public virtual int Unread { get;  set; }

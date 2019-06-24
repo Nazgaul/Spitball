@@ -211,8 +211,8 @@ export default {
             });
     },
     getUserConversations:(id) => {
-        const path = `AdminUser/chat`;
-        return connectivityModule.http.get(`${path}?id=${id}`).then((newConversationList) => {
+        const path = `AdminConversation`;
+        return connectivityModule.http.get(`${path}?request={id=${id}&page=0}`).then((newConversationList) => {
             let arrConversationList = [];
             if (newConversationList.length > 0) {
                 newConversationList.forEach((conversation) => {

@@ -9,14 +9,14 @@ using Cloudents.Query;
 namespace Cloudents.Web.Identity
 {
     [UsedImplicitly]
-    public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<RegularUser>
+    public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<User>
     {
         internal const string Country = "country";
         internal const string University = "university";
         internal const string Score = "score";
         //internal const string Profile = "profile";
 
-        public AppClaimsPrincipalFactory(UserManager<RegularUser> userManager,
+        public AppClaimsPrincipalFactory(UserManager<User> userManager,
             //RoleManager<ApplicationRole> roleManager,
             IQueryBus queryBus,
             IOptions<IdentityOptions> options) :
@@ -24,7 +24,7 @@ namespace Cloudents.Web.Identity
         {
         }
 
-        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(RegularUser user)
+        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(User user)
         {
             var p = await base.GenerateClaimsAsync(user);
 

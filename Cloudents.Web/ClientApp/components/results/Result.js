@@ -18,7 +18,7 @@ import resultFilter from './helpers/resultFilter/resultFilter.vue'
 import askQuestionBtn from './helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "./helpers/uploadFilesBtn/uploadFilesBtn.vue"
 
-const ResultTutor = () => import('./ResultTutor.vue');
+//const ResultTutor = () => import('./ResultTutor.vue');
 const ACADEMIC_VERTICALS = ['note', 'tutor'];
 
 //The vue functionality for result page
@@ -28,7 +28,7 @@ export default {
         ResultItem,
         ResultNote,
         SuggestCard,
-        ResultTutor,
+        //ResultTutor,
         faqBlock,
         sbDialog,
         loginToAnswer,

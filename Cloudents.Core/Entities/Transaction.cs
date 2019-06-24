@@ -15,7 +15,7 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
         }
 
-        public virtual RegularUser User { get; set; }
+        public virtual User User { get; set; }
 
         public virtual DateTime Created { get; protected set; }
 
@@ -152,7 +152,7 @@ namespace Cloudents.Core.Entities
                 //"NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
             };
 
-        public static AwardMoneyTransaction FinishRegistration(RegularUser user)
+        public static AwardMoneyTransaction FinishRegistration(User user)
         {
             var initBalance = 0;
            //var awardScore = 0;
@@ -193,10 +193,10 @@ namespace Cloudents.Core.Entities
 
     public class ReferUserTransaction : Transaction
     {
-        public virtual RegularUser InvitedUser { get; protected set; }
+        public virtual User InvitedUser { get; protected set; }
       
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public ReferUserTransaction(RegularUser invitedUser) 
+        public ReferUserTransaction(User invitedUser) 
         {
             InvitedUser = invitedUser;
             Action = TransactionActionType.ReferringUser;
@@ -251,7 +251,7 @@ namespace Cloudents.Core.Entities
             };
         }
 
-        public static void MakerTransaction(User buyer, User seller, Document d)
+        public static void MakerTransaction(BaseUser buyer, BaseUser seller, Document d)
         {
             buyer.MakeTransaction(Buyer(d));
             seller.MakeTransaction(Seller(d));

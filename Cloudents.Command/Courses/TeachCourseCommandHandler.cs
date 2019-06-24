@@ -8,8 +8,8 @@ namespace Cloudents.Command.Courses
 {
     public class TeachCourseCommandHandler : ICommandHandler<TeachCourseCommand>
     {
-        private readonly IRepository<RegularUser> _userRepository;
-        public TeachCourseCommandHandler(IRepository<RegularUser> userRepository)
+        private readonly IRepository<User> _userRepository;
+        public TeachCourseCommandHandler(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "Nhibernate")]
     public class StudyRoom : Entity<Guid>, IAggregateRoot
     {
-        public StudyRoom(Tutor tutor, RegularUser user, string onlineDocumentUrl)
+        public StudyRoom(Tutor tutor, User user, string onlineDocumentUrl)
         {
             
             _users = new[] { new StudyRoomUser(tutor.User,this),  new StudyRoomUser(user,this) };

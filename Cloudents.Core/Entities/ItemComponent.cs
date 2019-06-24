@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
         public DateTime? DeletedOn { get; }
 
         public string FlagReason { get; }
-        public User FlaggedUser { get; }
+        public BaseUser FlaggedUser { get; }
 
 
         private const int MaxReasonLength = 255;
@@ -42,7 +42,7 @@ namespace Cloudents.Core.Entities
         {
 
         }
-        private ItemStatus(ItemState state, DateTime? deletedOn, string flagReason, User flaggedUser) : this()
+        private ItemStatus(ItemState state, DateTime? deletedOn, string flagReason, BaseUser flaggedUser) : this()
         {
             State = state;
             DeletedOn = deletedOn;
@@ -55,7 +55,7 @@ namespace Cloudents.Core.Entities
         public static readonly ItemStatus Flagged = new ItemStatus(ItemState.Flagged, null, null, null);
         //public static readonly ItemStatus FlagStatus = new ItemStatus(ItemState.Deleted, null, null, null);
 
-        public ItemStatus Flag(string reason, User user)
+        public ItemStatus Flag(string reason, BaseUser user)
         {
             if (!ValidateFlagReason(reason))
             {
@@ -69,7 +69,7 @@ namespace Cloudents.Core.Entities
             }
             return new ItemStatus(ItemState.Flagged, null, reason, user);
         }
-        public static ItemStatus GetInitState(RegularUser user)
+        public static ItemStatus GetInitState(User user)
         {
             if (user.Transactions.Score < Privileges.Post)
             {

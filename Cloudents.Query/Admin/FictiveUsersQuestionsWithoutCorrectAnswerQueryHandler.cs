@@ -34,7 +34,7 @@ namespace Cloudents.Query.Admin
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
             AnswerOfQuestionWithoutCorrectAnswer dtoAnswerAlias = null;
             Question questionAlias = null;
-            User userAlias = null;
+            BaseUser userAlias = null;
 
             var questions = await _session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.User, () => userAlias)

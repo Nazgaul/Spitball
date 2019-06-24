@@ -1,13 +1,11 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +13,6 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Web.Filters;
@@ -26,8 +23,7 @@ namespace Cloudents.Web.Controllers
     public class DocumentController : Controller
     {
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
-        private readonly UserManager<RegularUser> _userManager;
-        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
+        private readonly UserManager<User> _userManager;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IQueryBus _queryBus;
         private readonly IQueueProvider _queueProvider;
@@ -36,12 +32,10 @@ namespace Cloudents.Web.Controllers
 
         public DocumentController(
             IDocumentDirectoryBlobProvider blobProvider,
-            IStringLocalizer<SharedResource> sharedLocalizer,
             IStringLocalizer<DocumentController> localizer,
-            IQueryBus queryBus, IQueueProvider queueProvider, UserManager<RegularUser> userManager)
+            IQueryBus queryBus, IQueueProvider queueProvider, UserManager<User> userManager)
         {
             _blobProvider = blobProvider;
-            _sharedLocalizer = sharedLocalizer;
             _localizer = localizer;
             _queryBus = queryBus;
             _queueProvider = queueProvider;

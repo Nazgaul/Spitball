@@ -22,7 +22,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
         {
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
-            if (!(question.User.Actual is RegularUser))
+            if (!(question.User.Actual is User))
             {
                 return;
             }
