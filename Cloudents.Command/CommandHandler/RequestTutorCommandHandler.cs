@@ -1,4 +1,5 @@
-﻿using Cloudents.Command.Command;
+﻿using System.Linq;
+using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -73,7 +74,7 @@ namespace Cloudents.Command.CommandHandler
 
                 }
                 var user = await _userRepository.LoadAsync(message.UserId.Value, token);
-                foreach (var userId in tutorsIds)
+                foreach (var userId in tutorsIds.Distinct())
                 {
                     //  needToRegisterLead = false;
                     var users = new[] { userId, message.UserId.Value };

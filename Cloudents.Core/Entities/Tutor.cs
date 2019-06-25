@@ -82,9 +82,9 @@ namespace Cloudents.Core.Entities
 
 
         public virtual byte[] Version { get; protected set; }
-        public virtual void AddReview(string review, float rate, User user, StudyRoom room)
+        public virtual void AddReview(string review, float rate, User user)
         {
-            var newReview = new TutorReview(review,rate,user,this, room);
+            var newReview = new TutorReview(review,rate,user,this);
 
             _reviews.Add(newReview);
         }
