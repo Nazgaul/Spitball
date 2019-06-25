@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div :class="{'dialogLayout': isDialog}">
     <v-toolbar color="purple" class="mb-3">
       <v-toolbar-title class="white--text">Send a message</v-toolbar-title>
     </v-toolbar>
 
-    <v-text-field v-model="studentId" label="Student Id"></v-text-field>
-    <v-text-field v-model="tutorId" label="Tutor Id"></v-text-field>
-    <v-text-field v-model="textMessage" label="text"></v-text-field>
+    <v-text-field v-model="studentId" label="Student Id" :class="{'px-4': isDialog}"></v-text-field>
+    <v-text-field v-model="tutorId" label="Tutor Id" :class="{'px-4': isDialog}">></v-text-field>
+    <v-text-field v-model="textMessage" label="text" :class="{'px-4': isDialog}">></v-text-field>
     <v-btn :disabled="disable" @click="submit()">Send</v-btn>
 
     <v-snackbar v-model="snackbar" :color="color" :timeout="5000" top>
@@ -19,15 +19,24 @@
 <script>
 import { connectivityModule } from "../../services/connectivity.module";
 export default {
+  props: {
+    isDialog: {
+      type: Boolean
+    },
+    userId: {},
+    closeDialog: {
+      type: Function
+    }
+  },
   data() {
     return {
       tutorId: '',
-      studentId: '',
+      defaultStudentId: '',
       disable: false,
       color: "green",
       snackbar: false,
       text: "",
-      textMessage:""
+      textMessage:"",
     };
   },
   methods: {
@@ -38,16 +47,11 @@ export default {
         .post("AdminConversation/start", {
           userId: this.studentId,
           tutorId: this.tutorId,
-          message:this.textMessage
+          message: this.textMessage
         })
         .then(
           () => {
-            this.color = "green";
-            this.text = "send successfully";
-            this.snackbar = true;
-            this.tutorId = "";
-            this.studentId = "";
-            this.textMessage = "";
+            this.closeDialog()
           },
           () => {
             this.color = "red";
@@ -58,13 +62,24 @@ export default {
         .finally(() => {
           this.disable = false;
         });
-
-      console.log(this.tutorId, this.studentId);
+    },
+  },
+  computed:{
+    studentId:{
+      get(){
+        return this.defaultStudentId || this.userId;
+      },
+      set(val){
+        this.defaultStudentId = val;
+      }
     }
   },
-  created() {
-      this.studentId = this.$route.query ? this.$route.query.id : ''
-    }
 };
 </script>
+
+<style lang="scss">
+  .dialogLayout {
+    background-color: #fff;
+  }
+</style>
 

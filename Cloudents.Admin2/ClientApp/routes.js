@@ -49,8 +49,11 @@ import startConversations from './components/conversation/startconversation.vue'
 
 import tutors from './components/tutor/tutor.vue';
 import pendingTutors from './components/tutor/pendingTutors/pendingTutor.vue';
+import deleteTutors from './components/tutor/tutorDelete/tutorDelete.vue';
 import studyRoom from './components/studyRoom/studyRoom.vue';
 import studyRoomSession from './components/studyRoom/studyRoomComponents/sessions/studyRoomsSessions.vue';
+
+import leads from './components/leads/leads.vue'
 
 export const routes = [
     {
@@ -111,7 +114,11 @@ export const routes = [
             {
             path: 'pendingTutors',
             component: pendingTutors
-            }
+            },
+            {
+              path: 'deleteTutors',
+              component: deleteTutors
+              }
             ]
 
     },
@@ -337,6 +344,11 @@ export const routes = [
           redirect: 'change-country'
         }
       ]
+    },
+    {
+      path: '/leads',
+      name: 'leads',
+      component: leads,
     },
     {
          path: '/*',
