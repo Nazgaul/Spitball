@@ -273,7 +273,8 @@ export default {
         fullBoard: "fullBoard",
         fullScreenVideo: "fullScreenVideo"
       },
-      activeViewOption: "videoChat"
+      activeViewOption: "videoChat",
+      userId: !!this.accountUser ? this.accountUser.id : 'GUEST',
     };
   },
 
@@ -362,6 +363,7 @@ export default {
       this.updateStudentStartDialog(false);
     },
     updateActiveNav(value) {
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
       this.activeNavItem = value;
       console.log(this.activeItem);
     },
@@ -369,6 +371,7 @@ export default {
       this.updateTestDialogState(val);
     },
     selectViewOption(param) {
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_selectViewOption', {'roomId': this.id, 'userId': this.userId, 'viewOption': param}, null)
       this.activeViewOption = param;
       if (this.activeViewOption === this.enumViewOptions.videoChat) {
         this.videoChat = !this.videoChat;
@@ -384,6 +387,7 @@ export default {
     },
     biggerRemoteVideo() {
       //check browser support
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_biggerRemoteVideo', {'roomId': this.id, 'userId': this.userId}, null)
       var video = document.querySelector("#remoteTrack video");
       if (!video) return;
       if (video.requestFullscreen) {
@@ -399,13 +403,17 @@ export default {
     setStudyRoom(id) {
       let self = this;
       tutorService.getRoomInformation(id).then((RoomProps) => {
+        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', RoomProps, null)
         initSignalRService(`studyRoomHub?studyRoomId=${id}`);
         this.updateStudyRoomProps(RoomProps);
         self.getChatById(RoomProps.conversationId).then(({ data }) => {
+          insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
           let currentConversationObj = chatService.createActiveConversationObj(data);
           self.setActiveConversationObj(currentConversationObj);
           self.lockChat();
         });
+      }, err => {
+        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
       });
     },
     closeWin() {
@@ -427,13 +435,12 @@ export default {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)
         let roomId = this.id ? this.id : 'No-Id';
-        let userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
-        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_BrowserNotSupported', {'roomId': roomId, 'userId': userId}, null)
+        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_BrowserNotSupported', {'roomId': roomId, 'userId': this.userId}, null)
       })
       return;
     }
     if(!!this.id){
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Enter', {'roomId': this.id, 'userId': this.accountUser.id}, null)
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null)
       this.setRoomId(this.id);
       this.setStudyRoom(this.id);
     }
