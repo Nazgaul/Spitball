@@ -6,7 +6,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
-using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
@@ -14,7 +13,6 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -151,7 +149,7 @@ namespace Cloudents.Web.Api
             {
                 if (model.Email == null)
                 {
-                    ModelState.AddModelError(nameof(model.Email),"Need to have email");
+                    ModelState.AddModelError(nameof(model.Email), "Need to have email");
                     return BadRequest(ModelState);
                 }
                 var user = await _userManager.FindByEmailAsync(model.Email);
@@ -176,28 +174,26 @@ namespace Cloudents.Web.Api
                 {
                     user = new User(model.Email, CultureInfo.CurrentCulture)
                     {
-                        PasswordHash = model.Phone,
+                        PhoneNumber = model.Phone,
                         Name = model.Name,
-                    };
 
+                    };
+                    var createUserCommand = new CreateUserCommand(user, model.University);
+                    await _commandBus.DispatchAsync(createUserCommand, token);
+                    userId = user.Id;
                 }
-                //TODO : need to register user
             }
 
 
             var utmSource = referer.ParseQueryString()["utm_source"];
-            // if (userId > 0)
-            // {
             var command = new RequestTutorCommand(model.Course,
                 _stringLocalizer["RequestTutorChatMessage", model.Course],
                 userId,
-                model.University,
+              
                 referer.AbsoluteUri,
-                model.Name,
-                model.Phone,
-                model.Text,model.Email, model.TutorId, utmSource);
+                model.Text,  model.TutorId, utmSource);
             await _commandBus.DispatchAsync(command, token);
-        
+
             return Ok();
         }
 
