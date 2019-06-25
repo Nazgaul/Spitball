@@ -18,6 +18,7 @@ namespace Cloudents.Core.Entities
             Email = email;
             Tutor = tutor;
             UtmSource = utmSource;
+            CreationTime = DateTime.UtcNow;
         }
 
       
@@ -42,5 +43,7 @@ namespace Cloudents.Core.Entities
         public virtual Tutor Tutor { get; protected set; }
 
         public virtual string UtmSource { get;protected set; }
+
+        public virtual DateTime CreationTime { get; set; }
     }
 }
