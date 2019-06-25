@@ -51,13 +51,9 @@ export default {
             }
         }
     },
-    watch: {
-        '$route': 'createVideoSession'
-    },
     methods: {
         ...mapActions([
             'updateReviewDialog',
-            'setRoomId',
             'updateToasterParams',
             'setSesionClickedOnce'
         ]),
@@ -77,8 +73,5 @@ export default {
     mounted() {
         this.showLocalVideo()
     },
-    created() {
-        this.setRoomId(this.id);
-    }
 };
 

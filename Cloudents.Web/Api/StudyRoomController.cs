@@ -74,22 +74,24 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var result = await GetStudyRoomAsync(id, userId, token);
+            var query = new StudyRoomQuery(id, userId);
+            var result = await _queryBus.QueryAsync(query, token);
+
+            
             //TODO: need to add who is the tutor
             if (result == null)
             {
                 return NotFound();
             }
-
             return result;
         }
 
-        private async Task<StudyRoomDto> GetStudyRoomAsync(Guid id, long userId, CancellationToken token)
-        {
-            var query = new StudyRoomQuery(id, userId);
-            var result = await _queryBus.QueryAsync(query, token);
-            return result;
-        }
+        //private async Task<StudyRoomDto> GetStudyRoomAsync(Guid id, long userId, CancellationToken token)
+        //{
+        //    var query = new StudyRoomQuery(id, userId);
+        //    var result = await _queryBus.QueryAsync(query, token);
+        //    return result;
+        //}
 
         [HttpPost("upload"),AllowAnonymous]
         public async Task<IActionResult> UploadAsync(IFormFile file,

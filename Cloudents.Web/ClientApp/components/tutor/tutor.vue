@@ -217,6 +217,7 @@ import whiteBoardTools from "./whiteboard/whiteboardTools.vue";
 import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue";
 import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
 import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
+import insightService from '../../services/insightService.js';
 
 export default {
   components: {
@@ -291,7 +292,8 @@ export default {
       "getStudentStartDialog",
       "getTutorStartDialog",
       "getEndDialog",
-      "getBrowserSupportDialog"
+      "getBrowserSupportDialog",
+      "accountUser",
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -344,7 +346,8 @@ export default {
       "closeChat",
       "openChatInterface",
       "updateEndDialog",
-      "setBrowserSupportDialog"
+      "setBrowserSupportDialog",
+      "setRoomId"
     ]),
     closeReviewDialog() {
       this.updateReviewDialog(false);
@@ -395,14 +398,11 @@ export default {
     },
     setStudyRoom(id) {
       let self = this;
-      tutorService.getRoomInformation(id).then(({ data }) => {
+      tutorService.getRoomInformation(id).then((RoomProps) => {
         initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-        let roomData = { ...data, roomId: id };
-        this.updateStudyRoomProps(roomData);
-        self.getChatById(data.conversationId).then(({ data }) => {
-          let currentConversationObj = chatService.createActiveConversationObj(
-            data
-          );
+        this.updateStudyRoomProps(RoomProps);
+        self.getChatById(RoomProps.conversationId).then(({ data }) => {
+          let currentConversationObj = chatService.createActiveConversationObj(data);
           self.setActiveConversationObj(currentConversationObj);
           self.lockChat();
         });
@@ -426,10 +426,15 @@ export default {
     if (!this.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)
+        let roomId = this.id ? this.id : 'No-Id';
+        let userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
+        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_BrowserNotSupported', {'roomId': roomId, 'userId': userId}, null)
       })
       return;
     }
     if(!!this.id){
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Enter', {'roomId': this.id, 'userId': this.accountUser.id}, null)
+      this.setRoomId(this.id);
       this.setStudyRoom(this.id);
     }
     this.$loadScript(
