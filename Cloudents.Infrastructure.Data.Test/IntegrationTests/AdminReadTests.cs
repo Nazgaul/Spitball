@@ -77,7 +77,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var t2 = fixture.QueryBus.QueryAsync<IList<PendingUniversitiesDto>>(queryNull, default);
             await Task.WhenAll(t1, t2);
         }
-        
+
 
         //[Fact]
         //public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
@@ -123,6 +123,56 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var t1 = fixture.QueryBus.QueryAsync(query, default);
             var t2 = fixture.QueryBus.QueryAsync(query2, default);
             await Task.WhenAll(t1, t2);
+        }
+
+        [Fact]
+        public async Task AdminUserAnswersQuery_Ok()
+        {
+            var query = new AdminUserAnswersQuery(159039, 0);
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task AdminUserDetailsQuery_Ok()
+        {
+            var q1 = new AdminUserDetailsQuery(159039.ToString());
+            var q2 = new AdminUserDetailsQuery("Hadar@cloudents.com");
+            var q3 = new AdminUserDetailsQuery("0523556456");
+            var t1 =  fixture.QueryBus.QueryAsync(q1, default);
+            var t2 =  fixture.QueryBus.QueryAsync(q2, default);
+            var t3 =  fixture.QueryBus.QueryAsync(q3, default);
+            await Task.WhenAll(t1, t2, t3);
+        }
+
+        [Fact]
+        public async Task AdminUserDocumentsQuery_Ok()
+        {
+            var query = new AdminUserDocumentsQuery(159039, 0);
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task AdminUserFlagsOthersQuery_Ok()
+        {
+            var q1 = new AdminUserFlagsOthersQuery(3, 0);
+            var q2 = new AdminUserFlagsOthersQuery(2, 2);
+            var t1 = fixture.QueryBus.QueryAsync(q1, default);
+            var t2 = fixture.QueryBus.QueryAsync(q2, default);
+            await Task.WhenAll(t1, t2);
+        }
+
+        [Fact]
+        public async Task AdminUserPurchasedDocsQuery_Ok()
+        {
+            var query = new AdminUserPurchasedDocsQuery(159039, 0);
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task AdminUserQuestionsQuery_Ok()
+        {
+            var query = new AdminUserQuestionsQuery(159039, 0);
+            await fixture.QueryBus.QueryAsync(query, default);
         }
     }
 }
