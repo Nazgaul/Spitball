@@ -67,7 +67,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
-            user = new User(model.Email, null, null, CultureInfo.CurrentCulture);
+            user = new User(model.Email, CultureInfo.CurrentCulture);
             var p = await _userManager.CreateAsync(user, model.Password);
             if (p.Succeeded)
             {

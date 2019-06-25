@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -173,6 +174,11 @@ namespace Cloudents.Web.Api
                 }
                 else
                 {
+                    user = new User(model.Email, CultureInfo.CurrentCulture)
+                    {
+                        PasswordHash = model.Phone,
+                        Name = model.Name,
+                    };
 
                 }
                 //TODO : need to register user
