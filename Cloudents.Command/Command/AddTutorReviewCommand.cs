@@ -11,7 +11,7 @@ namespace Cloudents.Command.Command
             Rate = rate;
             UserId = userId;
         }
-        public Guid RoomId { get; set; }
+        public Guid RoomId { get; }
         public string Review { get; }
         public float Rate { get; }
         public long UserId { get; }

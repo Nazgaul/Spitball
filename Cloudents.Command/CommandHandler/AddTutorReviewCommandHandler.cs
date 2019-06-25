@@ -1,7 +1,6 @@
 ﻿using System;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using System.Linq;
 using System.Threading;
@@ -29,12 +28,12 @@ namespace Cloudents.Command.CommandHandler
             if (studyRoom.Users.Any(a => a.User.Id == message.UserId))
             {
                 //Room can be null because of fake reviews
-                if (userTutor.Tutor.Reviews.Any(w => w.Room?.Id == message.RoomId))
-                {
-                    throw new DuplicateRowException();
-                }
+                //if (userTutor.Tutor.Reviews.Any(w => w.Room?.Id == message.RoomId))
+                //{
+                //    throw new DuplicateRowException();
+                //}
                 var user = await _regularUserRepository.LoadAsync(message.UserId, token);
-                userTutor.Tutor.AddReview(message.Review, message.Rate, user, studyRoom);
+                userTutor.Tutor.AddReview(message.Review, message.Rate, user);
             }
             else
             {

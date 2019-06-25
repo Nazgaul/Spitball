@@ -4,6 +4,9 @@ import { connectivityModule } from '../../services/connectivity.module';
 import { LanguageService } from '../../services/language/languageService';
 import store from '../../store/index.js';
 import whiteBoardService from "./whiteboard/whiteBoardService";
+import insightService from '../../services/insightService';
+
+
 
 const dataTrack = new LocalDataTrack();
 const uploadCanvasImage = function (formData) {
@@ -41,6 +44,7 @@ const detachParticipantTracks = function (participant) {
 };
 
 const printNetworkQuality = function (networkQualityLevel,networkQualityStats) {
+    insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_networkQuality', networkQualityLevel, null);
     store.dispatch('updateLocalParticipantsNetworkQuality', networkQualityLevel);
     console.log({
         1: '▃',
@@ -109,11 +113,13 @@ const createAudioContext = function () {
 
 const connectToRoom = function (token, options) {
     // disconnect the user from room if they already joined
+    insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_connectToRoom', {'token': token}, null);
     store.dispatch('leaveRoomIfJoined');
     Twilio.connect(token, options)
         .then((room) => {
             // add microphone indicator, comment if not in use, otherwise will throw errors cause cant get element
             // createAudioContext();
+            insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioConnect', room, null);
             store.dispatch('updateRoomInstance', room);
             console.log('Successfully joined a Room: ', room);
             store.dispatch('updateRoomLoading', false);
@@ -148,8 +154,9 @@ const connectToRoom = function (token, options) {
             //disconnected room
             store.getters['activeRoom'].on('disconnected', (room, error) => {
                 if(!error) return;
-                let errorCode = !!error && error.code ? error.code : "";
                 
+                let errorCode = !!error && error.code ? error.code : "";
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioDisconnected', {'errorCode': errorCode}, null);
                 if (errorCode === 20104) {
                     console.error('Signaling reconnection failed due to expired AccessToken!');
                 } else if (errorCode === 53000) {
@@ -183,6 +190,7 @@ const connectToRoom = function (token, options) {
 
             // Attach the Participant's Media to a <div> element.
             store.getters['activeRoom'].on('participantConnected', participant => {
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioParticipantConnected', participant, null);
                 console.log(`Participant "${participant.identity}" connected`);
                 store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.active);
                 store.dispatch('updateRemoteStatus', false);
@@ -198,6 +206,7 @@ const connectToRoom = function (token, options) {
             });
             // When a Participant adds a Track, attach it to the DOM.
             store.getters['activeRoom'].on('trackSubscribed', (track, participant) => {
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioTrackSubscribed', track, null);
                 let previewContainer = document.getElementById('remoteTrack');
                 if (track.kind === 'data') {
                     track.on('message', transferObj => {
@@ -223,12 +232,14 @@ const connectToRoom = function (token, options) {
             });
             // When a Participant's Track is unsubscribed from, detach it from the DOM.
             store.getters['activeRoom'].on('trackUnsubscribed', function (track) {
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioTrackUnsubscribed', track, null);
                 console.log(" removed track: " + track.kind);
                 detachTracks([track]);
             });
 
             // When a Participant leaves the Room, detach its Tracks.
             store.getters['activeRoom'].on('participantDisconnected', (participant) => {
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioParticipantDisconnected', participant, null);
                 let localIdentity = store.getters['userIdentity'];
                 console.log("Participant '" + participant.identity + "' left the room");
                 if (participant.identity === localIdentity) {

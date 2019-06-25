@@ -96,6 +96,8 @@
     import notAllowed from "./qualitySteps/notAllowed.vue";
     import microphoneImage from "../../images/microphone.svg";
     import videoImage from "../../images/video-camera.svg";
+    import insightService from '../../../../services/insightService'
+
     export default {
         name: "qualityValidation",
         components: {
@@ -112,10 +114,11 @@
                 // notAllowedDevices: false,
                 steps: 3,
                 step: 1,
+                userId: !!this.accountUser ? this.accountUser.id : 'GUEST'
             };
         },
         computed: {
-            ...mapGetters(["getNotAllowedDevices", "getNotAvaliableDevices"]),
+            ...mapGetters(["getNotAllowedDevices", "getNotAvaliableDevices", 'accountUser']),
             isErorrGettingMedia() {
                 return this.getNotAllowedDevices || this.getNotAvaliableDevices;
             }
@@ -150,6 +153,11 @@
                     console.log(y);
                     devicesObjects.hasVideo = true;
                 }, err => {
+                    let insightErrorObj={
+                        error: err,
+                        userId: this.userId
+                    }
+                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_qualityValidation_getUserMedia_VIDEO', insightErrorObj, null);
                     console.error(err.name + ":VIDEO!!!!!!!!!!!!!!!! " + err.message, err);
                     devicesObjects.errors.push(err.name)
                 });
@@ -158,6 +166,11 @@
                     console.log(y);
                     devicesObjects.hasAudio = true;
                 }, err => {
+                    let insightErrorObj={
+                        error: err,
+                        userId: this.userId
+                    }
+                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_qualityValidation_getUserMedia_AUDIO', insightErrorObj, null);
                     console.error(err.name + ":AUDIO!!!!!!!!!!!!!!!! " + err.message, err);
                     devicesObjects.errors.push(err.name)
                 });

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Cloudents.Core.DTOs;
-using Dapper;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;

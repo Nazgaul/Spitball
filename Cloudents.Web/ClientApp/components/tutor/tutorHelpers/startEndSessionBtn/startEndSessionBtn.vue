@@ -48,12 +48,6 @@
             stopIcon
 
         },
-        props: {
-            id: {
-                type: String,
-                required: true
-            },
-        },
         computed: {
             ...mapState(['tutoringMainStore']),
             ...mapGetters([

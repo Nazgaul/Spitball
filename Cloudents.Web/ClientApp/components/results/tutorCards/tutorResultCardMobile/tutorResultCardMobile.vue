@@ -163,7 +163,7 @@ export default {
         border-radius: 0 0 4px 4px;
       }
       .tutor-name {
-        .giveMeEllipsis(1,1.5);
+        .giveMeEllipsis(1,22);
         font-size: 13px;
         font-weight: 700;
         max-width: 120px;
@@ -179,7 +179,7 @@ export default {
         height: 96px;
       }
       .bottom-section {
-        .giveMeEllipsis(2,1.7);
+        .giveMeEllipsis(2,22);
       }
   }
   // END styles for card rendered inside tutor list only
@@ -195,7 +195,7 @@ export default {
     padding: 12px;
   }
   .tutor-name {
-    .giveMeEllipsis(1,1.5);
+    .giveMeEllipsis(1,22);
     color: @profileTextColor;
     word-break: break-all;
     font-size: 16px;
@@ -225,7 +225,7 @@ export default {
     justify-self: flex-end;
     margin-top: auto;
     color: #4452fc;
-    .giveMeEllipsis(3,1.7);
+    .giveMeEllipsis(3,22);
   }
   .rating-holder {
     margin-bottom: 8px;

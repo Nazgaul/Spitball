@@ -89,7 +89,7 @@
         data() {
             return {
                 reviewText: '',
-                reviewInputHidden: true,
+                reviewInputHidden: false,
                 reviewSent: false,
                 btnLoading: false,
                 reviewVal: 0,

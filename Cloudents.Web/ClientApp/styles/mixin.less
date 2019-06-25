@@ -63,14 +63,14 @@
 }
 
 
-.giveMeEllipsis(@lines, @line-height) {
+.giveMeEllipsis(@lines, @line-height,@type:px) {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: @lines; /* number of lines to show */
-  line-height: @line-height; /* fallback */
-  max-height: (@lines*@line-height); /* fallback */
+  line-height: unit(@line-height, @type); /* fallback */
+  max-height: unit((@lines*@line-height), @type); /* fallback */
 }
 
 .giveMeEllipsisOne() {
