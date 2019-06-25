@@ -74,8 +74,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("cashOut")]
         public async Task<IEnumerable<CashOutDto>> Get(CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            return await _queryBus.QueryAsync<IEnumerable<CashOutDto>>(query, token);
+            var query = new AdminCashOutEmptyQuery();
+            return await _queryBus.QueryAsync(query, token);
         }
 
 
@@ -130,8 +130,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("suspended")]
         public async Task<IEnumerable<SuspendedUsersDto>> GetSuspended(CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            return await _queryBus.QueryAsync<IEnumerable<SuspendedUsersDto>>(query, token);
+            var query = new SuspendedUsersEmptyQuery();
+            return await _queryBus.QueryAsync(query, token);
         }
 
         /// <summary>

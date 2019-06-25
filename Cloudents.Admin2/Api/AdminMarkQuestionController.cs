@@ -10,6 +10,7 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Admin2.Api
 {
@@ -19,11 +20,13 @@ namespace Cloudents.Admin2.Api
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public AdminMarkQuestionController(ICommandBus commandBus, IQueryBus queryBus)
+        public AdminMarkQuestionController(ICommandBus commandBus, IQueryBus queryBus, IUrlBuilder urlBuilder)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
+            _urlBuilder = urlBuilder;
         }
 
         /// <summary>
@@ -36,8 +39,13 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(int page, CancellationToken token)
         {
-            var query = new AdminPageQuery(page);
-            return await _queryBus.QueryAsync(query, token);
+            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(page);
+            var result = await _queryBus.QueryAsync(query, token);
+            foreach (var res in result)
+            {
+                res.Url = _urlBuilder.BuildQuestionEndPoint(res.Id);
+            }
+            return result;
         }
 
         /// <summary>

@@ -4,13 +4,13 @@ using System;
 
 namespace Cloudents.Core.DTOs.Admin
 {
-    public class NewCourseDto
-    {
-        [EntityBind(nameof(Course.Id))]
-        public string NewCourse { get; set; }
-        [EntityBind(nameof(Course.Id))]
-        public string OldCourse { get; set; }
-    }
+    //public class NewCourseDto
+    //{
+    //    [EntityBind(nameof(Course.Id))]
+    //    public string NewCourse { get; set; }
+    //    [EntityBind(nameof(Course.Id))]
+    //    public string OldCourse { get; set; }
+    //}
 
 
     public class PendingCoursesDto
@@ -19,18 +19,6 @@ namespace Cloudents.Core.DTOs.Admin
         public string Name { get; set; }
     }
 
-    public class NewUniversitiesDto
-    {
-        [EntityBind(nameof(University.Id))]
-        public Guid NewId { get; set; }
-        [EntityBind(nameof(University.Name))]
-        public string NewUniversity { get; set; }
-        [EntityBind(nameof(University.Id))]
-        public Guid OldId { get; set; }
-        [EntityBind(nameof(University.Name))]
-        public string OldUniversity { get; set; }
-
-    }
 
 
     public class PendingUniversitiesDto
