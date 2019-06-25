@@ -131,6 +131,6 @@ Reason: fraudulent behavior against our T&amp;C</value>
     <value>Please finish sign up process</value>
   </data>
   <data name="TempLockOut" xml:space="preserve">
-    <value>User is locked, please try to login again in 5 minutes</value>
+    <value>Wrong password was entered three times in a row, user locked for 5 minutes</value>
   </data>
 </root>
