@@ -44,6 +44,8 @@ namespace Cloudents.Core.Entities
         public virtual string UtmSource { get; protected set; }
 
         public virtual DateTime CreationTime { get; set; }
+
+        public virtual ItemState? Status { get; set; }
         public virtual void ChangeState(ItemState status)
         {
             Status = status;
