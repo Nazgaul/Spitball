@@ -15,7 +15,6 @@ using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Hubs;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +29,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Models;
+using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Microsoft.AspNetCore.Http;
 

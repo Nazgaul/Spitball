@@ -29,10 +29,10 @@ namespace Cloudents.Web.Services
             await _serviceBusProvider.InsertMessageAsync(message, token);
         }
 
-        public Task<(string phoneNumber,string country)> ValidateNumberAsync(string phoneNumber, CancellationToken token)
-        {
-            return _smsProvider.ValidateNumberAsync(phoneNumber, token);
-        }
+        //public Task<(string phoneNumber,string country)> ValidateNumberAsync(string phoneNumber,string countryCode, CancellationToken token)
+        //{
+        //    return _smsProvider.ValidateNumberAsync(phoneNumber, countryCode, token);
+        //}
 
         public async Task SendSmsAsync(User user, CancellationToken token)
         {

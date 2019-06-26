@@ -20,17 +20,17 @@ namespace Cloudents.Web.Models
         public int CountryCode { get; set; }
 
 
-        public override string ToString()
-        {
-            var sb = new StringBuilder($"+{CountryCode}");
-            if (PhoneNumber.StartsWith("0"))
-            {
-                PhoneNumber = PhoneNumber.Remove(0, 1);
-            }
+        //public override string ToString()
+        //{
+        //    var sb = new StringBuilder($"+{CountryCode}");
+        //    if (PhoneNumber.StartsWith("0"))
+        //    {
+        //        PhoneNumber = PhoneNumber.Remove(0, 1);
+        //    }
 
-            sb.Append(PhoneNumber);
-            return sb.ToString();
-        }
+        //    sb.Append(PhoneNumber);
+        //    return sb.ToString();
+        //}
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
