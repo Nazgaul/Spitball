@@ -10,7 +10,7 @@
           right: () => moveCarousel('right')
         }"
         :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
-      <div v-for="(card, index) in cards" :key="index" class="tutor-carousel-card elevation-10">
+      <div v-for="(card, index) in cards" :key="index" class="tutor-carousel-card">
             <div class="tutor-carousel-card-top pb-4">
               <p v-line-clamp:16="'3'">{{card.text}}</p>
               <img :src="getImgUrl(card.image)" v-show="card.image"/>
@@ -176,6 +176,7 @@ export default {
         .tutor-carousel-card {
           background: #fff;
           padding: 20px;
+          border: 1px solid #f0f0f7;
           .tutor-carousel-card-top{
             display: flex;
             p {
