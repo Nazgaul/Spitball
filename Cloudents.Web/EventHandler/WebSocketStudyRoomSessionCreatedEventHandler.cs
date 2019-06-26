@@ -12,8 +12,9 @@ using System.Threading.Tasks;
 namespace Cloudents.Web.EventHandler
 {
     public class WebSocketStudyRoomSessionCreatedEventHandler
-        : IEventHandler<StudyRoomSessionCreatedEvent>, IEventHandler<StudyRoomSessionRejoinEvent>,
-             IEventHandler<StudyRoomOnlineChangeEvent>
+        : IEventHandler<StudyRoomSessionCreatedEvent>,
+            IEventHandler<StudyRoomSessionRejoinEvent>
+             //IEventHandler<StudyRoomOnlineChangeEvent>
     {
         private readonly IHubContext<StudyRoomHub> _hubContext;
         private readonly IVideoProvider _videoProvider;
@@ -57,53 +58,53 @@ namespace Cloudents.Web.EventHandler
             await DoProcessAsync(studyRoomSession, token);
         }
 
-        public async Task HandleAsync(StudyRoomOnlineChangeEvent eventMessage, CancellationToken token)
-        {
-            var studyUser = eventMessage.StudyUser;
-            var studyRoom = studyUser.Room;
+        //public async Task HandleAsync(StudyRoomOnlineChangeEvent eventMessage, CancellationToken token)
+        //{
+        //    var studyUser = eventMessage.StudyUser;
+        //    var studyRoom = studyUser.Room;
 
 
-            var onlineCount = studyRoom.Users.Count(f => f.Online);
-            var totalOnline = studyRoom.Users.Count;
+        //    var onlineCount = studyRoom.Users.Count(f => f.Online);
+        //    var totalOnline = studyRoom.Users.Count;
 
-            var messageData = new SignalRData
-            {
-                OnlineCount = onlineCount,
-                TotalOnline = totalOnline,
-                // JwtToken = jwtToken
-            };
+        //    var messageData = new SignalRData
+        //    {
+        //        OnlineCount = onlineCount,
+        //        TotalOnline = totalOnline,
+        //        // JwtToken = jwtToken
+        //    };
 
-            var tasks = new List<Task>();
+        //    var tasks = new List<Task>();
 
-            //if (onlineCount == totalOnline)
-            //{
+        //    //if (onlineCount == totalOnline)
+        //    //{
             
-            var session = studyRoom.Sessions.AsQueryable().Where(w => w.Ended == null).OrderByDescending(o => o.Id).FirstOrDefault();
+        //    var session = studyRoom.Sessions.AsQueryable().Where(w => w.Ended == null).OrderByDescending(o => o.Id).FirstOrDefault();
 
 
-            foreach (var user in studyRoom.Users)
-            {
-                if (session != null && onlineCount == totalOnline)
-                {
-                    var jwtToken =
-                        await _videoProvider.ConnectToRoomAsync(session.SessionId, user.User.Id.ToString());
-                    messageData.JwtToken = jwtToken;
-                }
+        //    foreach (var user in studyRoom.Users)
+        //    {
+        //        if (session != null && onlineCount == totalOnline)
+        //        {
+        //            var jwtToken =
+        //                await _videoProvider.ConnectToRoomAsync(session.SessionId, user.User.Id.ToString());
+        //            messageData.JwtToken = jwtToken;
+        //        }
 
 
-                var message = new SignalRTransportType(SignalRType.StudyRoom,
-                    SignalRAction.Update, messageData);
+        //        var message = new SignalRTransportType(SignalRType.StudyRoom,
+        //            SignalRAction.Update, messageData);
 
-                var t = _hubContext.Clients.User(user.User.Id.ToString())
-                    .SendAsync(SbHub.MethodName, message, token);
-                tasks.Add(t);
+        //        var t = _hubContext.Clients.User(user.User.Id.ToString())
+        //            .SendAsync(SbHub.MethodName, message, token);
+        //        tasks.Add(t);
 
 
-            }
+        //    }
 
-            await Task.WhenAll(tasks);
+        //    await Task.WhenAll(tasks);
 
-        }
+        //}
         //}
 
         //var message2 = new SignalRTransportType(SignalRType.StudyRoom,
@@ -114,10 +115,10 @@ namespace Cloudents.Web.EventHandler
     }
 
 
-    public class SignalRData
-    {
-        public int OnlineCount { get; set; }
-        public int TotalOnline { get; set; }
-        public string JwtToken { get; set; }
-    }
+    //public class SignalRData
+    //{
+    //    public int OnlineCount { get; set; }
+    //    public int TotalOnline { get; set; }
+    //    public string JwtToken { get; set; }
+    //}
 }
