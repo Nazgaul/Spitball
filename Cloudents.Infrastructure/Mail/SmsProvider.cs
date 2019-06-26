@@ -114,23 +114,29 @@ namespace Cloudents.Infrastructure.Mail
         private const string SecretVideo = "sJBB0TVjomROMH2vj3VwuxvPN9CNHETj";
         public async Task<string> ConnectToRoomAsync(string roomName, string name)
         {
-
-            var room = await RoomResource.FetchAsync(roomName);
-            var grant = new VideoGrant
+            try
             {
-                Room = room.UniqueName,
-            };
-            var grants = new HashSet<IGrant> { grant };
+                var room = await RoomResource.FetchAsync(roomName);
+                var grant = new VideoGrant
+                {
+                    Room = room.UniqueName,
+                };
+                var grants = new HashSet<IGrant> {grant};
 
-            // Create an Access Token generator
-            var token = new Token(
-                AccountSid,
-                ApiKey,
-                SecretVideo,
-                identity: name,
-                grants: grants);
+                // Create an Access Token generator
+                var token = new Token(
+                    AccountSid,
+                    ApiKey,
+                    SecretVideo,
+                    identity: name,
+                    grants: grants);
 
-            return token.ToJwt();
+                return token.ToJwt();
+            }
+            catch (Twilio.Exceptions.ApiException)
+            {
+                return null;
+            }
 
         }
 
