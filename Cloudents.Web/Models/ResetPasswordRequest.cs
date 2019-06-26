@@ -8,7 +8,7 @@ namespace Cloudents.Web.Models
         public string Id { get; set; }
 
         [Required(ErrorMessage = "Required")]
-        [StringLength(100, ErrorMessage = "StringLength", MinimumLength = Cloudents.Identity.SpitballIdentityExtensions.PasswordRequiredLength)]
+        [StringLength(100, ErrorMessage = "StringLength", MinimumLength = Identity.SpitballIdentityExtensions.PasswordRequiredLength)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

@@ -8,11 +8,16 @@ namespace Cloudents.Web.Hubs
         private readonly Dictionary<T, HashSet<string>> _connections =
             new Dictionary<T, HashSet<string>>();
 
+        private readonly object _lockObject = new object();
+
         public int Count
         {
             get
             {
-                return _connections.Count;
+                lock (_lockObject)
+                {
+                    return _connections.Count;
+                }
             }
         }
 
@@ -20,8 +25,7 @@ namespace Cloudents.Web.Hubs
         {
             lock (_connections)
             {
-                HashSet<string> connections;
-                if (!_connections.TryGetValue(key, out connections))
+                if (!_connections.TryGetValue(key, out var connections))
                 {
                     connections = new HashSet<string>();
                     _connections.Add(key, connections);
@@ -36,10 +40,12 @@ namespace Cloudents.Web.Hubs
 
         public IEnumerable<string> GetConnections(T key)
         {
-            HashSet<string> connections;
-            if (_connections.TryGetValue(key, out connections))
+            lock (_lockObject)
             {
-                return connections;
+                if (_connections.TryGetValue(key, out var connections))
+                {
+                    return connections;
+                }
             }
 
             return Enumerable.Empty<string>();
@@ -49,8 +55,7 @@ namespace Cloudents.Web.Hubs
         {
             lock (_connections)
             {
-                HashSet<string> connections;
-                if (!_connections.TryGetValue(key, out connections))
+                if (!_connections.TryGetValue(key, out var connections))
                 {
                     return;
                 }
