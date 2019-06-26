@@ -27,13 +27,11 @@ function ConversationItem(objInit) {
     this.expanded = false;
     this.hoursFromLastMessage = objInit.hoursFromLastMessage;
     this.assignTo = objInit.assignTo
+    this.requestFor = objInit.requestFor
 }
 function createConversationItem(objInit) {
     return new ConversationItem(objInit);
 }
-
-const statusList = ["default","noMatch" ,"scheduled" ,"active"];
-const assignTo = ["eidan","jaron" ,"yaniv" ,"almog", "ron"];
 
 function DetailsItem(objInit) {
     this.userName = objInit.userName;
@@ -59,9 +57,7 @@ function CreateMessageItem(objInit) {
 
 const path = 'AdminConversation/';
 
-const getFilters = (id, filters) => {
-    console.log(filters);
-    
+const getFilters = (id, filters) => {    
     let userId = id ? `id=${id}&`: '';
     return connectivityModule.http.get(`${path}?${userId}${filters}`).then((filtersConversations)=>{
         let filtersArray = [];   
@@ -138,8 +134,6 @@ export {
     setConversationsStatus,
     getConversationsListPage,
     getFiltersParams,
-    statusList,
-    assignTo,
     setAssignTo,
     getFilters
 };

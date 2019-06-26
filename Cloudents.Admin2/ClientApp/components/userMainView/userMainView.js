@@ -186,13 +186,22 @@ export default {
                 self.userIds = null;
 
             });
+        },
+        getRouteParams() {
+            let query = this.$route.query;
+            let params = this.$route.params;
+
+            if(params && params.userId){            
+                this.getUserInfoData(params.userId);
+            }
+            if(query && query.id){ 
+                this.getUserInfoData(query.id) 
+            }
         }
     },
-    created() {
-        if(this.$route.params && this.$route.params.userId){            
-            this.getUserInfoData(this.$route.params.userId);
-        }
-    } ,
+    created() {        
+        this.getRouteParams()
+    },
     mounted() {
         
         let self = this;
