@@ -62,7 +62,7 @@
                       <v-layout class="card-converstaion-header">
                           <v-flex xs2 class="pl-3">Student</v-flex>
                           <v-flex xs2 class="pl-3" d-flex justify-space-between align-center>
-                            <span>Tutor</span><v-btn :to="{path: '/conversation/send', query: {id: conversation.userId}}" target="_blank" @click.native.stop outline round small class="card-converstaion-header-btn">New Tutor</v-btn>
+                            <span>Tutor</span><v-btn @click.native.stop="openStartConversationDialog(conversation.userId)" outline round small class="card-converstaion-header-btn">New Tutor</v-btn>
                           </v-flex>
                           <v-flex xs2 class="pl-3">Request for</v-flex>
                           <v-flex xs2 class="pl-3">Last msg</v-flex>
@@ -73,7 +73,7 @@
                           <v-flex xs2 class="card-converstaion-content-col-1 pl-3">
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Name</span>
-                                  <span class="body-1  font-weight-bold" color="81C784">{{conversation.userName}}</span>
+                                  <span @click.stop="openCrm(conversation.userId)" class="body-1  font-weight-bold" color="81C784">{{conversation.userName}}</span>
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Email</span>
@@ -88,7 +88,7 @@
                           <v-flex xs2 class="card-converstaion-content-col-2 pl-3">
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Name</span>
-                                  <span class="body-1  font-weight-bold ">{{conversation.tutorName}}</span>
+                                  <span @click.stop="openCrm(conversation.tutorId)" class="body-1  font-weight-bold ">{{conversation.tutorName}}</span>
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Email</span>
@@ -102,7 +102,7 @@
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-3 pl-3">
                               <v-layout row wrap align-center>
-                                  <p class="subheading pl-2 pt-1 font-weight-bold">dsadasd</p>
+                                  <p @click.stop="openSpitballTutorPage(conversation.requestFor)" class="subheading pl-2 pt-1 font-weight-bold">{{conversation.requestFor}}</p>
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
@@ -114,16 +114,16 @@
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-5 pl-3">
-                              <v-layout column>
-                                  <p class="text-xs-center pt-1">{{conversation.studyRoomExists ? 'Yes' : 'No'}}</p>
-                                  <v-btn @click.stop small round class="white--text">{{conversation.autoStatus}}</v-btn>
+                              <v-layout column justify-center align-center>
+                                  <span class="text-xs-center py-1 mb-4 elevation-2 white--text" :class="[conversation.studyRoomExists ? 'studyRoomExists' : 'studyRoomNotExists']">{{conversation.studyRoomExists ? 'Yes' : 'No'}}</span>
+                                  <span class="text-xs-center py-1 elevation-2 white--text" :class="statusColor(conversation.autoStatus)">{{conversation.autoStatus}}</span>
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-6 pl-3">
                               <v-select
                                 v-model="conversation.status"
-                                :items="statusList"
+                                :items="filters.status"
                                 @click.native.stop
                                 class="card-converstaion-select pb-2"
                                 hide-details
@@ -137,7 +137,7 @@
                               ></v-select>
                               <v-select
                                 v-model="conversation.assignTo"
-                                :items="assignTo"
+                                :items="filters.assignTo"
                                 @click.native.stop
                                 class="card-converstaion-select"
                                 hide-details
@@ -166,19 +166,25 @@
       <div v-if="showLoading" style="text-align: center">Loading conversations, please wait...</div>
       <div v-show="conversationsList.length === 0 && !showLoading">No conversations</div>
     </div>
+    <v-dialog
+      v-model="dialog.startConversation"
+      width="500"
+      v-if="dialog.startConversation"
+    >
+    <startConversation :isDialog="true" :userId="currentStudentId" :closeDialog="closeDialog"></startConversation>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import conversationMessages from "../conversationMessages/conversationMessages.vue";
+import startConversation from "../../startConversation.vue";
 import {
   getDetails,
   getMessages,
   setConversationsStatus,
   getConversationsListPage,
   getFiltersParams,
-  statusList,
-  assignTo,
   getFilters,
   setAssignTo
 } from "./conversationDetalisService";
@@ -204,16 +210,19 @@ export default {
       isCompleted: false,
       EXPECTED_AMOUNT: 50,
       isLoading: false,
+      dialog: {
+        startConversation: false,
+      },
       filters: {},
       filterAssignTo: 'None',
       filterWaitingFor: '',
       filterStatus: 'Default',
-      statusList,
-      assignTo
+      currentStudentId: ''
     };
   },
   components: {
-    conversationMessages
+    conversationMessages,
+    startConversation
   },
   props:{
     userId:{}
@@ -248,7 +257,7 @@ export default {
           });
       }
     },
-    handleScroll() {     
+    handleScroll() {      
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;      
       if (bottomOfWindow) {
           this.page = this.page + 1
@@ -284,6 +293,24 @@ export default {
       getFilters(this.userId, query).then(res => {        
         this.conversationsList = res;
       })
+    },
+    openSpitballTutorPage(subject) {
+      window.open(`https://www.spitball.co/tutor?term=${subject}`, '_blank');
+    },
+    openCrm(id) {
+      this.$router.push({name: 'userQuestions', params: {userId: id}});
+    },
+    openStartConversationDialog(id) {
+      this.currentStudentId = id
+      this.dialog.startConversation = true
+    },
+    statusColor(status) {
+      if(status === 'Tutor') return 'tutor-status'
+      if(status === 'Student') return 'student-status'
+      return 'status'
+    },
+    closeDialog() {
+      this.dialog = false
     }
   },
   created() {
@@ -306,20 +333,8 @@ export default {
     padding-top: 5px;
   .top-card-select{
     max-width: 130px;
-    .v-input__slot {
-      // background-color: #fff !important;
-      .v-select__slot {
-        label{
-        color: #000;
-        }
-      }
-      .theme--dark.v-icon {
-        color: #000
-      }
-    }
   }
 }
-
 .card-conversation {
   border-radius: 8px;
   .v-expansion-panel__header{
@@ -335,6 +350,7 @@ export default {
       font-weight: 600;
       align-items: center;
       .card-converstaion-header-btn {
+        text-transform: none;
         color: #4452fc;
         flex: 0 0 auto !important;
       }
@@ -343,9 +359,25 @@ export default {
       flex-direction: column;
     }
     .card-converstaion-content-col-5 {
-      button {
-        background: #5bbdb7 !important;
+      span {
+        border-radius: 20px;
         align-self: center;
+        width: 38%;
+      }
+      .studyRoomExists {
+        background: green;
+      }
+      .studyRoomNotExists {
+        background: #ff0000;
+      }
+      .tutor-status {
+        background-color: #ee9e35;
+      }
+      .student-status {
+        background-color: #5bbdb7
+      }
+      .status {
+        background-color: #0000ff
       }
     }
     .card-converstaion-content-col-6 {
@@ -361,7 +393,6 @@ export default {
           border: 1px solid rgba(68, 82, 252, 0.56) !important;
         }  
       }
-        
     }
   }
   .body-1,.subheading {
