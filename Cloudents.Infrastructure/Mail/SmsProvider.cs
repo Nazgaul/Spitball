@@ -116,7 +116,14 @@ namespace Cloudents.Infrastructure.Mail
         {
             try
             {
-                var room = await RoomResource.FetchAsync(roomName);
+                var rooms = await RoomResource.ReadAsync(
+                    status: RoomResource.RoomStatusEnum.InProgress,
+                    uniqueName: roomName);
+                var room = rooms.FirstOrDefault();
+                if (room == null)
+                {
+                    return null;
+                }
                 var grant = new VideoGrant
                 {
                     Room = room.UniqueName,
