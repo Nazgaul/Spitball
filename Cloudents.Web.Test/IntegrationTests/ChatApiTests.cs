@@ -129,7 +129,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             _uri.Path = "api/login";
 
             response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(otherUser)));
-
+            response.EnsureSuccessStatusCode();
             _uri.Path = "api/chat/read";
 
             response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(read)));

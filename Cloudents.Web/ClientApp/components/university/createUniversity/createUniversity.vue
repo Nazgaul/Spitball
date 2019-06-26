@@ -32,7 +32,7 @@
 
             </v-flex>
             <v-flex xs12  sm6 class="text-xs-center mb-1">
-                <span class="caption helper-text" v-language:inner>university_third_tip_for_creating</span>
+                <!-- <span class="caption helper-text" v-language:inner>university_third_tip_for_creating</span> -->
 
             </v-flex>
         </v-layout>

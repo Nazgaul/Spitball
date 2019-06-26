@@ -31,7 +31,7 @@ namespace Cloudents.Identity
             }
 
             user.Country = result.country;
-            return await base.SetPhoneNumberAsync(user, result.phoneNumber);
+            return await SetPhoneNumberAsync(user, result.phoneNumber);
         }
     }
 }
