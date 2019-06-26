@@ -36,17 +36,18 @@ namespace Cloudents.Web.Filters
             public override async Task OnActionExecutionAsync(ActionExecutingContext context,
                 ActionExecutionDelegate next)
             {
-                var user = context.HttpContext.User;
-                if (_signInManager.IsSignedIn(user))
-                {
-                    await base.OnActionExecutionAsync(context, next);
-                    return;
-                }
+
 
                 var token = context.HttpContext.Request.Query["token"].ToString();
 
                 if (!string.IsNullOrEmpty(token))
                 {
+                    var user = context.HttpContext.User;
+                    if (_signInManager.IsSignedIn(user))
+                    {
+                        context.Result = new RedirectResult(GetUrlWithoutTokenQuery(context));
+                        return;
+                    }
                     var result = await SignInUserAsync(token);
 
                     if (result && context.Controller is Controller controller)
@@ -55,20 +56,26 @@ namespace Cloudents.Web.Filters
                     }
 
 
-                    var queryStringDictionary = context.HttpContext.Request.Query.Where(w =>
-                            !w.Key.Equals("token", StringComparison.OrdinalIgnoreCase))
-                        .ToDictionary(t => t.Key, t => t.Value.ToString());
+                    var url = GetUrlWithoutTokenQuery(context);
 
-                    queryStringDictionary.Remove("token");
-
-                    var url = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(
-                        context.HttpContext.Request.GetUri().AbsolutePath, queryStringDictionary);
-                    
                     context.Result = new RedirectResult(url);
                     return;
 
                 }
                 await base.OnActionExecutionAsync(context, next);
+            }
+
+            private static string GetUrlWithoutTokenQuery(ActionExecutingContext context)
+            {
+                var queryStringDictionary = context.HttpContext.Request.Query.Where(w =>
+                        !w.Key.Equals("token", StringComparison.OrdinalIgnoreCase))
+                    .ToDictionary(t => t.Key, t => t.Value.ToString());
+
+                queryStringDictionary.Remove("token");
+
+                var url = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(
+                    context.HttpContext.Request.GetUri().AbsolutePath, queryStringDictionary);
+                return url;
             }
 
             private async Task<bool> SignInUserAsync(string code)
@@ -80,6 +87,8 @@ namespace Cloudents.Web.Filters
                     var user = await _userManager.FindByIdAsync(userId);
                     if (user != null)
                     {
+                        //TODO: we need to take care verified the phone number /or email
+                        //TODO: need to redirect to create password page.
                         //ViewBag.Auth = true;
                         await _signInManager.SignInAsync(user, false);
                         return true;

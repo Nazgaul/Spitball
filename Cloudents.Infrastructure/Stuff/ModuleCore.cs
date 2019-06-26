@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Stuff
             builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             builder.RegisterType<QueryBus>().As<IQueryBus>();//.InstancePerLifetimeScope();
 
-            builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
+          //  builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
             builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
             //builder.RegisterType<Shuffle>().As<IShuffle>();
 
