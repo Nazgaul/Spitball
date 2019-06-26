@@ -77,7 +77,8 @@ namespace Cloudents.Web.EventHandler
 
             //if (onlineCount == totalOnline)
             //{
-            var session = studyRoom.Sessions.AsQueryable().Where(w => w.Ended == null).OrderBy(o => o.Id).FirstOrDefault();
+            
+            var session = studyRoom.Sessions.AsQueryable().Where(w => w.Ended == null).OrderByDescending(o => o.Id).FirstOrDefault();
 
 
             foreach (var user in studyRoom.Users)
