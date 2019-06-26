@@ -95,7 +95,7 @@ import utilitiesService from "../../../../services/utilities/utilitiesService";
 import analyticsService from "../../../../services/analytics.service";
 import tutorRequest from "../../../tutorRequest/tutorRequest.vue";
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { LanguageService } from "../../../../services/language/languageService.js";
 
 
@@ -143,6 +143,12 @@ export default {
             params: { id: this.tutorData.userId, name: this.tutorData.name }});
     },
     openRequestDialog(ev) {
+      let userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
+      if(this.fromLandingPage){
+           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_landing_page', `userId:${userId}`);
+      }else{
+           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_tutor_page', `userId:${userId}`);
+      };
       ev.stopImmediatePropagation()
       this.updateCurrTutor(this.tutorData)
       this.updateRequestDialog(true);
@@ -152,6 +158,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['accountUser']),
       courses(){
       let query = this.$route.query.term
       if(query) {
@@ -181,9 +188,7 @@ export default {
                 return discountedAmount >  this.minimumPrice ? discountedAmount.toFixed(2) : this.minimumPrice.toFixed(2);
     },
     buttonText() {
-      return this.fromLandingPage
-        ? "resultTutor_contact_me"
-        : "resultTutor_btn_view";
+      return "resultTutor_contact_me";
     }
   }
 };

@@ -129,7 +129,7 @@
     @import '../../styles/mixin.less';
 
     .request-box-wrap {
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+        // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
         background-color: @color-white;
         border-radius: 4px;
         .request-box-title {
