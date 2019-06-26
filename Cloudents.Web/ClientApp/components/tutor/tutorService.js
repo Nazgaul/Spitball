@@ -254,7 +254,7 @@ const connectToRoom = function (token, options) {
                     //     store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
                     // }
                 }
-                // detachParticipantTracks(participant);
+                detachParticipantTracks(participant);
             });
         },
             (error) => {
