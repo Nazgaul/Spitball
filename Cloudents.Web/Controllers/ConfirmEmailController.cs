@@ -1,5 +1,4 @@
-﻿using Cloudents.Web.Identity;
-using Cloudents.Web.Models;
+﻿using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -7,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using Cloudents.Identity;
 
 namespace Cloudents.Web.Controllers
 {

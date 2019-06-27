@@ -64,6 +64,11 @@ namespace Cloudents.Web.Filters
                     return;
                 }
 
+                if (context.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    await base.OnActionExecutionAsync(context, next);
+                    return;
+                }
                 string captcha;
                 context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
                 using (var sr = new StreamReader(context.HttpContext.Request.Body))

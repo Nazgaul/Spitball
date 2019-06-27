@@ -20,7 +20,6 @@ using Cloudents.Query.Query;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Authorization;
@@ -35,6 +34,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Identity;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api

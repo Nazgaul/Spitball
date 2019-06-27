@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
@@ -12,6 +6,12 @@ using Cloudents.Query;
 using Cloudents.Query.Query;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Identity
 {
@@ -24,7 +24,7 @@ namespace Cloudents.Identity
         IUserAuthenticatorKeyStore<User>,
         IUserLockoutStore<User>,
         IUserLoginStore<User>//,
-        //IUserRoleStore<RegularUser>
+                             //IUserRoleStore<RegularUser>
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _bus;
@@ -37,7 +37,7 @@ namespace Cloudents.Identity
 
         public void Dispose()
         {
-           // _session.Dispose();
+            // _session.Dispose();
         }
 
         public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
@@ -55,11 +55,11 @@ namespace Cloudents.Identity
         public Task SetUserNameAsync(User user, [NotNull] string userName, CancellationToken cancellationToken)
         {
             if (userName == null) throw new ArgumentNullException(nameof(userName));
-            var splitUserName = userName.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+            var splitUserName = userName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             var firstName = splitUserName[0];
             var lastName = splitUserName.ElementAtOrDefault(1);
 
-            user.ChangeName(firstName,lastName);
+            user.ChangeName(firstName, lastName);
             return Task.CompletedTask;
         }
 

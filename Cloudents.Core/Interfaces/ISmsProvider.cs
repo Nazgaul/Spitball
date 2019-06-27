@@ -5,7 +5,8 @@ namespace Cloudents.Core.Interfaces
 {
     public interface ISmsProvider
     {
-        Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, CancellationToken token);
+
+        Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token);
     }
 
     public interface IVideoProvider

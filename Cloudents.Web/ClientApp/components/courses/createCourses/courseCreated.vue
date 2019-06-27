@@ -25,7 +25,7 @@
                 <span class="font-weight-bold title" v-language:inner>courses_invite_classmates</span>
             </v-flex>
             <v-flex>
-                <span class="small-text" v-language:inner>courses_sub_title_invite</span>
+                <!-- <span class="small-text" v-language:inner>courses_sub_title_invite</span> -->
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center class="mt-4 mb-3" column :class="{'shrink mt-5 pt-2': $vuetify.breakpoint.xsOnly}">

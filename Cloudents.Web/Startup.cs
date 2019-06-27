@@ -8,7 +8,6 @@ using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
 using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
@@ -45,7 +44,6 @@ namespace Cloudents.Web
     {
         public const string IntegrationTestEnvironmentName = "Integration-Test";
         private const bool UseAzureSignalR = true;
-        internal const int PasswordRequiredLength = 8;
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
@@ -138,27 +136,27 @@ namespace Cloudents.Web
             services.AddSingleton(physicalProvider);
 
             services.AddDetectionCore().AddCrawler();
-            services.AddScoped<SignInManager<User>, SbSignInManager>();
-            //RoleStore
-            services.AddDefaultIdentity<User>(options =>
-            {
-                options.SignIn.RequireConfirmedEmail = true;
-                options.SignIn.RequireConfirmedPhoneNumber = true;
-                options.User.AllowedUserNameCharacters = null;
+            services.AddSbIdentity();
+            //services.AddScoped<SignInManager<User>, SbSignInManager>();
+            ////RoleStore
+            //services.AddDefaultIdentity<User>(options =>
+            //{
+            //    options.SignIn.RequireConfirmedEmail = true;
+            //    options.SignIn.RequireConfirmedPhoneNumber = true;
+            //    options.User.AllowedUserNameCharacters = null;
 
-                options.User.RequireUniqueEmail = true;
+            //    options.User.RequireUniqueEmail = true;
 
-                options.Password.RequiredLength = PasswordRequiredLength;
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredUniqueChars = 0;
-                options.Lockout.MaxFailedAccessAttempts = 3;
-            }).AddDefaultTokenProviders()
-                .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
-                // .AddRoles<RoleStore>()
-                .AddSignInManager<SbSignInManager>();
+            //    options.Password.RequiredLength = PasswordRequiredLength;
+            //    options.Password.RequireDigit = false;
+            //    options.Password.RequireLowercase = false;
+            //    options.Password.RequireNonAlphanumeric = false;
+            //    options.Password.RequireUppercase = false;
+            //    options.Password.RequiredUniqueChars = 0;
+            //    options.Lockout.MaxFailedAccessAttempts = 3;
+            //}).AddDefaultTokenProviders()
+            //    .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
+            //    .AddSignInManager<SbSignInManager>();
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb5";

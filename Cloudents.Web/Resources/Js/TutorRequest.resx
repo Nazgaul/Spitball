@@ -150,9 +150,6 @@
   <data name="select_course_placeholder" xml:space="preserve">
     <value>In what course ?</value>
   </data>
-  <data name="string" xml:space="preserve">
-    <value />
-  </data>
   <data name="title" xml:space="preserve">
     <value>Request a Tutor</value>
   </data>

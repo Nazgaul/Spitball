@@ -5,7 +5,6 @@ using Cloudents.Core.Storage;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using JetBrains.Annotations;
@@ -17,6 +16,7 @@ using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -67,7 +67,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
-            user = new User(model.Email, null, null, CultureInfo.CurrentCulture);
+            user = new User(model.Email, CultureInfo.CurrentCulture);
             var p = await _userManager.CreateAsync(user, model.Password);
             if (p.Succeeded)
             {

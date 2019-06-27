@@ -1,21 +1,21 @@
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Di;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage.Blob;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Microsoft.Extensions.Logging;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using static Cloudents.Core.TimeConst;
 
@@ -58,8 +58,10 @@ namespace Cloudents.FunctionsV2
                 height = 50;
             }
 
-            //using (var sr = await binder.BindAsync<Stream>(new BlobAttribute($"spitball-files/files/{properties.Id}/preview-{properties.Page}.jpg", FileAccess.Read), token))
-            using (var sr = await binder.BindAsync<Stream>(new BlobAttribute(properties.Path, FileAccess.Read), token))
+            var blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(properties.Path, FileAccess.Read),
+                token);
+
+            using (var sr = await blob.OpenReadAsync())
             {
                 try
                 {
@@ -83,7 +85,7 @@ namespace Cloudents.FunctionsV2
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                    image.Mutate(x=>x.AutoOrient());
+                    image.Mutate(x => x.AutoOrient());
                     return new FileCallbackResult("image/jpg", (stream, context) =>
                     {
                         context.HttpContext.Response.Headers.Add("Cache-Control",
@@ -97,7 +99,8 @@ namespace Cloudents.FunctionsV2
                 catch (ImageFormatException ex)
                 {
                     logger.LogError(ex, hash);
-                    return new StatusCodeResult(500);
+                    return new RedirectResult(blob.Uri.AbsoluteUri);
+                    //return new StatusCodeResult(500);
                 }
             }
         }
