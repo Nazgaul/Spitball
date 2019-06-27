@@ -21,11 +21,9 @@ namespace Cloudents.Core.Entities
          
         }
 
-        //public virtual long Id { get; set; }
        
 
-        public virtual string Name { get; protected set; }
-       // public virtual string NormalizedName { get; set; }
+        public virtual string Name { get; set; }
         public virtual string NormalizedEmail { get; set; }
         public virtual string SecurityStamp { get; set; }
 

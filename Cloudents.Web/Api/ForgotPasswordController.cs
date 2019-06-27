@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Net.Http;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
@@ -89,26 +90,41 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("reset")]
-        public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordRequest model, CancellationToken token)
+        public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordRequest model, [FromHeader(Name = "referer")] Uri referer, CancellationToken token)
         {
-            var user = await _userManager.FindByIdAsync(model.Id);
+            var queryString = referer.ParseQueryString();
+            var id = queryString["id"];
+            var code = queryString["code"];
+            //var from = queryString["byPass"];
+            if (id == null || code ==null)
+            {
+                return BadRequest();
+            }
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return BadRequest();
             }
-            model.Code = System.Net.WebUtility.UrlDecode(model.Code);
+
+            code = System.Net.WebUtility.UrlDecode(code);
             
-            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            var result = await _userManager.ResetPasswordAsync(user, code, model.Password);
             if (result.Succeeded)
             {
-                if (user.EmailConfirmed && user.PhoneNumberConfirmed)
+                //if (from != null)
+                //{
+                //    await _signInManager.SignInAsync(user, false);
+                //    return Ok();
+                //}
+                if (user.PhoneNumberConfirmed)
                 {
                     await _signInManager.SignInAsync(user, false);
                     return Ok();
                 }
-                ModelState.AddModelError(nameof(model.Password), _localizer["UserDoesntExists"]);
-                return BadRequest(ModelState);
+                return Ok();
+                //ModelState.AddModelError(nameof(model.Password), _localizer["UserDoesntExists"]);
+                //return BadRequest(ModelState);
 
             }
             //TODO: Localize

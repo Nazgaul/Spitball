@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Twilio;
@@ -32,8 +33,17 @@ namespace Cloudents.Infrastructure.Mail
             TwilioClient.Init(AccountSid, AuthToken);
         }
 
-        public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, CancellationToken token)
+        public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber,string countryCode, CancellationToken token)
         {
+            phoneNumber =  Regex.Replace(phoneNumber, "\\([0-9]+?\\)", string.Empty);
+            phoneNumber = Regex.Replace(phoneNumber, "[^0-9]", string.Empty);
+            phoneNumber = phoneNumber.TrimStart('0');
+
+            countryCode = countryCode.TrimStart('+');
+            if (!phoneNumber.StartsWith(countryCode))
+            {
+                phoneNumber = $"+{countryCode}{phoneNumber}";
+            }
             try
             {
                 var result = await PhoneNumberResource.FetchAsync(

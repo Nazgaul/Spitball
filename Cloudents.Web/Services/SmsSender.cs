@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
@@ -14,13 +13,11 @@ namespace Cloudents.Web.Services
     {
         private readonly IServiceBusProvider _serviceBusProvider;
         private readonly UserManager<User> _userManager;
-        private readonly ISmsProvider _smsProvider;
 
-        public SmsSender(UserManager<User> userManager, IServiceBusProvider serviceBusProvider, ISmsProvider smsProvider)
+        public SmsSender(UserManager<User> userManager, IServiceBusProvider serviceBusProvider)
         {
             _userManager = userManager;
             _serviceBusProvider = serviceBusProvider;
-            _smsProvider = smsProvider;
         }
 
         private async Task SendSmsAsync(string phoneNumber, string code, SmsMessage.MessageType type, CancellationToken token)
@@ -29,10 +26,10 @@ namespace Cloudents.Web.Services
             await _serviceBusProvider.InsertMessageAsync(message, token);
         }
 
-        public Task<(string phoneNumber,string country)> ValidateNumberAsync(string phoneNumber, CancellationToken token)
-        {
-            return _smsProvider.ValidateNumberAsync(phoneNumber, token);
-        }
+        //public Task<(string phoneNumber,string country)> ValidateNumberAsync(string phoneNumber,string countryCode, CancellationToken token)
+        //{
+        //    return _smsProvider.ValidateNumberAsync(phoneNumber, countryCode, token);
+        //}
 
         public async Task SendSmsAsync(User user, CancellationToken token)
         {

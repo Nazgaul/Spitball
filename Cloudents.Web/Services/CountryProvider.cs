@@ -4,8 +4,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Cloudents.Identity;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Services

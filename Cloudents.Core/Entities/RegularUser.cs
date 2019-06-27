@@ -19,6 +19,11 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
         }
 
+        public User(string email,  Language language) : this(email,null,null,language)
+        {
+          
+        }
+
         protected User()
         {
             UserLogins = new List<UserLogin>();

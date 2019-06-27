@@ -8,7 +8,7 @@ namespace Cloudents.Web.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Required")]
-        [StringLength(100, ErrorMessage = "StringLength", MinimumLength = Startup.PasswordRequiredLength)]
+        [StringLength(100, ErrorMessage = "StringLength", MinimumLength = Identity.SpitballIdentityExtensions.PasswordRequiredLength)]
 
         public string Password { get; set; }
 

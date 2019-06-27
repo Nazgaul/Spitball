@@ -1,6 +1,4 @@
-﻿using Cloudents.Command;
-using Cloudents.Web.Identity;
-using Cloudents.Core.Extension;
+﻿using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -9,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
+using Cloudents.Identity;
 using Cloudents.Query;
 using Dapper;
 

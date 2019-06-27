@@ -47,7 +47,7 @@ and T.State = 'Ok'
                 .And(w => w.User.Id == tutorAlias.Id)
                 .Select(s=>s.Id);
 
-            var courseQuery = QueryOver.Of<UserCourse>(() => userCourse)
+            var courseQuery = QueryOver.Of(() => userCourse)
                     .JoinAlias(x => x.Course, () => courseAlias)
                     .Where(w => w.CanTeach)
                     .And(() => courseAlias.State == ItemState.Ok)
@@ -68,7 +68,7 @@ and T.State = 'Ok'
 
 
 
-            return await Session.QueryOver<Tutor>(() => tutorAlias)
+            return await Session.QueryOver(() => tutorAlias)
                 .JoinQueryOver(p => p.User)
                 .WithSubquery.WhereExists(courseQuery)
                 .WithSubquery.WhereNotExists(chatRoomQuery)
@@ -78,7 +78,7 @@ and T.State = 'Ok'
                 .ListAsync<long>(token);
         }
 
-        public void DeleteTutor(long tutorId, CancellationToken token)
+        public async Task DeleteTutorAsync(long tutorId, CancellationToken token)
         {
             const string sql = @"
 begin tran
@@ -144,7 +144,7 @@ delete from sb.tutor where id = :Userid;
 
 commit;";
             
-            _ = Session.CreateSQLQuery(sql).SetParameter("Userid", tutorId).UniqueResult();
+           await Session.CreateSQLQuery(sql).SetParameter("Userid", tutorId).ExecuteUpdateAsync(token);
         }
     }
 }
