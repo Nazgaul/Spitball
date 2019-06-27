@@ -155,8 +155,6 @@ export default {
         textAreaValue(){
             this.errorLength = {};
         },
-        //fix for chat dissapearing on screen resize
-        // TODO V20 removing disquestion board from question details SPITBALL-851 Remove the discussion board from question pages
         //watch route(url query) update, and het question data from server
         '$route': 'getData'
     },

@@ -242,7 +242,6 @@ export default {
         // },
         registerCanvasEvents(canvas, canvasWrapper) {
             let self = this;
-            global.removeEventListener('resize', this.resizeCanvas, false);
             global.addEventListener('resize', this.resizeCanvas, false);
             canvas.addEventListener('mousedown', (e) => {
                 // self.clearTabOption();
