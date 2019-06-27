@@ -12,7 +12,7 @@
                                 </a> 
                             </v-toolbar-title>
                             <v-toolbar-items>
-                                <search-input v-if="$vuetify.breakpoint.smAndUp" :user-text="userText"
+                                <search-input v-if="$vuetify.breakpoint.smAndUp && !hideSearch" :user-text="userText"
                                               :placeholder="this.$options.placeholders['all']"
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer ></v-spacer>
@@ -54,7 +54,7 @@
                             </v-toolbar-items>
                         </v-layout>
                     </v-flex>
-                    <v-flex v-if="$vuetify.breakpoint.xsOnly" class="line search-wrapper">
+                    <v-flex v-if="$vuetify.breakpoint.xsOnly && !hideSearch" class="line search-wrapper">
                         <search-input :user-text="userText" :placeholder="this.$options.placeholders['all']"
                                       :submit-route="submitRoute"></search-input>
                     </v-flex>
@@ -65,7 +65,7 @@
         </v-toolbar>
 
         <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
-                             fixed app v-if=$vuetify.breakpoint.xsOnly
+                             fixed app v-if="$vuetify.breakpoint.xsOnly"
                              :class="isRtl ? 'hebrew-drawer' : ''"
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
@@ -155,6 +155,10 @@
             },
             balance(){
                 return this.accountUser.balance || 0
+            },
+            hideSearch(){
+                let filteredRoutes = ['editCourse', 'addCourse'];
+                return filteredRoutes.indexOf(this.$route.name) > -1;
             }
             //myMoney(){return this.accountUser.balance / 40}
 
