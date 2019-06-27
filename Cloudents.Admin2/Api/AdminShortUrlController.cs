@@ -26,7 +26,6 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpPost("url")]
-
         public async Task<ActionResult<ShortUrlDto>> AddShortUrlAsync([FromBody] AddShortUrlRequest model, CancellationToken token)
         {
             string url;
@@ -38,10 +37,19 @@ namespace Cloudents.Admin2.Api
             {
                 url = $"https://dev.spitball.co/go/{model.Identifier}";
             }
+
+            var test = Uri.TryCreate(model.Destination, UriKind.Absolute, out Uri u);
+
+            if(!test)
+            {
+                model.Destination = $"/{model.Destination}";
+            }
+
             var command = new CreateShortUrlCommand(model.Identifier, model.Destination, model.Expiration);
             await _commandBus.DispatchAsync(command, token);
-         
+                
             return new ShortUrlDto(url, model.Destination, model.Expiration);
+
         }
     }
 }
