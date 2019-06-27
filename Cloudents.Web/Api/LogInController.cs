@@ -100,7 +100,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            if (!user.EmailConfirmed || !user.PhoneNumberConfirmed)
+            if (!user.PhoneNumberConfirmed)
             {
                 if (user.OldUser.GetValueOrDefault())
                 {
