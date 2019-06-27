@@ -32,6 +32,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public UniversityApiTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
+            _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Fact]
