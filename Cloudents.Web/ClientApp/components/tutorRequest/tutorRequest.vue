@@ -7,7 +7,7 @@
           <v-toolbar-title class="subheading" >{{dialogTitle}}</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
-        <v-card-text>
+        <v-card-text class="pb-0">
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 md4 v-if="!isAuthUser">
@@ -97,10 +97,25 @@
             </v-layout>
           </v-container>
         </v-card-text>
-        <v-card-actions class="alignEnd">
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" :disabled="btnRequestLoading" flat @click="tutorRequestDialogClose()">{{btnClosePlaceholder}}</v-btn>
-          <v-btn color="#4452fc" :loading="btnRequestLoading" round depressed dark @click="sendRequest()">{{btnSubmitPlaceholder}}</v-btn>
+        <v-card-actions class="alignEnd pt-0">
+            <vue-recaptcha v-if="!isAuthUser" 
+                          class="pb-3"
+                          :sitekey="siteKey"
+                          ref="recaptcha"
+                          @verify="onVerify"
+                          @expired="onExpired()">
+            </vue-recaptcha>
+          <div>
+            <v-btn color="blue darken-1" :disabled="btnRequestLoading" flat @click="tutorRequestDialogClose()">{{btnClosePlaceholder}}</v-btn>
+            <v-btn  color="#4452fc"
+                   class="white--text"
+                   :disabled="!isAuthUser && !recaptcha"
+                   :loading="btnRequestLoading" 
+                   round depressed
+                   @click="sendRequest()">
+                   {{btnSubmitPlaceholder}}
+            </v-btn>
+          </div>
         </v-card-actions>
       </v-card>
     </v-form>
