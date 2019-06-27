@@ -404,6 +404,12 @@ export default {
           }
       });
     }
+    global.addEventListener('error', (event)=>{
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+      event.preventDefault();
+    });
+
     let failedTranscationId = global.localStorage.getItem(
       "sb_transactionError"
     );
