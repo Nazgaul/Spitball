@@ -35,6 +35,7 @@ import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
 import signalRStore from './signalRStore';
+import loginRegister from './loginRegister';
 
 
 
@@ -74,7 +75,8 @@ const store = new Vuex.Store({
         leaveReview,
         userOnlineStatus,
         requestTutor,
-        signalRStore
+        signalRStore,
+        loginRegister
     }
 });
 
