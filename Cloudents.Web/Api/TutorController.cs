@@ -173,14 +173,9 @@ namespace Cloudents.Web.Api
 
                     user = new User(model.Email, CultureInfo.CurrentCulture)
                     {
-                        //PhoneNumber = model.Phone,
                         Name = model.Name,
-
                     };
-                    //TODO: need to add the course t
-                    //o the user.
-
-                    var createUserCommand = new CreateUserCommand(user, model.University);
+                    var createUserCommand = new CreateUserCommand(user, model.University,model.Course);
                     await _commandBus.DispatchAsync(createUserCommand, token);
 
                     var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
