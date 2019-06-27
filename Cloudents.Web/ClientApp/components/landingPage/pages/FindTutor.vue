@@ -54,8 +54,9 @@ export default {
     beforeRouteEnter (to, from, next) {
       //makes sure an auth user won't see this page!
         let isLoggedIn = store.getters['accountUser'];
+        let query = location.search;
         if(!!isLoggedIn){
-            next("/ask");
+            next(`/ask${query}`);
         }else{
             next();
         }
