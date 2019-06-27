@@ -178,7 +178,7 @@ namespace Cloudents.FunctionsV2
                     continue;
                 }
                 var text =
-                    $"You have a new message from your {(unreadMessageDto.IsTutor ? "student" : "tutor")} on Spitball. Click on the link to read your message {{link}} ";
+                    $"You have a new message from your {(unreadMessageDto.IsTutor ? "student" : "tutor")} on Spitball. Click on the link to read your message {{link}}";
                 if (unreadMessageDto.ChatMessagesCount == 1)
                 {
                     if (unreadMessageDto.IsTutor)

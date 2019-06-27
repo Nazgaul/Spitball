@@ -6,6 +6,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
+using Cloudents.Identity;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
@@ -20,7 +21,6 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -162,22 +162,23 @@ namespace Cloudents.Web.Api
                 {
                     if (user.PhoneNumber == null)
                     {
-                        var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(),token);
+                        var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
                         await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
                     }
                     userId = user.Id;
-                    
+
                 }
                 else
                 {
-                    
+
                     user = new User(model.Email, CultureInfo.CurrentCulture)
                     {
                         //PhoneNumber = model.Phone,
                         Name = model.Name,
 
                     };
-                   
+                    //TODO: need to add the course t
+                    //o the user.
 
                     var createUserCommand = new CreateUserCommand(user, model.University);
                     await _commandBus.DispatchAsync(createUserCommand, token);
@@ -193,9 +194,9 @@ namespace Cloudents.Web.Api
             var command = new RequestTutorCommand(model.Course,
                 _stringLocalizer["RequestTutorChatMessage", model.Course],
                 userId,
-              
+
                 referer.AbsoluteUri,
-                model.Text,  model.TutorId, utmSource);
+                model.Text, model.TutorId, utmSource);
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();

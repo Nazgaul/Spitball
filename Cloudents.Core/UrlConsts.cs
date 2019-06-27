@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
@@ -62,6 +63,7 @@ namespace Cloudents.Core
                     nvc.Add(property.Name, property.GetValue(parameters).ToString());
             }
             nvc.Add("token",token);
+            nvc.Add("channel", CommunicationChannel.Phone.ToString("G"));
             nvc.Add("chat", "expand");
 
 
