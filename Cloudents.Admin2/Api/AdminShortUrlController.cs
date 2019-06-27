@@ -46,7 +46,14 @@ namespace Cloudents.Admin2.Api
             }
 
             var command = new CreateShortUrlCommand(model.Identifier, model.Destination, model.Expiration);
-            await _commandBus.DispatchAsync(command, token);
+            try
+            {
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch
+            {
+                return new ShortUrlDto("THIS URL ALREADY EXIST IN THE SYSTEM!", model.Destination, model.Expiration);
+            }
                 
             return new ShortUrlDto(url, model.Destination, model.Expiration);
 
