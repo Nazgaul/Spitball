@@ -274,7 +274,7 @@ export default {
         fullScreenVideo: "fullScreenVideo"
       },
       activeViewOption: "videoChat",
-      userId: !!this.accountUser ? this.accountUser.id : 'GUEST',
+      userId: null,
     };
   },
 
@@ -439,6 +439,7 @@ export default {
       })
       return;
     }
+    this.userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
     if(!!this.id){
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null)
       this.setRoomId(this.id);
