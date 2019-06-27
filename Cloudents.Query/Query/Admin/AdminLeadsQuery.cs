@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NHibernate.Linq;
 
 namespace Cloudents.Query.Query.Admin
 {
@@ -31,20 +32,21 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<LeadDto>> GetAsync(AdminLeadsQuery query, CancellationToken token)
             {
-                return _session.Query<Lead>()
+                return await _session.Query<Lead>()
+                    .Fetch(f=>f.User)
                     .Where(w => w.Status == null || w.Status == query.Status)
                      .Select(s => new LeadDto
                      {
                          Id = s.Id,
-                         Name = s.Name,
-                         Email = s.Email,
-                         Phone = s.Phone,
+                         Name = s.User.Name,
+                         Email = s.User.Email,
+                         Phone = s.User.PhoneNumber,
                          Text = s.Text,
                          Course = s.Course.Id,
-                         University = s.University.Name,
+                         University = s.User.University.Name,
                          Referer = s.UtmSource,
                          Status = s.Status
-                     }).AsList();
+                     }).ToListAsync(token);
 
                 //                const string sql = @"select l.Id, l.Name, Email, Phone, Text, CourseId as Course, u.Name as University, UtmSource as Referer, l.Status
                 //from sb.Lead l
