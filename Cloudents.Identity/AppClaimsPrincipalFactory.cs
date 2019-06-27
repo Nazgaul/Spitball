@@ -28,7 +28,7 @@ namespace Cloudents.Identity
         {
             var p = await base.GenerateClaimsAsync(user);
 
-            if (!user.EmailConfirmed || !user.PhoneNumberConfirmed) return p;
+            if (!user.PhoneNumberConfirmed) return p;
             p.AddClaim(new Claim(Country, user.Country));
             p.AddClaim(new Claim(Score, user.Transactions.Score.ToString()));
             if (user.University?.Id != null)

@@ -4,8 +4,8 @@ namespace Cloudents.Web.Models
 {
     public class ResetPasswordRequest
     {
-        [Required(ErrorMessage = "Required")]
-        public string Id { get; set; }
+        //[Required(ErrorMessage = "Required")]
+        //public string Id { get; set; }
 
         [Required(ErrorMessage = "Required")]
         [StringLength(100, ErrorMessage = "StringLength", MinimumLength = Identity.SpitballIdentityExtensions.PasswordRequiredLength)]
@@ -16,6 +16,6 @@ namespace Cloudents.Web.Models
         [Compare("Password", ErrorMessage = "PasswordNotMatch")]
         public string ConfirmPassword { get; set; }
 
-        public string Code { get; set; }
+        //public string Code { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace Cloudents.Web.Filters
         }
         private class SignInToSystemImpl : ActionFilterAttribute
         {
-            private const string tokenQueryParam = "token";
+            private const string TokenQueryParam = "token";
             private readonly SignInManager<User> _signInManager;
             private readonly UserManager<User> _userManager;
             private readonly IDataProtect _dataProtect;
@@ -39,7 +39,7 @@ namespace Cloudents.Web.Filters
             public override async Task OnActionExecutionAsync(ActionExecutingContext context,
                 ActionExecutionDelegate next)
             {
-                var token = context.HttpContext.Request.Query[tokenQueryParam].ToString();
+                var token = context.HttpContext.Request.Query[TokenQueryParam].ToString();
 
                 if (!string.IsNullOrEmpty(token))
                 {
@@ -77,7 +77,7 @@ namespace Cloudents.Web.Filters
 
                         if (user.SecurityStamp == null)
                         {
-
+                            await _userManager.UpdateSecurityStampAsync(user);
                             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                             code = UrlEncoder.Default.Encode(code);
 
@@ -116,10 +116,10 @@ namespace Cloudents.Web.Filters
             private static string GetUrlWithoutTokenQuery(ActionExecutingContext context)
             {
                 var queryStringDictionary = context.HttpContext.Request.Query.Where(w =>
-                        !w.Key.Equals(tokenQueryParam, StringComparison.OrdinalIgnoreCase))
+                        !w.Key.Equals(TokenQueryParam, StringComparison.OrdinalIgnoreCase))
                     .ToDictionary(t => t.Key, t => t.Value.ToString());
 
-                queryStringDictionary.Remove(tokenQueryParam);
+                queryStringDictionary.Remove(TokenQueryParam);
 
                 var url = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(
                     context.HttpContext.Request.GetUri().AbsolutePath, queryStringDictionary);

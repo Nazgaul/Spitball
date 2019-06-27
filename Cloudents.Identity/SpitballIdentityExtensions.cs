@@ -15,7 +15,7 @@ namespace Cloudents.Identity
             //RoleStore
             services.AddDefaultIdentity<User>(options =>
                 {
-                    options.SignIn.RequireConfirmedEmail = true;
+                    options.SignIn.RequireConfirmedEmail = false;
                     options.SignIn.RequireConfirmedPhoneNumber = true;
                     options.User.AllowedUserNameCharacters = null;
 
