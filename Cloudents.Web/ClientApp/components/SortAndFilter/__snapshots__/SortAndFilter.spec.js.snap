@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`sort and filter component snapshot 1`] = `"<div class=\\"sort-filter-wrap\\"><!----> <!----></div>"`;
