@@ -41,7 +41,7 @@ namespace Cloudents.Core.Entities
 
         private readonly IList<StudyRoomSession> _sessions = new List<StudyRoomSession>();
 
-        public virtual IReadOnlyList<StudyRoomSession> Sessions => _sessions.ToList();
+        public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 
         public virtual void AddSession(StudyRoomSession session)
         {

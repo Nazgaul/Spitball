@@ -80,11 +80,11 @@ datediff(HOUR, c.lastMessage, GETUTCDATE()) as HoursFromLastMessage
 from cte c 
 inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
  where (c.UserId = @UserId or @UserId = 0 or d.userId = @UserId) 
- and (c.AssignTo = @AssignTo or @AssignTo is null) 
-		and (c.status = @Status or @Status is null)
+ and (c.AssignTo = @AssignTo or @AssignTo is null or (@AssignTo = 'Unassigned' and c.AssignTo is null)) 
+		and (c.status = @Status or @Status is null or (@Status = 'Unassigned' and c.status is null))
 order by c.lastMessage desc
 OFFSET @pageSize * @PageNumber ROWS
-FETCH NEXT @pageSize ROWS ONLY;"; 
+FETCH NEXT @pageSize ROWS ONLY;";
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<ConversationDto>(sql,

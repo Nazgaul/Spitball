@@ -73,7 +73,11 @@ namespace Cloudents.Persistence
         {
             if (entity is IEntity p)
             {
-                foreach (var ev in p.DomainEvents.Distinct())
+
+                //I want to clear the domain event since AsQueryable reinject the publish event and then again... and stack-overflow exception 
+                var list = p.DomainEvents.Distinct().Distinct().ToList();
+                p.ClearEvents();
+                foreach (var ev in list)
                 {
                     //Nhibernate doesn't support multiple async
                     try

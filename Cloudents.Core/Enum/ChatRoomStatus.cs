@@ -6,7 +6,8 @@
         Active,
         Scheduled,
         NoMatch,
-        Archive
+        Archive,
+        Unassigned
     }
 
     public enum ChatRoomAssign
@@ -16,6 +17,7 @@
         Jaron,
         Yaniv,
         Almog,
-        Ron
+        Ron,
+        Unassigned
     }
 }

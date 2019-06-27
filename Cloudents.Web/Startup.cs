@@ -10,6 +10,7 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
+using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
 using JetBrains.Annotations;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -25,6 +26,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
@@ -33,8 +35,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Web.Resources;
-using Microsoft.Extensions.Options;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -44,6 +44,7 @@ namespace Cloudents.Web
     public class Startup
     {
         public const string IntegrationTestEnvironmentName = "Integration-Test";
+        private const bool UseAzureSignalR = true;
         internal const int PasswordRequiredLength = 8;
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
@@ -121,12 +122,16 @@ namespace Cloudents.Web
                 Swagger.Startup.SwaggerInitial(services);
             }
 
-            services.AddSignalR().AddAzureSignalR().AddJsonProtocol(o =>
+            var t = services.AddSignalR().AddJsonProtocol(o =>
                 {
                     o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                     o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 });
+            if (UseAzureSignalR)
+            {
+                t.AddAzureSignalR();
+            }
             services.AddResponseCompression();
             services.AddResponseCaching();
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
@@ -181,7 +186,7 @@ namespace Cloudents.Web
             services.AddHttpClient();
             services.AddOptions();
             services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
-           
+
 
 
             var assembliesOfProgram = new[]
@@ -204,7 +209,7 @@ namespace Cloudents.Web
                 return val.CurrentValue;
             }).AsSelf();
             services.AddSingleton<WebPackChunkName>();
-            
+
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
@@ -312,11 +317,22 @@ namespace Cloudents.Web
             });
             app.UseAuthentication();
 
-            app.UseAzureSignalR(routes =>
+            if (UseAzureSignalR)
             {
-                routes.MapHub<SbHub>("/SbHub");
-                routes.MapHub<StudyRoomHub>("/StudyRoomHub");
-            });
+                app.UseAzureSignalR(routes =>
+                {
+                    routes.MapHub<SbHub>("/SbHub");
+                    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
+                });
+            }
+            else
+            {
+                app.UseSignalR(routes =>
+                {
+                    routes.MapHub<SbHub>("/SbHub");
+                    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
+                });
+            }
 
             app.UseMvc(routes =>
             {
@@ -350,7 +366,7 @@ namespace Cloudents.Web
         }
     }
 
-    
+
 
 
 }

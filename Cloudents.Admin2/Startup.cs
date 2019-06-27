@@ -70,6 +70,7 @@ namespace Cloudents.Admin2
 
             }).AddJsonOptions(options =>
                 {
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                     options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
                 })
