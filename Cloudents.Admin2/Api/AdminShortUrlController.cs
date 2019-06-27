@@ -32,11 +32,11 @@ namespace Cloudents.Admin2.Api
             string url;
             if (!HostingEnvironment.IsDevelopment())
             {
-                url = $"https://www.spitball.co/{model.Identifier}";
+                url = $"https://www.spitball.co/go/{model.Identifier}";
             }
             else
             {
-                url = $"https://dev.spitball.co/{model.Identifier}";
+                url = $"https://dev.spitball.co/go/{model.Identifier}";
             }
             var command = new CreateShortUrlCommand(model.Identifier, model.Destination, model.Expiration);
             await _commandBus.DispatchAsync(command, token);
