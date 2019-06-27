@@ -3,6 +3,7 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -38,9 +39,9 @@ namespace Cloudents.Admin2.Api
                 url = $"https://dev.spitball.co/go/{model.Identifier}";
             }
 
-            var test = Uri.TryCreate(model.Destination, UriKind.Absolute, out Uri u);
+            var destinationTest = Uri.TryCreate(model.Destination, UriKind.Absolute, out Uri u);
 
-            if(!test)
+            if(!destinationTest)
             {
                 model.Destination = $"/{model.Destination}";
             }
@@ -50,7 +51,7 @@ namespace Cloudents.Admin2.Api
             {
                 await _commandBus.DispatchAsync(command, token);
             }
-            catch
+            catch (DuplicateRowException)
             {
                 return new ShortUrlDto("THIS URL ALREADY EXIST IN THE SYSTEM!", model.Destination, model.Expiration);
             }
