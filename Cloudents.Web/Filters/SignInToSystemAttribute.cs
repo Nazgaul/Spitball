@@ -21,6 +21,7 @@ namespace Cloudents.Web.Filters
         }
         private class SignInToSystemImpl : ActionFilterAttribute
         {
+            private const string tokenQueryParam = "token";
             private readonly SignInManager<User> _signInManager;
             private readonly UserManager<User> _userManager;
             private readonly IDataProtect _dataProtect;
@@ -38,7 +39,7 @@ namespace Cloudents.Web.Filters
             public override async Task OnActionExecutionAsync(ActionExecutingContext context,
                 ActionExecutionDelegate next)
             {
-                var token = context.HttpContext.Request.Query["token"].ToString();
+                var token = context.HttpContext.Request.Query[tokenQueryParam].ToString();
 
                 if (!string.IsNullOrEmpty(token))
                 {
@@ -67,28 +68,28 @@ namespace Cloudents.Web.Filters
                                 break;
                             case CommunicationChannel.Phone:
                                 user.PhoneNumberConfirmed = true;
-                                await _userManager.UpdateAsync(user);
+
                                 break;
                             case CommunicationChannel.Email:
                                 user.EmailConfirmed = true;
-                                await _userManager.UpdateAsync(user);
                                 break;
                         }
 
-                        if (user.PasswordHash == null && !_userManager.SupportsUserLogin)
+                        if (user.SecurityStamp == null)
                         {
+
                             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                             code = UrlEncoder.Default.Encode(code);
 
                             if (context.Controller is Controller controller)
                             {
-                                var link = controller.Url.Link("ResetPassword", new { user.Id, code });
+                                var link = controller.Url.Link("ResetPassword", new { user.Id, code, returnUrl = GetUrlWithoutTokenQuery(context) });
                                 context.Result = new RedirectResult(link);
                                 return;
                             }
                             //Need to change user to enter password
                         }
-
+                        await _userManager.UpdateAsync(user);
                         await _signInManager.SignInAsync(user, false);
 
                     }
@@ -115,10 +116,10 @@ namespace Cloudents.Web.Filters
             private static string GetUrlWithoutTokenQuery(ActionExecutingContext context)
             {
                 var queryStringDictionary = context.HttpContext.Request.Query.Where(w =>
-                        !w.Key.Equals("token", StringComparison.OrdinalIgnoreCase))
+                        !w.Key.Equals(tokenQueryParam, StringComparison.OrdinalIgnoreCase))
                     .ToDictionary(t => t.Key, t => t.Value.ToString());
 
-                queryStringDictionary.Remove("token");
+                queryStringDictionary.Remove(tokenQueryParam);
 
                 var url = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(
                     context.HttpContext.Request.GetUri().AbsolutePath, queryStringDictionary);
@@ -177,6 +178,6 @@ namespace Cloudents.Web.Filters
             //    return false;
             //}
         }
-        
+
     }
 }
