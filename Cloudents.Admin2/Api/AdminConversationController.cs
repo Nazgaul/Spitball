@@ -33,8 +33,8 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<ConversationDto>> ConversationAsync([FromQuery] ConversationDetailsRequest request
             , CancellationToken token)
         {
-
-            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page, request.Status, request.AssignTo);
+            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page, 
+                request.Status, request.AssignTo, request.AutoStatus);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -109,9 +109,7 @@ namespace Cloudents.Admin2.Api
             {
                 Status = Enum.GetNames(typeof(ChatRoomStatus)),
                 AssignTo = Enum.GetNames(typeof(ChatRoomAssign)),
-                WaitingFor = new[] { "student",
-                    "tutor",
-                    "conv"}
+                WaitingFor = Enum.GetNames(typeof(WaitingFor))
             };
         }
     }

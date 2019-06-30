@@ -7,7 +7,6 @@
             <v-toolbar-title>Conversations</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-select
-                disabled
                 v-model="filterWaitingFor"
                 :items="filters.waitingFor"
                 class="mr-2 top-card-select"
@@ -289,7 +288,8 @@ export default {
     handleFilter(params, payload) {
       let assign = this.filterAssignTo === 'None' ? '' : `assignTo=${this.filterAssignTo}&`;
       let status = this.filterStatus === 'Default' ? '' :  `status=${this.filterStatus}&`;
-      let query = `${assign}${status}`
+      let autoStatus = this.filterWaitingFor === 'default' ? '' :  `autoStatus=${this.filterWaitingFor}&`;
+      let query = `${assign}${status}${autoStatus}`
       getFilters(this.userId, query).then(res => {        
         this.conversationsList = res;
       })

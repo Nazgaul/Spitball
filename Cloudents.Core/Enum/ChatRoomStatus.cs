@@ -20,4 +20,12 @@
         Ron,
         Unassigned
     }
+
+    public enum WaitingFor
+    {
+        Default = 0,
+        Tutor = 1,
+        Student = 2,
+        Conv = 3
+    }
 }

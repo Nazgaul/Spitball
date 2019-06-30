@@ -12,5 +12,6 @@ namespace Cloudents.Admin2.Models
         public int Page { get; set; }
         public ChatRoomStatus? Status { get; set; }
         public ChatRoomAssign? AssignTo { get; set; }
+        public WaitingFor AutoStatus { get; set; }
     }
 }
