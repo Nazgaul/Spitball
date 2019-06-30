@@ -24,7 +24,7 @@ namespace Cloudents.Core.Entities
        
 
         public virtual string Name { get; set; }
-        public virtual string NormalizedEmail { get; set; }
+        //public virtual string NormalizedEmail { get; set; }
         public virtual string SecurityStamp { get; set; }
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Global reserved for later use
