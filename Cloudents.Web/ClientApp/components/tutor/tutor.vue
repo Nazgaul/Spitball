@@ -137,7 +137,7 @@
       </v-dialog>
 
       <sb-dialog
-        :showDialog="getReviewDialogState "
+        :showDialog="getReviewDialogState"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'reviewDilaog'"
         :maxWidth="'596'"
@@ -320,7 +320,7 @@ export default {
     },
     showNotConnectedDevicesDialog(){
       let browserSupported = this.isBrowserSupport();
-      return this.qualityDialog && browserSupported
+      return this.qualityDialog && browserSupported && !this.isMobile
     },
     needPayment() {
         return this.getStudyRoomData ? this.getStudyRoomData.needPayment : false;
