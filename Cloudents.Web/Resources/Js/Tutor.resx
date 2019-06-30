@@ -160,7 +160,7 @@
     <value>Text Editor</value>
   </data>
   <data name="option_fullBoard" xml:space="preserve">
-    <value>Show Canvas</value>
+    <value>Hide All</value>
   </data>
   <data name="option_videoChat" xml:space="preserve">
     <value>Video &amp; Chat</value>
