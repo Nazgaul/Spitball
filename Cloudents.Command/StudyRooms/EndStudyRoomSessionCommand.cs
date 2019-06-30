@@ -14,4 +14,17 @@ namespace Cloudents.Command.StudyRooms
 
         public long UserId { get; }
     }
+
+
+    public class EndStudyRoomSessionTwilioCommand : ICommand
+    {
+        public Guid StudyRoomId { get; }
+        public string StudyRoomSessionId { get; }
+
+        public EndStudyRoomSessionTwilioCommand(Guid studyRoomId, string studyRoomSessionId)
+        {
+            StudyRoomId = studyRoomId;
+            StudyRoomSessionId = studyRoomSessionId;
+        }
+    }
 }

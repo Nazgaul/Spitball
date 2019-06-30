@@ -27,14 +27,16 @@ namespace Cloudents.Core.Entities
         public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
 
-        public virtual void EndSession()
+        public virtual bool EndSession()
         {
             if (Ended.HasValue)
             {
-                throw new ArgumentException();
+                return false;
+                // throw new ArgumentException();
             }
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
+            return true;
         }
 
         public virtual void ReJoinStudyRoom()

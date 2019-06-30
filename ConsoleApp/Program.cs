@@ -3,33 +3,30 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Query;
+using Cloudents.Query.Tutor;
+using Cloudents.Search.Tutor;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
+using NHibernate.Id;
 using NHibernate.Linq;
 using SimMetricsMetricUtilities;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Query;
-using Cloudents.Query.SearchSync;
-using Cloudents.Search.Tutor;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudents.Infrastructure;
-using Cloudents.Query.Tutor;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -139,13 +136,20 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-           
+            var t = new GuidCombGenerator();
+
+            var dictionary = new Dictionary<int, Guid>();
+
+            for (int i = 0; i < 5; i++)
+                dictionary.Add(i, (Guid)t.Generate(null, null));
+
+            var v = dictionary.OrderBy(d => d.Value);
 
             //await UpdateMethod();
             var queryBus = _container.Resolve<ITutorSearch>();
-           var z = await  queryBus.SearchAsync(new TutorListTabSearchQuery("econ", "IL", 0), default);
+            var z = await queryBus.SearchAsync(new TutorListTabSearchQuery("econ", "IL", 0), default);
 
-           var x = z.ToList();
+            var x = z.ToList();
             //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
             //var v = x.Update.OrderBy(o => o.VersionAsLong).First();
 
