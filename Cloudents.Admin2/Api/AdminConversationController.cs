@@ -2,6 +2,7 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
@@ -49,6 +50,7 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("{identifier}")]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
         public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
             CancellationToken token)
         {
