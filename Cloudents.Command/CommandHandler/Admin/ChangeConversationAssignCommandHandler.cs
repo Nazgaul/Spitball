@@ -24,7 +24,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             var chatRoom = await _repository.GetChatRoomAsync(message.Identifier, token);
             if (chatRoom.Extra == null)
             {
-                chatRoom.Extra = new ChatRoomAdmin(chatRoom,ChatRoomStatus.Default);
+                chatRoom.Extra = new ChatRoomAdmin(chatRoom,ChatRoomStatus.Unassigned);
             }
             chatRoom.Extra.AssignTo = message.AssignTo;
             await _repository.UpdateAsync(chatRoom, token);
