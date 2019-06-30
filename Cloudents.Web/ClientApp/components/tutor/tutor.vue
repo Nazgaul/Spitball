@@ -475,6 +475,7 @@ export default {
     });
     console.log("ID Tutor!!", this.id);
     global.onbeforeunload = function() {
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
       return "Are you sure you want to close the window?";
     };
   }
