@@ -15,6 +15,9 @@ const addUrl = function (item) {
         .then((resp) => {
             return createShortHandUrl(resp);
         }, (error) => {
+            if (error.response.status) {
+                return createShortHandUrl({destination: 'URL already exists in DB', identifier: 'URL already exists in DB'});
+              }
             return error;
         });
 };
