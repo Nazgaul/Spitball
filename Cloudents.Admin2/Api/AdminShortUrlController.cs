@@ -2,11 +2,9 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,30 +16,22 @@ namespace Cloudents.Admin2.Api
     public class AdminShortUrlController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
-        private IHostingEnvironment HostingEnvironment { get; }
-        public AdminShortUrlController(ICommandBus commandBus, IHostingEnvironment hostingEnvironment)
+        private readonly IConfiguration _configuration;
+        public AdminShortUrlController(ICommandBus commandBus, IConfiguration configuration)
         {
             _commandBus = commandBus;
-            HostingEnvironment = hostingEnvironment;
+            _configuration = configuration;
         }
 
 
         [HttpPost("url")]
-        public async Task<ActionResult<ShortUrlDto>> AddShortUrlAsync([FromBody] AddShortUrlRequest model, CancellationToken token)
+        public async Task<ActionResult<ShortUrlDto>> AddShortUrlAsync([FromBody] AddShortUrlRequest model, 
+             CancellationToken token)
         {
-            string url;
-            if (!HostingEnvironment.IsDevelopment())
-            {
-                url = $"https://www.spitball.co/go/{model.Identifier}";
-            }
-            else
-            {
-                url = $"https://dev.spitball.co/go/{model.Identifier}";
-            }
-
+           
             var destinationTest = Uri.TryCreate(model.Destination, UriKind.Absolute, out Uri u);
 
-            if(!destinationTest)
+            if(!destinationTest && !model.Destination.StartsWith("/") && !model.Destination.StartsWith("www"))
             {
                 model.Destination = $"/{model.Destination}";
             }
@@ -53,9 +43,10 @@ namespace Cloudents.Admin2.Api
             }
             catch (DuplicateRowException)
             {
-                return new ShortUrlDto("THIS URL ALREADY EXIST IN THE SYSTEM!", model.Destination, model.Expiration);
+                return Conflict(); 
             }
-                
+
+            string url = $"{_configuration["Site"]}/go/{model.Identifier}";
             return new ShortUrlDto(url, model.Destination, model.Expiration);
 
         }
