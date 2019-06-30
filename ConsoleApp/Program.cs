@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Extension;
+using Cloudents.Core.Query;
 using Cloudents.Query.SearchSync;
 using Cloudents.Search.Tutor;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
@@ -138,15 +139,13 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var uriBuilder = new UriBuilder();
-            var nvc = new NameValueCollection();
-            nvc.Add("token", "dsfklsjdf");
-            nvc.Add("chat", "expand");
-            uriBuilder.AddQuery(nvc);
-            var x = uriBuilder.ToString();
+           
 
             //await UpdateMethod();
-            //var queryBus = _container.Resolve<IQueryBus>();
+            var queryBus = _container.Resolve<ITutorSearch>();
+           var z = await  queryBus.SearchAsync(new TutorListTabSearchQuery("econ", "IL", 0), default);
+
+           var x = z.ToList();
             //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
             //var v = x.Update.OrderBy(o => o.VersionAsLong).First();
 
