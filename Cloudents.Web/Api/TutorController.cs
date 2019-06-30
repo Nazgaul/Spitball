@@ -11,6 +11,7 @@ using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Filters;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Filters;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -128,7 +129,7 @@ namespace Cloudents.Web.Api
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
-        [HttpPost("request"),ValidateRecaptcha]
+        [HttpPost("request"), ValidateRecaptcha]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices] IIpToLocation ipLocation,
             [FromHeader(Name = "referer")] Uri referer,
@@ -164,23 +165,32 @@ namespace Cloudents.Web.Api
                     if (user.PhoneNumber == null)
                     {
                         var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
-                        await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
+                        var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
+                        if (result != IdentityResult.Success)
+                        {
+                            ModelState.AddModelError(nameof(model.Phone), "Invalid Phone number");
+                            return BadRequest(ModelState);
+                        }
                     }
                     userId = user.Id;
 
                 }
                 else
                 {
-
                     user = new User(model.Email, CultureInfo.CurrentCulture)
                     {
                         Name = model.Name,
                     };
-                    var createUserCommand = new CreateUserCommand(user, model.University,model.Course);
+                    var createUserCommand = new CreateUserCommand(user, model.University, model.Course);
                     await _commandBus.DispatchAsync(createUserCommand, token);
 
                     var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
-                    await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
+                    var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
+                    if (result != IdentityResult.Success)
+                    {
+                        ModelState.AddModelError(nameof(model.Phone), "Invalid Phone number");
+                        return BadRequest(ModelState);
+                    }
                     userId = user.Id;
                 }
             }
