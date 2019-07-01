@@ -164,7 +164,10 @@ export default {
       courses(){
       //  let query = this.$route.query.term
       //  if(query) {
+        if (this.tutorData.courses) {
           return `${LanguageService.getValueByKey("resultTutor_teaching")} ${this.tutorData.courses}`
+        }
+        return '';
       // } else {
         //return `${this.tutorData.courses}`
       //}
