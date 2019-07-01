@@ -76,9 +76,9 @@ const setConversationsStatus = (id,status) => {
     })
 }
 
-const getConversationsListPage = function (id, page) {
+const getConversationsListPage = function (id, page, filter) {
     let userId = id ? `id=${id}&`: '';
-    return connectivityModule.http.get(`${path}?${userId}page=${page}`).then((newConversationList) => {
+    return connectivityModule.http.get(`${path}?${userId}page=${page}&${filter}`).then((newConversationList) => {
         let arrConversationList = [];
         if (newConversationList.length > 0) {
             newConversationList.forEach((conversation) => {

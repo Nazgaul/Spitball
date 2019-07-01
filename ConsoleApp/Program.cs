@@ -23,11 +23,13 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Query.SearchSync;
 using Cloudents.Search.Tutor;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Infrastructure;
+using Cloudents.Query.Query.Admin;
 using Cloudents.Query.Tutor;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -146,7 +148,10 @@ namespace ConsoleApp
             var x = uriBuilder.ToString();
 
             //await UpdateMethod();
-            //var queryBus = _container.Resolve<IQueryBus>();
+           var queryBus = _container.Resolve<IQueryBus>();
+           var adminQuery =
+               new AdminConversationsQuery(0, 0, ChatRoomStatus.Active, ChatRoomAssign.All, WaitingFor.All);
+           var t = await queryBus.QueryAsync(adminQuery, default);
             //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
             //var v = x.Update.OrderBy(o => o.VersionAsLong).First();
 

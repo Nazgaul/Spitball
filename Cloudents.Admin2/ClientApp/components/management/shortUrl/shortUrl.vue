@@ -94,7 +94,7 @@ export default {
             this.$toaster.success(`Added ShortUrl ${this.identifier}`);
             this.identifier = "";
             this.destination = "";
-            this.date = new Date().toISOString().substr(0, 10);
+            this.date = null;
             this.isShortUrl = true;
           },
           error => {
