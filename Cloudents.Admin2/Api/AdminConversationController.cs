@@ -2,6 +2,7 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
@@ -11,8 +12,10 @@ using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -33,8 +36,8 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<ConversationDto>> ConversationAsync([FromQuery] ConversationDetailsRequest request
             , CancellationToken token)
         {
-
-            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page, request.Status, request.AssignTo);
+            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page, 
+                request.Status, request.AssignTo, request.AutoStatus);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -49,6 +52,7 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("{identifier}")]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
         public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
             CancellationToken token)
         {
@@ -107,11 +111,9 @@ namespace Cloudents.Admin2.Api
         {
             return new ConversationParamsResponse()
             {
-                Status = Enum.GetNames(typeof(ChatRoomStatus)),
-                AssignTo = Enum.GetNames(typeof(ChatRoomAssign)),
-                WaitingFor = new[] { "student",
-                    "tutor",
-                    "conv"}
+                Status = Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
+                AssignTo = Enum.GetNames(typeof(ChatRoomAssign)).Select(s => s.ToCamelCase()),
+                WaitingFor = Enum.GetNames(typeof(WaitingFor)).Select(s => s.ToCamelCase())
             };
         }
     }

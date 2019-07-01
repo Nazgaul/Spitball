@@ -17,7 +17,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(CreateShortUrlCommand message, CancellationToken token)
         {
-            var shortUrl = new ShortUrl(message.Identifier,message.Destination,message.Expiration);
+            var shortUrl = new ShortUrl(message.Identifier,message.Destination, message.Expiration);
             await _repository.AddAsync(shortUrl, token);
         }
     }

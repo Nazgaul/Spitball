@@ -42,7 +42,7 @@
                         <v-list-tile :class="[ (index % 2 == 0) ? 'teal lighten-4' : 'cyan lighten-5' ]">
                             <v-layout align-center justify-space-between>
                                 <span>{{infoItem.label}}</span>
-                                <v-btn small color='red' @click="deleteTutor()" v-if="infoItem.label == 'Is Tutor' && !!infoItem.value"> Delete</v-btn >
+                                <v-btn small color='red' @click="deleteTutor()" v-if="infoItem.label == 'Is Tutor' && infoItem.value != 'Not a tutor'"> Delete</v-btn >
                                 <span>{{infoItem.value}}</span>
                             </v-layout>
                         </v-list-tile>

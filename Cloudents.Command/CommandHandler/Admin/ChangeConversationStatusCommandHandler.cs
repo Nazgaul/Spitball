@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler.Admin
@@ -20,7 +21,12 @@ namespace Cloudents.Command.CommandHandler.Admin
             var chatRoom = await _repository.GetChatRoomAsync(message.Identifier, token);
             if (chatRoom.Extra == null)
             {
-                chatRoom.Extra = new ChatRoomAdmin(chatRoom,message.Status);
+                chatRoom.Extra = new ChatRoomAdmin(chatRoom);
+            }
+
+            if (message.Status == ChatRoomStatus.Unassigned)
+            {
+                chatRoom.Extra.Status = null;
             }
             else
             {

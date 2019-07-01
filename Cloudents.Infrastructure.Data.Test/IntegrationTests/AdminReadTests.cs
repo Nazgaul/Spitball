@@ -38,8 +38,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminConversationsQuery_Ok()
         {
-            var query1 = new AdminConversationsQuery(159039, 0, null, null);
-            var query2 = new AdminConversationsQuery(159039, 0, ChatRoomStatus.Default, ChatRoomAssign.None);
+            var query1 = new AdminConversationsQuery(159039, 0, null, null,null);
+            var query2 = new AdminConversationsQuery(159039, 0, ChatRoomStatus.Unassigned, ChatRoomAssign.Unassigned,WaitingFor.All);
 
             var task1 = fixture.QueryBus.QueryAsync(query1, default);
             var task2 = fixture.QueryBus.QueryAsync(query2, default);
