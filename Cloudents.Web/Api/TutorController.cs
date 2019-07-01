@@ -129,7 +129,7 @@ namespace Cloudents.Web.Api
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
-        [HttpPost("request"), ValidateRecaptcha]
+        [HttpPost("request"), ValidateRecaptcha, ValidateEmail]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices] IIpToLocation ipLocation,
             [FromHeader(Name = "referer")] Uri referer,
