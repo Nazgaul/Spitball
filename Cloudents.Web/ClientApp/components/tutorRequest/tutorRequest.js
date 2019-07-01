@@ -109,11 +109,14 @@ export default {
                                       })
                                     }).catch((err)=>{
                                         self.updateToasterParams({
-                                          toasterText: LanguageService.getValueByKey("tutorRequest_request_error"),
+                                          toasterText: !!err.response.data.error ? err.response.data.error[0] : LanguageService.getValueByKey("tutorRequest_request_error"),
                                           showToaster: true,
                                           toasterType: 'error-toaster'
                                         })
-                                  }).finally(() => self.btnRequestLoading = false);
+                                  }).finally(() => {
+                                      self.btnRequestLoading = false
+                                      this.$refs['recaptcha'].reset();
+                                    });
             }
         },
         tutorRequestDialogClose() {

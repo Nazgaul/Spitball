@@ -26,9 +26,31 @@ namespace Cloudents.Command.StudyRooms
             }
 
             var session = room.Sessions.Last();
-            session.EndSession();
-            await _videoProvider.CloseRoomAsync(session.SessionId);
-           
+            if (session.EndSession())
+            {
+                await _videoProvider.CloseRoomAsync(session.SessionId);
+            }
+
+        }
+    }
+
+
+    public class EndStudyRoomSessionTwilioCommandHandler : ICommandHandler<EndStudyRoomSessionTwilioCommand>
+    {
+        private readonly IRepository<StudyRoom> _studyRoomRepository;
+        public EndStudyRoomSessionTwilioCommandHandler(IRepository<StudyRoom> studyRoomRepository)
+        {
+            _studyRoomRepository = studyRoomRepository;
+        }
+
+
+        public async Task ExecuteAsync(EndStudyRoomSessionTwilioCommand message, CancellationToken token)
+        {
+            var room = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
+            var sessionEnded = room.Sessions.AsQueryable().FirstOrDefault(w => w.SessionId == message.StudyRoomSessionId);
+            
+            sessionEnded?.EndSession();
+
         }
     }
 }

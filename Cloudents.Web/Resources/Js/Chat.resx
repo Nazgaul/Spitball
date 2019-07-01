@@ -124,7 +124,7 @@
     <value>Room created</value>
   </data>
   <data name="studyRoom_enter" xml:space="preserve">
-    <value>Enter Study Room</value>
+    <value>Get Into Study Room</value>
   </data>
   <data name="studyRoom_create" xml:space="preserve">
     <value>Create Study Room</value>

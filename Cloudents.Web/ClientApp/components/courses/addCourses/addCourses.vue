@@ -110,7 +110,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from "vuex";
+    import { mapActions, mapGetters, mapMutations } from "vuex";
     import { LanguageService } from "../../../services/language/languageService";
     import debounce from "lodash/debounce";
     import universityService from '../../../services/universityService';
@@ -207,9 +207,16 @@
                               "clearClassesCahce"
                           ]),
             ...mapGetters(["getClasses"]),
+            ...mapMutations(['UPDATE_SEARCH_LOADING']),
             goToEditCourses() {
-                this.clearClassesCahce();
-                this.$router.push({name: 'editCourse'})
+                if(this.getSelectedClasses.length === 0 && this.quantatySelected === 0){
+                    this.UPDATE_SEARCH_LOADING(true);
+                    this.$router.push({name: 'note'})
+                }else{
+                    this.clearClassesCahce();
+                    this.$router.push({name: 'editCourse'})
+                }
+                
             },
             concatCourses(paramObj) {
                 let self = this;

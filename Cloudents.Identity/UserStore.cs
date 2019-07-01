@@ -76,9 +76,21 @@ namespace Cloudents.Identity
 
         public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            var command = new CreateUserCommand(user);
-            await _bus.DispatchAsync(command, cancellationToken);
-            return IdentityResult.Success;
+            try
+            {
+                var command = new CreateUserCommand(user);
+                await _bus.DispatchAsync(command, cancellationToken);
+                return IdentityResult.Success;
+            }
+            catch (DuplicateRowException)
+            {
+                return IdentityResult.Failed(new IdentityError
+                {
+                    Description = "Duplicate",
+                    Code = "Duplicate"
+                });
+
+            }
         }
 
         public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
@@ -144,19 +156,18 @@ namespace Cloudents.Identity
 
         public async Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
-            Expression<Func<User, bool>> expression = f => f.NormalizedEmail == normalizedEmail;
+            Expression<Func<User, bool>> expression = f => f.Email == normalizedEmail;
             //return await _session.Query<RegularUser>().FirstOrDefaultAsync(w => w.NormalizedEmail == normalizedEmail, cancellationToken: cancellationToken);
             return await _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
         public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.NormalizedEmail);
+            return Task.FromResult(user.Email.ToUpperInvariant());
         }
 
         public Task SetNormalizedEmailAsync(User user, string normalizedEmail, CancellationToken cancellationToken)
         {
-            user.NormalizedEmail = normalizedEmail;
             return Task.CompletedTask;
         }
 
