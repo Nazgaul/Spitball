@@ -81,6 +81,11 @@ namespace Cloudents.Query.Query.Admin
                         break;
 
                 }
+
+                if (query.UserId > 0)
+                {
+                    p = p.Where(w => w.TutorId == query.UserId || w.UserId == query.UserId);
+                }
                 return await p.Select(s=> new ConversationDto()
                 {
                     Id = s.Id,
