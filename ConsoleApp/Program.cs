@@ -146,10 +146,11 @@ namespace ConsoleApp
             var v = dictionary.OrderBy(d => d.Value);
 
             //await UpdateMethod();
-            var queryBus = _container.Resolve<ITutorSearch>();
-            var z = await queryBus.SearchAsync(new TutorListTabSearchQuery("econ", "IL", 0), default);
+            var queryBus = _container.Resolve<IMailProvider>();
+            var z = await queryBus.ValidateEmailAsync("yaari.ram@gmail.com", default);
+            var z2 = await queryBus.ValidateEmailAsync("yaari@gmail.com", default);
+            var z3 = await queryBus.ValidateEmailAsync("yaari@asdasdasdasd.com", default);
 
-            var x = z.ToList();
             //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
             //var v = x.Update.OrderBy(o => o.VersionAsLong).First();
 

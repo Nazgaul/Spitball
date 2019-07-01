@@ -6,6 +6,7 @@ namespace Cloudents.Web.Models
     public class RequestTutorRequest
     {
         public string  Name { get; set; }
+        [EmailAddress]
         public string  Email { get; set; }
         public string  Phone { get; set; }
         public string Text { get; set; }

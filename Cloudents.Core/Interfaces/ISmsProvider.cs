@@ -18,4 +18,11 @@ namespace Cloudents.Core.Interfaces
         Task<bool> GetRoomAvailableAsync(string id);
         Task<string> ConnectToRoomAsync(string roomName, string name);
     }
+
+    public interface IMailProvider
+    {
+        Task<bool> ValidateEmailAsync(string email, CancellationToken token);
+    }
+
+    
 }
