@@ -7,7 +7,6 @@
             <v-toolbar-title>Conversations</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-select
-                disabled
                 v-model="filterWaitingFor"
                 :items="filters.waitingFor"
                 class="mr-2 top-card-select"
@@ -73,7 +72,7 @@
                           <v-flex xs2 class="card-converstaion-content-col-1 pl-3">
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Name</span>
-                                  <span @click.stop="openCrm(conversation.userId)" class="body-1  font-weight-bold" color="81C784">{{conversation.userName}}</span>
+                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.userId}}" target="_blank" class="body-1  font-weight-bold" color="81C784">{{conversation.userName}}</router-link>
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Email</span>
@@ -88,7 +87,7 @@
                           <v-flex xs2 class="card-converstaion-content-col-2 pl-3">
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Name</span>
-                                  <span @click.stop="openCrm(conversation.tutorId)" class="body-1  font-weight-bold ">{{conversation.tutorName}}</span>
+                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.userId}}"  target="_blank"  class="body-1  font-weight-bold ">{{conversation.tutorName}}</router-link>
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Email</span>
@@ -288,8 +287,9 @@ export default {
     },
     handleFilter(params, payload) {
       let assign = this.filterAssignTo === 'None' ? '' : `assignTo=${this.filterAssignTo}&`;
-      let status = this.filterStatus === 'Default' ? '' :  `status=${this.filterStatus}&`;
-      let query = `${assign}${status}`
+      let status = this.filterStatus === 'Unassigned' ? '' :  `status=${this.filterStatus}&`;
+      let autoStatus = this.filterWaitingFor === 'Unassigned' ? '' :  `autoStatus=${this.filterWaitingFor}&`;
+      let query = `${assign}${status}${autoStatus}`
       getFilters(this.userId, query).then(res => {        
         this.conversationsList = res;
       })
@@ -297,9 +297,9 @@ export default {
     openSpitballTutorPage(subject) {
       window.open(`https://www.spitball.co/tutor?term=${subject}`, '_blank');
     },
-    openCrm(id) {
-      this.$router.push({name: 'userQuestions', params: {userId: id}});
-    },
+    // openCrm(id) {
+    //   this.$router.push({name: 'userQuestions', params: {userId: id}});
+    // },
     openStartConversationDialog(id) {
       this.currentStudentId = id
       this.dialog.startConversation = true

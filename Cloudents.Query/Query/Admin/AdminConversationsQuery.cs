@@ -10,15 +10,17 @@ namespace Cloudents.Query.Query.Admin
     public class AdminConversationsQuery : IQuery<IEnumerable<ConversationDto>>
     {
         private int Page { get; }
-        private ChatRoomStatus? Status { get; }
-        private ChatRoomAssign? AssignTo { get; }
+        private ChatRoomStatus Status { get; }
+        private ChatRoomAssign AssignTo { get; }
+        private WaitingFor ConversationStatus { get; }
 
-        public AdminConversationsQuery(long userId, int page, ChatRoomStatus? status, ChatRoomAssign? assignTo)
+        public AdminConversationsQuery(long userId, int page, ChatRoomStatus status, ChatRoomAssign assignTo, WaitingFor conversationStatus)
         {
             UserId = userId;
             Page = page;
             Status = status;
             AssignTo = assignTo;
+            ConversationStatus = conversationStatus;
         }
         private long UserId { get;  }
         internal sealed class AdminAllConversationsQueryHandler : IQueryHandler<AdminConversationsQuery, IEnumerable<ConversationDto>>
@@ -80,8 +82,28 @@ datediff(HOUR, c.lastMessage, GETUTCDATE()) as HoursFromLastMessage
 from cte c 
 inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
  where (c.UserId = @UserId or @UserId = 0 or d.userId = @UserId) 
- and (c.AssignTo = @AssignTo or @AssignTo is null or (@AssignTo = 'Unassigned' and c.AssignTo is null)) 
-		and (c.status = @Status or @Status is null or (@Status = 'Unassigned' and c.status is null))
+ and (c.AssignTo = @AssignTo or @AssignTo = 'all' or (@AssignTo = 'Unassigned' and (c.AssignTo is null or c.AssignTo = 'Unassigned'))) 
+		and (c.status = @Status or @Status = 'all' or (@Status = 'Unassigned' and (c.status is null or c.status = 'Unassigned')))
+		and ((SELECT max (grp) FROM 
+(
+SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
+FROM (
+SELECT *,
+CASE WHEN ABS(UserId - LAG(UserId) OVER(PARTITION BY ChatRoomId ORDER BY Id)) <= 1 THEN NULL ELSE 1 END AS isstart
+FROM sb.ChatMessage
+where ChatRoomId = c.id
+) t1
+) t2) = @Conv or @Conv = 0 
+or (@Conv = 3 and (SELECT max (grp) FROM 
+(
+SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
+FROM (
+SELECT *,
+CASE WHEN ABS(UserId - LAG(UserId) OVER(PARTITION BY ChatRoomId ORDER BY Id)) <= 1 THEN NULL ELSE 1 END AS isstart
+FROM sb.ChatMessage
+where ChatRoomId = c.id
+) t1
+) t2) > 2))
 order by c.lastMessage desc
 OFFSET @pageSize * @PageNumber ROWS
 FETCH NEXT @pageSize ROWS ONLY;";
@@ -93,8 +115,9 @@ FETCH NEXT @pageSize ROWS ONLY;";
                             query.UserId,
                             pageSize = 50,
                             PageNumber = query.Page,
-                            Status = query.Status?.ToString(),
-                            AssignTo = query.AssignTo?.ToString()
+                            Status = query.Status.ToString(),
+                            AssignTo = query.AssignTo.ToString(),
+                            Conv = (int)query.ConversationStatus
                         });
                     return res;
                 }
