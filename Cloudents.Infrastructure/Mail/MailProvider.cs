@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,7 +39,8 @@ namespace Cloudents.Infrastructure.Mail
                     return true;
                 }
 
-                if (w?.status == "valid")
+                var validStats = new[] { "valid", "catch-all" };
+                if (validStats.Contains(w.status, StringComparer.OrdinalIgnoreCase))
                 {
                     return true;
                 }
