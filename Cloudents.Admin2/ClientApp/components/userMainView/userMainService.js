@@ -55,7 +55,7 @@ function UserInfo(objInit) {
         };
     }
     this.isTutor = {
-        value: objInit.tutorState,
+        value: objInit.tutorState ? objInit.tutorState  : 'Not a tutor',
         label: 'Is Tutor'
     };
     
