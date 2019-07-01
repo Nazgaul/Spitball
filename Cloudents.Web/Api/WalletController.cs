@@ -19,8 +19,6 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Web.Filters;
-using Cloudents.Web.Hubs;
-using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
 {
@@ -123,7 +121,6 @@ namespace Cloudents.Web.Api
         [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> PayMeCallbackAsync([FromQuery]long userId,
             [FromForm] PayMeBuyerCallbackRequest model,
-            [FromServices] IHubContext<SbHub> hubContext,
             CancellationToken token)
         {
             var paymentKeyExpiration = DateTime.ParseExact(model.BuyerCardExp, "MMyy", CultureInfo.InvariantCulture);
@@ -141,7 +138,6 @@ namespace Cloudents.Web.Api
 
             var command = new AddSellerTokenCommand(model.Email, model.SellerKey);
             await _commandBus.DispatchAsync(command, token);
-            //TODO: send signalR buyer exists
             return Ok();
         }
 

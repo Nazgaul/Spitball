@@ -21,17 +21,19 @@
               :alt="tutorData.name"
             >
           </v-flex>
-          <v-flex>
+          <v-flex class="rightSide">
             <v-layout align-start justify-space-between column fill-height>
-              <v-flex shrink class="pb-3">
-                <span class="tutor-name font-weight-bold">{{tutorData.name}}</span>
+              <div class="pb-3 tutor-name font-weight-bold" >
+                {{tutorData.name}}
+              </div>
+              <v-flex grow class=" subheading">
+                <div class="tutor-about">
+               {{tutorData.bio}}
+               </div>
               </v-flex>
-              <v-flex grow>
-                <span class="tutor-about subheading">{{tutorData.bio}}</span>
-              </v-flex>
-              <v-flex shrink class="tutor-courses">
-                <span class="blue-text subheading">{{courses}}</span>
-              </v-flex>
+              <div v-bind:title="courses" class="flex tutor-courses blue-text subheading shrink" >
+                {{courses}}
+              </div>
             </v-layout>
           </v-flex>
         </v-layout>
@@ -160,12 +162,12 @@ export default {
   computed: {
     ...mapGetters(['accountUser']),
       courses(){
-      let query = this.$route.query.term
-      if(query) {
-        return `${LanguageService.getValueByKey("resultTutor_teaching")}${query}`
-      } else {
-        return `${this.tutorData.courses}`
-      }
+      //  let query = this.$route.query.term
+      //  if(query) {
+          return `${LanguageService.getValueByKey("resultTutor_teaching")} ${this.tutorData.courses}`
+      // } else {
+        //return `${this.tutorData.courses}`
+      //}
     },
     userImageUrl() {
       if (this.tutorData.image) {
