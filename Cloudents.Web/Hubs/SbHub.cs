@@ -45,7 +45,6 @@ namespace Cloudents.Web.Hubs
 
         private async Task ChangeOnlineStatus(long currentUserId, bool isOnline)
         {
-            _logger.Value.Info($"current user online {currentUserId}");
             try
             {
                 if (_canUpdateDb)
