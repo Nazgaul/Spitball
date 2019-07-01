@@ -19,7 +19,11 @@ const mutations = {
         }else if(val.toasterTimeout === undefined){
             val.toasterTimeout = 5000;
         }
+        
         state.params={...state.params,...val};
+        if(!val.toasterType){
+            state.params.toasterType = '';
+        }
     },
 };
 const getters = {
