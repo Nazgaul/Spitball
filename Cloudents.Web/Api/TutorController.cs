@@ -151,12 +151,12 @@ namespace Cloudents.Web.Api
             {
                 if (model.Email == null)
                 {
-                    ModelState.AddModelError(nameof(model.Email), "Need to have email");
+                    ModelState.AddModelError("error", "Need to have email");
                     return BadRequest(ModelState);
                 }
                 if (model.Phone == null)
                 {
-                    ModelState.AddModelError(nameof(model.Phone), "Need to have phone");
+                    ModelState.AddModelError("error", "Need to have phone");
                     return BadRequest(ModelState);
                 }
                 var user = await _userManager.FindByEmailAsync(model.Email);
@@ -168,7 +168,7 @@ namespace Cloudents.Web.Api
                         var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
                         if (result != IdentityResult.Success)
                         {
-                            ModelState.AddModelError(nameof(model.Phone), "Invalid Phone number");
+                            ModelState.AddModelError("error", "Invalid Phone number");
                             return BadRequest(ModelState);
                         }
                     }
@@ -188,7 +188,7 @@ namespace Cloudents.Web.Api
                     var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
                     if (result != IdentityResult.Success)
                     {
-                        ModelState.AddModelError(nameof(model.Phone), "Invalid Phone number");
+                        ModelState.AddModelError("error", "Invalid Phone number");
                         return BadRequest(ModelState);
                     }
                     userId = user.Id;
