@@ -6,7 +6,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +23,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using NHibernate;
 using System.Drawing;
+using Cloudents.Identity;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Cloudents.Web.Api

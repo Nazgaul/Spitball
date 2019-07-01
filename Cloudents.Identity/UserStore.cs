@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
@@ -12,6 +6,12 @@ using Cloudents.Query;
 using Cloudents.Query.Query;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Identity
 {
@@ -24,7 +24,7 @@ namespace Cloudents.Identity
         IUserAuthenticatorKeyStore<User>,
         IUserLockoutStore<User>,
         IUserLoginStore<User>//,
-        //IUserRoleStore<RegularUser>
+                             //IUserRoleStore<RegularUser>
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _bus;
@@ -37,7 +37,7 @@ namespace Cloudents.Identity
 
         public void Dispose()
         {
-           // _session.Dispose();
+            // _session.Dispose();
         }
 
         public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
@@ -55,11 +55,11 @@ namespace Cloudents.Identity
         public Task SetUserNameAsync(User user, [NotNull] string userName, CancellationToken cancellationToken)
         {
             if (userName == null) throw new ArgumentNullException(nameof(userName));
-            var splitUserName = userName.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+            var splitUserName = userName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             var firstName = splitUserName[0];
             var lastName = splitUserName.ElementAtOrDefault(1);
 
-            user.ChangeName(firstName,lastName);
+            user.ChangeName(firstName, lastName);
             return Task.CompletedTask;
         }
 
@@ -76,9 +76,21 @@ namespace Cloudents.Identity
 
         public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            var command = new CreateUserCommand(user);
-            await _bus.DispatchAsync(command, cancellationToken);
-            return IdentityResult.Success;
+            try
+            {
+                var command = new CreateUserCommand(user);
+                await _bus.DispatchAsync(command, cancellationToken);
+                return IdentityResult.Success;
+            }
+            catch (DuplicateRowException)
+            {
+                return IdentityResult.Failed(new IdentityError
+                {
+                    Description = "Duplicate",
+                    Code = "Duplicate"
+                });
+
+            }
         }
 
         public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
@@ -144,19 +156,18 @@ namespace Cloudents.Identity
 
         public async Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
-            Expression<Func<User, bool>> expression = f => f.NormalizedEmail == normalizedEmail;
+            Expression<Func<User, bool>> expression = f => f.Email == normalizedEmail;
             //return await _session.Query<RegularUser>().FirstOrDefaultAsync(w => w.NormalizedEmail == normalizedEmail, cancellationToken: cancellationToken);
             return await _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
         public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.NormalizedEmail);
+            return Task.FromResult(user.Email.ToUpperInvariant());
         }
 
         public Task SetNormalizedEmailAsync(User user, string normalizedEmail, CancellationToken cancellationToken)
         {
-            user.NormalizedEmail = normalizedEmail;
             return Task.CompletedTask;
         }
 

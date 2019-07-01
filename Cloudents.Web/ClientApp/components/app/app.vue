@@ -392,19 +392,24 @@ export default {
     //     this.acceptIsraeli = !!global.localStorage.getItem("sb-newIsraei");
     //   }, 130);
     // });
-
-    global.addEventListener("resize", event => {
-      if (global.isMobileAgent) {
-        if (
-          (document && document.activeElement.tagName == "INPUT") ||
-          document.activeElement.tagName == "TEXTAREA"
-        ) {
-          this.hideFooter = true;
-        } else {
-          this.hideFooter = false;
-        }
-      }
+    if (global.isMobileAgent) {
+      global.addEventListener("resize", event => {
+          if (
+            (document && document.activeElement.tagName == "INPUT") ||
+            document.activeElement.tagName == "TEXTAREA"
+          ) {
+            this.hideFooter = true;
+          } else {
+            this.hideFooter = false;
+          }
+      });
+    }
+    global.addEventListener('error', (event)=>{
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+      event.preventDefault();
     });
+
     let failedTranscationId = global.localStorage.getItem(
       "sb_transactionError"
     );

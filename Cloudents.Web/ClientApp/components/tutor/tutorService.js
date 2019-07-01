@@ -187,6 +187,18 @@ const connectToRoom = function (token, options) {
                 });
 
             });
+            //reconnecting room
+            store.getters['activeRoom'].on('reconnecting', (error) => {
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnecting', null, null);
+                console.log("ROOM - RECONNECTING");
+            });
+            
+            //reconnected room
+            store.getters['activeRoom'].on('reconnected', () => {
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnected', null, null);
+                console.log("ROOM - RECONNECTED");
+                /* Update the application UI here */
+            });
 
             // Attach the Participant's Media to a <div> element.
             store.getters['activeRoom'].on('participantConnected', participant => {

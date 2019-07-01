@@ -5,6 +5,7 @@ import analyticsService from '../services/analytics.service';
 import profileService from "../services/profile/profileService";
 import reputationService from '../services/reputationService';
 import initSignalRService from '../services/signalR/signalrEventService';
+import insightService from '../services/insightService';
 
 
 function setIntercomSettings(data) {
@@ -435,7 +436,6 @@ const actions = {
     logout({state, commit}) {
         removeIntercomeData();
         setIntercomeData();
-        if(!state.login) return;
         commit("logout");
         global.location.replace("/logout");
 
@@ -456,12 +456,12 @@ const actions = {
                 dispatch("syncUniData");
                 dispatch("getAllConversations");
                 analyticsService.sb_setUserId(UserAccount.id);
+                insightService.authenticate.set(UserAccount.id);
                 initSignalRService();
-            }).catch(_ => {
+            }, err=>{
                 setIntercomeData();
                 isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
-
             });
         } else {
             removeIntercomeData();

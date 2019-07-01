@@ -13,10 +13,14 @@
   &.v-navigation-drawer {
     background-color: @systemBackgroundColor;
     z-index: 102;
+    border-right: 1px solid rgba(0,0,0,.12);
     &.hebrew-drawer {
       // swap of right and left is going to be done by webpack RTL, so real vals are oposite
       right: unset;
       left: 0;
+    }
+    .v-navigation-drawer__border{
+      display: none;
     }
   }
   .v-list {
@@ -111,6 +115,8 @@
         font-family: @fontOpenSans;
         letter-spacing: -0.3px;
         color: rgba(255, 255, 255, 0.87);
+        margin: 0 28px 0 0;
+        padding: 0;
       }
     }
   }

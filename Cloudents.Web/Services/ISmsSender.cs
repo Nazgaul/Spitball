@@ -6,8 +6,7 @@ namespace Cloudents.Web.Services
 {
     public interface ISmsSender
     {
-      //  Task SendSmsAsync(string phoneNumber, string code, CancellationToken token);
-        Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, CancellationToken token);
+       // Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token);
         /// <summary>
         /// User signin manager with TwoFactorSignInAsync
         /// </summary>

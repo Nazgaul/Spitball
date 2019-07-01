@@ -15,7 +15,6 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<ChatMessage> _chatMessageRepository;
         private readonly IRepository<Course> _courseRepository;
-        private readonly IRepository<University> _universityRepository;
         private readonly IRepository<Lead> _leadRepository;
 
         public RequestTutorCommandHandler(ITutorRepository tutorRepository,
@@ -23,7 +22,6 @@ namespace Cloudents.Command.CommandHandler
             IRegularUserRepository userRepository,
             IRepository<ChatMessage> chatMessageRepository,
             IRepository<Course> courseRepository,
-            IRepository<University> universityRepository,
             IRepository<Lead> leadRepository)
         {
             _tutorRepository = tutorRepository;
@@ -31,7 +29,6 @@ namespace Cloudents.Command.CommandHandler
             _userRepository = userRepository;
             _chatMessageRepository = chatMessageRepository;
             _courseRepository = courseRepository;
-            _universityRepository = universityRepository;
             _leadRepository = leadRepository;
         }
 
@@ -45,62 +42,36 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var course = await _courseRepository.LoadAsync(message.Course, token);
-            University university = null;
-            if (message.UniversityId != null)
-            {
+            var user = await _userRepository.LoadAsync(message.UserId, token);
 
-                university = await _universityRepository.LoadAsync(message.UniversityId, token);
-            }
-
-            User userLead = null;
-            if (message.UserId.HasValue)
-            {
-                userLead = await _userRepository.LoadAsync(message.UserId.Value, token);
-            }
             var lead = new Lead(course, message.LeadText,
-                university, message.Referer, userLead,
-                message.Name, message.PhoneNumber, message.Email, tutor, message.UtmSource);
+                 message.Referer, user,
+                tutor, message.UtmSource);
             await _leadRepository.AddAsync(lead, token);
 
-
-
-
-            if (message.UserId.HasValue)
+            var tutorsIds = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, token);
+            if (tutor != null)
             {
-                var tutorsIds = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId.Value, token);
-                if (tutor != null)
-                {
-                    tutorsIds.Add(tutor.Id);
-
-                }
-                var user = await _userRepository.LoadAsync(message.UserId.Value, token);
+                tutorsIds.Add(tutor.Id);
+            }
+            
                 foreach (var userId in tutorsIds.Distinct())
+            {
+                var users = new[] { userId, message.UserId };
+                var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
+                if (chatRoom.Extra == null)
                 {
-                    //  needToRegisterLead = false;
-                    var users = new[] { userId, message.UserId.Value };
-                    var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
-                    if (chatRoom.Extra == null)
-                    {
                         chatRoom.Extra = new ChatRoomAdmin(chatRoom);
-                    }
-                    chatRoom.Extra.Lead = lead;
-                    //chatRoom.Extra = new ChatRoomAdmin(chatRoom, ChatRoomStatus.Default)
-                    //{
-                    //    Lead = lead
-                    //};
-                    await _chatRoomRepository.UpdateAsync(chatRoom, token);
-                    var chatMessage = new ChatTextMessage(user, message.ChatText, chatRoom);
-                    chatRoom.AddMessage(chatMessage);
-                    await _chatRoomRepository.UpdateAsync(chatRoom, token);
-                    await _chatMessageRepository.AddAsync(chatMessage, token);
-
                 }
+                chatRoom.Extra.Lead = lead;
+               
+                await _chatRoomRepository.UpdateAsync(chatRoom, token);
+                var chatMessage = new ChatTextMessage(user, message.ChatText, chatRoom);
+                chatRoom.AddMessage(chatMessage);
+                await _chatRoomRepository.UpdateAsync(chatRoom, token);
+                await _chatMessageRepository.AddAsync(chatMessage, token);
             }
 
-            // if (needToRegisterLead)
-            // {
-
-            // }
         }
     }
 }

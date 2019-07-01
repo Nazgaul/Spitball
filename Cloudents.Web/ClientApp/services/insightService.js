@@ -30,8 +30,15 @@ const track={
         global.appInsights.trackEvent(eventName, properties, measurements);
     },
 }
+const authenticate= {
+    set: function(userId){
+        global.appInsights.setAuthenticatedUserContext(userId);
+    }
+}
+
 
 export default{
     track,
-    EVENT_TYPES
+    EVENT_TYPES,
+    authenticate
 }

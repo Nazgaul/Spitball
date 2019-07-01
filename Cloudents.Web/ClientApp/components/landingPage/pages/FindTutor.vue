@@ -52,11 +52,17 @@ export default {
     ...mapGetters(['accountUser'])
     },
     beforeRouteEnter (to, from, next) {
+      let isLogoClicked = from.name !== null; 
       //makes sure an auth user won't see this page!
         let isLoggedIn = store.getters['accountUser'];
         let query = location.search;
         if(!!isLoggedIn){
-            next(`/ask${query}`);
+          let forceReload = '';
+          if(from.path === `/ask` && from.fullPath === '/ask'){
+            forceReload = '?term='
+          }
+          let nextRout = isLogoClicked ? `/ask${forceReload}` : `/ask${query}`;
+          next(nextRout);
         }else{
             next();
         }

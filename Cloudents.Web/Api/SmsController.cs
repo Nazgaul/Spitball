@@ -4,10 +4,12 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
+using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
+using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +19,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Api
 {
@@ -27,7 +28,7 @@ namespace Cloudents.Web.Api
     public class SmsController : Controller
     {
         private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly SbUserManager _userManager;
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
@@ -37,7 +38,7 @@ namespace Cloudents.Web.Api
         private const string SmsTime = "SmsTime";
         private const string PhoneCallTime = "phoneCallTime";
 
-        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
+        public SmsController(SignInManager<User> signInManager, SbUserManager userManager,
             ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
             ILogger logger, IStringLocalizer<SmsController> smsLocalizer)
         {
@@ -82,17 +83,18 @@ namespace Cloudents.Web.Api
                 return Unauthorized();
             }
 
-            var phoneNumber = await _client.ValidateNumberAsync(model.ToString(), token);
-            if (string.IsNullOrEmpty(phoneNumber.phoneNumber))
-            {
-                _logger.Warning("Did not passed validation of lookup");
-                ModelState.AddModelError(nameof(model.PhoneNumber), _localizer["InvalidPhoneNumber"]);
-                return BadRequest(ModelState);
-            }
 
-            user.Country = phoneNumber.country;
+            //var phoneNumber = await _client.ValidateNumberAsync(model.PhoneNumber, model.CountryCode.ToString(), token);
+            //if (string.IsNullOrEmpty(phoneNumber.phoneNumber))
+            //{
+            //    _logger.Warning("Did not passed validation of lookup");
+            //    ModelState.AddModelError(nameof(model.PhoneNumber), _localizer["InvalidPhoneNumber"]);
+            //    return BadRequest(ModelState);
+            //}
 
-            var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber.phoneNumber);
+            //user.Country = phoneNumber.country;
+
+            var retVal = await _userManager.SetPhoneNumberAndCountryAsync(user, model.PhoneNumber, model.CountryCode.ToString(), token);
 
             //Ram: I disable this - we have an issue that sometime we get the wrong ip look at id 
             //3DCDBF98-6545-473A-8EAA-A9DF00787C70 of UserLocation table in dev sql
@@ -118,7 +120,10 @@ namespace Cloudents.Web.Api
                 await _client.SendSmsAsync(user, token);
                 return Ok();
             }
-
+            if (retVal.Errors.Any(a => a.Code == "InvalidPhoneNumber"))
+            {
+                ModelState.AddModelError(nameof(model.PhoneNumber), _localizer["InvalidPhoneNumber"]);
+            }
             if (retVal.Errors.Any(a => a.Code == "Duplicate"))
             {
                 _logger.Warning("phone number is duplicate");
@@ -159,8 +164,8 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user, string country, 
-            string fingerPrint, string UserAgent)
+        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user, string country,
+            string fingerPrint, string userAgent)
         {
             if (TempData[HomeController.Referral] != null)
             {
@@ -184,7 +189,7 @@ namespace Cloudents.Web.Api
             }
             TempData.Clear();
 
-            var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress(), fingerPrint, UserAgent);
+            var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress(), fingerPrint, userAgent);
             var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
             var t1 = _commandBus.DispatchAsync(command2, token);
             var t2 = _signInManager.SignInAsync(user, false);

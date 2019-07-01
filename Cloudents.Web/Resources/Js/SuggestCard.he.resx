@@ -123,12 +123,6 @@
   <data name="btn" xml:space="preserve">
     <value>ספר לנו מה אתה צריך</value>
   </data>
-  <data name="Show_me" xml:space="preserve">
-    <value>הראה לי</value>
-  </data>
-  <data name="Spitball" xml:space="preserve">
-    <value>ספיטבול</value>
-  </data>
   <data name="title" xml:space="preserve">
     <value>צריך עזרה במציאת מורה פרטי מומלץ?</value>
   </data>

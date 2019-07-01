@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add" xml:space="preserve">
-    <value>Add</value>
+    <value>Add Courses</value>
   </data>
   <data name="back_to_list" xml:space="preserve">
     <value>Back to My Courses</value>
@@ -201,17 +201,11 @@
   <data name="students" xml:space="preserve">
     <value>students</value>
   </data>
-  <data name="sub_title_invite" xml:space="preserve">
-    <value></value>
-  </data>
   <data name="teach" xml:space="preserve">
     <value>Teach</value>
   </data>
   <data name="teaching" xml:space="preserve">
     <value>Teaching</value>
-  </data>
-  <data name="third_tip" xml:space="preserve">
-    <value></value>
   </data>
   <data name="try_again" xml:space="preserve">
     <value>Try Again</value>

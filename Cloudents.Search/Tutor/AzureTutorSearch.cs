@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Search.Tutor
 {
@@ -27,7 +27,7 @@ namespace Cloudents.Search.Tutor
             {
                 Top = pageSize,
                 Skip = query.Page * pageSize,
-                Select = new []
+                Select = new[]
                 {
                     nameof(Entities.Tutor.Name),
                     nameof(Entities.Tutor.Id),
@@ -39,7 +39,10 @@ namespace Cloudents.Search.Tutor
                     nameof(Entities.Tutor.ReviewCount),
                     nameof(Entities.Tutor.Bio),
                 },
-                SearchFields = new [] { nameof(Entities.Tutor.Name), nameof(Entities.Tutor.Prefix), nameof(Entities.Tutor.Courses), nameof(Entities.Tutor.Subjects) },
+                HighlightFields = new[] { nameof(Entities.Tutor.Courses) },
+                HighlightPostTag = string.Empty,
+                HighlightPreTag = string.Empty,
+                SearchFields = new[] { nameof(Entities.Tutor.Name), nameof(Entities.Tutor.Prefix), nameof(Entities.Tutor.Courses), nameof(Entities.Tutor.Subjects) },
                 ScoringProfile = TutorSearchWrite.ScoringProfile,
                 //OrderBy = new List<string> { "search.score() desc", $"{Entities.Tutor.RateFieldName} desc" }
             };
@@ -48,16 +51,21 @@ namespace Cloudents.Search.Tutor
                 searchParams.Filter = $"{nameof(Entities.Tutor.Country)} eq '{query.Country.ToUpperInvariant()}'";
             }
             var result = await _client.Documents.SearchAsync<Entities.Tutor>(query.Term, searchParams, cancellationToken: token);
-            return result.Results.Select(s => new TutorListDto()
+            return result.Results.Select(s =>
             {
-                Name = s.Document.Name,
-                UserId = Convert.ToInt64(s.Document.Id),
-                Courses = string.Join(",", s.Document.Courses.Take(10)),
-                Image = s.Document.Image,
-                Price = (decimal)s.Document.Price,
-                Rate = (float)s.Document.Rate,
-                ReviewsCount = s.Document.ReviewCount,
-                Bio = s.Document.Bio
+                var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
+                    s.Document.Courses).Take(10).Distinct();
+                return new TutorListDto
+                {
+                    Name = s.Document.Name,
+                    UserId = Convert.ToInt64(s.Document.Id),
+                    Courses = string.Join(",", courses),
+                    Image = s.Document.Image,
+                    Price = (decimal)s.Document.Price,
+                    Rate = (float)s.Document.Rate,
+                    ReviewsCount = s.Document.ReviewCount,
+                    Bio = s.Document.Bio
+                };
             });
 
         }

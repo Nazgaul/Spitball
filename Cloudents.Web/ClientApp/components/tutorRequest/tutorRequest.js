@@ -5,10 +5,15 @@ import { validationRules } from "../../services/utilities/formValidationRules";
 import analyticsService from '../../services/analytics.service';
 import universityService from "../../services/universityService.js";
 import debounce from "lodash/debounce";
+import VueRecaptcha from 'vue-recaptcha';
+
 
 export default {
+    components:{VueRecaptcha},
     data() {
         return {
+            siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
+            recaptcha: '',
             isProfile: false,
             suggestsUniversities: [],
             suggestsCourses: [],
@@ -80,6 +85,7 @@ export default {
             if(self.$refs.tutorRequestForm.validate()) {
                 self.btnRequestLoading = true;
                 let serverObj = {
+                    captcha: (self.recaptcha)? self.recaptcha : null,
                     text: (self.tutorRequestText)? self.tutorRequestText : null,
                     name: (self.guestName)? self.guestName : null,
                     email: (self.guestMail)? self.guestMail : null,
@@ -103,18 +109,29 @@ export default {
                                       })
                                     }).catch((err)=>{
                                         self.updateToasterParams({
-                                          toasterText: LanguageService.getValueByKey("tutorRequest_request_error"),
+                                          toasterText: !!err.response.data.error ? err.response.data.error[0] : LanguageService.getValueByKey("tutorRequest_request_error"),
                                           showToaster: true,
                                           toasterType: 'error-toaster'
                                         })
-                                  }).finally(() => self.btnRequestLoading = false);
+                                  }).finally(() => {
+                                      self.btnRequestLoading = false
+                                      this.$refs['recaptcha'].reset();
+                                    });
             }
         },
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
         },
+        onVerify(response) {
+            this.recaptcha = response;
+        },
+        onExpired() {
+            this.recaptcha = "";
+        },
     },
     created() {
         this.isProfile = this.$route.name === 'profile'? true : false;
+        let captchaLangCode = global.lang === 'he' ? 'iw' : 'en';
+        this.$loadScript(`https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=${captchaLangCode}`);
     },
 };

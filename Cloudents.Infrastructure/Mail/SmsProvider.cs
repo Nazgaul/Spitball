@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Twilio;
+using Twilio.Http;
 using Twilio.Jwt.AccessToken;
 using Twilio.Rest.Lookups.V1;
 using Twilio.Rest.Video.V1;
@@ -32,8 +34,17 @@ namespace Cloudents.Infrastructure.Mail
             TwilioClient.Init(AccountSid, AuthToken);
         }
 
-        public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, CancellationToken token)
+        public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber,string countryCode, CancellationToken token)
         {
+            phoneNumber =  Regex.Replace(phoneNumber, "\\([0-9]+?\\)", string.Empty);
+            phoneNumber = Regex.Replace(phoneNumber, "[^0-9]", string.Empty);
+            phoneNumber = phoneNumber.TrimStart('0');
+
+            countryCode = countryCode.TrimStart('+');
+            if (!phoneNumber.StartsWith(countryCode))
+            {
+                phoneNumber = $"+{countryCode}{phoneNumber}";
+            }
             try
             {
                 var result = await PhoneNumberResource.FetchAsync(
@@ -76,13 +87,15 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
-        public async Task CreateRoomAsync(string id, bool needRecord)
+        public async Task CreateRoomAsync(string id, bool needRecord, Uri callBack)
         {
+
            await RoomResource.CreateAsync(
                 uniqueName: id,
                 maxParticipants: 2,
-                type: RoomResource.RoomTypeEnum.PeerToPeer //this is smaller fee
-               
+                type: RoomResource.RoomTypeEnum.PeerToPeer, //this is smaller fee
+                statusCallback:callBack,
+                statusCallbackMethod: HttpMethod.Post
                 //recordParticipantsOnConnect: needRecord
                 );
         }

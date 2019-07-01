@@ -6,23 +6,23 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
-using Cloudents.Core.Storage;
+using Cloudents.Identity;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Filters;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
-using Cloudents.Web.Services;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -35,12 +35,12 @@ namespace Cloudents.Web.Api
     public class TutorController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
-        private readonly UserManager<User> _userManager;
+        private readonly SbUserManager _userManager;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<TutorController> _stringLocalizer;
 
 
-        public TutorController(IQueryBus queryBus, UserManager<User> userManager,
+        public TutorController(IQueryBus queryBus, SbUserManager userManager,
              ICommandBus commandBus, IStringLocalizer<TutorController> stringLocalizer)
         {
             _queryBus = queryBus;
@@ -129,12 +129,13 @@ namespace Cloudents.Web.Api
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
-        [HttpPost("request")]
+        [HttpPost("request"), ValidateRecaptcha, ValidateEmail]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
-            [FromServices] ISmsSender client,
+            [FromServices] IIpToLocation ipLocation,
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
+            //var phoneNumber = await client.ValidateNumberAsync(model.ToString(), token);
 
             //RequestTutorEmail
             if (_userManager.TryGetLongUserId(User, out var userId))
@@ -150,7 +151,12 @@ namespace Cloudents.Web.Api
             {
                 if (model.Email == null)
                 {
-                    ModelState.AddModelError(nameof(model.Email),"Need to have email");
+                    ModelState.AddModelError("error", "Need to have email");
+                    return BadRequest(ModelState);
+                }
+                if (model.Phone == null)
+                {
+                    ModelState.AddModelError("error", "Need to have phone");
                     return BadRequest(ModelState);
                 }
                 var user = await _userManager.FindByEmailAsync(model.Email);
@@ -158,40 +164,47 @@ namespace Cloudents.Web.Api
                 {
                     if (user.PhoneNumber == null)
                     {
-                        var phoneNumber = await client.ValidateNumberAsync(model.ToString(), token);
-                        if (phoneNumber.phoneNumber != null)
+                        var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
+                        var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
+                        if (result != IdentityResult.Success)
                         {
-                            user.Country = phoneNumber.country;
-                            await _userManager.SetPhoneNumberAsync(user, model.Phone);
-                            userId = user.Id;
+                            ModelState.AddModelError("error", "Invalid Phone number");
+                            return BadRequest(ModelState);
                         }
                     }
-                    else
-                    {
-                        userId = user.Id;
-                    }
+                    userId = user.Id;
+
                 }
                 else
                 {
+                    user = new User(model.Email, CultureInfo.CurrentCulture)
+                    {
+                        Name = model.Name,
+                    };
+                    var createUserCommand = new CreateUserCommand(user, model.University, model.Course);
+                    await _commandBus.DispatchAsync(createUserCommand, token);
 
+                    var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
+                    var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
+                    if (result != IdentityResult.Success)
+                    {
+                        ModelState.AddModelError("error", "Invalid Phone number");
+                        return BadRequest(ModelState);
+                    }
+                    userId = user.Id;
                 }
-                //TODO : need to register user
             }
 
 
             var utmSource = referer.ParseQueryString()["utm_source"];
-            // if (userId > 0)
-            // {
             var command = new RequestTutorCommand(model.Course,
                 _stringLocalizer["RequestTutorChatMessage", model.Course],
                 userId,
-                model.University,
+
                 referer.AbsoluteUri,
-                model.Name,
-                model.Phone,
-                model.Text,model.Email, model.TutorId, utmSource);
+                model.Text, model.TutorId, utmSource);
             await _commandBus.DispatchAsync(command, token);
-        
+
             return Ok();
         }
 
