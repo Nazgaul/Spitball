@@ -1,1 +1,11 @@
 ﻿need to update azure function v2
+
+
+
+update sb.ChatRoomAdmin
+set [Status] = 'Unassigned'
+where [Status] = 'Default'
+
+update sb.ChatRoomAdmin
+set AssignTo = 'Unassigned'
+where AssignTo = 'None'

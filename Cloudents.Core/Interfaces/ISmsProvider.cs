@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
@@ -11,10 +12,17 @@ namespace Cloudents.Core.Interfaces
 
     public interface IVideoProvider
     {
-        Task CreateRoomAsync(string id,bool needRecord);
+        Task CreateRoomAsync(string id,bool needRecord, Uri callbackUri);
         Task CloseRoomAsync(string id);
 
         Task<bool> GetRoomAvailableAsync(string id);
         Task<string> ConnectToRoomAsync(string roomName, string name);
     }
+
+    public interface IMailProvider
+    {
+        Task<bool> ValidateEmailAsync(string email, CancellationToken token);
+    }
+
+    
 }

@@ -2,10 +2,9 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Extensions;
+using Cloudents.Core.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,31 +16,39 @@ namespace Cloudents.Admin2.Api
     public class AdminShortUrlController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
-        private IHostingEnvironment HostingEnvironment { get; }
-        public AdminShortUrlController(ICommandBus commandBus, IHostingEnvironment hostingEnvironment)
+        private readonly IConfiguration _configuration;
+        public AdminShortUrlController(ICommandBus commandBus, IConfiguration configuration)
         {
             _commandBus = commandBus;
-            HostingEnvironment = hostingEnvironment;
+            _configuration = configuration;
         }
 
 
         [HttpPost("url")]
-
-        public async Task<ActionResult<ShortUrlDto>> AddShortUrlAsync([FromBody] AddShortUrlRequest model, CancellationToken token)
+        public async Task<ActionResult<ShortUrlDto>> AddShortUrlAsync([FromBody] AddShortUrlRequest model, 
+             CancellationToken token)
         {
-            string url;
-            if (!HostingEnvironment.IsDevelopment())
+           
+            var destinationTest = Uri.TryCreate(model.Destination, UriKind.Absolute, out Uri u);
+
+            if(!destinationTest && !model.Destination.StartsWith("/") && !model.Destination.StartsWith("www"))
             {
-                url = $"https://www.spitball.co/go/{model.Identifier}";
+                model.Destination = $"/{model.Destination}";
             }
-            else
-            {
-                url = $"https://dev.spitball.co/go/{model.Identifier}";
-            }
+
             var command = new CreateShortUrlCommand(model.Identifier, model.Destination, model.Expiration);
-            await _commandBus.DispatchAsync(command, token);
-         
+            try
+            {
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (DuplicateRowException)
+            {
+                return Conflict(); 
+            }
+
+            string url = $"{_configuration["Site"]}/go/{model.Identifier}";
             return new ShortUrlDto(url, model.Destination, model.Expiration);
+
         }
     }
 }

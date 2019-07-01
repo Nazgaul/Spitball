@@ -137,7 +137,7 @@
       </v-dialog>
 
       <sb-dialog
-        :showDialog="getReviewDialogState "
+        :showDialog="getReviewDialogState"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'reviewDilaog'"
         :maxWidth="'596'"
@@ -320,7 +320,7 @@ export default {
     },
     showNotConnectedDevicesDialog(){
       let browserSupported = this.isBrowserSupport();
-      return this.qualityDialog && browserSupported
+      return this.qualityDialog && browserSupported && !this.isMobile
     },
     needPayment() {
         return this.getStudyRoomData ? this.getStudyRoomData.needPayment : false;
@@ -475,6 +475,7 @@ export default {
     });
     console.log("ID Tutor!!", this.id);
     global.onbeforeunload = function() {
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
       return "Are you sure you want to close the window?";
     };
   }

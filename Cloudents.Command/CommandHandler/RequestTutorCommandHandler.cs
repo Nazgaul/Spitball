@@ -61,7 +61,7 @@ namespace Cloudents.Command.CommandHandler
                 var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
                 if (chatRoom.Extra == null)
                 {
-                    chatRoom.Extra = new ChatRoomAdmin(chatRoom, ChatRoomStatus.Active);
+                        chatRoom.Extra = new ChatRoomAdmin(chatRoom);
                 }
                 chatRoom.Extra.Lead = lead;
                

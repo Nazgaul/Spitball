@@ -97,15 +97,17 @@
             </v-layout>
           </v-container>
         </v-card-text>
-        <v-card-actions class="alignEnd pt-0">
+          <div class="pl-4">
             <vue-recaptcha v-if="!isAuthUser" 
-                          class="pb-3"
-                          :sitekey="siteKey"
-                          ref="recaptcha"
-                          @verify="onVerify"
-                          @expired="onExpired()">
+              class="pb-3"
+              :sitekey="siteKey"
+              ref="recaptcha"
+              @verify="onVerify"
+              @expired="onExpired()">
             </vue-recaptcha>
-          <div>
+          </div>
+        <v-card-actions class="alignEnd pt-0">
+        <div>
             <v-btn color="blue darken-1" :disabled="btnRequestLoading" flat @click="tutorRequestDialogClose()">{{btnClosePlaceholder}}</v-btn>
             <v-btn  color="#4452fc"
                    class="white--text"

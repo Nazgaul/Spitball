@@ -12,7 +12,7 @@
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
                     <v-btn flat class="white--text messages-study-room-btn-create" v-show="!studyRoomExists && isRoomTutor" :loading="loader">
-                        <v-icon style="font-size:10px; transform: rotate(45deg); margin: 0 4px 0 0; color:#fff;">sbf-close</v-icon>&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
+                        <v-icon style="font-size:10px; transform: rotate(45deg); margin: 0 4px 0 0; color:#fff;">sbf-close</v-icon>&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
                     </v-btn>
                 </div>
             </div>

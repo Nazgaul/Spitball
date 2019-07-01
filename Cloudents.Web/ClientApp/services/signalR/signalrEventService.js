@@ -2,16 +2,16 @@ import { connectivityModule } from '../connectivity.module'
 import { signlaREvents } from './signalREventHandler'
 import store from '../../store/index'
 
-// do not remove this!
-let signalRConnectionPool = [];
-let connectionStartCount = 0;
 
-
-let connectionState = {
-    isConnected: false,
-    connectionQue: []
+function ConnectionObj(objInit){
+    this.connection = objInit.connection;
+    this.isConnected = objInit.isConnected || false;
+    this.connectionQue = objInit.connectionQue || [];
+    this.connectionStartCount = objInit.connectionStartCount || 0;
 }
 
+// do not remove this!
+let signalRConnectionPool = [];
 
 //Signal R Objects ------------------------ start
 export function Notification(eventObj) {
@@ -46,18 +46,18 @@ function connectionOn(connection, message, callback) {
     connectivityModule.sr.on(connection, message, callback)
 }
 
-function startConnection(connection, messageString) {
-    connection.start().then(function () {
+function startConnection(connectionInstance, messageString) {
+    connectionInstance.connection.start().then(function () {
         //connection ready register the main Events
-            store.dispatch('setIsSignalRConnected', true);
-        connectionOn(connection, messageString, messageHandler);
-        console.log("signal-R Conected");
-        connectionState.isConnected = true;
+        store.dispatch('setIsSignalRConnected', true);
+        connectionOn(connectionInstance.connection, messageString, messageHandler);
+        console.log("signal-R Conected", connectionInstance);
+        connectionInstance.isConnected = true;
 
         //if we have events that cought in the que, then shift them one by one
-        if (connectionState.connectionQue.length > 0) {
-            while (connectionState.connectionQue.length) {
-                let que = connectionState.connectionQue.shift()
+        if (connectionInstance.connectionQue.length > 0) {
+            while (connectionInstance.connectionQue.length) {
+                let que = connectionInstance.connectionQue.shift()
                 NotifyServer(que.connection, que.message, que.data)
             }
         }
@@ -65,71 +65,62 @@ function startConnection(connection, messageString) {
 }
 
 function createConnection(connString) {
-    let newConnection = connectivityModule.sr.createConnection(connString);
-    signalRConnectionPool.push(newConnection);
-
-    return newConnection;
+    let connection = connectivityModule.sr.createConnection(connString);
+    let connectionInstance = new ConnectionObj({connection});
+    signalRConnectionPool.push(connectionInstance);
+    return connectionInstance;
 }
 
-async function start(connection) {
+async function start(connectionInstance) {
     try {
-        await connection.start()
+        await connectionInstance.connection.start()
         store.dispatch('setIsSignalRConnected', true);
-        connectionStartCount = 0;
-        connectionState.isConnected = true;
-        console.log("signal-R Reconected");
+        connectionInstance.connectionStartCount = 0;
+        connectionInstance.isConnected = true;
+        console.log("signal-R Reconected", connectionInstance);
 
         //if we have events that cought in the que, then shift them one by one
-        if(connectionState.connectionQue.length > 0){
-            while(connectionState.connectionQue.length){
-                let que = connectionState.connectionQue.shift()
+        if(connectionInstance.connectionQue.length > 0){
+            while(connectionInstance.connectionQue.length){
+                let que = connectionInstance.connectionQue.shift()
                 NotifyServer(que.connection, que.message, que.data)
             }
         }
     } catch (err) {
-        connectionStartCount++;
+        connectionInstance.connectionStartCount++;
         console.log(err);
         setTimeout(() => {
-            if(!connectionState.isConnected){
-                start(connection);
+            if(!connectionInstance.isConnected){
+                start(connectionInstance);
             }
-        }, 5000 * (connectionStartCount + 1));
+        }, 5000 * (connectionInstance.connectionStartCount + 1));
     }
 };
 
 //init function is launched from the main.js
 export default function init(connString = '/sbHub') {
     //create a signalR Connection
-    let connection = createConnection(connString)
+    let connectionInstance = createConnection(connString)
 
 
     //reconnect in case connection closes for some reason
-    connection.onclose(async () => {
+    connectionInstance.connection.onclose(async () => {
         store.dispatch('setIsSignalRConnected', false);
-        connectionState.isConnected = false;
-        await start(connection);
+        connectionInstance.isConnected = false;
+        await start(connectionInstance);
     });
 
     //open the connection and register the events
-    startConnection(connection, "Message");
+    startConnection(connectionInstance, "Message");
 }
 
 export function NotifyServer(connection, message, data) {
-    if (connectionState.isConnected) {
+    let mainConnectionInstance = signalRConnectionPool[0];
+    if (mainConnectionInstance.isConnected) {
         return connectivityModule.sr.invoke(connection, message, data)
     } else {
-        connectionState.connectionQue.push(new ConnectionQue(connection, message, data))
+        mainConnectionInstance.connectionQue.push(new ConnectionQue(connection, message, data))
     }
-}
-
-export function reconnectSignalR() {
-    if (signalRConnectionPool.length > 0) {
-        signalRConnectionPool.forEach((connection, index) => {
-            connection.stop()
-            signalRConnectionPool.splice(index, 1);
-        })
-    }
-    init();
 }
 
 export function getMainConnection() {

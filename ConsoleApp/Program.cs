@@ -3,32 +3,32 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Query;
+using Cloudents.Query.Tutor;
+using Cloudents.Search.Tutor;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
+using NHibernate.Id;
 using NHibernate.Linq;
 using SimMetricsMetricUtilities;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Extension;
-using Cloudents.Query.SearchSync;
-using Cloudents.Search.Tutor;
+using Cloudents.Core.Enum;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudents.Infrastructure;
-using Cloudents.Query.Tutor;
+using Cloudents.Query.Query.Admin;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -138,15 +138,21 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var uriBuilder = new UriBuilder();
-            var nvc = new NameValueCollection();
-            nvc.Add("token", "dsfklsjdf");
-            nvc.Add("chat", "expand");
-            uriBuilder.AddQuery(nvc);
-            var x = uriBuilder.ToString();
+            var t = new GuidCombGenerator();
+
+            var dictionary = new Dictionary<int, Guid>();
+
+            for (int i = 0; i < 5; i++)
+                dictionary.Add(i, (Guid)t.Generate(null, null));
+
+            var v = dictionary.OrderBy(d => d.Value);
 
             //await UpdateMethod();
-            //var queryBus = _container.Resolve<IQueryBus>();
+            var queryBus = _container.Resolve<IMailProvider>();
+            var z = await queryBus.ValidateEmailAsync("yaari.ram@gmail.com", default);
+            var z2 = await queryBus.ValidateEmailAsync("yaari@gmail.com", default);
+            var z3 = await queryBus.ValidateEmailAsync("yaari@asdasdasdasd.com", default);
+
             //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
             //var v = x.Update.OrderBy(o => o.VersionAsLong).First();
 

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Twilio;
+using Twilio.Http;
 using Twilio.Jwt.AccessToken;
 using Twilio.Rest.Lookups.V1;
 using Twilio.Rest.Video.V1;
@@ -86,13 +87,15 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
-        public async Task CreateRoomAsync(string id, bool needRecord)
+        public async Task CreateRoomAsync(string id, bool needRecord, Uri callBack)
         {
+
            await RoomResource.CreateAsync(
                 uniqueName: id,
                 maxParticipants: 2,
-                type: RoomResource.RoomTypeEnum.PeerToPeer //this is smaller fee
-               
+                type: RoomResource.RoomTypeEnum.PeerToPeer, //this is smaller fee
+                statusCallback:callBack,
+                statusCallbackMethod: HttpMethod.Post
                 //recordParticipantsOnConnect: needRecord
                 );
         }

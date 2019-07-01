@@ -1,24 +1,27 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.StudyRooms;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command.StudyRooms;
-using Cloudents.Core.Storage;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -27,7 +30,7 @@ namespace Cloudents.Web.Api
     [Authorize]
     public class StudyRoomController : ControllerBase
     {
-      
+
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
@@ -77,7 +80,7 @@ namespace Cloudents.Web.Api
             var query = new StudyRoomQuery(id, userId);
             var result = await _queryBus.QueryAsync(query, token);
 
-            
+
             //TODO: need to add who is the tutor
             if (result == null)
             {
@@ -93,7 +96,7 @@ namespace Cloudents.Web.Api
         //    return result;
         //}
 
-        [HttpPost("upload"),AllowAnonymous]
+        [HttpPost("upload"), AllowAnonymous]
         public async Task<IActionResult> UploadAsync(IFormFile file,
             [FromHeader(Name = "referer")] Uri referer,
             [FromServices] IDocumentDirectoryBlobProvider blobProvider,
@@ -137,14 +140,48 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-           
-           
-            var command = new CreateStudyRoomSessionCommand(id, configuration.IsProduction(), userId);
+
+            var url = Url.RouteUrl("roomCallback", new
+            {
+
+                id = id
+            }, "https");
+
+            var uri = new Uri(url);
+            if (configuration.IsDevelopment())
+            {
+                var uriBuilder = new UriBuilder(url) { Host = "3c814e9d.ngrok.io", Port = 443 };
+                uri = uriBuilder.Uri;
+            }
+
+
+            var command = new CreateStudyRoomSessionCommand(id, configuration.IsProduction(), userId, uri);
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();
 
 
+        }
+
+        [HttpPost("roomCallback", Name = "roomCallback"), ApiExplorerSettings(IgnoreApi = true), AllowAnonymous]
+        public async Task<IActionResult> TwilioCallBackAsync([FromQuery]Guid id,
+            [FromServices] TelemetryClient client,
+            [FromForm] TwilioWebHookRequest request, CancellationToken token)
+        {
+
+            client.TrackEvent($"Room Status {id}",
+                request.GetType().GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance).ToDictionary
+                (
+                    propInfo => propInfo.Name,
+                    propInfo => propInfo.GetValue(request, null)?.ToString()
+
+                ));
+            if (request.RoomStatus == "completed")
+            {
+                var command = new EndStudyRoomSessionTwilioCommand(id, request.RoomName);
+                await _commandBus.DispatchAsync(command, token);
+            }
+            return Ok();
         }
 
         /// <summary>
@@ -176,7 +213,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = userManager.GetLongUserId(User);
-           
+
             var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, userId);
             try
             {

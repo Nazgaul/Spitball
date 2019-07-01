@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.StudyRooms
 {
@@ -36,7 +36,7 @@ namespace Cloudents.Command.StudyRooms
                     return;
                 }
             }
-            await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo);
+            await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo, message.CallbackUrl);
             var session = new StudyRoomSession(room, sessionName);
             room.AddSession(session);
         }
