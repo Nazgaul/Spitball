@@ -12,13 +12,12 @@ namespace Cloudents.Core.Entities
         {
 
         }
-        public ChatRoomAdmin(ChatRoom room, ChatRoomStatus status) :this()
+        public ChatRoomAdmin(ChatRoom room) :this()
         {
-            Status = status;
             ChatRoom = room;
         }
-        public virtual ChatRoomStatus Status { get; set; }
-        public virtual ChatRoomAssign AssignTo { get; set; }
+        public virtual ChatRoomStatus? Status { get; set; }
+        public virtual ChatRoomAssign? AssignTo { get; set; }
 
         public virtual ChatRoom ChatRoom { get; protected set; }
 

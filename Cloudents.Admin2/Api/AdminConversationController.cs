@@ -12,8 +12,10 @@ using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -109,9 +111,9 @@ namespace Cloudents.Admin2.Api
         {
             return new ConversationParamsResponse()
             {
-                Status = Enum.GetNames(typeof(ChatRoomStatus)),
-                AssignTo = Enum.GetNames(typeof(ChatRoomAssign)),
-                WaitingFor = Enum.GetNames(typeof(WaitingFor))
+                Status = Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
+                AssignTo = Enum.GetNames(typeof(ChatRoomAssign)).Select(s => s.ToCamelCase()),
+                WaitingFor = Enum.GetNames(typeof(WaitingFor)).Select(s => s.ToCamelCase())
             };
         }
     }

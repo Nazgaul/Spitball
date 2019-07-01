@@ -87,7 +87,7 @@
                           <v-flex xs2 class="card-converstaion-content-col-2 pl-3">
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Name</span>
-                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.userId}}"  target="_blank"  class="body-1  font-weight-bold ">{{conversation.tutorName}}</router-link>
+                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.userId}}" target="_blank" class="body-1  font-weight-bold ">{{conversation.tutorName}}</router-link>
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Email</span>
@@ -120,33 +120,29 @@
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-6 pl-3">
-                              <v-select
-                                v-model="conversation.status"
-                                :items="filters.status"
-                                @click.native.stop
-                                class="card-converstaion-select pb-2"
-                                hide-details
-                                box
-                                dense
-                                outline
-                                height="20"
-                                color="success"
-                                label="Status"
-                                @change="changeStatus($event, conversation.id)"
-                              ></v-select>
-                              <v-select
-                                v-model="conversation.assignTo"
-                                :items="filters.assignTo"
-                                @click.native.stop
-                                class="card-converstaion-select"
-                                hide-details
-                                dense
-                                box
-                                round
-                                outline
-                                label="Assign to"
-                                @change="handleAssingTo($event, conversation.id)"
-                              ></v-select>
+                              <v-select v-model="conversation.status"
+                                        :items="filters.status"
+                                        @click.native.stop
+                                        class="card-converstaion-select pb-2"
+                                        hide-details
+                                        box
+                                        dense
+                                        outline
+                                        height="20"
+                                        color="success"
+                                        label="Status"
+                                        @change="changeStatus($event, conversation.id)"></v-select>
+                              <v-select v-model="conversation.assignTo"
+                                        :items="filters.assignTo"
+                                        @click.native.stop
+                                        class="card-converstaion-select"
+                                        hide-details
+                                        dense
+                                        box
+                                        round
+                                        outline
+                                        label="Assign to"
+                                        @change="handleAssingTo($event, conversation.id)"></v-select>
                           </v-flex>
                       </v-layout>
                     </div>
@@ -213,9 +209,9 @@ export default {
         startConversation: false,
       },
       filters: {},
-      filterAssignTo: 'None',
+      filterAssignTo: '',
       filterWaitingFor: '',
-      filterStatus: 'Default',
+      filterStatus: '',
       currentStudentId: ''
     };
   },
@@ -267,8 +263,9 @@ export default {
           
       }
     },
-    getConversations(id) {            
-      getConversationsListPage(id, this.page).then(list => {
+    getConversations(id) {       
+      let filter = this.getFiltersQuery();     
+      getConversationsListPage(id, this.page, filter).then(list => {
         if (list.length < this.EXPECTED_AMOUNT) {
           this.isCompleted = true;
         } 
@@ -285,11 +282,14 @@ export default {
     handleAssingTo(assignTo, id) {  
       setAssignTo(id, assignTo)
     },
+    getFiltersQuery(){
+      let assign = this.filterAssignTo === '' ? '' : `assignTo=${this.filterAssignTo}&`;
+      let status = this.filterStatus === '' ? '' :  `status=${this.filterStatus}&`;
+      let autoStatus = this.filterWaitingFor === '' ? '' :  `autoStatus=${this.filterWaitingFor}&`;
+      return `${assign}${status}${autoStatus}`
+    },
     handleFilter(params, payload) {
-      let assign = this.filterAssignTo === 'None' ? '' : `assignTo=${this.filterAssignTo}&`;
-      let status = this.filterStatus === 'Unassigned' ? '' :  `status=${this.filterStatus}&`;
-      let autoStatus = this.filterWaitingFor === 'Unassigned' ? '' :  `autoStatus=${this.filterWaitingFor}&`;
-      let query = `${assign}${status}${autoStatus}`
+      let query = this.getFiltersQuery();
       getFilters(this.userId, query).then(res => {        
         this.conversationsList = res;
       })
