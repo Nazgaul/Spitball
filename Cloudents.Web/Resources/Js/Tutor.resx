@@ -262,17 +262,8 @@ Try connecting from a computer browser</value>
   <data name="stream_guest" xml:space="preserve">
     <value>Guest</value>
   </data>
-  <data name="tab1" xml:space="preserve">
-    <value>Tab 1</value>
-  </data>
-  <data name="tab2" xml:space="preserve">
-    <value>Tab 2</value>
-  </data>
-  <data name="tab3" xml:space="preserve">
-    <value>Tab 3</value>
-  </data>
-  <data name="tab4" xml:space="preserve">
-    <value>Tab 4</value>
+  <data name="tab" xml:space="preserve">
+    <value>Tab</value>
   </data>
   <data name="tooltip_circle" xml:space="preserve">
     <value>Circle</value>
@@ -315,5 +306,11 @@ Try connecting from a computer browser</value>
   </data>
   <data name="tooltip_eraser" xml:space="preserve">
     <value>Eraser</value>
+  </data>
+  <data name="clearAll_warning_text" xml:space="preserve">
+    <value>This action cannot be undone, are you sure you want to clear the canvas?</value>
+  </data>
+  <data name="tooltip_clearAll" xml:space="preserve">
+    <value>Clear All</value>
   </data>
 </root>

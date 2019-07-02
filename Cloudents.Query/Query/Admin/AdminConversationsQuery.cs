@@ -29,13 +29,11 @@ namespace Cloudents.Query.Query.Admin
         private long UserId { get; }
         internal sealed class AdminAllConversationsQueryHandler : IQueryHandler<AdminConversationsQuery, IEnumerable<ConversationDto>>
         {
-            private readonly DapperRepository _dapper;
             private readonly IStatelessSession _statelessSession;
 
 
-            public AdminAllConversationsQueryHandler(DapperRepository dapper, QuerySession statelessSession)
+            public AdminAllConversationsQueryHandler(QuerySession statelessSession)
             {
-                _dapper = dapper;
                 _statelessSession = statelessSession.StatelessSession;
             }
 

@@ -5,6 +5,7 @@ import { mapGetters, mapActions } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue"
 import tutorService from "../tutorService";
+import { LanguageService } from '../../../services/language/languageService';
 
 const HeaderHeight = 108;
 
@@ -55,7 +56,18 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['isRoomCreated', 'getDragData','getZoom', 'selectedOptionString','getCanvasTabs', 'getCurrentSelectedTab', 'currentOptionSelected', 'canvasDataStore','undoClicked', 'addImage']),
+        ...mapGetters([
+            'isRoomCreated',
+            'getDragData',
+            'getZoom', 
+            'selectedOptionString',
+            'getCanvasTabs', 
+            'getCurrentSelectedTab', 
+            'currentOptionSelected', 
+            'canvasDataStore',
+            'undoClicked', 
+            'addImage',
+            'clearAllClicked']),
         helperStyle() {
             return helperUtil.HelperObj.style
         },
@@ -92,25 +104,6 @@ export default {
         },
     },
     watch: {
-        //TODO: we remove this to add more juice to network
-        //activeRoom:  function(val) {
-        //    if (this.getCurrentRoomState !== "active") {
-        //        return
-        //    }
-        //    try {
-        //        //Adding canvas stream to twilio
-        //        let stream = canvas.captureStream(60);
-        //        this.activeRoom.localParticipant.publishTrack(stream.getTracks()[0], {
-        //            name: `canvas_${this.isTutor ? "tutor" : "student"}_${
-        //                this.accountUserID
-        //                }`
-        //        });
-        //    }
-        //    catch (e) {
-        //        //TODO: not all browsers support this probably....
-        //        //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/captureStream
-        //    }
-        //},
         canvasDataColor(newVal){
             //watch is activating the canvasDataColor computed
             this.canvasData.color = newVal;
@@ -122,8 +115,14 @@ export default {
                 if(!!newVal){
                     this.addShape(newVal.dragObj, newVal.callback)
                 }
+            },
+        clearAllClicked(){
+            let shouldClear = window.confirm(LanguageService.getValueByKey('tutor_clearAll_warning_text'));
+            if(shouldClear){
+                this.clearCanvas();
             }
-        },
+        }
+    },
     methods: {
         ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface']),
         renameTab() {
@@ -189,6 +188,16 @@ export default {
             tutorService.dataTrack.send(normalizedData);
             whiteBoardService.undo(this.canvasData);
 
+        },
+        clearCanvas(){
+            let transferDataObj = {
+                type: "clearCanvas",
+                data: this.canvasData,
+                tab: this.getCurrentSelectedTab,
+            };
+            let normalizedData = JSON.stringify(transferDataObj);
+            tutorService.dataTrack.send(normalizedData);
+            whiteBoardService.clearData(this.canvasData, this.getCurrentSelectedTab);
         },
         keyPressed(e) {
             if ((e.which == 121 || e.keyCode == 121)) {
