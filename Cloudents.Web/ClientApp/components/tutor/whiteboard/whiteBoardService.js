@@ -150,6 +150,11 @@ const passData = function(canvasData, changedDragData){
     redraw(canvasData);
 }
 
+const clearData = function(canvasData, tab){
+    store.dispatch('resetDragData', tab);
+    redraw(canvasData);
+}
+
 export default {
     init,
     undo,
@@ -158,5 +163,6 @@ export default {
     uploadImage,
     passData,
     hideHelper,
-    getContext
+    getContext,
+    clearData
 }

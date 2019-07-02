@@ -144,6 +144,9 @@
   <data name="chrome_ext_title" xml:space="preserve">
     <value>התקנת תוסף לדפדפן כרום</value>
   </data>
+  <data name="clearAll_warning_text" xml:space="preserve">
+    <value>לא ניתן להחזיר אחורה פעולה זו, האם ברצונך להמשיך?</value>
+  </data>
   <data name="close" xml:space="preserve">
     <value>סגור</value>
   </data>
@@ -272,6 +275,9 @@
   </data>
   <data name="tooltip_circle" xml:space="preserve">
     <value>עיגול</value>
+  </data>
+  <data name="tooltip_clearAll" xml:space="preserve">
+    <value>נקה הכל</value>
   </data>
   <data name="tooltip_color" xml:space="preserve">
     <value>בחירת צבע</value>

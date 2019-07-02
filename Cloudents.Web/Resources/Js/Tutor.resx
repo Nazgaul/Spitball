@@ -307,4 +307,10 @@ Try connecting from a computer browser</value>
   <data name="tooltip_eraser" xml:space="preserve">
     <value>Eraser</value>
   </data>
+  <data name="clearAll_warning_text" xml:space="preserve">
+    <value>This action cannot be undone, are you sure you want to clear the canvas?</value>
+  </data>
+  <data name="tooltip_clearAll" xml:space="preserve">
+    <value>Clear All</value>
+  </data>
 </root>

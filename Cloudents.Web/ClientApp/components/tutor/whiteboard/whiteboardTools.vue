@@ -126,11 +126,6 @@
                 <span v-language:inner>tutor_tooltip_eraser</span>
             </v-tooltip>
 
-            <!--<button :class="[selectedOptionString === enumOptions.eraser ? 'active-tool' : '']"-->
-                    <!--class="nav-action" @click="setOptionType(enumOptions.eraser)">-->
-                <!--<v-icon>sbf-eraser-empty</v-icon>-->
-            <!--</button>-->
-
             <!--Undo-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
@@ -141,6 +136,15 @@
                 <span v-language:inner>tutor_tooltip_undo</span>
             </v-tooltip>
 
+            <!--Clear All-->
+            <v-tooltip bottom>
+                <template v-slot:activator="{on}">
+                    <button v-on="on" class="nav-action" @click="clearCanvas()">
+                        <v-icon style="margin-top: 5px;">sbf-clearAll-icon</v-icon>
+                    </button>
+                </template>
+                <span v-language:inner>tutor_tooltip_clearAll</span>
+            </v-tooltip>
         </div>
 </template>
 
@@ -187,7 +191,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked']),
+        ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked']),
         showColorPicker() {
             this.setShowPickColorInterface(true);
         },
@@ -210,6 +214,9 @@ export default {
         },
         undo(){
             this.setUndoClicked();
+        },
+        clearCanvas(){
+            this.setClearAllClicked();
         }
     },
     computed:{

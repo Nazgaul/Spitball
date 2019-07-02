@@ -12,6 +12,7 @@ const state = {
         'tab-0':[]
     },
     undoClicked: false,
+    clearAllClicked: true,
     addImage: null,
     currentOptionSelected: whiteBoardService.init('liveDraw'),
     showPickColorInterface: false,
@@ -57,9 +58,9 @@ const state = {
         },
     ],
     currentSelectedTab: {
-        name: LanguageService.getValueByKey('tutor_tab1'),
+        name: LanguageService.getValueByKey('tutor_tab') + ' 1',
         id: 'tab-0'
-    }
+    },
 };
 const getters = {
     getDragData: state => state.dragData[state.currentSelectedTab.id],
@@ -75,6 +76,7 @@ const getters = {
     showPickColorInterface: state => state.showPickColorInterface,
     canvasDataStore: state => state.canvasDataStore,
     undoClicked: state => state.undoClicked,
+    clearAllClicked: state => state.clearAllClicked,
     addImage: (state) => {
         if(!!state.addImage){
             return state.addImage;
@@ -90,9 +92,9 @@ const mutations = {
         }
         state.dragData[tab].push(val.data);
     },
-    resetDragDataMutation(state){
-        //TODO add tab as param when this feature will be added
-        state.dragData[state.currentSelectedTab.id].length = 0;
+    resetDragDataMutation(state, tab){
+        let tabId = tab.id;
+        state.dragData = {...state.dragData, [tabId]:[]};
     },
     replaceDragDataMutation(state, val){
         state.dragData[state.currentSelectedTab.id] = val;
@@ -147,7 +149,10 @@ const mutations = {
     },
     setAddImage(state, val){
         state.addImage = val;
-    }
+    },
+    setClearAllClicked(state){
+        state.clearAllClicked = !state.clearAllClicked
+    },
 };
 
 const actions = {
@@ -158,8 +163,8 @@ const actions = {
         }
         commit('setDragData', dragData)
     },
-    resetDragData({commit}){
-        commit('resetDragDataMutation');
+    resetDragData({commit}, tab){
+        commit('resetDragDataMutation', tab);
     },
     replaceDragData({commit}, val){
         commit('replaceDragDataMutation', val);
@@ -214,7 +219,10 @@ const actions = {
     },
     setAddImage({commit}, val){
         commit('setAddImage', val)
-    }
+    },
+    setClearAllClicked({commit}){
+        commit('setClearAllClicked')
+    },
 };
 export default {
     state,
