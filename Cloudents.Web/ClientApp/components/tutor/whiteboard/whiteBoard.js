@@ -91,25 +91,26 @@ export default {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         },
     },
-    watch:{
-        activeRoom:  function(val) {
-            if (this.getCurrentRoomState !== "active") {
-                return
-            }
-            try {
-                //Adding canvas stream to twilio
-                let stream = canvas.captureStream(60);
-                this.activeRoom.localParticipant.publishTrack(stream.getTracks()[0], {
-                    name: `canvas_${this.isTutor ? "tutor" : "student"}_${
-                        this.accountUserID
-                        }`
-                });
-            }
-            catch (e) {
-                //TODO: not all browsers support this probably....
-                //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/captureStream
-            }
-        },
+    watch: {
+        //TODO: we remove this to add more juice to network
+        //activeRoom:  function(val) {
+        //    if (this.getCurrentRoomState !== "active") {
+        //        return
+        //    }
+        //    try {
+        //        //Adding canvas stream to twilio
+        //        let stream = canvas.captureStream(60);
+        //        this.activeRoom.localParticipant.publishTrack(stream.getTracks()[0], {
+        //            name: `canvas_${this.isTutor ? "tutor" : "student"}_${
+        //                this.accountUserID
+        //                }`
+        //        });
+        //    }
+        //    catch (e) {
+        //        //TODO: not all browsers support this probably....
+        //        //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/captureStream
+        //    }
+        //},
         canvasDataColor(newVal){
             //watch is activating the canvasDataColor computed
             this.canvasData.color = newVal;
