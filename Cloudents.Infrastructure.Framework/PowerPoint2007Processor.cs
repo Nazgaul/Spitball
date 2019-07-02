@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -28,15 +29,7 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-
-
-
-        public static readonly string[] Extensions =
-        {
-            ".ppt", ".pot", ".pps", ".pptx", ".potx", ".ppsx", ".odp", ".pptm"
-        };
-
-
+        public static readonly string[] Extensions = FormatDocumentExtensions.PowerPoint;
 
         private static string ExtractStringFromPpt(Presentation ppt)
         {
@@ -112,10 +105,5 @@ namespace Cloudents.Infrastructure.Framework
                 _pptx?.Value?.Dispose();
             }
         }
-
-        //public void Init(Func<string> path)
-        //{
-        //    _pptx = new Lazy<Presentation>(() => new Presentation(path()));
-        //}
     }
 }

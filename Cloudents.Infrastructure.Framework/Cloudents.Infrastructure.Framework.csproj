@@ -26,4 +26,7 @@
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
+  </ItemGroup>
 </Project>

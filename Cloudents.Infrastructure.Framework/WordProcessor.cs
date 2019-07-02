@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -21,7 +22,7 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        public static readonly string[] Extensions = { ".rtf", ".docx", ".doc", ".odt" };
+        public static readonly string[] Extensions = FormatDocumentExtensions.Word;
 
 
         private static string ExtractDocumentText(Document doc)

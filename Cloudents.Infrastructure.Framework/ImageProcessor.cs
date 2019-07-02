@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
     public class ImageProcessor : IPreviewProvider2, IDisposable
     {
-        public static readonly string[] Extensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
+        public static readonly string[] Extensions = FormatDocumentExtensions.Image;
 
 
 
@@ -26,7 +27,6 @@ namespace Cloudents.Infrastructure.Framework
             return (null, 1);
         }
 
-
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
@@ -38,40 +38,11 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        //       public async Task ProcessBlurPreviewAsync(Stream stream, bool firstPage,
-        //           Func<Stream, Task> pagePreviewCallback,
-        //           CancellationToken token)
-        //       {
-
-        //           using (var ms = new MemoryStream())
-        //           {
-        //               var settings2 = new ResizeSettings
-        //               {
-        //                   Format = "jpg",
-        //                   Quality = 90,
-        //               Width = 1024,
-        //               Height = 1448,
-        //["r.blur"] = "6",
-
-        //                   ["r.blurStart"] = firstPage.ToString()
-        //               };
-
-        //               ImageBuilder.Current.Build(stream, ms, settings2, false);
-
-        //               await pagePreviewCallback(ms);
-        //           }
-        //       }
-
-
         public void Dispose()
         {
             _sr?.Dispose();
         }
 
-        public void Init(Func<string> path)
-        {
-            _sr = File.Open(path(), FileMode.Open);// stream;
-        }
     }
 
 

@@ -20,8 +20,7 @@
                     v-model="uploadedFiles"
                     :multiple="false"
                     :post-action="uploadUrl"
-                    accept="image/*"
-                    :extensions="extensions"
+                   
                     @input-file="inputFile"
                     @input-filter="inputFilter"
                 ></file-upload>
@@ -40,7 +39,6 @@
         data() {
             return {
                 componentUniqueId: `instance-${this._uid}`,
-                extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp'],
                 uploadUrl: "/api/chat/upload",
                 uploadedFiles: [],
                 uploadedFileNames: [],
@@ -82,12 +80,12 @@
                     return prevent()
                 }
                 // Filter non-supported extensions  both lower and upper case
-                let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-                let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
-                let isSupported = this.extensions.includes(ext);
-                if (!isSupported) {
-                    return prevent()
-                }
+                //let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+                //let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
+                // let isSupported = this.extensions.includes(ext);
+                // if (!isSupported) {
+                //     return prevent()
+                // }
                 if (newFile && newFile.size === 0) {
                     return prevent()
                 }

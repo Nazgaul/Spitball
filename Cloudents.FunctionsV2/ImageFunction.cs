@@ -1,3 +1,4 @@
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Di;
@@ -13,7 +14,9 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
@@ -23,6 +26,23 @@ namespace Cloudents.FunctionsV2
 {
     public static class ImageFunction
     {
+        private static readonly Dictionary<string, string> Extension = new Dictionary<string, string>();
+        static ImageFunction()
+        {
+            var a1 = FormatDocumentExtensions.Text.ToDictionary(x => x, _ => "Icons_720_txt.png");
+            var a2 = FormatDocumentExtensions.Excel.ToDictionary(x => x, _ => "Icons_720_excel.png");
+            var a3 = FormatDocumentExtensions.Image.ToDictionary(x => x, _ => "Icons_720_txt.png");
+            var a4 = FormatDocumentExtensions.Pdf.ToDictionary(x => x, _ => "Icons_720_txt.png");
+            var a5 = FormatDocumentExtensions.PowerPoint.ToDictionary(x => x, _ => "Icons_720_txt.png");
+            var a6 = FormatDocumentExtensions.Tiff.ToDictionary(x => x, _ => "Icons_720_txt.png");
+            var a7 = FormatDocumentExtensions.Word.ToDictionary(x => x, _ => "Icons_720_txt.png");
+            a1.Union(a2).Union(a3).Union(a4).Union(a5);
+        }
+
+
+
+
+
         [FunctionName("ImageFunction")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/{hash}")]
@@ -60,6 +80,8 @@ namespace Cloudents.FunctionsV2
 
             var blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(properties.Path, FileAccess.Read),
                 token);
+
+
 
             using (var sr = await blob.OpenReadAsync())
             {
@@ -99,11 +121,14 @@ namespace Cloudents.FunctionsV2
                 catch (ImageFormatException ex)
                 {
                     logger.LogError(ex, hash);
+
                     return new RedirectResult(blob.Uri.AbsoluteUri);
                     //return new StatusCodeResult(500);
                 }
             }
         }
+
+
 
 
 
