@@ -24,20 +24,36 @@ const state = {
     shapesSelected: {},
     canvasTabs: [
         {
-            name: LanguageService.getValueByKey('tutor_tab1'),
+            name: LanguageService.getValueByKey('tutor_tab') + ' 1',
             id: 'tab-0'
         },
         {
-            name: LanguageService.getValueByKey('tutor_tab2'),
+            name: LanguageService.getValueByKey('tutor_tab') + ' 2',
             id: 'tab-1'
         },
         {
-            name: LanguageService.getValueByKey('tutor_tab3'),
+            name: LanguageService.getValueByKey('tutor_tab') + ' 3',
             id: 'tab-2'
         },
         {
-            name: LanguageService.getValueByKey('tutor_tab4'),
+            name: LanguageService.getValueByKey('tutor_tab') + ' 4',
             id: 'tab-3'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 5',
+            id: 'tab-4'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 6',
+            id: 'tab-5'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 7',
+            id: 'tab-6'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 8',
+            id: 'tab-7'
         },
     ],
     currentSelectedTab: {
