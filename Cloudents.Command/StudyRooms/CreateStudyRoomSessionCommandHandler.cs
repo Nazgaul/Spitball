@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace Cloudents.Command.StudyRooms
                     return;
                 }
             }
-            await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo, message.CallbackUrl);
+            await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo, message.CallbackUrl, room.Type.GetValueOrDefault(StudyRoomType.SmallGroup));
             var session = new StudyRoomSession(room, sessionName);
             room.AddSession(session);
         }

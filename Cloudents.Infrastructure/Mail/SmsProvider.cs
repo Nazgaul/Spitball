@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,9 @@ namespace Cloudents.Infrastructure.Mail
             TwilioClient.Init(AccountSid, AuthToken);
         }
 
-        public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber,string countryCode, CancellationToken token)
+        public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token)
         {
-            phoneNumber =  Regex.Replace(phoneNumber, "\\([0-9]+?\\)", string.Empty);
+            phoneNumber = Regex.Replace(phoneNumber, "\\([0-9]+?\\)", string.Empty);
             phoneNumber = Regex.Replace(phoneNumber, "[^0-9]", string.Empty);
             phoneNumber = phoneNumber.TrimStart('0');
 
@@ -54,7 +55,7 @@ namespace Cloudents.Infrastructure.Mail
                         "carrier"
                     }
                 );
-               
+
                 if (result == null)
                 {
                     return (null, null);
@@ -87,17 +88,29 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
-        public async Task CreateRoomAsync(string id, bool needRecord, Uri callBack)
+        public async Task CreateRoomAsync(string id, bool needRecord, Uri callBack, StudyRoomType studyRoomType)
         {
+            var type = RoomResource.RoomTypeEnum.PeerToPeer;
+            switch (studyRoomType)
+            {
+                case StudyRoomType.SmallGroup:
+                    type = RoomResource.RoomTypeEnum.GroupSmall;
+                    break;
+                case StudyRoomType.PeerToPeer:
+                    type = RoomResource.RoomTypeEnum.PeerToPeer;
+                    break;
+            }
 
-           await RoomResource.CreateAsync(
-                uniqueName: id,
-                maxParticipants: 2,
-                type: RoomResource.RoomTypeEnum.PeerToPeer, //this is smaller fee
-                statusCallback:callBack,
-                statusCallbackMethod: HttpMethod.Post
-                //recordParticipantsOnConnect: needRecord
-                );
+            await RoomResource.CreateAsync(
+                 uniqueName: id,
+                 enableTurn: true,
+                 maxParticipants: 2,
+                 type: type,
+                 statusCallback: callBack,
+                 statusCallbackMethod: HttpMethod.Post,
+                 recordParticipantsOnConnect: needRecord,
+                 mediaRegion: "de1"
+                 );
         }
 
         public Task CloseRoomAsync(string id)
@@ -141,7 +154,7 @@ namespace Cloudents.Infrastructure.Mail
                 {
                     Room = room.UniqueName,
                 };
-                var grants = new HashSet<IGrant> {grant};
+                var grants = new HashSet<IGrant> { grant };
 
                 // Create an Access Token generator
                 var token = new Token(

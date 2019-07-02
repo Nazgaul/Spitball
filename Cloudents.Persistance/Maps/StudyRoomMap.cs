@@ -13,6 +13,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Identifier).Not.Nullable().Unique();
             References(x => x.Tutor).Not.Nullable();
 
+            Map(x => x.Type);
             Map(x => x.DateTime).Not.Nullable();
             Map(x => x.OnlineDocumentUrl).Not.Nullable();
             HasMany(x => x.Sessions).Access.CamelCaseField(Prefix.Underscore)
