@@ -95,31 +95,10 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
             
-            var response = await _client.PostAsync(_uri.Path, new StringContent(question, Encoding.UTF8, "application/json"));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(question));
 
             response.EnsureSuccessStatusCode();
         }
-
-
-        [Theory]
-        [InlineData("", "", "Unit testing question")]
-        [InlineData("", "psychology", "Unit testing q")]
-        [InlineData("", "psychology", "")]
-        public async Task PostAsync_New_Bad_Request(string subjectId, string course, string text)
-        {
-            
-            await _client.LogInAsync();
-
-            var question = JsonConvert.SerializeObject(new
-            {
-                subjectId, course, text
-            });
-
-            var response = await _client.PostAsync(_uri.Path, new StringContent(question, Encoding.UTF8, "application/json"));
-
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        }
-
     }
 
 

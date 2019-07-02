@@ -88,18 +88,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Fact]
-        public async Task Upload_Doc_Without_Uni()
-        {
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
-
-            _uri.Path = "api/upload";
-
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_upload));
-
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
-
-        [Fact]
         public async Task Teach_Course()
         {
             await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));

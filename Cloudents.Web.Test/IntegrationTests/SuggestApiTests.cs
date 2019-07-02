@@ -12,17 +12,5 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             _client = factory.CreateClient();
         }
-
-        [Theory]
-        [InlineData("api/Suggest?sentence=hi")]
-        [InlineData("api/Suggest?sentence=hi&vertical=job")]
-        [InlineData("api/Suggest?sentence=aj&vertical=tutor")]
-        [InlineData("/api/suggest")]
-        public async Task GetAsync_Ok(string url)
-        {
-            var response = await _client.GetAsync(url);
-
-            response.EnsureSuccessStatusCode();
-        }
     }
 }

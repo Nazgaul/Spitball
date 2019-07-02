@@ -12,7 +12,25 @@ namespace Cloudents.Web.Test.IntegrationTests
     public class DocumentApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
-        
+
+        private readonly object _credentials = new
+        {
+            email = "blah@cloudents.com",
+            password = "123456789",
+            fingerPrint = "string"
+        };
+
+        private readonly object _upload = new
+        {
+            blobName = "My_Doc.docx",
+            name = "My Document",
+            type = "Document",
+            course = "Economics",
+            tags = new { },
+            professor = "Mr. Elad",
+            price = 0M
+        };
+
         private readonly object _doc1 = new
         {
             mime_type = "",
@@ -167,6 +185,18 @@ namespace Cloudents.Web.Test.IntegrationTests
             var response = await _client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task Upload_Doc_Without_Uni()
+        {
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
+
+            _uri.Path = "api/upload";
+
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_upload));
+
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }

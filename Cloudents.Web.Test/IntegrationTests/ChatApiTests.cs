@@ -22,7 +22,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         private readonly object _msg = new
         {
             message = "string",
-            otherUser = "160116"
+            otherUser = "160171"
         };
 
         private readonly object _user = new
@@ -122,46 +122,19 @@ namespace Cloudents.Web.Test.IntegrationTests
             };
 
 
-            var response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(msg)));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(msg));
 
             response.EnsureSuccessStatusCode();
 
             _uri.Path = "api/login";
 
-            response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(otherUser)));
+            response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(otherUser));
             response.EnsureSuccessStatusCode();
             _uri.Path = "api/chat/read";
 
-            response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(read)));
+            response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(read));
 
             response.EnsureSuccessStatusCode();
-        }
-
-        [Fact]
-        public async Task PostAsync_Teach_OK()
-        {
-            await _client.LogInAsync();
-
-            object course = new
-            {
-                name = "Economics"
-            };
-
-            _uri.Path = "api/course/set";
-
-            var response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(course)));
-
-            response.EnsureSuccessStatusCode();
-
-            _uri.Path = "api/course/teach";
-
-            response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(course)));
-
-            response.EnsureSuccessStatusCode();
-
-            response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(course)));
-
-            response.EnsureSuccessStatusCode();
-        }
+        }        
     }
 }

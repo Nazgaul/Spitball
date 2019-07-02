@@ -88,7 +88,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path, new StringContent(JsonConvert.SerializeObject(settings)));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(settings));
 
             response.EnsureSuccessStatusCode();
 
