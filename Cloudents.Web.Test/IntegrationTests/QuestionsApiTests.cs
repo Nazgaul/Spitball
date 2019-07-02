@@ -21,6 +21,13 @@ namespace Cloudents.Web.Test.IntegrationTests
             Path = "/api/question"
         };
 
+        private readonly object _question = new
+        {
+            course = "Economics",
+            text = "This is a testing question",
+            files = new { }
+        };
+
 
         public QuestionsApiTests(SbWebApplicationFactory factory)
         {
@@ -88,15 +95,13 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-        [Theory]
-        [InlineData("{\"subjectId\":\"mathematics\",\"text\":\"Unit testing question\",\"price\":3,\"course\":\"psychology\"}")]
-        [InlineData("{\"subjectId\":\"\",\"text\":\"Unit testing question\",\"price\":3,\"course\":\"psychology\"}")]
-        public async Task PostAsync_New_OK(string question)
+        [Fact]
+        public async Task PostAsync_New_OK()
         {
             await _client.LogInAsync();
             
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(question));
-
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_question));
+            
             response.EnsureSuccessStatusCode();
         }
     }

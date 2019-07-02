@@ -34,9 +34,8 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         public static async Task LogInAsync(this System.Net.Http.HttpClient client)
         {
-            var response = await client.PostAsync("api/LogIn", new StringContent(TestUser.GetTestUser(),
+            await client.PostAsync("api/LogIn", new StringContent(TestUser.GetTestUser(),
                  Encoding.UTF8, "application/json"));
-            response.EnsureSuccessStatusCode();
         }
 
         public static StringContent CreateString(string str)

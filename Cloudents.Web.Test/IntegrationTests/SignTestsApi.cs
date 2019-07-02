@@ -13,7 +13,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        private readonly string _swaggerLink = "https://localhost/swagger";
+        private readonly string _swaggerLink = "https://localhost:44345/swagger";
 
         private readonly object _cred = new
         {
@@ -39,7 +39,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public SignTestsApi(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
-       _client.DefaultRequestHeaders.Referrer = new Uri(_swaggerLink);
+            _client.DefaultRequestHeaders.Referrer = new Uri(_swaggerLink);
 
         }
 
@@ -102,11 +102,11 @@ namespace Cloudents.Web.Test.IntegrationTests
                 countryCode = "972"
             };
 
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(sign));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(sign));
+            
+            /*_uri.Path = "api/sms";
 
-            _uri.Path = "api/sms";
-
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(phone));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(phone));*/
 
             response.EnsureSuccessStatusCode();
         }
@@ -136,8 +136,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Sms_Resend()
         {
-            _client.DefaultRequestHeaders.Add("Referer", "swagger");
-
             _uri.Path = "api/register";
 
             await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_cred));
@@ -152,8 +150,6 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Sms_Verify()
         {
-            _client.DefaultRequestHeaders.Add("Referer", "swagger");
-
             _uri.Path = "api/register";
 
             await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_cred));

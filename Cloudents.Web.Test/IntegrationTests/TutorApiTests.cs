@@ -52,13 +52,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var str = await response.Content.ReadAsStringAsync();
 
-            var d = JObject.Parse(str);
-
-            response.EnsureSuccessStatusCode();
-
-            var result = d["result"]?.Value<JArray>();
-
-            result?[0].Should().BeNull();
+            str.Should().BeEmpty();
         }
 
         [Fact]
@@ -91,14 +85,14 @@ namespace Cloudents.Web.Test.IntegrationTests
             await _client.LogInAsync();
 
             var response = await _client.GetAsync(_uri.Path + "/search?term=fsdfds");
-
+            
             var str = await response.Content.ReadAsStringAsync();
-
+            
             var d = JObject.Parse(str);
-
+            
             var result = d["result"]?.Value<JArray>();
-
-            result.Should().BeNull();
+            
+            result.Should().BeEmpty();
         }
     }
 }
