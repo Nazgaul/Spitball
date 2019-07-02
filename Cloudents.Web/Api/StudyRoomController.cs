@@ -168,7 +168,7 @@ namespace Cloudents.Web.Api
             [FromServices] TelemetryClient client,
             [FromForm] TwilioWebHookRequest request, CancellationToken token)
         {
-
+            client.Context.Session.Id = id.ToString();
             client.TrackEvent($"Room Status {id}",
                 request.GetType().GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance).ToDictionary
                 (

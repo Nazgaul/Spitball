@@ -47,6 +47,7 @@
     </environment>
     @await RenderSectionAsync("styleSection", required: false)
     <partial name="_HeaderTags" model="cdnEndPoint" />
+
     @Html.Raw(JavaScriptSnippet.FullScript)
     @Html.Raw(ClickJackingTagHelper.FullScript)
     <style>
@@ -118,10 +119,18 @@
     window.version = '@typeof(HomePageController).Assembly.GetName().Version.ToString(4)';
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @isAuth.ToString().ToLower();
-        window.paypalEnv = '@(Environment.IsProduction() ? "production" : "sandbox")';
+    window.paypalEnv = '@(Environment.IsProduction() ? "production" : "sandbox")';
+
+
 
     @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@
     </script>
+    @if (Environment.IsDevelopment())
+    {
+    <script>
+        appInsights.config.enableDebug = true
+    </script>
+   }
     @await Component.InvokeAsync("Country")
     @await RenderSectionAsync("scripts", required: false)
 

@@ -32,7 +32,8 @@ const track={
 }
 const authenticate= {
     set: function(userId){
-        global.appInsights.setAuthenticatedUserContext(userId);
+        
+        global.appInsights.setAuthenticatedUserContext(userId.toString());
     }
 }
 
