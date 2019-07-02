@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 
 [assembly:InternalsVisibleTo("Cloudents.Persistence")]
@@ -19,6 +20,7 @@ namespace Cloudents.Core.Entities
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
             DateTime = DateTime.UtcNow;
             OnlineDocumentUrl = onlineDocumentUrl;
+            Type = StudyRoomType.SmallGroup;
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 
@@ -42,6 +44,8 @@ namespace Cloudents.Core.Entities
         private readonly IList<StudyRoomSession> _sessions = new List<StudyRoomSession>();
 
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
+
+        public virtual StudyRoomType? Type { get; protected set; }
 
         public virtual void AddSession(StudyRoomSession session)
         {

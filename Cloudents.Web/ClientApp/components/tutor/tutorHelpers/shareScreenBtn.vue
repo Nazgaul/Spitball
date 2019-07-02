@@ -57,6 +57,7 @@
     import { createLocalVideoTrack } from "twilio-video";
     import videoService from "../../../services/videoStreamService";
     import castIcon from "../images/cast.svg";
+    import insightService from '../../../services/insightService';
 
     export default {
         name: "shareScreenBtn",
@@ -140,6 +141,8 @@
                                                      showToaster: true,
                                                      toasterType: "error-toaster" //c
                                                  });
+
+                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_showScreen', error, null);
                         console.error("error sharing screen", error);
                     }
                 );
@@ -154,6 +157,7 @@
                             self.publishTrackToRoom(videoTrack);
                         },
                         error => {
+                            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_createLocalVideoTrack', error, null);
                             console.error("error creating video track", error);
                         }
                     )

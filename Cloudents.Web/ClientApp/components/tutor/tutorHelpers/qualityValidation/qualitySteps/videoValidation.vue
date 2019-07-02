@@ -39,6 +39,7 @@
     import tutorService from '../../../tutorService';
     import videoCameraImage from '../../../images/video-camera.svg'
     import { LanguageService } from "../../../../../services/language/languageService";
+    import insightService from '../../../../../services/insightService';
 
     export default {
         name: "videoValidation",
@@ -64,6 +65,7 @@
                             })
                         },
                         (error) => {
+                            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_getVideoInputdevices', err, null);
                             console.log('error cant get video input devices', error)
                         }
                     )
@@ -81,7 +83,10 @@
                         self.localTrack = track;
                         self.videoEl.appendChild(self.localTrack.attach());
                         console.log('added track')
-                    });
+                    }, (err)=>{
+                insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
+                console.error(err);
+            });
             },
             clearVideoTrack() {
                 tutorService.detachTracks([this.localTrack])
@@ -92,7 +97,6 @@
         },
         beforeDestroy() {
             this.clearVideoTrack();
-            console.log('destroyed component')
         }
     }
 </script>

@@ -32,4 +32,10 @@
         Student = 2,
         Conv = 3
     }
+
+    public enum StudyRoomType
+    {
+        SmallGroup,
+        PeerToPeer
+    }
 }
