@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Mail
 {
@@ -40,7 +41,7 @@ namespace Cloudents.Infrastructure.Mail
                 }
 
                 var validStats = new[] { "valid", "catch-all" };
-                if (validStats.Contains(w.status, StringComparer.OrdinalIgnoreCase))
+                if (validStats.Contains(w.Status, StringComparer.OrdinalIgnoreCase))
                 {
                     return true;
                 }
@@ -50,35 +51,28 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
-        public class VerifyEmail
+        private class VerifyEmail
         {
-            public string address { get; set; }
-            public string status { get; set; }
-            public string sub_status { get; set; }
-            public bool free_email { get; set; }
-            public object did_you_mean { get; set; }
-            public object account { get; set; }
-            public object domain { get; set; }
-            public string domain_age_days { get; set; }
-            public string smtp_provider { get; set; }
-            public string mx_found { get; set; }
-            public string mx_record { get; set; }
-            public string firstname { get; set; }
-            public string lastname { get; set; }
-            public string gender { get; set; }
-            public object country { get; set; }
-            public object region { get; set; }
-            public object city { get; set; }
-            public object zipcode { get; set; }
-            public string processed_at { get; set; }
+           // public string address { get; set; }
+           [JsonProperty("status")]
+            public string Status { get; set; }
+           // public string sub_status { get; set; }
+          //  public bool free_email { get; set; }
+           // public object did_you_mean { get; set; }
+          //  public object account { get; set; }
+           // public object domain { get; set; }
+           // public string domain_age_days { get; set; }
+           // public string smtp_provider { get; set; }
+           // public string mx_found { get; set; }
+          //  public string mx_record { get; set; }
+           // public string firstname { get; set; }
+           // public string lastname { get; set; }
+          //  public string gender { get; set; }
+           // public object country { get; set; }
+           // public object region { get; set; }
+          //  public object city { get; set; }
+           // public object zipcode { get; set; }
+          //  public string processed_at { get; set; }
         }
-
-        //public class Parts
-        //{
-        //    public object display_name { get; set; }
-        //    public string domain { get; set; }
-        //    public string local_part { get; set; }
-        //}
-
     }
 }

@@ -35,9 +35,9 @@ namespace Cloudents.Web.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (PhoneNumberRegex.IsMatch(ToString())) yield break;
-            var stringLocalizer = validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as IStringLocalizer<DataAnnotationSharedResource>;
             var errorMessage = "Invalid phone number";
-            if (stringLocalizer != null)
+
+            if (validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) is IStringLocalizer<DataAnnotationSharedResource> stringLocalizer)
             {
                 errorMessage = stringLocalizer["InvalidPhoneNumber"];
             }

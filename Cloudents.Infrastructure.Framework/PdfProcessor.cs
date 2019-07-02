@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -89,7 +90,7 @@ namespace Cloudents.Infrastructure.Framework
 
         }
 
-        public static readonly string[] Extensions = { ".pdf" };
+        public static readonly string[] Extensions = FormatDocumentExtensions.Pdf;
 
         public void Dispose()
         {
@@ -98,10 +99,6 @@ namespace Cloudents.Infrastructure.Framework
                 _doc?.Value?.Dispose();
             }
         }
-
-        public void Init(Func<string> path)
-        {
-            _doc = new Lazy<Document>(() => new Document(path()));
-        }
+       
     }
 }

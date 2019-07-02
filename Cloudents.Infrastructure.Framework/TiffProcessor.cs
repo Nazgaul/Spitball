@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -69,7 +70,7 @@ namespace Cloudents.Infrastructure.Framework
             await Task.WhenAll(t);
         }
 
-        public static readonly string[] Extensions = { ".tiff", ".tif" };
+        public static readonly string[] Extensions = FormatDocumentExtensions.Tiff;
 
 
         public void Dispose()

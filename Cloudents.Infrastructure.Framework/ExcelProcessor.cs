@@ -1,5 +1,6 @@
 ﻿using Aspose.Cells;
 using Aspose.Cells.Rendering;
+using Cloudents.Core;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
@@ -32,7 +33,7 @@ namespace Cloudents.Infrastructure.Framework
         }
 
 
-        Lazy<Workbook> _excel;
+        private Lazy<Workbook> _excel;
 
         public void Init(Func<Stream> stream)
         {
@@ -45,9 +46,9 @@ namespace Cloudents.Infrastructure.Framework
             return (null, _excel.Value.Worksheets.Count);
         }
 
-      
 
-        public static readonly string[] Extensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
+
+        public static readonly string[] Extensions = FormatDocumentExtensions.Excel;
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
@@ -82,14 +83,14 @@ namespace Cloudents.Infrastructure.Framework
             await Task.WhenAll(t);
         }
 
-        public void Init(Func<string> path)
-        {
-            _excel = new Lazy<Workbook>(
-                 () => {
-                    return new Workbook(path());
-                    }
-                );
-        }
+        //public void Init(Func<string> path)
+        //{
+        //    _excel = new Lazy<Workbook>(
+        //         () => {
+        //            return new Workbook(path());
+        //            }
+        //        );
+        //}
 
         
     }
