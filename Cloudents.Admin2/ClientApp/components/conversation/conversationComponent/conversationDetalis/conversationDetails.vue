@@ -203,7 +203,7 @@ export default {
       currentSelectedId: null,
       page: 0,
       isCompleted: false,
-      EXPECTED_AMOUNT: 50,
+    //  EXPECTED_AMOUNT: 20,
       isLoading: false,
       dialog: {
         startConversation: false,
@@ -252,7 +252,7 @@ export default {
           });
       }
     },
-    handleScroll() {      
+    handleScroll() {     
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;      
       if (bottomOfWindow) {
           this.page = this.page + 1
@@ -266,7 +266,7 @@ export default {
     getConversations(id) {       
       let filter = this.getFiltersQuery();     
       getConversationsListPage(id, this.page, filter).then(list => {
-        if (list.length < this.EXPECTED_AMOUNT) {
+        if (list.length === 0) {
           this.isCompleted = true;
         } 
           this.conversationsList = [...this.conversationsList, ...list];
