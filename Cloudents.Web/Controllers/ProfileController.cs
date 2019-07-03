@@ -55,6 +55,10 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
+            if (retVal.Tutor == null)
+            {
+                Response.Headers.Add("X-Robots-Tag", "noindex");
+            }
             var localizerSuffix = string.Empty;
             if (string.IsNullOrEmpty(retVal.UniversityName))
             {
