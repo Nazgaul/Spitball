@@ -126,6 +126,9 @@ const router = new VueRouter({
     routes: route.routes,
     scrollBehavior(to, from, savedPosition) {
         return new Promise((resolve, reject) => {
+            if(to.hash){
+                resolve({selector: to.hash})
+            }
             if (savedPosition) {
                 resolve({x: savedPosition.x, y: savedPosition.y});
             } else {

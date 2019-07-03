@@ -57,5 +57,18 @@ export const staticRoutes = [
         display: LanguageService.getValueByKey("satellite_routes_contact"),
         import: () => import("./contact.vue")
 
-    }
+    },
+    {
+        name: "studentFaq",
+        display: LanguageService.getValueByKey("satellite_routes_studentFaq"),
+        import: () => import("./student/studentFaq.vue")
+
+    },
+    {
+        name: "tutorFaq",
+        display: LanguageService.getValueByKey("satellite_routes_tutorFaq"),
+        import: () => import("./tutor/tutorFaq.vue")
+
+    },
+
 ];
