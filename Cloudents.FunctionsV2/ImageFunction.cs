@@ -95,7 +95,7 @@ namespace Cloudents.FunctionsV2
             public static ImageExtensionConvert Text = new ImageExtensionConvert("Icons_720_txt.png", FormatDocumentExtensions.Text,nameof(Text));
             public static ImageExtensionConvert Excel = new ImageExtensionConvert("Icons_720_excel.png", FormatDocumentExtensions.Excel, nameof(Excel));
             public static ImageExtensionConvert Image = new ImageExtensionConvert("Icons_720_image.png", FormatDocumentExtensions.Image, nameof(Image));
-            public static ImageExtensionConvert Pdf = new ImageExtensionConvert("Icons_720_txt.png", FormatDocumentExtensions.Pdf, nameof(Pdf));
+            public static ImageExtensionConvert Pdf = new ImageExtensionConvert("Icons_720_pdf.png", FormatDocumentExtensions.Pdf, nameof(Pdf));
             public static ImageExtensionConvert PowerPoint = new ImageExtensionConvert("Icons_720_power.png", FormatDocumentExtensions.PowerPoint, nameof(PowerPoint));
             public static ImageExtensionConvert Tiff = new ImageExtensionConvert("Icons_720_txt.png", FormatDocumentExtensions.Tiff, nameof(Tiff));
             public static ImageExtensionConvert Word = new ImageExtensionConvert("Icons_720_doc.png", FormatDocumentExtensions.Word, nameof(Word));
