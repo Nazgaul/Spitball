@@ -33,7 +33,8 @@ namespace Cloudents.Web.Filters
                 foreach (var value in context.ActionArguments.Values)
                 {
                     var t = ScanObject(value);
-                    if (t == null) continue;
+                    if (t?.propertyValue == null) continue
+                    ;
                     var result = await _mailProvider.ValidateEmailAsync(t.Value.propertyValue.ToString(), context.HttpContext.RequestAborted);
                     if (!result)
                     {

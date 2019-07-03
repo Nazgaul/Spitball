@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Mail
                 ["ip_address"] = ""
             };
 
-            using (var c = new CancellationTokenSource(TimeSpan.FromSeconds(3)))
+            using (var c = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
             using (var source = CancellationTokenSource.CreateLinkedTokenSource(token, c.Token))
             {
                 var w = await _restClient.GetAsync<VerifyEmail>(uri, nvc, null, source.Token);
@@ -37,7 +37,7 @@ namespace Cloudents.Infrastructure.Mail
 
                 if (w == null)
                 {
-                    return true;
+                    return false;
                 }
 
                 var validStats = new[] { "valid", "catch-all" };

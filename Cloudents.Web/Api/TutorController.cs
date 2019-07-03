@@ -22,6 +22,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Exceptions;
 using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
@@ -195,15 +196,22 @@ namespace Cloudents.Web.Api
                 }
             }
 
+            try
+            {
+                var utmSource = referer.ParseQueryString()["utm_source"];
+                var command = new RequestTutorCommand(model.Course,
+                    _stringLocalizer["RequestTutorChatMessage", model.Course],
+                    userId,
 
-            var utmSource = referer.ParseQueryString()["utm_source"];
-            var command = new RequestTutorCommand(model.Course,
-                _stringLocalizer["RequestTutorChatMessage", model.Course],
-                userId,
-
-                referer.AbsoluteUri,
-                model.Text, model.TutorId, utmSource);
-            await _commandBus.DispatchAsync(command, token);
+                    referer.AbsoluteUri,
+                    model.Text, model.TutorId, utmSource);
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (SqlConstraintViolationException)
+            {
+                ModelState.AddModelError("error", "Invalid Course");
+                return BadRequest(ModelState);
+            }
 
             return Ok();
         }

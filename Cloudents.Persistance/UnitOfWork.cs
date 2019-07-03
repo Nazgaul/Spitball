@@ -1,13 +1,13 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
+﻿using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Exceptions;
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Persistence
 {
@@ -47,6 +47,11 @@ WHERE text like '%duplicate%' and text like '%key%' and language_id = 1033*/
                                                  (sql.Number == 2601 || sql.Number == 2627))
             {
                 throw new DuplicateRowException("Duplicate row", sql);
+            }
+            catch (GenericADOException ex) when (ex.InnerException is SqlException sql &&
+                                                 (sql.Number == 547))
+            {
+                throw new SqlConstraintViolationException("constraint Violation", sql);
             }
             catch (NonUniqueObjectException ex)
             {
