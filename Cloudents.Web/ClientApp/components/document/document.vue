@@ -3,6 +3,7 @@
         <main-document :document="getDocument"></main-document>
         <v-divider vertical class="mx-3"></v-divider>
         <aside-document :document="getDocument"></aside-document>
+        <aside-document-tutors v-if="$vuetify.breakpoint.smAndDown"></aside-document-tutors>
     </v-layout>
 </template>
 
@@ -10,11 +11,13 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import mainDocument from './mainDocument/mainDocument.vue';
 import asideDocument from './asideDocument/asideDocument.vue';
+import asideDocumentTutors from './asideDocument/asideDocumentTutors.vue';
 
 export default {
     components: {
         mainDocument,
-        asideDocument
+        asideDocument,
+        asideDocumentTutors
     },
     props: {
         id: {
@@ -38,7 +41,13 @@ export default {
 </script>
 
 <style lang="less">
+    @import "../../styles/mixin.less";
+
     .document-container {
-        padding: 40px 200px;
+        padding: 40px 6%;
+        @media (max-width: @screen-sm) {
+            padding: 20px 10px;
+            flex-direction: column;
+        }
     }
 </style>

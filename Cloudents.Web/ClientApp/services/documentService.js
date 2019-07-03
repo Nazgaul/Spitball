@@ -21,11 +21,44 @@ function createDocumentItem(ObjInit) {
     return new DocumentItem(ObjInit)
 }
 
+function createDocumentPreview(itemPreview){
+    if (!itemPreview || itemPreview.length === 0) {
+        let location = `${global.location.origin}/images/doc-preview-empty.png`;
+        itemPreview.push(location);
+    }
+
+    return itemPreview;
+}
+
+function createDocumentContentType(itemPreview){
+    let arrPreview = createDocumentPreview(itemPreview);
+    let postfix = arrPreview[0].split('?')[0].split('.');
+    return postfix[postfix.length - 1];
+}
+
+function DocumentObject(objInit){
+    this.details = createDocumentItem(objInit.details);
+    this.preview = createDocumentPreview(objInit.preview);
+    this.content = objInit.content || '';
+    this.contentType = createDocumentContentType(objInit.preview);
+}
+
+function createDocumentObj(ObjInit) {
+    return new DocumentObject(ObjInit)
+}
+
+function getDocument(id){
+    return connectivityModule.http.get(`/Document/${id}`).then(({data})=>{
+        return createDocumentObj(data);
+    });
+
+}
+
 export default {
     sendDocumentData: (data) => connectivityModule.http.post("/Document", data),
     deleteDoc: (id) => connectivityModule.http.delete(`/Document/${id}`),
     purchaseDocument: (id) => connectivityModule.http.post("/Document/purchase", {id}),
     changeDocumentPrice: (data) => connectivityModule.http.post("/Document/price", data),
-    getDocument: (id) => connectivityModule.http.get(`/Document/${id}`),
+    getDocument,
     createDocumentItem
 }
