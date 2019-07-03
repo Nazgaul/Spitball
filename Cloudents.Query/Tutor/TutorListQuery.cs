@@ -31,13 +31,12 @@ namespace Cloudents.Query.Tutor
 
             public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
-                const string sql = @"select distinct U.Id as UserId, U.Name, U.Image, 
+                const string sql1 = @"select distinct U.Id as UserId, U.Name, U.Image, 
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
 T.Price,
-T.Bio,
-	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
-                            (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
+T.Bio,x.*
+	                      
                         from sb.[user] U
                         join sb.Tutor T
 	                        on U.Id = T.Id
@@ -45,19 +44,19 @@ T.Bio,
 						and  uc.CourseId in (select CourseId from sb.UsersCourses where UserId = @UserId or @UserId = 0)
                         and T.State = 'Ok'
                         and (U.Country = @Country or @Country is null)
+cross apply (select avg(Rate) as Rate, count(1) as ReviewsCount from sb.TutorReview where TutorId = T.Id) as x
 where t.Id <> @UserId or @UserId = 0
 order by Rate desc
 OFFSET 0 ROWS
-FETCH NEXT 20 ROWS ONLY;
+FETCH NEXT 20 ROWS ONLY;";
 
 
-select distinct U.Id as UserId, U.Name, U.Image, 
+                const string sql2 = @"select distinct U.Id as UserId, U.Name, U.Image, 
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
 T.Price, 
-T.Bio,
-	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
-                            (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
+T.Bio,x.*
+	                     
                         from sb.[user] U
                         join sb.Tutor T
 	                        on U.Id = T.Id
@@ -66,24 +65,25 @@ T.Bio,
 						and c.SubjectId in (Select subjectId  from sb.UsersCourses where UserId = @UserId or @UserId = 0)
 						and T.State = 'Ok'
 						and (U.Country = @Country or @Country is null)
+cross apply (select avg(Rate) as Rate, count(1) as ReviewsCount from sb.TutorReview where TutorId = T.Id) as x
 where t.Id <> @UserId or @UserId = 0
 order by Rate desc
 OFFSET 0 ROWS
-FETCH NEXT 20 ROWS ONLY;
+FETCH NEXT 20 ROWS ONLY;";
 
 
-select distinct U.Id as UserId, U.Name, U.Image, 
+                const string sql3 = @"select distinct U.Id as UserId, U.Name, U.Image, 
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
 T.Price, 
-T.Bio,
-	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
-                            (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
+T.Bio,x.*
+	                       
                         from sb.[user] U
                         join sb.Tutor T
 	                        on U.Id = T.Id
 						and T.State = 'Ok'
 						and (U.Country = @Country or @Country is null)
+cross apply (select avg(Rate) as Rate, count(1) as ReviewsCount from sb.TutorReview where TutorId = T.Id) as x
 where t.Id <> @UserId or @UserId = 0
 order by Rate desc
 OFFSET 0 ROWS
@@ -92,7 +92,7 @@ FETCH NEXT 20 ROWS ONLY;";
 
                 using (var conn = _dapperRepository.OpenConnection())
                 {
-                    using (var multi = await conn.QueryMultipleAsync(sql, new { query.UserId, query.Country }))
+                    using (var multi = await conn.QueryMultipleAsync(sql1 + sql2 + sql3, new { query.UserId, query.Country }))
                     {
                         var t1 = await multi.ReadAsync<TutorListDto>();
                         var t2 = await multi.ReadAsync<TutorListDto>();
