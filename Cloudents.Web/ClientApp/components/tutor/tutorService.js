@@ -44,7 +44,7 @@ const detachParticipantTracks = function (participant) {
 };
 
 const printNetworkQuality = function (networkQualityLevel,networkQualityStats) {
-    insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_networkQuality', networkQualityLevel, null);
+    insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_networkQuality',networkQualityStats, networkQualityLevel);
     store.dispatch('updateLocalParticipantsNetworkQuality', networkQualityLevel);
     console.log({
         1: '▃',
