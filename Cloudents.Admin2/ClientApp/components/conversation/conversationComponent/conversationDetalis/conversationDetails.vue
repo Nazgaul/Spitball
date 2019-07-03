@@ -12,6 +12,7 @@
                 class="mr-2 top-card-select"
                 height="40px"
                 hide-details
+                lazy
                 box
                 dense
                 outline
@@ -26,6 +27,7 @@
                 hide-details
                 dense
                 box
+                 lazy
                 round
                 outline
                 label="Status"
@@ -39,6 +41,7 @@
                 hide-details
                 dense
                 box
+                 lazy
                 round
                 outline
                 label="Assigned to"
@@ -127,6 +130,7 @@
                                         hide-details
                                         box
                                         dense
+                                         lazy
                                         outline
                                         height="20"
                                         color="success"
@@ -139,6 +143,7 @@
                                         hide-details
                                         dense
                                         box
+                                         lazy
                                         round
                                         outline
                                         label="Assign to"
@@ -290,8 +295,10 @@ export default {
     },
     handleFilter(params, payload) {
       let query = this.getFiltersQuery();
-      getFilters(this.userId, query).then(res => {        
+      getFilters(this.userId, query).then(res => {                
         this.conversationsList = res;
+        this.page = 0;
+        this.isCompleted = false;
       })
     },
     openSpitballTutorPage(subject) {
@@ -328,6 +335,13 @@ export default {
 
 
 <style lang="scss">
+.v-menu__content.theme--light.menuable__content__active {
+  .v-list__tile.v-list__tile--link.theme--light {
+    padding: 0 10px;
+    height: 30px;
+  }
+}
+
 .heading-toolbar {
     height: 74px;
     padding-top: 5px;
