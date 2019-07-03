@@ -33,8 +33,6 @@ namespace Cloudents.Infrastructure.Mail
             using (var source = CancellationTokenSource.CreateLinkedTokenSource(token, c.Token))
             {
                 var w = await _restClient.GetAsync<VerifyEmail>(uri, nvc, null, source.Token);
-
-
                 if (w == null)
                 {
                     return false;
@@ -45,7 +43,6 @@ namespace Cloudents.Infrastructure.Mail
                 {
                     return true;
                 }
-
                 return false;
             }
         }

@@ -125,12 +125,12 @@
 
     @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@
     </script>
-    @if (Environment.IsDevelopment())
+    @*@if (Environment.IsDevelopment())
     {
     <script>
         appInsights.config.enableDebug = true
     </script>
-   }
+   }*@
     @await Component.InvokeAsync("Country")
     @await RenderSectionAsync("scripts", required: false)
 
