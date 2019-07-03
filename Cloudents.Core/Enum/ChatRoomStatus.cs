@@ -2,6 +2,7 @@
 {
     public enum ChatRoomStatus
     {
+        All,
         Unassigned,
         Active,
         Scheduled,
@@ -9,20 +10,30 @@
         FollowUp,
         NoMatch,
         NeedNewTutor,
-        All
+        FollowUpFutureS,
+        TakenOffline,
+        NoTimeTutor,
+        WrongSubject,
+        FoundOtherTutor,
+        ExamDone,
+        S_NotInterested,
+        S_NewTeacher,
+        SessionScheduled,
+        SessionDone
 
-}
+    }
 
     public enum ChatRoomAssign
     {
+        All,
         Unassigned,
         Eidan,
         Jaron,
         Yaniv,
         Almog,
         Ron,
-        Shira,
-        All
+        Shira
+        
     }
 
     public enum WaitingFor
