@@ -52,7 +52,7 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("{identifier}")]
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
+//        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
         public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
             CancellationToken token)
         {

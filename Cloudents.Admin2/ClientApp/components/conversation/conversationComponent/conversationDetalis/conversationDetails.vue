@@ -90,7 +90,7 @@
                           <v-flex xs2 class="card-converstaion-content-col-2 pl-3">
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Name</span>
-                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.userId}}" target="_blank" class="body-1  font-weight-bold ">{{conversation.tutorName}}</router-link>
+                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.tutorId}}" target="_blank" class="body-1  font-weight-bold ">{{conversation.tutorName}}</router-link>
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Email</span>
@@ -268,8 +268,9 @@ export default {
           
       }
     },
-    getConversations(id) {       
-      let filter = this.getFiltersQuery();     
+    getConversations() {       
+      let filter = this.getFiltersQuery();    
+      let id = this.userId; 
       getConversationsListPage(id, this.page, filter).then(list => {
         if (list.length === 0) {
           this.isCompleted = true;
@@ -325,7 +326,7 @@ export default {
     getFiltersParams().then(conversationFilters=>{
       this.filters = conversationFilters;
     });
-    this.getConversations(this.userId);
+    this.getConversations();
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
