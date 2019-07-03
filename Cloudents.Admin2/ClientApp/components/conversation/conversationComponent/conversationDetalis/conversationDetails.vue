@@ -12,6 +12,7 @@
                 class="mr-2 top-card-select"
                 height="40px"
                 hide-details
+                lazy
                 box
                 dense
                 outline
@@ -26,6 +27,7 @@
                 hide-details
                 dense
                 box
+                 lazy
                 round
                 outline
                 label="Status"
@@ -39,6 +41,7 @@
                 hide-details
                 dense
                 box
+                 lazy
                 round
                 outline
                 label="Assigned to"
@@ -127,6 +130,7 @@
                                         hide-details
                                         box
                                         dense
+                                         lazy
                                         outline
                                         height="20"
                                         color="success"
@@ -139,6 +143,7 @@
                                         hide-details
                                         dense
                                         box
+                                         lazy
                                         round
                                         outline
                                         label="Assign to"

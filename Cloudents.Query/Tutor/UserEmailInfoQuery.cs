@@ -32,18 +32,7 @@ namespace Cloudents.Query.Tutor
                     {
                         Name = s.Name, Email = s.Email, University = s.University.Id, PhoneNumber = s.PhoneNumber
                     }).SingleOrDefaultAsync(token);
-
-
-                //using (var conn = _dapperRepository.OpenConnection())
-                //{
-                //    const string sql = @"select Email, u.Name, un.Name as University, u.Country, 
-                //                            u.PhoneNumberHash as PhoneNumber
-                //                        from sb.[User] u
-                //                        left join sb.University un
-                //                         on u.UniversityId2 = un.Id
-                //                        where u.Id = @UserId";
-                //    return await conn.QueryFirstOrDefaultAsync<UserEmailInfoDto>(sql, new { query.UserId });
-                //}
+             
             }
         }
     }
