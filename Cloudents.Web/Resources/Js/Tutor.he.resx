@@ -129,6 +129,9 @@
   <data name="btn_system_check" xml:space="preserve">
     <value>בדיקת מערכת</value>
   </data>
+  <data name="btn_waiting_for_tutor" xml:space="preserve">
+    <value>ממתין למורה</value>
+  </data>
   <data name="chrome_ext_btn_cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>

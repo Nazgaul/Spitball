@@ -270,13 +270,20 @@ export default {
   watch: {
     getShowToaster: function(val) {
       let self = this;
-      this.toasterTimeoutObj = setTimeout(()=>{
-        if (val) {
-          self.updateToasterParams({
+      if(val){
+          this.toasterTimeoutObj = setTimeout(()=>{
+          if (val) {
+            self.updateToasterParams({
+            showToaster: false
+            });
+          }
+        }, this.getToasterTimeout)
+      }else{
+        global.clearTimeout(this.toasterTimeoutObj);
+        self.updateToasterParams({
           showToaster: false
-          });
-        }
-      }, this.getToasterTimeout)
+        });
+      }
     },
     getToasterTimeout:function(){
       let self = this;

@@ -232,8 +232,12 @@ const actions = {
                     dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 }
             } else {
+            // if is student
             if(onlineCount == totalOnline) {
-                toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
+                // toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
+                // dispatch('showRoomToasterMessage', toasterParams);
+                toasterParams.text = LanguageService.getValueByKey('studyRoom_waiting_for_tutor_toaster');
+                toasterParams.timeout = 3600000;
                 dispatch('showRoomToasterMessage', toasterParams);
             } else {
                 dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
@@ -255,6 +259,12 @@ const actions = {
         };
         dispatch('updateToasterParams', toasterObj);
     },
+    hideRoomToasterMessage({dispatch}) {
+        let toasterObj = {
+            showToaster: false,
+        };
+        dispatch('updateToasterParams', toasterObj);
+    },
     signalR_SetJwtToken({commit, dispatch, state}, sessionInformation) {
         let token = sessionInformation.data.jwtToken;
         let isTutor = state.studyRoomData.isTutor;
@@ -265,6 +275,7 @@ const actions = {
             setTimeout(()=>{
                 dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
                 dispatch("updateStudentStartDialog", true);
+                dispatch('hideRoomToasterMessage');
             }, 3000)
 
         }

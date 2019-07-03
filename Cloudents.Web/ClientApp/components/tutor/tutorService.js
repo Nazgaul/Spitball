@@ -134,13 +134,21 @@ const connectToRoom = function (token, options) {
 
             // Print the initial Network Quality Level
             // printNetworkQuality(store.getters['localParticipant'].networkQualityLevel);
+            let toasterParams = {};
+            if (store.getters['getStudyRoomData'].isTutor) {
+                toasterParams.text = LanguageService.getValueByKey('studyRoom_waiting_for_student_toaster');
+                toasterParams.timeout = 3600000;
+                store.dispatch('showRoomToasterMessage', toasterParams);
+            } else {
+                store.dispatch('hideRoomToasterMessage');
+            }
+            
 
             if (store.getters['getStudentStartDialog']) {
                 store.dispatch('updateStudentStartDialog', false);
 
             } else if (store.getters['getTutorStartDialog']) {
                 store.dispatch('updateTutorStartDialog', false);
-
             }
             //event of network quality change
             store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
@@ -214,7 +222,9 @@ const connectToRoom = function (token, options) {
                         attachTracks([track], previewContainer);
                     }
                 });
-
+                if (store.getters['getStudyRoomData'].isTutor) {
+                    store.dispatch('hideRoomToasterMessage');
+                }
             });
             // When a Participant adds a Track, attach it to the DOM.
             store.getters['activeRoom'].on('trackSubscribed', (track, participant) => {

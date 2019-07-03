@@ -13,7 +13,7 @@
             <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
             <span class="subheading font-weight-bold">&nbsp;{{studentName}}</span>
         </v-flex>
-        <v-flex xs12   class="pt-2">
+        <v-flex xs12  style="text-align: center;" class="pt-2">
             <span class="subheading" v-language:inner>tutor_entered_room</span>
         </v-flex>
         <v-flex xs12   class="pt-4">
