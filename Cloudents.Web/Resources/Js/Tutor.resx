@@ -148,7 +148,7 @@
     <value>Close</value>
   </data>
   <data name="entered_room" xml:space="preserve">
-    <value>has entered the room</value>
+    <value>has entered the room and waiting for session to start</value>
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>Canvas</value>
