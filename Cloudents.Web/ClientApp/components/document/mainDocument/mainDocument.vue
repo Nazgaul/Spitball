@@ -2,7 +2,7 @@
     <div class="main-container pb-5">
         <v-layout row class="main-header" :class="[isSmAndDown ? 'pt-3' : 'pb-3']" align-center>
             <v-icon color="#000" class="arrow-back hidden-sm-and-down" @click="closeDocument">sbf-arrow-back-chat</v-icon>
-            <span class="title courseName font-weight-bold" :class="[isSmAndDown ? '' : 'pl-3']">{{courseName}}</span>
+            <span class="title courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</span>
             <v-spacer></v-spacer>
             <span class="grey-text" :class="[isSmAndDown ? '' : 'pr-5']"><v-icon class="pr-2" small>sbf-views</v-icon>{{docViews}}</span>
             <span class="grey-text" :class="[isSmAndDown ? 'pl-3' : 'pr-4']">{{documentDate}}</span>
@@ -82,10 +82,10 @@
                 </v-card>
             </sb-dialog>
         </v-layout>
-        <div class="page">
+        <div class="document-wrap">
             <div class=" text-xs-center"  v-for="(page, index) in docPreview" :key="index">
                 <component
-                    class="page-content" 
+                    class="document-wrap-content" 
                     :is="currentComponent" 
                     :src="page"
                     :alt="document.content">
@@ -107,6 +107,7 @@ import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from "../../../services/language/languageService";
 import sbDialog from "../../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "../../results/helpers/reportItem/reportItem.vue";
+import utillitiesService from '../../../services/utilities/utilitiesService';
 
 export default {
     name: 'mainDocument',
@@ -230,7 +231,6 @@ export default {
         currentComponent() {
             if (this.document && this.document.contentType) {
                 return this.document.contentType === "html" ? "iframe" : "img";
-                if (['link', 'text'].find((x) => x === type.toLowerCase())) return 'iframe'
             }
         },
         courseName() {
@@ -254,9 +254,14 @@ export default {
                 return this.document.details.views
             }
         },
-        docPreview() {
+        docPreview() {          
             if(this.document.preview) {
-                return this.document.preview
+                let width = document.querySelector('.document-wrap').offsetWidth;
+                let height = width / 0.707;
+                let result = this.document.preview.map(preview => {
+                    return utillitiesService.proccessImageURL(preview, width, height);
+                })
+                return result;
             }
         },
         isSmAndDown() {
@@ -293,7 +298,7 @@ export default {
                 }
             }
         }
-        .page {
+        .document-wrap {
             position: relative;
             .unlockBox {
                 cursor: pointer;
@@ -333,7 +338,7 @@ export default {
                     }
                 }
             }
-            .page-content {
+            .document-wrap-content {
                 width: 100%;
             }
         }

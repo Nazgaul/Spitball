@@ -41,7 +41,7 @@
         </div>
 
         <div class="aside-cards mb-5">
-            <tutor-result-card-mobile :tutorData="document" :singleCard="true" :isInTutorList="true" />
+            <tutor-result-card-mobile :tutorData="ownTutor" :singleCard="true" :isInTutorList="true" />
         </div>
 
         <aside-document-tutors v-if="!$vuetify.breakpoint.smAndDown"/>
@@ -115,6 +115,11 @@ export default {
         isCourse() {
             return this.document.details && this.document.details.course;
         },
+        ownTutor() {
+            if(this.document.details && this.document.details.user) {
+                return this.document.details.user;
+            }
+        }
     }
 }
 </script>
