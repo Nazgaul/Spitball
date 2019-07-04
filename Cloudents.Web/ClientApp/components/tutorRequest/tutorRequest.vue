@@ -27,8 +27,6 @@
               </v-flex>      
               <v-flex xs12 md4 v-if="!isAuthUser">
                   <v-text-field 
-                     
-                    mask="phone"
                     v-model="guestPhone"
                     :rules="[rules.required]"
                     :placeholder="guestPhoneNumberPlaceHolder"

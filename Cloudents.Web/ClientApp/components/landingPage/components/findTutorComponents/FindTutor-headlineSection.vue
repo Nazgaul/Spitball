@@ -3,7 +3,9 @@
     <v-flex class="landing-headeline-section-text-container" xs12 lg6 >
       <h2 v-language:inner="'landingPage_main_title'"></h2>
       <h3 v-language:inner="'landingPage_main_subtitle'"></h3>
-      <button @click="goToTutorPage" v-language:inner="'landingPage_main_btn'"></button>
+      <router-link :to="'tutor-list'">
+        <button  v-language:inner="'landingPage_main_btn'"></button>
+      </router-link>
     </v-flex>
     <v-flex class="landing-headeline-section-img-container" hidden-md-and-down lg6>
     </v-flex>
@@ -13,13 +15,6 @@
 <script>
 export default {
     name: 'headelineSection',
-    methods:{
-        goToTutorPage(){
-            this.$router.push({
-                path:"/tutor",
-            })
-        }
-    }
 };
 </script>
 
