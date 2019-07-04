@@ -26,6 +26,7 @@ namespace Cloudents.Web.Filters
             {
                 _mailProvider = mailProvider;
                 _localizer = localizer;
+                
             }
 
             public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -38,7 +39,12 @@ namespace Cloudents.Web.Filters
                     var result = await _mailProvider.ValidateEmailAsync(t.Value.propertyValue.ToString(), context.HttpContext.RequestAborted);
                     if (!result)
                     {
-                        context.ModelState.AddModelError(t.Value.propertyName, _localizer["EmailAddress", t.Value.propertyName]);
+                        var error = _localizer["EmailAddress", t.Value.propertyName];
+                        if (error.ResourceNotFound)
+                        {
+                            error = new LocalizedString("EmailAddress","This email is not valid");
+                        }
+                        context.ModelState.AddModelError("error",error);
                         context.Result = new BadRequestObjectResult(context.ModelState);
                     }
 
