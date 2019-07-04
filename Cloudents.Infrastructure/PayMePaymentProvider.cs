@@ -63,16 +63,23 @@ namespace Cloudents.Infrastructure
                 }
                 using (var s = await response.Content.ReadAsStreamAsync())
                 {
-                    var result = s.ToJsonReader(reader =>
+                    var serializer = JsonSerializer.Create(new JsonSerializerSettings
                     {
-                        var serializer = JsonSerializer.Create(new JsonSerializerSettings
-                        {
-                            ContractResolver = ContractResolver,
-                        });
-                        return serializer.Deserialize<GenerateSaleResponse>(reader);
+                        ContractResolver = ContractResolver,
                     });
 
-                    return result;
+                    return s.ToJsonReader<GenerateSaleResponse>(serializer);
+                    //var result = s.ToJsonReader(reader =>
+                    //{
+                    //    var serializer = JsonSerializer.Create(new JsonSerializerSettings
+                    //    {
+                    //        ContractResolver = ContractResolver,
+                    //    });
+                        
+                    //    return serializer.Deserialize<GenerateSaleResponse>(reader);
+                    //});
+
+                    //return result;
                 }
             }
         }
@@ -125,13 +132,28 @@ namespace Cloudents.Infrastructure
 
     public static class StreamExtensions
     {
-        public static T ToJsonReader<T>(this Stream s, Func<JsonTextReader, T> func)
+        //public static T ToJsonReader<T>(this Stream s, Func<JsonTextReader, T> func)
+        //{
+
+        //    using (var sr = new StreamReader(s))
+        //    using (var reader = new JsonTextReader(sr))
+        //    {
+        //        return func(reader);
+        //    }
+        //}
+
+        public static T ToJsonReader<T>(this Stream s, JsonSerializer serializer = null)
         {
 
             using (var sr = new StreamReader(s))
             using (var reader = new JsonTextReader(sr))
             {
-                return func(reader);
+                if (serializer == null)
+                {
+                    serializer = new JsonSerializer();
+                }
+
+                return serializer.Deserialize<T>(reader);
             }
         }
     }
