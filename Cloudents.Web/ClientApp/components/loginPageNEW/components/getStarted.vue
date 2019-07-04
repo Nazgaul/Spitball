@@ -14,19 +14,21 @@
                         <span v-language:inner="'loginRegister_getstarted_terms_and'"/>
                         <span class="terms" @click="redirectTo('privacy')" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
                     </span>
-                    <span v-if="isError" class="errorMsg">Please agree to Terms And Services in order to proceed</span>
+                    <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
                 </div>
             </div>
+            <!-- <div> -->
+                <v-btn @click="goWithGoogle()" 
+                    :loading="isGoogleLoading" 
+                    color="#304FFE" large round
+                    class="google elevation-5">
+                    <v-icon class="pr-3">sbf-google-icon</v-icon>
+                    <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
+                </v-btn>
+                <!-- <span v-if="gmailError" class="errorMsg" v-language:inner="'gmailError'"/> -->
+            <!-- </div> -->
 
-            <v-btn @click="goWithGoogle()" 
-                   :loading="isGoogleLoading" 
-                   color="#304FFE" large round 
-                   class="google elevation-5">
-                <v-icon class="pr-3">sbf-google-icon</v-icon>
-                <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
-            </v-btn>
-
-            <span v-language:inner="'loginRegister_getstarted_or'"/>
+            <span class="hidden-xs-only" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
 
             <v-btn @click="goWithEmail()" 
                    large flat round 
@@ -54,13 +56,12 @@ export default {
     name: 'getStarted',
     data() {
         return {
-            isRegisterPath: false,
             isTermsAgree: false,
             showError: false
         }
     },
     methods: {
-        ...mapActions(['updateStep','updateAnalytics','googleSigning']),
+        ...mapActions(['updateStep','googleSigning']),
         checkBoxConfirm(){
             if(this.isTermsAgree){
                 this.showError = false
@@ -85,12 +86,18 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getGoogleLoading']),
+        ...mapGetters(['getGoogleLoading','getErrorMessages']),
         isGoogleLoading(){
             return this.getGoogleLoading
         },
         isError(){
             return !this.isTermsAgree && this.showError
+        },
+        gmailError(){
+            return this.getErrorMessages.gmail
+        },
+        isRegisterPath(){
+            return (this.$route.path === '/register')
         }
     },
     mounted() {
@@ -101,30 +108,29 @@ export default {
                 });
             });
         });
-    },
-    created() {
-        this.isRegisterPath = this.$route.name === 'registerPageNEW'? true : false;
-    },
+    }
 }
 </script>
 
 <style lang="less">
+@import '../../../styles/mixin.less';
 .getStartedContainer{
+    height: -webkit-fill-available;
     .getStarted-top{
         display: flex;
         flex-direction: column;
         padding-bottom: 64px;
         p{
+            .responsive-property(font-size, 28px, null, 22px);
+            .responsive-property(line-height, 1.54, null, 1.95);
+            .responsive-property(letter-spacing, -0.51px, null, -0.4px);
             margin: 0;
-            font-size: 28px;
-            line-height: 1.54;
-            letter-spacing: -0.51px;
             text-align: center;
             color: #434c5f;
         }
         span{
-            padding-top: 8px;
-            font-size: 16px;
+            .responsive-property(font-size, 16px, null, 14px);
+            .responsive-property(padding-top,  8px, null, 0px);
             letter-spacing: -0.42px;
             text-align: center;
             color: #888b8e;
@@ -135,11 +141,12 @@ export default {
         flex-direction: column;
         align-items: center;
         .getStarted-terms{
-            padding: 0 24px 34px 24px;
+            text-align: center;
+            .responsive-property(margin-bottom, 34px, null, 66px);
             span{
                 padding: 0;
                 color:#212121;
-                font-size: 13px;
+                .responsive-property(font-size, 13px, null, 12px);
                 letter-spacing: -0.34px;
                 line-height: 1.23;
                 &.terms{
@@ -162,12 +169,18 @@ export default {
             letter-spacing: -0.36px;
             text-align: center;
             color: #888b8e;
+            &.errorMsg{
+                display: block; 
+                color:red; 
+                text-align: center;
+            }
         }
         button{
             margin: 0;
-            width: 400px;
             text-transform: none !important;
+            .responsive-property(width, 100%, null, 90%);
             &.google{
+                .responsive-property(margin-bottom, 0px, null, 20px);
                 color: white;
                 span{
                     font-size: 16px;
@@ -193,9 +206,9 @@ export default {
     .getStarted-bottom{
         display: flex;
         justify-content: center;
-        padding-top: 48px;
+        .responsive-property(margin-top, 48px, null, 195px);
         span {
-            font-size: 16px;
+            .responsive-property(font-size, 16px, null, 14px);
             letter-spacing: -0.42px;
             color: #888b8e;
             &.link{                

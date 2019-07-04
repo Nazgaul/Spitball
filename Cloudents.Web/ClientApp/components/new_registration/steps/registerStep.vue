@@ -157,8 +157,6 @@
             onExpired() {
                 this.recaptcha = "";
             },
-        },
-        created() {
         }
     }
 </script>

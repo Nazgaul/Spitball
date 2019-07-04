@@ -115,6 +115,7 @@ import { LanguageService } from '../../../services/language/languageService';
             },
             changePassword() {
                 if (this.password && this.ID && this.passResetCode && this.confirmPassword) {
+                    debugger
                     let passErrors = this.isPasswordGood()
                     // let self = this;
                     if(!passErrors){

@@ -409,7 +409,7 @@ let routes2 = [
         path: "/register",
         alias: ['/signin', '/resetpassword'],
         components: {
-            default: login,
+            default: registerPage,
         },
         name: "registration",
         beforeEnter: (to, from, next) => {
