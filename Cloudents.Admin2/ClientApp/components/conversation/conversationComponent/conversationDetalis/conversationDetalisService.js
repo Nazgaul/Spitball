@@ -85,9 +85,7 @@ const getConversationsListPage = function (id, page, filter) {
                 arrConversationList.push(createConversationItem(conversation));
             });
         }
-        return Promise.resolve(arrConversationList);
-    }, (err) => {
-        return Promise.reject(err);
+        return arrConversationList;
     });
     
 };

@@ -12,7 +12,7 @@ export default {
     components:{VueRecaptcha},
     data() {
         return {
-            siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
+            siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
             recaptcha: '',
             isProfile: false,
             suggestsUniversities: [],

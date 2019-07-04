@@ -32,11 +32,7 @@ namespace Cloudents.Query.Tutor
             {
                 using (var conn = _dapperRepository.OpenConnection())
                 {
-                    const string sql = @"with cte as(
-select t.TutorId as Id,  avg(Rate) as rate,count(*) as rateCount from sb.TutorReview t
-group by t.TutorId
-)
-Select u.id as UserId,
+                    const string sql = @"Select u.id as UserId,
 u.Name,
 u.Image,
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
@@ -45,7 +41,9 @@ T.Price,
 cte.rate as Rate,
 t.Bio,
 cte.rateCount as ReviewsCount
-from sb.tutor t join sb.[user] u on t.Id = u.Id left join cte on t.Id = cte.Id
+from sb.tutor t join sb.[user] u on t.Id = u.Id
+cross apply (select avg(Rate) as Rate, count(1) as rateCount from sb.TutorReview where TutorId = T.Id) as cte
+ 
 where t.State = 'Ok'
 and (u.Country = @Country or @Country is null)
 order by
