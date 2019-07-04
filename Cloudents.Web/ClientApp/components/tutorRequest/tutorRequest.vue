@@ -25,8 +25,9 @@
                     :placeholder="guestEmailPlaceHolder"
                     autocomplete="off"/>
               </v-flex>      
-              <v-flex xs12 md4 v-if="!isAuthUser">
-                  <v-text-field 
+              <v-flex xs12 md4 v-if="!isAuthUser" >
+                  <v-text-field maxlength="12"
+                  type="tel"
                     v-model="guestPhone"
                     :rules="[rules.required]"
                     :placeholder="guestPhoneNumberPlaceHolder"

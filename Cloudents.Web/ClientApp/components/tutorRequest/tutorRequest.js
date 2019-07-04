@@ -115,7 +115,7 @@ export default {
                                         })
                                   }).finally(() => {
                                       self.btnRequestLoading = false
-                                      this.$refs['recaptcha'].reset();
+                                      self.$refs['recaptcha'].reset();
                                     });
             }
         },
