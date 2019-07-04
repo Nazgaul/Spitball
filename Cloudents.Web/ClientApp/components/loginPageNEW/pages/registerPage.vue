@@ -1,11 +1,10 @@
 <template>
     <section class="registerPage">
         <button class="back-button">
-            <v-icon right @click="updateDialog(true)" >sbf-close</v-icon>
+            <v-icon right @click="updateDialog(true)">sbf-close</v-icon>
         </button>
         <div class="leftSection">
-            <p>Everything you’ll need to master your studies
-            </p>
+            <p v-language:inner="'Everything you’ll need to master your studies'"></p>
         </div>
         <div class="stepsSections">
             <div>

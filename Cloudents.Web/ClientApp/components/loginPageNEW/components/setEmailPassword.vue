@@ -130,7 +130,11 @@ export default {
 			this.updateRecaptcha('')
 		},
 		register(){
-			this.emailSigning()
+			this.emailSigning().then(response=>{
+
+			}, err=>{
+				console.log("setEmail PaSSWORD ERROR");
+			})
 		},
 	},
 	created() {

@@ -234,7 +234,7 @@ const actions = {
     },
     emailSigning({dispatch,state,commit}){
         commit('setGlobalLoading',true)
-        registrationService.emailRegistration(state.email, state.recaptcha, state.password, state.confirmPassword)
+        return registrationService.emailRegistration(state.email, state.recaptcha, state.password, state.confirmPassword)
             .then((resp) => {
                 let nextStep = resp.data.step;
                 if(nextStep === "VerifyPhone"){
@@ -245,6 +245,7 @@ const actions = {
                 _analytics(['Registration', 'Start'])
                 commit('setGlobalLoading',false)
             },  (error) => {
+                console.log('STORE ERROR set email password');
                 dispatch('updateRecaptcha','')
                 commit('setResetRecaptcha')
                 commit('setGlobalLoading',false)
@@ -253,6 +254,8 @@ const actions = {
                     password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
                     confirmPassword: error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '',
                 })
+                // reset recaptcha in component
+                return Promise.reject(error);
             });
     },
     resendEmail({dispatch}){
