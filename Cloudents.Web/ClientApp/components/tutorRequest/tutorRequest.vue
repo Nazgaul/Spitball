@@ -99,6 +99,7 @@
         </v-card-text>
           <div class="pl-4">
             <vue-recaptcha v-if="!isAuthUser" 
+              size="invisible"
               class="pb-3"
               :sitekey="siteKey"
               ref="recaptcha"
