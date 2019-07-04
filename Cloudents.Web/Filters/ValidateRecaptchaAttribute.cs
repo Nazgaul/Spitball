@@ -37,19 +37,33 @@ namespace Cloudents.Web.Filters
 
     public sealed class ValidateRecaptchaAttribute : TypeFilterAttribute
     {
-        public ValidateRecaptchaAttribute() : base(typeof(ValidateRecaptchaImpl))
+        //private string SecretKey { get; }
+
+        public ValidateRecaptchaAttribute(string secretKey = null) : base(typeof(ValidateRecaptchaImpl))
         {
+            this.Arguments = new object[] {secretKey};
+            //SecretKey = secretKey;
         }
+
+
 
         private class ValidateRecaptchaImpl : ActionFilterAttribute
         {
-            private readonly IConfiguration _configuration;
+            private readonly string _secretKey;
             private readonly IRestClient _httpClient;
             private readonly IHostingEnvironment _environment;
 
-            public ValidateRecaptchaImpl(IConfiguration configuration, IRestClient httpClient, IHostingEnvironment environment)
+            public ValidateRecaptchaImpl(string secretKey, IConfiguration configuration, IRestClient httpClient, IHostingEnvironment environment)
             {
-                _configuration = configuration;
+                if (!string.IsNullOrEmpty(secretKey))
+                {
+                    _secretKey = secretKey;
+                }
+                else
+                {
+                    _secretKey= configuration["GoogleReCaptcha:Secret"];
+                }
+
                 _httpClient = httpClient;
                 _environment = environment;
             }
@@ -83,10 +97,10 @@ namespace Cloudents.Web.Filters
                     context.Result = new BadRequestResult();
                     return;
                 }
-                var secret = _configuration["GoogleReCaptcha:Secret"];
+               // var secret = _configuration["GoogleReCaptcha:Secret"];
                 var nvc = new NameValueCollection()
                 {
-                    ["secret"] = secret,
+                    ["secret"] = _secretKey,
                     ["response"] = captcha
                 };
 

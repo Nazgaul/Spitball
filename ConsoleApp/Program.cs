@@ -149,9 +149,7 @@ namespace ConsoleApp
 
             //await UpdateMethod();
             var queryBus = _container.Resolve<IMailProvider>();
-            var z = await queryBus.ValidateEmailAsync("yaari.ram@gmail.com", default);
-            var z2 = await queryBus.ValidateEmailAsync("yaari@gmail.com", default);
-            var z3 = await queryBus.ValidateEmailAsync("yaari@asdasdasdasd.com", default);
+            var z = await queryBus.ValidateEmailAsync("gadi.avner@gmail.com", default);
 
             //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
             //var v = x.Update.OrderBy(o => o.VersionAsLong).First();
