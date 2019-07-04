@@ -174,29 +174,10 @@ namespace Cloudents.Web.Api
         }
 
 
-        //private RegularUser CreateUser(string email, string firstName, string lastName, string picture, )
-        //{
-        //    if (email == null) throw new ArgumentNullException(nameof(email));
-        //    if (string.IsNullOrEmpty(firstName))
-        //    {
-        //        firstName = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
-        //    }
-
-        //    return new RegularUser(email, firstName, lastName, CultureInfo.CurrentCulture);
-        //}
-
-        //private static int GenerateRandomNumber()
-        //{
-        //    var rdm = new Random();
-        //    return rdm.Next(1000, 9999);
-        //}
+       
 
         private async Task GenerateEmailAsync(User user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
-            //if (user.OldUser.GetValueOrDefault() && user.SecurityStamp == null)
-            //{
-            //    await _userManager.UpdateSecurityStampAsync(user);
-            //}
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);
             var url = returnUrl?.Url;
@@ -229,7 +210,7 @@ namespace Cloudents.Web.Api
 
             }
 
-            var email = TempData.Peek(Email); //?? throw new ArgumentNullException("TempData", "email is empty");
+            var email = TempData.Peek(Email);
             if (email == null)
             {
                 ModelState.AddModelError(string.Empty, _localizer["EmailResend"]);

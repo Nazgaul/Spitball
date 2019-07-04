@@ -140,9 +140,7 @@ namespace Cloudents.Core.Entities
             Name = $"{FirstName} {LastName}".Trim();
             if (string.IsNullOrWhiteSpace(Name))
             {
-                var rdm = new Random();
-                var randomNumber =  rdm.Next(1000, 9999);
-                Name = $"{Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0]}.{randomNumber}";
+                Name = $"{Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0]}";
             }
         }
 
