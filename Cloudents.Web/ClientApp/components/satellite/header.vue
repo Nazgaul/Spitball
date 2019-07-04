@@ -14,6 +14,8 @@
                     <v-tab router :to="verticals[4].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[4].display}}</v-tab>
                     <v-tab router :to="verticals[5].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[5].display}}</v-tab>
                     <v-tab router :to="verticals[6].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[6].display}}</v-tab>
+                    <v-tab router :to="verticals[8].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[8].display}}</v-tab>
+                    <v-tab router :to="verticals[9].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[9].display}}</v-tab>
                     <v-tab router :to="verticals[7].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[7].display}}</v-tab>
                     <v-tabs-slider color="color-dark-blue"></v-tabs-slider>
             </v-tabs>
