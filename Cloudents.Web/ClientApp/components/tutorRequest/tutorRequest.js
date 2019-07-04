@@ -124,10 +124,19 @@ export default {
         },
         onVerify(response) {
             this.recaptcha = response;
+            this.sendRequest()
         },
         onExpired() {
             this.recaptcha = "";
+            this.$refs['recaptcha'].reset();
         },
+        submit(guest){
+            if(guest){
+                this.$refs['recaptcha'].execute()
+            }else{
+                this.sendRequest();
+            }
+        }
     },
     created() {
         this.isProfile = this.$route.name === 'profile'? true : false;

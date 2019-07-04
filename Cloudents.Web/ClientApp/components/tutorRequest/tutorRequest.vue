@@ -112,10 +112,9 @@
             <v-btn color="blue darken-1" :disabled="btnRequestLoading" flat @click="tutorRequestDialogClose()">{{btnClosePlaceholder}}</v-btn>
             <v-btn  color="#4452fc"
                    class="white--text"
-                   :disabled="!isAuthUser && !recaptcha"
                    :loading="btnRequestLoading" 
                    round depressed
-                   @click="sendRequest()">
+                   @click="submit(!isAuthUser)">
                    {{btnSubmitPlaceholder}}
             </v-btn>
           </div>
