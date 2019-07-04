@@ -32,23 +32,27 @@ namespace Cloudents.Web.EventHandler
                 var session = studyRoom.Sessions.AsQueryable().Where(w => w.Ended == null).OrderByDescending(o => o.Id).FirstOrDefault();
                 if (session != null)
                 {
-                    foreach (var user in studyRoom.Users)
+                    var roomExists = await _videoProvider.GetRoomAvailableAsync(session.SessionId);
+                    if (roomExists)
                     {
-                        var jwtToken =
-                            await _videoProvider.ConnectToRoomAsync(session.SessionId, user.User.Id.ToString());
+                        foreach (var user in studyRoom.Users)
+                        {
+                            var jwtToken =
+                                await _videoProvider.ConnectToRoomAsync(session.SessionId, user.User.Id.ToString());
 
 
-                        var message2 = new SignalRTransportType(SignalRType.StudyRoom,
-                            SignalRAction.Update, new
-                            {
-                                jwtToken
-                            });
+                            var message2 = new SignalRTransportType(SignalRType.StudyRoom,
+                                SignalRAction.Update, new
+                                {
+                                    jwtToken
+                                });
 
-                        await _hubContext.Clients.User(user.User.Id.ToString())
-                                     .SendAsync(SbHub.MethodName, message2, token);
+                            await _hubContext.Clients.User(user.User.Id.ToString())
+                                .SendAsync(SbHub.MethodName, message2, token);
+                        }
+
+                        return;
                     }
-
-                    return;
                 }
             }
             var message = new SignalRTransportType(SignalRType.StudyRoom,

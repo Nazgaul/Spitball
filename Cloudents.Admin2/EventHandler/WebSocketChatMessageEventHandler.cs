@@ -12,6 +12,9 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Admin2.EventHandler
 {
+    /// <summary>
+    /// This is an event handler if the admin sends the user a message - we then transfer it to the service bus to handle this.
+    /// </summary>
     public class WebSocketChatMessageEventHandler : IEventHandler<ChatMessageEvent>
     {
         private readonly IServiceBusProvider _queueProvider;
