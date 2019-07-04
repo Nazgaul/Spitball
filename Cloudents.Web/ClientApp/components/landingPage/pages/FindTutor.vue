@@ -102,6 +102,9 @@ export default {
         padding: 0 25px; ;
       }
     }
+    h4 {
+      text-align: justify;
+    }
     h4:lang(en) {
       font-size: 20px;
     }
