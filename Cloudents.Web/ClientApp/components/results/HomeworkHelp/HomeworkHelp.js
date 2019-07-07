@@ -228,7 +228,7 @@ export default {
                     //update data for this page
                     this.showFilterNotApplied = false;
                     this.updateData.call(this, {...data, vertical: toName});
-                    next();
+                    // next();
                 }).catch(reason => {
                 //when error from fetching data remove the loader
                 if (to.path === from.path && to.query.term === from.query.term) {
