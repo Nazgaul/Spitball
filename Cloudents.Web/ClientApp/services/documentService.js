@@ -1,21 +1,30 @@
 import { connectivityModule } from "./connectivity.module"
 
 function DocumentItem(ObjInit) {
-    this.name = ObjInit.name || '';
-    this.date = ObjInit.date || '';
-    this.course = ObjInit.course || '';
-    this.id = ObjInit.id || '';
+    this.name = ObjInit.name;
+    this.date = ObjInit.date;
+    this.course = ObjInit.course;
+    this.id = ObjInit.id;
     this.university = ObjInit.university || '';
-    this.user = ObjInit.user || {};
+    this.user = new DocumentUser(ObjInit.user);
     this.views = ObjInit.views || 0;
-    this.downloads = ObjInit.downloads || 0;
-    this.pages = ObjInit.pages || '';
+    this.pages = ObjInit.pages || 0;
     this.docType = ObjInit.type || '';
     this.isPlaceholder = ObjInit.isPlaceholder || false;
     this.professor = ObjInit.professor || '';
     this.price = ObjInit.price || 0;
     this.isPurchased = ObjInit.isPurchased || false;
 };
+
+function DocumentUser(objInit) {
+    this.userId = objInit.id
+    this.name = objInit.name
+    this.image = objInit.image
+    this.score = objInit.score
+    this.price = objInit.price
+    this.courses = objInit.courses
+    this.reviewsCount = objInit.reviewsCount
+}
 
 function createDocumentItem(ObjInit) {
     return new DocumentItem(ObjInit)

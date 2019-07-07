@@ -135,6 +135,15 @@
   <data name="student_learn" xml:space="preserve">
     <value>Students learn form students</value>
   </data>
+  <data name="student_level" xml:space="preserve">
+    <value>Legend</value>
+  </data>
+  <data name="student_uploaded" xml:space="preserve">
+    <value>Uploaded by a student</value>
+  </data>
+  <data name="student_views_documents" xml:space="preserve">
+    <value>View all uploaded documents</value>
+  </data>
   <data name="table_course" xml:space="preserve">
     <value>Course</value>
   </data>

@@ -254,12 +254,13 @@ export default {
                 return this.document.details.views
             }
         },
-        docPreview() {          
-            if(this.document.preview) {
-                let width = document.querySelector('.document-wrap').offsetWidth;
-                let height = width / 0.707;
-                let result = this.document.preview.map(preview => {
-                    return utillitiesService.proccessImageURL(preview, width, height);
+        docPreview() {
+            let docWrap = document.querySelector('.document-wrap')
+            if(this.document.preview && docWrap) {
+                let width = docWrap.offsetWidth;
+                let height = width / 0.707;                
+                let result = this.document.preview.map(preview => {                    
+                    return utillitiesService.proccessImageURL(preview, width, height.toFixed(0));
                 })
                 return result;
             }

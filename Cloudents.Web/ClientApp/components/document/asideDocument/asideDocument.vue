@@ -39,9 +39,10 @@
                 </tr>
             </table>
         </div>
-
+        
         <div class="aside-cards mb-5">
-            <tutor-result-card-mobile :tutorData="ownTutor" :singleCard="true" :isInTutorList="true" />
+            <student-card :tutorData="ownTutor" v-if="!isTutor && ownTutor"/>
+            <tutor-result-card-mobile :tutorData="ownTutor" :singleCard="true" :isInTutorList="true" v-if="isTutor && ownTutor" />
         </div>
 
         <aside-document-tutors v-if="!$vuetify.breakpoint.smAndDown"/>
@@ -53,12 +54,14 @@ import { mapActions } from 'vuex';
 
 import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import asideDocumentTutors from './asideDocumentTutors.vue';
+import studentCard from '../studentCard.vue';
 
 import myCourses from '../../../font-icon/my-courses-image.svg';
 
 export default {
     components: {
         myCourses,
+        studentCard,
         tutorResultCardMobile,
         asideDocumentTutors
     },
@@ -116,8 +119,13 @@ export default {
             return this.document.details && this.document.details.course;
         },
         ownTutor() {
-            if(this.document.details && this.document.details.user) {
+            if(this.document.details && this.document.details.user) {                
                 return this.document.details.user;
+            }
+        },
+        isTutor() {
+            if(this.document.details && this.document.details.user) {                
+                return this.document.details.user.price
             }
         }
     }
