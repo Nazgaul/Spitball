@@ -3,9 +3,12 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Query;
+using Cloudents.Query.Tutor;
+using Cloudents.Search.Tutor;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -15,20 +18,15 @@ using SimMetricsMetricUtilities;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Extension;
-using Cloudents.Query.SearchSync;
-using Cloudents.Search.Tutor;
+using Cloudents.Query.Query;
+using NHibernate.SqlCommand;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudents.Infrastructure;
-using Cloudents.Query.Tutor;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -138,15 +136,37 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var uriBuilder = new UriBuilder();
-            var nvc = new NameValueCollection();
-            nvc.Add("token", "dsfklsjdf");
-            nvc.Add("chat", "expand");
-            uriBuilder.AddQuery(nvc);
-            var x = uriBuilder.ToString();
+
+            var session = _container.Resolve<IStatelessSession>();
+
+
+            
+
+            //var a = (from u in session.Query<Document>().Fetch(f=>f.User)
+
+            //    //from r in session.Query<Tutor>()
+            //   join xxx in session.Query<Tutor>() on u.User.Id equals xxx.Id into gj
+            //         from subsp in gj.DefaultIfEmpty()
+            //         where /*r.Id == xxx.Id &&*/ u.Id == 1L
+
+            //    select new { u.User.Id, Role = "a" /*r.Bio*/ }).ToList();
+            //var t1 = session.Query<Document>()
+            //     .Fetch(f => f.User)
+
+
+   
+
+            //var uriBuilder = new UriBuilder();
+            //var nvc = new NameValueCollection();
+            //nvc.Add("token", "dsfklsjdf");
+            //nvc.Add("chat", "expand");
+            //uriBuilder.AddQuery(nvc);
+            //var x = uriBuilder.ToString();
 
             //await UpdateMethod();
-            //var queryBus = _container.Resolve<IQueryBus>();
+            var queryBus = _container.Resolve<IQueryBus>();
+            var query = new DocumentById(5324, null);
+            var z = await queryBus.QueryAsync(query, default);
             //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
             //var v = x.Update.OrderBy(o => o.VersionAsLong).First();
 

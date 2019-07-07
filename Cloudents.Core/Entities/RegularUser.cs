@@ -189,11 +189,11 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual void AwardMoney(AwardsTransaction award)
-        {
-            var t = new AwardMoneyTransaction(award);
-            MakeTransaction(t);
-        }
+        //public virtual void AwardMoney(AwardsTransaction award)
+        //{
+        //    var t = new AwardMoneyTransaction(award);
+        //    MakeTransaction(t);
+        //}
 
         public virtual void CashOutMoney(/*decimal price*/)
         {
