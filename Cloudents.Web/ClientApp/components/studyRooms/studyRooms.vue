@@ -46,7 +46,7 @@ export default {
 <style lang="less">
 @import '../../styles/mixin.less';
 .study-rooms-container{
-    
+    max-width: unset;
     height: 100%;
     width: 100%;
     background-image: url('./img/studyRoomBg.jpg');
