@@ -207,6 +207,8 @@ export default {
     word-break: break-all;
     font-size: 16px;
     font-weight: bold;
+    min-width: 90%;
+    max-width: 80px;
   }
  .image-wrap {
       margin-right: 10px;
@@ -242,6 +244,7 @@ export default {
     color: @profileTextColor;
     font-size: 18px;
     line-height: 16px;
+    display: inline-table;
   }
   .striked{
       position: relative;
