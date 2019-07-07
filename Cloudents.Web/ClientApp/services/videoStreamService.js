@@ -62,6 +62,7 @@ let availableDevices = [];
             //add datatrack, after created audio and or video tracks
             tracksCreated.push(tutorService.dataTrack);
             connectOptions = {
+                logLevel :'debug',
                 tracks: tracksCreated,
                 networkQuality: {
                     local: 3, // LocalParticipant's Network Quality verbosity [1 - 3]
