@@ -244,7 +244,8 @@ export default {
     color: @profileTextColor;
     font-size: 18px;
     line-height: 16px;
-    display: inline-table;
+    display: flex;
+    align-items: center;
   }
   .striked{
       position: relative;
