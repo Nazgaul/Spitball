@@ -153,12 +153,8 @@ namespace Cloudents.Web.Api
                     result.FirstName, result.LastName,
                     result.Language)
                 {
-                    EmailConfirmed = true,
-                
-                //TODO we need to download the image and save it on our servers.
-                //for example https://lh4.googleusercontent.com/-h_cefmKiATs/AAAAAAAAAAI/AAAAAAAAAFQ/qONh2BunKxY/photo.jpg
-                 //Image = result.Picture
-            };
+                    EmailConfirmed = true
+                };
                
            
                 var result3 = await _userManager.CreateAsync(user);
