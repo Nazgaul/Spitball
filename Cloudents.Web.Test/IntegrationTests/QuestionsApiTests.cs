@@ -25,7 +25,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             course = "Economics",
             text = "This is a testing question",
-            files = new { }
+            files = ""
         };
 
 
@@ -35,6 +35,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             {
                 AllowAutoRedirect = false
             });
+            _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Fact]
