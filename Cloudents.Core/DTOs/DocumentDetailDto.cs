@@ -31,13 +31,13 @@ namespace Cloudents.Core.DTOs
 
         public int Views { get; set; }
 
-        public int Downloads { get; set; }
+//        public int Downloads { get; set; }
 
         public decimal? Price { get; set; }
 
         public bool IsPurchased { get; set; }
 
-        public int PageCount { get; set; }
+      //  public int PageCount { get; set; }
 
     }
 

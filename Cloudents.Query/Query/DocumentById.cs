@@ -49,7 +49,7 @@ namespace Cloudents.Query.Query
                 var futureValue = _session.QueryOver<Document>(() => documentAlias)
                     //.JoinAlias(x => x.User, () => userAlias)
                     .JoinAlias(x => x.University, () => universityAlias)
-                    .JoinEntityAlias(() => userAlias, () => documentAlias.User.Id == userAlias.Id)
+                    .JoinEntityAlias(() => userAlias, () => documentAlias.User.Id == userAlias.Id, JoinType.InnerJoin)
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
                     .SelectList(l =>
                         l.Select(() => documentAlias.Id).WithAlias(() => dtoAlias.Id)
@@ -60,9 +60,9 @@ namespace Cloudents.Query.Query
                             .Select(() => documentAlias.PageCount).WithAlias(() => dtoAlias.Pages)
                             .Select(() => documentAlias.Professor).WithAlias(() => dtoAlias.Professor)
                             .Select(() => documentAlias.Views).WithAlias(() => dtoAlias.Views)
-                            .Select(() => documentAlias.Downloads).WithAlias(() => dtoAlias.Downloads)
+                            //.Select(() => documentAlias.Downloads).WithAlias(() => dtoAlias.Downloads)
                             .Select(() => documentAlias.Price).WithAlias(() => dtoAlias.Price)
-                            .Select(() => documentAlias.PageCount).WithAlias(() => dtoAlias.PageCount)
+                            //.Select(() => documentAlias.PageCount).WithAlias(() => dtoAlias.PageCount)
                             .Select(() => documentAlias.Course.Id).WithAlias(() => dtoAlias.Course)
 
                             .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
