@@ -30,7 +30,8 @@ function setIntercomSettings(data) {
         name: user_name,
         email: user_email,
         phoneNumber: user_phoneNumber,
-        alignment: alignment
+        alignment: alignment,
+        language_override: global.lang,
     };
 
     global.Intercom('boot', {intercomSettings});

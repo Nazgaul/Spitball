@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +7,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Filters
 {
@@ -31,7 +31,7 @@ namespace Cloudents.Web.Filters
             // do something before the action executes
         }
 
-       
+
     }
 
 
@@ -39,9 +39,9 @@ namespace Cloudents.Web.Filters
     {
         //private string SecretKey { get; }
 
-        public ValidateRecaptchaAttribute(string secretKey = null) : base(typeof(ValidateRecaptchaImpl))
+        public ValidateRecaptchaAttribute(string secretKey) : base(typeof(ValidateRecaptchaImpl))
         {
-            this.Arguments = new object[] {secretKey};
+            this.Arguments = new object[] { secretKey };
             //SecretKey = secretKey;
         }
 
@@ -53,16 +53,16 @@ namespace Cloudents.Web.Filters
             private readonly IRestClient _httpClient;
             private readonly IHostingEnvironment _environment;
 
-            public ValidateRecaptchaImpl(string secretKey, IConfiguration configuration, IRestClient httpClient, IHostingEnvironment environment)
+            public ValidateRecaptchaImpl(string secretKey, /*IConfiguration configuration,*/ IRestClient httpClient, IHostingEnvironment environment)
             {
-                if (!string.IsNullOrEmpty(secretKey))
-                {
-                    _secretKey = secretKey;
-                }
-                else
-                {
-                    _secretKey= configuration["GoogleReCaptcha:Secret"];
-                }
+                //if (!string.IsNullOrEmpty(secretKey))
+                //{
+                _secretKey = secretKey;
+                //}
+                //else
+                //{
+                //    _secretKey= configuration["GoogleReCaptcha:Secret"];
+                //}
 
                 _httpClient = httpClient;
                 _environment = environment;
@@ -97,7 +97,7 @@ namespace Cloudents.Web.Filters
                     context.Result = new BadRequestResult();
                     return;
                 }
-               // var secret = _configuration["GoogleReCaptcha:Secret"];
+                // var secret = _configuration["GoogleReCaptcha:Secret"];
                 var nvc = new NameValueCollection()
                 {
                     ["secret"] = _secretKey,

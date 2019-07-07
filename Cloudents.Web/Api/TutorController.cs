@@ -23,6 +23,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Exceptions;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
@@ -133,12 +134,11 @@ namespace Cloudents.Web.Api
         [HttpPost("request"), ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL"), ValidateEmail]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices] IIpToLocation ipLocation,
+            [FromServices] TelemetryClient client,
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
-            //var phoneNumber = await client.ValidateNumberAsync(model.ToString(), token);
-
-            //RequestTutorEmail
+         
             if (_userManager.TryGetLongUserId(User, out var userId))
             {
                 var query = new UserEmailInfoQuery(userId);
@@ -153,11 +153,14 @@ namespace Cloudents.Web.Api
                 if (model.Email == null)
                 {
                     ModelState.AddModelError("error", "Need to have email");
+
+                    client.TrackTrace("Need to have email 1");
                     return BadRequest(ModelState);
                 }
                 if (model.Phone == null)
                 {
                     ModelState.AddModelError("error", "Need to have phone");
+                    client.TrackTrace("Need to have phone 2");
                     return BadRequest(ModelState);
                 }
                 var user = await _userManager.FindByEmailAsync(model.Email);
@@ -169,6 +172,7 @@ namespace Cloudents.Web.Api
                         var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
                         if (result != IdentityResult.Success)
                         {
+                            client.TrackTrace("Invalid Phone number");
                             ModelState.AddModelError("error", "Invalid Phone number");
                             return BadRequest(ModelState);
                         }
@@ -190,6 +194,8 @@ namespace Cloudents.Web.Api
                     if (result != IdentityResult.Success)
                     {
                         ModelState.AddModelError("error", "Invalid Phone number");
+
+                        client.TrackTrace("Invalid Phone number 2");
                         return BadRequest(ModelState);
                     }
                     userId = user.Id;
@@ -209,6 +215,7 @@ namespace Cloudents.Web.Api
             }
             catch (SqlConstraintViolationException)
             {
+                client.TrackTrace("Invalid Course");
                 ModelState.AddModelError("error", "Invalid Course");
                 return BadRequest(ModelState);
             }

@@ -136,7 +136,7 @@
     <value>מספר התווים המינימלי הוא</value>
   </data>
   <data name="positive_only" xml:space="preserve">
-    <value>רק ערכים חיוביים</value>
+    <value>המחיר המינימלי הוא</value>
   </data>
   <data name="required" xml:space="preserve">
     <value>שדה חובה</value>

@@ -23,7 +23,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             _client.DefaultRequestHeaders.Referrer = new Uri("https://www.spitball.co/note");
         }
 
-        [Fact]
+        [Fact(Skip ="Not relevant anymore")]
         public async Task GetAsync_NoQueryString_RedirectHomePage()
         {
             var response = await _client.GetAsync("/url");
@@ -34,7 +34,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
 
-        [Fact]
+        [Fact(Skip = "Not relevant anymore")]
         public async Task GetAsync_CramHost_RedirectToCram()
         {
             var url = "https%3A%2F%2Fwww.cram.com%2Fflashcards%2Faccounting-2491586";
@@ -48,7 +48,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             p.Should().Be(decode);
         }
 
-        [Fact]
+        [Fact(Skip = "Not relevant anymore")]
         public async Task GetAsync_SomeGibrishUrl_HomePage()
         {
             var url =
@@ -61,7 +61,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             Assert.True(p.OriginalString == "/");
         }
 
-        [Fact]
+        [Fact(Skip = "Not relevant anymore")]
         //[ExpectedException(typeof(ArgumentException))]
         public async Task GetAsync_NoWhiteList_500Page()
         {
@@ -73,7 +73,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             await Assert.ThrowsAsync<ArgumentException>(() => _client.GetAsync(url));
         }
 
-        [Fact]
+        [Fact(Skip = "Not relevant anymore")]
         public async Task GetAsync_SomeGibrishUrl2_HomePage()
         {
             var url = "/url?url=https:%2f%2fwww.google.com%00fasvp\"><a>q2ifd&host=google&location=23";
@@ -85,7 +85,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             Assert.True(p.OriginalString == "/");
         }
 
-        [Fact]
+        [Fact(Skip = "Not relevant anymore")]
         public async Task GetAsync_NotValidUrl_HomePage()
         {
             var url = "url?url=%2fetc%2fpasswd&host=google&location=23";

@@ -22,7 +22,7 @@
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <span class="messages-mobile-button hidden-sm-and-up" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
                 <chat-upload-file></chat-upload-file>
-                <v-textarea rows="1" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"  v-language:placeholder @keydown.enter="sendMessage" v-model="messageText" auto-grow></v-textarea>
+                <v-textarea rows="1" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"  v-language:placeholder @keydown.enter.prevent="sendMessage" v-model="messageText" auto-grow></v-textarea>
                 <v-layout align-center justify center class="chat-upload-loader" v-if="getChatLoader" >
                    <v-flex class="text-xs-center">
                        <v-progress-circular indeterminate v-bind:size="25" color="#43425d"></v-progress-circular>

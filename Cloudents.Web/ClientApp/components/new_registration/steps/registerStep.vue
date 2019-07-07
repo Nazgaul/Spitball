@@ -143,6 +143,7 @@
                         self.recaptcha = "";
                         self.$refs.recaptcha.reset();
                         self.loading = false;
+                         error.response.data =  error.response.data || [];
                         self.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
                         self.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
                         self.errorMessage.email= error.response.data["Email"] ? error.response.data["Email"][0] : '';

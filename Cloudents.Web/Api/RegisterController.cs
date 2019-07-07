@@ -50,7 +50,7 @@ namespace Cloudents.Web.Api
             _logger = logger;
         }
 
-        [HttpPost, ValidateRecaptcha]
+        [HttpPost, ValidateRecaptcha("6LcuVFYUAAAAAOghJH2R17kMtMElH2tvuP8GgKAY")]
         public async Task<ActionResult<ReturnSignUserResponse>> Post(
             [FromBody] RegisterRequest model,
             [CanBeNull] ReturnUrlRequest returnUrl,
