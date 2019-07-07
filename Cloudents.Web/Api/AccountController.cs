@@ -181,14 +181,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var userId = userManager.GetLongUserId(User);
-            var fileName = $"{userId}/{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{extension}";
-            await blobProvider.UploadStreamAsync(fileName, file.OpenReadStream(),
-                file.ContentType, TimeSpan.FromDays(365), token);
-
-            var fileUri = blobProvider.GetBlobUrl(fileName);
-            var imageProperties = new ImageProperties(fileUri, ImageProperties.BlurEffect.None);
-
-            var hash = serializer.Serialize(imageProperties);
+             var hash = await blobProvider.GetImageUrl(userId, extension, file.OpenReadStream(), token);
             var url = Url.RouteUrl("imageUrl", new
             {
                 hash = Base64UrlTextEncoder.Encode(hash)

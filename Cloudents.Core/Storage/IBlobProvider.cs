@@ -55,7 +55,8 @@ namespace Cloudents.Core.Storage
 
     public interface IUserDirectoryBlobProvider : IBlobProvider
     {
-
+        Task<byte[]> GetImageUrl(long userId, string extension, 
+            Stream stream, CancellationToken token);
     }
 
     //public interface IRequestTutorDirectoryBlobProvider : IBlobProvider

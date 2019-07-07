@@ -16,8 +16,7 @@ namespace Cloudents.Infrastructure.Storage
     public class BlobProviderContainer : IBlobProvider,
         IDocumentDirectoryBlobProvider,
         IQuestionsDirectoryBlobProvider,
-        IChatDirectoryBlobProvider,
-        IUserDirectoryBlobProvider
+        IChatDirectoryBlobProvider
         
 
     {
@@ -45,7 +44,7 @@ namespace Cloudents.Infrastructure.Storage
             _blobDirectory = _cloudContainer.GetDirectoryReference(container.RelativePath ?? string.Empty);
         }
 
-       
+
 
         public Uri GetBlobUrl(string blobName, bool cdn = false)
         {

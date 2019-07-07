@@ -17,6 +17,8 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Identity;
+using Microsoft.AspNetCore.WebUtilities;
+using System.IO;
 
 namespace Cloudents.Web.Api
 {
@@ -36,7 +38,8 @@ namespace Cloudents.Web.Api
         private const string EmailTime = "EmailTime";
 
         public RegisterController(UserManager<User> userManager, SbSignInManager signInManager,
-             IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger)
+             IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -118,6 +121,8 @@ namespace Cloudents.Web.Api
         [HttpPost("google")]
         public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] GoogleTokenRequest model,
             [FromServices] IGoogleAuth service,
+            [FromServices] IRestClient client,
+            [FromServices] IUserDirectoryBlobProvider blobProvider,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken);
@@ -149,14 +154,25 @@ namespace Cloudents.Web.Api
                     result.Language)
                 {
                     EmailConfirmed = true,
-                    //TODO we need to download the image and save it on our servers.
-                    //for example https://lh4.googleusercontent.com/-h_cefmKiATs/AAAAAAAAAAI/AAAAAAAAAFQ/qONh2BunKxY/photo.jpg
-                    // Image = result.Picture
-                };
-
+                
+                //TODO we need to download the image and save it on our servers.
+                //for example https://lh4.googleusercontent.com/-h_cefmKiATs/AAAAAAAAAAI/AAAAAAAAAFQ/qONh2BunKxY/photo.jpg
+                 //Image = result.Picture
+            };
+               
+           
                 var result3 = await _userManager.CreateAsync(user);
                 if (result3.Succeeded)
                 {
+                    var (stream, _) = await client.DownloadStreamAsync(new Uri(result.Picture), cancellationToken);
+                    var extension = Path.GetExtension(result.Picture);
+                    var hash = await blobProvider.GetImageUrl(user.Id, extension, stream, cancellationToken);
+                    var url = Url.RouteUrl("imageUrl", new
+                    {
+                        hash = Base64UrlTextEncoder.Encode(hash)
+                    });
+
+                    user.Image = url;
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
                     return await MakeDecision(user, true, null, cancellationToken);
                 }
@@ -165,7 +181,6 @@ namespace Cloudents.Web.Api
             }
             if (!user.EmailConfirmed)
             {
-
                 user.EmailConfirmed = true;
                 await _userManager.UpdateAsync(user);
             }
