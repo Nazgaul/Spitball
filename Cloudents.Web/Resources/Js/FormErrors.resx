@@ -136,7 +136,7 @@
     <value>Minimum length is</value>
   </data>
   <data name="positive_only" xml:space="preserve">
-    <value>Only positive values</value>
+    <value>Minimum value is</value>
   </data>
   <data name="required" xml:space="preserve">
     <value>This field is required</value>
