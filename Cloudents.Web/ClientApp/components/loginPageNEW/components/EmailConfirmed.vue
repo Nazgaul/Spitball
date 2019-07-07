@@ -12,8 +12,10 @@
             <div class="bottom">
                 <span v-language:inner="isRegisterPath? 'loginRegister_emailconfirm_bottom' : 'loginRegister_emailconfirm_bottom_reset'"/>
                 <span v-if="!isRegisterPath" v-language:inner="'loginRegister_emailconfirm_bottom_reset_or'"/>
-                <span class="link" @click="resend()" v-language:inner="'loginRegister_emailconfirm_resend'"/>
-                <span v-if="isRegisterPath" v-language:inner="'loginRegister_emailconfirm_rest'"/>
+                <div>
+                    <span class="link" @click="resend()" v-language:inner="'loginRegister_emailconfirm_resend'"/>
+                    <span v-if="isRegisterPath" v-language:inner="'loginRegister_emailconfirm_rest'"/>
+                </div>
             </div>
         </div>
     </div>
@@ -50,16 +52,18 @@ export default {
 </script>
 
 <style lang='less'>
+@import '../../../styles/mixin.less';
+@import '../../../styles/colors.less';
 .EmailConfirmed{
     display: flex;
     flex-direction: column;
     align-items: center;
     .top{
+        .responsive-property(font-size, 28px, null, 22px);
+        .responsive-property(letter-spacing, -0.51px, null, -0.4px);
+        .responsive-property(margin-bottom, 64px, null, 38px);
         text-align: center;
-        padding: 0 0 64px;
-        font-size: 28px;
-        letter-spacing: -0.51px;
-        color: #434c5f;
+        color: @color-login-text-title;
     }
     .middle{
         display: flex;
@@ -67,15 +71,19 @@ export default {
         align-items: center;
         color: #000000;
         font-size: 18px;
-        padding-bottom: 50px;
+        .responsive-property(margin-bottom, 50px, null, 42px);
         p{
             margin: 5px 0 0;
             font-size: 14px;
-            color: #4452fc;
+            color: @color-login-text-link;
             cursor: pointer;
         }
     }
     .bottom{
+        @media (max-width: @screen-xs) {
+            padding: 0 40px;
+            line-height: inherit;
+        }
         font-size: 14px;
         letter-spacing: -0.37px;
         text-align: center;
@@ -83,7 +91,10 @@ export default {
         line-height: 25px;
         .link{
             cursor: pointer;
-            color: #4452fc;
+            color: @color-login-text-link;
+        }
+        div{
+        .responsive-property(margin-top, inherit, null, 36px);
         }
     }
 }

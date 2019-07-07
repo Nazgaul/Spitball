@@ -300,4 +300,7 @@
   <data name="smsconfirm_title" xml:space="preserve">
     <value>Enter confirmation code</value>
   </data>
+  <data name="main_txt" xml:space="preserve">
+    <value>Everything you’ll need to master your studies</value>
+  </data>
 </root>

@@ -1,12 +1,25 @@
 @import '../../../styles/mixin.less';
+@import '../../../styles/colors.less';
+
 
 .registerPage{
     display: flex; 
     background-color: #ffffff;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
    .leftSection{
         width: 460px;
         height: 100vh;
         background-image: url('../images/group-3.png') !important;
+        @media (max-width: @screen-sm) {
+          background-image: url('../images/group-3@3x.png') !important;
+          width: 100%
+        }
+        @media (max-width: @screen-xss) {
+          background-image: url('../images/group-3.png') !important;
+        }
         background-repeat: no-repeat;
         background-size: auto;
         position: relative;
@@ -22,14 +35,24 @@
             text-align: center;
         }
     }
-    .stepsSections{
+    .stepContainer{
+      @media (max-width: @screen-sm) {
         width: 400px;
-        margin-left: 500px;
+      }
+    }
+    .stepsSections{
+      width: 400px;
         display: flex;
         flex-direction: column;
         justify-content: center;
 
+        .widther {
+          @media (max-width: @screen-xs) {
+            width: 78%;
+          }
+        }
         @media (max-width: @screen-sm) {
+            align-items: center;
             justify-content: start;
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
@@ -40,6 +63,11 @@
             bottom: 0;
             width: 100%;
             height: 92%;
+        }
+        button{
+            &.btn-login{
+                background-color: @color-login-btn !important;
+            }
         }
 
         .stepContainer{

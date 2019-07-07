@@ -1,10 +1,10 @@
 <template>
-    <div class="resetPassword">
+    <form class="resetPassword" @submit.prevent="change">
         <p v-language:inner="'loginRegister_resetpass_title'"/>
         <sb-input
                 :errorMessage="errorMessages.password"
                 :hint="passHint"
-                :class="hintClass"
+                :class="[hintClass,'widther']"
                 v-model="password"
 				placeholder="loginRegister_resetpass_input"
 				:bottomError="true"
@@ -13,21 +13,21 @@
 
 		<sb-input 
                 :errorMessage="errorMessages.confirmPassword"
-                v-model="passwordConfirm"
-                class="mt-4"
+                v-model="confirmPassword"
+                class="mt-4 widther"
 				placeholder="loginRegister_resetpass_input_confirm"  
 				:bottomError="true" 
 				type="password" name="pass"
 				:autofocus="true"/>
 
-        <v-btn  @click="change"
+        <v-btn  type="submit"
                 :disabled="!isPassValid"
                 :loading="loading"
-                color="#304FFE" large round 
-                class="white--text">
+                large round 
+                class="white--text btn-login">
                 <span v-language:inner="'loginRegister_resetpass_btn'"></span>
                 </v-btn>
-    </div>
+    </form>
 </template>
 
 <script>
@@ -42,21 +42,13 @@ export default {
 	data() {
 		return {
 			password: '',
-			passwordConfirm: '',
+			confirmPassword: '',
          	score: {
 				default: 0,
 				required: false
 			},
 		}
     },
-	watch: {
-		password: function (val){
-			this.updatePassword(val)
-		},
-		passwordConfirm: function(val){
-			this.updateConfirmPassword(val)
-        }
-	},
     computed: {
         ...mapGetters(['getGlobalLoading','getPassScoreObj','getErrorMessages']),
         loading(){
@@ -79,15 +71,19 @@ export default {
 			} 
         },
         isPassValid(){
-            return (this.password.length >= 8 && this.passwordConfirm.length >= 8)
+            return (this.password.length >= 8 && this.confirmPassword.length >= 8)
         }
     },
     methods: {
-        ...mapActions(['updatePassword','updateConfirmPassword','changePassword','updateStep']),
+        ...mapActions(['changePassword','updateStep']),
         change(){
-            let id = this.$route.query['Id'] ? this.$route.query['Id'] : '';           
-            let code = this.$route.query['code'] ? this.$route.query['code'] : '';
-            this.changePassword({id,code})
+            let paramsObj = {
+                id: this.$route.query['Id'] ? this.$route.query['Id'] : '',
+                code: this.$route.query['code'] ? this.$route.query['code'] : '',
+                password: this.password,
+                confirmPassword: this.confirmPassword
+            }
+            this.changePassword(paramsObj)
         }
     },
     created(){
@@ -101,28 +97,33 @@ export default {
 
 <style lang="less">
 @import '../../../styles/mixin.less';
+@import '../../../styles/colors.less';
     .resetPassword{
+                      @media (max-width: @screen-xs) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
     text-align: center;
         p {
-        font-size: 28px;
+        .responsive-property(font-size, 28px, null, 22px);
+        .responsive-property(letter-spacing, -0.51px, null, -0.4px);
         line-height: 1.54;
-        letter-spacing: -0.51px;
-        color: #434c5f;
-        margin-bottom: 62px;
+        color: @color-login-text-title;
+        .responsive-property(margin-bottom, 62px, null, 32px);
+
         }
         .input-wrapper {
             input {
-            border: none;
-            border-radius: 4px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
-            border: solid 1px rgba(55, 81, 255, 0.29);
-            background-color: #ffffff;
-            padding: 10px !important;
+            .login-inputs-style();
             }
         }
         button{
         margin: 30px 0 0;
-        .responsive-property(width, 100%, null, 90%);
+        @media (max-width: @screen-xs) {
+            margin: 50px 0 0;
+        }
+        .responsive-property(width, 100%, null, 72%);
         font-size: 16px;
         font-weight: 600;
         letter-spacing: -0.42px;

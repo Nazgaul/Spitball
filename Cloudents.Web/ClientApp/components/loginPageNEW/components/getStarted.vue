@@ -1,44 +1,45 @@
 <template>
     <v-layout column wrap class="getStartedContainer">
-        <div class="getStarted-top">
-            <p v-language:inner="'loginRegister_getstarted_title'"/>
-            <span v-language:inner="'loginRegister_getstarted_subtitle'"/>
-        </div>
-        <div class="getStarted-form">
-            <div v-if="isRegisterPath" class="getStarted-terms">
-                <div>
-                    <input type="checkbox" @click="checkBoxConfirm" v-model="isTermsAgree" />
-                    <span>
-                        <span v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
-                        <span class="terms" @click="redirectTo('terms')" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
-                        <span v-language:inner="'loginRegister_getstarted_terms_and'"/>
-                        <span class="terms" @click="redirectTo('privacy')" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
-                    </span>
-                    <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
-                </div>
+        <div class="getStarted-actions">
+            <div class="getStarted-top">
+                <p v-language:inner="'loginRegister_getstarted_title'"/>
+                <span v-language:inner="'loginRegister_getstarted_subtitle'"/>
             </div>
-            <!-- <div> -->
-                <v-btn @click="goWithGoogle()" 
-                    :loading="isGoogleLoading" 
-                    color="#304FFE" large round
-                    class="google elevation-5">
-                    <v-icon class="pr-3">sbf-google-icon</v-icon>
-                    <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
+            <div class="getStarted-form">
+                <div v-if="isRegisterPath" class="getStarted-terms">
+                    <div>
+                        <input type="checkbox" @click="checkBoxConfirm" v-model="isTermsAgree" />
+                        <span>
+                            <span v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
+                            <span class="terms" @click="redirectTo('terms')" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
+                            <span v-language:inner="'loginRegister_getstarted_terms_and'"/>
+                            <span class="terms" @click="redirectTo('privacy')" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
+                        </span>
+                        <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
+                    </div>
+                </div>
+                <!-- <div> -->
+                    <v-btn @click="goWithGoogle()" 
+                        :loading="googleLoading" 
+                        large round
+                        class="google elevation-5 btn-login">
+                        <v-icon class="pr-3">sbf-google-icon</v-icon>
+                        <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
+                    </v-btn>
+                    <!-- <span v-if="gmailError" class="errorMsg" v-language:inner="'gmailError'"/> -->
+                <!-- </div> -->
+
+                <span class="hidden-xs-only" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
+
+                <v-btn @click="goWithEmail()" 
+                    large flat round 
+                    class="email">
+                    <v-icon class="pr-3">sbf-email</v-icon>
+                    <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup':'loginRegister_getstarted_btn_email_signin'"/>
                 </v-btn>
-                <!-- <span v-if="gmailError" class="errorMsg" v-language:inner="'gmailError'"/> -->
-            <!-- </div> -->
 
-            <span class="hidden-xs-only" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
-
-            <v-btn @click="goWithEmail()" 
-                   large flat round 
-                   class="email">
-                <v-icon class="pr-3">sbf-email</v-icon>
-                <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup':'loginRegister_getstarted_btn_email_signin'"/>
-            </v-btn>
-
+            </div>
         </div>
-
         <div class="getStarted-bottom">
             <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_signin_text':'loginRegister_getstarted_signup_text'"/>
              &nbsp;
@@ -57,7 +58,8 @@ export default {
     data() {
         return {
             isTermsAgree: false,
-            showError: false
+            showError: false,
+            googleLoading: false
         }
     },
     methods: {
@@ -71,8 +73,21 @@ export default {
             if(this.isRegisterPath){
                 if(!this.isTermsAgree){
                     this.showError = true;
-                } else this.googleSigning()
-            } else this.googleSigning()
+                } else {
+                    this.googleLoading = true;
+                    this.googleSigning().then(res=>{},err=>{
+                        console.log('innnsdfsdafsdf')
+                        this.googleLoading = false
+                        })
+                    }
+            } else {
+                this.googleLoading = true;
+                this.googleSigning().then(res=>{},err=>{
+                        console.log('innnsdfsdafsdf')
+
+                    this.googleLoading = false
+                })
+                }
         },
         goWithEmail(){
             if(this.isRegisterPath){
@@ -86,10 +101,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getGoogleLoading','getErrorMessages']),
-        isGoogleLoading(){
-            return this.getGoogleLoading
-        },
+        ...mapGetters(['getErrorMessages']),
         isError(){
             return !this.isTermsAgree && this.showError
         },
@@ -102,20 +114,28 @@ export default {
     },
     mounted() {
         this.$nextTick(function () {
-            gapi.load('auth2', function () {
-                auth2 = gapi.auth2.init({
+            this.$loadScript("https://apis.google.com/js/client:platform.js").then(()=>{
+                gapi.load('auth2', function () {
+                    auth2 = gapi.auth2.init({
                     client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
+                    });
                 });
-            });
+            })
         });
-    }
+    },
 }
 </script>
 
 <style lang="less">
 @import '../../../styles/mixin.less';
+@import '../../../styles/colors.less';
 .getStartedContainer{
     height: -webkit-fill-available;
+        justify-content: space-between;
+    .getStarted-actions{
+
+   
+
     .getStarted-top{
         display: flex;
         flex-direction: column;
@@ -126,14 +146,14 @@ export default {
             .responsive-property(letter-spacing, -0.51px, null, -0.4px);
             margin: 0;
             text-align: center;
-            color: #434c5f;
+            color: @color-login-text-title;
         }
         span{
             .responsive-property(font-size, 16px, null, 14px);
             .responsive-property(padding-top,  8px, null, 0px);
             letter-spacing: -0.42px;
             text-align: center;
-            color: #888b8e;
+            color: @color-login-text-subtitle;
         }
     }
     .getStarted-form{
@@ -151,7 +171,7 @@ export default {
                 line-height: 1.23;
                 &.terms{
                    cursor: pointer;
-                   color: #4452fc; 
+                   color: @color-login-text-link; 
                    letter-spacing: -0.28px;
                    text-decoration: underline;
                 }
@@ -168,7 +188,7 @@ export default {
             font-weight: bold;
             letter-spacing: -0.36px;
             text-align: center;
-            color: #888b8e;
+            color: @color-login-text-subtitle;
             &.errorMsg{
                 display: block; 
                 color:red; 
@@ -178,7 +198,7 @@ export default {
         button{
             margin: 0;
             text-transform: none !important;
-            .responsive-property(width, 100%, null, 90%);
+            .responsive-property(width, 100%, null, 72%);
             &.google{
                 .responsive-property(margin-bottom, 0px, null, 20px);
                 color: white;
@@ -192,9 +212,9 @@ export default {
                 }
             }
             &.email{
-                color: #4452fc;
+                color: @color-login-text-link;
                 span{
-                    color: #4452fc;
+                    color: @color-login-text-link;
                     font-size: 16px;
                     font-weight: normal;
                 }
@@ -203,6 +223,8 @@ export default {
             }
         }
     }
+     }
+
     .getStarted-bottom{
         display: flex;
         justify-content: center;
@@ -210,13 +232,14 @@ export default {
         span {
             .responsive-property(font-size, 16px, null, 14px);
             letter-spacing: -0.42px;
-            color: #888b8e;
+            color: @color-login-text-subtitle;
             &.link{                
                 cursor: pointer;
                 letter-spacing: -0.37px;
-                color: #4452fc;
+                color: @color-login-text-link;
             }
         }
     }
+ 
 }
 </style>

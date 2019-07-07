@@ -4,13 +4,15 @@
             <v-icon right @click="updateDialog(true)">sbf-close</v-icon>
         </button>
         <div class="leftSection">
-            <p v-language:inner="'Everything you’ll need to master your studies'"></p>
+            <p v-language:inner="'loginRegister_main_txt'"></p>
         </div>
+
         <div class="stepsSections">
-            <div>
+            <div class="stepContainer">
                 <component :is="`${currentStep}`"/>
             </div>
         </div>
+
         <v-dialog v-model="showDialog" max-width="600px" :fullscreen="isMobile" content-class="registration-dialog">
             <v-card>
                 <button class="close-btn" @click="updateDialog(false)">
@@ -30,6 +32,7 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
+
     </section>
 </template>
 

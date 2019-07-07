@@ -24,17 +24,9 @@ const state = {
     toUrl: '',
 
     email: '',
-    password: '',
-    confirmPassword: '',
     phone: '',
     localCode: '',
-    smsCode: '',
 
-    recaptcha: "",
-    resetRecaptcha: false,
-    siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
-    
-    googleLoading: false,
     globalLoading: false,
     
     errorMessage: {
@@ -61,15 +53,13 @@ const mutations = {
     setResetState(state){
         state.currentStep = 'getStarted'
         state.stepsHistory = []
+
         state.email = ''
-        state.password = ''
-        state.confirmPassword = ''
         state.phone = ''
-        state.smsCode = ''
-        state.recaptcha = ''
-        state.resetRecaptcha = false
-        state.googleLoading = false
+        state.localCode = ''
+
         state.globalLoading = false
+
         state.errorMessage = {
             phone: "",
             code: "",
@@ -82,41 +72,28 @@ const mutations = {
     setEmail(state,email){
         state.email = email
     },
-    setPassword(state,password){
-        state.password = password
-    },
-    setConfirmPassword(state,confirmPassword){
-        state.confirmPassword = confirmPassword
-    },
     setPhone(state,phoneNumber){
         state.phone = phoneNumber;
     },
     setPhoneCode(state,localCode){
         state.localCode = localCode;
     },
-    setSmsCode(state,smsCode){
-        state.smsCode = smsCode
-    },
-    setStep(state,stepName){
-        state.stepsHistory.push(state.currentStep);
-        state.currentStep = stepName
-    },
     setBackStep(state){
         let lastStep = state.stepsHistory.pop()
         state.currentStep = lastStep
     },
-    setStepFromEmail(state,stepName){
+    setStepHistory(state){
+        state.stepsHistory.push(state.currentStep);
+    },
+    setResetStepHistory(state){
         state.stepsHistory = []
+    },
+    setCurrentStep(state,stepName){
         state.currentStep = stepName
     },
+
     setGlobalLoading(state,value){
         state.globalLoading = value
-    },
-    setGoogleLoading(state,value){
-        state.googleLoading = value
-    },
-    setRecaptcha(state,recaptcha){
-        state.recaptcha = recaptcha
     },
     setErrorMessages(state,errorMessagesObj){
         state.errorMessage.gmail = (errorMessagesObj.gmail)? errorMessagesObj.gmail : ''
@@ -126,9 +103,6 @@ const mutations = {
         state.errorMessage.password = (errorMessagesObj.password)? errorMessagesObj.password : ''
         state.errorMessage.confirmPassword = (errorMessagesObj.confirmPassword)? errorMessagesObj.confirmPassword : ''
     },
-    setResetRecaptcha(state){
-        state.resetRecaptcha = true;
-    },
     setLocalCode(state,localCode){
         state.localCode = localCode
     },
@@ -136,41 +110,21 @@ const mutations = {
 
 const getters = {
     getCurrentLoginStep: state => state.currentStep,
-
     getEmail1: state => state.email,
     getPhone: state => state.phone,
     getCountryCodesList: () => codesJson.sort((a, b) => a.name.localeCompare(b.name)),
     getLocalCode: state => state.localCode,
-
     getGlobalLoading: state => state.globalLoading,
-    getGoogleLoading: state => state.googleLoading,
-
-    getSiteKey: state => state.siteKey,
-    getIsReCaptcha: state => (state.recaptcha)? true:false,
-    getResetRecaptcha: state => state.resetRecaptcha,
-
     getErrorMessages: state => state.errorMessage,
     getPassScoreObj: state => state.passScoreObj,
-
-    getIsFormValid: state => (state.email && state.password.length >= 8 && state.recaptcha),
-    getIsPhoneFormValid: state => (state.phone.length >= 9 && state.phone.length < 11)
 }
 
 const actions = {
     updateToUrl({commit},url){
         commit('setToUrl',url)
     },
-    updateRecaptcha({commit},recaptcha){
-        commit('setRecaptcha',recaptcha)
-    },
     updateEmail({commit},email){
         commit('setEmail',email)
-    },
-    updatePassword({commit},password){
-        commit('setPassword',password)
-    },
-    updateConfirmPassword({commit},confirmPassword){
-        commit('setConfirmPassword',confirmPassword)
     },
     updatePhone({commit},phoneNumber){
         commit('setPhone',phoneNumber)
@@ -183,13 +137,12 @@ const actions = {
                 commit('setLocalCode',data.code)});
         }
     },
-    updateSmsCode({commit},smsCode){
-        commit('setSmsCode',smsCode)
-    },
     updateStep({commit,state},stepName){
-        
-        if(stepName === "setPhone" || stepName === 'VerifyPhone' || stepName === 'resetPassword'){
-            commit('setStepFromEmail',stepName)
+        let specialSteps = ["setphone", "verifyphone", "resetpassword"];
+
+        if(specialSteps.includes(stepName.toLowerCase())){
+            commit('setResetStepHistory')
+            commit('setCurrentStep',stepName)
             _analytics(['Registration', 'Email Verified'])
             return
         }
@@ -199,7 +152,8 @@ const actions = {
             commit('setBackStep')
         }else {
             history.pushState({}, null);
-            commit('setStep',stepName)
+            commit('setStepHistory')
+            commit('setCurrentStep',stepName)
         }
     },
     goBackStep({dispatch,state}){
@@ -208,13 +162,12 @@ const actions = {
         dispatch('updateStep',lastStep)
     },
     googleSigning({dispatch,commit}){
-        commit('setGoogleLoading',true)
         let authInstance = gapi.auth2.getAuthInstance();
-        authInstance.signIn().then((googleUser) => {
+
+        return authInstance.signIn().then((googleUser) => {
             let idToken = googleUser.getAuthResponse().id_token;
-            registrationService.googleRegistration(idToken)
-                .then((resp) => {
-                    commit('setGoogleLoading',false)
+            return registrationService.googleRegistration(idToken).then((resp) => {
+                console.log('in store')
                     let newUser = resp.data.isNew;
                     if (newUser) {
                         _analytics(['Registration', 'Start Google'])
@@ -225,19 +178,22 @@ const actions = {
                         router.push({path: `${defaultSubmitRoute.path}`});
                     }
                 }, (error) => {
-                    commit('setGoogleLoading',false)
+                    console.log('in store ERROR')
                     commit('setErrorMessages',{gmail: error.response.data["Google"] ? error.response.data["Google"][0] : ''})
                 });
-        }, (error) => {
-            commit('setGoogleLoading',false)
+        },error=>{
+            console.error("asklfjhsklfhjsdlkfgjsdlkfjsdlkfjsl")
         });
     },
-    emailSigning({dispatch,state,commit}){
+    emailSigning({dispatch,state,commit},params){
+        let {recaptcha} = params
+        let {password} = params
+        let {confirmPassword} = params
         commit('setGlobalLoading',true)
-        return registrationService.emailRegistration(state.email, state.recaptcha, state.password, state.confirmPassword)
+        return registrationService.emailRegistration(state.email, recaptcha, password, confirmPassword)
             .then((resp) => {
                 let nextStep = resp.data.step;
-                if(nextStep === "VerifyPhone"){
+                if(nextStep.toLowerCase() === "verifyphone"){
                     dispatch('updateStep','setPhone')
                 }else{
                     dispatch('updateStep',nextStep)
@@ -245,16 +201,12 @@ const actions = {
                 _analytics(['Registration', 'Start'])
                 commit('setGlobalLoading',false)
             },  (error) => {
-                console.log('STORE ERROR set email password');
-                dispatch('updateRecaptcha','')
-                commit('setResetRecaptcha')
                 commit('setGlobalLoading',false)
                 commit('setErrorMessages',{
                     email: error.response.data["Email"] ? error.response.data["Email"][0] : '',
                     password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
                     confirmPassword: error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '',
                 })
-                // reset recaptcha in component
                 return Promise.reject(error);
             });
     },
@@ -268,7 +220,11 @@ const actions = {
                 });
                 },
                 error => {
-                    // self.updateLoading(false);
+                    dispatch('updateToasterParams', {
+                        toasterText: LanguageService.getValueByKey("put some error"),
+                        showToaster: true,
+                        toasterType: 'error-toaster'
+                    });
                 })
     },
     resetState({commit}){
@@ -299,9 +255,9 @@ const actions = {
                 }
             })
     },
-    smsCodeVerify({dispatch,commit,state}) {
+    smsCodeVerify({dispatch,commit},smsCode) {
         let data = {
-            code: state.smsCode,
+            code: smsCode,
             fingerprint: ""
         };
         commit('setGlobalLoading',true)
@@ -313,25 +269,12 @@ const actions = {
                 data.fingerprint = murmur;
                 registrationService.smsCodeVerification(data)
                     .then(userId => {
-                        // if(state.isNewUser){
                             dispatch('updateStep','congrats')
                             _analytics(['Registration', 'Phone Verified'])
                             if(!!userId){
                                 _analytics(['Registration', 'User Id', userId.data.id])
                             }
                             commit('setGlobalLoading',false)
-                        // }
-                        // else {
-                        //      commit('setGlobalLoading',false)
-                        //     _analytics(['Login', 'Phone Verified'])
-                        //     if(!!userId){
-                        //         _analytics(['Registration', 'User Id', userId.data.id])
-                        //     }
-                        //     let lastActiveRoute = getters.lastActiveRoute
-                        //     let url = lastActiveRoute || defaultSubmitRoute;
-                        //     global.isAuth = true;
-                        //     router.push({path: `${url.path}`});
-                        // }
                     }, error =>{
                         commit('setGlobalLoading',false)
                         commit('setErrorMessages',{code: "Invalid code"}) 
@@ -373,11 +316,11 @@ const actions = {
                     commit('setErrorMessages',{email: error.response.data["Email"] ? error.response.data["Email"][0] : ''})
                 });
     },
-    logIn({commit,state}){
+    logIn({commit,state},password){
         commit('setGlobalLoading',true)
         let data = {
             email: state.email,
-            password: state.password,
+            password: password,
             fingerprint: ""
         }
 
@@ -429,10 +372,12 @@ const actions = {
     changePassword({state,commit},params) {
         let {id} = params
         let {code} = params
-        let isValid = state.password === state.confirmPassword
+        let {password} = params
+        let {confirmPassword} = params
+        let isValid = (password === confirmPassword)
         if(isValid){
             commit('setGlobalLoading',true)
-            registrationService.updatePassword(state.password, state.confirmPassword, id, code)
+            registrationService.updatePassword(password, confirmPassword, id, code)
                 .then((response) => {
                     _analytics(['Forgot Password', 'Updated password'])
                     global.isAuth = true;

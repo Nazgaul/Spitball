@@ -1,13 +1,13 @@
 <template>
-    <div class="setPhone">
+    <form class="setPhone" @submit.prevent="sendSms">
         <p v-language:inner="'loginRegister_setphone_title'"/>
         <v-select 
+                class="widther"
                 v-model="localCode"
                 :label="localCode"
                 :items="countryCodesList"
                 item-text="name"
-                solo
-                flat
+                solo flat
                 :append-icon="'sbf-arrow-down'"
                 item-value="callingCode">
             <template slot="selection" slot-scope="data">
@@ -22,22 +22,22 @@
 
         <sb-input 
                 :errorMessage="errorMessages.phone"
-                v-model="phone"
-                class="phone"
+                v-model="phoneNumber"
+                class="phone widther"
                 icon="sbf-phone" 
                 :bottomError="true" 
                 placeholder="loginRegister_setphone_input" 
                 name="phone" :type="'number'"
                 v-language:placeholder/>
 
-        <v-btn  @click="sendSms" 
+        <v-btn  type="submit"
                 :loading="smsLoading" 
                 :disabled="!isformValid" 
-                color="#304FFE" large round 
-                class="white--text" >
+                large round 
+                class="white--text btn-login" >
                 <span v-language:inner="'loginRegister_setphone_btn'"></span>
                 </v-btn>
-    </div> 
+    </form> 
 </template>
 
 <script>
@@ -49,8 +49,13 @@ export default {
     components:{
         SbInput
     },
+    data() {
+        return {
+            phoneNumber: ''
+        }
+    },
     computed: {
-        ...mapGetters(['getCountryCodesList','getLocalCode','getGlobalLoading','getErrorMessages','getIsPhoneFormValid']),
+        ...mapGetters(['getCountryCodesList','getLocalCode','getGlobalLoading','getErrorMessages']),
         countryCodesList(){
             return this.getCountryCodesList
         },
@@ -58,13 +63,7 @@ export default {
 			return this.getErrorMessages
 		},
         isformValid(){
-            return this.getIsPhoneFormValid
-        },
-        phone: {
-            get(){},
-            set(val){
-                this.updatePhone(val)
-            }
+            return (this.phoneNumber.length >= 9 && this.phoneNumber.length < 11)
         },
         localCode: {
             get(){
@@ -81,6 +80,7 @@ export default {
     methods: {
         ...mapActions(['updatePhone','updateLocalCode','sendSMScode']),
         sendSms(){
+            this.updatePhone(this.phoneNumber)
             this.sendSMScode()
         }
     },
@@ -92,15 +92,29 @@ export default {
 
 <style lang='less'>
 @import '../../../styles/mixin.less';
+@import '../../../styles/colors.less';
 
 .setPhone{
+      @media (max-width: @screen-xs) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    
+
+    .widther {
+      @media (max-width: @screen-xs) {
+        width: 92%;
+      }
+    }
+   
     p{
+        .responsive-property(font-size, 28px, null, 22px);
+        .responsive-property(letter-spacing, -0.51px, null, -0.4px);
+        .responsive-property(margin-bottom, 56px, null, 38px);
         padding: 0;
-        margin: 0 0 56px;
         text-align: center;
-        font-size: 28px;
-        letter-spacing: -0.51px;
-        color: #434c5f;
+        color: @color-login-text-title;
     }
     .v-input{
         margin-bottom: -5px;
@@ -114,12 +128,7 @@ export default {
     }
     .phone{
         input {
-        position: relative;
-        border-radius: 4px;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
-        border: solid 1px rgba(55, 81, 255, 0.29);
-        background-color: #ffffff;
-        padding: 10px !important;
+        .login-inputs-style();
         padding-left: 40px !important;
             ~ i {
                 position: absolute;
@@ -129,14 +138,15 @@ export default {
         }
     }
     button{
-        margin: 66px 0 0;
-        .responsive-property(width, 100%, null, 90%);
+        .responsive-property(margin, 66px 0 0, null, 48px);
+        .responsive-property(width, 100%, null, 72%);
         font-size: 16px;
         font-weight: 600;
         letter-spacing: -0.42px;
         text-align: center;
         text-transform: none !important;
     }
+
 }
 
 </style>

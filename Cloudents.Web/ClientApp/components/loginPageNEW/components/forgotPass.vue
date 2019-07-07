@@ -1,5 +1,5 @@
 <template>
-    <div class="forgotPass">
+    <form class="forgotPass" @submit.prevent="resetPass">
         <div class="top">
             <p v-language:inner="'loginRegister_forgot_title'"/>
             <span v-language:inner="'loginRegister_forgot_subtitle'"/>
@@ -7,6 +7,7 @@
 
         <sb-input 
                 v-model="email"
+                class="widther"
                 :errorMessage="errorMessages.email"
 				placeholder="loginRegister_setpass_input_email"
 				icon="sbf-email" 
@@ -15,15 +16,15 @@
 				name="email" type="email"/>
         <v-btn  :loading="isEmailLoading"
                 :disabled="!email"
-                @click="resetPass"
-                color="#304FFE" large round 
-                class="white--text">
+                type="submit"
+                large round 
+                class="white--text btn-login">
                 <span v-language:inner="'loginRegister_forgot_btn'"></span>
                 </v-btn>
 
 
         <span class="bottom" @click="goLogin" v-language:inner="'loginRegister_forgot_remember'"/>
-    </div>
+    </form>
 </template>
 
 <script>
@@ -66,8 +67,13 @@ export default {
 
 <style lang="less">
 @import '../../../styles/mixin.less';
-
+@import '../../../styles/colors.less';
     .forgotPass{
+              @media (max-width: @screen-xs) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
         text-align: center;
         .top{
         display: flex;
@@ -75,28 +81,23 @@ export default {
         align-items: center;
         margin-bottom: 30px;
             p{
+            .responsive-property(font-size, 28px, null, 22px);
+            .responsive-property(letter-spacing, -0.51px, null, -0.4px);
             margin: 0;
-            font-size: 28px;
             line-height: 1.54;
-            letter-spacing: -0.51px;
-            color: #434c5f;
+            color: @color-login-text-title;
             }
             span{
             cursor: initial;
+            .responsive-property(font-size, 16px, null, 14px);
+			.responsive-property(letter-spacing, -0.42px, null, -0.37px);
             padding-top: 8px;
-            font-size: 16px;
-            letter-spacing: -0.42px;
-            color: #888b8e;
+            color: @color-login-text-subtitle;
             }
         }
         .input-wrapper {
             input {
-            border: none;
-            border-radius: 4px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
-            border: solid 1px rgba(55, 81, 255, 0.29);
-            background-color: #ffffff;
-            padding: 10px !important;
+            .login-inputs-style();
             padding-left: 54px !important;
             }
             i {
@@ -108,7 +109,10 @@ export default {
         }
         button{
             margin: 66px 0 48px;
-            .responsive-property(width, 100%, null, 90%);
+                 @media (max-width: @screen-xs) {
+        margin: 45px 0 48px;
+      }
+            .responsive-property(width, 100%, null, 72%);
             font-size: 16px;
             font-weight: 600;
             letter-spacing: -0.42px;
@@ -119,7 +123,7 @@ export default {
             cursor: pointer;
             font-size: 14px;
 		    letter-spacing: -0.37px;
-		    color: #4452fc;
+		    color: @color-login-text-link;
         }
     }
 </style>

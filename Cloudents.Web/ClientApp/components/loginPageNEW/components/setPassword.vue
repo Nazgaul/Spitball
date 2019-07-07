@@ -1,7 +1,8 @@
 <template>
-    <div class="setPassword">
+    <form class="setPassword" @submit.prevent="login">
 		<p v-language:inner="'loginRegister_setemail_title'"/>
         <sb-input 
+                class="widther"
 				v-model="email"
 				placeholder="loginRegister_setpass_input_email"
 				icon="sbf-email" 
@@ -11,7 +12,7 @@
 				name="email" type="email"/>
 
 		<sb-input 
-                class="mt-4"
+                class="mt-4 widther"
                 icon="sbf-key"
 				v-model="password"
 				placeholder="loginRegister_setpass_input_pass"  
@@ -19,16 +20,17 @@
 				type="password" name="pass"
 				:autofocus="true"/>
 
-        <v-btn  @click="login"
+        <v-btn  
+                type="submit"
                 :disabled="!isValid"
                 :loading="isEmailLoading"
-                color="#304FFE" large round 
-                class="white--text">
+                large round 
+                class="white--text btn-login">
                 <span v-language:inner="'loginRegister_setpass_btn'"></span>
                 </v-btn>
         
         <span class="bottom" @click="goForgotPassword" v-language:inner="'loginRegister_setpass_forgot'"/>
-    </div>    
+    </form>    
 </template>
 
 <script>
@@ -42,7 +44,7 @@ export default {
     },
     data() {
         return {
-            pass: '',
+            password: '',
         }
     },
     computed: {
@@ -61,22 +63,14 @@ export default {
 				this.updateEmail(val)
             }
         },
-        password:{
-            get(){},
-            set(val){
-                this.pass = val
-                this.updatePassword(val)
-            }
-        },
         isValid(){
-            return this.getEmail1 && this.pass.length > 7
+            return this.getEmail1 && this.password.length > 7
         }
-        
     },
     methods: {
-        ...mapActions(['updatePassword','updateEmail','logIn','updateStep']),
+        ...mapActions(['updateEmail','logIn','updateStep']),
         login(){
-            this.logIn()
+            this.logIn(this.password)
         },
         goForgotPassword(){
             this.updateStep('forgotPass')
@@ -87,24 +81,25 @@ export default {
 
 <style lang="less">
 @import '../../../styles/mixin.less';
+@import '../../../styles/colors.less';
 
     .setPassword{
+      @media (max-width: @screen-xs) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
         text-align: center;
         p {
-        font-size: 28px;
+        .responsive-property(font-size, 28px, null, 22px);
+        .responsive-property(letter-spacing, -0.51px, null, -0.4px);
         line-height: 1.54;
-        letter-spacing: -0.51px;
-        color: #434c5f;
-        margin-bottom: 62px;
+        color: @color-login-text-title;
         }
         .input-wrapper {
+        .responsive-property(margin-top, 62px, null, 16px);
             input {
-            border: none;
-            border-radius: 4px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
-            border: solid 1px rgba(55, 81, 255, 0.29);
-            background-color: #ffffff;
-            padding: 10px !important;
+            .login-inputs-style();
             padding-left: 54px !important;
             }
             i {
@@ -115,8 +110,11 @@ export default {
             }
         }
         button{
-        margin: 66px 0 48px;
-        .responsive-property(width, 100%, null, 90%);
+            margin: 66px 0 48px;
+      @media (max-width: @screen-xs) {
+        margin: 45px 0 48px;
+      }
+        .responsive-property(width, 100%, null, 72%);
         font-size: 16px;
         font-weight: 600;
         letter-spacing: -0.42px;
@@ -127,7 +125,7 @@ export default {
             cursor: pointer;
             font-size: 14px;
 		    letter-spacing: -0.37px;
-		    color: #4452fc;
+		    color: @color-login-text-link;
         }
     }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="smsConfirmation">
+  <form class="smsConfirmation" @submit.prevent="verifyPhone">
     <div class="top">
       <p v-language:inner="'loginRegister_smsconfirm_title'"/>
 	  <span>
@@ -9,20 +9,19 @@
     </div>
 	<sb-input 
 			icon="sbf-key"
-			v-model="code"
-			class="code"
+			v-model="smsCode"
+			class="code widther"
 			:bottomError="true" 
 			:errorMessage="errorMessages.code"
 			placeholder="loginRegister_smsconfirm_input" 
 			name="phone" :type="'number'"
 			v-language:placeholder/>
 
-    <v-btn color="#304FFE"
-			:loading="isLoading"
+    <v-btn 	:loading="isLoading"
 			:disabled="smsCode.length < 5" 
-			@click="verifyPhone"
+        	type="submit"
 			large round 
-			class="white--text">
+			class="white--text btn-login">
                 <span v-language:inner="'loginRegister_smsconfirm_btn'"></span>
                 </v-btn>
 
@@ -30,7 +29,7 @@
       <span @click="phoneCall" class="top" v-language:inner="'loginRegister_smsconfirm_call'"/>
       <span @click="numberChange" v-language:inner="'loginRegister_smsconfirm_change'"/>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -58,20 +57,11 @@ export default {
 		isLoading(){
 			return this.getGlobalLoading
 		},
-		code: {
-			get(val){
-				return this.smsCode
-			},
-			set(val){
-				this.smsCode = val
-				this.updateSmsCode(val)
-			}
-		}
 	},
 	methods: {
-		...mapActions(['updateSmsCode','smsCodeVerify','callWithCode','changeNumber']),
+		...mapActions(['smsCodeVerify','callWithCode','changeNumber']),
 		verifyPhone(){
-			this.smsCodeVerify()
+			this.smsCodeVerify(this.smsCode)
 		},
 		phoneCall(){
 			this.callWithCode()
@@ -86,36 +76,38 @@ export default {
 
 <style lang="less">
 @import '../../../styles/mixin.less';
+@import '../../../styles/colors.less';
 
 .smsConfirmation {
+	@media (max-width: @screen-xs) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+	}
   .top {
 	  	display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin-bottom: 64px;
+		.responsive-property(margin-bottom, 64px, null, 32px);
 		p {
-			font-size: 28px;
+			.responsive-property(font-size, 28px, null, 22px);
+			.responsive-property(letter-spacing, -0.51px, null, -0.4px);
 			line-height: 1.54;
-			letter-spacing: -0.51px;
 			text-align: center;
-			color: #434c5f;
+			color: @color-login-text-title;
 			margin-bottom: 8px;
 		}
 		span{
-			font-size: 16px;
-			letter-spacing: -0.42px;
+			.responsive-property(font-size, 16px, null, 14px);
+			.responsive-property(letter-spacing, -0.42px, null, -0.37px);
 			text-align: center;
-			color: #888b8e;
+			color: @color-login-text-subtitle;
 		}
   }
     .code{
         input {
         position: relative;
-        border-radius: 4px;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
-        border: solid 1px rgba(55, 81, 255, 0.29);
-        background-color: #ffffff;
-        padding: 10px !important;
+        .login-inputs-style();
         padding-left: 40px !important;
             ~ i {
                 position: absolute;
@@ -126,7 +118,12 @@ export default {
 	 }
 	button{
 		margin: 66px 0 48px;
-        .responsive-property(width, 100%, null, 90%);
+	@media (max-width: @screen-xs) {
+		margin: 48px 0 48px;
+
+
+	}
+		.responsive-property(width, 100%, null, 72%);
 		font-size: 16px;
 		font-weight: 600;
 		letter-spacing: -0.42px;
@@ -137,7 +134,7 @@ export default {
 		font-size: 14px;
 		letter-spacing: -0.37px;
 		text-align: center;
-		color: #4452fc;
+		color: @color-login-text-link;
 		.top{
 			margin-bottom: 12px;
 		}
