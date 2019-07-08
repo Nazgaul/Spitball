@@ -117,15 +117,6 @@
         <v-snackbar absolute top :timeout="getToasterTimeout" :class="getShowToasterType" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
-
-        <v-snackbar absolute top :timeout="0" :value="getShowPayMeToaster">
-            <div class="text-wrap">
-              <a @click="enterPayme()" style="text-decoration: none;" v-language:inner>app_payme_toaster_text</a>
-            </div>
-            <div>
-              <v-icon style="font-size:10px;color:rgba(255, 255, 255, 0.54);display: flex;" @click="closePayMe">sbf-close</v-icon>
-            </div>
-        </v-snackbar>
     </v-app>
 </template>
 <script>
@@ -212,9 +203,7 @@ export default {
       "showMobileFeed",
       "HomeworkHelp_isDataLoaded",
       "StudyDocuments_isDataLoaded",
-     
       "getShowBuyDialog",
-      "getShowPayMeToaster",
       "getCurrentStep",
       "newBallerDialog",
       "becomeTutorDialog",
@@ -298,7 +287,6 @@ export default {
       "setCookieAccepted",
       "updateOnBoardState",
       "updateShowBuyDialog",
-      "updateShowPayMeToaster",
       "updateCurrentStep",
       "changeSelectUniState",
       "updateRequestDialog",
@@ -315,9 +303,6 @@ export default {
     },
     closeSblToken() {
       this.updateShowBuyDialog(false);
-    },
-    closePayMe(){
-      this.updateShowPayMeToaster(false);
     },
     tourClosed: function() {
       console.log("tourClosed");
@@ -356,9 +341,6 @@ export default {
     }
   },
   created() {
-    if(!!this.accountUser && this.accountUser.needPayment){
-      this.updateShowPayMeToaster(true);
-    }
     if(!!this.$route.query && this.$route.query.requesttutor){
         if(this.$route.query.requesttutor.toLowerCase() === 'open'){
             setTimeout(() => {

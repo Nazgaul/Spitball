@@ -81,9 +81,7 @@ export const signlaREvents = {
                     store.dispatch("setUserStatus", data)
                 },
                 paymentreceived: function(data){
-                    store.dispatch('updateShowPayMeToaster',false);
                     store.dispatch("signalR_ReleasePaymeStatus");
-                    store.dispatch('signalR_userPaymentReceived');
                 }
             };  
             arrEventObj.forEach((action)=>{

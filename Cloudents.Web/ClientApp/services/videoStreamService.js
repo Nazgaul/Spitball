@@ -16,9 +16,10 @@ let availableDevices = [];
     }
    function enterRoom(){
        if (!store.getters['sessionStartClickedOnce']) {
-        if (!!store.getters['accountUser'] && store.getters['accountUser'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
+        if (!!store.getters['accountUser'] && !store.getters['getStudyRoomData'].isTutor) {
             walletService.getPaymeLink().then(({ data }) => {
-                global.open(data.link, '_blank', 'height=520,width=440');
+                store.dispatch('updatePaymentUrl', data.link);
+                store.dispatch('updatePaymentDialog',true)
             });
             return;
         }

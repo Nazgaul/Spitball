@@ -187,6 +187,12 @@
       >
         <startSessionStudent :id="id"></startSessionStudent>
       </sb-dialog>
+      <v-dialog 
+        v-model="showPaymentDialog"
+        content-class="quality-dialog"
+        :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
+        <paymentDialog></paymentDialog>
+      </v-dialog>
     </div>
   </v-layout>
 </template>
@@ -218,6 +224,7 @@ import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessio
 import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
 import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
+import paymentDialog from './tutorHelpers/paymentDIalog/paymentDIalog.vue'
 
 export default {
   components: {
@@ -241,7 +248,8 @@ export default {
     whiteBoardTools,
     startEndSessionBtn,
     endSessionConfirm,
-    browserSupport
+    browserSupport,
+    paymentDialog
   },
   name: "tutor",
   data() {
@@ -295,6 +303,7 @@ export default {
       "getEndDialog",
       "getBrowserSupportDialog",
       "accountUser",
+      "getPaymentDialog"
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -329,7 +338,9 @@ export default {
       if(!this.needPayment){
         return this.getTutorStartDialog
       }
-      
+    },
+    showPaymentDialog(){
+      return this.getPaymentDialog
     }
   },
   methods: {
