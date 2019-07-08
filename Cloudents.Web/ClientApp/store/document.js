@@ -22,6 +22,9 @@ const mutations = {
     },
     setTutorsList(state, payload) {
         state.tutorList = payload;
+    },
+    setNewDocumentPrice(state, price){
+        state.document.details.price = price;
     }
 };
 
@@ -74,6 +77,12 @@ const actions = {
         searchService.activateFunction.getTutors(payload).then(res => {
             commit('setTutorsList', res)
         })
+    },
+    setNewDocumentPrice({ commit }, price){
+        if(!!state.document && !!state.document.details){
+            commit('setNewDocumentPrice', price);
+        }
+        
     }
 };
 

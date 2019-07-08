@@ -66,7 +66,7 @@
                                 :max="1000"
                                 :currency-symbol-position="'suffix'"
                                 separator=","
-                                v-model="newPrice"
+                                v-model="documentPrice"
                             ></vue-numeric>
                             </div>
                         </div>
@@ -108,6 +108,7 @@ import { LanguageService } from "../../../services/language/languageService";
 import sbDialog from "../../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "../../results/helpers/reportItem/reportItem.vue";
 import utillitiesService from '../../../services/utilities/utilitiesService';
+import documentService from '../../../services/documentService';
 
 export default {
     name: 'mainDocument',
@@ -128,7 +129,7 @@ export default {
             priceDialog: false,
             showReport: false,
             isRtl: global.isRtl,
-            newPrice: this.document.details ? this.document.details.price : 0,
+            newPrice: null,
             actions: [
                 {
                 title: LanguageService.getValueByKey("questionCard_Report"),
@@ -156,7 +157,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['clearDocument', 'purchaseDocument', 'updateToasterParams']),
+        ...mapActions(['clearDocument', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice']),
         ...mapGetters(["accountUser"]),
 
         unlockDocument() {
@@ -173,19 +174,20 @@ export default {
         cardOwner() {
             let userAccount = this.accountUser();
             if (userAccount && this.document.details && this.document.details.user) {
-                return userAccount.id === this.document.details.user.id;
+                return userAccount.id === this.document.details.user.userId;
             } else {
                 return false;
             }
         },
-        isVisible(val) {
+        isVisible(val) {          
             return val;
         },
         isDisabled() {
-            let isOwner, account, notEnough;
+            let isOwner, account;
             isOwner = this.cardOwner();
             account = this.accountUser();
-            if (isOwner || !account || notEnough) {
+            
+            if (isOwner || !account) {
                 return true;
             }
         },
@@ -201,6 +203,7 @@ export default {
             this.priceDialog = true;
         },
         closeNewPriceDialog() {
+            this.newPrice = null;
             this.priceDialog = false;
         },
         closeReportDialog() {
@@ -225,6 +228,20 @@ export default {
                     showToaster: true
                 });
             });
+        },
+        submitNewPrice() {
+            let data = { id: this.document.details.id, price: this.newPrice };
+            let self = this;
+            documentService.changeDocumentPrice(data).then(
+                success => {
+                this.setNewDocumentPrice(self.newPrice);
+                self.newPrice = null;
+                self.closeNewPriceDialog();
+                },
+                error => {
+                console.error("erros change price", error);
+                }
+            );
         },
     },
     computed: {
@@ -273,6 +290,19 @@ export default {
                 // return this.document.details.template
             }
             return 'note'
+        },
+        documentPrice:{
+            get(){
+                if(this.newPrice !== null){
+                    return this.newPrice;
+                }else{
+                    return this.document.details ? this.document.details.price : 0;
+                }
+            },
+            set(val){
+                this.newPrice = val;
+            }
+            
         }
     }
 }
