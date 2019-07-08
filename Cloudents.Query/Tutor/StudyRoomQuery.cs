@@ -58,6 +58,7 @@ from sb.StudyRoom sr
 join sb.Tutor t on t.Id = sr.TutorId
 join sb.[User] u on t.Id = u.Id
 join sb.StudyRoomUser sru1 on sr.Id = sru1.StudyRoomId and sru1.UserId != @UserId
+join sb.StudyRoomUser sru2 on sr.Id = sru2.StudyRoomId and sru2.UserId = @UserId
 join sb.[user] u1 on sru1.UserId = u1.Id
 where sr.id = @Id;",
                         new { query.Id, query.UserId });
