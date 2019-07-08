@@ -76,14 +76,14 @@ export default {
                 } else {
                     this.googleLoading = true;
                     this.googleSigning().then(res=>{},err=>{
-                        console.log('innnsdfsdafsdf')
+                        
                         this.googleLoading = false
                         })
                     }
             } else {
                 this.googleLoading = true;
                 this.googleSigning().then(res=>{},err=>{
-                        console.log('innnsdfsdafsdf')
+                        
 
                     this.googleLoading = false
                 })
@@ -228,7 +228,7 @@ export default {
     .getStarted-bottom{
         display: flex;
         justify-content: center;
-        .responsive-property(margin-top, 48px, null, 195px);
+        .responsive-property(margin-top, 48px, null, 0px);
         span {
             .responsive-property(font-size, 16px, null, 14px);
             letter-spacing: -0.42px;

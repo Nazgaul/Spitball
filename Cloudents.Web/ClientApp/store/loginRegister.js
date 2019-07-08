@@ -167,22 +167,23 @@ const actions = {
         return authInstance.signIn().then((googleUser) => {
             let idToken = googleUser.getAuthResponse().id_token;
             return registrationService.googleRegistration(idToken).then((resp) => {
-                console.log('in store')
-                    let newUser = resp.data.isNew;
-                    if (newUser) {
-                        _analytics(['Registration', 'Start Google'])
-                        dispatch('updateStep','setPhone')
-                    } else {
-                        _analytics(['Login', 'Start Google'])
-                        global.isAuth = true;
-                        router.push({path: `${defaultSubmitRoute.path}`});
-                    }
+                let newUser = resp.data.isNew;
+                if (newUser) {
+                    _analytics(['Registration', 'Start Google'])
+                    dispatch('updateStep','setPhone')
+                } else {
+                    _analytics(['Login', 'Start Google'])
+                    global.isAuth = true;
+                    router.push({path: `${defaultSubmitRoute.path}`});
+                }
+                return Promise.reject(error);
                 }, (error) => {
-                    console.log('in store ERROR')
                     commit('setErrorMessages',{gmail: error.response.data["Google"] ? error.response.data["Google"][0] : ''})
+                    return Promise.reject(error);
                 });
         },error=>{
-            console.error("asklfjhsklfhjsdlkfgjsdlkfjsdlkfjsl")
+            return Promise.reject(error);
+            
         });
     },
     emailSigning({dispatch,state,commit},params){
