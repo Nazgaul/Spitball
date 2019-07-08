@@ -11,7 +11,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Web.Framework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Localization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -34,13 +36,18 @@ namespace Cloudents.Web.Api
         }
 
         // GET: api/<controller>
-        [HttpPost("upload"), FormContentType, ApiExplorerSettings(IgnoreApi = true)]
+        [HttpPost("upload"), FormContentType, ApiExplorerSettings(IgnoreApi = true),Authorize]
         public async Task<ActionResult<UploadStartResponse>> BatchUploadAsync(
             [FromForm] UploadRequestForm model,
             CancellationToken token)
         {
             var tempDataProvider = _tempDataDictionaryFactory.GetTempData(HttpContext);
             var tempData = tempDataProvider.Get<TempData>($"update-{model.SessionId}");
+            if (tempData == null)
+            {
+                ModelState.AddModelError("error","bad upload");
+                return BadRequest(ModelState);
+            }
             var index = (int)(model.StartOffset / UploadInnerResponse.BlockSize);
             await BlobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
                 index, token);
@@ -52,7 +59,7 @@ namespace Cloudents.Web.Api
 
 
 
-        [HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true)]
+        [HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true), Authorize]
         public async Task<ActionResult<UploadStartResponse>> Upload([FromBody] UploadRequestBase model,
             CancellationToken token)
         {
@@ -70,14 +77,15 @@ namespace Cloudents.Web.Api
         }
 
         [NonAction]
-        protected virtual string[] GetSupportedExtensions()
+        protected virtual IEnumerable<string> GetSupportedExtensions()
         {
-            return new[]{ "doc",
-            "docx", "xls",
-            "xlsx", "PDF",
-            "png", "jpg",
-            "jpeg",
-            "ppt", "pptx","tiff","tif","bmp" };
+          return  FormatDocumentExtensions.GetFormats();
+            //return new[]{ "doc",
+            //"docx", "xls",
+            //"xlsx", "PDF",
+            //"png", "jpg",
+            //"jpeg",
+            //"ppt", "pptx","tiff","tif","bmp" };
         }
 
 

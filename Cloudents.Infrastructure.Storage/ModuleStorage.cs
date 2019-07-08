@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Storage
 
             //builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
             builder.RegisterType<BlobProviderContainer>().As<IBlobProvider>();
-            builder.RegisterType<UserDirectoryBlobProvider>().As<IUserDirectoryBlobProvider>();
+            //builder.RegisterType<UserDirectoryBlobProvider>().As<IUserDirectoryBlobProvider>();
 
             builder.RegisterType<BlobProviderContainer>()
                 .As<IDocumentDirectoryBlobProvider>()

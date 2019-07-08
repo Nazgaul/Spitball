@@ -34,6 +34,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Http.Extensions;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -114,6 +116,18 @@ namespace Cloudents.Web
                 {
                     o.SuppressMapClientErrors = true; //https://github.com/aspnet/AspNetCore/issues/4792#issuecomment-454164457
                     o.SuppressUseValidationProblemDetailsForInvalidModelStateResponses = false;
+                    o.InvalidModelStateResponseFactory = actionContext =>
+                    {
+                        var telemetryClient = actionContext.HttpContext.RequestServices.GetService<TelemetryClient>();
+
+
+                        var errorList = actionContext.ModelState.ToDictionary(
+                            kvp => kvp.Key,
+                            kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).FirstOrDefault()
+                        );
+                        telemetryClient.TrackEvent($"Bad request - {actionContext.HttpContext.Request.GetDisplayUrl()}", errorList);
+                        return new BadRequestObjectResult(actionContext.ModelState);
+                    };
                 });
             if (HostingEnvironment.IsDevelopment())
             {

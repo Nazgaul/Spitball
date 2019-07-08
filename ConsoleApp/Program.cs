@@ -138,18 +138,19 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var t = new GuidCombGenerator();
+            var z = FormatDocumentExtensions.GetFormats();
+            //var t = new GuidCombGenerator();
 
-            var dictionary = new Dictionary<int, Guid>();
+            //var dictionary = new Dictionary<int, Guid>();
 
-            for (int i = 0; i < 5; i++)
-                dictionary.Add(i, (Guid)t.Generate(null, null));
+            //for (int i = 0; i < 5; i++)
+            //    dictionary.Add(i, (Guid)t.Generate(null, null));
 
-            var v = dictionary.OrderBy(d => d.Value);
+            //var v = dictionary.OrderBy(d => d.Value);
 
-            //await UpdateMethod();
-            var queryBus = _container.Resolve<IMailProvider>();
-            var z = await queryBus.ValidateEmailAsync("gadi.avner@gmail.com", default);
+            ////await UpdateMethod();
+            //var queryBus = _container.Resolve<IMailProvider>();
+            //var z = await queryBus.ValidateEmailAsync("gadi.avner@gmail.com", default);
 
             //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
             //var v = x.Update.OrderBy(o => o.VersionAsLong).First();
