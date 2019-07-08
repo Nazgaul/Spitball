@@ -160,13 +160,13 @@ namespace Cloudents.Web.Api
             }
 
 
-            var extension = Path.GetExtension(file.FileName);
+            //var extension = Path.GetExtension(file.FileName);
 
-            if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
-            {
-                ModelState.AddModelError("x", "not an image");
-                return BadRequest(ModelState);
-            }
+            //if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+            //{
+            //    ModelState.AddModelError("x", "not an image");
+            //    return BadRequest(ModelState);
+            //}
             try
             {
                 using (var _ = Image.FromStream(file.OpenReadStream()))
@@ -180,8 +180,13 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var userId = userManager.GetLongUserId(User);
-             var hash = await blobProvider.GetImageUrl(userId, extension, file.OpenReadStream(), file.ContentType, token);
-            var url = Url.RouteUrl("imageUrl", new
+            var hash = await blobProvider.UploadImageAsync(userId, file.FileName, file.OpenReadStream(), file.ContentType, token);
+            if (hash == null)
+            {
+                ModelState.AddModelError("x", "not an image");
+                    return BadRequest(ModelState);
+            }
+                var url = Url.RouteUrl("imageUrl", new
             {
                 hash = Base64UrlTextEncoder.Encode(hash)
             });
