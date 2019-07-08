@@ -1,5 +1,5 @@
-import videoStreamService from '../services/videoStreamService';
-import { LanguageService } from '../services/language/languageService';
+import videoStreamService from '../../services/videoStreamService';
+import { LanguageService } from '../../services/language/languageService';
 
 const state = {
     identity: '',
@@ -29,7 +29,7 @@ const state = {
     jwtToken: null,
     studentStartDialog: false,
     tutorStartDialog: false,
-    endDialog: false
+    endDialog: false,
 };
 const getters = {
     activeRoom: state => state.currentActiveRoom,

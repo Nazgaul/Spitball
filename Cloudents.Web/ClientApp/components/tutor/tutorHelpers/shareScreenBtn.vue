@@ -73,7 +73,7 @@
             };
         },
         computed: {
-            ...mapState(['tutoringMainStore']),
+            ...mapState(['tutoringMain']),
             ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData", "getCurrentRoomState"]),
             accountUserID() {
                 if(this.accountUser && this.accountUser.id) {
@@ -81,7 +81,7 @@
                 }
             },
             roomIsActive() {
-                return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.active;
+                return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.active;
             },
             isTutor() {
                 return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
@@ -95,6 +95,9 @@
             },
             publishTrackToRoom(track) {
                 if(this.activeRoom) {
+                    this.activeRoom.localParticipant.videoTracks.forEach(track=>{
+                        this.unPublishTrackfromRoom(track.mediaStreamTrack);
+                    })
                     this.activeRoom.localParticipant.publishTrack(track, {
                         name: `shareScreen_${this.isTutor ? "tutor" : "student"}_${
                             this.accountUserID

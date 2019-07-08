@@ -53,11 +53,11 @@ let availableDevices = [];
                               audio: audioDevice,
                               video:videoDevice
                           }).then((tracksCreated) => {
-            let localMediaContainer = document.getElementById('localTrack');
+            // let localMediaContainer = document.getElementById('localTrack');
             //clear before attach
-            localMediaContainer.innerHTML = "";
+            // localMediaContainer.innerHTML = "";
             //attach tracks
-            tutorService.attachTracks(tracksCreated, localMediaContainer);
+            // tutorService.attachTracks(tracksCreated, localMediaContainer);
             self.localTrackAval = true;
             //add datatrack, after created audio and or video tracks
             tracksCreated.push(tutorService.dataTrack);
@@ -71,7 +71,7 @@ let availableDevices = [];
             };
             tutorService.connectToRoom(token, connectOptions);
             if (!store.getters['getStudyRoomData'].isTutor) {
-                store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.active);
+                store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
                 store.dispatch('setSesionClickedOnce', false)
             }
 
@@ -123,41 +123,42 @@ let availableDevices = [];
             audio: false
         };
         try {
-        return navigator.mediaDevices.getDisplayMedia(displayMediaOptions).then(stream => {
-            return stream.getTracks()[0];
-        });
-        }
-        catch(err) {
-        }
-        if (chrome.runtime) {
-            return new Promise((resolve, reject) => {
-                const request = { sources: ['window', 'screen', 'tab'] };
-                chrome.runtime.sendMessage(extensionId, request, response => {
-                    //none installed return error string code
-                    if (!response) {
-                        let error = 'noExtension';
-                        console.log('Extension not installed');
-                        reject(error);
-                    }
-                    if (response && response.type === 'success') {
-                        resolve({ streamId: response.streamId });
-                    } else {
-                        reject(new Error('Could not get stream'));
-                    }
-                });
-            }).then(async response => {
-                const stream = await navigator.mediaDevices.getUserMedia({
-                    video: {
-                        mandatory: {
-                            chromeMediaSource: 'desktop',
-                            chromeMediaSourceId: response.streamId
-                        }
-                    }
-                });
-                return stream.getVideoTracks()[0];
+            return navigator.mediaDevices.getDisplayMedia(displayMediaOptions).then(stream => {
+                return stream.getTracks()[0];
             });
         }
-        return Promise.reject("notBrowser");
+        catch(err) {
+            return Promise.reject("notBrowser");
+        }
+        // if (chrome.runtime) {
+        //     return new Promise((resolve, reject) => {
+        //         const request = { sources: ['window', 'screen', 'tab'] };
+        //         chrome.runtime.sendMessage(extensionId, request, response => {
+        //             //none installed return error string code
+        //             if (!response) {
+        //                 let error = 'noExtension';
+        //                 console.log('Extension not installed');
+        //                 reject(error);
+        //             }
+        //             if (response && response.type === 'success') {
+        //                 resolve({ streamId: response.streamId });
+        //             } else {
+        //                 reject(new Error('Could not get stream'));
+        //             }
+        //         });
+        //     }).then(async response => {
+        //         const stream = await navigator.mediaDevices.getUserMedia({
+        //             video: {
+        //                 mandatory: {
+        //                     chromeMediaSource: 'desktop',
+        //                     chromeMediaSourceId: response.streamId
+        //                 }
+        //             }
+        //         });
+        //         return stream.getVideoTracks()[0];
+        //     });
+        // }
+        
     }
 export default {
     extensionId,

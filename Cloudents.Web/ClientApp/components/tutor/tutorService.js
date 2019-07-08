@@ -167,9 +167,9 @@ const connectToRoom = function (token, options) {
                     console.error('final disconnect');
                 }
                 if (store.getters['getStudyRoomData'].isTutor) {
-                    store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                    store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.ready);
                 } else {
-                    store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
+                    store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.pending);
                     if (store.getters['getAllowReview']) {
                         store.dispatch('updateReviewDialog', true);
                     }
@@ -204,17 +204,8 @@ const connectToRoom = function (token, options) {
             store.getters['activeRoom'].on('participantConnected', participant => {
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioParticipantConnected', participant, null);
                 console.log(`Participant "${participant.identity}" connected`);
-                store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.active);
+                store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
                 store.dispatch('updateRemoteStatus', false);
-                participant.tracks.forEach(publication => {
-                    if (publication.isSubscribed) {
-                        const track = publication.track;
-                        let previewContainer = document.getElementById('remoteTrack');
-                        console.log('remote track attached', " added track: " + track.kind);
-                        attachTracks([track], previewContainer);
-                    }
-                });
-
             });
             // When a Participant adds a Track, attach it to the DOM.
             store.getters['activeRoom'].on('trackSubscribed', (track, participant) => {
@@ -232,16 +223,27 @@ const connectToRoom = function (token, options) {
                             whiteBoardService.clearData(parsedData, Data.tab);
                         }
                     });
-                    attachTracks([track], previewContainer);
                 } else if (track.kind === 'video') {
                     let videoTag = previewContainer.querySelector("video");
                     if (videoTag) {
                         previewContainer.removeChild(videoTag);
                     }
-                    attachTracks([track], previewContainer);
+                    let updateObj = {
+                        type: "video",
+                        track,
+                        container: previewContainer
+                    }
+                    store.dispatch('updateRemoteTrack', updateObj);
                 } else if (track.kind === 'audio') {
-                    attachTracks([track], previewContainer);
+                    let updateObj = {
+                        type: "audio",
+                        track,
+                        container: previewContainer
+                    }
+                    store.dispatch('updateRemoteTrack', updateObj);
+                    // attachTracks([track], previewContainer);
                 }
+
                 console.log('track attached', " added track: " + track.kind, track);
             });
             // When a Participant's Track is unsubscribed from, detach it from the DOM.
@@ -263,9 +265,9 @@ const connectToRoom = function (token, options) {
                     // endTutoringSession(store.getters['getRoomId']);
                     store.dispatch('setSesionClickedOnce', false);
                     // if (store.getters['getStudyRoomData'].isTutor) {
-                    //     store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.ready);
+                    //     store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.ready);
                     // } else {
-                    //     store.dispatch('updateCurrentRoomState', store.state.tutoringMainStore.roomStateEnum.pending);
+                    //     store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.pending);
                     // }
                 }
                 detachParticipantTracks(participant);
