@@ -67,7 +67,6 @@ namespace Cloudents.Web.Api
 
         [HttpGet("{id}")]
         public async Task<IEnumerable<ChatMessageDto>> Get(string id, int page,
-            [FromServices] IBinarySerializer serializer,
             CancellationToken token)
         {
             //specific conversation
@@ -76,7 +75,7 @@ namespace Cloudents.Web.Api
             {
                 if (!(s is ChatAttachmentDto p)) return s;
                 var url = BlobProvider.GetBlobUrl($"{p.ChatRoomId}/{p.Id}/{p.Attachment}");
-                p.Src = Url.ImageUrl(new ImageProperties(url), serializer);
+                p.Src = Url.ImageUrl(new ImageProperties(url));
                 p.Href = Url.RouteUrl("ChatDownload", new
                 {
                     chatRoomId = p.ChatRoomId,

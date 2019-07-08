@@ -107,9 +107,15 @@ namespace Cloudents.Web.Controllers
         [ResponseCache(
             Duration = TimeConst.Month, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { "*" })]
         public IActionResult ImageRedirect([FromRoute]string hash, [FromServices] IConfiguration configuration)
+
         {
+            string val = Request.QueryString.ToUriComponent();
+            if (!val.StartsWith("?"))
+            {
+                val = $"?{val}";
+            }
             return Redirect(
-                $"{configuration["functionCdnEndpoint"]}/api/image/{hash}?{Request.QueryString}");
+                $"{configuration["functionCdnEndpoint"]}/api/image/{hash}{val}");
         }
 
 

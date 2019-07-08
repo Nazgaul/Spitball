@@ -11,7 +11,6 @@ const analyticsService = {
                     'label': `${label}`
                 });
             }
-            
         } else {
             console.error('united event does not have data required')
         }

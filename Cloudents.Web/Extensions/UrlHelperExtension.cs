@@ -8,6 +8,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.DependencyInjection;
 using IPaging = Cloudents.Web.Models.IPaging;
 
 namespace Cloudents.Web.Extensions
@@ -119,9 +120,9 @@ namespace Cloudents.Web.Extensions
 
 
         public static string ImageUrl(this IUrlHelper helper, 
-            ImageProperties properties,
-            IBinarySerializer serializer)
+            ImageProperties properties)
         {
+            var serializer= helper.ActionContext.HttpContext.RequestServices.GetRequiredService<IBinarySerializer>();
             var hash = serializer.Serialize(properties);
             return helper.RouteUrl("imageUrl", new
             {

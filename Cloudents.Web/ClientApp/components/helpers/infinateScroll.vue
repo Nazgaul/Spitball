@@ -29,6 +29,8 @@
                 let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
                 let scrollOffset = (currentScroll > (0.75 * totalHeight - document.documentElement.clientHeight));
                 let retVal = (!this.isLoading && !this.isComplete && (window.pageYOffset > 0 || document.documentElement.scrollTop > 0) && scrollOffset);
+                console.log("retVal", retVal);
+                
                 return retVal
             },
             scrollList() {

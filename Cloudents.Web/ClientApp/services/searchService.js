@@ -11,7 +11,6 @@ const getDocument = (params) => {
     return connectivityModule.http.get("/Document", { params });
 };
 
-
 const getTutor = (params) => {
     return connectivityModule.http.get("tutor/search", { params });
 };
@@ -21,6 +20,9 @@ const getNextPage = ({ url, vertical }) => {
     return connectivityModule.http.get(url, { baseURL: "" });
 };
 
+const getTutorsByCourse = (params) => {    
+    return connectivityModule.http.get(`tutor?courseName=${params}`);
+};
 
 function AnswerItem(objInit) {
     this.id = objInit.id;
@@ -159,7 +161,9 @@ const transferMap = {
     tutor: (res) => transferResultTutor(res)
 };
 
-
+const transferAnswerItem = ({ data }) => {    
+    return data.map(createTutorItem)
+}
 
 function FilterItem(objInit) {
     this.key = objInit.key;
@@ -203,6 +207,9 @@ export default {
         tutor(params) {
             return getTutor(params).then(transferResultTutor);
         },
+        getTutors(params) {
+            return getTutorsByCourse(params).then(transferAnswerItem)
+        }
     },
    
 

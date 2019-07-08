@@ -40,6 +40,7 @@ namespace Cloudents.Query.Tutor
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
 T.Price, 
+T.Bio,
 	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
                             (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
                         from sb.[user] U
@@ -54,6 +55,7 @@ select 1 as position, U.Id as UserId, U.Name, U.Image,
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
 T.Price, 
+T.Bio,
 	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
                             (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
                         from sb.[user] U

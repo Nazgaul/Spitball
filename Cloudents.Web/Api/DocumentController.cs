@@ -49,7 +49,7 @@ namespace Cloudents.Web.Api
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
 
-
+        private static readonly Task<string> Task = System.Threading.Tasks.Task.FromResult<string>(null);
 
         public DocumentController(IQueryBus queryBus,
              ICommandBus commandBus, UserManager<User> userManager,
@@ -73,8 +73,6 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] ICrawlerResolver crawlerResolver,
-            //[FromServices] IConfiguration configuration,
-            [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
             long? userId = null;
@@ -94,38 +92,36 @@ namespace Cloudents.Web.Api
 
 
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
-            var textTask = Task.FromResult<string>(null);
+           
+            var textTask = Task;
             if (crawlerResolver.Crawler != null)
             {
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
-            var prefix = "preview-";
-            if (!model.IsPurchased)
-            {
-                prefix = "blur-";
-            }
-            var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
-            //var range = Enumerable.Range(0, model.PageCount);
+         
+            var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token).ContinueWith(
+                result =>
+                {
+                  return  result.Result.OrderBy(o => o, new OrderPreviewComparer()).Select((s,i) =>
+                  {
+                      var effect = ImageProperties.BlurEffect.None;
+                      if (!model.IsPurchased)
+                      {
+                          effect = ImageProperties.BlurEffect.All;
+                          if (i == 0)
+                          {
+                              effect = ImageProperties.BlurEffect.Part;
+                          }
 
-            //var files = range.Select(page =>
-            //{
-            //    var properties = new ImageProperties(model.Id, page, !model.IsPurchased);
+                      }
+                      var properties = new ImageProperties(s, effect);
+                      var url = Url.ImageUrl(properties);
+                      return url;
+                  });
+                }, token);
 
-            //    var hash = properties.Encrypt();
-
-            //    var uri = QueryHelpers.AddQueryString(
-            //        $"{configuration["functionCdnEndpoint"]}/api/image/{Base64UrlTextEncoder.Encode(hash)}",
-            //        new Dictionary<string, string>()
-            //    {
-            //        {"width","880" },
-            //        {"height","1270"},
-            //        {"mode","Max" }
-            //    });
-            //    return new Uri(uri);
-            //});
-
-            await Task.WhenAll(tQueue, textTask, filesTask);
-            var files = (filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, TimeSpan.FromMinutes(20)))).ToList();
+            await System.Threading.Tasks.Task.WhenAll(tQueue, filesTask, textTask);
+            var files = filesTask.Result.ToList();
             if (!files.Any())
             {
                 await queueProvider.InsertBlobReprocessAsync(id);
@@ -240,7 +236,7 @@ namespace Cloudents.Web.Api
                 Page = request.Page,
             };
             var resultTask = searchProvider.SearchDocumentsAsync(query, token);
-            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+            var votesTask = System.Threading.Tasks.Task.FromResult<Dictionary<long, VoteType>>(null);
 
             if (User.Identity.IsAuthenticated)
             {
@@ -255,7 +251,7 @@ namespace Cloudents.Web.Api
 
             }
 
-            await Task.WhenAll(resultTask, votesTask);
+            await System.Threading.Tasks.Task.WhenAll(resultTask, votesTask);
             var result = resultTask.Result;
             return GenerateResult(result, new
             {
@@ -282,7 +278,7 @@ namespace Cloudents.Web.Api
                 Page = request.Page,
             };
             var resultTask = searchProvider.SearchDocumentsAsync(query, token);
-            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+            var votesTask = System.Threading.Tasks.Task.FromResult<Dictionary<long, VoteType>>(null);
 
             if (User.Identity.IsAuthenticated)
             {
@@ -297,7 +293,7 @@ namespace Cloudents.Web.Api
 
             }
 
-            await Task.WhenAll(resultTask, votesTask);
+            await System.Threading.Tasks.Task.WhenAll(resultTask, votesTask);
             var result = resultTask.Result;
             return GenerateResult(result, new
             {
@@ -443,7 +439,7 @@ namespace Cloudents.Web.Api
         [NonAction]
         public override Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)
         {
-            return Task.CompletedTask;
+            return System.Threading.Tasks.Task.CompletedTask;
         }
 
     }

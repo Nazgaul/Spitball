@@ -12,6 +12,7 @@ const verticalsTabs = () => import('./components/header/verticalsTabs.vue');
 import { staticRoutes } from "./components/satellite/satellite-routes";
 
 const showItem = () => import("./components/preview/Item.vue");
+const document = () => import("./components/document/document.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 //const previewHeader = () => import("./components/helpers/header.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
@@ -295,7 +296,7 @@ let routes2 = [
         alias: ['/document/:courseName/:name/:id'],
         name: "document",
         components: {
-            default: showItem,
+            default: document,
             header: pageHeader
         },
         props: {
