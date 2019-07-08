@@ -23,12 +23,12 @@ namespace Cloudents.Core.DTOs
     }
 
 
-    public class EmailPaymentDto
-    {
-        public long Id { get; set; }
-        public string Email { get; set; }
-        public string TutorName { get; set; }
-        [EntityBind(nameof(User.Language))]
-        public string Language { get; set; }
-    }
+    //public class EmailPaymentDto
+    //{
+    //    public long Id { get; set; }
+    //    public string Email { get; set; }
+    //    public string TutorName { get; set; }
+    //    [EntityBind(nameof(User.Language))]
+    //    public string Language { get; set; }
+    //}
 }

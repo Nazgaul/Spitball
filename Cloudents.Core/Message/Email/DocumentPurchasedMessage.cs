@@ -26,14 +26,14 @@ namespace Cloudents.Core.Message.Email
     }
 
 
-    public class StudentPaymentMessage : ISystemQueueMessage
-    {
-        public StudentPaymentMessage(Guid studyRoomId)
-        {
-            StudyRoomId = studyRoomId;
-        }
+    //public class StudentPaymentMessage : ISystemQueueMessage
+    //{
+    //    public StudentPaymentMessage(Guid studyRoomId)
+    //    {
+    //        StudyRoomId = studyRoomId;
+    //    }
 
-        public Guid StudyRoomId { get; private set; }
-    }
+    //    public Guid StudyRoomId { get; private set; }
+    //}
 
 }
