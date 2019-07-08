@@ -19,5 +19,6 @@
         public virtual int Score { get; set; }
 
         public virtual int ReviewsCount { get; protected set; }
+        public virtual bool IsTutor { get; protected set; }
     }
 }

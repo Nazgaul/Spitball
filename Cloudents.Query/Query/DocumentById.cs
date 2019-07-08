@@ -71,6 +71,7 @@ namespace Cloudents.Query.Query
                             .Select(Projections.Property(() => userAlias.Score).As("User.Score"))
                             .Select(Projections.Property(() => userAlias.Courses).As("User.Courses"))
                             .Select(Projections.Property(() => userAlias.Price).As("User.Price"))
+                            .Select(Projections.Property(() => userAlias.IsTutor).As("User.IsTutor"))
                             .Select(Projections.Property(() => userAlias.Rate).As("User.Rate"))
                             .Select(Projections.Property(() => userAlias.Bio).As("User.Bio"))
                             .Select(Projections.Property(() => userAlias.ReviewsCount).As("User.ReviewsCount"))

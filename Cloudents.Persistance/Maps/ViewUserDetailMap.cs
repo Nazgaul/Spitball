@@ -16,6 +16,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Rate);
             Map(x => x.ReviewsCount);
             Map(x => x.Score);
+            Map(x => x.IsTutor);
             ReadOnly();
             Table("vUserDetail");
             SchemaAction.Validate();
@@ -26,6 +27,7 @@ Select  U.Id as Id, U.Name, U.Image,u.score,
 from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
 T.Price, 
 T.Bio,
+case when T.Id is null then cast(0 as bit) else cast(1 as bit) end as IsTutor,
 	                       x.*
                         from sb.[user] U
                         left join sb.Tutor T
