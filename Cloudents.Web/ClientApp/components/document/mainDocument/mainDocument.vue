@@ -83,13 +83,21 @@
             </sb-dialog>
         </v-layout>
         <div class="document-wrap">
-            <div class=" text-xs-center"  v-for="(page, index) in docPreview" :key="index">
-                <component
+            <v-progress-circular
+                class="unlock_progress text-xs-center"
+                v-if="docPreviewLoader"
+                :size="70"
+                :width="7"
+                indeterminate
+                color="#4452fc"
+            ></v-progress-circular>
+            <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
+                <img
                     class="document-wrap-content" 
-                    :is="currentComponent" 
                     :src="page"
-                    :alt="document.content">
-                </component>
+                    @load="handleDocWrap"
+                    :alt="document.content" />
+                
             </div>
             <div class="unlockBox headline hidden-sm-and-down" v-if="!isPurchased" @click="unlockDocument">
                 <p class="text-xs-left" v-language:inner="'documentPage_unlock_document'"></p>
@@ -130,12 +138,15 @@ export default {
     data() {
         return {
             showMenu: false,
+            docPreviewLoader: false,
             currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
             itemId: 0,
             priceDialog: false,
             showReport: false,
             isRtl: global.isRtl,
             newPrice: null,
+            docWrap: null,
+            docWrapContent: null,
             actions: [
                 {
                 title: LanguageService.getValueByKey("questionCard_Report"),
@@ -160,6 +171,67 @@ export default {
                 visible: true
                 }
             ],
+        }
+    },
+    computed: {
+        ...mapGetters(['getBtnLoading']),
+        courseName() {
+            if(this.document.details && this.document.details.course) {
+                return this.document.details.course
+            }
+        },
+        documentDate() {
+            if(this.document.details && this.document.details.date) {
+                return new Date(this.document.details.date).toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
+            }
+        },
+        isPurchased() {
+            if(!this.document.details) return true;
+            if(this.document.details && this.document.details.isPurchased) {
+                return this.document.details.isPurchased;
+            }
+        },
+        docViews() {
+            if(this.document.details && this.document.details.views) {
+                return this.document.details.views
+            }
+        },
+        docPreview() {
+            this.docPreviewLoader = true;
+            if(this.document.preview && this.docWrap) {
+                let width = this.docWrap.offsetWidth;
+                let height = width / 0.707;                
+                let result = this.document.preview.map(preview => {                    
+                    return utillitiesService.proccessImageURL(preview, width, height.toFixed(0))
+                })
+                return result;
+            }
+        },
+        isSmAndDown() {
+            return this.$vuetify.breakpoint.smAndDown
+        },
+        itemType() {
+            if(this.document) {
+                // return this.document.details.template
+            }
+            return 'note'
+        },
+        documentPrice:{
+            get(){
+                if(this.newPrice !== null){
+                    return this.newPrice;
+                }else{
+                    return this.document.details ? this.document.details.price : 0;
+                }
+            },
+            set(val){
+                this.newPrice = val;
+            }   
+        },
+        isLoading() {
+            console.log(this.getBtnLoading);
+            
+            return this.getBtnLoading
         }
     },
     methods: {
@@ -251,74 +323,14 @@ export default {
                 }
             );
         },
-    },
-    computed: {
-        ...mapGetters(['getBtnLoading']),
-
-        currentComponent() {
-            if (this.document && this.document.contentType) {
-                return this.document.contentType === "html" ? "iframe" : "img";
-            }
-        },
-        courseName() {
-            if(this.document.details && this.document.details.course) {
-                return this.document.details.course
-            }
-        },
-        documentDate() {
-            if(this.document.details && this.document.details.date) {
-                return new Date(this.document.details.date).toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
-            }
-        },
-        isPurchased() {
-            if(!this.document.details) return true;
-            if(this.document.details && this.document.details.isPurchased) {
-                return this.document.details.isPurchased;
-            }
-        },
-        docViews() {
-            if(this.document.details && this.document.details.views) {
-                return this.document.details.views
-            }
-        },
-        docPreview() {
-            let docWrap = document.querySelector('.document-wrap')
-            if(this.document.preview && docWrap) {
-                let width = docWrap.offsetWidth;
-                let height = width / 0.707;                
-                let result = this.document.preview.map(preview => {                    
-                    return utillitiesService.proccessImageURL(preview, width, height.toFixed(0));
-                })
-                return result;
-            }
-        },
-        isSmAndDown() {
-            return this.$vuetify.breakpoint.smAndDown
-        },
-        itemType() {
-            if(this.document) {
-                // return this.document.details.template
-            }
-            return 'note'
-        },
-        documentPrice:{
-            get(){
-                if(this.newPrice !== null){
-                    return this.newPrice;
-                }else{
-                    return this.document.details ? this.document.details.price : 0;
-                }
-            },
-            set(val){
-                this.newPrice = val;
-            }   
-        },
-        isLoading() {
-            console.log(this.getBtnLoading);
-            
-            return this.getBtnLoading
+        handleDocWrap(e){
+            this.docPreviewLoader = false;
         }
-    }
+    },
+    
+    mounted(){
+        this.docWrap = document.querySelector('.document-wrap');        
+    },
 }
 </script>
 <style lang="less">
@@ -382,14 +394,15 @@ export default {
                         border-radius: 0 4px 4px 0
                     }
                 }
-                .unlock_progress {
-                    display: flex;
-                    margin: 0 auto;
-                }
+                
             }
             .document-wrap-content {
                 width: 100%;
             }
+            .unlock_progress {
+                    display: flex;
+                    margin: 0 auto;
+                }
         }
         
     }

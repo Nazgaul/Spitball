@@ -35,11 +35,7 @@ export default {
         },
     },
     created() {      
-        this.documentRequest(this.id).then(res => {
-            if(!res) {
-                this.$router.go(-1);
-            }
-        })
+        this.documentRequest(this.id)
     }
 }
 </script>
