@@ -3,6 +3,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,9 +19,16 @@ namespace Cloudents.Infrastructure.Storage
             _serializer = serializer;
         }
      
-        public async Task<byte[]> GetImageUrl(long userId, string extension,
+        public async Task<byte[]> UploadImageAsync(long userId, string file,
                          Stream stream, string contentType, CancellationToken token)
         {
+            var extension = Path.GetExtension(file);
+            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
+            if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
             var fileName = $"{userId}/{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{extension}";
             var fileUri = GetBlobUrl(fileName);
             var imageProperties = new ImageProperties(fileUri, ImageProperties.BlurEffect.None);

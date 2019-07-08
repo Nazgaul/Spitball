@@ -160,15 +160,22 @@ namespace Cloudents.Web.Api
                 var result3 = await _userManager.CreateAsync(user);
                 if (result3.Succeeded)
                 {
-                    var (stream, _) = await client.DownloadStreamAsync(new Uri(result.Picture), cancellationToken);
-                    var extension = Path.GetExtension(result.Picture);
-                    var hash = await blobProvider.GetImageUrl(user.Id, extension, stream, token: cancellationToken);
-                    var url = Url.RouteUrl("imageUrl", new
+                    if (!string.IsNullOrEmpty(result.Picture))
                     {
-                        hash = Base64UrlTextEncoder.Encode(hash)
-                    });
+                        var (stream, _) = await client.DownloadStreamAsync(new Uri(result.Picture), cancellationToken);
+                        var hash = await blobProvider.UploadImageAsync(user.Id, result.Picture, stream, token: cancellationToken);
+                        if (hash == null)
+                        {
+                            ModelState.AddModelError("x", "not an image");
+                            return BadRequest(ModelState);
+                        }
+                        var url = Url.RouteUrl("imageUrl", new
+                        {
+                            hash = Base64UrlTextEncoder.Encode(hash)
+                        });
 
-                    user.Image = url;
+                        user.Image = url;
+                    }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
                     return await MakeDecision(user, true, null, cancellationToken);
                 }
