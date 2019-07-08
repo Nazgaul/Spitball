@@ -101,7 +101,7 @@
             </div>
             <div class="unlockBox headline hidden-sm-and-down" v-if="!isPurchased" @click="unlockDocument">
                 <p class="text-xs-left" v-language:inner="'documentPage_unlock_document'"></p>
-                <div class="aside-top-btn elevation-5" v-if="!isLoading">
+                <div class="aside-top-btn elevation-5 align-center" v-if="!isLoading">
                     <span class="pa-4 font-weight-bold text-xs-center disabled">12.00 Pt</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
@@ -380,6 +380,7 @@ export default {
                     border-radius: 4px;
                     margin: 0 0 0 auto;
                     width: 60%;
+                    line-height: 20px;
                     @media (max-width: @screen-sm) {
                          width: auto;
                     }
