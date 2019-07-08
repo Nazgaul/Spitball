@@ -13,7 +13,7 @@ namespace Cloudents.Web.Hubs
         private readonly ICommandBus _commandBus;
         private const string QueryStringName = "studyRoomId";
 
-        public StudyRoomHub( ICommandBus commandBus)
+        public StudyRoomHub(ICommandBus commandBus)
         {
             _commandBus = commandBus;
         }
