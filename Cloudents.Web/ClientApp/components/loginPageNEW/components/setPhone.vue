@@ -100,14 +100,6 @@ export default {
         flex-direction: column;
         align-items: center;
       }
-    
-
-    .widther {
-      @media (max-width: @screen-xs) {
-        width: 92%;
-      }
-    }
-   
     p{
         .responsive-property(font-size, 28px, null, 22px);
         .responsive-property(letter-spacing, -0.51px, null, -0.4px);
