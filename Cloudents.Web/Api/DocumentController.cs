@@ -35,6 +35,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Identity;
+using Microsoft.ApplicationInsights;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
@@ -73,6 +74,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] ICrawlerResolver crawlerResolver,
+            [FromServices] TelemetryClient telemetryClient,
             CancellationToken token)
         {
             long? userId = null;
@@ -124,6 +126,10 @@ namespace Cloudents.Web.Api
             var files = filesTask.Result.ToList();
             if (!files.Any())
             {
+                telemetryClient.TrackTrace("Document No Preview", new Dictionary<string, string>()
+                {
+                    ["Id"] = id.ToString()
+                });
                 await queueProvider.InsertBlobReprocessAsync(id);
             }
             return new DocumentPreviewResponse(model, files, textTask.Result);
