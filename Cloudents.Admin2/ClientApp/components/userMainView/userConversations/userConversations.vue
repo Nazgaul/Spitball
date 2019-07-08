@@ -158,6 +158,7 @@
     </div>
 </template>
 
+
 <script>
     import conversationItem from '../helpers/conversationItem.vue';
     import conversationMessages from "../../conversation/conversationComponent/conversationMessages/conversationMessages.vue";
