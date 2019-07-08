@@ -173,6 +173,7 @@ export default {
                     span:first-child {
                         flex: 2;
                         font-size: 18px;
+                        align-self: center;
                     }
                     span:nth-child(2) {
                         flex: 1;

@@ -2,6 +2,7 @@ import chatService from '../services/chatService';
 import { LanguageService } from '../services/language/languageService'
 
 const state = {
+    fileError: false,
     conversations: {},
     messages: {},
     unreadMessages:{},
@@ -20,6 +21,7 @@ const state = {
     isSyncing: true,
 };
 const getters = {
+    getFileError: state => state.fileError,
     getIsChatVisible:state=> state.isVisible,
     getIsChatMinimized:state=> state.isMinimized,
     getChatState:state=>state.chatState,
@@ -85,6 +87,9 @@ const getters = {
 };
 
 const mutations = {
+    setFileError(state,val){
+        state.fileError = val
+    },
     addConversationUnread:(state, message)=>{
         state.conversations[message.conversationId].unread++
         if(message.type === 'text'){
@@ -158,6 +163,12 @@ const mutations = {
 };
 
 const actions = {
+    updateFileError({commit},val){
+        commit('setFileError',val)
+        setTimeout(() => {
+            commit('setFileError',!val)
+        }, 3000);
+    },
     updateChatUploadLoading({commit}, val){
         commit('activateLoader', val);
 },

@@ -6,17 +6,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Core.Interfaces;
 using Cloudents.Identity;
 using Cloudents.Query;
 using Dapper;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 
 namespace Cloudents.Web.Hubs
 {
     [Authorize]
     public class SbHub : Hub
     {
-        private readonly Lazy<ILogger> _logger;
+        private readonly Lazy<TelemetryClient> _logger;
         private readonly DapperRepository _dapper;
 
         private static readonly ConnectionMapping<long> Connections =
@@ -25,7 +26,7 @@ namespace Cloudents.Web.Hubs
 
         private static bool _canUpdateDb = true;
 
-        public SbHub(Lazy<ILogger> logger, DapperRepository dapper)
+        public SbHub(Lazy<TelemetryClient> logger, DapperRepository dapper)
         {
             _logger = logger;
             _dapper = dapper;
@@ -58,7 +59,7 @@ namespace Cloudents.Web.Hubs
             }
             catch (Exception e)
             {
-                _logger.Value.Exception(e, new Dictionary<string, string>()
+                _logger.Value.TrackException(e, new Dictionary<string, string>()
                 {
                     ["SignalR"] = "Signalr",
                     ["currentUserId"] = "currentUserId"
@@ -82,7 +83,11 @@ namespace Cloudents.Web.Hubs
             var currentUserId = long.Parse(Context.UserIdentifier);
             if (!header.ToString().Contains(originsAllow, StringComparison.OrdinalIgnoreCase))
             {
-                _logger.Value.Error($"Investigate online {currentUserId}");
+                _logger.Value.TrackTrace("Investigate online ",SeverityLevel.Warning, new Dictionary<string, string>()
+                {
+                    ["userId"] = currentUserId.ToString(),
+                    ["header"] = header
+                });
             }
             //if (header.ToString().Contains("spi"))
 
@@ -92,17 +97,18 @@ namespace Cloudents.Web.Hubs
 
             Connections.Add(currentUserId, Context.ConnectionId);
             var connectionCount = Connections.GetConnections(currentUserId).Count();
-            //if (connectionCount > 5)
-            //{
-            //    _logger.Value.Warning($"Investigate online {currentUserId}");
-            //}
             if (connectionCount == 1)
             {
                 await ChangeOnlineStatus(currentUserId, true);
             }
             else
             {
-                _logger.Value.Warning($"Investigate online {currentUserId}");
+                _logger.Value.TrackTrace("Investigate online ", SeverityLevel.Warning, new Dictionary<string, string>()
+                {
+                    ["userId"] = currentUserId.ToString(),
+                    ["connectionCount"] = connectionCount.ToString()
+                });
+                //_logger.Value.Warning($"Investigate online {currentUserId}");
             }
            
             if (country != null)
@@ -135,7 +141,11 @@ namespace Cloudents.Web.Hubs
             }
             else
             {
-                _logger.Value.Warning($"Investigate offline {currentUserId}");
+                _logger.Value.TrackTrace("Investigate offline ", SeverityLevel.Warning, new Dictionary<string, string>()
+                {
+                    ["userId"] = currentUserId.ToString(),
+                    ["connectionCount"] = connectionCount.ToString()
+                });
             }
 
 
