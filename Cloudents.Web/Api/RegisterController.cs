@@ -162,7 +162,7 @@ namespace Cloudents.Web.Api
                 {
                     var (stream, _) = await client.DownloadStreamAsync(new Uri(result.Picture), cancellationToken);
                     var extension = Path.GetExtension(result.Picture);
-                    var hash = await blobProvider.GetImageUrl(user.Id, extension, stream, cancellationToken);
+                    var hash = await blobProvider.GetImageUrl(user.Id, extension, stream, token: cancellationToken);
                     var url = Url.RouteUrl("imageUrl", new
                     {
                         hash = Base64UrlTextEncoder.Encode(hash)

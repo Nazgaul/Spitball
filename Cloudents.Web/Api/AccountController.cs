@@ -144,7 +144,6 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> UploadImageAsync(IFormFile file,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
             [FromServices] UserManager<User> userManager,
-            [FromServices] IBinarySerializer serializer,
             CancellationToken token)
         {
             if (file == null)
@@ -181,7 +180,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var userId = userManager.GetLongUserId(User);
-             var hash = await blobProvider.GetImageUrl(userId, extension, file.OpenReadStream(), token);
+             var hash = await blobProvider.GetImageUrl(userId, extension, file.OpenReadStream(), file.ContentType, token);
             var url = Url.RouteUrl("imageUrl", new
             {
                 hash = Base64UrlTextEncoder.Encode(hash)

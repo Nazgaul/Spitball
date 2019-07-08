@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Storage
         }
      
         public async Task<byte[]> GetImageUrl(long userId, string extension,
-                         Stream stream, CancellationToken token)
+                         Stream stream, string contentType, CancellationToken token)
         {
             var fileName = $"{userId}/{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{extension}";
             var fileUri = GetBlobUrl(fileName);
@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Storage
 
             var hash = _serializer.Serialize(imageProperties);
             await UploadStreamAsync(fileName, stream,
-                                  null, TimeSpan.FromDays(365), token: token);
+                                  contentType, TimeSpan.FromDays(365), token: token);
             return hash;
         }
     }
