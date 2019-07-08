@@ -18,6 +18,7 @@ function DocumentItem(ObjInit) {
 
 function DocumentUser(objInit) {
     this.userId = objInit.id
+    this.isTutor = objInit.isTutor
     this.bio = objInit.bio || null
     this.name = objInit.name
     this.image = objInit.image

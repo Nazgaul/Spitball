@@ -14,7 +14,7 @@
 
             <p class="caption font-weight-black pt-2 text-xs-center hidden-sm-and-down" v-language:inner="'documentPage_credit_uploader'"></p>
 
-            <div class="aside-top-btn btn-lock elevation-5" v-if="!isPurchased" @click="unlockDocument">
+            <div class="aside-top-btn btn-lock elevation-5" v-if="!isPurchased && !isLoading" @click="unlockDocument">
                 <span class="pa-4 font-weight-bold text-xs-center">12.00 Pt</span>
                 <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
             </div>
@@ -23,19 +23,25 @@
                 <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
                 <span class="white--text py-4 font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
             </div>
-            
+            <v-progress-circular
+                class="unlock_progress"
+                v-if="isLoading && !isPurchased"
+                indeterminate
+                color="#4452fc"
+            ></v-progress-circular>
+
             <table class="py-3">
                 <tr v-if="isCourse">
                     <td class="py-2" v-language:inner="'documentPage_table_course'"></td>
-                    <td class="caption"><router-link :to="{path: '/ask', query: {Course: getCourse} }">{{getCourse}}</router-link></td>
+                    <td class="caption text-truncate"><router-link :to="{path: '/ask', query: {Course: getCourse} }">{{getCourse}}</router-link></td>
                 </tr>
                 <tr v-if="isUniversity">
                     <td class="py-2" v-language:inner="'documentPage_table_university'"></td>
-                    <td class="caption">{{getUniversity}}</td>
+                    <td class="caption text-truncate">{{getUniversity}}</td>
                 </tr>
                 <tr v-if="isType">
                     <td class="py-2" v-language:inner="'documentPage_table_type'"></td>
-                    <td class="caption">{{getType}}</td>
+                    <td class="caption text-truncate">{{getType}}</td>
                 </tr>
             </table>
         </div>
@@ -50,7 +56,7 @@
     </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import asideDocumentTutors from './asideDocumentTutors.vue';
@@ -73,7 +79,9 @@ export default {
 
         unlockDocument() {
             let item = {id: this.document.details.id, price: this.document.details.price}
-            this.purchaseDocument(item);
+            if(!this.isLoading) {
+                this.purchaseDocument(item)
+            }
         },
         downloadDoc() {
             let item = {
@@ -89,6 +97,8 @@ export default {
         },
     },
     computed: {
+        ...mapGetters(['getBtnLoading']),
+
         getCourse() {
             if(this.document.details && this.document.details.course) {
                 return this.document.details.course;
@@ -125,8 +135,11 @@ export default {
         },
         isTutor() {
             if(this.document.details && this.document.details.user) {                
-                return this.document.details.user.price
+                return this.document.details.user.isTutor
             }
+        },
+        isLoading() {
+            return this.getBtnLoading
         }
     }
 }
@@ -186,6 +199,9 @@ export default {
             }
             table {
                 width: 100%;
+                td {
+                    max-width: 0;
+                }
                 td:first-child {
                     color: #aaa;
                 }
@@ -197,6 +213,10 @@ export default {
                         border-bottom: none;
                     }
                 } 
+            }
+            .unlock_progress {
+                display: flex;
+                margin: 0 auto;
             }
         }
     }

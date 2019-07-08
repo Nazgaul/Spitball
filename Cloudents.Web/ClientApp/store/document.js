@@ -2,15 +2,18 @@ import documentService from "../services/documentService";
 import analyticsService from '../services/analytics.service';
 import searchService from '../services/searchService';
 import { LanguageService } from "../services/language/languageService";
+import { Promise } from "q";
 
 const state = {
     document: {},
     tutorList: [],
+    btnLoading: false,
 };
 
 const getters = {
     getDocumentDetails: state => state.document,
     getTutorList: state => state.tutorList,
+    getBtnLoading: state => state.btnLoading
 };
 
 const mutations = {
@@ -25,6 +28,9 @@ const mutations = {
     },
     setNewDocumentPrice(state, price){
         state.document.details.price = price;
+    },
+    setBtnLoading(state, payload) {
+        state.btnLoading = payload
     }
 };
 
@@ -32,8 +38,9 @@ const actions = {
     documentRequest({commit}, id) {
         return documentService.getDocument(id).then((DocumentObj) => {
             commit('setDocument', DocumentObj)
+            return true
         }, (err) => {
-            console.log(err);
+            return err
         })
     },
     downloadDocument({commit, getters, dispatch}, item) {
@@ -46,13 +53,10 @@ const actions = {
         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`);
         global.location.href = url;
     },
-    clearDocument({commit}) {
-        commit('clearDocumentItem')
-    },
     purchaseDocument({commit, getters, dispatch}, item) {
+        commit('setBtnLoading', true);
         let userBalance = 0;
         let id = item.id ? item.id : '';
-
         if(!!getters.accountUser && getters.accountUser.balance){
             userBalance = getters.accountUser.balance
         }
@@ -65,8 +69,13 @@ const actions = {
                 },
                 (error) => {
                     console.log('purchased Error', error);
+            }).finally(() => {
+                setTimeout(() => {
+                    commit('setBtnLoading', false);
+                }, 500)
             })
         } else {
+            commit('setBtnLoading', false);
             dispatch('updateToasterParams', {
                 toasterText: LanguageService.getValueByKey("resultNote_unsufficient_fund"),
                 showToaster: true,
@@ -78,11 +87,13 @@ const actions = {
             commit('setTutorsList', res)
         })
     },
-    setNewDocumentPrice({ commit }, price){
+    clearDocument({commit}) {
+        commit('clearDocumentItem')
+    },
+    setNewDocumentPrice({ commit }, price) {
         if(!!state.document && !!state.document.details){
             commit('setNewDocumentPrice', price);
         }
-        
     }
 };
 

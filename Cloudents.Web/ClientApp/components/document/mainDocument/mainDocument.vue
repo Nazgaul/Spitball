@@ -93,10 +93,16 @@
             </div>
             <div class="unlockBox headline hidden-sm-and-down" v-if="!isPurchased" @click="unlockDocument">
                 <p class="text-xs-left" v-language:inner="'documentPage_unlock_document'"></p>
-                <div class="aside-top-btn elevation-5">
-                    <span class="pa-4 font-weight-bold text-xs-center">12.00 Pt</span>
+                <div class="aside-top-btn elevation-5" v-if="!isLoading">
+                    <span class="pa-4 font-weight-bold text-xs-center disabled">12.00 Pt</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
+                <v-progress-circular
+                    class="unlock_progress"
+                    v-if="isLoading"
+                    indeterminate
+                    color="#4452fc"
+                ></v-progress-circular>
             </div>
         </div>
 
@@ -162,11 +168,13 @@ export default {
 
         unlockDocument() {
             let item = {id: this.document.details.id, price: this.document.details.price}
-            this.purchaseDocument(item);
+            if(!this.isLoading) {
+                this.purchaseDocument(item)
+            }
         },
         closeDocument() {
             this.clearDocument();
-            this.$router.go(-1);
+            this.$router.push({path: '/note'})
         },
         showReportOptions() {
             this.showMenu = true;
@@ -245,6 +253,8 @@ export default {
         },
     },
     computed: {
+        ...mapGetters(['getBtnLoading']),
+
         currentComponent() {
             if (this.document && this.document.contentType) {
                 return this.document.contentType === "html" ? "iframe" : "img";
@@ -301,8 +311,12 @@ export default {
             },
             set(val){
                 this.newPrice = val;
-            }
+            }   
+        },
+        isLoading() {
+            console.log(this.getBtnLoading);
             
+            return this.getBtnLoading
         }
     }
 }
@@ -367,6 +381,10 @@ export default {
                         font-size: 15px;
                         border-radius: 0 4px 4px 0
                     }
+                }
+                .unlock_progress {
+                    display: flex;
+                    margin: 0 auto;
                 }
             }
             .document-wrap-content {
