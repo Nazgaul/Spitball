@@ -144,4 +144,7 @@
   <data name="emptyState_message2" xml:space="preserve">
     <value>Please let me know what kind of help you need and I’ll be happy to help you.</value>
   </data>
+  <data name="file_error" xml:space="preserve">
+    <value>File is not supported</value>
+  </data>
 </root>
