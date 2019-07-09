@@ -16,6 +16,7 @@ let availableDevices = [];
     }
    function enterRoom(){
        if (!store.getters['sessionStartClickedOnce']) {
+        store.dispatch('setSesionClickedOnce', true);
         if (!!store.getters['accountUser'] && store.getters['accountUser'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
             walletService.getPaymeLink().then(({ data }) => {
                 global.open(data.link, '_blank', 'height=520,width=440');
@@ -23,7 +24,7 @@ let availableDevices = [];
             return;
         }
         //leave this action here so that people that fills the 'pay me' wont get a loading button
-        store.dispatch('setSesionClickedOnce', true);
+        
         //if blocked or not available  use of media devices do not allow session start
         if (store.getters['getNotAllowedDevices'] && store.getters['getNotAvaliableDevices'] ) {
             store.dispatch('updateTestDialogState', true);
@@ -72,7 +73,7 @@ let availableDevices = [];
             tutorService.connectToRoom(token, connectOptions);
             if (!store.getters['getStudyRoomData'].isTutor) {
                 store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
-                store.dispatch('setSesionClickedOnce', false)
+                // store.dispatch('setSesionClickedOnce', false)
             }
 
         }, (error) => {
