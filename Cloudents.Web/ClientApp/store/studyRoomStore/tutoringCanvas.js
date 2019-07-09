@@ -1,6 +1,6 @@
-import tutorService from '../components/tutor/tutorService'
-import {LanguageService} from '../services/language/languageService'
-import whiteBoardService from '../components/tutor/whiteboard/whiteBoardService'
+import tutorService from '../../components/tutor/tutorService'
+import {LanguageService} from '../../services/language/languageService'
+import whiteBoardService from '../../components/tutor/whiteboard/whiteBoardService'
 
 const state = {
     canvasDataStore:{

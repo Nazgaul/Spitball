@@ -117,34 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="conversations_empty_state" xml:space="preserve">
-    <value>לא קיבלת הודעות עדיין</value>
+  <data name="credit_uploader" xml:space="preserve">
+    <value>הענק נקודות למעלה המסמך כדי לראות את המסמך המלא</value>
   </data>
-  <data name="emptyState_message1" xml:space="preserve">
-    <value>היי, אני</value>
+  <data name="download_btn" xml:space="preserve">
+    <value>הורד</value>
   </data>
-  <data name="emptyState_message2" xml:space="preserve">
-    <value>ספר לי במה אתה צריך עזרה ואשמח לסייע לך</value>
+  <data name="more_tutors" xml:space="preserve">
+    <value>עוד מורים פרטיים בקורס זה</value>
   </data>
-  <data name="error_messages" xml:space="preserve">
-    <value>שגיאה בחיבור רשת</value>
+  <data name="online_tutor" xml:space="preserve">
+    <value>השג מורים פרטיים אונליין ואת כל חומרי הלימוד כדי להצליח</value>
   </data>
-  <data name="file_error" xml:space="preserve">
-    <value>קובץ לא נתמך</value>
+  <data name="see_all" xml:space="preserve">
+    <value>צפה בהכל</value>
   </data>
-  <data name="messages" xml:space="preserve">
-    <value>הודעות</value>
+  <data name="student_learn" xml:space="preserve">
+    <value>סטודנטים לומדים מסטודנטים</value>
   </data>
-  <data name="room_created" xml:space="preserve">
-    <value>החדר נפתח</value>
+  <data name="student_uploaded" xml:space="preserve">
+    <value>הועלה על ידי הסטודנט</value>
   </data>
-  <data name="studyRoom_create" xml:space="preserve">
-    <value> צור חדר לימוד</value>
+  <data name="student_views_documents" xml:space="preserve">
+    <value>צפה בכל המסמכים שהועלו</value>
   </data>
-  <data name="studyRoom_enter" xml:space="preserve">
-    <value> כניסה לחדר לימוד</value>
+  <data name="table_course" xml:space="preserve">
+    <value>קורס</value>
   </data>
-  <data name="type_message" xml:space="preserve">
-    <value>הקלד הודעה</value>
+  <data name="table_type" xml:space="preserve">
+    <value>סוג</value>
+  </data>
+  <data name="table_university" xml:space="preserve">
+    <value>אוניברסיטה</value>
+  </data>
+  <data name="unlock_btn" xml:space="preserve">
+    <value>פתח מסמך</value>
+  </data>
+  <data name="unlock_document" xml:space="preserve">
+    <value>פתח את המסמך לצפייה מלאה</value>
   </data>
 </root>

@@ -1,6 +1,25 @@
 ﻿@import "../../styles/mixin.less";
 
 @maxWidth959: 768px;
+.satellite-header{
+    height:54px;
+    width:100%;
+    @media(max-width: @screen-xs) {
+        height: 56px;
+    }
+    
+}
+.sat-header-container{
+    .satellite-header-tabs{
+        height: 40px;
+        width:100%;
+        .v-tabs__bar{
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
 
 .sat-header {
     .box-search {
@@ -69,11 +88,6 @@
             width: 114px;
             height: 23px;
         }
-    }
-
-    .gap {
-        width: 236px;
-        flex-shrink: 0;
     }
 
     .v-tabs__bar {

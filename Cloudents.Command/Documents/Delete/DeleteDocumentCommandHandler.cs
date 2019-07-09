@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using System;
 using System.Threading;
@@ -23,7 +24,7 @@ namespace Cloudents.Command.Documents.Delete
 
             if (document.Status.State != ItemState.Ok)
             {
-                throw new ArgumentException("document doesn't exists");
+                throw new NotFoundException("document doesn't exists");
 
             }
             if (document.Transactions.Count > 0)
@@ -33,7 +34,7 @@ namespace Cloudents.Command.Documents.Delete
 
             if (document.User.Id != message.UserId)
             {
-                throw new InvalidOperationException("user is not the one who uploaded the document");
+                throw new ArgumentException("user is not the one who uploaded the document");
             }
 
             await _repository.DeleteAsync(document, token);

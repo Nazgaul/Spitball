@@ -3,11 +3,12 @@
         <div class="studentCard pa-3">
             <div class="caption pb-3" v-language:inner="'documentPage_student_uploaded'"></div>
             <div class="studentCard-details align-center">
-                <img class="tutor-image mr-2" v-show="isLoaded" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+                <img class="tutor-image mr-2" v-show="isLoaded" v-if="!userImageUrl" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+                <img class="tutor-image mr-2 default-img" v-show="isLoaded" v-else @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
                 <div>
-                    <div class="studentCard_box">
-                        <div class="studentCard_name body-2 font-weight-bold text-truncate">{{tutorData.name}}</div>
-                        <span class="studentCard_level white--text caption ml-3" v-language:inner="'documentPage_student_level'"></span>
+                    <div class="studentCard_box align-center">
+                        <div class="studentCard_name body-2 font-weight-bold text-truncate px-2">{{tutorData.name}}</div>
+                        <user-rank style="margin: 15px auto;" :score="tutorData.score"></user-rank>
                     </div>
                     <router-link :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}"><div class="pt-3" v-language:inner="'documentPage_student_views_documents'"></div></router-link>
                 </div>
@@ -17,8 +18,12 @@
 </template>
 <script>
 import utilitiesService from "../../services/utilities/utilitiesService";
+import userRank from "../helpers/UserRank/UserRank.vue";
 
 export default {
+    components: {
+        userRank
+    },
     props: {
         tutorData:{}
     },
@@ -31,12 +36,12 @@ export default {
         loaded() {
             this.isLoaded = true;
         },
-        onImageLoadError(event) {
+        onImageLoadError(event) {            
             event.target.src = "./images/placeholder-profile.png";
         }
     },
     computed: {
-        userImageUrl() {            
+        userImageUrl() {
             if (this.tutorData.image) {
                 let size = [76, 96];
                 return utilitiesService.proccessImageURL(
@@ -48,7 +53,7 @@ export default {
                 return "./images/placeholder-profile.png";
             }
         },
-    }
+    },
 }
 </script>
 
@@ -61,7 +66,10 @@ export default {
         }
         .studentCard-details {
             display: flex;
-            
+            .default-img {
+                height: 96px;
+                width: 76px;
+            }
             .studentCard_box {
                 display: flex;
                 .studentCard_name {

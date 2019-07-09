@@ -1,10 +1,10 @@
 <template>
     <div class="main-container pb-5">
         <v-layout row class="main-header" :class="[isSmAndDown ? 'pt-3' : 'pb-3']" align-center>
-            <v-icon color="#000" class="arrow-back hidden-sm-and-down" @click="closeDocument">sbf-arrow-back-chat</v-icon>
-            <span class="title courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</span>
+            <v-icon color="#000" :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']" @click="closeDocument">sbf-arrow-back-chat</v-icon>
+            <h2 class="title courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</h2>
             <v-spacer></v-spacer>
-            <span class="grey-text" :class="[isSmAndDown ? '' : 'pr-5']"><v-icon class="pr-2" small>sbf-views</v-icon>{{docViews}}</span>
+            <span class="grey-text" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">{{docViews}}<v-icon class="pl-2 doc-views" small>sbf-views</v-icon></span>
             <span class="grey-text" :class="[isSmAndDown ? 'pl-3' : 'pr-4']">{{documentDate}}</span>
             
             <v-menu class="menu-area" lazy bottom left content-class="card-user-actions" v-model="showMenu">
@@ -48,7 +48,7 @@
                 <v-card class="price-change-wrap">
                     <v-flex align-center justify-center class="relative-pos">
                         <div class="title-wrap">
-                            <span class="change-title" v-language:inner>resultNote_change_for</span>
+                            <span class="change-title" v-language:inner="'resultNote_change_for'"></span>
                             <span
                             class="change-title"
                             style="max-width: 150px;"
@@ -101,8 +101,8 @@
             </div>
             <div class="unlockBox headline hidden-sm-and-down" v-if="!isPurchased" @click="unlockDocument">
                 <p class="text-xs-left" v-language:inner="'documentPage_unlock_document'"></p>
-                <div class="aside-top-btn elevation-5" v-if="!isLoading">
-                    <span class="pa-4 font-weight-bold text-xs-center disabled">12.00 Pt</span>
+                <div class="aside-top-btn elevation-5 align-center" v-if="!isLoading">
+                    <span class="pa-4 font-weight-bold text-xs-center disabled">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
                 <v-progress-circular
@@ -176,13 +176,14 @@ export default {
     computed: {
         ...mapGetters(['getBtnLoading']),
         courseName() {
-            if(this.document.details && this.document.details.course) {
-                return this.document.details.course
+            if(this.document.details && this.document.details.name) {
+                return this.document.details.name
             }
         },
         documentDate() {
             if(this.document.details && this.document.details.date) {
-                return new Date(this.document.details.date).toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
+                let lang = `${global.lang}-${global.country}`;
+                return new Date(this.document.details.date).toLocaleString(lang, {year: 'numeric', month: 'short', day: 'numeric'})
             }
         },
         isPurchased() {
@@ -194,6 +195,11 @@ export default {
         docViews() {
             if(this.document.details && this.document.details.views) {
                 return this.document.details.views
+            }
+        },
+        docPrice() {
+            if(this.document.details && this.document.details.views) {
+                return this.document.details.price.toFixed(2)
             }
         },
         docPreview() {
@@ -298,14 +304,15 @@ export default {
                     ),
                     showToaster: true
                 });
-                this.updateProfile(id);
+                this.closeDocument();
             },
             error => {
                 this.updateToasterParams({
                     toasterText: LanguageService.getValueByKey(
                     "resultNote_error_delete"
                     ),
-                    showToaster: true
+                    showToaster: true,
+                    toasterType: 'error-toaster'
                 });
             });
         },
@@ -342,8 +349,27 @@ export default {
             order: 2;
         }
         .main-header {
+            .doc-views {
+                margin-bottom: 1px;
+            }
+            .courseName {
+                line-height: initial !important;
+                max-width: 800px;
+                @media (max-width: @screen-xs) {
+                    max-width: 200px;
+                }
+                @media (max-width: @screen-xss) {
+                    max-width: 160px;
+                }
+                @media (max-width: 320px) {
+                    max-width: 110px;
+                }
+            }
             .arrow-back {
                 font-size: 40px;
+            }
+            .arrow-back-rtl{
+                transform: scaleX(-1);
             }
             .grey-text {
                 opacity: .6;
@@ -380,6 +406,7 @@ export default {
                     border-radius: 4px;
                     margin: 0 0 0 auto;
                     width: 60%;
+                    line-height: 20px;
                     @media (max-width: @screen-sm) {
                          width: auto;
                     }

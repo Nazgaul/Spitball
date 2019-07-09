@@ -3,7 +3,7 @@
         
         <div class="aside-top mb-2" :class="[$vuetify.breakpoint.smAndDown ? 'pa-2' : 'pa-3']">
             <v-layout justify-space-between>
-                <v-icon color="#43425d">sbf-spitball</v-icon>
+                <v-icon @click="goToNote" color="#43425d">sbf-spitball</v-icon>
                 <v-icon class="hidden-md-and-up subheading" @click="closeDocument">sbf-close</v-icon>
             </v-layout>
 
@@ -12,10 +12,10 @@
 
             <my-courses class="d-block mx-auto hidden-sm-and-down"></my-courses>
 
-            <p class="caption font-weight-black pt-2 text-xs-center hidden-sm-and-down" v-language:inner="'documentPage_credit_uploader'"></p>
+            <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-language:inner="'documentPage_credit_uploader'"></p>
 
             <div class="aside-top-btn btn-lock elevation-5" v-if="!isPurchased && !isLoading" @click="unlockDocument">
-                <span class="pa-4 font-weight-bold text-xs-center">12.00 Pt</span>
+                <span class="pa-4 font-weight-bold text-xs-center">{{docPrice | currencyLocalyFilter}}</span>
                 <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
             </div>
 
@@ -31,17 +31,17 @@
             ></v-progress-circular>
 
             <table class="py-3">
-                <tr v-if="isCourse">
+                <tr v-if="isCourse" clas>
                     <td class="py-2" v-language:inner="'documentPage_table_course'"></td>
-                    <td class="caption text-truncate"><router-link :to="{path: '/ask', query: {Course: getCourse} }">{{getCourse}}</router-link></td>
+                    <td class="caption font-weight-light"><h3 class="text-truncate"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
                 </tr>
                 <tr v-if="isUniversity">
                     <td class="py-2" v-language:inner="'documentPage_table_university'"></td>
-                    <td class="caption text-truncate">{{getUniversity}}</td>
+                    <td class="caption font-weight-light"><h4 class="text-truncate">{{getUniversity}}</h4></td>
                 </tr>
                 <tr v-if="isType">
                     <td class="py-2" v-language:inner="'documentPage_table_type'"></td>
-                    <td class="caption text-truncate">{{getType}}</td>
+                    <td class="caption font-weight-light"><h5 class="text-truncate">{{getType}}</h5></td>
                 </tr>
             </table>
         </div>
@@ -57,7 +57,6 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
 import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import asideDocumentTutors from './asideDocumentTutors.vue';
 import studentCard from '../studentCard.vue';
@@ -95,6 +94,9 @@ export default {
             this.clearDocument();
             this.$router.go(-1);
         },
+        goToNote(){
+            this.$router.push({path: '/note'});
+        }
     },
     computed: {
         ...mapGetters(['getBtnLoading']),
@@ -140,6 +142,16 @@ export default {
         },
         isLoading() {
             return this.getBtnLoading
+        },
+        docPrice() {
+            if(this.document.details && this.document.details.price) {
+                return this.document.details.price.toFixed(2)
+            }
+        },
+        userScore() {
+            if(this.document.details && this.document.details.user.score) {
+                return this.document.details.user.score
+            }
         }
     }
 }
@@ -173,6 +185,7 @@ export default {
                     span:first-child {
                         flex: 2;
                         font-size: 18px;
+                        align-self: center;
                     }
                     span:nth-child(2) {
                         flex: 1;

@@ -49,7 +49,7 @@
 
         },
         computed: {
-            ...mapState(['tutoringMainStore']),
+            ...mapState(['tutoringMain']),
             ...mapGetters([
                               'activeRoom',
                               'roomLoading',
@@ -59,13 +59,13 @@
                               'accountUser',
                           ]),
             roomIsPending() {
-                return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.pending;
+                return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.pending;
             },
             roomIsActive() {
-                return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.active;
+                return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.active;
             },
             waitingStudent() {
-                return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.loading;
+                return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.loading;
             },
             isTutor() {
                 return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;

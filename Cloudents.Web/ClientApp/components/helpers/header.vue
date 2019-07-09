@@ -1,7 +1,7 @@
 <template>
     <div :class="{'hide-header': hideHeader}">
         <!--TODO check if worsk well-->
-        <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header" clipped-left clipped-right>
+        <v-toolbar :app="!isMobile" :fixed="!isMobile" class="header" clipped-left clipped-right>
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
                     <v-flex class="line top">
@@ -113,7 +113,6 @@
             },
             userText: {type: String},
             submitRoute: {type: String, default: '/ask'},
-            toolbarHeight: {},
             layoutClass: {}
         },
         computed: {
@@ -142,9 +141,8 @@
             },
             hideHeader(){
                 if(this.$vuetify.breakpoint.xsOnly){
-                   let matchedCoursesRoute = this.$route.name === 'courses' || this.$route.name === 'addCourse' || this.$route.name === 'editCourse';
-                    let matchedUniRoute = this.$route.name === 'university' || this.$route.name === 'addUniversity';
-                    return  matchedCoursesRoute || matchedUniRoute || !this.showMobileFeed;;
+                    let routesToHide = ['courses', 'addCourse', 'editCourse', 'university', 'addUniversity'];
+                    return routesToHide.indexOf(this.$route.name) > -1;
                 }else{
                     return false;
                 }
@@ -157,16 +155,13 @@
                 return this.accountUser.balance || 0
             },
             hideSearch(){
-                let filteredRoutes = ['editCourse', 'addCourse'];
+                let filteredRoutes = ['editCourse', 'addCourse', 'document','about', 'faq', 'partners', 'reps', 'privacy', 'terms', 'contact'];
                 return filteredRoutes.indexOf(this.$route.name) > -1;
             }
             //myMoney(){return this.accountUser.balance / 40}
 
         },
         watch: {
-            toolbarHeight(val) {
-                this.height = val;
-            },
             drawer(val){
                 if(!!val && this.$vuetify.breakpoint.xsOnly){
                     document.body.className="noscroll";
@@ -237,8 +232,6 @@
                         }
                     })
                 });
-            let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
-            this.height = headerHeight;
         },
         beforeDestroy(){
              document.body.removeAttribute("class","noscroll");
