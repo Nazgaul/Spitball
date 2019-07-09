@@ -103,7 +103,7 @@
             <div class="unlockBox headline hidden-sm-and-down" v-if="!isPurchased" @click="unlockDocument">
                 <p class="text-xs-left" v-language:inner="'documentPage_unlock_document'"></p>
                 <div class="aside-top-btn elevation-5 align-center" v-if="!isLoading">
-                    <span class="pa-4 font-weight-bold text-xs-center disabled" v-if="docPrice">{{docPrice | currencyLocalyFilter}}</span>
+                    <span class="pa-4 font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
                 <v-progress-circular
@@ -254,7 +254,14 @@ export default {
         },
         isLoading() {            
             return this.getBtnLoading
-        }
+        },
+        isPrice() {
+            if(this.document.details && this.document.details.price >= 0) {
+                return true
+            } else {
+                return false
+            }
+        },
     },
     methods: {
         ...mapActions(['clearDocument', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState']),
