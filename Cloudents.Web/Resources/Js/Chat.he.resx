@@ -129,6 +129,9 @@
   <data name="error_messages" xml:space="preserve">
     <value>שגיאה בחיבור רשת</value>
   </data>
+  <data name="file_error" xml:space="preserve">
+    <value>קובץ לא נתמך</value>
+  </data>
   <data name="messages" xml:space="preserve">
     <value>הודעות</value>
   </data>

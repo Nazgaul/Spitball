@@ -32,6 +32,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Identity;
@@ -421,9 +422,14 @@ namespace Cloudents.Web.Api
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
-            catch (ArgumentException)
+            catch (NotFoundException)
             {
-                return BadRequest();
+                return NotFound();
+            }
+            catch (InvalidOperationException)
+            {
+                ModelState.AddModelError("error",_localizer["SomeOnePurchased"]);
+                return BadRequest(ModelState);
             }
         }
 

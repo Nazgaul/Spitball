@@ -120,6 +120,9 @@
   <data name="InSufficientFunds" xml:space="preserve">
     <value>אין לך מספיק נקודות.</value>
   </data>
+  <data name="SomeOnePurchased" xml:space="preserve">
+    <value>מסמך נקנה. אי אפשר למחוק</value>
+  </data>
   <data name="TypeFilterTitle" xml:space="preserve">
     <value>סוגי מסמכים</value>
   </data>
