@@ -19,6 +19,7 @@
             <div class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
             </div>
+                <span class="error-file-span" v-if="fileError" v-language:inner="'file is not supported'"></span>
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <span class="messages-mobile-button hidden-sm-and-up" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
                 <chat-upload-file></chat-upload-file>
@@ -58,8 +59,10 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj', 'getChatLoader', 'getIsSignalRConnected']),
-
+        ...mapGetters(['getMessages', 'accountUser', 'getActiveConversationObj', 'getChatLoader', 'getIsSignalRConnected','getFileError']),
+        fileError(){
+            return this.getFileError
+        },
         messages(){
             this.scrollToEnd();
             return this.getMessages;            
@@ -141,6 +144,13 @@ export default {
         }
         .messages-wrapper{
             height: 100%;
+            .error-file-span{
+                padding: 30px 10px;
+                opacity: 0.8;
+                background-color: red;
+                color: white;
+                text-align: center;
+            }
             .messages-header{
                 display:flex;
                 justify-content: flex-end;

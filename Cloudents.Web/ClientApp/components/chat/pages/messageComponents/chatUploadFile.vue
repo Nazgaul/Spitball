@@ -20,7 +20,7 @@
                     v-model="uploadedFiles"
                     :multiple="false"
                     :post-action="uploadUrl"
-                   
+
                     @input-file="inputFile"
                     @input-filter="inputFilter"
                 ></file-upload>
@@ -45,7 +45,7 @@
             }
         },
         methods: {
-            ...mapActions(['uploadChatFile', 'updateChatUploadLoading']),
+            ...mapActions(['uploadChatFile', 'updateChatUploadLoading','updateFileError']),
         inputFile: function (newFile, oldFile) {
             let self = this;
             if (self.uploadedFiles && self.uploadedFiles.length > 1) {
@@ -79,13 +79,11 @@
                 if (this.uploadedFiles.length >= 1) {
                     return prevent()
                 }
-                // Filter non-supported extensions  both lower and upper case
-                //let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-                //let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
-                // let isSupported = this.extensions.includes(ext);
-                // if (!isSupported) {
-                //     return prevent()
-                // }
+                if (!/\.(jpeg|jpe|jpg|gif|png|webp|doc|docx|xls|xlsx|PDF|ppt|pptx|tiff|tif|bmp)$/i.test(newFile.name)) {
+                    this.updateFileError(true)
+                    return prevent()
+                }
+
                 if (newFile && newFile.size === 0) {
                     return prevent()
                 }
