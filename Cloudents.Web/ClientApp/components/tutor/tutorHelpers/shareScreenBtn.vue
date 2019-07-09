@@ -58,7 +58,7 @@
     import videoService from "../../../services/videoStreamService";
     import castIcon from "../images/cast.svg";
     import insightService from '../../../services/insightService';
-
+    import store from '../../../store/index.js';
     export default {
         name: "shareScreenBtn",
         components: {castIcon},
@@ -158,6 +158,7 @@
                 createLocalVideoTrack()
                     .then(
                         videoTrack => {
+                            let videoTrackName = `video_${store.getters['getStudyRoomData'].isTutor ? 'tutor' : 'student'}_${store.getters['accountUser'].id}`;
                             self.publishTrackToRoom(videoTrack);
                         },
                         error => {
