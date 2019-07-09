@@ -120,6 +120,9 @@
   <data name="InSufficientFunds" xml:space="preserve">
     <value>You do not have sufficient SBL</value>
   </data>
+  <data name="SomeOnePurchased" xml:space="preserve">
+    <value>Can't delete - someone already purchased the document</value>
+  </data>
   <data name="TypeFilterTitle" xml:space="preserve">
     <value>Type</value>
   </data>
