@@ -3,7 +3,7 @@
         
         <div class="aside-top mb-2" :class="[$vuetify.breakpoint.smAndDown ? 'pa-2' : 'pa-3']">
             <v-layout justify-space-between>
-                <v-icon color="#43425d">sbf-spitball</v-icon>
+                <v-icon @click="goToNote" color="#43425d">sbf-spitball</v-icon>
                 <v-icon class="hidden-md-and-up subheading" @click="closeDocument">sbf-close</v-icon>
             </v-layout>
 
@@ -94,6 +94,9 @@ export default {
             this.clearDocument();
             this.$router.go(-1);
         },
+        goToNote(){
+            this.$router.push({path: '/note'});
+        }
     },
     computed: {
         ...mapGetters(['getBtnLoading']),
