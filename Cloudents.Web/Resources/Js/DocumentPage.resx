@@ -133,7 +133,7 @@
     <value>See All</value>
   </data>
   <data name="student_learn" xml:space="preserve">
-    <value>Students learn form students</value>
+    <value>Students learn from students</value>
   </data>
   <data name="student_uploaded" xml:space="preserve">
     <value>Uploaded by a student</value>
@@ -154,6 +154,6 @@
     <value>Unlock</value>
   </data>
   <data name="unlock_document" xml:space="preserve">
-    <value>Credit the uploader with points to unlock</value>
+    <value>Unlock the document to see clearly</value>
   </data>
 </root>
