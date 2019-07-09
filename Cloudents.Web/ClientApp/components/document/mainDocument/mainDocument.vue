@@ -352,6 +352,15 @@ export default {
             .courseName {
                 line-height: initial !important;
                 max-width: 800px;
+                @media (max-width: @screen-xs) {
+                    max-width: 200px;
+                }
+                @media (max-width: @screen-xss) {
+                    max-width: 160px;
+                }
+                @media (max-width: 320px) {
+                    max-width: 110px;
+                }
             }
             .arrow-back {
                 font-size: 40px;
