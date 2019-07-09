@@ -348,6 +348,7 @@ export default {
         }
         .main-header {
             .courseName {
+                line-height: initial !important;
                 max-width: 800px;
             }
             .arrow-back {
