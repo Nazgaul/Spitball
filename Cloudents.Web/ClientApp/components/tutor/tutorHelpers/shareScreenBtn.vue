@@ -95,8 +95,8 @@
             },
             publishTrackToRoom(track) {
                 if(this.activeRoom) {
-                    this.activeRoom.localParticipant.videoTracks.forEach(localTrack=>{
-                        this.unPublishTrackfromRoom(localTrack.mediaStreamTrack);
+                    this.activeRoom.localParticipant.videoTracks.forEach(LocalVideoTrackPublication =>{
+                        this.unPublishTrackfromRoom(LocalVideoTrackPublication.track.mediaStreamTrack);
                     })
                     this.activeRoom.localParticipant.publishTrack(track, {
                         name: `shareScreen_${this.isTutor ? "tutor" : "student"}_${
