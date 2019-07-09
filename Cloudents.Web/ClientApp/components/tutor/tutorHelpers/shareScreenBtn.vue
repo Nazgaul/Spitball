@@ -158,7 +158,6 @@
                 createLocalVideoTrack()
                     .then(
                         videoTrack => {
-                            let videoTrackName = `video_${store.getters['getStudyRoomData'].isTutor ? 'tutor' : 'student'}_${store.getters['accountUser'].id}`;
                             self.publishTrackToRoom(videoTrack);
                         },
                         error => {
