@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cashed" xml:space="preserve">
+    <value>Coupon will be sent via email within 2 business days</value>
+  </data>
   <data name="Redeem" xml:space="preserve">
     <value>Redeem</value>
   </data>
