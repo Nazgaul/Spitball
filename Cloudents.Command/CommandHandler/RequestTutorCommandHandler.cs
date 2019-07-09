@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using Cloudents.Command.Command;
+﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -54,19 +53,19 @@ namespace Cloudents.Command.CommandHandler
             {
                 tutorsIds.Add(tutor.Id);
             }
-            
-                foreach (var userId in tutorsIds.Distinct())
+
+            foreach (var userId in tutorsIds.Distinct())
             {
                 var users = new[] { userId, message.UserId };
                 var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
                 if (chatRoom.Extra == null)
                 {
-                        chatRoom.Extra = new ChatRoomAdmin(chatRoom);
+                    chatRoom.Extra = new ChatRoomAdmin(chatRoom);
                 }
                 chatRoom.Extra.Lead = lead;
-               
+
                 await _chatRoomRepository.UpdateAsync(chatRoom, token);
-                var chatMessage = new ChatTextMessage(user, message.ChatText, chatRoom);
+                var chatMessage = new SystemTextMessage(user, message.ChatText, chatRoom);
                 chatRoom.AddMessage(chatMessage);
                 await _chatRoomRepository.UpdateAsync(chatRoom, token);
                 await _chatMessageRepository.AddAsync(chatMessage, token);

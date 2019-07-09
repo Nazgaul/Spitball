@@ -74,4 +74,13 @@ namespace Cloudents.Persistence.Maps
             DiscriminatorValue("attachment");
         }
     }
+
+    public class ChatSystemMessageMap : SubclassMap<SystemTextMessage>
+    {
+        public ChatSystemMessageMap()
+        {
+            //Map(x => x.Blob).Length(8000);
+            DiscriminatorValue("system");
+        }
+    }
 }

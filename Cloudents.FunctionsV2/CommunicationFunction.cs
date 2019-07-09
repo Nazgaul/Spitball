@@ -222,8 +222,6 @@ namespace Cloudents.FunctionsV2
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "twilio")]
             HttpRequest req, ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
-
             string name = req.Query["code"];
             var twiml = new VoiceResponse();
             twiml.Say($"Your code to spitball is, {string.Join(". ", name.ToCharArray())}", loop: 3, voice: "alice");
