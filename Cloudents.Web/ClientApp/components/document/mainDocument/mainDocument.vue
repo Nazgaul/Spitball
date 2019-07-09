@@ -305,6 +305,7 @@ export default {
                     showToaster: true
                 });
                 this.updateProfile(id);
+                this.closeDocument();
             },
             error => {
                 this.updateToasterParams({
