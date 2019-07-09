@@ -297,6 +297,7 @@ export default {
         },
         deleteDocument() {
         let id = this.document.details.id;
+
         documentService.deleteDoc(id).then(success => {
                 this.updateToasterParams({
                     toasterText: LanguageService.getValueByKey(
@@ -308,13 +309,11 @@ export default {
             },
             error => {
                 this.updateToasterParams({
-                    toasterText: LanguageService.getValueByKey(
-                    "resultNote_error_delete"
-                    ),
+                    toasterText: error.response.data.error[0],
                     showToaster: true,
                     toasterType: 'error-toaster'
                 });
-            });
+            })
         },
         submitNewPrice() {
             let data = { id: this.document.details.id, price: this.newPrice };
