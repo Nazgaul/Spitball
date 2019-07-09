@@ -59,7 +59,7 @@ export default {
         if(!!isLoggedIn){
           let forceReload = '';
           if(from.path === `/ask` && from.fullPath === '/ask'){
-            forceReload = '?term='
+            forceReload = '?reloaded='
           }
           let nextRout = isLogoClicked ? `/ask${forceReload}` : `/ask${query}`;
           next(nextRout);
