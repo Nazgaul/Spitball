@@ -151,7 +151,6 @@ namespace Cloudents.FunctionsV2
                     blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
                     mode = ResizeMode.BoxPad;
-                    //return new RedirectResult(blob2.Uri.AbsoluteUri);
                 }
             }
 
