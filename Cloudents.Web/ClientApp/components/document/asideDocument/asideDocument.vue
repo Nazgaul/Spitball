@@ -33,7 +33,7 @@
             <table class="py-3">
                 <tr v-if="isCourse" clas>
                     <td class="py-2" v-language:inner="'documentPage_table_course'"></td>
-                    <td class="caption font-weight-light"><h3 class="text-truncate"><router-link :to="{path: '/ask', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
+                    <td class="caption font-weight-light"><h3 class="text-truncate"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
                 </tr>
                 <tr v-if="isUniversity">
                     <td class="py-2" v-language:inner="'documentPage_table_university'"></td>
