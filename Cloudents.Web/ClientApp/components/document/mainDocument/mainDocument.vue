@@ -204,9 +204,25 @@ export default {
             }
         },
         docPreview() {
+            // TODO temporary calculated width container
             this.docPreviewLoader = true;
             if(this.document.preview && this.docWrap) {
-                let width = this.docWrap.offsetWidth;
+                let width;
+                if (this.$vuetify.breakpoint.xl) {
+                    width = 1540
+                }
+                if (this.$vuetify.breakpoint.lg) {
+                    width = 900
+                }
+                if (this.$vuetify.breakpoint.md) {
+                    width = 600
+                }
+                if (this.$vuetify.breakpoint.sm) {
+                    width = 750
+                }
+                if (this.$vuetify.breakpoint.xs) {
+                    width = 400
+                }                
                 let height = width / 0.707;                
                 let result = this.document.preview.map(preview => {                    
                     return utillitiesService.proccessImageURL(preview, width, height.toFixed(0))
@@ -397,7 +413,7 @@ export default {
                 width: 550px;
                 margin: auto;
                 p {
-                    width: 60%;
+                    width: 80%;
                      @media (max-width: @screen-sm) {
                          width: auto;
                     }
