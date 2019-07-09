@@ -242,6 +242,9 @@ export default {
                         }
                     }
                 }
+                textarea {
+                    line-height: 14px;
+                }
             }
         }
     }
