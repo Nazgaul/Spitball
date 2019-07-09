@@ -312,7 +312,8 @@ export default {
                     toasterText: LanguageService.getValueByKey(
                     "resultNote_error_delete"
                     ),
-                    showToaster: true
+                    showToaster: true,
+                    toasterType: 'error-toaster'
                 });
             });
         },
