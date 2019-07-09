@@ -182,7 +182,8 @@ export default {
         },
         documentDate() {
             if(this.document.details && this.document.details.date) {
-                return new Date(this.document.details.date).toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
+                let lang = `${global.lang}-${global.country}`;
+                return new Date(this.document.details.date).toLocaleString(lang, {year: 'numeric', month: 'short', day: 'numeric'})
             }
         },
         isPurchased() {
