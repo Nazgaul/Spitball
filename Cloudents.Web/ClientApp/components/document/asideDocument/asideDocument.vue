@@ -12,7 +12,7 @@
 
             <my-courses class="d-block mx-auto hidden-sm-and-down"></my-courses>
 
-            <p class="caption font-weight-black pt-2 text-xs-center hidden-sm-and-down" v-language:inner="'documentPage_credit_uploader'"></p>
+            <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-language:inner="'documentPage_credit_uploader'"></p>
 
             <div class="aside-top-btn btn-lock elevation-5" v-if="!isPurchased && !isLoading" @click="unlockDocument">
                 <span class="pa-4 font-weight-bold text-xs-center">{{docPrice | currencyLocalyFilter}}</span>
