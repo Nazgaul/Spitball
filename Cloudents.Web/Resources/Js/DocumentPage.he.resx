@@ -135,9 +135,6 @@
   <data name="student_learn" xml:space="preserve">
     <value>סטודנטים לומדים מסטודנטים</value>
   </data>
-  <data name="student_level" xml:space="preserve">
-    <value>Legend</value>
-  </data>
   <data name="student_uploaded" xml:space="preserve">
     <value>הועלה על ידי הסטודנט</value>
   </data>

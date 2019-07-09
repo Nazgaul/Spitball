@@ -1,7 +1,7 @@
 <template>
     <div class="main-container pb-5">
         <v-layout row class="main-header" :class="[isSmAndDown ? 'pt-3' : 'pb-3']" align-center>
-            <v-icon color="#000" class="arrow-back hidden-sm-and-down" @click="closeDocument">sbf-arrow-back-chat</v-icon>
+            <v-icon color="#000" :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']" @click="closeDocument">sbf-arrow-back-chat</v-icon>
             <h2 class="title courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</h2>
             <v-spacer></v-spacer>
             <span class="grey-text" :class="[isSmAndDown ? '' : 'pr-5']"><v-icon class="pr-2" small>sbf-views</v-icon>{{docViews}}</span>
@@ -182,7 +182,8 @@ export default {
         },
         documentDate() {
             if(this.document.details && this.document.details.date) {
-                return new Date(this.document.details.date).toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
+                let lang = `${global.lang}-${global.country}`;
+                return new Date(this.document.details.date).toLocaleString(lang, {year: 'numeric', month: 'short', day: 'numeric'})
             }
         },
         isPurchased() {
@@ -303,14 +304,15 @@ export default {
                     ),
                     showToaster: true
                 });
-                this.updateProfile(id);
+                this.closeDocument();
             },
             error => {
                 this.updateToasterParams({
                     toasterText: LanguageService.getValueByKey(
                     "resultNote_error_delete"
                     ),
-                    showToaster: true
+                    showToaster: true,
+                    toasterType: 'error-toaster'
                 });
             });
         },
@@ -348,10 +350,14 @@ export default {
         }
         .main-header {
             .courseName {
+                line-height: initial !important;
                 max-width: 800px;
             }
             .arrow-back {
                 font-size: 40px;
+            }
+            .arrow-back-rtl{
+                transform: scaleX(-1);
             }
             .grey-text {
                 opacity: .6;
