@@ -1,5 +1,5 @@
 <template>
-    <router-link @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+    <router-link :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
         <div class="studentCard pa-3">
             <div class="caption pb-3" v-language:inner="'documentPage_student_uploaded'"></div>
             <div class="studentCard-details align-center">

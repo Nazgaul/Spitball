@@ -30,7 +30,7 @@ export default {
         },
     },
     created() {      
-        let course = this.$route.params.courseName        
+        let course = this.$route.params.courseName.replace(/-/g, ' '); 
         this.getTutorListCourse(course)
     }
 }
