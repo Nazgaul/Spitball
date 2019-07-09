@@ -429,7 +429,7 @@ namespace Cloudents.Web.Api
             catch (InvalidOperationException)
             {
                 ModelState.AddModelError("error",_localizer["SomeOnePurchased"]);
-                //return StatusCode((int)HttpStatusCode.MethodNotAllowed,new {status = "document-1"});
+                return BadRequest(ModelState);
             }
         }
 
