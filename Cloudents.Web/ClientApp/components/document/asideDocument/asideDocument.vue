@@ -74,12 +74,16 @@ export default {
         document: {},
     },
     methods: {
-        ...mapActions(['purchaseDocument', 'downloadDocument', 'clearDocument']),
+        ...mapActions(['purchaseDocument', 'downloadDocument', 'clearDocument', 'updateLoginDialogState']),
 
         unlockDocument() {
-            let item = {id: this.document.details.id, price: this.document.details.price}
-            if(!this.isLoading) {
-                this.purchaseDocument(item)
+            if(this.accountUser == null) {
+                this.updateLoginDialogState(true);
+            } else {
+                let item = {id: this.document.details.id, price: this.document.details.price}
+                if(!this.isLoading) {
+                    this.purchaseDocument(item)
+                }
             }
         },
         downloadDoc() {
@@ -99,7 +103,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getBtnLoading']),
+        ...mapGetters(['getBtnLoading', 'accountUser']),
 
         getCourse() {
             if(this.document.details && this.document.details.course) {
@@ -179,6 +183,7 @@ export default {
                 display: flex;
                 border-radius: 4px;
                 &.btn-lock {
+                    z-index: 1;
                     @media (max-width: @screen-sm) {
                         background: #fff;
                     }

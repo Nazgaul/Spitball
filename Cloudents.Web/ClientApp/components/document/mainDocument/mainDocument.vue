@@ -174,7 +174,8 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getBtnLoading']),
+        ...mapGetters(['getBtnLoading', 'accountUser']),
+
         courseName() {
             if(this.document.details && this.document.details.name) {
                 return this.document.details.name
@@ -234,20 +235,21 @@ export default {
                 this.newPrice = val;
             }   
         },
-        isLoading() {
-            console.log(this.getBtnLoading);
-            
+        isLoading() {            
             return this.getBtnLoading
         }
     },
     methods: {
-        ...mapActions(['clearDocument', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice']),
-        ...mapGetters(["accountUser"]),
+        ...mapActions(['clearDocument', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState']),
 
         unlockDocument() {
-            let item = {id: this.document.details.id, price: this.document.details.price}
-            if(!this.isLoading) {
-                this.purchaseDocument(item)
+            if(this.accountUser == null) {
+                this.updateLoginDialogState(true);
+            } else{
+                let item = {id: this.document.details.id, price: this.document.details.price}
+                if(!this.isLoading) {
+                    this.purchaseDocument(item)
+                }
             }
         },
         closeDocument() {
@@ -258,7 +260,7 @@ export default {
             this.showMenu = true;
         },
         cardOwner() {
-            let userAccount = this.accountUser();
+            let userAccount = this.accountUser;
             if (userAccount && this.document.details && this.document.details.user) {
                 return userAccount.id === this.document.details.user.userId;
             } else {
@@ -271,7 +273,7 @@ export default {
         isDisabled() {
             let isOwner, account;
             isOwner = this.cardOwner();
-            account = this.accountUser();
+            account = this.accountUser;
             
             if (isOwner || !account) {
                 return true;
