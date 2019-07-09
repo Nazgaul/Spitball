@@ -44,7 +44,7 @@ namespace Cloudents.Command.CommandHandler.Admin
 
             var user = _userRepository.Load(message.UserSendingId);
 
-            var chatMessage = new SystemTextMessage(user, message.Message, chatRoom);
+            var chatMessage = new ChatTextMessage(user, message.Message, chatRoom);
             chatRoom.AddMessage(chatMessage);
             await _chatRoomRepository.UpdateAsync(chatRoom, token);
             await _chatMessageRepository.AddAsync(chatMessage, token); // need this in order to get id from nhibernate
