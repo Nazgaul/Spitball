@@ -82,7 +82,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> StartConversation(StartConversationRequest model,
             CancellationToken token)
         {
-            var command = new AdminSendChatTextMessageCommand(model.Message, model.UserId,
+            var command = new SendChatTextMessageCommand(model.Message, model.UserId,
                 model.TutorId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
