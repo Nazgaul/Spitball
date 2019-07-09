@@ -413,7 +413,7 @@ export default {
                 width: 550px;
                 margin: auto;
                 p {
-                    width: 60%;
+                    width: 80%;
                      @media (max-width: @screen-sm) {
                          width: auto;
                     }

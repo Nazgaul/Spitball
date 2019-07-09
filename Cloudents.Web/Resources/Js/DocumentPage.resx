@@ -154,6 +154,6 @@
     <value>Unlock</value>
   </data>
   <data name="unlock_document" xml:space="preserve">
-    <value>Unlock the document to see clearly</value>
+    <value>Credit the uploader with points to unlock</value>
   </data>
 </root>
