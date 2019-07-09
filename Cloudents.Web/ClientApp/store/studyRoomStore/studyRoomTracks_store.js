@@ -34,9 +34,7 @@ const actions = {
                 videoTrack.detach().forEach((detachedElement) => {
                     detachedElement.remove();
                 });
-                getters['activeRoom'].localParticipant.unpublishTrack(track.mediaStreamTrack);
-                getters['activeRoom'].localParticipant.removeTrack(track.mediaStreamTrack);
-                // getters['activeRoom'].participants[0].value._removeTrackPublication()
+                getters['activeRoom'].localParticipant.unpublishTrack(videoTrack.mediaStreamTrack);
             }
             dispatch('setCurrentVideoTrack', track);
             container.appendChild(track.attach());
@@ -48,7 +46,7 @@ const actions = {
                 AudioTrack.detach().forEach((detachedElement) => {
                     detachedElement.remove();
                 });
-                getters['activeRoom'].localParticipant.unpublishTrack(track.mediaStreamTrack);
+                getters['activeRoom'].localParticipant.unpublishTrack(AudioTrack.mediaStreamTrack);
             }
             dispatch('setCurrentAudioTrack', track);
             container.appendChild(track.attach());
