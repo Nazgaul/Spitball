@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Cloudents.Command.Command
 {
-    public class UpdatePhonerCommand : ICommand
+    public class UpdatePhoneCommand : ICommand
     {
-        public UpdatePhonerCommand(long userId, string newPhone)
+        public UpdatePhoneCommand(long userId, string newPhone)
         {
             UserId = userId;
             NewPhone = newPhone;
