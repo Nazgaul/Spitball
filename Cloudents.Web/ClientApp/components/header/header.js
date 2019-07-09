@@ -4,11 +4,17 @@ export default {
         mainHeader
     },
     computed:{
+        isMobile(){
+            return this.$vuetify.breakpoint.xsOnly;
+        },
         hideHeaderMobile(){
-            return false;
-            // let path = this.$route.name;
-            // let isMobile = this.$vuetify.breakpoint.xsOnly;
-            // return path === 'question' && isMobile;
+            // return false;
+            if(this.isMobile){
+                let filteredRoutes = ['document'];
+                return filteredRoutes.indexOf(this.$route.name) > -1;
+            }else{
+                return false;
+            }            
         }
     },
     beforeRouteUpdate(to, from, next) {
