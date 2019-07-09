@@ -94,7 +94,7 @@ namespace Cloudents.Web.Api
         {
 
 
-            var extension = Path.GetExtension(model.Name)?.TrimStart('.');
+            var extension = Path.GetExtension(model.Name);
 
             if (!GetSupportedExtensions().Contains(extension, StringComparer.OrdinalIgnoreCase))
             {
