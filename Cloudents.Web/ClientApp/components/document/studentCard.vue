@@ -9,7 +9,6 @@
                     <div class="studentCard_box align-center">
                         <div class="studentCard_name body-2 font-weight-bold text-truncate px-2">{{tutorData.name}}</div>
                         <user-rank style="margin: 15px auto;" :score="tutorData.score"></user-rank>
-                        <!-- <span class="studentCard_level white--text caption ml-3" v-language:inner="'documentPage_student_level'"></span> -->
                     </div>
                     <router-link :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}"><div class="pt-3" v-language:inner="'documentPage_student_views_documents'"></div></router-link>
                 </div>
