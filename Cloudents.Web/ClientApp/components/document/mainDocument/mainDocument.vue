@@ -4,7 +4,7 @@
             <v-icon color="#000" :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']" @click="closeDocument">sbf-arrow-back-chat</v-icon>
             <h2 class="title courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</h2>
             <v-spacer></v-spacer>
-            <span class="grey-text" :class="[isSmAndDown ? 'pr-3' : 'pr-5']"><v-icon class="pr-2" small>sbf-views</v-icon>{{docViews}}</span>
+            <span class="grey-text" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">{{docViews}}<v-icon class="pl-2 doc-views" small>sbf-views</v-icon></span>
             <span class="grey-text" :class="[isSmAndDown ? 'pl-3' : 'pr-4']">{{documentDate}}</span>
             
             <v-menu class="menu-area" lazy bottom left content-class="card-user-actions" v-model="showMenu">
@@ -349,6 +349,9 @@ export default {
             order: 2;
         }
         .main-header {
+            .doc-views {
+                margin-bottom: 1px;
+            }
             .courseName {
                 line-height: initial !important;
                 max-width: 800px;
