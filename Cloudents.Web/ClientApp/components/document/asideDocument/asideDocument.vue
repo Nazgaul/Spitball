@@ -15,7 +15,7 @@
             <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-language:inner="'documentPage_credit_uploader'"></p>
 
             <div class="aside-top-btn btn-lock elevation-5" v-if="!isPurchased && !isLoading" @click="unlockDocument">
-                <span class="pa-4 font-weight-bold text-xs-center">{{docPrice | currencyLocalyFilter}}</span>
+                <span class="pa-4 font-weight-bold text-xs-center" v-if="docPrice">{{docPrice | currencyLocalyFilter}}</span>
                 <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
             </div>
 
