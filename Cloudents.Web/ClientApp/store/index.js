@@ -25,8 +25,6 @@ import mobileFooter from './mobileFooter';
 //import onBoardGuide from './onBoardGuide';
 import buyTokens from './buyTokens';
 import payMe from './payMe';
-import tutoringCanvas from './tutoringCanvas';
-import tutoringMainStore from './tutoringMain';
 import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
 import studyRoomsStore from './studyRoomsStore';
@@ -35,8 +33,7 @@ import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
 import signalRStore from './signalRStore';
-
-
+import studyRoomStore from './studyRoomStore/index';
 
 
 Vue.use(Vuex);
@@ -65,8 +62,6 @@ const store = new Vuex.Store({
         //onBoardGuide,
         buyTokens,
         payMe,
-        tutoringCanvas,
-        tutoringMainStore,
         chatStore,
         becomeTutor,
         studyRoomsStore,
@@ -74,7 +69,8 @@ const store = new Vuex.Store({
         leaveReview,
         userOnlineStatus,
         requestTutor,
-        signalRStore
+        signalRStore,
+        ...studyRoomStore,
     }
 });
 

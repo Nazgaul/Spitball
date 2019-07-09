@@ -1,4 +1,5 @@
-﻿using Cloudents.Core;
+﻿using System.Collections.Generic;
+using Cloudents.Core;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.SignalR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
 
 namespace Cloudents.Web.EventHandler
 {
@@ -13,11 +15,13 @@ namespace Cloudents.Web.EventHandler
     {
         private readonly IHubContext<StudyRoomHub> _hubContext;
         private readonly IVideoProvider _videoProvider;
+        private readonly TelemetryClient _telemetryClient;
 
-        public WebSocketStudyRoomOnlineEventHandler(IHubContext<StudyRoomHub> hubContext, IVideoProvider videoProvider)
+        public WebSocketStudyRoomOnlineEventHandler(IHubContext<StudyRoomHub> hubContext, IVideoProvider videoProvider, TelemetryClient telemetryClient)
         {
             _hubContext = hubContext;
             _videoProvider = videoProvider;
+            _telemetryClient = telemetryClient;
         }
 
         public async Task HandleAsync(StudyRoomOnlineChangeEvent eventMessage, CancellationToken token)
@@ -27,6 +31,11 @@ namespace Cloudents.Web.EventHandler
 
             var onlineCount = studyRoom.Users.Count(f => f.Online);
             var totalOnline = studyRoom.Users.Count;
+            _telemetryClient.TrackEvent($"Users in room {studyRoom.Id}",metrics: new Dictionary<string, double>()
+            {
+                ["onlineCount"] = onlineCount,
+                ["totalOnline"] = totalOnline
+            });
             if (onlineCount == totalOnline)
             {
                 var session = studyRoom.Sessions.AsQueryable().Where(w => w.Ended == null).OrderByDescending(o => o.Id).FirstOrDefault();

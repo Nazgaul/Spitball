@@ -30,7 +30,7 @@ export default {
         id: ''
     },
     computed: {
-        ...mapState(['tutoringMainStore']),
+        ...mapState(['tutoringMain']),
         ...mapGetters([
             'localOffline',
             'remoteOffline',
