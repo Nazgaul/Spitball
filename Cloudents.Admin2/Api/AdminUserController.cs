@@ -300,5 +300,14 @@ namespace Cloudents.Admin2.Api
             var res = await _queryBus.QueryAsync(query, token);
             return new UsersFlagsResponse { Flags = res.Item1, Rows = res.Item2 };
         }
+
+        [HttpPut("phone")]
+        public async Task<IActionResult> UpdatePhoneAsync(
+                [FromBody]UpdatePhoneRequest model, CancellationToken token)
+        {
+            var command = new UpdatePhonerCommand(model.UserId, model.NewPhone);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }
