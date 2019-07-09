@@ -19,11 +19,10 @@
                                 v-for="(course, index) in userCourses"
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
-                            <v-card @click="goToSelectedClass(course.name)"
-                                    class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}"
-                                    key="two">
-                                <h4 class="course-name">{{course.name}}</h4>
-                            </v-card>
+                                
+                                <router-link :to="{name: 'note', query: {Course: course.name}}" class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}" key="two">
+                                    <h4 class="course-name">{{course.name}}</h4>
+                                </router-link>
                         </v-flex>
                         <!--</transition-group>-->
                         <v-flex xs12 sm6  v-if="userCourses.length > showQuantity" class="course-name show-more">
@@ -62,9 +61,6 @@
             },
         },
         methods: {
-            goToSelectedClass(course){
-                this.$router.push({name: 'note', query: {Course: course}})
-            },
             showAll() {
                 this.showQuantity = this.userCourses.length;
                 this.expanded = true;
