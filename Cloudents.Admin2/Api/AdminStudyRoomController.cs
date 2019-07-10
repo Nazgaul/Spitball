@@ -26,5 +26,13 @@ namespace Cloudents.Admin2.Api
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
+
+        [HttpGet("daily")]
+        public async Task<IEnumerable<DailyStudyRoomsDto>> DailyStudyRoomAsync(CancellationToken token)
+        {
+            var query = new AdminDailyStudyRoomQuery();
+            var retVal = await _queryBus.QueryAsync(query, token);
+            return retVal;
+        }
     }
 }
