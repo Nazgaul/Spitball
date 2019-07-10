@@ -154,7 +154,7 @@
     <value>סיימת את השיעור?</value>
   </data>
   <data name="entered_room" xml:space="preserve">
-    <value>נכנס לחדר וממתין להתחלת השיעור</value>
+    <value>ממתין להתחלת השיעור</value>
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>לוח</value>

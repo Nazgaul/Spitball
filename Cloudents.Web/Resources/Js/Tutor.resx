@@ -148,7 +148,7 @@
     <value>Close</value>
   </data>
   <data name="entered_room" xml:space="preserve">
-    <value>has entered the room and waiting for session to start</value>
+    <value>are waiting for session to start</value>
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>Canvas</value>
@@ -257,7 +257,7 @@ Try connecting from a computer browser</value>
     <value>Start Session</value>
   </data>
   <data name="stream_btn_waiting" xml:space="preserve">
-    <value>Waiting for student</value>
+    <value>Are waiting for student</value>
   </data>
   <data name="stream_guest" xml:space="preserve">
     <value>Guest</value>

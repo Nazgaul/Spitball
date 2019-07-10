@@ -151,7 +151,6 @@ namespace Cloudents.FunctionsV2
                     blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
                     mode = ResizeMode.BoxPad;
-                    //return new RedirectResult(blob2.Uri.AbsoluteUri);
                 }
             }
 
@@ -160,11 +159,12 @@ namespace Cloudents.FunctionsV2
                 try
                 {
                     var image = Image.Load<Rgba32>(sr);
-
+                    
+                    
                     image.Mutate(x => x.Resize(new ResizeOptions()
                     {
                         Mode = mode,
-                        Size = new Size(width, height)
+                        Size = new Size(width, height),
                     }));
                     switch (properties.Blur.GetValueOrDefault())
                     {
@@ -180,6 +180,7 @@ namespace Cloudents.FunctionsV2
                             throw new ArgumentOutOfRangeException();
                     }
                     image.Mutate(x => x.AutoOrient());
+                    image.Mutate(x=>x.BackgroundColor(Rgba32.White));
                     return new FileCallbackResult("image/jpg", (stream, context) =>
                     {
                         context.HttpContext.Response.Headers.Add("Cache-Control",
