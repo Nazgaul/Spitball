@@ -121,7 +121,7 @@
     <value>Credit the uploader with points to unlock</value>
   </data>
   <data name="download_btn" xml:space="preserve">
-    <value>download</value>
+    <value>Download</value>
   </data>
   <data name="more_tutors" xml:space="preserve">
     <value>More Tutors for this course</value>
