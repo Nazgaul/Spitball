@@ -100,7 +100,7 @@
                     :alt="document.content" />
                 
             </div>
-            <div class="unlockBox headline hidden-sm-and-down" v-if="!isPurchased" @click="unlockDocument">
+            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="unlockDocument">
                 <p class="text-xs-left" v-language:inner="'documentPage_unlock_document'"></p>
                 <div class="aside-top-btn elevation-5 align-center" v-if="!isLoading">
                     <span class="pa-4 font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
@@ -226,7 +226,7 @@ export default {
                 }                
                 let height = width / 0.707;                
                 let result = this.document.preview.map(preview => {                    
-                    return utillitiesService.proccessImageURL(preview, width, height.toFixed(0))
+                    return utillitiesService.proccessImageURL(preview, width, height.toFixed(0), 'pad')
                 })
                 return result;
             }
@@ -256,12 +256,18 @@ export default {
             return this.getBtnLoading
         },
         isPrice() {
-            if(this.document.details && this.document.details.price >= 0) {
+            if(this.document.details && this.document.details.price > 0) {
                 return true
             } else {
                 return false
             }
         },
+        isShowPurchased() {
+            if(!this.isPurchased && this.isPrice > 0) {
+                return true
+            }
+            return false
+        }
     },
     methods: {
         ...mapActions(['clearDocument', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState']),
