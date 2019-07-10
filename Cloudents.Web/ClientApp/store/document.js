@@ -61,7 +61,7 @@ const actions = {
         let {id, course, url} = item;     
         
         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`);
-        global.location.href = url;
+        global.open(url, 'Download Document');
     },
     purchaseDocument({commit, getters, dispatch}, item) {
         commit('setBtnLoading', true);
