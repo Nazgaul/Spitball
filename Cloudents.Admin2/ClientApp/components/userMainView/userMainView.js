@@ -47,6 +47,16 @@ export default {
                     action: this.sendTokens
                 }
             ],
+            dialogs: {
+                name: false,
+                phone: false
+            },
+            currentFirstName: '',
+            currentLastName: '',
+            newFirstName: '',
+            newLastName: '',
+            currentPhone: '',
+            newPhone: '',
             suspendDialog: false,
             userComponentsShow: false,
             activeUserComponent: '',
@@ -99,7 +109,10 @@ export default {
             "clearUserState",
             "updateFilterValue",
             "setNeedPaging",
-            "removeTutor"
+            "removeTutor",
+            "updateUserPhone",
+            "updateUserName"
+
         ]),
        
         resetUserData() {
@@ -146,14 +159,14 @@ export default {
                     if(data &&  data.id && data.id.value){
                         this.userIdentifier = id;
                         let routerName = this.$route.name && this.$route.name !== 'userMainView' ? this.$route.name : 'userQuestions';
-                        self.$router.push({name: routerName, params: {userId: data.id.value}});
+                        self.$router.push({name: 'userConversations', params: {userId: data.id.value}});
                     }else{
                         //clean id from url if not valid and nopthing reterned from server
                         // self.$router.push({name: 'userMainView', params: {userId: ''}});
                     }
                 }, () => {
                     if(id > 0 || this.userIdentifier != '') {
-                        self.$toaster.error(`Error can't fined user with given identifier`);
+                        self.$toaster.error(`Error can't find user with given identifier`);
                     }
                 });
         },
@@ -197,6 +210,54 @@ export default {
             if(query && query.id){ 
                 this.getUserInfoData(query.id) 
             }
+        },
+        openNameDialog(name) {
+            let fullName = name.split(' ')
+            this.dialogs.name = true;
+            this.currentFirstName = fullName[0];
+            this.currentLastName = fullName[1];
+        },
+        openPhoneDialog(phone) {           
+            this.dialogs.phone = true;
+            this.currentPhone = phone;
+        },
+        editName() {
+            let nameObj = {
+                firstName: this.newFirstName,
+                lastName: this.newLastName,
+                userId: this.userIdentifier
+            }
+            this.updateUserName(nameObj).then((res) => {
+                if(res === false) {
+                    this.$toaster.error(`ERROR: update user name`);
+                } else {
+                    this.$toaster.success(`SUCCESS: update user name`);
+                }
+                this.newFirstName = '';
+                this.newLastName = '';
+            }, (err) => {
+                this.$toaster.error(`ERROR: update user name`);
+            }).finally(() => {
+                this.dialogs.name = false;
+            })
+        },
+        editPhone() {
+            let phoneObj = {
+                newPhone: this.newPhone,
+                userId: this.userIdentifier
+            }
+            this.updateUserPhone(phoneObj).then((res) => {
+                if(res === false) {
+                    this.$toaster.error(`ERROR: update user phone`);
+                } else {
+                    this.$toaster.success(`SUCCESS: update user phone`);
+                }
+                this.newLastName = '';
+            }, (err) => {
+                this.$toaster.error(`ERROR: update user phone`);
+            }).finally(() => {
+                this.dialogs.phone = false;
+            })
         }
     },
     created() {        
