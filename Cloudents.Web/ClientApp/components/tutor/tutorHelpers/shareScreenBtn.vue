@@ -58,7 +58,7 @@
     import videoService from "../../../services/videoStreamService";
     import castIcon from "../images/cast.svg";
     import insightService from '../../../services/insightService';
-
+    import store from '../../../store/index.js';
     export default {
         name: "shareScreenBtn",
         components: {castIcon},
@@ -95,8 +95,8 @@
             },
             publishTrackToRoom(track) {
                 if(this.activeRoom) {
-                    this.activeRoom.localParticipant.videoTracks.forEach(track=>{
-                        this.unPublishTrackfromRoom(track.mediaStreamTrack);
+                    this.activeRoom.localParticipant.videoTracks.forEach(LocalVideoTrackPublication =>{
+                        this.unPublishTrackfromRoom(LocalVideoTrackPublication.track.mediaStreamTrack);
                     })
                     this.activeRoom.localParticipant.publishTrack(track, {
                         name: `shareScreen_${this.isTutor ? "tutor" : "student"}_${
@@ -106,6 +106,7 @@
                 }
             },
             unPublishTrackfromRoom(track) {
+                if(!track) return;
                 if(this.activeRoom) {
                     this.activeRoom.localParticipant.unpublishTrack(track);
                 }

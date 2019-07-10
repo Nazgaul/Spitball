@@ -55,7 +55,8 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Used for tutor tab
         /// </summary>
-        /// <param name="term"></param>
+        /// <param name="term">The term search</param>
+        /// <param name="course">The course</param>
         /// <param name="profile"></param>
         /// <param name="page"></param>
         /// <param name="tutorSearch"></param>
@@ -64,15 +65,18 @@ namespace Cloudents.Web.Api
         [HttpGet("search", Name = "TutorSearch")]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
         public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
-            string term,
+            string term,string course,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
             [FromServices] ITutorSearch tutorSearch,
 
             CancellationToken token)
         {
+            term = term ?? string.Empty;
+            course = course ?? string.Empty;
+            term = $"{term} {course}";
             //TODO make it better
-            if (string.IsNullOrEmpty(term))
+            if (string.IsNullOrWhiteSpace(term))
             {
                 var query = new TutorListTabQuery(profile.Country, page: page);
                 var result = await _queryBus.QueryAsync(query, token);
@@ -119,18 +123,19 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Return relevant tutors base on user course - on specific course tab - feed
         /// </summary>
-        /// <param name="courseName">The course name</param>
+        /// <param name="course">The course name</param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync([RequiredFromQuery] string courseName,
+        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync([RequiredFromQuery] string course,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListByCourseQuery(courseName, userId);
+            var query = new TutorListByCourseQuery(course, userId);
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
+
         [HttpPost("request"), ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL"), ValidateEmail]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices] IIpToLocation ipLocation,

@@ -121,7 +121,7 @@
     <value>Credit the uploader with points to unlock</value>
   </data>
   <data name="download_btn" xml:space="preserve">
-    <value>download</value>
+    <value>Download</value>
   </data>
   <data name="more_tutors" xml:space="preserve">
     <value>More Tutors for this course</value>
@@ -133,7 +133,7 @@
     <value>See All</value>
   </data>
   <data name="student_learn" xml:space="preserve">
-    <value>Students learn form students</value>
+    <value>Students learn from students</value>
   </data>
   <data name="student_uploaded" xml:space="preserve">
     <value>Uploaded by a student</value>
@@ -154,6 +154,6 @@
     <value>Unlock</value>
   </data>
   <data name="unlock_document" xml:space="preserve">
-    <value>Unlock the document to see clearly</value>
+    <value>Credit the uploader with points to unlock</value>
   </data>
 </root>

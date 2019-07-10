@@ -19,11 +19,10 @@
                                 v-for="(course, index) in userCourses"
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
-                            <v-card @click="goToSelectedClass(course.name)"
-                                    class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}"
-                                    key="two">
-                                <h4 class="course-name">{{course.name}}</h4>
-                            </v-card>
+                                
+                                <router-link event @click.native.prevent="goToCourse(course.name)" :to="{name: 'tutors', query: {Course: course.name}}" class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}" key="two">
+                                    <h4 class="course-name">{{course.name}}</h4>
+                                </router-link>
                         </v-flex>
                         <!--</transition-group>-->
                         <v-flex xs12 sm6  v-if="userCourses.length > showQuantity" class="course-name show-more">
@@ -45,7 +44,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapMutations } from 'vuex';
     export default {
         name: "coursesCard",
         data() {
@@ -62,9 +61,7 @@
             },
         },
         methods: {
-            goToSelectedClass(course){
-                this.$router.push({name: 'note', query: {Course: course}})
-            },
+            ...mapMutations(["UPDATE_SEARCH_LOADING"]),
             showAll() {
                 this.showQuantity = this.userCourses.length;
                 this.expanded = true;
@@ -79,8 +76,11 @@
                 }else{
                     this.$router.push({name: 'addCourse'});
                 }
-                
-            }
+            },
+            goToCourse(courseName){
+                this.UPDATE_SEARCH_LOADING(true);
+                this.$router.push({name: 'tutors', query: {Course: courseName}})
+            },
         },
         computed: {
             ...mapGetters(['getProfile', 'isTutorProfile']),
@@ -97,7 +97,6 @@
                 }
             },
         },
-
     }
 </script>
 

@@ -116,6 +116,9 @@
             min-width: 298px;
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.16);
             border: solid 6px #ffffff;
+            video{
+                width:100%;
+            }
         }
         .video-title{
             font-weight: 600;

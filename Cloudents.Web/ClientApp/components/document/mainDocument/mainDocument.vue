@@ -96,13 +96,14 @@
                     class="document-wrap-content" 
                     :src="page"
                     @load="handleDocWrap"
+                    v-if="page"
                     :alt="document.content" />
                 
             </div>
-            <div class="unlockBox headline hidden-sm-and-down" v-if="!isPurchased" @click="unlockDocument">
+            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="unlockDocument">
                 <p class="text-xs-left" v-language:inner="'documentPage_unlock_document'"></p>
                 <div class="aside-top-btn elevation-5 align-center" v-if="!isLoading">
-                    <span class="pa-4 font-weight-bold text-xs-center disabled">{{docPrice | currencyLocalyFilter}}</span>
+                    <span class="pa-4 font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
                 <v-progress-circular
@@ -174,7 +175,8 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getBtnLoading']),
+        ...mapGetters(['getBtnLoading', 'accountUser']),
+
         courseName() {
             if(this.document.details && this.document.details.name) {
                 return this.document.details.name
@@ -203,12 +205,28 @@ export default {
             }
         },
         docPreview() {
+            // TODO temporary calculated width container
             this.docPreviewLoader = true;
             if(this.document.preview && this.docWrap) {
-                let width = this.docWrap.offsetWidth;
+                let width;
+                if (this.$vuetify.breakpoint.xl) {
+                    width = 1540
+                }
+                if (this.$vuetify.breakpoint.lg) {
+                    width = 900
+                }
+                if (this.$vuetify.breakpoint.md) {
+                    width = 600
+                }
+                if (this.$vuetify.breakpoint.sm) {
+                    width = 750
+                }
+                if (this.$vuetify.breakpoint.xs) {
+                    width = 400
+                }                
                 let height = width / 0.707;                
                 let result = this.document.preview.map(preview => {                    
-                    return utillitiesService.proccessImageURL(preview, width, height.toFixed(0))
+                    return utillitiesService.proccessImageURL(preview, width, height.toFixed(0), 'pad')
                 })
                 return result;
             }
@@ -234,20 +252,34 @@ export default {
                 this.newPrice = val;
             }   
         },
-        isLoading() {
-            console.log(this.getBtnLoading);
-            
+        isLoading() {            
             return this.getBtnLoading
+        },
+        isPrice() {
+            if(this.document.details && this.document.details.price > 0) {
+                return true
+            } else {
+                return false
+            }
+        },
+        isShowPurchased() {
+            if(!this.isPurchased && this.isPrice > 0) {
+                return true
+            }
+            return false
         }
     },
     methods: {
-        ...mapActions(['clearDocument', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice']),
-        ...mapGetters(["accountUser"]),
+        ...mapActions(['clearDocument', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState']),
 
         unlockDocument() {
-            let item = {id: this.document.details.id, price: this.document.details.price}
-            if(!this.isLoading) {
-                this.purchaseDocument(item)
+            if(this.accountUser == null) {
+                this.updateLoginDialogState(true);
+            } else{
+                let item = {id: this.document.details.id, price: this.document.details.price}
+                if(!this.isLoading) {
+                    this.purchaseDocument(item)
+                }
             }
         },
         closeDocument() {
@@ -258,7 +290,7 @@ export default {
             this.showMenu = true;
         },
         cardOwner() {
-            let userAccount = this.accountUser();
+            let userAccount = this.accountUser;
             if (userAccount && this.document.details && this.document.details.user) {
                 return userAccount.id === this.document.details.user.userId;
             } else {
@@ -271,7 +303,7 @@ export default {
         isDisabled() {
             let isOwner, account;
             isOwner = this.cardOwner();
-            account = this.accountUser();
+            account = this.accountUser;
             
             if (isOwner || !account) {
                 return true;
@@ -297,6 +329,7 @@ export default {
         },
         deleteDocument() {
         let id = this.document.details.id;
+
         documentService.deleteDoc(id).then(success => {
                 this.updateToasterParams({
                     toasterText: LanguageService.getValueByKey(
@@ -308,13 +341,11 @@ export default {
             },
             error => {
                 this.updateToasterParams({
-                    toasterText: LanguageService.getValueByKey(
-                    "resultNote_error_delete"
-                    ),
+                    toasterText: error.response.data.error[0],
                     showToaster: true,
                     toasterType: 'error-toaster'
                 });
-            });
+            })
         },
         submitNewPrice() {
             let data = { id: this.document.details.id, price: this.newPrice };
@@ -334,7 +365,10 @@ export default {
             this.docPreviewLoader = false;
         }
     },
-    
+    beforeDestroy() {
+        console.log("beforeDestroy")
+        this.clearDocument();
+    },
     mounted(){
         this.docWrap = document.querySelector('.document-wrap');        
     },
@@ -396,7 +430,7 @@ export default {
                 width: 550px;
                 margin: auto;
                 p {
-                    width: 60%;
+                    width: 80%;
                      @media (max-width: @screen-sm) {
                          width: auto;
                     }

@@ -26,11 +26,11 @@ export default {
         ...mapGetters(['getTutorList']),
 
         tutorList() {
-            return this.getTutorList
+            return this.getTutorList;           
         },
     },
     created() {      
-        let course = this.$route.params.courseName        
+        let course = this.$route.params.courseName.replace(/-/g, ' '); 
         this.getTutorListCourse(course)
     }
 }

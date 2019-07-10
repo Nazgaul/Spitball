@@ -20,15 +20,15 @@ namespace Cloudents.Core.Entities
 
     }
 
-    public class SystemTextMessage : ChatTextMessage
-    {
-        protected SystemTextMessage()
-        {
+    //public class SystemTextMessage : ChatTextMessage
+    //{
+    //    protected SystemTextMessage()
+    //    {
 
-        }
+    //    }
 
-        public SystemTextMessage(User user, string message, ChatRoom room) : base(user, message, room)
-        {
-        }
-    }
+    //    public SystemTextMessage(User user, string message, ChatRoom room) : base(user, message, room)
+    //    {
+    //    }
+    //}
 }

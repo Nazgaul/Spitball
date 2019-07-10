@@ -74,7 +74,7 @@ namespace Cloudents.Command.CommandHandler
                 chatRoom.Extra.Lead = lead;
 
                 await _chatRoomRepository.UpdateAsync(chatRoom, token);
-                var chatMessage = new SystemTextMessage(user, message.ChatText, chatRoom);
+                var chatMessage = new ChatTextMessage(user, message.ChatText, chatRoom);
                 chatRoom.AddMessage(chatMessage);
                 await _chatRoomRepository.UpdateAsync(chatRoom, token);
                 await _chatMessageRepository.AddAsync(chatMessage, token);

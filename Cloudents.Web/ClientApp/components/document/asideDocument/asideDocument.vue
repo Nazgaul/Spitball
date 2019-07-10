@@ -12,17 +12,19 @@
 
             <my-courses class="d-block mx-auto hidden-sm-and-down"></my-courses>
 
-            <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-language:inner="'documentPage_credit_uploader'"></p>
+            <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-if="isShowPurchased" v-language:inner="'documentPage_credit_uploader'"></p>
 
-            <div class="aside-top-btn btn-lock elevation-5" v-if="!isPurchased && !isLoading" @click="unlockDocument">
-                <span class="pa-4 font-weight-bold text-xs-center">{{docPrice | currencyLocalyFilter}}</span>
-                <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
-            </div>
+            <template>
+                <div class="aside-top-btn btn-lock elevation-5" v-if="isShowPurchased && !isLoading" @click="unlockDocument">
+                    <span class="pa-4 font-weight-bold text-xs-center" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
+                    <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
+                </div>
+                <div class="aside-top-btn btn-download elevation-5 justify-center" :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading" @click="downloadDoc">                    
+                    <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
+                    <span class="white--text py-4 font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
+                </div>
+            </template>
 
-            <div class="aside-top-btn btn-download elevation-5 justify-center" v-if="isPurchased" @click="downloadDoc">                    
-                <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
-                <span class="white--text py-4 font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
-            </div>
             <v-progress-circular
                 class="unlock_progress"
                 v-if="isLoading && !isPurchased"
@@ -50,7 +52,7 @@
             <student-card :tutorData="ownTutor" v-if="!isTutor && ownTutor"/>
             <tutor-result-card-mobile :tutorData="ownTutor" :singleCard="true" :isInTutorList="true" v-if="isTutor && ownTutor" />
         </div>
-
+    
         <aside-document-tutors v-if="!$vuetify.breakpoint.smAndDown"/>
 
     </div>
@@ -74,12 +76,16 @@ export default {
         document: {},
     },
     methods: {
-        ...mapActions(['purchaseDocument', 'downloadDocument', 'clearDocument']),
+        ...mapActions(['purchaseDocument', 'downloadDocument', 'clearDocument', 'updateLoginDialogState']),
 
         unlockDocument() {
-            let item = {id: this.document.details.id, price: this.document.details.price}
-            if(!this.isLoading) {
-                this.purchaseDocument(item)
+            if(this.accountUser == null) {
+                this.updateLoginDialogState(true);
+            } else {
+                let item = {id: this.document.details.id, price: this.document.details.price}
+                if(!this.isLoading) {
+                    this.purchaseDocument(item)
+                }
             }
         },
         downloadDoc() {
@@ -99,7 +105,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getBtnLoading']),
+        ...mapGetters(['getBtnLoading', 'accountUser']),
 
         getCourse() {
             if(this.document.details && this.document.details.course) {
@@ -119,6 +125,8 @@ export default {
         isPurchased() {
             if(this.document.details && this.document.details.isPurchased) {
                 return this.document.details.isPurchased;
+            } else {
+                return false;
             }
         },
         isType() {
@@ -144,15 +152,23 @@ export default {
             return this.getBtnLoading
         },
         docPrice() {
-            if(this.document.details && this.document.details.price) {
+            if(this.document.details && this.document.details.price >= 0) {
                 return this.document.details.price.toFixed(2)
             }
         },
-        userScore() {
-            if(this.document.details && this.document.details.user.score) {
-                return this.document.details.user.score
+        isPrice() {
+            if(this.document.details && this.document.details.price > 0) {
+                return true
+            } else {
+                return false
             }
-        }
+        },
+        isShowPurchased() {
+            if(!this.isPurchased && this.isPrice > 0) {
+                return true
+            }
+            return false
+        },
     }
 }
 </script>
@@ -179,6 +195,7 @@ export default {
                 display: flex;
                 border-radius: 4px;
                 &.btn-lock {
+                    z-index: 1;
                     @media (max-width: @screen-sm) {
                         background: #fff;
                     }
