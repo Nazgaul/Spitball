@@ -1,6 +1,8 @@
 ﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,14 +16,16 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<ChatMessage> _chatMessageRepository;
         private readonly IRepository<Course> _courseRepository;
-        private readonly IRepository<Lead> _leadRepository;
+        private readonly ILeadRepository _leadRepository;
+
+        private const int requestLimit = 2;
 
         public RequestTutorCommandHandler(ITutorRepository tutorRepository,
             IChatRoomRepository chatRoomRepository,
             IRegularUserRepository userRepository,
             IRepository<ChatMessage> chatMessageRepository,
             IRepository<Course> courseRepository,
-            IRepository<Lead> leadRepository)
+            ILeadRepository leadRepository)
         {
             _tutorRepository = tutorRepository;
             _chatRoomRepository = chatRoomRepository;
@@ -34,6 +38,11 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(RequestTutorCommand message, CancellationToken token)
         {
             // var needToRegisterLead = true;
+            var leads = await _leadRepository.GetLeadsByUserIdAsync(message.UserId, token);
+            if (leads.Where(w => w.CreationTime > DateTime.UtcNow.AddDays(-1)).Count() > requestLimit)
+            {
+                throw new TooManyRequestsException();
+            }
             Tutor tutor = null;
             if (message.TutorId.HasValue)
             {

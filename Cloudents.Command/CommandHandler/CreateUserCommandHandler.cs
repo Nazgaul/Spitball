@@ -23,6 +23,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(CreateUserCommand message, CancellationToken token)
         {
+            
             if (message.UniversityId.HasValue)
             {
                 var university = await _universityRepository.LoadAsync(message.UniversityId.Value, token);

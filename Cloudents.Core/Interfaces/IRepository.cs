@@ -87,4 +87,9 @@ namespace Cloudents.Core.Interfaces
     {
         Task<CourseSubject> GetCourseSubjectByName(string name, CancellationToken token);
     }
+
+    public interface ILeadRepository : IRepository<Lead>
+    {
+        Task<IEnumerable<Lead>> GetLeadsByUserIdAsync(long UserId, CancellationToken token);
+    }
 }

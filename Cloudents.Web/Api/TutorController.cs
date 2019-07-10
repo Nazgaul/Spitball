@@ -152,14 +152,14 @@ namespace Cloudents.Web.Api
             {
                 if (model.Email == null)
                 {
-                    ModelState.AddModelError("error", "Need to have email");
+                    ModelState.AddModelError("error", _stringLocalizer["Need to have email"]);
 
                     client.TrackTrace("Need to have email 1");
                     return BadRequest(ModelState);
                 }
                 if (model.Phone == null)
                 {
-                    ModelState.AddModelError("error", "Need to have phone");
+                    ModelState.AddModelError("error", _stringLocalizer["Need to have phone"]);
                     client.TrackTrace("Need to have phone 2");
                     return BadRequest(ModelState);
                 }
@@ -173,7 +173,7 @@ namespace Cloudents.Web.Api
                         if (result != IdentityResult.Success)
                         {
                             client.TrackTrace("Invalid Phone number");
-                            ModelState.AddModelError("error", "Invalid Phone number");
+                            ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
                             return BadRequest(ModelState);
                         }
                     }
@@ -193,7 +193,7 @@ namespace Cloudents.Web.Api
                     var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
                     if (result != IdentityResult.Success)
                     {
-                        ModelState.AddModelError("error", "Invalid Phone number");
+                        ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
 
                         client.TrackTrace("Invalid Phone number 2");
                         return BadRequest(ModelState);
@@ -216,10 +216,15 @@ namespace Cloudents.Web.Api
             catch (SqlConstraintViolationException)
             {
                 client.TrackTrace("Invalid Course");
-                ModelState.AddModelError("error", "Invalid Course");
+                ModelState.AddModelError("error", _stringLocalizer["Invalid Course"]);
                 return BadRequest(ModelState);
             }
-
+            catch (TooManyRequestsException)
+            {
+                client.TrackTrace("Too many tutor requests");
+                ModelState.AddModelError("error", _stringLocalizer["You requested too many today, Please contact support"]);
+                return BadRequest(ModelState);
+            }
             return Ok();
         }
 
