@@ -20,7 +20,7 @@
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
                                 
-                                <router-link :to="{name: 'note', query: {Course: course.name}}" class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}" key="two">
+                                <router-link event @click.native.prevent="goToCourse(course.name)" :to="{name: 'tutors', query: {Course: course.name}}" class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}" key="two">
                                     <h4 class="course-name">{{course.name}}</h4>
                                 </router-link>
                         </v-flex>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapMutations } from 'vuex';
     export default {
         name: "coursesCard",
         data() {
@@ -61,6 +61,7 @@
             },
         },
         methods: {
+            ...mapMutations(["UPDATE_SEARCH_LOADING"]),
             showAll() {
                 this.showQuantity = this.userCourses.length;
                 this.expanded = true;
@@ -75,8 +76,11 @@
                 }else{
                     this.$router.push({name: 'addCourse'});
                 }
-                
-            }
+            },
+            goToCourse(courseName){
+                this.UPDATE_SEARCH_LOADING(true);
+                this.$router.push({name: 'tutors', query: {Course: courseName}})
+            },
         },
         computed: {
             ...mapGetters(['getProfile', 'isTutorProfile']),
@@ -93,7 +97,6 @@
                 }
             },
         },
-
     }
 </script>
 
