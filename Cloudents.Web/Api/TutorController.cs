@@ -143,6 +143,10 @@ namespace Cloudents.Web.Api
             {
                 var query = new UserEmailInfoQuery(userId);
                 var userInfo = await _queryBus.QueryAsync(query, token);
+                if (userInfo.LeadCount > 2)
+                {
+                    return Ok();
+                }
                 model.Phone = userInfo.PhoneNumber;
                 model.Name = userInfo.Name;
                 model.Email = userInfo.Email;

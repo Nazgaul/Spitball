@@ -10,5 +10,6 @@ namespace Cloudents.Core.DTOs
         public Guid University { get; set; }
 
         public string PhoneNumber { get; set; }
+        public int LeadCount { get; set; }
     }
 }
