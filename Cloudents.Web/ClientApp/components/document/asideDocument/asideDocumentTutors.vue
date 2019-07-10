@@ -26,7 +26,7 @@ export default {
         ...mapGetters(['getTutorList']),
 
         tutorList() {
-            return this.getTutorList
+            return this.getTutorList;           
         },
     },
     created() {      

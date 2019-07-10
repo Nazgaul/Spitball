@@ -12,7 +12,17 @@ const state = {
 
 const getters = {
     getDocumentDetails: state => state.document,
-    getTutorList: state => state.tutorList,
+    getTutorList: (state) => {
+        if(!!state.document.details){
+            let uploaderId = state.document.details.user.userId;
+            let filteredTutorList = state.tutorList.filter((tutor)=>{
+                return tutor.userId !== uploaderId;
+            })
+            return filteredTutorList;
+        }else{
+            return state.tutorList;
+        }
+    },
     getBtnLoading: state => state.btnLoading
 };
 
@@ -82,7 +92,7 @@ const actions = {
             });
         }
     },
-    getTutorListCourse({ commit }, payload) {
+    getTutorListCourse({ commit, state }, payload) {
         searchService.activateFunction.getTutors(payload).then(res => {
             commit('setTutorsList', res)
         })
