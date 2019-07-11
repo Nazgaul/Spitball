@@ -82,6 +82,39 @@
                         </div>
                     </v-card>
                 </sb-dialog>
+                <sb-dialog
+                    :showDialog="showConfirm"
+                    :popUpType="'purchaseConfirmation'"
+                    :activateOverlay="true"
+                    :isPersistent="true"
+                    :content-class="`confirmation-purchase-dialog`">
+                    <v-card class="confirm-purchase-card">
+                        <v-card-title class="confirm-headline">
+                            <span v-html="$Ph('preview_about_to_buy', [docPrice, uploaderName])"></span>
+                        </v-card-title>
+                        <v-card-actions class="card-actions">
+                            <div class="doc-details">
+                                <div class="doc-type">
+                                    <v-icon class="doc-type-icon">sbf-document-note</v-icon>
+                                    <span class="doc-type-text">{{itemType}}</span>
+                                </div>
+                                <div class="doc-title">
+                                    <span v-line-clamp:18="1">{{courseName  ? courseName : ''}}</span>
+                                </div>
+                            </div>
+                            <div class="purchase-actions">
+                                <v-btn flat class="cancel" @click.native="showConfirm = false">
+                                    <span v-language:inner>preview_cancel</span>
+                                </v-btn>
+                                <v-btn round class="submit-purchase" @click.native="unlockDocument">
+                                    <span class="hidden-xs-only" v-language:inner>preview_buy_btn</span>
+                                    <span class="hidden-sm-and-up text-uppercase"
+                                        v-language:inner>preview_itemActions_buy</span>
+                                </v-btn>
+                            </div>
+                        </v-card-actions>
+                    </v-card>
+                </sb-dialog>
             </div>
         </v-layout>
         <div class="document-wrap">
@@ -102,7 +135,7 @@
                     :alt="document.content" />
                 
             </div>
-            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="unlockDocument">
+            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="showConfirm = true">
                 <p class="text-xs-left" v-language:inner="'documentPage_unlock_document'"></p>
                 <div class="aside-top-btn elevation-5 align-center" v-if="!isLoading">
                     <span class="pa-4 font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
@@ -140,6 +173,7 @@ export default {
     },
     data() {
         return {
+            showConfirm: false,
             showMenu: false,
             docPreviewLoader: false,
             currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
@@ -178,7 +212,11 @@ export default {
     },
     computed: {
         ...mapGetters(['getBtnLoading', 'accountUser']),
-
+        uploaderName(){
+            if(this.document.details && this.document.details.user.name) {
+                return this.document.details.user.name
+            }
+        },
         courseName() {
             if(this.document.details && this.document.details.name) {
                 return this.document.details.name
@@ -281,6 +319,7 @@ export default {
                 let item = {id: this.document.details.id, price: this.document.details.price}
                 if(!this.isLoading) {
                     this.purchaseDocument(item)
+                    this.showConfirm = false
                 }
             }
         },
@@ -487,4 +526,104 @@ export default {
         }
         
     }
+
+    .confirmation-purchase-dialog {
+  max-width: 544px !important;
+  @media (max-width: @screen-xs) {
+    max-width: 338px !important;
+  }
+  .confirm-purchase-card {
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 4px;
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.33);
+    overflow: hidden;
+    @media (max-width: @screen-xs) {
+      align-items: center;
+    }
+    .confirm-headline {
+      font-family: @fontFiraSans;
+      font-size: 18px;
+      line-height: 1.56;
+      color: @color-blue-new;
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 32px 16px 24px 16px;
+      @media (max-width: @screen-xs) {
+        text-align: center;
+        padding-top: 48px;
+        padding-bottom: 32px;
+      }
+    }
+
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      background: #F7F7F7;
+      padding: 24px 16px 16px 16px;
+      @media (max-width: @screen-xs) {
+        padding: 32px 16px 16px 16px;
+      }
+      .doc-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .doc-type {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 0 0 12px;
+          .doc-type-icon {
+            margin-right: 8px;
+            color: @color-blue-new;
+            font-size: 24px;
+          }
+          .doc-type-text {
+            color: @color-blue-new;
+            font-size: 13px;
+            font-family: @fontFiraSans;
+          }
+        }
+        .doc-title {
+          font-family: @fontFiraSans;
+          color: @textColor;
+          text-align: center;
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+      .purchase-actions {
+        display: flex;
+        flex-direction: row;
+        padding-top: 28px;
+        @media (max-width: @screen-xs) {
+          padding-top: 48px;
+        }
+        button {
+          height: unset;
+          background-color: transparent;
+          font-size: 16px;
+          text-transform: capitalize;
+          &.submit-purchase {
+            .sb-rounded-medium-btn();
+            font-size: 16px;
+          }
+          &.cancel {
+            font-size: 14px;
+            font-family: @fontOpenSans;
+            color: fade(@color-black, 72%);
+          }
+        }
+      }
+    }
+  }
+}
 </style>
