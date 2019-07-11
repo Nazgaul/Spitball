@@ -163,6 +163,7 @@ namespace Cloudents.Admin2
         {
             services.AddSwaggerGen(c =>
             {
+
                 c.SwaggerDoc("v1", new Info { Title = "Admin Api", Version = "v1" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

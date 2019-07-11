@@ -27,7 +27,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(User.Email))]
         public string TutorEmail { get; set; }
 
-        public ChatRoomStatus? Status { get; set; }
+        public ChatRoomStatus Status { get; set; }
 
         public int ConversationStatus { get; set; }
         public ChatRoomAssign? AssignTo { get; set; }

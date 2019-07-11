@@ -36,8 +36,14 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<ConversationDto>> ConversationAsync([FromQuery] ConversationDetailsRequest request
             , CancellationToken token)
         {
-            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page, 
-                request.Status, request.AssignTo, request.AutoStatus);
+            ChatRoomStatus p = null;
+            if (request.Status.HasValue)
+            {
+                p = Enumeration.FromValue<ChatRoomStatus>(request.Status.Value);
+            }
+
+            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page,
+                p, request.AssignTo, request.AutoStatus);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -72,7 +78,10 @@ namespace Cloudents.Admin2.Api
             {
                 return BadRequest();
             }
-            var command = new ChangeConversationStatusCommand(identifier, model.Status);
+
+            var p = Enumeration.FromValue<ChatRoomStatus>(model.Status);
+
+            var command = new ChangeConversationStatusCommand(identifier, p);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -107,11 +116,11 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("params")]
-        public ConversationParamsResponse GetParams()
+        public object GetParams()
         {
-            return new ConversationParamsResponse()
+            return new 
             {
-                Status = Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
+                Status = Enumeration.GetAll<ChatRoomStatus>(),// Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
                 AssignTo = Enum.GetNames(typeof(ChatRoomAssign)).Select(s => s.ToCamelCase()),
                 WaitingFor = Enum.GetNames(typeof(WaitingFor)).Select(s => s.ToCamelCase())
             };
