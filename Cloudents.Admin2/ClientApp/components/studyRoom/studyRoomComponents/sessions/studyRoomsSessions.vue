@@ -6,9 +6,17 @@
                       :headers="headers">
             <template slot="items" slot-scope="props">
                 <tr @click="openItem(props.item)">
-                    <td class="text-xs-left">{{ props.item.tutorName }}</td>
-                    <td class="text-xs-left">{{ props.item.userName }}</td>
                     <td class="text-xs-left">{{ props.item.created.toLocaleString() }}</td>
+                    <td class="text-xs-left" @click.stop="">
+                        <router-link :to="{name: `userConversations`, params: {userId: props.item.tutorId}}">
+                            {{ props.item.tutorName }}
+                        </router-link>
+                    </td>
+                    <td class="text-xs-left" @click.stop="">
+                        <router-link :to="{name: 'userConversations', params: {userId: props.item.userId}}">
+                            {{ props.item.userName }}
+                        </router-link>
+                    </td>
                     <td class="text-xs-left">{{ props.item.duration }}</td>
                 </tr>
             </template>
@@ -25,9 +33,9 @@
         data() {
             return {
                 headers: [
+                    { text: 'Created' },
                     { text: 'Tutor' },
                     { text: 'Student' },
-                    { text: 'Created' },
                     { text: 'Duration (minutes)' }
                 ],
                 showLoading: true,
@@ -36,19 +44,19 @@
                 pagination: { 'sortBy': 'Created', 'descending': true, 'rowsPerPage': -1 }
             }
         },
-            created() {
-                getSessions().then((list) => {
-                    if (list.length === 0) {
-                        this.showNoResult = true;
-                    } else {
-                        this.sessionsList = list;
-                    }
-                    this.showLoading = false;
-                }, (err) => {
-                    console.log(err)
-                })
-            }
+        created() {
+            getSessions().then((list) => {
+                if (list.length === 0) {
+                    this.showNoResult = true;
+                } else {
+                    this.sessionsList = list;
+                }
+                this.showLoading = false;
+            }, (err) => {
+                console.log(err)
+            })
         }
+    }
 
 </script>
 

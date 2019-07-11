@@ -1,10 +1,10 @@
 <template>
-    <v-container>
+    <v-container fluid>
         <v-form ref="form" lazy-validation  
          @submit.prevent="submitUserData"
           >
-            <v-layout row>
-                <v-flex xs3>
+            <v-layout row wrap :class="{'column': $vuetify.breakpoint.mdAndDown}">
+                <v-flex xs3 style="display: flex;">
                     <v-text-field solo v-model="userIdentifier"
                                   autofocus
                                   type="text"
@@ -12,15 +12,15 @@
                                   :rules="requiredRules"
                                   placeholder="Insert user identifier..." 
                                   @keyup.enter="submitUserData()"/>
+                                  
+                    <v-btn color="success" @click="submitUserData()">
+                        Get User
+                    </v-btn>
                 </v-flex>
-                <v-btn color="success"
-                       @click="submitUserData()"
-                       >
-                    Get User
-                </v-btn>
+                
                
                 <v-spacer></v-spacer>
-                <v-flex xs4 v-if="showActions">
+                <v-flex xs4 v-if="showActions" >
                     <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!showActions" color="red lighten-2"
                            @click="showSuspendDialog()">
                         Suspend
@@ -35,8 +35,8 @@
                 
             </v-layout>
         </v-form>
-        <v-layout>
-            <v-flex xs3 v-if="showActions">
+        <v-layout :class="{'column': $vuetify.breakpoint.mdAndDown}">
+            <v-flex xs3 v-if="showActions" :class="{'userDetails mb-4': $vuetify.breakpoint.mdAndDown}">
                 <v-list dense class="elevation-2">
                     <template v-for="(infoItem, name,index) in userInfo">
                         <v-list-tile :class="[ (index % 2 == 0) ? 'teal lighten-4' : 'cyan lighten-5' ]" :key="index">
@@ -53,7 +53,7 @@
                 </v-list>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-flex xs10 class="ml-2">
+            <v-flex xs9 class="ml-2">
                 <v-tabs centered color="light-green">
                     <v-tab :to="{name: 'userQuestions', params : {userId: userId} }">Question</v-tab>
                     <v-tab :to="{name: 'userAnswers', params:{userId: userId}}">Answers</v-tab>
@@ -191,3 +191,6 @@
 
 </script>
 
+<style lang="scss">
+
+</style>

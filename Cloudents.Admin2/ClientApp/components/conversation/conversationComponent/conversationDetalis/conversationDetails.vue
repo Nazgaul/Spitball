@@ -1,8 +1,8 @@
 ﻿<template>
   <div>
-    <div class="container">
+    <div class="pa-2">
       <v-layout justify-center>
-        <v-flex xs12 style="background: #ffffff; min-width: 960px;">
+        <v-flex xs12 style="background: #ffffff;">
           <v-toolbar color="indigo" class="heading-toolbar" dark>
             <v-toolbar-title>Conversations</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -75,36 +75,36 @@
                           <v-flex xs2 class="card-converstaion-content-col-1 pl-3">
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Name</span>
-                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.userId}}" target="_blank" class="body-1  font-weight-bold" color="81C784">{{conversation.userName}}</router-link>
+                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.userId}}" target="_blank" class="body-1 text-truncate font-weight-bold" color="81C784">{{conversation.userName}}</router-link>
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Email</span>
-                                  <span class="">{{conversation.userEmail}}</span>
+                                  <span class="text-truncate">{{conversation.userEmail}}</span>
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Phone</span>
-                                  <span class="">{{conversation.userPhoneNumber}}</span>
+                                  <span class="text-truncate">{{conversation.userPhoneNumber}}</span>
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-2 pl-3">
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Name</span>
-                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.tutorId}}" target="_blank" class="body-1  font-weight-bold ">{{conversation.tutorName}}</router-link>
+                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.tutorId}}" target="_blank" class="body-1 text-truncate font-weight-bold ">{{conversation.tutorName}}</router-link>
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Email</span>
-                                  <span class="">{{conversation.tutorEmail}}</span>
+                                  <span class="text-truncate">{{conversation.tutorEmail}}</span>
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Phone</span>
-                                  <span class="">{{conversation.tutorPhoneNumber}}</span>
+                                  <span class="text-truncate">{{conversation.tutorPhoneNumber}}</span>
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-3 pl-3">
                               <v-layout row wrap align-center>
-                                  <p @click.stop="openSpitballTutorPage(conversation.requestFor)" class="subheading pl-2 pt-1 font-weight-bold">{{conversation.requestFor}}</p>
+                                  <p @click.stop="openSpitballTutorPage(conversation.requestFor)" class="subheading pl-2 popenSpitballTutorPaget-1 font-weight-bold">{{conversation.requestFor}}</p>
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
@@ -305,9 +305,6 @@ export default {
     openSpitballTutorPage(subject) {
       window.open(`https://www.spitball.co/tutor?term=${subject}`, '_blank');
     },
-    // openCrm(id) {
-    //   this.$router.push({name: 'userQuestions', params: {userId: id}});
-    // },
     openStartConversationDialog(id) {
       this.currentStudentId = id
       this.dialog.startConversation = true
@@ -322,6 +319,7 @@ export default {
     }
   },
   created() {
+    if(this.$route.name === 'userConversations' && !this.userId) return this.$router.push('/')
     window.addEventListener("scroll", this.handleScroll);
     getFiltersParams().then(conversationFilters=>{
       this.filters = conversationFilters;
@@ -344,6 +342,9 @@ export default {
 }
 
 .heading-toolbar {
+    position: sticky !important;
+    top: 0;
+    z-index: 1;
     height: 74px;
     padding-top: 5px;
   .top-card-select{
@@ -370,6 +371,11 @@ export default {
         flex: 0 0 auto !important;
       }
     }
+    // .card-converstaion-content-col-1,.card-converstaion-content-col-2 {
+    //   .text-truncate {
+    //     max-width: 110px;
+    //   }
+    // }
     .card-converstaion-content-col-4 {
       flex-direction: column;
     }

@@ -112,7 +112,6 @@ export default {
             "removeTutor",
             "updateUserPhone",
             "updateUserName"
-
         ]),
        
         resetUserData() {
@@ -203,7 +202,6 @@ export default {
         getRouteParams() {
             let query = this.$route.query;
             let params = this.$route.params;
-
             if(params && params.userId){            
                 this.getUserInfoData(params.userId);
             }
@@ -212,7 +210,7 @@ export default {
             }
         },
         openNameDialog(name) {
-            let fullName = name.split(' ')
+            let fullName = name.split(' ');
             this.dialogs.name = true;
             this.currentFirstName = fullName[0];
             this.currentLastName = fullName[1];
@@ -228,7 +226,7 @@ export default {
                 userId: this.userIdentifier
             }
             this.updateUserName(nameObj).then((res) => {
-                if(res === false) {
+                if(!res) {
                     this.$toaster.error(`ERROR: update user name`);
                 } else {
                     this.$toaster.success(`SUCCESS: update user name`);
@@ -247,7 +245,7 @@ export default {
                 userId: this.userIdentifier
             }
             this.updateUserPhone(phoneObj).then((res) => {
-                if(res === false) {
+                if(!res) {
                     this.$toaster.error(`ERROR: update user phone`);
                 } else {
                     this.$toaster.success(`SUCCESS: update user phone`);
@@ -260,11 +258,11 @@ export default {
             })
         }
     },
-    created() {        
+    created() {
+        console.log(this.$route)
         this.getRouteParams()
     },
     mounted() {
-        
         let self = this;
             window.addEventListener("scroll",() => {
                 let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;

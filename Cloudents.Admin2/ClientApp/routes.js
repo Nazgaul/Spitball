@@ -34,7 +34,7 @@ import userQuestions from './components/userMainView/userQuestions/userQuestions
 import userAnswers from './components/userMainView/userAnswers/userAnswers.vue';
 import userDocuments from './components/userMainView/userDocuments/userDocuments.vue';
 import userPurchasedDocuments from './components/userMainView/userPurchasedDocuments/userPurchasedDocuments.vue';
-import userConversations from './components/userMainView/userConversations/userConversations.vue';
+// import userConversations from './components/userMainView/userConversations/userConversations.vue';
 import userSessions from './components/userMainView/userSessions/userSessions.vue';
 
 import management from './components/management/Management.vue';
