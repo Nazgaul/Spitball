@@ -1,6 +1,7 @@
 <template>
     <div class="main-container pb-5">
         <v-layout row class="main-header" :class="[isSmAndDown ? 'pt-3' : 'pb-3']" align-center>
+            <div class="main-header-wrapper">
             <v-icon color="#000" :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']" @click="closeDocument">sbf-arrow-back-chat</v-icon>
             <h2 class="title courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</h2>
             <v-spacer></v-spacer>
@@ -81,6 +82,7 @@
                     </div>
                 </v-card>
             </sb-dialog>
+</div>
         </v-layout>
         <div class="document-wrap">
             <v-progress-circular
@@ -383,35 +385,42 @@ export default {
             order: 2;
         }
         .main-header {
-            .doc-views {
-                margin-bottom: 1px;
-            }
-            .courseName {
-                line-height: initial !important;
-                max-width: 800px;
-                @media (max-width: @screen-xs) {
-                    max-width: 200px;
+            justify-content: center;
+            .main-header-wrapper{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            max-width: 960px;
+                .doc-views {
+                    margin-bottom: 1px;
                 }
-                @media (max-width: @screen-xss) {
-                    max-width: 160px;
+                .courseName {
+                    line-height: initial !important;
+                    max-width: 800px;
+                    @media (max-width: @screen-xs) {
+                        max-width: 200px;
+                    }
+                    @media (max-width: @screen-xss) {
+                        max-width: 160px;
+                    }
+                    @media (max-width: 320px) {
+                        max-width: 110px;
+                    }
                 }
-                @media (max-width: 320px) {
-                    max-width: 110px;
+                .arrow-back {
+                    font-size: 40px;
                 }
-            }
-            .arrow-back {
-                font-size: 40px;
-            }
-            .arrow-back-rtl{
-                transform: scaleX(-1);
-            }
-            .grey-text {
-                opacity: .6;
-            }
-            .verticalMenu {
-                color: #aaa;
-                @media (max-width: @screen-sm) {
-                    font-size: 16px;
+                .arrow-back-rtl{
+                    transform: scaleX(-1);
+                }
+                .grey-text {
+                    opacity: .6;
+                }
+                .verticalMenu {
+                    color: #aaa;
+                    @media (max-width: @screen-sm) {
+                        font-size: 16px;
+                    }
                 }
             }
         }
@@ -459,6 +468,7 @@ export default {
             }
             .document-wrap-content {
                 width: 100%;
+                max-width: 960px;
             }
             .unlock_progress {
                     display: flex;
