@@ -2,7 +2,7 @@
     <v-layout column class="aside-bottom mb-5">
         <div class="justify-space-between more-tutors pb-3">
             <span class="font-weight-bold" v-language:inner="'documentPage_more_tutors'"></span>
-            <router-link v-language:inner="'documentPage_see_all'" to="/tutor"></router-link>
+            <router-link class="seeAll font-weight-bold" v-language:inner="'documentPage_see_all'" to="/tutor"></router-link>
         </div>
 
         <div v-for="(tutor, index) in tutorList" :key="index">
@@ -42,6 +42,10 @@ export default {
             display: flex;
             span {
                 font-size: 15px;
+                color: #43425d;
+            }
+            .seeAll {
+                color: #4452fc;
             }
         }
     }

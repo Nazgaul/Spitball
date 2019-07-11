@@ -32,18 +32,18 @@
                 color="#4452fc"
             ></v-progress-circular>
 
-            <table class="py-3">
+            <table class="pt-3">
                 <tr v-if="isCourse" clas>
-                    <td class="py-2" v-language:inner="'documentPage_table_course'"></td>
-                    <td class="caption font-weight-light"><h3 class="text-truncate"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
+                    <td class="py-2 caption" v-language:inner="'documentPage_table_course'"></td>
+                    <td class="font-weight-light"><h3 class="caption text-truncate"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
                 </tr>
                 <tr v-if="isUniversity">
-                    <td class="py-2" v-language:inner="'documentPage_table_university'"></td>
-                    <td class="caption font-weight-light"><h4 class="text-truncate">{{getUniversity}}</h4></td>
+                    <td class="py-2 caption" v-language:inner="'documentPage_table_university'"></td>
+                    <td class="font-weight-light"><h4 class="caption text-truncate">{{getUniversity}}</h4></td>
                 </tr>
                 <tr v-if="isType">
-                    <td class="py-2" v-language:inner="'documentPage_table_type'"></td>
-                    <td class="caption font-weight-light"><h5 class="text-truncate">{{getType}}</h5></td>
+                    <td class="py-2 caption" v-language:inner="'documentPage_table_type'"></td>
+                    <td class="font-weight-light"><h5 class="caption text-truncate">{{getType}}</h5></td>
                 </tr>
             </table>
         </div>
@@ -187,6 +187,10 @@ export default {
                 font-size: 15px;
                 color: #43425d;
             }
+            p:nth-child(3) {
+                color: #43425d;
+;
+            }
             p:nth-child(5) {
                 color: #4452fc;
             }
@@ -194,6 +198,7 @@ export default {
                 cursor: pointer;
                 display: flex;
                 border-radius: 4px;
+                margin: 0 20px;
                 &.btn-lock {
                     z-index: 1;
                     @media (max-width: @screen-sm) {
@@ -236,7 +241,7 @@ export default {
                     color: #aaa;
                 }
                 td:nth-child(2) {
-                    border-bottom: 2px solid #ccc;
+                    border-bottom: solid 1px rgba(67, 66, 93, 0.17);
                 }
                 tr:last-child {
                     td:last-child {

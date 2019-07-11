@@ -1,88 +1,88 @@
 <template>
     <div class="main-container pb-5">
-        <v-layout row class="main-header" :class="[isSmAndDown ? 'pt-3' : 'pb-3']" align-center>
+        <v-layout row class="main-header" :class="[isSmAndDown ? 'pt-3' : 'pb-2']" align-center>
             <div class="main-header-wrapper">
-            <v-icon color="#000" :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']" @click="closeDocument">sbf-arrow-back-chat</v-icon>
-            <h2 class="title courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</h2>
-            <v-spacer></v-spacer>
-            <span class="grey-text" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">{{docViews}}<v-icon class="pl-2 doc-views" small>sbf-views</v-icon></span>
-            <span class="grey-text" :class="[isSmAndDown ? 'pl-3' : 'pr-4']">{{documentDate}}</span>
-            
-            <v-menu class="menu-area" lazy bottom left content-class="card-user-actions" v-model="showMenu">
-                <v-btn
-                  :depressed="true"
-                  @click.native.stop.prevent="showReportOptions()"
-                  slot="activator"
-                  class="mr-0"
-                  icon
-                >
-                    <v-icon class="verticalMenu">sbf-3-dot</v-icon>
-                </v-btn>
-                <v-list>
-                    <v-list-tile
-                        v-show="item.isVisible(item.visible)"
-                        :disabled="item.isDisabled()"
-                        v-for="(item, i) in actions"
-                        :key="i"
+                <v-icon color="#000" :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']" @click="closeDocument">sbf-arrow-back-chat</v-icon>
+                <h2 class="courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</h2>
+                <v-spacer></v-spacer>
+                <span class="grey-text views mt-2" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">{{docViews}}<v-icon class="pl-2 doc-views" small>sbf-views</v-icon></span>
+                <span class="grey-text date mt-2" :class="{'pl-3': isSmAndDown}">{{documentDate}}</span>
+                
+                <v-menu class="menu-area" lazy bottom left content-class="card-user-actions" v-model="showMenu">
+                    <v-btn
+                    :depressed="true"
+                    @click.native.stop.prevent="showReportOptions()"
+                    slot="activator"
+                    class="mr-0"
+                    icon
                     >
-                        <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
-                    </v-list-tile>
-                </v-list>
-            </v-menu>
-            <sb-dialog
-                :showDialog="showReport"
-                :maxWidth="'438px'"
-                :popUpType="'reportDialog'"
-                :content-class="`reportDialog ${isRtl? 'rtl': ''}` "
-                >
-                <report-item :closeReport="closeReportDialog" :itemType="itemType" :itemId="itemId"></report-item>
-            </sb-dialog>
-            <sb-dialog
-                :showDialog="priceDialog"
-                :maxWidth="'438px'"
-                :popUpType="'priceUpdate'"
-                :onclosefn="closeNewPriceDialog"
-                :activateOverlay="true"
-                :isPersistent="true"
-                :content-class="`priceUpdate ${isRtl ? 'rtl': ''}`"
-                >
-                <v-card class="price-change-wrap">
-                    <v-flex align-center justify-center class="relative-pos">
-                        <div class="title-wrap">
-                            <span class="change-title" v-language:inner="'resultNote_change_for'"></span>
-                            <span
-                            class="change-title"
-                            style="max-width: 150px;"
-                            v-line-clamp="1"
-                            >&nbsp;"{{courseName}}"</span>
-                        </div>
-                        <div class="input-wrap d-flex row align-center justify-center">
-                            <div :class="['price-wrap', isRtl ? 'reversed' : '']">
-                            <vue-numeric
-                                :currency="currentCurrency"
-                                class="sb-input-upload-price"
-                                :minus="false"
-                                :min="0"
-                                :precision="2"
-                                :max="1000"
-                                :currency-symbol-position="'suffix'"
-                                separator=","
-                                v-model="documentPrice"
-                            ></vue-numeric>
+                        <v-icon class="verticalMenu">sbf-3-dot</v-icon>
+                    </v-btn>
+                    <v-list>
+                        <v-list-tile
+                            v-show="item.isVisible(item.visible)"
+                            :disabled="item.isDisabled()"
+                            v-for="(item, i) in actions"
+                            :key="i"
+                        >
+                            <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
+                <sb-dialog
+                    :showDialog="showReport"
+                    :maxWidth="'438px'"
+                    :popUpType="'reportDialog'"
+                    :content-class="`reportDialog ${isRtl? 'rtl': ''}` "
+                    >
+                    <report-item :closeReport="closeReportDialog" :itemType="itemType" :itemId="itemId"></report-item>
+                </sb-dialog>
+                <sb-dialog
+                    :showDialog="priceDialog"
+                    :maxWidth="'438px'"
+                    :popUpType="'priceUpdate'"
+                    :onclosefn="closeNewPriceDialog"
+                    :activateOverlay="true"
+                    :isPersistent="true"
+                    :content-class="`priceUpdate ${isRtl ? 'rtl': ''}`"
+                    >
+                    <v-card class="price-change-wrap">
+                        <v-flex align-center justify-center class="relative-pos">
+                            <div class="title-wrap">
+                                <span class="change-title" v-language:inner="'resultNote_change_for'"></span>
+                                <span
+                                class="change-title"
+                                style="max-width: 150px;"
+                                v-line-clamp="1"
+                                >&nbsp;"{{courseName}}"</span>
                             </div>
+                            <div class="input-wrap d-flex row align-center justify-center">
+                                <div :class="['price-wrap', isRtl ? 'reversed' : '']">
+                                <vue-numeric
+                                    :currency="currentCurrency"
+                                    class="sb-input-upload-price"
+                                    :minus="false"
+                                    :min="0"
+                                    :precision="2"
+                                    :max="1000"
+                                    :currency-symbol-position="'suffix'"
+                                    separator=","
+                                    v-model="documentPrice"
+                                ></vue-numeric>
+                                </div>
+                            </div>
+                        </v-flex>
+                        <div class="change-price-actions">
+                            <button @click="closeNewPriceDialog()" class="cancel mr-2">
+                                <span v-language:inner>resultNote_action_cancel</span>
+                            </button>
+                            <button @click="submitNewPrice()" class="change-price">
+                                <span v-language:inner>resultNote_action_apply_price</span>
+                            </button>
                         </div>
-                    </v-flex>
-                    <div class="change-price-actions">
-                        <button @click="closeNewPriceDialog()" class="cancel mr-2">
-                            <span v-language:inner>resultNote_action_cancel</span>
-                        </button>
-                        <button @click="submitNewPrice()" class="change-price">
-                            <span v-language:inner>resultNote_action_apply_price</span>
-                        </button>
-                    </div>
-                </v-card>
-            </sb-dialog>
-</div>
+                    </v-card>
+                </sb-dialog>
+            </div>
         </v-layout>
         <div class="document-wrap">
             <v-progress-circular
@@ -387,14 +387,19 @@ export default {
         .main-header {
             justify-content: center;
             .main-header-wrapper{
-            display: flex;
-            width: 100%;
-            align-items: center;
-            max-width: 960px;
+                display: flex;
+                width: 100%;
+                align-items: center;
+                max-width: 960px;
+                .menu-area {
+                    margin-right: -10px;
+                }
                 .doc-views {
                     margin-bottom: 1px;
+                    font-size: 13px !important;
                 }
                 .courseName {
+                    font-size: 18px;
                     line-height: initial !important;
                     max-width: 800px;
                     @media (max-width: @screen-xs) {
@@ -408,7 +413,7 @@ export default {
                     }
                 }
                 .arrow-back {
-                    font-size: 40px;
+                    font-size: 34px;
                 }
                 .arrow-back-rtl{
                     transform: scaleX(-1);
@@ -417,10 +422,14 @@ export default {
                     opacity: .6;
                 }
                 .verticalMenu {
+                    font-size: 16px;
                     color: #aaa;
                     @media (max-width: @screen-sm) {
                         font-size: 16px;
                     }
+                }
+                .date, .views {
+                    font-size: 11px;
                 }
             }
         }
