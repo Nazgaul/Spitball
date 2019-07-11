@@ -224,7 +224,6 @@ export default {
                     }
                 }
                 @media (max-width: @screen-sm) {
-                    margin: 10px;
                     position: fixed;
                     bottom: 0;
                     left: 0;
