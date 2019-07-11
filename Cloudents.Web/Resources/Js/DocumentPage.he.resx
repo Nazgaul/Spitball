@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="credit_uploader" xml:space="preserve">
-    <value>הענק נקודות למעלה המסמך כדי לראות את המסמך המלא</value>
+    <value>על מנת לצפות במסמך, הענק נקודות לבעלי המסמך</value>
   </data>
   <data name="download_btn" xml:space="preserve">
     <value>הורד</value>
@@ -154,6 +154,6 @@
     <value>פתח מסמך</value>
   </data>
   <data name="unlock_document" xml:space="preserve">
-    <value>הענק נקודות למעלה המסמך כדי לראות את המסמך המלא</value>
+    <value>על מנת לצפות במסמך, הענק נקודות לבעלי המסמך</value>
   </data>
 </root>
