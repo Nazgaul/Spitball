@@ -32,7 +32,7 @@
                 :disabled="proccessedDocuments.includes(document.id)"
               >
                 Approve
-                <v-icon>check</v-icon>
+                <v-icon right>check</v-icon>
               </v-btn>
               <v-btn
                 slot="activator"
@@ -42,7 +42,17 @@
                 @click="deleteDocument(document)"
               >
                 Delete
-                <v-icon>delete</v-icon>
+                <v-icon right>delete</v-icon>
+              </v-btn>
+              <v-btn
+                slot="activator"
+                flat
+                color="indigo"
+                :disabled="proccessedDocuments.includes(document.id)"
+                @click="downloadDocument(document.siteLink)"
+              >
+                Download
+                <v-icon right>cloud_download</v-icon>
               </v-btn>
 
             </v-card-actions>
@@ -154,6 +164,10 @@
                             console.log('component accept error', error)
                         })
             },
+            downloadDocument(link) {
+              if(!link) return;
+              global.location.href = link
+            }
         },
         computed: {},
         created() {
