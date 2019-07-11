@@ -93,13 +93,16 @@
                 indeterminate
                 color="#4452fc"
             ></v-progress-circular>
+            
             <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
-                <img
+                <v-lazy-image 
+                    :style="`height: ${getHeight}px`"
                     class="document-wrap-content" 
                     :src="page"
+                    src-placeholder="https://www.gforcefinance.com.au/wp-content/uploads/2016/05/a4-placeholder.png"
                     @load="handleDocWrap"
                     v-if="page"
-                    :alt="document.content" />
+                    :alt="document.content"/>
                 
             </div>
             <div class="unlockBox headline hidden-sm-and-down text-" v-if="isShowPurchased" @click="unlockDocument">
@@ -226,11 +229,33 @@ export default {
                 if (this.$vuetify.breakpoint.xs) {
                     width = 400
                 }                
-                let height = width / 0.707;                
+                let height = width / 0.707;               
                 let result = this.document.preview.map(preview => {                    
                     return utillitiesService.proccessImageURL(preview, width, height.toFixed(0), 'pad')
                 })
                 return result;
+            }
+        },
+        getHeight(){ 
+            if(this.document.preview && this.docWrap) {
+                let width;
+                if (this.$vuetify.breakpoint.xl) {
+                    width = 1540
+                }
+                if (this.$vuetify.breakpoint.lg) {
+                    width = 900
+                }
+                if (this.$vuetify.breakpoint.md) {
+                    width = 600
+                }
+                if (this.$vuetify.breakpoint.sm) {
+                    width = 750
+                }
+                if (this.$vuetify.breakpoint.xs) {
+                    width = 400
+                }                
+                let height = width / 0.707;     
+                return height.toFixed(0) 
             }
         },
         isSmAndDown() {
