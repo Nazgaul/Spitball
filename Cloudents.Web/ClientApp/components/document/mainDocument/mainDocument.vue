@@ -2,7 +2,7 @@
     <div class="main-container pb-5">
         <v-layout row class="main-header" :class="[isSmAndDown ? 'pt-3' : 'pb-2']" align-center>
             <div class="main-header-wrapper">
-                <v-icon color="#000" :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']" @click="closeDocument">sbf-arrow-back-chat</v-icon>
+                <v-icon class="grey--text" :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']" @click="closeDocument">sbf-arrow-back-chat</v-icon>
                 <h2 class="courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</h2>
                 <v-spacer></v-spacer>
                 <span class="grey-text views mt-2" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">{{docViews}}<v-icon class="pl-2 doc-views" small>sbf-views</v-icon></span>
@@ -126,20 +126,23 @@
                 indeterminate
                 color="#4452fc"
             ></v-progress-circular>
+            
             <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
-                <img
+                <v-lazy-image 
+                    :style="`height: ${getHeight}px`"
                     class="document-wrap-content" 
                     :src="page"
+                    src-placeholder="https://www.gforcefinance.com.au/wp-content/uploads/2016/05/a4-placeholder.png"
                     @load="handleDocWrap"
                     v-if="page"
-                    :alt="document.content" />
+                    :alt="document.content"/>
                 
             </div>
             <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="showConfirm = true">
-                <p class="text-xs-left" v-language:inner="'documentPage_unlock_document'"></p>
-                <div class="aside-top-btn elevation-5 align-center" v-if="!isLoading">
-                    <span class="pa-4 font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
-                    <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
+                <p class="text-xs-center title" v-language:inner="'documentPage_unlock_document'"></p>
+                <div class="aside-top-btn align-center" v-if="!isLoading">
+                    <span class="font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
+                    <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
                 <v-progress-circular
                     class="unlock_progress"
@@ -264,11 +267,33 @@ export default {
                 if (this.$vuetify.breakpoint.xs) {
                     width = 400
                 }                
-                let height = width / 0.707;                
+                let height = width / 0.707;               
                 let result = this.document.preview.map(preview => {                    
                     return utillitiesService.proccessImageURL(preview, width, height.toFixed(0), 'pad')
                 })
                 return result;
+            }
+        },
+        getHeight(){ 
+            if(this.document.preview && this.docWrap) {
+                let width;
+                if (this.$vuetify.breakpoint.xl) {
+                    width = 1540
+                }
+                if (this.$vuetify.breakpoint.lg) {
+                    width = 900
+                }
+                if (this.$vuetify.breakpoint.md) {
+                    width = 600
+                }
+                if (this.$vuetify.breakpoint.sm) {
+                    width = 750
+                }
+                if (this.$vuetify.breakpoint.xs) {
+                    width = 400
+                }                
+                let height = width / 0.707;     
+                return height.toFixed(0) 
             }
         },
         isSmAndDown() {
@@ -440,6 +465,7 @@ export default {
                 }
                 .courseName {
                     font-size: 18px;
+                    color: #43425d;
                     line-height: initial !important;
                     max-width: 800px;
                     @media (max-width: @screen-xs) {
@@ -453,7 +479,7 @@ export default {
                     }
                 }
                 .arrow-back {
-                    font-size: 34px;
+                    font-size: 24px;
                 }
                 .arrow-back-rtl{
                     transform: scaleX(-1);
@@ -476,40 +502,39 @@ export default {
         .document-wrap {
             position: relative;
             .unlockBox {
+                box-shadow: 0 3px 55px -1px rgba(0,0,0,.2),0 5px 8px 0 rgba(0,0,0,.14),0 1px 14px 0 rgba(0,0,0,.12)!important; 
                 cursor: pointer;
+                border-radius: 4px;
                 background: #fff;
                 position: fixed;
-                border: 2px solid #000;
                 padding: 20px;
                 left: 0;
                 right: 330px;
                 bottom: 30px;
-                height: 200px;
-                width: 550px;
+                height: 156px;
+                width: 450px;
                 margin: auto;
                 p {
-                    width: 80%;
-                     @media (max-width: @screen-sm) {
-                         width: auto;
-                    }
+                    padding: 0 0 30px 0;
+                    margin: 0;
                 }
                 .aside-top-btn {
                     display: flex;
+                    border: 1px solid #ccc;
                     border-radius: 4px;
-                    margin: 0 0 0 auto;
+                    margin: 0 auto;
                     width: 60%;
                     line-height: 20px;
+                    font-size: 15px;
                     @media (max-width: @screen-sm) {
                          width: auto;
                     }
                     span:first-child {
                         flex: 2;
-                        font-size: 18px;
                     }
                     span:nth-child(2) {
                         flex: 1;
                         background-color: #4452fc;
-                        font-size: 15px;
                         border-radius: 0 4px 4px 0
                     }
                 }

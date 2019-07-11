@@ -86,7 +86,6 @@ namespace Cloudents.Web.Api
             }
 
             var query = new DocumentById(id, userId);
-
             var model = await _queryBus.QueryAsync(query, token);
             if (model == null)
             {
@@ -101,30 +100,50 @@ namespace Cloudents.Web.Api
             {
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
-         
-            var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token).ContinueWith(
-                result =>
+
+            var files = Enumerable.Range(0, model.Pages).Select(i =>
+            {
+                var uri = _blobProvider.GetPreviewImageLink(query.Id, i);
+                var effect = ImageProperties.BlurEffect.None;
+                if (!model.IsPurchased)
                 {
-                  return  result.Result.OrderBy(o => o, new OrderPreviewComparer()).Select((s,i) =>
-                  {
-                      var effect = ImageProperties.BlurEffect.None;
-                      if (!model.IsPurchased)
-                      {
-                          effect = ImageProperties.BlurEffect.All;
-                          if (i == 0)
-                          {
-                              effect = ImageProperties.BlurEffect.Part;
-                          }
+                    effect = ImageProperties.BlurEffect.All;
+                    if (i == 0)
+                    {
+                        effect = ImageProperties.BlurEffect.Part;
+                    }
 
-                      }
-                      var properties = new ImageProperties(s, effect);
-                      var url = Url.ImageUrl(properties);
-                      return url;
-                  });
-                }, token);
+                }
 
-            await System.Threading.Tasks.Task.WhenAll(tQueue, filesTask, textTask);
-            var files = filesTask.Result.ToList();
+                var properties = new ImageProperties(uri, effect);
+                var url = Url.ImageUrl(properties);
+                return url;
+            }).ToList();
+
+
+            //var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token).ContinueWith(
+            //    result =>
+            //    {
+            //      return  result.Result.OrderBy(o => o, new OrderPreviewComparer()).Select((s,i) =>
+            //      {
+            //          var effect = ImageProperties.BlurEffect.None;
+            //          if (!model.IsPurchased)
+            //          {
+            //              effect = ImageProperties.BlurEffect.All;
+            //              if (i == 0)
+            //              {
+            //                  effect = ImageProperties.BlurEffect.Part;
+            //              }
+
+            //          }
+            //          var properties = new ImageProperties(s, effect);
+            //          var url = Url.ImageUrl(properties);
+            //          return url;
+            //      });
+            //    }, token);
+
+            await System.Threading.Tasks.Task.WhenAll(tQueue,  textTask);
+            //var files = filesTask.Result.ToList();
             if (!files.Any())
             {
                 telemetryClient.TrackTrace("Document No Preview", new Dictionary<string, string>()

@@ -9,10 +9,11 @@ namespace Cloudents.Query.Tutor
 {
     public class TutorListByCourseQuery: IQuery<IEnumerable<TutorListDto>>
     {
-        public TutorListByCourseQuery(string courseId, long userId)
+        public TutorListByCourseQuery(string courseId, long userId, int count)
         {
             CourseId = courseId;
             UserId = userId;
+            Count = count;
         }
 
         
@@ -24,6 +25,8 @@ namespace Cloudents.Query.Tutor
         /// Eliminate the current user from the result
         /// </summary>
         private long UserId { get; }
+
+        private int Count { get; }
 
         internal sealed class TutorListByCourseQueryHandler : IQueryHandler<TutorListByCourseQuery, IEnumerable<TutorListDto>>
         {
@@ -69,13 +72,14 @@ T.Bio,
 where t.UserId <> @UserId
 order by position desc, Rate desc
 OFFSET 0 ROWS
-FETCH NEXT 20 ROWS ONLY;";
+FETCH NEXT @Count ROWS ONLY;";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
                     var retVal = await conn.QueryAsync<TutorListDto>(sql,new
                     {
                         query.CourseId ,
-                        query.UserId
+                        query.UserId,
+                        query.Count
                     });
 
                     return retVal.Distinct(TutorListDto.UserIdComparer);
