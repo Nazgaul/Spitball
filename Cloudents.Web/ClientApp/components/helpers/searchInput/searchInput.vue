@@ -14,7 +14,7 @@
                           id="transcript"
                           clearable
                           clear-icon="sbf-close"
-                          v-model="msg" @input="changeMsg"
+                          v-model="msg"
                           :placeholder="placeholder"
                           prepend-icon="sbf-search"
                           :hide-on-scroll="isHome?hideOnScroll:false">
