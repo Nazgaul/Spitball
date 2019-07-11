@@ -143,6 +143,7 @@
                         self.answerRemoved(this.answerDelData);
                     }
                     self.closeReportPop()
+                    if(this.$route.name === 'document') this.$router.push('/note')
                 })
 
             },
