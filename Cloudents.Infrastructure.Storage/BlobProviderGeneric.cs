@@ -14,13 +14,13 @@ using Cloudents.Core.Storage;
 namespace Cloudents.Infrastructure.Storage
 {
     public class BlobProviderContainer : IBlobProvider,
-        IDocumentDirectoryBlobProvider,
+        
         IQuestionsDirectoryBlobProvider,
         IChatDirectoryBlobProvider
         
 
     {
-        private readonly CloudBlobDirectory _blobDirectory;
+        protected readonly CloudBlobDirectory _blobDirectory;
         private readonly CloudBlobContainer _cloudContainer;
         private readonly StorageContainer _container;
         private readonly CloudBlobClient _client;
@@ -210,8 +210,9 @@ namespace Cloudents.Infrastructure.Storage
             var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
                 1000, null, null, null, token);
             return result.Results.Select(s => s.Uri);
-
         }
+
+
 
 
         public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token)

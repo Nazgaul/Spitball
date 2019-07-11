@@ -13,8 +13,8 @@ namespace Cloudents.Infrastructure.Storage
     public class UserDirectoryBlobProvider: BlobProviderContainer, IUserDirectoryBlobProvider
     {
         private readonly IBinarySerializer _serializer;
-        public UserDirectoryBlobProvider(ICloudStorageProvider storageProvider, StorageContainer container, IBinarySerializer serializer)
-            : base(storageProvider, container)
+        public UserDirectoryBlobProvider(ICloudStorageProvider storageProvider, IBinarySerializer serializer)
+            : base(storageProvider, StorageContainer.User)
         {
             _serializer = serializer;
         }

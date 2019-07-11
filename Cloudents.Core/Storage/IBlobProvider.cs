@@ -45,7 +45,7 @@ namespace Cloudents.Core.Storage
 
     public interface IDocumentDirectoryBlobProvider : IBlobProvider
     {
-
+        Uri GetPreviewImageLink(long id, int i);
     }
 
     public interface IQuestionsDirectoryBlobProvider : IBlobProvider

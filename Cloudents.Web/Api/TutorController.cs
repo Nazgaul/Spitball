@@ -3,6 +3,7 @@ using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
@@ -14,6 +15,8 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
+using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
@@ -22,9 +25,6 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
-using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -65,7 +65,7 @@ namespace Cloudents.Web.Api
         [HttpGet("search", Name = "TutorSearch")]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
         public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
-            string term,string course,
+            string term, string course,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
             [FromServices] ITutorSearch tutorSearch,
@@ -124,14 +124,16 @@ namespace Cloudents.Web.Api
         /// Return relevant tutors base on user course - on specific course tab - feed
         /// </summary>
         /// <param name="course">The course name</param>
+        /// <param name="count">Number of tutor result</param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync([RequiredFromQuery] string course,
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { "*" })]
+        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync([RequiredFromQuery] string course, int? count,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListByCourseQuery(course, userId);
+            var query = new TutorListByCourseQuery(course, userId, count.GetValueOrDefault(10));
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
@@ -143,7 +145,7 @@ namespace Cloudents.Web.Api
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
-         
+
             if (_userManager.TryGetLongUserId(User, out var userId))
             {
                 var query = new UserEmailInfoQuery(userId);
