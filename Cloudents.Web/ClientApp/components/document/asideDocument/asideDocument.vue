@@ -15,11 +15,11 @@
             <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-if="isShowPurchased" v-language:inner="'documentPage_credit_uploader'"></p>
 
             <template>
-                <div class="aside-top-btn btn-lock elevation-5" v-if="isShowPurchased && !isLoading" @click="unlockDocument">
+                <div class="aside-top-btn btn-lock" v-if="isShowPurchased && !isLoading" @click="unlockDocument">
                     <span class="pa-4 font-weight-bold text-xs-center" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
-                <div class="aside-top-btn btn-download elevation-5 justify-center" :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading" @click="downloadDoc">                    
+                <div class="aside-top-btn btn-download justify-center" :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading" @click="downloadDoc">                    
                     <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
                     <span class="white--text py-4 font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
                 </div>
@@ -199,20 +199,25 @@ export default {
                 display: flex;
                 border-radius: 4px;
                 margin: 0 20px;
+                font-size: 15px;
                 &.btn-lock {
+                    display: flex;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    margin: 0 auto;
+                    line-height: 20px;
+                    font-size: 15px;
                     z-index: 1;
                     @media (max-width: @screen-sm) {
                         background: #fff;
                     }
                     span:first-child {
                         flex: 2;
-                        font-size: 18px;
                         align-self: center;
                     }
                     span:nth-child(2) {
                         flex: 1;
                         background-color: #4452fc;
-                        font-size: 15px;
                         border-radius: 0 4px 4px 0
                     }
                 }
