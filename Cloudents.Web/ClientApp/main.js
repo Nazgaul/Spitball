@@ -20,6 +20,7 @@ import VueNumeric from 'vue-numeric';
 import VueMathjax from 'vue-mathjax';
 import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
+import { VLazyImagePlugin } from "v-lazy-image";
 
 
 
@@ -117,7 +118,6 @@ Vue.use(Vuetify, {
     components: vuetifyComponents
 });
 
-
 Vue.component("scroll-list", scrollComponent);
 Vue.component("general-page", GeneralPage);
 
@@ -138,7 +138,7 @@ const router = new VueRouter({
 Vue.use(VueClipboard);
 Vue.use(lineClamp, {});
 Vue.use(VueNumeric);
-
+Vue.use(VLazyImagePlugin);
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
     disableScriptLoader: true,
