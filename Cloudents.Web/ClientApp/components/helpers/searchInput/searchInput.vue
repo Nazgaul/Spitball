@@ -9,6 +9,7 @@
                           :class="{'white-background': showSuggestions}"
                           @keyup.enter="search()" autocomplete="off" @keyup.down="arrowNavigation(1)"
                           @keyup.up="arrowNavigation(-1)"
+                          @focus="openSuggestions"
                           name="q"
                           id="transcript"
                           clearable

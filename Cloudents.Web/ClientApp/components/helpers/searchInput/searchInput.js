@@ -211,14 +211,14 @@ export default {
             }
             this.showSuggestions = true;
         },
-        changeMsg: debounce(function (val) {
-            if(!!val && val.length > 0) {
-                this.openSuggestions();
-            } else {
-                this.closeSuggestions();
-            }
+        // changeMsg: debounce(function (val) {
+        //     if(!!val && val.length > 0) {
+        //         this.openSuggestions();
+        //     } else {
+        //         this.closeSuggestions();
+        //     }
 
-        }, 250),
+        // }, 250),
         closeSuggestions() {
             //this.$el.querySelector('.search-b input').blur();
             this.focusedIndex = -1;
