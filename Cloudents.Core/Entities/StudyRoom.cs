@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
             DateTime = DateTime.UtcNow;
             OnlineDocumentUrl = onlineDocumentUrl;
-            Type = StudyRoomType.SmallGroup;
+            Type = StudyRoomType.PeerToPeer;
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 

@@ -37,7 +37,7 @@ namespace Cloudents.Command.StudyRooms
                     return;
                 }
             }
-            await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo, message.CallbackUrl, room.Type.GetValueOrDefault(StudyRoomType.SmallGroup));
+            await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo, message.CallbackUrl, room.Type.GetValueOrDefault(StudyRoomType.PeerToPeer));
             var session = new StudyRoomSession(room, sessionName);
             room.AddSession(session);
         }
