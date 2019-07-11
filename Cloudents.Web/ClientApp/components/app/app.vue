@@ -308,20 +308,13 @@ export default {
       })
     },
     onFooterStepChange() {
-      this.tourTempClose();
+      console.log('footer changed');
     },
     closeSblToken() {
       this.updateShowBuyDialog(false);
     },
     closePayMe(){
       this.updateShowPayMeToaster(false);
-    },
-    tourClosed: function() {
-      console.log("tourClosed");
-      global.localStorage.setItem("sb_walkthrough_supressed", true);
-    },
-    tourTempClose: function() {
-      this.$tours["myTour"].close();
     },
     removeCookiesPopup: function() {
       this.setCookieAccepted();
@@ -333,10 +326,6 @@ export default {
     setUploadDialogState() {
       this.updateDialogState(false);
     },
-    // closeNewIsraeli() {
-    //   //the set to the local storage happens in the component itself
-    //   this.acceptIsraeli = true;
-    // },
     tryBuyTokens(transactionObjectError) {
       walletService.buyTokens(transactionObjectError).then(
         () => {
