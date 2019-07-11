@@ -120,7 +120,7 @@
     </div>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { LanguageService } from "../../../services/language/languageService";
 import sbDialog from "../../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "../../results/helpers/reportItem/reportItem.vue";
@@ -273,7 +273,7 @@ export default {
     },
     methods: {
         ...mapActions(['clearDocument', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState']),
-
+        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         unlockDocument() {
             if(this.accountUser == null) {
                 this.updateLoginDialogState(true);
@@ -286,6 +286,7 @@ export default {
         },
         closeDocument() {
             this.clearDocument();
+            this.UPDATE_SEARCH_LOADING(true);
             this.$router.push({path: '/note'})
         },
         showReportOptions() {

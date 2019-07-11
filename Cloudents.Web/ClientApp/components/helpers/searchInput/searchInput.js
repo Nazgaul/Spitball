@@ -127,6 +127,9 @@ export default {
         courseSelected() {
             return !!this.$route.query ? !!this.$route.query.Course : false;
         },
+        isRouteDuplication(newRoute, query){
+            return this.$router.currentRoute.path === newRoute && JSON.stringify(query) === JSON.stringify(this.$router.currentRoute.query);
+        },
         search(id) {
             //prevent search empty string when no term is in search ATM
             if(!this.$route.query.term) {
@@ -134,11 +137,12 @@ export default {
                     return;
                 }
             }
-            if(this.msg === this.$route.query.term) {
-                return;
-            }
+            // if(this.msg === this.$route.query.term) {
+            //     return;
+            // }
             this.UPDATE_SEARCH_LOADING(true);
             let query = this.prepareQuery(id);
+            let sameRoute = this.isRouteDuplication(this.submitRoute, query);
             this.$router.push({
                                   path: this.submitRoute,
                                   query
@@ -148,6 +152,11 @@ export default {
             // to remove keyboard on mobile
             this.$nextTick(() => {
                 this.$el.querySelector('input').blur();
+                if(sameRoute){
+                    setTimeout(()=>{
+                        this.UPDATE_SEARCH_LOADING(false);
+                    }, 300);
+                }
             });
         },
         prepareQuery(typeId) {
@@ -202,14 +211,14 @@ export default {
             }
             this.showSuggestions = true;
         },
-        changeMsg: debounce(function (val) {
-            if(!!val && val.length > 0) {
-                this.openSuggestions();
-            } else {
-                this.closeSuggestions();
-            }
+        // changeMsg: debounce(function (val) {
+        //     if(!!val && val.length > 0) {
+        //         this.openSuggestions();
+        //     } else {
+        //         this.closeSuggestions();
+        //     }
 
-        }, 250),
+        // }, 250),
         closeSuggestions() {
             //this.$el.querySelector('.search-b input').blur();
             this.focusedIndex = -1;
