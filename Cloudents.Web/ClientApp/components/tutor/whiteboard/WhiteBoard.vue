@@ -37,7 +37,7 @@
                    :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
         </div>
         <div class="equation-helper-container"
-             :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"
+             :style="{'color': helperStyle.color, 'top':`${equationSizeY}px`, 'left':`${equationSizeX}px`}"
              v-if="helperShow && selectedOptionString === enumOptions.equation">
              <div>
                  <equation-mapper :injectToTextArea="injectToTextArea"></equation-mapper>

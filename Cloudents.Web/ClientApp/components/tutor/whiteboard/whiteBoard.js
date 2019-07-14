@@ -68,6 +68,12 @@ export default {
             'undoClicked', 
             'addImage',
             'clearAllClicked']),
+        equationSizeX(){
+            return (window.innerWidth / 2) - 300
+        },
+        equationSizeY(){
+            return window.innerHeight / 3.5
+        },
         helperStyle() {
             return helperUtil.HelperObj.style
         },
@@ -346,7 +352,6 @@ export default {
         canvasFinder.trackTransforms(this.canvasData.context);
         this.registerCanvasEvents(canvas, canvasWrapper);
         global.document.addEventListener("keydown", this.keyPressed);
-
 
 
 
