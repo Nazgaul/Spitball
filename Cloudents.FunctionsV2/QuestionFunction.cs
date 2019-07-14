@@ -50,7 +50,7 @@ namespace Cloudents.FunctionsV2
             ILogger log,
             CancellationToken token)
         {
-            var questions = await queryBus.QueryAsync<IList<FictivePendingQuestionDto>>(new AdminEmptyQuery(), token);
+            var questions = await queryBus.QueryAsync(new AdminFictivePendingQuestionEmptyQuery(), token);
             if (questions.Count > 0)
             {
                 var command = new ApproveQuestionCommand(questions.Select(s => s.Id));

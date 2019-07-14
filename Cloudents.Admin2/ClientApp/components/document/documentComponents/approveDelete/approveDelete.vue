@@ -5,22 +5,13 @@
     </v-toolbar>
     <v-container>
       <v-layout wrap row>
-        <v-flex xs6 v-for="(document, index) in documentsList" :key="document.id">
+        <v-flex xs6 v-for="document in documentsList" :key="document.id">
           <v-card class="elevation-2 ma-2">
             <v-img :src="document.preview ? document.preview: `${require('../../../../assets/img/document.png')}`" aspect-ratio="2.75" contain></v-img>
             <v-card-text>
               <div>
                 <b>Id:</b>
                 {{document.id}}
-              </div>
-              
-              <div>
-                <b>Flagged User Email:</b>
-                {{document.flaggedUserEmail}}
-              </div>
-              <div>
-                <b>Reason:</b>
-                {{document.reason}}
               </div>
             </v-card-text>
 
@@ -53,6 +44,18 @@
               >
                 Download
                 <v-icon right>cloud_download</v-icon>
+              </v-btn>
+
+               <v-btn
+                slot="activator"
+                flat
+                color="blue"
+                target="_blank"
+                :disabled="proccessedDocuments.includes(document.id)"
+                :href="document.siteLink"
+              >
+                Download
+               
               </v-btn>
 
             </v-card-actions>
@@ -104,7 +107,7 @@
                 self.loading = true;
                 approveDeleteService.getDocuments()
                     .then(resp => {
-                            self.documentsList = resp;
+                            self.documentsList = resp.documents;
 
                             self.arrayOfIds = self.documentsList.map(item => {
                                 return item.id

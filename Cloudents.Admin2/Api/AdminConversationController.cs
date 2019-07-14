@@ -120,7 +120,7 @@ namespace Cloudents.Admin2.Api
         {
             return new 
             {
-                Status = Enumeration.GetAll<ChatRoomStatus>(),// Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
+                Status = Enumeration.GetAll<ChatRoomStatus>().GroupBy(x=>x.Group).ToDictionary(x=>x.Key,y=>y),// Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
                 AssignTo = Enum.GetNames(typeof(ChatRoomAssign)).Select(s => s.ToCamelCase()),
                 WaitingFor = Enum.GetNames(typeof(WaitingFor)).Select(s => s.ToCamelCase())
             };

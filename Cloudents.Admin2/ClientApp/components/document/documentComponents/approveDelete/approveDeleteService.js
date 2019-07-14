@@ -14,36 +14,20 @@ export default {
     getDocuments: () => {
         return connectivityModule.http.get(`${url}`)
             .then((resp) => {
-                console.log(resp, 'success get 20 docs');
-                resp.forEach(function(doc) {
+                resp.documents.forEach(function(doc) {
                    return createDocumentItem(doc);
                 });
-                return Promise.resolve(resp);
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return Promise.reject(error);
+                return resp;
             });
     },
     deleteDocument: (id) => {
-        return connectivityModule.http.delete(`${url}/${id}`)
-            .then((resp) => {
-                console.log(resp, 'delete success');
-                return Promise.resolve(resp);
-            }, (error) => {
-                console.log(error, 'error delete');
-                return Promise.reject(error);
-            });
+        return connectivityModule.http.delete(`${url}/${id}`);
+            
     },
 
     approveDocument: (arrIds) =>{
-        return connectivityModule.http.post(`${url}`, {"id": arrIds})
-            .then((resp) => {
-                console.log(resp, 'post doc success');
-                return Promise.resolve(resp);
-            }, (error) => {
-                console.log(error, 'error post doc');
-                return Promise.reject(error);
-            });
+        return connectivityModule.http.post(`${url}`, {"id": arrIds});
+           
     }
 
 

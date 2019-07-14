@@ -79,8 +79,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("allUniversities")]
         public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            var retVal = await _queryBus.QueryAsync<IList<AllUniversitiesDto>>(query, token);
+            var query = new AdminAllUniversitiesEmptyQuery();
+            var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
 

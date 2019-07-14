@@ -96,8 +96,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("Pending")]
         public async Task<IEnumerable<PendingQuestionDto>> Get(CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            return await _queryBus.QueryAsync<IEnumerable<PendingQuestionDto>>(query, token);
+            var query = new AdminPendingQuestionsEmptyQuery();
+            return await _queryBus.QueryAsync(query, token);
         }
 
         [HttpPost("upload")]
@@ -137,8 +137,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("flagged")]
         public async Task<IEnumerable<FlaggedQuestionDto>> FlagAsync(CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            return await _queryBus.QueryAsync<IEnumerable<FlaggedQuestionDto>>(query, token);
+            var query = new FlaggedQuestionEmptyQuery();
+            return await _queryBus.QueryAsync(query, token);
         }
 
         [HttpPost("unFlag")]

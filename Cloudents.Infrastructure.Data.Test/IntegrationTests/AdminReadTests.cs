@@ -79,12 +79,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        //[Fact]
-        //public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
-        //{
-        //    var query = new AdminPageQuery(0);
-        //    await fixture.QueryBus.QueryAsync(query, default);
-        //}
+        [Fact]
+        public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
+        {
+            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(0);
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
 
         [Fact]
         public async Task AdminPendingTutorsQuery_Ok()
@@ -172,6 +172,76 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AdminUserQuestionsQuery_Ok()
         {
             var query = new AdminUserQuestionsQuery(159039, 0);
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+        [Fact]
+        public async Task AdminAllCoursesEmptyQuery_Ok()
+        {
+            var query = new AdminAllCoursesEmptyQuery();
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+        [Fact]
+        public async Task AdminAllUniversitiesEmptyQuery_Ok()
+        {
+            var query = new AdminAllUniversitiesEmptyQuery();
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task FlaggedQuestionEmptyQuery_Ok()
+        {
+            var query = new FlaggedQuestionEmptyQuery();
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task FlaggedDocumentEmptyQuery_Ok()
+        {
+            var query = new FlaggedDocumentEmptyQuery();
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task FlaggedAnswerEmptyQuery_Ok()
+        {
+            var query = new FlaggedAnswerEmptyQuery();
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task PendingDocumentEmptyQuery_Ok()
+        {
+            var query = new PendingDocumentEmptyQuery(203300);
+            await fixture.QueryBus.QueryAsync(query, default);
+
+            var query2 = new PendingDocumentEmptyQuery(null);
+            await fixture.QueryBus.QueryAsync(query2, default);
+        }
+
+        [Fact]
+        public async Task SuspendedUsersEmptyQuery_Ok()
+        {
+            var query = new SuspendedUsersEmptyQuery();
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task FictivePendingQuestionEmptyQuery_Ok()
+        {
+            var query = new AdminFictivePendingQuestionEmptyQuery();
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task PendingQuestionsEmptyQuery_Ok()
+        {
+            var query = new AdminPendingQuestionsEmptyQuery();
+            await fixture.QueryBus.QueryAsync(query, default);
+        }
+        [Fact]
+        public async Task AdminCashOutEmptyQuery_Ok()
+        {
+            var query = new AdminCashOutEmptyQuery();
             await fixture.QueryBus.QueryAsync(query, default);
         }
     }
