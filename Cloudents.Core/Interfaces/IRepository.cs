@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using System;
+using Cloudents.Core.Entities;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -90,6 +91,6 @@ namespace Cloudents.Core.Interfaces
 
     public interface ILeadRepository : IRepository<Lead>
     {
-        Task<IEnumerable<Lead>> GetLeadsByUserIdAsync(long UserId, CancellationToken token);
+        Task<bool> NeedToSendMoreTutorsAsync(long userId, CancellationToken token);
     }
 }
