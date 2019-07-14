@@ -120,13 +120,12 @@
   <data name="bottom" xml:space="preserve">
     <value>SDFSDFSDF</value>
   </data>
-  <data name="DSF" xml:space="preserve">
-    <value>SDFSDFSDF</value>
-  </data>
   <data name="title_1" xml:space="preserve">
-    <value>SDFSDFSDF</value>
+    <value>The payment for session with a tutor</value>
+    <comment>התשלום עבור שיעור פרטי עם המורה</comment>
   </data>
   <data name="title_2" xml:space="preserve">
-    <value>SDFSDF</value>
+    <value>Will be done after session is ended, invoice will be sent via email</value>
+    <comment>יבוצע לאחר השיעור, חשבונית תשלח לאימייל שבוא נרשמת למערכת.</comment>
   </data>
 </root>
