@@ -45,19 +45,6 @@
                 Download
                 <v-icon right>cloud_download</v-icon>
               </v-btn>
-
-               <v-btn
-                slot="activator"
-                flat
-                color="blue"
-                target="_blank"
-                :disabled="proccessedDocuments.includes(document.id)"
-                :href="document.siteLink"
-              >
-                Download
-               
-              </v-btn>
-
             </v-card-actions>
           </v-card>
         </v-flex>
