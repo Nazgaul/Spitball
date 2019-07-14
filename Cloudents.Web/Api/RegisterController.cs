@@ -169,19 +169,16 @@ namespace Cloudents.Web.Api
                         try
                         {
                             uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, stream, token: cancellationToken);
-                        }
-                        catch (NotSupportedImageException)
-                        {
-                            await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                            return await MakeDecision(user, true, null, cancellationToken);
-                        }
-                        
-                        if (uri != null)
-                        {
                             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
                             var url = Url.ImageUrl(imageProperties);
                             user.Image = url;
                         }
+                        catch (ArgumentException)
+                        {
+                            
+                        }
+                        
+                     
                         
                     }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));

@@ -181,7 +181,7 @@ namespace Cloudents.Web.Api
             {
                 uri = await blobProvider.UploadImageAsync(userId, file.FileName, file.OpenReadStream(), file.ContentType, token);
             }
-            catch (NotSupportedImageException)
+            catch (ArgumentException)
             {
                 ModelState.AddModelError("x", "not an image");
                 return BadRequest(ModelState);

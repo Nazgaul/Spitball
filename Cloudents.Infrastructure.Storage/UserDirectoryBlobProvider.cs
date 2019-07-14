@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Storage
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
             if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
             {
-                throw new NotSupportedImageException();
+                throw new ArgumentException();
             }
             var fileName = $"{userId}/{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{extension}";
             var fileUri = GetBlobUrl(fileName);
