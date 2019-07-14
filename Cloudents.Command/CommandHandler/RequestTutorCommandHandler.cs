@@ -3,6 +3,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,8 +18,6 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRepository<ChatMessage> _chatMessageRepository;
         private readonly IRepository<Course> _courseRepository;
         private readonly ILeadRepository _leadRepository;
-
-        private const int requestLimit = 2;
 
         public RequestTutorCommandHandler(ITutorRepository tutorRepository,
             IChatRoomRepository chatRoomRepository,
@@ -37,12 +36,8 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(RequestTutorCommand message, CancellationToken token)
         {
-            // var needToRegisterLead = true;
-            var leads = await _leadRepository.GetLeadsByUserIdAsync(message.UserId, token);
-            if (leads.Where(w => w.CreationTime > DateTime.UtcNow.AddDays(-1)).Count() > requestLimit)
-            {
-                throw new TooManyRequestsException();
-            }
+            var needToSendToMoreTutors = await _leadRepository.NeedToSendMoreTutorsAsync(message.UserId,  token);
+
             Tutor tutor = null;
             if (message.TutorId.HasValue)
             {
@@ -57,7 +52,13 @@ namespace Cloudents.Command.CommandHandler
                 tutor, message.UtmSource);
             await _leadRepository.AddAsync(lead, token);
 
-            var tutorsIds = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, token);
+            var tutorsIds = new List<long>();
+            if (needToSendToMoreTutors)
+            {
+                var t = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, token);
+                tutorsIds.AddRange(t);
+            }
+
             if (tutor != null)
             {
                 tutorsIds.Add(tutor.Id);
