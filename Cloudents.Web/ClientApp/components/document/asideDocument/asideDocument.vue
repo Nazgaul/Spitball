@@ -7,8 +7,8 @@
                 <v-icon class="hidden-md-and-up subheading" @click="closeDocument">sbf-close</v-icon>
             </v-layout>
 
-            <p class="pt-3 font-weight-bold" v-language:inner="'documentPage_student_learn'"></p>
-            <p class="caption" v-language:inner="'documentPage_online_tutor'"></p>
+            <p class="pt-3 font-weight-bold subheading" v-language:inner="'documentPage_student_learn'"></p>
+            <p class="body-1 get-online" v-language:inner="'documentPage_online_tutor'"></p>
 
             <my-courses class="d-block mx-auto hidden-sm-and-down"></my-courses>
 
@@ -48,8 +48,7 @@
             </table>
         </div>
         
-        <div class="aside-cards mb-5">
-            <student-card :tutorData="ownTutor" v-if="!isTutor && ownTutor"/>
+        <div class="aside-cards">
             <tutor-result-card-mobile :tutorData="ownTutor" :singleCard="true" :isInTutorList="true" v-if="isTutor && ownTutor" />
         </div>
     
@@ -194,6 +193,10 @@ export default {
             }
             p:nth-child(5) {
                 color: #4452fc;
+            }
+            .get-online{
+                margin-bottom: 10px;
+                line-height: 21px;
             }
             .aside-top-btn {
                 cursor: pointer;

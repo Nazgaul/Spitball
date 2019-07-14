@@ -1,12 +1,12 @@
 <template>
-    <div class="main-container pb-5">
+    <div class="main-container">
         <v-layout row class="main-header" :class="[isSmAndDown ? 'pt-3' : 'pb-2']" align-center>
             <div class="main-header-wrapper">
                 <v-icon class="grey--text" :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']" @click="closeDocument">sbf-arrow-back-chat</v-icon>
                 <h2 class="courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</h2>
                 <v-spacer></v-spacer>
-                <span class="grey-text views mt-2" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">{{docViews}}<v-icon class="pl-2 doc-views" small>sbf-views</v-icon></span>
-                <span class="grey-text date mt-2" :class="{'pl-3': isSmAndDown}">{{documentDate}}</span>
+                <span class="grey-text views " :class="[isSmAndDown ? 'pr-3' : 'pr-5']">{{docViews}}<v-icon class="pl-2 doc-views" small>sbf-views</v-icon></span>
+                <span class="grey-text date " :class="{'pl-3': isSmAndDown}">{{documentDate}}</span>
                 
                 <v-menu class="menu-area" lazy bottom left content-class="card-user-actions" v-model="showMenu">
                     <v-btn
@@ -261,7 +261,7 @@ export default {
                     width = 880
                 }
                 if (this.$vuetify.breakpoint.md) {
-                    width = 510
+                    width = 560
                 }
                 if (this.$vuetify.breakpoint.sm) {
                     width = 730
@@ -289,7 +289,7 @@ export default {
                     width = 880
                 }
                 if (this.$vuetify.breakpoint.md) {
-                    width = 510
+                    width = 560
                 }
                 if (this.$vuetify.breakpoint.sm) {
                     width = 730
@@ -464,11 +464,20 @@ export default {
                 width: 100%;
                 align-items: center;
                 max-width: 960px;
+                    @media (max-width: 1450px) {
+                        max-width: 880px;
+                    } 
+                    @media (max-width: @screen-md) {
+                        max-width: 560px;
+                    }                     
+                    @media (max-width: @screen-sm) {
+                        max-width: 939px;
+                    }
                 .menu-area {
                     margin-right: -10px;
                 }
                 .doc-views {
-                    margin-bottom: 1px;
+                    margin-bottom: 2px;
                     font-size: 13px !important;
                 }
                 .courseName {
@@ -482,7 +491,7 @@ export default {
                     }
                     @media (max-width: @screen-xss) {
                         max-width: 160px;
-                        min-width: 40%;
+                        min-width: 35%;
                     }
                     @media (max-width: 320px) {
                         max-width: 110px;
@@ -490,6 +499,7 @@ export default {
                 }
                 .arrow-back {
                     font-size: 24px;
+                    margin-top: 3px;
                 }
                 .arrow-back-rtl{
                     transform: scaleX(-1);
@@ -505,7 +515,7 @@ export default {
                     }
                 }
                 .date, .views {
-                    font-size: 11px;
+                    font-size: 14px;
                 }
             }
         }
@@ -551,7 +561,10 @@ export default {
                 
             }
             .document-wrap-content {
-                max-width: 960px;
+                @media (max-width: @screen-sm) {
+                         width: 100%;
+                         height:unset !important;
+                    }
             }
             .unlock_progress {
                     display: flex;

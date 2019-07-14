@@ -1,6 +1,6 @@
 <template>
     <v-layout column class="aside-bottom mb-5">
-        <div class="justify-space-between more-tutors pb-3">
+        <div class="justify-space-between more-tutors">
             <span class="font-weight-bold" v-language:inner="'documentPage_more_tutors'"></span>
             <router-link class="seeAll font-weight-bold" v-language:inner="'documentPage_see_all'" to="/tutor"></router-link>
         </div>
@@ -40,6 +40,8 @@ export default {
         order: 3;
         .more-tutors {
             display: flex;
+            margin-top: 30px;
+            margin-bottom: 10px;
             span {
                 font-size: 15px;
                 color: #43425d;
