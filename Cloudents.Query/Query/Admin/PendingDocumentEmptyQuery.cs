@@ -12,6 +12,13 @@ namespace Cloudents.Query.Query.Admin
 {
     public class PendingDocumentEmptyQuery : IQuery<IList<PendingDocumentDto>>
     {
+        public PendingDocumentEmptyQuery(long? documentId)
+        {
+            DocumentId = documentId;
+        }
+
+        public long? DocumentId { get; private set; }
+
         internal sealed class PendingDocumentEmptyQueryHandler : IQueryHandler<PendingDocumentEmptyQuery, IList<PendingDocumentDto>>
         {
             private readonly IStatelessSession _session;
@@ -24,10 +31,14 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IList<PendingDocumentDto>> GetAsync(PendingDocumentEmptyQuery query, CancellationToken token)
             {
-                return await _session.Query<Document>()
-                    .Where(w => w.Status.State == ItemState.Pending)
-                    .OrderBy(w => w.Id)
-                    .Take(100)
+                var dbQuery =   _session.Query<Document>()
+                    .Where(w => w.Status.State == ItemState.Pending);
+                if (query.DocumentId.HasValue)
+                {
+                    dbQuery.Where(w => w.Id < query.DocumentId.Value);
+                }
+                return await dbQuery.OrderByDescending(w => w.Id)
+                    .Take(50)
                     .Select(s => new PendingDocumentDto
                     {
                         Id = s.Id,

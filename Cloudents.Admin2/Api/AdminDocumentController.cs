@@ -12,7 +12,6 @@ using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Cloudents.Admin2.Api
 {
@@ -35,22 +34,24 @@ namespace Cloudents.Admin2.Api
         }
 
         // GET: api/<controller>
-        [HttpGet]
-        public async Task<IEnumerable<PendingDocumentDto>> Get(
+        [HttpGet(Name = "Pending")]
+        public async Task<PendingDocumentResponse> Get(long? fromId,
             [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
-            var query = new PendingDocumentEmptyQuery();
+            var query = new PendingDocumentEmptyQuery(fromId);
             var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
             var counter = 0;
+            long? id = null;
             foreach (var document in retVal)
             {
-
+                id = document.Id;
                 var files = await  _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
                 var file = files.FirstOrDefault();
                 if (file != null)
                 {
+
                     document.Preview =
                         blobProvider.GeneratePreviewLink(file,
                             TimeSpan.FromMinutes(20));
@@ -60,7 +61,7 @@ namespace Cloudents.Admin2.Api
                 }
                 else
                 {
-
+                    
                     var t =  _queueProvider.InsertBlobReprocessAsync(document.Id);
                     tasks.Value.Add(t);
                 }
@@ -76,7 +77,20 @@ namespace Cloudents.Admin2.Api
                 await Task.WhenAll(tasks.Value);
             }
 
-            return retVal;
+            string nextLink = null;
+            if (id.HasValue)
+            {
+                nextLink = Url.RouteUrl("Pending", new
+                {
+                    fromId = id.Value
+                });
+            }
+
+            return new PendingDocumentResponse()
+            {
+                Documents = retVal,
+                NextLink = nextLink
+            };
         }
 
         [HttpDelete("{id}")]
@@ -86,21 +100,6 @@ namespace Cloudents.Admin2.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
-
-        //[HttpDelete]
-        //public async Task<IActionResult> Delete2(string idstr, CancellationToken token)
-        //{
-        //    var ids = idstr.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
-        //    foreach (var id in ids)
-        //    {
-        //        var x = long.Parse(id);
-        //        var command = new DeleteDocumentCommand(x);
-        //        await _commandBus.DispatchAsync(command, token);
-        //    }
-            
-        //    return Ok();
-        //}
-
 
         [HttpPost]
         public async Task<IActionResult> ApproveAsync([FromBody] ApproveDocumentRequest model, CancellationToken token)
@@ -130,7 +129,6 @@ namespace Cloudents.Admin2.Api
                             TimeSpan.FromMinutes(20));
 
                     document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
-                   
                 }
                 else
                 {

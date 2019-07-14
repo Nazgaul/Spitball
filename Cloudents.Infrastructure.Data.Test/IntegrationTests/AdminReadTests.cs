@@ -211,8 +211,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task PendingDocumentEmptyQuery_Ok()
         {
-            var query = new PendingDocumentEmptyQuery();
+            var query = new PendingDocumentEmptyQuery(203300);
             await fixture.QueryBus.QueryAsync(query, default);
+
+            var query2 = new PendingDocumentEmptyQuery(null);
+            await fixture.QueryBus.QueryAsync(query2, default);
         }
 
         [Fact]

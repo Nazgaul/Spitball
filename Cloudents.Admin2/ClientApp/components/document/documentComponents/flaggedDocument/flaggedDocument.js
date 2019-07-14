@@ -31,7 +31,7 @@ import flaggedDocumentService from './flaggedDocumentService.js'
                 self.arrayOfIds = [];
                 flaggedDocumentService.getDocuments()
                     .then(resp => {
-                        self.documentsList = resp;
+                        self.documentsList = resp.documents;
 
                         self.arrayOfIds = self.documentsList.map(item => {
                             return item.id;

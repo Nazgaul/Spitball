@@ -28,7 +28,7 @@ namespace Cloudents.Query.Query.Admin
             {
                 return await _session.Query<Document>()
                     .Where(w => w.Status.State == ItemState.Flagged)
-                    .OrderBy(w => w.Id)
+                    .OrderByDescending(w => w.Id)
                     .Take(100)
                     .Select(s => new FlaggedDocumentDto
                     {
