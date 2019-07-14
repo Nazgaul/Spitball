@@ -155,6 +155,11 @@ namespace Cloudents.Web.Api
                 userId = user.Id
             }, "https");
 
+
+            var urlReturn = Url.RouteUrl("ReturnUrl", new
+            {
+            }, "https");
+
             var uri = new UriBuilder(url);
 
 
@@ -165,7 +170,8 @@ namespace Cloudents.Web.Api
                 ["first_name"] = user.FirstName,
                 ["last_name"] = user.LastName,
                 ["phone"] = user.PhoneNumber,
-                ["email"] = user.Email
+                ["email"] = user.Email,
+                ["sale_return_url"] = urlReturn
             });
             return saleUrl.Uri;
         }
