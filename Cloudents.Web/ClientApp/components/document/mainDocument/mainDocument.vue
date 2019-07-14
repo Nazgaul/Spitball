@@ -475,12 +475,14 @@ export default {
                     font-size: 18px;
                     color: #43425d;
                     line-height: initial !important;
-                    max-width: 800px;
+                    max-width: 0;
+                    min-width: 60%;
                     @media (max-width: @screen-xs) {
                         max-width: 200px;
                     }
                     @media (max-width: @screen-xss) {
                         max-width: 160px;
+                        min-width: 40%;
                     }
                     @media (max-width: 320px) {
                         max-width: 110px;
