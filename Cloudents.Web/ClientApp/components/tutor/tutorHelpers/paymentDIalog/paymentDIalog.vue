@@ -6,7 +6,7 @@
             <span>{{tutorName}}</span>
             <span v-language:inner="'payme_title_2'"/>
         </div>
-        <iframe class="payment-iframe" width="100%" height="500" :src="paymentUrl"></iframe>
+        <iframe class="payment-iframe" width="100%" height="475" :src="paymentUrl"></iframe>
         <div class="payme-popup-bottom">
             <p v-language:inner="'payme_bottom'"/>
             <img src="./images/card.png" alt="">
@@ -42,7 +42,7 @@ export default {
 <style lang="less">
 .payme-popup{
     position: relative;
-    max-width: 728px;
+    max-width: 600px;
     border-radius: 4px;
     background-color: #ffffff;
     .exit-btn{
@@ -57,10 +57,10 @@ export default {
         padding: 0 6px;
     }
     .payme-popup-top{
-        padding: 40px 84px 26px 22px;
-        font-size: 20px;
-        font-weight: bold;
-        line-height: 2;
+        padding: 40px 40px 15px 22px;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.5;
         color: #43425d;
     }
     .payme-popup-bottom{
@@ -70,11 +70,11 @@ export default {
         background-color: #f0f0f7;
         padding: 16px 22px;
         p{
-            font-weight: bold;
-            line-height: 1.86;
+            font-weight: 700;
+            line-height: 1.5;
             letter-spacing: normal;
             color: #5158af;
-            max-width: 78%;
+            max-width: 83%;
             margin: 0;
         }
         img{
