@@ -40,7 +40,7 @@ export default {
         order: 3;
         .more-tutors {
             display: flex;
-            margin-top: 30px;
+            margin-top: 22px;
             margin-bottom: 10px;
             span {
                 font-size: 15px;
