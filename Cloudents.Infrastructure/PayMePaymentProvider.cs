@@ -30,9 +30,9 @@ namespace Cloudents.Infrastructure
             NamingStrategy = new SnakeCaseNamingStrategy()
         };
 
-        public async Task<GenerateSaleResponse> CreateBuyerAsync(string callback, CancellationToken token)
+        public async Task<GenerateSaleResponse> CreateBuyerAsync(string callback,string successRedirect, CancellationToken token)
         {
-            var generateSale = GenerateSale.CreateBuyer(callback);
+            var generateSale = GenerateSale.CreateBuyer(callback, successRedirect);
 
             return await GenerateSaleAsync(token, generateSale);
         }
@@ -104,7 +104,7 @@ namespace Cloudents.Infrastructure
 
             }
 
-            public static GenerateSale CreateBuyer(string saleCallbackUrl)
+            public static GenerateSale CreateBuyer(string saleCallbackUrl,string saleReturnUrl)
             {
                 return new GenerateSale()
                 {
@@ -112,7 +112,9 @@ namespace Cloudents.Infrastructure
                     SalePrice = 0,
                     CaptureBuyer = 1,
                     SaleType = "token",
+                    SaleReturnUrl = saleReturnUrl,
                     SaleCallbackUrl = saleCallbackUrl
+                    
                 };
             }
 
@@ -125,6 +127,8 @@ namespace Cloudents.Infrastructure
             public string SaleType { get; private set; }
              public string SaleCallbackUrl { get; private set; }
             public string BuyerKey { get; private set; }
+
+            public string SaleReturnUrl { get;  private set; }
 
 
         }

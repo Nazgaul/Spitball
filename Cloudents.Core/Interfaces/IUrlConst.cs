@@ -10,7 +10,7 @@ namespace Cloudents.Core.Interfaces
         string BuildShareEndPoint(string token);
 
         string BuildQuestionEndPoint(long id, object parameters = null);
-        string BuildPayMeBuyerEndPoint(string token);
+       // string BuildPayMeBuyerEndPoint(string token);
 
         Uri BuildChatEndpoint(string token, object parameters = null);
 

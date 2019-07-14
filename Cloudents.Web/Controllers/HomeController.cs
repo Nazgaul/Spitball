@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Models;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
@@ -120,9 +121,9 @@ namespace Cloudents.Web.Controllers
 
 
         [Route("PaymentProcessing", Name = "ReturnUrl")]
-        public IActionResult Processing()
+        public IActionResult Processing(PaymeSuccessCallback model)
         {
-            return View("Processing");
+            return View("Processing", model);
 
         }
 

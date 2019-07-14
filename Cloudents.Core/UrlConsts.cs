@@ -10,7 +10,7 @@ namespace Cloudents.Core
     [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
-        public const string GeneratePaymentLink = "generatePaymentLink";
+       // public const string GeneratePaymentLink = "generatePaymentLink";
         private readonly Uri _webSiteEndPoint;
 
         public UrlConst(IConfigurationKeys configuration)
@@ -45,13 +45,13 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildPayMeBuyerEndPoint(string token)
-        {
+        //public string BuildPayMeBuyerEndPoint(string token)
+        //{
            
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = GeneratePaymentLink };
-            builder.AddQuery(new { token });
-            return builder.ToString();
-        }
+        //    var builder = new UriBuilder(_webSiteEndPoint) { Path = GeneratePaymentLink };
+        //    builder.AddQuery(new { token });
+        //    return builder.ToString();
+        //}
 
         public Uri BuildChatEndpoint(string token, object parameters = null)
         {
