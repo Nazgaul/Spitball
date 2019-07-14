@@ -14,7 +14,7 @@
     <div>
         @if (Model.Status.Equals("success", StringComparison.OrdinalIgnoreCase))
         {
-            <div  style="display: flex; justify-content: center; align-items: center; width: 100vw; height: 100vh;">
+            <div  style="display: flex; justify-content: center; align-items: center; height: 90vh;">
                 <svg style="width: 150px; height: 150px;" width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
@@ -53,7 +53,10 @@
                 }
                 else
                 {
-                <div>No Processing</div>
+                <div  style="display: flex; justify-content: center; align-items: center; height: 90vh;">
+                    <p>No Processing</p>
+                </div>
+
                 }
             </div>
 </body>
