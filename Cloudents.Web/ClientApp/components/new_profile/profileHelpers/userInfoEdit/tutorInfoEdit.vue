@@ -125,7 +125,7 @@
                 rules: {
                     required: (value) => validationRules.required(value),
                     minimum: (value) => validationRules.minVal(value, 50),
-                    maximum: (value) => validationRules.maxVal(value, 200),
+                    maximum: (value) => validationRules.maxVal(value, 1000),
                     maximumChars: (value) => validationRules.maximumChars(value, 1000)
                 },
                 valid: false,

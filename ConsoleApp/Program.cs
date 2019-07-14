@@ -27,6 +27,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Query.Query;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Query.Query.Admin;
 
@@ -138,7 +139,6 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var z = FormatDocumentExtensions.GetFormats();
             //var t = new GuidCombGenerator();
 
             //var dictionary = new Dictionary<int, Guid>();
@@ -149,7 +149,9 @@ namespace ConsoleApp
             //var v = dictionary.OrderBy(d => d.Value);
 
             ////await UpdateMethod();
-            //var queryBus = _container.Resolve<IMailProvider>();
+            var queryBus = _container.Resolve<IQueryBus>();
+            var query = new DocumentById(29173, 638);
+            var z = queryBus.QueryAsync(query, default);
             //var z = await queryBus.ValidateEmailAsync("gadi.avner@gmail.com", default);
 
             //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
