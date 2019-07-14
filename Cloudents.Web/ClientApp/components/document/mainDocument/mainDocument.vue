@@ -531,7 +531,6 @@ export default {
                 left: 0;
                 right: 330px;
                 bottom: 30px;
-                height: 156px;
                 width: 450px;
                 margin: auto;
                 p {
