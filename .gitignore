@@ -171,3 +171,5 @@ Cloudents.Web/wwwroot/dist/main.js
 /Cloudents.Web/publicsuffixcache.dat
 .idea/
 /Cloudents.Web/package-lock.json
+Cloudents.Web/.vscode/settings.json
+Cloudents.Web/.vscode/launch.json

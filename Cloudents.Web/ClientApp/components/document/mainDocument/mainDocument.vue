@@ -245,7 +245,7 @@ export default {
             }
         },
         docPrice() {
-            if(this.document.details && this.document.details.views) {
+            if(this.document.details && this.document.details.price >= 0) {
                 return this.document.details.price.toFixed(2)
             }
         },

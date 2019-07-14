@@ -37,14 +37,14 @@ namespace Cloudents.Persistence
 
 
 
-            //TODO: Azure function as usual making live harder
-            //Could not load file or assembly 'Microsoft.Extensions.Options, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60' or one of its dependencies. The system cannot find the file specified.
-            configuration.Cache(c =>
-            {
-                CoreDistributedCacheProvider.CacheFactory = new RedisFactory(connectionString.Db.Redis, "master");
-                c.UseSecondLevelCache().RegionPrefix("nhibernate")
-                    .UseQueryCache().ProviderClass<CoreDistributedCacheProvider>();
-            });
+
+            //TODO: Redis sometime fails. We need to gracefully fallback if it happens
+            //configuration.Cache(c =>
+            //{
+            //    CoreDistributedCacheProvider.CacheFactory = new RedisFactory(connectionString.Db.Redis, "master");
+            //    c.UseSecondLevelCache().RegionPrefix("nhibernate")
+            //        .UseQueryCache().ProviderClass<CoreDistributedCacheProvider>();
+            //});
 
             _factory = configuration.BuildSessionFactory();
 
