@@ -83,7 +83,7 @@
                     </v-card>
                 </sb-dialog>
                 <sb-dialog
-                    :showDialog="showConfirm"
+                    :showDialog="showPurchaseConfirmation"
                     :popUpType="'purchaseConfirmation'"
                     :activateOverlay="true"
                     :isPersistent="true"
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="purchase-actions">
-                                <v-btn flat class="cancel" @click.native="showConfirm = false">
+                                <v-btn flat class="cancel" @click.native="updatePurchaseConfirmation(false)">
                                     <span v-language:inner>preview_cancel</span>
                                 </v-btn>
                                 <v-btn round class="submit-purchase" @click.native="unlockDocument">
@@ -138,7 +138,7 @@
                     :alt="document.content"/>
                 
             </div>
-            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="showConfirm = true">
+            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="updatePurchaseConfirmation(true)">
                 <p class="text-xs-center title" v-language:inner="'documentPage_unlock_document'"></p>
                 <div class="aside-top-btn align-center" v-if="!isLoading">
                     <span class="font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
@@ -176,7 +176,6 @@ export default {
     },
     data() {
         return {
-            showConfirm: false,
             showMenu: false,
             docPreviewLoader: false,
             currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
@@ -214,7 +213,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getBtnLoading', 'accountUser']),
+        ...mapGetters(['getBtnLoading', 'accountUser','getPurchaseConfirmation']),
+        showPurchaseConfirmation(){
+            return this.getPurchaseConfirmation
+        },
         uploaderName(){
             if(this.document.details && this.document.details.user.name) {
                 return this.document.details.user.name
@@ -335,7 +337,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['clearDocument', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState']),
+        ...mapActions(['clearDocument','updatePurchaseConfirmation', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         unlockDocument() {
             if(this.accountUser == null) {
@@ -344,7 +346,7 @@ export default {
                 let item = {id: this.document.details.id, price: this.document.details.price}
                 if(!this.isLoading) {
                     this.purchaseDocument(item)
-                    this.showConfirm = false
+                    this.updatePurchaseConfirmation(false)
                 }
             }
         },

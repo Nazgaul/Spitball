@@ -8,6 +8,7 @@ const state = {
     document: {},
     tutorList: [],
     btnLoading: false,
+    showPurchaseConfirmation: false,
 };
 
 const getters = {
@@ -23,10 +24,14 @@ const getters = {
             return state.tutorList;
         }
     },
-    getBtnLoading: state => state.btnLoading
+    getBtnLoading: state => state.btnLoading,
+    getPurchaseConfirmation: state => state.showPurchaseConfirmation,
 };
 
 const mutations = {
+    setPurchaseConfirmation(state,val){
+        state.showPurchaseConfirmation = val
+    },
     setDocument(state, payload) {
         state.document = payload;        
     },
@@ -45,6 +50,9 @@ const mutations = {
 };
 
 const actions = {
+    updatePurchaseConfirmation({commit},val){
+        commit('setPurchaseConfirmation',val)
+    },
     documentRequest({commit}, id) {
         return documentService.getDocument(id).then((DocumentObj) => {
             commit('setDocument', DocumentObj)

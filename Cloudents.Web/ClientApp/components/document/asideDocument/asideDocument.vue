@@ -15,7 +15,7 @@
             <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-if="isShowPurchased" v-language:inner="'documentPage_credit_uploader'"></p>
 
             <template>
-                <div class="aside-top-btn btn-lock" v-if="isShowPurchased && !isLoading" @click="unlockDocument">
+                <div class="aside-top-btn btn-lock" v-if="isShowPurchased && !isLoading" @click="updatePurchaseConfirmation(true)">
                     <span class="pa-4 font-weight-bold text-xs-center" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
@@ -76,8 +76,7 @@ export default {
         document: {},
     },
     methods: {
-        ...mapActions(['purchaseDocument', 'downloadDocument', 'clearDocument', 'updateLoginDialogState']),
-
+        ...mapActions(['purchaseDocument', 'downloadDocument', 'clearDocument', 'updateLoginDialogState','updatePurchaseConfirmation']),
         unlockDocument() {
             if(this.accountUser == null) {
                 this.updateLoginDialogState(true);
@@ -85,6 +84,8 @@ export default {
                 let item = {id: this.document.details.id, price: this.document.details.price}
                 if(!this.isLoading) {
                     this.purchaseDocument(item)
+                    this.updatePurchaseConfirmation(false)
+
                 }
             }
         },
