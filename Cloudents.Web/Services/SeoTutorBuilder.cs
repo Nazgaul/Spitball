@@ -30,7 +30,9 @@ namespace Cloudents.Web.Services
             var t = _session.Query<Tutor>()
                 .Fetch(f => f.User)
                 .Where(w => (!w.User.LockoutEnd.HasValue || DateTime.UtcNow >= w.User.LockoutEnd.Value))
-                .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
+                .Where(w=>w.State == ItemState.Ok)
+                .Take(SiteMapController.PageSize)
+                .Skip(SiteMapController.PageSize * index)
                 .Select(s => new { s.Id, s.User.Name });
 
             foreach (var item in t)
