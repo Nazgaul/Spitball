@@ -13,7 +13,6 @@ function AccountUser(objInit){
     this.isTutorState =  createIsTutorState(objInit.isTutor);// state of become tutor request, possible options ok, pending;
     this.image = objInit.image || '';
     this.online = objInit.online || false;
-    this.needPayment = objInit.needPayment;
 }
 function createIsTutorState(str){
     if(str && str.toLowerCase() === 'ok'){

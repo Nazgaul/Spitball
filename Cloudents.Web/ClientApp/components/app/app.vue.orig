@@ -301,6 +301,18 @@ export default {
     closeSblToken() {
       this.updateShowBuyDialog(false);
     },
+<<<<<<< HEAD
+    closePayMe(){
+      this.updateShowPayMeToaster(false);
+=======
+    tourClosed: function() {
+      console.log("tourClosed");
+      global.localStorage.setItem("sb_walkthrough_supressed", true);
+    },
+    tourTempClose: function() {
+      this.$tours["myTour"].close();
+>>>>>>> feature-payme
+    },
     removeCookiesPopup: function() {
       this.setCookieAccepted();
     },

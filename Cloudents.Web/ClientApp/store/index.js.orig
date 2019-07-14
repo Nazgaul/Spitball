@@ -24,6 +24,12 @@ import marketingBox from './marketingBox'
 import mobileFooter from './mobileFooter';
 //import onBoardGuide from './onBoardGuide';
 import buyTokens from './buyTokens';
+<<<<<<< HEAD
+import payMe from './payMe';
+=======
+import tutoringCanvas from './tutoringCanvas';
+import tutoringMainStore from './tutoringMain';
+>>>>>>> feature-payme
 import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
 import studyRoomsStore from './studyRoomsStore';
@@ -60,6 +66,12 @@ const store = new Vuex.Store({
         mobileFooter,
         //onBoardGuide,
         buyTokens,
+<<<<<<< HEAD
+        payMe,
+=======
+        tutoringCanvas,
+        tutoringMainStore,
+>>>>>>> feature-payme
         chatStore,
         becomeTutor,
         studyRoomsStore,

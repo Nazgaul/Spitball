@@ -483,10 +483,7 @@ const actions = {
     },
     profileVote({commit}, data) {
         commit('updateProfileVote', data);
-    },
-    signalR_userPaymentReceived({state}){
-        state.user.needPayment = false;
-    },
+    }
 };
 
 

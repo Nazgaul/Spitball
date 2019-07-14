@@ -16,8 +16,12 @@ let availableDevices = [];
     }
    function enterRoom(){
        if (!store.getters['sessionStartClickedOnce']) {
+<<<<<<< HEAD
         store.dispatch('setSesionClickedOnce', true);
+        if (!!store.getters['accountUser'] && store.getters['accountUser'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
+=======
         if (!!store.getters['accountUser'] && !store.getters['getStudyRoomData'].isTutor) {
+>>>>>>> feature-payme
             walletService.getPaymeLink().then(({ data }) => {
                 store.dispatch('updatePaymentUrl', data.link);
                 store.dispatch('updatePaymentDialog',true)

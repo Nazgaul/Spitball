@@ -2,6 +2,8 @@ import videoStreamService from '../../services/videoStreamService';
 import { LanguageService } from '../../services/language/languageService';
 
 const state = {
+    paymentUrl: '',
+    showPaymentDialog: false,
     identity: '',
     isRoom: false,
     roomId: '',
@@ -53,10 +55,18 @@ const getters = {
     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
     getEndDialog: state => state.endDialog,
     getSessionEndClicked: state => state.sessionEndClicked,
-    getBrowserSupportDialog: state => state.browserSupportDialog
+    getBrowserSupportDialog: state => state.browserSupportDialog,
+    getPaymentUrl: state => state.paymentUrl,
+    getPaymentDialog: state => state.showPaymentDialog,
 };
 
 const mutations = {
+    setPaymentUrl(state,url){
+        state.paymentUrl = url
+    },
+    setPaymentDialog(state,val){
+        state.showPaymentDialog = val
+    },
     setEndDialog(state, val) {
         state.endDialog = val;
     },
@@ -135,6 +145,12 @@ const mutations = {
 };
 
 const actions = {
+    updatePaymentUrl({commit},url){
+        commit('setPaymentUrl', url)
+    },
+    updatePaymentDialog({commit},val){
+        commit('setPaymentDialog',val)
+    },
     updateEndDialog({commit, state}, val){
         commit('setEndDialog', val)
     },
@@ -269,7 +285,7 @@ const actions = {
 
         }
     },
-    signalR_ReleasePaymeStatus({commit, dispatch, state}) {
+    signalR_ReleasePaymeStatus({dispatch, state}) {
         state.studyRoomData.needPayment = false;
         let isTutor = state.studyRoomData.isTutor;
         if(isTutor) {
