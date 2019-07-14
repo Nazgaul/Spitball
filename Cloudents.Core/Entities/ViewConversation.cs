@@ -19,7 +19,7 @@ namespace Cloudents.Core.Entities
         public virtual string TutorPhoneNumber { get; set; }
         public virtual string TutorEmail { get; set; }
         public virtual long TutorId { get; set; }
-        public virtual ChatRoomStatus? Status { get; set; }
+        public virtual ChatRoomStatus Status { get; set; }
         public virtual ChatRoomAssign? AssignTo { get; set; }
         public virtual string RequestFor { get; set; }
         public virtual int ConversationStatus { get; set; }

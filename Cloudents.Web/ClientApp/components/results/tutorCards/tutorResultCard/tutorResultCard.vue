@@ -131,6 +131,7 @@ export default {
       this.isLoaded = true;
     },
     tutorCardClicked(e) {
+      debugger;
         if(this.fromLandingPage){
             analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
             
