@@ -11,7 +11,8 @@
     "client": "node node_modules/webpack/bin/webpack.js",
     "vendor": "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js",
     "vendor-prod": "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod",
-    "server": "node node_modules/webpack/bin/webpack.js --config webpack.config.server.js"
+    "server": "node node_modules/webpack/bin/webpack.js --config webpack.config.server.js",
+    "debug": "node-nightly --inspect node_modules/webpack/bin/webpack.js"
   },
   "devDependencies": {
     "@types/jest": "^22.0.1",
