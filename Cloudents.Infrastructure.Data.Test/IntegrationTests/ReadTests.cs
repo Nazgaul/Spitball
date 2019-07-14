@@ -27,6 +27,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             // _autoMock = AutoMock.GetLoose();
 
         }
+
+        //[Fact]
+        //public async Task ChatConversationByIdQuery_Ok()
+        //{
+        //    var query = new ChatConversationByIdQuery(638, 0, null, "IL");
+
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+
+
+        //}
+
         [Fact]
         public async Task DocumentAggregateQuery_Ok()
         {

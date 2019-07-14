@@ -1,31 +1,31 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Query.Query.Admin;
 using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Admin
+namespace Cloudents.Query.Query.Admin
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class CashOutQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<CashOutDto>>
+    public class AdminCashOutEmptyQuery : IQuery<IEnumerable<CashOutDto>>
     {
-        private readonly DapperRepository _session;
-
-
-
-        public CashOutQueryHandler(DapperRepository session)
+        internal sealed class AdminCashOutEmptyQueryHandler : IQueryHandler<AdminCashOutEmptyQuery, IEnumerable<CashOutDto>>
         {
-            _session = session;
-        }
+            private readonly DapperRepository _session;
 
-        public async Task<IEnumerable<CashOutDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
-        {
-            using (var conn = _session.OpenConnection())
+
+
+            public AdminCashOutEmptyQueryHandler(DapperRepository session)
             {
-                var result = await conn.QueryAsync<CashOutDto>(@"select t.User_id as userId,
+                _session = session;
+            }
+
+            public async Task<IEnumerable<CashOutDto>> GetAsync(AdminCashOutEmptyQuery query, CancellationToken token)
+            {
+                using (var conn = _session.OpenConnection())
+                {
+                    var result = await conn.QueryAsync<CashOutDto>(@"select t.User_id as userId,
 t.price as CashoutPrice,
 u.Email as UserEmail,
 t.created as CashOutTime,
@@ -49,11 +49,12 @@ left outer join sb.[User] u
 on t.User_id = u.Id 
 where t.TransactionType='CashOut' and t.Action='CashOut' and t.Approved is null
 and t.Created>@date
-order by t.id desc", new {date = DateTime.UtcNow.AddMonths(-1)});
-                return result;
-            }
+order by t.id desc", new { date = DateTime.UtcNow.AddMonths(-1) });
+                    return result;
+                }
 
-           
+
+            }
         }
     }
 }

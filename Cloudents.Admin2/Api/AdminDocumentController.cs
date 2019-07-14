@@ -40,8 +40,8 @@ namespace Cloudents.Admin2.Api
             [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            var retVal = await _queryBus.QueryAsync<IList<PendingDocumentDto>>(query, token);
+            var query = new PendingDocumentEmptyQuery();
+            var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
             var counter = 0;
             foreach (var document in retVal)
@@ -114,8 +114,8 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync
             ([FromServices] IBlobProvider blobProvider, CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            var retVal = await _queryBus.QueryAsync<IList<FlaggedDocumentDto>>(query, token);
+            var query = new FlaggedDocumentEmptyQuery();
+            var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
          
             foreach (var document in retVal)
