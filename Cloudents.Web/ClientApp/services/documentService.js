@@ -17,15 +17,15 @@ function DocumentItem(ObjInit) {
 };
 
 function DocumentUser(objInit) {
-    this.userId = objInit.id
-    this.isTutor = objInit.isTutor
-    this.bio = objInit.bio || null
-    this.name = objInit.name
-    this.image = objInit.image
-    this.score = objInit.score
-    this.price = objInit.price
-    this.courses = objInit.courses
-    this.reviewsCount = objInit.reviewsCount
+    this.userId = objInit.id;
+    this.isTutor = objInit.isTutor;
+    this.bio = objInit.bio || null;
+    this.name = objInit.name;
+    this.image = objInit.image;
+    this.score = objInit.score;
+    this.price = objInit.price;
+    this.courses = objInit.courses || '';
+    this.reviewsCount = objInit.reviewsCount;
 }
 
 function createDocumentItem(ObjInit) {
