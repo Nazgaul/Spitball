@@ -34,7 +34,7 @@ namespace Cloudents.Functions
             [QueueTrigger("generate-blob-preview")] string id,
             [Inject] IFactoryProcessor factory,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
-            [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
+            //[Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
             [Queue("generate-search-preview")] IAsyncCollector<string> collectorSearch,
             TraceWriter log, CancellationToken token)
 
@@ -182,7 +182,6 @@ namespace Cloudents.Functions
                     }
                 }
 
-                await collectorBlur.AddAsync(id, token);
                
                 log.Info("C# Blob trigger function Processed");
 
