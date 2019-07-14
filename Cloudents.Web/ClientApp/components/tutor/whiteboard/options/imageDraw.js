@@ -20,8 +20,8 @@ const clearLocalShape = function () {
     });
 };
 
-const imageXDefaultPosition = 100;
-const imageYDefaultPosition = 75;
+const imageXDefaultPosition = window.innerWidth / 2.3
+const imageYDefaultPosition = window.innerHeight / 3.5;
 let imageDictionary = {};
 
 const init = function () {
