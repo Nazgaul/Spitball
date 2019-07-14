@@ -255,23 +255,26 @@ export default {
             if(this.document.preview && this.docWrap) {
                 let width;
                 if (this.$vuetify.breakpoint.xl) {
-                    width = 1540
+                    width = 960
                 }
                 if (this.$vuetify.breakpoint.lg) {
-                    width = 900
+                    width = 880
                 }
                 if (this.$vuetify.breakpoint.md) {
-                    width = 600
+                    width = 510
                 }
                 if (this.$vuetify.breakpoint.sm) {
-                    width = 750
+                    width = 730
                 }
                 if (this.$vuetify.breakpoint.xs) {
                     width = 400
-                }                
+                } 
+                if (this.$vuetify.breakpoint.width === 375) {
+                    width = 375
+                }           
                 let height = width / 0.707;               
                 let result = this.document.preview.map(preview => {                    
-                    return utillitiesService.proccessImageURL(preview, width, height.toFixed(0), 'pad')
+                    return utillitiesService.proccessImageURL(preview, width, Math.ceil(height), 'pad')
                 })
                 return result;
             }
@@ -280,22 +283,25 @@ export default {
             if(this.document.preview && this.docWrap) {
                 let width;
                 if (this.$vuetify.breakpoint.xl) {
-                    width = 1540
+                    width = 960
                 }
                 if (this.$vuetify.breakpoint.lg) {
-                    width = 900
+                    width = 880
                 }
                 if (this.$vuetify.breakpoint.md) {
-                    width = 600
+                    width = 510
                 }
                 if (this.$vuetify.breakpoint.sm) {
-                    width = 750
+                    width = 730
                 }
                 if (this.$vuetify.breakpoint.xs) {
                     width = 400
-                }                
+                }
+                if (this.$vuetify.breakpoint.width === 375) {
+                    width = 375
+                }                 
                 let height = width / 0.707;     
-                return height.toFixed(0) 
+                return Math.ceil(height)
             }
         },
         isSmAndDown() {
@@ -543,7 +549,6 @@ export default {
                 
             }
             .document-wrap-content {
-                width: 100%;
                 max-width: 960px;
             }
             .unlock_progress {
