@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 using Cloudents.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using System.IO;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Web.Api
 {
@@ -163,18 +165,24 @@ namespace Cloudents.Web.Api
                     if (!string.IsNullOrEmpty(result.Picture))
                     {
                         var (stream, _) = await client.DownloadStreamAsync(new Uri(result.Picture), cancellationToken);
-                        var hash = await blobProvider.UploadImageAsync(user.Id, result.Picture, stream, token: cancellationToken);
-                        if (hash == null)
+                        Uri uri;
+                        try
                         {
-                            ModelState.AddModelError("x", "not an image");
-                            return BadRequest(ModelState);
+                            uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, stream, token: cancellationToken);
                         }
-                        var url = Url.RouteUrl("imageUrl", new
+                        catch (NotSupportedImageException)
                         {
-                            hash = Base64UrlTextEncoder.Encode(hash)
-                        });
-
-                        user.Image = url;
+                            await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
+                            return await MakeDecision(user, true, null, cancellationToken);
+                        }
+                        
+                        if (uri != null)
+                        {
+                            var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
+                            var url = Url.ImageUrl(imageProperties);
+                            user.Image = url;
+                        }
+                        
                     }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
                     return await MakeDecision(user, true, null, cancellationToken);

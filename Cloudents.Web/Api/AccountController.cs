@@ -25,6 +25,7 @@ using NHibernate;
 using System.Drawing;
 using Cloudents.Identity;
 using static Microsoft.AspNetCore.Http.StatusCodes;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Web.Api
 {
@@ -152,12 +153,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
-            if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
-            {
-                ModelState.AddModelError("x","not an image");
-                return BadRequest(ModelState);
-            }
+      
 
 
             //var extension = Path.GetExtension(file.FileName);
@@ -180,16 +176,25 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var userId = userManager.GetLongUserId(User);
-            var hash = await blobProvider.UploadImageAsync(userId, file.FileName, file.OpenReadStream(), file.ContentType, token);
-            if (hash == null)
+            Uri uri;
+            try
+            {
+                uri = await blobProvider.UploadImageAsync(userId, file.FileName, file.OpenReadStream(), file.ContentType, token);
+            }
+            catch (NotSupportedImageException)
+            {
+                ModelState.AddModelError("x", "not an image");
+                return BadRequest(ModelState);
+            }
+
+            if (uri == null)
             {
                 ModelState.AddModelError("x", "not an image");
                     return BadRequest(ModelState);
             }
-                var url = Url.RouteUrl("imageUrl", new
-            {
-                hash = Base64UrlTextEncoder.Encode(hash)
-            });
+            var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
+            var url = Url.ImageUrl(imageProperties);
+          
             var command = new UpdateUserImageCommand(userId, url);
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
