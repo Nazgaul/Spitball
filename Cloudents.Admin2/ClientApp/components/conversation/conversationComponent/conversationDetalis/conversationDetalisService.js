@@ -1,9 +1,9 @@
 ﻿import { connectivityModule } from '../../../../services/connectivity.module';
 
 function conversationFilters(objInit){
-    this.assignTo = objInit.assignTo
-    this.status = objInit.status
-    this.waitingFor = objInit.waitingFor
+    this.assignTo = objInit.assignTo;
+    this.status = objInit.status;
+    this.waitingFor = objInit.waitingFor;
 }
 
 function createConversationFilters(objInit){

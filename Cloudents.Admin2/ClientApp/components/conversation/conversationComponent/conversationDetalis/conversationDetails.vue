@@ -6,6 +6,7 @@
           <v-toolbar color="indigo" class="heading-toolbar" dark>
             <v-toolbar-title>Conversations</v-toolbar-title>
             <v-spacer></v-spacer>
+            <v-btn flat @click="clearFilters">Clear</v-btn>
             <v-select
                 v-model="filterWaitingFor"
                 :items="filters.waitingFor"
@@ -17,21 +18,21 @@
                 dense
                 outline
                 label="Waiting for"
-                @change="handleFilter('waiting', filterWaitingFor)"
+                @change="handleFilter()"
               ></v-select>
               <v-select
-                v-model="filterStatus"
-                :items="filters.status"
+                v-model="filterStatusName"
                 class="mr-2 top-card-select"
                 height="40px"
                 hide-details
                 dense
                 box
+                readonly
                 menu-props="lazy"
                 round
                 outline
-                label="Status"
-                @change="handleFilter('status', filterStatus)"
+                :label="filterStatusName || 'Status'"
+                @click.native.stop="dialog.status = !dialog.status"
               ></v-select>
               <v-select
                 v-model="filterAssignTo"
@@ -45,7 +46,7 @@
                 round
                 outline
                 label="Assigned to"
-                @change="handleFilter('assignTo', filterAssignTo)"
+                @change="handleFilter()"
               ></v-select>
           </v-toolbar>
 
@@ -123,31 +124,37 @@
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-6 pl-3">
-                              <v-select v-model="conversation.status"
-                                        :items="filters.status"
-                                        @click.native.stop
-                                        class="card-converstaion-select pb-2"
-                                        hide-details
-                                        box
-                                        dense
-                                        menu-props="lazy"
-                                        outline
-                                        height="20"
-                                        color="success"
-                                        label="Status"
-                                        @change="changeStatus($event, conversation.id)"></v-select>
-                              <v-select v-model="conversation.assignTo"
-                                        :items="filters.assignTo"
-                                        @click.native.stop
-                                        class="card-converstaion-select"
-                                        hide-details
-                                        dense
-                                        box
-                                        menu-props="lazy"
-                                        round
-                                        outline
-                                        label="Assign to"
-                                        @change="handleAssingTo($event, conversation.id)"></v-select>
+                              <v-btn flat class="mb-2" @click.native.stop="dialog.status = !dialog.status">Status</v-btn>
+                              <v-btn flat @click.native.stop="dialog.assign = !dialog.assign">Assign to</v-btn>
+                              <!-- <v-select 
+                                  v-model="conversation.status"
+                                  :items="filters.status"
+                                  @click.native.stop
+                                  class="card-converstaion-select pb-2"
+                                  hide-details
+                                  box
+                                  dense
+                                  menu-props="lazy"
+                                  outline
+                                  height="20"
+                                  color="success"
+                                  label="Status"
+                                  @change="changeStatus($event, conversation.id)">
+                              </v-select>
+                              <v-select 
+                                  v-model="conversation.assignTo"
+                                  :items="filters.assignTo"
+                                  @click.native.stop
+                                  class="card-converstaion-select"
+                                  hide-details
+                                  dense
+                                  box
+                                  menu-props="lazy"
+                                  round
+                                  outline
+                                  label="Assign to"
+                                  @change="handleAssingTo($event, conversation.id)">
+                              </v-select> -->
                           </v-flex>
                       </v-layout>
                     </div>
@@ -173,12 +180,29 @@
     >
     <startConversation :isDialog="true" :userId="currentStudentId" :closeDialog="closeDialog"></startConversation>
     </v-dialog>
+    <v-dialog
+      v-model="dialog.status"
+      width="500"
+      v-if="dialog.status"
+    >
+        <statusDialogs :statusFilters="filters.status" :setStatusFilter="setStatusFilter" :handleFilter="handleFilter" />
+    </v-dialog>
+    <!-- <v-dialog
+      v-model="dialog.assign"
+      width="500"
+      v-if="dialog.assign"
+    >
+        <assignToDialog :assignToFilters="filters.assignTo" :setAssignFilter="setAssignFilter" :handleFilter="handleFilter" />
+    </v-dialog> -->
   </div>
 </template>
 
 <script>
 import conversationMessages from "../conversationMessages/conversationMessages.vue";
 import startConversation from "../../startConversation.vue";
+import statusDialogs from "../conversationDialogs/statusDialogs.vue";
+import assignToDialog from "../conversationDialogs/assignToDialog.vue";
+
 import {
   getDetails,
   getMessages,
@@ -190,6 +214,15 @@ import {
 } from "./conversationDetalisService";
 
 export default {
+  props:{
+    userId:{}
+  },
+  components: {
+    conversationMessages,
+    startConversation,
+    statusDialogs,
+    assignToDialog
+  },
   data() {
     return {
       headers: [
@@ -212,20 +245,16 @@ export default {
       isLoading: false,
       dialog: {
         startConversation: false,
+        status: false,
+        assign: false
       },
       filters: {},
       filterAssignTo: '',
       filterWaitingFor: '',
-      filterStatus: '',
+      filterStatusName: '',
+      filterStatusId: '',
       currentStudentId: ''
     };
-  },
-  components: {
-    conversationMessages,
-    startConversation
-  },
-  props:{
-    userId:{}
   },
   methods: {
     changeStatus(selectedStatus,id){
@@ -268,35 +297,35 @@ export default {
           
       }
     },
-    getConversations() {       
-      let filter = this.getFiltersQuery();    
-      let id = this.userId; 
+    getConversations() {
+      let filter = this.getFiltersQuery();
+      let id = this.userId;
       getConversationsListPage(id, this.page, filter).then(list => {
         if (list.length === 0) {
           this.isCompleted = true;
-        } 
+        }
           this.conversationsList = [...this.conversationsList, ...list];
         },
         err => {
           console.log(err);
         }
-      ).finally(()=>{
+      ).finally(() => {
         this.isLoading = false;
         this.showLoading = false;
       });
     },
-    handleAssingTo(assignTo, id) {  
-      setAssignTo(id, assignTo)
+    handleAssingTo(assignTo, id) {
+      setAssignTo(id, assignTo);
     },
-    getFiltersQuery(){
+    getFiltersQuery() {
       let assign = this.filterAssignTo === '' ? '' : `assignTo=${this.filterAssignTo}&`;
-      let status = this.filterStatus === '' ? '' :  `status=${this.filterStatus}&`;
+      let status = this.filterStatusName === '' ? '' :  `status=${this.filterStatusId}&`;
       let autoStatus = this.filterWaitingFor === '' ? '' :  `autoStatus=${this.filterWaitingFor}&`;
-      return `${assign}${status}${autoStatus}`
+      return `${assign}${status}${autoStatus}`;
     },
-    handleFilter(params, payload) {
+    handleFilter() {
       let query = this.getFiltersQuery();
-      getFilters(this.userId, query).then(res => {                
+      getFilters(this.userId, query).then(res => {
         this.conversationsList = res;
         this.page = 0;
         this.isCompleted = false;
@@ -306,8 +335,8 @@ export default {
       window.open(`https://www.spitball.co/tutor?term=${subject}`, '_blank');
     },
     openStartConversationDialog(id) {
-      this.currentStudentId = id
-      this.dialog.startConversation = true
+      this.currentStudentId = id;
+      this.dialog.startConversation = true;
     },
     statusColor(status) {
       if(status === 'Tutor') return 'tutor-status'
@@ -316,14 +345,36 @@ export default {
     },
     closeDialog() {
       this.dialog = false
+    },
+    setStatusFilter(id, name) {
+      this.filterStatusName = name;
+      this.filterStatusId = id
+      this.dialog.status = false;
+      this.handleFilter()
+    },
+    setAssignFilter(id, name) {
+      this.filterStatusName = name;
+      this.filterStatusId = id
+      this.dialog.status = false;
+      this.handleFilter()
+    },
+    clearFilters() {
+      if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) return
+
+      this.filterAssignTo = '';
+      this.filterStatusName = '';
+      this.filterWaitingFor = '';
+      this.handleFilter();
     }
   },
   created() {
     if(this.$route.name === 'userConversations' && !this.userId) return this.$router.push('/')
+
     window.addEventListener("scroll", this.handleScroll);
     getFiltersParams().then(conversationFilters=>{
       this.filters = conversationFilters;
     });
+
     this.getConversations();
   },
   destroyed() {
@@ -331,7 +382,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .v-menu__content.theme--light.menuable__content__active {
@@ -371,11 +421,6 @@ export default {
         flex: 0 0 auto !important;
       }
     }
-    // .card-converstaion-content-col-1,.card-converstaion-content-col-2 {
-    //   .text-truncate {
-    //     max-width: 110px;
-    //   }
-    // }
     .card-converstaion-content-col-4 {
       flex-direction: column;
     }
@@ -402,22 +447,17 @@ export default {
       }
     }
     .card-converstaion-content-col-6 {
-      .card-converstaion-select {
-        .v-text-field--box .v-input__slot, .v-text-field--outline .v-input__slot{
-          min-height: auto !important;
-        }
-        .v-input__slot {
-          background-color: rgba(68, 82, 252, 0.06) !important;
-          border: 1px solid rgba(68, 82, 252, 0.56);
-        }
-        .v-input__slot:hover {
-          border: 1px solid rgba(68, 82, 252, 0.56) !important;
-        }  
+      button {
+        display: block;
+        margin: 0 auto;
       }
     }
   }
   .body-1,.subheading {
     color:#4452fc
   }
+}
+.dialog-wrap {
+  background-color: #fff; 
 }
 </style>
