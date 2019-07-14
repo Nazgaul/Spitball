@@ -42,7 +42,6 @@ namespace Cloudents.Core.EventHandler
                 Id = eventMessage.Question.Id,
                 // ReSharper disable once ConstantConditionalAccessQualifier this is later stuff - we still have null courses
                 Course = eventMessage.Question.Course?.Id,
-                Subject = eventMessage.Question.Subject,
                 Text = eventMessage.Question.Text,
                 Answers = 0,
                 DateTime = DateTime.UtcNow,

@@ -132,9 +132,6 @@
   <data name="QuestionFlood" xml:space="preserve">
     <value>You need to wait before asking a new question</value>
   </data>
-  <data name="SubjectTypeTitle" xml:space="preserve">
-    <value>Subject</value>
-  </data>
   <data name="VoteCantVote" xml:space="preserve">
     <value>You can not upvote / downvote your own question</value>
   </data>

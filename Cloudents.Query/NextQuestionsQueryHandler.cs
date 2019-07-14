@@ -30,14 +30,14 @@ namespace Cloudents.Query
 
 
             var detachedQuery = QueryOver.Of<Question>()
-                .Select(s => s.Subject)
+                .Select(s => s.Course.Id)
                 .Where(w => w.Id == query.QuestionId && w.Status.State == ItemState.Ok)
                 .Take(1);
 
             return await _session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .SelectList(l => l
-                    .Select(s => s.Subject).WithAlias(() => dto.Subject)
+                    //.Select(s => s.Subject).WithAlias(() => dto.Subject)
                     .Select(s => s.Id).WithAlias(() => dto.Id)
                     .Select(s => s.Text).WithAlias(() => dto.Text)
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
@@ -64,7 +64,7 @@ namespace Cloudents.Query
                     Where(w => w.User.Id == query.UserId && w.Status.State == ItemState.Ok).Select(s => s.Question.Id))
                 .TransformUsing(new DeepTransformer<QuestionFeedDto>())
                 .OrderBy(Projections.Conditional(
-                    Subqueries.PropertyEq(nameof(Question.Subject), detachedQuery.DetachedCriteria)
+                    Subqueries.PropertyEq(nameof(Question.Course), detachedQuery.DetachedCriteria)
                     , Projections.Constant(0), Projections.Constant(1)
                     )).Asc
                 .ThenBy(Projections.SqlFunction("random_Order", NHibernateUtil.Guid)).Asc

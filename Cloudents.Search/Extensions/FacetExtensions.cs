@@ -14,7 +14,7 @@ namespace Cloudents.Search.Extensions
             foreach (var facet in facets)
             {
                 var val = (int)facet.AsValueFacetResult<long>().Value;
-                if (!Enum.IsDefined(typeof(QuestionSubject), val)) continue;
+                //if (!Enum.IsDefined(typeof(QuestionSubject), val)) continue;
                 var z = Enum.ToObject(typeof(T), val);
                 yield return (T)z;
             }

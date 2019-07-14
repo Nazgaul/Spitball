@@ -14,6 +14,6 @@ namespace Cloudents.Core.Questions.Queries.GetQuestionsList
         [ItemCanBeNull]
         public IList<QuestionFeedDto> Result { get; set; }
         public IEnumerable<QuestionFilter> FacetState { get; set; }
-        public IEnumerable<QuestionSubject> FacetSubject { get; set; }
+        //public IEnumerable<QuestionSubject> FacetSubject { get; set; }
     }
 }

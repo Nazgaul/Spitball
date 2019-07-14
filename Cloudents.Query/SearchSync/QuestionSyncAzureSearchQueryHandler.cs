@@ -33,7 +33,6 @@ select q.Id as QuestionId,
                            CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
                            q.Text as Text,
                            q.State as State,
-                            q.Subject_id as Subject,
 c2.Name as Course,
 uni.Name as University,
 (select STRING_AGG(dt.TagId, ', ')	
@@ -65,7 +64,6 @@ CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c;";
 	    CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
 	    q.Text as Text,
 	    q.State as State,
-	    q.Subject_id as Subject,
 		C2.Name as Course,
 		uni.Name as University,
 (select STRING_AGG(dt.TagId, ', ')		
@@ -141,7 +139,6 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
                             DateTime = dbResult.DateTime,
                             Id = dbResult.QuestionId,
                             Language = dbResult.Language ?? "en",
-                            Subject = dbResult.Subject,
                             Text = dbResult.Text,
                             UniversityName = dbResult.University,
                             Tags = dbResult.Tags?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
@@ -177,8 +174,7 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
             public string Text { get; set; }
             [Core.Attributes.EntityBind(nameof(Question.Status.State))]
             public ItemState State { get; set; }
-            [Core.Attributes.EntityBind(nameof(Question.Subject))]
-            public QuestionSubject? Subject { get; set; }
+           
             public long SYS_CHANGE_VERSION { get; set; }
             public string SYS_CHANGE_OPERATION { get; set; }
             //public string SYS_CHANGE_COLUMNS { get; set; }
@@ -193,10 +189,5 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
             [Core.Attributes.EntityBind(nameof(Question.Course), nameof(Document.Tags), nameof(Tag.Name))]
             public string Tags { get; set; }
         }
-
-
-
-
-
     }
 }
