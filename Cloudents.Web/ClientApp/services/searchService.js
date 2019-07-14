@@ -1,4 +1,4 @@
-﻿import { transformLocation } from "./resources";
+﻿
 import { connectivityModule } from "./connectivity.module"
 
 let currentVertical = 'item';
@@ -20,8 +20,9 @@ const getNextPage = ({ url, vertical }) => {
     return connectivityModule.http.get(url, { baseURL: "" });
 };
 
-const getTutorsByCourse = (params) => {    
-    return connectivityModule.http.get(`tutor?courseName=${params}`);
+const getTutorsByCourse = (courseName) => {
+    let path = courseName ? `tutor?course=${encodeURIComponent(courseName)}` : 'tutor';
+    return connectivityModule.http.get(path);
 };
 
 function AnswerItem(objInit) {
@@ -211,7 +212,7 @@ export default {
             return getTutorsByCourse(params).then(transferAnswerItem)
         }
     },
-   
+    getTutorsByCourse,
 
     nextPage: (params) => {
         return getNextPage(params).then(transferNextPage);

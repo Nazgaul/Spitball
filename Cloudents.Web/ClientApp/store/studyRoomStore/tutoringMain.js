@@ -170,6 +170,11 @@ const actions = {
         //update leaveReview store, to prevent leaving of multiple reviews
         context.dispatch('updateAllowReview',  val.allowReview);
         context.commit('setStudyRoomProps', val);
+        if(!val.isTutor && val.needPayment){
+            setTimeout(()=>{
+                videoStreamService.enterRoom();
+            }, 500);
+        }
     },
     updateTestDialogState({commit, state}, val) {
         commit('setqualityDialogState', val);
