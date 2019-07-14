@@ -239,7 +239,9 @@ const actions = {
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
                     dispatch('showRoomToasterMessage', toasterParams);
                     //show tutor start session
-                    dispatch("updateTutorStartDialog", true);
+                    if(!state.studyRoomData.needPayment){
+                        dispatch("updateTutorStartDialog", true);
+                    }
                 } else {
                     dispatch("updateTutorStartDialog", false);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
@@ -289,7 +291,7 @@ const actions = {
         state.studyRoomData.needPayment = false;
         let isTutor = state.studyRoomData.isTutor;
         if(isTutor) {
-            dispatch("updateStudentStartDialog", true);
+            dispatch("updateTutorStartDialog", true);
         }
     },
     setRoomId({commit}, val) {
