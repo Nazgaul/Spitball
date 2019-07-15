@@ -23,9 +23,9 @@
         watch: {
             '$route.query'(val) {
                 let objReq;
-                if(!!this.$route.query && this.$route.query.hasOwnProperty('Course')) {
-                    let courseInFilter =  this.$route.query.Course;
-                    objReq ={page: 0, courseName: courseInFilter};
+                if(!!this.$route.query) {
+                    let course = this.getCourseFromQuery();
+                    objReq ={page: 0, courseName: course};
                 }else{
                     objReq ={page: 0, courseName: ''};
                 }
@@ -42,11 +42,20 @@
                 if(!this.isMobile){
                     this.$router.push({name:'tutors'});
                 }
+            },
+            getCourseFromQuery(){
+                if(!!this.$route.query) {
+                    if(this.$route.query.hasOwnProperty('Course')){
+                        return this.$route.query.Course;
+                    }else if(this.$route.query.hasOwnProperty('term')){
+                        return this.$route.query.term;
+                    }
+                }
             }
         },
         created(){
-                let courseInFilter =  this.$route.query.Course ? this.$route.query.Course : '';
-                let objReq ={page: 0, courseName: courseInFilter};
+                let courseFromQuery =  this.getCourseFromQuery();
+                let objReq ={page: 0, courseName: courseFromQuery};
                 this.getList(objReq);
         },
         beforeDestroy(){
