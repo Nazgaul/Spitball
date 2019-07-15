@@ -32,6 +32,7 @@
           v-for="(item, i) in getSelectedClasses"
           :class="{'active': item.text ? item.text === selectedCourse : item === selectedCourse}"
           :key="i"
+          event
           @click.native.prevent="selectCourse(item)">
           <v-list-tile-title v-text="item.text ? item.text : item" class="pad-left"></v-list-tile-title>
         </v-list-tile>
