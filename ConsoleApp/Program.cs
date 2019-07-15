@@ -30,6 +30,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Query.Query;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Email;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -464,12 +465,14 @@ namespace ConsoleApp
         {
             //ResourcesMaintenance.GetOrphanedResources();
             var queryBus = _container.Resolve<IQueryBus>();
-            var query = new TutorListQuery(159039, "IL");
+            var query = new GetUpdatesEmailUsersQuery();
             var test = await queryBus.QueryAsync(query, default);
-            foreach (var item in test)
-            {
-                Console.WriteLine(item.UserId);
-            }
+            //var query = new TutorListQuery(159039, "IL");
+            //var test = await queryBus.QueryAsync(query, default);
+            //foreach (var item in test)
+            //{
+            //    Console.WriteLine(item.UserId);
+            //}
             //var provider = _container.Resolve<IMondayProvider>();
             //await provider.UpdateTextRecordAsync(244705486, "text9", "רופין", default);
             //await provider.UpdateTextRecordAsync(244705486, "_____________1",
