@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
@@ -8,7 +9,7 @@ namespace Cloudents.Persistence.Maps
         public ChatRoomAdminMap()
         {
             Id(x => x.Id).GeneratedBy.Foreign("ChatRoom");
-            Map(x => x.Status);
+            Map(x => x.Status).Column("Status2").CustomType< EnumerationType<ChatRoomStatus>>();
             Map(x => x.AssignTo).Length(20);
 
             HasOne(x => x.ChatRoom).Constrained().Cascade.None();

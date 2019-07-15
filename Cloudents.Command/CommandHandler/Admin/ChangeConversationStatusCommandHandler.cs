@@ -1,9 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command.Admin;
+﻿using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
@@ -24,14 +23,14 @@ namespace Cloudents.Command.CommandHandler.Admin
                 chatRoom.Extra = new ChatRoomAdmin(chatRoom);
             }
 
-            if (message.Status == ChatRoomStatus.Unassigned)
-            {
-                chatRoom.Extra.Status = null;
-            }
-            else
-            {
-                chatRoom.Extra.Status = message.Status;
-            }
+            //if (message.Status == ChatRoomStatus.Unassigned)
+            //{
+            //    chatRoom.Extra.Status = null;
+            //}
+            //else
+            //{
+            chatRoom.Extra.Status = message.Status;
+            //}
 
             await _repository.UpdateAsync(chatRoom, token);
         }

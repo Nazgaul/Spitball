@@ -4,6 +4,7 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
@@ -74,8 +75,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("cashOut")]
         public async Task<IEnumerable<CashOutDto>> Get(CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            return await _queryBus.QueryAsync<IEnumerable<CashOutDto>>(query, token);
+            var query = new AdminCashOutEmptyQuery();
+            return await _queryBus.QueryAsync(query, token);
         }
 
 
@@ -130,8 +131,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("suspended")]
         public async Task<IEnumerable<SuspendedUsersDto>> GetSuspended(CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            return await _queryBus.QueryAsync<IEnumerable<SuspendedUsersDto>>(query, token);
+            var query = new SuspendedUsersEmptyQuery();
+            return await _queryBus.QueryAsync(query, token);
         }
 
         /// <summary>
@@ -299,6 +300,35 @@ namespace Cloudents.Admin2.Api
             var query = new AdminUserFlagsOthersQuery(minFlags, page);
             var res = await _queryBus.QueryAsync(query, token);
             return new UsersFlagsResponse { Flags = res.Item1, Rows = res.Item2 };
+        }
+
+        [HttpPut("phone")]
+        public async Task<IActionResult> UpdatePhoneAsync(
+                [FromBody]UpdatePhoneRequest model, CancellationToken token)
+        {
+            var command = new UpdatePhoneCommand(model.UserId, model.NewPhone);
+            try
+            {
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (DuplicateRowException)
+            {
+                return Conflict();
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+
+        [HttpPut("name")]
+        public async Task<IActionResult> UpdatePhoneAsync(
+                [FromBody]UpdateNameRequest model, CancellationToken token)
+        {
+            var command = new UpdateNameCommand(model.UserId, model.FirstName, model.LastName);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
     }
 }

@@ -25,7 +25,8 @@ namespace Cloudents.Query.Query.Admin
 		                            U.[Name] UserName, 
 		                            S.created Created, 
 		                            isnull(cast(datediff(minute, S.[Created],S.ended) as nvarchar(15)), 'OnGoing') Duration,
-		                            R.TutorId
+		                            R.TutorId,
+                                    U.Id as UserId
                             from [sb].[StudyRoomSession] S 
                             join [sb].[StudyRoom] R
 	                            on S.Studyroomid=R.id

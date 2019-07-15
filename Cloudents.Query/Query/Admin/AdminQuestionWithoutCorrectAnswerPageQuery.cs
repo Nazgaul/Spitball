@@ -1,34 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using Cloudents.Query.Query.Admin;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
 
-namespace Cloudents.Query.Admin
+namespace Cloudents.Query.Query.Admin
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminPageQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
+    public class AdminQuestionWithoutCorrectAnswerPageQuery : IQuery<IEnumerable<QuestionWithoutCorrectAnswerDto>>
+    {
+        public AdminQuestionWithoutCorrectAnswerPageQuery(int page)
+        {
+            Page = page;
+
+        }
+
+        private int Page { get; }
+
+        internal sealed class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminQuestionWithoutCorrectAnswerPageQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
         private const int PageSize = 30;
         private readonly IStatelessSession _session;
-        private readonly IUrlBuilder _urlBuilder;
 
-        public FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
+
+        public FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler(QuerySession session)
         {
-            _urlBuilder = urlBuilder;
             _session = session.StatelessSession;
         }
 
-        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminPageQuery query, CancellationToken token)
+        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminQuestionWithoutCorrectAnswerPageQuery query, CancellationToken token)
         {
 
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
@@ -41,7 +46,7 @@ namespace Cloudents.Query.Admin
                 .Where(w => w.CorrectAnswer == null)
                 .Where(w => w.Status.State == ItemState.Ok)
                 .WithSubquery.WhereExists(QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
-                    .And(x=>x.Status.State == ItemState.Ok)
+                    .And(x => x.Status.State == ItemState.Ok)
                     .Select(s => s.Id))
                 .And(Restrictions.Or(
                     Restrictions.Where(() => userAlias.Fictive),
@@ -63,7 +68,7 @@ namespace Cloudents.Query.Admin
 
             var answersResult = await _session.QueryOver<Answer>()
                 .Where(w => w.Question.Id.IsIn(questions.Select(s => s.Id).ToArray()))
-                .Where(w=>w.Status.State == ItemState.Ok)
+                .Where(w => w.Status.State == ItemState.Ok)
                 .SelectList(
                             l =>
                                 l.Select(s => s.Id).WithAlias(() => dtoAnswerAlias.Id)
@@ -77,10 +82,10 @@ namespace Cloudents.Query.Admin
             var answers = answersResult.ToLookup(l => l.QuestionId);
             return questions.Select(s =>
             {
-                s.Url = _urlBuilder.BuildQuestionEndPoint(s.Id);
                 s.Answers = answers[s.Id];
                 return s;
             }).Where(s => s.Answers.Any());
         }
     }
+}
 }

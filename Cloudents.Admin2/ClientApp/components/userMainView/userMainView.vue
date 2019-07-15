@@ -1,10 +1,10 @@
 <template>
-    <v-container>
+    <v-container fluid>
         <v-form ref="form" lazy-validation  
          @submit.prevent="submitUserData"
           >
-            <v-layout row>
-                <v-flex xs3>
+            <v-layout row wrap :class="{'column': $vuetify.breakpoint.mdAndDown}">
+                <v-flex xs3 style="display: flex;">
                     <v-text-field solo v-model="userIdentifier"
                                   autofocus
                                   type="text"
@@ -12,15 +12,15 @@
                                   :rules="requiredRules"
                                   placeholder="Insert user identifier..." 
                                   @keyup.enter="submitUserData()"/>
+                                  
+                    <v-btn color="success" @click="submitUserData()">
+                        Get User
+                    </v-btn>
                 </v-flex>
-                <v-btn color="success"
-                       @click="submitUserData()"
-                       >
-                    Get User
-                </v-btn>
+                
                
                 <v-spacer></v-spacer>
-                <v-flex xs4 v-if="showActions">
+                <v-flex xs4 v-if="showActions" >
                     <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!showActions" color="red lighten-2"
                            @click="showSuspendDialog()">
                         Suspend
@@ -35,14 +35,16 @@
                 
             </v-layout>
         </v-form>
-        <v-layout>
-            <v-flex xs2 v-if="showActions">
+        <v-layout :class="{'column': $vuetify.breakpoint.mdAndDown}">
+            <v-flex xs3 v-if="showActions" :class="{'userDetails mb-4': $vuetify.breakpoint.mdAndDown}">
                 <v-list dense class="elevation-2">
                     <template v-for="(infoItem, name,index) in userInfo">
-                        <v-list-tile :class="[ (index % 2 == 0) ? 'teal lighten-4' : 'cyan lighten-5' ]">
+                        <v-list-tile :class="[ (index % 2 == 0) ? 'teal lighten-4' : 'cyan lighten-5' ]" :key="index">
                             <v-layout align-center justify-space-between>
                                 <span>{{infoItem.label}}</span>
-                                <v-btn small color='red' @click="deleteTutor()" v-if="infoItem.label == 'Is Tutor' && infoItem.value != 'Not a tutor'"> Delete</v-btn >
+                                <v-btn small color='warning' @click="openNameDialog(userInfo.name.value)" v-if="infoItem.label == 'User Name'"> Edit</v-btn>
+                                <v-btn small color='warning' @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'"> Edit</v-btn>
+                                <v-btn small color='red' @click="deleteTutor()" v-if="infoItem.label == 'Is Tutor' && infoItem.value != 'Not a tutor'"> Delete</v-btn>
                                 <span>{{infoItem.value}}</span>
                             </v-layout>
                         </v-list-tile>
@@ -51,7 +53,7 @@
                 </v-list>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-flex xs10 class="ml-2">
+            <v-flex xs9 class="ml-2">
                 <v-tabs centered color="light-green">
                     <v-tab :to="{name: 'userQuestions', params : {userId: userId} }">Question</v-tab>
                     <v-tab :to="{name: 'userAnswers', params:{userId: userId}}">Answers</v-tab>
@@ -68,8 +70,9 @@
                     </v-btn>
                 </div>
                 <v-tabs-items>
-                    <router-view :userId="userId" :needScroll="needScroll">
-                    </router-view>
+
+                    <router-view :userId="userId" :needScroll="needScroll"></router-view>
+
                     <div class="d-flex justify-center align-center" v-if="loader">
                         <div class="text-xs-center">
                         <v-progress-circular :size="100"
@@ -85,7 +88,7 @@
                 </v-tabs-items>
             </v-flex>
         </v-layout>
-        <v-dialog v-model="suspendDialogState" persistent max-width="600px" v-if="suspendDialogState">
+        <v-dialog v-model="suspendDialogState" persistent max-width="600px" lazy v-if="suspendDialogState">
             <v-card>
                 <v-card-title>
                     <span class="headline">Suspend User</span>
@@ -105,7 +108,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-dialog v-model="getTokensDialogState" persistent max-width="600px" v-if="getTokensDialogState">
+        <v-dialog v-model="getTokensDialogState" persistent max-width="600px" lazy v-if="getTokensDialogState">
             <v-card>
                 <v-card-title>
                     <span class="headline">Grant Tokens</span>
@@ -126,6 +129,61 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-dialog v-model="dialogs.name" persistent max-width="600px" lazy v-if="dialogs.name">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Edit name</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container grid-list-md>
+                        <v-layout wrap>
+                            <v-flex xs12 sm12 md12>
+                                <v-text-field
+                                    v-model="newFirstName"
+                                    label="First Name"
+                                    :placeholder="currentFirstName"
+                                ></v-text-field>
+                                <v-text-field
+                                    v-model="newLastName"
+                                    label="Last Name"
+                                    :placeholder="currentLastName"
+                                ></v-text-field>
+                                <v-btn @click="editName()">Send</v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="dialogs.name = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogs.phone" persistent max-width="600px" lazy v-if="dialogs.phone">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Edit phone</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container grid-list-md>
+                        <v-layout wrap>
+                            <v-flex xs12 sm12 md12>
+                                <v-text-field
+                                    v-model="newPhone"
+                                    label="Phone"
+                                    :placeholder="currentPhone"
+                                ></v-text-field>
+                                <v-btn @click="editPhone()">Send</v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="dialogs.phone = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-container>
 </template>
 
@@ -133,3 +191,6 @@
 
 </script>
 
+<style lang="scss">
+
+</style>

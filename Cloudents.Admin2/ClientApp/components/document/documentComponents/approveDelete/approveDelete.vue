@@ -5,22 +5,13 @@
     </v-toolbar>
     <v-container>
       <v-layout wrap row>
-        <v-flex xs6 v-for="(document, index) in documentsList" :key="document.id">
+        <v-flex xs6 v-for="document in documentsList" :key="document.id">
           <v-card class="elevation-2 ma-2">
             <v-img :src="document.preview ? document.preview: `${require('../../../../assets/img/document.png')}`" aspect-ratio="2.75" contain></v-img>
             <v-card-text>
               <div>
                 <b>Id:</b>
                 {{document.id}}
-              </div>
-              
-              <div>
-                <b>Flagged User Email:</b>
-                {{document.flaggedUserEmail}}
-              </div>
-              <div>
-                <b>Reason:</b>
-                {{document.reason}}
               </div>
             </v-card-text>
 
@@ -32,7 +23,7 @@
                 :disabled="proccessedDocuments.includes(document.id)"
               >
                 Approve
-                <v-icon>check</v-icon>
+                <v-icon right>check</v-icon>
               </v-btn>
               <v-btn
                 slot="activator"
@@ -42,9 +33,18 @@
                 @click="deleteDocument(document)"
               >
                 Delete
-                <v-icon>delete</v-icon>
+                <v-icon right>delete</v-icon>
               </v-btn>
-
+              <v-btn
+                slot="activator"
+                flat
+                color="indigo"
+                :disabled="proccessedDocuments.includes(document.id)"
+                @click="downloadDocument(document.siteLink)"
+              >
+                Download
+                <v-icon right>cloud_download</v-icon>
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -94,7 +94,7 @@
                 self.loading = true;
                 approveDeleteService.getDocuments()
                     .then(resp => {
-                            self.documentsList = resp;
+                            self.documentsList = resp.documents;
 
                             self.arrayOfIds = self.documentsList.map(item => {
                                 return item.id
@@ -154,6 +154,10 @@
                             console.log('component accept error', error)
                         })
             },
+            downloadDocument(link) {
+              if(!link) return;
+              global.location.href = link
+            }
         },
         computed: {},
         created() {

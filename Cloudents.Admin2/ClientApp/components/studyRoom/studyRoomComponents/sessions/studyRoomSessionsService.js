@@ -9,6 +9,8 @@ function CreateSessionItem(objInit) {
     this.userName = objInit.userName;
     this.created = new Date(objInit.created);
     this.duration = objInit.duration;
+    this.tutorId = objInit.tutorId;
+    this.userId = objInit.userId;
 }
 
 const path = 'AdminStudyRoom/';

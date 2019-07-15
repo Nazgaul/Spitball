@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Dapper;
 using NHibernate;
 using NHibernate.Linq;
 using System.Collections.Generic;
@@ -14,11 +13,11 @@ namespace Cloudents.Query.Query.Admin
     public class AdminConversationsQuery : IQuery<IEnumerable<ConversationDto>>
     {
         private int Page { get; }
-        private ChatRoomStatus? Status { get; }
+        private ChatRoomStatus Status { get; }
         private ChatRoomAssign? AssignTo { get; }
         private WaitingFor? ConversationStatus { get; }
 
-        public AdminConversationsQuery(long userId, int page, ChatRoomStatus? status, ChatRoomAssign? assignTo, WaitingFor? conversationStatus)
+        public AdminConversationsQuery(long userId, int page, ChatRoomStatus status, ChatRoomAssign? assignTo, WaitingFor? conversationStatus)
         {
             UserId = userId;
             Page = page;
@@ -42,7 +41,7 @@ namespace Cloudents.Query.Query.Admin
 
                 var p = _statelessSession.Query<ViewConversation>()
 ;
-                
+
                 switch (query.AssignTo)
                 {
                     case ChatRoomAssign.Unassigned:
@@ -54,17 +53,29 @@ namespace Cloudents.Query.Query.Admin
                         p = p.Where(w => w.AssignTo == query.AssignTo);
                         break;
                 }
-                switch (query.Status)
+
+                //p = p.Where(w => w.Status == ChatRoomStatus2.SessionScheduled);
+
+                if (query.Status != null)
                 {
-                    case ChatRoomStatus.Unassigned:
-                        p = p.Where(w => w.Status == null);
-                        break;
-                    case ChatRoomStatus.All:
-                        break;
-                    default:
-                        p = p.Where(w => w.Status == query.Status);
-                        break;
+                    p = p.Where(w => w.Status == query.Status);
                 }
+                else
+                {
+                    var v = ChatRoomStatus.GetActiveStatus().ToArray();
+                    p = p.Where(w => v.Contains(w.Status) || w.Status == null);
+                }
+                //switch (query.Status)
+                //{
+                //    case ChatRoomStatus.Unassigned:
+                //        p = p.Where(w => w.Status == null);
+                //        break;
+                //    case ChatRoomStatus.All:
+                //        break;
+                //    default:
+                //        p = p.Where(w => w.Status == query.Status);
+                //        break;
+                //}
 
                 switch (query.ConversationStatus)
                 {
@@ -84,7 +95,7 @@ namespace Cloudents.Query.Query.Admin
                 {
                     p = p.Where(w => w.TutorId == query.UserId || w.UserId == query.UserId);
                 }
-                return await p.Select(s=> new ConversationDto()
+                return await p.Select(s => new ConversationDto()
                 {
                     Id = s.Id,
                     UserId = s.UserId,
@@ -107,92 +118,92 @@ namespace Cloudents.Query.Query.Admin
                 }).OrderByDescending(o => o.LastMessage)
                     .Take(20).Skip(20 * query.Page).ToListAsync(token);
 
-//                const string sql = @"
-//with cte as (
-//Select 
-//cr.Id , 
-//cra.status,
-//cra.AssignTo,
-//cr.Identifier ,
-//cr.UpdateTime as lastMessage,
-//u.id as userId,
-//u.Name,
-//u.Email,
-//u.PhoneNumberHash,
-//case when (select top 1 UserId from sb.ChatMessage cm where  cm.ChatRoomId = cr.id ) = cu.userid then 0 else 1 end as isTutor
+                //                const string sql = @"
+                //with cte as (
+                //Select 
+                //cr.Id , 
+                //cra.status,
+                //cra.AssignTo,
+                //cr.Identifier ,
+                //cr.UpdateTime as lastMessage,
+                //u.id as userId,
+                //u.Name,
+                //u.Email,
+                //u.PhoneNumberHash,
+                //case when (select top 1 UserId from sb.ChatMessage cm where  cm.ChatRoomId = cr.id ) = cu.userid then 0 else 1 end as isTutor
 
-//from sb.ChatUser cu
-//join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
-//left join sb.ChatRoomAdmin cra
-//	on cr.Id = cra.Id
-//join sb.[user] u on cu.UserId = u.Id
-//)
-//select c.Identifier as id,
-//c.lastMessage as lastMessage,
-//c.Name as UserName,
-//c.PhoneNumberHash as UserPhoneNumber,
-//c.Email as UserEmail,
-//c.userId as UserId,
-//d.Name as TutorName,
-//d.PhoneNumberHash as TutorPhoneNumber,
-//d.Email as TutorEmail,
-//d.UserId as TutorId,
-//c.status,
-//c.AssignTo,
-//(SELECT max (grp) FROM 
-//(
-//SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
-//FROM (
-//SELECT *,
-//CASE WHEN ABS(UserId - LAG(UserId) OVER(PARTITION BY ChatRoomId ORDER BY Id)) <= 1 THEN NULL ELSE 1 END AS isstart
-//FROM sb.ChatMessage
-//where ChatRoomId = c.id
-//) t1
-//) t2) as conversationStatus,
-//case when (Select  id from sb.StudyRoom where Identifier = c.Identifier) is null then 0 else 1 end  as studyRoomExists,
-//datediff(HOUR, c.lastMessage, GETUTCDATE()) as HoursFromLastMessage
-//from cte c 
-//inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
-// where (c.UserId = @UserId or @UserId = 0 or d.userId = @UserId) 
-// and (c.AssignTo = @AssignTo or @AssignTo = 'all' or (@AssignTo = 'Unassigned' and (c.AssignTo is null or c.AssignTo = 'Unassigned'))) 
-//		and (c.status = @Status or @Status = 'all' or (@Status = 'Unassigned' and (c.status is null or c.status = 'Unassigned')))
-//		and ((SELECT max (grp) FROM 
-//(
-//SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
-//FROM (
-//SELECT *,
-//CASE WHEN ABS(UserId - LAG(UserId) OVER(PARTITION BY ChatRoomId ORDER BY Id)) <= 1 THEN NULL ELSE 1 END AS isstart
-//FROM sb.ChatMessage
-//where ChatRoomId = c.id
-//) t1
-//) t2) = @Conv or @Conv = 0 
-//or (@Conv = 3 and (SELECT max (grp) FROM 
-//(
-//SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
-//FROM (
-//SELECT *,
-//CASE WHEN ABS(UserId - LAG(UserId) OVER(PARTITION BY ChatRoomId ORDER BY Id)) <= 1 THEN NULL ELSE 1 END AS isstart
-//FROM sb.ChatMessage
-//where ChatRoomId = c.id
-//) t1
-//) t2) > 2))
-//order by c.lastMessage desc
-//OFFSET @pageSize * @PageNumber ROWS
-//FETCH NEXT @pageSize ROWS ONLY;";
-//                using (var connection = _dapper.OpenConnection())
-//                {
-//                    var res = await connection.QueryAsync<ConversationDto>(sql,
-//                        new
-//                        {
-//                            query.UserId,
-//                            pageSize = 50,
-//                            PageNumber = query.Page,
-//                            Status = query.Status.ToString(),
-//                            AssignTo = query.AssignTo.ToString(),
-//                            Conv = (int)query.ConversationStatus
-//                        });
-//                    return res;
-//                }
+                //from sb.ChatUser cu
+                //join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
+                //left join sb.ChatRoomAdmin cra
+                //	on cr.Id = cra.Id
+                //join sb.[user] u on cu.UserId = u.Id
+                //)
+                //select c.Identifier as id,
+                //c.lastMessage as lastMessage,
+                //c.Name as UserName,
+                //c.PhoneNumberHash as UserPhoneNumber,
+                //c.Email as UserEmail,
+                //c.userId as UserId,
+                //d.Name as TutorName,
+                //d.PhoneNumberHash as TutorPhoneNumber,
+                //d.Email as TutorEmail,
+                //d.UserId as TutorId,
+                //c.status,
+                //c.AssignTo,
+                //(SELECT max (grp) FROM 
+                //(
+                //SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
+                //FROM (
+                //SELECT *,
+                //CASE WHEN ABS(UserId - LAG(UserId) OVER(PARTITION BY ChatRoomId ORDER BY Id)) <= 1 THEN NULL ELSE 1 END AS isstart
+                //FROM sb.ChatMessage
+                //where ChatRoomId = c.id
+                //) t1
+                //) t2) as conversationStatus,
+                //case when (Select  id from sb.StudyRoom where Identifier = c.Identifier) is null then 0 else 1 end  as studyRoomExists,
+                //datediff(HOUR, c.lastMessage, GETUTCDATE()) as HoursFromLastMessage
+                //from cte c 
+                //inner join cte d on d.id = c.id and c.isTutor = 0 and d.isTutor = 1
+                // where (c.UserId = @UserId or @UserId = 0 or d.userId = @UserId) 
+                // and (c.AssignTo = @AssignTo or @AssignTo = 'all' or (@AssignTo = 'Unassigned' and (c.AssignTo is null or c.AssignTo = 'Unassigned'))) 
+                //		and (c.status = @Status or @Status = 'all' or (@Status = 'Unassigned' and (c.status is null or c.status = 'Unassigned')))
+                //		and ((SELECT max (grp) FROM 
+                //(
+                //SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
+                //FROM (
+                //SELECT *,
+                //CASE WHEN ABS(UserId - LAG(UserId) OVER(PARTITION BY ChatRoomId ORDER BY Id)) <= 1 THEN NULL ELSE 1 END AS isstart
+                //FROM sb.ChatMessage
+                //where ChatRoomId = c.id
+                //) t1
+                //) t2) = @Conv or @Conv = 0 
+                //or (@Conv = 3 and (SELECT max (grp) FROM 
+                //(
+                //SELECT *, COUNT(isstart) OVER( PARTITION BY ChatRoomId ORDER BY Id ROWS UNBOUNDED PRECEDING) AS grp
+                //FROM (
+                //SELECT *,
+                //CASE WHEN ABS(UserId - LAG(UserId) OVER(PARTITION BY ChatRoomId ORDER BY Id)) <= 1 THEN NULL ELSE 1 END AS isstart
+                //FROM sb.ChatMessage
+                //where ChatRoomId = c.id
+                //) t1
+                //) t2) > 2))
+                //order by c.lastMessage desc
+                //OFFSET @pageSize * @PageNumber ROWS
+                //FETCH NEXT @pageSize ROWS ONLY;";
+                //                using (var connection = _dapper.OpenConnection())
+                //                {
+                //                    var res = await connection.QueryAsync<ConversationDto>(sql,
+                //                        new
+                //                        {
+                //                            query.UserId,
+                //                            pageSize = 50,
+                //                            PageNumber = query.Page,
+                //                            Status = query.Status.ToString(),
+                //                            AssignTo = query.AssignTo.ToString(),
+                //                            Conv = (int)query.ConversationStatus
+                //                        });
+                //                    return res;
+                //                }
             }
         }
     }

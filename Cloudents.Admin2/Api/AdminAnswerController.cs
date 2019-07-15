@@ -48,8 +48,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("flagged")]
         public async Task<IEnumerable<FlaggedAnswerDto>> FlagAsync(CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
-            return await _queryBus.QueryAsync<IEnumerable<FlaggedAnswerDto>>(query, token);
+            var query = new FlaggedAnswerEmptyQuery();
+            return await _queryBus.QueryAsync(query, token);
         }
 
         [HttpPost("unFlag")]

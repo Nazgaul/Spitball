@@ -260,6 +260,22 @@ const actions = {
             context.commit('setPhoneConfirmStatus');
             return resp;
         });
+    },
+    updateUserName({ commit, dispatch }, payload) {
+        return UserMainService.updateUserName(payload).then(res => {
+            dispatch('getUserData', payload.userId)
+        },
+        (err) => {
+            return false;
+        })
+    },
+    updateUserPhone({ commit, dispatch }, payload) {
+        return UserMainService.updateUserPhone(payload).then(res => {
+            dispatch('getUserData', payload.userId)
+        },
+        (err) => {
+            return false;
+        })
     }
 };
 export default {

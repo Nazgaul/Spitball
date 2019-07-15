@@ -1,5 +1,7 @@
 <template>
-    <v-navigation-drawer app value="true" fixed>
+    <div>
+    <v-icon @click="drawer = !drawer" medium class="pl-3 pt-2 hidden-lg-and-up">menu</v-icon>
+    <v-navigation-drawer app value="true" class="drawer" v-model="drawer">
         <v-list>
             <div v-for="(singleNav, i) in nav">
                 <v-list-group no-action value="">
@@ -7,9 +9,9 @@
                         <v-list-tile-title>{{singleNav.setting.title}}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile v-for="child in singleNav.childrens"
-                                 :key="`child-link-${child.name}`"
-                                 @click=""
-                                 :to="child.link">
+                                :key="`child-link-${child.name}`"
+                                @click=""
+                                :to="child.link">
                         <v-list-tile-title v-text="child.name">{{child}}</v-list-tile-title>
                         <v-list-tile-action>
                             <v-icon v-text="child.icon"></v-icon>
@@ -18,7 +20,8 @@
                 </v-list-group>
             </div>
         </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer>    
+    </div>
 </template>
 <!--<v-tabs-slider color="#3532d5"></v-tabs-slider>
 <v-tab to="/user/token">User token</v-tab>
@@ -29,6 +32,7 @@
         name: "navigation",
         data() {
             return {
+                drawer: true,
                 nav: [
                     {
                         setting: {
@@ -108,7 +112,7 @@
                     },
                     {
                         setting: {
-                            title: 'Reports',
+                            title: 'Tutor Reports',
                             path: '/reports'
                         },
                         childrens: [
@@ -146,27 +150,8 @@
     }
 </script>
 
-<!--<style lang="scss">
-    .nav-card {
-        min-width: 260px !important;
-        .sb-navigation-drawer{
-            width: unset!important;
-        }
+<style lang="scss">
+    .drawer {
+        z-index: 2
     }
-    .v-list__tile--active {
-        color: green;
-        background: #e4e4e4;
-
-    }
-
-    .v-list__group__header {
-        background: unset;
-        color: unset;
-        .v-list__tile--active {
-            background: unset;
-            color: unset;
-        }
-
-    }
-
-</style>-->
+</style>
