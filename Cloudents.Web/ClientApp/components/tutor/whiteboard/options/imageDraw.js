@@ -20,8 +20,8 @@ const clearLocalShape = function () {
     });
 };
 
-const imageXDefaultPosition = window.innerWidth / 2.3
-const imageYDefaultPosition = window.innerHeight / 3.5;
+let imageXDefaultPosition;
+const imageYDefaultPosition = 75;
 let imageDictionary = {};
 
 const init = function () {
@@ -65,9 +65,8 @@ const liveDraw = function (imgObj) {
 const handleImage = function (e) {
     //Set Click Position
     if(e.target.value === "") return;
-    let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(whiteBoardService.getContext(), imageXDefaultPosition, imageYDefaultPosition);
     
-
+    
     let formData = new FormData();
     let fileData = e.target.files[0];
     formData.append("file", fileData);
@@ -78,6 +77,9 @@ const handleImage = function (e) {
         // img.crossOrigin="anonymous";
         img.onload = function () {
             let imageSize = imgSizeFit(img.width, img.height, 600, 800);
+            imageXDefaultPosition = (window.innerWidth / 2) - (imageSize.width / 2)
+            let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(whiteBoardService.getContext(), imageXDefaultPosition, imageYDefaultPosition);
+            
             img.width = imageSize.width;
             img.height = imageSize.height;
             let imgObj = createPointsByOption({
