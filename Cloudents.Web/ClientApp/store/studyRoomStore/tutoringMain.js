@@ -297,6 +297,8 @@ const actions = {
         let isTutor = state.studyRoomData.isTutor;
         if(isTutor) {
             dispatch("updateTutorStartDialog", true);
+        }else{
+            dispatch("updatePaymentDialog", false);
         }
     },
     setRoomId({commit}, val) {
