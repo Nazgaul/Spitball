@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Cloudents.Core;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query.Payment;
+using JetBrains.Annotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query.Payment;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Infrastructure
 {
@@ -30,9 +30,9 @@ namespace Cloudents.Infrastructure
             NamingStrategy = new SnakeCaseNamingStrategy()
         };
 
-        public async Task<GenerateSaleResponse> CreateBuyerAsync(string callback,string successRedirect, CancellationToken token)
+        public async Task<GenerateSaleResponse> CreateBuyerAsync(string callback, string successRedirect, CancellationToken token)
         {
-            var generateSale = GenerateSale.CreateBuyer(callback, successRedirect);
+            var generateSale = GenerateSale.CreateBuyer(callback, successRedirect, _credentials.SellerId);
 
             return await GenerateSaleAsync(token, generateSale);
         }
@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure
                     //    {
                     //        ContractResolver = ContractResolver,
                     //    });
-                        
+
                     //    return serializer.Deserialize<GenerateSaleResponse>(reader);
                     //});
 
@@ -104,17 +104,17 @@ namespace Cloudents.Infrastructure
 
             }
 
-            public static GenerateSale CreateBuyer(string saleCallbackUrl,string saleReturnUrl)
+            public static GenerateSale CreateBuyer(string saleCallbackUrl, string saleReturnUrl, string sellerId)
             {
                 return new GenerateSale()
                 {
-                    SellerPaymeId = "MPL15546-31186SKB-53ES24ZG-WGVCBKO2",
+                    SellerPaymeId = sellerId,
                     SalePrice = 0,
                     CaptureBuyer = 1,
                     SaleType = "token",
                     SaleReturnUrl = saleReturnUrl,
                     SaleCallbackUrl = saleCallbackUrl
-                    
+
                 };
             }
 
@@ -125,10 +125,10 @@ namespace Cloudents.Infrastructure
             public string ProductName => "Tutoring";
             public int? CaptureBuyer { get; private set; }
             public string SaleType { get; private set; }
-             public string SaleCallbackUrl { get; private set; }
+            public string SaleCallbackUrl { get; private set; }
             public string BuyerKey { get; private set; }
 
-            public string SaleReturnUrl { get;  private set; }
+            public string SaleReturnUrl { get; private set; }
 
 
         }
