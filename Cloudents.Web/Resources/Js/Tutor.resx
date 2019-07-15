@@ -257,7 +257,7 @@ Try connecting from a computer browser</value>
     <value>Start Session</value>
   </data>
   <data name="stream_btn_waiting" xml:space="preserve">
-    <value>Is waiting for student</value>
+    <value>Waiting for student</value>
   </data>
   <data name="stream_guest" xml:space="preserve">
     <value>Guest</value>
