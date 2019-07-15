@@ -141,4 +141,10 @@
   <data name="tutor_entered_room" xml:space="preserve">
     <value>The tutor entered the room</value>
   </data>
+  <data name="waiting_for_student_toaster" xml:space="preserve">
+    <value>Waiting for student to join the session</value>
+  </data>
+  <data name="waiting_for_tutor_toaster" xml:space="preserve">
+    <value>Waiting for tutor to start session</value>
+  </data>
 </root>

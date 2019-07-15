@@ -14,7 +14,7 @@
                 <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_tutor</span>
                 <span class="subheading font-weight-bold">&nbsp;{{tutorName}}</span>
             </v-flex>
-            <v-flex xs12   class="pt-2">
+            <v-flex xs12  style="text-align: center;" class="pt-2">
                 <span class="subheading" v-language:inner>tutor_entered_room</span>
             </v-flex>
             <v-flex xs12   class="pt-4">
@@ -22,7 +22,8 @@
                         :loading="getSessionStartClickedOnce"
                         @click="joinSession()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
-                    <span class="text-uppercase" v-language:inner>tutor_btn_accept_and_start</span>
+                    <!-- <span v-if="!isReady" class="text-uppercase" v-language:inner="'tutor_btn_waiting_for_tutor'"></span> -->
+                    <span class="text-uppercase" v-language:inner="'tutor_btn_accept_and_start'"></span>
                 </v-btn>
             </v-flex>
         </v-layout>
@@ -30,7 +31,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapActions, mapGetters, mapState } from 'vuex';
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import timerIcon from '../../images/timer.svg';
     import videoStreamService from "../../../../services/videoStreamService";
@@ -49,7 +50,8 @@
             },
         },
         computed: {
-            ...mapGetters(['getStudyRoomData', 'getSessionStartClickedOnce']),
+            ...mapGetters(['getStudyRoomData', 'getSessionStartClickedOnce', 'getCurrentRoomState']),
+            ...mapState(['tutoringMainStore']),
             tutorName() {
                 return this.getStudyRoomData.tutorName;
             },
@@ -58,6 +60,9 @@
             },
             tutorId() {
                 return this.getStudyRoomData.tutorId;
+            },
+            isReady(){
+                return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.ready;
             }
         },
         methods: {

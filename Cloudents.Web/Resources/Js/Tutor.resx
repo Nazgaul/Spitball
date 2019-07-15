@@ -313,4 +313,7 @@ Try connecting from a computer browser</value>
   <data name="tooltip_clearAll" xml:space="preserve">
     <value>Clear All</value>
   </data>
+  <data name="btn_waiting_for_tutor" xml:space="preserve">
+    <value>Waiting for tutor</value>
+  </data>
 </root>

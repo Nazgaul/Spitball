@@ -138,7 +138,13 @@
   <data name="routes_reps" xml:space="preserve">
     <value>Reps</value>
   </data>
+  <data name="routes_studentFaq" xml:space="preserve">
+    <value>Students Help</value>
+  </data>
   <data name="routes_terms" xml:space="preserve">
     <value>Terms</value>
+  </data>
+  <data name="routes_tutorFaq" xml:space="preserve">
+    <value>Tutors Help</value>
   </data>
 </root>
