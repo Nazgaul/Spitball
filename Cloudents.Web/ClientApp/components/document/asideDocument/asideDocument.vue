@@ -204,6 +204,10 @@ export default {
                 border-radius: 4px;
                 margin: 0 20px;
                 font-size: 15px;
+                @media(max-width: @screen-sm){
+                    border-radius: 0;
+                    margin: unset;
+                }
                 &.btn-lock {
                     display: flex;
                     border: 1px solid #ccc;
@@ -214,6 +218,8 @@ export default {
                     z-index: 1;
                     @media (max-width: @screen-sm) {
                         background: #fff;
+                        border-radius: 0;
+                        margin: unset;
                     }
                     span:first-child {
                         flex: 2;

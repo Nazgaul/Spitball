@@ -488,13 +488,15 @@ export default {
                     min-width: 60%;
                     @media (max-width: @screen-xs) {
                         max-width: 200px;
+                        min-width: unset;
                     }
                     @media (max-width: @screen-xss) {
                         max-width: 160px;
-                        min-width: 35%;
+                        min-width: unset;
                     }
                     @media (max-width: 320px) {
                         max-width: 110px;
+                        min-width: unset;
                     }
                 }
                 .arrow-back {
@@ -515,6 +517,7 @@ export default {
                     }
                 }
                 .date, .views {
+                    // display: flex;
                     font-size: 14px;
                 }
             }
