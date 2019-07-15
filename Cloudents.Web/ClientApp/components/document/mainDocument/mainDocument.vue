@@ -118,22 +118,12 @@
             </div>
         </v-layout>
         <div class="document-wrap">
-            <v-progress-circular
-                class="unlock_progress text-xs-center"
-                v-if="docPreviewLoader"
-                :size="70"
-                :width="7"
-                indeterminate
-                color="#4452fc"
-            ></v-progress-circular>
             
             <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
                 <v-lazy-image 
-                    :style="`height: ${getHeight}px`"
                     class="document-wrap-content" 
                     :src="page"
-                    src-placeholder="https://www.gforcefinance.com.au/wp-content/uploads/2016/05/a4-placeholder.png"
-                    @load="handleDocWrap"
+                    :src-placeholder="require('./doc-preview-empty.png')"
                     v-if="page"
                     :alt="document.content"/>
                 
@@ -177,7 +167,6 @@ export default {
     data() {
         return {
             showMenu: false,
-            docPreviewLoader: false,
             currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
             itemId: 0,
             priceDialog: false,
@@ -251,7 +240,6 @@ export default {
         },
         docPreview() {
             // TODO temporary calculated width container
-            this.docPreviewLoader = true;
             if(this.document.preview && this.docWrap) {
                 let width;
                 if (this.$vuetify.breakpoint.xl) {
@@ -277,31 +265,6 @@ export default {
                     return utillitiesService.proccessImageURL(preview, width, Math.ceil(height), 'pad')
                 })
                 return result;
-            }
-        },
-        getHeight(){ 
-            if(this.document.preview && this.docWrap) {
-                let width;
-                if (this.$vuetify.breakpoint.xl) {
-                    width = 960
-                }
-                if (this.$vuetify.breakpoint.lg) {
-                    width = 880
-                }
-                if (this.$vuetify.breakpoint.md) {
-                    width = 560
-                }
-                if (this.$vuetify.breakpoint.sm) {
-                    width = 730
-                }
-                if (this.$vuetify.breakpoint.xs) {
-                    width = 400
-                }
-                if (this.$vuetify.breakpoint.width === 375) {
-                    width = 375
-                }                 
-                let height = width / 0.707;     
-                return Math.ceil(height)
             }
         },
         isSmAndDown() {
@@ -436,9 +399,6 @@ export default {
                 }
             );
         },
-        handleDocWrap(e){
-            this.docPreviewLoader = false;
-        }
     },
     beforeDestroy() {
         console.log("beforeDestroy")
