@@ -329,10 +329,10 @@ export default {
     },
     showNotConnectedDevicesDialog(){
       let browserSupported = this.isBrowserSupport();
-      return this.qualityDialog && browserSupported && !this.isMobile
+      return this.qualityDialog && browserSupported && !this.isMobile && !this.needPayment
     },
     needPayment() {
-        return this.getStudyRoomData ? this.getStudyRoomData.needPayment : false;
+        return this.getStudyRoomData ? this.getStudyRoomData.needPayment : true;
     },
     openStartSessionDialog(){
       if(!this.needPayment){

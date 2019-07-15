@@ -78,8 +78,7 @@ export default {
             margin: 0;
         }
         img{
-            width: 92px;
-            height: 54px;
+            height: 45px;
         }
     }
 }
