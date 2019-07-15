@@ -155,28 +155,27 @@ namespace Cloudents.Web.Api
                 userId = user.Id
             }, "https");
 
-            var uri = new UriBuilder(url);
+
+            var urlReturn = Url.RouteUrl("ReturnUrl", new
+            {
+            }, "https");
+
+            //var uri = new UriBuilder(url);
 
 
-            var result = await _payment.Value.CreateBuyerAsync(uri.Uri.AbsoluteUri, token);
+            var result = await _payment.Value.CreateBuyerAsync(url, urlReturn, token);
             var saleUrl = new UriBuilder(result.SaleUrl);
             saleUrl.AddQuery(new NameValueCollection()
             {
                 ["first_name"] = user.FirstName,
                 ["last_name"] = user.LastName,
                 ["phone"] = user.PhoneNumber,
-                ["email"] = user.Email
+                ["email"] = user.Email,
+                //["sale_return_url"] = urlReturn
             });
             return saleUrl.Uri;
         }
-
-
-        [SignInWithToken, Route("/" + UrlConst.GeneratePaymentLink), ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<RedirectResult> Payment(CancellationToken token)
-        {
-            var result = await GenerateLinkAsync(token);
-            return Redirect(result.AbsoluteUri);
-        }
+       
 
         #endregion
     }

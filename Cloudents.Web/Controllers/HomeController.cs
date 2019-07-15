@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Filters;
+using Cloudents.Web.Models;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
@@ -116,6 +117,14 @@ namespace Cloudents.Web.Controllers
             }
             return Redirect(
                 $"{configuration["functionCdnEndpoint"]}/api/image/{hash}{val}");
+        }
+
+
+        [Route("PaymentProcessing", Name = "ReturnUrl")]
+        public IActionResult Processing(PaymeSuccessCallback model)
+        {
+            return View("Processing", model);
+
         }
 
 

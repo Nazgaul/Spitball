@@ -14,7 +14,7 @@ namespace Cloudents.Web.Middleware
 
         public Task Invoke(HttpContext context)
         {
-            context.Response.Headers.Add("X-Frame-Options", " DENY");
+            context.Response.Headers.Add("X-Frame-Options", "sameorigin");
             return _next.Invoke(context);
         }
     }
