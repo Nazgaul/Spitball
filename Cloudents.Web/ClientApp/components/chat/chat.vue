@@ -4,7 +4,7 @@
     py-0
     px-0
     class="sb-chat-container"
-    :class="[ $route.name == 'tutoring' ?  'chat-right': '', {'minimized': isMinimized}]"
+    :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]"
   >
     <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
       <v-icon
@@ -156,9 +156,9 @@ export default {
   border-radius: 10px 10px 0 0;
   box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.3);
   max-height: ~"calc( 100vh - 100px)";
-  &.chat-right {
-    right: 0 /*rtl:ignore*/;
-    /*left: unset !*rtl:ignore*!;*/
+  &.chat-studyRoom {
+    right: 0 ;
+    left: unset;
   }
   @media (max-width: @screen-xs) {
     width: 100%;
