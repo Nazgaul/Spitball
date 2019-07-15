@@ -43,20 +43,20 @@ namespace Cloudents.FunctionsV2
 
 
 
-        [FunctionName("QuestionPopulate")]
-        public static async Task QuestionPopulateAsync([TimerTrigger("0 */15 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-            [Inject] ICommandBus commandBus,
-            [Inject] IQueryBus queryBus,
-            ILogger log,
-            CancellationToken token)
-        {
-            var questions = await queryBus.QueryAsync<IList<FictivePendingQuestionDto>>(new AdminEmptyQuery(), token);
-            if (questions.Count > 0)
-            {
-                var command = new ApproveQuestionCommand(questions.Select(s => s.Id));
-                await commandBus.DispatchAsync(command, token);
-            }
-        }
+        //[FunctionName("QuestionPopulate")]
+        //public static async Task QuestionPopulateAsync([TimerTrigger("0 */15 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        //    [Inject] ICommandBus commandBus,
+        //    [Inject] IQueryBus queryBus,
+        //    ILogger log,
+        //    CancellationToken token)
+        //{
+        //    var questions = await queryBus.QueryAsync<IList<FictivePendingQuestionDto>>(new AdminEmptyQuery(), token);
+        //    if (questions.Count > 0)
+        //    {
+        //        var command = new ApproveQuestionCommand(questions.Select(s => s.Id));
+        //        await commandBus.DispatchAsync(command, token);
+        //    }
+        //}
 
     }
 }
