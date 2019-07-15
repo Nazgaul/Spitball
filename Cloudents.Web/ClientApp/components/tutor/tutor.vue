@@ -303,7 +303,8 @@ export default {
       "getEndDialog",
       "getBrowserSupportDialog",
       "accountUser",
-      "getPaymentDialog"
+      "getPaymentDialog",
+      "getStudyRoomData"
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -328,16 +329,21 @@ export default {
       return this.getBrowserSupportDialog;
     },
     showNotConnectedDevicesDialog(){
-      let browserSupported = this.isBrowserSupport();
-      return this.qualityDialog && browserSupported && !this.isMobile && !this.needPayment
+        let browserSupported = this.isBrowserSupport();
+        return this.qualityDialog && browserSupported && !this.isMobile && !this.needPayment
     },
     needPayment() {
+      if(!this.isTutor){
         return this.getStudyRoomData ? this.getStudyRoomData.needPayment : true;
+      }else{
+        return false
+      }
+    },
+    isTutor() {
+        return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
     },
     openStartSessionDialog(){
-      if(!this.needPayment){
         return this.getTutorStartDialog
-      }
     },
     showPaymentDialog(){
       return this.getPaymentDialog
