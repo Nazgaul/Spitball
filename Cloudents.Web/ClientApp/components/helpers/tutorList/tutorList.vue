@@ -35,7 +35,7 @@
         methods: {
             ...mapActions(['getTutorList', 'resetList']),
             getList(objReq){
-                this.resetList([]);
+                this.resetList();
                 this.getTutorList(objReq);
             },
             goToTutor(){
@@ -48,6 +48,9 @@
                 let courseInFilter =  this.$route.query.Course ? this.$route.query.Course : '';
                 let objReq ={page: 0, courseName: courseInFilter};
                 this.getList(objReq);
+        },
+        beforeDestroy(){
+            this.resetList();
         }
     };
 </script>
