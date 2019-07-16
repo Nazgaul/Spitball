@@ -45,6 +45,12 @@ export default {
         },
         setStatusFilter: {
             type: Function
+        },
+        changeStatus: {
+            type: Function
+        },
+        isSet: {
+            type: Boolean
         }
     },
     data() {
@@ -59,10 +65,16 @@ export default {
         chooseStatus() {
             this.statusItems = this.statusFilters[this.status].map(item => item.name);
         },
-        handleFilter(val) {
+        handleFilter(val) {            
             if(!val) return;
 
             let item = this.statusFilters[this.status].filter(el => el.name === this.subStatus)[0];
+
+            if(this.isSet) {
+                this.changeStatus(item.id)
+                return
+            }
+
             this.setStatusFilter(item);
         }
     },

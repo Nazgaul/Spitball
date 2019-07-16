@@ -29,7 +29,7 @@
                 round
                 outline
                 label="Status"
-                @click.native.stop="dialog.status = !dialog.status"
+                @click.native.stop="openStatusDialog(false)"
               ></v-combobox>
               <v-combobox
                 v-model="filterAssignTo"
@@ -119,8 +119,8 @@
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-6 pl-3">
-                              <v-btn color="#b4d6f3" class="mb-2 px-4" @click.native.stop="dialog.status = !dialog.status">Status</v-btn>
-                              <v-btn color="#b4d6f3" class="px-4" @click.native.stop="dialog.assign = !dialog.assign">Assign</v-btn>
+                              <v-btn color="#b4d6f3" class="mb-2 px-4" @click.native.stop="openStatusDialog(true, conversation.id)">Status</v-btn>
+                              <v-btn color="#b4d6f3" class="px-4" @click.native.stop="">Assign</v-btn>
                           </v-flex>
                       </v-layout>
                     </div>
@@ -141,7 +141,13 @@
     </v-dialog>
 
     <v-dialog v-model="dialog.status" width="500" v-if="dialog.status">
-        <statusDialogs :statusFilters="filters.status" :setStatusFilter="setStatusFilter" :handleFilter="handleFilter" :currentStatus="currentStatus" />
+        <statusDialogs 
+          :isSet="isSet"
+          :changeStatus="changeStatus"
+          :statusFilters="filters.status" 
+          :setStatusFilter="setStatusFilter" 
+          :handleFilter="handleFilter" 
+          :currentStatus="currentStatus" />
     </v-dialog>
 
   </div>
@@ -182,6 +188,7 @@ export default {
       loadMessage: false,
       isCompleted: false,
       isLoading: false,
+      isSet: false,
       filterAssignTo: '',
       filterWaitingFor: '',
       filterStatusName: '',
@@ -206,6 +213,11 @@ export default {
     }
   },
   methods: {
+    changeStatus(selectedStatusId) {
+      this.dialog.status = false;
+      let status = {"status": selectedStatusId};
+      setConversationsStatus(this.currentSelectedId, status);
+    },
     getConversationData(conversation_id) {
       if (this.currentSelectedId !== conversation_id) {
         this.currentSelectedId = conversation_id;
@@ -226,7 +238,7 @@ export default {
         });
       }
     },
-    handleScroll() {     
+    handleScroll() {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;      
       if (bottomOfWindow) {
           this.page = this.page + 1
@@ -303,6 +315,11 @@ export default {
       this.filterWaitingFor = '';
       let query = this.getFiltersQuery();
       this.requestFilters(query);
+    },
+    openStatusDialog(setStatus, conversation_id) {
+      this.dialog.status = true;
+      this.isSet = setStatus;
+      this.currentSelectedId = conversation_id || null;
     }
   },
   created() {
