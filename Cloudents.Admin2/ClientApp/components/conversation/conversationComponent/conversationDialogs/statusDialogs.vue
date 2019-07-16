@@ -1,23 +1,34 @@
 <template>
-    <div class="dialog-wrap">
+    <div class="dialog-wrap pa-3">
         <div>
-            <v-card v-for="(group, key, index) in statusFilters" :key="index">
-                <v-card-title primary-title>
-                    <div class="title">{{key}}</div>
-                </v-card-title>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn icon @click="toggleStatusCard(index)">
-                    <v-icon>{{ show && currentDialogShow === index ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                  </v-btn>
-                </v-card-actions>
-                <v-slide-y-transition v-for="(items, id) in group" :key="id">
-                    <v-card-text v-show="show && currentDialogShow === index">
-                        <v-btn round @click="chooseFilter(items.id, items.name)">{{items.name}}</v-btn>
-                    </v-card-text>
-                </v-slide-y-transition>
-            </v-card>
+            <v-select
+                v-model="status"
+                :items="items"
+                class="mb-2 top-card-select"
+                height="40px"
+                hide-details
+                dense
+                box
+                menu-props="lazy"
+                round
+                outline
+                label="Status"
+                @change="chooseStatus"
+              ></v-select>
+              <v-select
+                v-model="subStatus"
+                :items="statusItems"
+                class="top-card-select"
+                height="40px"
+                hide-details
+                dense
+                box
+                menu-props="lazy"
+                round
+                outline
+                label="Default"
+                @change="handleFilter"
+              ></v-select>
         </div>
     </div>
 </template>
@@ -33,18 +44,23 @@ export default {
     },
     data() {
         return {
-            show: false,
-            currentFilter: '',
+            status: '',
+            subStatus: '',
+            items: [],
+            statusItems: []
         }
     },
     methods: {
-        toggleStatusCard(index) {
-            this.show = !this.show;
-            this.currentDialogShow = index;
+        chooseStatus() {
+            this.statusItems = this.statusFilters[this.status].map(item => item.name);
         },
-        chooseFilter(id, name) {
-            this.setStatusFilter(id, name);
-        },
+        handleFilter() {
+            let item = this.statusFilters[this.status].filter(el => el.name === this.subStatus)[0];
+            this.setStatusFilter(item.id, item.name);
+        }
+    },
+    created() {
+        this.items = Object.keys(this.statusFilters).map(element => element);
     }
 }
 </script>
