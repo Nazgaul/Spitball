@@ -197,6 +197,14 @@ export default {
       },
     };
   },
+  computed: {
+    isFiltersEmpty() {
+      if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) {
+        return true;
+      }
+      return false;
+    }
+  },
   methods: {
     getConversationData(conversation_id) {
       if (this.currentSelectedId !== conversation_id) {
@@ -252,10 +260,12 @@ export default {
       return `${assign}${status}${autoStatus}`;
     },
     handleFilter() {
-      // if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) return;
+      if(this.isFiltersEmpty) return;
 
       let query = this.getFiltersQuery();
-      
+      this.requestFilters(query)
+    },
+    requestFilters(query) {
       getFilters(this.userId, query).then(res => {
         this.conversationsList = res;
         this.page = 0;
@@ -285,13 +295,14 @@ export default {
       this.handleFilter()
     },
     clearFilters() {
-      if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) return;
+      if(this.isFiltersEmpty) return;
       
       this.currentStatus = {};
       this.filterAssignTo = '';
       this.filterStatusName = '';
       this.filterWaitingFor = '';
-      this.handleFilter();
+      let query = this.getFiltersQuery();
+      this.requestFilters(query);
     }
   },
   created() {

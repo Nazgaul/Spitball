@@ -3,7 +3,6 @@
         <div class="pa-4">
             <h3>Filter Results</h3>
         </div>
-
         <div class="pa-4">
             <v-combobox
                 v-model="status"
