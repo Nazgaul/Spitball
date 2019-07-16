@@ -123,7 +123,7 @@
                 <v-lazy-image 
                     class="document-wrap-content" 
                     :src="page"
-                    :src-placeholder="require('./doc-preview-empty.png')"
+                    :src-placeholder="require('./doc-preview-animation.gif')"
                     v-if="page"
                     :alt="document.content"/>
                 
