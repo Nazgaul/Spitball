@@ -7,25 +7,22 @@
             <v-toolbar-title>Conversations</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn flat @click="clearFilters">Clear</v-btn>
-            <v-select
+            <v-combobox
                 v-model="filterWaitingFor"
                 :items="filters.waitingFor"
                 class="mr-2 top-card-select"
-                height="40px"
                 hide-details
                 menu-props="lazy"
                 box
-                dense
                 outline
                 label="Waiting for"
-                @change="handleFilter()"
-              ></v-select>
-              <v-select
+                validate-on-blur
+                @change="handleFilter"
+              ></v-combobox>
+              <v-combobox
                 v-model="filterStatusName"
                 class="mr-2 top-card-select"
-                height="40px"
                 hide-details
-                dense
                 box
                 readonly
                 menu-props="lazy"
@@ -33,21 +30,19 @@
                 outline
                 label="Status"
                 @click.native.stop="dialog.status = !dialog.status"
-              ></v-select>
-              <v-select
+              ></v-combobox>
+              <v-combobox
                 v-model="filterAssignTo"
                 :items="filters.assignTo"
                 class="top-card-select"
-                height="40px"
                 hide-details
-                dense
                 box
                 menu-props="lazy"
                 round
                 outline
                 label="Assigned to"
-                @change="handleFilter()"
-              ></v-select>
+                @change="handleFilter"
+              ></v-combobox>
           </v-toolbar>
 
           <v-card class="blue lighten-4" style="max-width:100%;">
@@ -124,8 +119,8 @@
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-6 pl-3">
-                              <v-btn flat class="mb-2" @click.native.stop="dialog.status = !dialog.status">Status</v-btn>
-                              <v-btn flat @click.native.stop="dialog.assign = !dialog.assign">Assign to</v-btn>
+                              <v-btn color="#b4d6f3" class="mb-2 px-4" @click.native.stop="dialog.status = !dialog.status">Status</v-btn>
+                              <v-btn color="#b4d6f3" class="px-4" @click.native.stop="dialog.assign = !dialog.assign">Assign</v-btn>
                           </v-flex>
                       </v-layout>
                     </div>
@@ -146,7 +141,7 @@
     </v-dialog>
 
     <v-dialog v-model="dialog.status" width="500" v-if="dialog.status">
-        <statusDialogs :statusFilters="filters.status" :setStatusFilter="setStatusFilter" :handleFilter="handleFilter" />
+        <statusDialogs :statusFilters="filters.status" :setStatusFilter="setStatusFilter" :handleFilter="handleFilter" :currentStatus="currentStatus" />
     </v-dialog>
 
   </div>
@@ -194,6 +189,7 @@ export default {
       currentStudentId: '',
       conversationsList: [],
       conversationsMsg: [],
+      currentStatus: {},
       filters: {},
       dialog: {
         startConversation: false,
@@ -230,7 +226,6 @@ export default {
             this.isLoading = true;
             this.getConversations()
           }
-          
       }
     },
     getConversations() {
@@ -251,13 +246,16 @@ export default {
       });
     },
     getFiltersQuery() {
-      let assign = this.filterAssignTo === '' ? '' : `assignTo=${this.filterAssignTo}&`;
-      let status = this.filterStatusName === '' ? '' :  `status=${this.filterStatusId}&`;
-      let autoStatus = this.filterWaitingFor === '' ? '' :  `autoStatus=${this.filterWaitingFor}&`;
+      let assign = !this.filterAssignTo ? '' : `assignTo=${this.filterAssignTo}&`;
+      let status = !this.filterStatusName ? '' :  `status=${this.filterStatusId}&`;
+      let autoStatus = !this.filterWaitingFor ? '' :  `autoStatus=${this.filterWaitingFor}&`;
       return `${assign}${status}${autoStatus}`;
     },
     handleFilter() {
+      if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) return;
+
       let query = this.getFiltersQuery();
+      
       getFilters(this.userId, query).then(res => {
         this.conversationsList = res;
         this.page = 0;
@@ -279,15 +277,17 @@ export default {
     closeDialog() {
       this.dialog = false
     },
-    setStatusFilter(id, name) {
-      this.filterStatusName = name;
-      this.filterStatusId = id
+    setStatusFilter(statusObj) {
+      this.filterStatusName = statusObj.name;
+      this.filterStatusId = statusObj.id;
+      this.currentStatus = statusObj;
       this.dialog.status = false;
       this.handleFilter()
     },
     clearFilters() {
-      if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) return
-
+      if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) return;
+      
+      this.currentStatus = {};
       this.filterAssignTo = '';
       this.filterStatusName = '';
       this.filterWaitingFor = '';
@@ -295,10 +295,10 @@ export default {
     }
   },
   created() {
-    if(this.$route.name === 'userConversations' && !this.userId) return this.$router.push('/')
+    if(this.$route.name === 'userConversations' && !this.userId) return this.$router.push('/');
 
     window.addEventListener("scroll", this.handleScroll);
-    getFiltersParams().then(conversationFilters=>{
+    getFiltersParams().then(conversationFilters => {
       this.filters = conversationFilters;
     });
 
@@ -325,7 +325,7 @@ export default {
     height: 74px;
     padding-top: 5px;
   .top-card-select{
-    max-width: 130px;
+    max-width: 254px;
   }
 }
 .card-conversation {

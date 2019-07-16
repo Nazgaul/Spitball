@@ -1,34 +1,36 @@
 <template>
-    <div class="dialog-wrap pa-3">
-        <div>
-            <v-select
+    <div class="dialog-wrap">
+        <div class="pa-4">
+            <h3>Filter Results</h3>
+        </div>
+
+        <div class="pa-4">
+            <v-combobox
                 v-model="status"
                 :items="items"
-                class="mb-2 top-card-select"
+                class="mb-4 top-card-select"
                 height="40px"
                 hide-details
-                dense
                 box
                 menu-props="lazy"
                 round
                 outline
-                label="Status"
+                :label="currentStatus.group || 'Status 1'"
                 @change="chooseStatus"
-              ></v-select>
-              <v-select
+              ></v-combobox>
+              <v-combobox
                 v-model="subStatus"
                 :items="statusItems"
                 class="top-card-select"
                 height="40px"
                 hide-details
-                dense
                 box
                 menu-props="lazy"
                 round
                 outline
-                label="Default"
+                :label="currentStatus.name || 'Status Details'"
                 @change="handleFilter"
-              ></v-select>
+              ></v-combobox>
         </div>
     </div>
 </template>
@@ -37,6 +39,10 @@ export default {
     props: {
         statusFilters: {
             type: Object
+        },
+        currentStatus: {
+            type: Object,
+            default: {}
         },
         setStatusFilter: {
             type: Function
@@ -54,9 +60,11 @@ export default {
         chooseStatus() {
             this.statusItems = this.statusFilters[this.status].map(item => item.name);
         },
-        handleFilter() {
+        handleFilter(val) {
+            if(!val) return;
+
             let item = this.statusFilters[this.status].filter(el => el.name === this.subStatus)[0];
-            this.setStatusFilter(item.id, item.name);
+            this.setStatusFilter(item);
         }
     },
     created() {
