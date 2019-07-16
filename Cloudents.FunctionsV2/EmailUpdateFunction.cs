@@ -1,17 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.FunctionsV2.System;
 using Cloudents.Query;
 using Cloudents.Query.Email;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
@@ -27,16 +24,25 @@ namespace Cloudents.FunctionsV2
             [Inject] IQueryBus queryBus,
             CancellationToken token)
         {
-            //Run Every 1 day
-
-            //TODO add paging
-            var query = new GetUpdatesEmailUsersQuery();
-            var result = await queryBus.QueryAsync(query, token);
-
-            foreach (var emailDto in result)
+            var timeSince = DateTime.UtcNow.AddDays(-1);
+            bool needToContinue;
+            int page = 0;
+            do
             {
-                await context.CallActivityAsync<string>("EmailUpdateFunction_Hello", emailDto);
-            }
+                needToContinue = false;
+                    //TODO check assignment
+                var query = new GetUpdatesEmailUsersQuery(timeSince, page++);
+                var result = await queryBus.QueryAsync(query, token);
+
+                foreach (var emailDto in result)
+                {
+                    needToContinue = true;
+                    emailDto.Since = timeSince;
+                    await context.CallActivityAsync<string>("EmailUpdateFunction_Hello", emailDto);
+                }
+
+            } while (needToContinue);
+           
         }
 
         [FunctionName("EmailUpdateFunction_Process")]
@@ -47,54 +53,46 @@ namespace Cloudents.FunctionsV2
             ILogger log,
             CancellationToken token)
         {
-            var q = new GetUpdatesEmailQuestionsQuery(user.Id);
-            var d = new GetUpdatesEmailDocumentsQuery(user.Id);
-            var t1 = queryBus.QueryAsync(q, token);
-            var t2 = queryBus.QueryAsync(d, token);
-            await Task.WhenAll(t1, t2);
-            user.Questions = t1.Result;
-            user.Documents = t2.Result;
-            user.XQuestions = user.Questions.Count();
-            user.XNewItems = user.Documents.Count();
-            user.NumUpdates = user.XQuestions + user.XNewItems;
+            var q = new GetUpdatesEmailByUserQuery(user.UserId, user.Since);
+            var result = await queryBus.QueryAsync(q, token);
+            //user.Questions = t1.Result;
+           // user.Documents = t2.Result;
+           // user.XQuestions = user.Questions.Count();
+            //user.XNewItems = user.Documents.Count();
+            //user.NumUpdates = user.XQuestions + user.XNewItems;
             //user.To = "ram.y@outlook.com";
             //if (user.Id == 160347)
             //{
-            List<Question> questions = new List<Question>();
-            List<Document> documents = new List<Document>();
-            foreach (var question in user.Questions)
+            var questions = result.Item1.Select(question =>
             {
-                //TODO: fix URLs build
-                questions.Add(new Question()
+                return new Question()
                 {
+                    //TODO: right url
                     QuestionUrl = $@"https://dev.spitball.co/question/{question.QuestionId}",
-                    QuestionTxt = question.QuestionTxt,
-                    UserPicture = $@"https://dev.spitball.co/{question.UserPicture}?&width=64&height=64&mode=crop",
-                    Asker = question.Asker
-                });
-            }
-            foreach (var document in user.Documents)
+                    QuestionText = question.QuestionText,
+                    UserImage = $@"https://dev.spitball.co/{question.UserImage}?&width=64&height=64&mode=crop",
+                    UserName = question.UserName
+                };
+            });
+            var documents = result.Item2.Select(document =>
             {
-                documents.Add(new Document()
+                //TODO: right url
+                return new Document()
                 {
-                    FileUrl = $@"https://dev.spitball.co/document/{new Base62(document.FileId).ToString()}",
-                    FileName = document.FileName,
-                    Uploader = document.Uploader,
-                    ImgSource = ""
-                });
-            }
-            var templateData = new Update(user.UserName, user.NumUpdates.ToString(),
-                user.XQuestions.ToString(), user.XNewItems.ToString(), documents,
-                questions, user.To);
-            // var ts = JsonConvert.SerializeObject(t);
-
-
+                    Url = $@"https://dev.spitball.co/document/{new Base62(document.Id).ToString()}",
+                    Name = document.Name,
+                    UserName = document.UserName,
+                    DocumentPreview = ""
+                };
+            });
+           
+            var templateData = new UpdateEmail(user.UserName,  documents, questions, user.ToEmailAddress);
 
             var message = new SendGridMessage
             {
                 //TODO Finish language
                 Asm = new ASM { GroupId = 10926 },
-                TemplateId = Language.English == Language.English ? "d-535f822f33c341d78253b97b3e35e853" : "d-6a6aead697824210b95c60ddd8d495c5"
+                TemplateId = Equals(user.Language, Language.English.Info) ? "d-535f822f33c341d78253b97b3e35e853" : "d-6a6aead697824210b95c60ddd8d495c5"
             };
             templateData.To = user.ToEmailAddress;
             var personalization = new Personalization
@@ -136,17 +134,20 @@ namespace Cloudents.FunctionsV2
 
 
 
-        internal class Update
+        internal class UpdateEmail
         {
 
             [JsonProperty("userName")]
             public string UserName { get; set; }
+
             [JsonProperty("numUpdates")]
-            public string NumUpdates { get; set; }
+            public int TotalUpdates => QuestionCountUpdate + DocumentCountUpdate;
+
             [JsonProperty("xQuestions")]
-            public string XQuestions { get; set; }
+            public int QuestionCountUpdate => Questions.Count;
+
             [JsonProperty("xNewItems")]
-            public string XNewItems { get; set; }
+            public int DocumentCountUpdate => Documents.Count;
             [JsonProperty("documents")]
             public List<Document> Documents { get; set; }
             [JsonProperty("questions")]
@@ -154,15 +155,11 @@ namespace Cloudents.FunctionsV2
             [JsonProperty("to")]
             public string To { get; set; }
 
-            public Update(string userName, string numUpdates, string xQuestions, string xNewItems, List<Document> documents, List<Question> questions, string to)
+            public UpdateEmail(string userName, IEnumerable<Document> documents, IEnumerable<Question> questions, string to)
             {
-
                 UserName = userName;
-                NumUpdates = numUpdates;
-                XQuestions = xQuestions;
-                XNewItems = xNewItems;
-                Documents = documents;
-                Questions = questions;
+                Documents = documents.ToList();
+                Questions = questions.ToList();
                 To = to;
             }
 
@@ -173,23 +170,23 @@ namespace Cloudents.FunctionsV2
             [JsonProperty("questionUrl")]
             public string QuestionUrl { get; set; }
             [JsonProperty("userPicture")]
-            public string UserPicture { get; set; }
+            public string UserImage { get; set; }
             [JsonProperty("asker")]
-            public string Asker { get; set; }
+            public string UserName { get; set; }
             [JsonProperty("questionTxt")]
-            public string QuestionTxt { get; set; }
+            public string QuestionText { get; set; }
         }
 
         internal class Document
         {
             [JsonProperty("fileUrl")]
-            public string FileUrl { get; set; }
+            public string Url { get; set; }
             [JsonProperty("fileName")]
-            public string FileName { get; set; }
+            public string Name { get; set; }
             [JsonProperty("uploader")]
-            public string Uploader { get; set; }
+            public string UserName { get; set; }
             [JsonProperty("imgSource")]
-            public string ImgSource { get; set; }
+            public string DocumentPreview { get; set; }
         }
     }
 }

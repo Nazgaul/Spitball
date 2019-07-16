@@ -17,6 +17,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             References(x => x.Subject).Column("SubjectId").Nullable();
 
+            HasMany(x => x.Users).Cascade.AllDeleteOrphan().Inverse().AsSet();
             DynamicUpdate();
             OptimisticLock.Version();
             Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();

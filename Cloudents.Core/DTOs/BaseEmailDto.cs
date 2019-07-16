@@ -1,7 +1,8 @@
-﻿using Cloudents.Core.Attributes;
+﻿using System;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
-using System.Collections.Generic;
+using System.Globalization;
 
 namespace Cloudents.Core.DTOs
 {
@@ -12,7 +13,7 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.Language))]
         public string Language { get; set; }
 
-        
+
         [EntityBind(nameof(User.Id))]
         public long UserId { get; set; }
     }
@@ -52,31 +53,38 @@ namespace Cloudents.Core.DTOs
         //public decimal Tokens { get; set; }
     }
 
-    public class UpdateEmailDto : EmailDto
+    public class UpdateEmailDto
     {
-        public long Id { get; set; }
+        //public long Id { get; set; }
         public string UserName { get; set; }
-        public int NumUpdates { get; set; }
-        public int XQuestions { get; set; }
-        public int XNewItems { get; set; }
-        public IEnumerable<DocumentEmailDto> Documents { get; set; }
-        public IEnumerable<QuestionEmailDto> Questions { get; set; }
-        public string To { get; set; }
 
+        public string ToEmailAddress { get; set; }
+        public CultureInfo Language { get; set; }
+
+        public long UserId { get; set; }
+
+        public DateTime Since { get; set; }
+        // public int NumUpdates { get; set; }
+        // public int XQuestions { get; set; }
+        // public int XNewItems { get; set; }
+        // public IEnumerable<DocumentEmailDto> Documents { get; set; }
+        // public IEnumerable<QuestionEmailDto> Questions { get; set; }
+        // public string To { get; set; }
     }
+
     public class QuestionEmailDto
     {
         public long UserId { get; set; }
         public long QuestionId { get; set; }
-        public string UserPicture { get; set; }
-        public string Asker { get; set; }
-        public string QuestionTxt { get; set; }
+        public string UserImage { get; set; }
+        public string UserName { get; set; }
+        public string QuestionText { get; set; }
     }
     public class DocumentEmailDto
     {
-        public long FileId { get; set; }
-        public string FileName { get; set; }
-        public string Uploader { get; set; }
-        public string ImgSource { get; set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string UserName { get; set; }
+        public string Image { get; set; }
     }
 }

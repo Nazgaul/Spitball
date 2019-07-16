@@ -151,8 +151,13 @@ namespace ConsoleApp
 
             ////await UpdateMethod();
             var queryBus = _container.Resolve<IQueryBus>();
-            var query = new DocumentById(29173, 638);
-            var z = queryBus.QueryAsync(query, default);
+            var query = new GetUpdatesEmailUsersQuery(DateTime.UtcNow.AddDays(-30),0);
+            var test = await queryBus.QueryAsync(query, default);
+
+            var u1 = test.FirstOrDefault();
+
+            var query2 = new GetUpdatesEmailByUserQuery(u1.UserId, DateTime.UtcNow.AddDays(-30));
+            var test2 = await queryBus.QueryAsync(query2, default);
             //var z = await queryBus.ValidateEmailAsync("gadi.avner@gmail.com", default);
 
             //var x = await queryBus.QueryAsync<SearchWrapperDto<TutorSearchDto>>(new TutorSyncAzureSearchQuery(0,  null),default);
@@ -464,9 +469,7 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
             //ResourcesMaintenance.GetOrphanedResources();
-            var queryBus = _container.Resolve<IQueryBus>();
-            var query = new GetUpdatesEmailUsersQuery();
-            var test = await queryBus.QueryAsync(query, default);
+          
             //var query = new TutorListQuery(159039, "IL");
             //var test = await queryBus.QueryAsync(query, default);
             //foreach (var item in test)
