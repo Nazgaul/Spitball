@@ -11,7 +11,7 @@ const state = {
 };
 const mutations = {
     setUploadProgress(state, val) {
-      let  objIndex =  state.fileData.findIndex((obj => obj.id === val.id));
+        let  objIndex =  state.fileData.findIndex((obj => obj.id === val.id));
         state.fileData[objIndex].progress = 100;
     },
     updatePriceToAll(state, price){
@@ -62,7 +62,7 @@ const mutations = {
         state.fileData[objIndex].blobName = fileIdName.blobName;
     },
     updateErrorByID(state, fileInfo){
-        let  objIndex =  state.fileData.findIndex((obj => obj.id === fileInfo.id));
+        let objIndex = state.fileData.findIndex((obj => obj.id === fileInfo.id));
         state.fileData[objIndex].error = fileInfo.error;
         state.fileData[objIndex].errorText = fileInfo.errorText;
         // Update progress to enable Upload button

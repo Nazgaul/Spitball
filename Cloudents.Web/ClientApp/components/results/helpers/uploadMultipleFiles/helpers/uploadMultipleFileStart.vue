@@ -1,38 +1,26 @@
 <template>
-    <v-card elevation="0"
-            :class="[ 'upload-component-wrap', {'mb-3': $vuetify.breakpoint.smAndUp} , $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
-        <div class="error-block" v-show="extensionErrror || uploadError">
-            <div class="error-container">
-                <h3 class="error-title" v-show="extensionErrror"
-                    v-language:inner>upload_multiple_error_extension_title</h3>
-                <h3 class="error-title" v-show="uploadError">{{errorText}}</h3>
-                <div class="supported-extensions" v-show="extensionErrror">
-                    <span v-language:inner>upload_multiple_error_extensions_support</span>
-                    <span class="extension" v-for="(extension, index) in supportedExtensions" :key="extension">
-                        <span>
-                              &nbsp;{{extension}}
-                    <span v-if="index+1 !== supportedExtensions.length">,</span>
-                        </span>
-
-                </span>
+    <v-card elevation="0" :class="[ 'upload-component-wrap', {'mb-3': $vuetify.breakpoint.smAndUp} , $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
+        <div class="error-block">
+            <div class="error-container" v-if="uploadError">
+                <h3 class="error-title mt-3" v-language:inner="'upload_multiple_error_extension_title'"></h3>
+                <h3 class="error-title">{{errorText}}</h3>
+                <div class="supported-extensions">
+                    <span class="extension">{{showErrorUpload}}</span>
                 </div>
             </div>
         </div>
         <v-layout justify-center align-center column class="upload-area mx-3">
             <v-flex class="justify-center align-center d-flex" grow v-show="$vuetify.breakpoint.smAndUp">
-                <span v-show="$vuetify.breakpoint.smAndUp"
-                      class="col-blue drop-text  text-xs-center " v-language:inner>upload_multiple_files_dopHere</span>
+                <span v-show="$vuetify.breakpoint.smAndUp" class="col-blue drop-text text-xs-center" v-language:inner="'upload_multiple_files_dopHere'"></span>
             </v-flex>
             <v-flex xs12 sm6  row class="justify-center align-center upload-options">
                 <div class="btn-holder">
-                    <span v-show="$vuetify.breakpoint.smAndUp" class="browse-text" v-language:inner>upload_multiple_or_browse_label</span>
-                    <span v-show="$vuetify.breakpoint.xsOnly" class="browse-text" v-language:inner>upload_multiple_or_browse_label_mobile</span>
-
+                    <span v-show="$vuetify.breakpoint.smAndUp" class="browse-text" v-language:inner="'upload_multiple_or_browse_label'"></span>
+                    <span v-show="$vuetify.breakpoint.xsOnly" class="browse-text" v-language:inner="'upload_multiple_or_browse_label_mobile'"></span>
                 </div>
-                <div class="btn-holder c-pointer" @click="DbFilesList()" :class="{'ml-3': $vuetify.breakpoint.smAndUp}"
-                     :disabled="!dbReady">
+                <div class="btn-holder c-pointer" @click="DbFilesList()" :class="{'ml-3': $vuetify.breakpoint.smAndUp}" :disabled="!dbReady">
                     <v-icon :class="{'mr-2': $vuetify.breakpoint.smAndUp }">sbf-upload-dropbox</v-icon>
-                    <span :class="['btn-label', $vuetify.breakpoint.xsOnly ? 'mobile-text' : '' ] " v-language:inner>upload_multiple_files_btn_dropBox</span>
+                    <span :class="['btn-label', $vuetify.breakpoint.xsOnly ? 'mobile-text' : '' ] " v-language:inner="'upload_multiple_files_btn_dropBox'"></span>
                 </div>
                 <div class="btn-holder c-pointer" :class="{'ml-3': $vuetify.breakpoint.smAndUp}">
                     <v-icon v-if="$vuetify.breakpoint.smAndUp" class="mr-2">sbf-upload-desktop</v-icon>
@@ -44,21 +32,17 @@
                             ref="upload"
                             :drop="true"
                             v-model="files"
-                            :post-action=uploadUrl
+                            :post-action="uploadUrl"
                             chunk-enabled
-                            :extensions="supportedExtensions"
                             :multiple="true"
                             @input-file="inputFile"
-                            @input-filter="inputFilter"
                             :chunk="{
                               action: uploadUrl,
                               minSize: 1,
                               maxRetries: 5,}">
                     </file-upload>
-                    <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label mobile-text"
-                          v-language:inner>upload_multiple_files_btn_phone</span>
-                    <span v-show="$vuetify.breakpoint.smAndUp" class="btn-label"
-                          v-language:inner>upload_multiple_files_btn_desktop</span>
+                    <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label mobile-text" v-language:inner="'upload_multiple_files_btn_phone'"></span>
+                    <span v-show="$vuetify.breakpoint.smAndUp" class="btn-label" v-language:inner="'upload_multiple_files_btn_desktop'"></span>
                 </div>
             </v-flex>
         </v-layout>
@@ -74,22 +58,6 @@
 
     export default {
         name: "upload-step-1",
-        data() {
-            return {
-                uploadUrl: '/api/Document/upload',
-                dbReady: false,
-                files: [],
-                filesUploaded: [],
-                generatedFileName: '',
-                supportedExtensions:   ['doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx', 'tiff', 'tif', 'bmp'],
-                DBsupportedExtensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg', '.pptx', '.tiff', '.tif', '.bmp'],
-                extensionErrror: false,
-                uploadError: false,
-                errorText: '',
-                hovered: false,
-                nextStepCalled: false
-            }
-        },
         components: {
             FileUpload
         },
@@ -100,10 +68,20 @@
                 required: false
             }
         },
+        data() {
+            return {
+                uploadUrl: '/api/Document/upload',
+                dbReady: false,
+                files: [],
+                showErrorUpload: '',
+                uploadError: false,
+                errorText: '',
+                nextStepCalled: false
+            }
+        },
         computed: {
-            ...mapGetters({
-                getFileData: 'getFileData'
-            }),
+            ...mapGetters(['getFileData']),
+            
             isDropActive() {
                 if (this.$refs) {
                     return this.$refs.upload && this.$refs.upload.dropActive
@@ -111,7 +89,7 @@
             },
         },
         methods: {
-            ...mapActions(['updateFile', 'updateFileName', 'stopUploadProgress', 'setFileBlobNameById', 'updateFileErrorById']),
+            ...mapActions(['updateFile', 'updateFileName', 'stopUploadProgress', 'setFileBlobNameById', 'updateFileErrorById', 'deleteFileByIndex']),
             loadDropBoxSrc() {
                 // if exists prevent duplicate loading
                 let isDbExists = !!document.getElementById('dropboxjs');
@@ -154,7 +132,7 @@
                                     },
                                     error => {
                                         console.log('error drop box api call', error)
-                                    })
+                                })
                         });
 
                     },
@@ -167,22 +145,11 @@
                 };
                 global.Dropbox.choose(options);
             },
-
             // regular upload methods
             inputFile(newFile, oldFile) {
-                //happnes once file is added and upload starts
+                //happens once file is added and upload starts
                 if (newFile && !oldFile) {
-                    // Add file
-                    newFile.blob = '';
-                    let URL = window.URL || window.webkitURL;
-                    if (URL && URL.createObjectURL) {
-                        //overwrite default file type(error on server if not)
-                        newFile.type ? newFile.type = '' : '';
-                        let singleFile = uploadService.createFileData(newFile);
-                        //add or replace
-                        this.updateFile(singleFile);
-                    }
-                    this.goToNextStep();
+                    this.addFile(newFile, oldFile)
                 }
                 // Upload progress
                 if (newFile && newFile.progress) {
@@ -192,60 +159,65 @@
                 }
                 // Upload error
                 if (newFile && oldFile && newFile.error !== oldFile.error) {
-                    let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
-                    this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
-                    let fileErrorObj = {
-                        errorText: newFile.response.Name ? newFile.response.Name["0"] : text,
-                        id: newFile.id,
-                        error: true
-                    };
-                    this.uploadError = true;
-                    this.updateFileErrorById(fileErrorObj);
-                    console.log('error', newFile.error, newFile)
+                    this.uploadingError(newFile, oldFile)
                 }
                 // Get response data
                 if (newFile && oldFile && !newFile.active && oldFile.active) {
-                    // Get response data
-                    console.log('response', newFile.response);
-                    if (newFile.status && newFile.status.toLowerCase() === 'success') {
-                        //  Get the response status code
-                        console.log('status', newFile.status)
-                    }
-                    if (newFile && newFile.response && newFile.response.status === 'success') {
-                        //generated blob name from server after successful upload
-                        let name = newFile.response.fileName;
-                        let fileData = {
-                            id: newFile.id,
-                            blobName: name
-                        };
-                        this.setFileBlobNameById(fileData);
-
-                    }
+                    this.getResponse(newFile, oldFile)
                 }
                 if (newFile && oldFile && newFile.success !== oldFile.success) {
-                    console.log('success', newFile.success, newFile)
+                    if (this.$refs.upload.active) {
+                        this.goToNextStep()
+                    }
                 }
                 if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
                     if (!this.$refs.upload.active) {
-                        this.$refs.upload.active = true
+                        this.$refs.upload.active = true;
                     }
                 }
             },
-            inputFilter(newFile, oldFile, prevent) {
-                if (newFile && !oldFile) {
-                    this.extensionErrror = false;
-                    // Add file
-                    // Will not be added to files
-                    let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i; // get file extension
-                    let ext = (`${newFile.name}`.toLowerCase()).match(patt1);
-                    ext = ext ? ext[1] : null; //in case the file added has no extension, so will be not supported
-                    let isSupported = this.supportedExtensions.includes(ext);
-                    if (!isSupported) {
-                        this.extensionErrror = true;
-                        return prevent()
-                    }
+            addFile(newFile, oldFile) {
+                // Add file
+                newFile.blob = '';
+                let URL = window.URL || window.webkitURL;
+                if (URL && URL.createObjectURL) {
+                    //overwrite default file type(error on server if not)
+                    newFile.type ? newFile.type = '' : '';
+                    let singleFile = uploadService.createFileData(newFile);
+                    //add or replace
+                    this.updateFile(singleFile);
                 }
             },
+            uploadingError(newFile, oldFile) {
+                let index = this.getFileData.findIndex((file) => file.id === newFile.id);
+                let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
+                this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
+                let fileErrorObj = {
+                    errorText: newFile.response.Name ? newFile.response.Name["0"] : text,
+                    id: newFile.id,
+                    error: true
+                };
+                this.uploadError = true;
+                this.showErrorUpload = newFile.response.model[0];
+                this.updateFileErrorById(fileErrorObj);
+                this.deleteFileByIndex(index);
+            },
+            getResponse(newFile, oldFile) {
+                // Get response data
+                if (newFile.status && newFile.status.toLowerCase() === 'success') {
+                    //  Get the response status code
+                    console.log('status', newFile.status)
+                }
+                if (newFile && newFile.response && newFile.response.status === 'success') {
+                    //generated blob name from server after successful upload
+                    let name = newFile.response.fileName;
+                    let fileData = {
+                        id: newFile.id,
+                        blobName: name
+                    };
+                    this.setFileBlobNameById(fileData);
+                }
+            }
         },
         created() {
             this.loadDropBoxSrc(); // load Drop box script
