@@ -144,11 +144,11 @@
         }
         &.disabled{
             pointer-events: none;
-            background-color: rgba(0, 0, 0, 0.27);
-            color: rgba(255, 255, 255, 0.27);
-            .timer-icon{
-                fill: rgba(255, 255, 255, 0.27);
-            }
+            // background-color: rgba(0, 0, 0, 0.27);
+            // color: rgba(255, 255, 255, 0.27);
+            // .timer-icon{
+            //     fill: rgba(255, 255, 255, 0.27);
+            // }
         }
     }
     .end-session{
