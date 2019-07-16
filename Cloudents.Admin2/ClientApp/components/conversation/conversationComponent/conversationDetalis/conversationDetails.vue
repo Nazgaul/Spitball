@@ -252,7 +252,7 @@ export default {
       return `${assign}${status}${autoStatus}`;
     },
     handleFilter() {
-      if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) return;
+      // if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) return;
 
       let query = this.getFiltersQuery();
       
