@@ -141,4 +141,10 @@
   <data name="tutor_entered_room" xml:space="preserve">
     <value>המורה הפרטי נכנס לחדר</value>
   </data>
+  <data name="waiting_for_student_toaster" xml:space="preserve">
+    <value>ממתין לסטודנט שיצטרף לשיעור</value>
+  </data>
+  <data name="waiting_for_tutor_toaster" xml:space="preserve">
+    <value>ממתין למורה הפרטי שיתחיל את השיעור</value>
+  </data>
 </root>
