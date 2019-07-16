@@ -37,7 +37,7 @@
                 <div><img :src="`${require('./imgs/5.png')}`" style="width: 500.79px;height: 299.83px;" alt=""> </div>
                 <li>מלא את הפרטים כולל תמונה.</li>    
                 <li>בחר את הקורסים שאתה מעוניין ללמד.</li>    
-                <li>זהו סיימת <img :src="`${require('./imgs/3.png')}`" style="width: 51.47px;height: 51.47px;">. במידה ונתקלת בבעיה כלשהיא צור קשר - support@spitball.co</li>    
+                <li>זהו, סיימת! <img :src="`${require('./imgs/3.png')}`" style="width: 51.47px;height: 51.47px;">. במידה ונתקלת בבעיה כלשהיא צור קשר - support@spitball.co .</li>    
             </ol>
             </v-flex>
         </v-layout>
