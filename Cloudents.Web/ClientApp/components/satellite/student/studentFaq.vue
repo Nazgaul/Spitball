@@ -1,7 +1,7 @@
 <template>
     <v-container class="student-faq-container">
         <v-layout column>
-            <v-flex my-2><h1>מדריך לתלמיד כיצד להשתמש במערכת הלימוד של ספיטבול</h1></v-flex>
+            <v-flex my-2><h1>מדריך לסטודנט כיצד להשתמש במערכת הלימוד של ספיטבול</h1></v-flex>
             <v-flex my-2>ספיטבול היא המערכת הכי פופולרית בקרב סטודנטים במדינת ישראל. כיום רשומים למעלה מחצי מיליון סטודנטים מכל העולם וכ- 200 אלף סטודנטים מישראל. לאחר למעלה מחצי שנה של פיתוח אנחנו משיקים, לראשונה בישראל, מערכת און ליין לשיעורים פרטיים. המערכת כוללת: תקשורת בזמן אמת, לוח כתיבה אינטראקטיבי, מערכת לכתיבת קוד, הקלדת פונקציות, שיתוף מסך, הקלטה של השיעור לחזרה ועוד... כמו שעשינו בעבר, מטרתינו ליצור סביבת לימודים שבה סטודנטים מלמדים סטודנטים אחרים. במערכת היום התנהלו למעלה מ- 570 שיעורים בשביעות רצון גבוהה מצד המורים והסטודנטים.</v-flex>
             <v-flex my-2>צפו בסרטון כדי להבין איך השיעור מתנהל בפועל:</v-flex>
             <v-flex my-2><iframe width="560" height="315" src="https://www.youtube.com/embed/JCTqWXYex7w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></v-flex>
@@ -73,7 +73,7 @@
                 <li>עורך קוד - ללימוד תכנות.</li>
             </ol>
             <div><img :src="`${require('./imgs/5.png')}`" style="width: 624.00px;height: 344.00px;" alt=""> </div>
-            <v-flex my-2>!זהו, סיימת <img :src="`${require('./imgs/6.png')}`" style="width: 51.47px;height: 51.47px;">. במידה ונתקלת בבעיה כלשהיא צור קשר - support@spitball.co .</v-flex>    
+            <v-flex my-2>זהו, סיימת! <img :src="`${require('./imgs/6.png')}`" style="width: 51.47px;height: 51.47px;"> במידה ונתקלת בבעיה כלשהיא צור קשר - support@spitball.co </v-flex>    
         </v-layout>
     </v-container>
 </template>
