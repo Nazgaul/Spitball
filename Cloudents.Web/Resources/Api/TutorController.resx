@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Invalid Phone number" xml:space="preserve">
+    <value>This phone is associated with another account</value>
+  </data>
   <data name="RequestTutorChatMessage" xml:space="preserve">
     <value>Hi, I would like to schedule a tutoring session with. What information would you like me to send you to see if you can help me?</value>
   </data>
