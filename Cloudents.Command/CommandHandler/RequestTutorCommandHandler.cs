@@ -1,6 +1,5 @@
 ﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -36,13 +35,17 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(RequestTutorCommand message, CancellationToken token)
         {
-            var needToSendToMoreTutors = await _leadRepository.NeedToSendMoreTutorsAsync(message.UserId,  token);
 
             Tutor tutor = null;
             if (message.TutorId.HasValue)
             {
+                if (message.UserId == message.TutorId.Value)
+                {
+                    throw new ArgumentException("You cannot request tutor to yourself");
+                }
                 tutor = await _tutorRepository.LoadAsync(message.TutorId.Value, token);
             }
+            var needToSendToMoreTutors = await _leadRepository.NeedToSendMoreTutorsAsync(message.UserId, token);
 
             var course = await _courseRepository.LoadAsync(message.Course, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);

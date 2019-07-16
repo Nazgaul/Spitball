@@ -160,7 +160,7 @@
     <value>Text Editor</value>
   </data>
   <data name="option_fullBoard" xml:space="preserve">
-    <value>Hide All</value>
+    <value>Full Board</value>
   </data>
   <data name="option_videoChat" xml:space="preserve">
     <value>Video &amp; Chat</value>
@@ -170,7 +170,7 @@
 Try connecting from a computer browser</value>
   </data>
   <data name="option_videoFull" xml:space="preserve">
-    <value>Show Video</value>
+    <value>Full Video</value>
   </data>
   <data name="quality_access_device" xml:space="preserve">
     <value>Device Access</value>
@@ -251,7 +251,7 @@ Try connecting from a computer browser</value>
     <value>Join Session</value>
   </data>
   <data name="stream_btn_pending_tutor" xml:space="preserve">
-    <value>Pending student payment details</value>
+    <value>Waiting for student to enter payment details</value>
   </data>
   <data name="stream_btn_start_session" xml:space="preserve">
     <value>Start Session</value>

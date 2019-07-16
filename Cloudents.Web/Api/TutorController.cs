@@ -22,6 +22,7 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -145,7 +146,7 @@ namespace Cloudents.Web.Api
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
-
+            
             if (_userManager.TryGetLongUserId(User, out var userId))
             {
                 var query = new UserEmailInfoQuery(userId);
@@ -175,10 +176,18 @@ namespace Cloudents.Web.Api
                 {
                     if (user.PhoneNumber == null)
                     {
+
                         var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
                         var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
                         if (result != IdentityResult.Success)
                         {
+                            if (string.Equals(result.Errors.First().Code, "Duplicate",
+                                StringComparison.OrdinalIgnoreCase))
+                            {
+                                client.TrackTrace("Invalid Phone number");
+                                ModelState.AddModelError("error", _stringLocalizer["Phone number Already in use"]);
+                                return BadRequest(ModelState);
+                            }
                             client.TrackTrace("Invalid Phone number");
                             ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
                             return BadRequest(ModelState);
@@ -220,18 +229,18 @@ namespace Cloudents.Web.Api
                     model.Text, model.TutorId, utmSource);
                 await _commandBus.DispatchAsync(command, token);
             }
+            catch (ArgumentException)
+            {
+                ModelState.AddModelError("error", _stringLocalizer["You cannot request tutor to yourself"]);
+                return BadRequest(ModelState);
+            }
             catch (SqlConstraintViolationException)
             {
                 client.TrackTrace("Invalid Course");
                 ModelState.AddModelError("error", _stringLocalizer["Invalid Course"]);
                 return BadRequest(ModelState);
             }
-            catch (TooManyRequestsException)
-            {
-                client.TrackTrace("Too many tutor requests");
-                ModelState.AddModelError("error", _stringLocalizer["You requested too many today, Please contact support"]);
-                return BadRequest(ModelState);
-            }
+            
             return Ok();
         }
 

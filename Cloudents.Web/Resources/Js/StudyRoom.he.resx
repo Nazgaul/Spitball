@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="alone_in_room" xml:space="preserve">
-    <value>אתה היחיד שנמצא בחדר</value>
+    <value>ממתין לצד השני שיכנס לחדר</value>
   </data>
   <data name="become_tutor" xml:space="preserve">
     <value>הירשם כמורה פרטי</value>
@@ -140,5 +140,11 @@
   </data>
   <data name="tutor_entered_room" xml:space="preserve">
     <value>המורה הפרטי נכנס לחדר</value>
+  </data>
+  <data name="waiting_for_student_toaster" xml:space="preserve">
+    <value>ממתין לסטודנט שיצטרף לשיעור</value>
+  </data>
+  <data name="waiting_for_tutor_toaster" xml:space="preserve">
+    <value>ממתין למורה הפרטי שיתחיל את השיעור</value>
   </data>
 </root>

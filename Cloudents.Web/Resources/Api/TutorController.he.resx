@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Invalid Course" xml:space="preserve">
+    <value>הקורס לא קיים</value>
+  </data>
+  <data name="Invalid Phone number" xml:space="preserve">
+    <value>מספר הטלפון לא תקין</value>
+  </data>
+  <data name="Phone number Already in use" xml:space="preserve">
+    <value>מספר טלפון זה משוויך למשתמש אחר</value>
+  </data>
   <data name="RequestTutorChatMessage" xml:space="preserve">
     <value>היי, התלמיד רוצה לתאם איתך שיעור פרטי בנושא {0}. איזה חומר לשתף איתך על הנושא?</value>
   </data>
