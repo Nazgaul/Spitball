@@ -162,7 +162,7 @@ namespace Cloudents.FunctionsV2
                 {
                     var t1 =  collectorSearch.AddAsync(
                         blob.Parent.Prefix.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries).Last(), token);
-                    var blobPath = $"spitball-user/DefaultThumbnail/{ImageExtensionConvert.Image.DefaultThumbnail}";
+                    const string blobPath = "spitball-user/DefaultThumbnail/doc-preview-empty.png";
                     var t2 =  binder.BindAsync<CloudBlockBlob>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
                     await Task.WhenAll(t1, t2);
