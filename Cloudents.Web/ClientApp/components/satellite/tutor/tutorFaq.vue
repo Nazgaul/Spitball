@@ -16,15 +16,15 @@
             <v-flex my-2>
                 <ol>
                 <li>במידה ואתה רשום לספיטבול דלג לשלב הזה - <router-link to="/tutorFaq#registerTutor">רשום</router-link>.</li>    
-                <li>הירשם לאתר ספיטבול - <a href="https://www.spitball.co/register" target="_blank">https://www.spitball.co/register</a></li>    
-                <li>הרשמה כוללת אימייל + מספר טלפון</li>    
-                <li>לאחר ההרשמה בחר באופציה - <b>מתרגל</b></li>    
+                <li>הירשם לאתר ספיטבול - <a href="https://www.spitball.co/register" target="_blank">https://www.spitball.co/register</a>.</li>    
+                <li>הרשמה כוללת אימייל + מספר טלפון.</li>    
+                <li>לאחר ההרשמה בחר באפשרות - <b>מתרגל</b>.</li>    
                 <div><img :src="`${require('./imgs/1.png')}`" style="width: 309.92px;height: 423.83px;" alt=""> </div>
-                <li>בחר אילו קורסים או נושאים אתה מעוניין ללמד</li>    
-                <li>מלא את האינפורמציה הרלוונטית - כולל תמונה</li>    
-                <li>שים לב: תמיד תוכל לשנות ולעדכן את האינפורמציה</li>    
+                <li>בחר אילו קורסים או נושאים אתה מעוניין ללמד.</li>    
+                <li>מלא את המידע הרלוונטי - כולל תמונה.</li>    
+                <li>שים לב: תמיד תוכל לשנות ולעדכן את המידע.</li>    
                 <div><img :src="`${require('./imgs/2.png')}`" style="width: 444.50px;height: 458.36px;" alt=""> </div>
-                <li>זהו, סיימת! <img :src="`${require('./imgs/3.png')}`" style="width: 51.47px;height: 51.47px;"> במידה ונתקלת בבעיה כלשהיא צור קשר - support@spitball.co</li>    
+                <li>זהו, סיימת! <img :src="`${require('./imgs/3.png')}`" style="width: 51.47px;height: 51.47px;"> במידה ונתקלת בבעיה, צור קשר - support@spitball.co</li>    
             </ol>
             </v-flex>
             <v-flex my-2><h3 id="registerTutor">הרשמה כמורה פרטי/מתרגל למי שרשום לספיטבול כסטודנט.</h3></v-flex>
@@ -37,7 +37,7 @@
                 <div><img :src="`${require('./imgs/5.png')}`" style="width: 500.79px;height: 299.83px;" alt=""> </div>
                 <li>מלא את הפרטים כולל תמונה.</li>    
                 <li>בחר את הקורסים שאתה מעוניין ללמד.</li>    
-                <li>זהו, סיימת! <img :src="`${require('./imgs/3.png')}`" style="width: 51.47px;height: 51.47px;"> במידה ונתקלת בבעיה כלשהיא צור קשר - support@spitball.co </li>    
+                <li>זהו, סיימת! <img :src="`${require('./imgs/3.png')}`" style="width: 51.47px;height: 51.47px;"> במידה ונתקלת בבעיה, צור קשר - support@spitball.co </li>    
             </ol>
             </v-flex>
         </v-layout>

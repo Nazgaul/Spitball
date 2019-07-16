@@ -262,7 +262,7 @@
     <value>התחל שיעור</value>
   </data>
   <data name="stream_btn_pending_tutor" xml:space="preserve">
-    <value>ממתין להזנת פרטי כרטיס אשראי של הסטודנט</value>
+    <value>ממתין שהסטודנט יכניס פרטי תשלום</value>
   </data>
   <data name="stream_btn_start_session" xml:space="preserve">
     <value>התחל שיעור</value>
