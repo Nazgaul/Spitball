@@ -160,7 +160,7 @@
     <value>Text Editor</value>
   </data>
   <data name="option_fullBoard" xml:space="preserve">
-    <value>Hide All</value>
+    <value>Full Board</value>
   </data>
   <data name="option_videoChat" xml:space="preserve">
     <value>Video &amp; Chat</value>
@@ -170,7 +170,7 @@
 Try connecting from a computer browser</value>
   </data>
   <data name="option_videoFull" xml:space="preserve">
-    <value>Show Video</value>
+    <value>Full Video</value>
   </data>
   <data name="quality_access_device" xml:space="preserve">
     <value>Device Access</value>
