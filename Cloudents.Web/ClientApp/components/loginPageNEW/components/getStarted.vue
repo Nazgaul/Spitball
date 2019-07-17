@@ -23,18 +23,18 @@
                         :loading="googleLoading" 
                         large round
                         class="google elevation-5 btn-login">
-                        <v-icon class="pr-3">sbf-google-icon</v-icon>
+                        <img src="../images/G icon@2x.png">
                         <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
                     </v-btn>
                     <!-- <span v-if="gmailError" class="errorMsg" v-language:inner="'gmailError'"/> -->
                 <!-- </div> -->
 
-                <span class="hidden-xs-only" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
+                <span class="hidden-xs-only or" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
 
                 <v-btn @click="goWithEmail()" 
                     large flat round 
                     class="email">
-                    <v-icon class="pr-3">sbf-email</v-icon>
+                    <img src="../images/np_email@2x.png">
                     <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup':'loginRegister_getstarted_btn_email_signin'"/>
                 </v-btn>
 
@@ -187,7 +187,9 @@ export default {
             }
         }
         span{
-            padding: 10px 0;
+            &.or{
+                padding: 15px 0;
+            }
             font-size: 12px;
             font-weight: bold;
             letter-spacing: -0.36px;
@@ -203,21 +205,33 @@ export default {
             margin: 0;
             text-transform: none !important;
             .responsive-property(width, 100%, null, 72%);
-            &.google{
-                .responsive-property(margin-bottom, 0px, null, 20px);
-                color: white;
-                span{
-                    font-size: 16px;
+                &.google{
+                    img{
+                        width: 48px;
+                        height: 48px;  
+                    }
+                    .responsive-property(margin-bottom, 0px, null, 20px);
                     color: white;
-                    font-weight: 600;
-                }
-                .v-btn__loading{
-                    color: white;
-                }
+                    span{
+                        font-size: 16px;
+                        color: white;
+                        font-weight: 600;
+                        margin: 0 22px 0 8px;
+                    }
+                    .v-btn__loading{
+                        color: white;
+                    }
+
             }
             &.email{
+                img{
+                    width: 32px;
+                    height: 32px;
+                }
                 color: @color-login-text-link;
                 span{
+                    
+                    margin: 0 34px 0 13px;
                     color: @color-login-text-link;
                     font-size: 16px;
                     font-weight: normal;
