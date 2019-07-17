@@ -130,8 +130,11 @@ export default {
 @import '../../../styles/mixin.less';
 @import '../../../styles/colors.less';
 .getStartedContainer{
-    height: -webkit-fill-available;
+    justify-content: center;
+    @media (max-width: @screen-xs) {
+        height: -webkit-fill-available;
         justify-content: space-between;
+    }
     .getStarted-actions{
 
    
