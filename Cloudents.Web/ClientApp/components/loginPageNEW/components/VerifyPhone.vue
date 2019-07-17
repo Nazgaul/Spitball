@@ -52,7 +52,7 @@ export default {
 			return this.getErrorMessages
 		},
 		userPhone(){
-			return `(+${this.getLocalCode}) ${this.getPhone}`
+			return global.isRtl? `${this.getPhone} (${this.getLocalCode}+)` : `(+${this.getLocalCode}) ${this.getPhone}`
 		},
 		isLoading(){
 			return this.getGlobalLoading
