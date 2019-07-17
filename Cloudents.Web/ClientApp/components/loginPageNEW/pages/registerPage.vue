@@ -9,6 +9,7 @@
 
         <div class="stepsSections">
             <div class="stepContainer">
+                <!-- <email-confirmed></email-confirmed> -->
                 <component :is="`${currentStep}`"/>
             </div>
         </div>

@@ -172,6 +172,7 @@ export default {
                 .responsive-property(font-size, 13px, null, 12px);
                 letter-spacing: -0.34px;
                 line-height: 1.23;
+                font-weight: initial;
                 &.terms{
                    cursor: pointer;
                    color: @color-login-text-link; 
