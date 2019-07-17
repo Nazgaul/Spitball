@@ -227,7 +227,7 @@
     <value>Enter phone number</value>
   </data>
   <data name="please_agree" xml:space="preserve">
-    <value>Please agree to Terms And Services in order to proceed</value>
+    <value>To register you must check the box above</value>
   </data>
   <data name="privacy_policy" xml:space="preserve">
     <value>Privacy Policy</value>

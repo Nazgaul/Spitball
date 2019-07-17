@@ -118,189 +118,189 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="congrats_bottom" xml:space="preserve">
-    <value>Get private lessons from top rated teachers, find study resources, and get answers to your study related questions</value>
+    <value>קבל שיעורים פרטיים ממיטב המורים, מצא חומרי לימוד וקבל תשובות לשאלות על החומר</value>
   </data>
   <data name="congrats_btn" xml:space="preserve">
-    <value>Let’s Start</value>
+    <value>בוא נתחיל</value>
   </data>
   <data name="congrats_subtitle" xml:space="preserve">
-    <value>You’r ready to start</value>
+    <value>את/ה מוכן להתחיל</value>
   </data>
   <data name="congrats_title" xml:space="preserve">
-    <value>CONGRATS!</value>
+    <value>מזל טוב!</value>
   </data>
   <data name="emailconfirm_bottom" xml:space="preserve">
-    <value>You will be able to log in to Spitball.co only after activation</value>
+    <value>רק לאחר אישור האימייל, תוכל להרשם לספיטבול</value>
   </data>
   <data name="emailconfirm_bottom_reset" xml:space="preserve">
-    <value>Didn't receive the email? Check your spam folder</value>
+    <value>לא קיבלת אימייל? בדוק את תיקיית ספאם</value>
   </data>
   <data name="emailconfirm_bottom_reset_or" xml:space="preserve">
-    <value>or Click here to </value>
+    <value>או לחץ כאן כדי </value>
   </data>
   <data name="emailconfirm_notyou" xml:space="preserve">
-    <value>Not you?</value>
+    <value>לא אתה ?</value>
   </data>
   <data name="emailconfirm_resend" xml:space="preserve">
-    <value>Resend</value>
+    <value>שלח שוב</value>
   </data>
   <data name="emailconfirm_rest" xml:space="preserve">
-    <value>activation email</value>
+    <value>אימייל </value>
   </data>
   <data name="emailconfirm_title" xml:space="preserve">
-    <value>We sent you an activation email</value>
+    <value>שלחנו לך אימייל אישור</value>
   </data>
   <data name="emailconfirm_title_reset" xml:space="preserve">
-    <value>We've emailed you a new password reset instructions</value>
+    <value>שלחנו לך אימייל עם סיסמא חדשה</value>
   </data>
   <data name="emailconfirm_to" xml:space="preserve">
-    <value>to</value>
+    <value>ל</value>
   </data>
   <data name="forgot_btn" xml:space="preserve">
-    <value>Reset password</value>
+    <value>שנה סיסמא</value>
   </data>
   <data name="forgot_input" xml:space="preserve">
-    <value>Enter your email</value>
+    <value>אימייל </value>
   </data>
   <data name="forgot_remember" xml:space="preserve">
-    <value>I remember now</value>
+    <value>נזכרתי</value>
   </data>
   <data name="forgot_subtitle" xml:space="preserve">
-    <value>Don’t be ashamed. It happens to the best.</value>
+    <value>לא נורא, זה קורה לטובים ביותר</value>
   </data>
   <data name="forgot_title" xml:space="preserve">
-    <value>Reset your password</value>
+    <value>שנה סיסמא</value>
   </data>
   <data name="getstarted_btn_email_signin" xml:space="preserve">
-    <value>Sign in with email</value>
+    <value>התחבר עם אימאייל </value>
   </data>
   <data name="getstarted_btn_email_signup" xml:space="preserve">
-    <value>Sign Up with email</value>
+    <value>הרשם עם אי'מאייל </value>
   </data>
   <data name="getstarted_btn_google_signin" xml:space="preserve">
-    <value>Sign in with Google</value>
+    <value>התחבר עם ג'ימאייל - Gmail </value>
   </data>
   <data name="getstarted_btn_google_signup" xml:space="preserve">
-    <value>Sign Up with Google</value>
+    <value>הרשם עם ג'ימאייל - Gmail </value>
   </data>
   <data name="getstarted_or" xml:space="preserve">
-    <value>OR</value>
+    <value>או</value>
   </data>
   <data name="getstarted_signin_link" xml:space="preserve">
-    <value>Sign in</value>
+    <value>התחברות</value>
   </data>
   <data name="getstarted_signin_text" xml:space="preserve">
-    <value>Have an account?</value>
+    <value>נרשמת בעבר ? </value>
   </data>
   <data name="getstarted_signup_link" xml:space="preserve">
-    <value>Sign up</value>
+    <value>הרשם</value>
   </data>
   <data name="getstarted_signup_text" xml:space="preserve">
-    <value>Need an account?</value>
+    <value>זקוקים לחשבון?</value>
   </data>
   <data name="getstarted_subtitle" xml:space="preserve">
-    <value>100% Free. No credit card needed.</value>
+    <value>הרשמה ללא תשלום. 100% חינם.</value>
   </data>
   <data name="getstarted_terms_and" xml:space="preserve">
-    <value>and</value>
+    <value>ו </value>
   </data>
   <data name="getstarted_terms_i_agree" xml:space="preserve">
-    <value>I agree to Spitball's</value>
+    <value>אני מקבל את </value>
   </data>
   <data name="getstarted_terms_privacy" xml:space="preserve">
-    <value>Privacy Policy</value>
+    <value>ומדיניות הפרטיות</value>
   </data>
   <data name="getstarted_terms_terms" xml:space="preserve">
-    <value>Terms of Services</value>
+    <value>תנאי השימוש </value>
   </data>
   <data name="getstarted_title" xml:space="preserve">
-    <value>Get started absolutly for free</value>
+    <value>הרשמה לספיטבול</value>
   </data>
   <data name="main_txt" xml:space="preserve">
-    <value>Everything you’ll need to master your studies</value>
+    <value>להצליח במבחנים בעזרת מיטב הסיכומים והמורים הפרטיים</value>
   </data>
   <data name="resetpass_btn" xml:space="preserve">
-    <value>Continue</value>
+    <value>המשך</value>
   </data>
   <data name="resetpass_input" xml:space="preserve">
-    <value>Enter new password</value>
+    <value>סיסמא חדשה</value>
   </data>
   <data name="resetpass_input_confirm" xml:space="preserve">
-    <value>Confirm password</value>
+    <value>וידוא סיסמא</value>
   </data>
   <data name="resetpass_title" xml:space="preserve">
-    <value>Enter new password</value>
+    <value>סיסמא חדשה</value>
   </data>
   <data name="setemailpass_btn" xml:space="preserve">
-    <value>Continue</value>
+    <value>המשך</value>
   </data>
   <data name="setemailpass_input_email" xml:space="preserve">
-    <value>Enter your email</value>
+    <value>אימייל </value>
   </data>
   <data name="setemailpass_input_pass" xml:space="preserve">
-    <value>Choose password ( Use 8 characters or more )</value>
+    <value>בחר סיסמא (לפחות 8 תווים)</value>
   </data>
   <data name="setemailpass_input_passconfirm" xml:space="preserve">
-    <value>Confirm Password</value>
+    <value>אשר סיסמא</value>
   </data>
   <data name="setemailpass_title" xml:space="preserve">
-    <value>Set your email and password</value>
+    <value>בחר אימייל וסיסמא</value>
   </data>
   <data name="setemail_btn" xml:space="preserve">
-    <value>Continue</value>
+    <value>הרשמה</value>
   </data>
   <data name="setemail_input" xml:space="preserve">
-    <value>Enter your email</value>
+    <value>אימייל </value>
   </data>
   <data name="setemail_title" xml:space="preserve">
-    <value>Welcome back. Please login</value>
+    <value>אנא הרשם</value>
   </data>
   <data name="setpass_btn" xml:space="preserve">
-    <value>Login</value>
+    <value>הכנס/י</value>
   </data>
   <data name="setpass_forgot" xml:space="preserve">
-    <value>Forgot password?</value>
+    <value>שכחת/ה את הסיסמא?</value>
   </data>
   <data name="setpass_input_email" xml:space="preserve">
-    <value>Enter your email</value>
+    <value>אימייל </value>
   </data>
   <data name="setpass_input_pass" xml:space="preserve">
-    <value>Enter password</value>
+    <value>סיסמא</value>
   </data>
   <data name="setphone_btn" xml:space="preserve">
-    <value>Continue</value>
+    <value>המשך</value>
   </data>
   <data name="setphone_input" xml:space="preserve">
-    <value>Enter phone number</value>
+    <value>מספר טלפון נייד</value>
   </data>
   <data name="setphone_title" xml:space="preserve">
-    <value>Get SMS confirmation code</value>
+    <value>קבלת מסרון עם קוד כניסה</value>
   </data>
   <data name="smsconfirm_btn" xml:space="preserve">
-    <value>Continue</value>
+    <value>המשך</value>
   </data>
   <data name="smsconfirm_call" xml:space="preserve">
-    <value>Call me with a code</value>
+    <value>התקשרו אלי לקבלת קוד כניסה</value>
   </data>
   <data name="smsconfirm_change" xml:space="preserve">
-    <value>Change number &amp;amp; resend</value>
+    <value>שינוי מספר ושליחה מחדש</value>
   </data>
   <data name="smsconfirm_input" xml:space="preserve">
-    <value>Enter confirmation code</value>
+    <value>קוד כניסה</value>
   </data>
   <data name="smsconfirm_phone_error" xml:space="preserve">
-    <value>This phone number is linked to another email address</value>
+    <value>המספר טלפון הזה מקושר לאימייל אחר</value>
   </data>
   <data name="smsconfirm_phone_error_invalid" xml:space="preserve">
-    <value>Invalid Phone Number</value>
+    <value>מספר טלפון שגוי</value>
   </data>
   <data name="smsconfirm_phone_error_tryagain" xml:space="preserve">
-    <value>Please try again</value>
+    <value>נא לנסות שוב</value>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
-    <value>sent to this number</value>
+    <value>נא לשלוח למספר הזה</value>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
-    <value>Enter confirmation code</value>
+    <value>הכנסת קוד כניסה</value>
   </data>
 </root>

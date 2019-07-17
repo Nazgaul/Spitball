@@ -119,188 +119,245 @@
   </resheader>
   <data name="congrats_bottom" xml:space="preserve">
     <value>Get private lessons from top rated teachers, find study resources, and get answers to your study related questions</value>
+    <comment>1</comment>
   </data>
   <data name="congrats_btn" xml:space="preserve">
     <value>Let’s Start</value>
+    <comment>1</comment>
   </data>
   <data name="congrats_subtitle" xml:space="preserve">
     <value>You’r ready to start</value>
+    <comment>1</comment>
   </data>
   <data name="congrats_title" xml:space="preserve">
     <value>CONGRATS!</value>
+    <comment>1</comment>
   </data>
   <data name="emailconfirm_bottom" xml:space="preserve">
     <value>You will be able to log in to Spitball.co only after activation</value>
+    <comment>1</comment>
   </data>
   <data name="emailconfirm_bottom_reset" xml:space="preserve">
     <value>Didn't receive the email? Check your spam folder</value>
+    <comment>1</comment>
   </data>
   <data name="emailconfirm_bottom_reset_or" xml:space="preserve">
     <value>or Click here to </value>
+    <comment>1</comment>
   </data>
   <data name="emailconfirm_notyou" xml:space="preserve">
     <value>Not you?</value>
+    <comment>1</comment>
   </data>
   <data name="emailconfirm_resend" xml:space="preserve">
     <value>Resend</value>
+    <comment>1</comment>
   </data>
   <data name="emailconfirm_rest" xml:space="preserve">
     <value>activation email</value>
+    <comment>1</comment>
   </data>
   <data name="emailconfirm_title" xml:space="preserve">
-    <value>We sent you an activation email</value>
+    <value>We have sent you an activation email</value>
+    <comment>1</comment>
   </data>
   <data name="emailconfirm_title_reset" xml:space="preserve">
     <value>We've emailed you a new password reset instructions</value>
+    <comment>1</comment>
   </data>
   <data name="emailconfirm_to" xml:space="preserve">
     <value>to</value>
+    <comment>1</comment>
   </data>
   <data name="forgot_btn" xml:space="preserve">
     <value>Reset password</value>
+    <comment>1</comment>
   </data>
   <data name="forgot_input" xml:space="preserve">
     <value>Enter your email</value>
+    <comment>1</comment>
   </data>
   <data name="forgot_remember" xml:space="preserve">
     <value>I remember now</value>
   </data>
   <data name="forgot_subtitle" xml:space="preserve">
     <value>Don’t be ashamed. It happens to the best.</value>
+    <comment>1</comment>
   </data>
   <data name="forgot_title" xml:space="preserve">
     <value>Reset your password</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_btn_email_signin" xml:space="preserve">
     <value>Sign in with email</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_btn_email_signup" xml:space="preserve">
-    <value>Sign up with email</value>
+    <value>Sign Up with email</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_btn_google_signin" xml:space="preserve">
-    <value>Sign in with Google</value>
+    <value>Sign in with Gmail</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_btn_google_signup" xml:space="preserve">
-    <value>Sign up with Google</value>
+    <value>Sign Up with Gmail</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_or" xml:space="preserve">
     <value>OR</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_signin_link" xml:space="preserve">
-    <value>Sign in</value>
+    <value>Log in</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_signin_text" xml:space="preserve">
     <value>Have an account?</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_signup_link" xml:space="preserve">
     <value>Sign up</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_signup_text" xml:space="preserve">
     <value>Need an account?</value>
   </data>
   <data name="getstarted_subtitle" xml:space="preserve">
     <value>100% Free. No credit card needed.</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_terms_and" xml:space="preserve">
     <value>and</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_terms_i_agree" xml:space="preserve">
     <value>I agree to Spitball's</value>
+    <comment>בעיה עם השם של החברה</comment>
   </data>
   <data name="getstarted_terms_privacy" xml:space="preserve">
     <value>Privacy Policy</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_terms_terms" xml:space="preserve">
     <value>Terms of Services</value>
+    <comment>1</comment>
   </data>
   <data name="getstarted_title" xml:space="preserve">
-    <value>Get started absolutly for free</value>
+    <value>Register now to Spitball</value>
+    <comment>1</comment>
   </data>
   <data name="resetpass_btn" xml:space="preserve">
     <value>Continue</value>
   </data>
   <data name="resetpass_input" xml:space="preserve">
     <value>Enter new password</value>
+    <comment>1</comment>
   </data>
   <data name="resetpass_input_confirm" xml:space="preserve">
     <value>Confirm password</value>
+    <comment>1</comment>
   </data>
   <data name="resetpass_title" xml:space="preserve">
     <value>Enter new password</value>
+    <comment>1</comment>
   </data>
   <data name="setemailpass_btn" xml:space="preserve">
     <value>Continue</value>
+    <comment>1</comment>
   </data>
   <data name="setemailpass_input_email" xml:space="preserve">
     <value>Enter your email</value>
+    <comment>1</comment>
   </data>
   <data name="setemailpass_input_pass" xml:space="preserve">
-    <value>Choose password ( Use 8 characters or more )</value>
+    <value>Create password ( Use 8 characters or more )</value>
+    <comment>1</comment>
   </data>
   <data name="setemailpass_input_passconfirm" xml:space="preserve">
     <value>Confirm Password</value>
+    <comment>1</comment>
   </data>
   <data name="setemailpass_title" xml:space="preserve">
     <value>Set your email and password</value>
+    <comment>1</comment>
   </data>
   <data name="setemail_btn" xml:space="preserve">
-    <value>Continue</value>
+    <value>Sign Up</value>
+    <comment>1</comment>
   </data>
   <data name="setemail_input" xml:space="preserve">
     <value>Enter your email</value>
+    <comment>1</comment>
   </data>
   <data name="setemail_title" xml:space="preserve">
     <value>Welcome back. Please login</value>
   </data>
   <data name="setpass_btn" xml:space="preserve">
     <value>Login</value>
+    <comment>1</comment>
   </data>
   <data name="setpass_forgot" xml:space="preserve">
     <value>Forgot password?</value>
+    <comment>1</comment>
   </data>
   <data name="setpass_input_email" xml:space="preserve">
     <value>Enter your email</value>
+    <comment>1</comment>
   </data>
   <data name="setpass_input_pass" xml:space="preserve">
     <value>Enter password</value>
+    <comment>1</comment>
   </data>
   <data name="setphone_btn" xml:space="preserve">
     <value>Continue</value>
+    <comment>1</comment>
   </data>
   <data name="setphone_input" xml:space="preserve">
     <value>Enter phone number</value>
+    <comment>1</comment>
   </data>
   <data name="setphone_title" xml:space="preserve">
     <value>Get SMS confirmation code</value>
+    <comment>1</comment>
   </data>
   <data name="smsconfirm_btn" xml:space="preserve">
     <value>Continue</value>
+    <comment>1</comment>
   </data>
   <data name="smsconfirm_call" xml:space="preserve">
     <value>Call me with a code</value>
+    <comment>1</comment>
   </data>
   <data name="smsconfirm_change" xml:space="preserve">
     <value>Change number &amp;amp; resend</value>
   </data>
   <data name="smsconfirm_input" xml:space="preserve">
     <value>Enter confirmation code</value>
+    <comment>1</comment>
   </data>
   <data name="smsconfirm_phone_error" xml:space="preserve">
     <value>This phone number is linked to another email address</value>
+    <comment>1</comment>
   </data>
   <data name="smsconfirm_phone_error_invalid" xml:space="preserve">
     <value>Invalid Phone Number</value>
+    <comment>1</comment>
   </data>
   <data name="smsconfirm_phone_error_tryagain" xml:space="preserve">
     <value>Please try again</value>
+    <comment>1</comment>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
     <value>sent to this number</value>
+    <comment>1</comment>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
     <value>Enter confirmation code</value>
+    <comment>1</comment>
   </data>
   <data name="main_txt" xml:space="preserve">
-    <value>Everything you’ll need to master your studies</value>
+    <value>Ace your exams with the best study tools and tutors</value>
+    <comment>1</comment>
   </data>
 </root>
