@@ -58,7 +58,14 @@ namespace Cloudents.Query.Query.Admin
 
                 if (query.Status != null)
                 {
-                    p = p.Where(w => w.Status == query.Status);
+                    if (query.Status == ChatRoomStatus.New)
+                    {
+                        p = p.Where(w => w.Status == query.Status || w.Status == null);
+                    }
+                    else
+                    {
+                        p = p.Where(w => w.Status == query.Status);
+                    }
                 }
                 else
                 {
