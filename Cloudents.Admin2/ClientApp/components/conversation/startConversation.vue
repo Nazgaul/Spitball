@@ -9,10 +9,6 @@
     <v-text-field v-model="textMessage" label="text" :class="{'px-4': isDialog}">></v-text-field>
     <v-btn :disabled="disable" @click="submit()">Send</v-btn>
 
-    <v-snackbar v-model="snackbar" :color="color" :timeout="5000" top>
-      {{ text }}
-      <v-btn dark flat @click="snackbar = false">Close</v-btn>
-    </v-snackbar>
   </div>
 </template>
 
@@ -24,7 +20,7 @@ export default {
       type: Boolean
     },
     userId: {},
-    closeDialog: {
+    showSnack: {
       type: Function
     }
   },
@@ -33,7 +29,6 @@ export default {
       tutorId: '',
       defaultStudentId: '',
       disable: false,
-      color: "green",
       snackbar: false,
       text: "",
       textMessage:"",
@@ -42,24 +37,20 @@ export default {
   methods: {
     submit() {
       this.disable = true;
-
+      let snack;
       connectivityModule.http
         .post("AdminConversation/start", {
           userId: this.studentId,
           tutorId: this.tutorId,
           message: this.textMessage
-        })
-        .then(
-          () => {
-            this.closeDialog()
+        }).then(() => {
+            snack = { color: "green", text: "SUCCESS: sending message", snackbar: true }
           },
           () => {
-            this.color = "red";
-            this.text = "error sending";
-            this.snackbar = true;
-          }
-        )
+            snack = { color: "red", text: "ERROR: sending message, try again later", snackbar: true }
+          })
         .finally(() => {
+          this.showSnack(snack)
           this.disable = false;
         });
     },

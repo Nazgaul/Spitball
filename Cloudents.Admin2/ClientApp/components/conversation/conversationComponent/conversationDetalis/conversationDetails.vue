@@ -29,7 +29,7 @@
                 round
                 outline
                 label="Status"
-                @click.native.stop="dialog.status = !dialog.status"
+                @click.native.stop="openStatusDialog(false)"
               ></v-combobox>
               <v-combobox
                 v-model="filterAssignTo"
@@ -119,8 +119,8 @@
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-6 pl-3">
-                              <v-btn color="#b4d6f3" class="mb-2 px-4" @click.native.stop="dialog.status = !dialog.status">Status</v-btn>
-                              <v-btn color="#b4d6f3" class="px-4" @click.native.stop="dialog.assign = !dialog.assign">Assign</v-btn>
+                              <v-btn color="#b4d6f3" class="mb-2 px-4" @click.native.stop="openStatusDialog(true, conversation.id)">Status</v-btn>
+                              <v-btn color="#b4d6f3" class="px-4" @click.native.stop="">Assign</v-btn>
                           </v-flex>
                       </v-layout>
                     </div>
@@ -137,12 +137,23 @@
     </div>
 
     <v-dialog v-model="dialog.startConversation" width="500" v-if="dialog.startConversation">
-        <startConversation :isDialog="true" :userId="currentStudentId" :closeDialog="closeDialog"></startConversation>
+        <startConversation :isDialog="true" :userId="currentStudentId" :showSnack="showSnack"></startConversation>
     </v-dialog>
 
     <v-dialog v-model="dialog.status" width="500" v-if="dialog.status">
-        <statusDialogs :statusFilters="filters.status" :setStatusFilter="setStatusFilter" :handleFilter="handleFilter" :currentStatus="currentStatus" />
+        <statusDialogs 
+          :isSet="isSet"
+          :changeStatus="changeStatus"
+          :statusFilters="filters.status" 
+          :setStatusFilter="setStatusFilter" 
+          :handleFilter="handleFilter" 
+          :currentStatus="currentStatus" />
     </v-dialog>
+
+    <v-snackbar v-model="snackBar.snackbar" :color="snackBar.color" :timeout="5000" top>
+      {{ snackBar.text }}
+      <v-btn dark flat @click="snackBar.snackbar = false">Close</v-btn>
+    </v-snackbar>
 
   </div>
 </template>
@@ -182,6 +193,7 @@ export default {
       loadMessage: false,
       isCompleted: false,
       isLoading: false,
+      isSet: false,
       filterAssignTo: '',
       filterWaitingFor: '',
       filterStatusName: '',
@@ -195,9 +207,27 @@ export default {
         startConversation: false,
         status: false,
       },
+      snackBar: {
+        snackbar: false,
+        text: '',
+        color: ''
+      },
     };
   },
+  computed: {
+    isFiltersEmpty() {
+      if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) {
+        return true;
+      }
+      return false;
+    }
+  },
   methods: {
+    changeStatus(selectedStatusId) {
+      this.dialog.status = false;
+      let status = {"status": selectedStatusId};
+      setConversationsStatus(this.currentSelectedId, status);
+    },
     getConversationData(conversation_id) {
       if (this.currentSelectedId !== conversation_id) {
         this.currentSelectedId = conversation_id;
@@ -218,7 +248,7 @@ export default {
         });
       }
     },
-    handleScroll() {     
+    handleScroll() {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;      
       if (bottomOfWindow) {
           this.page = this.page + 1
@@ -252,10 +282,12 @@ export default {
       return `${assign}${status}${autoStatus}`;
     },
     handleFilter() {
-      if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) return;
+      if(this.isFiltersEmpty) return;
 
       let query = this.getFiltersQuery();
-      
+      this.requestFilters(query)
+    },
+    requestFilters(query) {
       getFilters(this.userId, query).then(res => {
         this.conversationsList = res;
         this.page = 0;
@@ -274,9 +306,6 @@ export default {
       if(status === 'Student') return 'student-status'
       return 'status'
     },
-    closeDialog() {
-      this.dialog = false
-    },
     setStatusFilter(statusObj) {
       this.filterStatusName = statusObj.name;
       this.filterStatusId = statusObj.id;
@@ -285,13 +314,25 @@ export default {
       this.handleFilter()
     },
     clearFilters() {
-      if(!this.filterAssignTo && !this.filterStatusName && !this.filterWaitingFor) return;
+      if(this.isFiltersEmpty) return;
       
       this.currentStatus = {};
       this.filterAssignTo = '';
       this.filterStatusName = '';
       this.filterWaitingFor = '';
-      this.handleFilter();
+      let query = this.getFiltersQuery();
+      this.requestFilters(query);
+    },
+    openStatusDialog(setStatus, conversation_id) {
+      this.dialog.status = true;
+      this.isSet = setStatus;
+      this.currentSelectedId = conversation_id || null;
+    },
+    showSnack(snackObj) {
+      this.snackBar.snackbar = snackObj.snackbar;
+      this.snackBar.text = snackObj.text;
+      this.snackBar.color = snackObj.color;
+      this.dialog.startConversation = false
     }
   },
   created() {
