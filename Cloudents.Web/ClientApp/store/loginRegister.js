@@ -194,7 +194,7 @@ const actions = {
         return registrationService.emailRegistration(state.email, recaptcha, password, confirmPassword)
             .then((resp) => {
                 let nextStep = resp.data.step;
-                if(nextStep.toLowerCase() === "verifyphone"){
+                if(nextStep.toLowerCase() === "verifyphone" || nextStep.toLowerCase() === "enterphone"){
                     dispatch('updateStep','setPhone')
                 }else{
                     dispatch('updateStep',nextStep)
