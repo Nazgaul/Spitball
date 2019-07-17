@@ -9,6 +9,7 @@
 
         <div class="stepsSections">
             <div class="stepContainer">
+                <!-- <set-phone></set-phone> -->
                 <component :is="`${currentStep}`"/>
             </div>
         </div>

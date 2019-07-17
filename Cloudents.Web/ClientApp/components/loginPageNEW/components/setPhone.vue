@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 
 export default {
@@ -52,6 +52,11 @@ export default {
     data() {
         return {
             phoneNumber: ''
+        }
+    },
+    watch: {
+        phoneNumber: function(val){
+            this.setErrorMessages({})
         }
     },
     computed: {
@@ -79,6 +84,7 @@ export default {
     },
     methods: {
         ...mapActions(['updatePhone','updateLocalCode','sendSMScode']),
+        ...mapMutations(['setErrorMessages']),
         sendSms(){
             this.updatePhone(this.phoneNumber)
             this.sendSMScode()

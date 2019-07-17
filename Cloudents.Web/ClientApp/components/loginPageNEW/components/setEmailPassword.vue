@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import VueRecaptcha from "vue-recaptcha";
 
@@ -81,6 +81,14 @@ export default {
       recaptcha: "",
       siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
     };
+  },
+  watch: {
+    password: function(val){
+        this.setErrorMessages({})
+    },
+    confirmPassword: function(val){
+        this.setErrorMessages({})
+    }
   },
   computed: {
     ...mapGetters(["getEmail1","getGlobalLoading","getErrorMessages","getPassScoreObj"]),
@@ -106,6 +114,7 @@ export default {
       },
       set(val) {
         this.updateEmail(val);
+        this.setErrorMessages({})
       }
     },
     hintClass() {
@@ -117,6 +126,7 @@ export default {
   },
   methods: {
     ...mapActions(["updateEmail","emailSigning"]),
+    ...mapMutations(['setErrorMessages']),
     onVerify(response) {
       this.recaptcha = response
     },

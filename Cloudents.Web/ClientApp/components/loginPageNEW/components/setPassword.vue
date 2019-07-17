@@ -35,7 +35,7 @@
 
 <script>
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
     name: 'setPassword',
@@ -46,6 +46,11 @@ export default {
         return {
             password: '',
         }
+    },
+    watch: {
+        password: function(val){
+            this.setErrorMessages({})
+        },
     },
     computed: {
         ...mapGetters(['getEmail1','getErrorMessages','getGlobalLoading']),
@@ -60,7 +65,8 @@ export default {
                 return this.getEmail1
             },
 			set(val){
-				this.updateEmail(val)
+                this.updateEmail(val)
+                this.setErrorMessages({})
             }
         },
         isValid(){
@@ -69,6 +75,7 @@ export default {
     },
     methods: {
         ...mapActions(['updateEmail','logIn','updateStep']),
+        ...mapMutations(['setErrorMessages']),
         login(){
             this.logIn(this.password)
         },

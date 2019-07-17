@@ -27,7 +27,7 @@
 
 <script>
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions,mapMutations } from 'vuex';
 
 export default {
   name: "setEmail",
@@ -47,7 +47,8 @@ export default {
         return this.getEmail1
       },
 			set(val){
-				this.updateEmail(val)
+        this.updateEmail(val)
+        this.setErrorMessages({})
       }
     },
     isEmail(){
@@ -56,6 +57,7 @@ export default {
   },
   methods: {
     ...mapActions(['emailValidate','updateEmail']),
+    ...mapMutations(['setErrorMessages']),
     validate(){
       this.emailValidate()
     }
