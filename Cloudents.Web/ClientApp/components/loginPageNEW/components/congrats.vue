@@ -54,6 +54,7 @@ export default {
             line-height: 1.5;
             margin:34px 0 56px;
         @media (max-width: @screen-xs) {
+            padding: 0px 42px;
             margin: 48px 0 47px;
             line-height: 1.6;
         }
