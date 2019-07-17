@@ -175,13 +175,13 @@
     <value>Sign in with email</value>
   </data>
   <data name="getstarted_btn_email_signup" xml:space="preserve">
-    <value>Sign up with email</value>
+    <value>Sign Up with email</value>
   </data>
   <data name="getstarted_btn_google_signin" xml:space="preserve">
     <value>Sign in with Google</value>
   </data>
   <data name="getstarted_btn_google_signup" xml:space="preserve">
-    <value>Sign up with Google</value>
+    <value>Sign Up with Google</value>
   </data>
   <data name="getstarted_or" xml:space="preserve">
     <value>OR</value>
@@ -215,6 +215,9 @@
   </data>
   <data name="getstarted_title" xml:space="preserve">
     <value>Get started absolutly for free</value>
+  </data>
+  <data name="main_txt" xml:space="preserve">
+    <value>Everything you’ll need to master your studies</value>
   </data>
   <data name="resetpass_btn" xml:space="preserve">
     <value>Continue</value>
@@ -299,8 +302,5 @@
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
     <value>Enter confirmation code</value>
-  </data>
-  <data name="main_txt" xml:space="preserve">
-    <value>Everything you’ll need to master your studies</value>
   </data>
 </root>
