@@ -283,7 +283,7 @@
     <comment>1</comment>
   </data>
   <data name="setemail_btn" xml:space="preserve">
-    <value>Sign Up</value>
+    <value>Login</value>
     <comment>1</comment>
   </data>
   <data name="setemail_input" xml:space="preserve">
