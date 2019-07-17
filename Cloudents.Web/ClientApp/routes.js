@@ -41,6 +41,7 @@ const landingPage = () => import('./components/landingPage/landingPage.vue');
 const FindTutor = () => import('./components/landingPage/pages/FindTutor.vue');
 // import HowItWorks from "./components/landingPage/pages/HowItWorks.vue";
 // import BecomeTutor from "./components/landingPage/pages/BecomeTutor.vue";
+const registerPage = () => import('./components/loginPageNEW/pages/registerPage.vue')
 
 
 function dynamicPropsFn(route) {
@@ -409,9 +410,24 @@ let routes2 = [
         path: "/register",
         alias: ['/signin', '/resetpassword'],
         components: {
-            default: login,
+            default: registerPage,
         },
         name: "registration",
+        beforeEnter: (to, from, next) => {
+            //prevent entering if loged in
+            if(global.isAuth) {
+                next(false);
+            } else {
+                next();
+            }
+        }
+    },
+    {
+        path: "/registerPageNEW",
+        components: {
+            default: registerPage,
+        },
+        name: "registerPageNEW",
         beforeEnter: (to, from, next) => {
             //prevent entering if loged in
             if(global.isAuth) {

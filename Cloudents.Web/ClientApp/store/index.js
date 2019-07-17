@@ -33,6 +33,7 @@ import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
 import signalRStore from './signalRStore';
 import studyRoomStore from './studyRoomStore/index';
+import loginRegister from './loginRegister';
 
 
 Vue.use(Vuex);
@@ -69,6 +70,7 @@ const store = new Vuex.Store({
         requestTutor,
         signalRStore,
         ...studyRoomStore,
+        loginRegister
     }
 });
 
