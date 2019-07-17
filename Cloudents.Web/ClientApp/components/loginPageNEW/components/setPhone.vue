@@ -119,6 +119,11 @@ export default {
         }
     }
     .phone{
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+        }
         input {
         .login-inputs-style();
         padding-left: 40px !important;
