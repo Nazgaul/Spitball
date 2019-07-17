@@ -27,7 +27,7 @@
                 icon="sbf-phone" 
                 :bottomError="true" 
                 placeholder="loginRegister_setphone_input" 
-                name="phone" :type="'number'"
+                name="phone" :type="'tel'"
                 v-language:placeholder/>
 
         <v-btn  type="submit"
@@ -125,11 +125,6 @@ export default {
         }
     }
     .phone{
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-        -webkit-appearance: none; 
-        margin: 0; 
-        }
         input {
         .login-inputs-style();
         padding-left: 40px !important;
