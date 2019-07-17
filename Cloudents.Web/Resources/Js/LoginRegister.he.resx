@@ -130,7 +130,7 @@
     <value>מזל טוב!</value>
   </data>
   <data name="emailconfirm_bottom" xml:space="preserve">
-    <value>רק לאחר אישור האימייל, תוכל להרשם לספיטבול</value>
+    <value>רק לאחר אישור האימייל תוכל להרשם לספיטבול</value>
   </data>
   <data name="emailconfirm_bottom_reset" xml:space="preserve">
     <value>לא קיבלת אימייל? בדוק את תיקיית הספאם</value>
@@ -169,19 +169,19 @@
     <value>לא נורא, זה קורה לטובים ביותר</value>
   </data>
   <data name="forgot_title" xml:space="preserve">
-    <value>שנה סיסמא</value>
+    <value>אפס את הסיסמא שלך</value>
   </data>
   <data name="getstarted_btn_email_signin" xml:space="preserve">
     <value>התחברות עם אימייל </value>
   </data>
   <data name="getstarted_btn_email_signup" xml:space="preserve">
-    <value>הרשם עם אי'מאייל </value>
+    <value>הרשם עם אימייל </value>
   </data>
   <data name="getstarted_btn_google_signin" xml:space="preserve">
     <value>התחבר עם גוגל - Gmail </value>
   </data>
   <data name="getstarted_btn_google_signup" xml:space="preserve">
-    <value>הרשם עם ג'ימאייל - Gmail </value>
+    <value>הרשם עם ג'ימייל - Gmail </value>
   </data>
   <data name="getstarted_or" xml:space="preserve">
     <value> או</value>
@@ -253,7 +253,7 @@
     <value>אימייל </value>
   </data>
   <data name="setemail_title" xml:space="preserve">
-    <value>אנא הרשם</value>
+    <value>ברוכים הבאים. היכנס בבקשה</value>
   </data>
   <data name="setpass_btn" xml:space="preserve">
     <value>הכנס/י</value>

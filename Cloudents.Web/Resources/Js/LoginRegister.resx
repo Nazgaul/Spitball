@@ -134,7 +134,7 @@
     <comment>1</comment>
   </data>
   <data name="emailconfirm_bottom" xml:space="preserve">
-    <value>You will be able to log in to Spitball.co only after activation</value>
+    <value>You will be able to log in to Spitball only after email activation</value>
     <comment>1</comment>
   </data>
   <data name="emailconfirm_bottom_reset" xml:space="preserve">
@@ -193,7 +193,7 @@
     <comment>1</comment>
   </data>
   <data name="getstarted_btn_email_signup" xml:space="preserve">
-    <value>Sign Up with email</value>
+    <value>Sign up with email</value>
     <comment>1</comment>
   </data>
   <data name="getstarted_btn_google_signin" xml:space="preserve">
@@ -201,7 +201,7 @@
     <comment>1</comment>
   </data>
   <data name="getstarted_btn_google_signup" xml:space="preserve">
-    <value>Sign Up with Gmail</value>
+    <value>Sign up with Gmail</value>
     <comment>1</comment>
   </data>
   <data name="getstarted_or" xml:space="preserve">
