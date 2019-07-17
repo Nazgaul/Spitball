@@ -1,18 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Email;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
 {
@@ -24,15 +30,15 @@ namespace Cloudents.FunctionsV2
             [Inject] IQueryBus queryBus,
             CancellationToken token)
         {
-            var timeSince = DateTime.UtcNow.AddDays(-1);
+            var timeSince = DateTime.UtcNow.AddDays(-30);
             bool needToContinue;
             int page = 0;
             do
             {
                 needToContinue = false;
-                    //TODO check assignment
+                //TODO check assignment
                 var query = new GetUpdatesEmailUsersQuery(timeSince, page++);
-                var result = await queryBus.QueryAsync(query, token);
+                var result = await context.CallActivityAsync<UpdateEmailDto>("EmailUpdateFunction_UserQuery", query);
 
                 foreach (var emailDto in result)
                 {
@@ -45,44 +51,75 @@ namespace Cloudents.FunctionsV2
            
         }
 
+        [FunctionName("EmailUpdateFunction_UserQuery")]
+        public static async Task<IEnumerable<UpdateEmailDto>> GetUserQuery(
+            [ActivityTrigger] GetUpdatesEmailUsersQuery query,
+            [Inject] IQueryBus queryBus,
+            CancellationToken token)
+        {
+            var result = await queryBus.QueryAsync(query, token);
+            return result;
+        }
+
         [FunctionName("EmailUpdateFunction_Process")]
         public static async Task SendEmail(
             [ActivityTrigger] UpdateEmailDto user,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
             [Inject] IQueryBus queryBus,
             ILogger log,
+            [Inject] IUrlBuilder urlBuilder,
+            [Inject] IBinarySerializer binarySerializer,
+            [Inject] IDocumentDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
             var q = new GetUpdatesEmailByUserQuery(user.UserId, user.Since);
             var result = await queryBus.QueryAsync(q, token);
-            //user.Questions = t1.Result;
-           // user.Documents = t2.Result;
-           // user.XQuestions = user.Questions.Count();
-            //user.XNewItems = user.Documents.Count();
-            //user.NumUpdates = user.XQuestions + user.XNewItems;
-            //user.To = "ram.y@outlook.com";
-            //if (user.Id == 160347)
-            //{
+
+            var uri = CommunicationFunction.GetHostUri();
+
+            var questionNvc = new NameValueCollection()
+            {
+                ["width"] = "64",
+                ["height"] = "64",
+                ["mode"] = "crop"
+            };
+
             var questions = result.Item1.Select(question =>
             {
+
+                var uriBuilder = new UriBuilder(new Uri(uri))
+                {
+                    Path = $"/image/{question.UserImage}",
+                };
+                uriBuilder.AddQuery(questionNvc);
                 return new Question()
                 {
-                    //TODO: right url
-                    QuestionUrl = $@"https://dev.spitball.co/question/{question.QuestionId}",
+                    QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId),
                     QuestionText = question.QuestionText,
-                    UserImage = $@"https://dev.spitball.co/{question.UserImage}?&width=64&height=64&mode=crop",
+                    UserImage = uriBuilder.ToString(),
                     UserName = question.UserName
                 };
             });
             var documents = result.Item2.Select(document =>
             {
-                //TODO: right url
+                var previewUri = blobProvider.GetPreviewImageLink(document.Id, 0);
+                var properties = new ImageProperties(previewUri);
+                var byteHash = binarySerializer.Serialize(properties);
+                var hash = Base64UrlTextEncoder.Encode(byteHash);
+
+
+                var uriBuilder = new UriBuilder(new Uri(uri))
+                {
+                    Path = $"/image/{hash}",
+                };
+                uriBuilder.AddQuery(questionNvc);
+
                 return new Document()
                 {
-                    Url = $@"https://dev.spitball.co/document/{new Base62(document.Id).ToString()}",
+                    Url = urlBuilder.BuildDocumentEndPoint(document.Id),
                     Name = document.Name,
                     UserName = document.UserName,
-                    DocumentPreview = ""
+                    DocumentPreview = uriBuilder.ToString()
                 };
             });
            

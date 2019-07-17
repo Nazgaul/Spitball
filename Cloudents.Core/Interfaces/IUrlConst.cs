@@ -15,10 +15,7 @@ namespace Cloudents.Core.Interfaces
         Uri BuildChatEndpoint(string token, object parameters = null);
 
         Uri BuildShortUrlEndpoint(string identifier);
+        string BuildDocumentEndPoint(long id, object parameters = null);
     }
 
-    //public interface IUrlRedirectBuilder
-    //{
-    //    IEnumerable<T> BuildUrl<T>(IEnumerable<T> result, int page = 0, int sizeOfPage = 0) where T : IUrlRedirect;
-    //}
 }

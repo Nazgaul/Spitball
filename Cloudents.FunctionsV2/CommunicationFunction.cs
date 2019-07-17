@@ -187,21 +187,12 @@ namespace Cloudents.FunctionsV2
         [FunctionName("FunctionPhoneServiceBus")]
         public static async Task CallServiceBusAsync(
             [ServiceBusTrigger("communication", "call", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
-            [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options,
-            ILogger log
-            )
+            [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options)
         {
             var from = new PhoneNumber("+1 203-347-4577");
             var to = new PhoneNumber(msg.PhoneNumber);
 
-
-            var hostName2 = string.Format("http://{0}.azurewebsites.net", Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%"));
-            if (hostName2.Contains("localhost", StringComparison.OrdinalIgnoreCase))
-            {
-                hostName2 = "https://spitball-function-dev2.azurewebsites.net";
-            }
-
-            hostName2 = hostName2.TrimEnd('/');
+            var hostName2 = GetHostUri();
 
             var uriBuilder = new UriBuilder(new Uri(hostName2))
             {
@@ -218,6 +209,19 @@ namespace Cloudents.FunctionsV2
             };
             await options.AddAsync(call);
 
+        }
+
+        public static string GetHostUri()
+        {
+            var hostName2 = string.Format("http://{0}.azurewebsites.net",
+                Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%"));
+            if (hostName2.Contains("localhost", StringComparison.OrdinalIgnoreCase))
+            {
+                hostName2 = "https://spitball-function-dev2.azurewebsites.net";
+            }
+
+            hostName2 = hostName2.TrimEnd('/');
+            return hostName2;
         }
 
         [FunctionName("TwilioMessage")]
