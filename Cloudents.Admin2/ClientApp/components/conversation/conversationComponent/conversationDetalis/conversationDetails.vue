@@ -119,8 +119,20 @@
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-6 pl-3">
-                              <v-btn color="#b4d6f3" class="mb-2 px-4" @click.native.stop="openStatusDialog(true, conversation.id)">Status</v-btn>
-                              <v-btn color="#b4d6f3" class="px-4" @click.native.stop="">Assign</v-btn>
+                              <v-btn 
+                                color="#b4d6f3" 
+                                class="mb-2 px-4"
+                                @click.native.stop="openStatusDialog(true, conversation.id, index)"
+                              >
+                                  {{conversation.status.group || 'New'}}
+                              </v-btn>
+                              <v-btn 
+                                color="#b4d6f3" 
+                                class="px-4" 
+                                @click.native.stop="openAssignDialog(conversation.assignTo, conversation.id, index)"
+                              >
+                                  {{conversation.assignTo || 'Assign'}}
+                              </v-btn>
                           </v-flex>
                       </v-layout>
                     </div>
@@ -150,6 +162,14 @@
           :currentStatus="currentStatus" />
     </v-dialog>
 
+    <v-dialog v-model="dialog.assign" width="500" v-if="dialog.assign">
+        <assignDialogs
+          :assignFilters="filters.assignTo" 
+          :setAssigned="setAssigned"
+          :currentAssigned="currentAssigned"
+        />
+    </v-dialog>
+
     <v-snackbar v-model="snackBar.snackbar" :color="snackBar.color" :timeout="5000" top>
       {{ snackBar.text }}
       <v-btn dark flat @click="snackBar.snackbar = false">Close</v-btn>
@@ -162,7 +182,7 @@
 import conversationMessages from "../conversationMessages/conversationMessages.vue";
 import startConversation from "../../startConversation.vue";
 import statusDialogs from "../conversationDialogs/statusDialogs.vue";
-import assignToDialog from "../conversationDialogs/assignToDialog.vue";
+import assignDialogs from "../conversationDialogs/assignDialog.vue";
 
 import {
   getDetails,
@@ -171,7 +191,8 @@ import {
   getConversationsListPage,
   getFiltersParams,
   getFilters,
-  setAssignTo
+  setAssignTo,
+  createGroupStatus
 } from "./conversationDetalisService";
 
 export default {
@@ -182,11 +203,12 @@ export default {
     conversationMessages,
     startConversation,
     statusDialogs,
-    assignToDialog
+    assignDialogs
   },
   data() {
     return {
       page: 0,
+      itemIndex: null,
       currentSelectedId: null,
       showLoading: true,
       showNoResult: false,
@@ -202,10 +224,12 @@ export default {
       conversationsList: [],
       conversationsMsg: [],
       currentStatus: {},
+      currentAssigned: '',
       filters: {},
       dialog: {
         startConversation: false,
         status: false,
+        assign: false
       },
       snackBar: {
         snackbar: false,
@@ -223,10 +247,25 @@ export default {
     }
   },
   methods: {
-    changeStatus(selectedStatusId) {
+    changeStatus(selectedStatus) {
       this.dialog.status = false;
-      let status = {"status": selectedStatusId};
-      setConversationsStatus(this.currentSelectedId, status);
+      let statusId = {"status": selectedStatus.id};
+      setConversationsStatus(this.currentSelectedId, statusId).then(() => {
+        let newSelectedStatus = createGroupStatus(selectedStatus);
+        this.conversationsList[this.itemIndex].status = newSelectedStatus;
+        this.showSnack({
+          snackbar: true,
+          text: 'SUCCESS: change status',
+          color: 'green'
+        }, 'status');
+      },
+      err => {
+        this.showSnack({
+          snackbar: true,
+          text: 'ERROR: change status',
+          color: 'red'
+        }, 'status');
+      })
     },
     getConversationData(conversation_id) {
       if (this.currentSelectedId !== conversation_id) {
@@ -306,12 +345,19 @@ export default {
       if(status === 'Student') return 'student-status'
       return 'status'
     },
+     openStatusDialog(setStatus, conversation_id, itemIndex) {
+      this.dialog.status = true;
+      this.itemIndex = itemIndex;
+      this.isSet = setStatus;
+      this.currentSelectedId = conversation_id;
+    },
     setStatusFilter(statusObj) {
       this.filterStatusName = statusObj.name;
       this.filterStatusId = statusObj.id;
       this.currentStatus = statusObj;
       this.dialog.status = false;
-      this.handleFilter()
+      this.currentStudentId = '';
+      this.handleFilter();
     },
     clearFilters() {
       if(this.isFiltersEmpty) return;
@@ -323,16 +369,41 @@ export default {
       let query = this.getFiltersQuery();
       this.requestFilters(query);
     },
-    openStatusDialog(setStatus, conversation_id) {
-      this.dialog.status = true;
-      this.isSet = setStatus;
-      this.currentSelectedId = conversation_id || null;
+    openAssignDialog(assignedTo, conversation_id, itemIndex) {
+      this.dialog.assign = true;
+      this.itemIndex = itemIndex;
+      this.currentAssigned = assignedTo;
+      this.currentSelectedId = conversation_id;
     },
-    showSnack(snackObj) {
+    setAssigned(assignedTo) {
+      setAssignTo(this.currentSelectedId, assignedTo).then(() => {
+        let currentItem = this.conversationsList[this.itemIndex].assignTo
+        if(currentItem !== assignedTo) {
+          this.conversationsList[this.itemIndex].assignTo = assignedTo;
+        }
+        this.currentAssigned = assignedTo;
+        this.showSnack({
+          snackbar: true,
+          text: 'SUCCESS: change status',
+          color: 'green'
+        }, 'assign');
+      },
+      () => {
+        this.showSnack({
+          snackbar: true,
+          text: 'ERROR: change status',
+          color: 'red'
+        }, 'assign')
+      }).finally(() => {
+          this.dialog.assign = false;
+      })
+    },
+    showSnack(snackObj, dialogName) {
       this.snackBar.snackbar = snackObj.snackbar;
       this.snackBar.text = snackObj.text;
       this.snackBar.color = snackObj.color;
-      this.dialog.startConversation = false
+      this.dialog[dialogName] = false;
+      this.currentStudentId = '';
     }
   },
   created() {

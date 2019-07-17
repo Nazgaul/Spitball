@@ -71,8 +71,8 @@ export default {
             let item = this.statusFilters[this.status].filter(el => el.name === this.subStatus)[0];
 
             if(this.isSet) {
-                this.changeStatus(item.id)
-                return
+                this.changeStatus(item);
+                return;
             }
 
             this.setStatusFilter(item);
