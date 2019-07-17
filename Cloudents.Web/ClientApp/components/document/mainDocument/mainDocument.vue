@@ -141,6 +141,10 @@
                     color="#4452fc"
                 ></v-progress-circular>
             </div>
+            <div class="btn-download justify-center elevation-5"  :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading && !isSmAndDown" @click="downloadDoc">
+                <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
+                <span class="white--text py-4 font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
+            </div>
         </div>
 
     </div>
@@ -306,7 +310,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['clearDocument','updatePurchaseConfirmation', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState']),
+        ...mapActions(['clearDocument','updatePurchaseConfirmation', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState', 'downloadDocument']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         unlockDocument() {
             if(this.accountUser == null) {
@@ -398,6 +402,14 @@ export default {
                 console.error("erros change price", error);
                 }
             );
+        },
+        downloadDoc() {
+            let item = {
+                url: `${this.$route.path}/download`,
+                course: this.document.details.course,
+                id: this.document.details.id
+            }
+            this.downloadDocument(item)
         },
     },
     beforeDestroy() {
@@ -520,7 +532,6 @@ export default {
                         border-radius: 0 4px 4px 0
                     }
                 }
-                
             }
             .document-wrap-content {
                 @media (max-width: @screen-sm) {
@@ -532,8 +543,23 @@ export default {
                     display: flex;
                     margin: 0 auto;
                 }
+            .btn-download {
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                padding: 14px 72px;
+                border-radius: 5.5px;
+                background-color: #4452fc;
+                z-index: 9;
+                margin-left: -340px;
+                i {
+                    font-size: 32px;
+                }
+                span {
+                    font-size: 26px;
+                }
+            }
         }
-        
     }
 
     .confirmation-purchase-dialog {
