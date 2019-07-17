@@ -86,12 +86,16 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['goBackStep','updateStep','updateToUrl','exit']),
+        ...mapActions(['goBackStep','updateStep','updateToUrl','exit','finishRegister']),
             goExit() {
             this.exit()
         },
         updateDialog(val){
-            this.showDialog = val
+            if(this.currentStep === 'congrats'){
+                this.finishRegister()
+            } else{
+                this.showDialog = val
+            }
         }
     },
     created() {
