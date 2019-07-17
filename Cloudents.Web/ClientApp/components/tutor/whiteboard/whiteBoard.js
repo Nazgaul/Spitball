@@ -134,7 +134,10 @@ export default {
         renameTab() {
             console.log("Rename Tab");
         },
-
+        finishEquation(){
+            let mouseEvent = new MouseEvent("mousedown", {});
+            canvas.dispatchEvent(mouseEvent);
+        },
         deleteTab(tab) {
             this.removeCanvasTab(tab);
             this.changeTab(this.getCanvasTabs[0]);
@@ -146,42 +149,46 @@ export default {
         hideColorPicker() {
             this.setShowPickColorInterface(false);
         },
-        
-        
         clearCanvas() {
             this.resetDragData();
             whiteBoardService.redraw(this.canvasData)
             helperUtil.HelperObj.isActive = false;
         },
         addShape(dragObj, callback) {
-            let dragUpdate = {
-                tab: this.getCurrentSelectedTab,
-                data: dragObj
-            }
-            this.updateDragData(dragUpdate);
-            if (callback) {
-                callback();
-            }
-            let canvasData = {
-                context: this.canvasData.context,
-                metaData: this.canvasData.metaData,
-                tab: this.getCurrentSelectedTab
-            };
-            let data = {
-                canvasContext: canvasData,
-                dataContext: dragObj,
-            };
-            let transferDataObj = {
-                type: "passData",
-                data: data
-            };
-            let normalizedData = JSON.stringify(transferDataObj);
-            tutorService.dataTrack.send(normalizedData);
-            if (!dragObj.isGhost && this.selectedOptionString !== this.enumOptions.draw) {
-                // this.selectDefaultTool();
-                //case SPITBALL-647
+            console.log('dragObj:',dragObj)
+            if(!dragObj){
                 this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
                 this.setSelectedOptionString(this.enumOptions.select);
+            } else{
+                let dragUpdate = {
+                    tab: this.getCurrentSelectedTab,
+                    data: dragObj
+                }
+                this.updateDragData(dragUpdate);
+                if (callback) {
+                    callback();
+                }
+                let canvasData = {
+                    context: this.canvasData.context,
+                    metaData: this.canvasData.metaData,
+                    tab: this.getCurrentSelectedTab
+                };
+                let data = {
+                    canvasContext: canvasData,
+                    dataContext: dragObj,
+                };
+                let transferDataObj = {
+                    type: "passData",
+                    data: data
+                };
+                let normalizedData = JSON.stringify(transferDataObj);
+                tutorService.dataTrack.send(normalizedData);
+                if (!dragObj.isGhost && this.selectedOptionString !== this.enumOptions.draw) {
+                    // this.selectDefaultTool();
+                    //case SPITBALL-647
+                    this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
+                    this.setSelectedOptionString(this.enumOptions.select);
+                }
             }
         },
         undo() {

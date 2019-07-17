@@ -42,7 +42,7 @@
              <div>
                  <equation-mapper :injectToTextArea="injectToTextArea"></equation-mapper>
              </div>
-            <div class="equation-text-area">
+            <div class="equation-text-area" style="justify-content: space-between;">
                 <textarea id="textArea-tutoring" :class="[helperClass, helperStyle.id]"
                       v-model="helperStyle.text"
                       cols="50"
@@ -51,6 +51,9 @@
                          v-show="!!helperStyle.text"
                          :formula="`$$${helperStyle.text}$$`"
                          class="math-jax"></vue-mathjax>
+                <div style="align-self: flex-end;">
+                    <v-btn @click="finishEquation" class="white--text" round color="#3DC1B9" v-language:inner="'studyRoom_equation_btn'"/>
+                </div>
             </div>
             
         </div>
@@ -146,7 +149,7 @@
                 outline: none;
                 border-radius: 4px;
                 font-family: "Open Sans", sans-serif;
-                font-size: 14px;
+                font-size: 20px;
             }
         }
         .equation-helper-container {
