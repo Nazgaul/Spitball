@@ -4,6 +4,7 @@
         <div class="middle" v-if="isRegisterPath">
             <span>
                 <span v-language:inner="'loginRegister_emailconfirm_to'"/>
+                &nbsp;
                 <span class="font-weight-bold">{{userEmail}}</span>
             </span>
             <p class="font-weight-bold" @click="goToRegister()" v-language:inner="'loginRegister_emailconfirm_notyou'"/>
@@ -14,6 +15,7 @@
                 <span v-if="!isRegisterPath" v-language:inner="'loginRegister_emailconfirm_bottom_reset_or'"/>
                 <div>
                     <span class="link" @click="resend()" v-language:inner="'loginRegister_emailconfirm_resend'"/>
+                    &nbsp;
                     <span v-if="isRegisterPath" v-language:inner="'loginRegister_emailconfirm_rest'"/>
                 </div>
             </div>

@@ -10,9 +10,13 @@
                     <div>
                         <input type="checkbox" @click="checkBoxConfirm" v-model="isTermsAgree" />
                         <span>
+                            &nbsp;
                             <span v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
+                            &nbsp;
                             <span class="terms" @click="redirectTo('terms')" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
+                            &nbsp;
                             <span v-language:inner="'loginRegister_getstarted_terms_and'"/>
+                            &nbsp;
                             <span class="terms" @click="redirectTo('privacy')" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
                         </span>
                         <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
