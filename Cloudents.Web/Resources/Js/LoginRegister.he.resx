@@ -121,10 +121,10 @@
     <value>קבל שיעורים פרטיים ממיטב המורים, מצא חומרי לימוד וקבל תשובות לשאלות על החומר</value>
   </data>
   <data name="congrats_btn" xml:space="preserve">
-    <value>בוא נתחיל</value>
+    <value>קדימה, נתחיל</value>
   </data>
   <data name="congrats_subtitle" xml:space="preserve">
-    <value>את/ה מוכן להתחיל</value>
+    <value>מוכן להתחיל</value>
   </data>
   <data name="congrats_title" xml:space="preserve">
     <value>מזל טוב!</value>
@@ -133,7 +133,7 @@
     <value>רק לאחר אישור האימייל, תוכל להרשם לספיטבול</value>
   </data>
   <data name="emailconfirm_bottom_reset" xml:space="preserve">
-    <value>לא קיבלת אימייל? בדוק את תיקיית ספאם</value>
+    <value>לא קיבלת אימייל? בדוק את תיקיית הספאם</value>
   </data>
   <data name="emailconfirm_bottom_reset_or" xml:space="preserve">
     <value>או לחץ כאן כדי </value>
@@ -142,7 +142,7 @@
     <value>לא אתה ?</value>
   </data>
   <data name="emailconfirm_resend" xml:space="preserve">
-    <value>שלח שוב</value>
+    <value>לשלוח שוב</value>
   </data>
   <data name="emailconfirm_rest" xml:space="preserve">
     <value>אימייל </value>
@@ -172,22 +172,22 @@
     <value>שנה סיסמא</value>
   </data>
   <data name="getstarted_btn_email_signin" xml:space="preserve">
-    <value>התחבר עם אימאייל </value>
+    <value>התחברות עם אימייל </value>
   </data>
   <data name="getstarted_btn_email_signup" xml:space="preserve">
     <value>הרשם עם אי'מאייל </value>
   </data>
   <data name="getstarted_btn_google_signin" xml:space="preserve">
-    <value>התחבר עם ג'ימאייל - Gmail </value>
+    <value>התחבר עם גוגל - Gmail </value>
   </data>
   <data name="getstarted_btn_google_signup" xml:space="preserve">
     <value>הרשם עם ג'ימאייל - Gmail </value>
   </data>
   <data name="getstarted_or" xml:space="preserve">
-    <value>או</value>
+    <value> או</value>
   </data>
   <data name="getstarted_signin_link" xml:space="preserve">
-    <value>התחברות</value>
+    <value>כניסה</value>
   </data>
   <data name="getstarted_signin_text" xml:space="preserve">
     <value>נרשמת בעבר ? </value>
@@ -259,7 +259,7 @@
     <value>הכנס/י</value>
   </data>
   <data name="setpass_forgot" xml:space="preserve">
-    <value>שכחת/ה את הסיסמא?</value>
+    <value>שכחת את הסיסמא?</value>
   </data>
   <data name="setpass_input_email" xml:space="preserve">
     <value>אימייל </value>
