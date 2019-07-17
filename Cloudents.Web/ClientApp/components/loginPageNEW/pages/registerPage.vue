@@ -19,10 +19,7 @@
                     <v-icon>sbf-close</v-icon>
                 </button>
                 <v-card-text class="limited-width">
-                    <h1 v-if="isMobile">
-                        <span></span>
-                    </h1>
-                    <h1 v-else v-language:inner="'login_are_you_sure_you_want_to_exit'"/>
+                    <h1 style="font-size: 22px;" v-language:inner="'login_are_you_sure_you_want_to_exit'"/>
                     <p><span class="pre-line" v-language:inner="'login_exiting_information1'"/><br /></p>
 
                     <v-btn v-if="isMobile" class="continue-registr" @click="updateDialog(false)">
