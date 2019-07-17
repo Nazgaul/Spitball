@@ -137,7 +137,7 @@
     </div>
 
     <v-dialog v-model="dialog.startConversation" width="500" v-if="dialog.startConversation">
-        <startConversation :isDialog="true" :userId="currentStudentId" :closeDialog="closeDialog"></startConversation>
+        <startConversation :isDialog="true" :userId="currentStudentId" :showSnack="showSnack"></startConversation>
     </v-dialog>
 
     <v-dialog v-model="dialog.status" width="500" v-if="dialog.status">
@@ -149,6 +149,11 @@
           :handleFilter="handleFilter" 
           :currentStatus="currentStatus" />
     </v-dialog>
+
+    <v-snackbar v-model="snackBar.snackbar" :color="snackBar.color" :timeout="5000" top>
+      {{ snackBar.text }}
+      <v-btn dark flat @click="snackBar.snackbar = false">Close</v-btn>
+    </v-snackbar>
 
   </div>
 </template>
@@ -201,6 +206,11 @@ export default {
       dialog: {
         startConversation: false,
         status: false,
+      },
+      snackBar: {
+        snackbar: false,
+        text: '',
+        color: ''
       },
     };
   },
@@ -296,9 +306,6 @@ export default {
       if(status === 'Student') return 'student-status'
       return 'status'
     },
-    closeDialog() {
-      this.dialog = false
-    },
     setStatusFilter(statusObj) {
       this.filterStatusName = statusObj.name;
       this.filterStatusId = statusObj.id;
@@ -320,6 +327,12 @@ export default {
       this.dialog.status = true;
       this.isSet = setStatus;
       this.currentSelectedId = conversation_id || null;
+    },
+    showSnack(snackObj) {
+      this.snackBar.snackbar = snackObj.snackbar;
+      this.snackBar.text = snackObj.text;
+      this.snackBar.color = snackObj.color;
+      this.dialog.startConversation = false
     }
   },
   created() {
