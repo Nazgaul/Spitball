@@ -190,7 +190,7 @@
     <value>כניסה</value>
   </data>
   <data name="getstarted_signin_text" xml:space="preserve">
-    <value>נרשמת בעבר ? </value>
+    <value>כבר נרשמת? </value>
   </data>
   <data name="getstarted_signup_link" xml:space="preserve">
     <value>הרשם</value>
