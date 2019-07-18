@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Web.Models;
 using Wangkanai.Detection;
 
@@ -121,8 +123,17 @@ namespace Cloudents.Web.Controllers
 
 
         [Route("PaymentProcessing", Name = "ReturnUrl")]
-        public IActionResult Processing(PaymeSuccessCallback model)
+        public async Task<IActionResult> Processing( PaymeSuccessCallback model,
+            [FromServices] ICommandBus commandBus,
+            CancellationToken token)
         {
+            if (model.Status.Equals("success", StringComparison.OrdinalIgnoreCase))
+            {
+                var command = new ConfirmPaymentCommand(model.UserId);
+                await commandBus.DispatchAsync(command, token);
+            }
+
+
             return View("Processing", model);
 
         }

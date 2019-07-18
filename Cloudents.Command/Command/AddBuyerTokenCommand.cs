@@ -29,4 +29,14 @@ namespace Cloudents.Command.Command
         public string Token { get; }
 
     }
+
+    public class ConfirmPaymentCommand : ICommand
+    {
+        public ConfirmPaymentCommand(long userId)
+        {
+            UserId = userId;
+        }
+
+        public long UserId { get;  }
+    }
 }

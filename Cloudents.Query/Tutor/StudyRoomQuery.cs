@@ -32,13 +32,15 @@ namespace Cloudents.Query.Tutor
 
             public async Task<StudyRoomDto> GetAsync(StudyRoomQuery query, CancellationToken token)
             {
-
+                //TODO: make it better
                 using (var conn = _repository.OpenConnection())
                 {
                     return await conn.QuerySingleOrDefaultAsync<StudyRoomDto>(@"
 with cte as(
-select sru.StudyRoomId , u.id,u.PaymentKey,u.PaymentKeyExpiration from sb.StudyRoomUser sru join sb.[User] u on sru.UserId = u.Id 
-and (u.PaymentKey is null or u.PaymentKeyExpiration < GetUtcDate())
+select sru.StudyRoomId , 
+u.id,
+u.PaymentExists
+from sb.StudyRoomUser sru join sb.[User] u on sru.UserId = u.Id 
 )
 
 Select 

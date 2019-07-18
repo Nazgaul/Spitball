@@ -7,7 +7,6 @@ namespace Cloudents.Core.Entities
         public BuyerPayment(string paymentKey, DateTime paymentKeyExpiration)
         {
             PaymentKey = paymentKey;
-            //PaymentKeyExpiration = DateTime.ParseExact(paymentKeyExpiration, "MMyy", CultureInfo.InvariantCulture);
             PaymentKeyExpiration = paymentKeyExpiration;
         }
 
@@ -17,6 +16,7 @@ namespace Cloudents.Core.Entities
 
         public  string PaymentKey { get; set; }
         public  DateTime PaymentKeyExpiration { get; set; }
+       
 
         public bool IsValid()
         {

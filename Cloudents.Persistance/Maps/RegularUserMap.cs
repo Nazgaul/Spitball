@@ -49,7 +49,9 @@ namespace Cloudents.Persistence.Maps
             {
                 y.Map(z => z.PaymentKey);
                 y.Map(z => z.PaymentKeyExpiration);
+               
             });
+            Map(z => z.PaymentExists);
             //HasManyToMany(x => x.Courses)
             //    .ParentKeyColumn("UserId")
             //    .ChildKeyColumn("CourseId")
