@@ -175,13 +175,13 @@
     <value>כניסה עם אימייל </value>
   </data>
   <data name="getstarted_btn_email_signup" xml:space="preserve">
-    <value>הרשם עם אימייל </value>
+    <value>הרשמה עם אימייל</value>
   </data>
   <data name="getstarted_btn_google_signin" xml:space="preserve">
     <value>כניסה עם גוגל - Gmail </value>
   </data>
   <data name="getstarted_btn_google_signup" xml:space="preserve">
-    <value>הרשם עם ג'ימייל - Gmail </value>
+    <value>הרשמה עם ג'ימייל - Gmail</value>
   </data>
   <data name="getstarted_or" xml:space="preserve">
     <value> או</value>
@@ -244,10 +244,10 @@
     <value>אשר סיסמא</value>
   </data>
   <data name="setemailpass_title" xml:space="preserve">
-    <value>בחר אימייל וסיסמא</value>
+    <value>הכנס אימייל וסיסמא</value>
   </data>
   <data name="setemail_btn" xml:space="preserve">
-    <value>הרשמה</value>
+    <value>כניסה</value>
   </data>
   <data name="setemail_input" xml:space="preserve">
     <value>אימייל </value>
@@ -256,7 +256,7 @@
     <value>ברוכים הבאים. היכנס בבקשה</value>
   </data>
   <data name="setpass_btn" xml:space="preserve">
-    <value>הכנס/י</value>
+    <value>כניסה</value>
   </data>
   <data name="setpass_forgot" xml:space="preserve">
     <value>שכחת את הסיסמא?</value>
