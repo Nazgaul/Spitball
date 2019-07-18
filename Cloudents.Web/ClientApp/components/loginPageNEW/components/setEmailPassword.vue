@@ -1,7 +1,7 @@
 <template>
   <section class="setEmailPassword">
     <p v-language:inner="'loginRegister_setemailpass_title'"/>
-    <form @submit.prevent="register">
+    <form @submit.prevent="submit">
       <sb-input
         class="widther"
         v-model="email"
@@ -38,6 +38,7 @@
       />
 
       <vue-recaptcha
+        size="invisible"
         class="mt-4 captcha"
         :sitekey="siteKey"
         ref="recaptcha"
@@ -79,7 +80,7 @@ export default {
         required: false
       },
       recaptcha: "",
-      siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
+      siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
     };
   },
   watch: {
@@ -93,7 +94,7 @@ export default {
   computed: {
     ...mapGetters(["getEmail1","getGlobalLoading","getErrorMessages","getPassScoreObj"]),
     isFormValid() {
-      return (this.email && this.password.length >= 8 && this.recaptcha)
+      return (this.email && this.password.length >= 8 && this.confirmPassword)
     },
     passHint() {
       if (this.password.length > 0) {
@@ -129,9 +130,11 @@ export default {
     ...mapMutations(['setErrorMessages']),
     onVerify(response) {
       this.recaptcha = response
+      this.register()
     },
     onExpired() {
       this.recaptcha = ''
+      this.$refs.recaptcha.reset();
     },
     register() {
       let paramObj = {
@@ -139,7 +142,12 @@ export default {
         confirmPassword: this.confirmPassword,
         recaptcha: this.recaptcha
       }
-      this.emailSigning(paramObj).then(response => {},err => {this.$refs.recaptcha.reset()});
+      this.emailSigning(paramObj).then(response => {},err => {
+        this.$refs.recaptcha.reset()
+        });
+    },
+    submit(){
+      this.$refs.recaptcha.execute()
     }
   },
   created() {
