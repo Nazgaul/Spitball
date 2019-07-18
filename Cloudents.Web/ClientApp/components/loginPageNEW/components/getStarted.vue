@@ -7,20 +7,18 @@
             </div>
             <div class="getStarted-form">
                 <div v-if="isRegisterPath" class="getStarted-terms">
-
-                        <input type="checkbox" @click="checkBoxConfirm" v-model="isTermsAgree" />
-                        <span>
-                            &nbsp;
-                            <span v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
-                            &nbsp;
-                            <span class="terms" @click="redirectTo('terms')" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
-                            &nbsp;
-                            <span v-language:inner="'loginRegister_getstarted_terms_and'"/>
-                            &nbsp;
-                            <span class="terms" @click="redirectTo('privacy')" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
-                        </span>
+                        <div class="line-terms">
+                            <input type="checkbox" name="checkBox" id="checkBox" @click="checkBoxConfirm" v-model="isTermsAgree" />
+                            <label for="checkBox">&nbsp;
+                                <span>
+                                    &nbsp;<span v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
+                                    &nbsp;<span class="terms" @click.prevent="redirectTo('terms')" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
+                                    &nbsp;<span v-language:inner="'loginRegister_getstarted_terms_and'"/>
+                                    &nbsp;<span class="terms" @click.prevent="redirectTo('privacy')" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
+                                </span>
+                            </label>
+                        </div>
                         <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
-
                 </div>
                     <v-btn @click="goWithGoogle()" 
                         :loading="googleLoading" 
@@ -164,31 +162,40 @@ export default {
         flex-direction: column;
         align-items: center;
         .getStarted-terms{
-                margin-bottom: 34px;
+            margin-bottom: 34px;
+            display: flex;
+            align-items: inherit;
+            flex-direction: column;
+            .responsive-property(margin-bottom, 34px, null, 66px);
+                    .errorMsg{
+                        display: block; 
+                        font-weight: normal;
+                        color:red; 
+                        text-align: center;
+                        font-size: 14px;
+                        letter-spacing: -0.36px;
+                    }
+            .line-terms{
                 display: flex;
                 align-items: inherit;
-            input{
-                width: 25px;
-                height: 25px;
-            }
-            .responsive-property(margin-bottom, 34px, null, 66px);
-            span{
-                padding: 0;
-                color:#212121;
-                .responsive-property(font-size, 13px, null, 12px);
-                letter-spacing: -0.34px;
-                line-height: 1.23;
-                font-weight: initial;
-                &.terms{
-                   cursor: pointer;
-                   color: @color-login-text-link; 
-                   letter-spacing: -0.28px;
-                   text-decoration: underline;
+                input{
+                    padding-left: 12px;
+                    width: 25px;
+                    height: 25px;
                 }
-                &.errorMsg{
-                    display: block; 
-                    color:red; 
-                    text-align: center;
+                span{
+                    padding: 0;
+                    color:#212121;
+                    .responsive-property(font-size, 13px, null, 12px);
+                    letter-spacing: -0.34px;
+                    line-height: 1.23;
+                    font-weight: initial;
+                    &.terms{
+                    cursor: pointer;
+                    color: @color-login-text-link; 
+                    letter-spacing: -0.28px;
+                    text-decoration: underline;
+                    }
                 }
             }
         }
