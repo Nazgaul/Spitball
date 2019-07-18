@@ -2,8 +2,8 @@
     <v-layout column wrap class="getStartedContainer">
         <div class="getStarted-actions">
             <div class="getStarted-top">
-                <p v-language:inner="'loginRegister_getstarted_title'"/>
-                <span v-language:inner="'loginRegister_getstarted_subtitle'"/>
+                <p v-language:inner="isRegisterPath? 'loginRegister_getstarted_title':'loginRegister_getstarted_title_login'"/>
+                <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_subtitle': 'loginRegister_getstarted_subtitle_login' "/>
             </div>
             <div class="getStarted-form">
                 <div v-if="isRegisterPath" class="getStarted-terms">
