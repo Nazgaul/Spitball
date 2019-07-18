@@ -12,6 +12,7 @@
 			v-model="smsCode"
 			class="code widther"
 			:bottomError="true" 
+			:autofocus="true"
 			:errorMessage="errorMessages.code"
 			placeholder="loginRegister_smsconfirm_input" 
 			name="phone" :type="'number'"

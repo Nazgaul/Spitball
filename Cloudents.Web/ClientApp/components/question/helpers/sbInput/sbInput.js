@@ -62,7 +62,7 @@ export default {
                 this.isReadOnly = false;
                 this.$el.querySelector('.input-field').focus()
             }
-        }
+        },
     },
     computed:{
         errorTextStr:{
@@ -70,9 +70,7 @@ export default {
                 return this.errorMessage
             },
             set(val){
-
             }
-
         }
     },
     methods: {
@@ -82,6 +80,11 @@ export default {
         hideError(){
             return this.errorTextStr = '';
         },
-    }
+    },
+    mounted() {
+        if(this.autofocus){
+            this.$el.querySelectorAll('.input-field')[0].focus() 
+        }
+    },
 
 }

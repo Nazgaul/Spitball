@@ -23,7 +23,7 @@
         :bottomError="true"
         type="password"
         name="pass"
-        :autofocus="true"
+        :autofocus="false"
       />
 
       <sb-input
@@ -34,7 +34,7 @@
         placeholder="loginRegister_setemailpass_input_passconfirm"
         name="confirm"
         type="password"
-        :autofocus="true"
+        :autofocus="false"
       />
 
       <vue-recaptcha

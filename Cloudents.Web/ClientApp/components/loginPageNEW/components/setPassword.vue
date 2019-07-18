@@ -18,7 +18,7 @@
 				placeholder="loginRegister_setpass_input_pass"  
 				:bottomError="true" 
 				type="password" name="pass"
-				:autofocus="true"/>
+				:autofocus="false"/>
 
         <v-btn  
                 type="submit"

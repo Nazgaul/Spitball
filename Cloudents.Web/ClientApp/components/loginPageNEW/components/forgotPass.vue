@@ -21,8 +21,6 @@
                 class="white--text btn-login">
                 <span v-language:inner="'loginRegister_forgot_btn'"></span>
                 </v-btn>
-
-
         <span class="bottom" @click="goLogin" v-language:inner="'loginRegister_forgot_remember'"/>
     </form>
 </template>

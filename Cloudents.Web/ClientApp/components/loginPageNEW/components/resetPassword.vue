@@ -18,7 +18,7 @@
 				placeholder="loginRegister_resetpass_input_confirm"  
 				:bottomError="true" 
 				type="password" name="pass"
-				:autofocus="true"/>
+				:autofocus="false"/>
 
         <v-btn  type="submit"
                 :disabled="!isPassValid"

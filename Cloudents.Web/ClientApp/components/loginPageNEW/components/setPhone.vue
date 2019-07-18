@@ -25,7 +25,8 @@
                 v-model="phoneNumber"
                 class="phone widther"
                 icon="sbf-phone" 
-                :bottomError="true" 
+                :bottomError="true"
+                :autofocus="true" 
                 placeholder="loginRegister_setphone_input" 
                 name="phone" :type="'tel'"
                 v-language:placeholder/>

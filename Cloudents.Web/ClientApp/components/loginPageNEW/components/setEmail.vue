@@ -9,7 +9,7 @@
       :errorMessage="errorMessages.email"
 			icon="sbf-email"
 			bottomError
-			autofocus
+			:autofocus="true"
 			name="email"
 			type="email"/>
       
