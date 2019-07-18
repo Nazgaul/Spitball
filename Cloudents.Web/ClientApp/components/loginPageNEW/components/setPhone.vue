@@ -12,11 +12,11 @@
                 item-value="callingCode">
             <template slot="selection" slot-scope="data">
                 <v-list-tile-content>
-                    <v-list-tile-title>{{ `${data.item.name} (${data.item.callingCode})`}}</v-list-tile-title>
+                    <v-list-tile-title>{{getCode(data.item)}}</v-list-tile-title>
                 </v-list-tile-content>
             </template>
             <template slot="item" slot-scope="data">
-                {{ `${data.item.name} (${data.item.callingCode})`}}
+                {{getCode(data.item)}}
             </template>
         </v-select>
 
@@ -88,6 +88,9 @@ export default {
         sendSms(){
             this.updatePhone(this.phoneNumber)
             this.sendSMScode()
+        },
+        getCode(item){
+            return global.isRtl? `(${item.callingCode}) ${item.name}` : `${item.name} (${item.callingCode})`;
         }
     },
     created() {
