@@ -148,6 +148,12 @@ const actions = {
     },
     syncUniData({commit, dispatch}) {
         dispatch('setLock_selectedClass', true);
+        universityService.getProfileUniversity().then((university) => {
+            commit('setSchoolName', university.text);
+            setTimeout(() => {
+            dispatch('releaseResultLock', "uni");
+            }, 2000); 
+        });
         universityService.getProfileCourses().then((courses) => {
                 dispatch('setSelectedClasses', courses);
                 dispatch('assignSelectedClassesCache', courses);
