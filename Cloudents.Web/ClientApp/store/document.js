@@ -66,10 +66,9 @@ const actions = {
         
         if(!user) return dispatch('updateLoginDialogState', true)
 
-        let {id, course, url} = item;     
-        
+        let {id, course} = item;     
+
         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`);
-        global.open(url, 'Download Document');
     },
     purchaseDocument({commit, getters, dispatch}, item) {
         commit('setBtnLoading', true);
