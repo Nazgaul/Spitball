@@ -93,7 +93,7 @@ namespace Cloudents.Persistence
 
 
             //config.IntegrateWithEnvers(enversConf);
-            //config.LinqToHqlGeneratorsRegistry<MyLinqToHqlGeneratorsRegistry>();
+            config.LinqToHqlGeneratorsRegistry<MyLinqToHqlGeneratorsRegistry>();
 
             //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
             //config.Properties.Add("cache.default_expiration",$"{TimeConst.Day}");
