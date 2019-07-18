@@ -43,7 +43,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getPaymentUrl','getStudyRoomData']),
+        ...mapGetters(['getPaymentUrl','getStudyRoomData','getIsRoomFull']),
         tutorName(){
             let studyRoomData = this.getStudyRoomData
             if(studyRoomData){
@@ -60,7 +60,9 @@ export default {
             this.confirmExit = true;
         },
         setConfirmExit(){ 
-           studyRoomService.skipNeedPayment({studyRoomId:this.getStudyRoomData.roomId })
+        if(this.getIsRoomFull){
+            studyRoomService.skipNeedPayment({studyRoomId:this.getStudyRoomData.roomId })
+        }
            this.updatePaymentDialog(false)
         }
     },
