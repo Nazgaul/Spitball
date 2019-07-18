@@ -1,7 +1,9 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler
@@ -21,6 +23,8 @@ namespace Cloudents.Command.CommandHandler
         {
             var studyRoom = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
             studyRoom.ChangeOnlineStatus(message.UserId,message.Status);
+            
+            
             await _studyRoomRepository.UpdateAsync(studyRoom, token);
         }
     }

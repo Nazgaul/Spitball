@@ -158,6 +158,7 @@ namespace Cloudents.Web.Api
 
             var urlReturn = Url.RouteUrl("ReturnUrl", new
             {
+                userId = user.Id
             }, "https");
 
             //var uri = new UriBuilder(url);

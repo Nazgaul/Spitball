@@ -27,7 +27,7 @@
         </p>
         <p>
             Remember, when you’re using Spitball, you’re also bound by our
-            Terms of Use, and <router-link to="privacy">Policy</router-link>. Be sure to know and follow all our guidelines as you share and learn from others in our community. We’re excited to have you here.
+            Terms of Use, and <router-link to="privacy">Policy</router-link>. Be sure to know and follow all our guidelines as you share and learn from others in our community.
         </p>
      
 

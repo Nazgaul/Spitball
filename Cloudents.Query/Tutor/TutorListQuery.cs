@@ -45,7 +45,6 @@ x.*
                         join sb.Tutor T
 	                        on U.Id = T.Id
 						left join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
-						and  uc.CourseId in (select CourseId from sb.UsersCourses where UserId = @UserId or @UserId = 0)
 						left join sb.Course c on uc.CourseId = c.Name
 						
 cross apply (select avg(Rate) as Rate, count(1) as ReviewsCount from sb.TutorReview where TutorId = T.Id) as x

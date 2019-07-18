@@ -20,4 +20,20 @@ namespace Cloudents.Command.CommandHandler
             user.AddPayment(message.Token, message.Expiration);
         }
     }
+
+    public class ConfirmPaymentCommandHandler : ICommandHandler<ConfirmPaymentCommand>
+    {
+        private readonly IRegularUserRepository _userRepository;
+
+        public ConfirmPaymentCommandHandler(IRegularUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        public async Task ExecuteAsync(ConfirmPaymentCommand message, CancellationToken token)
+        {
+            var user = await _userRepository.LoadAsync(message.UserId, token);
+            user.CreditCardReceived();
+        }
+    }
 }

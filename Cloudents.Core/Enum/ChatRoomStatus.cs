@@ -3,6 +3,14 @@ using System.Linq;
 
 namespace Cloudents.Core.Enum
 {
+
+    public enum PaymentStatus
+    {
+        None,
+        Done,
+        Later
+
+    }
     //public enum ChatRoomStatus
     //{
     //    New,
