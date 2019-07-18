@@ -50,7 +50,7 @@ export default {
             snack = { color: "red", text: "ERROR: sending message, try again later", snackbar: true }
           })
         .finally(() => {
-          this.showSnack(snack)
+          this.showSnack(snack, 'startConversation')
           this.disable = false;
         });
     },

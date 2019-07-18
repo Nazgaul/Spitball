@@ -120,14 +120,16 @@
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-6 pl-3">
                               <v-btn 
-                                color="#b4d6f3" 
+                                color="#b4d6f3"
+                                block
                                 class="mb-2 px-4"
                                 @click.native.stop="openStatusDialog(true, conversation.id, index)"
                               >
-                                  {{conversation.status.group || 'New'}}
+                                  {{conversation.status.name || 'New'}}
                               </v-btn>
                               <v-btn 
                                 color="#b4d6f3" 
+                                block
                                 class="px-4" 
                                 @click.native.stop="openAssignDialog(conversation.assignTo, conversation.id, index)"
                               >
