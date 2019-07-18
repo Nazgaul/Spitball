@@ -33,6 +33,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
+import studyRoomService from '../../../../services/studyRoomsService.js'
 
 export default {
     name: 'paymentDIalog',
@@ -58,8 +59,9 @@ export default {
         closePaymentDialog(){
             this.confirmExit = true;
         },
-        setConfirmExit(){
-            this.updatePaymentDialog(false)
+        setConfirmExit(){ 
+           studyRoomService.skipNeedPayment({studyRoomId:this.getStudyRoomData.roomId })
+           this.updatePaymentDialog(false)
         }
     },
 }
