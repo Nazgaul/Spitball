@@ -36,10 +36,10 @@
             </v-layout>
         </v-form>
         <v-layout :class="{'column': $vuetify.breakpoint.mdAndDown}">
-            <v-flex xs3 v-if="showActions" :class="{'userDetails mb-4': $vuetify.breakpoint.mdAndDown}">
+            <v-flex xs2 v-if="showActions" :class="{'userDetails mb-4': $vuetify.breakpoint.mdAndDown}">
                 <v-list dense class="elevation-2">
                     <template v-for="(infoItem, name,index) in userInfo">
-                        <v-list-tile :class="[ (index % 2 == 0) ? 'teal lighten-4' : 'cyan lighten-5' ]" :key="index">
+                        <v-list-tile :class="[ (index % 2 == 0) ? 'table-odd' : '' ]" :key="index">
                             <v-layout align-center justify-space-between>
                                 <span>{{infoItem.label}}</span>
                                 <v-btn small color='warning' @click="openNameDialog(userInfo.name.value)" v-if="infoItem.label == 'User Name'"> Edit</v-btn>
@@ -53,7 +53,7 @@
                 </v-list>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-flex xs9 class="ml-2">
+            <v-flex xs10 class="ml-2">
                 <v-tabs centered color="light-green">
                     <v-tab :to="{name: 'userQuestions', params : {userId: userId} }">Question</v-tab>
                     <v-tab :to="{name: 'userAnswers', params:{userId: userId}}">Answers</v-tab>
@@ -116,7 +116,7 @@
                 <v-card-text>
                     <v-container grid-list-md>
                         <v-layout wrap>
-                            <v-flex xs12 sm12 md12>
+                            <v-flex xs12>
                                 <user-tokens :userId="userId"></user-tokens>
                             </v-flex>
                         </v-layout>
@@ -137,7 +137,7 @@
                 <v-card-text>
                     <v-container grid-list-md>
                         <v-layout wrap>
-                            <v-flex xs12 sm12 md12>
+                            <v-flex xs12>
                                 <v-text-field
                                     v-model="newFirstName"
                                     label="First Name"
@@ -192,5 +192,10 @@
 </script>
 
 <style lang="scss">
+
+.table-odd {
+    background: #B2DFDB;
+}
+
 
 </style>
