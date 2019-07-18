@@ -22,6 +22,11 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+using Cloudents.Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
 {
@@ -223,6 +228,20 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
+            return Ok();
+        }
+
+        [HttpPost("NoCard")]
+        public async Task<IActionResult> NoCardAsync(NoCardRequest model,
+            [FromServices]  IHubContext<StudyRoomHub> studyRoomHubContext, CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            user.PaymentExists = PaymentStatus.Later;
+            await _userManager.UpdateAsync(user);
+            var message = new SignalRTransportType(SignalRType.User,
+                SignalREventAction.PaymentReceived, new object());
+
+            await studyRoomHubContext.Clients.Group(model.StudyRoomId.ToString()).SendAsync(SbHub.MethodName, message, token);
             return Ok();
         }
 

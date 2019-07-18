@@ -14,6 +14,8 @@ namespace Cloudents.Core.DTOs
         public string StudentImage { get; set; }
         public string StudentName { get; set; }
         public bool AllowReview => true;
+
+        public bool CardEnter { get; set; }
         public bool NeedPayment { get; set; }
     };
        

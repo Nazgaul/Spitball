@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities
@@ -114,10 +115,20 @@ namespace Cloudents.Core.Entities
 
         public virtual BuyerPayment BuyerPayment { get; protected set; }
 
+
+        public virtual PaymentStatus PaymentExists { get; set; }
+
+        public virtual void CreditCardReceived()
+        {
+            PaymentExists = PaymentStatus.Done;
+            AddEvent(new StudentPaymentReceivedEvent(this));
+        }
+
         public virtual void AddPayment(string token, DateTime expiration)
         {
+            
             BuyerPayment = new BuyerPayment(token, expiration);
-            AddEvent(new StudentPaymentReceivedEvent(this));
+            //AddEvent(new StudentPaymentReceivedEvent(this));
         }
       
         

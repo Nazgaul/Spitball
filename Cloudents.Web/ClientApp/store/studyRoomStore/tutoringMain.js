@@ -2,6 +2,7 @@ import videoStreamService from '../../services/videoStreamService';
 import { LanguageService } from '../../services/language/languageService';
 
 const state = {
+    isRoomFull: false,
     paymentUrl: '',
     showPaymentDialog: false,
     identity: '',
@@ -34,6 +35,7 @@ const state = {
     endDialog: false,
 };
 const getters = {
+    getIsRoomFull: state => state.isRoomFull,
     activeRoom: state => state.currentActiveRoom,
     localOffline: state => state.isLocalOffline,
     localNetworkQuality: state => state.localParticipantsNetworkQuality,
@@ -61,6 +63,9 @@ const getters = {
 };
 
 const mutations = {
+    setIsRoomFull(state,val){
+        state.isRoomFull = val
+    },
     setPaymentUrl(state,url){
         state.paymentUrl = url
     },
@@ -166,10 +171,10 @@ const actions = {
     setAllowedDevicesStatus({commit, state}, val) {
         commit('updateAllowedDevices', val);
     },
-    updateStudyRoomProps(context, val) {
+    updateStudyRoomProps({dispatch,commit,state}, val) {
         //update leaveReview store, to prevent leaving of multiple reviews
-        context.dispatch('updateAllowReview',  val.allowReview);
-        context.commit('setStudyRoomProps', val);
+        dispatch('updateAllowReview',  val.allowReview);
+        commit('setStudyRoomProps', val);
         if(!val.isTutor && val.needPayment){
             setTimeout(()=>{
                 videoStreamService.enterRoom();
@@ -221,6 +226,12 @@ const actions = {
     signalR_UpdateState({commit, dispatch, state}, notificationObj) {
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
+        if(onlineCount === 2){
+            commit('setIsRoomFull',true)
+        } else{
+            commit('setIsRoomFull',false)
+        }
+
         let totalOnline = notificationObj.totalOnline;
         let jwtToken = notificationObj.jwtToken;
         let isTutor = state.studyRoomData.isTutor;
