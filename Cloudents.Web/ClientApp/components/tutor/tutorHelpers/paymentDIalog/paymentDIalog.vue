@@ -19,11 +19,11 @@
 
         <v-layout align-center column class="payme-popup-exit">
             <div class="payme-popup-exit-top">
-                <span>are you sure you want to exit?</span>
+                <span v-language:inner="'payme_confirm-exit'"/>
             </div>
             <div class="payme-popup-exit-btns pb-3">
-                <v-btn depressed @click="confirmExit=false">cancle</v-btn>
-                <v-btn depressed color="info" @click="setConfirmExit">yes</v-btn>
+                <v-btn depressed @click="confirmExit=false" v-language:inner="'payme_confirm-cancel'"/>
+                <v-btn depressed color="info" @click="setConfirmExit" v-language:inner="'payme_confirm-yes'"/>
             </div>
         </v-layout>
 

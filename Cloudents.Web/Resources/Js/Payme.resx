@@ -119,14 +119,11 @@
   </resheader>
   <data name="bottom" xml:space="preserve">
     <value>We do not store credit card information on our servers. Credit card info is sent directly to a credit card processing system (Payme). When the session ends, we instruct PayMe to charge the credit card (without knowing the card details).</value>
-    
   </data>
   <data name="title_1" xml:space="preserve">
     <value>The payment for the tutoring session with </value>
-    
   </data>
   <data name="title_2" xml:space="preserve">
     <value> will be done after the session ends, and an invoice will be sent via email to you.</value>
-    
   </data>
 </root>
