@@ -11,10 +11,10 @@
                             <input type="checkbox" name="checkBox" id="checkBox" @click="checkBoxConfirm" v-model="isTermsAgree" />
                             <label for="checkBox">&nbsp;
                                 <span>
-                                    &nbsp;<span v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
-                                    &nbsp;<span class="terms" @click.prevent="redirectTo('terms')" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
-                                    &nbsp;<span v-language:inner="'loginRegister_getstarted_terms_and'"/>
-                                    &nbsp;<span class="terms" @click.prevent="redirectTo('privacy')" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
+                                    <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
+                                    <span class="terms padding-helper" @click.prevent="redirectTo('terms')" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
+                                    <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_and'"/>
+                                    <span class="terms" @click.prevent="redirectTo('privacy')" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
                                 </span>
                             </label>
                         </div>
@@ -184,6 +184,9 @@ export default {
                     height: 25px;
                 }
                 span{
+                    &.padding-helper{
+                        padding-right: 2px;
+                    }
                     padding: 0;
                     color:#212121;
                     .responsive-property(font-size, 13px, null, 12px);
