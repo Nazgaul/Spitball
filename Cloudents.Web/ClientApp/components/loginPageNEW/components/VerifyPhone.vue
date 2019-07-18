@@ -3,7 +3,7 @@
     <div class="top">
       <p v-language:inner="'loginRegister_smsconfirm_title'"/>
 	  <span>
-		  <span v-language:inner="'loginRegister_smsconfirm_subtitle'"/>
+		  <span v-language:inner="'loginRegister_smsconfirm_subtitle'"/>&nbsp;
 		  <span>{{userPhone}}</span>
 	  </span>
     </div>

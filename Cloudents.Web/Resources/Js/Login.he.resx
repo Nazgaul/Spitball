@@ -181,7 +181,7 @@
     <value>יציאה</value>
   </data>
   <data name="exiting_information1" xml:space="preserve">
-    <value>יציאה מהתהליך תגרום למחיקת ההתקדמות והמידע</value>
+    <value>יציאה מהתהליך תגרום למחיקת המידע הקיים ויהיה עליך להתחיל את התהליך מחדש</value>
   </data>
   <data name="forgot_password_link" xml:space="preserve">
     <value>שכחת סיסמה?</value>
