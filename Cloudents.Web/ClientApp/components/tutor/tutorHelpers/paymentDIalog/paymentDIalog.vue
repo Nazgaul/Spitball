@@ -11,13 +11,36 @@
             <p v-language:inner="'payme_bottom'"/>
             <img src="./images/card.png" alt="">
         </div>
+        <v-dialog v-if="confirmExit"
+        v-model="confirmExit"
+        content-class="payme-popup-exit"
+        :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
+
+
+        <v-layout align-center column class="payme-popup-exit">
+            <div class="payme-popup-exit-top">
+                <span>are you sure you want to exit?</span>
+            </div>
+            <div class="payme-popup-exit-btns pb-3">
+                <v-btn depressed @click="confirmExit=false">cancle</v-btn>
+                <v-btn depressed color="info" @click="setConfirmExit">yes</v-btn>
+            </div>
+        </v-layout>
+
+      </v-dialog>
     </v-layout>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
+
 export default {
     name: 'paymentDIalog',
+    data() {
+        return {
+            confirmExit: false
+        }
+    },
     computed: {
         ...mapGetters(['getPaymentUrl','getStudyRoomData']),
         tutorName(){
@@ -33,16 +56,35 @@ export default {
     methods: {
         ...mapActions(['updatePaymentDialog']),
         closePaymentDialog(){
+            this.confirmExit = true;
+        },
+        setConfirmExit(){
             this.updatePaymentDialog(false)
         }
-    }
+    },
 }
 </script>
 
 <style lang="less">
+.payme-popup-exit{
+    width: 600px;
+    border-radius: 4px;
+    background-color: #ffffff;
+        .payme-popup-exit-top{
+        padding: 15px;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.5;
+        color: #43425d;
+        text-align: center;
+        }
+        .payme-popup-exit-btns{
+
+        }
+    }
 .payme-popup{
     position: relative;
-    max-width: 600px;
+    max-width: 800px;
     border-radius: 4px;
     background-color: #ffffff;
     .exit-btn{
