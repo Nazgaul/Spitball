@@ -14,15 +14,15 @@
 
             <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-if="isShowPurchased" v-language:inner="'documentPage_credit_uploader'"></p>
 
-            <template>
+            <template v-if="$vuetify.breakpoint.smAndDown">
                 <div class="aside-top-btn btn-lock" v-if="isShowPurchased && !isLoading" @click="updatePurchaseConfirmation(true)">
                     <span class="pa-4 font-weight-bold text-xs-center" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
-                <div class="aside-top-btn btn-download justify-center" :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading" @click="downloadDoc">                    
+                <a class="aside-top-btn btn-download justify-center" :href="`${$route.path}/download`" target="_blank" :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading" @click="downloadDoc">                    
                     <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
-                    <span class="white--text py-4 font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
-                </div>
+                    <span class="white--text font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
+                </a>
             </template>
 
             <v-progress-circular
@@ -84,7 +84,6 @@ export default {
                 if(!this.isLoading) {
                     this.purchaseDocument(item)
                     this.updatePurchaseConfirmation(false)
-
                 }
             }
         },
@@ -232,10 +231,15 @@ export default {
                     }
                 }
                 &.btn-download {
+                    height: 70px;
                     background-color: #4452fc;
-                    .download {
-                        font-size: 15px;
-                        border-radius: 0 4px 4px 0
+                    i {
+                        font-size: 26px;     
+                    }
+                    span {
+                        display: flex;
+                        align-items: center;
+                        font-size: 20px;
                     }
                 }
                 @media (max-width: @screen-sm) {
