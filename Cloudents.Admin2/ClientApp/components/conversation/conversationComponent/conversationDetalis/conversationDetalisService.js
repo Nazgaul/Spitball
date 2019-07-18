@@ -10,6 +10,16 @@ function createConversationFilters(objInit){
     return new conversationFilters(objInit)
 }
 
+function groupStatus(objInit){
+    this.group = objInit.group || 'new';
+    this.id = objInit.id  || null;
+    this.name = objInit.name || null;
+}
+
+function createGroupStatus(objInit){
+    return new groupStatus(objInit);
+}
+
 function ConversationItem(objInit) {
     this.id = objInit.id;
     this.userName = objInit.userName;
@@ -21,7 +31,7 @@ function ConversationItem(objInit) {
     this.tutorPhoneNumber = objInit.tutorPhoneNumber;
     this.tutorEmail = objInit.tutorEmail;
     this.autoStatus = objInit.autoStatus;
-    this.status = objInit.status || 'default';
+    this.status = createGroupStatus(objInit.status ? objInit.status : {})
     this.lastMessage = new Date(objInit.lastMessage);
     this.studyRoomExists = objInit.studyRoomExists;
     this.expanded = false;
@@ -133,5 +143,6 @@ export {
     getConversationsListPage,
     getFiltersParams,
     setAssignTo,
-    getFilters
+    getFilters,
+    createGroupStatus
 };

@@ -56,7 +56,6 @@ namespace Cloudents.Admin2.Api
                         blobProvider.GeneratePreviewLink(file,
                             TimeSpan.FromMinutes(20));
 
-                    document.SiteLink = Url.RouteUrl("DocumentDownload", new {id = document.Id});
                     counter++;
                 }
                 else
@@ -65,6 +64,7 @@ namespace Cloudents.Admin2.Api
                     var t =  _queueProvider.InsertBlobReprocessAsync(document.Id);
                     tasks.Value.Add(t);
                 }
+                document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
 
                 if (counter >= 21)
                 {
