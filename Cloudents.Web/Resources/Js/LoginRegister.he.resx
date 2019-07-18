@@ -172,13 +172,13 @@
     <value>אפס את הסיסמא שלך</value>
   </data>
   <data name="getstarted_btn_email_signin" xml:space="preserve">
-    <value>התחברות עם אימייל </value>
+    <value>כניסה עם אימייל </value>
   </data>
   <data name="getstarted_btn_email_signup" xml:space="preserve">
     <value>הרשם עם אימייל </value>
   </data>
   <data name="getstarted_btn_google_signin" xml:space="preserve">
-    <value>התחבר עם גוגל - Gmail </value>
+    <value>כניסה עם גוגל - Gmail </value>
   </data>
   <data name="getstarted_btn_google_signup" xml:space="preserve">
     <value>הרשם עם ג'ימייל - Gmail </value>
@@ -193,7 +193,7 @@
     <value>כבר נרשמת? </value>
   </data>
   <data name="getstarted_signup_link" xml:space="preserve">
-    <value>הרשם</value>
+    <value>יצירת חשבון</value>
   </data>
   <data name="getstarted_signup_text" xml:space="preserve">
     <value>זקוקים לחשבון?</value>
