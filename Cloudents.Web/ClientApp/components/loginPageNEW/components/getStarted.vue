@@ -7,7 +7,7 @@
             </div>
             <div class="getStarted-form">
                 <div v-if="isRegisterPath" class="getStarted-terms">
-                    <div>
+
                         <input type="checkbox" @click="checkBoxConfirm" v-model="isTermsAgree" />
                         <span>
                             &nbsp;
@@ -20,9 +20,8 @@
                             <span class="terms" @click="redirectTo('privacy')" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
                         </span>
                         <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
-                    </div>
+
                 </div>
-                <!-- <div> -->
                     <v-btn @click="goWithGoogle()" 
                         :loading="googleLoading" 
                         large round
@@ -30,9 +29,6 @@
                         <img src="../images/G icon@2x.png">
                         <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
                     </v-btn>
-                    <!-- <span v-if="gmailError" class="errorMsg" v-language:inner="'gmailError'"/> -->
-                <!-- </div> -->
-
                 <span class="hidden-xs-only or" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
 
                 <v-btn @click="goWithEmail()" 
@@ -168,7 +164,13 @@ export default {
         flex-direction: column;
         align-items: center;
         .getStarted-terms{
-            text-align: center;
+                margin-bottom: 34px;
+                display: flex;
+                align-items: inherit;
+            input{
+                width: 25px;
+                height: 25px;
+            }
             .responsive-property(margin-bottom, 34px, null, 66px);
             span{
                 padding: 0;
