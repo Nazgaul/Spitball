@@ -1,5 +1,4 @@
 ﻿<template>
-    <!--<div class="term" v-if="showPage" v-html="termsHtml"></div>-->
     <div class="term">
         <h2>Terms of Service</h2>
         <p>Last Modified 1/1/2018</p>
@@ -13,6 +12,25 @@
         <p>To be clear, aside from the rare exceptions we identify in our Privacy Policy, no matter how the Services change, we won't share your content with others, including law enforcement, for any purpose unless you direct us to. How we gather and use your information generally is also explained in our Privacy Policy.</p>
         <p>You are solely responsible for your conduct, the content of your files and folders, and your communications with others while using the Services. For example, it's your responsibility to ensure that you have the rights or permission needed to comply with these Terms.</p>
         <p>We may choose to review public content for compliance with our community guidelines, but you acknowledge that Spitball has no obligation to monitor any information on the Services. We are not responsible for the accuracy, completeness, appropriateness, or legality of files, user posts, or any other information you may be able to access using the Services.</p>
+        <h2>
+            Academic Integrity Policies
+        </h2>
+        <p>Today we have unprecedented access to information, through Social Media Sites like Facebook, Twitter and “Academic” sites like Wikipedia etc… This applies to using a resource like Spitball, an online learning platform where you have access to over 250,000 course-specific study resources provided by a community of students and educators.</p>
+        <p>
+            Given this wealth resources, how do you make sure you’re using these tools in a way that’s consistent with your school’s expectations?
+        </p>
+        <p>
+            First make sure you have a solid understanding of academic integrity. In general, students are responsible for completing their own assignments on their own and - original work. When referring to other sources, you should cite them.
+        </p>
+        <p>
+            Specifically, you <b>must follow your school’s academic integrity policy</b>. Every school should be clearly state this.
+        </p>
+        <p>
+            Remember, when you’re using Spitball, you’re also bound by our
+            Terms of Use, and <router-link to="privacy">Policy</router-link>. Be sure to know and follow all our guidelines as you share and learn from others in our community. We’re excited to have you here.
+        </p>
+     
+
         <h2>Your Responsibilities</h2>
         <p>Files and other content in the Services may be protected by intellectual property rights of others. Please do not copy, upload, download, or share files unless you have the right to do so. You, not Spitball, will be fully responsible and liable for what you copy, share, upload, download or otherwise use while using the Services. You must not upload spyware or any other malicious software to the Service.</p>
         <p>You, and not Spitball, are responsible for maintaining and protecting all of your stuff. Spitball will not be liable for any loss or corruption of your stuff, or for any costs or expenses associated with backing up or restoring any of your stuff.</p>
