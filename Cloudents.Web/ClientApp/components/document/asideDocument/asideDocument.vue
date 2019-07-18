@@ -19,10 +19,10 @@
                     <span class="pa-4 font-weight-bold text-xs-center" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
-                <div class="aside-top-btn btn-download justify-center" :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading" @click="downloadDoc">                    
+                <a class="aside-top-btn btn-download justify-center" :href="`${$route.path}/download`" target="_blank" :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading" @click="downloadDoc">                    
                     <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
                     <span class="white--text font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
-                </div>
+                </a>
             </template>
 
             <v-progress-circular

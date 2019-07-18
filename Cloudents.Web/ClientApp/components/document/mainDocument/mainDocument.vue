@@ -141,10 +141,16 @@
                     color="#4452fc"
                 ></v-progress-circular>
             </div>
-            <div class="btn-download justify-center elevation-5"  :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading && !isSmAndDown" @click="downloadDoc">
-                <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
-                <span class="white--text py-4 font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
-            </div>
+            <a 
+                class="btn-download justify-center elevation-5" 
+                :href="`${$route.path}/download`" 
+                target="_blank" 
+                @click="downloadDoc" 
+                :class="{'mt-2': !isShowPurchased}" 
+                v-if="!isShowPurchased && !isLoading && !isSmAndDown">
+                    <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
+                    <span class="white--text py-4 font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
+            </a>
         </div>
 
     </div>
@@ -405,7 +411,6 @@ export default {
         },
         downloadDoc() {
             let item = {
-                url: `${this.$route.path}/download`,
                 course: this.document.details.course,
                 id: this.document.details.id
             }
