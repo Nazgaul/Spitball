@@ -155,7 +155,6 @@ export default {
             helperUtil.HelperObj.isActive = false;
         },
         addShape(dragObj, callback) {
-            console.log('dragObj:',dragObj)
             if(!dragObj){
                 this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
                 this.setSelectedOptionString(this.enumOptions.select);
@@ -183,9 +182,7 @@ export default {
                 };
                 let normalizedData = JSON.stringify(transferDataObj);
                 tutorService.dataTrack.send(normalizedData);
-                if (!dragObj.isGhost && this.selectedOptionString !== this.enumOptions.draw) {
-                    // this.selectDefaultTool();
-                    //case SPITBALL-647
+                if (!dragObj.isGhost && !this.selectedOptionString) {
                     this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
                     this.setSelectedOptionString(this.enumOptions.select);
                 }

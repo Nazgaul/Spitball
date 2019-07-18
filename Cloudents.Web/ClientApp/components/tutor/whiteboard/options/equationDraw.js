@@ -189,7 +189,7 @@ const mousedown = function(e){
                 })
             }
         }
-        this.methods.addShape({}, clearLocalShape);
+        this.methods.addShape(null, clearLocalShape);
         hideHelperObj();
     }else{
         //here the user statring to write text
