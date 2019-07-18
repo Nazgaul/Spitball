@@ -1,5 +1,5 @@
 ﻿alter table sb.[user]
-add  PaymentExists bit
+add  PaymentExists int
 update sb.[user]
 set PaymentExists = 1
 where PaymentKey is not null

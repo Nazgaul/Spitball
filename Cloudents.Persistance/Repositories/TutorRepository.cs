@@ -51,7 +51,6 @@ and T.State = 'Ok'
                     .JoinAlias(x => x.Course, () => courseAlias)
                     .Where(w => w.CanTeach)
                     .And(() => courseAlias.State == ItemState.Ok)
-                    //.And(() => courseAlias.Id == course)
                     .And(Restrictions.Disjunction()
                         .Add(() => courseAlias.Id == course)
                         .Add(
@@ -83,25 +82,25 @@ and T.State = 'Ok'
         {
             const string sql = @"
 begin tran
-declare @studyroomId uniqueidentifier;
+declare @studyRoomId uniqueidentifier;
 
 DECLARE studyroom_cursor CURSOR FOR   
-select studyroomId  from sb.studyroomUser where UserId = :Userid;  
+select studyRoomId  from sb.studyroomUser where UserId = :Userid;  
 
 OPEN studyroom_cursor  
   
 FETCH NEXT FROM studyroom_cursor   
-INTO @studyroomId
+INTO @studyRoomId
   
 WHILE @@FETCH_STATUS = 0  
 BEGIN  
   PRINT 'Delete study rooms '  
-delete from sb.studyroomUser where studyroomId = @studyroomId
-delete from sb.StudyRoomSession where studyroomId  = @studyroomId
-delete from sb.StudyRoomSession where studyroomId  = @studyroomId
-delete from sb.TutorReview where RoomId = @studyroomId
-delete from sb.studyroom where id =@studyroomId
- FETCH NEXT FROM studyroom_cursor INTO @studyroomId  
+delete from sb.studyroomUser where studyRoomId = @studyRoomId
+delete from sb.StudyRoomSession where studyRoomId  = @studyRoomId
+delete from sb.StudyRoomSession where studyRoomId  = @studyRoomId
+delete from sb.TutorReview where RoomId = @studyRoomId
+delete from sb.studyroom where id =@studyRoomId
+ FETCH NEXT FROM studyroom_cursor INTO @studyRoomId  
 END   
 CLOSE studyroom_cursor; 
 DEALLOCATE studyroom_cursor;  
@@ -116,16 +115,16 @@ select ChatRoomId  from sb.ChatUser where UserId = :Userid;
 OPEN chat_cursor  
   
 FETCH NEXT FROM chat_cursor   
-INTO @studyroomId
+INTO @studyRoomId
   
 WHILE @@FETCH_STATUS = 0  
 BEGIN  
 PRINT 'Delete chats '  
-delete from sb.ChatMessage where ChatRoomId = @studyroomId
-delete from sb.ChatUser where ChatRoomId  = @studyroomId
-delete from sb.ChatRoomAdmin where Id  = @studyroomId
-delete from sb.chatroom where Id  = @studyroomId
- FETCH NEXT FROM chat_cursor INTO @studyroomId  
+delete from sb.ChatMessage where ChatRoomId = @studyRoomId
+delete from sb.ChatUser where ChatRoomId  = @studyRoomId
+delete from sb.ChatRoomAdmin where Id  = @studyRoomId
+delete from sb.chatroom where Id  = @studyRoomId
+ FETCH NEXT FROM chat_cursor INTO @studyRoomId  
 END   
 CLOSE chat_cursor; 
 DEALLOCATE chat_cursor;

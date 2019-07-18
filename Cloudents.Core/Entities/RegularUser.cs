@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities
@@ -115,11 +116,11 @@ namespace Cloudents.Core.Entities
         public virtual BuyerPayment BuyerPayment { get; protected set; }
 
 
-        public virtual bool PaymentExists { get; set; }
+        public virtual PaymentStatus PaymentExists { get; set; }
 
         public virtual void CreditCardReceived()
         {
-            PaymentExists = true;
+            PaymentExists = PaymentStatus.Done;
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
