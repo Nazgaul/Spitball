@@ -160,7 +160,7 @@
     <value>Last Name</value>
   </data>
   <data name="placeholder_price" xml:space="preserve">
-    <value>Price per hour</value>
+    <value>Price per hour (₪)</value>
   </data>
   <data name="sharing" xml:space="preserve">
     <value>Sharing Your information and background will get more response from students</value>
