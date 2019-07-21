@@ -253,7 +253,7 @@
     <value>אימייל </value>
   </data>
   <data name="setemail_title" xml:space="preserve">
-    <value>ברוכים הבאים. היכנס בבקשה</value>
+    <value>ברוכים השבים</value>
   </data>
   <data name="setpass_btn" xml:space="preserve">
     <value>כניסה</value>
@@ -302,5 +302,11 @@
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
     <value>הכנסת קוד כניסה</value>
+  </data>
+  <data name="getstarted_subtitle_login" xml:space="preserve">
+    <value />
+  </data>
+  <data name="getstarted_title_login" xml:space="preserve">
+    <value>ברוכים השבים. התחברו בבקשה</value>
   </data>
 </root>
