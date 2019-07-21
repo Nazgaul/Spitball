@@ -207,6 +207,9 @@
   <data name="teaching" xml:space="preserve">
     <value>מתרגל קורס</value>
   </data>
+  <data name="third_tip" xml:space="preserve">
+    <value>ללא שגיאות כתיב</value>
+  </data>
   <data name="try_again" xml:space="preserve">
     <value>נסה שוב</value>
   </data>
