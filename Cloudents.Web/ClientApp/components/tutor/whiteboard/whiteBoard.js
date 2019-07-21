@@ -154,6 +154,11 @@ export default {
             whiteBoardService.redraw(this.canvasData)
             helperUtil.HelperObj.isActive = false;
         },
+        returnToDefaultState(dragObj){
+            let stateToDefault = ['textDraw', 'selectShape'];
+            let returnToDefault = !!this.selectedOptionString ? stateToDefault.indexOf(this.selectedOptionString) > -1 : true
+            return !dragObj.isGhost && returnToDefault
+        },
         addShape(dragObj, callback) {
             if(!dragObj){
                 this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
@@ -182,7 +187,7 @@ export default {
                 };
                 let normalizedData = JSON.stringify(transferDataObj);
                 tutorService.dataTrack.send(normalizedData);
-                if (!dragObj.isGhost && !this.selectedOptionString) {
+                if (this.returnToDefaultState(dragObj)) {
                     this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
                     this.setSelectedOptionString(this.enumOptions.select);
                 }
