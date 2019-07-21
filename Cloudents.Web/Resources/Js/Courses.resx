@@ -207,6 +207,9 @@
   <data name="teaching" xml:space="preserve">
     <value>Teaching</value>
   </data>
+  <data name="third_tip" xml:space="preserve">
+    <value>Without typos</value>
+  </data>
   <data name="try_again" xml:space="preserve">
     <value>Try Again</value>
   </data>
