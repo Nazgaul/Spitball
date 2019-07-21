@@ -128,7 +128,7 @@
                     :alt="document.content"/>
                 
             </div>
-            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="updatePurchaseConfirmation(true)">
+            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
                 <p class="text-xs-center title" v-language:inner="'documentPage_unlock_document'"></p>
                 <div class="aside-top-btn align-center" v-if="!isLoading">
                     <span class="font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
@@ -212,7 +212,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getBtnLoading', 'accountUser','getPurchaseConfirmation', 'getRouteStack']),
+        ...mapGetters(['getBtnLoading', 'accountUser','getPurchaseConfirmation']),
         showPurchaseConfirmation(){
             return this.getPurchaseConfirmation
         },
@@ -319,26 +319,16 @@ export default {
         ...mapActions(['clearDocument','updatePurchaseConfirmation', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState', 'downloadDocument']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         unlockDocument() {
-            if(this.accountUser == null) {
-                this.updateLoginDialogState(true);
-            } else{
                 let item = {id: this.document.details.id, price: this.document.details.price}
                 if(!this.isLoading) {
                     this.purchaseDocument(item)
                     this.updatePurchaseConfirmation(false)
                 }
-            }
         },
         closeDocument() {
             this.clearDocument();
             this.UPDATE_SEARCH_LOADING(true);
-            let routeStackLength = this.getRouteStack.length;
-            if(routeStackLength > 1){
-                this.$router.back();
-            }else{
-                this.$router.push({path: '/note'})
-            }
-            
+            this.$router.push({path: '/note'})
         },
         showReportOptions() {
             this.showMenu = true;
