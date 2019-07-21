@@ -6,18 +6,22 @@
         </div>
 
         <div v-for="(tutor, index) in tutorList" :key="index">
-            <tutor-result-card-mobile :tutorData="tutor" :isInTutorList="true" />
+            <!-- <tutor-result-card-mobile :tutorData="tutor" :isInTutorList="true" /> -->
+            <tutorResultCardOther :tutorData="tutor" />
         </div>
     </v-layout>
 </template>
 
 <script>
 import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
+import tutorResultCardOther from '../../../components/results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue';
+
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
     components: {
-        tutorResultCardMobile
+        tutorResultCardMobile,
+        tutorResultCardOther
     },
     methods:{
         ...mapActions(['getTutorListCourse']),

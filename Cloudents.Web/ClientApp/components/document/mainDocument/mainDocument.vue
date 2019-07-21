@@ -413,7 +413,7 @@ export default {
     @import "../../../styles/mixin.less";
 
     .main-container {
-        flex: 5;
+        flex: 4;
         @media (max-width: @screen-sm) {
             order: 2;
         }
