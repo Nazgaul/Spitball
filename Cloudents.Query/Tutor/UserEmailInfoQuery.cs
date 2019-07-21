@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Cloudents.Core.DTOs;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,7 +31,10 @@ namespace Cloudents.Query.Tutor
                     .Where(w => w.Id == query.UserId)
                     .Select(s => new UserEmailInfoDto()
                     {
-                        Name = s.Name, Email = s.Email, University = s.University.Id, PhoneNumber = s.PhoneNumber
+                        Name = s.Name,
+                        Email = s.Email,
+                        University = s.University == null ? (Guid?)null : s.University.Id,
+                        PhoneNumber = s.PhoneNumber
                     }).SingleOrDefaultAsync(token);
              
             }
