@@ -135,7 +135,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminPaymentsQuery_Ok()
         {
-            var query = new AdminPaymentsQuery();
+            var q1 = new AdminPaymentsQuery();
             var q2 = new AdminUserDetailsQuery("Hadar@cloudents.com");
             var q3 = new AdminUserDetailsQuery("0523556456");
             var t1 =  fixture.QueryBus.QueryAsync(q1, default);

@@ -12,7 +12,7 @@ namespace Cloudents.Core.DTOs.Admin
         public decimal Price { get; set; }
         [EntityBind(nameof(Tutor.SellerKey))]
         public string SellerKey { get; set; }
-        [EntityBind(nameof(RegularUser.BuyerPayment.PaymentKey))]
+        [EntityBind(nameof(User.BuyerPayment.PaymentKey))]
         public string PaymentKey { get; set; }
         [EntityBind(nameof(Tutor.Id))]
         public long TutorId { get; set; }

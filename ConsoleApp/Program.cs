@@ -941,7 +941,7 @@ namespace ConsoleApp
             {
                 const string sql = @"select id from sb.[user] where email = @email;
 select top 1 id from sb.[user] where Fictive = 1 and country = @country order by newid()";
-                using (var multi = connection.QueryMultiple(sql, new { email, country = country }))
+                using (var multi = connection.QueryMultiple(sql, new { email, country }))
                 {
                     var val = multi.ReadFirstOrDefault<long?>();
                     if (val.HasValue)
@@ -969,7 +969,7 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
             return d.WithConnection<Guid?>(connection =>
             {
                 const string sql = @"select id from sb.University where Name = @Name and country = @country";
-                using (var multi = connection.QueryMultiple(sql, new { Name = name, country = country }))
+                using (var multi = connection.QueryMultiple(sql, new { Name = name,  country }))
                 {
                     var val = multi.ReadFirstOrDefault<Guid?>();
                     if (val.HasValue)
