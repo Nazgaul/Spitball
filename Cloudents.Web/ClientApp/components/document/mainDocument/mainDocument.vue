@@ -410,7 +410,10 @@ export default {
                 }
             );
         },
-        downloadDoc() {
+        downloadDoc(e) {
+            if(!this.accountUser){
+                e.preventDefault(); 
+            }
             let item = {
                 course: this.document.details.course,
                 id: this.document.details.id
