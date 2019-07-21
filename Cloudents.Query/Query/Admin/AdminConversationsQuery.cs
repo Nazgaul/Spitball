@@ -69,20 +69,17 @@ namespace Cloudents.Query.Query.Admin
                 }
                 else
                 {
-                    var v = ChatRoomStatus.GetActiveStatus().ToArray();
-                    p = p.Where(w => v.Contains(w.Status) || w.Status == null);
+                    if (query.UserId > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        var v = ChatRoomStatus.GetActiveStatus().ToArray();
+                        p = p.Where(w => v.Contains(w.Status) || w.Status == null);
+                    }
                 }
-                //switch (query.Status)
-                //{
-                //    case ChatRoomStatus.Unassigned:
-                //        p = p.Where(w => w.Status == null);
-                //        break;
-                //    case ChatRoomStatus.All:
-                //        break;
-                //    default:
-                //        p = p.Where(w => w.Status == query.Status);
-                //        break;
-                //}
+              
 
                 switch (query.ConversationStatus)
                 {
