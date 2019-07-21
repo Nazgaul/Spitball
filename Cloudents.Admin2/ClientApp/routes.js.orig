@@ -14,12 +14,20 @@ import aDelete from './components/answer/answerComponents/delete/deleteAnswer.vu
 import aAccept from './components/answer/answerComponents/accept/acceptAnswer.vue';
 import aFlagged from './components/answer/answerComponents/flaggedAnswers/flaggedAnswers.vue';
 
+<<<<<<< HEAD
 import user from './components/user/user.vue';
 import uToken from './components/user/token/tokenUser.vue';
 import uCashout from './components/user/cashout/cashoutUser.vue';
 import uSuspend from './components/user/suspend/suspendUser.vue';
 import activeUsers from './components/user/activeUsers/activeUsers.vue';
+=======
+import User from './components/user/user.vue';
+import UToken from './components/user/token/tokenUser.vue';
+import UCashout from './components/user/cashout/cashoutUser.vue';
+import USuspend from './components/user/suspend/suspendUser.vue';
+import ActiveUsers from './components/user/activeUsers/activeUsers.vue';
 import Payments from './components/user/payments/paymentUser.vue';
+>>>>>>> origin/feature-adminPayment
 
 import document from './components/document/document.vue';
 import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue';

@@ -26,6 +26,7 @@ namespace Cloudents.Core.Entities
 
         public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
+        public virtual string Receipt { get; protected set; }
 
         public virtual bool EndSession()
         {
@@ -43,6 +44,15 @@ namespace Cloudents.Core.Entities
         {
             RejoinCount++;
             AddEvent(new StudyRoomSessionRejoinEvent(this));
+        }
+
+        public virtual void SetReceipt(string receipt)
+        {
+            if (string.IsNullOrEmpty(receipt))
+            {
+                throw new ArgumentException();
+            }
+            Receipt = receipt;
         }
     }
 }

@@ -21,6 +21,8 @@ using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Net.Http;
+using Microsoft.Extensions.Options;
 
 namespace Cloudents.Admin2
 {
@@ -81,6 +83,12 @@ namespace Cloudents.Admin2
             {
                 SwaggerInitial(services);
             }
+
+            services.AddHttpClient();
+            services.AddOptions();
+            services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
+
+
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Core"),
@@ -92,7 +100,11 @@ namespace Cloudents.Admin2
             };
 
             var containerBuilder = new ContainerBuilder();
-
+            containerBuilder.Register(c =>
+            {
+                var val = c.Resolve<IOptionsMonitor<PayMeCredentials>>();
+                return val.CurrentValue;
+            }).AsSelf();
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
@@ -110,6 +122,11 @@ namespace Cloudents.Admin2
             //containerBuilder.RegisterSystemModules(
             //    Application.Enum.System.Admin, assembliesOfProgram);
             containerBuilder.RegisterAssemblyModules(assembliesOfProgram);
+            containerBuilder.Register(c =>
+            {
+                var z = c.Resolve<IHttpClientFactory>();
+                return z.CreateClient();
+            });
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

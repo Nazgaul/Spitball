@@ -15,6 +15,7 @@
         public string TransactionId { get; set; }
         public string Currency { get; set; }
         public string SalePaymentMethod { get; set; }
+        public string TransactionCcAuthNumber { get; set; }
     }
 
 
