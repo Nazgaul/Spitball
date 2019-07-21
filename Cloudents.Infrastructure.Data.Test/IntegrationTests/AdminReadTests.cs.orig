@@ -132,10 +132,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
+<<<<<<< HEAD
         [Fact]
-        public async Task AdminPaymentsQuery_Ok()
+        public async Task AdminUserDetailsQuery_Ok()
         {
-            var q1 = new AdminPaymentsQuery();
+            var q1 = new AdminUserDetailsQuery(159039.ToString());
             var q2 = new AdminUserDetailsQuery("Hadar@cloudents.com");
             var q3 = new AdminUserDetailsQuery("0523556456");
             var t1 =  fixture.QueryBus.QueryAsync(q1, default);
@@ -243,6 +244,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new AdminCashOutEmptyQuery();
             await fixture.QueryBus.QueryAsync(query, default);
+=======
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task AdminPaymentsQuery_Ok()
+        {
+            var query = new AdminPaymentsQuery();
+
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+>>>>>>> origin/feature-adminPayment
         }
     }
 }

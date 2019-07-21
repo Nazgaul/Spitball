@@ -23,9 +23,12 @@
   "Redis": "zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI=",
   "Site": "https://www.spitball.co/",
   "ServiceBus": "Endpoint=sb://spitball-prod.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=Y9KgLbLBVD+O1z4iiTaAtS1AnEaowGutNiW+0Ljr8Rw=",
-  "functionCdnEndpoint": "https://spitball-function.azureedge.net",
+<<<<<<< HEAD
+  "functionCdnEndpoint": "https://spitball-function.azureedge.net"
+=======
   "PayMe": {
     "EndPoint": "https://ng.paymeservice.com/api/"
   }
+>>>>>>> origin/feature-adminPayment
 
 }

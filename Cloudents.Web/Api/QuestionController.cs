@@ -64,6 +64,8 @@ namespace Cloudents.Web.Api
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
             [FromServices] IHubContext<SbHub> hubContext,
