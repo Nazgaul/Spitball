@@ -155,7 +155,7 @@
                 return this.accountUser.balance || 0
             },
             hideSearch(){
-                let filteredRoutes = ['editCourse', 'addCourse', 'document','about', 'faq', 'partners', 'reps', 'privacy', 'terms', 'contact'];
+                let filteredRoutes = ['editCourse', 'addCourse', 'document','about', 'faq', 'partners', 'reps', 'privacy', 'terms', 'contact', 'profile'];
                 return filteredRoutes.indexOf(this.$route.name) > -1;
             }
             //myMoney(){return this.accountUser.balance / 40}
