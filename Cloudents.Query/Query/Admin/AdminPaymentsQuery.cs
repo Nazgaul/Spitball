@@ -1,8 +1,6 @@
 ﻿using Cloudents.Core.DTOs.Admin;
 using Dapper;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,9 +19,9 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<PaymentDto>> GetAsync(AdminPaymentsQuery query, CancellationToken token)
             {
-
                 //This query will not work in case there will be more then one student in a room.
-                var sql = @"select srs.Id as StudyRoomSessionId, t.Price*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60 as Price, 
+                const string sql = @"select srs.Id as StudyRoomSessionId,
+t.Price*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60 as Price, 
 		                        t.SellerKey, 
 		                        u.PaymentKey, 
 		                        t.Id as TutorId, 
@@ -45,10 +43,10 @@ namespace Cloudents.Query.Query.Admin
                             and t.Price*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60 > 10
 						    and u.PaymentKey is not null";
                 using (var conn = _repository.OpenConnection())
-                    {
-                        return await conn.QueryAsync<PaymentDto>(sql);
-                    
-                    }
+                {
+                    return await conn.QueryAsync<PaymentDto>(sql);
+
+                }
             }
         }
     }

@@ -6,22 +6,23 @@
 
         <v-data-table :headers="headers"
                       :items="paymentRequestsList"
-                      class="elevation-1"
+                     
                       disable-initial-sort>
             <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.tutorId }}</td>
-                <td class="text-xs-center">{{ props.item.tutorName }}</td>
-                <td class="text-xs-center">{{ props.item.userId }}</td>
-                <td class="text-xs-center">{{ props.item.userName }}</td>
-                <td class="text-xs-center">{{ props.item.price }}</td>
-                <td class="text-xs-center">
-                    <span>
+                <td >{{ props.item.tutorId }}</td>
+                <td >{{ props.item.tutorName }}</td>
+                <td >{{ props.item.userId }}</td>
+                <td >{{ props.item.userName }}</td>
+                <td>{{ props.item.price }}</td>
+                <td >
+                    <span  @click="editItem(props.item)">
                         <v-icon small
                                 color="green"
                                 class="mr-2"
-                                @click="editItem(props.item)">
+                               >
                             call_to_action
                         </v-icon>
+                        Pay
                     </span>
                 </td>
 
@@ -34,32 +35,47 @@
                 <v-card-text>
                     <v-container grid-list-md>
                         <v-layout wrap>
-                            <v-flex xs12 style="text-align: left">
-                                <span>
-                                    Study Room Session Id: <input type="text" v-model="editedItem.studyRoomSessionId">
-                                    <br>
-                                </span>
-                                <span>
-                                    User Name: {{editedItem.userName}}
-                                    <br>
-                                </span>
-                                <span>
-                                    Payment Key: <input type="text" v-model="editedItem.paymentKey">
-                                    <br>
-                                </span>
-                                <span>
-                                    Tutor Name: {{editedItem.tutorName}}
-                                    <br>
-                                </span>
-                                <span>
-                                    Seller Key: <input type="text" v-model="editedItem.sellerKey">
-                                    <br>
-                                </span>
-                                <span>
-                                    Price: <input type="text" v-model="editedItem.price">
-                                    <br>
-                                </span>
+                            <v-flex xs6>
+                                 Study Room Session Id:
                             </v-flex>
+                            <v-flex xs6>
+                                {{editedItem.studyRoomSessionId}}
+                                
+                            </v-flex>
+                             <v-flex xs6>
+                                 User Name:
+                            </v-flex>
+                            <v-flex xs6>
+                                {{editedItem.userName}}
+                            </v-flex>
+                              <v-flex xs6>
+                                Tutor Name:
+                            </v-flex>
+                            <v-flex xs6>
+                                {{editedItem.tutorName}}
+                            </v-flex>
+                            <v-flex xs12>
+                                     <v-text-field
+            label="Payment Key" v-model="editedItem.paymentKey"
+          ></v-text-field>
+                                
+                            </v-flex>
+                            
+                           
+                            <v-flex xs12>
+                                  <v-text-field
+            label="Seller Key" v-model="editedItem.sellerKe"
+          ></v-text-field>
+                               
+                            </v-flex>
+                           
+                            <v-flex xs12>
+                                  <v-text-field
+            label="Price" v-model="editedItem.price"
+          ></v-text-field>
+                        
+                            </v-flex>
+                            
                         </v-layout>
                     </v-container>
                 </v-card-text>

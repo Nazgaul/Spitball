@@ -1,9 +1,6 @@
 ﻿using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,7 +24,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             var response = await _payment.TransferPaymentAsync(message.TutorKey, 
                 message.UserKey, message.Amount, token);
 
-            session.SetReceipt(response.TransactionCcAuthNumber);
+            session.SetReceipt(response.TransactionId);
         }
     }
 }
