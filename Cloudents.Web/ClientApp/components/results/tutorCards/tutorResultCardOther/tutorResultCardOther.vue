@@ -53,7 +53,8 @@
 <script>
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
-import iconChat from './icon-chat.svg'
+import iconChat from './icon-chat.svg';
+
 export default {
     components: {
         userRating,
