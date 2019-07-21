@@ -27,7 +27,12 @@ t.Price*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60 as Price,
 		                        t.Id as TutorId, 
 		                        tu.Name as TutorName, 
 		                        u.Id as UserId,
-		                        u.Name as UserName
+		                        u.Name as UserName,
+								srs.Created,
+								DATEDIFF(MINUTE, srs.Created, srs.Ended) as Duration,
+								case when t.Price < 55 then cast(t.Price as float)*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60
+								when t.Price - 70 <= 55 then cast(55 as float)*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60
+								when t.Price - 70 > 55 then cast((t.Price - 70) as float)*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60 end as 'Subsidizing'
                         from [sb].[StudyRoomSession] srs
                         join sb.StudyRoom sr
 	                        on srs.StudyRoomId = sr.Id

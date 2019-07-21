@@ -10,6 +10,9 @@ function PaymentRequestItem(objInit) {
     this.userId = objInit.userId;
     this.userName = objInit.userName;
     this.studyRoomSessionId = objInit.studyRoomSessionId;
+    this.created = new Date(objInit.created).toLocaleString();
+    this.duration = objInit.duration;
+    this.subsidizing = objInit.subsidizing;
 }
 function createPaymentRequestItem(objInit) {
     return new PaymentRequestItem(objInit);

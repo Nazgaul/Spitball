@@ -13,6 +13,9 @@
                 <td >{{ props.item.tutorName }}</td>
                 <td >{{ props.item.userId }}</td>
                 <td >{{ props.item.userName }}</td>
+                <td>{{ props.item.created }}</td>
+                <td>{{ props.item.duration }}</td>
+                <td>{{ props.item.subsidizing }}</td>
                 <td>{{ props.item.price }}</td>
                 <td >
                     <span  @click="editItem(props.item)">
@@ -108,6 +111,9 @@
                     { text: 'Tutor Name', value: 'tutorName' },
                     { text: 'User Id', value: 'userId' },
                     { text: 'User Name', value: 'userName' },
+                    { text: 'Date', value: 'created' },
+                    { text: 'Duration (min)', value: 'duration' },
+                    { text: 'Price After Subsidizing', value: 'subsidizing' },
                     { text: 'Price', value: 'price' },
                     { text: 'Approve', value: '' }
                 ]
@@ -123,7 +129,7 @@
                     "paymentKey": item.paymentKey,
                     "tutorName": item.tutorName,
                     "sellerKey": item.sellerKey,
-                    "price": item.price
+                    "price": item.subsidizing
                 };
             },
             approve() {

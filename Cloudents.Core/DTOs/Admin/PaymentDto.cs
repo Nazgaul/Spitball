@@ -22,5 +22,8 @@ namespace Cloudents.Core.DTOs.Admin
         public long UserId { get; set; }
         [EntityBind(nameof(User.Name))]
         public string UserName { get; set; }
+        public DateTime Created { get; set; }
+        public int Duration { get; set; }
+        public decimal Subsidizing { get; set; }
     }
 }
