@@ -62,13 +62,17 @@ const liveDraw = function (imgObj) {
     draw.bind(this, imgObj)();
 };
 
-const handleImage = function (e) {
-    //Set Click Position
-    if(e.target.value === "") return;
-    
-    
+const handleImage = function (e,isDragged) {
+
+    if(e.target.value === "" && !isDragged) return;
+
     let formData = new FormData();
-    let fileData = e.target.files[0];
+    let fileData;
+    if(!isDragged){
+        fileData = e.target.files[0];
+    } else{
+        fileData = e.dataTransfer.files[0];
+    }
     formData.append("file", fileData);
     let self = this;
     //apiCall
@@ -142,5 +146,6 @@ export default {
     mousemove,
     mouseleave,
     draw: liveDraw,
-    init
+    init,
+    handleImage
 }

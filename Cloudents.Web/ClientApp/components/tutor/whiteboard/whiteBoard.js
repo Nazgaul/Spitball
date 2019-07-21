@@ -6,6 +6,7 @@ import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue"
 import tutorService from "../tutorService";
 import { LanguageService } from '../../../services/language/languageService';
+import imageDraw from './options/imageDraw';
 
 const HeaderHeight = 108;
 
@@ -268,6 +269,20 @@ export default {
         registerCanvasEvents(canvas, canvasWrapper) {
             let self = this;
             global.addEventListener('resize', this.resizeCanvas, false);
+            let dropArea = canvas
+            dropArea.addEventListener('dragenter', (e) =>{
+            }, false)
+            dropArea.addEventListener('dragleave', (e) =>{
+
+            }, false)
+            dropArea.addEventListener('dragover', (e) =>{
+                e.preventDefault();
+
+            }, false)
+            global.addEventListener('drop', (e) =>{
+                e.preventDefault();
+                imageDraw.handleImage(e,true)
+            }, false)
             canvas.addEventListener('mousedown', (e) => {
                 // self.clearTabOption();
                 if (e.button == 0) {
