@@ -12,6 +12,9 @@ namespace Cloudents.Web.Models
 
         [ModelBinder(Name = "buyer_card_exp")]
         public string BuyerCardExp { get; set; }
+
+        [ModelBinder(Name = "buyer_card_mask")]
+        public string BuyerCardMask { get; set; }
     }
 
     public class PayMeSellerCallbackRequest

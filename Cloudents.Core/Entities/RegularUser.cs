@@ -124,10 +124,10 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
-        public virtual void AddPayment(string token, DateTime expiration)
+        public virtual void AddPayment(string token, DateTime expiration, string buyerCardMask)
         {
             
-            BuyerPayment = new BuyerPayment(token, expiration);
+            BuyerPayment = new BuyerPayment(token, expiration, buyerCardMask);
             //AddEvent(new StudentPaymentReceivedEvent(this));
         }
       

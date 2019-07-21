@@ -17,7 +17,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AddBuyerTokenCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            user.AddPayment(message.Token, message.Expiration);
+            user.AddPayment(message.Token, message.Expiration,message.BuyerCardMask);
         }
     }
 

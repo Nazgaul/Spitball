@@ -126,7 +126,7 @@ namespace Cloudents.Web.Api
             var paymentKeyExpiration = DateTime.ParseExact(model.BuyerCardExp, "MMyy", CultureInfo.InvariantCulture);
             paymentKeyExpiration = paymentKeyExpiration.AddMonths(1).AddMinutes(-1);
 
-            var command = new AddBuyerTokenCommand(userId, model.BuyerKey, paymentKeyExpiration);
+            var command = new AddBuyerTokenCommand(userId, model.BuyerKey, paymentKeyExpiration, model.BuyerCardMask);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

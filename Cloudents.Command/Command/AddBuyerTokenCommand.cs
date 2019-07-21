@@ -4,17 +4,19 @@ namespace Cloudents.Command.Command
 {
     public class AddBuyerTokenCommand : ICommand
     {
-        public AddBuyerTokenCommand(long userId, string token, DateTime expiration)
+        public AddBuyerTokenCommand(long userId, string token, DateTime expiration, string buyerCardMask)
         {
             UserId = userId;
             Token = token;
             Expiration = expiration;
+            BuyerCardMask = buyerCardMask;
         }
 
         public long UserId { get;  }
         public string Token { get;  }
 
         public DateTime Expiration { get;  }
+        public string BuyerCardMask { get; }
     }
 
     public class AddSellerTokenCommand : ICommand

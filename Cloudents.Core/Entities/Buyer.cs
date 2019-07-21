@@ -4,10 +4,11 @@ namespace Cloudents.Core.Entities
 {
     public class BuyerPayment
     {
-        public BuyerPayment(string paymentKey, DateTime paymentKeyExpiration)
+        public BuyerPayment(string paymentKey, DateTime paymentKeyExpiration, string creditCardMask)
         {
             PaymentKey = paymentKey;
             PaymentKeyExpiration = paymentKeyExpiration;
+            CreditCardMask = creditCardMask;
         }
 
         protected BuyerPayment()
@@ -16,7 +17,8 @@ namespace Cloudents.Core.Entities
 
         public  string PaymentKey { get; set; }
         public  DateTime PaymentKeyExpiration { get; set; }
-       
+
+        public string CreditCardMask { get; set; }
 
         public bool IsValid()
         {

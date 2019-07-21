@@ -10,11 +10,13 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Web.Models;
+using Microsoft.ApplicationInsights;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
@@ -125,6 +127,7 @@ namespace Cloudents.Web.Controllers
         [Route("PaymentProcessing", Name = "ReturnUrl")]
         public async Task<IActionResult> Processing( PaymeSuccessCallback model,
             [FromServices] ICommandBus commandBus,
+            [FromServices] TelemetryClient logger,
             CancellationToken token)
         {
             if (model.Status.Equals("success", StringComparison.OrdinalIgnoreCase))
@@ -132,10 +135,13 @@ namespace Cloudents.Web.Controllers
                 var command = new ConfirmPaymentCommand(model.UserId);
                 await commandBus.DispatchAsync(command, token);
             }
-
-
+            else
+            {
+                var values = Request.Form.ToDictionary(s => s.Key, x => x.Value.ToString());
+                values.Add("userId",model.UserId.ToString());
+                logger.TrackTrace("Credit Card Process Failed", values);
+            }
             return View("Processing", model);
-
         }
 
 

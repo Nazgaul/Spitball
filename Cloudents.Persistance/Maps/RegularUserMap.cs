@@ -49,7 +49,8 @@ namespace Cloudents.Persistence.Maps
             {
                 y.Map(z => z.PaymentKey);
                 y.Map(z => z.PaymentKeyExpiration);
-               
+                y.Map(z => z.CreditCardMask);
+
             });
             Map(z => z.PaymentExists).CustomType<int>();
             //HasManyToMany(x => x.Courses)
