@@ -109,6 +109,7 @@
             border-radius: 4px;
         }
         .course-card{
+            margin-left: 1px;
             margin-right: 24px;
         }
         .edit-icon{
@@ -132,6 +133,7 @@
             font-weight: 100;
             font-size: 14px;
             color: @linkColor;
+            
             cursor: pointer;
         }
         .show-more{
