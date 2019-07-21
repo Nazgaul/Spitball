@@ -24,7 +24,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             var response = await _payment.TransferPaymentAsync(message.TutorKey, 
                 message.UserKey, message.Amount, token);
 
-            session.SetReceipt(response.TransactionId);
+            session.SetReceipt(response.PaymeSaleId);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Cloudents.Admin2.Models
         [StringLength(255)]
         public string TutorKey { get; set; }
         [Required]
+        [Range(5,50000)]
         public decimal Amount { get; set; }
         [Required]
         public Guid StudyRoomSessionId { get; set; }

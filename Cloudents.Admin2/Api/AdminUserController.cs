@@ -209,14 +209,8 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
             var command = new PaymentCommand(model.UserKey, model.TutorKey, model.Amount, model.StudyRoomSessionId);
-            try
-            {
-                await _commandBus.DispatchAsync(command, token);
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            await _commandBus.DispatchAsync(command, token);
+
 
             return Ok();
         }

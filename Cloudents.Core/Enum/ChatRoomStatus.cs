@@ -62,6 +62,7 @@ namespace Cloudents.Core.Enum
         public static readonly ChatRoomStatus StudentNotResponding = new ChatRoomStatus(14, "Stud. not responding", CDelete);
         public static readonly ChatRoomStatus DoNotKnowMaterial = new ChatRoomStatus(15, "Tutor doesn't know material ", CDelete);
         public static readonly ChatRoomStatus Spam = new ChatRoomStatus(16, "Spam", CDelete);
+        public static readonly ChatRoomStatus Na = new ChatRoomStatus(17, "N/A", CDelete);
 
         private ChatRoomStatus(int id, string name, string group) : base(id, name)
         {
