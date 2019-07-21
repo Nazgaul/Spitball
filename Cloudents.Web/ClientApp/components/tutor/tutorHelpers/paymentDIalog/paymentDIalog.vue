@@ -57,14 +57,15 @@ export default {
     methods: {
         ...mapActions(['updatePaymentDialog']),
         closePaymentDialog(){
-            this.confirmExit = true;
+            // this.confirmExit = true;
+            this.updatePaymentDialog(false)
         },
-        setConfirmExit(){ 
-        if(this.getIsRoomFull){
-            studyRoomService.skipNeedPayment({studyRoomId:this.getStudyRoomData.roomId })
-        }
-           this.updatePaymentDialog(false)
-        }
+        // setConfirmExit(){ 
+        // // if(this.getIsRoomFull){
+        // //     studyRoomService.skipNeedPayment({studyRoomId:this.getStudyRoomData.roomId })
+        // // }
+        //    this.updatePaymentDialog(false)
+        // }
     },
 }
 </script>
