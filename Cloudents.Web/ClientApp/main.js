@@ -317,6 +317,7 @@ Vue.filter('commasFilter', function (value) {
 
 
 router.beforeEach((to, from, next) => {
+    store.dispatch('setRouteStack', to.name);
     if (!to.query || !to.query.university) {
         if (!!from.query && !!from.query.university) {
             store.dispatch('closeSelectUniFromNav')

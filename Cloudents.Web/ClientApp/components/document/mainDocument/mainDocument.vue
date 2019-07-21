@@ -212,7 +212,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getBtnLoading', 'accountUser','getPurchaseConfirmation']),
+        ...mapGetters(['getBtnLoading', 'accountUser','getPurchaseConfirmation', 'getRouteStack']),
         showPurchaseConfirmation(){
             return this.getPurchaseConfirmation
         },
@@ -332,7 +332,13 @@ export default {
         closeDocument() {
             this.clearDocument();
             this.UPDATE_SEARCH_LOADING(true);
-            this.$router.push({path: '/note'})
+            let routeStackLength = this.getRouteStack.length;
+            if(routeStackLength > 1){
+                this.$router.back();
+            }else{
+                this.$router.push({path: '/note'})
+            }
+            
         },
         showReportOptions() {
             this.showMenu = true;
