@@ -16,11 +16,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminConversationController : ControllerBase
     {
         private readonly IQueryBus _queryBus;

@@ -11,12 +11,14 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminDocumentController : ControllerBase
     {
         private readonly IQueryBus _queryBus;

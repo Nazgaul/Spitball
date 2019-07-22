@@ -11,11 +11,13 @@ using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminMarkQuestionController : ControllerBase
     {
         private readonly ICommandBus _commandBus;

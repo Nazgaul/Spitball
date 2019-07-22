@@ -13,11 +13,13 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Dapper;
 using Cloudents.Core.Enum;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminUniversityController: ControllerBase
     {
        private readonly IQueryBus _queryBus;
@@ -34,15 +36,6 @@ namespace Cloudents.Admin2.Api
             _dapperRepository = dapperRepository;
         }
 
-        
-
-        //[HttpGet("universities")]
-        //public async Task<IEnumerable<NewUniversitiesDto>> GetUniversities(CancellationToken token)
-        //{
-        //    var query = new AdminEmptyQuery();
-        //    var retVal = await _queryBus.QueryAsync<IList<NewUniversitiesDto>> (query, token);
-        //    return retVal;
-        //}
 
         //TODO: Fix this and make it work in proper CQRS architecture
         [HttpPost("migrate")]
@@ -71,7 +64,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] UniversitiesRequest model
             , CancellationToken token)
         {
-            AdminUniversitiesQuery query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
+            var query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
@@ -125,8 +118,6 @@ namespace Cloudents.Admin2.Api
                 OldUni = id
             }), token);
 
-            /*var command = new DeleteUniversityCommand(Id);
-            await _commandBus.DispatchAsync(command, token);*/
             return Ok();
         }
 

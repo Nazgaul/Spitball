@@ -62,7 +62,7 @@ namespace Cloudents.Admin2
                         }
                         else
                         {
-                            context.Response.Redirect("account/LogIn"); 
+                            context.Response.Redirect("/account/LogIn"); 
                             return Task.CompletedTask;
                         }
                       

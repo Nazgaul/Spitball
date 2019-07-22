@@ -15,6 +15,7 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminAnswerController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
