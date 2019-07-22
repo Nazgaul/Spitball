@@ -1,0 +1,41 @@
+﻿@model object
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>title</h2>
+
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+@section head
+{
+    <meta name="google-signin-client_id" content="341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com">
+}
+@section scripts
+{
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function onSignIn(googleUser) {
+            var id_token = googleUser.getAuthResponse().id_token;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'account/logInGoogle');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    location.href="/";
+
+                }
+            };
+            xhr.send(JSON.stringify({
+                token: id_token
+            }));
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+    </script>
+}

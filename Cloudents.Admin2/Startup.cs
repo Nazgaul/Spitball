@@ -22,7 +22,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Net.Http;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.Extensions.Options;
 
 namespace Cloudents.Admin2
@@ -42,8 +42,27 @@ namespace Cloudents.Admin2
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-                .AddAzureAD(options => Configuration.Bind("AzureAd", options)); 
+            //services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+            //    .AddAzureAD(options => Configuration.Bind("AzureAd", options));
+
+            //services.AddAuthorization()
+            services.AddAuthentication(o =>
+                {
+                    
+                    o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                })
+                .AddCookie(x =>
+                {
+                    //x.LoginPath = "account/SignIn";
+                   // x.LogoutPath = "account/SignOut";
+                });
+            //    .AddGoogle(o =>
+            //    {
+            //        o.ClientId =     "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com";
+            //        o.ClientSecret = "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com";
+
+            //    });
+
             //services.AddAuthentication(sharedOptions =>
             //    {
             //        sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

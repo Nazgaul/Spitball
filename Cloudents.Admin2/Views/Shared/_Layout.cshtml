@@ -12,6 +12,7 @@
     <environment exclude="Development">
         <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
     </environment>
+    @RenderSection("head",required:false)
 </head>
 <body>
     @RenderBody()
