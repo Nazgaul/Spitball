@@ -29,13 +29,13 @@
                      :class="helperClass"
                      :style="{'stroke': helperStyle.stroke}"/>
         </svg>
-        <div v-if="showWelcomeHelper" class="welcome-helper-top">
+        <div v-if="getDragData.length === 0" class="welcome-helper-top">
             <div class="top-helper box-helper">
                 <v-icon class="icon-helper">sbf-pencil-empty</v-icon>
                 <span>Click anywhere to start drawing</span>
             </div>
         </div>
-        <div v-if="showWelcomeHelper" class="welcome-helper-bottom">
+        <div v-if="getDragData.length === 0" class="welcome-helper-bottom">
             <div class="box-helper bottom-helper">
                 <div class="bottom-helper-cont">
                     <v-icon class="icon-helper">sbf-upload</v-icon>
@@ -85,7 +85,9 @@
                  v-for="(tab) in canvasTabs"
                  :key="tab.id"
                  :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
-                <button :id="tab.id">{{tab.name}}</button>
+                 <!-- add it to the other user tab -->
+                <!-- <div v-if="tab.id === getCurrentSelectedTab.id" class="tab-dot"></div> -->
+                <button @blur="saveNewTabName" @dblclick.self='editTabName(tab.id)' :id="tab.id">{{tab.name}}</button>
                 <!-- <v-icon @click.stop="showTabOption(tab.id)">sbf-3-dot</v-icon>
                 <div class="canvas-tab-option" :class="{'canvas-tab-option-active': tabEditId === tab.id}">
                     <div>
@@ -328,6 +330,19 @@
                 &.canvas-tabs-active{
                     background-color: #FFF;
                     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+                }
+                .tab-dot{
+                    background-color: lawngreen;
+                    position: absolute;
+                    z-index: 5;
+                    left: 10px;
+                    top: 33%;
+                    border-radius: 50%;
+                    height: 12px;
+                    width: 12px;
+                    left: 14px;
+                    top: 37%;
+                    border: 1px solid black;
                 }
                 button{
                     outline: none;

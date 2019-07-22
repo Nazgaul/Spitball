@@ -1,7 +1,7 @@
 
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue"
 import tutorService from "../tutorService";
@@ -16,6 +16,7 @@ export default {
     },
     data() {
         return {
+            currentTabId: null,
             showWelcomeHelper: true,
             canvasWidth: 2800,
             canvasHeight: 850,
@@ -133,8 +134,24 @@ export default {
     },
     methods: {
         ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface']),
+        ...mapMutations(['setTabName']),
         renameTab() {
             console.log("Rename Tab");
+        },
+        editTabName(tabId){
+            this.currentTabId = tabId
+            let tab = document.getElementById(tabId)
+            tab.contentEditable = "true";
+            let range = document.createRange();
+            range.selectNodeContents(tab);
+            let sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        },
+        saveNewTabName(){
+            let newTabName = document.getElementById(this.currentTabId).textContent;
+            this.setTabName({newTabName,tabId:this.currentTabId})
+
         },
         uploadImage(){
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, 'imageDraw')());

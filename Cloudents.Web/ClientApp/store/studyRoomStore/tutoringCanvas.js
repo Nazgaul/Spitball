@@ -85,6 +85,13 @@ const getters = {
 };
 
 const mutations = {
+    setTabName(state, {newTabName,tabId}){
+        state.canvasTabs.forEach(tab =>{
+            if(tab.id === tabId){
+                tab.name = newTabName
+            }
+        })
+    },
     setDragData(state, val) {
         let tab = val.tab.id;
         if(!state.dragData[tab]){
