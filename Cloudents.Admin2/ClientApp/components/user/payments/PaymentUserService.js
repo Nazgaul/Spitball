@@ -2,7 +2,7 @@
 
 
 function PaymentRequestItem(objInit) {
-    this.price = objInit.price;
+    this.price = objInit.price.toFixed(2);
     this.sellerKey = objInit.sellerKey;
     this.paymentKey = objInit.paymentKey;
     this.tutorId = objInit.tutorId;
@@ -12,7 +12,7 @@ function PaymentRequestItem(objInit) {
     this.studyRoomSessionId = objInit.studyRoomSessionId;
     this.created = new Date(objInit.created).toLocaleString();
     this.duration = objInit.duration;
-    this.subsidizing = objInit.subsidizing;
+    this.subsidizing = objInit.subsidizing.toFixed(2);
 }
 function createPaymentRequestItem(objInit) {
     return new PaymentRequestItem(objInit);
