@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Admin2.Controllers
 {
     [Route("[controller]/[action]")]
-  
+
     public class AccountController : Controller
     {
         private readonly IQueryBus _queryBus;
@@ -38,7 +38,7 @@ namespace Cloudents.Admin2.Controllers
             //    OpenIdConnectDefaults.AuthenticationScheme);
         }
 
-        
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -60,7 +60,8 @@ namespace Cloudents.Admin2.Controllers
             {
                 new Claim(ClaimTypes.Name, login.Email),
                 new Claim("FullName", $"{login.FirstName} { login.LastName}"),
-                new Claim("Country", result.Country)
+
+                new Claim("Country", result.Country?? "None")
                 //new Claim(ClaimTypes.Role, "Admin"),
                 //new Claim(ClaimTypes.Role, "Administrator2"),
                 //new Claim(ClaimTypes.Role, "Administrator3")
@@ -88,7 +89,7 @@ namespace Cloudents.Admin2.Controllers
                 // multiple requests. When used with cookies, controls
                 // whether the cookie's lifetime is absolute (matching the
                 // lifetime of the authentication ticket) or session-based.
-                
+
                 //IssuedUtc = <DateTimeOffset>,
                 // The time at which the authentication ticket was issued.
 

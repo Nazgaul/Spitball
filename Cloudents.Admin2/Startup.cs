@@ -53,6 +53,20 @@ namespace Cloudents.Admin2
                 
                 .AddCookie(x =>
                 {
+                    x.Events.OnRedirectToLogin = context =>
+                    {
+                        if (context.Request.Path.StartsWithSegments("/api"))
+                        {
+                            context.Response.StatusCode = 401;
+                            return Task.CompletedTask;
+                        }
+                        else
+                        {
+                            context.Response.Redirect("account/LogIn"); 
+                            return Task.CompletedTask;
+                        }
+                      
+                    };
                     x.Events.OnRedirectToAccessDenied = context =>
                     {
                         context.Response.StatusCode = 403;

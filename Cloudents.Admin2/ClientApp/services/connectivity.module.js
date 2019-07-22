@@ -4,6 +4,13 @@ const promiseReturn = function(response){
     return response.data;
 };
 const errorHandler = function(err){
+    debugger;
+    if (err.response.status == 403) {
+        alert("You don't have access to this");
+    }
+    if (err.response.status == 401) {
+        window.location.reload();
+    }
     return Promise.reject(err);
 };
 

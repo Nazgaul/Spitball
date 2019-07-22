@@ -9,6 +9,7 @@ using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {
@@ -45,7 +46,7 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        [HttpGet("flagged")]
+        [HttpGet("flagged"),Authorize(Roles = "Admin")]
         public async Task<IEnumerable<FlaggedAnswerDto>> FlagAsync(CancellationToken token)
         {
             var query = new FlaggedAnswerEmptyQuery();
