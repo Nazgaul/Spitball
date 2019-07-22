@@ -51,9 +51,17 @@ let availableDevices = [];
         let connectOptions;
         const token = store.getters['getJwtToken']; //get jwt from store
         createLocalTracks({
-                              audio: audioDevice,
-                              video:videoDevice
-                          }).then((tracksCreated) => {
+            audio: audioDevice,
+            video:videoDevice
+        }).then((tracksCreated) => {
+            for(let track of tracksCreated){
+                if(track.kind === 'audio'){
+                    store.commit('setLocalAudioTrack',track)                    
+                }
+                if(track.kind === 'video'){
+                    store.commit('setLocalVideoTrack',track)
+                }
+            }
             // let localMediaContainer = document.getElementById('localTrack');
             //clear before attach
             // localMediaContainer.innerHTML = "";
