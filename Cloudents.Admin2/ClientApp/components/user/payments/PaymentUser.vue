@@ -15,8 +15,9 @@
                 <td >{{ props.item.userName }}</td>
                 <td>{{ props.item.created }}</td>
                 <td>{{ props.item.duration }}</td>
-                <td>{{ props.item.subsidizing }}</td>
+               
                 <td>{{ props.item.price }}</td>
+                 <td>{{ props.item.subsidizing }}</td>
                 <td >
                     <span  @click="editItem(props.item)">
                         <v-icon small
@@ -113,8 +114,9 @@
                     { text: 'User Name', value: 'userName' },
                     { text: 'Date', value: 'created' },
                     { text: 'Duration (min)', value: 'duration' },
-                    { text: 'Price After Subsidizing', value: 'subsidizing' },
                     { text: 'Price', value: 'price' },
+                    { text: 'Price After Subsidizing', value: 'subsidizing' },
+
                     { text: 'Approve', value: '' }
                 ]
             }
