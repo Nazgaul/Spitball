@@ -19,7 +19,7 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public class AdminUniversityController: ControllerBase
     {
        private readonly IQueryBus _queryBus;

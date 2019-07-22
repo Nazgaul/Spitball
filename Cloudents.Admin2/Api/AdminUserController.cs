@@ -15,10 +15,12 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]"), ApiController]
+    [Authorize(Roles = Roles.Admin)]
     public class AdminUserController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
