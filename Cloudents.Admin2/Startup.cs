@@ -1,6 +1,5 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Cloudents.Admin2.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -22,10 +21,13 @@ using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Net.Http;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.Extensions.Options;
 
 namespace Cloudents.Admin2
 {
+    //Client secret from azure: JPJAvY3Dk]q:EsGA]5REfUt*bkDAuy51
     public class Startup
     {
         public Startup(IConfiguration configuration, IHostingEnvironment env)
@@ -40,15 +42,15 @@ namespace Cloudents.Admin2
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            
-
-            services.AddAuthentication(sharedOptions =>
-                {
-                    sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                })
-                .AddAzureAd(options => Configuration.Bind("AzureAd", options))
-                .AddCookie();
+            services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+                .AddAzureAD(options => Configuration.Bind("AzureAd", options)); 
+            //services.AddAuthentication(sharedOptions =>
+            //    {
+            //        sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //        sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            //    })
+            //    .AddAzureAd(options => Configuration.Bind("AzureAd", options))
+            //    .AddCookie();
 
             services.AddDataProtection(o =>
             {
@@ -61,13 +63,13 @@ namespace Cloudents.Admin2
             services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddMvc(config =>
             {
-                if (!HostingEnvironment.IsDevelopment())
-                {
+                //if (!HostingEnvironment.IsDevelopment())
+                //{
                     var policy = new AuthorizationPolicyBuilder()
                         .RequireAuthenticatedUser()
                         .Build();
                     config.Filters.Add(new AuthorizeFilter(policy));
-                }
+                //}
                 
 
             }).AddJsonOptions(options =>
@@ -154,14 +156,14 @@ namespace Cloudents.Admin2
 
             app.UseResponseCompression();
             app.UseResponseCaching();
-            app.UseCors("AllowSpecificOrigin");
+           // app.UseCors("AllowSpecificOrigin");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
+            //if (!env.IsDevelopment())
+            //{
                 app.UseAuthentication();
-            }
+            //}
 
             app.UseMvc(routes =>
             {
