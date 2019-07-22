@@ -29,7 +29,28 @@
                      :class="helperClass"
                      :style="{'stroke': helperStyle.stroke}"/>
         </svg>
+        <div v-if="showWelcomeHelper" class="welcome-helper-top">
+            <div class="top-helper box-helper">
+                <v-icon class="icon-helper">sbf-pencil-empty</v-icon>
+                <span>Click anywhere to start drawing</span>
+            </div>
+        </div>
+        <div v-if="showWelcomeHelper" class="welcome-helper-bottom">
+            <div class="box-helper bottom-helper">
+                <div class="bottom-helper-cont">
+                    <v-icon class="icon-helper">sbf-upload</v-icon>
+                    <div>
+                        <p>To add files to the board,</p>
+                        <span>
+                            <span>drag &amp; drop here or</span>
+                            <span @click="uploadImage" 
+                                class="underlined">browse your computer</span>
+                        </span>
+                    </div>
 
+                </div>
+            </div>
+        </div>
         <div class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.text">
             <input type="text" placeholder="Enter Some Text"
                    v-model="helperStyle.text"
@@ -150,6 +171,97 @@
                 border-radius: 4px;
                 font-family: "Open Sans", sans-serif;
                 font-size: 20px;
+            }
+        }
+        .welcome-helper-top{
+            position: absolute;
+            top: 10%;
+            left: 42%;
+            color: rgb(128, 128, 128);
+            font-size: 16px;
+            .box-helper{
+                border-radius: 4px;
+                background: white;
+                width: 300px;
+                height: 120px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+                padding: 10px;
+            }
+            .top-helper{
+                .icon-helper{
+                    font-size: 50px;
+                }
+            }
+            .bottom-helper{
+                width: 400px;
+                height: 150px;
+                .bottom-helper-cont{
+                    .underlined{
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                    p{
+                        margin: 0;
+                    }
+                    .icon-helper{
+                        font-size: 44px;
+                    }
+                    width: 100%;
+                    height: 100%;
+                    border: 3px rgb(128, 128, 128) dashed;
+                    border-radius: 4px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    text-align: center;
+                }
+            }
+        }
+        .welcome-helper-bottom{
+            position: absolute;
+            top: 64%;
+            left: 38%;
+            color: rgb(128, 128, 128);
+            font-size: 16px;
+            .box-helper{
+                border-radius: 4px;
+                background: white;
+                width: 300px;
+                height: 120px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+                padding: 10px;
+            }
+            .bottom-helper{
+                width: 450px;
+                height: 150px;
+                .bottom-helper-cont{
+                    .underlined{
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                    p{
+                        margin: 0;
+                    }
+                    .icon-helper{
+                        font-size: 44px;
+                    }
+                    width: 100%;
+                    height: 100%;
+                    border: 3px rgb(128, 128, 128) dashed;
+                    border-radius: 4px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    text-align: center;
+                }
             }
         }
         .equation-helper-container {
