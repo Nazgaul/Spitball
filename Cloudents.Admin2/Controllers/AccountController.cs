@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
 using Cloudents.Core.Interfaces;
+using Cloudents.Query;
+using Cloudents.Query.Admin;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -13,10 +17,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Admin2.Controllers
 {
     [Route("[controller]/[action]")]
-    [AllowAnonymous]
+  
     public class AccountController : Controller
     {
+        private readonly IQueryBus _queryBus;
+
+        public AccountController(IQueryBus queryBus)
+        {
+            _queryBus = queryBus;
+        }
+
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult LogIn()
         {
             return View();
@@ -26,18 +38,37 @@ namespace Cloudents.Admin2.Controllers
             //    OpenIdConnectDefaults.AuthenticationScheme);
         }
 
+        
+
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> LogInGoogle([FromBody] GoogleLogInRequest model,
             [FromServices] IGoogleAuth service, CancellationToken cancellationToken)
         {
             var login = await service.LogInAsync(model.Token, cancellationToken);
-
+            if (login == null)
+            {
+                return BadRequest();
+            }
+            var query = new ValidateUserQuery(login.Email);
+            var result = await _queryBus.QueryAsync(query, cancellationToken);
+            if (result == null)
+            {
+                return BadRequest();
+            }
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, login.Email),
                 new Claim("FullName", $"{login.FirstName} { login.LastName}"),
-                new Claim(ClaimTypes.Role, "Administrator"),
+                new Claim("Country", result.Country)
+                //new Claim(ClaimTypes.Role, "Admin"),
+                //new Claim(ClaimTypes.Role, "Administrator2"),
+                //new Claim(ClaimTypes.Role, "Administrator3")
             };
+            foreach (var resultRole in result.Roles ?? Enumerable.Empty<string>())
+            {
+                claims.Add(new Claim(ClaimTypes.Role, resultRole));
+            }
 
             var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -47,17 +78,17 @@ namespace Cloudents.Admin2.Controllers
                 //AllowRefresh = <bool>,
                 // Refreshing the authentication session should be allowed.
 
-                //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1),
                 // The time at which the authentication ticket expires. A 
                 // value set here overrides the ExpireTimeSpan option of 
                 // CookieAuthenticationOptions set with AddCookie.
 
-                //IsPersistent = true,
+                IsPersistent = false,
                 // Whether the authentication session is persisted across 
                 // multiple requests. When used with cookies, controls
                 // whether the cookie's lifetime is absolute (matching the
                 // lifetime of the authentication ticket) or session-based.
-
+                
                 //IssuedUtc = <DateTimeOffset>,
                 // The time at which the authentication ticket was issued.
 

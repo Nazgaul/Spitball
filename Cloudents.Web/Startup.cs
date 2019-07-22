@@ -151,26 +151,7 @@ namespace Cloudents.Web
 
             services.AddDetectionCore().AddCrawler();
             services.AddSbIdentity();
-            //services.AddScoped<SignInManager<User>, SbSignInManager>();
-            ////RoleStore
-            //services.AddDefaultIdentity<User>(options =>
-            //{
-            //    options.SignIn.RequireConfirmedEmail = true;
-            //    options.SignIn.RequireConfirmedPhoneNumber = true;
-            //    options.User.AllowedUserNameCharacters = null;
-
-            //    options.User.RequireUniqueEmail = true;
-
-            //    options.Password.RequiredLength = PasswordRequiredLength;
-            //    options.Password.RequireDigit = false;
-            //    options.Password.RequireLowercase = false;
-            //    options.Password.RequireNonAlphanumeric = false;
-            //    options.Password.RequireUppercase = false;
-            //    options.Password.RequiredUniqueChars = 0;
-            //    options.Lockout.MaxFailedAccessAttempts = 3;
-            //}).AddDefaultTokenProviders()
-            //    .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
-            //    .AddSignInManager<SbSignInManager>();
+           
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb5";

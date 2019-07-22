@@ -21,6 +21,8 @@ using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.Extensions.Options;
@@ -42,34 +44,23 @@ namespace Cloudents.Admin2
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-            //    .AddAzureAD(options => Configuration.Bind("AzureAd", options));
 
-            //services.AddAuthorization()
+            services.AddAuthorization();
             services.AddAuthentication(o =>
                 {
-                    
                     o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 })
+                
                 .AddCookie(x =>
                 {
-                    //x.LoginPath = "account/SignIn";
-                   // x.LogoutPath = "account/SignOut";
+                    x.Events.OnRedirectToAccessDenied = context =>
+                    {
+                        context.Response.StatusCode = 403;
+                        return Task.CompletedTask;
+                    };
                 });
-            //    .AddGoogle(o =>
-            //    {
-            //        o.ClientId =     "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com";
-            //        o.ClientSecret = "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com";
 
-            //    });
-
-            //services.AddAuthentication(sharedOptions =>
-            //    {
-            //        sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //        sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            //    })
-            //    .AddAzureAd(options => Configuration.Bind("AzureAd", options))
-            //    .AddCookie();
+          
 
             services.AddDataProtection(o =>
             {
@@ -78,19 +69,14 @@ namespace Cloudents.Admin2
             services.AddResponseCompression();
             services.AddResponseCaching();
 
-
-            services.AddLocalization(x => x.ResourcesPath = "Resources");
+            //services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddMvc(config =>
             {
-                //if (!HostingEnvironment.IsDevelopment())
-                //{
+               
                     var policy = new AuthorizationPolicyBuilder()
                         .RequireAuthenticatedUser()
                         .Build();
                     config.Filters.Add(new AuthorizeFilter(policy));
-                //}
-                
-
             }).AddJsonOptions(options =>
                 {
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
@@ -140,8 +126,6 @@ namespace Cloudents.Admin2
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
-            //containerBuilder.RegisterSystemModules(
-            //    Application.Enum.System.Admin, assembliesOfProgram);
             containerBuilder.RegisterAssemblyModules(assembliesOfProgram);
             containerBuilder.Register(c =>
             {
@@ -175,14 +159,12 @@ namespace Cloudents.Admin2
 
             app.UseResponseCompression();
             app.UseResponseCaching();
-           // app.UseCors("AllowSpecificOrigin");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //if (!env.IsDevelopment())
-            //{
-                app.UseAuthentication();
-            //}
+           
+            app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
