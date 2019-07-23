@@ -22,7 +22,6 @@
 
         <v-btn  
                 type="submit"
-                :disabled="!isValid"
                 :loading="isEmailLoading"
                 large round 
                 class="white--text btn-login">
@@ -68,9 +67,6 @@ export default {
                 this.updateEmail(val)
                 this.setErrorMessages({})
             }
-        },
-        isValid(){
-            return this.getEmail1 && this.password.length > 7
         }
     },
     methods: {

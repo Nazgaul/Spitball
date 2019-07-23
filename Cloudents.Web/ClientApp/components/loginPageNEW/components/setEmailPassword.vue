@@ -46,14 +46,9 @@
         @expired="onExpired()"
       />
 
-      <v-btn
-        type="submit"
-        :disabled="!isFormValid"
-        :loading="isEmailLoading"
-        large
-        round
-        class="ctnBtn white--text btn-login"
-      >
+      <v-btn type="submit" :loading="isEmailLoading" 
+             large round class="ctnBtn white--text btn-login">
+
         <span v-language:inner="'loginRegister_setemailpass_btn'"></span>
       </v-btn>
     </form>
@@ -93,9 +88,6 @@ export default {
   },
   computed: {
     ...mapGetters(["getEmail1","getGlobalLoading","getErrorMessages","getPassScoreObj"]),
-    isFormValid() {
-      return (this.email && this.password.length >= 8 && this.confirmPassword)
-    },
     passHint() {
       if (this.password.length > 0) {
         let passScoreObj = this.getPassScoreObj;

@@ -21,7 +21,6 @@
 				:autofocus="false"/>
 
         <v-btn  type="submit"
-                :disabled="!isPassValid"
                 :loading="loading"
                 large round 
                 class="white--text btn-login">
@@ -69,9 +68,6 @@ export default {
 			if(this.passHint){
 				return passScoreObj[this.score].className;
 			} 
-        },
-        isPassValid(){
-            return (this.password.length >= 8 && this.confirmPassword.length >= 8)
         }
     },
     methods: {

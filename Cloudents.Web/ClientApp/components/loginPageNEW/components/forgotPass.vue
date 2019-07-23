@@ -15,7 +15,6 @@
 				:autofocus="true" 
 				name="email" type="email"/>
         <v-btn  :loading="isEmailLoading"
-                :disabled="!email"
                 type="submit"
                 large round 
                 class="white--text btn-login">

@@ -19,7 +19,6 @@
 			v-language:placeholder/>
 
     <v-btn 	:loading="isLoading"
-			:disabled="smsCode.length < 5" 
         	type="submit"
 			large round 
 			class="white--text btn-login">
