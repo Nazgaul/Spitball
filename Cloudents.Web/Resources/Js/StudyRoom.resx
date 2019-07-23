@@ -123,6 +123,18 @@
   <data name="become_tutor" xml:space="preserve">
     <value>BECOME A TUTOR</value>
   </data>
+  <data name="boxs_bottom_add" xml:space="preserve">
+    <value>To add files to the board,</value>
+  </data>
+  <data name="boxs_bottom_drag" xml:space="preserve">
+    <value>drag &amp;amp; drop here or </value>
+  </data>
+  <data name="boxs_bottom_link" xml:space="preserve">
+    <value>browse your computer</value>
+  </data>
+  <data name="boxs_top" xml:space="preserve">
+    <value>Click anywhere to start drawing</value>
+  </data>
   <data name="created" xml:space="preserve">
     <value>Created on</value>
   </data>

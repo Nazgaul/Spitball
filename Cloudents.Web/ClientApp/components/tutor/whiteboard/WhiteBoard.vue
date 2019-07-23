@@ -32,7 +32,7 @@
         <div v-if="showWelcomeHelper" class="welcome-helper-top">
             <div class="top-helper box-helper">
                 <v-icon class="icon-helper">sbf-pencil-empty</v-icon>
-                <span>Click anywhere to start drawing</span>
+                <span v-language:inner="'studyRoom_boxs_top'"/>
             </div>
         </div>
         <div v-if="showWelcomeHelper" class="welcome-helper-bottom">
@@ -40,11 +40,10 @@
                 <div class="bottom-helper-cont">
                     <v-icon class="icon-helper">sbf-upload</v-icon>
                     <div>
-                        <p>To add files to the board,</p>
+                        <p v-language:inner="'studyRoom_boxs_bottom_add'"/>
                         <span>
-                            <span>drag &amp; drop here or</span>
-                            <span @click="uploadImage" 
-                                class="underlined">browse your computer</span>
+                            <span v-language:inner="'studyRoom_boxs_bottom_drag'"/> 
+                            <span @click="uploadImage" class="underlined" v-language:inner="'studyRoom_boxs_bottom_link'"/>
                         </span>
                     </div>
 
