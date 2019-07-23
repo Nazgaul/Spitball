@@ -74,8 +74,8 @@ export default {
 	  watch: {
         smsCode: function(val){
             this.setErrorMessages({})
+		}
 	}
-	  }
 };
 </script>
 

@@ -26,7 +26,7 @@
 
 <script>
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters,mapMutations } from 'vuex';
 
 export default {
     name: 'forgotPass',
@@ -52,13 +52,19 @@ export default {
     },
     methods: {
         ...mapActions(['updateStep','updateEmail','resetPassword']),
+        ...mapMutations(['setErrorMessages']),
         goLogin(){
             this.updateStep('setPassword')
         },
         resetPass(){
             this.resetPassword()
         }
+    },
+    watch: {
+    email: function(val){
+        this.setErrorMessages({})
     }
+	}
 }
 </script>
 
