@@ -25,7 +25,7 @@
                     <div class="row remote_video_container">
                         <div id="remoteTrack"></div>
                         <div class="local-video-holder">
-                            <div v-show="localVideoTrack" id="localTrack"></div>
+                            <div id="localTrack"></div>
                         </div>
                         <div class="control-panel">
                             <microphoneImage @click.native="toggleAudio" :class="['mic-image',localAudioTrack? '': 'mic-ignore']"></microphoneImage>
