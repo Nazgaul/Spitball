@@ -1,11 +1,8 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

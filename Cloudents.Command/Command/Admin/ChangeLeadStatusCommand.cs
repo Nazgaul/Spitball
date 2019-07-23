@@ -1,7 +1,5 @@
 ﻿using Cloudents.Core.Enum;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Command.Command.Admin
 {

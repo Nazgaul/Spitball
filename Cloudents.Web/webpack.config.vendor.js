@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 var Visualizer = require("webpack-visualizer-plugin");
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
-var t = require("./webpack.global.js");
+//var t = require("./webpack.global.js");
 const merge = require('webpack-merge');
 const WebpackRTLPlugin = require("webpack-rtl-plugin");
 const bundleOutputDir = "./wwwroot/dist";
@@ -59,7 +59,7 @@ const allModules = [
     "vuetify/es5/components/VTextarea",
     "vuetify/es5/components/VRating",
     "vuetify/es5/components/VForm",
-    "vuetify/es5/components/VAutocomplete",
+    "vuetify/es5/components/VAutocomplete"
 ];
 
 module.exports = (env) => {
@@ -94,7 +94,7 @@ module.exports = (env) => {
                             "webfonts-loader"
                         ]
                     })
-                },
+                }
             ]
         },
         plugins: [
@@ -117,7 +117,7 @@ module.exports = (env) => {
             //}),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
-            }),
+            })
 
 
         ]
@@ -130,7 +130,7 @@ module.exports = (env) => {
                         reduceIdents: false
                     },
                     canPrint: true
-                }),
+                })
 
         ] : [
                     new OptimizeCssAssetsPlugin({
@@ -141,7 +141,7 @@ module.exports = (env) => {
                             reduceIdents: false
                         },
                         canPrint: true
-                    }),
+                    })
             ])
     });
     const clientBundleConfig = merge(sharedConfig(),

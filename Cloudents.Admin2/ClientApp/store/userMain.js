@@ -53,7 +53,7 @@ const mutations = {
     },
     updateTutorSate(state, val){
         //state.userInfo.isTutor = val;
-        state.userInfo.isTutor.value = val
+        state.userInfo.isTutor.value = val;
     },
     setUserInfo(state, data) {
         state.userInfo = data;
@@ -262,20 +262,20 @@ const actions = {
         });
     },
     updateUserName({ commit, dispatch }, payload) {
-        return UserMainService.updateUserName(payload).then(res => {
-            dispatch('getUserData', payload.userId)
+        return UserMainService.updateUserName(payload).then(() => {
+            dispatch('getUserData', payload.userId);
         },
-        (err) => {
+        () => {
             return false;
-        })
+        });
     },
     updateUserPhone({ commit, dispatch }, payload) {
         return UserMainService.updateUserPhone(payload).then(res => {
-            dispatch('getUserData', payload.userId)
+            dispatch('getUserData', payload.userId);
         },
-        (err) => {
+        () => {
             return false;
-        })
+        });
     }
 };
 export default {

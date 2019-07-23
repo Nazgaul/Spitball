@@ -61,42 +61,42 @@ export default {
                 uploadUrl: "/api/Question/ask",
                 uploadedFiles: [],
                 uploadedFileNames: [],
-                MAX_FILES_AMOUNT: 4,
+                MAX_FILES_AMOUNT: 4
             },
             dictionary:{
                 askPlaceholder: LanguageService.getValueByKey('addQuestion_ask_your_question_placeholder'),
                 selectSubjectPlaceholder: LanguageService.getValueByKey('addQuestion_select_subject_placeholder'),
-                classPlaceholder: LanguageService.getValueByKey('addQuestion_class_placeholder'),
+                classPlaceholder: LanguageService.getValueByKey('addQuestion_class_placeholder')
             }
-        }
+        };
     },
     computed: {
         ...mapGetters(['accountUser', 'getSelectedClasses', 'newQuestionDialogSate']),
         hasTextAreaError() {
-            return !!this.addQuestionValidtionObj.errors['textArea'] && this.addQuestionValidtionObj.errors['textArea'].hasError
+            return !!this.addQuestionValidtionObj.errors['textArea'] && this.addQuestionValidtionObj.errors['textArea'].hasError;
         },
         hasClassError() {
-            return !!this.addQuestionValidtionObj.errors['class'] && this.addQuestionValidtionObj.errors['class'].hasError
+            return !!this.addQuestionValidtionObj.errors['class'] && this.addQuestionValidtionObj.errors['class'].hasError;
         },
         hasExternalError() {
-            return !!this.currentComponentselected.showError
+            return !!this.currentComponentselected.showError;
         },
         isMobile(){
-            return this.$vuetify.breakpoint.xsOnly
+            return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl(){
             if(this.accountUser.image.length > 1){
-                return `${this.accountUser.image}`
+                return `${this.accountUser.image}`;
             }
-            return ''
-        },
+            return '';
+        }
     },
     watch: {
         questionMessage() {
-            this.addQuestionValidtionObj.errors['textArea'] = {}
+            this.addQuestionValidtionObj.errors['textArea'] = {};
         },
         questionClass() {
-            this.addQuestionValidtionObj.errors['class'] = {}
+            this.addQuestionValidtionObj.errors['class'] = {};
         },
         newQuestionDialogSate: {
             immediate: true,
@@ -104,17 +104,17 @@ export default {
                 if (val) {
                     // get subject if questionDialog state is true(happens only if accountUser is true)
                     questionService.getSubjects().then((response) => {
-                        this.subjectList = response.data
+                        this.subjectList = response.data;
                     });
                 }
-            },
-        },
+            }
+        }
     },
     methods: {
         ...mapActions(['updateNewQuestionDialogState']),
         ...mapMutations(['UPDATE_LOADING']),
         requestNewQuestionDialogClose() {
-            this.updateNewQuestionDialogState(false)
+            this.updateNewQuestionDialogState(false);
         },
         openUploadInterface() {
             let uploadFileElement = document.querySelector(`#${this.uploadProp.componentUniqueId}`);
@@ -135,15 +135,15 @@ export default {
             let externalComponent = this.currentComponentselected.returnedObj;
             if (trimmedMessage.length < 15) {
                 const message = LanguageService.getValueByKey('addQuestion_error_minimum_chars');
-                let errorObj = addQuestionUtilities.createErrorObj(true, message)
-                this.addQuestionValidtionObj.errors['textArea'] = errorObj
+                let errorObj = addQuestionUtilities.createErrorObj(true, message);
+                this.addQuestionValidtionObj.errors['textArea'] = errorObj;
                 canAddQuestion = false;
 
             }
             if (!this.questionClass) {
                 const message = LanguageService.getValueByKey('addQuestion_error_select_class');
-                let errorObj = addQuestionUtilities.createErrorObj(true, message)
-                this.addQuestionValidtionObj.errors['class'] = errorObj
+                let errorObj = addQuestionUtilities.createErrorObj(true, message);
+                this.addQuestionValidtionObj.errors['class'] = errorObj;
                 canAddQuestion = false;
             }
             if (!!externalComponent.hasError) {
@@ -163,14 +163,14 @@ export default {
                     course : this.questionClass,
                     files:this.uploadProp.uploadedFileNames
                 };
-                analyticsService.sb_unitedEvent('Action Box', 'Ask_Q', `USER_ID:${this.accountUser.id}, Q_COURSE:${serverQuestionObj.course}`)
-                questionService.postQuestion(serverQuestionObj).then((response) => {
+                analyticsService.sb_unitedEvent('Action Box', 'Ask_Q', `USER_ID:${this.accountUser.id}, Q_COURSE:${serverQuestionObj.course}`);
+                questionService.postQuestion(serverQuestionObj).then(() => {
                     // let val = self.selectedPrice || this.price;
                     // this.updateUserBalance(-val);
                     //close dialog after question submitted
                     this.requestNewQuestionDialogClose(false);
                     this.$router.push({
-                        path: '/ask',
+                        path: '/ask'
                         // query: {
                         //     term: ''
                         // }
@@ -207,9 +207,9 @@ export default {
                 if (file.blob == img.src) {
                     this.uploadProp.uploadedFiles.splice(index, 1);
                 }
-            })
+            });
             //remove file from filenames array
-            let filenameIndex = this.uploadProp.uploadedFileNames.indexOf(img.fileName)
+            let filenameIndex = this.uploadProp.uploadedFileNames.indexOf(img.fileName);
             if (filenameIndex > -1) {
                 this.uploadProp.uploadedFileNames.splice(filenameIndex, 1);
             }
@@ -219,12 +219,12 @@ export default {
                 this.uploadProp.populatedThumnbailBox[`box_${index}`].populated = true;
                 this.uploadProp.populatedThumnbailBox[`box_${index}`].src = file.blob;
                 this.uploadProp.populatedThumnbailBox[`box_${index}`].fileName = this.uploadProp.uploadedFileNames[index];
-            })
+            });
         },
         inputFile: function (newFile, oldFile) {
             let self = this;
             if (self.uploadProp.uploadedFiles && self.uploadProp.uploadedFiles.length > this.uploadProp.MAX_FILES_AMOUNT) {
-                return
+                return;
             }
             if (newFile && oldFile && !newFile.active && oldFile.active) {
                 // Get response data
@@ -252,7 +252,7 @@ export default {
             }
             if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
                 if (!this.$refs.upload.active) {
-                    this.$refs.upload.active = true
+                    this.$refs.upload.active = true;
                 }
             }
         },
@@ -260,17 +260,17 @@ export default {
             if (newFile && !oldFile) {
                 //prevent adding new files if maximum reached
                 if (this.uploadProp.uploadedFiles.length >= this.uploadProp.MAX_FILES_AMOUNT) {
-                    return prevent()
+                    return prevent();
                 }
                 // Filter non-supported extensions  both lower and upper case
                 let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
                 let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
                 let isSupported = this.uploadProp.extensions.includes(ext);
                 if (!isSupported) {
-                    return prevent()
+                    return prevent();
                 }
-                if (newFile && newFile.size === 0) {
-                    return prevent()
+                if (newFile.size === 0) {
+                    return prevent();
                 }
             }
             if (newFile && (!oldFile || newFile.file !== oldFile.file)) {

@@ -21,7 +21,7 @@ export default {
             rules: {
                 required: (value) => validationRules.required(value),
                 maximumChars: (value) => validationRules.maximumChars(value, 255),
-                minimumChars: (value) => validationRules.minimumChars(value, 15),
+                minimumChars: (value) => validationRules.minimumChars(value, 15)
             },
             coursePlaceholder: LanguageService.getValueByKey("addQuestion_class_placeholder"),
             topicPlaceholder: LanguageService.getValueByKey("addQuestion_ask_your_question_placeholder"),
@@ -42,15 +42,15 @@ export default {
                     box_3: {
                         populated: false,
                         src: ''
-                    },
+                    }
                 },
                 componentUniqueId: `instance-${this._uid}`,
                 extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp'],
                 uploadUrl: "/api/Question/ask",
                 uploadedFiles: [],
                 uploadedFileNames: [],
-                MAX_FILES_AMOUNT: 4,
-            },
+                MAX_FILES_AMOUNT: 4
+            }
         };
     },
     computed: {
@@ -60,13 +60,13 @@ export default {
                 return `${this.accountUser.image}`;
             }
             return '';
-        },
+        }
     },
     methods: {
         ...mapActions(['updateNewQuestionDialogState']),
         ...mapMutations(['UPDATE_LOADING']),
         requestAskClose() {
-            this.updateNewQuestionDialogState(false)
+            this.updateNewQuestionDialogState(false);
         },
         submitQuestion() {
             let self = this;
@@ -78,7 +78,7 @@ export default {
                     course : self.questionCourse,
                     files:self.uploadProp.uploadedFileNames
                 };
-                questionService.postQuestion(serverQuestionObj).then((response) => {
+                questionService.postQuestion(serverQuestionObj).then(() => {
                     analyticsService.sb_unitedEvent("Submit_question", "Homework help");
                     self.btnQuestionLoading =false;
                     //close dialog after question submitted

@@ -5,11 +5,11 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const merge = require('webpack-merge');
 //const serverConfig = require("./webpack.config.server.js");
-var Visualizer = require("webpack-visualizer-plugin");
+//var Visualizer = require("webpack-visualizer-plugin");
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
-var t = require("./webpack.global.js");
+//var t = require("./webpack.global.js");
 //const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+//const CleanWebpackPlugin = require("clean-webpack-plugin");
 const WebpackRTLPlugin = require("webpack-rtl-plugin");
 
 
@@ -43,7 +43,7 @@ module.exports = (env) => {
                                 {removeEditorsNSData: true},
                                 {removeEmptyAttrs: true },
                                 {convertTransform: false},
-                                {removeUnusedNS: true},
+                                {removeUnusedNS: true}
 
                             ]
                         }
@@ -56,7 +56,7 @@ module.exports = (env) => {
                         {
                             loader: "url-loader",
                             options: {
-                                limit: 8192,
+                                limit: 8192
                                 // useRelativePath: !isDevBuild,
                                 //publicPath: !isDevBuild ? 'cdnUrl' : '/dist/'
 
@@ -72,7 +72,7 @@ module.exports = (env) => {
                                 mozjpeg: {
                                     progressive: true,
                                     quality: 90
-                                },
+                                }
                             }
                         }
                     ]
@@ -80,7 +80,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.js$/,
-                    loader: "babel-loader",
+                    loader: "babel-loader"
                 },
                 {
                     test: /\.vue$/,
@@ -159,14 +159,14 @@ module.exports = (env) => {
                     cssProcessorOptions: {
                         discardComments: {
                             remove: function (comment) {
-                                return !comment.includes("rtl")
+                                return !comment.includes("rtl");
                             },
                             removeAll: true
                         },
                         reduceIdents: false
                     },
                     canPrint: true
-                }),
+                })
                 
                 //new PurifyCSSPlugin({
                 //    // Give paths to parse for rules. These should be absolute!
@@ -208,7 +208,7 @@ module.exports = (env) => {
                     moduleFilenameTemplate:
                         path.relative(bundleOutputDir,
                             "[resourcePath]") // Point sourcemap entries to the original file locations on disk
-                }),
+                })
 
             ] :
             [
@@ -217,7 +217,7 @@ module.exports = (env) => {
                         warnings: false,
                         drop_console: true
                     }
-                }),
+                })
                 //new webpack.optimize.UglifyJsPlugin({
                 //    compress: {
                 //     //   dead_code: true,

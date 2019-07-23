@@ -1,4 +1,4 @@
-﻿import settingsService from './../services/settingsService'
+﻿//import settingsService from './../services/settingsService'
 import { USER } from './mutation-types'
 import * as consts from './constants'
 
@@ -9,7 +9,7 @@ const state = {
         myCourses: [],
         isFirst: true,
         location: null,
-        pinnedCards: {},
+        pinnedCards: {}
 
     },
     cookieAccepted: global.localStorage.getItem("sb-acceptedCookies") === 'true',
@@ -19,7 +19,7 @@ const state = {
     historySet: {
         ask: [],
         note: [],
-        tutor: [],
+        tutor: []
     }
 };
 const mutations = {
@@ -81,7 +81,7 @@ const getters = {
         let location = state.user.location;
         if (location && location.constructor === String) {
             let [latitude, longitude] = location.split(',');
-            return { latitude, longitude }
+            return { latitude, longitude };
         } else { return location }
     },
     pinnedCards: state => state.user.pinnedCards,
@@ -106,16 +106,16 @@ const getters = {
     myCourses: state => state.user.myCourses,
     myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i => i.id) : []),
     getFilters (state) {
-      return  state.filters
+      return  state.filters;
     },
     getSort(state){
-        return state.sort
+        return state.sort;
     }
 };
 const actions = {
     setCookieAccepted({ commit }){
-        global.localStorage.setItem("sb-acceptedCookies", true)
-        commit(USER.ACCEPTED_COOKIE)
+        global.localStorage.setItem("sb-acceptedCookies", true);
+        commit(USER.ACCEPTED_COOKIE);
     },
     updateHistorySet({ commit }, term) {
         commit(USER.UPDATE_SEARCH_SET, term);
@@ -145,10 +145,10 @@ const actions = {
         context.commit(USER.UPDATE_USER, { pinnedCards: { ...context.getters.pinnedCards, ...data } });
     },
     updateFilters({ commit }, data) {
-        commit(USER.UPDATE_FILTERS, data)
+        commit(USER.UPDATE_FILTERS, data);
     },
     updateSort({ commit }, data) {
-        commit(USER.UPDATE_SORT, data)
+        commit(USER.UPDATE_SORT, data);
     },
 
 };

@@ -17,10 +17,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Identity;
-using Microsoft.AspNetCore.WebUtilities;
-using System.IO;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Web.Api
 {

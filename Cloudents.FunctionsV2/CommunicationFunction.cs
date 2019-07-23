@@ -1,36 +1,26 @@
-using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Binders;
-using Cloudents.Query;
-using Cloudents.Query.Chat;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
-using shortid;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
-using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2

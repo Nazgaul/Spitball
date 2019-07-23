@@ -49,7 +49,7 @@ export default {
         propName: {
             type: Number,
             default: 0
-        },
+        }
     },
     computed: {
         ...mapGetters(['getDictionaryPrefix']),
@@ -122,7 +122,7 @@ export default {
                 this.clearData();
             }
         }, 250),
-        '$route'(val){
+        '$route'(){
             if(!!this.$route.query && this.$route.query.hasOwnProperty('type')){
                 let dictionaryType = this.$route.query.type;
                 //check if valid query type

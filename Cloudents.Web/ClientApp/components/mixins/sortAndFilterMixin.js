@@ -25,10 +25,10 @@ export default {
             'getSort': 'getSort'
             }),
         page() {
-            return page[this.name]
+            return page[this.name];
         },
         sort() {
-            return this.query.sort
+            return this.query.sort;
         },
 
         filterSelection() {
@@ -60,7 +60,7 @@ export default {
                                 name
                             };
                             filterOptions.push(filterItem);
-                        })
+                        });
                     } else {
                         let filterId = filterIds;
                         let filterType = key;

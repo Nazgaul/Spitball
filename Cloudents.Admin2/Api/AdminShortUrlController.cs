@@ -29,7 +29,7 @@ namespace Cloudents.Admin2.Api
              CancellationToken token)
         {
            
-            var destinationTest = Uri.TryCreate(model.Destination, UriKind.Absolute, out Uri u);
+            var destinationTest = Uri.TryCreate(model.Destination, UriKind.Absolute, out Uri _);
 
             if(!destinationTest && !model.Destination.StartsWith("/") && !model.Destination.StartsWith("www"))
             {

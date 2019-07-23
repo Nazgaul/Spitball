@@ -1,5 +1,4 @@
-﻿using System;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

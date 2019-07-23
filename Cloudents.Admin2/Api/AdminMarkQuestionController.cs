@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
@@ -41,11 +42,12 @@ namespace Cloudents.Admin2.Api
         {
             var query = new AdminQuestionWithoutCorrectAnswerPageQuery(page);
             var result = await _queryBus.QueryAsync(query, token);
-            foreach (var res in result)
+          
+            return result.Select(res =>
             {
                 res.Url = _urlBuilder.BuildQuestionEndPoint(res.Id);
-            }
-            return result;
+                return res;
+            });
         }
 
         /// <summary>

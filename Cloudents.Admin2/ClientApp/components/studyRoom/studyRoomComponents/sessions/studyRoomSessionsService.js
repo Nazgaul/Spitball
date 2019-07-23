@@ -19,8 +19,8 @@ const getSessions = function () {
     return connectivityModule.http.get(`${path}`).then((newSessionsList) => {
         let arrSessionsList = [];
         if (newSessionsList.length > 0) {
-            newSessionsList.forEach((Session) => {
-                arrSessionsList.push(createSessionItem(Session));
+            newSessionsList.forEach((session) => {
+                arrSessionsList.push(createSessionItem(session));
             });
         }
         return Promise.resolve(arrSessionsList);

@@ -3,7 +3,7 @@ import { connectivityModule } from '../../../services/connectivity.module';
 function ShortHandUrl(objInit) {
     this.identifier = objInit.identifier;
     this.destination = objInit.destination;
-    this.expiration = objInit.expiration ? new Date(objInit.expiration).toISOString().substr(0, 10) : 'indefinite'
+    this.expiration = objInit.expiration ? new Date(objInit.expiration).toISOString().substr(0, 10) : 'indefinite';
 }
 
 function createShortHandUrl(objInit) {

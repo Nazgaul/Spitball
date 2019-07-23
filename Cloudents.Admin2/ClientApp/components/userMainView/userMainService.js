@@ -251,10 +251,10 @@ export default {
             });
     },
     updateUserName: ({ userId, firstName, lastName }) => {
-        return connectivityModule.http.put(`AdminUser/name`, {userId, firstName, lastName})
+        return connectivityModule.http.put(`AdminUser/name`, {userId, firstName, lastName});
     },
     updateUserPhone: ({ userId, newPhone }) => {
-        return connectivityModule.http.put(`AdminUser/phone`, {userId, newPhone})
+        return connectivityModule.http.put(`AdminUser/phone`, {userId, newPhone});
     },
     removeTutor: (id) => {
         return connectivityModule.http.delete(`AdminTutor/${id}`);

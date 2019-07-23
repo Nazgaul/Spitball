@@ -5,7 +5,7 @@ export default {
     name: "uni-search-input",
     props: {
         placeholder: {type: String},
-        prependIcon: {type: String, default:'sbf-search'},
+        prependIcon: {type: String, default:'sbf-search'}
     },
     data: () => ({
         msg: "",
@@ -18,7 +18,7 @@ export default {
         ...mapGetters(['getUniversityName']),
         suggestList() {
             return this.uniSuggestList.slice(0, 3);
-        },
+        }
     },
     watch: {
         msg: debounce(function (val) {

@@ -7,7 +7,6 @@ using NHibernate.UserTypes;
 using System;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
 
 namespace Cloudents.Persistence
 {

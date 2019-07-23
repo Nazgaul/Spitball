@@ -1,13 +1,10 @@
-﻿using Cloudents.Command.Command;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Command.Command;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Cloudents.Command.CommandHandler
+namespace Cloudents.Command.CommandHandler.Admin
 {
     public class UpdatePhoneCommandHandler : ICommandHandler<UpdatePhoneCommand>
     {

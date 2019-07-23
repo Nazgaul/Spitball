@@ -24,7 +24,7 @@ export const buildInSuggest = {
         LanguageService.getValueByKey("buildinsuggest_ask_logarithms"),
         LanguageService.getValueByKey("buildinsuggest_ask_triassic")
 
-    ],
+    ]
 };
 
 

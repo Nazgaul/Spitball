@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs
 {

@@ -13,7 +13,7 @@ export default {
         userSuspend
     },
     props: {
-        userId: {},
+        userId: {}
     },
     data() {
         return {
@@ -63,8 +63,8 @@ export default {
             deleteUserQuestions: false,
             valid: true,
             requiredRules: [
-                v => !!v || 'Name is required',
-            ],
+                v => !!v || 'Name is required'
+            ]
         };
     },
 
@@ -157,11 +157,8 @@ export default {
                 .then((data) => {
                     if(data &&  data.id && data.id.value){
                         this.userIdentifier = id;
-                        let routerName = this.$route.name && this.$route.name !== 'userMainView' ? this.$route.name : 'userQuestions';
+                        //let routerName = this.$route.name && this.$route.name !== 'userMainView' ? this.$route.name : 'userQuestions';
                         self.$router.push({name: 'userConversations', params: {userId: data.id.value}});
-                    }else{
-                        //clean id from url if not valid and nopthing reterned from server
-                        // self.$router.push({name: 'userMainView', params: {userId: ''}});
                     }
                 }, () => {
                     if(id > 0 || this.userIdentifier != '') {
@@ -206,7 +203,7 @@ export default {
                 this.getUserInfoData(params.userId);
             }
             if(query && query.id){ 
-                this.getUserInfoData(query.id) 
+                this.getUserInfoData(query.id);
             }
         },
         openNameDialog(name) {
@@ -224,7 +221,7 @@ export default {
                 firstName: this.newFirstName,
                 lastName: this.newLastName,
                 userId: this.userIdentifier
-            }
+            };
             this.updateUserName(nameObj).then(() => {
                 this.$toaster.success(`SUCCESS: update user name`);
             },
@@ -235,13 +232,13 @@ export default {
                 this.newFirstName = '';
                 this.newLastName = '';
                 this.dialogs.name = false;
-            })
+            });
         },
         editPhone() {
             let phoneObj = {
                 newPhone: this.newPhone,
                 userId: this.userIdentifier
-            }
+            };
             this.updateUserPhone(phoneObj).then(() => {
                 this.$toaster.success(`SUCCESS: update user name`);
             },
@@ -251,12 +248,12 @@ export default {
             .finally(() => {
                 this.newPhone = '';
                 this.dialogs.phone = false;
-            })
+            });
         }
     },
     created() {
-        console.log(this.$route)
-        this.getRouteParams()
+        console.log(this.$route);
+        this.getRouteParams();
     },
     mounted() {
         let self = this;
@@ -268,8 +265,8 @@ export default {
                 else {
                     self.needScroll = false;
                 }
-            })
-        },
+            });
+    },
         beforeDestroy() {
             //let containerElm = document.querySelector('.item-wrap');
             window.removeEventListener('scroll', this.handleScroll);

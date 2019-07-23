@@ -5,28 +5,28 @@ export const signlaREvents = {
         add: function(arrEventObj){
             arrEventObj.forEach((questionToAdd)=>{
                 store.dispatch("addQuestionItemAction", questionToAdd);
-            })
+            });
         },
         delete: function(arrEventObj){
             arrEventObj.forEach((questionToRemove)=>{
                 store.dispatch("removeQuestionItemAction", questionToRemove);
-            })
+            });
         },
         action: function(arrEventObj){
             let questionActions = {
                 markascorrect: function(dataObj){
                     //feed Object
-                    store.dispatch("updateQuestionCorrect", dataObj)
+                    store.dispatch("updateQuestionCorrect", dataObj);
                     //question Object
-                    store.dispatch("updateQuestionItemCorrect", dataObj)
+                    store.dispatch("updateQuestionItemCorrect", dataObj);
                 }
             };  
             arrEventObj.forEach((action)=>{
                 if(!questionActions[action.type]){
-                    console.error(`Action type ${action.type} was not defined in Question questionActions`)
+                    console.error(`Action type ${action.type} was not defined in Question questionActions`);
                 }
-                questionActions[action.type](action.data)
-            })          
+                questionActions[action.type](action.data);
+            });
         },
         addviewr: function(question){
             store.dispatch("HomeworkHelp_addQuestionViewer", question);
@@ -45,9 +45,9 @@ export const signlaREvents = {
                 let actionObj = {
                     questionId: addedAnswerObj.questionId,
                     addCounter: true
-                }
+                };
                 store.dispatch('HomeworkHelp_updateCounter', actionObj);
-            })
+            });
         },
         delete: function(arrEventObj){
             arrEventObj.forEach((removedAnswerObj)=>{
@@ -58,9 +58,9 @@ export const signlaREvents = {
                  let actionObj = {
                     questionId: removedAnswerObj.questionId,
                     addCounter: false
-                }
-                store.dispatch('HomeworkHelp_updateCounter', actionObj);
-            })
+                };
+                 store.dispatch('HomeworkHelp_updateCounter', actionObj);
+            });
         }
     },
     user:{
@@ -69,16 +69,16 @@ export const signlaREvents = {
                 if(typeof user.balance !== undefined){
                     store.dispatch('signalR_SetBalance', user.balance);
                 }
-            })
-            
+            });
+
         },
         action: function(arrEventObj){
             let userActions = {
                 logout: function(data){
-                    store.dispatch("logout", data)
+                    store.dispatch("logout", data);
                 },
                 onlinestatus: function(data){
-                    store.dispatch("setUserStatus", data)
+                    store.dispatch("setUserStatus", data);
                 },
                 paymentreceived: function(data){
                     store.dispatch("signalR_ReleasePaymeStatus");
@@ -89,8 +89,8 @@ export const signlaREvents = {
                     console.error(`Action type ${action.type} was not defined in User userActions`);
                     return;
                 }
-                userActions[action.type](action.data)
-            }) 
+                userActions[action.type](action.data);
+            });
         },
         paymentreceived:function(){
             
@@ -100,17 +100,17 @@ export const signlaREvents = {
         add: function(arrEventObj){
             arrEventObj.forEach((notificationToAdd)=>{
                 store.dispatch("addNotificationItemAction", notificationToAdd);
-            })
+            });
         },
         delete: function(arrEventObj){
             arrEventObj.forEach((notificationToRemove)=>{
                 store.dispatch("removeNotification", notificationToRemove);
-            })
+            });
         },
         update: function(arrEventObj){
             arrEventObj.forEach((notificationToUpdate)=>{
-                store.dispatch("updateNotification", notificationToUpdate)
-            })
+                store.dispatch("updateNotification", notificationToUpdate);
+            });
         },
     },
     system: {
@@ -120,7 +120,7 @@ export const signlaREvents = {
                     let serverData = {
                         text: data.text,
                         timeout: data.timeout || 5000
-                    }
+                    };
                     let toasterConfig= {
                         toasterText: serverData.text,
                         showToaster: true,
@@ -130,17 +130,17 @@ export const signlaREvents = {
                         store.dispatch('updateToasterParams', {
                             showToaster: false
                         });
-                    }, serverData.timeout)
-                    
+                    }, serverData.timeout);
+
                 }
             };
 
             arrEventObj.forEach((action)=>{
                 if(!systemActions[action.type]){
-                    console.error(`Action type ${action.type} was not defined in User userActions`)
+                    console.error(`Action type ${action.type} was not defined in User userActions`);
                 }
-                systemActions[action.type](action.data)
-            }) 
+                systemActions[action.type](action.data);
+            });
 
 
         }
@@ -149,24 +149,24 @@ export const signlaREvents = {
         add: function(arrEventObj){
             arrEventObj.forEach((chatMessageToAdd)=>{
                 store.dispatch("signalRAddMessage", chatMessageToAdd);
-            })
+            });
         },
     },
     studyroom:{
         add:function(arrEventObj){
             arrEventObj.forEach((roomInfo)=>{
                 store.dispatch("signalRAddRoomInformationMessage", roomInfo);
-            })
+            });
         },
         update:function(arrEventObj){
             arrEventObj.forEach((roomStatusInformation)=>{
                 store.dispatch("signalR_UpdateState", roomStatusInformation);
-            })
+            });
         },
         action:function(arrEventObj){
             arrEventObj.forEach((sessionInformation)=>{
                 store.dispatch("signalR_SetJwtToken", sessionInformation);
-            })
+            });
         }
     }
 };

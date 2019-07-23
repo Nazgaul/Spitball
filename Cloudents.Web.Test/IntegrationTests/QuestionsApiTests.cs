@@ -1,12 +1,9 @@
 ﻿using System.Net;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
 using System;
 
 namespace Cloudents.Web.Test.IntegrationTests

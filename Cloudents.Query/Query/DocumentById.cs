@@ -6,11 +6,9 @@ using NHibernate.Linq;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Chat;
 using Cloudents.Query.Stuff;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
-using NHibernate.Transform;
 
 namespace Cloudents.Query.Query
 {

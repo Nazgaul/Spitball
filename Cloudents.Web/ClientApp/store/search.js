@@ -14,17 +14,17 @@ const state = {
     queItemsPerVertical: {
         //ask: [],
         //note: [],
-        tutor: [],
+        tutor: []
     },
     itemsPerVertical: {
         //ask: [],
         //note: [],
-        tutor: [],
+        tutor: []
     },
     itemsSkeletonPerVertical: {
         //ask: skeletonData.ask,
         //note: skeletonData.note,
-        tutor: skeletonData.tutor,
+        tutor: skeletonData.tutor
     }
 };
 
@@ -39,8 +39,8 @@ const mutations = {
         state.itemsPerVertical[verticalObj.verticalName] = verticalObj.verticalData;
     },
     [SEARCH.UPDATE_ITEMS_BY_VERTICAL](state, verticalObj) {
-        state.itemsPerVertical[verticalObj.verticalName].data = state.itemsPerVertical[verticalObj.verticalName].data.concat(verticalObj.verticalData.data)
-        state.itemsPerVertical[verticalObj.verticalName].nextPage = verticalObj.verticalData.nextPage
+        state.itemsPerVertical[verticalObj.verticalName].data = state.itemsPerVertical[verticalObj.verticalName].data.concat(verticalObj.verticalData.data);
+        state.itemsPerVertical[verticalObj.verticalName].nextPage = verticalObj.verticalData.nextPage;
     },
     [SEARCH.RESETQUE](state) {
         //check if ask Tab was loaded at least once
@@ -71,7 +71,7 @@ const getters = {
     getNextPageUrl: function (state, {getCurrentVertical}) {
         if(getCurrentVertical !== ""){
             if(!!state.itemsPerVertical[getCurrentVertical]){
-                return state.itemsPerVertical[getCurrentVertical].nextPage
+                return state.itemsPerVertical[getCurrentVertical].nextPage;
             }
         }
     },
@@ -90,7 +90,7 @@ const actions = {
             let verticalObj = {
                 verticalName: vertical,
                 verticalData: data
-            }
+            };
             context.dispatch('updateDataByVerticalType', verticalObj);
             return data;
         });
@@ -112,7 +112,7 @@ const actions = {
         //can be removed only when question page willo be part of ask question page
         if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skip) {
             if (haveQueItems) {
-                context.commit(SEARCH.INJECT_QUESTION)
+                context.commit(SEARCH.INJECT_QUESTION);
             }
 
             let filtersData = !!verticalItems.filters ? searchService.createFilters(verticalItems.filters) : null;
@@ -120,7 +120,7 @@ const actions = {
             context.dispatch('updateSort', sortData);
             context.dispatch('updateFilters', filtersData);
 
-            return verticalItems
+            return verticalItems;
         } else {
             context.commit(SEARCH.RESETQUE);
             return getData();
@@ -134,7 +134,7 @@ const actions = {
                     that we have some vertical items in the system if not then we dont want to skip the load
                 */
                 if (!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0) {
-                    return skipLoad
+                    return skipLoad;
                 } else {
                     return false;
                 }
@@ -167,7 +167,7 @@ const actions = {
                     return data;
                 }, (err) => {
                     return Promise.reject(err);
-                })
+                });
             });
         }
     },
@@ -183,7 +183,7 @@ const actions = {
         let questionToSend = {
             user,
             question: questionObj
-        }
+        };
         commit(SEARCH.ADD_QUESTION, questionToSend);
     },
     // updateCoursesFilters({commit, getters, dispatch}, arrCourses) {

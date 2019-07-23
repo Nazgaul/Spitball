@@ -3,9 +3,7 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
@@ -14,7 +12,6 @@ using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
-using NHibernate.Id;
 using NHibernate.Linq;
 using SimMetricsMetricUtilities;
 using System;
@@ -26,11 +23,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
 using Cloudents.Persistence;
-using Cloudents.Query.Query;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudents.Query.Query.Admin;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 

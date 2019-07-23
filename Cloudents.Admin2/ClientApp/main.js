@@ -8,7 +8,6 @@ import store from "./store";
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import VueClipboard from 'vue-clipboard2'
-import colors from 'vuetify/es5/util/colors'
 
 const VueUploadComponent = require('vue-upload-component');
 Vue.component('file-upload', VueUploadComponent);

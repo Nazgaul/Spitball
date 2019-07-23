@@ -12,11 +12,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -25,7 +22,6 @@ using NHibernate;
 using System.Drawing;
 using Cloudents.Identity;
 using static Microsoft.AspNetCore.Http.StatusCodes;
-using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Web.Api
 {

@@ -32,7 +32,7 @@ const state = {
     jwtToken: null,
     studentStartDialog: false,
     tutorStartDialog: false,
-    endDialog: false,
+    endDialog: false
 };
 const getters = {
     getIsRoomFull: state => state.isRoomFull,
@@ -59,18 +59,18 @@ const getters = {
     getSessionEndClicked: state => state.sessionEndClicked,
     getBrowserSupportDialog: state => state.browserSupportDialog,
     getPaymentUrl: state => state.paymentUrl,
-    getPaymentDialog: state => state.showPaymentDialog,
+    getPaymentDialog: state => state.showPaymentDialog
 };
 
 const mutations = {
     setIsRoomFull(state,val){
-        state.isRoomFull = val
+        state.isRoomFull = val;
     },
     setPaymentUrl(state,url){
-        state.paymentUrl = url
+        state.paymentUrl = url;
     },
     setPaymentDialog(state,val){
-        state.showPaymentDialog = val
+        state.showPaymentDialog = val;
     },
     setEndDialog(state, val) {
         state.endDialog = val;
@@ -146,18 +146,18 @@ const mutations = {
     },
     setBrowserSupportDialog(state, val){
       state.browserSupportDialog = val;
-    },
+    }
 };
 
 const actions = {
     updatePaymentUrl({commit},url){
-        commit('setPaymentUrl', url)
+        commit('setPaymentUrl', url);
     },
     updatePaymentDialog({commit},val){
-        commit('setPaymentDialog',val)
+        commit('setPaymentDialog',val);
     },
     updateEndDialog({commit, state}, val){
-        commit('setEndDialog', val)
+        commit('setEndDialog', val);
     },
     setSesionClickedOnce({commit, state}, val) {
         commit('updateSessionClickedOnce', val);
@@ -227,9 +227,9 @@ const actions = {
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
         if(onlineCount === 2){
-            commit('setIsRoomFull',true)
+            commit('setIsRoomFull',true);
         } else{
-            commit('setIsRoomFull',false)
+            commit('setIsRoomFull',false);
         }
 
         let totalOnline = notificationObj.totalOnline;
@@ -310,7 +310,7 @@ const actions = {
                 dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
                 dispatch("updateStudentStartDialog", true);
                 dispatch('hideRoomToasterMessage');
-            }, 3000)
+            }, 3000);
 
         }
     },

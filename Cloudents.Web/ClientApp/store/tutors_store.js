@@ -16,7 +16,7 @@ const mutations = {
     },
     Tutors_updateItems(state, data) {
         state.items.data = state.items.data.concat(data.data);
-        state.items.nextPage = data.nextPage
+        state.items.nextPage = data.nextPage;
     }
 };
 
@@ -31,7 +31,7 @@ const getters = {
         }
     },
     Tutors_getNextPageUrl: function (state) {
-        return state.items.nextPage
+        return state.items.nextPage;
     },
     Tutors_isDataLoaded: function (state) {
         return state.dataLoaded;
@@ -46,7 +46,7 @@ const actions = {
         });
     },
     Tutors_updateDataLoaded({ commit }, data) {
-        commit('Tutors_setDataLoaded', data)
+        commit('Tutors_setDataLoaded', data);
     },
     Tutors_fetchingData(context, { name, params, page }) {
         let paramsList = { ...context.state.search, ...params, page };
@@ -63,7 +63,7 @@ const actions = {
             context.dispatch('updateSort', sortData);
             context.dispatch('updateFilters', filtersData);
             context.dispatch('Tutors_updateDataLoaded', true);
-            return verticalItems
+            return verticalItems;
         } else {
             return getData();
         }

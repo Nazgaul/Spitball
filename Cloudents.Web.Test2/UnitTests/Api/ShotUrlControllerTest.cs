@@ -1,12 +1,9 @@
 ﻿
 using Autofac.Extras.Moq;
-using Cloudents.Admin.Test;
 using Cloudents.Admin2.Api;
 using Cloudents.Admin2.Models;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 using Xunit;

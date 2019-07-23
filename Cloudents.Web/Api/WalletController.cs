@@ -16,9 +16,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Cloudents.Core.Extension;
-using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Api
 {

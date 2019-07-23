@@ -7,7 +7,7 @@ global.mainCdn = true;
 
 //TODO change this fix to something else
 /*makes sure user have the latest client version temporary solution*/
-function VersionCheck() {
+function versionCheck() {
     let inStudyRoom = global.location.pathname.indexOf('studyroom') > -1;
     if(!inStudyRoom){
         GetVersion().then(version => {
@@ -19,8 +19,8 @@ function VersionCheck() {
     }
 }
 let minute = 60000;
-window.setInterval(VersionCheck, minute * 30);
-VersionCheck();
+window.setInterval(versionCheck, minute * 30);
+versionCheck();
 
 GetDictionary().then(() => {
     function getComponent() {

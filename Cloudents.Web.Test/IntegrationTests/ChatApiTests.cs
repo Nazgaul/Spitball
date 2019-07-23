@@ -4,8 +4,6 @@ using FluentAssertions;
 using System.Net;
 using System;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {

@@ -24,7 +24,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
 using Microsoft.AspNetCore.SignalR;
 
@@ -148,8 +147,7 @@ namespace Cloudents.Web.Api
 
             var url = Url.RouteUrl("roomCallback", new
             {
-
-                id = id
+                id
             }, "https");
 
             var uri = new Uri(url);

@@ -1,5 +1,4 @@
-﻿import debounce from "lodash/debounce";
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+﻿import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as consts from '../consts';
 import classIcon from "./img/search-class-icon.svg";
 import universityIcon from "./img/search-university-icon.svg";

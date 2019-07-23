@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
-using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Xunit;
 

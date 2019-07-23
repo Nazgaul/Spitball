@@ -3,8 +3,6 @@ using Cloudents.Persistence.Maps;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Conventions.Helpers;
 using NHibernate;
-using NHibernate.Caches.CoreDistributedCache;
-using NHibernate.Caches.CoreDistributedCache.Redis;
 using NHibernate.Cfg;
 using NHibernate.Event;
 using NHibernate.Tool.hbm2ddl;
