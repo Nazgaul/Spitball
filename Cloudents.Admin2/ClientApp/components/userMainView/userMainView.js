@@ -225,17 +225,15 @@ export default {
                 lastName: this.newLastName,
                 userId: this.userIdentifier
             }
-            this.updateUserName(nameObj).then((res) => {
-                if(!res) {
-                    this.$toaster.error(`ERROR: update user name`);
-                } else {
-                    this.$toaster.success(`SUCCESS: update user name`);
-                }
+            this.updateUserName(nameObj).then(() => {
+                this.$toaster.success(`SUCCESS: update user name`);
+            },
+            () => {
+                this.$toaster.error(`ERROR: update user name`);
+            })
+            .finally(() => {
                 this.newFirstName = '';
                 this.newLastName = '';
-            }, (err) => {
-                this.$toaster.error(`ERROR: update user name`);
-            }).finally(() => {
                 this.dialogs.name = false;
             })
         },
@@ -244,16 +242,14 @@ export default {
                 newPhone: this.newPhone,
                 userId: this.userIdentifier
             }
-            this.updateUserPhone(phoneObj).then((res) => {
-                if(!res) {
-                    this.$toaster.error(`ERROR: update user phone`);
-                } else {
-                    this.$toaster.success(`SUCCESS: update user phone`);
-                }
-                this.newLastName = '';
-            }, (err) => {
+            this.updateUserPhone(phoneObj).then(() => {
+                this.$toaster.success(`SUCCESS: update user name`);
+            },
+            () => {
                 this.$toaster.error(`ERROR: update user phone`);
-            }).finally(() => {
+            })
+            .finally(() => {
+                this.newPhone = '';
                 this.dialogs.phone = false;
             })
         }

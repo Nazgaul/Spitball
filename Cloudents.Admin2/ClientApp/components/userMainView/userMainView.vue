@@ -36,15 +36,15 @@
             </v-layout>
         </v-form>
         <v-layout :class="{'column': $vuetify.breakpoint.mdAndDown}">
-            <v-flex xs2 v-if="showActions" :class="{'userDetails mb-4': $vuetify.breakpoint.mdAndDown}">
+            <v-flex md3 v-if="showActions" :class="{'userDetails mb-4': $vuetify.breakpoint.mdAndDown}">
                 <v-list dense class="elevation-2">
                     <template v-for="(infoItem, name,index) in userInfo">
                         <v-list-tile :class="[ (index % 2 == 0) ? 'table-odd' : '' ]" :key="index">
                             <v-layout align-center justify-space-between>
-                                <span>{{infoItem.label}}</span>
-                                <v-btn small color='warning' @click="openNameDialog(userInfo.name.value)" v-if="infoItem.label == 'User Name'"> Edit</v-btn>
-                                <v-btn small color='warning' @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'"> Edit</v-btn>
-                                <v-btn small color='red' @click="deleteTutor()" v-if="infoItem.label == 'Is Tutor' && infoItem.value != 'Not a tutor'"> Delete</v-btn>
+                                <span><b>{{infoItem.label}}:</b></span>
+                                <v-btn small color='warning' @click="openNameDialog(userInfo.name.value)" v-if="infoItem.label == 'User Name'">Edit</v-btn>
+                                <v-btn small color='warning' @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'">Edit</v-btn>
+                                <v-btn small color='red' @click="deleteTutor()" v-if="infoItem.label == 'Tutor State' && infoItem.value != 'Not a tutor'">Delete</v-btn>
                                 <span>{{infoItem.value}}</span>
                             </v-layout>
                         </v-list-tile>
