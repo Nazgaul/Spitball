@@ -158,7 +158,7 @@
     <comment>1</comment>
   </data>
   <data name="emailconfirm_title" xml:space="preserve">
-    <value>We have sent you an activation email</value>
+    <value>We sent you an activation email</value>
     <comment>1</comment>
   </data>
   <data name="emailconfirm_title_reset" xml:space="preserve">
