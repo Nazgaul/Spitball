@@ -142,13 +142,16 @@
     <value>View all uploaded documents</value>
   </data>
   <data name="table_course" xml:space="preserve">
-    <value>Course</value>
+    <value>Course:</value>
   </data>
   <data name="table_type" xml:space="preserve">
-    <value>Type</value>
+    <value>Type:</value>
   </data>
   <data name="table_university" xml:space="preserve">
-    <value>University</value>
+    <value>University:</value>
+  </data>
+  <data name="table_uploaded" xml:space="preserve">
+    <value>Uploaded by:</value>
   </data>
   <data name="unlock_btn" xml:space="preserve">
     <value>Unlock</value>

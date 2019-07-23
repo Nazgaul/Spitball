@@ -1,33 +1,32 @@
 <template>
     <router-link @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
-        <v-layout class="tutor-result-card-other pa-2 mb-3" row wrap>
+        <v-layout class="tutor-result-card-other pa-2 mb-3 default-card" row wrap>
             <v-layout row class="mb-2">
                 <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
                 <div>
                     <h3 class="subheading font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
                     <div class="striked"> &#8362;{{discountedPrice}}</div>
                     <v-layout row class="moreDetails" align-baseline>
-                        <v-layout column class="mr-5 price-box">
+                        <v-layout column class="price-box">
                             <span class="title price font-weight-bold"><span class="subheading font-weight-bold">&#8362;</span>{{tutorData.price}}</span>
-                            <div class="subheading">for hour</div> <!-- v-language:inner="'tutorCard-hours'" -->
+                            <div class="subheading" v-language:inner="'resultTutor_hour'"></div>
                         </v-layout>
 
-                        <v-layout column align-center>
+                        <v-layout column align-center class="user-rates ml-4">
                             <userRating class="rating-holder mt-2 mb-1" :rating="tutorData.rating" :showRateNumber="false" />  <!-- :size="isInTutorList ? '16' : '20'" -->
-                            <router-link to=""><div class="caption">reviews {{tutorReviews}}</div></router-link> <!-- v-language:inner="'tutorCard-reviews'" -->
+                            <router-link to=""><div class="caption" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div></router-link>
                         </v-layout>
                         
                         <template>
-                            <!-- *****A***** -->
-
-                            <!-- <v-btn class="btn-chat" color="#4452fc" @click.prevent="">
+                            <!-- card-a -->
+                            <v-btn class="btn-chat cardA" color="#4452fc" @click.prevent="">
                                 <iconChat/>
-                            </v-btn> -->
+                            </v-btn>
 
-                            <!-- *****B***** -->
-                            <v-layout column align-center class="ml-4">
-                                <div class="subheading font-weight-regular">32</div> <!-- number of classes -->
-                                <div>classes</div> <!-- v-language:inner="'tutorCard-classes'" -->
+                            <!-- card-b -->
+                            <v-layout column align-center class="ml-4 cardB user-classes">
+                                <div class="subheading font-weight-bold">32</div>
+                                <div class="font-weight-bold" v-language:inner="'resultTutor_classes'"></div>
                             </v-layout>
                         </template>
 
@@ -35,15 +34,14 @@
                 </div>
             </v-layout>
             <v-layout class="tutor-bio">
-                <p class="mb-2">{{readMore(tutorData.bio)}}</p>
+                <p class="mb-2">{{tutorData.bio}}</p>
             </v-layout>
-            <v-layout row class="btn-footer">
-                <div class="send-msg text-xs-center">
-                    <v-btn round small color="#848bbc" depressed class="white--text caption">שלחו {{tutorData.name}} הודעה</v-btn> <!-- v-language:inner="'tutorCard-send-button'" -->
+            <v-layout row class="btn-footer text-truncate cardB">
+                <div class="send-msg text-xs-center text-truncate">
+                    <v-btn round small color="#848bbc" depressed class="white--text caption" v-html="$Ph('resultTutor_send_button', tutorData.name)"></v-btn>
                 </div>
-                <!-- tutor document button -->
-                <div class="more-documents text-xs-center" v-if="isTutor">
-                    <v-btn round small color="#5158af" depressed class="caption">עוד מסמכים שלי</v-btn> <!-- v-language:inner="'tutorCard-more-document'" -->
+                <div class="more-documents text-xs-center text-truncate card-transform" v-if="isTutor">
+                    <v-btn round small color="#5158af" depressed class="caption" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
                 </div>
             </v-layout>
         </v-layout>
@@ -72,7 +70,7 @@ export default {
     },
     computed: {
         isTutor() {
-            if(this.tutorData) {
+            if(this.isTutorData) {
                 return this.tutorData.isTutor;
             }
         },
@@ -80,7 +78,7 @@ export default {
             return this.tutorData ? true : false;
         },
         isTutorName() {
-            return this.tutorData ? this.tutorData.name : null;
+            return this.isTutorData ? this.tutorData.name : null;
         },
         isUserImage() {
             return this.isTutorData && this.tutorData.image ? true : false;
@@ -104,7 +102,7 @@ export default {
         },
         tutorReviews() {
             return this.tutorData.reviewsCount || this.tutorData.reviews;
-        }
+        },
     },
     methods: {
         loaded() {
@@ -116,12 +114,8 @@ export default {
         onImageLoadError(event) {
             event.target.src = "./images/placeholder-profile.png";
         },
-        readMore(text) {
-            let pArr = document.querySelector('.tutor-bio > p');
-            // console.log(pArr);
-            
-            // let lines = text.split("\n").length;
-            return text;
+        reviewsPlaceHolder(reviews) {
+            return reviews === 0 ? reviews.toString() : reviews
         }
     }
 }
@@ -133,6 +127,20 @@ export default {
 @purple: #43425d;
 
 .tutor-result-card-other {
+    &.default-card {
+        .cardA {
+            display: none;
+        }
+        .cardB {
+            display: flex;
+        }
+    }
+    .cardA {
+            display: flex;
+        }
+        .cardB {
+            display: none;
+        }
     max-width: 330px;
     // max-height: 160px;
     border-radius: 4px;
@@ -141,11 +149,10 @@ export default {
     background: #fff;
     .user-image {
         border-radius: 4px;
-        object-fit: contain;
     }
     .tutor-no-img {
-        width: 66px;
-        height: 92px;
+        width: 64px;
+        height: auto;
     }
 
     .tutor-name {
@@ -171,10 +178,22 @@ export default {
     .moreDetails {
         color: @purple;
         .price-box {
-            max-width: 36px;
+            max-width: 90px;
             div {
-                width: max-content;
+                white-space: nowrap;
+                max-width: 191px;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
+        }
+        .user-rates {
+            min-width: 80px;
+        }
+        .user-classes {
+            max-width: 67px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
 
@@ -198,6 +217,7 @@ export default {
     }
 
     .tutor-bio {
+        width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -212,23 +232,25 @@ export default {
         justify-content: space-evenly;
         width: 100%;
         .send-msg {
-            width: 100%;
             button {
-                padding: 15px 30px;
+                padding: 15px 12px;
                 line-height: 0;
                 color: @purple;
+                text-transform: lowercase;
             }
         }
         .more-documents {
             button {
-                padding: 15px 30px;
+                padding: 15px 12px;
                 border: solid 1px #5158af;
                 background: #fff !important;
                 line-height: 0;
                 color: #5158af;
+                text-transform: lowercase;
             }
         }
     }
+
     
 }
 

@@ -130,7 +130,7 @@
     <value>Offers online lessons</value>
   </data>
   <data name="reviews_many" xml:space="preserve">
-    <value>Reviews</value>
+    <value>{1} Reviews</value>
   </data>
   <data name="review_one" xml:space="preserve">
     <value>Review</value>
@@ -143,5 +143,23 @@
   </data>
   <data name="teaching" xml:space="preserve">
     <value>Teaching </value>
+  </data>
+  <data name="btn_more_doc" xml:space="preserve">
+    <value>More documents</value>
+  </data>
+  <data name="classes" xml:space="preserve">
+    <value>Classes</value>
+  </data>
+  <data name="courses" xml:space="preserve">
+    <value>Courses:</value>
+  </data>
+  <data name="hours_completed" xml:space="preserve">
+    <value>{1} Lesson hours completed</value>
+  </data>
+  <data name="send_button" xml:space="preserve">
+    <value>Send {1} message</value>
+  </data>
+  <data name="study-area" xml:space="preserve">
+    <value>Study area</value>
   </data>
 </root>

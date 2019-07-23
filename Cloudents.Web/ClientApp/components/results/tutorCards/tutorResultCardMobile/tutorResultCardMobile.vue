@@ -1,49 +1,38 @@
 <template>
-  <router-link @click.native.prevent="tutorCardClicked"
-               :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
-    
-    <v-card class="tutor-card-wrap pa-12" :class="{'list-tutor-card elevation-0': isInTutorList}">
-      <div class="tutor-card-flex">
-        <v-layout class="tutor-card-flex-width" >
-          <v-flex class="image-wrap">
-            <!--  -->
-            <!-- <div class="tutor-image-loader" > -->
-              <v-progress-circular indeterminate v-bind:size="50" :width="2" v-if="!isLoaded"></v-progress-circular>
-            <!-- </div> -->
-            <img class="tutor-image" v-show="isLoaded" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
-          </v-flex>
-          <v-flex>
-            <v-layout align-start row wrap fill-height>
-              <v-flex xs12>
-                <v-layout row justify-space-between align-baseline>
-
-                  <v-flex grow>
-                    <span class="tutor-name">{{tutorData.name}}</span>
-                    <userRating class="rating-holder mt-2" :rating="tutorData.rating" :showRateNumber="false" :size="isInTutorList ? '16' : '20'"/>
-                  </v-flex>
-
-                  <v-flex shrink>
-                    <div v-if="showStriked" class="pricing">
-                        <span class="caption px-1 striked">₪{{tutorData.price}}</span>
-                        <span class="title font-weight-bold">₪{{discountedPrice}}</span>
-                    </div>
-                    <div v-else class="title font-weight-bold pricing">₪{{tutorData.price}}</div>
-                    <v-flex shrink class="hour" v-language:inner="'resultTutor_hour'"/>
-                  </v-flex>
-                </v-layout>
-              </v-flex>
-              <v-flex class="bottom-section">{{tutorData.bio}}</v-flex>
-            </v-layout>
-          </v-flex>
-        </v-layout>
-
-          <v-flex shrink class="tutor-courses text-truncate mt-3 blue-text">{{courses}}</v-flex>
-
-          <div @click.prevent="openRequestDialog($event,tutorData)" v-if="!isInTutorList" class="my-3 btn-section">
-              <commentSVG class="mr-2"/><span v-language:inner="'resultTutor_contact_me'"/>
-          </div>
-      </div>
-    </v-card>
+  <router-link @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+    <v-layout class="tutor-result-card-mobile pa-2 ma-2 column">
+        <div class="card-mobile-header mb-3">
+            <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+            <div>
+                <h3 class="text-truncate mb-2 title font-weight-bold">{{tutorData.name}}</h3>
+                <div class="user-rate align-center mb-2">
+                    <user-rating :rating="tutorData.rating" :showRateNumber="false" class="mr-2" />
+                    <span v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></span>
+                </div>
+                <h4 class="text-truncate mb-1 font-weight-light">אוניברסיטה בן גוריון</h4> <!-- university name needed -->
+                <div class="courses text-truncate">
+                    <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
+                    <span class="text-truncate">{{courses}}</span> 
+                </div>
+            </div>
+        </div>
+        <div class="card-mobile-center mb-4 subheading">
+            {{tutorData.bio}}
+        </div>
+        <div class="card-mobile-footer">
+            <v-btn class="btn-chat white--text mr-1" block color="#4452fc" @click.prevent="">
+                <iconChat class="chat-icon"/>
+                <div class="font-weight-bold" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
+            </v-btn>
+            <div class="title price font-weight-bold ml-4">
+                <div class="striked"> &#8362;{{discountedPrice}}</div>
+                <span class="font-weight-bold">&#8362;{{tutorData.price}}/</span>
+                <span class="caption">
+                <span v-language:inner="'resultTutor_hour'"></span>
+                </span>
+            </div>
+        </div>
+    </v-layout>
   </router-link>
 </template>
 
@@ -54,13 +43,15 @@ import { LanguageService } from "../../../../services/language/languageService.j
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import analyticsService from "../../../../services/analytics.service";
 import { mapActions, mapGetters } from "vuex";
-import commentSVG from './commentSVG.svg'
+import commentSVG from './commentSVG.svg';
+import iconChat from '../tutorResultCardOther/icon-chat.svg';
 
 export default {
   name: "tutorCard",
   components: {
     userRating,
-    commentSVG
+    commentSVG,
+    iconChat
   },
   data() {
     return {
@@ -109,9 +100,11 @@ export default {
     },
     onImageLoadError(event) {
       event.target.src = "./images/placeholder-profile.png";
+    },
+    reviewsPlaceHolder(reviews) {
+      return reviews === 0 ? reviews.toString() : reviews
     }
   },
-
   computed: {
     ...mapGetters(['accountUser']),
     courses(){
@@ -124,7 +117,7 @@ export default {
     },
     userImageUrl() {
       if (this.tutorData.image) {
-        let size = [94, 118];
+        let size = [67, 87];
         return utilitiesService.proccessImageURL(
           this.tutorData.image,
           ...size,
@@ -144,143 +137,99 @@ export default {
       return discountedAmount > this.minimumPrice
         ? discountedAmount.toFixed(0)
         : this.minimumPrice;
-    }
+    },
+    courses() {
+      if (this.tutorData.courses) {
+        return `${LanguageService.getValueByKey("resultTutor_teaching")} ${this.tutorData.courses}`
+      }
+      return '';
+    },
+    isTutorData() {
+      return this.tutorData ? true : false;
+    },
+    isUserImage() {
+      return this.isTutorData && this.tutorData.image ? true : false;
+    },
   }
 };
 </script>
 
 <style lang="less">
 @import "../../../../styles/mixin.less";
-.tutor-card-wrap {
-  border-radius: 4px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
-  min-width: 304px;
-  margin-bottom: 8px;
-  // START styles for card rendered inside tutor list only
-  &.list-tutor-card {
-    margin-bottom: 4px;
-    border-radius: 0;
-      &.pa-12 {
-        padding: 16px 12px;
-      }
-      &:first-child {
-        border-radius: 4px 4px 0 0;
-      }
-      &:last-child {
-        border-radius: 0 0 4px 4px;
-      }
-      .tutor-name {
-        .giveMeEllipsis(1,22);
-        font-size: 13px;
-        font-weight: 700;
-        max-width: 120px;
-      }
-      .rating-holder {
-        margin-bottom: 0;
-      }
-      .tutor-courses {
-        font-size: 12px;
-      }
-      .tutor-image {
-        width: 76px;
-        height: 96px;
-      }
-      .bottom-section {
-        .giveMeEllipsis(2,22);
-      }
-  }
-  // END styles for card rendered inside tutor list only
-  .tutor-card-flex{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .tutor-card-flex-width{
-    width: 100%;
-  }
-  &.pa-12 {
-    padding: 12px;
-  }
-  .tutor-name {
-    .giveMeEllipsis(1,22);
-    color: @profileTextColor;
-    word-break: break-all;
-    font-size: 16px;
-    font-weight: bold;
-    min-width: 90%;
-    max-width: 80px;
-  }
- .image-wrap {
-      margin-right: 10px;
-      // width: 94px;
-     .flexSameSize();
+@purple: #43425d;
 
-      .inTheMiddle();
-      color: #5d62fd;
-      // .tutor-image-loader {
-      //   width: 96px;
-      //   display: flex;
-      //   justify-content: center;
-      //   align-items: center;
-      // }
-    
-  }
-  .tutor-image {
+.tutor-result-card-mobile {
     border-radius: 4px;
-    width: 96px;
-    height: 120px
-  }
-  .bottom-section {
-    justify-self: flex-end;
-    margin-top: auto;
-    color: #4452fc;
-    .giveMeEllipsis(3,22);
-  }
-  .rating-holder {
-    margin-bottom: 8px;
-  }
-  .pricing {
-    font-family: @fontOpenSans;
-    color: @profileTextColor;
-    font-size: 18px;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
-  }
-  .striked{
-      position: relative;
-      color: @colorBlackNew;
-      &:after {
-        content: "";
-        width: 100%;
-        border-bottom: solid 1px @colorBlackNew;
-        position: absolute;
-        left: 0;
-        top: 50%;
-        z-index: 1;
-      }
+    background: #fff;
+
+    h3, h4, .courses, .card-mobile-center, .price {
+        color: @purple;
     }
-  .hour{
-    font-size: 12px;
-    color: #43425d;
-    display: flex; justify-content: flex-end
-  }
-  .tutor-courses {
-    color: @colorBlue;
-    max-width: 0;
-    min-width: 100%;
-    font-size: 14px;
-    min-height: 19px; //keep it to prevent rating stars shift
-  }
-  .btn-section{
-    border-radius: 4px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
-    background-color: #facb57;
-    padding: 11px 64px;
-    font-size: 14px;
-    font-weight: bold; 
-    display: flex;
-    align-items: center;
-  }
+
+    .card-mobile-header {
+        display: flex;
+        .user-image, .tutor-no-img {
+            border-radius: 4px;
+        }
+        .tutor-no-img {
+            width: 67px;
+            height: 87px;
+        }
+        .user-rate {
+            display: inline-flex;
+            i {
+                font-size: 16px !important;
+            }
+        }
+        .courses {
+          max-width: 200px;
+          min-width: auto;
+        }
+    }
+
+    .card-mobile-center {
+        position: relative;
+        display: inline-block;
+        word-wrap: break-word;
+        overflow: hidden;
+        max-height: 3.6em;
+        min-height: 3.6em;
+        line-height: 1.2em;
+        text-align: justify;
+    }
+
+    .card-mobile-footer {
+        display: inherit;
+        .btn-chat {
+          border-radius: 7.5px;
+          .chat-icon {
+            margin: 0 auto 0 0;
+          }
+          div {
+            margin: 0 auto 0 0;
+          }
+        }
+        .price {
+          .striked {
+              max-width: fit-content;
+              position: relative;
+              color: @colorBlackNew;
+              font-size: 14px;
+              font-weight: 100;
+              &:after {
+                  content: "";
+                  width: 100%;
+                  border-bottom: solid 1px @colorBlackNew;
+                  position: absolute;
+                  left: 0;
+                  top: 50%;
+                  z-index: 1;
+              }
+          }
+          span:nth-child(2) {
+            font-size: 22px;
+          }
+       }
+    }
 }
 </style>

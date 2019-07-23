@@ -7,7 +7,7 @@
 
         <div v-for="(tutor, index) in tutorList" :key="index">
             <!-- <tutor-result-card-mobile :tutorData="tutor" :isInTutorList="true" /> -->
-            <tutorResultCardOther :tutorData="tutor" />
+            <tutor-result-card-other :tutorData="tutor" />
         </div>
     </v-layout>
 </template>

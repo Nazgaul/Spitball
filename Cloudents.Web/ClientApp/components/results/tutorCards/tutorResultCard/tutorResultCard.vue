@@ -1,15 +1,19 @@
 <template>
     <router-link @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
         <v-layout class="tutor-result-card-desktop pa-3 mb-3" row>
-            <v-flex row class="mb-2 user-details">
+            <v-flex row class="user-details">
                 <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
                 <div class="main-card">
-                    <h3 class="subheading font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
+                    <h3 class="title font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
                     <h4 class="mb-4 text-truncate">אוניברסיטה בן גוריון</h4> <!-- university name needed -->
                     <div class="user-bio mb-5">{{tutorData.bio}}</div>
-                    <div class="courses text-truncate">
-                      <span>קורסים:</span> <!-- v-language:inner="'tutorCard-courses'" -->
-                      <span>{{courses}}</span> 
+                    <div class="study-area mb-2" v-if="false">
+                      <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
+                      <span class="text-truncate"></span> 
+                    </div>
+                    <div class="courses">
+                      <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
+                      <span class="text-truncate">{{courses}}</span> 
                     </div>
                 </div>
             </v-flex>
@@ -18,22 +22,21 @@
                 <div class="title price font-weight-bold">
                   <span class="headline font-weight-bold">&#8362;{{tutorData.price}}</span>
                   <span class="caption">
-                    <span>/</span>
-                    <span>לשעה</span>
+                    <span v-language:inner="'resultTutor_hour'"></span>
                   </span>
                 </div>
                 <div class="striked"> &#8362;{{discountedPrice}}</div>
-                <div class="user-rank my-3 align-center">
+                <div class="user-rank mt-3 mb-2 align-center">
                   <user-rating :rating="tutorData.rating" :showRateNumber="false" />
-                  <div>reviews {{tutorData.reviews}}</div> <!-- v-language:inner="'tutorCard-reviews'" -->
+                  <div v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
                 </div>
-                <div class="classes-hours align-center mb-4">
+                <div class="classes-hours align-center mb-4 mt-2">
                     <clock />
-                    <span class="ml-2 font-weight-bold caption">50 שעות שיעור הושלמו</span> <!-- v-language:inner="'tutorCard-hours-completed'" -->
+                    <span class="ml-2 font-weight-bold caption" v-html="$Ph(`resultTutor_hours_completed`, '32')"></span>
                 </div>
-                <v-btn class="btn-chat white--text" round block color="#4452fc" @click.prevent="">
-                  <iconChat class="chat-icon"/>
-                  <div>שלחו לעידן הודעה</div>
+                <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.stop="">
+                  <iconChat class="chat-icon mr-2" />
+                  <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
                 </v-btn>
             </div>
         </v-layout>
@@ -111,18 +114,21 @@ export default {
     },
     onImageLoadError(event) {
       event.target.src = "./images/placeholder-profile.png";
+    },
+    reviewsPlaceHolder(reviews) {
+      return reviews === 0 ? reviews.toString() : reviews
     }
   },
   computed: {
     ...mapGetters(['accountUser']),
-    courses(){
+    courses() {
       if (this.tutorData.courses) {
         return `${LanguageService.getValueByKey("resultTutor_teaching")} ${this.tutorData.courses}`
       }
       return '';
     },
-    tutorReviews() {
-      return this.tutorData.reviewsCount || this.tutorData.reviews;
+    isTutorData() {
+      return this.tutorData ? true : false;
     },
     isUserImage() {
       return this.isTutorData && this.tutorData.image ? true : false;
@@ -144,7 +150,6 @@ export default {
       return price > this.minimumPrice;
     },
     discountedPrice() {
-      // console.log(this.tutorData.price)
       let price = this.tutorData.price;
       let discountedAmount = price - this.discountAmount;
       return discountedAmount >  this.minimumPrice ? discountedAmount.toFixed(2) : this.minimumPrice.toFixed(2);
@@ -162,6 +167,7 @@ export default {
 @purple: #43425d;
 
   .tutor-result-card-desktop {
+    border-radius: 4px;
     background: #fff;
     width: 100%;
     h3, h4, .user-bio, .courses, .price, .classes-hours {
@@ -178,10 +184,17 @@ export default {
           display: inline-block;
           word-wrap: break-word;
           overflow: hidden;
-          max-height: 3.6em;
-          min-height: 3.6em;
+          max-height: 0;
+          min-height: 48px;
           line-height: 1.2em;
           text-align: justify;
+        }
+        .study-area {
+          color: @purple;
+        }
+        .courses {
+          display: flex;
+          white-space: nowrap;
         }
       }
     }
@@ -193,17 +206,14 @@ export default {
     }
     .tutor-no-img {
       width: 142px;
-      height: 182px;
+      height: auto;
     }
-    .courses {
-      display: flex;
-      white-space: nowrap;
-      // margin-top: 88px;
-    }
+    
     .user-rates {
       flex: 1;
+      min-width: fit-content;
       .striked {
-        max-width: fit-content;
+        max-width: max-content;
         position: relative;
         color: @colorBlackNew;
         &:after {
@@ -216,18 +226,26 @@ export default {
             z-index: 1;
         }
       }
-      .user-rank, .classes-hours {
+      .user-rank, {
+        display: inline-flex;
+      }
+      .classes-hours {
         display: flex;
       }
       .user-rank {
         i{
-          font-size: 20px;
+          font-size: 20px !important;
         }
       }
       .btn-chat {
+        max-width: 220px;
+        min-width: 100%;
+        text-transform: lowercase;
         .chat-icon {
-          position: absolute;
-          left: 0;
+          margin: 0 auto 0 0;
+        }
+        div {
+          margin: 0 auto;
         }
       }
     }

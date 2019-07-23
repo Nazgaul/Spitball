@@ -133,7 +133,7 @@
     <value>מציע שיעורים מקוונים</value>
   </data>
   <data name="reviews_many" xml:space="preserve">
-    <value>ביקורות</value>
+    <value>{1} ביקורות</value>
   </data>
   <data name="review_one" xml:space="preserve">
     <value>ביקורת</value>
@@ -143,5 +143,23 @@
   </data>
   <data name="teaching" xml:space="preserve">
     <value>שיעורים פרטיים ב-</value>
+  </data>
+  <data name="btn_more_doc" xml:space="preserve">
+    <value>עוד מסמכים שלי</value>
+  </data>
+  <data name="classes" xml:space="preserve">
+    <value>שיעורים</value>
+  </data>
+  <data name="courses" xml:space="preserve">
+    <value>קורסים:</value>
+  </data>
+  <data name="hours_completed" xml:space="preserve">
+    <value>{1} שעות שיעור הושלמו</value>
+  </data>
+  <data name="send_button" xml:space="preserve">
+    <value>שלחו ל{1} הודעה</value>
+  </data>
+  <data name="study-area" xml:space="preserve">
+    <value>תחומי לימוד:</value>
   </data>
 </root>

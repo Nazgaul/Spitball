@@ -129,7 +129,7 @@
                 
             </div>
             <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="updatePurchaseConfirmation(true)">
-                <p class="text-xs-center title" v-language:inner="'documentPage_unlock_document'"></p>
+                <p class="text-xs-center" v-language:inner="'documentPage_unlock_document'"></p>
                 <div class="aside-top-btn align-center" v-if="!isLoading">
                     <span class="font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
@@ -499,6 +499,7 @@ export default {
                 p {
                     padding: 0 0 30px 0;
                     margin: 0;
+                    font-size: 19px;
                 }
                 .aside-top-btn {
                     display: flex;

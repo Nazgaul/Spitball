@@ -142,13 +142,16 @@
     <value>צפה בכל המסמכים שהועלו</value>
   </data>
   <data name="table_course" xml:space="preserve">
-    <value>קורס</value>
+    <value>קורס:</value>
   </data>
   <data name="table_type" xml:space="preserve">
-    <value>סוג</value>
+    <value>סוג:</value>
   </data>
   <data name="table_university" xml:space="preserve">
-    <value>אוניברסיטה</value>
+    <value>אוניברסיטה:</value>
+  </data>
+  <data name="table_uploaded" xml:space="preserve">
+    <value>הועלה על ידי:</value>
   </data>
   <data name="unlock_btn" xml:space="preserve">
     <value>פתח מסמך</value>
