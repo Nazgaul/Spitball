@@ -30,19 +30,19 @@
                      :style="{'stroke': helperStyle.stroke}"/>
         </svg>
         <div v-if="showWelcomeHelper" class="welcome-helper-top">
-            <div class="top-helper box-helper">
-                <v-icon class="icon-helper">sbf-pencil-empty</v-icon>
+            <div class="top-helper">
+                <pencilSVG class="icon-helper"/>
                 <span v-language:inner="'studyRoom_boxs_top'"/>
             </div>
         </div>
         <div v-if="showWelcomeHelper" class="welcome-helper-bottom">
-            <div class="box-helper bottom-helper">
+            <div class="bottom-helper">
                 <div class="bottom-helper-cont">
-                    <v-icon class="icon-helper">sbf-upload</v-icon>
+                    <uploadSVG class="icon-helper"/>
                     <div>
                         <p v-language:inner="'studyRoom_boxs_bottom_add'"/>
                         <span>
-                            <span v-language:inner="'studyRoom_boxs_bottom_drag'"/> 
+                            <span v-language:inner="'studyRoom_boxs_bottom_or'"/> 
                             <span @click="uploadImage" class="underlined" v-language:inner="'studyRoom_boxs_bottom_link'"/>
                         </span>
                     </div>
@@ -176,73 +176,69 @@
         }
         .welcome-helper-top{
             position: absolute;
-            top: 10%;
-            left: 42%;
-            color: rgb(128, 128, 128);
-            font-size: 16px;
-            .box-helper{
-                border-radius: 4px;
+            top: 13%;
+            left: 42.5%;
+            .top-helper{
+                border-radius: 6px;
+                box-shadow: 0px 4px 13px 0 rgba(0, 0, 0, 0.35);
                 background: white;
-                width: 300px;
-                height: 120px;
+                width: 280px;
+                height: 112px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-evenly;
                 align-items: center;
                 padding: 10px;
-            }
-            .top-helper{
                 .icon-helper{
-                    font-size: 50px;
+                    margin-top: 6px;
+                    margin-left: 21px;
+                    width: 42px;
+                    height: 42px;
+                    color: #90949c;
                 }
-            }
-            .bottom-helper{
-                width: 400px;
-                height: 150px;
-                .bottom-helper-cont{
-                    .underlined{
-                        cursor: pointer;
-                        text-decoration: underline;
-                    }
-                    p{
-                        margin: 0;
-                    }
-                    .icon-helper{
-                        font-size: 44px;
-                    }
-                    width: 100%;
-                    height: 100%;
-                    border: 3px rgb(128, 128, 128) dashed;
-                    border-radius: 4px;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-evenly;
-                    align-items: center;
-                    text-align: center;
+                span{
+                    padding-top: 10px;
+                    font-size: 18px;
+                    letter-spacing: -0.56px;
+                    color: #5bbdb7
                 }
             }
         }
         .welcome-helper-bottom{
             position: absolute;
-            top: 64%;
+            top: 46%;
             left: 38%;
-            color: rgb(128, 128, 128);
-            font-size: 16px;
-            .box-helper{
-                border-radius: 4px;
+            .bottom-helper{
+                border-radius: 6px;
+                box-shadow: 0px 4px 13px 0 rgba(0, 0, 0, 0.35);
                 background: white;
-                width: 300px;
-                height: 120px;
+                width: 448px;
+                height: 180px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-evenly;
                 align-items: center;
-                padding: 10px;
-            }
-            .bottom-helper{
-                width: 450px;
-                height: 150px;
+                padding: 12px;
                 .bottom-helper-cont{
+                    width: 100%;
+                    height: 100%;
+                    border: 2px #90949c dashed;
+                    border-radius: 6px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    text-align: center;
+                    font-size: 18px;
+                    line-height: 1.44;
+                    letter-spacing: normal;
+                    color: #5bbdb7;     
+                    .icon-helper{
+                        width: 44px;
+                        height: 42px;
+                        color: #90949c;
+                        margin: 11px 0;
+                    }
                     .underlined{
                         cursor: pointer;
                         text-decoration: underline;
@@ -250,18 +246,6 @@
                     p{
                         margin: 0;
                     }
-                    .icon-helper{
-                        font-size: 44px;
-                    }
-                    width: 100%;
-                    height: 100%;
-                    border: 3px rgb(128, 128, 128) dashed;
-                    border-radius: 4px;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-evenly;
-                    align-items: center;
-                    text-align: center;
                 }
             }
         }

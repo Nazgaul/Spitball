@@ -7,12 +7,16 @@ import equationMapper from "./innerComponents/equationMapper.vue"
 import tutorService from "../tutorService";
 import { LanguageService } from '../../../services/language/languageService';
 import imageDraw from './options/imageDraw';
+import pencilSVG from '../images/noun-edit-684936.svg';
+import uploadSVG from '../images/outline-open-in-browser-24-px.svg';
 
 const HeaderHeight = 108;
 
 export default {
     components: {
-        equationMapper
+        equationMapper,
+        pencilSVG,
+        uploadSVG
     },
     data() {
         return {
