@@ -127,10 +127,10 @@
     <value>להוספת מסמכים ללוח</value>
   </data>
   <data name="boxs_bottom_drag" xml:space="preserve">
-    <value>שחרר את הקבצים כאן</value>
+    <value>גרור ושחרר את הקבצים כאן</value>
   </data>
   <data name="boxs_bottom_link" xml:space="preserve">
-    <value>צרף מסמכים מהמחשב</value>
+    <value>או צרף מסמכים מהמחשב</value>
   </data>
   <data name="boxs_top" xml:space="preserve">
     <value>הקלק בכל מקום להתחיל לכתוב</value>
