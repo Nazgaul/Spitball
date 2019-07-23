@@ -6,8 +6,8 @@
                     <v-text-field solo class="sb-field  bg-greyed"
                                   :class="$vuetify.breakpoint.xsOnly ? 'mr-0 mb-2' : ' mr-2 mb-2'"
                                   v-model="item.name"
-                                  :rules="[rules.required]"
-                                   :placeholder="fileNamePlaceholder"></v-text-field>
+                                  dir="ltr"
+                                  readonly></v-text-field>
                     <div class="error-card-error-msg" v-show="item.error">
                         <span>{{item.error && item.errorText ? item.errorText : ''}}</span>
                         <!--<span v-language:inner>upload_multiple_error_upload_single_file</span>-->
