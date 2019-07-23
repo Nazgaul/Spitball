@@ -29,7 +29,28 @@
                      :class="helperClass"
                      :style="{'stroke': helperStyle.stroke}"/>
         </svg>
+        <div v-if="getDragData.length === 0" class="welcome-helper-top">
+            <div class="top-helper box-helper">
+                <v-icon class="icon-helper">sbf-pencil-empty</v-icon>
+                <span>Click anywhere to start drawing</span>
+            </div>
+        </div>
+        <div v-if="getDragData.length === 0" class="welcome-helper-bottom">
+            <div class="box-helper bottom-helper">
+                <div class="bottom-helper-cont">
+                    <v-icon class="icon-helper">sbf-upload</v-icon>
+                    <div>
+                        <p>To add files to the board,</p>
+                        <span>
+                            <span>drag &amp; drop here or</span>
+                            <span @click="uploadImage" 
+                                class="underlined">browse your computer</span>
+                        </span>
+                    </div>
 
+                </div>
+            </div>
+        </div>
         <div class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.text">
             <input type="text" placeholder="Enter Some Text"
                    v-model="helperStyle.text"
@@ -37,12 +58,12 @@
                    :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
         </div>
         <div class="equation-helper-container"
-             :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"
+             :style="{'color': helperStyle.color, 'top':`${equationSizeY}px`, 'left':`${equationSizeX}px`}"
              v-if="helperShow && selectedOptionString === enumOptions.equation">
              <div>
                  <equation-mapper :injectToTextArea="injectToTextArea"></equation-mapper>
              </div>
-            <div class="equation-text-area">
+            <div class="equation-text-area" style="justify-content: space-between;">
                 <textarea id="textArea-tutoring" :class="[helperClass, helperStyle.id]"
                       v-model="helperStyle.text"
                       cols="50"
@@ -51,6 +72,9 @@
                          v-show="!!helperStyle.text"
                          :formula="`$$${helperStyle.text}$$`"
                          class="math-jax"></vue-mathjax>
+                <div style="align-self: flex-end;">
+                    <v-btn @click="finishEquation" class="white--text" round color="#3DC1B9" v-language:inner="'studyRoom_equation_btn'"/>
+                </div>
             </div>
             
         </div>
@@ -61,7 +85,9 @@
                  v-for="(tab) in canvasTabs"
                  :key="tab.id"
                  :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
-                <button :id="tab.id">{{tab.name}}</button>
+                 <!-- add it to the other user tab -->
+                <!-- <div v-if="tab.id === getCurrentSelectedTab.id" class="tab-dot"></div> -->
+                <button @blur="saveNewTabName" @keyup.enter="saveNewTabName" @dblclick.self='editTabName(tab.id)' :id="tab.id">{{tab.name}}</button>
                 <!-- <v-icon @click.stop="showTabOption(tab.id)">sbf-3-dot</v-icon>
                 <div class="canvas-tab-option" :class="{'canvas-tab-option-active': tabEditId === tab.id}">
                     <div>
@@ -146,7 +172,98 @@
                 outline: none;
                 border-radius: 4px;
                 font-family: "Open Sans", sans-serif;
-                font-size: 14px;
+                font-size: 20px;
+            }
+        }
+        .welcome-helper-top{
+            position: absolute;
+            top: 10%;
+            left: 42%;
+            color: rgb(128, 128, 128);
+            font-size: 16px;
+            .box-helper{
+                border-radius: 4px;
+                background: white;
+                width: 300px;
+                height: 120px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+                padding: 10px;
+            }
+            .top-helper{
+                .icon-helper{
+                    font-size: 50px;
+                }
+            }
+            .bottom-helper{
+                width: 400px;
+                height: 150px;
+                .bottom-helper-cont{
+                    .underlined{
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                    p{
+                        margin: 0;
+                    }
+                    .icon-helper{
+                        font-size: 44px;
+                    }
+                    width: 100%;
+                    height: 100%;
+                    border: 3px rgb(128, 128, 128) dashed;
+                    border-radius: 4px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    text-align: center;
+                }
+            }
+        }
+        .welcome-helper-bottom{
+            position: absolute;
+            top: 64%;
+            left: 38%;
+            color: rgb(128, 128, 128);
+            font-size: 16px;
+            .box-helper{
+                border-radius: 4px;
+                background: white;
+                width: 300px;
+                height: 120px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+                padding: 10px;
+            }
+            .bottom-helper{
+                width: 450px;
+                height: 150px;
+                .bottom-helper-cont{
+                    .underlined{
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                    p{
+                        margin: 0;
+                    }
+                    .icon-helper{
+                        font-size: 44px;
+                    }
+                    width: 100%;
+                    height: 100%;
+                    border: 3px rgb(128, 128, 128) dashed;
+                    border-radius: 4px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    text-align: center;
+                }
             }
         }
         .equation-helper-container {
@@ -213,6 +330,19 @@
                 &.canvas-tabs-active{
                     background-color: #FFF;
                     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+                }
+                .tab-dot{
+                    background-color: lawngreen;
+                    position: absolute;
+                    z-index: 5;
+                    left: 10px;
+                    top: 33%;
+                    border-radius: 50%;
+                    height: 12px;
+                    width: 12px;
+                    left: 14px;
+                    top: 37%;
+                    border: 1px solid black;
                 }
                 button{
                     outline: none;

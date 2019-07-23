@@ -129,6 +129,9 @@
   <data name="enter_room" xml:space="preserve">
     <value>Get into room</value>
   </data>
+  <data name="equation_btn" xml:space="preserve">
+    <value>Add equation to the board</value>
+  </data>
   <data name="help_others" xml:space="preserve">
     <value>Help others with what you know best</value>
   </data>

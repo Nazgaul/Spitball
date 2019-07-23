@@ -155,10 +155,11 @@ const mousedown = function(e){
         if(!!text.value){
             if(!isEditing){
                 const instancedId = currentId + "";
+                let meassureText = this.context.measureText(text.value);
                 getImageDimensions(text.value, instancedId).then(dimensions=>{
                     let textObj = createPointsByOption({
-                        mouseX: startingMousePosition.x,
-                        mouseY: startingMousePosition.y,
+                        mouseX: (window.innerWidth / 2) - (meassureText.width / 2),
+                        mouseY: window.innerHeight / 3.5,
                         width: dimensions.width,
                         height: dimensions.height,
                         color: this.color.hex,
@@ -188,6 +189,7 @@ const mousedown = function(e){
                 })
             }
         }
+        this.methods.addShape(null, clearLocalShape);
         hideHelperObj();
     }else{
         //here the user statring to write text
@@ -237,6 +239,7 @@ const defineEndPosition = function(e){
 
 const mouseup = function(e){
     console.log('mouseUp')
+    console.log('mouseupmouseup')
     defineEndPosition.bind(this, e)()
 }
 

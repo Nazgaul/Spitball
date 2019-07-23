@@ -4,7 +4,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.pan}"
-                            class="nav-action" @click="setOptionType(enumOptions.pan)">
+                            class="nav-action" @click="setOptionType($event, enumOptions.pan)">
                         <v-icon>sbf-pan</v-icon>
                     </button>
                 </template>
@@ -15,7 +15,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.select}"
-                            class="nav-action" @click="setOptionType(enumOptions.select)">
+                            class="nav-action" @click="setOptionType($event, enumOptions.select)">
                         <v-icon>sbf-mouse-pointer</v-icon>
                     </button>
                 </template>
@@ -27,7 +27,7 @@
                 <template v-slot:activator="{on}">
                     <button  v-on="on"
                              :class="{'active-tool': selectedOptionString === enumOptions.text}"
-                             class="nav-action" @click="setOptionType(enumOptions.text)">
+                             class="nav-action" @click="setOptionType($event, enumOptions.text)">
                         <v-icon>sbf-text-icon</v-icon>
                     </button>
                 </template>
@@ -38,7 +38,7 @@
                 <template v-slot:activator="{on}">
                     <button  v-on="on"
                              :class="{'active-tool': selectedOptionString === enumOptions.equation}"
-                             class="nav-action" @click="setOptionType(enumOptions.equation)">
+                             class="nav-action" @click="setOptionType($event, enumOptions.equation)">
                         <v-icon>sbf-equation-icon</v-icon>
                     </button>
                 </template>
@@ -62,7 +62,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.draw}"
-                            class="nav-action" @click="setOptionType(enumOptions.draw)">
+                            class="nav-action" @click="setOptionType($event, enumOptions.draw)">
                         <v-icon>sbf-pencil-empty</v-icon>
                     </button>
                 </template>
@@ -73,7 +73,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.line}"
-                            class="nav-action" @click="setOptionType(enumOptions.line)">
+                            class="nav-action" @click="setOptionType($event, enumOptions.line)">
                         <v-icon>sbf-connect-line</v-icon>
                     </button>
                 </template>
@@ -84,7 +84,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.circle}"
-                            class="nav-action" @click="setOptionType(enumOptions.circle)">
+                            class="nav-action" @click="setOptionType($event, enumOptions.circle)">
                         <v-icon>sbf-elipse-stroke</v-icon>
                     </button>
                 </template>
@@ -95,7 +95,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.rectangle}"
-                            class="nav-action" @click="setOptionType(enumOptions.rectangle)">
+                            class="nav-action" @click="setOptionType($event, enumOptions.rectangle)">
                         <v-icon>sbf-rectangle-stroke</v-icon>
                     </button>
                 </template>
@@ -109,7 +109,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.image}"
-                             class="nav-action" @click="setOptionType(enumOptions.image)">
+                             class="nav-action" @click="setOptionType($event, enumOptions.image)">
                         <v-icon>sbf-upload</v-icon>
                     </button>
                 </template>
@@ -119,7 +119,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.eraser}"
-                             class="nav-action" @click="setOptionType(enumOptions.eraser)">
+                             class="nav-action" @click="setOptionType($event, enumOptions.eraser)">
                         <v-icon>sbf-eraser-empty</v-icon>
                     </button>
                 </template>
@@ -153,6 +153,8 @@ import {mapGetters, mapActions} from 'vuex';
 import helperUtil from './utils/helper';
 import whiteBoardService from './whiteBoardService';
 import {Compact} from 'vue-color';
+import textDraw from './options/textDraw';
+import equationDraw from './options/equationDraw';
 
 export default {
     components:{
@@ -201,10 +203,20 @@ export default {
         selectDefaultTool(){
             this.setOptionType(this.enumOptions.select);
         },
-        setOptionType(selectedOption) {
+        setOptionType(e,selectedOption) {
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, selectedOption)());
             this.setSelectedOptionString(selectedOption);
-            helperUtil.HelperObj.isActive = false;
+            if(selectedOption === 'textDraw'){
+                let mouseEvent = new MouseEvent("mousedown", {});
+                canvas.dispatchEvent(mouseEvent);
+            } else if(selectedOption === 'equationDraw'){
+                let mouseEvent = new MouseEvent("mousedown", {});
+                canvas.dispatchEvent(mouseEvent);
+            } else{
+                helperUtil.HelperObj.isActive = false;
+            }
+            
+
             if(selectedOption === this.enumOptions.image){
                 let inputImgElm = document.getElementById('imageUpload');
                 inputImgElm.click();

@@ -5,9 +5,11 @@ import stopIcon from '../images/stop-icon.svg';
 import fullScreenIcon from '../images/fullscreen.svg';
 //import walletService from '../../../services/walletService';
 import insightService from '../../../services/insightService';
+import microphoneImage from '../../tutor/images/microphone.svg'
+import videoCameraImage from '../../tutor/images/video-camera.svg'
 export default {
     name: "videoStream",
-    components: { timerIcon, stopIcon, fullScreenIcon },
+    components: { timerIcon, stopIcon, fullScreenIcon,microphoneImage,videoCameraImage },
     data() {
         return {
             videoEl: null,
@@ -36,9 +38,16 @@ export default {
             'remoteOffline',
             'roomLoading',
             'getStudyRoomData',
-            'accountUser'
+            'accountUser',
+            'getLocalVideoTrack',
+            'getLocalAudioTrack'
         ]),
-
+        localVideoTrack(){
+            return this.getLocalVideoTrack
+        },
+        localAudioTrack(){
+            return this.getLocalAudioTrack
+        },
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         },
@@ -55,14 +64,23 @@ export default {
         ...mapActions([
             'updateReviewDialog',
             'updateToasterParams',
-            'setSesionClickedOnce'
+            'setSesionClickedOnce',
+            'toggleVideoTrack',
+            'toggleAudioTrack'
         ]),
+        toggleAudio(){
+            this.toggleAudioTrack()
+        },
+        toggleVideo(){
+            this.toggleVideoTrack()
+        },
         minimize(type) {
             this.visible[`${type}`] = !this.visible[`${type}`];
         },
         showLocalVideo(){
             let self = this;
             insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_VideoStream_showLocalVideo', null, null);
+            
             createLocalVideoTrack({width: 100, height: 75}).then(track => {
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_VideoStream_localVideoCreated', track, null);
                 if(!!track){

@@ -25,10 +25,13 @@
                     <div class="row remote_video_container">
                         <div id="remoteTrack"></div>
                         <div class="local-video-holder">
-                            <div id="localTrack"></div>
+                            <div v-show="localVideoTrack" id="localTrack"></div>
                         </div>
-
+                        <div class="control-panel">
+                            <microphoneImage @click.native="toggleAudio" :class="['mic-image',localAudioTrack? '': 'mic-ignore']"></microphoneImage>
+                            <videoCameraImage @click.native="toggleVideo" :class="['video-cam-icon',localVideoTrack? '': 'cam-ignore']"></videoCameraImage>
                         </div>
+                    </div>
                 </v-flex>
             </div>
         </v-layout>
