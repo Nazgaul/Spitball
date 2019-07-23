@@ -1,34 +1,38 @@
 <template>
     <div>
-       
-        <div id="firepad"></div>
+        <v-btn @click="change" color="success">text</v-btn>
+        <codemirror class="code-editor-cont" :options="optionObj"/>
     </div>
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
-    import { syntaxEnum } from './syntaxEnums.js'
+    import { codemirror } from 'vue-codemirror';
+    // mode:
+    import "codemirror/mode/xml/xml.js";
+    // adds:
+    import "codemirror/addon/edit/closetag.js";
+    import "codemirror/addon/edit/closebrackets.js";
+    import "codemirror/addon/display/autorefresh.js";
+    // theme css
+    import "codemirror/theme/base16-dark.css";
+    import 'codemirror/theme/xq-light.css'
+    import 'codemirror/theme/material.css'
+    import 'codemirror/theme/monokai.css'
+
     export default {
         name: "codeEditor",
         data() {
             return {
-                fireBaseConfig: {
-                    apiKey: "AIzaSyASxWQgsnGpwngB3TOWfS49Nkbs_gSQhh4",
-                    authDomain: "codeeditor-44dab.firebaseapp.com",
-                    databaseURL: "https://codeeditor-44dab.firebaseio.com",
-                    projectId: "codeeditor-44dab",
-                    storageBucket: "codeeditor-44dab.appspot.com",
-                    messagingSenderId: "895562016590"
-                },
-                codeSet: syntaxEnum,
-                codeItem: {},
-                firepad: {},
-                codeMirror: {},
-                defaultSyntax: {
-                    name: 'C#',
-                    value: 'text/x-csharp',
-                    link: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.44.0/mode/clike/clike.min.js'
-                },
+                optionObj: {
+                    tabSize: 1,
+                    mode: "xml",
+                    theme: 'material',
+                    lineNumbers: true,
+                    line: true,
+                    autoRefresh: true,
+                    autoCloseBrackets: true,
+                    autoCloseTags: true
+                }
             }
         },
         props: {
@@ -38,73 +42,26 @@
             }
         },
         computed: {
-            ...mapGetters(['getStudyRoomData', 'firepadLoadedOnce'])
         },
         methods: {
-            ...mapActions(['updateCodeLoadedOnce']),
-            // changeLanguageSyntax(codeSyntax) {
-            //     let self = this;
-            //     let loadCodeLang = codeSyntax;
-            //     self.$loadScript(`${loadCodeLang.link}`).then((loaded) => {
-            //         if(self.codeMirror){
-            //             self.codeMirror.setOption("mode", `${loadCodeLang.value}`);
-            //         }
-                    // wont work cause recreateing firepad with not clean codeMirror
-                    // self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror, self.codeMirror.doc.getValue());
-                    // console.log(self.codeMirror)
-            //     })
-            // },
-
-            loadFirePad() {
-                let self = this;
-                let loadCodeLang = this.defaultSyntax;
-                let roomId = self.getStudyRoomData.roomId || '';
-                self.$loadScript(`https://www.gstatic.com/firebasejs/5.8.5/firebase.js`).then(
-                    (data) => {
-                        // Initialize Firebase
-                        firebase.initializeApp(self.fireBaseConfig);
-                        // Get Firebase Database reference.
-                        self.firepadRef = firebase.database().ref(roomId);
-                        self.$loadScript(`https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js`)
-                            .then((data) => {
-                                //load syntax mode
-                                self.$loadScript(`${loadCodeLang.link}`).then((loaded) => {
-                                    self.codeMirror = CodeMirror(document.getElementById('firepad'), {
-                                        lineNumbers: true,
-                                        matchBrackets: true,
-                                        styleActiveLine: false,
-                                        smartIndent: true,
-                                        theme: "monokai",
-                                        direction: "ltr",
-                                        tabSize: 3,
-                                        mode: `${loadCodeLang.value}`
-                                    });
-                                    self.codeMirror.focus();
-                                    self.codeMirror.refresh();
-                                    self.codeMirror.setCursor(self.codeMirror.lineCount(), 1);
-                                    self.$loadScript(`https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js`).then(
-                                        () => {
-                                            self.firepad = Firepad.fromCodeMirror(self.firepadRef, self.codeMirror)
-                                            self.updateCodeLoadedOnce(true)
-                                        })
-                                })
-                            });
-                    });
+            change(){
+                this.optionObj.theme = 'xq-light' 
             }
         },
-        created() {
-            //if was loaded before prevent calls
-            if(!this.firepadLoadedOnce){
-                this.loadFirePad();
-            }
+        components:{
+            codemirror
+        },
+        created(){
         }
     }
 
 </script>
 
 <style lang="less">
-    @import '../../../styles/mixin.less';
-    @import './themes/monokai.less';
-    @import './helperStyles/firepad.less';
-    @import './helperStyles/codeMirror.less';
+.code-editor-cont{
+    .CodeMirror{
+        height: 85vh !important;
+        font-size: 20px;
+    }
+}
 </style>

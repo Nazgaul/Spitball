@@ -22,6 +22,11 @@ import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image";
 
+import VueCodemirror from 'vue-codemirror'
+import 'codemirror/lib/codemirror.css'
+// import 'code'
+
+Vue.use(VueCodemirror);
 
 
 import {

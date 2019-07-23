@@ -197,6 +197,7 @@
   </v-layout>
 </template>
 <script>
+import codeEditorNEW from './codeEditorNew/codeEditorNew.vue';
 import initSignalRService from "../../services/signalR/signalrEventService";
 import { mapActions, mapGetters } from "vuex";
 import videoStream from "./videoStream/videoStream.vue";
@@ -231,6 +232,7 @@ export default {
     videoStream,
     whiteBoard,
     codeEditor,
+    codeEditorNEW,
     sharedDocument,
     shareScreenBtn,
     AppLogo,
