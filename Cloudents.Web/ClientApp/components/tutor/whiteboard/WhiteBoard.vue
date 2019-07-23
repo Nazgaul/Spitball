@@ -29,13 +29,13 @@
                      :class="helperClass"
                      :style="{'stroke': helperStyle.stroke}"/>
         </svg>
-        <div v-if="showWelcomeHelper" class="welcome-helper-top">
+        <div v-if="showWelcomeHelper && dragData.length === 0" class="welcome-helper-top">
             <div class="top-helper">
                 <pencilSVG class="icon-helper"/>
                 <span v-language:inner="'studyRoom_boxs_top'"/>
             </div>
         </div>
-        <div v-if="showWelcomeHelper" class="welcome-helper-bottom">
+        <div v-if="showWelcomeHelper && dragData.length === 0" class="welcome-helper-bottom">
             <div class="bottom-helper">
                 <div class="bottom-helper-cont">
                     <uploadSVG class="icon-helper"/>
