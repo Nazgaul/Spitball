@@ -29,13 +29,13 @@
                      :class="helperClass"
                      :style="{'stroke': helperStyle.stroke}"/>
         </svg>
-        <div v-if="getDragData.length === 0" class="welcome-helper-top">
+        <div v-if="showWelcomeHelper" class="welcome-helper-top">
             <div class="top-helper box-helper">
                 <v-icon class="icon-helper">sbf-pencil-empty</v-icon>
                 <span>Click anywhere to start drawing</span>
             </div>
         </div>
-        <div v-if="getDragData.length === 0" class="welcome-helper-bottom">
+        <div v-if="showWelcomeHelper" class="welcome-helper-bottom">
             <div class="box-helper bottom-helper">
                 <div class="bottom-helper-cont">
                     <v-icon class="icon-helper">sbf-upload</v-icon>

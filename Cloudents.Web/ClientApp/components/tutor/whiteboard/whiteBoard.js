@@ -230,6 +230,7 @@ export default {
                     this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
                     this.setSelectedOptionString(this.enumOptions.select);
                 }
+                this.showWelcomeHelper = false
             }
         },
         undo() {
