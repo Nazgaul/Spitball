@@ -34,7 +34,7 @@
 
 <script>
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
 	name: 'VerifyPhone',
@@ -60,6 +60,7 @@ export default {
 	},
 	methods: {
 		...mapActions(['smsCodeVerify','callWithCode','changeNumber']),
+		...mapMutations(['setErrorMessages']),
 		verifyPhone(){
 			this.smsCodeVerify(this.smsCode)
 		},
@@ -69,7 +70,12 @@ export default {
 		numberChange(){
 			this.changeNumber()
 		}
+	},
+	  watch: {
+        smsCode: function(val){
+            this.setErrorMessages({})
 	}
+	  }
 };
 </script>
 
