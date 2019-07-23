@@ -85,10 +85,10 @@ const getters = {
 };
 
 const mutations = {
-    setTabName(state, {newTabName,tabId}){
+    setTabName(state, {tabName,tabId}){
         state.canvasTabs.forEach(tab =>{
             if(tab.id === tabId){
-                tab.name = newTabName
+                tab.name = tabName
             }
         })
     },
@@ -230,6 +230,9 @@ const actions = {
     setClearAllClicked({commit}){
         commit('setClearAllClicked')
     },
+    updateTab({commit},updateTabObj){
+        commit('setTabName',updateTabObj)
+    }
 };
 export default {
     state,

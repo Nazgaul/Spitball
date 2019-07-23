@@ -144,14 +144,25 @@ export default {
             tab.contentEditable = "true";
             let range = document.createRange();
             range.selectNodeContents(tab);
-            let sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
+            let selection = global.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
         },
         saveNewTabName(){
             let newTabName = document.getElementById(this.currentTabId).textContent;
-            this.setTabName({newTabName,tabId:this.currentTabId})
+            let tabData = {
+                tabId: this.currentTabId,
+                tabName: newTabName
+            }
+            let transferDataObj = {
+                type: "updateTab",
+                data: tabData
+            };
+            let normalizedData = JSON.stringify(transferDataObj);
+            tutorService.dataTrack.send(normalizedData);
 
+            let tab = document.getElementById(this.currentTabId)
+            tab.contentEditable = "false";
         },
         uploadImage(){
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, 'imageDraw')());

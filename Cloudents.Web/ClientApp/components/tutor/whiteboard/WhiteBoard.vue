@@ -87,7 +87,7 @@
                  :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
                  <!-- add it to the other user tab -->
                 <!-- <div v-if="tab.id === getCurrentSelectedTab.id" class="tab-dot"></div> -->
-                <button @blur="saveNewTabName" @dblclick.self='editTabName(tab.id)' :id="tab.id">{{tab.name}}</button>
+                <button @blur="saveNewTabName" @keyup.enter="saveNewTabName" @dblclick.self='editTabName(tab.id)' :id="tab.id">{{tab.name}}</button>
                 <!-- <v-icon @click.stop="showTabOption(tab.id)">sbf-3-dot</v-icon>
                 <div class="canvas-tab-option" :class="{'canvas-tab-option-active': tabEditId === tab.id}">
                     <div>
