@@ -5,28 +5,37 @@
                 <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
                 <div>
                     <h3 class="subheading font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
-                    <div class="striked"> &#8362;{{discountedPrice}}</div>
-                    <v-layout row class="moreDetails" align-baseline>
-                        <v-layout column class="price-box">
-                            <span class="title price font-weight-bold"><span class="subheading font-weight-bold">&#8362;</span>{{tutorData.price}}</span>
-                            <div class="subheading" v-language:inner="'resultTutor_hour'"></div>
-                        </v-layout>
+
+                    <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
+
+                    <v-layout row class="moreDetails" :class="{'isprice': !showStriked}" align-baseline>
+                        <div column class="price-box column">
+                            <span v-if="showStriked">
+                                <span class="title font-weight-bold">{{discountedPrice}}</span>
+                                <span class="font-weight-bold">&#8362;</span>
+                            </span>
+                            <span v-else>
+                                <span class="title font-weight-bold">{{tutorData.price}}</span>
+                                <span class="font-weight-bold">&#8362;</span>
+                            </span>
+                            <div class="caption" v-language:inner="'resultTutor_hour'"></div>
+                        </div>
 
                         <v-layout column align-center class="user-rates ml-4">
                             <userRating class="rating-holder mt-2 mb-1" :rating="tutorData.rating" :showRateNumber="false" />  <!-- :size="isInTutorList ? '16' : '20'" -->
-                            <router-link to=""><div class="caption" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div></router-link>
+                            <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
                         </v-layout>
                         
                         <template>
                             <!-- card-a -->
-                            <v-btn class="btn-chat cardA" color="#4452fc" @click.prevent="">
+                            <v-btn class="btn-chat cardA" color="#4452fc" @click.prevent="openChatWindow">
                                 <iconChat/>
                             </v-btn>
 
                             <!-- card-b -->
-                            <v-layout column align-center class="ml-4 cardB user-classes">
-                                <div class="subheading font-weight-bold">32</div>
-                                <div class="font-weight-bold" v-language:inner="'resultTutor_classes'"></div>
+                            <v-layout column align-center class="ml-4 cardB user-classes subheading">
+                                <div>32</div>
+                                <div v-language:inner="'resultTutor_classes'"></div>
                             </v-layout>
                         </template>
 
@@ -36,9 +45,18 @@
             <v-layout class="tutor-bio">
                 <p class="mb-2">{{tutorData.bio}}</p>
             </v-layout>
-            <v-layout row class="btn-footer text-truncate cardB">
-                <div class="send-msg text-xs-center text-truncate">
-                    <v-btn round small color="#848bbc" depressed class="white--text caption" v-html="$Ph('resultTutor_send_button', tutorData.name)"></v-btn>
+            <v-layout row class="btn-footer cardB">
+                <div class="send-msg text-xs-center text-truncate" >
+                    <v-btn 
+                        round 
+                        small 
+                        color="#848bbc" 
+                        depressed 
+                        class="white--text caption" 
+                        @click.prevent="openChatWindow" 
+                        :class="{'tutor-btn': isTutor}" 
+                        v-html="$Ph('resultTutor_send_button', tutorData.name)">
+                    </v-btn>
                 </div>
                 <div class="more-documents text-xs-center text-truncate card-transform" v-if="isTutor">
                     <v-btn round small color="#5158af" depressed class="caption" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
@@ -52,6 +70,7 @@
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import iconChat from './icon-chat.svg';
+import {mapActions} from 'vuex';
 
 export default {
     components: {
@@ -84,9 +103,9 @@ export default {
             return this.isTutorData && this.tutorData.image ? true : false;
         },
         discountedPrice() {
-        let price = this.tutorData.price;
-        let discountedAmount = price - this.discountAmount;
-        return discountedAmount > this.minimumPrice ? discountedAmount.toFixed(0) : this.minimumPrice;
+            let price = this.tutorData.price;
+            let discountedAmount = price - this.discountAmount;
+            return discountedAmount > this.minimumPrice ? discountedAmount.toFixed(0) : this.minimumPrice;
         },
         userImageUrl() {
             if (this.tutorData.image) {
@@ -103,8 +122,13 @@ export default {
         tutorReviews() {
             return this.tutorData.reviewsCount || this.tutorData.reviews;
         },
+        showStriked() {
+            let price = this.tutorData.price;
+            return price > this.minimumPrice;
+        },
     },
     methods: {
+        ...mapActions(['openChatInterface']),
         loaded() {
           this.isLoaded = true;
         },
@@ -116,7 +140,10 @@ export default {
         },
         reviewsPlaceHolder(reviews) {
             return reviews === 0 ? reviews.toString() : reviews
-        }
+        },
+        openChatWindow(){
+            this.openChatInterface();
+        },
     }
 }
 </script>
@@ -161,7 +188,7 @@ export default {
     }
 
     .striked{
-        max-width: fit-content;
+        max-width: max-content;
         position: relative;
         color: @colorBlackNew;
         &:after {
@@ -176,6 +203,9 @@ export default {
     }
 
     .moreDetails {
+        &.isprice {
+            margin-top: 17px;
+        }
         color: @purple;
         .price-box {
             max-width: 90px;
@@ -188,6 +218,9 @@ export default {
         }
         .user-rates {
             min-width: 80px;
+            .reviews {
+                color: #4452fc;
+            }
         }
         .user-classes {
             max-width: 67px;
@@ -237,6 +270,12 @@ export default {
                 line-height: 0;
                 color: @purple;
                 text-transform: lowercase;
+                min-width: 200px;
+                max-width: 200px;
+                &.tutor-btn {
+                    min-width: 140px;
+                    max-width: 140px;
+                }
             }
         }
         .more-documents {
@@ -247,6 +286,8 @@ export default {
                 line-height: 0;
                 color: #5158af;
                 text-transform: lowercase;
+                min-width: 140px;
+                max-width: 140px;
             }
         }
     }

@@ -18,17 +18,25 @@
                 </div>
             </v-flex>
             <v-divider vertical class="mx-3"></v-divider>
+
             <div class="user-rates">
                 <div class="title price font-weight-bold">
-                  <span class="headline font-weight-bold">&#8362;{{tutorData.price}}</span>
+                  <span v-if="showStriked">
+                      <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
+                  </span>
+                  <span v-else>
+                      <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
+                  </span>
                   <span class="caption">
+                    <span>/</span>
                     <span v-language:inner="'resultTutor_hour'"></span>
                   </span>
                 </div>
-                <div class="striked"> &#8362;{{discountedPrice}}</div>
+                <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
+
                 <div class="user-rank mt-3 mb-2 align-center">
                   <user-rating :rating="tutorData.rating" :showRateNumber="false" />
-                  <div v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
+                  <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
                 </div>
                 <div class="classes-hours align-center mb-4 mt-2">
                     <clock />
@@ -152,7 +160,7 @@ export default {
     discountedPrice() {
       let price = this.tutorData.price;
       let discountedAmount = price - this.discountAmount;
-      return discountedAmount >  this.minimumPrice ? discountedAmount.toFixed(2) : this.minimumPrice.toFixed(2);
+      return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
     },
     buttonText() {
       return "resultTutor_contact_me";
@@ -226,15 +234,16 @@ export default {
             z-index: 1;
         }
       }
-      .user-rank, {
-        display: inline-flex;
-      }
       .classes-hours {
         display: flex;
       }
       .user-rank {
+        display: inline-flex;
         i{
           font-size: 20px !important;
+        }
+        .reviews {
+          color: #4452fc;
         }
       }
       .btn-chat {

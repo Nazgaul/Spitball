@@ -1,13 +1,13 @@
 <template>
   <router-link @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
-    <v-layout class="tutor-result-card-mobile pa-2 ma-2 column">
+    <v-layout class="tutor-result-card-mobile pa-2 ma-2 pr-4 column">
         <div class="card-mobile-header mb-3">
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div>
-                <h3 class="text-truncate mb-2 title font-weight-bold">{{tutorData.name}}</h3>
+                <h3 class="text-truncate mb-2 subheading font-weight-bold">{{tutorData.name}}</h3>
                 <div class="user-rate align-center mb-2">
                     <user-rating :rating="tutorData.rating" :showRateNumber="false" class="mr-2" />
-                    <span v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></span>
+                    <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></span>
                 </div>
                 <h4 class="text-truncate mb-1 font-weight-light">אוניברסיטה בן גוריון</h4> <!-- university name needed -->
                 <div class="courses text-truncate">
@@ -20,15 +20,21 @@
             {{tutorData.bio}}
         </div>
         <div class="card-mobile-footer">
-            <v-btn class="btn-chat white--text mr-1" block color="#4452fc" @click.prevent="">
-                <iconChat class="chat-icon"/>
-                <div class="font-weight-bold" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
+            <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.stop="">
+                  <iconChat class="chat-icon" />
+                  <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
             </v-btn>
-            <div class="title price font-weight-bold ml-4">
-                <div class="striked"> &#8362;{{discountedPrice}}</div>
-                <span class="font-weight-bold">&#8362;{{tutorData.price}}/</span>
+            <div class="price ml-4 align-center" :class="{'mt-3': !showStriked}">
+                <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
+                <span v-if="showStriked">
+                    <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
+                </span>
+                <span v-else>
+                    <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
+                </span>
                 <span class="caption">
-                <span v-language:inner="'resultTutor_hour'"></span>
+                  <span>/</span>
+                  <span v-language:inner="'resultTutor_hour'"></span>
                 </span>
             </div>
         </div>
@@ -180,6 +186,9 @@ export default {
             i {
                 font-size: 16px !important;
             }
+            .reviews {
+              color: #4452fc;
+            }
         }
         .courses {
           max-width: 200px;
@@ -188,14 +197,7 @@ export default {
     }
 
     .card-mobile-center {
-        position: relative;
-        display: inline-block;
-        word-wrap: break-word;
-        overflow: hidden;
-        max-height: 3.6em;
-        min-height: 3.6em;
-        line-height: 1.2em;
-        text-align: justify;
+      .giveEllipsisUpdated(14px, 1.35, 2, 90px);
     }
 
     .card-mobile-footer {
@@ -211,7 +213,7 @@ export default {
         }
         .price {
           .striked {
-              max-width: fit-content;
+              max-width: max-content;
               position: relative;
               color: @colorBlackNew;
               font-size: 14px;
@@ -226,7 +228,7 @@ export default {
                   z-index: 1;
               }
           }
-          span:nth-child(2) {
+          .main-price {
             font-size: 22px;
           }
        }
