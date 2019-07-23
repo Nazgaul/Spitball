@@ -255,27 +255,32 @@ export default {
             whiteBoardService.clearData(this.canvasData, this.getCurrentSelectedTab);
         },
         keyPressed(e) {
-            if ((e.which == 121 || e.keyCode == 121)) {
-                //F10
+            let isPressedF10 = this.keyCodeChecker(e,121);
+            let isPressedZ = this.keyCodeChecker(e,90);
+            let isPressedDelete = this.keyCodeChecker(e,46);
+            let isPressedBackspace = this.keyCodeChecker(e,8);
+            let isPressedEnter = this.keyCodeChecker(e,13);
+            let isPressedEscape = this.keyCodeChecker(e,27);
+
+            if (isPressedF10) {
                 let link = document.createElement('a');
                 link.download = `${this.getCurrentSelectedTab.name}.png`;
                 link.href = document.getElementById('canvas').toDataURL("image/png")
                 link.click();
             }
             //signalR should be fired Here
-            if ((e.which == 90 || e.keyCode == 90) && e.ctrlKey) {
+            if (isPressedZ && e.ctrlKey) {
                 this.undo();
             }
-            if (((e.which == 46 || e.keyCode == 46) || (e.which == 8 || e.keyCode == 8)) && this.selectedOptionString === this.enumOptions.select) {
+            if ((isPressedDelete || isPressedBackspace) && this.selectedOptionString === this.enumOptions.select) {
                 this.currentOptionSelected.deleteSelectedShape.bind(this.canvasData)();
             }
-            if (((e.which == 13 || e.keyCode == 13) || (e.which == 27 || e.keyCode == 27))) {
-                //enter or escape in text mode
-                if (this.selectedOptionString === this.enumOptions.text) {
-                    this.currentOptionSelected.enterPressed.bind(this.canvasData)();
-                }
-
+            if ((isPressedEnter || isPressedEscape) && this.selectedOptionString === this.enumOptions.text) {
+                this.currentOptionSelected.enterPressed.bind(this.canvasData)();
             }
+        },
+        keyCodeChecker(e,keyCode){
+            return (e.which == keyCode || e.keyCode == keyCode)
         },
         changeTab(tab) {
             if (tab.id !== this.getCurrentSelectedTab.id) {
