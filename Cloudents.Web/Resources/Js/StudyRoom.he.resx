@@ -130,7 +130,10 @@
     <value>גרור ושחרר את הקבצים כאן</value>
   </data>
   <data name="boxs_bottom_link" xml:space="preserve">
-    <value>או צרף מסמכים מהמחשב</value>
+    <value>לצרוף מסמכים מהמחשב</value>
+  </data>
+  <data name="boxs_bottom_or" xml:space="preserve">
+    <value>או</value>
   </data>
   <data name="boxs_top" xml:space="preserve">
     <value>הקלק בכל מקום להתחיל לכתוב</value>
