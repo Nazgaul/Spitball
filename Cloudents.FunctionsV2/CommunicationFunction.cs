@@ -78,7 +78,7 @@ namespace Cloudents.FunctionsV2
 
 
             var message = new UpdatesEmailMessage();
-            
+
 
             var handlerType =
                 typeof(ISystemOperation<>).MakeGenericType(message.GetType());
@@ -213,15 +213,16 @@ namespace Cloudents.FunctionsV2
 
         public static string GetHostUri()
         {
-            var hostName2 = string.Format("http://{0}.azurewebsites.net",
-                Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%"));
+            var hostName2 = Environment.ExpandEnvironmentVariables("%WEBSITE_HOSTNAME%");
+            //var hostName2 = string.Format("http://{0}.azurewebsites.net",
+            //    Environment.ExpandEnvironmentVariables("%WEBSITE_HOSTNAME%"));
             if (hostName2.Contains("localhost", StringComparison.OrdinalIgnoreCase))
             {
                 hostName2 = "https://spitball-function-dev2.azurewebsites.net";
             }
 
-            hostName2 = hostName2.TrimEnd('/');
-            return hostName2;
+            return hostName2.TrimEnd('/');
+            //return hostName2;
         }
 
         [FunctionName("TwilioMessage")]

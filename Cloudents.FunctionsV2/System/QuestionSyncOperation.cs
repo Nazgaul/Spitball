@@ -19,7 +19,7 @@ namespace Cloudents.FunctionsV2.System
 
             var output = new AzureSearchSyncOutput
             {
-                Item = new Question(msg.Question),
+                Item = new Cloudents.Search.Entities.Question(msg.Question),
                 Insert = msg.ShouldInsert
             };
             await syncService.AddAsync(output, token);

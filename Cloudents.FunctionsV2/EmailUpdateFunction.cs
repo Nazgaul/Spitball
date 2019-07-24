@@ -27,7 +27,6 @@ namespace Cloudents.FunctionsV2
         [FunctionName("EmailUpdateFunction")]
         public static async Task RunOrchestrator(
             [OrchestrationTrigger] DurableOrchestrationContext context,
-            [Inject] IQueryBus queryBus,
             CancellationToken token)
         {
             var timeSince = DateTime.UtcNow.AddDays(-30);
@@ -38,21 +37,26 @@ namespace Cloudents.FunctionsV2
                 needToContinue = false;
                 //TODO check assignment
                 var query = new GetUpdatesEmailUsersQuery(timeSince, page++);
-                var result = await context.CallActivityAsync<UpdateEmailDto>("EmailUpdateFunction_UserQuery", query);
+                var result = await context.CallActivityAsync<IEnumerable<UpdateUserEmailDto>>("EmailUpdateFunction_UserQuery", query);
 
                 foreach (var emailDto in result)
                 {
+                    if (token.IsCancellationRequested)
+                    {
+                        break;
+                    }
+                   // token.ThrowIfCancellationRequested();
                     needToContinue = true;
                     emailDto.Since = timeSince;
-                    await context.CallActivityAsync<string>("EmailUpdateFunction_Hello", emailDto);
+                    await context.CallActivityAsync<string>("EmailUpdateFunction_Process", emailDto);
                 }
 
             } while (needToContinue);
-           
+
         }
 
         [FunctionName("EmailUpdateFunction_UserQuery")]
-        public static async Task<IEnumerable<UpdateEmailDto>> GetUserQuery(
+        public static async Task<IEnumerable<UpdateUserEmailDto>> GetUserQuery(
             [ActivityTrigger] GetUpdatesEmailUsersQuery query,
             [Inject] IQueryBus queryBus,
             CancellationToken token)
@@ -61,9 +65,12 @@ namespace Cloudents.FunctionsV2
             return result;
         }
 
+
+      
+
         [FunctionName("EmailUpdateFunction_Process")]
         public static async Task SendEmail(
-            [ActivityTrigger] UpdateEmailDto user,
+            [ActivityTrigger] UpdateUserEmailDto user,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
             [Inject] IQueryBus queryBus,
             ILogger log,
@@ -72,8 +79,6 @@ namespace Cloudents.FunctionsV2
             [Inject] IDocumentDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
-            var q = new GetUpdatesEmailByUserQuery(user.UserId, user.Since);
-            var result = await queryBus.QueryAsync(q, token);
 
             var uri = CommunicationFunction.GetHostUri();
 
@@ -84,46 +89,69 @@ namespace Cloudents.FunctionsV2
                 ["mode"] = "crop"
             };
 
-            var questions = result.Item1.Select(question =>
-            {
 
-                var uriBuilder = new UriBuilder(new Uri(uri))
+            var q = new GetUpdatesEmailByUserQuery(user.UserId, user.Since);
+            var result = (await queryBus.QueryAsync(q, token)).ToList();
+
+          
+            var courses = result.GroupBy(g => g.Course).Select(s =>
+            {
+                //var updates = s.ToList();
+                var emailUpdates = s.Take(4).ToList();
+                return new Course()
                 {
-                    Path = $"/image/{question.UserImage}",
-                };
-                uriBuilder.AddQuery(questionNvc);
-                return new Question()
-                {
-                    QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId),
-                    QuestionText = question.QuestionText,
-                    UserImage = uriBuilder.ToString(),
-                    UserName = question.UserName
+                    Name = s.Key,
+                    Url = "www.spitball.co",
+                    NeedMore = emailUpdates.Count == 4,
+                    Documents = emailUpdates.OfType<DocumentUpdateEmailDto>().Select(document =>
+                    {
+                        var previewUri = blobProvider.GetPreviewImageLink(document.Id, 0);
+                        var properties = new ImageProperties(previewUri);
+                        var byteHash = binarySerializer.Serialize(properties);
+                        var hash = Base64UrlTextEncoder.Encode(byteHash);
+
+
+                        var uriBuilder = new UriBuilder(new Uri(uri))
+                        {
+                            Path = $"/image/{hash}",
+                        };
+                        uriBuilder.AddQuery(questionNvc);
+
+                        return new Document()
+                        {
+                            Url = urlBuilder.BuildDocumentEndPoint(document.Id),
+                            Name = document.Name,
+                            UserName = document.UserName,
+                            DocumentPreview = uriBuilder.ToString()
+                        };
+                    }),
+                    Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question =>
+                    {
+                        var uriBuilder = new UriBuilder(new Uri(uri))
+                        {
+                            Path = $"/image/{question.UserImage}",
+                        };
+                        uriBuilder.AddQuery(questionNvc);
+                        return new Question()
+                        {
+                            QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId),
+                            QuestionText = question.QuestionText,
+                            UserImage = uriBuilder.ToString(),
+                            UserName = question.UserName
+                        };
+                    })
                 };
             });
-            var documents = result.Item2.Select(document =>
-            {
-                var previewUri = blobProvider.GetPreviewImageLink(document.Id, 0);
-                var properties = new ImageProperties(previewUri);
-                var byteHash = binarySerializer.Serialize(properties);
-                var hash = Base64UrlTextEncoder.Encode(byteHash);
 
-
-                var uriBuilder = new UriBuilder(new Uri(uri))
-                {
-                    Path = $"/image/{hash}",
-                };
-                uriBuilder.AddQuery(questionNvc);
-
-                return new Document()
-                {
-                    Url = urlBuilder.BuildDocumentEndPoint(document.Id),
-                    Name = document.Name,
-                    UserName = document.UserName,
-                    DocumentPreview = uriBuilder.ToString()
-                };
-            });
            
-            var templateData = new UpdateEmail(user.UserName,  documents, questions, user.ToEmailAddress);
+
+
+            var templateData = new UpdateEmail(user.UserName, user.ToEmailAddress)
+            {
+                DocumentCountUpdate = result.OfType<DocumentUpdateEmailDto>().Count(),
+                QuestionCountUpdate = result.OfType<QuestionUpdateEmailDto>().Count(),
+                Courses = courses
+            };
 
             var message = new SendGridMessage
             {
@@ -158,15 +186,16 @@ namespace Cloudents.FunctionsV2
         }
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
-        public static async Task HttpStart(
+        public static async Task TimerStart(
             [TimerTrigger("0 0 10 * * *", RunOnStartup = true)] TimerInfo myTimer,
             [OrchestrationClient]DurableOrchestrationClient starter,
             ILogger log)
         {
-            
-            string instanceId = await starter.StartNewAsync("EmailUpdateFunction", null);
-
+            var uri = CommunicationFunction.GetHostUri();
+            await starter.TerminateAsync("1", "Test");
+            string instanceId = await starter.StartNewAsync("EmailUpdateFunction","1", null);
             log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
+
         }
 
 
@@ -181,49 +210,75 @@ namespace Cloudents.FunctionsV2
             public int TotalUpdates => QuestionCountUpdate + DocumentCountUpdate;
 
             [JsonProperty("xQuestions")]
-            public int QuestionCountUpdate => Questions.Count;
+            public int QuestionCountUpdate { get; set; }
 
             [JsonProperty("xNewItems")]
-            public int DocumentCountUpdate => Documents.Count;
-            [JsonProperty("documents")]
-            public List<Document> Documents { get; set; }
-            [JsonProperty("questions")]
-            public List<Question> Questions { get; set; }
+            public int DocumentCountUpdate { get; set; }
+
             [JsonProperty("to")]
             public string To { get; set; }
 
-            public UpdateEmail(string userName, IEnumerable<Document> documents, IEnumerable<Question> questions, string to)
+            [JsonProperty("courseUpdates")]
+            public IEnumerable<Course> Courses { get; set; }
+
+            public UpdateEmail(string userName, string to)
             {
                 UserName = userName;
-                Documents = documents.ToList();
-                Questions = questions.ToList();
+                //Documents = documents.ToList();
+                //Questions = questions.ToList();
                 To = to;
             }
 
         }
 
-        internal class Question
+        internal class Course
         {
-            [JsonProperty("questionUrl")]
-            public string QuestionUrl { get; set; }
-            [JsonProperty("userPicture")]
-            public string UserImage { get; set; }
-            [JsonProperty("asker")]
-            public string UserName { get; set; }
-            [JsonProperty("questionTxt")]
-            public string QuestionText { get; set; }
+            [JsonProperty("courseName")]
+            public string Name { get; set; }
+            [JsonProperty("courseUrl")]
+            public string Url { get; set; }
+
+            //public IEnumerable<Item> Updates => Questions.Union<Item>(Documents).Take(4);
+            [JsonProperty("questions")]
+
+            public IEnumerable<Question> Questions { get; set; }
+            [JsonProperty("documents")]
+
+            public IEnumerable<Document> Documents { get; set; }
+
+            [JsonProperty("extraUpdates")]
+            public bool NeedMore { get; set; }
         }
 
-        internal class Document
-        {
-            [JsonProperty("fileUrl")]
-            public string Url { get; set; }
-            [JsonProperty("fileName")]
-            public string Name { get; set; }
-            [JsonProperty("uploader")]
-            public string UserName { get; set; }
-            [JsonProperty("imgSource")]
-            public string DocumentPreview { get; set; }
-        }
+
+    }
+
+    internal abstract class Item
+    {
+
+    }
+
+    internal class Question : Item
+    {
+        [JsonProperty("questionUrl")]
+        public string QuestionUrl { get; set; }
+        [JsonProperty("userPicture")]
+        public string UserImage { get; set; }
+        [JsonProperty("asker")]
+        public string UserName { get; set; }
+        [JsonProperty("questionTxt")]
+        public string QuestionText { get; set; }
+    }
+
+    internal class Document : Item
+    {
+        [JsonProperty("fileUrl")]
+        public string Url { get; set; }
+        [JsonProperty("fileName")]
+        public string Name { get; set; }
+        [JsonProperty("uploader")]
+        public string UserName { get; set; }
+        [JsonProperty("imgSource")]
+        public string DocumentPreview { get; set; }
     }
 }

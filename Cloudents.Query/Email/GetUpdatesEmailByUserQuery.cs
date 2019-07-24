@@ -7,12 +7,13 @@ using NHibernate.Criterion;
 using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Query.Email
 {
-    public class GetUpdatesEmailByUserQuery : IQuery<(IEnumerable<QuestionEmailDto>, IEnumerable<DocumentEmailDto>)>
+    public class GetUpdatesEmailByUserQuery : IQuery<IEnumerable<UpdateEmailDto>>
     {
         public GetUpdatesEmailByUserQuery(long userId, DateTime since)
         {
@@ -22,7 +23,7 @@ namespace Cloudents.Query.Email
         private long UserId { get; }
         private DateTime Since { get; }
 
-        internal sealed class GetUpdatesEmailQuestionsQueryHandler : IQueryHandler<GetUpdatesEmailByUserQuery, (IEnumerable<QuestionEmailDto>, IEnumerable<DocumentEmailDto>)>
+        internal sealed class GetUpdatesEmailQuestionsQueryHandler : IQueryHandler<GetUpdatesEmailByUserQuery, IEnumerable<UpdateEmailDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -31,19 +32,23 @@ namespace Cloudents.Query.Email
                 _session = querySession.StatelessSession;
             }
 
-            public async Task<(IEnumerable<QuestionEmailDto>, IEnumerable<DocumentEmailDto>)> GetAsync(GetUpdatesEmailByUserQuery query, CancellationToken token)
+            public async Task<IEnumerable<UpdateEmailDto>> GetAsync(GetUpdatesEmailByUserQuery query, CancellationToken token)
             {
                 User userAlias = null;
-                QuestionEmailDto questionEmailDtoAlias = null;
+                QuestionUpdateEmailDto questionEmailDtoAlias = null;
 
                 var queryCourse = QueryOver.Of<UserCourse>().Where(w => w.User.Id == query.UserId)
                     .Select(s => s.Course.Id);
+
+                var queryUniversity = QueryOver.Of<User>().Where(w => w.Id == query.UserId)
+                    .Select(s => s.University.Id);
 
                 var questionFuture = _session.QueryOver<Question>()
                      .JoinAlias(x => x.User, () => userAlias)
                      .Where(x => x.Created > query.Since)
                      .And(x => x.Status.State == ItemState.Ok)
                      .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
+                     .WithSubquery.WhereProperty(x=>x.University.Id).Eq(queryUniversity)
                      .And(x => x.User.Id != query.UserId)
 
 
@@ -54,11 +59,12 @@ namespace Cloudents.Query.Email
                          sl.Select(x => x.Text).WithAlias(() => questionEmailDtoAlias.QuestionText);
                          sl.Select(() => userAlias.Name).WithAlias(() => questionEmailDtoAlias.UserName);
                          sl.Select(() => userAlias.Image).WithAlias(() => questionEmailDtoAlias.UserImage);
+                         sl.Select(x => x.Course.Id).WithAlias(() => questionEmailDtoAlias.Course);
                          return sl;
-                     }).TransformUsing(Transformers.AliasToBean<QuestionEmailDto>())
-                     .Future<QuestionEmailDto>();
+                     }).TransformUsing(Transformers.AliasToBean<QuestionUpdateEmailDto>())
+                     .Future<QuestionUpdateEmailDto>();
 
-                DocumentEmailDto documentEmailDtoAlias = null;
+                DocumentUpdateEmailDto documentEmailDtoAlias = null;
 
 
                 var documentFuture = _session.QueryOver<Document>()
@@ -66,6 +72,7 @@ namespace Cloudents.Query.Email
                     .Where(x => x.TimeStamp.CreationTime > query.Since)
                     .And(x => x.Status.State == ItemState.Ok)
                     .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
+                    .WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
                     .And(x => x.User.Id != query.UserId)
 
 
@@ -74,14 +81,16 @@ namespace Cloudents.Query.Email
                         sl.Select(x => x.Id).WithAlias(() => documentEmailDtoAlias.Id);
                         sl.Select(x => x.Name).WithAlias(() => documentEmailDtoAlias.Name);
                         sl.Select(() => userAlias.Name).WithAlias(() => documentEmailDtoAlias.UserName);
+                        sl.Select(x => x.Course.Id).WithAlias(() => documentEmailDtoAlias.Course);
+
                         return sl;
-                    }).TransformUsing(Transformers.AliasToBean<DocumentEmailDto>())
-                    .Future<DocumentEmailDto>();
+                    }).TransformUsing(Transformers.AliasToBean<DocumentUpdateEmailDto>())
+                    .Future<DocumentUpdateEmailDto>();
 
-                var questions = await questionFuture.GetEnumerableAsync(token);
-                var documents = await documentFuture.GetEnumerableAsync(token);
+                IEnumerable<UpdateEmailDto> questions = await questionFuture.GetEnumerableAsync(token);
+                IEnumerable<UpdateEmailDto> documents = await documentFuture.GetEnumerableAsync(token);
 
-                return (questions, documents);
+                return questions.Union(documents);
             }
         }
     }

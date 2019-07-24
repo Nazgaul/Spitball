@@ -94,7 +94,7 @@ namespace Cloudents.FunctionsV2
 
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
-                    Item = new Document
+                    Item = new Cloudents.Search.Entities.Document
                     {
                         Id = id,
                         Content = text.Truncate(6000)
@@ -107,7 +107,7 @@ namespace Cloudents.FunctionsV2
             {
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
-                    Item = new Document
+                    Item = new Cloudents.Search.Entities.Document
                     {
                         Id = id,
                     },

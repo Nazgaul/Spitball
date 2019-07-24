@@ -53,38 +53,42 @@ namespace Cloudents.Core.DTOs
         //public decimal Tokens { get; set; }
     }
 
-    public class UpdateEmailDto
+    public class UpdateUserEmailDto
     {
-        //public long Id { get; set; }
+        [EntityBind(nameof(User.Name))]
         public string UserName { get; set; }
 
+        [EntityBind(nameof(User.Email))]
         public string ToEmailAddress { get; set; }
+        [EntityBind(nameof(User.Language))]
         public CultureInfo Language { get; set; }
 
+        [EntityBind(nameof(User.Id))]
         public long UserId { get; set; }
 
         public DateTime Since { get; set; }
-        // public int NumUpdates { get; set; }
-        // public int XQuestions { get; set; }
-        // public int XNewItems { get; set; }
-        // public IEnumerable<DocumentEmailDto> Documents { get; set; }
-        // public IEnumerable<QuestionEmailDto> Questions { get; set; }
-        // public string To { get; set; }
     }
 
-    public class QuestionEmailDto
+    public class QuestionUpdateEmailDto : UpdateEmailDto
     {
         public long UserId { get; set; }
         public long QuestionId { get; set; }
         public string UserImage { get; set; }
         public string UserName { get; set; }
         public string QuestionText { get; set; }
+
     }
-    public class DocumentEmailDto
+    public class DocumentUpdateEmailDto : UpdateEmailDto
     {
         public long Id { get; set; }
         public string Name { get; set; }
         public string UserName { get; set; }
         public string Image { get; set; }
+       
+    }
+
+    public abstract class UpdateEmailDto
+    {
+        public string Course { get; set; }
     }
 }
