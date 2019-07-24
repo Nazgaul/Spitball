@@ -13,7 +13,7 @@
                 <span v-language:inner="isRegisterPath? 'loginRegister_emailconfirm_bottom' : 'loginRegister_emailconfirm_bottom_reset'"/>
                 <span v-if="!isRegisterPath" v-language:inner="'loginRegister_emailconfirm_bottom_reset_or'"/>
                 <div>
-                    <span class="link" @click="resend()" v-language:inner="'loginRegister_emailconfirm_resend'"/>
+                    <span class="link" @click="resend()" v-language:inner="'loginRegister_emailconfirm_resend'"/>&nbsp;
                     <span v-if="isRegisterPath" v-language:inner="'loginRegister_emailconfirm_rest'"/>
                 </div>
             </div>

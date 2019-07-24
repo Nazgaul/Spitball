@@ -232,6 +232,8 @@ const connectToRoom = function (token, options) {
                             whiteBoardService.undo(parsedData, Data.tab);
                         } else if (Data.type === 'clearCanvas') {
                             whiteBoardService.clearData(parsedData, Data.tab);
+                        } else if (Data.type === 'updateTab'){
+                            store.dispatch('updateTab', parsedData);
                         }
                     });
                 } else if (track.kind === 'video') {

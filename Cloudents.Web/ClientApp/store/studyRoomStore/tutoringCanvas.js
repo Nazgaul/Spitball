@@ -85,6 +85,13 @@ const getters = {
 };
 
 const mutations = {
+    setTabName(state, {tabName,tabId}){
+        state.canvasTabs.forEach(tab =>{
+            if(tab.id === tabId){
+                tab.name = tabName
+            }
+        })
+    },
     setDragData(state, val) {
         let tab = val.tab.id;
         if(!state.dragData[tab]){
@@ -223,6 +230,9 @@ const actions = {
     setClearAllClicked({commit}){
         commit('setClearAllClicked')
     },
+    updateTab({commit},updateTabObj){
+        commit('setTabName',updateTabObj)
+    }
 };
 export default {
     state,

@@ -294,6 +294,12 @@
   <data name="tooltip_line" xml:space="preserve">
     <value>קו</value>
   </data>
+  <data name="tooltip_mic_mute" xml:space="preserve">
+    <value>השתק</value>
+  </data>
+  <data name="tooltip_mic_unmute" xml:space="preserve">
+    <value>הפעל</value>
+  </data>
   <data name="tooltip_pan" xml:space="preserve">
     <value>גרירה</value>
   </data>
@@ -314,5 +320,11 @@
   </data>
   <data name="tooltip_upload" xml:space="preserve">
     <value>העלאה תמונה</value>
+  </data>
+  <data name="tooltip_video_pause" xml:space="preserve">
+    <value>הפסק</value>
+  </data>
+  <data name="tooltip_video_resume" xml:space="preserve">
+    <value>הפעל</value>
   </data>
 </root>

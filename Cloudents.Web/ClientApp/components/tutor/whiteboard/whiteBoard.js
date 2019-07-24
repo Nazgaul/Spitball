@@ -1,20 +1,28 @@
 
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue"
 import tutorService from "../tutorService";
 import { LanguageService } from '../../../services/language/languageService';
+import imageDraw from './options/imageDraw';
+import pencilSVG from '../images/noun-edit-684936.svg';
+import uploadSVG from '../images/outline-open-in-browser-24-px.svg';
 
 const HeaderHeight = 108;
 
 export default {
     components: {
-        equationMapper
+        equationMapper,
+        pencilSVG,
+        uploadSVG
     },
     data() {
         return {
+            isEdit: false,
+            currentTabId: null,
+            showWelcomeHelper: true,
             canvasWidth: 2800,
             canvasHeight: 850,
             windowWidth: global.innerWidth, // 10 stands for the scroll offset
@@ -68,6 +76,12 @@ export default {
             'undoClicked', 
             'addImage',
             'clearAllClicked']),
+        equationSizeX(){
+            return (window.innerWidth / 2) - 300
+        },
+        equationSizeY(){
+            return window.innerHeight / 3.5
+        },
         helperStyle() {
             return helperUtil.HelperObj.style
         },
@@ -125,10 +139,55 @@ export default {
     },
     methods: {
         ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface']),
+        ...mapMutations(['setTabName']),
         renameTab() {
             console.log("Rename Tab");
         },
-
+        editTabName(tabId){
+            this.isEdit = true;
+            this.currentTabId = tabId
+            let tab = document.getElementById(tabId)
+            tab.contentEditable = "true";
+            let range = document.createRange();
+            range.selectNodeContents(tab);
+            let selection = global.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        },
+        saveNewTabName(){
+            if(this.isEdit){
+                let newTabName = document.getElementById(this.currentTabId).textContent;
+                let tabData = {
+                    tabId: this.currentTabId,
+                    tabName: newTabName
+                }
+                let transferDataObj = {
+                    type: "updateTab",
+                    data: tabData
+                };
+                let normalizedData = JSON.stringify(transferDataObj);
+                tutorService.dataTrack.send(normalizedData);
+    
+                let tab = document.getElementById(this.currentTabId)
+                let selection = global.getSelection();
+                selection.empty()
+                tab.contentEditable = "false";
+                this.isEdit = false
+            }
+        },
+        uploadImage(){
+            this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, 'imageDraw')());
+            this.setSelectedOptionString('imageDraw');
+            let inputImgElm = document.getElementById('imageUpload');
+            inputImgElm.click();
+            this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
+            this.setSelectedOptionString(this.enumOptions.select);
+            this.showWelcomeHelper = false
+        },
+        finishEquation(){
+            let mouseEvent = new MouseEvent("mousedown", {});
+            canvas.dispatchEvent(mouseEvent);
+        },
         deleteTab(tab) {
             this.removeCanvasTab(tab);
             this.changeTab(this.getCanvasTabs[0]);
@@ -140,42 +199,49 @@ export default {
         hideColorPicker() {
             this.setShowPickColorInterface(false);
         },
-        
-        
         clearCanvas() {
             this.resetDragData();
             whiteBoardService.redraw(this.canvasData)
             helperUtil.HelperObj.isActive = false;
         },
+        returnToDefaultState(dragObj){
+            let stateToDefault = ['textDraw', 'selectShape'];
+            let returnToDefault = !!this.selectedOptionString ? stateToDefault.indexOf(this.selectedOptionString) > -1 : true
+            return !dragObj.isGhost && returnToDefault
+        },
         addShape(dragObj, callback) {
-            let dragUpdate = {
-                tab: this.getCurrentSelectedTab,
-                data: dragObj
-            }
-            this.updateDragData(dragUpdate);
-            if (callback) {
-                callback();
-            }
-            let canvasData = {
-                context: this.canvasData.context,
-                metaData: this.canvasData.metaData,
-                tab: this.getCurrentSelectedTab
-            };
-            let data = {
-                canvasContext: canvasData,
-                dataContext: dragObj,
-            };
-            let transferDataObj = {
-                type: "passData",
-                data: data
-            };
-            let normalizedData = JSON.stringify(transferDataObj);
-            tutorService.dataTrack.send(normalizedData);
-            if (!dragObj.isGhost && this.selectedOptionString !== this.enumOptions.draw) {
-                // this.selectDefaultTool();
-                //case SPITBALL-647
+            if(!dragObj){
                 this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
                 this.setSelectedOptionString(this.enumOptions.select);
+            } else{
+                let dragUpdate = {
+                    tab: this.getCurrentSelectedTab,
+                    data: dragObj
+                }
+                this.updateDragData(dragUpdate);
+                if (callback) {
+                    callback();
+                }
+                let canvasData = {
+                    context: this.canvasData.context,
+                    metaData: this.canvasData.metaData,
+                    tab: this.getCurrentSelectedTab
+                };
+                let data = {
+                    canvasContext: canvasData,
+                    dataContext: dragObj,
+                };
+                let transferDataObj = {
+                    type: "passData",
+                    data: data
+                };
+                let normalizedData = JSON.stringify(transferDataObj);
+                tutorService.dataTrack.send(normalizedData);
+                if (this.returnToDefaultState(dragObj)) {
+                    this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
+                    this.setSelectedOptionString(this.enumOptions.select);
+                }
+                this.showWelcomeHelper = false
             }
         },
         undo() {
@@ -200,29 +266,35 @@ export default {
             whiteBoardService.clearData(this.canvasData, this.getCurrentSelectedTab);
         },
         keyPressed(e) {
-            if ((e.which == 121 || e.keyCode == 121)) {
-                //F10
+            let isPressedF10 = this.keyCodeChecker(e,121);
+            let isPressedZ = this.keyCodeChecker(e,90);
+            let isPressedDelete = this.keyCodeChecker(e,46);
+            let isPressedBackspace = this.keyCodeChecker(e,8);
+            let isPressedEnter = this.keyCodeChecker(e,13);
+            let isPressedEscape = this.keyCodeChecker(e,27);
+
+            if (isPressedF10) {
                 let link = document.createElement('a');
                 link.download = `${this.getCurrentSelectedTab.name}.png`;
                 link.href = document.getElementById('canvas').toDataURL("image/png")
                 link.click();
             }
             //signalR should be fired Here
-            if ((e.which == 90 || e.keyCode == 90) && e.ctrlKey) {
+            if (isPressedZ && e.ctrlKey) {
                 this.undo();
             }
-            if (((e.which == 46 || e.keyCode == 46) || (e.which == 8 || e.keyCode == 8)) && this.selectedOptionString === this.enumOptions.select) {
+            if ((isPressedDelete || isPressedBackspace) && this.selectedOptionString === this.enumOptions.select) {
                 this.currentOptionSelected.deleteSelectedShape.bind(this.canvasData)();
             }
-            if (((e.which == 13 || e.keyCode == 13) || (e.which == 27 || e.keyCode == 27))) {
-                //enter or escape in text mode
-                if (this.selectedOptionString === this.enumOptions.text) {
-                    this.currentOptionSelected.enterPressed.bind(this.canvasData)();
-                }
-
+            if ((isPressedEnter || isPressedEscape) && this.selectedOptionString === this.enumOptions.text) {
+                this.currentOptionSelected.enterPressed.bind(this.canvasData)();
             }
         },
+        keyCodeChecker(e,keyCode){
+            return (e.which == keyCode || e.keyCode == keyCode)
+        },
         changeTab(tab) {
+            this.currentTabId = tab.id
             if (tab.id !== this.getCurrentSelectedTab.id) {
                 // this.clearTabOption();
                 this.changeSelectedTab(tab);
@@ -253,6 +325,22 @@ export default {
         registerCanvasEvents(canvas, canvasWrapper) {
             let self = this;
             global.addEventListener('resize', this.resizeCanvas, false);
+            let dropArea = canvas
+            dropArea.addEventListener('dragenter', (e) =>{
+            }, false)
+            dropArea.addEventListener('dragleave', (e) =>{
+
+            }, false)
+            dropArea.addEventListener('dragover', (e) =>{
+                e.preventDefault();
+
+            }, false)
+            global.addEventListener('drop', (e) =>{
+                e.preventDefault();
+                imageDraw.handleImage(e,true)
+                self.showWelcomeHelper = false
+                self.setSelectedOptionString(self.enumOptions.select);
+            }, false)
             canvas.addEventListener('mousedown', (e) => {
                 // self.clearTabOption();
                 if (e.button == 0) {
@@ -260,6 +348,7 @@ export default {
                         self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
                     }
                 }
+                self.showWelcomeHelper = false
 
             });
             canvas.addEventListener('mouseup', (e) => {
@@ -346,7 +435,6 @@ export default {
         canvasFinder.trackTransforms(this.canvasData.context);
         this.registerCanvasEvents(canvas, canvasWrapper);
         global.document.addEventListener("keydown", this.keyPressed);
-
 
 
 

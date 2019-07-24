@@ -14,7 +14,6 @@
 			type="email"/>
       
 		<v-btn
-      :disabled="!isEmail"
       :loading="isEmailLoading"
       type="submit"
 			large
@@ -50,9 +49,6 @@ export default {
         this.updateEmail(val)
         this.setErrorMessages({})
       }
-    },
-    isEmail(){
-      return (this.getEmail1)
     }
   },
   methods: {
