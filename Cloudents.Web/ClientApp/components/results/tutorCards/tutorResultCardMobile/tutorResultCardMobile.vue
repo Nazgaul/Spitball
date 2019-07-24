@@ -118,7 +118,7 @@ export default {
               userId: user.userId,
               image: user.image,
               name: user.name,
-              conversationId: chatService.createConversationId([user.id, this.accountUser.id]),
+              conversationId: chatService.createConversationId([user.userId, this.accountUser.id]),
           }
           let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
           this.setActiveConversationObj(currentConversationObj);
