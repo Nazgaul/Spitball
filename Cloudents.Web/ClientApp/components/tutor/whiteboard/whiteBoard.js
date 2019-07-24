@@ -20,6 +20,7 @@ export default {
     },
     data() {
         return {
+            isEdit: false,
             currentTabId: null,
             showWelcomeHelper: true,
             canvasWidth: 2800,
@@ -143,6 +144,7 @@ export default {
             console.log("Rename Tab");
         },
         editTabName(tabId){
+            this.isEdit = true;
             this.currentTabId = tabId
             let tab = document.getElementById(tabId)
             tab.contentEditable = "true";
@@ -153,20 +155,25 @@ export default {
             selection.addRange(range);
         },
         saveNewTabName(){
-            let newTabName = document.getElementById(this.currentTabId).textContent;
-            let tabData = {
-                tabId: this.currentTabId,
-                tabName: newTabName
+            if(this.isEdit){
+                let newTabName = document.getElementById(this.currentTabId).textContent;
+                let tabData = {
+                    tabId: this.currentTabId,
+                    tabName: newTabName
+                }
+                let transferDataObj = {
+                    type: "updateTab",
+                    data: tabData
+                };
+                let normalizedData = JSON.stringify(transferDataObj);
+                tutorService.dataTrack.send(normalizedData);
+    
+                let tab = document.getElementById(this.currentTabId)
+                let selection = global.getSelection();
+                selection.empty()
+                tab.contentEditable = "false";
+                this.isEdit = false
             }
-            let transferDataObj = {
-                type: "updateTab",
-                data: tabData
-            };
-            let normalizedData = JSON.stringify(transferDataObj);
-            tutorService.dataTrack.send(normalizedData);
-
-            let tab = document.getElementById(this.currentTabId)
-            tab.contentEditable = "false";
         },
         uploadImage(){
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, 'imageDraw')());
@@ -287,6 +294,7 @@ export default {
             return (e.which == keyCode || e.keyCode == keyCode)
         },
         changeTab(tab) {
+            this.currentTabId = tab.id
             if (tab.id !== this.getCurrentSelectedTab.id) {
                 // this.clearTabOption();
                 this.changeSelectedTab(tab);
