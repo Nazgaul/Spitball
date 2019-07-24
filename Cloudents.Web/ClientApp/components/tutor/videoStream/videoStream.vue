@@ -41,7 +41,7 @@
                                         <microphoneImageIgnore v-if="!localAudioTrack" class="mic-ignore" />           
                                     </button>
                                 </template>
-                                <span v-language:inner="localAudioTrack ? 'tutor_tooltip_mic_unmute':'tutor_tooltip_mic_mute'"/>
+                                <span v-language:inner="localAudioTrack ? 'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute'"/>
                             </v-tooltip>
 
                             <v-tooltip top>
