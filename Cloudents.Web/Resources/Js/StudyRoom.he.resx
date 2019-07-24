@@ -124,13 +124,10 @@
     <value>הירשם כמורה פרטי</value>
   </data>
   <data name="boxs_bottom_add" xml:space="preserve">
-    <value>להוספת מסמכים ללוח</value>
-  </data>
-  <data name="boxs_bottom_drag" xml:space="preserve">
-    <value>גרור ושחרר את הקבצים כאן</value>
+    <value>להוספת מסמכים ללוח, גרור ושחרר את הקבצים כאן</value>
   </data>
   <data name="boxs_bottom_link" xml:space="preserve">
-    <value>לצרוף מסמכים מהמחשב</value>
+    <value>צרף מסמכים מהמחשב</value>
   </data>
   <data name="boxs_bottom_or" xml:space="preserve">
     <value>או </value>
