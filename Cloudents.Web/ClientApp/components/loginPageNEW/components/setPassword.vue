@@ -7,7 +7,7 @@
 				placeholder="loginRegister_setpass_input_email"
 				icon="sbf-email" 
 				:bottomError="true"
-				:autofocus="true" 
+				:autofocus="false" 
                 :errorMessage="errorMessages.email"
 				name="email" type="email"/>
 
@@ -18,8 +18,7 @@
 				placeholder="loginRegister_setpass_input_pass"  
 				:bottomError="true" 
 				type="password" name="pass"
-				:autofocus="false"/>
-
+				:autofocus="true"/>
         <v-btn  
                 type="submit"
                 :loading="isEmailLoading"
