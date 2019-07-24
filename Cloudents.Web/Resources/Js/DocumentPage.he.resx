@@ -123,8 +123,11 @@
   <data name="download_btn" xml:space="preserve">
     <value>הורד</value>
   </data>
+  <data name="full_list" xml:space="preserve">
+    <value>לצפייה ברשימה המלאה</value>
+  </data>
   <data name="more_tutors" xml:space="preserve">
-    <value>עוד מורים פרטיים בקורס זה</value>
+    <value>עוד מורים בקורס זה</value>
   </data>
   <data name="online_tutor" xml:space="preserve">
     <value>השג מורים פרטיים אונליין ואת כל חומרי הלימוד כדי להצליח</value>

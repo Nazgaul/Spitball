@@ -1,39 +1,37 @@
 <template>
     <router-link @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
-        <v-layout class="tutor-result-card-other pa-2 mb-3 default-card" row wrap>
-            <v-layout row class="mb-2">
+        <v-layout class="tutor-result-card-other pa-2 mb-3" row wrap>
+            <div class="mb-2 top-card">
                 <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
-                <div>
+                <div style="width:100%;max-height:83px;">
                     <h3 class="subheading font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
 
                     <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
 
-                    <v-layout row class="moreDetails" :class="{'isprice': !showStriked}" align-baseline>
+                    <v-layout row class="moreDetails" :class="{'isprice': !showStriked}" align-center>
                         <div column class="price-box column">
                             <span v-if="showStriked">
-                                <span class="title font-weight-bold">{{discountedPrice}}</span>
-                                <span class="font-weight-bold">&#8362;</span>
+                                <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
                             </span>
                             <span v-else>
-                                <span class="title font-weight-bold">{{tutorData.price}}</span>
-                                <span class="font-weight-bold">&#8362;</span>
+                                <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
                             </span>
                             <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                         </div>
 
-                        <v-layout column align-center class="user-rates ml-4">
+                        <v-layout column align-center class="user-rates">
                             <userRating class="rating-holder mt-2 mb-1" :rating="tutorData.rating" :showRateNumber="false" />  <!-- :size="isInTutorList ? '16' : '20'" -->
                             <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
                         </v-layout>
                         
                         <template>
                             <!-- card-a -->
-                            <v-btn class="btn-chat cardA" color="#4452fc" @click.prevent="openChatWindow">
+                            <v-btn class="btn-chat cardA" color="#4452fc" @click.prevent="sendMessage(tutorData)">
                                 <iconChat/>
                             </v-btn>
 
                             <!-- card-b -->
-                            <v-layout column align-center class="ml-4 cardB user-classes subheading">
+                            <v-layout column align-center class="cardB user-classes subheading">
                                 <div>32</div>
                                 <div v-language:inner="'resultTutor_classes'"></div>
                             </v-layout>
@@ -41,9 +39,9 @@
 
                     </v-layout>
                 </div>
-            </v-layout>
+            </div>
             <v-layout class="tutor-bio">
-                <p class="mb-2">{{tutorData.bio}}</p>
+                {{tutorData.bio}}
             </v-layout>
             <v-layout row class="btn-footer cardB">
                 <div class="send-msg text-xs-center text-truncate" >
@@ -53,7 +51,7 @@
                         color="#848bbc" 
                         depressed 
                         class="white--text caption" 
-                        @click.prevent="openChatWindow" 
+                        @click.prevent="sendMessage(tutorData)" 
                         :class="{'tutor-btn': isTutor}" 
                         v-html="$Ph('resultTutor_send_button', tutorData.name)">
                     </v-btn>
@@ -67,10 +65,12 @@
 </template>
 
 <script>
+import analyticsService from '../../../../services/analytics.service';
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import iconChat from './icon-chat.svg';
-import {mapActions} from 'vuex';
+import chatService from '../../../../services/chatService';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
     components: {
@@ -88,6 +88,7 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(['accountUser']),
         isTutor() {
             if(this.isTutorData) {
                 return this.tutorData.isTutor;
@@ -95,9 +96,6 @@ export default {
         },
         isTutorData() {
             return this.tutorData ? true : false;
-        },
-        isTutorName() {
-            return this.isTutorData ? this.tutorData.name : null;
         },
         isUserImage() {
             return this.isTutorData && this.tutorData.image ? true : false;
@@ -119,21 +117,23 @@ export default {
                 return "./images/placeholder-profile.png";
             }
         },
-        tutorReviews() {
-            return this.tutorData.reviewsCount || this.tutorData.reviews;
-        },
         showStriked() {
             let price = this.tutorData.price;
             return price > this.minimumPrice;
         },
     },
     methods: {
-        ...mapActions(['openChatInterface']),
+        ...mapGetters(['getProfile']),
+        ...mapActions(['setActiveConversationObj', 'openChatInterface','updateRequestDialog','updateCurrTutor']),
         loaded() {
           this.isLoaded = true;
         },
         tutorCardClicked() {
-            
+            if(this.fromLandingPage){
+                analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+            } else {
+                analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+            };
         },
         onImageLoadError(event) {
             event.target.src = "./images/placeholder-profile.png";
@@ -141,9 +141,25 @@ export default {
         reviewsPlaceHolder(reviews) {
             return reviews === 0 ? reviews.toString() : reviews
         },
-        openChatWindow(){
-            this.openChatInterface();
-        },
+        sendMessage(user) {
+            if (this.accountUser == null) {
+                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+                this.updateCurrTutor(user);
+                this.updateRequestDialog(true);
+            } else {
+                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
+                let conversationObj = {
+                    userId: user.userId,
+                    image: user.image,
+                    name: user.name,
+                    conversationId: chatService.createConversationId([user.id, this.accountUser.id]),
+                }
+                let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
+                this.setActiveConversationObj(currentConversationObj);
+                let isMobile = this.$vuetify.breakpoint.smAndDown;
+                this.openChatInterface();                    
+            }
+        }
     }
 }
 </script>
@@ -169,11 +185,18 @@ export default {
             display: none;
         }
     max-width: 330px;
-    // max-height: 160px;
     border-radius: 4px;
     position: relative;
     overflow: hidden;
     background: #fff;
+    @media (max-width: @screen-sm) {
+        max-width: 100%;
+    }
+    .top-card {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
     .user-image {
         border-radius: 4px;
     }
@@ -224,7 +247,6 @@ export default {
         }
         .user-classes {
             max-width: 67px;
-            overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
         }
@@ -240,25 +262,17 @@ export default {
     }
 
     .btn-chat {
-        position: absolute;
-        border-radius: 0px;
         border-radius: 16px 0 0 16px;
-        right: -50px;
+        min-width: 20px;
+        margin-right: -12px;
         div {
             justify-content: normal;
         }
     }
 
     .tutor-bio {
-        width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        line-height: 22px;
-        max-height: 50px;
-        min-height: 50px;
+        .giveEllipsisUpdated(14px, 22px, 2, 50px);
+        display: block;
         color: @purple;
     }
     .btn-footer {

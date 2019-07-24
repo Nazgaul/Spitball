@@ -5,13 +5,13 @@
                 <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
                 <div class="main-card">
                     <h3 class="title font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
-                    <h4 class="mb-4 text-truncate">אוניברסיטה בן גוריון</h4> <!-- university name needed -->
+                    <h4 class="mb-4 text-truncate">{{university}}</h4> <!-- university name needed -->
                     <div class="user-bio mb-5">{{tutorData.bio}}</div>
-                    <div class="study-area mb-2" v-if="false">
+                    <div class="study-area mb-2" v-if="isStudyArea">
                       <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
-                      <span class="text-truncate"></span> 
+                      <span class="text-truncate">{{studyArea}}</span> 
                     </div>
-                    <div class="courses">
+                    <div class="courses" v-if="isCourses">
                       <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
                       <span class="text-truncate">{{courses}}</span> 
                     </div>
@@ -42,7 +42,7 @@
                     <clock />
                     <span class="ml-2 font-weight-bold caption" v-html="$Ph(`resultTutor_hours_completed`, '32')"></span>
                 </div>
-                <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.stop="">
+                <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
                   <iconChat class="chat-icon mr-2" />
                   <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
                 </v-btn>
@@ -57,8 +57,7 @@ import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/
 import userAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import analyticsService from "../../../../services/analytics.service";
-// import tutorRequest from "../../../tutorRequest/tutorRequest.vue";
-// import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
+import chatService from '../../../../services/chatService';
 import { mapActions, mapGetters } from "vuex";
 import { LanguageService } from "../../../../services/language/languageService.js";
 import clock from './clock.svg';
@@ -70,15 +69,12 @@ export default {
     userRank,
     userRating,
     userAvatar,
-    // tutorRequest,
-    // sbDialog,
     clock,
     iconChat
   },
   data() {
     return {
       isLoaded: false,
-      handleDialogProfile: false,
       minimumPrice: 55,
       discountAmount: 70
     };
@@ -91,40 +87,41 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateRequestDialog",'updateCurrTutor']),
+    ...mapActions(["updateRequestDialog",'updateCurrTutor', 'openChatInterface','setActiveConversationObj']),
     loaded() {
       this.isLoaded = true;
     },
     tutorCardClicked(e) {
-        if(this.fromLandingPage){
-            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
-            
-          
-        }else{
-            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
-            
-          };
-        
-        this.$router.push({
-            name: "profile",
-            params: { id: this.tutorData.userId, name: this.tutorData.name }});
-    },
-    openRequestDialog(ev) {
-      let userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
       if(this.fromLandingPage){
-           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_landing_page', `userId:${userId}`);
+          analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
       }else{
-           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_tutor_page', `userId:${userId}`);
+          analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
       };
-      ev.stopImmediatePropagation()
-      this.updateCurrTutor(this.tutorData)
-      this.updateRequestDialog(true);
     },
     onImageLoadError(event) {
       event.target.src = "./images/placeholder-profile.png";
     },
     reviewsPlaceHolder(reviews) {
       return reviews === 0 ? reviews.toString() : reviews
+    },
+    sendMessage(user) {
+      if (this.accountUser == null) {
+          analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+          this.updateCurrTutor(user);
+          this.updateRequestDialog(true);
+      } else {
+          analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
+          let conversationObj = {
+              userId: user.userId,
+              image: user.image,
+              name: user.name,
+              conversationId: chatService.createConversationId([user.id, this.accountUser.id]),
+          }
+          let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
+          this.setActiveConversationObj(currentConversationObj);
+          let isMobile = this.$vuetify.breakpoint.smAndDown;
+          this.openChatInterface();                    
+      }
     }
   },
   computed: {
@@ -140,6 +137,12 @@ export default {
     },
     isUserImage() {
       return this.isTutorData && this.tutorData.image ? true : false;
+    },
+    isStudyArea() {
+      return this.isTutorData && this.tutorData.isStudyArea ? true : false;
+    },
+    isCourses() {
+      return this.isTutorData && this.tutorData.courses ? true : false;
     },
     userImageUrl() {
       if (this.tutorData.image) {
@@ -162,8 +165,8 @@ export default {
       let discountedAmount = price - this.discountAmount;
       return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
     },
-    buttonText() {
-      return "resultTutor_contact_me";
+    university() {
+      // return university name
     }
   }
 };
@@ -187,6 +190,9 @@ export default {
       .main-card {
         min-width: 400px;
         max-width: 400px;
+        display: flex;
+    flex-direction: column;
+    justify-content: space-between;
         .user-bio {
           position: relative;
           display: inline-block;
@@ -260,4 +266,3 @@ export default {
     }
   }
 </style>
-<!--<style lang="less" src="./tutorResultCard.less"></style>-->

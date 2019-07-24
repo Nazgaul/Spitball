@@ -4,8 +4,8 @@
         <div class="card-mobile-header mb-3">
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div>
-                <h3 class="text-truncate mb-2 subheading font-weight-bold">{{tutorData.name}}</h3>
-                <div class="user-rate align-center mb-2">
+                <h3 class="text-truncate subheading font-weight-bold">{{tutorData.name}}</h3>
+                <div class="user-rate align-center">
                     <user-rating :rating="tutorData.rating" :showRateNumber="false" class="mr-2" />
                     <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></span>
                 </div>
@@ -20,7 +20,7 @@
             {{tutorData.bio}}
         </div>
         <div class="card-mobile-footer">
-            <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.stop="">
+            <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
                   <iconChat class="chat-icon" />
                   <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
             </v-btn>
@@ -45,7 +45,7 @@
 <script>
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import { LanguageService } from "../../../../services/language/languageService.js";
-
+import chatService from '../../../../services/chatService';
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import analyticsService from "../../../../services/analytics.service";
 import { mapActions, mapGetters } from "vuex";
@@ -78,20 +78,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateRequestDialog",'updateCurrTutor']),
+    ...mapActions(["updateRequestDialog",'updateCurrTutor','openChatInterface','setActiveConversationObj']),
+
     loaded() {
       this.isLoaded = true;
     },
     tutorCardClicked() {
-        if(this.fromLandingPage){
-            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
-        }else{
-            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
-        }
-        this.$router.push({
-          name: "profile",
-          params: { id: this.tutorData.userId, name: this.tutorData.name }
-        });
+      if(this.fromLandingPage){
+          analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+      }else{
+          analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+      }
     },
     openRequestDialog(ev ,tutorData) {
       let userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
@@ -109,6 +106,25 @@ export default {
     },
     reviewsPlaceHolder(reviews) {
       return reviews === 0 ? reviews.toString() : reviews
+    },
+    sendMessage(user) {
+      if (this.accountUser == null) {
+          analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+          this.updateCurrTutor(user);
+          this.updateRequestDialog(true);
+      } else {
+          analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
+          let conversationObj = {
+              userId: user.userId,
+              image: user.image,
+              name: user.name,
+              conversationId: chatService.createConversationId([user.id, this.accountUser.id]),
+          }
+          let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
+          this.setActiveConversationObj(currentConversationObj);
+          let isMobile = this.$vuetify.breakpoint.smAndDown;
+          this.openChatInterface();                    
+      }
     }
   },
   computed: {
@@ -209,6 +225,9 @@ export default {
           }
           div {
             margin: 0 auto 0 0;
+            div {
+              max-width: 175px;
+            }
           }
         }
         .price {

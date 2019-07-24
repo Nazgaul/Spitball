@@ -123,6 +123,9 @@
   <data name="download_btn" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="full_list" xml:space="preserve">
+    <value>View full list</value>
+  </data>
   <data name="more_tutors" xml:space="preserve">
     <value>More Tutors for this course</value>
   </data>

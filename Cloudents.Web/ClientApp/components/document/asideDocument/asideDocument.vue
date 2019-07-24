@@ -34,11 +34,11 @@
         </div>
         <div class="aside-top">
             <table class="pa-2 pb-4">
-                <tr v-if="isCourse" clas>
+                <tr v-if="isName">
                     <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_uploaded'"></td>
-                    <td class=""><h3 class="body-1 text-truncate"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
+                    <td class=""><h3 class="body-1 text-truncate"><router-link :to="{name: 'profile', params: {id: getUserId, name: getUserName} }">{{getUploaderName}}</router-link></h3></td>
                 </tr>
-                <tr v-if="isCourse" clas>
+                <tr v-if="isCourse">
                     <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_course'"></td>
                     <td class=""><h3 class="body-1 text-truncate"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
                 </tr>
@@ -56,6 +56,9 @@
 
         <aside-document-tutors v-if="!$vuetify.breakpoint.smAndDown"/>
 
+        <v-flex class="footer-holder text-xs-center mb-5" v-if="!$vuetify.breakpoint.smAndDown">
+            <router-link to="/tutor" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
+        </v-flex>
     </div>
 </template>
 <script>
@@ -64,7 +67,6 @@ import asideDocumentTutors from './asideDocumentTutors.vue';
 import studentCard from '../studentCard.vue';
 import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import tutorResultCardOther from '../../../components/results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue';
-
 import myCourses from '../../../font-icon/my-courses-image.svg';
 
 export default {
@@ -79,19 +81,8 @@ export default {
         document: {},
     },
     methods: {
-        ...mapActions(['purchaseDocument', 'downloadDocument', 'clearDocument', 'updateLoginDialogState','updatePurchaseConfirmation']),
-        unlockDocument() {
-            if(this.accountUser == null) {
-                this.updateLoginDialogState(true);
-            } else {
-                let item = {id: this.document.details.id, price: this.document.details.price}
-                if(!this.isLoading) {
-                    this.purchaseDocument(item)
-                    this.updatePurchaseConfirmation(false)
+        ...mapActions(['downloadDocument', 'clearDocument','updatePurchaseConfirmation']),
 
-                }
-            }
-        },
         downloadDoc() {
             let item = {
                 url: `${this.$route.path}/download`,
@@ -124,6 +115,21 @@ export default {
         getType() {
             if(this.document.details && this.document.details.type) {
                 return this.document.details.type;
+            }
+        },
+        getUploaderName() {
+            if(this.document.details && this.document.details.user) {
+                return this.document.details.user.name;
+            }
+        },
+        getUserName() {
+            if(this.document.details && this.document.details.user) {
+                return this.document.details.user.name;
+            }
+        },
+        getUserId() {
+            if(this.document.details && this.document.details.user) {
+                return this.document.details.user.userId;
             }
         },
         isPurchased() {
@@ -173,6 +179,9 @@ export default {
             }
             return false
         },
+        isName() {
+            return (this.document.details && this.document.details.user) ? true : false;
+        }
     }
 }
 </script>
@@ -265,6 +274,10 @@ export default {
                         a {
                             color: #5158af;
                         }
+                        font-weight: bold;
+                        @media(max-width: @screen-sm){
+                            font-weight: normal;
+                        }
                     }
                 }
                 tr:last-child {
@@ -276,6 +289,11 @@ export default {
             .unlock_progress {
                 display: flex;
                 margin: 0 auto;
+            }
+        }
+        .footer-holder {
+            a {
+                color: #4452fc;
             }
         }
     }
