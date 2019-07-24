@@ -1,17 +1,21 @@
 import { mapActions, mapGetters, mapState } from 'vuex';
-import { createLocalTracks, createLocalVideoTrack } from 'twilio-video';
+import { createLocalTracks, createLocalVideoTrack, createLocalAudioTrack } from 'twilio-video';
 import timerIcon from '../images/timer.svg';
 import stopIcon from '../images/stop-icon.svg';
 import fullScreenIcon from '../images/fullscreen.svg';
 //import walletService from '../../../services/walletService';
 import insightService from '../../../services/insightService';
-import microphoneImage from '../../tutor/images/microphone.svg'
-import videoCameraImage from '../../tutor/images/video-camera.svg'
+import microphoneImage from '../images/outline-mic-none-24-px-copy-2.svg'
+import microphoneImageIgnore from '../images/mic-ignore.svg'
+import videoCameraImage from '../images/video-camera.svg'
+import videoCameraImageIgnore from '../images/camera-ignore.svg'
+import videoCameraImageIgnore2 from '../images/camera-ignore copy.svg'
 export default {
     name: "videoStream",
-    components: { timerIcon, stopIcon, fullScreenIcon,microphoneImage,videoCameraImage },
+    components: { videoCameraImageIgnore2,timerIcon, stopIcon, fullScreenIcon,microphoneImage,videoCameraImage,microphoneImageIgnore,videoCameraImageIgnore },
     data() {
         return {
+            isActive: false,
             videoEl: null,
             loading: false,
             loaded: false,
@@ -66,12 +70,18 @@ export default {
             'updateToasterParams',
             'setSesionClickedOnce',
             'toggleVideoTrack',
-            'toggleAudioTrack'
+            'toggleAudioTrack',
+            'setLocalVideoTrack',
         ]),
         toggleAudio(){
             this.toggleAudioTrack()
         },
         toggleVideo(){
+            if(this.localVideoTrack){
+                this.isActive = false;
+            } else {
+                this.isActive = true
+            }
             this.toggleVideoTrack()
         },
         minimize(type) {
@@ -82,6 +92,7 @@ export default {
             insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_VideoStream_showLocalVideo', null, null);
             
             createLocalVideoTrack({width: 100, height: 75}).then(track => {
+                self.isActive = true;
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_VideoStream_localVideoCreated', track, null);
                 if(!!track){
                     self.videoEl = document.getElementById('localTrack');

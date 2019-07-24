@@ -24,12 +24,35 @@
                 <v-flex v-show="visible.remote_player">
                     <div class="row remote_video_container">
                         <div id="remoteTrack"></div>
+
                         <div class="local-video-holder">
-                            <div id="localTrack"></div>
+                            <div v-show="!isActive" class="localTrack-placeholder">
+                                <div class="placeholder-back">
+                                    <videoCameraImageIgnore2 class="placeholder-svg" />
+                                </div>
+                            </div>
+                            <div v-show="isActive" id="localTrack"></div>
                         </div>
                         <div class="control-panel">
-                            <microphoneImage @click.native="toggleAudio" :class="['mic-image',localAudioTrack? '': 'mic-ignore']"></microphoneImage>
-                            <videoCameraImage @click.native="toggleVideo" :class="['video-cam-icon',localVideoTrack? '': 'cam-ignore']"></videoCameraImage>
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on }">
+                                    <button v-on="on" :class="['mic-image-btn',localAudioTrack? 'dynamicBackground-light': 'dynamicBackground-dark']" @click="toggleAudio">   
+                                        <microphoneImage v-if="localAudioTrack" class="mic-image-svg" />
+                                        <microphoneImageIgnore v-if="!localAudioTrack" class="mic-ignore" />           
+                                    </button>
+                                </template>
+                                <span v-language:inner="localAudioTrack ? 'tutor_tooltip_mic_unmute':'tutor_tooltip_mic_mute'"/>
+                            </v-tooltip>
+
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on }">
+                                    <button v-on="on" :class="['video-image-btn',localVideoTrack? 'dynamicBackground-light': 'dynamicBackground-dark']" @click="toggleVideo">              
+                                        <videoCameraImage v-if="localVideoTrack" class="video-image-svg"/>
+                                        <videoCameraImageIgnore v-else class="cam-ignore"/>
+                                    </button>
+                                </template>
+                                <span v-language:inner="localVideoTrack ? 'tutor_tooltip_video_pause':'tutor_tooltip_video_resume'"/>
+                            </v-tooltip>
                         </div>
                     </div>
                 </v-flex>

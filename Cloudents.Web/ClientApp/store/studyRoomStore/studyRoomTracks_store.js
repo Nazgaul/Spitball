@@ -1,14 +1,16 @@
 import { createLocalVideoTrack,createLocalAudioTrack } from "twilio-video";
 
 const _getLocalTrack = (getters,type) =>{
-    let localTracks = getters['activeRoom'].localParticipant[`${type}Tracks`].entries()
-        let currentTrack;
-        for(let trackObj of localTracks){
-            if(trackObj){
-                currentTrack = trackObj
+    if(getters['activeRoom'] && getters['activeRoom'].localParticipant) {
+        let localTracks = getters['activeRoom'].localParticipant[`${type}Tracks`].entries()
+            let currentTrack;
+            for(let trackObj of localTracks){
+                if(trackObj){
+                    currentTrack = trackObj
+                }
             }
-        }
-    return !!currentTrack ? currentTrack[1] : currentTrack
+        return !!currentTrack ? currentTrack[1] : currentTrack
+    }
 }
 
 const state = {
@@ -41,10 +43,13 @@ const mutations = {
 };
 
 const actions = {
-    createLocalVideoTrack({getters,commit}, cameraId){
+    setLocalVideoTrack({commit}, videoTrack){
+        commit('setLocalVideoTrack',videoTrack)
+    },
+    createLocalVideoTrack({getters,dispatch}, cameraId){
         createLocalVideoTrack({exact: cameraId}).then(videoTrack => {
             getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
-            commit('setLocalVideoTrack',videoTrack)
+                dispatch('setLocalVideoTrack',videoTrack)
             }
         )
     },
@@ -55,15 +60,14 @@ const actions = {
             }
         )
     },
-    destroyLocalVideoTrack({getters,commit},track){
+    destroyLocalVideoTrack({getters,dispatch},track){
         if(track.isEnabled){
             if (track.detach) {
                 track.detach().forEach((detachedElement) => {
-                    debugger
                     detachedElement.remove();
                 });
                 getters['activeRoom'].localParticipant.unpublishTrack(track.mediaStreamTrack);
-                commit('setLocalVideoTrack',null)
+                dispatch('setLocalVideoTrack',null)
             }
         } 
     },
@@ -109,6 +113,8 @@ const actions = {
         }
     },
     toggleVideoTrack({getters,dispatch}){
+        if(!getters['activeRoom']) return
+        
         let currentTrack = _getLocalTrack(getters,'video')
         if(currentTrack){
             dispatch('destroyLocalVideoTrack',currentTrack.track)
@@ -117,6 +123,8 @@ const actions = {
         }
     },
     toggleAudioTrack({getters,dispatch}){
+        if(!getters['activeRoom']) return 
+
         let currentTrack = _getLocalTrack(getters,'audio')
         if(currentTrack){
             dispatch('destroyLocalAudioTrack',currentTrack.track)
