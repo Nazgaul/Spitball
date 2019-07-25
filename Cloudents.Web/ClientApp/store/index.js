@@ -35,6 +35,7 @@ import signalRStore from './signalRStore';
 import studyRoomStore from './studyRoomStore/index';
 import loginRegister from './loginRegister';
 import routeStore from './routeStore';
+import codeEditor from './codeEditor_store'
 
 
 Vue.use(Vuex);
@@ -72,7 +73,8 @@ const store = new Vuex.Store({
         signalRStore,
         ...studyRoomStore,
         loginRegister,
-        routeStore
+        routeStore,
+        codeEditor
     }
 });
 

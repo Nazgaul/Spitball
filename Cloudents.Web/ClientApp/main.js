@@ -22,11 +22,11 @@ import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image";
 
-import VueCodemirror from 'vue-codemirror'
-import 'codemirror/lib/codemirror.css'
+// import VueCodemirror from 'vue-codemirror'
+// import 'codemirror/lib/codemirror.css'
 // import 'code'
 
-Vue.use(VueCodemirror);
+// Vue.use(VueCodemirror);
 
 
 import {
@@ -56,7 +56,7 @@ import {
     VSnackbar,
     VStepper,
     VSubheader,
-   // VSwitch,
+    VSwitch,
     VTabs,
     VTextarea,
     VTextField,
@@ -92,7 +92,7 @@ const vuetifyComponents = {
     VBtnToggle,
     VTooltip,
     VMenu,
-   // VSwitch,
+    VSwitch,
     VTabs,
     VIcon,
     VSnackbar,

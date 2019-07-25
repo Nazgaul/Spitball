@@ -65,6 +65,9 @@
             <v-flex shrink class="canvas-tools-wrapper" v-if="isWhiteBoardActive">
               <whiteBoardTools></whiteBoardTools>
             </v-flex>
+            <v-flex shrink class="canvas-tools-wrapper" v-else>
+              <codeEditorTools/>
+            </v-flex>
             <v-spacer></v-spacer>
             <v-flex xs1  >
               <share-screen-btn class="nav-share-btn"></share-screen-btn>
@@ -198,6 +201,7 @@
 </template>
 <script>
 import codeEditorNEW from './codeEditorNew/codeEditorNew.vue';
+import codeEditorTools from './codeEditorNew/codeEditorTools.vue';
 import initSignalRService from "../../services/signalR/signalrEventService";
 import { mapActions, mapGetters } from "vuex";
 import videoStream from "./videoStream/videoStream.vue";
@@ -251,7 +255,8 @@ export default {
     startEndSessionBtn,
     endSessionConfirm,
     browserSupport,
-    paymentDialog
+    paymentDialog,
+    codeEditorTools
   },
   name: "tutor",
   data() {

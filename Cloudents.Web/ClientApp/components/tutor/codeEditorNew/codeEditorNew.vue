@@ -8,6 +8,7 @@
 <script>
 import { codemirror } from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
+import { mapGetters } from 'vuex';
 
 export default {
     data() {
@@ -16,7 +17,10 @@ export default {
     },
     components:{
         codemirror
-    }
+    },
+    computed: {
+        ...mapGetters(['getIsDarkTheme'])
+    },
 
 }
 </script>
