@@ -1,53 +1,54 @@
 <template>
-    <router-link @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
-        <v-layout class="tutor-result-card-desktop pa-3 mb-3" row>
-            <v-flex row class="user-details">
-                <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
-                <div class="main-card">
-                    <h3 class="title font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
-                    <h4 class="mb-4 text-truncate">{{university}}</h4> <!-- university name needed -->
-                    <div class="user-bio mb-5">{{tutorData.bio}}</div>
-                    <div class="study-area mb-2" v-if="isStudyArea">
-                      <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
-                      <span class="text-truncate">{{studyArea}}</span> 
-                    </div>
-                    <div class="courses" v-if="isCourses">
-                      <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
-                      <span class="text-truncate">{{courses}}</span> 
-                    </div>
+    <router-link class="d-flex tutor-result-card-desktop pa-3 mb-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+        <v-flex row class="user-details">
+            <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+            <div class="main-card">
+                <h3 class="title font-weight-bold tutor-name text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h4 class="mb-4 text-truncate">{{university}}</h4>
+                <div class="user-bio mb-5">{{tutorData.bio}} 
+                  <span class="read-more" :class="setBio(tutorData.bio, index)" :ref="`tutor${index}`" v-language:inner="'resultTutor_read_more'"></span>
                 </div>
-            </v-flex>
-            <v-divider vertical class="mx-3"></v-divider>
-
-            <div class="user-rates">
-                <div class="title price font-weight-bold">
-                  <span v-if="showStriked">
-                      <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                  </span>
-                  <span v-else>
-                      <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
-                  </span>
-                  <span class="caption">
-                    <span>/</span>
-                    <span v-language:inner="'resultTutor_hour'"></span>
-                  </span>
+                <div class="study-area mb-2" v-if="isStudyArea">
+                  <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
+                  <span class="text-truncate">{{studyArea}}</span>
                 </div>
-                <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
-
-                <div class="user-rank mt-3 mb-2 align-center">
-                  <user-rating :rating="tutorData.rating" :showRateNumber="false" />
-                  <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
+                <div class="courses" v-if="isCourses">
+                  <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
+                  <span class="text-truncate">{{courses}}</span> 
                 </div>
-                <div class="classes-hours align-center mb-4 mt-2">
-                    <clock />
-                    <span class="ml-2 font-weight-bold caption" v-html="$Ph(`resultTutor_hours_completed`, '32')"></span>
-                </div>
-                <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
-                  <iconChat class="chat-icon mr-2" />
-                  <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
-                </v-btn>
             </div>
-        </v-layout>
+        </v-flex>
+
+        <v-divider vertical class="mx-3"></v-divider>
+
+        <div class="user-rates">
+            <div class="title price font-weight-bold">
+              <span v-if="showStriked">
+                  <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
+              </span>
+              <span v-else>
+                  <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
+              </span>
+              <span class="caption">
+                <span>/</span>
+                <span v-language:inner="'resultTutor_hour'"></span>
+              </span>
+            </div>
+            <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
+
+            <div class="user-rank mt-3 mb-2 align-center">
+              <user-rating :rating="tutorData.rating" :showRateNumber="false" />
+              <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
+            </div>
+            <div class="classes-hours align-center mb-4 mt-2">
+                <clock />
+                <span class="ml-2 font-weight-bold caption" v-html="$Ph(`resultTutor_hours_completed`, '32')"></span>
+            </div>
+            <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
+              <iconChat class="chat-icon mr-2" />
+              <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
+            </v-btn>
+        </div>
     </router-link>
 </template>
 
@@ -84,6 +85,9 @@ export default {
     fromLandingPage: {
       type: Boolean,
       default: false
+    },
+    index: {
+      type: Number
     }
   },
   methods: {
@@ -121,6 +125,13 @@ export default {
           this.setActiveConversationObj(currentConversationObj);
           let isMobile = this.$vuetify.breakpoint.smAndDown;
           this.openChatInterface();                    
+      }
+    },
+    setBio(bio, index) {
+      if(bio.length > 178) {
+        return 'bio-block';
+      } else {
+        return 'bio-span';
       }
     }
   },
@@ -165,8 +176,13 @@ export default {
       let discountedAmount = price - this.discountAmount;
       return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
     },
+    isUniversity() {
+      (this.tutorData && this.tutorData.university) ? true : false;
+    },
     university() {
-      // return university name
+      if(this.isUniversity) {
+        return this.tutorData.university;
+      }
     }
   }
 };
@@ -187,21 +203,32 @@ export default {
     .user-details {
       display: flex;
       flex: 3;
+      max-width: 589px;
       .main-card {
         min-width: 400px;
         max-width: 400px;
-        display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+        display: flex;  
+        flex-direction: column;
+        justify-content: space-between;
         .user-bio {
-          position: relative;
           display: inline-block;
           word-wrap: break-word;
           overflow: hidden;
-          max-height: 0;
+          max-height: 48px;
           min-height: 48px;
           line-height: 1.2em;
           text-align: justify;
+          .read-more {
+            color: #4452fc;
+            &.bio-span {
+              display: inline-block;
+            }
+            &.bio-block {
+              position: absolute;
+              top: 144px;
+              left: 176px;
+            }
+          }
         }
         .study-area {
           color: @purple;
@@ -225,7 +252,7 @@ export default {
     
     .user-rates {
       flex: 1;
-      min-width: fit-content;
+      min-width: inherit;
       .striked {
         max-width: max-content;
         position: relative;

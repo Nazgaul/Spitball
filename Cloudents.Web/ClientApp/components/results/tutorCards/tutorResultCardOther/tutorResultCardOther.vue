@@ -1,65 +1,63 @@
 <template>
-    <router-link @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
-        <v-layout class="tutor-result-card-other pa-2 mb-3" row wrap>
-            <div class="mb-2 top-card">
-                <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
-                <div style="width:100%;max-height:83px;">
-                    <h3 class="subheading font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
+    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap d-block" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+        <div class="mb-2 top-card">
+            <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+            <div style="width:100%;max-height:83px;">
+                <h3 class="subheading font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
 
-                    <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
+                <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
 
-                    <v-layout row class="moreDetails" :class="{'isprice': !showStriked}" align-center>
-                        <div column class="price-box column">
-                            <span v-if="showStriked">
-                                <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                            </span>
-                            <span v-else>
-                                <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
-                            </span>
-                            <div class="caption" v-language:inner="'resultTutor_hour'"></div>
-                        </div>
+                <v-layout row class="moreDetails" :class="{'isprice': !showStriked}" align-center>
+                    <div column class="price-box column">
+                        <span v-if="showStriked">
+                            <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
+                        </span>
+                        <span v-else>
+                            <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
+                        </span>
+                        <div class="caption" v-language:inner="'resultTutor_hour'"></div>
+                    </div>
 
-                        <v-layout column align-center class="user-rates">
-                            <userRating class="rating-holder mt-2 mb-1" :rating="tutorData.rating" :showRateNumber="false" />  <!-- :size="isInTutorList ? '16' : '20'" -->
-                            <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
-                        </v-layout>
-                        
-                        <template>
-                            <!-- card-a -->
-                            <v-btn class="btn-chat cardA" color="#4452fc" @click.prevent="sendMessage(tutorData)">
-                                <iconChat/>
-                            </v-btn>
-
-                            <!-- card-b -->
-                            <v-layout column align-center class="cardB user-classes subheading">
-                                <div>32</div>
-                                <div v-language:inner="'resultTutor_classes'"></div>
-                            </v-layout>
-                        </template>
-
+                    <v-layout column align-center class="user-rates">
+                        <userRating class="rating-holder mt-2 mb-1" :rating="tutorData.rating" :showRateNumber="false" />  <!-- :size="isInTutorList ? '16' : '20'" -->
+                        <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
                     </v-layout>
-                </div>
+                    
+                    <template>
+                        <!-- card-a -->
+                        <v-btn class="btn-chat cardA" color="#4452fc" @click.prevent="sendMessage(tutorData)">
+                            <iconChat/>
+                        </v-btn>
+
+                        <!-- card-b -->
+                        <v-layout column align-center class="cardB user-classes subheading">
+                            <div>32</div>
+                            <div v-language:inner="'resultTutor_classes'"></div>
+                        </v-layout>
+                    </template>
+
+                </v-layout>
             </div>
-            <v-layout class="tutor-bio">
-                {{tutorData.bio}}
-            </v-layout>
-            <v-layout row class="btn-footer cardB">
-                <div class="send-msg text-xs-center text-truncate" >
-                    <v-btn 
-                        round 
-                        small 
-                        color="#848bbc" 
-                        depressed 
-                        class="white--text caption" 
-                        @click.prevent="sendMessage(tutorData)" 
-                        :class="{'tutor-btn': isTutor}" 
-                        v-html="$Ph('resultTutor_send_button', tutorData.name)">
-                    </v-btn>
-                </div>
-                <div class="more-documents text-xs-center text-truncate card-transform" v-if="isTutor">
-                    <v-btn round small color="#5158af" depressed class="caption" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
-                </div>
-            </v-layout>
+        </div>
+        <v-layout class="tutor-bio">
+            {{tutorData.bio}}
+        </v-layout>
+        <v-layout row class="btn-footer cardB">
+            <div class="send-msg text-xs-center text-truncate" >
+                <v-btn 
+                    round 
+                    small 
+                    color="#848bbc" 
+                    depressed 
+                    class="white--text caption" 
+                    @click.prevent="sendMessage(tutorData)" 
+                    :class="{'tutor-btn': isTutor}" 
+                    v-html="$Ph('resultTutor_send_button', tutorData.name)">
+                </v-btn>
+            </div>
+            <div class="more-documents text-xs-center text-truncate card-transform" v-if="isTutor">
+                <v-btn round small color="#5158af" depressed class="caption" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
+            </div>
         </v-layout>
     </router-link>
 </template>

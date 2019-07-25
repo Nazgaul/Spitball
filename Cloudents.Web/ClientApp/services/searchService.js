@@ -79,7 +79,9 @@ function TutorItem(objInit) {
     this.reviews = objInit.reviewsCount || 0;
     this.template = 'tutor';
     this.bio = objInit.bio || '';
-
+    this.university = objInit.university || '';
+    this.studyArea = objInit.studyArea || '';
+    this.classes = objInit.classes || 0;
 }
 
 function DocumentItem(objInit) {

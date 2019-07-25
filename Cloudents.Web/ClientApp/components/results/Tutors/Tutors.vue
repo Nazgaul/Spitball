@@ -39,8 +39,8 @@
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component v-if="showSkeleton" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
                                     <template v-else>
-                                        <tutor-result-card class="mb-3" v-if="$vuetify.breakpoint.smAndUp" :tutorData="item"></tutor-result-card>
-                                        <tutor-result-card-mobile class="mb-2" v-else :tutorData="item"></tutor-result-card-mobile>
+                                        <tutor-result-card class="mb-3" v-if="$vuetify.breakpoint.smAndUp" :tutorData="item" :index="index"></tutor-result-card>
+                                        <tutor-result-card-mobile class="mb-2" v-else :tutorData="item" :index="index"></tutor-result-card-mobile>
                                     </template>
                                 </v-flex>
                                 <v-flex class="suggestCard result-cell xs-12 order-xs4">
