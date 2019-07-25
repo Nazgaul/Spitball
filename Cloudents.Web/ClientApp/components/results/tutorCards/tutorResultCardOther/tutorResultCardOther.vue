@@ -1,36 +1,34 @@
 <template>
-    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap ab-default-card" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
-        <div class="mb-3 top-card">
+    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden " @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+        <div class="mb-3 top-card justify-space-between">
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
-            <div style="width:100%;max-height:83px;"> <!--USE CASS-->
+            <div class="top-card-wrap">
                 <h3 class="subheading font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
 
                 <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
 
-                <v-layout row class="moreDetails" :class="{'isprice': !showStriked}" align-center>
+                <v-layout row class="moreDetails" :class="{'mt-3': !showStriked}" align-center>
                     <div column class="price-box column">
-                        <span v-if="showStriked">
-                            <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                        </span>
-                        <span v-else>
-                            <span class="font-weight-bold">&#8362;{{tutorData.price}}</span>
-                        </span>
+                        <template>
+                            <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
+                            <span v-else class="font-weight-bold">&#8362;{{tutorData.price}}</span>
+                        </template>
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
 
                     <v-layout column align-center class="user-rates">
-                        <userRating class="rating-holder mb-1" :rating="tutorData.rating" :showRateNumber="false" />  <!-- :size="isInTutorList ? '16' : '20'" -->
+                        <userRating class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" />
                         <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
                     </v-layout>
                     
                     <template>
                         <!-- card-a -->
-                        <v-btn class="btn-chat cardA" color="#4452fc" @click.prevent="sendMessage(tutorData)">
+                        <v-btn class="btn-chat ab-cardA" color="#4452fc" @click.prevent="sendMessage(tutorData)">
                             <iconChat/>
                         </v-btn>
 
                         <!-- card-b -->
-                        <v-layout column align-center class="cardB user-classes subheading">
+                        <v-layout column align-center class="ab-cardB user-classes subheading">
                             <div>{{tutorData.classes}}</div>
                             <div v-language:inner="'resultTutor_classes'"></div>
                         </v-layout>
@@ -42,21 +40,21 @@
 
         <v-layout class="tutor-bio">{{tutorData.bio}}</v-layout>
 
-        <v-layout row class="btn-footer cardB">
+        <v-layout row class="btn-footer ab-cardB">
             <div class="send-msg text-xs-center text-truncate" >
                 <v-btn 
                     round 
                     small 
                     color="#848bbc" 
                     depressed 
-                    class="white--text caption" 
+                    class="white--text caption py-3 px-2" 
                     @click.prevent="sendMessage(tutorData)" 
                     :class="{'tutor-btn': isTutor}" 
                     v-html="$Ph('resultTutor_send_button', tutorData.name)">
                 </v-btn>
             </div>
             <div class="more-documents text-xs-center text-truncate card-transform" v-if="isTutor">
-                <v-btn round small color="#5158af" depressed class="caption" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
+                <v-btn round small color="#5158af" depressed class="caption py-3 px-2" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
             </div>
         </v-layout>
     </router-link>
@@ -137,7 +135,7 @@ export default {
             event.target.src = "./images/placeholder-profile.png";
         },
         reviewsPlaceHolder(reviews) {
-            return reviews === 0 ? reviews.toString() : reviews
+            return reviews === 0 ? reviews.toString() : reviews;
         },
         sendMessage(user) {
             if (this.accountUser == null) {
@@ -172,41 +170,34 @@ export default {
 //min,max - use mixin
 //max width - if you can use % and do calc to support image 
 .tutor-result-card-other {
+    border-radius: 4px;
+    position: relative;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
     &.ab-default-card {
-        min-height: 190px;
-        max-height: 190px;
-        .cardA {
+        .ab-cardA {
             display: none;
         }
-        .cardB {
+        .ab-cardB {
             display: flex;
         }
     }
-    .cardA {  
-            display: flex;
-        }
-        .cardB {
-            display: none;
-        }
-    max-width: 330px;
-    border-radius: 4px;
-    position: relative;
-    overflow: hidden;
-    background: #fff;
-    min-height: 160px;
-    max-height: 160px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    @media (max-width: @screen-sm) {
-        max-width: 100%;
+    .ab-cardA {
+        display: flex;
+    }
+    .ab-cardB {
+        display: none;
     }
     .top-card {
         display: flex;
         width: 100%;
-        justify-content: space-between;
         max-height: 78px; //WHY DID YOU PUT HEIGHT
         min-height: 78px;
+        .top-card-wrap {
+            width:100%;
+            max-height:83px;
+        }
     }
     .user-image {
         border-radius: 4px;
@@ -221,7 +212,7 @@ export default {
         max-width: 200px; // for eplipsis purpose
     }
 
-    .striked{
+    .striked {
         max-width: max-content;
         position: relative;
         color: @colorBlackNew;
@@ -237,42 +228,24 @@ export default {
     }
 
     .moreDetails {
-        &.isprice {
-            margin-top: 17px;
-        }
         color: @purple;
         .price-box {
             font-size: 22px;
-            max-width: 90px;
+        }
+        .rating-holder {
             div {
-                white-space: nowrap;
-                max-width: 191px;
-                text-overflow: ellipsis;
-                overflow: hidden;
+                margin: 0 !important; //vuetify
+                i {
+                    font-size: 16px !important; //vuetify
+                }
             }
         }
         .user-rates {
-            min-width: 80px;
             .reviews {
                 color: #4452fc;
             }
         }
-        .user-classes {
-            max-width: 67px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
     }
-
-    .rating-holder {
-        div {
-            margin: 0 !important; //vuetify
-            i {
-                font-size: 16px !important; //vuetify
-            }
-        }
-    }
-
     .btn-chat {
         border-radius: 16px 0 0 16px;
         min-width: 20px;
@@ -281,13 +254,10 @@ export default {
             justify-content: normal;
         }
     }
-
     .tutor-bio {
         min-height: 42px;
         min-height: 42px;
-
-        //change this
-        .giveEllipsisUpdated(14px, 22px, 2, 50px);
+        .giveMeEllipsis(2, 23px);
         display: block;
         color: @purple;
     }
@@ -296,33 +266,25 @@ export default {
         width: 100%;
         .send-msg {
             button {
-                padding: 15px 12px;
                 line-height: 0;
                 color: @purple;
                 text-transform: lowercase;
-                min-width: 200px;
-                max-width: 200px;
+                .widthMinMax(200px);
                 &.tutor-btn {
-                    min-width: 140px;
-                    max-width: 140px;
+                    .widthMinMax(140px);
                 }
             }
         }
         .more-documents {
             button {
-                padding: 15px 12px;
                 border: solid 1px #5158af;
                 background: #fff !important;
                 line-height: 0;
-                color: #5158af;
                 text-transform: lowercase;
-                min-width: 140px;
-                max-width: 140px;
+                .widthMinMax(140px);
             }
         }
     }
-
-    
 }
 
 </style>
