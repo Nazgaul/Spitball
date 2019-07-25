@@ -9,6 +9,7 @@ namespace Cloudents.Persistence.Maps
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Email).Not.Nullable();
+            Map(x => x.Country).Not.Nullable();
             HasMany(x => x.Roles).AsSet();
 
             ReadOnly();
