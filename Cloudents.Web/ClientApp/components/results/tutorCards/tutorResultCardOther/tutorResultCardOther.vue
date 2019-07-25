@@ -1,8 +1,8 @@
 <template>
-    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap default-card" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap ab-default-card" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
         <div class="mb-3 top-card">
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
-            <div style="width:100%;max-height:83px;">
+            <div style="width:100%;max-height:83px;"> <!--USE CASS-->
                 <h3 class="subheading font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
 
                 <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
@@ -166,9 +166,13 @@ export default {
 @import "../../../../styles/mixin.less";
 
 @purple: #43425d;
-
+//use even numbers everywhere
+//use ab- for ab testing
+//15 12 - maybe you can use vuetify
+//min,max - use mixin
+//max width - if you can use % and do calc to support image 
 .tutor-result-card-other {
-    &.default-card {
+    &.ab-default-card {
         min-height: 190px;
         max-height: 190px;
         .cardA {
@@ -201,7 +205,7 @@ export default {
         display: flex;
         width: 100%;
         justify-content: space-between;
-        max-height: 78px;
+        max-height: 78px; //WHY DID YOU PUT HEIGHT
         min-height: 78px;
     }
     .user-image {
@@ -214,7 +218,7 @@ export default {
 
     .tutor-name {
         color: @purple;
-        max-width: 200px;
+        max-width: 200px; // for eplipsis purpose
     }
 
     .striked{
@@ -262,9 +266,9 @@ export default {
 
     .rating-holder {
         div {
-            margin: 0 !important;
+            margin: 0 !important; //vuetify
             i {
-                font-size: 16px !important;
+                font-size: 16px !important; //vuetify
             }
         }
     }
@@ -281,6 +285,8 @@ export default {
     .tutor-bio {
         min-height: 42px;
         min-height: 42px;
+
+        //change this
         .giveEllipsisUpdated(14px, 22px, 2, 50px);
         display: block;
         color: @purple;
