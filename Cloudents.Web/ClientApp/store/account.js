@@ -446,11 +446,9 @@ const actions = {
     },
     userStatus({dispatch, commit, getters, rootState}, {isRequire, to}) {
         const $this = this;
-        if(getters.isUser) {
-            return Promise.resolve();
-        }
+        commit("changeLoginStatus", global.isAuth);
         if(global.isAuth) {
-            return accountService.getAccount().then((UserAccount) => {
+            accountService.getAccount().then((UserAccount) => {
                 setIntercomeData(UserAccount);
                 commit("changeLoginStatus", true);
                 commit("updateUser", UserAccount);

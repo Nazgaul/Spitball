@@ -54,7 +54,7 @@ export default {
     beforeRouteEnter (to, from, next) {
       let isLogoClicked = from.name !== null; 
       //makes sure an auth user won't see this page!
-        let isLoggedIn = store.getters['accountUser'];
+        let isLoggedIn = global.isAuth;
         let query = location.search;
         if(!!isLoggedIn){
           let forceReload = '';

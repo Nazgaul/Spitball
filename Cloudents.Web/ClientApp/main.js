@@ -360,20 +360,12 @@ const app = new Vue({
 
 
 function checkUserStatus(to, next) {
-
-    store.dispatch('userStatus', {
-        isRequire: to.meta.requiresAuth,
-        to
-    }).then(() => {
-        if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
-            next("/signin");
-        } else {
-            next();
-        }
-    }).catch(error => {
-        console.error(error);
+    store.dispatch('userStatus', {isRequire: to.meta.requiresAuth, to})
+    if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
         next("/signin");
-    });
+    } else {
+        next();
+    }
 }
 
 global.isMobileAgent = function () {

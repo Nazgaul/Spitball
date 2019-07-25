@@ -33,7 +33,6 @@
 
         <v-btn  type="submit"
                 :loading="smsLoading" 
-                :disabled="!isformValid" 
                 large round 
                 class="white--text btn-login" >
                 <span v-language:inner="'loginRegister_setphone_btn'"></span>
@@ -68,9 +67,6 @@ export default {
         errorMessages(){
 			return this.getErrorMessages
 		},
-        isformValid(){
-            return (this.phoneNumber.length >= 9 && this.phoneNumber.length < 11)
-        },
         localCode: {
             get(){
                 return this.getLocalCode
