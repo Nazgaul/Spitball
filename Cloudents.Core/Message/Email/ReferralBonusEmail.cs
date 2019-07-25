@@ -17,6 +17,8 @@ namespace Cloudents.Core.Message.Email
     
         public override string Campaign => "Referral User";
 
+        public override UnsubscribeGroup UnsubscribeGroup => UnsubscribeGroup.Update;
+
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
             

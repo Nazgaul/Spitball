@@ -1,38 +1,26 @@
-using Autofac;
-using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Binders;
-using Cloudents.FunctionsV2.System;
-using Cloudents.Query;
-using Cloudents.Query.Chat;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
-using shortid;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
-using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
@@ -63,31 +51,7 @@ namespace Cloudents.FunctionsV2
 
             log.LogInformation("finish sending email");
         }
-
-        [FunctionName("FunctionEmailTest")]
-        public static async Task EmailFunctionTimerAsync(
-            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
-            IAsyncCollector<SendGridMessage> emailProvider,
-
-            [Inject] ILifetimeScope lifetimeScope,
-            IBinder binder,
-            ILogger log,
-            CancellationToken token)
-        {
-
-
-            var message = new UpdatesEmailMessage();
-
-
-            var handlerType =
-                typeof(ISystemOperation<>).MakeGenericType(message.GetType());
-            using (var child = lifetimeScope.BeginLifetimeScope())
-            {
-                dynamic operation = child.Resolve(handlerType);
-                await operation.DoOperationAsync((dynamic)message, binder, token);
-            }
-        }
+      
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
@@ -100,7 +64,7 @@ namespace Cloudents.FunctionsV2
             {
                 message.Asm = new ASM
                 {
-                    GroupId = 10926
+                    GroupId = topicMessage.UnsubscribeGroup
                 };
                 message.TemplateId = topicMessage.TemplateId;
                 message.Subject = topicMessage.Subject;

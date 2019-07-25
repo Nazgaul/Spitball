@@ -23,6 +23,7 @@ namespace Cloudents.Core.Message.Email
         }
 
         public override string Campaign => null;
+        public override UnsubscribeGroup UnsubscribeGroup => UnsubscribeGroup.Update;
         protected override IDictionary<CultureInfo, string> Templates => null;
     }
 }

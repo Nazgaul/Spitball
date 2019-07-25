@@ -17,6 +17,8 @@ namespace Cloudents.Core.Message.Email
 
         public override string Campaign => "User UnSuspended";
 
+        public override UnsubscribeGroup UnsubscribeGroup => UnsubscribeGroup.System;
+
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
             {Language.Hebrew , "bc982dec-f632-447f-889c-7eb67ea37e21" },

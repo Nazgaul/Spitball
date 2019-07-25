@@ -17,6 +17,8 @@ namespace Cloudents.Core.Message.Email
 
         public override string Campaign => "Question Deleted";
 
+        public override UnsubscribeGroup UnsubscribeGroup =>UnsubscribeGroup.Update;
+
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
             {Language.Hebrew , "8e4035cd-c7d4-408a-a4ed-e0fa68f4e444" },

@@ -4,11 +4,11 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Email;
@@ -29,7 +29,7 @@ namespace Cloudents.FunctionsV2
             [OrchestrationTrigger] DurableOrchestrationContext context,
             CancellationToken token)
         {
-            var timeSince = DateTime.UtcNow.AddDays(-30);
+            var timeSince = DateTime.UtcNow.AddDays(-1);
             bool needToContinue;
             int page = 0;
             do
@@ -45,7 +45,6 @@ namespace Cloudents.FunctionsV2
                     {
                         break;
                     }
-                   // token.ThrowIfCancellationRequested();
                     needToContinue = true;
                     emailDto.Since = timeSince;
                     await context.CallActivityAsync<string>("EmailUpdateFunction_Process", emailDto);
@@ -66,7 +65,7 @@ namespace Cloudents.FunctionsV2
         }
 
 
-      
+
 
         [FunctionName("EmailUpdateFunction_Process")]
         public static async Task SendEmail(
@@ -93,15 +92,13 @@ namespace Cloudents.FunctionsV2
             var q = new GetUpdatesEmailByUserQuery(user.UserId, user.Since);
             var result = (await queryBus.QueryAsync(q, token)).ToList();
 
-          
             var courses = result.GroupBy(g => g.Course).Select(s =>
             {
-                //var updates = s.ToList();
                 var emailUpdates = s.Take(4).ToList();
                 return new Course()
                 {
                     Name = s.Key,
-                    Url = "www.spitball.co",
+                    Url = urlBuilder.BuildCourseEndPoint(s.Key),
                     NeedMore = emailUpdates.Count == 4,
                     Documents = emailUpdates.OfType<DocumentUpdateEmailDto>().Select(document =>
                     {
@@ -113,7 +110,7 @@ namespace Cloudents.FunctionsV2
 
                         var uriBuilder = new UriBuilder(new Uri(uri))
                         {
-                            Path = $"/image/{hash}",
+                            Path = $"api/image/{hash}",
                         };
                         uriBuilder.AddQuery(questionNvc);
 
@@ -129,7 +126,7 @@ namespace Cloudents.FunctionsV2
                     {
                         var uriBuilder = new UriBuilder(new Uri(uri))
                         {
-                            Path = $"/image/{question.UserImage}",
+                            Path = $"api/image/{question.UserImage}",
                         };
                         uriBuilder.AddQuery(questionNvc);
                         return new Question()
@@ -143,7 +140,7 @@ namespace Cloudents.FunctionsV2
                 };
             });
 
-           
+
 
 
             var templateData = new UpdateEmail(user.UserName, user.ToEmailAddress)
@@ -155,8 +152,7 @@ namespace Cloudents.FunctionsV2
 
             var message = new SendGridMessage
             {
-                //TODO Finish language
-                Asm = new ASM { GroupId = 10926 },
+                Asm = new ASM { GroupId = UnsubscribeGroup.Update },
                 TemplateId = Equals(user.Language, Language.English.Info) ? "d-535f822f33c341d78253b97b3e35e853" : "d-6a6aead697824210b95c60ddd8d495c5"
             };
             templateData.To = user.ToEmailAddress;
@@ -182,7 +178,9 @@ namespace Cloudents.FunctionsV2
                 }
             };
             message.AddTo(user.ToEmailAddress);
+            //message.AddTo("ram@cloudents.com");
             await emailProvider.AddAsync(message, token);
+            await emailProvider.FlushAsync(token);
         }
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
@@ -191,29 +189,54 @@ namespace Cloudents.FunctionsV2
             [OrchestrationClient]DurableOrchestrationClient starter,
             ILogger log)
         {
-            var uri = CommunicationFunction.GetHostUri();
-            await starter.TerminateAsync("1", "Test");
-            string instanceId = await starter.StartNewAsync("EmailUpdateFunction","1", null);
-            log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
-
+            const string instanceName = "UpdateEmail";
+            var existingInstance = await starter.GetStatusAsync(instanceName);
+            if (existingInstance == null)
+            {
+                await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
+                return;
+            }
+            if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Running)
+            {
+                if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-6))
+                {
+                    await starter.TerminateAsync(instanceName, $"Taking too long ");
+                }
+                else
+                {
+                    log.LogInformation($"{instanceName} is in status {existingInstance.RuntimeStatus}");
+                    return;
+                }
+            }
+            await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
         }
 
 
 
         internal class UpdateEmail
         {
+            private int _questionCountUpdate;
+            private int _documentCountUpdate;
 
             [JsonProperty("userName")]
             public string UserName { get; set; }
 
             [JsonProperty("numUpdates")]
-            public int TotalUpdates => QuestionCountUpdate + DocumentCountUpdate;
+            public int TotalUpdates => QuestionCountUpdate.GetValueOrDefault() + DocumentCountUpdate.GetValueOrDefault();
 
             [JsonProperty("xQuestions")]
-            public int QuestionCountUpdate { get; set; }
+            public int? QuestionCountUpdate
+            {
+                get => _questionCountUpdate == 0 ? (int?)null : _questionCountUpdate ;
+                set => _questionCountUpdate = value.GetValueOrDefault();
+            }
 
             [JsonProperty("xNewItems")]
-            public int DocumentCountUpdate { get; set; }
+            public int? DocumentCountUpdate
+            {
+                get => _documentCountUpdate == 0 ? (int?)null : _documentCountUpdate;
+                set => _documentCountUpdate = value.GetValueOrDefault();
+            }
 
             [JsonProperty("to")]
             public string To { get; set; }
@@ -224,8 +247,6 @@ namespace Cloudents.FunctionsV2
             public UpdateEmail(string userName, string to)
             {
                 UserName = userName;
-                //Documents = documents.ToList();
-                //Questions = questions.ToList();
                 To = to;
             }
 
@@ -238,7 +259,6 @@ namespace Cloudents.FunctionsV2
             [JsonProperty("courseUrl")]
             public string Url { get; set; }
 
-            //public IEnumerable<Item> Updates => Questions.Union<Item>(Documents).Take(4);
             [JsonProperty("questions")]
 
             public IEnumerable<Question> Questions { get; set; }

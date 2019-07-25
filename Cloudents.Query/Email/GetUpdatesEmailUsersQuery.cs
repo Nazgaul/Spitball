@@ -44,7 +44,7 @@ where state = 'Ok'
 and q.Created > @Since
 ) t
 on u.UniversityId2 = t.UniversityId and t.CourseName  = uc.CourseId
-where u.id = 638
+where u.EmailConfirmed = 1
 order by id
      OFFSET @pageSize * @PageNumber ROWS
                 FETCH NEXT @pageSize ROWS ONLY;";

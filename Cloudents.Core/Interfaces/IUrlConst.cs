@@ -9,6 +9,8 @@ namespace Cloudents.Core.Interfaces
         string BuildWalletEndPoint(string token);
         string BuildShareEndPoint(string token);
 
+        string BuildCourseEndPoint(string courseName);
+
         string BuildQuestionEndPoint(long id, object parameters = null);
         string BuildPayMeBuyerEndPoint(string token);
 
