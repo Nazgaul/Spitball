@@ -73,6 +73,7 @@ function TutorItem(objInit) {
     this.name = objInit.name || '';
     this.image = objInit.image;
     this.courses = objInit.courses || '';
+    // this.courses = objInit.courses || [];
     this.price = objInit.price || 50;
     this.score = objInit.score || null;
     this.rating =  objInit.rate ? Number(objInit.rate.toFixed(2)): null;
@@ -80,7 +81,7 @@ function TutorItem(objInit) {
     this.template = 'tutor';
     this.bio = objInit.bio || '';
     this.university = objInit.university || '';
-    this.studyArea = objInit.studyArea || '';
+    // this.studyArea = objInit.studyArea || '';
     this.classes = objInit.classes || 0;
 }
 

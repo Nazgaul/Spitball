@@ -1,9 +1,9 @@
 <template>
-  <router-link class="tutor-result-card-mobile pa-2 ma-2 pr-4" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+  <router-link class="tutor-result-card-mobile pa-2 ma-2 pr-4 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
       <div class="card-mobile-header mb-3">
-          <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+          <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
           <div>
-              <h3 class="text-truncate subheading font-weight-bold" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+              <h3 class="text-truncate subheading font-weight-bold mb-2" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
               <div class="user-rate align-center">
                   <user-rating :rating="tutorData.rating" :showRateNumber="false" class="mr-2" />
                   <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></span>
@@ -15,10 +15,9 @@
               </div>
           </div>
       </div>
-      <div class="card-mobile-center mb-4 subheading">
-          {{tutorData.bio}}
-          <span class="read-more" :class="setBio(tutorData.bio, index)" :ref="`tutor${index}`" v-language:inner="'resultTutor_read_more'"></span>
-      </div>
+
+      <div class="card-mobile-center mb-4" v-html="ellipsizeTextBox(tutorData.bio)">{{tutorData.bio}}</div>
+
       <div class="card-mobile-footer">
           <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
                 <iconChat class="chat-icon" />
@@ -26,16 +25,11 @@
           </v-btn>
           <div class="price ml-4 align-center" :class="{'mt-3': !showStriked}">
               <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
-              <span v-if="showStriked">
-                  <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-              </span>
-              <span v-else>
-                  <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
-              </span>
-              <span class="caption">
-                <span>/</span>
-                <span v-language:inner="'resultTutor_hour'"></span>
-              </span>
+              <template>
+                <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
+                <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
+              </template>
+              <span class="caption" v-language:inner="'resultTutor_hour'"></span>
           </div>
       </div>
   </router-link>
@@ -74,9 +68,6 @@ export default {
     fromLandingPage: {
       type: Boolean,
       default: false
-    },
-    index: {
-      type: Number
     }
   },
   methods: {
@@ -128,16 +119,13 @@ export default {
           this.openChatInterface();                    
       }
     },
-    setBio(bio, index) {
-      let key = 'tutor'+index;
-      this.$nextTick(() => {
-        let element = this.$refs[key];
-        if(element.parentElement.scrollHeight > element.parentElement.offsetHeight) {
-          element.classList.add('bio-block');
-        } else {
-          element.classList.add('bio-span');
-        }    
-      })
+    ellipsizeTextBox(text) {
+      let maxChars = 110;
+      let showBlock = text.length > maxChars;
+      let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
+      let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
+      let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: block' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
+      return `${newText} ${readMore} ${hideText}`;
     }
   },
   computed: {
@@ -202,6 +190,8 @@ export default {
 @purple: #43425d;
 
 .tutor-result-card-mobile {
+    min-height: 225px;
+    max-height: 225px;
     border-radius: 4px;
     background: #fff;
     display: flex;
@@ -239,23 +229,18 @@ export default {
     }
 
     .card-mobile-center {
-      .giveEllipsisUpdated(14px, 1.35, 2, 90px);
+      .giveEllipsisUpdated(14px, 1.28, 2, 90px);
       .read-more {
-            color: #4452fc;
-            &.bio-span {
-              display: inline-block;
-            }
-            &.bio-block {
-              position: absolute;
-              top: 161px;
-              left: 16px;
-            }
-          }
+        position: absolute;
+        bottom: 70px;
+        color: #4452fc;
+      }
     }
 
     .card-mobile-footer {
         display: inherit;
         .btn-chat {
+          text-transform: lowercase;
           border-radius: 7.5px;
           .chat-icon {
             margin: 0 auto 0 0;
@@ -264,6 +249,7 @@ export default {
             margin: 0 auto 0 0;
             div {
               max-width: 175px;
+              padding-left: 10px;
             }
           }
         }

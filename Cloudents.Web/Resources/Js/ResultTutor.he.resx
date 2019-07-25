@@ -154,7 +154,7 @@
     <value>קורסים:</value>
   </data>
   <data name="hours_completed" xml:space="preserve">
-    <value>{1} שעות שיעור הושלמו</value>
+    <value>שעות שיעור הושלמו</value>
   </data>
   <data name="send_button" xml:space="preserve">
     <value>שלחו ל{1} הודעה</value>

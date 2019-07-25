@@ -1,13 +1,11 @@
 <template>
-    <router-link class="d-flex tutor-result-card-desktop pa-3 mb-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-desktop pa-3 mb-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
         <v-flex row class="user-details">
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div class="main-card">
                 <h3 class="title font-weight-bold tutor-name text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
                 <h4 class="mb-4 text-truncate">{{university}}</h4>
-                <div class="user-bio mb-5">{{tutorData.bio}} 
-                  <span class="read-more" :class="setBio(tutorData.bio, index)" :ref="`tutor${index}`" v-language:inner="'resultTutor_read_more'"></span>
-                </div>
+                <div class="user-bio mb-5" v-html="ellipsizeTextBox(tutorData.bio)"></div>
                 <div class="study-area mb-2" v-if="isStudyArea">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
                   <span class="text-truncate">{{studyArea}}</span>
@@ -22,16 +20,14 @@
         <v-divider vertical class="mx-3"></v-divider>
 
         <div class="user-rates">
-            <div class="title price font-weight-bold">
-              <span v-if="showStriked">
-                  <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-              </span>
-              <span v-else>
-                  <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
-              </span>
+            <div class="title price font-weight-bold mb-1">
+              <template>
+                  <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
+                  <span class="title font-weight-bold" v-else>&#8362;{{tutorData.price}}</span>
+              </template>
               <span class="caption">
-                <span>/</span>
-                <span v-language:inner="'resultTutor_hour'"></span>
+                <span hours_completed></span>
+                <div v-if="!showStriked" style="min-height:19px;"></div>
               </span>
             </div>
             <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
@@ -40,13 +36,14 @@
               <user-rating :rating="tutorData.rating" :showRateNumber="false" />
               <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
             </div>
-            <div class="classes-hours align-center mb-4 mt-2">
+            <div class="classes-hours align-center mb-4 mt-1">
                 <clock />
-                <span class="ml-2 font-weight-bold caption" v-html="$Ph(`resultTutor_hours_completed`, '32')"></span>
+                <span class="ml-2 font-weight-bold caption">{{tutorData.classes}}</span>
+                <span class="ml-2 font-weight-bold caption" v-language:inner="'resultTutor_hours_completed'"></span>
             </div>
             <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
               <iconChat class="chat-icon mr-2" />
-              <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
+              <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)" ></div>
             </v-btn>
         </div>
     </router-link>
@@ -85,9 +82,6 @@ export default {
     fromLandingPage: {
       type: Boolean,
       default: false
-    },
-    index: {
-      type: Number
     }
   },
   methods: {
@@ -127,13 +121,15 @@ export default {
           this.openChatInterface();                    
       }
     },
-    setBio(bio, index) {
-      if(bio.length > 178) {
-        return 'bio-block';
-      } else {
-        return 'bio-span';
-      }
+    ellipsizeTextBox(text) {
+      let maxChars = 176;
+      let showBlock = text.length > maxChars;
+      let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
+      let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
+      let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: inline-block' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
+      return `${newText} ${readMore} ${hideText}`;
     }
+
   },
   computed: {
     ...mapGetters(['accountUser']),
@@ -194,9 +190,12 @@ export default {
 @purple: #43425d;
 
   .tutor-result-card-desktop {
+    min-height: 214px;
+    max-height: 214px;
     border-radius: 4px;
     background: #fff;
     width: 100%;
+    display: flex;
     h3, h4, .user-bio, .courses, .price, .classes-hours {
       color: @purple;
     }
@@ -214,20 +213,11 @@ export default {
           display: inline-block;
           word-wrap: break-word;
           overflow: hidden;
-          max-height: 48px;
           min-height: 48px;
           line-height: 1.2em;
           text-align: justify;
           .read-more {
             color: #4452fc;
-            &.bio-span {
-              display: inline-block;
-            }
-            &.bio-block {
-              position: absolute;
-              top: 144px;
-              left: 176px;
-            }
           }
         }
         .study-area {

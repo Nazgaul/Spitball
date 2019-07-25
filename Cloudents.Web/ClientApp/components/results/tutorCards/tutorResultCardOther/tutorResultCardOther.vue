@@ -1,6 +1,6 @@
 <template>
-    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap d-block" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
-        <div class="mb-2 top-card">
+    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap default-card" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+        <div class="mb-3 top-card">
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div style="width:100%;max-height:83px;">
                 <h3 class="subheading font-weight-bold tutor-name text-truncate mb-1">{{tutorData.name}}</h3>
@@ -13,13 +13,13 @@
                             <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
                         </span>
                         <span v-else>
-                            <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
+                            <span class="font-weight-bold">&#8362;{{tutorData.price}}</span>
                         </span>
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
 
                     <v-layout column align-center class="user-rates">
-                        <userRating class="rating-holder mt-2 mb-1" :rating="tutorData.rating" :showRateNumber="false" />  <!-- :size="isInTutorList ? '16' : '20'" -->
+                        <userRating class="rating-holder mb-1" :rating="tutorData.rating" :showRateNumber="false" />  <!-- :size="isInTutorList ? '16' : '20'" -->
                         <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
                     </v-layout>
                     
@@ -31,7 +31,7 @@
 
                         <!-- card-b -->
                         <v-layout column align-center class="cardB user-classes subheading">
-                            <div>32</div>
+                            <div>{{tutorData.classes}}</div>
                             <div v-language:inner="'resultTutor_classes'"></div>
                         </v-layout>
                     </template>
@@ -39,9 +39,9 @@
                 </v-layout>
             </div>
         </div>
-        <v-layout class="tutor-bio">
-            {{tutorData.bio}}
-        </v-layout>
+
+        <v-layout class="tutor-bio">{{tutorData.bio}}</v-layout>
+
         <v-layout row class="btn-footer cardB">
             <div class="send-msg text-xs-center text-truncate" >
                 <v-btn 
@@ -169,6 +169,8 @@ export default {
 
 .tutor-result-card-other {
     &.default-card {
+        min-height: 190px;
+        max-height: 190px;
         .cardA {
             display: none;
         }
@@ -176,7 +178,7 @@ export default {
             display: flex;
         }
     }
-    .cardA {
+    .cardA {  
             display: flex;
         }
         .cardB {
@@ -187,6 +189,11 @@ export default {
     position: relative;
     overflow: hidden;
     background: #fff;
+    min-height: 160px;
+    max-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     @media (max-width: @screen-sm) {
         max-width: 100%;
     }
@@ -194,6 +201,8 @@ export default {
         display: flex;
         width: 100%;
         justify-content: space-between;
+        max-height: 78px;
+        min-height: 78px;
     }
     .user-image {
         border-radius: 4px;
@@ -229,6 +238,7 @@ export default {
         }
         color: @purple;
         .price-box {
+            font-size: 22px;
             max-width: 90px;
             div {
                 white-space: nowrap;
@@ -269,6 +279,8 @@ export default {
     }
 
     .tutor-bio {
+        min-height: 42px;
+        min-height: 42px;
         .giveEllipsisUpdated(14px, 22px, 2, 50px);
         display: block;
         color: @purple;
