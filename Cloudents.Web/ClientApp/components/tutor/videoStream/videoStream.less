@@ -23,7 +23,68 @@
 
     .remote_video_container{
       position: relative;
-      min-height: 198px;
+      min-height: 229px;
+      .control-panel{
+        position: absolute;
+        width: 100%;
+        height: 30px;
+        bottom: 8px;
+        .mic-image-btn{
+          height: 30px;
+          width: 30px;
+          position: relative;
+          outline: none;
+          margin-left: 5px;
+          transition: 0.3s;
+          padding: 2px;
+          border-radius: 50%;
+        }
+        .dynamicBackground-light{
+          background-color: rgba(0, 0, 0, 0.15);
+        }
+        .dynamicBackground-dark{
+          background-color: rgba(0, 0, 0, 0.3);
+        }
+        .mic-image-svg{
+          position: absolute;
+          height: 21px;
+          width: 21px;
+          top: 5px;
+          left: 5px;
+        }
+        .mic-ignore{
+            position: absolute;
+            height: 16px;
+            width: 16px;
+            top: 8px;
+            left: 7px;
+        }
+        .video-image-btn{
+          height: 30px;
+          width: 30px;
+          position: relative;
+          outline: none;
+          margin-left: 4px;
+          transition: 0.3s;
+          padding: 2px;
+          border-radius: 50%;
+        }
+        .video-image-svg{
+          position: absolute;
+          height: 21px;
+          width: 21px;
+          top: 5px;
+          left: 5px;
+          fill: white;
+        }
+        .cam-ignore{
+          position: absolute;
+          height: 16px;
+          width: 16px;
+          top: 8px;
+          left: 7px;
+        }
+      }
     }
   }
   .full-screen-icon{
@@ -35,8 +96,28 @@
     height: 80px;
     bottom: 4px;
     right: 0;
-    padding: 4px 4px 0 4px;
-    background-color: #3dc2ba;
+    z-index: 10;
+    .localTrack-placeholder{
+      height: 100%;
+      width: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .placeholder-back{
+        width: 50px;
+        height: 50px;
+        background-color: #1c1c1d;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .placeholder-svg{
+          width: 29px;
+          height: 29px;
+        }
+      }
+    }
   }
   .video-con-controls{
     display: flex;

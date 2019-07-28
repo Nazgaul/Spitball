@@ -125,6 +125,7 @@ export default {
         onVerify(response) {
             this.recaptcha = response;
             this.sendRequest()
+            this.$refs['recaptcha'].reset();
         },
         onExpired() {
             this.recaptcha = "";

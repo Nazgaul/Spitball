@@ -7,7 +7,7 @@
 				placeholder="loginRegister_setpass_input_email"
 				icon="sbf-email" 
 				:bottomError="true"
-				:autofocus="true" 
+				:autofocus="false" 
                 :errorMessage="errorMessages.email"
 				name="email" type="email"/>
 
@@ -18,11 +18,9 @@
 				placeholder="loginRegister_setpass_input_pass"  
 				:bottomError="true" 
 				type="password" name="pass"
-				:autofocus="false"/>
-
+				:autofocus="true"/>
         <v-btn  
                 type="submit"
-                :disabled="!isValid"
                 :loading="isEmailLoading"
                 large round 
                 class="white--text btn-login">
@@ -68,9 +66,6 @@ export default {
                 this.updateEmail(val)
                 this.setErrorMessages({})
             }
-        },
-        isValid(){
-            return this.getEmail1 && this.password.length > 7
         }
     },
     methods: {

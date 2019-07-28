@@ -40,6 +40,7 @@ namespace Cloudents.Query.Query.Admin
                                     join sb.[user] u
 	                                    on sru.UserId = U.Id
                                     where S.Ended is not null 
+										and (u.Id = @UserId or t.Id = @UserId)
                                     group by cast (S.created as date),T.Name,
 		                                    U.Name
                                     order by cast (S.created as date) desc;";

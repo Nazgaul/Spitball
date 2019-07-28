@@ -52,15 +52,14 @@ where (t.Id <> @UserId or @UserId = 0)
                         and T.State = 'Ok'
                         and (U.Country = @Country or @Country is null) 
 order by t desc, Rate desc
-OFFSET 0 ROWS
-FETCH NEXT 20 ROWS ONLY;";
+OFFSET 0 ROWS;";
 
 
                 using (var conn = _dapperRepository.OpenConnection())
                 {
                     var retVal = await conn.QueryAsync<TutorListDto>(sql, new { query.UserId, query.Country });
-                   
-                    return retVal.Take(20);
+                    var t = retVal.Distinct(TutorListDto.UserIdComparer);
+                    return t.Take(20);
                     
                 }
             }

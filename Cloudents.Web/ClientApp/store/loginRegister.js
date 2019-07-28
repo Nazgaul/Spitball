@@ -245,15 +245,17 @@ const actions = {
                 dispatch('updateStep','VerifyPhone')
             }, function (error){
                 commit('setGlobalLoading',false)
-                if(error.response.data["PhoneNumber"] && error.response.data["PhoneNumber"][0]){
-                    if(error.response.data["PhoneNumber"][0] === "InvalidPhoneNumber"){
-                        commit('setErrorMessages',{phone: _dictionary("loginRegister_smsconfirm_phone_error_invalid")})
-                    } else {
-                        commit('setErrorMessages',{phone: _dictionary("loginRegister_smsconfirm_phone_error")})
-                    }
-                }else{
-                    commit('setErrorMessages',{phone: _dictionary("loginRegister_smsconfirm_phone_error_tryagain")}) 
-                }
+                commit('setErrorMessages',{phone: error.response.data["PhoneNumber"]? error.response.data["PhoneNumber"][0]:'' })
+
+                // if(error.response.data["PhoneNumber"] && error.response.data["PhoneNumber"][0]){
+                //     if(error.response.data["PhoneNumber"][0] === "InvalidPhoneNumber"){
+                //         commit('setErrorMessages',{phone: _dictionary("loginRegister_smsconfirm_phone_error_invalid")})
+                //     } else {
+                //         commit('setErrorMessages',{phone: _dictionary("loginRegister_smsconfirm_phone_error")})
+                //     }
+                // }else{
+                //     commit('setErrorMessages',{phone: _dictionary("loginRegister_smsconfirm_phone_error_tryagain")}) 
+                // }
             })
     },
     smsCodeVerify({dispatch,commit},smsCode) {
@@ -353,7 +355,7 @@ const actions = {
                 dispatch('updateStep','EmailConfirmed')
             },error =>{
                 commit('setGlobalLoading',false)
-                commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : ''}) 
+                commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : error.response.data["Email"][0]}) 
             })
     },
     resendEmailPassword({dispatch,commit}){

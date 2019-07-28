@@ -93,7 +93,6 @@ const markShapes = function(){
     let {mouseX:startX, mouseY:startY} = canvasFinder.getRelativeMousePoints(this.context, rectangleBoundries.startX*-a, rectangleBoundries.startY*-d );
     let {mouseX:endX, mouseY:endY} = canvasFinder.getRelativeMousePoints(this.context, rectangleBoundries.endX*-a, rectangleBoundries.endY*-d);
     let helperObj = getHelperObj.bind(this, startX*-a, startY*-d, endX*-a, endY*-d)();
-        
     liveDraw.bind(this, helperObj)();
 }
 

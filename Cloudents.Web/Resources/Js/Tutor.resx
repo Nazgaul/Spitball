@@ -316,4 +316,16 @@ Try connecting from a computer browser</value>
   <data name="btn_waiting_for_tutor" xml:space="preserve">
     <value>Waiting for tutor</value>
   </data>
+  <data name="tooltip_mic_mute" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="tooltip_mic_unmute" xml:space="preserve">
+    <value>Unmute</value>
+  </data>
+  <data name="tooltip_video_pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="tooltip_video_resume" xml:space="preserve">
+    <value>Resume</value>
+  </data>
 </root>
