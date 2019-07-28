@@ -6,7 +6,7 @@
               <h3 class="text-truncate subheading font-weight-bold mb-2" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
               <div class="user-rate align-center">
                   <user-rating :rating="tutorData.rating" :showRateNumber="false" class="mr-2" />
-                  <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></span>
+                  <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
               </div>
               <h4 class="text-truncate mb-1 font-weight-light university">{{university}}</h4>
               <div class="courses text-truncate">
@@ -190,8 +190,6 @@ export default {
 @purple: #43425d;
 
 .tutor-result-card-mobile {
-    // min-height: 225px;
-    // max-height: 225px;
     border-radius: 4px;
     background: #fff;
     display: flex;
@@ -199,7 +197,6 @@ export default {
     h3, h4, .courses, .card-mobile-center, .price {
         color: @purple;
     }
-
     .card-mobile-header {
         display: flex;
         .user-image, .tutor-no-img {
@@ -207,7 +204,7 @@ export default {
         }
         .tutor-no-img {
             width: 67px;
-            height: 87px;
+            height: auto;
         }
         .user-rate {
             display: inline-flex;
@@ -219,15 +216,12 @@ export default {
             }
         }
         .courses {
-          max-width: 200px;
-          min-width: auto;
+          .widthMinMax(200px)
         }
         .university {
-          min-height: 23px;
-          max-height: 23px;
+          .heightMinMax(23px)
         }
     }
-
     .card-mobile-center {
       .giveEllipsisUpdated(14px, 1.28, 2, 90px);
       .heightMinMax(34px);
@@ -270,9 +264,6 @@ export default {
                   top: 50%;
                   z-index: 1;
               }
-          }
-          .main-price {
-            font-size: 22px;
           }
        }
     }

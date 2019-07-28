@@ -170,11 +170,6 @@ export default {
 @import "../../../../styles/mixin.less";
 
 @purple: #43425d;
-//use even numbers everywhere
-//use ab- for ab testing
-//15 12 - maybe you can use vuetify
-//min,max - use mixin
-//max width - if you can use % and do calc to support image 
 .tutor-result-card-other {
     border-radius: 4px;
     position: relative;
@@ -198,7 +193,8 @@ export default {
     .top-card {
         display: flex;
         width: 100%;
-        max-height: 78px; //WHY DID YOU PUT HEIGHT
+        // image stretching
+        max-height: 78px; 
         min-height: 78px;
         .top-card-wrap {
             width:100%;

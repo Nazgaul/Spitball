@@ -2,10 +2,10 @@
     <router-link class="tutor-result-card-desktop pa-3 mb-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
         <v-flex row class="user-details">
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
-            <div class="main-card">
+            <div class="main-card justify-space-between">
                 <h3 class="title font-weight-bold tutor-name text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
                 <h4 class="mb-4 text-truncate">{{university}}</h4>
-                <div class="user-bio mb-5" v-html="ellipsizeTextBox(tutorData.bio)"></div>
+                <div class="user-bio mb-5 overflow-hidden" v-html="ellipsizeTextBox(tutorData.bio)"></div>
                 <div class="study-area mb-2" v-if="isStudyArea">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
                   <span class="text-truncate">{{studyArea}}</span>
@@ -31,10 +31,9 @@
               </span>
             </div>
             <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
-
             <div class="user-rank mt-3 mb-2 align-center">
               <user-rating :rating="tutorData.rating" :showRateNumber="false" />
-              <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
+              <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
             </div>
             <div class="classes-hours align-center mb-4 mt-1">
                 <clock />
@@ -190,8 +189,6 @@ export default {
 @purple: #43425d;
 
   .tutor-result-card-desktop {
-    min-height: 214px;
-    max-height: 214px;
     border-radius: 4px;
     background: #fff;
     width: 100%;
@@ -201,19 +198,15 @@ export default {
     }
     .user-details {
       display: flex;
-      flex: 3;
-      max-width: 589px;
+      .widthMinMax(600px);
       .main-card {
-        min-width: 400px;
-        max-width: 400px;
+        .widthMinMax(400px);
         display: flex;  
         flex-direction: column;
-        justify-content: space-between;
         .user-bio {
           display: inline-block;
           word-wrap: break-word;
-          overflow: hidden;
-          min-height: 48px;
+          .heightMinMax(48px);
           line-height: 1.2em;
           text-align: justify;
           .read-more {
