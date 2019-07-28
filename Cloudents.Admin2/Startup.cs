@@ -109,6 +109,11 @@ namespace Cloudents.Admin2
             services.AddOptions();
             services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsraelUser", policy => policy.RequireClaim("country", "IL"));
+                options.AddPolicy("IndiaUser", policy => policy.RequireClaim("country", "IN"));
+            });
 
             var assembliesOfProgram = new[]
             {
