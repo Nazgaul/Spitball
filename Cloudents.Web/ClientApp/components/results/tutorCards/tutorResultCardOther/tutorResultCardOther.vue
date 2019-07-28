@@ -18,7 +18,7 @@
 
                     <v-layout column align-center class="user-rates">
                         <userRating class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" />
-                        <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></div>
+                        <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>
                     </v-layout>
                     
                     <template>
@@ -134,8 +134,14 @@ export default {
         onImageLoadError(event) {
             event.target.src = "./images/placeholder-profile.png";
         },
-        reviewsPlaceHolder(reviews) {
-            return reviews === 0 ? reviews.toString() : reviews;
+        reviewsPlaceHolder(reviewsOwner, reviews) {
+            let review;
+            if(reviewsOwner || reviewsOwner === 0) {
+                review = reviewsOwner === 0 ? reviewsOwner.toString() : reviewsOwner;
+            } else if(reviews || reviews === 0) {
+                review = reviews === 0 ? reviews.toString() : reviews;
+            }
+            return review;
         },
         sendMessage(user) {
             if (this.accountUser == null) {
