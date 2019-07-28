@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentAggregateQuery_Ok()
         {
-            var query = new AdminUserAnswersQuery(638, 0);
+            var query = new AdminUserAnswersQuery(638, 0, "IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -82,28 +82,28 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
         {
-            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(0);
+            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(0, "IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task AdminPendingTutorsQuery_Ok()
         {
-            var query = new AdminPendingTutorsQuery();
+            var query = new AdminPendingTutorsQuery("IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task AdminSessionsQuery_Ok()
         {
-            var query = new AdminSessionsQuery(159039);
+            var query = new AdminSessionsQuery(159039, "IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task AdminStudyRoomQuery_Ok()
         {
-            var query = new AdminStudyRoomQuery();
+            var query = new AdminStudyRoomQuery("IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -128,7 +128,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminUserAnswersQuery_Ok()
         {
-            var query = new AdminUserAnswersQuery(159039, 0);
+            var query = new AdminUserAnswersQuery(159039, 0, "IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -136,8 +136,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AdminPaymentsQuery_Ok()
         {
             var q1 = new AdminPaymentsQuery();
-            var q2 = new AdminUserDetailsQuery("Hadar@cloudents.com");
-            var q3 = new AdminUserDetailsQuery("0523556456");
+            var q2 = new AdminUserDetailsQuery("Hadar@cloudents.com", "IL");
+            var q3 = new AdminUserDetailsQuery("0523556456", "IL");
             var t1 =  fixture.QueryBus.QueryAsync(q1, default);
             var t2 =  fixture.QueryBus.QueryAsync(q2, default);
             var t3 =  fixture.QueryBus.QueryAsync(q3, default);
@@ -147,15 +147,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminUserDocumentsQuery_Ok()
         {
-            var query = new AdminUserDocumentsQuery(159039, 0);
+            var query = new AdminUserDocumentsQuery(159039, 0, "IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task AdminUserFlagsOthersQuery_Ok()
         {
-            var q1 = new AdminUserFlagsOthersQuery(3, 0);
-            var q2 = new AdminUserFlagsOthersQuery(2, 2);
+            var q1 = new AdminUserFlagsOthersQuery(3, 0, "IL");
+            var q2 = new AdminUserFlagsOthersQuery(2, 2, "IL");
             var t1 = fixture.QueryBus.QueryAsync(q1, default);
             var t2 = fixture.QueryBus.QueryAsync(q2, default);
             await Task.WhenAll(t1, t2);
@@ -164,14 +164,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminUserPurchasedDocsQuery_Ok()
         {
-            var query = new AdminUserPurchasedDocsQuery(159039, 0);
+            var query = new AdminUserPurchasedDocsQuery(159039, 0, "IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task AdminUserQuestionsQuery_Ok()
         {
-            var query = new AdminUserQuestionsQuery(159039, 0);
+            var query = new AdminUserQuestionsQuery(159039, 0, "IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
         [Fact]
@@ -190,38 +190,38 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task FlaggedQuestionEmptyQuery_Ok()
         {
-            var query = new FlaggedQuestionEmptyQuery();
+            var query = new FlaggedQuestionQuery("IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task FlaggedDocumentEmptyQuery_Ok()
         {
-            var query = new FlaggedDocumentEmptyQuery();
+            var query = new FlaggedDocumentQuery("IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task FlaggedAnswerEmptyQuery_Ok()
         {
-            var query = new FlaggedAnswerEmptyQuery();
+            var query = new FlaggedAnswerQuery("IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task PendingDocumentEmptyQuery_Ok()
         {
-            var query = new PendingDocumentEmptyQuery(203300);
+            var query = new PendingDocumentQuery(203300, "IL");
             await fixture.QueryBus.QueryAsync(query, default);
 
-            var query2 = new PendingDocumentEmptyQuery(null);
+            var query2 = new PendingDocumentQuery(null, "IN");
             await fixture.QueryBus.QueryAsync(query2, default);
         }
 
         [Fact]
         public async Task SuspendedUsersEmptyQuery_Ok()
         {
-            var query = new SuspendedUsersEmptyQuery();
+            var query = new SuspendedUsersQuery("IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -235,13 +235,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task PendingQuestionsEmptyQuery_Ok()
         {
-            var query = new AdminPendingQuestionsEmptyQuery();
+            var query = new AdminPendingQuestionsQuery("IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
         [Fact]
         public async Task AdminCashOutEmptyQuery_Ok()
         {
-            var query = new AdminCashOutEmptyQuery();
+            var query = new AdminCashOutQuery("IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
     }
