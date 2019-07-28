@@ -125,7 +125,7 @@
                     this.UPDATE_SEARCH_LOADING(true);
                 }
                 
-                this.$router.push({path: '/' + result});
+                this.$router.push({ path: '/' + result, query: this.$route.query });
             },
         },
         mounted(){
