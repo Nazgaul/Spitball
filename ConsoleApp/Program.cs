@@ -150,7 +150,7 @@ namespace ConsoleApp
 
             ////await UpdateMethod();
             var queryBus = _container.Resolve<IQueryBus>();
-            var query = new TutorListQuery(638,"IL");
+            var query = new TutorListQuery(638,"IL",0);
             var z =await  queryBus.QueryAsync(query, default);
             //var result = await queryBus.NeedToSendMoreTutorsAsync(638, default);
             //var query = new DocumentById(29173, 638);
@@ -467,7 +467,7 @@ namespace ConsoleApp
         {
             //ResourcesMaintenance.GetOrphanedResources();
             var queryBus = _container.Resolve<IQueryBus>();
-            var query = new TutorListQuery(159039, "IL");
+            var query = new TutorListQuery(159039, "IL",0);
             var test = await queryBus.QueryAsync(query, default);
             foreach (var item in test)
             {

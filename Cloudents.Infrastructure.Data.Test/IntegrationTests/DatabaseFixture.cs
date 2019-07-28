@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var configuration = new ConfigurationKeys("SomeSite")
             {
                 Db = new DbConnectionString(
-                    "Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew_Develop;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=true;",
+                    "Server=tcp:sb-dev.database.windows.net,1433;Initial Catalog=ZboxNew_Develop;Persist Security Info=False;User ID=sb-dev;Password=Pa$$W0rd123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
                     null)
             };
             var builder = new ContainerBuilder();

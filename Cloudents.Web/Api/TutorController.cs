@@ -78,7 +78,8 @@ namespace Cloudents.Web.Api
             //TODO make it better
             if (string.IsNullOrWhiteSpace(term))
             {
-                var query = new TutorListTabQuery(profile.Country, page: page);
+                _userManager.TryGetLongUserId(User, out var userId);
+                var query = new TutorListQuery(userId, profile.Country, page);
                 var result = await _queryBus.QueryAsync(query, token);
                 return new WebResponseWithFacet<TutorCardDto>
                 {
@@ -115,7 +116,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListQuery(userId, profile.Country);
+            var query = new TutorListQuery(userId, profile.Country, 0);
             var retValTask = await _queryBus.QueryAsync(query, token);
             return retValTask;
         }
