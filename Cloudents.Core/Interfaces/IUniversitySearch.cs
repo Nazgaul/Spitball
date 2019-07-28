@@ -23,7 +23,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface ITutorSearch
     {
-        Task<IEnumerable<TutorListDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token);
+        Task<IEnumerable<TutorCardDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token);
     }
 
     public interface IQuestionSearch

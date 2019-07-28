@@ -20,7 +20,7 @@ namespace Cloudents.Search.Tutor
             _client = client.GetClient(TutorSearchWrite.IndexName);
 
         }
-        public async Task<IEnumerable<TutorListDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token)
+        public async Task<IEnumerable<TutorCardDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token)
         {
             const int pageSize = 25;
             var searchParams = new SearchParameters()
@@ -54,17 +54,21 @@ namespace Cloudents.Search.Tutor
             return result.Results.Select(s =>
             {
                 var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
-                    s.Document.Courses).Take(10).Distinct();
-                return new TutorListDto
+                    s.Document.Courses).Take(3).Distinct();
+                return new TutorCardDto
                 {
                     Name = s.Document.Name,
                     UserId = Convert.ToInt64(s.Document.Id),
-                    Courses = string.Join(",", courses),
+                    Courses = courses,
+                    
                     Image = s.Document.Image,
                     Price = (decimal)s.Document.Price,
                     Rate = (float)s.Document.Rate,
                     ReviewsCount = s.Document.ReviewCount,
-                    Bio = s.Document.Bio
+                    Bio = s.Document.Bio,
+                    CourseCount = s.Document.Courses.Length,
+                    University = "Some university", // TODO
+                    Lessons = 100 //TODO
                 };
             });
 

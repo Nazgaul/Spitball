@@ -7,7 +7,7 @@ using Dapper;
 
 namespace Cloudents.Query.Tutor
 {
-    public class TutorListByCourseQuery: IQuery<IEnumerable<TutorListDto>>
+    public class TutorListByCourseQuery: IQuery<IEnumerable<TutorCardDto>>
     {
         public TutorListByCourseQuery(string courseId, long userId, int count)
         {
@@ -28,7 +28,7 @@ namespace Cloudents.Query.Tutor
 
         private int Count { get; }
 
-        internal sealed class TutorListByCourseQueryHandler : IQueryHandler<TutorListByCourseQuery, IEnumerable<TutorListDto>>
+        internal sealed class TutorListByCourseQueryHandler : IQueryHandler<TutorListByCourseQuery, IEnumerable<TutorCardDto>>
         {
             private readonly DapperRepository _dapperRepository;
 
@@ -37,7 +37,7 @@ namespace Cloudents.Query.Tutor
                 _dapperRepository = dapperRepository;
             }
 
-            public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
+            public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
             {
                 const string sql = @"select *  from (select 2 as position, U.Id as UserId, U.Name, U.Image,
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
@@ -75,14 +75,14 @@ OFFSET 0 ROWS
 FETCH NEXT @Count ROWS ONLY;";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
-                    var retVal = await conn.QueryAsync<TutorListDto>(sql,new
+                    var retVal = await conn.QueryAsync<TutorCardDto>(sql,new
                     {
                         query.CourseId ,
                         query.UserId,
                         query.Count
                     });
 
-                    return retVal.Distinct(TutorListDto.UserIdComparer);
+                    return retVal.Distinct(TutorCardDto.UserIdComparer);
                 }
             }
         }

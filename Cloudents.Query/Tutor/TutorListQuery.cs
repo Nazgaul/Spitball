@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Tutor
 {
-    public class TutorListQuery : IQuery<IEnumerable<TutorListDto>>
+    public class TutorListQuery : IQuery<IEnumerable<TutorCardDto>>
     {
         public TutorListQuery(long userId, string country)
         {
@@ -19,7 +19,7 @@ namespace Cloudents.Query.Tutor
         private long UserId { get; }
         private string Country { get; }
 
-        internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, IEnumerable<TutorListDto>>
+        internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, IEnumerable<TutorCardDto>>
         {
             private readonly DapperRepository _dapperRepository;
 
@@ -29,7 +29,7 @@ namespace Cloudents.Query.Tutor
             }
 
             //TODO: review query 
-            public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListQuery query, CancellationToken token)
+            public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
                 const string sql = @"select distinct U.Id as UserId, U.Name, U.Image, 
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
@@ -59,7 +59,7 @@ FETCH NEXT 20 ROWS ONLY;";
 
                 using (var conn = _dapperRepository.OpenConnection())
                 {
-                    var retVal = await conn.QueryAsync<TutorListDto>(sql, new { query.UserId, query.Country });
+                    var retVal = await conn.QueryAsync<TutorCardDto>(sql, new { query.UserId, query.Country });
                    
                     return retVal.Take(20);
                     

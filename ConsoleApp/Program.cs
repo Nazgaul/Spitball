@@ -149,8 +149,10 @@ namespace ConsoleApp
             //var v = dictionary.OrderBy(d => d.Value);
 
             ////await UpdateMethod();
-            var queryBus = _container.Resolve<ILeadRepository>();
-            var result = await queryBus.NeedToSendMoreTutorsAsync(638, default);
+            var queryBus = _container.Resolve<IQueryBus>();
+            var query = new DocumentById(11, 638);
+            var z =await  queryBus.QueryAsync(query, default);
+            //var result = await queryBus.NeedToSendMoreTutorsAsync(638, default);
             //var query = new DocumentById(29173, 638);
             //var z = queryBus.QueryAsync(query, default);
             //var z = await queryBus.ValidateEmailAsync("gadi.avner@gmail.com", default);

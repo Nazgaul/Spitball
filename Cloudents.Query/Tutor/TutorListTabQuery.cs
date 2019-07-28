@@ -6,7 +6,7 @@ using Dapper;
 
 namespace Cloudents.Query.Tutor
 {
-    public class TutorListTabQuery : IQuery<IEnumerable<TutorListDto>>
+    public class TutorListTabQuery : IQuery<IEnumerable<TutorCardDto>>
     {
         public TutorListTabQuery(string country, int page)
         {
@@ -18,7 +18,7 @@ namespace Cloudents.Query.Tutor
         private string Country { get; }
 
 
-        internal sealed class TutorListTabQueryHandler :IQueryHandler<TutorListTabQuery, IEnumerable<TutorListDto>>
+        internal sealed class TutorListTabQueryHandler :IQueryHandler<TutorListTabQuery, IEnumerable<TutorCardDto>>
         {
             private const int PageSize = 25;
             private readonly DapperRepository _dapperRepository;
@@ -28,7 +28,7 @@ namespace Cloudents.Query.Tutor
                 _dapperRepository = dapperRepository;
             }
 
-            public async Task<IEnumerable<TutorListDto>> GetAsync(TutorListTabQuery query, CancellationToken token)
+            public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListTabQuery query, CancellationToken token)
             {
                 using (var conn = _dapperRepository.OpenConnection())
                 {
@@ -52,7 +52,7 @@ cte.rate desc,
 
 OFFSET @PageSize*@Page ROWS
 FETCH NEXT @PageSize ROWS ONLY;";
-                    return await conn.QueryAsync<TutorListDto>(sql, new {query.Page, query.Country, PageSize });
+                    return await conn.QueryAsync<TutorCardDto>(sql, new {query.Page, query.Country, PageSize });
 
                 }
             }
