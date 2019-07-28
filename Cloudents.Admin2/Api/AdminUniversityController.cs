@@ -19,7 +19,7 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Roles.Admin)]
+    [Authorize]
     public class AdminUniversityController: ControllerBase
     {
        private readonly IQueryBus _queryBus;
@@ -91,6 +91,7 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
             //Only IL Need to think about it
+            //TODO: Make mis suitable from IN Users
             var result = await _universityProvider.SearchAsync(university, 0,
                 null, token);
             return result;
@@ -107,6 +108,7 @@ namespace Cloudents.Admin2.Api
 
         //TODO: Fix this and make it work in proper CQRS architecture 
         [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> ApproveCourse(Guid id,
                 CancellationToken token)
         {

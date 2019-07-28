@@ -22,7 +22,7 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Roles.Admin)]
+    [Authorize]
     public class AdminConversationController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -38,6 +38,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<ConversationDto>> ConversationAsync([FromQuery] ConversationDetailsRequest request
             , CancellationToken token)
         {
+            //var country = User.Claims.Where(w => w.Type == "Country").First();
             ChatRoomStatus p = null;
             if (request.Status.HasValue)
             {

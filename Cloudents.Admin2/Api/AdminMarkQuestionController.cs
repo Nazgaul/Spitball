@@ -12,12 +12,13 @@ using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Roles.Admin)]
+    [Authorize]
     public class AdminMarkQuestionController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
@@ -41,7 +42,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(int page, CancellationToken token)
         {
-            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(page);
+            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(page, country);
             var result = await _queryBus.QueryAsync(query, token);
             foreach (var res in result)
             {

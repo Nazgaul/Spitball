@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace Cloudents.Admin2.Api
 {
@@ -92,6 +93,7 @@ namespace Cloudents.Admin2.Api
         public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {
+            //TODO: fix the query to have only Admin and add country filter
             var query = new CourseSearchQuery(0, course, 0);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
@@ -104,7 +106,8 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses([FromQuery]CoursesRequest model
                 , CancellationToken token)
         {
-            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending));
+            var country = User.Claims.Where(w => w.Type == "Country").First();
+            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending), country.Value);
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }

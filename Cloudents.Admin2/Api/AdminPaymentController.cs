@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
@@ -15,6 +16,7 @@ namespace Cloudents.Admin2.Api
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize(Roles = Roles.Admin)]
+    [Authorize(Policy = "IsraelUser")]
     public class AdminPaymentController : Controller
     {
         private readonly ICommandBus _commandBus;

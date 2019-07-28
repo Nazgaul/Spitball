@@ -9,16 +9,19 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Principal;
+using System.Linq;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Roles.Admin)]
+    [Authorize]
     public class AdminTutorController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
+       
 
         public AdminTutorController(ICommandBus commandBus, IQueryBus queryBus)
         {
@@ -29,7 +32,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<PendingTutorsDto>> GetPendingTutorsAsync(CancellationToken token)
         {
-            var query = new AdminPendingTutorsQuery();
+            var country = User.Claims.Where(w => w.Type == "Country").First();
+            var query = new AdminPendingTutorsQuery(country.Value);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -43,6 +47,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> DeleteTutor(long id,
                 CancellationToken token)
         {

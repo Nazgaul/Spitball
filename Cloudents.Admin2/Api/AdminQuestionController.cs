@@ -20,7 +20,7 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Roles.Admin)]
+    [Authorize]
     public class AdminQuestionController : ControllerBase
     {
         private readonly Lazy<ICommandBus> _commandBus;
@@ -67,6 +67,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<ActionResult> DeleteQuestionAsync([FromQuery(Name = "id")]IEnumerable<long> ids, CancellationToken token)
         {
             foreach (var id in ids)
@@ -98,7 +99,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("Pending")]
         public async Task<IEnumerable<PendingQuestionDto>> Get(CancellationToken token)
         {
-            var query = new AdminPendingQuestionsEmptyQuery();
+            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var query = new AdminPendingQuestionsQuery(country);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -139,7 +141,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("flagged")]
         public async Task<IEnumerable<FlaggedQuestionDto>> FlagAsync(CancellationToken token)
         {
-            var query = new FlaggedQuestionEmptyQuery();
+            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var query = new FlaggedQuestionQuery(country);
             return await _queryBus.QueryAsync(query, token);
         }
 
