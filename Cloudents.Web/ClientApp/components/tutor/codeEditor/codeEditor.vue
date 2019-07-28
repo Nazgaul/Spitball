@@ -85,9 +85,14 @@
     import 'codemirror/addon/search/matchesonscrollbar.css' // ?
 
     // themes:
-    import "codemirror/theme/base16-dark.css"; // dark theme
-    import "codemirror/theme/base16-light.css"; // light theme
+    // import "codemirror/theme/base16-dark.css"; // dark theme
+    // import "codemirror/theme/base16-light.css"; // light theme
     import 'codemirror/addon/dialog/dialog.css'; // for dialog  
+
+    import '../codeEditorNew/themes/vscode-dark.css';
+    import '../codeEditorNew/themes/coda.css';
+
+    
 
     import { mapGetters,mapActions } from 'vuex';
 
@@ -101,7 +106,7 @@
                 optionObj: {
                     tabSize: 1,
                     mode: mixedMode,
-                    theme: 'base16-dark',
+                    theme: 'vscode-dark',
                     lineNumbers: true,
                     line: true,
                     autoRefresh: true,
@@ -170,9 +175,9 @@
         watch: {
             themeMode: function(val){
                 if(val){
-                    this.optionObj.theme = 'base16-dark'
+                    this.optionObj.theme = 'vscode-dark'
                 } else{
-                   this.optionObj.theme = 'base16-light'
+                   this.optionObj.theme = 'coda'
                 }
             },
             currentLang: function(val){
@@ -200,5 +205,6 @@
       }
       .cm-matchhighlight {background-color: rgb(59, 104, 59)}
       .CodeMirror-selection-highlight-scrollbar {background-color: rgb(255, 255, 255)}
+
 }
 </style>
