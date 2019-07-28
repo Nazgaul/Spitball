@@ -72,7 +72,11 @@
   max-width: @maxWidth;
 }
 
-
+.heightMinMax(@height, @minHeight: @height, @maxHeight: @height){
+  height: @height;
+  min-height: @minHeight;
+  max-height: @maxHeight;
+}
 
 //OBSELETE TODO REMOVE THIS - USER text-truncate
 .giveMeEllipsisOne() {

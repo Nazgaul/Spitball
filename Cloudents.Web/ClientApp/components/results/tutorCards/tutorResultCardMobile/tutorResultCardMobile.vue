@@ -190,8 +190,8 @@ export default {
 @purple: #43425d;
 
 .tutor-result-card-mobile {
-    min-height: 225px;
-    max-height: 225px;
+    // min-height: 225px;
+    // max-height: 225px;
     border-radius: 4px;
     background: #fff;
     display: flex;
@@ -212,7 +212,7 @@ export default {
         .user-rate {
             display: inline-flex;
             i {
-                font-size: 16px !important;
+                font-size: 16px !important; //vuetify
             }
             .reviews {
               color: #4452fc;
@@ -230,6 +230,7 @@ export default {
 
     .card-mobile-center {
       .giveEllipsisUpdated(14px, 1.28, 2, 90px);
+      .heightMinMax(34px);
       .read-more {
         position: absolute;
         bottom: 70px;
