@@ -185,7 +185,8 @@ export default {
             'updateNewQuestionDialogState',
             'updateDialogState',
             'StudyDocuments_nextPage',
-            'updateRequestDialog'
+            'updateRequestDialog',
+            'setTutorRequestAnalyticsOpenedFrom'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING"]),
         ...mapGetters(["getCurrentVertical", "StudyDocuments_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
@@ -306,6 +307,10 @@ export default {
         },*/
         openRequestTutor() {
             analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
+            this.setTutorRequestAnalyticsOpenedFrom({
+                component: 'suggestCard',
+                path: this.$route.path
+            });
             this.updateRequestDialog(true);
         }
     },
