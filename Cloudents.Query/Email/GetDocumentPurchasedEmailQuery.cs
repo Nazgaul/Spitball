@@ -19,9 +19,9 @@ namespace Cloudents.Query.Email
 
         internal sealed class GetDocumentPurchasedEmailQueryHandler : IQueryHandler<GetDocumentPurchasedEmailQuery, DocumentPurchaseEmailDto>
         {
-            private readonly DapperRepository _dapper;
+            private readonly IDapperRepository _dapper;
 
-            public GetDocumentPurchasedEmailQueryHandler(DapperRepository dapper)
+            public GetDocumentPurchasedEmailQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }

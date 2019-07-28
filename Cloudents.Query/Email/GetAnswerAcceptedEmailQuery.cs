@@ -17,9 +17,9 @@ namespace Cloudents.Query.Email
 
         internal sealed class GetAnswerAcceptedEmailQueryQueryHandler : IQueryHandler<GetAnswerAcceptedEmailQuery, AnswerAcceptedEmailDto>
         {
-            private readonly DapperRepository _dapper;
+            private readonly IDapperRepository _dapper;
 
-            public GetAnswerAcceptedEmailQueryQueryHandler(DapperRepository dapper)
+            public GetAnswerAcceptedEmailQueryQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }

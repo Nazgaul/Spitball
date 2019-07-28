@@ -33,9 +33,9 @@ namespace Cloudents.Query.SearchSync
 
         internal sealed class TutorSyncAzureSearchQueryHandler : IQueryHandler<TutorSyncAzureSearchQuery, SearchWrapperDto<TutorSearchDto>>
         {
-            private readonly DapperRepository _dapperRepository;
+            private readonly IDapperRepository _dapperRepository;
 
-            public TutorSyncAzureSearchQueryHandler(DapperRepository dapperRepository)
+            public TutorSyncAzureSearchQueryHandler(IDapperRepository dapperRepository)
             {
                 _dapperRepository = dapperRepository;
             }

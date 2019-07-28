@@ -30,15 +30,16 @@ Select
 t.id as id,
 u.name,
 u.image,
-	(select STRING_AGG(cs.Name,',') 
+	(select cs.Name as 'name' 
 	from sb.CourseSubject cs where cs.Id 
 	in (
 	select top 3 c.SubjectId from sb.Course c where c.SubjectId <> 39 
 	and c.Name in (
-	select uc.CourseId from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
-	)) as subjects,
-course.CourseId as Courses,
-course.courseCount,
+	select uc.CourseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
+	) for json PATH) as subjects,
+(Select top 3 uc.courseid as 'name' 
+   from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id for json PATH) as Courses,
+(select count(*)  from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id) as CourseCount,
 t.Price,
 reviews.Rate ,
 reviews.sumCount as SumRate,
@@ -48,18 +49,14 @@ sr.lessonsCount as Lessons
 from sb.tutor t
 join sb.[user] u on t.id = u.id
 left join sb.University u2 on u.UniversityId2 = u2.Id
-cross apply (
-select  STRING_AGG(t2.courseId,',') as CourseId, courseCount  from 
-	(Select top 3 uc.courseid ,COUNT(*) OVER()  as courseCount
-   from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id ) t2
-   group by courseCount
-) as course 
+
 cross apply (
 select Avg(tr.Rate) as Rate,count(*) as sumCount from sb.TutorReview tr where tr.TutorId = t.id 
 ) as reviews
 cross apply (
 select count(*) as lessonsCount from sb.StudyRoomSession srs 
 join sb.StudyRoom sr on srs.StudyRoomId  = sr.id  and srs.Duration > 6000000000 and sr.TutorId = t.id
-) as sr ;*/
+) as sr 
+where t.State = 'Ok';*/
     }
 }

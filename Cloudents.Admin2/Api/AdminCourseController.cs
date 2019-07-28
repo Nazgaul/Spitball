@@ -20,9 +20,9 @@ namespace Cloudents.Admin2.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
-        private readonly DapperRepository _dapperRepository;
+        private readonly IDapperRepository _dapperRepository;
 
-        public AdminCourseController(IQueryBus queryBus, ICommandBus commandBus, DapperRepository dapperRepository)
+        public AdminCourseController(IQueryBus queryBus, ICommandBus commandBus, IDapperRepository dapperRepository)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
@@ -61,16 +61,15 @@ namespace Cloudents.Admin2.Api
                             delete from sb.Course where [Name] = @oldId;";
 
 
-
-            await _dapperRepository.WithConnectionAsync(async f =>
+            using (var connection = _dapperRepository.OpenConnection())
             {
-                return await f.ExecuteAsync(update, new
+                await connection.ExecuteAsync(update, new
                 {
                     newId = model.CourseToKeep,
                     oldId = model.CourseToRemove
                 });
+            }
 
-            }, token);
             /*var command = new MigrateCourseCommand(model.CourseToKeep, model.CourseToRemove);
             var deleteCommand = new DeleteCourseCommand(model.CourseToRemove);
             await _commandBus.DispatchAsync(command, token);
@@ -149,16 +148,14 @@ namespace Cloudents.Admin2.Api
                             delete from sb.Course where [Name] = @oldId;";
 
 
-
-            await _dapperRepository.WithConnectionAsync(async f =>
+            using (var connection = _dapperRepository.OpenConnection())
             {
-                return await f.ExecuteAsync(update, new
+                await connection.ExecuteAsync(update, new
                 {
                     newId = model.NewName,
                     oldId = model.OldName
                 });
-
-            }, token);
+            }
             /*var command = new RenameCourseCommand(model.OldName, model.NewName);
             await _commandBus.DispatchAsync(command, token);*/
             return Ok();

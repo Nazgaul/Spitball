@@ -21,9 +21,9 @@ namespace Cloudents.Query.Tutor
         internal sealed class TutorListTabQueryHandler :IQueryHandler<TutorListTabQuery, IEnumerable<TutorCardDto>>
         {
             private const int PageSize = 25;
-            private readonly DapperRepository _dapperRepository;
+            private readonly IDapperRepository _dapperRepository;
 
-            public TutorListTabQueryHandler(DapperRepository dapperRepository)
+            public TutorListTabQueryHandler(IDapperRepository dapperRepository)
             {
                 _dapperRepository = dapperRepository;
             }

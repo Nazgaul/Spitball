@@ -19,9 +19,9 @@ namespace Cloudents.Query.Query
         internal sealed class UserProfileQueryHandler : IQueryHandler<UserProfileQuery, UserProfileDto>
         {
            
-            private readonly DapperRepository _session;
+            private readonly IDapperRepository _session;
 
-            public UserProfileQueryHandler(DapperRepository session)
+            public UserProfileQueryHandler(IDapperRepository session)
             {
                 _session = session;
             }

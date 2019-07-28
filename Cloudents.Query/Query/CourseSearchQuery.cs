@@ -28,9 +28,9 @@ namespace Cloudents.Query.Query
        
         internal sealed class CoursesByTermQueryHandler : IQueryHandler<CourseSearchQuery, IEnumerable<CourseDto>>
         {
-            private readonly DapperRepository _dapperRepository;
+            private readonly IDapperRepository _dapperRepository;
 
-            public CoursesByTermQueryHandler(DapperRepository dapperRepository)
+            public CoursesByTermQueryHandler(IDapperRepository dapperRepository)
             {
                 _dapperRepository = dapperRepository;
             }

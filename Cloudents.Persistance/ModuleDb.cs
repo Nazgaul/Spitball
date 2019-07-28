@@ -36,7 +36,7 @@ namespace Cloudents.Persistence
 
             builder.RegisterType<QuerySession>().InstancePerDependency();
 
-            
+            builder.RegisterType<DapperRepository>().As<IDapperRepository>().AsSelf();
 
             base.Load(builder);
         }

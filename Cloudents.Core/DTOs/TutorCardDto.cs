@@ -8,6 +8,7 @@ namespace Cloudents.Core.DTOs
        public string Name { get; set; }
        public string Image { get; set; }
        public IEnumerable<string> Courses { get; set; } //TODO
+       public IEnumerable<string> Subjects { get; set; } //TODO
        public int CourseCount { get; set; } //TODO
        public decimal Price { get; set; }
        

@@ -10,8 +10,8 @@ namespace Cloudents.Query.Query.Admin
     {
         internal sealed class AdminPendingTutorsQueryHandler : IQueryHandler<AdminPendingTutorsQuery, IEnumerable<PendingTutorsDto>>
         {
-            private readonly DapperRepository _dapper;
-            public AdminPendingTutorsQueryHandler(DapperRepository dapper)
+            private readonly IDapperRepository _dapper;
+            public AdminPendingTutorsQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }

@@ -23,9 +23,9 @@ namespace Cloudents.Query.Tutor
 
         internal sealed class StudyRoomQueryHandler : IQueryHandler<StudyRoomQuery, StudyRoomDto>
         {
-            private readonly DapperRepository _repository;
+            private readonly IDapperRepository _repository;
 
-            public StudyRoomQueryHandler(DapperRepository repository)
+            public StudyRoomQueryHandler(IDapperRepository repository)
             {
                 _repository = repository;
             }

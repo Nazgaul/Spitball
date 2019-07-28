@@ -23,10 +23,10 @@ namespace Cloudents.Query.Query.Admin
     internal class AdminPendingCoursesQueryHandler : IQueryHandler<AdminCoursesQuery, IList<PendingCoursesDto>>
     {
 
-        private readonly DapperRepository _dapper;
+        private readonly IDapperRepository _dapper;
 
 
-        public AdminPendingCoursesQueryHandler(DapperRepository dapper)
+        public AdminPendingCoursesQueryHandler(IDapperRepository dapper)
         {
             _dapper = dapper;
         }

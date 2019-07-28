@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NHibernate;
 using NHibernate.Engine;
 using NHibernate.SqlTypes;
@@ -36,8 +39,15 @@ namespace Cloudents.Persistence
             if (names.Length == 0)
                 throw new ArgumentException("Expecting at least one column");
             var val = (string)NHibernateUtil.String.NullSafeGet(rs, names, session, owner);
-            
-            return val?.Split(new [] {','},StringSplitOptions.RemoveEmptyEntries);
+            if (val == null)
+            {
+                return null;
+            }
+            var jObject = JArray.Parse(val);
+            return jObject.Children().Select(s => (string)s.First).ToList();
+
+
+            //return val?.Split(new [] { "+-+-+-" },StringSplitOptions.RemoveEmptyEntries);
         }
 
         public void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)

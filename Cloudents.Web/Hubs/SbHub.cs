@@ -18,7 +18,7 @@ namespace Cloudents.Web.Hubs
     public class SbHub : Hub
     {
         private readonly Lazy<TelemetryClient> _logger;
-        private readonly DapperRepository _dapper;
+        private readonly IDapperRepository _dapper;
 
         private static readonly ConnectionMapping<long> Connections =
             new ConnectionMapping<long>();
@@ -26,7 +26,7 @@ namespace Cloudents.Web.Hubs
 
         private static bool _canUpdateDb = true;
 
-        public SbHub(Lazy<TelemetryClient> logger, DapperRepository dapper)
+        public SbHub(Lazy<TelemetryClient> logger, IDapperRepository dapper)
         {
             _logger = logger;
             _dapper = dapper;
