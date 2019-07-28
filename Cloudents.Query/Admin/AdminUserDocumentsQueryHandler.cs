@@ -26,7 +26,7 @@ namespace Cloudents.Query.Admin
 
             return await _session.Query<Document>()
                   .Fetch(f => f.University)
-                  .Where(w => w.User.Id == query.UserId)
+                  .Where(w => w.User.Id == query.UserId && w.User.Country == query.Country)
                   .Select(s => new UserDocumentsDto
                   {
                       Course = s.Course.Id,

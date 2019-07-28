@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminUserDetailsQuery : IQuery<UserDetailsDto>
+    public class AdminUserDetailsQuery : IQueryAdmin<UserDetailsDto>
     {
-        public AdminUserDetailsQuery(string userId)
+        public AdminUserDetailsQuery(string userId, string country)
         {
             UserId = userId;
+            Country = country;
         }
         private string UserId { get; }
+        public string Country { get; }
 
         internal sealed class AdminUserDetailsQueryHandler : IQueryHandler<AdminUserDetailsQuery, UserDetailsDto>
         {
@@ -45,7 +47,7 @@ t.state as TutorState
 	                        on U.UniversityId2 = Un.Id
 						left join sb.Tutor T
 							on U.Id = T.Id
-                        where U.Id = @Id or U.Email = @Email or U.PhoneNumberHash = @Email;";
+                        where (U.Id = @Id or U.Email = @Email or U.PhoneNumberHash = @Email) and u.Country = @Country;";
 
                 using (var connection = _dapper.OpenConnection())
                 {
@@ -54,7 +56,8 @@ t.state as TutorState
                         new
                         {
                             id = tmpId,
-                            email = query.UserId
+                            email = query.UserId,
+                            country = query.Country
                         });
                 }
             }

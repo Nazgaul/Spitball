@@ -12,15 +12,16 @@ using NHibernate.Transform;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminQuestionWithoutCorrectAnswerPageQuery : IQuery<IEnumerable<QuestionWithoutCorrectAnswerDto>>
+    public class AdminQuestionWithoutCorrectAnswerPageQuery : IQueryAdmin<IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
-        public AdminQuestionWithoutCorrectAnswerPageQuery(int page)
+        public AdminQuestionWithoutCorrectAnswerPageQuery(int page, string country)
         {
             Page = page;
-
+            Country = country;
         }
 
         private int Page { get; }
+        public string Country { get; }
 
         internal sealed class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminQuestionWithoutCorrectAnswerPageQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
@@ -44,7 +45,7 @@ namespace Cloudents.Query.Query.Admin
             var questions = await _session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .Where(w => w.CorrectAnswer == null)
-                .Where(w => w.Status.State == ItemState.Ok)
+                .Where(w => w.Status.State == ItemState.Ok && userAlias.Country == query.Country)
                 .WithSubquery.WhereExists(QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
                     .And(x => x.Status.State == ItemState.Ok)
                     .Select(s => s.Id))

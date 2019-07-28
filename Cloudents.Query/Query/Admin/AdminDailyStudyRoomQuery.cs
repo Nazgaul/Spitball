@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminDailyStudyRoomQuery : IQuery<IEnumerable<DailyStudyRoomsDto>>
+    public class AdminDailyStudyRoomQuery : IQueryAdmin<IEnumerable<DailyStudyRoomsDto>>
     {
+        public AdminDailyStudyRoomQuery(string country)
+        {
+            Country = country;
+        }
+        public string Country { get; }
         internal class AdminDailyStudyRoomQueryHandler : IQueryHandler<AdminDailyStudyRoomQuery, IEnumerable<DailyStudyRoomsDto>>
         {
 
@@ -38,12 +43,13 @@ namespace Cloudents.Query.Query.Admin
 	                                    on sru.UserId = U.Id
                                     where U.email not like '%cloudents%'
                                     and U.email not like '%spitball%'
+                                    and U.Country = @Country
                                     and (datediff(minute, S.[Created],S.ended) != 0 or datediff(minute, S.[Created],S.ended) is null)
                                     group by cast(S.[Created] as date) 
                                     order by cast(S.[Created] as date)  desc";
                 using (var connection = _dapper.OpenConnection())
                 {
-                    return await connection.QueryAsync<DailyStudyRoomsDto>(sql, token);
+                    return await connection.QueryAsync<DailyStudyRoomsDto>(sql, new { query.Country });
                     //return res.AsList();
                 }
             }

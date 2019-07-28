@@ -12,6 +12,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.Query.Admin
 {
+    //TODO: think about make this suitable for IN.
     public class AdminLeadsQuery: IQuery<IEnumerable<LeadDto>>
     {
         public ItemState? Status { get; }

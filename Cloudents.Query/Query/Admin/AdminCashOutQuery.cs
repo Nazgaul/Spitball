@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminCashOutEmptyQuery : IQuery<IEnumerable<CashOutDto>>
+    public class AdminCashOutQuery : IQueryAdmin<IEnumerable<CashOutDto>>
     {
-        internal sealed class AdminCashOutEmptyQueryHandler : IQueryHandler<AdminCashOutEmptyQuery, IEnumerable<CashOutDto>>
+        public AdminCashOutQuery(string country)
+        {
+            Country = country;
+        }
+        public string Country { get; }
+        internal sealed class AdminCashOutEmptyQueryHandler : IQueryHandler<AdminCashOutQuery, IEnumerable<CashOutDto>>
         {
             private readonly DapperRepository _session;
 
@@ -21,7 +26,7 @@ namespace Cloudents.Query.Query.Admin
                 _session = session;
             }
 
-            public async Task<IEnumerable<CashOutDto>> GetAsync(AdminCashOutEmptyQuery query, CancellationToken token)
+            public async Task<IEnumerable<CashOutDto>> GetAsync(AdminCashOutQuery query, CancellationToken token)
             {
                 using (var conn = _session.OpenConnection())
                 {
@@ -45,11 +50,11 @@ t.id as TransactionId,
 --count buy
 (select count(*) from sb.[Transaction] v where t.User_id = v.User_id  and v.TransactionType='BuyPoints') as BuyCount
 from sb.[Transaction] t
-left outer join sb.[User] u 
+join sb.[User] u 
 on t.User_id = u.Id 
 where t.TransactionType='CashOut' and t.Action='CashOut' and t.Approved is null
-and t.Created>@date
-order by t.id desc", new { date = DateTime.UtcNow.AddMonths(-1) });
+and t.Created>@date and u.Country = @Country
+order by t.id desc", new { date = DateTime.UtcNow.AddMonths(-1), query.Country });
                     return result;
                 }
 

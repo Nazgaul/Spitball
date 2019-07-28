@@ -10,16 +10,18 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class PendingDocumentEmptyQuery : IQuery<IList<PendingDocumentDto>>
+    public class PendingDocumentQuery : IQueryAdmin<IList<PendingDocumentDto>>
     {
-        public PendingDocumentEmptyQuery(long? documentId)
+        public PendingDocumentQuery(long? documentId, string country)
         {
             DocumentId = documentId;
+            Country = country;
         }
 
         public long? DocumentId { get; private set; }
+        public string Country { get; set; }
 
-        internal sealed class PendingDocumentEmptyQueryHandler : IQueryHandler<PendingDocumentEmptyQuery, IList<PendingDocumentDto>>
+        internal sealed class PendingDocumentEmptyQueryHandler : IQueryHandler<PendingDocumentQuery, IList<PendingDocumentDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -29,10 +31,10 @@ namespace Cloudents.Query.Query.Admin
                 _session = session.StatelessSession;
             }
 
-            public async Task<IList<PendingDocumentDto>> GetAsync(PendingDocumentEmptyQuery query, CancellationToken token)
+            public async Task<IList<PendingDocumentDto>> GetAsync(PendingDocumentQuery query, CancellationToken token)
             {
                 var dbQuery =   _session.Query<Document>()
-                    .Where(w => w.Status.State == ItemState.Pending);
+                    .Where(w => w.Status.State == ItemState.Pending && w.User.Country == query.Country);
                 if (query.DocumentId.HasValue)
                 {
                     dbQuery.Where(w => w.Id < query.DocumentId.Value);

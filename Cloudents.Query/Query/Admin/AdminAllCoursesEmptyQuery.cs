@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
+    //TODO: Make query suitable for IN use
     public class AdminAllCoursesEmptyQuery : IQuery<IList<string>>
     {
         internal sealed class AdminAllCoursesEmptyQueryHandler : IQueryHandler<AdminAllCoursesEmptyQuery, IList<string>>
         {
             private readonly DapperRepository _dapper;
-
 
             public AdminAllCoursesEmptyQueryHandler(DapperRepository dapper)
             {

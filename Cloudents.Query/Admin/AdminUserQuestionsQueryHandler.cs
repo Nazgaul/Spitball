@@ -24,7 +24,7 @@ namespace Cloudents.Query.Admin
         {
 
           return  await _session.Query<Question>()
-                .Where(w => w.User.Id == query.UserId)
+                .Where(w => w.User.Id == query.UserId && w.User.Country == query.Country)
                 .Take(PageSize).Skip(PageSize * query.Page)
                 .Select(s => new UserQuestionsDto
                 {
