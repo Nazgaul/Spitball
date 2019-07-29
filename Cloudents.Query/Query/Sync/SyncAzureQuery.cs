@@ -6,7 +6,6 @@ namespace Cloudents.Query.Query.Sync
     public class SyncAzureQuery //: System.IEquatable<SyncAzureQuery>
         : IQuery<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>, 
           IQuery<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>,
-          //IQuery<(IEnumerable<CourseSearchDto> update, IEnumerable<string> delete, long version)>
           IQuery<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>
     {
         public SyncAzureQuery(long version, int page)
@@ -54,30 +53,9 @@ namespace Cloudents.Query.Query.Sync
             return new SyncAzureQuery(version, page);
         }
 
-        //public override bool Equals(object obj)
-        //{
-        //    return obj is SyncAzureQuery query
-        //           && Version == query.Version
-        //           && Page == query.Page;
-        //}
-
-        //public override int GetHashCode()
-        //{
-        //    var hashCode = -2075985307;
-        //    hashCode = hashCode * -1521134295 + Version.GetHashCode();
-        //    hashCode = hashCode * -1521134295 + Page.GetHashCode();
-        //    return hashCode;
-        //}
-
         public override string ToString()
         {
             return $"{Version}|{Page}";
         }
-
-        //public bool Equals(SyncAzureQuery other)
-        //{
-        //    return Version == other.Version
-        //               && Page == other.Page;
-        //}
     }
 }

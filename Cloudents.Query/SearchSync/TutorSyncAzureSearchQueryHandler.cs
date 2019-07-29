@@ -12,6 +12,7 @@ namespace Cloudents.Query.SearchSync
     public class TutorSyncAzureSearchQuery :  IQuery<SearchWrapperDto<TutorSearchDto>>
 
     {
+        public const int PageSize = 300;
         public TutorSyncAzureSearchQuery(long version, byte[] rowVersion)
         {
             Version = version;
@@ -31,7 +32,7 @@ namespace Cloudents.Query.SearchSync
         public long Version { get; private set; }
 
         // ReSharper disable once MemberCanBePrivate.Global Need for serialization
-        public int Page { get; private set; }
+        public int Page { get; set; }
 
 
         internal sealed class TutorSyncAzureSearchQueryHandler : IQueryHandler<TutorSyncAzureSearchQuery, SearchWrapperDto<TutorSearchDto>>
@@ -152,7 +153,8 @@ or tr.Version > @RowVersion";
                         }, new
                         {
                             query.Version,
-                            query.RowVersion
+                            query.RowVersion,
+                            query.Page
                         }, splitOn: "CourseName,CourseSubject");
 
 

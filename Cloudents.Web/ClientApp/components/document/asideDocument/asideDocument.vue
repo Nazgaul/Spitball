@@ -197,7 +197,6 @@ export default {
             }
             p:nth-child(3) {
                 color: #43425d;
-;
             }
             p:nth-child(5) {
                 color: #4452fc;
