@@ -51,7 +51,7 @@ namespace Cloudents.Persistence
         public MyLinqToHqlGeneratorsRegistry()
             : base()
         {
-            RegisterGenerator(ReflectionHelper.GetMethod(() => DialectExtensions.FullTextContains(null, null)),
+            RegisterGenerator(NHibernate.Util.ReflectHelper.GetMethod(() => DialectExtensions.FullTextContains(null, null)),
                 new FullTextContainsGenerator());
         }
     }
@@ -60,7 +60,7 @@ namespace Cloudents.Persistence
     {
         public FullTextContainsGenerator()
         {
-            SupportedMethods = new[] { ReflectionHelper.GetMethod(() => DialectExtensions.FullTextContains(null, null)) };
+            SupportedMethods = new[] { NHibernate.Util.ReflectHelper.GetMethod(() => DialectExtensions.FullTextContains(null, null)) };
         }
 
         public override HqlTreeNode BuildHql(MethodInfo method,

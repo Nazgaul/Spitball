@@ -7,9 +7,9 @@ namespace Cloudents.Core
 {
     public abstract class Enumeration : IComparable
     {
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public int Id { get; private set; }
+        public int Id { get;  }
 
         protected Enumeration(int id, string name)
         {
@@ -39,6 +39,11 @@ namespace Cloudents.Core
             var valueMatches = Id.Equals(otherValue.Id);
 
             return typeMatches && valueMatches;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
 
         public int CompareTo(object other) => Id.CompareTo(((Enumeration)other).Id);
