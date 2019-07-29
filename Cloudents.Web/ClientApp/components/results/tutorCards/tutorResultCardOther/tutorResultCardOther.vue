@@ -1,5 +1,5 @@
 <template>
-    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden " @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden ab-default-card" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
         <div class="mb-3 top-card justify-space-between">
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div class="top-card-wrap">
@@ -29,7 +29,7 @@
 
                         <!-- card-b -->
                         <v-layout column align-center class="ab-cardB user-classes subheading">
-                            <div>{{tutorData.classes}}</div>
+                            <div>{{tutorData.lessons}}</div>
                             <div v-language:inner="'resultTutor_classes'"></div>
                         </v-layout>
                     </template>
@@ -273,7 +273,7 @@ export default {
                 text-transform: lowercase;
                 .widthMinMax(200px);
                 &.tutor-btn {
-                    .widthMinMax(140px);
+                    .widthMinMax(132px);
                 }
             }
         }
@@ -283,7 +283,7 @@ export default {
                 background: #fff !important;
                 line-height: 0;
                 text-transform: lowercase;
-                .widthMinMax(140px);
+                .widthMinMax(132px);
             }
         }
     }
