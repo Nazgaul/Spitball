@@ -294,7 +294,8 @@ export default {
       "updateCurrentStep",
       "changeSelectUniState",
       "updateRequestDialog",
-      "openChatInterface"
+      "openChatInterface",
+      "setTutorRequestAnalyticsOpenedFrom"
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
     enterPayme(){
@@ -337,6 +338,10 @@ export default {
     if(!!this.$route.query && this.$route.query.requesttutor){
         if(this.$route.query.requesttutor.toLowerCase() === 'open'){
             setTimeout(() => {
+              this.setTutorRequestAnalyticsOpenedFrom({
+                component: 'query',
+                path: this.$route.path
+              });
                 this.updateRequestDialog(true)
             }, 170);
         }
