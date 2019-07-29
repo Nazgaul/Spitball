@@ -42,10 +42,13 @@ namespace Cloudents.Query.Query
                 Document documentAlias = null;
                 ViewTutor tutorAlias = null;
                 University universityAlias = null;
+                BaseUser userAlias = null;
                 DocumentDetailDto dtoAlias = null;
 
                 var futureValue = _session.QueryOver(() => documentAlias)
                     .JoinAlias(x => x.University, () => universityAlias)
+                    .JoinAlias(x => x.User, () => universityAlias)
+
                     .JoinEntityAlias(() => tutorAlias, () => documentAlias.User.Id == tutorAlias.Id, JoinType.LeftOuterJoin)
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
                     .SelectList(l =>
@@ -60,7 +63,7 @@ namespace Cloudents.Query.Query
                             .Select(() => documentAlias.Price).WithAlias(() => dtoAlias.Price)
                             .Select(() => documentAlias.Course.Id).WithAlias(() => dtoAlias.Course)
                             .Select(() => documentAlias.User.Id).WithAlias(() => dtoAlias.UploaderId)
-                            .Select(() => documentAlias.User.Name).WithAlias(() => dtoAlias.UploaderName)
+                            .Select(() => userAlias.Name).WithAlias(() => dtoAlias.UploaderName)
 
                             .Select(Projections.Property(() => tutorAlias.Id).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.UserId)}"))
                             .Select(Projections.Property(() => tutorAlias.Name).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Name)}"))
