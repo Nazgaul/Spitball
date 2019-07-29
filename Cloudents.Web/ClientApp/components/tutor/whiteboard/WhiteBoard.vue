@@ -116,6 +116,7 @@
 
 
 <style lang="less">
+@import '../../../styles/colors.less';
     .canvas-container {
         .canvas-wrapper{
             /*rtl:ignore*/
@@ -200,7 +201,7 @@
                     padding-top: 10px;
                     font-size: 18px;
                     letter-spacing: -0.56px;
-                    color: #5bbdb7
+                    color: @color-main;
                 }
             }
         }
@@ -232,7 +233,7 @@
                     font-size: 18px;
                     line-height: 1.44;
                     letter-spacing: normal;
-                    color: #5bbdb7;     
+                    color: @color-main;     
                     .icon-helper{
                         width: 44px;
                         height: 42px;

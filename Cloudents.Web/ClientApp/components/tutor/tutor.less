@@ -1,4 +1,5 @@
 @import "../../styles/mixin.less";
+@import "../../styles/colors.less";
 
 @navColor: #a5a4bf;
 @iconActiveColor: #a3a0fb;
@@ -54,9 +55,9 @@
     border: solid 1px transparent;
     &.control-btn-active {
       border-radius: 4px;
-      border: solid 1px #3dc2ba;
+      border: solid 1px @color-main;
       //font-weight: 600;
-      color: #3dc2ba;
+      color: @color-main;
       &:before {
         background-color: rgba(61, 194, 186, 0.06) !important;
       }
@@ -92,7 +93,7 @@
   .tutoring-navigation {
     display: flex;
     align-items: center;
-    background-color: @greenNew;
+    background-color: @color-main;
     height: 60px;
     justify-content: space-between;
 
@@ -138,15 +139,15 @@
 
       &.active-nav {
         background-color: @color-white;
-        color: @greenNew;
+        color: @color-main;
 
         .tutor-nav-item-link {
-          color: @greenNew;
+          color: @color-main;
           font-weight: bold;
         }
 
         .sbf {
-          color: @greenNew;
+          color: @color-main;
         }
       }
     }
