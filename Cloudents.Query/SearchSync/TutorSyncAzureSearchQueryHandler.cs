@@ -30,6 +30,9 @@ namespace Cloudents.Query.SearchSync
         // ReSharper disable once MemberCanBePrivate.Global Need for serialization
         public long Version { get; private set; }
 
+        // ReSharper disable once MemberCanBePrivate.Global Need for serialization
+        public int Page { get; private set; }
+
 
         internal sealed class TutorSyncAzureSearchQueryHandler : IQueryHandler<TutorSyncAzureSearchQuery, SearchWrapperDto<TutorSearchDto>>
         {
