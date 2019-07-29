@@ -156,7 +156,7 @@ export default {
         },
         saveNewTabName(){
             if(this.isEdit){
-                let newTabName = document.getElementById(this.currentTabId).textContent;
+                let newTabName = document.getElementById(this.currentTabId).innerText
                 let tabData = {
                     tabId: this.currentTabId,
                     tabName: newTabName
@@ -175,6 +175,7 @@ export default {
                 this.isEdit = false
             }
         },
+        test(){},
         uploadImage(){
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, 'imageDraw')());
             this.setSelectedOptionString('imageDraw');
