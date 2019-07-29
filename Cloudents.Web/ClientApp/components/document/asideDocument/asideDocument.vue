@@ -164,9 +164,9 @@ export default {
         isPrice() {
             if(this.document.details && this.document.details.price > 0) {
                 return true
-            } else {
-                return false
-            }
+            } 
+            return false
+            
         },
         isShowPurchased() {
             if(!this.isPurchased && this.isPrice > 0) {
