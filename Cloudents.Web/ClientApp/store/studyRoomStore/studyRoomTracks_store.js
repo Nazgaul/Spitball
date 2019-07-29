@@ -18,6 +18,7 @@ const state = {
     currentAudioTrack: null,
     localVideoTrack: null,
     localAudioTrack: null,
+    lastActiveLocalVideoTrack: null
 };
 
 const getters = {
@@ -25,6 +26,7 @@ const getters = {
     getCurrentAudioTrack:state => state.currentAudioTrack,
     getLocalVideoTrack:state => state.localVideoTrack,
     getLocalAudioTrack:state => state.localAudioTrack,
+    getLastActiveLocalVideoTrack: state => state.lastActiveLocalVideoTrack
 };
 
 const mutations = {
@@ -37,6 +39,9 @@ const mutations = {
     setLocalVideoTrack(state, track){
         state.localVideoTrack = track
     },
+    setLastActiveLocalVideoTrack(state, track){
+        state.lastActiveLocalVideoTrack = track
+    },
     setLocalAudioTrack(state, track){
         state.localAudioTrack = track
     }
@@ -44,15 +49,35 @@ const mutations = {
 
 const actions = {
     setLocalVideoTrack({commit}, videoTrack){
-        commit('setLocalVideoTrack',videoTrack)
+        commit('setLocalVideoTrack',videoTrack);
+        if(!!videoTrack){
+            commit('setLastActiveLocalVideoTrack',videoTrack);
+        }
     },
-    createLocalVideoTrack({getters,dispatch}, cameraId){
-        createLocalVideoTrack({exact: cameraId}).then(videoTrack => {
-            getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
-                dispatch('setLocalVideoTrack',videoTrack)
-            }
-        )
+    createLocalVideoTrack({getters,dispatch,state}, deviceId){
+        let mediaStreamTrack = state.lastActiveLocalVideoTrack;
+        if(mediaStreamTrack){
+            dispatch('setLocalVideoTrack',mediaStreamTrack)
+            let options = {};
+            //TODO add track Information
+            // let options = {
+            //     name: `shareScreen_${this.isTutor ? "tutor" : "student"}_${
+            //         this.accountUserID
+            //         }`
+            // }
+            getters['activeRoom'].localParticipant.publishTrack(mediaStreamTrack, options);
+        }else{
+        createLocalVideoTrack({exact: deviceId}).then(videoTrack => {
+                getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
+                    dispatch('setLocalVideoTrack',videoTrack)
+                },err=>{
+                    dispatch('setLocalVideoTrack', null)
+                    console.log(err);
+                }
+            )
+        }
     },
+    
     createLocalAudioTrack({getters,commit}){
         createLocalAudioTrack().then(audioTrack => {
             getters['activeRoom'].localParticipant.publishTrack(audioTrack.mediaStreamTrack);  
