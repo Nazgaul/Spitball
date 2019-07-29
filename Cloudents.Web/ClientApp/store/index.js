@@ -72,7 +72,7 @@ const store = new Vuex.Store({
         signalRStore,
         ...studyRoomStore,
         loginRegister,
-        routeStore
+        routeStore,
     }
 });
 

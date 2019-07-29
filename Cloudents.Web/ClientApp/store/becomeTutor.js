@@ -31,7 +31,7 @@ const actions = {
     updateTutorDialog({commit, state}, val) {
         commit('changeDialogState', val);
     },
-    updateTutorInfo({commit, state}, val) {
+    updateTutorInfo({commit}, val) {
         commit('assignFields', val);
     },
     sendBecomeTutorData({commit, state}) {

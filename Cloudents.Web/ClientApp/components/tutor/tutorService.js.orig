@@ -214,20 +214,9 @@ const connectToRoom = function (token, options) {
                 console.log(`Participant "${participant.identity}" connected`);
                 store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
                 store.dispatch('updateRemoteStatus', false);
-<<<<<<< HEAD
-=======
-                participant.tracks.forEach(publication => {
-                    if (publication.isSubscribed) {
-                        const track = publication.track;
-                        let previewContainer = document.getElementById('remoteTrack');
-                        console.log('remote track attached', " added track: " + track.kind);
-                        attachTracks([track], previewContainer);
-                    }
-                });
                 if (store.getters['getStudyRoomData'].isTutor) {
                     store.dispatch('hideRoomToasterMessage');
                 }
->>>>>>> origin/feature-tutor/students-messagePop
             });
             // When a Participant adds a Track, attach it to the DOM.
             store.getters['activeRoom'].on('trackSubscribed', (track, participant) => {
@@ -243,6 +232,15 @@ const connectToRoom = function (token, options) {
                             whiteBoardService.undo(parsedData, Data.tab);
                         } else if (Data.type === 'clearCanvas') {
                             whiteBoardService.clearData(parsedData, Data.tab);
+<<<<<<< HEAD
+                        } else if (Data.type === 'updateTab'){
+                            store.dispatch('updateTab', parsedData);
+=======
+                        } else if(Data.type === 'codeEditor_lang'){
+                            store.commit('setLang',parsedData)
+                        } else if(Data.type === 'codeEditor_code'){
+                            store.commit('setCode',parsedData)
+>>>>>>> newCodeEditor
                         }
                     });
                 } else if (track.kind === 'video') {
