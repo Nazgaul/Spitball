@@ -60,6 +60,7 @@ namespace Cloudents.Query.Query
                             .Select(() => documentAlias.Price).WithAlias(() => dtoAlias.Price)
                             .Select(() => documentAlias.Course.Id).WithAlias(() => dtoAlias.Course)
                             .Select(() => documentAlias.User.Id).WithAlias(() => dtoAlias.UploaderId)
+                            .Select(() => documentAlias.User.Name).WithAlias(() => dtoAlias.UploaderName)
 
                             .Select(Projections.Property(() => tutorAlias.Id).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.UserId)}"))
                             .Select(Projections.Property(() => tutorAlias.Name).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Name)}"))
