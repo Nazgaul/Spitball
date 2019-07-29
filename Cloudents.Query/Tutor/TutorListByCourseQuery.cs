@@ -79,7 +79,7 @@ namespace Cloudents.Query.Tutor
                              .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
                              .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
                              .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
-                             .Select(x => x.CourseCount).WithAlias(() => tutorCardDtoAlias.CourseCount)
+                             //.Select(x => x.CourseCount).WithAlias(() => tutorCardDtoAlias.CourseCount)
                              .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
                              .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                              .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
@@ -102,7 +102,7 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
                             .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
                             .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
-                            .Select(x => x.CourseCount).WithAlias(() => tutorCardDtoAlias.CourseCount)
+                            //.Select(x => x.CourseCount).WithAlias(() => tutorCardDtoAlias.CourseCount)
                             .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
                             .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
@@ -118,7 +118,7 @@ namespace Cloudents.Query.Tutor
                 var tutors = await futureCourse.GetEnumerableAsync(token);
                 var tutors2 = await futureCourse2.GetEnumerableAsync(token);
 
-                return tutors.Union(tutors2).Take(query.Count).Distinct();
+                return tutors.Union(tutors2).Take(query.Count).Distinct(TutorCardDto.UserIdComparer);
 
 
 

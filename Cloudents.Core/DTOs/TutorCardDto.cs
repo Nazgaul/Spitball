@@ -7,9 +7,8 @@ namespace Cloudents.Core.DTOs
        public long UserId { get; set; }
        public string Name { get; set; }
        public string Image { get; set; }
-       public IEnumerable<string> Courses { get; set; } //TODO
-       public IEnumerable<string> Subjects { get; set; } //TODO
-       public int CourseCount { get; set; } //TODO
+       public IEnumerable<string> Courses { get; set; } 
+       public IEnumerable<string> Subjects { get; set; }
        public decimal Price { get; set; }
        
        public float? Rate { get; set; }
@@ -20,12 +19,6 @@ namespace Cloudents.Core.DTOs
         public string University { get; set; }
 
         public int Lessons { get; set; }
-        //public int Lessons { get; set; }
-
-        //TODO University
-        //TODO Number of lessons
-        //TODO Subject
-        
 
         private sealed class UserIdEqualityComparer : IEqualityComparer<TutorCardDto>
         {

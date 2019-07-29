@@ -14,7 +14,7 @@ namespace Cloudents.Core.Entities
         public virtual string Image { get; set; }
         public virtual IEnumerable<string> Subjects { get; set; }
         public virtual IEnumerable<string> Courses { get; set; }
-        public virtual int CourseCount { get; set; }
+       // public virtual int CourseCount { get; set; }
         public virtual decimal Price { get; set; }
         public virtual float Rate { get; set; }
         public virtual int SumRate { get; set; }

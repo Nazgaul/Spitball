@@ -12,7 +12,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Image);
             Map(x => x.Subjects).CustomType<StringAggMapping>();
             Map(x => x.Courses).CustomType<StringAggMapping>();
-            Map(x => x.CourseCount);
+            //Map(x => x.CourseCount);
             Map(x => x.Price);
             Map(x => x.Rate);
             Map(x => x.SumRate);

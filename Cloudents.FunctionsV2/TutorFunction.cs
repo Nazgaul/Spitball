@@ -66,7 +66,7 @@ namespace Cloudents.FunctionsV2
                             Rate = (float)update.Rate,
                             University = "",//
                             Lessons = 0 ,//
-                            CourseCount = courses.Length,
+                            //CourseCount = courses.Length,
                             Bio = update.Bio,
                             Price = (decimal)update.Price,
                             Image = update.Image,

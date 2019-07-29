@@ -36,7 +36,7 @@ namespace Cloudents.Query.Tutor
             }
 
             //TODO: review query 
-            public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
+            public Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
                 User userAlias = null;
                 ViewTutor viewTutorAlias = null;
@@ -91,9 +91,11 @@ namespace Cloudents.Query.Tutor
                     futureCourse2.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery2);
                 }
 
-                var futureResult = listOfQueries.Select(s=> BuildSelectStatement(s, query.Page)).ToList();
+                var futureResult = listOfQueries.Select(s => BuildSelectStatement(s, query.Page)).ToList();
 
-                return futureResult.Select(async s => await s.GetEnumerableAsync(token)).SelectMany(s => s.Result).Distinct().Take(20).ToList();
+
+                IEnumerable<TutorCardDto> retVal = futureResult.Select(async s => await s.GetEnumerableAsync(token)).SelectMany(s => s.Result).Distinct(TutorCardDto.UserIdComparer).Take(20).ToList();
+                return Task.FromResult(retVal);
             }
 
             private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ViewTutor, ViewTutor> futureCourse, int page)
@@ -105,7 +107,7 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
                             .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
                             .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
-                            .Select(x => x.CourseCount).WithAlias(() => tutorCardDtoAlias.CourseCount)
+                            //.Select(x => x.CourseCount).WithAlias(() => tutorCardDtoAlias.CourseCount)
                             .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
                             .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)

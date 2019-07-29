@@ -70,7 +70,7 @@ namespace Cloudents.Query.Query
                             .Select(Projections.Property(() => tutorAlias.Image).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Image)}"))
                             .Select(Projections.Property(() => tutorAlias.Courses).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Courses)}"))
                             .Select(Projections.Property(() => tutorAlias.Subjects).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Subjects)}"))
-                            .Select(Projections.Property(() => tutorAlias.CourseCount).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.CourseCount)}"))
+                            //.Select(Projections.Property(() => tutorAlias.CourseCount).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.CourseCount)}"))
                             .Select(Projections.Property(() => tutorAlias.Price).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Price)}"))
                             .Select(Projections.Property(() => tutorAlias.Rate).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Rate)}"))
                             .Select(Projections.Property(() => tutorAlias.SumRate).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.ReviewsCount)}"))
