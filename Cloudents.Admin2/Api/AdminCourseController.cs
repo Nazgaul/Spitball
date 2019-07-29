@@ -19,7 +19,7 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Roles.Admin)]
+    [Authorize]
     public class AdminCourseController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -185,6 +185,7 @@ namespace Cloudents.Admin2.Api
     
 
         [HttpDelete("{name}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> DeleteCourse(string name,
                 CancellationToken token)
         {

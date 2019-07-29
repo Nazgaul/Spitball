@@ -50,7 +50,7 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        [HttpGet("flagged"),Authorize(Roles = "Admin")]
+        [HttpGet("flagged")]
         public async Task<IEnumerable<FlaggedAnswerDto>> FlagAsync(CancellationToken token)
         {
          
