@@ -29,20 +29,25 @@ namespace Cloudents.Search.Tutor
                 Skip = query.Page * pageSize,
                 Select = new[]
                 {
-                    nameof(Entities.Tutor.Name),
-                    nameof(Entities.Tutor.Id),
-                    nameof(Entities.Tutor.Courses),
-                    nameof(Entities.Tutor.Image),
-                    nameof(Entities.Tutor.Price),
-                    //nameof(Entities.Tutor.Rate),
-                    Entities.Tutor.RateFieldName,
-                    nameof(Entities.Tutor.ReviewCount),
-                    nameof(Entities.Tutor.Bio),
+                    nameof(Entities.Tutor.Data),
+                    //nameof(Entities.Tutor.Id),
+                    //nameof(Entities.Tutor.Courses),
+                    //nameof(Entities.Tutor.Image),
+                    //nameof(Entities.Tutor.Price),
+                    ////nameof(Entities.Tutor.Rate),
+                    //Entities.Tutor.RateFieldName,
+                    //nameof(Entities.Tutor.ReviewCount),
+                    //nameof(Entities.Tutor.Bio),
                 },
                 HighlightFields = new[] { nameof(Entities.Tutor.Courses) },
                 HighlightPostTag = string.Empty,
                 HighlightPreTag = string.Empty,
-                SearchFields = new[] { nameof(Entities.Tutor.Name), nameof(Entities.Tutor.Prefix), nameof(Entities.Tutor.Courses), nameof(Entities.Tutor.Subjects) },
+                SearchFields = new[] { nameof(Entities.Tutor.Name),
+                    nameof(Entities.Tutor.Prefix),
+                    nameof(Entities.Tutor.Courses),
+                    nameof(Entities.Tutor.Subjects)
+
+                },
                 ScoringProfile = TutorSearchWrite.ScoringProfile,
                 //OrderBy = new List<string> { "search.score() desc", $"{Entities.Tutor.RateFieldName} desc" }
             };
@@ -55,21 +60,25 @@ namespace Cloudents.Search.Tutor
             {
                 var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
                     s.Document.Courses).Take(3).Distinct();
-                return new TutorCardDto
-                {
-                    Name = s.Document.Name,
-                    UserId = Convert.ToInt64(s.Document.Id),
-                    Courses = courses,
-                    
-                    Image = s.Document.Image,
-                    Price = (decimal)s.Document.Price,
-                    Rate = (float)s.Document.Rate,
-                    ReviewsCount = s.Document.ReviewCount,
-                    Bio = s.Document.Bio,
-                    CourseCount = s.Document.Courses.Length,
-                    University = "Some university", // TODO
-                    Lessons = 100 //TODO
-                };
+
+                s.Document.Data.Courses = courses;
+                return s.Document.Data;
+
+                //return new TutorCardDto
+                //{
+                //    Name = s.Document.Name,
+                //    UserId = Convert.ToInt64(s.Document.Id),
+                //    Courses = courses,
+
+                //    Image = s.Document.Image,
+                //    Price = (decimal)s.Document.Price,
+                //    Rate = (float)s.Document.Rate,
+                //    ReviewsCount = s.Document.ReviewCount,
+                //    Bio = s.Document.Bio,
+                //    CourseCount = s.Document.Courses.Length,
+                //    University = "Some university", // TODO
+                //    Lessons = 100 //TODO
+                //};
             });
 
         }

@@ -16,6 +16,8 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.RejoinCount);
             Map(x => x.Duration);
             Map(x => x.SessionId).Not.Nullable();
+            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
+
         }
     }
 }
