@@ -23,6 +23,7 @@ using Newtonsoft.Json.Converters;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.Extensions.Options;
@@ -111,8 +112,8 @@ namespace Cloudents.Admin2
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("IsraelUser", policy => policy.RequireClaim("country", "IL"));
-                options.AddPolicy("IndiaUser", policy => policy.RequireClaim("country", "IN"));
+                options.AddPolicy("IsraelUser", policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IL"));
+                options.AddPolicy("IndiaUser", policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IN"));
             });
 
             var assembliesOfProgram = new[]

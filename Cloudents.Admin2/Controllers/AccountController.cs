@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Admin;
@@ -61,10 +62,7 @@ namespace Cloudents.Admin2.Controllers
                 new Claim(ClaimTypes.Name, login.Email),
                 new Claim("FullName", $"{login.FirstName} { login.LastName}"),
 
-                new Claim("Country", result.Country?? "None"),
-                //new Claim(ClaimTypes.Role, "Admin"),
-                //new Claim(ClaimTypes.Role, "Administrator2"),
-                //new Claim(ClaimTypes.Role, "Administrator3")
+                new Claim(ClaimsPrincipalExtensions.ClaimCountry, result.Country ?? "None"),
             };
             foreach (var resultRole in result.Roles ?? Enumerable.Empty<string>())
             {

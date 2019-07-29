@@ -13,6 +13,7 @@ using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -42,8 +43,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(int page, CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
-            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(page, country);
+           
+            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(page, User.GetCountryClaim());
             var result = await _queryBus.QueryAsync(query, token);
             foreach (var res in result)
             {

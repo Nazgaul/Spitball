@@ -8,6 +8,7 @@ using Cloudents.Admin2.Models;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
@@ -41,8 +42,8 @@ namespace Cloudents.Admin2.Api
             [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
-            var query = new PendingDocumentQuery(fromId, country);
+         
+            var query = new PendingDocumentQuery(fromId, User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
             var counter = 0;
@@ -117,8 +118,8 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync
             ([FromServices] IBlobProvider blobProvider, CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
-            var query = new FlaggedDocumentQuery(country);
+           
+            var query = new FlaggedDocumentQuery(User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
          

@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using System.Security.Claims;
+using System.Security.Principal;
 
 namespace Cloudents.Query
 {

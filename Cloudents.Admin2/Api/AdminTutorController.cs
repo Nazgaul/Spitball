@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Principal;
 using System.Linq;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -32,8 +33,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<PendingTutorsDto>> GetPendingTutorsAsync(CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First();
-            var query = new AdminPendingTutorsQuery(country.Value);
+            var query = new AdminPendingTutorsQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
