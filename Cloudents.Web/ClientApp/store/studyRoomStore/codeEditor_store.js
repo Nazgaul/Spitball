@@ -1,9 +1,4 @@
-import tutorService from '../../components/tutor/tutorService.js'
-
-const _sendData = (subject,val) => {
-    let normalizedData = JSON.stringify({type: subject,data: val});
-    tutorService.dataTrack.send(normalizedData);
-}
+import tutorService from '../../components/tutor/tutorService.js';
 
 const state = {
     isDarkTheme: true,
@@ -36,14 +31,26 @@ const actions = {
     updateLang({getters,commit},lang){
         commit('setLang',lang)
         if(getters['getCurrentRoomState'] === 'active'){
-            _sendData('codeEditor_lang',lang)
+            let editorEvent = {
+                subject: 'codeEditor_lang',
+                val: lang
+            }
+            dispatch('sendEditorData', editorEvent)
         }
     },
-    updateCode({getters,commit},code){
+    updateCode({getters,commit, dispatch},code){
         commit('setCode',code)
         if(getters['getCurrentRoomState'] === 'active'){
-            _sendData('codeEditor_code',code)
+            let editorEvent = {
+                subject: 'codeEditor_code',
+                val: code
+            }
+            dispatch('sendEditorData', editorEvent)
         }
+    },
+    sendEditorData(context, {subject, val}){
+        let normalizedData = JSON.stringify({type: subject,data: val});
+        tutorService.dataTrack.send(normalizedData);
     }
 };
 export default {

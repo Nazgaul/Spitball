@@ -133,7 +133,7 @@
             }
         },
         computed: {
-            ...mapGetters(['getIsDarkTheme','getCurrentLang','getCode']),
+            ...mapGetters(['getIsDarkTheme', 'getCurrentLang', 'getCode']),
             themeMode(){
                 return this.getIsDarkTheme
             },
@@ -146,7 +146,7 @@
                 },
                 set: debounce(function (val) {
                         this.updateCode(val)
-                    }, 500)
+                    }, 125)
             }
         },
         methods: {
