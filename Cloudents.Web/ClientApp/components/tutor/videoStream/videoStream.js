@@ -84,9 +84,6 @@ export default {
             }
             this.toggleVideoTrack()
         },
-        minimize(type) {
-            this.visible[`${type}`] = !this.visible[`${type}`];
-        },
         showLocalVideo(){
             let self = this;
             insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_VideoStream_showLocalVideo', null, null);
