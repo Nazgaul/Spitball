@@ -142,7 +142,7 @@
                     return
                 }
                 if(this.$refs.becomeFormFirst.validate()) {
-
+                    
                     let data = {
                         image: this.userImage,
                         firstName: this.firstName,
