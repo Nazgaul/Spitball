@@ -82,6 +82,7 @@
                 <span v-language:inner>tutor_option_videoChat</span>
               </v-btn>
               <v-btn
+                :disabled="!getIsRemote"
                 @click="selectViewOption(enumViewOptions.fullScreenVideo)"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
                 :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
@@ -311,7 +312,8 @@ export default {
       "getBrowserSupportDialog",
       "accountUser",
       "getPaymentDialog",
-      "getStudyRoomData"
+      "getStudyRoomData",
+      "getIsRemote"
     ]),
     activeItem() {
       return this.activeNavItem;

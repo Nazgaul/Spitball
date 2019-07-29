@@ -250,6 +250,7 @@ const connectToRoom = function (token, options) {
                         track,
                         container: previewContainer
                     }
+                    store.commit('setIsRemote',true)
                     store.dispatch('updateRemoteTrack', updateObj);
                 } else if (track.kind === 'audio') {
                     let updateObj = {
@@ -265,6 +266,7 @@ const connectToRoom = function (token, options) {
             });
             // When a Participant's Track is unsubscribed from, detach it from the DOM.
             store.getters['activeRoom'].on('trackUnsubscribed', function (track) {
+                store.commit('setIsRemote',false)
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioTrackUnsubscribed', track, null);
                 console.log(" removed track: " + track.kind);
                 detachTracks([track]);
