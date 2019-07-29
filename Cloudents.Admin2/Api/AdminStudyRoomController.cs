@@ -31,14 +31,5 @@ namespace Cloudents.Admin2.Api
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
-
-        [HttpGet("daily")]
-        public async Task<IEnumerable<DailyStudyRoomsDto>> DailyStudyRoomAsync(CancellationToken token)
-        {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
-            var query = new AdminDailyStudyRoomQuery(country);
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
-        }
     }
 }
