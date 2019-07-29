@@ -65,7 +65,7 @@
             <v-flex shrink class="canvas-tools-wrapper" v-if="isWhiteBoardActive">
               <whiteBoardTools></whiteBoardTools>
             </v-flex>
-            <v-flex shrink class="canvas-tools-wrapper" v-else>
+            <v-flex shrink class="canvas-tools-wrapper" v-if="isCodeEditorActive">
               <codeEditorTools/>
             </v-flex>
             <v-spacer></v-spacer>
@@ -354,6 +354,9 @@ export default {
     },
     showPaymentDialog(){
       return this.getPaymentDialog
+    },
+    isCodeEditorActive(){
+      return this.activeItem === "code-editor"
     }
   },
   methods: {
