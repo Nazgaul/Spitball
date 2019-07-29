@@ -1,19 +1,24 @@
 <template>
     <v-layout column wrap align-center v-if="tutorList.length >= 1" class="tutor-list-wrap px-2" :class="{'px-0 mx-2 mt-3': $vuetify.breakpoint.xsOnly}">
         <v-flex class="title-holder">
-            <span @click="goToTutor()" class="subheading font-weight-bold tutors-title" v-language:inner>tutorList_title</span>
+            <span @click="goToTutor()" class="subheading font-weight-bold tutors-title" v-language:inner="'tutorList_title'"></span>
         </v-flex>
         <v-flex>
-            <tutorCard v-for="singleTutor in tutorList" :tutorData="singleTutor" :isInTutorList="true"></tutorCard>
+            <tutor-result-card-other v-for="(singleTutor, index) in tutorList" :tutorData="singleTutor" :key="index" />
+        </v-flex>
+        <v-flex>
+            <router-link to="/tutor" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
         </v-flex>
     </v-layout>
 </template>
 <script>
     import {mapGetters, mapActions} from 'vuex';
     import tutorCard from "../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue";
+    import tutorResultCardOther from "../../results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue";
+
     export default {
         name: "tutorList",
-        components: {tutorCard},
+        components: {tutorCard,tutorResultCardOther},
         computed: {
             ...mapGetters(['tutorList']),
             isMobile(){
@@ -69,7 +74,7 @@
 .tutor-list-wrap{
     border-radius: 4px;
       @media (min-width: @screen-xs) {
-    background-color: rgba(0, 0, 0, 0.04);
+    // background-color: rgba(0, 0, 0, 0.04);
       }
     .title-holder{
         text-align: center;
@@ -82,6 +87,9 @@
         vertical-align: middle;
         line-height: 42px;
         cursor: pointer;
+    }
+    .tutors-footer {
+        color: #4452fc;
     }
 }
 </style>

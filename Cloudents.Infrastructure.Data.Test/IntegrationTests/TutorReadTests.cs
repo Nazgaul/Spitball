@@ -30,11 +30,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task TutorListQuery_Ok()
         {
-            var query = new TutorListQuery(0, "IL");
+            var query = new TutorListQuery(0, "IL",0);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeEmpty();
 
-            var query2 = new TutorListQuery(638, null);
+            var query2 = new TutorListQuery(638, null, 0);
             result = await _fixture.QueryBus.QueryAsync(query2, default);
             result.Should().NotBeEmpty();
 
@@ -43,13 +43,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
 
 
-        [Fact]
-        public async Task TutorListTabQuery_Ok()
-        {
-            var query = new TutorListTabQuery("IL", page: 0);
-            var _ = await _fixture.QueryBus.QueryAsync(query, default);
-
-
-        }
+       
     }
 }

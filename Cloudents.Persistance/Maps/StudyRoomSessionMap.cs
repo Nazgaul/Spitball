@@ -17,6 +17,8 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Duration);
             Map(x => x.SessionId).Not.Nullable();
             Map(x => x.Receipt);
+            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
+
         }
     }
 }

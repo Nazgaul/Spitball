@@ -10,9 +10,9 @@ namespace Cloudents.Query.Query.Admin
     {
         internal sealed class AdminAllCoursesEmptyQueryHandler : IQueryHandler<AdminAllCoursesEmptyQuery, IList<string>>
         {
-            private readonly DapperRepository _dapper;
+            private readonly IDapperRepository _dapper;
 
-            public AdminAllCoursesEmptyQueryHandler(DapperRepository dapper)
+            public AdminAllCoursesEmptyQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }

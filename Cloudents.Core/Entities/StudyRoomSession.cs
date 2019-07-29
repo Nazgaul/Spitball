@@ -28,6 +28,9 @@ namespace Cloudents.Core.Entities
         public virtual string SessionId { get; protected set; }
         public virtual string Receipt { get; protected set; }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
+        public virtual byte[] Version { get; protected set; }
+
         public virtual bool EndSession()
         {
             if (Ended.HasValue)

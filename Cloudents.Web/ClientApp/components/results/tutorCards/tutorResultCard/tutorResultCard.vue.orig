@@ -1,147 +1,79 @@
 <template>
-  <router-link
-    class="tutor-card-wrap-desk cursor-pointer"
-    event
-    @click.native.prevent="tutorCardClicked"
-    :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}"
-  >
-    <v-layout>
-      <div class="section-tutor-info">
-        <v-layout>
-          <v-flex class="image-wrap mr-3" shrink>
-            <div v-if="!isLoaded">
-              <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
+    <router-link class="tutor-result-card-desktop pa-3 mb-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+
+        <v-flex row class="user-details">
+            <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+            <div class="main-card justify-space-between">
+                <h3 class="title font-weight-bold tutor-name text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h4 class="mb-4 text-truncate" v-if="isUniversity">{{university}}</h4>
+                <div class="user-bio mb-5 overflow-hidden" v-html="ellipsizeTextBox(tutorData.bio)"></div>
+                <div class="study-area mb-2" v-if="isSubjects">
+                  <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
+                  <span class="text-truncate">{{subjects}}</span>
+                </div>
+                <div class="courses" v-if="isCourses">
+                  <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
+                  <span class="text-truncate">{{courses}}</span> 
+                </div>
             </div>
-            <img
-              class="tutor-image"
-              v-show="isLoaded"
-              @error="onImageLoadError"
-              @load="loaded"
-              :src="userImageUrl"
-              :alt="tutorData.name"
-            >
-          </v-flex>
-          <v-flex>
-            <v-layout align-start justify-space-between column fill-height>
-              <v-flex shrink class="pb-3">
-                <span class="tutor-name font-weight-bold" v-line-clamp:18="1">{{tutorData.name}}</span>
-              </v-flex>
-              <v-flex grow>
-                <span class="tutor-about subheading" v-line-clamp:22="2">{{tutorData.bio}}</span>
-              </v-flex>
-              <v-flex shrink class="tutor-courses">
-<<<<<<< HEAD
-                <span class="blue-text subheading" v-line-clamp:18="1">{{tutorData.courses}}</span>
-=======
-                <span class="blue-text subheading" v-line-clamp:18="1">{{courses}}</span>
->>>>>>> release-v41
-              </v-flex>
-            </v-layout>
-          </v-flex>
-        </v-layout>
-      </div>
-      <v-layout
-        row
-        wrap
-        align-start
-        justify-start
-        grow
-        class="price-review-column section-tutor-price-review ml-1"
-      >
-        <v-flex xs12 grow>
-          <v-flex xs12 shrink v-if="showStriked" class="strike-through">
-            <span class="pricing striked-price">₪{{tutorData.price.toFixed(2)}}</span>
-            <span class="pricing caption striked-price">
-              <span v-language:inner="'resultTutor_hour'"></span>
-            </span>
-          </v-flex>
-          <v-flex xs12 shrink>
-            <!--keep this wraper to fix price / hour spacing-->
-            <div class="d-inline-flex align-baseline">
-              <span
-                class="font-weight-bold headline pricing"
-                v-if="showStriked"
-              >₪{{discountedPrice}}</span>
-              <span class="font-weight-bold headline pricing" v-else>₪{{tutorData.price}}</span>
-              <span class="pricing caption">
-                <span v-language:inner="'resultTutor_hour'"></span>
+        </v-flex>
+
+        <v-divider vertical class="mx-3"></v-divider>
+
+        <div class="user-rates">
+            <div class="title price font-weight-bold mb-1">
+              <template>
+                  <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
+                  <span class="title font-weight-bold" v-else>&#8362;{{tutorData.price}}</span>
+              </template>
+              <span class="caption">
+                /<span v-language:inner="'resultTutor_hour'"></span>
+                <div v-if="!showStriked" class="price-default-height"></div>
               </span>
             </div>
-          </v-flex>
-          <v-flex xs12 shrink class="pt-2">
-            <userRating
-              v-if="tutorData.reviews > 0"
-              :rating="tutorData.rating"
-              :starColor="'#ffca54'"
-              :rateNumColor="'#43425D'"
-              :size="'24'"
-              :rate-num-color="'#43425D'"
-            ></userRating>
-          </v-flex>
-          <v-flex xs12 class="pt-1" shrink>
-            <span class="blue-text body-2" v-show="tutorData.reviews > 0">
-              {{tutorData.reviews}}
-              <span
-                v-show="tutorData.reviews > 1"
-                v-language:inner="'resultTutor_reviews_many'"
-              ></span>
-              <span v-show="tutorData.reviews === 1" v-language:inner="'resultTutor_review_one'"></span>
-            </span>
-            <span
-              class="body-2"
-              v-show="!tutorData.reviews"
-              v-language:inner="'resultTutor_no_reviews'"
-            ></span>
-          </v-flex>
-        </v-flex>
+            <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
+            <div class="user-rank mt-3 mb-2 align-center">
+              <user-rating :rating="tutorData.rating" :showRateNumber="false" />
+              <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
+            </div>
+            <div class="classes-hours align-center mb-4 mt-1">
+                <clock />
+                <span class="ml-2 font-weight-bold caption">{{tutorData.lessons}}</span>
+                <span class="ml-2 font-weight-bold caption" v-language:inner="'resultTutor_hours_completed'"></span>
+            </div>
+            <div class="send-btn">
+                <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
+                  <iconChat class="chat-icon mr-2" />
+                  <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)" ></div>
+                </v-btn>
+            </div>
+        </div>
 
-        <v-flex xs12 class="d-flex btn-bottom-holder text-xs-center">
-          <v-btn
-            style="max-width: 80%; margin: 0 auto;"
-            round
-            class="blue-btn rounded elevation-0 ma-0"
-            block
-          >
-            <span
-              @click.prevent="openRequestDialog"
-              class="font-weight-bold text-capitalize"
-              v-language:inner="buttonText"
-            ></span>
-          </v-btn>
-        </v-flex>
-      </v-layout>
-    </v-layout>
-  </router-link>
+    </router-link>
 </template>
 
-
 <script>
-import userRank from "../../../helpers/UserRank/UserRank.vue";
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
-import userAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import analyticsService from "../../../../services/analytics.service";
-import tutorRequest from "../../../tutorRequest/tutorRequest.vue";
-import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
-import { mapActions } from "vuex";
+import chatService from '../../../../services/chatService';
+import { mapActions, mapGetters } from "vuex";
 import { LanguageService } from "../../../../services/language/languageService.js";
-
+import clock from './clock.svg';
+import iconChat from '../tutorResultCardOther/icon-chat.svg';
 
 export default {
   name: "tutorResultCard",
   components: {
-    userRank,
     userRating,
-    userAvatar,
-    tutorRequest,
-    sbDialog
+    clock,
+    iconChat
   },
   data() {
     return {
       isLoaded: false,
-              handleDialogProfile: false,
-              minimumPrice: 55,
-              discountAmount: 70
+      minimumPrice: 55,
+      discountAmount: 70
     };
   },
   props: {
@@ -152,71 +84,223 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateRequestDialog",'updateCurrTutor']),
+<<<<<<< HEAD
+    ...mapActions(["updateRequestDialog",'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
+=======
+    ...mapActions(["updateRequestDialog",'updateCurrTutor', 'openChatInterface','setActiveConversationObj']),
+
+>>>>>>> origin/feature-tutorCards
     loaded() {
       this.isLoaded = true;
     },
     tutorCardClicked(e) {
-        if(this.fromLandingPage){
-            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
-            
-          
-        }else{
-            analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
-            
-          };
-        
-        this.$router.push({
-            name: "profile",
-            params: { id: this.tutorData.userId, name: this.tutorData.name }});
-    },
-    openRequestDialog(ev) {
+      if(this.fromLandingPage){
+          analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+      }else{
+          analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+      };
+<<<<<<< HEAD
       ev.stopImmediatePropagation()
       this.updateCurrTutor(this.tutorData)
+      this.setTutorRequestAnalyticsOpenedFrom({
+          component: 'tutorCard',
+          path: this.$route.path
+      });
       this.updateRequestDialog(true);
+=======
+>>>>>>> origin/feature-tutorCards
     },
     onImageLoadError(event) {
       event.target.src = "./images/placeholder-profile.png";
+    },
+    reviewsPlaceHolder(reviews) {
+      return reviews === 0 ? reviews.toString() : reviews
+    },
+    sendMessage(user) {
+      if (this.accountUser == null) {
+          analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+          this.updateCurrTutor(user);
+          this.updateRequestDialog(true);
+      } else {
+          analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
+          let conversationObj = {
+              userId: user.userId,
+              image: user.image,
+              name: user.name,
+              conversationId: chatService.createConversationId([user.userId, this.accountUser.id]),
+          }
+          let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
+          this.setActiveConversationObj(currentConversationObj);
+          let isMobile = this.$vuetify.breakpoint.smAndDown;
+          this.openChatInterface();                    
+      }
+    },
+    ellipsizeTextBox(text) {
+      let maxChars = 176;
+      let showBlock = text.length > maxChars;
+      let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
+      let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
+      let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: inline-block' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
+      return `${newText} ${readMore} ${hideText}`;
     }
   },
   computed: {
-      courses(){
-      let query = this.$route.query.term
-      if(query) {
-        return `${LanguageService.getValueByKey("resultTutor_teaching")}${query}`
-      } else {
-        return `${this.tutorData.courses}`
+    ...mapGetters(['accountUser']),
+
+    courses() {
+      if (this.tutorData.courses) {
+        return `${LanguageService.getValueByKey("resultTutor_teaching")} ${this.tutorData.courses}`
       }
+      return '';
+    },
+    isTutorData() {
+      return this.tutorData ? true : false;
+    },
+    isUserImage() {
+      return this.isTutorData && this.tutorData.image ? true : false;
+    },
+    isUniversity() {
+      return (this.tutorData && this.tutorData.university) ? true : false;
+    },
+    isSubjects() {
+      return this.isTutorData && this.tutorData.subjects.length > 0 ? true : false;
+    },
+    isCourses() {
+      return this.isTutorData && this.tutorData.courses.length > 0 ? true : false;
     },
     userImageUrl() {
       if (this.tutorData.image) {
+        let size = [148, 182];
         return utilitiesService.proccessImageURL(
           this.tutorData.image,
-          166,
-          186
+          ...size,
+          "crop"
         );
       } else {
         return "./images/placeholder-profile.png";
       }
     },
     showStriked() {
-                let price = this.tutorData.price;
-                return price > this.minimumPrice;
-            },
-            discountedPrice(){
-                let price = this.tutorData.price;
-                let discountedAmount = price - this.discountAmount;
-                return discountedAmount >  this.minimumPrice ? discountedAmount.toFixed(2) : this.minimumPrice.toFixed(2);
+      let price = this.tutorData.price;
+      return price > this.minimumPrice;
     },
-    buttonText() {
-      return this.fromLandingPage
-        ? "resultTutor_contact_me"
-        : "resultTutor_btn_view";
+    discountedPrice() {
+      let price = this.tutorData.price;
+      let discountedAmount = price - this.discountAmount;
+      return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
+    },
+    university() {
+      return this.tutorData.university;
+    },
+    subjects() {
+      return this.tutorData.subjects.toString();
     }
   }
 };
 </script>
 
+<style lang="less">
+@import "../../../../styles/mixin.less";
 
-<style lang="less" src="./tutorResultCard.less">
+@purple: #43425d;
+
+  .tutor-result-card-desktop {
+    border-radius: 4px;
+    background: #fff;
+    width: 100%;
+    display: flex;
+    h3, h4, .user-bio, .courses, .price, .classes-hours, .study-area {
+      color: @purple;
+    }
+    .user-details {
+      display: flex;
+      .widthMinMax(600px);
+      .main-card {
+        .widthMinMax(400px);
+        display: flex;  
+        flex-direction: column;
+        h4 {
+          .heightMinMax(14px);
+        }
+        .user-bio {
+          display: inline-block;
+          word-wrap: break-word;
+          .heightMinMax(48px);
+          line-height: 1.2em;
+          text-align: justify;
+          .read-more {
+            color: #4452fc;
+          }
+        }
+        .courses {
+          display: flex;
+          white-space: nowrap;
+        }
+      }
+    }
+    div:nth-child(2) {
+      flex-basis: auto;
+    }
+    .user-image {
+      border-radius: 4px;
+    }
+    .tutor-no-img {
+      width: 142px;
+      height: auto;
+    }
+    
+    .user-rates {
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+      justify-content: space-between;
+      flex: 1;
+      min-width: inherit;
+      .striked {
+        max-width: max-content;
+        position: relative;
+        color: @colorBlackNew;
+        &:after {
+            content: "";
+            width: 100%;
+            border-bottom: solid 1px @colorBlackNew;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            z-index: 1;
+        }
+      }
+      .price {
+        .price-default-height {
+          .heightMinMax(16px);
+        }
+      }
+      .classes-hours {
+        display: flex;
+      }
+      .user-rank {
+        display: inline-flex;
+        i{
+          font-size: 20px !important;
+        }
+        .reviews {
+          color: #4452fc;
+        }
+      }
+      .send-btn {
+        width: 100%;
+        .btn-chat {
+          max-width: 220px;
+          min-width: 100%;
+          text-transform: lowercase;
+          .chat-icon {
+            margin: 0 auto 0 0;
+          }
+          div {
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
 </style>

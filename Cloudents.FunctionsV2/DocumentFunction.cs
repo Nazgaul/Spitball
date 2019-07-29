@@ -44,7 +44,6 @@ namespace Cloudents.FunctionsV2
             [Blob("spitball-files/files/{QueueTrigger}/text.txt")]CloudBlockBlob blob,
             [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] ICommandBus commandBus,
-            [Inject] ITextAnalysis textAnalysis,
             ILogger log,
             CancellationToken token)
         {
@@ -62,22 +61,6 @@ namespace Cloudents.FunctionsV2
             var text = await blob.DownloadTextAsync();
             await blob.FetchAttributesAsync();
             var metadata = blob.Metadata;
-            //IEnumerable<string> tags = null;
-            //if (!metadata.ContainsKey("ProcessTags"))
-            //{
-
-            //    try
-            //    {
-            //        tags = await GenerateTagsAsync(text, textAnalysis, textClassifier, textTranslator, token);
-            //        metadata.Add("ProcessTags", bool.TrueString);
-            //        await blob.SetMetadataAsync();
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        log.LogError(e, "error extracting tags");
-            //    }
-            //}
-
 
             int? pageCount = null;
             if (metadata.TryGetValue("PageCount", out var pageCountStr) &&
@@ -116,37 +99,7 @@ namespace Cloudents.FunctionsV2
             }
         }
 
-        //private static async Task<IEnumerable<string>> GenerateTagsAsync(string text,
-        //    ITextAnalysis textAnalysis,
-        //    ITextClassifier textClassifier,
-        //    ITextTranslator textTranslator,
-        //    CancellationToken token)
-        //{
-        //    if (string.IsNullOrEmpty(text))
-        //    {
-        //        return null;
-        //    }
-        //    var englishCulture = new CultureInfo("en");
-
-        //    var v = await textAnalysis.DetectLanguageAsync(text, token);
-        //    if (!v.Equals(englishCulture))
-        //    {
-        //        text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName, "en", token);
-        //    }
-
-        //    var keyPhrases = await textClassifier.KeyPhraseAsync(text, token);
-
-        //    if (!v.Equals(englishCulture))
-        //    {
-        //        text = string.Join(" , ", keyPhrases);
-        //        text = await textTranslator.TranslateAsync(text, "en", v.TwoLetterISOLanguageName.ToLowerInvariant(), token);
-
-        //        return text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
-        //    }
-
-        //    return keyPhrases.Select(s => s.Trim());
-        //}
-
+        
 
         [FunctionName("DocumentSearchSync")]
         public static async Task RunQuestionSearchAsync([TimerTrigger("0 10,40 * * * *")]
@@ -201,39 +154,5 @@ namespace Cloudents.FunctionsV2
             } while (blobToken != null);
             log.LogInformation("Finish delete items");
         }
-
-        //[FunctionName("FlagPreviewFailed")]
-        //public static async Task FlagPreviewFailedAsync(
-        //    [QueueTrigger("generate-blob-preview-poison",Connection = "TempConnectionDev")] string id,
-        //    [Inject] ICommandBus bus,
-        //    CancellationToken token
-        //    )
-        //{
-
-        //    var command = new FlagDocumentCommand(null, long.Parse(id), "Preview failed");
-        //    await bus.DispatchAsync(command, token);
-
-        //}
-
-
-        //[FunctionName("FlagPreviewFailed2")]
-        //public static async Task FlagPreviewFailedAsync2(
-        //    [TimerTrigger("0 0 0 1 * *", RunOnStartup = true)] TimerInfo timer,
-        //    [Inject] ICommandBus bus,
-        //    CancellationToken token
-        //)
-        //{
-        //    try
-        //    {
-        //        var command = new FlagDocumentCommand(null, 187836, "Preview failed");
-        //        await bus.DispatchAsync(command, token);
-        //    }
-        //    catch (NotFoundException)
-        //    {
-
-        //    }
-
-        //}
-
     }
 }

@@ -33,7 +33,41 @@ namespace Cloudents.Search.Document
                     p.PropertyType = typeof(int);
                 }
             }
+
+            var att = member.GetCustomAttribute<JsonConverterAttribute>();
+            if (att != null)
+            {
+                if (att.ConverterType == typeof(StringTypeConverter))
+                {
+                    p.PropertyType = typeof(string);
+                }
+            }
+
             return p;
         }
+    }
+
+    public class StringTypeConverter : JsonConverter
+    {
+        private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings()
+        {
+            NullValueHandling = NullValueHandling.Ignore
+
+        };
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+
+            var json = JsonConvert.SerializeObject(value, _jsonSerializerSettings);
+            serializer.Serialize(writer, json);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            string json = (string)reader.Value;
+            var result = JsonConvert.DeserializeObject(json, objectType, _jsonSerializerSettings);
+            return result;
+        }
+
+        public override bool CanConvert(Type objectType) => true;
     }
 }

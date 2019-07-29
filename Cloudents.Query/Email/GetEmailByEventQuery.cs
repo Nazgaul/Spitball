@@ -18,9 +18,9 @@ namespace Cloudents.Query.Email
     internal sealed class GetEmailByEventQueryHandler :
         IQueryHandler<GetEmailByEventQuery, IEnumerable<EmailObjectDto>>
     {
-        private readonly DapperRepository _dapperRepository;
+        private readonly IDapperRepository _dapperRepository;
 
-        public GetEmailByEventQueryHandler(DapperRepository dapperRepository)
+        public GetEmailByEventQueryHandler(IDapperRepository dapperRepository)
         {
             _dapperRepository = dapperRepository;
         }

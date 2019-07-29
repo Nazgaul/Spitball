@@ -99,8 +99,8 @@ const actions = {
             });
         }
     },
-    getTutorListCourse({ commit, state }, payload) {
-        searchService.activateFunction.getTutors(payload).then(res => {
+    getTutorListCourse({ commit, state }, courseName) {
+        searchService.activateFunction.getTutors(courseName).then(res => {
             commit('setTutorsList', res)
         })
     },

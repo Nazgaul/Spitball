@@ -8,22 +8,24 @@ namespace Cloudents.Query
 {
     public class UserReferralsQueryHandler : IQueryHandler<UserReferralsQuery, UserReferralsDto>
     {
-        private readonly DapperRepository _dapper;
+        private readonly IDapperRepository _dapper;
 
 
 
-        public UserReferralsQueryHandler(DapperRepository dapper)
+        public UserReferralsQueryHandler(IDapperRepository dapper)
         {
             _dapper = dapper;
         }
         public async Task<UserReferralsDto> GetAsync(UserReferralsQuery query, CancellationToken token)
         {
-            return await _dapper.WithConnectionAsync(async connection =>
+            using (var connection = _dapper.OpenConnection())
             {
                 return await connection.QueryFirstOrDefaultAsync<UserReferralsDto>(@"select count(1) as Referrals
                     from sb.[Transaction] where [Action] = 'ReferringUser' and User_Id = @Id"
-                   , new { query.Id });
-            }, token);
+                    , new { query.Id });
+            }
+
+          
         }
     }
 }

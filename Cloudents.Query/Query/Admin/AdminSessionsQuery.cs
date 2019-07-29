@@ -18,10 +18,10 @@ namespace Cloudents.Query.Query.Admin
 
         internal sealed class AdminSessionsQueryHandler : IQueryHandler<AdminSessionsQuery, IEnumerable<SessionDto>>
         {
-            private readonly DapperRepository _dapper;
+            private readonly IDapperRepository _dapper;
 
 
-            public AdminSessionsQueryHandler(DapperRepository dapper)
+            public AdminSessionsQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }

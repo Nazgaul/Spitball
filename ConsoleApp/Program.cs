@@ -3,7 +3,9 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
@@ -12,6 +14,7 @@ using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
+using NHibernate.Id;
 using NHibernate.Linq;
 using SimMetricsMetricUtilities;
 using System;
@@ -23,8 +26,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Persistence;
+using Cloudents.Core.Enum;
+using Cloudents.Query.Query;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
+using Cloudents.Query.Query.Admin;
+using Cloudents.Query.SearchSync;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -143,9 +149,11 @@ namespace ConsoleApp
 
             //var v = dictionary.OrderBy(d => d.Value);
 
-            ////await UpdateMethod();
-            var queryBus = _container.Resolve<IStatelessSession>();
-            var namesLinq = queryBus.Query<Course>().Where(x => x.Id.FullTextContains("john")).ToList();
+            await UpdateMethod();
+            var queryBus = _container.Resolve<IQueryBus>();
+            var query = new TutorSyncAzureSearchQuery(0,null);
+            var z =await  queryBus.QueryAsync(query, default);
+            //var result = await queryBus.NeedToSendMoreTutorsAsync(638, default);
             //var query = new DocumentById(29173, 638);
             //var z = queryBus.QueryAsync(query, default);
             //var z = await queryBus.ValidateEmailAsync("gadi.avner@gmail.com", default);
@@ -458,15 +466,14 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            var queryBus = _container.Resolve<IUnitOfWork>();
             //ResourcesMaintenance.GetOrphanedResources();
-            //var queryBus = _container.Resolve<IQueryBus>();
-            //var query = new TutorListQuery(159039, "IL");
-            //var test = await queryBus.QueryAsync(query, default);
-            //foreach (var item in test)
-            //{
-            //    Console.WriteLine(item.UserId);
-            //}
+            var queryBus = _container.Resolve<IQueryBus>();
+            var query = new TutorListQuery(159039, "IL",0);
+            var test = await queryBus.QueryAsync(query, default);
+            foreach (var item in test)
+            {
+                Console.WriteLine(item.UserId);
+            }
             //var provider = _container.Resolve<IMondayProvider>();
             //await provider.UpdateTextRecordAsync(244705486, "text9", "רופין", default);
             //await provider.UpdateTextRecordAsync(244705486, "_____________1",
@@ -714,186 +721,186 @@ namespace ConsoleApp
               .Select(s => s[_random.Next(s.Length)]).ToArray());
         }
 
-        public static async Task TransferDocuments()
-        {
-            var d = _container.Resolve<DapperRepository>();
+ //       public static async Task TransferDocuments()
+ //       {
+ //           var d = _container.Resolve<IDapperRepository>();
 
 
-            /* var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
-             var productionOldStorageAccount = CloudStorageAccount.Parse(key);
-             var oldBlobClient = productionOldStorageAccount.CreateCloudBlobClient();
-             var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");*/
+ //           /* var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
+ //            var productionOldStorageAccount = CloudStorageAccount.Parse(key);
+ //            var oldBlobClient = productionOldStorageAccount.CreateCloudBlobClient();
+ //            var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");*/
 
 
 
-            var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
-            var storageAccount = CloudStorageAccount.Parse(keyNew);
-            var blobClient = storageAccount.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference("spitball-files/files");
+ //           var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
+ //           var storageAccount = CloudStorageAccount.Parse(keyNew);
+ //           var blobClient = storageAccount.CreateCloudBlobClient();
+ //           var container = blobClient.GetContainerReference("spitball-files/files");
 
-            //CloudBlobContainer directoryToPutFiles = container.Get .GetDirectoryReference("./files");
+ //           //CloudBlobContainer directoryToPutFiles = container.Get .GetDirectoryReference("./files");
 
-            Dictionary<int, string> docType = new Dictionary<int, string>
-                    {
-                        {1, "Exam"},
-                        {2, "Exam"},
-                        {7, "Exam"},
-                        {8, "Exam"},
-                        {9, "Lecture"},
-                        {10, "Lecture"},
-                        {5, "Textbook"}
-                    };
+ //           Dictionary<int, string> docType = new Dictionary<int, string>
+ //                   {
+ //                       {1, "Exam"},
+ //                       {2, "Exam"},
+ //                       {7, "Exam"},
+ //                       {8, "Exam"},
+ //                       {9, "Lecture"},
+ //                       {10, "Lecture"},
+ //                       {5, "Textbook"}
+ //                   };
 
 
-            var supportedFiles = ExcelProcessor.Extensions
-                .Union(ImageProcessor.Extensions)
-                .Union(PdfProcessor.Extensions)
-                .Union(PowerPoint2007Processor.Extensions)
-                .Union(TextProcessor.Extensions)
-                .Union(TiffProcessor.Extensions)
-                .Union(WordProcessor.Extensions).ToList();
+ //           var supportedFiles = ExcelProcessor.Extensions
+ //               .Union(ImageProcessor.Extensions)
+ //               .Union(PdfProcessor.Extensions)
+ //               .Union(PowerPoint2007Processor.Extensions)
+ //               .Union(TextProcessor.Extensions)
+ //               .Union(TiffProcessor.Extensions)
+ //               .Union(WordProcessor.Extensions).ToList();
 
-            var cacheUsers = new ConcurrentDictionary<string, long?>();
-            List<dynamic> z;
-            long itemId = 15053;
-            do
-            {
-                z = await d.WithConnectionAsync(async f =>
-                {
-                    return (await f.QueryAsync(
-                        @"select top 1000 I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName, ZUNI.Country,  B.ProfessorName, 
-        ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views], I.CreationTime,
-        			            STRING_AGG((T.Name), ',') as Tags
-                                FROM [Zbox].[Item] I
-                                join zbox.Box B
-        	                        on I.BoxId = B.BoxId 
-									--and b.discriminator in (2,3)
-									and b.PrivacySetting = 3
+ //           var cacheUsers = new ConcurrentDictionary<string, long?>();
+ //           List<dynamic> z;
+ //           long itemId = 15053;
+ //           do
+ //           {
+ //               z = await d.WithConnectionAsync(async f =>
+ //               {
+ //                   return (await f.QueryAsync(
+ //                       @"select top 1000 I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName, ZUNI.Country,  B.ProfessorName, 
+ //       ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views], I.CreationTime,
+ //       			            STRING_AGG((T.Name), ',') as Tags
+ //                               FROM [Zbox].[Item] I
+ //                               join zbox.Box B
+ //       	                        on I.BoxId = B.BoxId 
+	//								--and b.discriminator in (2,3)
+	//								and b.PrivacySetting = 3
 
-                                join Zbox.Users ZU
-        	                        on I.UserId = ZU.UserId
-                              	 join zbox.Users uTemp on uTemp.UserId = b.OwnerId
-	 join zbox.University ZUNI on uTemp.UniversityId = ZUNI.Id and ZUNI.Id = 920
-	and ZUNI.id not In ( 170460,790) and ZUNI.country = 'IL'
-        						left join zbox.ItemTag IT
-        							on IT.ItemId = I.ItemId
-        						left join zbox.Tag T
-        							on IT.TagId = T.Id and len(T.Name) >= 4
-                                where I.Discriminator = 'File'
-        						and i.itemid > @itemId
-        	                        and I.IsDeleted = 0 
-        							and I.ItemId not in (select D.OldId from sb.Document D where I.ItemId = D.OldId)
+ //                               join Zbox.Users ZU
+ //       	                        on I.UserId = ZU.UserId
+ //                             	 join zbox.Users uTemp on uTemp.UserId = b.OwnerId
+	// join zbox.University ZUNI on uTemp.UniversityId = ZUNI.Id and ZUNI.Id = 920
+	//and ZUNI.id not In ( 170460,790) and ZUNI.country = 'IL'
+ //       						left join zbox.ItemTag IT
+ //       							on IT.ItemId = I.ItemId
+ //       						left join zbox.Tag T
+ //       							on IT.TagId = T.Id and len(T.Name) >= 4
+ //                               where I.Discriminator = 'File'
+ //       						and i.itemid > @itemId
+ //       	                        and I.IsDeleted = 0 
+ //       							and I.ItemId not in (select D.OldId from sb.Document D where I.ItemId = D.OldId)
         						
-                                group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
-        						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
-        						 order by i.itemid
-                        ", new { itemId })).ToList();
-                }, default);
+ //                               group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
+ //       						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
+ //       						 order by i.itemid
+ //                       ", new { itemId })).ToList();
+ //               }, default);
 
-                //if (z.Count() == 0)
-                //{
-                //    return;
-                //}
-
-
-                using (var child = _container.BeginLifetimeScope())
-                {
-
-                    var commandBus = child.Resolve<ICommandBus>();
-                    var session = child.Resolve<IStatelessSession>();
+ //               //if (z.Count() == 0)
+ //               //{
+ //               //    return;
+ //               //}
 
 
-                    foreach (var pair in z)
-                    {
-                        itemId = pair.ItemId;
-                        Console.WriteLine($"processing {itemId}");
+ //               using (var child = _container.BeginLifetimeScope())
+ //               {
 
-                        string extension = Path.GetExtension(pair.BlobName);
-
-                        if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"{pair.ItemId} not blob support");
-                            Console.ResetColor();
-                            //itemsAlreadyProcessed.Add(pair.ItemId);
-                            continue;
-                        }
-
-                        string country = pair.Country, email = pair.Email;
-
-                        var userId = cacheUsers.GetOrAdd(email, x =>
-                        {
-                            long? id = GetUserId(x, country);
-                            return id;
-                        });
-                        if (userId == null)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"{pair.ItemId} doesn't have userid to assign country {country}");
-                            Console.ResetColor();
-                            continue;
-                        }
-
-                        Guid? uniId = GetUniversityId(pair.UniversityName, country);
-                        if (uniId == null)
-                        {
-
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"{pair.ItemId} doesn't have uniId to assign");
-                            Console.ResetColor();
-                            continue;
-                        }
-
-                        var newBlobName = await CopyBlobFromOldContainerAsync(pair.BlobName, itemId);
+ //                   var commandBus = child.Resolve<ICommandBus>();
+ //                   var session = child.Resolve<IStatelessSession>();
 
 
-                        string[] words = null;
-                        if (pair.Tags != null)
-                        {
-                            words = pair.Tags.Split(',');
-                        }
+ //                   foreach (var pair in z)
+ //                   {
+ //                       itemId = pair.ItemId;
+ //                       Console.WriteLine($"processing {itemId}");
 
-                        var type = "None";
+ //                       string extension = Path.GetExtension(pair.BlobName);
 
-                        if (docType.ContainsKey(pair.DocType))
-                        {
-                            docType.TryGetValue(pair.DocType, out type);
-                        }
+ //                       if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
+ //                       {
+ //                           Console.ForegroundColor = ConsoleColor.Red;
+ //                           Console.WriteLine($"{pair.ItemId} not blob support");
+ //                           Console.ResetColor();
+ //                           //itemsAlreadyProcessed.Add(pair.ItemId);
+ //                           continue;
+ //                       }
 
-                        string courseName = pair.BoxName;
-                        while (courseName.Length < Course.MinLength)
-                        {
-                            courseName += "-";
-                        }
+ //                       string country = pair.Country, email = pair.Email;
+
+ //                       var userId = cacheUsers.GetOrAdd(email, x =>
+ //                       {
+ //                           long? id = GetUserId(x, country);
+ //                           return id;
+ //                       });
+ //                       if (userId == null)
+ //                       {
+ //                           Console.ForegroundColor = ConsoleColor.Red;
+ //                           Console.WriteLine($"{pair.ItemId} doesn't have userid to assign country {country}");
+ //                           Console.ResetColor();
+ //                           continue;
+ //                       }
+
+ //                       Guid? uniId = GetUniversityId(pair.UniversityName, country);
+ //                       if (uniId == null)
+ //                       {
+
+ //                           Console.ForegroundColor = ConsoleColor.Red;
+ //                           Console.WriteLine($"{pair.ItemId} doesn't have uniId to assign");
+ //                           Console.ResetColor();
+ //                           continue;
+ //                       }
+
+ //                       var newBlobName = await CopyBlobFromOldContainerAsync(pair.BlobName, itemId);
 
 
-                        string itemName = pair.Name;
-                        CreateDocumentCommand command =
-                            CreateDocumentCommand.DbiOnly(newBlobName,
-                                itemName.Substring(0, Math.Min(150, itemName.Length)),
-                                type, courseName, words?.Where(Tag.ValidateTag),
-                                userId.Value, pair.ProfessorName, uniId.Value);
+ //                       string[] words = null;
+ //                       if (pair.Tags != null)
+ //                       {
+ //                           words = pair.Tags.Split(',');
+ //                       }
 
-                        await commandBus.DispatchAsync(command, default);
+ //                       var type = "None";
 
-                        int views = pair.Views;
-                        itemId = pair.ItemId;
-                        DateTime updateTime = pair.CreationTime;
+ //                       if (docType.ContainsKey(pair.DocType))
+ //                       {
+ //                           docType.TryGetValue(pair.DocType, out type);
+ //                       }
 
-                        var doc = session.Query<Document>().Where(w => w.Id == command.Id)
-                            .UpdateBuilder()
-                            .Set(x => x.Views, x => views)
-                            .Set(x => x.OldId, x => itemId)
-                            .Set(x => x.TimeStamp.UpdateTime, x => updateTime)
-                            .Update();
-                        await Task.Delay(TimeSpan.FromSeconds(0.5));
-                    }
+ //                       string courseName = pair.BoxName;
+ //                       while (courseName.Length < Course.MinLength)
+ //                       {
+ //                           courseName += "-";
+ //                       }
 
-                }
-            } while (z.Count > 0);
 
-            //await TransferDocumants();
-        }
+ //                       string itemName = pair.Name;
+ //                       CreateDocumentCommand command =
+ //                           CreateDocumentCommand.DbiOnly(newBlobName,
+ //                               itemName.Substring(0, Math.Min(150, itemName.Length)),
+ //                               type, courseName, words?.Where(Tag.ValidateTag),
+ //                               userId.Value, pair.ProfessorName, uniId.Value);
+
+ //                       await commandBus.DispatchAsync(command, default);
+
+ //                       int views = pair.Views;
+ //                       itemId = pair.ItemId;
+ //                       DateTime updateTime = pair.CreationTime;
+
+ //                       var doc = session.Query<Document>().Where(w => w.Id == command.Id)
+ //                           .UpdateBuilder()
+ //                           .Set(x => x.Views, x => views)
+ //                           .Set(x => x.OldId, x => itemId)
+ //                           .Set(x => x.TimeStamp.UpdateTime, x => updateTime)
+ //                           .Update();
+ //                       await Task.Delay(TimeSpan.FromSeconds(0.5));
+ //                   }
+
+ //               }
+ //           } while (z.Count > 0);
+
+ //           //await TransferDocumants();
+ //       }
 
         private static async Task<string> CopyBlobFromOldContainerAsync(string blobName, long itemId)
         {
@@ -929,53 +936,53 @@ namespace ConsoleApp
             return blobDestination.Uri.Segments.Last();
         }
 
-        private static long? GetUserId(string email, string country)
-        {
-            var d = _container.Resolve<DapperRepository>();
-            return d.WithConnection<long?>(connection =>
-            {
-                const string sql = @"select id from sb.[user] where email = @email;
-select top 1 id from sb.[user] where Fictive = 1 and country = @country order by newid()";
-                using (var multi = connection.QueryMultiple(sql, new { email, country }))
-                {
-                    var val = multi.ReadFirstOrDefault<long?>();
-                    if (val.HasValue)
-                    {
-                        return val.Value;
-                    }
+//        private static long? GetUserId(string email, string country)
+//        {
+//            var d = _container.Resolve<DapperRepository>();
+//            return d.WithConnection<long?>(connection =>
+//            {
+//                const string sql = @"select id from sb.[user] where email = @email;
+//select top 1 id from sb.[user] where Fictive = 1 and country = @country order by newid()";
+//                using (var multi = connection.QueryMultiple(sql, new { email, country = country }))
+//                {
+//                    var val = multi.ReadFirstOrDefault<long?>();
+//                    if (val.HasValue)
+//                    {
+//                        return val.Value;
+//                    }
 
-                    val = multi.ReadFirstOrDefault<long?>();
-                    if (val.HasValue)
-                    {
-                        return val.Value;
-                    }
+//                    val = multi.ReadFirstOrDefault<long?>();
+//                    if (val.HasValue)
+//                    {
+//                        return val.Value;
+//                    }
 
-                    return null;
-                }
+//                    return null;
+//                }
 
 
 
-            });
-        }
-        private static Guid? GetUniversityId(string name, string country)
-        {
-            //select id from sb.University where Name = N'המכללה האקדמית בית ברל' and country = 'IL'
-            var d = _container.Resolve<DapperRepository>();
-            return d.WithConnection<Guid?>(connection =>
-            {
-                const string sql = @"select id from sb.University where Name = @Name and country = @country";
-                using (var multi = connection.QueryMultiple(sql, new { Name = name,  country }))
-                {
-                    var val = multi.ReadFirstOrDefault<Guid?>();
-                    if (val.HasValue)
-                    {
-                        return val.Value;
-                    }
+//            });
+//        }
+        //private static Guid? GetUniversityId(string name, string country)
+        //{
+        //    //select id from sb.University where Name = N'המכללה האקדמית בית ברל' and country = 'IL'
+        //    var d = _container.Resolve<DapperRepository>();
+        //    return d.WithConnection<Guid?>(connection =>
+        //    {
+        //        const string sql = @"select id from sb.University where Name = @Name and country = @country";
+        //        using (var multi = connection.QueryMultiple(sql, new { Name = name, country = country }))
+        //        {
+        //            var val = multi.ReadFirstOrDefault<Guid?>();
+        //            if (val.HasValue)
+        //            {
+        //                return val.Value;
+        //            }
 
-                    return null;
-                }
-            });
-        }
+        //            return null;
+        //        }
+        //    });
+        //}
 
         private static string GetShareAccessUri(string blobname,
             int validityPeriodInMinutes,

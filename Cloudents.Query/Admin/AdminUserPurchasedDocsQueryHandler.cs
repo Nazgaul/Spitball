@@ -9,10 +9,10 @@ namespace Cloudents.Query.Admin
 {
     public class AdminUserPurchasedDocsQueryHandler : IQueryHandler<AdminUserPurchasedDocsQuery, IEnumerable<UserPurchasedDocsDto>>
     {
-        private readonly DapperRepository _dapper;
+        private readonly IDapperRepository _dapper;
 
 
-        public AdminUserPurchasedDocsQueryHandler(DapperRepository dapper)
+        public AdminUserPurchasedDocsQueryHandler(IDapperRepository dapper)
         {
             _dapper = dapper;
         }

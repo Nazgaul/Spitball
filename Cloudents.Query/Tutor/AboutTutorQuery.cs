@@ -11,9 +11,9 @@ namespace Cloudents.Query.Tutor
         internal sealed class TutorListByCourseQueryHandler : IQueryHandler<AboutTutorQuery, IEnumerable<AboutTutorDto>>
         {
 
-            private readonly DapperRepository _dapperRepository;
+            private readonly IDapperRepository _dapperRepository;
 
-            public TutorListByCourseQueryHandler(DapperRepository dapperRepository)
+            public TutorListByCourseQueryHandler(IDapperRepository dapperRepository)
             {
                 _dapperRepository = dapperRepository;
             }

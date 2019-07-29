@@ -17,10 +17,10 @@ namespace Cloudents.Query.Query.Admin
 
         internal sealed class AdminConversationDetailsQueryHandler : IQueryHandler<AdminConversationDetailsQuery, IEnumerable<ConversationDetailsDto>>
         {
-            private readonly DapperRepository _dapper;
+            private readonly IDapperRepository _dapper;
 
 
-            public AdminConversationDetailsQueryHandler(DapperRepository dapper)
+            public AdminConversationDetailsQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }

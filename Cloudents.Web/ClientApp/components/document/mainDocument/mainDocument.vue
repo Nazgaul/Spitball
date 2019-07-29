@@ -118,18 +118,18 @@
             </div>
         </v-layout>
         <div class="document-wrap">
-            
-            <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
+        <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
                 <v-lazy-image 
-                    class="document-wrap-content" 
+                    class="document-wrap-content mb-4" 
                     :src="page"
                     :src-placeholder="require('./doc-preview-animation.gif')"
                     v-if="page"
                     :alt="document.content"/>
                 
+                <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)"/>
             </div>
             <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
-                <p class="text-xs-center title" v-language:inner="'documentPage_unlock_document'"></p>
+                <p class="text-xs-center" v-language:inner="'documentPage_unlock_document'"></p>
                 <div class="aside-top-btn align-center" v-if="!isLoading">
                     <span class="font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
@@ -162,12 +162,14 @@ import sbDialog from "../../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "../../results/helpers/reportItem/reportItem.vue";
 import utillitiesService from '../../../services/utilities/utilitiesService';
 import documentService from '../../../services/documentService';
+import tutorResultCardCarousel from '../../../components/results/tutorCards/tutorResultCardCarousel/tutorResultCardCarousel.vue';
 
 export default {
     name: 'mainDocument',
     components: {
         reportItem,
-        sbDialog
+        sbDialog,
+        tutorResultCardCarousel
     },
     props: {
         document: {
@@ -422,7 +424,6 @@ export default {
         },
     },
     beforeDestroy() {
-        console.log("beforeDestroy")
         this.clearDocument();
     },
     mounted(){
@@ -434,7 +435,8 @@ export default {
     @import "../../../styles/mixin.less";
 
     .main-container {
-        flex: 5;
+        margin-bottom: 80px;
+        flex: 4;
         @media (max-width: @screen-sm) {
             order: 2;
         }
@@ -520,6 +522,7 @@ export default {
                 p {
                     padding: 0 0 30px 0;
                     margin: 0;
+                    font-size: 19px;
                 }
                 .aside-top-btn {
                     display: flex;

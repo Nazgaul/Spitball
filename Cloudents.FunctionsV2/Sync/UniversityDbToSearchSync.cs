@@ -14,18 +14,13 @@ namespace Cloudents.FunctionsV2.Sync
 {
     public class UniversityDbToSearchSync : IDbToSearchSync
     {
-       // private readonly ISearchServiceWrite<University> _universityServiceWrite;
         private readonly IQueryBus _bus;
 
-        public UniversityDbToSearchSync(/*ISearchServiceWrite<University> universityServiceWrite,*/ IQueryBus bus)
+        public UniversityDbToSearchSync(IQueryBus bus)
         {
             _bus = bus;
         }
 
-        //public Task CreateIndexAsync(CancellationToken token)
-        //{
-        //    return _universityServiceWrite.CreateOrUpdateAsync(token);
-        //}
 
         public async Task<SyncResponse> DoSyncAsync(SyncAzureQuery query, IBinder binder, CancellationToken token)
         {
@@ -78,20 +73,7 @@ namespace Cloudents.FunctionsV2.Sync
             }
 
             await syncService.FlushAsync(token);
-
-
-            //var result = await _universityServiceWrite.UpdateDataAsync(update.Select(s =>
-            //{
-            //    return new University
-            //    {
-            //        Name = s.Name,
-            //        Id = s.UniversityId,
-            //        Country = s.Country,
-            //        Extra = s.Extra,
-            //        DisplayName = s.Name,
-            //        Prefix = new[] { s.Name, s.Extra}.Where(x => x != null).ToArray(),
-            //    };
-            //}), delete, token);
+         
             return new SyncResponse(version, needContinue);
         }
     }

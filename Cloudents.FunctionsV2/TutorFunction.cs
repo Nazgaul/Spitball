@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Query;
 using Cloudents.Query.SearchSync;
 using Cloudents.Search.Entities;
 using Cloudents.Search.Tutor;
+using FluentNHibernate.Utils;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -32,62 +35,103 @@ namespace Cloudents.FunctionsV2
                 query = JsonConvert.DeserializeObject<TutorSyncAzureSearchQuery>(str);
             }
 
-            var result = await queryBus.QueryAsync(query, token);
-            var updateOccur = false;
-            foreach (var update in result.Update)
+
+            var nextQuery = new TutorSyncAzureSearchQuery(query.Version, query.RowVersion);
+
+            bool updateOccur;
+            do
             {
-                updateOccur = true;
-                var courses = update.Courses.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray();
-                var subjects = update.Subjects.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray();
-                await indexInstance.AddAsync(new AzureSearchSyncOutput()
+                updateOccur = false;
+                var result = await queryBus.QueryAsync(query, token);
+
+                foreach (var update in result.Update)
                 {
-                    Item = new Tutor
+                    updateOccur = true;
+                    var courses = update.Courses?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ??
+                                  new string[0];
+                    var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ?? new string[0]; 
+                    await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {
-                        Country = update.Country.ToUpperInvariant(),
-                        Id = update.UserId.ToString(),
-                        Name = update.Name,
-                        Price = update.Price,
-                        Courses = courses,
-                        Image = update.Image,
-                        Bio = update.Bio,
-                        Rate = update.Rate,
-                        InsertDate = DateTime.UtcNow,
-                        Prefix = courses.Union(subjects).Union(new []{update.Name}).Distinct().ToArray(),
-                        ReviewCount = update.ReviewsCount,
-                        Subjects = subjects
-                    },
-                    Insert = true
+                        Item = new Tutor
+                        {
+                            Country = update.Country.ToUpperInvariant(),
+                            Id = update.UserId.ToString(),
+                            Name = update.Name,
+                            Courses = courses.ToArray(),
+                            Rate = update.Rate,
+                            InsertDate = DateTime.UtcNow,
+                            Prefix = courses.Union(subjects).Union(new[] { update.Name })
+                                .Distinct(StringComparer.OrdinalIgnoreCase).ToArray(),
+                            ReviewCount = update.ReviewsCount,
+                            Subjects = subjects.ToArray(),
+                            Data = new TutorCardDto()
+                            {
+                                UserId = update.UserId,
+                                Name = update.Name,
+                                Courses = courses.Take(3),
+                                Subjects = update.Subjects,
+                                ReviewsCount = update.ReviewsCount,
+                                Rate = (float)update.Rate,
+                                University = update.University, 
+                                Lessons = update.LessonsCount, 
+                                Bio = update.Bio,
+                                Price = (decimal)update.Price,
+                                Image = update.Image,
+                            }
+                        },
+                        Insert = true
 
-                }, token);
-            }
+                    }, token);
+                }
 
-            foreach (var delete in result.Delete)
-            {
-                updateOccur = true;
-                await indexInstance.AddAsync(new AzureSearchSyncOutput()
+                foreach (var delete in result.Delete)
                 {
-                    Item = new Tutor()
+                    updateOccur = true;
+                    await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {
-                        Id = delete
-                    },
-                    Insert = false
+                        Item = new Tutor()
+                        {
+                            Id = delete
+                        },
+                        Insert = false
 
-                }, token);
+                    }, token);
+                }
 
-            }
-
-            if (updateOccur)
-            {
+                query.Page++;
                 var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
                 if (versionElement != null)
                 {
-                    var nextVersion = new TutorSyncAzureSearchQuery(result.Version,
-                        versionElement.Version);
-                    var jsonStr = JsonConvert.SerializeObject(nextVersion);
-                    await blob.UploadTextAsync(jsonStr);
+                    nextQuery.Version = Math.Max(nextQuery.Version, result.Version);
+                    nextQuery.RowVersion = versionElement.Version;
                 }
 
+                await indexInstance.FlushAsync(token);
+                //if (updateOccur)
+                //{
+                //    var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
+                //    if (versionElement != null)
+                //    {
+                //        var nextVersion = new TutorSyncAzureSearchQuery(result.Version,
+                //            versionElement.Version);
+                //        var jsonStr = JsonConvert.SerializeObject(nextVersion);
+                //        await blob.UploadTextAsync(jsonStr);
+                //    }
+                //}
+            } while (updateOccur);
+
+            if (query.Page > 0)
+            {
+                //var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
+                // if (versionElement != null)
+                //{
+                //  var nextVersion = new TutorSyncAzureSearchQuery(result.Version,
+                //     versionElement.Version);
+                var jsonStr = JsonConvert.SerializeObject(nextQuery);
+                await blob.UploadTextAsync(jsonStr);
+                // }
             }
+
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
         }
     }

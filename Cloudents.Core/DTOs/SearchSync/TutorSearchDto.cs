@@ -7,10 +7,7 @@ namespace Cloudents.Core.DTOs.SearchSync
 {
     public class TutorSearchDto
     {
-       
-
         public long UserId { get; set; } 
-
         public string Name { get; set; } 
         public string Bio { get; set; } 
         public string Image { get; set; } 
@@ -18,22 +15,15 @@ namespace Cloudents.Core.DTOs.SearchSync
         public double Rate { get; set; } 
         public int ReviewsCount { get; set; } 
         public byte[] Version { get; set; } 
-        public IList<string> Courses { get; set; } 
-        public IList<string> Subjects { get; set; }
-
+        public IEnumerable<string> Courses { get; set; } 
+        public IEnumerable<string> Subjects { get; set; }
         public string Country { get; set; }
-
         public long SYS_CHANGE_VERSION { get; set; }
+
+        public string University { get; set; }
+        public int LessonsCount { get; set; }
         public string SYS_CHANGE_OPERATION { get; set; }
-
         public ItemState State { get; set; }
-
         public long VersionAsLong => BitConverter.ToInt64(Version.Reverse().ToArray(), 0);
-    }
-
-
-    public class TutorSearchWrapperDto : SearchWrapperDto<TutorSearchDto>
-    {
-        //public stirng Type { get; set; }
     }
 }

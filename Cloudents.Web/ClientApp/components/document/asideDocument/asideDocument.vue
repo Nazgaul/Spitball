@@ -1,7 +1,7 @@
 <template>
     <div class="aside-container">
         
-        <div class="aside-top mb-2" :class="[$vuetify.breakpoint.smAndDown ? 'pa-2' : 'pa-3']">
+        <div class="aside-top mb-3" :class="[$vuetify.breakpoint.smAndDown ? 'pa-2' : 'pa-3']">
             <v-layout justify-space-between>
                 <v-icon @click="goToNote" color="#43425d">sbf-spitball</v-icon>
                 <v-icon class="hidden-md-and-up subheading" @click="closeDocument">sbf-close</v-icon>
@@ -17,7 +17,7 @@
             <template v-if="$vuetify.breakpoint.smAndDown">
                 <div class="aside-top-btn btn-lock" v-if="isShowPurchased && !isLoading" @click="accountUser? updatePurchaseConfirmation(true) : updateLoginDialogState(true)">
                     <span class="pa-4 font-weight-bold text-xs-center" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
-                    <span class="white--text pa-4 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
+                    <span class="white--text pa-4 font-weight-bold text-xs-center body-1" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
                 <a class="aside-top-btn btn-download justify-center" :href="`${$route.path}/download`" target="_blank" :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading" @click="downloadDoc">                    
                     <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
@@ -31,37 +31,42 @@
                 indeterminate
                 color="#4452fc"
             ></v-progress-circular>
-
-            <table class="pt-3">
-                <tr v-if="isCourse" clas>
-                    <td class="py-2 caption" v-language:inner="'documentPage_table_course'"></td>
-                    <td class="font-weight-light"><h3 class="caption text-truncate"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
+        </div>
+        <div class="aside-top">
+            <table class="pa-2 pb-2">
+                <tr v-if="isName">
+                    <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_uploaded'"></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{name: 'profile', params: {id: getUserId, name: getUploaderName} }">{{getUploaderName}}</router-link></h3></td>
+                </tr>
+                <tr v-if="isCourse">
+                    <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_course'"></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
                 </tr>
                 <tr v-if="isUniversity">
-                    <td class="py-2 caption" v-language:inner="'documentPage_table_university'"></td>
-                    <td class="font-weight-light"><h4 class="caption text-truncate">{{getUniversity}}</h4></td>
+                    <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_university'"></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getUniversity}}</h3></td>
                 </tr>
                 <tr v-if="isType">
-                    <td class="py-2 caption" v-language:inner="'documentPage_table_type'"></td>
-                    <td class="font-weight-light"><h5 class="caption text-truncate">{{getType}}</h5></td>
+                    <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_type'"></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getType}}</h3></td>
                 </tr>
             </table>
+            <tutor-result-card-other :tutorData="ownTutor" v-if="isTutor && ownTutor" />
         </div>
-        
-        <div class="aside-cards">
-            <tutor-result-card-mobile :tutorData="ownTutor" :singleCard="true" :isInTutorList="true" v-if="isTutor && ownTutor" />
-        </div>
-    
+
         <aside-document-tutors v-if="!$vuetify.breakpoint.smAndDown"/>
 
+        <v-flex class="footer-holder text-xs-center mb-5" v-if="!$vuetify.breakpoint.smAndDown">
+            <router-link to="/tutor" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
+        </v-flex>
     </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import asideDocumentTutors from './asideDocumentTutors.vue';
 import studentCard from '../studentCard.vue';
-
+import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
+import tutorResultCardOther from '../../../components/results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue';
 import myCourses from '../../../font-icon/my-courses-image.svg';
 
 export default {
@@ -69,20 +74,14 @@ export default {
         myCourses,
         studentCard,
         tutorResultCardMobile,
+        tutorResultCardOther,
         asideDocumentTutors
     },
     props: {
         document: {},
     },
     methods: {
-        ...mapActions(['purchaseDocument', 'downloadDocument', 'clearDocument', 'updateLoginDialogState','updatePurchaseConfirmation']),
-        unlockDocument() {
-                let item = {id: this.document.details.id, price: this.document.details.price}
-                if(!this.isLoading) {
-                    this.purchaseDocument(item)
-                    this.updatePurchaseConfirmation(false)
-                }
-        },
+        ...mapActions(['downloadDocument', 'clearDocument','updatePurchaseConfirmation']),
         downloadDoc() {
             let item = {
                 url: `${this.$route.path}/download`,
@@ -117,6 +116,16 @@ export default {
                 return this.document.details.type;
             }
         },
+        getUploaderName() {
+            if(this.document.details && this.document.details.user) {
+                return this.document.details.user.name;
+            }
+        },
+        getUserId() {
+            if(this.document.details && this.document.details.user) {
+                return this.document.details.user.userId;
+            }
+        },
         isPurchased() {
             if(this.document.details && this.document.details.isPurchased) {
                 return this.document.details.isPurchased;
@@ -134,12 +143,12 @@ export default {
             return this.document.details && this.document.details.course;
         },
         ownTutor() {
-            if(this.document.details && this.document.details.user) {                
+            if(this.document.details && this.document.details.user) {
                 return this.document.details.user;
             }
         },
         isTutor() {
-            if(this.document.details && this.document.details.user) {                
+            if(this.document.details && this.document.details.user) {
                 return this.document.details.user.isTutor
             }
         },
@@ -154,9 +163,9 @@ export default {
         isPrice() {
             if(this.document.details && this.document.details.price > 0) {
                 return true
-            } else {
-                return false
-            }
+            } 
+            return false
+            
         },
         isShowPurchased() {
             if(!this.isPurchased && this.isPrice > 0) {
@@ -164,6 +173,9 @@ export default {
             }
             return false
         },
+        isName() {
+            return (this.document.details && this.document.details.user) ? true : false;
+        }
     }
 }
 </script>
@@ -184,7 +196,6 @@ export default {
             }
             p:nth-child(3) {
                 color: #43425d;
-;
             }
             p:nth-child(5) {
                 color: #4452fc;
@@ -252,13 +263,23 @@ export default {
                     max-width: 0;
                 }
                 td:first-child {
-                    color: #aaa;
+                    color: #42415c;
                 }
-                td:nth-child(2) {
+                td {
                     border-bottom: solid 1px rgba(67, 66, 93, 0.17);
+                    h3 {
+                        color: #5158af;
+                        a {
+                            color: #5158af;
+                        }
+                        font-weight: bold;
+                        @media(max-width: @screen-sm){
+                            font-weight: normal;
+                        }
+                    }
                 }
                 tr:last-child {
-                    td:last-child {
+                    td {
                         border-bottom: none;
                     }
                 } 
@@ -266,6 +287,11 @@ export default {
             .unlock_progress {
                 display: flex;
                 margin: 0 auto;
+            }
+        }
+        .footer-holder {
+            a {
+                color: #4452fc;
             }
         }
     }
