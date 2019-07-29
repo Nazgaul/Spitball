@@ -91,6 +91,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {
@@ -104,6 +105,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("newCourses")]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses([FromQuery]CoursesRequest model
                 , CancellationToken token)
         {
@@ -114,6 +116,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("allCourses")]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<string>> GetAllCourses(CancellationToken token)
         {
             var query = new AdminAllCoursesEmptyQuery();
@@ -172,6 +175,7 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("subject")]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<string>> GetSubjects(CancellationToken token)
         {
             var query = new AdminSubjectsQuery();

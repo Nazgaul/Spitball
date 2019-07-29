@@ -27,6 +27,7 @@ namespace Cloudents.Admin2.Api
             _queryBus = queryBus;
         }
         [HttpGet]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<LeadDto>> LeadAsync([FromQuery] ItemState? status, CancellationToken token)
         {
             var query = new AdminLeadsQuery(status);

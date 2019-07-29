@@ -14,6 +14,7 @@ using Cloudents.Core.Interfaces;
 using Dapper;
 using Cloudents.Core.Enum;
 using Microsoft.AspNetCore.Authorization;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -64,12 +65,20 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] UniversitiesRequest model
             , CancellationToken token)
         {
-            var query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
+            if (User.GetCountryClaim() == model.Country || User.IsInRole(Roles.Admin))
+            {
+                var query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
+                var retVal = await _queryBus.QueryAsync(query, token);
+                return retVal;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         [HttpGet("allUniversities")]
+        [Authorize(Policy = "IsraelUser")]
         public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
         {
             var query = new AdminAllUniversitiesEmptyQuery();
@@ -86,7 +95,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>list of universities</returns>
         [Route("search")]
         [HttpGet]
-
+        [Authorize(Policy = "IsraelUser")]
         public async Task<UniversitySearchDto> GetAsync([FromQuery(Name = "university")]string university,
             CancellationToken token)
         {

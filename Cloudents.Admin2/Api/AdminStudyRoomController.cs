@@ -8,6 +8,7 @@ using Cloudents.Admin2.Models;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -26,8 +27,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<StudyRoomDto>> StudyRoomAsync(CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
-            var query = new AdminStudyRoomQuery(country);
+            var query = new AdminStudyRoomQuery(User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }

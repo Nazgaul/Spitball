@@ -35,6 +35,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<ConversationDto>> ConversationAsync([FromQuery] ConversationDetailsRequest request
             , CancellationToken token)
         {
@@ -51,6 +52,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("{identifier}/details")]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<ConversationDetailsDto>> ConversationDetailAsync(
            [FromRoute] string identifier,
             CancellationToken token)
@@ -61,7 +63,8 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("{identifier}")]
-//        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
+        [Authorize(Policy = Policy.IsraelUser)]
+        //        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
         public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
             CancellationToken token)
         {

@@ -27,6 +27,7 @@ using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.Extensions.Options;
+using Cloudents.Admin2.Models;
 
 namespace Cloudents.Admin2
 {
@@ -112,8 +113,8 @@ namespace Cloudents.Admin2
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("IsraelUser", policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IL"));
-                options.AddPolicy("IndiaUser", policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IN"));
+                options.AddPolicy(Policy.IsraelUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IL"));
+                options.AddPolicy(Policy.IndiaUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IN"));
             });
 
             var assembliesOfProgram = new[]

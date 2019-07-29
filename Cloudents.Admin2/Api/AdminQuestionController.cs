@@ -54,6 +54,7 @@ namespace Cloudents.Admin2.Api
         /// <returns></returns>
         [HttpGet("subject")]
         [ResponseCache(Duration = TimeConst.Day)]
+        [Authorize(Policy = Policy.IsraelUser)]
         public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
         {
             var values = QuestionSubjectMethod.GetValues();
