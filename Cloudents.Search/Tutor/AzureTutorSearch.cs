@@ -59,7 +59,7 @@ namespace Cloudents.Search.Tutor
             return result.Results.Select(s =>
             {
                 var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
-                    s.Document.Courses).Take(3).Distinct();
+                    s.Document.Data.Courses).Take(3).Distinct(StringComparer.OrdinalIgnoreCase);
 
                 s.Document.Data.Courses = courses;
                 return s.Document.Data;

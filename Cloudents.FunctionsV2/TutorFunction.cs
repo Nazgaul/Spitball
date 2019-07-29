@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,8 +47,9 @@ namespace Cloudents.FunctionsV2
                 foreach (var update in result.Update)
                 {
                     updateOccur = true;
-                    var courses = update.Courses.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray();
-                    var subjects = update.Subjects.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray();
+                    var courses = update.Courses?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ??
+                                  new string[0];
+                    var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ?? new string[0]; 
                     await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {
                         Item = new Tutor
@@ -55,13 +57,13 @@ namespace Cloudents.FunctionsV2
                             Country = update.Country.ToUpperInvariant(),
                             Id = update.UserId.ToString(),
                             Name = update.Name,
-                            Courses = courses,
+                            Courses = courses.ToArray(),
                             Rate = update.Rate,
                             InsertDate = DateTime.UtcNow,
                             Prefix = courses.Union(subjects).Union(new[] { update.Name })
                                 .Distinct(StringComparer.OrdinalIgnoreCase).ToArray(),
                             ReviewCount = update.ReviewsCount,
-                            Subjects = subjects,
+                            Subjects = subjects.ToArray(),
                             Data = new TutorCardDto()
                             {
                                 UserId = update.UserId,
@@ -70,8 +72,8 @@ namespace Cloudents.FunctionsV2
                                 Subjects = update.Subjects,
                                 ReviewsCount = update.ReviewsCount,
                                 Rate = (float)update.Rate,
-                                University = "", //
-                                Lessons = 0, //
+                                University = update.University, 
+                                Lessons = update.LessonsCount, 
                                 Bio = update.Bio,
                                 Price = (decimal)update.Price,
                                 Image = update.Image,
@@ -100,9 +102,11 @@ namespace Cloudents.FunctionsV2
                 var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
                 if (versionElement != null)
                 {
-                    nextQuery = new TutorSyncAzureSearchQuery(result.Version,
-                        versionElement.Version);
+                    nextQuery.Version = Math.Max(nextQuery.Version, result.Version);
+                    nextQuery.RowVersion = versionElement.Version;
                 }
+
+                await indexInstance.FlushAsync(token);
                 //if (updateOccur)
                 //{
                 //    var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();

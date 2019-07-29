@@ -30,6 +30,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Query.Query;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Query.Query.Admin;
+using Cloudents.Query.SearchSync;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -148,9 +149,9 @@ namespace ConsoleApp
 
             //var v = dictionary.OrderBy(d => d.Value);
 
-            ////await UpdateMethod();
+            await UpdateMethod();
             var queryBus = _container.Resolve<IQueryBus>();
-            var query = new TutorListQuery(638,"IL",0);
+            var query = new TutorSyncAzureSearchQuery(0,null);
             var z =await  queryBus.QueryAsync(query, default);
             //var result = await queryBus.NeedToSendMoreTutorsAsync(638, default);
             //var query = new DocumentById(29173, 638);

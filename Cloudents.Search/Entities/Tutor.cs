@@ -18,10 +18,7 @@ namespace Cloudents.Search.Entities
 
         [IsSearchable]
         public string Name { get; set; }
-        //[IsSearchable]
-        //public string Bio { get; set; }
-        //public string Image { get; set; }
-        //public double Price { get; set; }
+      
         [IsSortable,JsonProperty(RateFieldName),IsFilterable]
         public double Rate { get; set; }
 

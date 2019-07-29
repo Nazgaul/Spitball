@@ -26,7 +26,7 @@ namespace Cloudents.Persistence
         static DapperRepository()
         {
             SqlMapper.AddTypeHandler(new DapperCultureInfoTypeHandler());
-           // SqlMapper.AddTypeHandler(typeof(IEnumerable<string>), new JsonObjectTypeHandler());
+            SqlMapper.AddTypeHandler(typeof(IEnumerable<string>), new JsonObjectTypeHandler());
         }
        
 
@@ -58,22 +58,22 @@ namespace Cloudents.Persistence
             }
         }
 
-       
-        //public class JsonObjectTypeHandler : SqlMapper.ITypeHandler
-        //{
-        //    public void SetValue(IDbDataParameter parameter, object value)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //    public object Parse(Type destinationType, object value)
-        //    {
-        //        var jObject = JArray.Parse(value);
-        //        return jObject.Children().Select(s => (string)s.First).ToList();
-        //       // return JsonConvert.DeserializeObject(value.ToString(), destinationType);
-        //    }
-        //}
-       
-       
+
+        public class JsonObjectTypeHandler : SqlMapper.ITypeHandler
+        {
+            public void SetValue(IDbDataParameter parameter, object value)
+            {
+                throw new NotImplementedException();
+            }
+            public object Parse(Type destinationType, object value)
+            {
+                var jObject = JArray.Parse(value.ToString());
+                return jObject.Children().Select(s => (string)s.First).ToList();
+                // return JsonConvert.DeserializeObject(value.ToString(), destinationType);
+            }
+        }
+
+
     }
 
     
