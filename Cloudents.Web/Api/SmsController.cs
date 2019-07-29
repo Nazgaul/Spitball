@@ -19,6 +19,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -63,6 +64,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> SetUserPhoneNumber(
             [FromBody]PhoneNumberRequest model,
             CancellationToken token)
@@ -82,17 +87,6 @@ namespace Cloudents.Web.Api
             {
                 return Unauthorized();
             }
-
-
-            //var phoneNumber = await _client.ValidateNumberAsync(model.PhoneNumber, model.CountryCode.ToString(), token);
-            //if (string.IsNullOrEmpty(phoneNumber.phoneNumber))
-            //{
-            //    _logger.Warning("Did not passed validation of lookup");
-            //    ModelState.AddModelError(nameof(model.PhoneNumber), _localizer["InvalidPhoneNumber"]);
-            //    return BadRequest(ModelState);
-            //}
-
-            //user.Country = phoneNumber.country;
 
             var retVal = await _userManager.SetPhoneNumberAndCountryAsync(user, model.PhoneNumber, model.CountryCode.ToString(), token);
 
@@ -202,6 +196,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("resend")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> ResendAsync(CancellationToken token)
         {
             var t = TempData.Peek(SmsTime);
@@ -237,6 +235,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("call")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> CallUserAsync(CancellationToken token)
         {
             var t = TempData.Peek(PhoneCallTime);

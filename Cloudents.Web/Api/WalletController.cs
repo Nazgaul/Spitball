@@ -17,6 +17,7 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -74,6 +75,9 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("redeem")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> RedeemAsync([FromBody]CreateRedeemRequest model,
         CancellationToken token)
         {

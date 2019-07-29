@@ -17,7 +17,7 @@ namespace Cloudents.Persistence
         //    typeof(T).GetT
         //}
 
-        public bool Equals(object x, object y)
+        bool IUserType.Equals(object x, object y)
         {
             if (object.ReferenceEquals(x, y))
                 return true;

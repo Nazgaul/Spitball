@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -35,6 +36,9 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> Post(
             [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromBody]LoginRequest model,
@@ -91,6 +95,9 @@ namespace Cloudents.Web.Api
 
         [HttpGet("ValidateEmail")]
         [ResponseCache(Duration = TimeConst.Minute * 2, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { nameof(EmailValidateRequest.Email) })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<CheckUserStatusResponse>> CheckUserStatus([FromQuery] EmailValidateRequest model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);

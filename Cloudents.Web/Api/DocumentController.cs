@@ -330,6 +330,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("vote"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> VoteAsync([FromBody]
             AddVoteDocumentRequest model,
             [FromServices] IStringLocalizer<SharedResource> resource,
@@ -432,6 +436,8 @@ namespace Cloudents.Web.Api
         [HttpDelete("{id}"), Authorize]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> DeleteDocumentAsync([FromRoute]DeleteDocumentRequest model, CancellationToken token)
         {
             try

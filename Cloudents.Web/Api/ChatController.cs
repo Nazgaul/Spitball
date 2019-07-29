@@ -53,6 +53,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("conversation/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<ChatUserDto>> GetConversation(string id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

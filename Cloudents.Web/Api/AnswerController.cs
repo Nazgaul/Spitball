@@ -16,6 +16,7 @@ using Cloudents.Core.Exceptions;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Resources;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -38,6 +39,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<CreateAnswerResponse>> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
             [FromServices] IQueryBus queryBus,
             CancellationToken token)
@@ -108,6 +112,10 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("vote")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> VoteAsync(
             [FromBody] AddVoteAnswerRequest model,
             [FromServices] IStringLocalizer<SharedResource> resource,
@@ -139,6 +147,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("flag")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> FlagAsync([FromBody] FlagAnswerRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

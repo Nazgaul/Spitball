@@ -14,8 +14,7 @@ namespace Cloudents.Persistence
 {
     public class StringAggMapping : IUserType
     {
-
-        public bool Equals(object x, object y)
+        bool IUserType.Equals(object x, object y)
         {
             if (object.ReferenceEquals(x, y))
                 return true;

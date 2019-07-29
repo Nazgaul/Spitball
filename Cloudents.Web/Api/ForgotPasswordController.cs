@@ -12,6 +12,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -36,6 +37,9 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> Post(ForgotPasswordRequest model, [FromHeader] CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -69,6 +73,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("resend")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> ResendEmailAsync(
             CancellationToken token)
         {
@@ -90,6 +97,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("reset")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordRequest model, [FromHeader(Name = "referer")] Uri referer, CancellationToken token)
         {
             var queryString = referer.ParseQueryString();

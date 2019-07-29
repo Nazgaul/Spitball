@@ -18,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Identity;
 using Cloudents.Core.DTOs;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -50,6 +51,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost, ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<ReturnSignUserResponse>> Post(
             [FromBody] RegisterRequest model,
             [CanBeNull] ReturnUrlRequest returnUrl,
@@ -118,6 +122,9 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("google")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] GoogleTokenRequest model,
             [FromServices] IGoogleAuth service,
             [FromServices] IRestClient client,
@@ -214,6 +221,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("resend")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> ResendEmailAsync(
             ReturnUrlRequest returnUrl,
             CancellationToken token)

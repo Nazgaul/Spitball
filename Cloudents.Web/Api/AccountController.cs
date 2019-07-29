@@ -138,6 +138,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("image")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> UploadImageAsync(IFormFile file,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
             [FromServices] UserManager<User> userManager,
@@ -208,6 +211,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("BecomeTutor")]
+        [ProducesResponseType(Status200OK)]
+        [ProducesResponseType(Status400BadRequest)]
+        [ProducesResponseType(Status409Conflict)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> BecomeTutorAsync(
             [FromBody]UpdateSettingsRequest model, CancellationToken token)
         {
