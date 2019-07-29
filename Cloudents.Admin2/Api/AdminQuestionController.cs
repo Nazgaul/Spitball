@@ -11,6 +11,7 @@ using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
@@ -99,8 +100,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("Pending")]
         public async Task<IEnumerable<PendingQuestionDto>> Get(CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
-            var query = new AdminPendingQuestionsQuery(country);
+          
+            var query = new AdminPendingQuestionsQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -141,8 +142,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("flagged")]
         public async Task<IEnumerable<FlaggedQuestionDto>> FlagAsync(CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
-            var query = new FlaggedQuestionQuery(country);
+           
+            var query = new FlaggedQuestionQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 

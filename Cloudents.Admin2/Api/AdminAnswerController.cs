@@ -11,6 +11,7 @@ using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -52,8 +53,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("flagged"),Authorize(Roles = "Admin")]
         public async Task<IEnumerable<FlaggedAnswerDto>> FlagAsync(CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
-            var query = new FlaggedAnswerQuery(country);
+         
+            var query = new FlaggedAnswerQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 

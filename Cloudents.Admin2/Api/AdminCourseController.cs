@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -106,8 +107,8 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses([FromQuery]CoursesRequest model
                 , CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First();
-            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending), country.Value);
+            
+            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending),User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }

@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
@@ -81,8 +82,7 @@ namespace Cloudents.Admin2.Api
         [Authorize(Roles = Roles.Admin)]
         public async Task<IEnumerable<CashOutDto>> Get(CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
-            var query = new AdminCashOutQuery(country);
+            var query = new AdminCashOutQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -139,7 +139,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("suspended")]
         public async Task<IEnumerable<SuspendedUsersDto>> GetSuspended(CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var country = User.GetCountryClaim();
             var query = new SuspendedUsersQuery(country);
             return await _queryBus.QueryAsync(query, token);
         }
@@ -213,7 +213,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("info")]
         public async Task<ActionResult<UserDetailsDto>> GetUserDetails(string userIdentifier, CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var country = User.GetCountryClaim();
             var regex = new Regex("^[0-9]+$");
             if (userIdentifier[0] == '0' && regex.IsMatch(userIdentifier))
             {
@@ -233,7 +233,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("questions")]
         public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var country = User.GetCountryClaim();
             AdminUserQuestionsQuery query = new AdminUserQuestionsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
@@ -241,7 +241,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("answers")]
         public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var country = User.GetCountryClaim();
             AdminUserAnswersQuery query = new AdminUserAnswersQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
@@ -256,7 +256,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("sessions")]
         public async Task<IEnumerable<SessionDto>> SessionsAsync(long id, CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var country = User.GetCountryClaim();
             var query = new AdminSessionsQuery(id, country);
             return await _queryBus.QueryAsync(query, token);
         }
@@ -264,7 +264,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("purchased")]
         public async Task<IEnumerable<UserPurchasedDocsDto>> GetUserPurchasedDocsDetails(long id, int page, CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var country = User.GetCountryClaim();
             var query = new AdminUserPurchasedDocsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
@@ -273,7 +273,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserDocumentsDto>> GetUserInfo(long id, int page, [FromServices] IBlobProvider blobProvider,
              CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var country = User.GetCountryClaim();
             var query = new AdminUserDocumentsQuery(id, page, country);
 
 
@@ -306,7 +306,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("usersFlags")]
         public async Task<UsersFlagsResponse> GetFlags(int minFlags, int page, CancellationToken token)
         {
-            var country = User.Claims.Where(w => w.Type == "Country").First().Value;
+            var country = User.GetCountryClaim();
             var query = new AdminUserFlagsOthersQuery(minFlags, page, country);
             var res = await _queryBus.QueryAsync(query, token);
             return new UsersFlagsResponse { Flags = res.Item1, Rows = res.Item2 };
