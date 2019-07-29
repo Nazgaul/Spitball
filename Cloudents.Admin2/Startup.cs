@@ -19,13 +19,11 @@ using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.Extensions.Options;
 using Cloudents.Admin2.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Cloudents.Admin2
 {
