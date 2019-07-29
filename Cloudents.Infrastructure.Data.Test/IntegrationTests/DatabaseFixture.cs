@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterType<QueryBus>().As<IQueryBus>();
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
-            builder.RegisterType<Persistence.DapperRepository>().AsSelf();
+            builder.RegisterType<DapperRepository>().AsSelf();
             var container = builder.Build();
             QueryBus = container.Resolve<IQueryBus>();
 

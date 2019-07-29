@@ -10,9 +10,9 @@ namespace Cloudents.Query.Query.Admin
     {
         internal sealed class AdminPaymentsQueryHandler : IQueryHandler<AdminPaymentsQuery, IEnumerable<PaymentDto>>
         {
-            private readonly DapperRepository _repository;
+            private readonly IDapperRepository _repository;
 
-            public AdminPaymentsQueryHandler(DapperRepository repository)
+            public AdminPaymentsQueryHandler(IDapperRepository repository)
             {
                 _repository = repository;
             }
