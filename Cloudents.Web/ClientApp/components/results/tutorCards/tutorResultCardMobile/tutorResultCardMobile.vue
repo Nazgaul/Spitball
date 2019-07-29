@@ -1,44 +1,38 @@
 <template>
-  <router-link @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
-    <v-layout class="tutor-result-card-mobile pa-2 ma-2 pr-4 column">
-        <div class="card-mobile-header mb-3">
-            <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
-            <div>
-                <h3 class="text-truncate subheading font-weight-bold">{{tutorData.name}}</h3>
-                <div class="user-rate align-center">
-                    <user-rating :rating="tutorData.rating" :showRateNumber="false" class="mr-2" />
-                    <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount || tutorData.reviews))"></span>
-                </div>
-                <h4 class="text-truncate mb-1 font-weight-light">אוניברסיטה בן גוריון</h4> <!-- university name needed -->
-                <div class="courses text-truncate">
-                    <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
-                    <span class="text-truncate">{{courses}}</span> 
-                </div>
-            </div>
-        </div>
-        <div class="card-mobile-center mb-4 subheading">
-            {{tutorData.bio}}
-        </div>
-        <div class="card-mobile-footer">
-            <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
-                  <iconChat class="chat-icon" />
-                  <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
-            </v-btn>
-            <div class="price ml-4 align-center" :class="{'mt-3': !showStriked}">
-                <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
-                <span v-if="showStriked">
-                    <span class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                </span>
-                <span v-else>
-                    <span class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
-                </span>
-                <span class="caption">
-                  <span>/</span>
-                  <span v-language:inner="'resultTutor_hour'"></span>
-                </span>
-            </div>
-        </div>
-    </v-layout>
+  <router-link class="tutor-result-card-mobile pa-2 ma-2 pr-4 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+      <div class="card-mobile-header mb-3">
+          <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+          <div>
+              <h3 class="text-truncate subheading font-weight-bold mb-2" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+              <div class="user-rate align-center">
+                  <user-rating :rating="tutorData.rating" :showRateNumber="false" class="mr-2" />
+                  <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
+              </div>
+              
+              <h4 class="text-truncate mb-1 font-weight-light university" v-if="isUniversity">{{university}}</h4>
+              <div class="courses text-truncate">
+                  <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
+                  <span class="text-truncate">{{courses}}</span> 
+              </div>
+          </div>
+      </div>
+
+      <div class="card-mobile-center mb-4" v-html="ellipsizeTextBox(tutorData.bio)">{{tutorData.bio}}</div>
+
+      <div class="card-mobile-footer">
+          <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
+                <iconChat class="chat-icon" />
+                <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
+          </v-btn>
+          <div class="price ml-4 align-center" :class="{'mt-3': !showStriked}">
+              <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
+              <template>
+                <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}/</span>
+                <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}/</span>
+              </template>
+              <span class="caption" v-language:inner="'resultTutor_hour'"></span>
+          </div>
+      </div>
   </router-link>
 </template>
 
@@ -125,6 +119,14 @@ export default {
           let isMobile = this.$vuetify.breakpoint.smAndDown;
           this.openChatInterface();                    
       }
+    },
+    ellipsizeTextBox(text) {
+      let maxChars = 110;
+      let showBlock = text.length > maxChars;
+      let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
+      let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
+      let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: block' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
+      return `${newText} ${readMore} ${hideText}`;
     }
   },
   computed: {
@@ -172,6 +174,12 @@ export default {
     isUserImage() {
       return this.isTutorData && this.tutorData.image ? true : false;
     },
+    isUniversity() {
+      return (this.tutorData && this.tutorData.university) ? true : false;
+    },
+    university() {
+      return this.tutorData.university;
+    }
   }
 };
 </script>
@@ -183,11 +191,11 @@ export default {
 .tutor-result-card-mobile {
     border-radius: 4px;
     background: #fff;
-
+    display: flex;
+    flex-direction: column;
     h3, h4, .courses, .card-mobile-center, .price {
         color: @purple;
     }
-
     .card-mobile-header {
         display: flex;
         .user-image, .tutor-no-img {
@@ -195,30 +203,39 @@ export default {
         }
         .tutor-no-img {
             width: 67px;
-            height: 87px;
+            height: auto;
         }
         .user-rate {
             display: inline-flex;
             i {
-                font-size: 16px !important;
+                font-size: 16px !important; //vuetify
             }
             .reviews {
               color: #4452fc;
             }
         }
         .courses {
-          max-width: 200px;
-          min-width: auto;
+          .widthMinMax(200px);
+        }
+        .university {
+          line-height: 30px;
+          .heightMinMax(23px);
         }
     }
-
     .card-mobile-center {
-      .giveEllipsisUpdated(14px, 1.35, 2, 90px);
+      .giveEllipsisUpdated(14px, 1.28, 2, 90px);
+      .heightMinMax(34px);
+      .read-more {
+        position: absolute;
+        bottom: 70px;
+        color: #4452fc;
+      }
     }
 
     .card-mobile-footer {
         display: inherit;
         .btn-chat {
+          text-transform: lowercase;
           border-radius: 7.5px;
           .chat-icon {
             margin: 0 auto 0 0;
@@ -227,6 +244,7 @@ export default {
             margin: 0 auto 0 0;
             div {
               max-width: 175px;
+              padding-left: 10px;
             }
           }
         }
@@ -246,9 +264,6 @@ export default {
                   top: 50%;
                   z-index: 1;
               }
-          }
-          .main-price {
-            font-size: 22px;
           }
        }
     }

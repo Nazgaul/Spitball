@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Query;
 using Cloudents.Query.SearchSync;
@@ -43,18 +44,33 @@ namespace Cloudents.FunctionsV2
                 {
                     Item = new Tutor
                     {
-                        Country = update.Country.ToUpperInvariant(),
+                        Country = update.Country.ToUpperInvariant(),//
                         Id = update.UserId.ToString(),
                         Name = update.Name,
-                        Price = update.Price,
-                        Courses = courses,
-                        Image = update.Image,
-                        Bio = update.Bio,
+                        //Price = update.Price,
+                        Courses = courses,//
+                        //Image = update.Image,
+                        //Bio = update.Bio,
                         Rate = update.Rate,
                         InsertDate = DateTime.UtcNow,
                         Prefix = courses.Union(subjects).Union(new []{update.Name}).Distinct().ToArray(),
                         ReviewCount = update.ReviewsCount,
-                        Subjects = subjects
+                        Subjects = subjects,
+                        Data = new TutorCardDto()
+                        {
+                            UserId = update.UserId,
+                            Name = update.Name,
+                            Courses = courses.Take(3),
+                            Subjects = update.Subjects,
+                            ReviewsCount = update.ReviewsCount,
+                            Rate = (float)update.Rate,
+                            University = "",//
+                            Lessons = 0 ,//
+                            //CourseCount = courses.Length,
+                            Bio = update.Bio,
+                            Price = (decimal)update.Price,
+                            Image = update.Image,
+                        }
                     },
                     Insert = true
 

@@ -17,9 +17,9 @@ namespace Cloudents.Query.Chat
 
         internal sealed class ChatConversationsQueryHandler : IQueryHandler<ChatConversationsQuery, IEnumerable<ChatUserDto>>
         {
-            private readonly DapperRepository _dapper;
+            private readonly IDapperRepository _dapper;
 
-            public ChatConversationsQueryHandler(DapperRepository dapper)
+            public ChatConversationsQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }

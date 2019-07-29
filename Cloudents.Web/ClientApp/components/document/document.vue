@@ -3,7 +3,6 @@
         <main-document :document="getDocument"></main-document>
         <v-divider vertical class="mx-3"></v-divider>
         <aside-document :document="getDocument"></aside-document>
-        <aside-document-tutors v-if="$vuetify.breakpoint.smAndDown"></aside-document-tutors>
     </v-layout>
 </template>
 

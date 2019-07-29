@@ -20,7 +20,7 @@ namespace Cloudents.Search.Tutor
             _client = client.GetClient(TutorSearchWrite.IndexName);
 
         }
-        public async Task<IEnumerable<TutorListDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token)
+        public async Task<IEnumerable<TutorCardDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token)
         {
             const int pageSize = 25;
             var searchParams = new SearchParameters()
@@ -29,20 +29,25 @@ namespace Cloudents.Search.Tutor
                 Skip = query.Page * pageSize,
                 Select = new[]
                 {
-                    nameof(Entities.Tutor.Name),
-                    nameof(Entities.Tutor.Id),
-                    nameof(Entities.Tutor.Courses),
-                    nameof(Entities.Tutor.Image),
-                    nameof(Entities.Tutor.Price),
-                    //nameof(Entities.Tutor.Rate),
-                    Entities.Tutor.RateFieldName,
-                    nameof(Entities.Tutor.ReviewCount),
-                    nameof(Entities.Tutor.Bio),
+                    nameof(Entities.Tutor.Data),
+                    //nameof(Entities.Tutor.Id),
+                    //nameof(Entities.Tutor.Courses),
+                    //nameof(Entities.Tutor.Image),
+                    //nameof(Entities.Tutor.Price),
+                    ////nameof(Entities.Tutor.Rate),
+                    //Entities.Tutor.RateFieldName,
+                    //nameof(Entities.Tutor.ReviewCount),
+                    //nameof(Entities.Tutor.Bio),
                 },
                 HighlightFields = new[] { nameof(Entities.Tutor.Courses) },
                 HighlightPostTag = string.Empty,
                 HighlightPreTag = string.Empty,
-                SearchFields = new[] { nameof(Entities.Tutor.Name), nameof(Entities.Tutor.Prefix), nameof(Entities.Tutor.Courses), nameof(Entities.Tutor.Subjects) },
+                SearchFields = new[] { nameof(Entities.Tutor.Name),
+                    nameof(Entities.Tutor.Prefix),
+                    nameof(Entities.Tutor.Courses),
+                    nameof(Entities.Tutor.Subjects)
+
+                },
                 ScoringProfile = TutorSearchWrite.ScoringProfile,
                 //OrderBy = new List<string> { "search.score() desc", $"{Entities.Tutor.RateFieldName} desc" }
             };
@@ -54,18 +59,26 @@ namespace Cloudents.Search.Tutor
             return result.Results.Select(s =>
             {
                 var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
-                    s.Document.Courses).Take(10).Distinct();
-                return new TutorListDto
-                {
-                    Name = s.Document.Name,
-                    UserId = Convert.ToInt64(s.Document.Id),
-                    Courses = string.Join(",", courses),
-                    Image = s.Document.Image,
-                    Price = (decimal)s.Document.Price,
-                    Rate = (float)s.Document.Rate,
-                    ReviewsCount = s.Document.ReviewCount,
-                    Bio = s.Document.Bio
-                };
+                    s.Document.Courses).Take(3).Distinct();
+
+                s.Document.Data.Courses = courses;
+                return s.Document.Data;
+
+                //return new TutorCardDto
+                //{
+                //    Name = s.Document.Name,
+                //    UserId = Convert.ToInt64(s.Document.Id),
+                //    Courses = courses,
+
+                //    Image = s.Document.Image,
+                //    Price = (decimal)s.Document.Price,
+                //    Rate = (float)s.Document.Rate,
+                //    ReviewsCount = s.Document.ReviewCount,
+                //    Bio = s.Document.Bio,
+                //    CourseCount = s.Document.Courses.Length,
+                //    University = "Some university", // TODO
+                //    Lessons = 100 //TODO
+                //};
             });
 
         }

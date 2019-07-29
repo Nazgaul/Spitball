@@ -64,7 +64,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
-        public async Task<WebResponseWithFacet<TutorListDto>> GetAsync(
+        public async Task<WebResponseWithFacet<TutorCardDto>> GetAsync(
             string term, string course,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
@@ -78,9 +78,10 @@ namespace Cloudents.Web.Api
             //TODO make it better
             if (string.IsNullOrWhiteSpace(term))
             {
-                var query = new TutorListTabQuery(profile.Country, page: page);
+                _userManager.TryGetLongUserId(User, out var userId);
+                var query = new TutorListQuery(userId, profile.Country, page);
                 var result = await _queryBus.QueryAsync(query, token);
-                return new WebResponseWithFacet<TutorListDto>
+                return new WebResponseWithFacet<TutorCardDto>
                 {
                     Result = result,
                     NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page })
@@ -90,7 +91,7 @@ namespace Cloudents.Web.Api
             {
                 var query = new TutorListTabSearchQuery(term, profile.Country, page);
                 var result = await tutorSearch.SearchAsync(query, token);
-                return new WebResponseWithFacet<TutorListDto>
+                return new WebResponseWithFacet<TutorCardDto>
                 {
                     Result = result,
                     NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term })
@@ -110,12 +111,12 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync(
+        public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync(
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListQuery(userId, profile.Country);
+            var query = new TutorListQuery(userId, profile.Country, 0);
             var retValTask = await _queryBus.QueryAsync(query, token);
             return retValTask;
         }
@@ -129,7 +130,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { "*" })]
-        public async Task<IEnumerable<TutorListDto>> GetTutorsAsync([RequiredFromQuery] string course, int? count,
+        public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync([RequiredFromQuery] string course, int? count,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);

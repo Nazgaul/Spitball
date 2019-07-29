@@ -1,6 +1,8 @@
 using Cloudents.Core.Enum;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
@@ -78,11 +80,10 @@ namespace Cloudents.Core.Entities
 
         public virtual DateTime Created { get;protected set; }
 
-      //  private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
-       // public virtual IReadOnlyCollection<UserCourse> Users => _users.ToList();
+        private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
+        public virtual IEnumerable<UserCourse> Users => _users;
 
-        
-  
+
         public virtual ItemState State { get; protected set; }
         public virtual CourseSubject Subject { get; protected set; }
 

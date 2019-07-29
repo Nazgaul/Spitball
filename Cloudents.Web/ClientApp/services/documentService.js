@@ -1,4 +1,11 @@
 import { connectivityModule } from "./connectivity.module"
+import searchService from './searchService'
+
+function documentUserItem(ObjInit){
+    this.name = ObjInit.uploaderName
+    this.id = ObjInit.uploaderId
+    this.isTutor = false;
+}
 
 function DocumentItem(ObjInit) {
     this.name = ObjInit.name;
@@ -6,7 +13,7 @@ function DocumentItem(ObjInit) {
     this.course = ObjInit.course;
     this.id = ObjInit.id;
     this.university = ObjInit.university || '';
-    this.user = new DocumentUser(ObjInit.user);
+    this.user = !!ObjInit.user ? searchService.createTutorItem(ObjInit.user) : new documentUserItem(ObjInit);
     this.views = ObjInit.views || 0;
     this.pages = ObjInit.pages || 0;
     this.docType = ObjInit.type || '';
@@ -14,19 +21,8 @@ function DocumentItem(ObjInit) {
     this.professor = ObjInit.professor || '';
     this.price = ObjInit.price || 0;
     this.isPurchased = ObjInit.isPurchased || false;
+    this.uploaderName = ObjInit.uploaderName;
 };
-
-function DocumentUser(objInit) {
-    this.userId = objInit.id;
-    this.isTutor = objInit.isTutor;
-    this.bio = objInit.bio || null;
-    this.name = objInit.name;
-    this.image = objInit.image;
-    this.score = objInit.score;
-    this.price = objInit.price;
-    this.courses = objInit.courses || '';
-    this.reviewsCount = objInit.reviewsCount;
-}
 
 function createDocumentItem(ObjInit) {
     return new DocumentItem(ObjInit)

@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
            
-            builder.RegisterType<DapperRepository>().AsSelf();
+           
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
 

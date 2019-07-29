@@ -33,25 +33,25 @@
             ></v-progress-circular>
         </div>
         <div class="aside-top">
-            <table class="pa-2 pb-4">
+            <table class="pa-2 pb-2">
                 <tr v-if="isName">
                     <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_uploaded'"></td>
-                    <td class=""><h3 class="body-1 text-truncate"><router-link :to="{name: 'profile', params: {id: getUserId, name: getUserName} }">{{getUploaderName}}</router-link></h3></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{name: 'profile', params: {id: getUserId, name: getUploaderName} }">{{getUploaderName}}</router-link></h3></td>
                 </tr>
                 <tr v-if="isCourse">
                     <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_course'"></td>
-                    <td class=""><h3 class="body-1 text-truncate"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
                 </tr>
                 <tr v-if="isUniversity">
                     <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_university'"></td>
-                    <td class=""><h3 class="body-1 text-truncate">{{getUniversity}}</h3></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getUniversity}}</h3></td>
                 </tr>
                 <tr v-if="isType">
                     <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_type'"></td>
-                    <td class=""><h3 class="body-1 text-truncate">{{getType}}</h3></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getType}}</h3></td>
                 </tr>
             </table>
-            <tutorResultCardOther :tutorData="ownTutor" v-if="isTutor && ownTutor" />
+            <tutor-result-card-other :tutorData="ownTutor" v-if="isTutor && ownTutor" />
         </div>
 
         <aside-document-tutors v-if="!$vuetify.breakpoint.smAndDown"/>
@@ -122,11 +122,6 @@ export default {
                 return this.document.details.user.name;
             }
         },
-        getUserName() {
-            if(this.document.details && this.document.details.user) {
-                return this.document.details.user.name;
-            }
-        },
         getUserId() {
             if(this.document.details && this.document.details.user) {
                 return this.document.details.user.userId;
@@ -149,12 +144,12 @@ export default {
             return this.document.details && this.document.details.course;
         },
         ownTutor() {
-            if(this.document.details && this.document.details.user) {                
+            if(this.document.details && this.document.details.user) {
                 return this.document.details.user;
             }
         },
         isTutor() {
-            if(this.document.details && this.document.details.user) {                
+            if(this.document.details && this.document.details.user) {
                 return this.document.details.user.isTutor
             }
         },

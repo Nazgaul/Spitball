@@ -18,15 +18,15 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminUniversityController: ControllerBase
+    public class AdminUniversityController : ControllerBase
     {
-       private readonly IQueryBus _queryBus;
-       private readonly ICommandBus _commandBus;
+        private readonly IQueryBus _queryBus;
+        private readonly ICommandBus _commandBus;
         private readonly IUniversitySearch _universityProvider;
-        private readonly DapperRepository _dapperRepository;
+        private readonly IDapperRepository _dapperRepository;
 
-        public AdminUniversityController(IQueryBus queryBus, ICommandBus commandBus, 
-            IUniversitySearch universityProvider, DapperRepository dapperRepository)
+        public AdminUniversityController(IQueryBus queryBus, ICommandBus commandBus,
+            IUniversitySearch universityProvider, IDapperRepository dapperRepository)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
@@ -34,7 +34,7 @@ namespace Cloudents.Admin2.Api
             _dapperRepository = dapperRepository;
         }
 
-        
+
 
         //[HttpGet("universities")]
         //public async Task<IEnumerable<NewUniversitiesDto>> GetUniversities(CancellationToken token)
@@ -55,12 +55,15 @@ namespace Cloudents.Admin2.Api
                                 delete from sb.University where id =  @OldUni;";
 
 
-
-           await _dapperRepository.WithConnectionAsync(async f => await f.ExecuteAsync(update, new
+            using (var connection = _dapperRepository.OpenConnection())
             {
-                NewUni = model.UniversityToKeep,
-                OldUni = model.UniversityToRemove
-            }), token);
+                await connection.ExecuteAsync(update, new
+                {
+                    NewUni = model.UniversityToKeep,
+                    OldUni = model.UniversityToRemove
+                });
+            }
+
             /*var command = new MigrateUniversityCommand(model.UniversityToKeep, model.UniversityToRemove);
             await _commandBus.DispatchAsync(command, token);*/
             return Ok();
@@ -120,10 +123,17 @@ namespace Cloudents.Admin2.Api
             const string sql = @"update sb.[user] set UniversityId2 = null where UniversityId2 = @OldUni;
                                 delete from sb.University where id =  @OldUni;";
 
-            await _dapperRepository.WithConnectionAsync(async f => await f.ExecuteAsync(sql, new
+            using (var connection = _dapperRepository.OpenConnection())
             {
-                OldUni = id
-            }), token);
+                await connection.ExecuteAsync(sql, new
+                {
+                    OldUni = id
+                });
+            }
+            //await _dapperRepository.WithConnectionAsync(async f => await f.ExecuteAsync(sql, new
+            //{
+            //    OldUni = id
+            //}), token);
 
             /*var command = new DeleteUniversityCommand(Id);
             await _commandBus.DispatchAsync(command, token);*/
@@ -135,7 +145,7 @@ namespace Cloudents.Admin2.Api
         CancellationToken token)
         {
             var command = new RenameUniversityCommand(model.UniversityId, model.NewName);
-             await _commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
     }

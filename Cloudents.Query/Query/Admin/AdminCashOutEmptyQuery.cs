@@ -12,11 +12,11 @@ namespace Cloudents.Query.Query.Admin
     {
         internal sealed class AdminCashOutEmptyQueryHandler : IQueryHandler<AdminCashOutEmptyQuery, IEnumerable<CashOutDto>>
         {
-            private readonly DapperRepository _session;
+            private readonly IDapperRepository _session;
 
 
 
-            public AdminCashOutEmptyQueryHandler(DapperRepository session)
+            public AdminCashOutEmptyQueryHandler(IDapperRepository session)
             {
                 _session = session;
             }

@@ -17,9 +17,9 @@ namespace Cloudents.Query.Tutor
 
         internal sealed class UserStudyRoomQueryHandler : IQueryHandler<UserStudyRoomQuery, IEnumerable<UserStudyRoomDto>>
         {
-            private readonly DapperRepository _dapperRepository;
+            private readonly IDapperRepository _dapperRepository;
 
-            public UserStudyRoomQueryHandler(DapperRepository dapperRepository)
+            public UserStudyRoomQueryHandler(IDapperRepository dapperRepository)
             {
                 _dapperRepository = dapperRepository;
             }

@@ -13,10 +13,10 @@ namespace Cloudents.Query.Query.Admin
         internal class AdminDailyStudyRoomQueryHandler : IQueryHandler<AdminDailyStudyRoomQuery, IEnumerable<DailyStudyRoomsDto>>
         {
 
-            private readonly DapperRepository _dapper;
+            private readonly IDapperRepository _dapper;
 
 
-            public AdminDailyStudyRoomQueryHandler(DapperRepository dapper)
+            public AdminDailyStudyRoomQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }

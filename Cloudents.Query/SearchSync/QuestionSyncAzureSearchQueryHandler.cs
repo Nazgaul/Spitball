@@ -17,9 +17,9 @@ namespace Cloudents.Query.SearchSync
             (IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>
     {
 
-        private readonly DapperRepository _repository;
+        private readonly IDapperRepository _repository;
 
-        public QuestionSyncAzureSearchQueryHandler(DapperRepository repository)
+        public QuestionSyncAzureSearchQueryHandler(IDapperRepository repository)
         {
             _repository = repository;
         }

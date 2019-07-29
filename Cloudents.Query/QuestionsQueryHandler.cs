@@ -11,9 +11,9 @@ namespace Cloudents.Query
     [UsedImplicitly]
     public class QuestionsQueryHandler : IQueryHandler<IdsQuery<long>, IEnumerable<QuestionFeedDto>>
     {
-        private readonly DapperRepository _dapperRepository;
+        private readonly IDapperRepository _dapperRepository;
 
-        public QuestionsQueryHandler(DapperRepository dapperRepository)
+        public QuestionsQueryHandler(IDapperRepository dapperRepository)
         {
             _dapperRepository = dapperRepository;
         }

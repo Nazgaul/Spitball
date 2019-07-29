@@ -9,8 +9,8 @@ namespace Cloudents.Query.Admin
 {
     public class AdminUserFlagsOthersQueryHandler : IQueryHandler<AdminUserFlagsOthersQuery, (IEnumerable<UserFlagsOthersDto>, int)>
     {
-        private readonly DapperRepository _dapper;
-        public AdminUserFlagsOthersQueryHandler(DapperRepository dapper)
+        private readonly IDapperRepository _dapper;
+        public AdminUserFlagsOthersQueryHandler(IDapperRepository dapper)
         {
             _dapper = dapper;
         }
@@ -44,23 +44,23 @@ namespace Cloudents.Query.Admin
 
             using (var connection = _dapper.OpenConnection())
             {
-            using (var res = await connection.QueryMultipleAsync(sql,
-                new
+                using (var res = await connection.QueryMultipleAsync(sql,
+                    new
+                    {
+                        flags = query.MinFlags,
+                        PageNumber = query.Page,
+                        PageSize
+                    })
+                    )
                 {
-                    flags = query.MinFlags,
-                    PageNumber = query.Page,
-                    PageSize
-                })
-                )
-            {
-                var resList = res.Read<UserFlagsOthersDto>();
-                int rows = -1;
-                if (!res.IsConsumed)
-                {
-                    rows = res.ReadFirst<int>();
+                    var resList = res.Read<UserFlagsOthersDto>();
+                    int rows = -1;
+                    if (!res.IsConsumed)
+                    {
+                        rows = res.ReadFirst<int>();
+                    }
+                    return (resList, rows);
                 }
-                return (resList, rows);
-            }
                 // return resList;
             }
         }

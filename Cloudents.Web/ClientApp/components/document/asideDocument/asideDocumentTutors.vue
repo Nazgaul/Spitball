@@ -35,9 +35,11 @@ export default {
             return this.getTutorList;           
         },
     },
-    created() {      
-        let course = this.$route.params.courseName.replace(/-/g, ' '); 
-        this.getTutorListCourse(course)
+    created() {
+        if(this.$vuetify.breakpoint.mdAndUp) {
+            let course = this.$route.params.courseName.replace(/-/g, ' '); 
+            this.getTutorListCourse(course)
+        }
     }
 }
 </script>

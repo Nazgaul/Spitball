@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cloudents.Core.Interfaces;
+using Cloudents.Search.Document;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
@@ -20,7 +21,7 @@ namespace Cloudents.Search.Tutor
             var index = new Index
             {
                 Name = indexName,
-                Fields = FieldBuilder.BuildForType<Entities.Tutor>(),
+                Fields = FieldBuilder.BuildForType<Entities.Tutor>(new SearchIndexEnumToIntContractResolver()),
                 Analyzers = new List<Analyzer>
                 {
                     new CustomAnalyzer("prefix",TokenizerName.Standard,new List<TokenFilterName>
@@ -54,6 +55,13 @@ namespace Cloudents.Search.Tutor
 
             };
             index.Fields.Add(new Field("Rate", DataType.Double));
+            index.Fields.Add(new Field("Price", DataType.Double));
+            index.Fields.Add(new Field("Image", DataType.String));
+            index.Fields.Add(new Field("Bio", DataType.String)
+            {
+                IsSearchable = true
+            });
+            index.Fields.Add(new Field("ReviewCount", DataType.Int32));
             return index;
         }
     }

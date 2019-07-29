@@ -39,6 +39,7 @@
   }
 }
 
+//TODO RAM: WHY THIS IS BETTER
 //updated version TODO rework and remove previous
 .giveEllipsisUpdated(@fontSize, @lineHeigh, @lines, @maxHeight: 96px){
   display: -webkit-box;
@@ -51,18 +52,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
-  -o-text-overflow: ellipsis;	/* required for Opera */
-  -ms-text-overflow: ellipsis;	/* required for IE8, allegedly */
+  //-o-text-overflow: ellipsis;	/* required for Opera */
+ // -ms-text-overflow: ellipsis;	/* required for IE8, allegedly */
   // white-space: nowrap;
 }
-
-.widthMinMax(@width, @minWidth: @width, @maxWidth: @width){
-  width: @width;
-  min-width: @minWidth;
-  max-width: @maxWidth;
-}
-
-
 .giveMeEllipsis(@lines, @line-height,@type:px) {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -73,6 +66,19 @@
   max-height: unit((@lines*@line-height), @type); /* fallback */
 }
 
+.widthMinMax(@width, @minWidth: @width, @maxWidth: @width){
+  width: @width;
+  min-width: @minWidth;
+  max-width: @maxWidth;
+}
+
+.heightMinMax(@height, @minHeight: @height, @maxHeight: @height){
+  height: @height;
+  min-height: @minHeight;
+  max-height: @maxHeight;
+}
+
+//OBSELETE TODO REMOVE THIS - USER text-truncate
 .giveMeEllipsisOne() {
   white-space: nowrap;
   overflow: hidden;
@@ -257,6 +263,7 @@
 
 
 
+
 .limited-width(){
   width: 100%;
   @contentWidth: 1280px;
@@ -299,8 +306,7 @@
 @screen-md-plus: 1280px;
 @screen-lg: 1904px;
 
-
-
+//TODO REMOVE THIS!!!!!!!!!!!!!!!!!!!
 @-webkit-keyframes fade-in-animation {
   0%   { opacity: 0; }
   100% { opacity: 1; }

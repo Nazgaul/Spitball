@@ -56,27 +56,27 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //TODO: check all AdminEmptyQuery handlers
      
 
-        [Fact]
-        public async Task AdminLanguageQuery_Courses_Ok()
-        {
-            var queryHe = new AdminLanguageQuery("he");
-            var queryNull = new AdminLanguageQuery(null);
-            var t1 = fixture.QueryBus.QueryAsync<IList<PendingCoursesDto>>(queryHe, default);
-            var t2 = fixture.QueryBus.QueryAsync<IList<PendingCoursesDto>>(queryNull, default);
-            await Task.WhenAll(t1, t2);
-        }
+        //[Fact]
+        //public async Task AdminLanguageQuery_Courses_Ok()
+        //{
+        //    var queryHe = new AdminLanguageQuery("he");
+        //    var queryNull = new AdminLanguageQuery(null);
+        //    var t1 = fixture.QueryBus.QueryAsync<IList<PendingCoursesDto>>(queryHe, default);
+        //    var t2 = fixture.QueryBus.QueryAsync<IList<PendingCoursesDto>>(queryNull, default);
+        //    await Task.WhenAll(t1, t2);
+        //}
 
 
 
-        [Fact]
-        public async Task AdminLanguageQuery_University_Ok()
-        {
-            var queryHe = new AdminLanguageQuery("il");
-            var queryNull = new AdminLanguageQuery(null);
-            var t1 = fixture.QueryBus.QueryAsync<IList<PendingUniversitiesDto>>(queryHe, default);
-            var t2 = fixture.QueryBus.QueryAsync<IList<PendingUniversitiesDto>>(queryNull, default);
-            await Task.WhenAll(t1, t2);
-        }
+        //[Fact]
+        //public async Task AdminLanguageQuery_University_Ok()
+        //{
+        //    var queryHe = new AdminLanguageQuery("il");
+        //    var queryNull = new AdminLanguageQuery(null);
+        //    var t1 = fixture.QueryBus.QueryAsync<IList<PendingUniversitiesDto>>(queryHe, default);
+        //    var t2 = fixture.QueryBus.QueryAsync<IList<PendingUniversitiesDto>>(queryNull, default);
+        //    await Task.WhenAll(t1, t2);
+        //}
 
 
         [Fact]
