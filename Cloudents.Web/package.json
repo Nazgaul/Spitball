@@ -90,9 +90,10 @@
     "npm": "^6.7.0",
     "timeago.js": "^4.0.0-beta.1",
     "twilio-video": "2.0.0-beta11",
-    "v-lazy-image": "^1.3.2",
+    "v-lazy-image": "1.3.2",
     "vue-application-insights": "1.0.6",
     "vue-clipboard2": "^0.2.1",
+    "vue-codemirror": "^4.0.6",
     "vue-color": "^2.7.0",
     "vue-numeric": "^2.3.0",
     "vuex-router-sync": "^5.0.0"

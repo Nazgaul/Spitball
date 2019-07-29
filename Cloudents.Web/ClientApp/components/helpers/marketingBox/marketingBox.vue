@@ -32,7 +32,7 @@
             },
         },
         methods: {
-            ...mapActions(['changemobileMarketingBoxState', 'updateRequestDialog']),
+            ...mapActions(['changemobileMarketingBoxState', 'updateRequestDialog', 'setTutorRequestAnalyticsOpenedFrom']),
             promotionOpen() {
                 if (this.isLogedIn) {
                     analyticsService.sb_unitedEvent('MARKETING_BOX', 'REGISTERED OPEN_TUTOR');
@@ -44,9 +44,17 @@
             },
             goToRegister() {
                 // this.$router.push({name: 'registration'});
+                this.setTutorRequestAnalyticsOpenedFrom({
+                    component: 'marketingBox',
+                    path: this.$route.path
+                });
                 this.updateRequestDialog(true);
             },
             goToWebForm(){
+                this.setTutorRequestAnalyticsOpenedFrom({
+                    component: 'marketingBox',
+                    path: this.$route.path
+                });
                 this.$router.push({name: 'tutors'});
                 this.updateRequestDialog(true);
             }

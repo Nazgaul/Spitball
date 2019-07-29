@@ -19,7 +19,7 @@ import analyticsService from '../../../../services/analytics.service';
             ...mapGetters(['accountUser']),
         },
         methods:{
-            ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface','updateRequestDialog','updateCurrTutor']),
+            ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface','updateRequestDialog','updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
             ...mapGetters(['getProfile']),
 
             sendMessage(){
@@ -28,6 +28,10 @@ import analyticsService from '../../../../services/analytics.service';
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
                     let profile = this.getProfile()
                     this.updateCurrTutor(profile.user)    
+                    this.setTutorRequestAnalyticsOpenedFrom({
+                        component: 'profileContactBtn',
+                        path: this.$route.path
+                    });
                     this.updateRequestDialog(true);
                 } else {
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);

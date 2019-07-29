@@ -180,7 +180,8 @@ export default {
             'updateDialogState',
             'HomeworkHelp_nextPage',
             'analyticsService',
-            'updateRequestDialog'
+            'updateRequestDialog',
+            'setTutorRequestAnalyticsOpenedFrom'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "HomeworkHelp_injectQuestion"]),
         ...mapGetters(["getCurrentVertical", "HomeworkHelp_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
@@ -302,6 +303,10 @@ export default {
         },*/
         openRequestTutor() {
             analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
+            this.setTutorRequestAnalyticsOpenedFrom({
+                component: 'suggestCard',
+                path: this.$route.path
+            });
             this.updateRequestDialog(true);
         }
     },
