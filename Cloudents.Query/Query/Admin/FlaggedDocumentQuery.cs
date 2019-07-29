@@ -10,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class FlaggedDocumentEmptyQuery : IQuery<IList<FlaggedDocumentDto>>
+    public class FlaggedDocumentQuery : IQueryAdmin<IList<FlaggedDocumentDto>>
     {
-        internal sealed class FlaggedDocumentEmptyQueryHandler : IQueryHandler<FlaggedDocumentEmptyQuery, IList<FlaggedDocumentDto>>
+        public FlaggedDocumentQuery(string country)
+        {
+            Country = country;
+        }
+        public string Country { get; }
+        internal sealed class FlaggedDocumentEmptyQueryHandler : IQueryHandler<FlaggedDocumentQuery, IList<FlaggedDocumentDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -22,10 +27,10 @@ namespace Cloudents.Query.Query.Admin
                 _session = session.StatelessSession;
             }
 
-            public async Task<IList<FlaggedDocumentDto>> GetAsync(FlaggedDocumentEmptyQuery query, CancellationToken token)
+            public async Task<IList<FlaggedDocumentDto>> GetAsync(FlaggedDocumentQuery query, CancellationToken token)
             {
                 return await _session.Query<Document>()
-                    .Where(w => w.Status.State == ItemState.Flagged)
+                    .Where(w => w.Status.State == ItemState.Flagged && w.User.Country == query.Country)
                     .OrderByDescending(w => w.Id)
                     .Take(100)
                     .Select(s => new FlaggedDocumentDto

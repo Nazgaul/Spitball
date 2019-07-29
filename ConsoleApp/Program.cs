@@ -458,14 +458,15 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
+            var queryBus = _container.Resolve<IUnitOfWork>();
             //ResourcesMaintenance.GetOrphanedResources();
-            var queryBus = _container.Resolve<IQueryBus>();
-            var query = new TutorListQuery(159039, "IL");
-            var test = await queryBus.QueryAsync(query, default);
-            foreach (var item in test)
-            {
-                Console.WriteLine(item.UserId);
-            }
+            //var queryBus = _container.Resolve<IQueryBus>();
+            //var query = new TutorListQuery(159039, "IL");
+            //var test = await queryBus.QueryAsync(query, default);
+            //foreach (var item in test)
+            //{
+            //    Console.WriteLine(item.UserId);
+            //}
             //var provider = _container.Resolve<IMondayProvider>();
             //await provider.UpdateTextRecordAsync(244705486, "text9", "רופין", default);
             //await provider.UpdateTextRecordAsync(244705486, "_____________1",

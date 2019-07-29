@@ -1,9 +1,9 @@
 ﻿<template>
     <div class="cashout-table-container">
+      
+        <h4>Pending Payments List</h4>
         <span v-if="showLoading">Loading List...</span>
         <span v-if="showNoResult">NO RESULTS!</span>
-        <h4>Pending Payments List</h4>
-
         <v-data-table :headers="headers"
                       :items="paymentRequestsList"
                      

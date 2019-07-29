@@ -10,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminPendingQuestionsEmptyQuery : IQuery<IEnumerable<PendingQuestionDto>>
+    public class AdminPendingQuestionsQuery : IQueryAdmin<IEnumerable<PendingQuestionDto>>
     {
-        internal sealed class AdminPendingQuestionsEmptyQueryHandler : IQueryHandler<AdminPendingQuestionsEmptyQuery, IEnumerable<PendingQuestionDto>>
+        public AdminPendingQuestionsQuery(string country)
+        {
+            Country = country;
+        }
+        public string Country { get; }
+        internal sealed class AdminPendingQuestionsEmptyQueryHandler : IQueryHandler<AdminPendingQuestionsQuery, IEnumerable<PendingQuestionDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -22,11 +27,11 @@ namespace Cloudents.Query.Query.Admin
                 _session = session.StatelessSession;
             }
 
-            public async Task<IEnumerable<PendingQuestionDto>> GetAsync(AdminPendingQuestionsEmptyQuery query, CancellationToken token)
+            public async Task<IEnumerable<PendingQuestionDto>> GetAsync(AdminPendingQuestionsQuery query, CancellationToken token)
             {
                 return await _session.Query<Question>()
                     .Fetch(f => f.User)
-                    .Where(w => w.User is User && w.Status.State == ItemState.Pending)
+                    .Where(w => w.User is User && w.Status.State == ItemState.Pending && w.User.Country == query.Country)
                     .Select(s => new PendingQuestionDto
                     {
                         Id = s.Id,

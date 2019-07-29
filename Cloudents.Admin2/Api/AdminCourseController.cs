@@ -11,11 +11,15 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AdminCourseController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -87,9 +91,11 @@ namespace Cloudents.Admin2.Api
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {
+            //TODO: fix the query to have only Admin and add country filter
             var query = new CourseSearchQuery(0, course, 0);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
@@ -99,15 +105,18 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("newCourses")]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses([FromQuery]CoursesRequest model
                 , CancellationToken token)
         {
-            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending));
+            
+            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending),User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
 
         [HttpGet("allCourses")]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<string>> GetAllCourses(CancellationToken token)
         {
             var query = new AdminAllCoursesEmptyQuery();
@@ -166,6 +175,7 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("subject")]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<string>> GetSubjects(CancellationToken token)
         {
             var query = new AdminSubjectsQuery();
@@ -175,6 +185,7 @@ namespace Cloudents.Admin2.Api
     
 
         [HttpDelete("{name}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> DeleteCourse(string name,
                 CancellationToken token)
         {

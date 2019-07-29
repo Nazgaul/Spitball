@@ -3,14 +3,16 @@ using System.Collections.Generic;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminUserFlagsOthersQuery : IQuery<(IEnumerable<UserFlagsOthersDto>, int)>
+    public class AdminUserFlagsOthersQuery : IQueryAdmin<(IEnumerable<UserFlagsOthersDto>, int)>
     {
-        public AdminUserFlagsOthersQuery(int minFlags, int page)
+        public AdminUserFlagsOthersQuery(int minFlags, int page, string country)
         {
             Page = page;
             MinFlags = minFlags;
+            Country = country;
         }
-        public int Page { get; set; }
-        public int MinFlags { get; set; }
+        public int Page { get; }
+        public int MinFlags { get; }
+        public string Country { get; }
     }
 }

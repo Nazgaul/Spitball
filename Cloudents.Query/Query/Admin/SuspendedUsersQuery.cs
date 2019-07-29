@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class SuspendedUsersEmptyQuery : IQuery<IEnumerable<SuspendedUsersDto>>
+    public class SuspendedUsersQuery : IQueryAdmin<IEnumerable<SuspendedUsersDto>>
     {
-        internal sealed class SuspendedUsersEmptyQueryHandler : IQueryHandler<SuspendedUsersEmptyQuery, IEnumerable<SuspendedUsersDto>>
+        public SuspendedUsersQuery(string country)
+        {
+            Country = country;
+        }
+        public string Country { get; }
+        internal sealed class SuspendedUsersEmptyQueryHandler : IQueryHandler<SuspendedUsersQuery, IEnumerable<SuspendedUsersDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -20,10 +25,10 @@ namespace Cloudents.Query.Query.Admin
                 _session = session.StatelessSession;
             }
 
-            public async Task<IEnumerable<SuspendedUsersDto>> GetAsync(SuspendedUsersEmptyQuery query, CancellationToken token)
+            public async Task<IEnumerable<SuspendedUsersDto>> GetAsync(SuspendedUsersQuery query, CancellationToken token)
             {
                 var suspendDto = _session.Query<User>()
-                    .Where(w => w.LockoutEnd != null)
+                    .Where(w => w.LockoutEnd != null && w.Country == query.Country)
                     .Select(s => new SuspendedUsersDto
                     {
                         UserId = s.Id,

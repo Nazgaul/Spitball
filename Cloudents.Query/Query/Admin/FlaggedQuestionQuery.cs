@@ -10,9 +10,14 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class FlaggedQuestionEmptyQuery : IQuery<IEnumerable<FlaggedQuestionDto>>
+    public class FlaggedQuestionQuery : IQueryAdmin<IEnumerable<FlaggedQuestionDto>>
     {
-        internal sealed class FlaggedQuestionEmptyQueryHandler : IQueryHandler<FlaggedQuestionEmptyQuery, IEnumerable<FlaggedQuestionDto>>
+        public FlaggedQuestionQuery(string country)
+        {
+            Country = country;
+        }
+        public string Country { get; }
+        internal sealed class FlaggedQuestionEmptyQueryHandler : IQueryHandler<FlaggedQuestionQuery, IEnumerable<FlaggedQuestionDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -22,11 +27,11 @@ namespace Cloudents.Query.Query.Admin
                 _session = session.StatelessSession;
             }
 
-            public async Task<IEnumerable<FlaggedQuestionDto>> GetAsync(FlaggedQuestionEmptyQuery query, CancellationToken token)
+            public async Task<IEnumerable<FlaggedQuestionDto>> GetAsync(FlaggedQuestionQuery query, CancellationToken token)
             {
                 return await _session.Query<Question>()
                     .Fetch(f => f.User)
-                    .Where(w => w.User is User && w.Status.State == ItemState.Flagged)
+                    .Where(w => w.User is User && w.Status.State == ItemState.Flagged && w.User.Country == query.Country)
                     .Select(s => new FlaggedQuestionDto
                     {
                         Id = s.Id,

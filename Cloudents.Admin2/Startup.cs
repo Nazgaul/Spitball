@@ -19,9 +19,13 @@ using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.Extensions.Options;
+using Cloudents.Admin2.Models;
 
 namespace Cloudents.Admin2
 {
@@ -40,15 +44,37 @@ namespace Cloudents.Admin2
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-                .AddAzureAD(options => Configuration.Bind("AzureAd", options)); 
-            //services.AddAuthentication(sharedOptions =>
-            //    {
-            //        sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //        sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            //    })
-            //    .AddAzureAd(options => Configuration.Bind("AzureAd", options))
-            //    .AddCookie();
+
+            services.AddAuthorization();
+            services.AddAuthentication(o =>
+                {
+                    o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                })
+                
+                .AddCookie(x =>
+                {
+                    x.Events.OnRedirectToLogin = context =>
+                    {
+                        if (context.Request.Path.StartsWithSegments("/api"))
+                        {
+                            context.Response.StatusCode = 401;
+                            return Task.CompletedTask;
+                        }
+                        else
+                        {
+                            context.Response.Redirect("/account/LogIn"); 
+                            return Task.CompletedTask;
+                        }
+                      
+                    };
+                    x.Events.OnRedirectToAccessDenied = context =>
+                    {
+                        context.Response.StatusCode = 403;
+                        return Task.CompletedTask;
+                    };
+                });
+
+          
 
             services.AddDataProtection(o =>
             {
@@ -57,19 +83,14 @@ namespace Cloudents.Admin2
             services.AddResponseCompression();
             services.AddResponseCaching();
 
-
-            services.AddLocalization(x => x.ResourcesPath = "Resources");
+            //services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddMvc(config =>
             {
-                //if (!HostingEnvironment.IsDevelopment())
-                //{
+               
                     var policy = new AuthorizationPolicyBuilder()
                         .RequireAuthenticatedUser()
                         .Build();
                     config.Filters.Add(new AuthorizeFilter(policy));
-                //}
-                
-
             }).AddJsonOptions(options =>
                 {
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
@@ -88,6 +109,11 @@ namespace Cloudents.Admin2
             services.AddOptions();
             services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policy.IsraelUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IL"));
+                options.AddPolicy(Policy.IndiaUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IN"));
+            });
 
             var assembliesOfProgram = new[]
             {
@@ -119,8 +145,6 @@ namespace Cloudents.Admin2
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
-            //containerBuilder.RegisterSystemModules(
-            //    Application.Enum.System.Admin, assembliesOfProgram);
             containerBuilder.RegisterAssemblyModules(assembliesOfProgram);
             containerBuilder.Register(c =>
             {
@@ -154,14 +178,12 @@ namespace Cloudents.Admin2
 
             app.UseResponseCompression();
             app.UseResponseCaching();
-           // app.UseCors("AllowSpecificOrigin");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //if (!env.IsDevelopment())
-            //{
-                app.UseAuthentication();
-            //}
+           
+            app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

@@ -9,11 +9,15 @@ using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AdminAnswerController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
@@ -34,6 +38,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<ActionResult> DeleteAnswerAsync([FromQuery(Name = "id")] IEnumerable<Guid> ids, CancellationToken token)
         {
             foreach (var id in ids)
@@ -48,7 +53,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("flagged")]
         public async Task<IEnumerable<FlaggedAnswerDto>> FlagAsync(CancellationToken token)
         {
-            var query = new FlaggedAnswerEmptyQuery();
+         
+            var query = new FlaggedAnswerQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 

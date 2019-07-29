@@ -18,10 +18,10 @@ function createPaymentRequestItem(objInit) {
     return new PaymentRequestItem(objInit);
 }
 
-const path = 'AdminUser/';
+const path = 'AdminPayment/';
 
 const getPaymentRequests = function () {
-    return connectivityModule.http.get(`${path}pay`).then((newPaymentRequestsList) => {
+    return connectivityModule.http.get(`${path}`).then((newPaymentRequestsList) => {
         let arrPaymentRequestsList = [];
         if (newPaymentRequestsList.length > 0) {
             newPaymentRequestsList.forEach((pr) => {
@@ -36,7 +36,7 @@ const getPaymentRequests = function () {
 
 
 const approvePayment = function (item) {
-    return connectivityModule.http.post(`${path}pay`, {
+    return connectivityModule.http.post(`${path}`, {
         "UserKey": item.paymentKey,
         "TutorKey": item.sellerKey,
         "Amount": item.price,

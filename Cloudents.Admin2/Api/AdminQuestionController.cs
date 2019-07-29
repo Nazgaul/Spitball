@@ -11,14 +11,17 @@ using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AdminQuestionController : ControllerBase
     {
         private readonly Lazy<ICommandBus> _commandBus;
@@ -51,6 +54,7 @@ namespace Cloudents.Admin2.Api
         /// <returns></returns>
         [HttpGet("subject")]
         [ResponseCache(Duration = TimeConst.Day)]
+        [Authorize(Policy = Policy.IsraelUser)]
         public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
         {
             var values = QuestionSubjectMethod.GetValues();
@@ -65,6 +69,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<ActionResult> DeleteQuestionAsync([FromQuery(Name = "id")]IEnumerable<long> ids, CancellationToken token)
         {
             foreach (var id in ids)
@@ -96,7 +101,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("Pending")]
         public async Task<IEnumerable<PendingQuestionDto>> Get(CancellationToken token)
         {
-            var query = new AdminPendingQuestionsEmptyQuery();
+          
+            var query = new AdminPendingQuestionsQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -137,7 +143,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet("flagged")]
         public async Task<IEnumerable<FlaggedQuestionDto>> FlagAsync(CancellationToken token)
         {
-            var query = new FlaggedQuestionEmptyQuery();
+           
+            var query = new FlaggedQuestionQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 

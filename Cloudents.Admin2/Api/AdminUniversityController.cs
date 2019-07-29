@@ -13,11 +13,14 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Dapper;
 using Cloudents.Core.Enum;
+using Microsoft.AspNetCore.Authorization;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AdminUniversityController: ControllerBase
     {
        private readonly IQueryBus _queryBus;
@@ -34,15 +37,6 @@ namespace Cloudents.Admin2.Api
             _dapperRepository = dapperRepository;
         }
 
-        
-
-        //[HttpGet("universities")]
-        //public async Task<IEnumerable<NewUniversitiesDto>> GetUniversities(CancellationToken token)
-        //{
-        //    var query = new AdminEmptyQuery();
-        //    var retVal = await _queryBus.QueryAsync<IList<NewUniversitiesDto>> (query, token);
-        //    return retVal;
-        //}
 
         //TODO: Fix this and make it work in proper CQRS architecture
         [HttpPost("migrate")]
@@ -71,12 +65,20 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] UniversitiesRequest model
             , CancellationToken token)
         {
-            AdminUniversitiesQuery query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
+            if (User.GetCountryClaim() == model.Country || User.IsInRole(Roles.Admin))
+            {
+                var query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
+                var retVal = await _queryBus.QueryAsync(query, token);
+                return retVal;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         [HttpGet("allUniversities")]
+        [Authorize(Policy = "IsraelUser")]
         public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
         {
             var query = new AdminAllUniversitiesEmptyQuery();
@@ -93,11 +95,12 @@ namespace Cloudents.Admin2.Api
         /// <returns>list of universities</returns>
         [Route("search")]
         [HttpGet]
-
+        [Authorize(Policy = "IsraelUser")]
         public async Task<UniversitySearchDto> GetAsync([FromQuery(Name = "university")]string university,
             CancellationToken token)
         {
             //Only IL Need to think about it
+            //TODO: Make mis suitable from IN Users
             var result = await _universityProvider.SearchAsync(university, 0,
                 null, token);
             return result;
@@ -114,6 +117,7 @@ namespace Cloudents.Admin2.Api
 
         //TODO: Fix this and make it work in proper CQRS architecture 
         [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> ApproveCourse(Guid id,
                 CancellationToken token)
         {
@@ -125,8 +129,6 @@ namespace Cloudents.Admin2.Api
                 OldUni = id
             }), token);
 
-            /*var command = new DeleteUniversityCommand(Id);
-            await _commandBus.DispatchAsync(command, token);*/
             return Ok();
         }
 

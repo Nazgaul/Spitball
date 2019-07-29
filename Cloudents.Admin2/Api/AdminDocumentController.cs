@@ -8,15 +8,18 @@ using Cloudents.Admin2.Models;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AdminDocumentController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -39,7 +42,8 @@ namespace Cloudents.Admin2.Api
             [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
-            var query = new PendingDocumentEmptyQuery(fromId);
+         
+            var query = new PendingDocumentQuery(fromId, User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
             var counter = 0;
@@ -94,6 +98,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Delete(long id, CancellationToken token)
         {
             var command = new DeleteDocumentCommand(id);
@@ -113,7 +118,8 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync
             ([FromServices] IBlobProvider blobProvider, CancellationToken token)
         {
-            var query = new FlaggedDocumentEmptyQuery();
+           
+            var query = new FlaggedDocumentQuery(User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
          

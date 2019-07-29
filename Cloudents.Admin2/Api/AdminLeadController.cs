@@ -9,11 +9,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AdminLeadController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
@@ -25,6 +27,7 @@ namespace Cloudents.Admin2.Api
             _queryBus = queryBus;
         }
         [HttpGet]
+        [Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<LeadDto>> LeadAsync([FromQuery] ItemState? status, CancellationToken token)
         {
             var query = new AdminLeadsQuery(status);

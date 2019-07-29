@@ -12,11 +12,15 @@ using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AdminMarkQuestionController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
@@ -40,7 +44,8 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(int page, CancellationToken token)
         {
-            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(page);
+           
+            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(page, User.GetCountryClaim());
             var result = await _queryBus.QueryAsync(query, token);
           
             return result.Select(res =>
@@ -59,10 +64,6 @@ namespace Cloudents.Admin2.Api
         [HttpPost]
         public async Task Post([FromBody] MarkQuestionAsCorrectRequest model, CancellationToken token)
         {
-
-            Debug.Assert(model.AnswerId != null, "Model.AnswerId != null");
-            Debug.Assert(model.QuestionId != null, "Model.QuestionId != null");
-
             var query = new QuestionDataByIdQuery(model.QuestionId.Value);
             var questionDto = await _queryBus.QueryAsync(query, token);
             var command = new MarkAnswerAsCorrectCommand(model.AnswerId.Value, questionDto.User.Id);

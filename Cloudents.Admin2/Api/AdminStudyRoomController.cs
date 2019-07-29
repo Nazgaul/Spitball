@@ -4,12 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Admin2.Models;
 using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AdminStudyRoomController: ControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -22,15 +27,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<StudyRoomDto>> StudyRoomAsync(CancellationToken token)
         {
-            var query = new AdminStudyRoomQuery();
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
-        }
-
-        [HttpGet("daily")]
-        public async Task<IEnumerable<DailyStudyRoomsDto>> DailyStudyRoomAsync(CancellationToken token)
-        {
-            var query = new AdminDailyStudyRoomQuery();
+            var query = new AdminStudyRoomQuery(User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
