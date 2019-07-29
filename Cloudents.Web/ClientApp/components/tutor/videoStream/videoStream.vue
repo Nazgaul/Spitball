@@ -26,9 +26,9 @@
                                 </template>
                                 <span v-language:inner="localAudioTrack ? 'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute'"/>
                             </v-tooltip>
-
                             <v-tooltip top>
                                 <template v-slot:activator="{ on }">
+                                    
                                     <button v-on="on" :class="['video-image-btn',localVideoTrack? 'dynamicBackground-light': 'dynamicBackground-dark']" @click="toggleVideo">              
                                         <videoCameraImage v-if="localVideoTrack" class="video-image-svg"/>
                                         <videoCameraImageIgnore v-else class="cam-ignore"/>

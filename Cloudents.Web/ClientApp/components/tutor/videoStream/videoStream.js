@@ -44,7 +44,8 @@ export default {
             'getStudyRoomData',
             'accountUser',
             'getLocalVideoTrack',
-            'getLocalAudioTrack'
+            'getLocalAudioTrack',
+            'getLastActiveLocalVideoTrack'
         ]),
         localVideoTrack(){
             return this.getLocalVideoTrack
@@ -63,6 +64,17 @@ export default {
                 return this.accountUser.id;
             }
         }
+    },
+    watch:{
+        // getLastActiveLocalVideoTrack(track){
+        //     if(track){
+        //         let t = createLocalVideoTrack(track).then(()=>{
+        //         this.videoEl = document.getElementById('localTrack');   
+        //         });
+                
+        //         // this.videoEl.appendChild(track.attach());
+        //     }
+        // }
     },
     methods: {
         ...mapActions([

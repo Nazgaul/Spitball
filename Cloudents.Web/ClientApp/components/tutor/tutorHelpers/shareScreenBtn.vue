@@ -6,7 +6,7 @@
                     <template v-slot:activator="{on}">
                         <!--keep this div, due to tooltip not appearing on disabled btn bug of vuetify-->
                         <div v-on="on" >
-                            <button @click="showScreen" class="outline-btn-share" :disabled="!roomIsActive">
+                            <button @click="showScreen" class="outline-btn-share" :disabled="!roomIsActive || !localVideoTrack">
                                 <castIcon class="cast-icon"></castIcon>
                                 <span v-language:inner="'tutor_btn_share_screen'"></span>
                             </button>
@@ -15,7 +15,7 @@
                     <span v-language:inner>tutor_start_to_share</span>
                 </v-tooltip>
             </div>
-            <button class="outline-btn-share" v-else @click="stopSharing">
+            <button class="outline-btn-share" v-else @click="stopSharing" :disabled="!localVideoTrack">
                 <span v-language:inner="'tutor_btn_stop_sharing'"></span>
             </button>
         </v-flex>
@@ -74,7 +74,10 @@
         },
         computed: {
             ...mapState(['tutoringMain']),
-            ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData", "getCurrentRoomState"]),
+            ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack"]),
+            localVideoTrack(){
+                return this.getLocalVideoTrack
+            },
             accountUserID() {
                 if(this.accountUser && this.accountUser.id) {
                     return this.accountUser.id;
@@ -118,6 +121,7 @@
                     stream => {
                         stream.removeEventListener('ended', () => self.stopSharing());
                         stream.addEventListener('ended', () => self.stopSharing());
+                        store.dispatch('setLocalVideoTrack', stream);
                         self.screenShareTrack = stream; //stream.getVideoTracks()[0];
                         self.publishTrackToRoom(self.screenShareTrack);
                         self.isSharing = true;
