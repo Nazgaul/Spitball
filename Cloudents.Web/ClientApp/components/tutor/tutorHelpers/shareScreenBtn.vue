@@ -162,6 +162,7 @@
                 createLocalVideoTrack()
                     .then(
                         videoTrack => {
+                            store.dispatch('setLocalVideoTrack', videoTrack);
                             self.publishTrackToRoom(videoTrack);
                         },
                         error => {

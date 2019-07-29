@@ -29,7 +29,8 @@ export default {
             visible: {
                 'local_player': true,
                 'remote_player': true
-            }
+            },
+            noVideoConnected: false,
         };
     },
     props: {
@@ -89,6 +90,8 @@ export default {
             this.toggleAudioTrack()
         },
         toggleVideo(){
+            if(this.noVideoConnected) return;
+            
             if(this.localVideoTrack){
                 this.isActive = false;
             } else {
@@ -108,6 +111,7 @@ export default {
                     self.videoEl.appendChild(track.attach());
                 }
             }, (err)=>{
+                this.noVideoConnected = true;
                 insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoStream_localVideoFailed', err, null);
                 console.error(err);
             });

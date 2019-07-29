@@ -70,6 +70,9 @@ const actions = {
         createLocalVideoTrack({exact: deviceId}).then(videoTrack => {
                 getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
                     dispatch('setLocalVideoTrack',videoTrack)
+                },err=>{
+                    dispatch('setLocalVideoTrack', null)
+                    console.log(err);
                 }
             )
         }
