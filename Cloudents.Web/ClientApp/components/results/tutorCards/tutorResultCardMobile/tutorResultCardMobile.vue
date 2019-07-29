@@ -8,7 +8,8 @@
                   <user-rating :rating="tutorData.rating" :showRateNumber="false" class="mr-2" />
                   <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
               </div>
-              <h4 class="text-truncate mb-1 font-weight-light university">{{university}}</h4>
+              
+              <h4 class="text-truncate mb-1 font-weight-light university" v-if="isUniversity">{{university}}</h4>
               <div class="courses text-truncate">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
                   <span class="text-truncate">{{courses}}</span> 
@@ -26,8 +27,8 @@
           <div class="price ml-4 align-center" :class="{'mt-3': !showStriked}">
               <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
               <template>
-                <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
+                <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}/</span>
+                <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}/</span>
               </template>
               <span class="caption" v-language:inner="'resultTutor_hour'"></span>
           </div>
@@ -174,12 +175,10 @@ export default {
       return this.isTutorData && this.tutorData.image ? true : false;
     },
     isUniversity() {
-      (this.tutorData && this.tutorData.university) ? true : false;
+      return (this.tutorData && this.tutorData.university) ? true : false;
     },
     university() {
-      if(this.isUniversity) {
-        return this.tutorData.university;
-      }
+      return this.tutorData.university;
     }
   }
 };
@@ -216,10 +215,11 @@ export default {
             }
         }
         .courses {
-          .widthMinMax(200px)
+          .widthMinMax(200px);
         }
         .university {
-          .heightMinMax(23px)
+          line-height: 30px;
+          .heightMinMax(23px);
         }
     }
     .card-mobile-center {
