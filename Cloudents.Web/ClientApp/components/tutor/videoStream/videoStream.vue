@@ -2,24 +2,7 @@
     <v-container class="videos-wrapper py-0 px-0">
         <v-layout column align-end>
             <div class="video-holder">
-                <v-flex class="px-3 video-con-controls" @click="minimize('remote_player')">
-                    <!--<div style="display: flex; align-items: center;">-->
-                        <!--<span :class="[remoteOffline  ? 'remote-offline' : 'remote-online']"></span>-->
-                        <!--<span class="user-badge" v-language:inner>tutor_stream_guest</span>-->
-                        <!--<div id="micVolume_indicator">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div style="display: flex; align-items: center;">-->
-                    <!--<span class="video-size-ctrl mr-2" @click.stop="biggerRemoteVideo">-->
-                        <!--<span class="video-size-icon">-->
-                            <!--<fullScreenIcon class="full-screen-icon"></fullScreenIcon>-->
-                        <!--</span>-->
-                    <!--</span>-->
-                        <!--<span class="video-size-ctrl" @click.stop="minimize('remote_player')">-->
-                         <!--<v-icon v-if="visible.remote_player" class="video-size-icon">sbf-minimize</v-icon>-->
-                         <!--<v-icon v-else class="video-size-icon">sbf-toggle-enlarge</v-icon>-->
-                    <!--</span>-->
-                    <!--</div>-->
+                <v-flex class="px-3 video-con-controls">
                 </v-flex>
                 <v-flex v-show="visible.remote_player">
                     <div class="row remote_video_container">
@@ -43,9 +26,9 @@
                                 </template>
                                 <span v-language:inner="localAudioTrack ? 'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute'"/>
                             </v-tooltip>
-
                             <v-tooltip top>
                                 <template v-slot:activator="{ on }">
+                                    
                                     <button v-on="on" :class="['video-image-btn',localVideoTrack? 'dynamicBackground-light': 'dynamicBackground-dark']" @click="toggleVideo">              
                                         <videoCameraImage v-if="localVideoTrack" class="video-image-svg"/>
                                         <videoCameraImageIgnore v-else class="cam-ignore"/>
