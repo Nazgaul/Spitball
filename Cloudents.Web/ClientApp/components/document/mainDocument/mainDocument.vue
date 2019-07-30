@@ -1,6 +1,6 @@
 <template>
-    <div class="main-container">
-        <v-layout row class="main-header" :class="[isSmAndDown ? 'pt-3' : 'pb-2']" align-center>
+    <div class="mainDocument-container">
+        <v-layout row class="mainDocument-header" :class="[isSmAndDown ? 'pt-3' : 'pb-2']" align-center>
             <div class="main-header-wrapper">
                 <v-icon class="grey--text" :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']" @click="closeDocument">sbf-arrow-back-chat</v-icon>
                 <h2 class="courseName font-weight-bold text-truncate" :class="[isSmAndDown ? 'pr-5' : 'pl-3']">{{courseName}}</h2>
@@ -434,13 +434,13 @@ export default {
 <style lang="less">
     @import "../../../styles/mixin.less";
 
-    .main-container {
+    .mainDocument-container {
         margin-bottom: 80px;
         flex: 4;
         @media (max-width: @screen-sm) {
             order: 2;
         }
-        .main-header {
+        .mainDocument-header {
             justify-content: center;
             .main-header-wrapper{
                 display: flex;
