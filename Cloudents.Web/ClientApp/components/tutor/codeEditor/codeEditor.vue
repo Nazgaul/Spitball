@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="code-editor-wrap">
         <codemirror v-model="code" class="code-editor-cont" 
                     :options="optionObj"
                      @gutterClick='gutterClick'/>
@@ -193,11 +193,28 @@
 
 <style lang="less">
 @import "./themes/monokai.less";
+.code-editor-wrap {
+    height: ~"calc(100vh - 108px)";
+    width: ~"calc(100% - 322px)";
+    position: relative;
+    text-align: left /*rtl:ignore*/;
+    direction: ltr /*rtl:ignore*/;
+}
 .code-editor-cont{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+   
     .CodeMirror{
-        height: 88vh !important;
-        width: 164.9vh !important;
+        height: 100%;
+     
+        //height: 88vh !important;
+      
+        //width: 164.9vh !important;
         font-size: 16px;
+        //Same as iframe
     }
       .CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
       .CodeMirror-focused .cm-matchhighlight {
