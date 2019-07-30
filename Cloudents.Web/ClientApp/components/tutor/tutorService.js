@@ -236,9 +236,16 @@ const connectToRoom = function (token, options) {
                             store.commit('setLang',parsedData)
                         } else if (Data.type === 'updateTab'){
                             store.dispatch('updateTab', parsedData);
-                        } else if(Data.type === 'codeEditor_code'){
+                        } else if(Data.type === 'updateTabById'){
+                            store.commit('setTab',parsedData)
+                        } 
+                        else if(Data.type === 'updateActiveNav'){
+                            store.commit('setActiveNavIndicator',parsedData)
+                        } 
+                        else if(Data.type === 'codeEditor_code'){
                             store.commit('setCode',parsedData)
                         }
+                        
                     });
                 } else if (track.kind === 'video') {
                     let videoTag = previewContainer.querySelector("video");
@@ -250,6 +257,7 @@ const connectToRoom = function (token, options) {
                         track,
                         container: previewContainer
                     }
+                    store.commit('setIsRemote',true)
                     store.dispatch('updateRemoteTrack', updateObj);
                 } else if (track.kind === 'audio') {
                     let updateObj = {
@@ -265,6 +273,7 @@ const connectToRoom = function (token, options) {
             });
             // When a Participant's Track is unsubscribed from, detach it from the DOM.
             store.getters['activeRoom'].on('trackUnsubscribed', function (track) {
+                store.commit('setIsRemote',false)
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioTrackUnsubscribed', track, null);
                 console.log(" removed track: " + track.kind);
                 detachTracks([track]);

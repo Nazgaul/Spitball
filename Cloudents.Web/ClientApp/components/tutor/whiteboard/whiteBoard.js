@@ -75,7 +75,8 @@ export default {
             'canvasDataStore',
             'undoClicked', 
             'addImage',
-            'clearAllClicked']),
+            'clearAllClicked',
+            'getTabIndicator']),
         equationSizeX(){
             return (window.innerWidth / 2) - 300
         },
@@ -156,7 +157,7 @@ export default {
         },
         saveNewTabName(){
             if(this.isEdit){
-                let newTabName = document.getElementById(this.currentTabId).textContent;
+                let newTabName = document.getElementById(this.currentTabId).innerText
                 let tabData = {
                     tabId: this.currentTabId,
                     tabName: newTabName
@@ -295,8 +296,19 @@ export default {
         },
         changeTab(tab) {
             this.currentTabId = tab.id
+
             if (tab.id !== this.getCurrentSelectedTab.id) {
-                // this.clearTabOption();
+
+                let tabData = {
+                    tabId: this.currentTabId,
+                }
+                let transferDataObj = {
+                    type: "updateTabById",
+                    data: tabData
+                };
+                let normalizedData = JSON.stringify(transferDataObj);
+                tutorService.dataTrack.send(normalizedData);
+                
                 this.changeSelectedTab(tab);
                 whiteBoardService.hideHelper();
                 whiteBoardService.redraw(this.canvasData)
