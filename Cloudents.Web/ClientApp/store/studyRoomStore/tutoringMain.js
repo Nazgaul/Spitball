@@ -32,7 +32,8 @@ const state = {
     jwtToken: null,
     studentStartDialog: false,
     tutorStartDialog: false,
-    endDialog: false
+    endDialog: false,
+    activeNavIndicator: 'white-board'
 };
 const getters = {
     getIsRoomFull: state => state.isRoomFull,
@@ -59,7 +60,8 @@ const getters = {
     getSessionEndClicked: state => state.sessionEndClicked,
     getBrowserSupportDialog: state => state.browserSupportDialog,
     getPaymentUrl: state => state.paymentUrl,
-    getPaymentDialog: state => state.showPaymentDialog
+    getPaymentDialog: state => state.showPaymentDialog,
+    getActiveNavIndicator: state => state.activeNavIndicator,
 };
 
 const mutations = {
@@ -146,6 +148,9 @@ const mutations = {
     },
     setBrowserSupportDialog(state, val){
       state.browserSupportDialog = val;
+    },
+    setActiveNavIndicator(state,{activeNav}){
+        state.activeNavIndicator = activeNav
     }
 };
 

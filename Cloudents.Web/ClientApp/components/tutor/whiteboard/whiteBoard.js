@@ -75,7 +75,8 @@ export default {
             'canvasDataStore',
             'undoClicked', 
             'addImage',
-            'clearAllClicked']),
+            'clearAllClicked',
+            'getTabIndicator']),
         equationSizeX(){
             return (window.innerWidth / 2) - 300
         },
@@ -175,7 +176,6 @@ export default {
                 this.isEdit = false
             }
         },
-        test(){},
         uploadImage(){
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, 'imageDraw')());
             this.setSelectedOptionString('imageDraw');
@@ -296,8 +296,19 @@ export default {
         },
         changeTab(tab) {
             this.currentTabId = tab.id
+
             if (tab.id !== this.getCurrentSelectedTab.id) {
-                // this.clearTabOption();
+
+                let tabData = {
+                    tabId: this.currentTabId,
+                }
+                let transferDataObj = {
+                    type: "updateTabById",
+                    data: tabData
+                };
+                let normalizedData = JSON.stringify(transferDataObj);
+                tutorService.dataTrack.send(normalizedData);
+                
                 this.changeSelectedTab(tab);
                 whiteBoardService.hideHelper();
                 whiteBoardService.redraw(this.canvasData)

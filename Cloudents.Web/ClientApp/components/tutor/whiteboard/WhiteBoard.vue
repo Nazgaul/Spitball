@@ -87,6 +87,8 @@
                  <!-- add it to the other user tab -->
                 <!-- <div v-if="tab.id === getCurrentSelectedTab.id" class="tab-dot"></div> -->
                 <button>
+                    
+                <span class="dot-tab" v-if="tab.id === getTabIndicator">●</span>
                 <span @blur="saveNewTabName" @keyup.enter="saveNewTabName" @keypress.enter="saveNewTabName"
                 @dblclick.self='editTabName(tab.id)' :id="tab.id">{{tab.name}}</span></button>
                 <!-- <v-icon @click.stop="showTabOption(tab.id)">sbf-3-dot</v-icon>
@@ -298,6 +300,13 @@
                 min-width: 100px;
                 justify-content: center;
                 position: relative;
+                .dot-tab{
+                    color: #21cb4c;
+                    font-size: 22px;
+                    position: absolute;
+                    top: -7px;
+                    right: 7px;
+                }
                 .canvas-tab-option{
                     position: absolute;
                     width: 127px;
