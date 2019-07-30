@@ -195,7 +195,8 @@
 @import "./themes/monokai.less";
 .code-editor-cont{
     .CodeMirror{
-        height: 85vh !important;
+        height: 88vh !important;
+        width: 164.9vh !important;
         font-size: 16px;
     }
       .CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
