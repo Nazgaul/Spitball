@@ -6,20 +6,45 @@
     class="sb-chat-container"
     :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]"
   >
+
     <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
       <v-icon
         :class="{'rtl':isRtl}"
         @click.stop="OriginalChatState"
       >{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
-      <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
-      <span class="other-side">
-        <v-icon
-          v-show="!isMobile"
-          @click.stop="toggleMinimizeChat"
-        >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
-        <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
-      </span>
+
+      <template v-if="state === 'messages'">
+        <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
+        <div class="chat-header-name pl-3">{{activeConversationObj.name}}</div>
+        <span class="other-side">
+          <v-btn-toggle class="chat-header-btn" active-class="chat-btns">
+            <v-btn text>
+              <v-icon
+                v-show="!isMobile"
+                @click.stop="toggleMinimizeChat"
+              >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}
+              </v-icon>
+            </v-btn>
+            <v-btn text>
+              <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
+            </v-btn>
+          </v-btn-toggle>
+        </span>
+      </template>
+
+      <template v-else>
+        <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
+        <span class="other-side">
+          <v-icon
+            v-show="!isMobile"
+            @click.stop="toggleMinimizeChat"
+          >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
+          <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
+        </span>
+      </template>
+
     </v-layout>
+
     <v-layout v-show="!isMinimized" class="general-chat-style">
       <component :is="`chat-${state}`"></component>
     </v-layout>
@@ -30,12 +55,14 @@
 <script>
 import chatConversation from "./pages/conversations.vue";
 import chatMessages from "./pages/messages.vue";
+import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 export default {
   components: {
     chatConversation,
-    chatMessages
+    chatMessages,
+    UserAvatar
   },
   data() {
     return {
@@ -111,7 +138,10 @@ export default {
     },
     hasUnread() {
       return this.getTotalUnread > 0;
-    }
+    },
+    activeConversationObj(){
+      return this.getActiveConversationObj;
+    },
   },
   methods: {
     ...mapActions([
@@ -122,6 +152,7 @@ export default {
     ]),
     ...mapGetters(["getEnumChatState"]),
     OriginalChatState() {
+      console.log("vslkjnavesjklnvjklragvnklj");
       if (!this.isLocked) {
         this.updateChatState(this.enumChatState.conversation);
         if (this.isMinimized) {
@@ -211,11 +242,33 @@ export default {
         }
       }
     }
+    .chat-header-name, .other-side {
+      align-self: center
+    }
+    .chat-header-btn {
+      button {
+        background: #393850 !important; // vuetify
+        height: 20px;
+        vertical-align: text-top;
+        width: 30px;
+        align-self: center;
+        color: #fff;
+        opacity: 1;
+        padding-right: 22px;
+        box-shadow: none;
+      }
+      :hover {
+          background: transparent !important;
+        }
+    }
     .other-side {
       margin-left: auto;
       i {
         margin-right: 0;
         margin-left: 14px;
+      }
+      .theme--light.v-btn-toggle {
+        background: transparent !important;
       }
     }
   }

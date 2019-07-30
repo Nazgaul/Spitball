@@ -1,7 +1,7 @@
 <template>
   <div class="conversation-container">
     <v-flex class="avatar-container">
-      <user-avatar :userImageUrl="userImg" :user-name="conversation.name"/>
+      <user-avatar :size="'46'" :userImageUrl="userImg" :user-name="conversation.name"/>
       <userOnlineStatus class="user-status" :userId="conversation.userId"></userOnlineStatus>
     </v-flex>
     <v-flex class="user-detail-container">
@@ -60,8 +60,7 @@ export default {
     flex-grow: 0;
     margin-left: 12px;
     .user-avatar {
-      width: 46px !important;
-      height: 46px !important;
+
     }
     .user-status{
       bottom: 2px;

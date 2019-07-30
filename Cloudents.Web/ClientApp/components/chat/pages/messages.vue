@@ -1,9 +1,9 @@
 <template>
     <div class="messages-container">
-        <div ml-2 class="avatar-container">
+        <!-- <div ml-2 class="avatar-container">
             <user-avatar :size="'40'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/>
             <userOnlineStatus class="user-status" :userId="activeConversationObj.userId"></userOnlineStatus>
-        </div>
+        </div> -->
         <v-layout column class="messages-wrapper">
             <div class="messages-header">
                 <div class="messages-study-room" v-if="showStudyRoomInteraction" @click="createRoom">
@@ -154,10 +154,7 @@ export default {
             .messages-header{
                 display:flex;
                 justify-content: flex-end;
-                background-color: #f7f7f7;
-                // padding: 8px 10px 8px 8px ;
-                max-height: 34px;
-                min-height: 34px;
+                .widthMinMax(34px);
                 .messages-study-room{
                         background: #2ec293;
                         color: #FFF;
