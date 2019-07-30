@@ -26,6 +26,7 @@
               v-for="(singleNav, index) in navs"
               :class="{'active-nav': singleNav.value === activeItem, 'tutor-nav-disabled': singleNav.value !== 'white-board' && !id}"
               :key="index">
+              <span class="dot-nav" v-if="singleNav.value === getActiveNavIndicator">●</span>
               <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
               <a class="tutor-nav-item-link">{{singleNav.name}}</a>
             </div>
@@ -316,7 +317,8 @@ export default {
       "accountUser",
       "getPaymentDialog",
       "getStudyRoomData",
-      "getIsRemote"
+      "getIsRemote",
+      "getActiveNavIndicator"
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -402,6 +404,16 @@ export default {
     updateActiveNav(value) {
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
       this.activeNavItem = value;
+      let activeNavData = {
+          activeNav: value,
+      }
+      let transferDataObj = {
+          type: "updateActiveNav",
+          data: activeNavData
+      };
+      let normalizedData = JSON.stringify(transferDataObj);
+      tutorService.dataTrack.send(normalizedData);
+      // {{singleNav.value}}
       console.log(this.activeItem);
     },
     changeQualityDialogState(val) {
