@@ -236,9 +236,16 @@ const connectToRoom = function (token, options) {
                             store.commit('setLang',parsedData)
                         } else if (Data.type === 'updateTab'){
                             store.dispatch('updateTab', parsedData);
-                        } else if(Data.type === 'codeEditor_code'){
+                        } else if(Data.type === 'updateTabById'){
+                            store.commit('setTab',parsedData)
+                        } 
+                        else if(Data.type === 'updateActiveNav'){
+                            store.commit('setActiveNavIndicator',parsedData)
+                        } 
+                        else if(Data.type === 'codeEditor_code'){
                             store.commit('setCode',parsedData)
                         }
+                        
                     });
                 } else if (track.kind === 'video') {
                     let videoTag = previewContainer.querySelector("video");

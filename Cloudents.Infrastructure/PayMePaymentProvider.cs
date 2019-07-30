@@ -69,17 +69,6 @@ namespace Cloudents.Infrastructure
                     });
 
                     return s.ToJsonReader<GenerateSaleResponse>(serializer);
-                    //var result = s.ToJsonReader(reader =>
-                    //{
-                    //    var serializer = JsonSerializer.Create(new JsonSerializerSettings
-                    //    {
-                    //        ContractResolver = ContractResolver,
-                    //    });
-
-                    //    return serializer.Deserialize<GenerateSaleResponse>(reader);
-                    //});
-
-                    //return result;
                 }
             }
         }
@@ -122,7 +111,7 @@ namespace Cloudents.Infrastructure
 
             public int SalePrice { get; private set; }
             public string Currency => "ILS";
-            public string ProductName => "Tutoring";
+            public string ProductName => "עבור שיעורים פרטיים בספיטבול";
             public int? CaptureBuyer { get; private set; }
             public string SaleType { get; private set; }
             public string SaleCallbackUrl { get; private set; }
