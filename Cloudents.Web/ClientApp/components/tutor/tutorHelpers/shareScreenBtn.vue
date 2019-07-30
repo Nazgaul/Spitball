@@ -6,7 +6,7 @@
                     <template v-slot:activator="{on}">
                         <!--keep this div, due to tooltip not appearing on disabled btn bug of vuetify-->
                         <div v-on="on" >
-                            <button @click="showScreen" class="outline-btn-share" :disabled="!roomIsActive || !localVideoTrack">
+                            <button @click="showScreen" class="outline-btn-share" :disabled="!roomIsActive">
                                 <castIcon class="cast-icon"></castIcon>
                                 <span v-language:inner="'tutor_btn_share_screen'"></span>
                             </button>

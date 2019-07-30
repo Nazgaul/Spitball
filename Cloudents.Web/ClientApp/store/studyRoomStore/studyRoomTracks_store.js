@@ -18,6 +18,7 @@ const state = {
     currentAudioTrack: null,
     localVideoTrack: null,
     localAudioTrack: null,
+    isRemote: false,
     lastActiveLocalVideoTrack: null
 };
 
@@ -26,6 +27,7 @@ const getters = {
     getCurrentAudioTrack:state => state.currentAudioTrack,
     getLocalVideoTrack:state => state.localVideoTrack,
     getLocalAudioTrack:state => state.localAudioTrack,
+    getIsRemote:state => state.isRemote,
     getLastActiveLocalVideoTrack: state => state.lastActiveLocalVideoTrack
 };
 
@@ -44,6 +46,9 @@ const mutations = {
     },
     setLocalAudioTrack(state, track){
         state.localAudioTrack = track
+    },
+    setIsRemote(state,val){
+        state.isRemote = val
     }
 };
 

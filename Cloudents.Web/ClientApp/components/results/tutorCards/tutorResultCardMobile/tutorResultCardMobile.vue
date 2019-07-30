@@ -81,7 +81,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateRequestDialog",'updateCurrTutor']),
+    ...mapActions(["updateRequestDialog",'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
     loaded() {
       this.isLoaded = true;
     },
@@ -105,6 +105,10 @@ export default {
       };
       ev.stopImmediatePropagation()
       this.updateCurrTutor(tutorData)
+      this.setTutorRequestAnalyticsOpenedFrom({
+          component: 'tutorCard',
+          path: this.$route.path
+      });
       this.updateRequestDialog(true);
     },
     onImageLoadError(event) {

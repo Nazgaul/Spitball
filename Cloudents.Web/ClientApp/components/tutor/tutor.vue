@@ -26,6 +26,7 @@
               v-for="(singleNav, index) in navs"
               :class="{'active-nav': singleNav.value === activeItem, 'tutor-nav-disabled': singleNav.value !== 'white-board' && !id}"
               :key="index">
+              <span class="dot-nav" v-if="singleNav.value === getActiveNavIndicator">●</span>
               <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
               <a class="tutor-nav-item-link">{{singleNav.name}}</a>
             </div>
@@ -65,6 +66,9 @@
             <v-flex shrink class="canvas-tools-wrapper" v-if="isWhiteBoardActive">
               <whiteBoardTools></whiteBoardTools>
             </v-flex>
+            <v-flex shrink class="canvas-tools-wrapper" v-if="isCodeEditorActive">
+              <codeEditorTools/>
+            </v-flex>
             <v-spacer></v-spacer>
             <v-flex xs1  >
               <share-screen-btn class="nav-share-btn"></share-screen-btn>
@@ -79,6 +83,7 @@
                 <span v-language:inner>tutor_option_videoChat</span>
               </v-btn>
               <v-btn
+                :disabled="!getIsRemote"
                 @click="selectViewOption(enumViewOptions.fullScreenVideo)"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
                 :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
@@ -197,6 +202,8 @@
   </v-layout>
 </template>
 <script>
+import codeEditorNEW from './codeEditorNew/codeEditorNew.vue';
+import codeEditorTools from './codeEditorNew/codeEditorTools.vue';
 import initSignalRService from "../../services/signalR/signalrEventService";
 import { mapActions, mapGetters } from "vuex";
 import videoStream from "./videoStream/videoStream.vue";
@@ -231,6 +238,7 @@ export default {
     videoStream,
     whiteBoard,
     codeEditor,
+    codeEditorNEW,
     sharedDocument,
     shareScreenBtn,
     AppLogo,
@@ -249,7 +257,8 @@ export default {
     startEndSessionBtn,
     endSessionConfirm,
     browserSupport,
-    paymentDialog
+    paymentDialog,
+    codeEditorTools
   },
   name: "tutor",
   data() {
@@ -307,7 +316,9 @@ export default {
       "getBrowserSupportDialog",
       "accountUser",
       "getPaymentDialog",
-      "getStudyRoomData"
+      "getStudyRoomData",
+      "getIsRemote",
+      "getActiveNavIndicator"
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -350,6 +361,9 @@ export default {
     },
     showPaymentDialog(){
       return this.getPaymentDialog
+    },
+    isCodeEditorActive(){
+      return this.activeItem === "code-editor"
     }
   },
   methods: {
@@ -390,6 +404,16 @@ export default {
     updateActiveNav(value) {
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
       this.activeNavItem = value;
+      let activeNavData = {
+          activeNav: value,
+      }
+      let transferDataObj = {
+          type: "updateActiveNav",
+          data: activeNavData
+      };
+      let normalizedData = JSON.stringify(transferDataObj);
+      tutorService.dataTrack.send(normalizedData);
+      // {{singleNav.value}}
       console.log(this.activeItem);
     },
     changeQualityDialogState(val) {

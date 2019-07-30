@@ -42,7 +42,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(['accountUser','getCurrTutor']),
+        ...mapGetters(['accountUser','getCurrTutor', 'getTutorRequestAnalyticsOpenedFrom']),
         isAuthUser(){
             return !!this.accountUser;
         },
@@ -94,12 +94,7 @@ export default {
                     university: (self.guestUniversity.id)? self.guestUniversity.id : null,
                     tutorId: tutorId
                 };
-                let analyticsObject = {
-                    userId: this.isAuthUser ? self.accountUser.id : 'GUEST',
-                    course: self.tutorCourse
-                }
-                analyticsService.sb_unitedEvent('Request Tutor Submit', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
-
+                self.sendAnalyticEvent(false);
                 tutorService.requestTutor(serverObj)
                             .then(() => {
                                         self.tutorRequestDialogClose();
@@ -137,9 +132,24 @@ export default {
             }else{
                 this.sendRequest();
             }
+        },
+        sendAnalyticEvent(beforeSubmit){
+            let analyticsObject = {
+                userId: this.isAuthUser ? this.accountUser.id : 'GUEST',
+                course: this.tutorCourse,
+                fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
+                fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
+            }
+            if(beforeSubmit){
+                analyticsService.sb_unitedEvent('Request Tutor Dialog Opened', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+            }else{
+                analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+            }
         }
     },
+
     created() {
+        this.sendAnalyticEvent(true);
         this.isProfile = this.$route.name === 'profile'? true : false;
         let captchaLangCode = global.lang === 'he' ? 'iw' : 'en';
         this.$loadScript(`https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=${captchaLangCode}`);

@@ -86,7 +86,11 @@
                  :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
                  <!-- add it to the other user tab -->
                 <!-- <div v-if="tab.id === getCurrentSelectedTab.id" class="tab-dot"></div> -->
-                <button @blur="saveNewTabName" @keyup.enter="saveNewTabName" @dblclick.self='editTabName(tab.id)' :id="tab.id">{{tab.name}}</button>
+                <button>
+                    
+                <span class="dot-tab" v-if="tab.id === getTabIndicator">●</span>
+                <span @blur="saveNewTabName" @keyup.enter="saveNewTabName" @keypress.enter="saveNewTabName"
+                @dblclick.self='editTabName(tab.id)' :id="tab.id">{{tab.name}}</span></button>
                 <!-- <v-icon @click.stop="showTabOption(tab.id)">sbf-3-dot</v-icon>
                 <div class="canvas-tab-option" :class="{'canvas-tab-option-active': tabEditId === tab.id}">
                     <div>
@@ -116,6 +120,7 @@
 
 
 <style lang="less">
+@import '../../../styles/colors.less';
     .canvas-container {
         .canvas-wrapper{
             /*rtl:ignore*/
@@ -200,7 +205,7 @@
                     padding-top: 10px;
                     font-size: 18px;
                     letter-spacing: -0.56px;
-                    color: #5bbdb7
+                    color: @color-main;
                 }
             }
         }
@@ -232,7 +237,7 @@
                     font-size: 18px;
                     line-height: 1.44;
                     letter-spacing: normal;
-                    color: #5bbdb7;     
+                    color: @color-main;     
                     .icon-helper{
                         width: 44px;
                         height: 42px;
@@ -295,6 +300,13 @@
                 min-width: 100px;
                 justify-content: center;
                 position: relative;
+                .dot-tab{
+                    color: #21cb4c;
+                    font-size: 22px;
+                    position: absolute;
+                    top: -7px;
+                    right: 7px;
+                }
                 .canvas-tab-option{
                     position: absolute;
                     width: 127px;

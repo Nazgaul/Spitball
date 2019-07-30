@@ -79,7 +79,8 @@
                               'updateUserProfileData',
                               'setReturnToUpload',
                               'updateDialogState',
-                              'updateRequestDialog'
+                              'updateRequestDialog',
+                              'setTutorRequestAnalyticsOpenedFrom'
                           ]),
             openAskQuestion() {
                 // analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
@@ -112,9 +113,17 @@
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
                 if(this.accountUser == null) {
                     //this.updateLoginDialogState(true);
+                    this.setTutorRequestAnalyticsOpenedFrom({
+                        component: 'actionBox',
+                        path: this.$route.path
+                    });
                     this.updateRequestDialog(true);
                 } else {
                     if(this.getSelectedClasses.length){
+                        this.setTutorRequestAnalyticsOpenedFrom({
+                            component: 'actionBox',
+                            path: this.$route.path
+                        });
                         this.updateRequestDialog(true);
                     }else {
                         this.$router.push({name: 'addCourse'});

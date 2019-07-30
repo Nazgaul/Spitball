@@ -1,4 +1,5 @@
 @import "../../styles/mixin.less";
+@import "../../styles/colors.less";
 
 @navColor: #a5a4bf;
 @iconActiveColor: #a3a0fb;
@@ -22,6 +23,9 @@
     right: 0;
     top: 104px;
     z-index: 99;
+    padding-bottom: 1px;
+    padding-left: 1px;
+    background-color: #efefef;
   }
   .controls-holder {
     display: flex;
@@ -51,9 +55,9 @@
     border: solid 1px transparent;
     &.control-btn-active {
       border-radius: 4px;
-      border: solid 1px #3dc2ba;
+      border: solid 1px @color-main;
       //font-weight: 600;
-      color: #3dc2ba;
+      color: @color-main;
       &:before {
         background-color: rgba(61, 194, 186, 0.06) !important;
       }
@@ -89,7 +93,7 @@
   .tutoring-navigation {
     display: flex;
     align-items: center;
-    background-color: @greenNew;
+    background-color: @color-main;
     height: 60px;
     justify-content: space-between;
 
@@ -109,14 +113,22 @@
       height: 100%;
       display: flex;
       align-items: center;
+      position: relative;
+      .dot-nav{
+        color: #21cb4c;
+        font-size: 22px;
+        position: absolute;
+        top: -5px;
+        right: 5px;
+    }
       &.tutor-nav-disabled{
-        background-color: #3cb8b1;
+        background-color: #514f7d;
         pointer-events: none;
         i{
-          color: #248781;
+          color: #929292;
         }
         .tutor-nav-item-link{
-          color: #248781;
+          color: #929292;
         }
       }
       .tutor-nav-item-link {
@@ -135,15 +147,15 @@
 
       &.active-nav {
         background-color: @color-white;
-        color: @greenNew;
+        color: @color-main;
 
         .tutor-nav-item-link {
-          color: @greenNew;
+          color: @color-main;
           font-weight: bold;
         }
 
         .sbf {
-          color: @greenNew;
+          color: @color-main;
         }
       }
     }
