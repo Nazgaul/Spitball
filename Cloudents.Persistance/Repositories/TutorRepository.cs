@@ -17,6 +17,41 @@ namespace Cloudents.Persistence.Repositories
 
         public async Task<IList<long>> GetTutorsByCourseAsync(string course, long userId, CancellationToken token)
         {
+            const string sql = @"with cte as
+(
+select uc.UserId
+from sb.UsersCourses uc	
+WHERE uc.CourseId = :Course and CanTeach = 1 
+			and exists (
+						SELECT uc1.CanTeach
+						FROM sb.UsersCourses uc1
+						inner join sb.[Course] c 
+						on uc1.CourseId=c.Name 
+						WHERE uc1.CanTeach = 1 and c.[State] = 'Ok' 
+						and (c.Name = :Course or c.SubjectId = (SELECT c1.SubjectId as y0_ FROM sb.[Course] c1 WHERE c1.Name = :Course))
+					) 
+		and not exists (
+						SELECT uc1.Id 
+						FROM sb.[ChatUser] uc1 
+						WHERE uc1.ChatRoomId in (
+													SELECT chu.ChatRoomId 
+													FROM sb.[ChatUser] chu 
+													WHERE chu.UserId = :UserId
+												) 
+		and (uc1.UserId != :UserId) 
+		)
+)
+
+select ts.Id
+from sb.vTutorSearch ts
+left join cte on cte.UserId = ts.Id and cte.UserId != :UserId
+
+order by case when cte.UserId is null then 0 else 1 end desc, 
+ts.ResponseTimeScore + ts.LessonsDoneScore + ts.LastOnlineScore + case when ts.Country = 'IL' then 0 else -5 end + RateScore + ManualBoost desc
+OFFSET 0 ROWS FETCH FIRST 3 ROWS ONLY";
+
+var res =  await Session.CreateSQLQuery(sql).SetParameter("UserId", userId).SetParameter("Course", course).ListAsync<long>(token);
+return res;
             /*
              * Select * from sb.[tutor] t
 join sb.[user] u on t.id = u.Id
@@ -36,46 +71,46 @@ and cu.UserId = u.Id
 and T.State = 'Ok'
 
              */
-            Tutor tutorAlias = null;
-            Course courseAlias = null;
-            UserCourse userCourse = null;
+            //Tutor tutorAlias = null;
+            //Course courseAlias = null;
+            //UserCourse userCourse = null;
 
-            var chatRoomQuery = QueryOver.Of<ChatUser>()
-                .WithSubquery.WhereProperty(w => w.ChatRoom.Id).In(
-                    QueryOver.Of<ChatUser>().Where(w => w.User.Id == userId).Select(s=>s.ChatRoom.Id))
-                .Where(w => w.User.Id != userId)
-                .And(w => w.User.Id == tutorAlias.Id)
-                .Select(s=>s.Id);
+            //var chatRoomQuery = QueryOver.Of<ChatUser>()
+            //    .WithSubquery.WhereProperty(w => w.ChatRoom.Id).In(
+            //        QueryOver.Of<ChatUser>().Where(w => w.User.Id == userId).Select(s=>s.ChatRoom.Id))
+            //    .Where(w => w.User.Id != userId)
+            //    .And(w => w.User.Id == tutorAlias.Id)
+            //    .Select(s=>s.Id);
 
-            var courseQuery = QueryOver.Of(() => userCourse)
-                    .JoinAlias(x => x.Course, () => courseAlias)
-                    .Where(w => w.CanTeach)
-                    .And(() => courseAlias.State == ItemState.Ok)
-                    .And(Restrictions.Disjunction()
-                        .Add(() => courseAlias.Id == course)
-                        .Add(
-                            Restrictions.EqProperty(
-                                Projections.Property(() => courseAlias.Subject),
-                                Projections.SubQuery(
-                                    QueryOver.Of<Course>().Where(cs => cs.Id == course).Select(s=>s.Subject))))
-                    )
-                
-                    .And(x => x.User.Id == tutorAlias.Id)
-                    .Select(s => s.CanTeach)
+            //var courseQuery = QueryOver.Of(() => userCourse)
+            //        .JoinAlias(x => x.Course, () => courseAlias)
+            //        .Where(w => w.CanTeach)
+            //        .And(() => courseAlias.State == ItemState.Ok)
+            //        .And(Restrictions.Disjunction()
+            //            .Add(() => courseAlias.Id == course)
+            //            .Add(
+            //                Restrictions.EqProperty(
+            //                    Projections.Property(() => courseAlias.Subject),
+            //                    Projections.SubQuery(
+            //                        QueryOver.Of<Course>().Where(cs => cs.Id == course).Select(s=>s.Subject))))
+            //        )
 
-                ;
+            //        .And(x => x.User.Id == tutorAlias.Id)
+            //        .Select(s => s.CanTeach)
+
+            //    ;
 
 
 
-            return await Session.QueryOver(() => tutorAlias)
-                .JoinQueryOver(p => p.User)
-                .WithSubquery.WhereExists(courseQuery)
-                .WithSubquery.WhereNotExists(chatRoomQuery)
-                .And(() => tutorAlias.State == ItemState.Ok)
-                .And(x => x.Id != userId)
-                .Select(s => s.User.Id)
-                .Take(3)
-                .ListAsync<long>(token);
+            //return await Session.QueryOver(() => tutorAlias)
+            //    .JoinQueryOver(p => p.User)
+            //    .WithSubquery.WhereExists(courseQuery)
+            //    .WithSubquery.WhereNotExists(chatRoomQuery)
+            //    .And(() => tutorAlias.State == ItemState.Ok)
+            //    .And(x => x.Id != userId)
+            //    .Select(s => s.User.Id)
+            //    .Take(3)
+            //    .ListAsync<long>(token);
         }
 
         public async Task DeleteTutorAsync(long tutorId, CancellationToken token)
