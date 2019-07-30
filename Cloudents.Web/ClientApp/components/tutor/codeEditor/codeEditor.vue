@@ -8,10 +8,9 @@
 <script>
     import debounce from "lodash/debounce";
     import { codemirror } from 'vue-codemirror';
-    import "codemirror/lib/codemirror.css";
+    // import "codemirror/lib/codemirror.css";
     import "codemirror/addon/display/autorefresh.js";
-    const CodeMirror = codemirror.CodeMirror
-
+    
     // languages:
     // c / c++ / c# / java / objective-c / scala : // check scala
     import "codemirror/mode/clike/clike.js";
@@ -192,7 +191,7 @@
 </script>
 
 <style lang="less">
-@import "./themes/monokai.less";
+@import './helperStyles/codeMirror.less';
 .code-editor-cont{
     .CodeMirror{
         height: 88vh !important;
