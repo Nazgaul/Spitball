@@ -9,7 +9,6 @@ import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
 import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
 import { LanguageService } from '../../../services/language/languageService'
-import soonComponent from '../helpers/soon/soon.vue'
 import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
 import analyticsService from '../../../services/analytics.service'
 
@@ -42,7 +41,7 @@ export default {
         notificationCenter,
         uploadFilesBtn,
         askQuestionBtn,
-        soonComponent,
+        
         setUniClass,
         schoolBlock,
         resultFilter,

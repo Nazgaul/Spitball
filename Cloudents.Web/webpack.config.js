@@ -23,6 +23,7 @@ module.exports = (env) => {
         //     main: "./ClientApp/main.js"
 
         // },
+        stats: { children: false },
         context: __dirname,
         module: {
             loaders: [
@@ -139,7 +140,11 @@ module.exports = (env) => {
             })
         ].concat(isDevBuild
             ? [
-                new ExtractTextPlugin({filename: "site.[contenthash].css", allChunks: true}),
+                new ExtractTextPlugin({
+                    filename: "site.[contenthash].css",
+                    allChunks: true
+                   
+                }),
                 new WebpackRTLPlugin({
                     filename: 'site.[contenthash].rtl.css',
                     minify: false

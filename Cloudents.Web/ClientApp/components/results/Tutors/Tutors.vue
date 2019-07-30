@@ -1,6 +1,6 @@
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name" >
-        <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
+       
         <div slot="main">
             
             <div class="request-box mb-4" style="max-width: 640px" :class="[$vuetify.breakpoint.xsOnly ? 'pt-3' : '']">

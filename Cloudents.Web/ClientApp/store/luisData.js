@@ -1,5 +1,6 @@
 ﻿﻿import { LUIS } from "./mutation-types"
 
+//BLITZ WTF
 let luisTypes = ["job", "ask"];
 let ACADEMIC = "academic";
 const state = {

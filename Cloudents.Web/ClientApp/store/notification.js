@@ -1,6 +1,8 @@
 import NotificationService from '../services/notificationService';
 import { NOTIFICATION } from "./mutation-types";
 
+
+//BLITZ WTF
 const emptyState = {
     action: 'empty',
     headline: 'Sure there will be soon',

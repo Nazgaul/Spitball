@@ -1,6 +1,6 @@
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
-        <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
+       
         <div slot="main">
             <div class="d-flex mobile-filter">
                   <upload-files-btn class="upload-card hidden-md-and-up"></upload-files-btn>

@@ -9,9 +9,9 @@ const nav = {
             filter:[],
             id: routes.questionRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_ask"),
-            icon: "sbf-ask-q", //TODO do we need this.....
-            visible: true,
-            soon: false
+            icon: "sbf-ask-q", //BLITZ TODO do we need this.....
+          
+           
         }
     },
     note: {
@@ -21,9 +21,9 @@ const nav = {
             needLocation:false,
             filter: [ { id: "source", name: "sources" }],
             sort: [],
-            icon: "sbf-note",
-            visible: true,
-            soon: false
+            icon: "sbf-note",//BLITZ TODO do we need this.....
+           
+          
         }
      },
     tutor: {
@@ -33,10 +33,9 @@ const nav = {
             needLocation: true,
             filter: [],
             sort: [],
-            icon: "sbf-tutor",
-            visible: true,
-            soon: false
-            // soon: !nonIsraeliUser
+            icon: "sbf-tutor",//BLITZ TODO do we need this.....
+           
+          
         }
     },
 
@@ -60,9 +59,8 @@ for (let i in nav) {
             'id': item.id,
             'name': item.name,
             'icon': item.icon,
-            'visible': item.visible,
-            'soon': item.soon
-            //image: item.image
+           
+           
         }
         if(isRtl && isMobile){
             verticalsNavbar.unshift(navObj);

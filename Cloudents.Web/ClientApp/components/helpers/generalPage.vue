@@ -1,6 +1,6 @@
 <template functional>
     <div style="height: 100%;">
-        <slot name="soonComponent"></slot>
+        <!-- <slot name="soonComponent"></slot> -->
         <slot name="verticalTabs"></slot>
         <div class="p-result">
             <v-container fluid class="pa-0 wrap">
