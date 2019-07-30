@@ -297,6 +297,9 @@ export default {
   props: {
     id: ""
   },
+  mounted() {
+    document.addEventListener("fullscreenchange",this.closeFullScreen);
+  },
   computed: {
     ...mapGetters([
       "qualityDialog",
@@ -379,6 +382,11 @@ export default {
       "setBrowserSupportDialog",
       "setRoomId"
     ]),
+    closeFullScreen(e){
+      if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
+       this.selectViewOption(this.enumViewOptions.videoChat)
+      }
+    },
     closeReviewDialog() {
       this.updateReviewDialog(false);
     },
@@ -458,6 +466,9 @@ export default {
       }
       return agent.match(/Firefox|Chrome|Safari/);
     }
+  },
+  beforeDestroy(){
+    document.removeEventListener('fullscreenchange',this.closeFullScreen);
   },
   created() {
     if (!this.isBrowserSupport()) {

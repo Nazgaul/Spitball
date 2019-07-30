@@ -29,7 +29,8 @@ export default {
             visible: {
                 'local_player': true,
                 'remote_player': true
-            }
+            },
+            noVideoConnected: false,
         };
     },
     props: {
@@ -44,7 +45,8 @@ export default {
             'getStudyRoomData',
             'accountUser',
             'getLocalVideoTrack',
-            'getLocalAudioTrack'
+            'getLocalAudioTrack',
+            'getLastActiveLocalVideoTrack'
         ]),
         localVideoTrack(){
             return this.getLocalVideoTrack
@@ -64,6 +66,17 @@ export default {
             }
         }
     },
+    watch:{
+        // getLastActiveLocalVideoTrack(track){
+        //     if(track){
+        //         let t = createLocalVideoTrack(track).then(()=>{
+        //         this.videoEl = document.getElementById('localTrack');   
+        //         });
+                
+        //         // this.videoEl.appendChild(track.attach());
+        //     }
+        // }
+    },
     methods: {
         ...mapActions([
             'updateReviewDialog',
@@ -77,15 +90,14 @@ export default {
             this.toggleAudioTrack()
         },
         toggleVideo(){
+            if(this.noVideoConnected) return;
+            
             if(this.localVideoTrack){
                 this.isActive = false;
             } else {
                 this.isActive = true
             }
             this.toggleVideoTrack()
-        },
-        minimize(type) {
-            this.visible[`${type}`] = !this.visible[`${type}`];
         },
         showLocalVideo(){
             let self = this;
@@ -99,6 +111,7 @@ export default {
                     self.videoEl.appendChild(track.attach());
                 }
             }, (err)=>{
+                this.noVideoConnected = true;
                 insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoStream_localVideoFailed', err, null);
                 console.error(err);
             });
