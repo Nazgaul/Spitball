@@ -56,9 +56,9 @@
               </v-list>
             </v-menu>
 
-            <div class="d-flex pr-4">
+            <!-- <div class="d-flex pr-4">
               <networkLevel class="network-icon ml-3" :signalLevel="localNetworkQuality"></networkLevel>
-            </div>
+            </div> -->
           </div>
         </nav>
         <v-flex xs12   class="study-tools-wrapper">
