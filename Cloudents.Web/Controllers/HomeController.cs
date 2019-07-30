@@ -25,7 +25,6 @@ namespace Cloudents.Web.Controllers
     public class HomeController : Controller
     {
         internal const string Referral = "referral";
-        //internal const string RootRoute = "Root";
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger _logger;
 

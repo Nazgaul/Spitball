@@ -28,7 +28,7 @@ const actions = {
     updateThemeMode({commit},val){
         commit('setThemeMode',val)
     },
-    updateLang({getters,commit},lang){
+    updateLang({getters,commit,dispatch},lang){
         commit('setLang',lang)
         if(getters['getCurrentRoomState'] === 'active'){
             let editorEvent = {

@@ -100,6 +100,7 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../styles/colors.less';
 .nav-container {
     position: relative;
         .selected-lang{
@@ -107,7 +108,7 @@ export default {
                 align-items: center;
                 font-size: 16px;
                 border-radius: 4px;
-                border: solid 1px #3dc3ba;
+                border: solid 1px @color-main;
                 padding: 0 5px;
                 width: 160px;
                 height: 36px;

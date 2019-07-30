@@ -14,9 +14,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
@@ -106,6 +109,9 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("GetPaymentLink")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<SaleResponse>> GenerateLink(
             CancellationToken token)
         {
@@ -135,12 +141,31 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("Seller"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> PayMeSellerBackAsync([FromForm] PayMeSellerCallbackRequest model, CancellationToken token)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> PayMeSellerBackAsync([FromForm] PayMeSellerCallbackRequest model,
+            [FromServices] TelemetryClient logger,
+            CancellationToken token)
         {
 
-            var command = new AddSellerTokenCommand(model.Email, model.SellerKey);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var command = new AddSellerTokenCommand(model.Email, model.SellerKey);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (NullReferenceException e)
+            {
+                logger.TrackException(e, model.GetType().GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance).ToDictionary
+                (
+                    propInfo => propInfo.Name,
+                    propInfo => propInfo.GetValue(model, null)?.ToString()
+
+                ));
+            }
+
+            return BadRequest();
         }
 
         private async Task<Uri> GenerateLinkAsync(
@@ -163,7 +188,7 @@ namespace Cloudents.Web.Api
                 userId = user.Id
             }, "https");
 
-            //var uri = new UriBuilder(url);
+           
 
 
             var result = await _payment.Value.CreateBuyerAsync(url, urlReturn, token);

@@ -18,8 +18,11 @@ const state = {
     currentAudioTrack: null,
     localVideoTrack: null,
     localAudioTrack: null,
+<<<<<<< HEAD
     isRemote: false,
+=======
     lastActiveLocalVideoTrack: null
+>>>>>>> origin/hotfix-ShareScreen
 };
 
 const getters = {
@@ -27,8 +30,11 @@ const getters = {
     getCurrentAudioTrack:state => state.currentAudioTrack,
     getLocalVideoTrack:state => state.localVideoTrack,
     getLocalAudioTrack:state => state.localAudioTrack,
+<<<<<<< HEAD
     getIsRemote:state => state.isRemote,
+=======
     getLastActiveLocalVideoTrack: state => state.lastActiveLocalVideoTrack
+>>>>>>> origin/hotfix-ShareScreen
 };
 
 const mutations = {

@@ -18,6 +18,10 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AddSellerTokenCommand message, CancellationToken token)
         {
             var user = await _userRepository.GetUserByEmailAsync(message.UserEmail, token);
+            if (user == null)
+            {
+                throw new NullReferenceException($"{message.UserEmail} does not exists");
+            }
             if (user.Tutor.SellerKey != null)
             {
                 throw new ArgumentException();

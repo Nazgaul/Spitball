@@ -61,6 +61,7 @@ const state = {
         name: LanguageService.getValueByKey('tutor_tab') + ' 1',
         id: 'tab-0'
     },
+    tabIndicator: 'tab-0',
 };
 const getters = {
     getDragData: state => state.dragData[state.currentSelectedTab.id],
@@ -81,7 +82,8 @@ const getters = {
         if(!!state.addImage){
             return state.addImage;
         }
-    }
+    },
+    getTabIndicator:state => state.tabIndicator,
 };
 
 const mutations = {
@@ -160,6 +162,9 @@ const mutations = {
     setClearAllClicked(state){
         state.clearAllClicked = !state.clearAllClicked
     },
+    setTab(state,{tabId}){
+        state.tabIndicator = tabId
+    }
 };
 
 const actions = {
@@ -232,7 +237,7 @@ const actions = {
     },
     updateTab({commit},updateTabObj){
         commit('setTabName',updateTabObj)
-    }
+    },
 };
 export default {
     state,
