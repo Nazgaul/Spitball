@@ -10,12 +10,14 @@
                         <v-icon>{{ show ? 'sbf-arrow-up' : 'sbf-arrow-down' }}</v-icon>
                     </v-btn>
                </template>
+               <!--TODO RESOURCE-->
                 <span>Choose Languages</span>
             </v-tooltip>
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" class="nav-action" >
-                        <v-switch class="switch" color="primary" v-model="themeMode" label="light Theme" hide-details />
+                        <!--TODO RESOURCE-->
+                        <v-switch class="switch" color="primary" v-model="themeMode" label="Light Theme" hide-details />
                     </button>
                 </template>
                 <span>Choose Theme</span>
