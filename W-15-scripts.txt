@@ -3,3 +3,47 @@ add  PaymentExists int
 update sb.[user]
 set PaymentExists = 1
 where PaymentKey is not null
+
+
+
+
+
+
+--Create view for tutor search score
+
+create view sb.vTutorSearch as
+with cte as
+(
+Select t2.id,(
+select avg(
+DATEDIFF(
+MINUTE, 
+x.CreationTime, 
+isnull(t.CreationTime,GETUTCDATE()))) as timeToAnswer
+from 
+sb.ChatUser ct
+cross apply (select top 1 * from sb.ChatMessage cm1 where cm1.ChatRoomId = ct.ChatRoomId order by cm1.id) as x
+left join (select top 1 cm.* from sb.ChatMessage cm join sb.ChatUser ct1 on cm.ChatRoomId = ct1.ChatRoomId  
+order by cm.id) t on t.UserId = ct.UserId 
+where ct.UserId != x.UserId
+and ct.userid = t2.Id
+) as AvgResponseTime,
+
+(Select count(1) from sb.StudyRoomSession srs join sb.StudyRoom sr on srs.StudyRoomId = sr.Id and sr.TutorId = t2.id) as LessonsDone ,
+u.LastOnline,
+(Select count(1) from sb.TutorReview tr where tr.TutorId = t2.id) as ReviewCount,
+(select isnull(cast(avg(Rate) as DECIMAL(10,2)), 0) from sb.TutorReview tr where tr.TutorId = t2.id) as AvgRate,
+DATEDIFF(DAY, ManualBoost, getutcdate()) as ManualBoost,
+u.Country
+from sb.tutor t2
+join sb.[user] u on t2.Id = u.id and t2.[State] = 'Ok' 
+)
+
+select Id, Country, 
+isnull((select min(AvgResponseTime) from cte)/cast(AvgResponseTime as float), 0)as ResponseTimeScore, 
+cast(LessonsDone as float)/(select max(LessonsDone) from cte) as LessonsDoneScore, 
+datediff(MINUTE,LastOnline, (select max(LastOnline) from cte))/ cast(datediff(MINUTE, (select max(LastOnline) from cte),(select min(LastOnline) from cte)) as float)  as LastOnlineScore,
+ReviewCount*AvgRate/(select max(ReviewCount*AvgRate) from cte) as RateScore,
+(select cast(min(isnull(cte.ManualBoost, 9999999)) as decimal(10,2)) from cte)/isnull(cte.ManualBoost, 9999999) as ManualBoost
+
+from cte 
