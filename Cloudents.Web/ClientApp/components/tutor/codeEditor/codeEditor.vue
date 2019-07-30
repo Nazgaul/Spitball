@@ -88,9 +88,6 @@
     // import "codemirror/theme/base16-light.css"; // light theme
     import 'codemirror/addon/dialog/dialog.css'; // for dialog  
 
-    import '../codeEditorNew/themes/vscode-dark.css';
-    import '../codeEditorNew/themes/coda.css';
-
     
 
     import { mapGetters,mapActions } from 'vuex';
@@ -191,7 +188,12 @@
 </script>
 
 <style lang="less">
+
 @import './helperStyles/codeMirror.less';
+   @import '../codeEditorNew/themes/vscode-dark.css';
+    @import '../codeEditorNew/themes/coda.css';
+ 
+
 .code-editor-wrap {
     height: ~"calc(100vh - 108px)";
     width: ~"calc(100% - 322px)";
