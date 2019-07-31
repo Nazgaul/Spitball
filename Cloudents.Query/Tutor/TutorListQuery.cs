@@ -9,6 +9,7 @@ using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Tutor
 {
@@ -36,7 +37,7 @@ namespace Cloudents.Query.Tutor
             }
 
             //TODO: review query 
-            public Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
+            public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
                 User userAlias = null;
                 ViewTutor viewTutorAlias = null;
@@ -46,7 +47,7 @@ namespace Cloudents.Query.Tutor
 
 
                 var listOfQueries = new List<IQueryOver<ViewTutor, ViewTutor>>();
-                IQueryOver<ViewTutor, ViewTutor> futureCourse = _session.QueryOver(() => viewTutorAlias);
+                IQueryOver<ViewTutor, ViewTutor> futureCourse = _session.QueryOver(() => viewTutorAlias).Where(w => w.Id != query.UserId);
 
                 listOfQueries.Add(futureCourse);
                 if (!string.IsNullOrEmpty(query.Country))
@@ -59,15 +60,24 @@ namespace Cloudents.Query.Tutor
 
                 if (query.UserId > 0)
                 {
-                    futureCourse.Where(w => w.Id != query.UserId);
+                    var WithCountryOnlyDetachedQuery = futureCourse.Clone();
+                   
+                    //futureCourse.Where(w => w.Id != query.UserId);
 
                     var detachedQuery = QueryOver.Of(() => tutorAlias)
                         .JoinEntityAlias(() => userCourseAlias, () => userCourseAlias.User.Id == tutorAlias.Id)
                         .Where(() => userCourseAlias.CanTeach)
                         .And(() => tutorAlias.State == ItemState.Ok)
+                     
+
+          
                         .WithSubquery.WhereProperty(() => userCourseAlias.Course.Id).In(
+
                             QueryOver.Of<UserCourse>()
-                                .Where(w => w.User.Id == query.UserId).Select(s => s.Course.Id))
+                                .Where(w => w.User.Id == query.UserId).Select(s => s.Course.Id)
+
+                                )
+                        
                         .Select(s => s.Id);
 
 
@@ -89,13 +99,14 @@ namespace Cloudents.Query.Tutor
 
                     futureCourse.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery);
                     futureCourse2.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery2);
+                    listOfQueries.Add(WithCountryOnlyDetachedQuery);
                 }
 
                 var futureResult = listOfQueries.Select(s => BuildSelectStatement(s, query.Page)).ToList();
 
 
                 IEnumerable<TutorCardDto> retVal = futureResult.Select(async s => await s.GetEnumerableAsync(token)).SelectMany(s => s.Result).Distinct(TutorCardDto.UserIdComparer).Take(20).ToList();
-                return Task.FromResult(retVal);
+                return retVal;
             }
 
             private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ViewTutor, ViewTutor> futureCourse, int page)
