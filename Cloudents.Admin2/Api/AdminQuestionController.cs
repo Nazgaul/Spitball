@@ -49,20 +49,7 @@ namespace Cloudents.Admin2.Api
         }
 
         /// <summary>
-        /// Get a list of question subject for ui
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("subject")]
-        [ResponseCache(Duration = TimeConst.Day)]
         [Authorize(Policy = Policy.IsraelUser)]
-        public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
-        {
-            var values = QuestionSubjectMethod.GetValues();
-
-            return values.Select(s => new QuestionSubjectResponse((int)s, s.ToString("G")));
-        }
-
-        /// <summary>
         /// Delete question from the system
         /// </summary>
         /// <param name="ids">a list of ids to delete</param>

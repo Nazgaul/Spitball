@@ -13,7 +13,6 @@ namespace Cloudents.Core.Query
             string term,
             string course, 
             bool filterByUniversity,
-            QuestionSubject[] source,
             IEnumerable<QuestionFilter> filters, string country, Guid? universityId) //: base(userProfile, term, course, filterByUniversity)
         {
             
@@ -21,7 +20,6 @@ namespace Cloudents.Core.Query
             Term = term;
             Course = course;
             FilterByUniversity = filterByUniversity;
-            Source = source;
             Filters = filters;
             Country = country;
             UniversityId = universityId;
@@ -32,7 +30,6 @@ namespace Cloudents.Core.Query
         public string Term { get; }
         public string Course { get; }
         public bool FilterByUniversity { get; }
-        public QuestionSubject[] Source { get; }
 
         public IEnumerable<QuestionFilter> Filters { get; }
 

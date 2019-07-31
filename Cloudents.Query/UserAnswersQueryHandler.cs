@@ -43,7 +43,6 @@ namespace Cloudents.Query
                         },
                         Id = s.Question.Id,
                         Course = s.Question.Course.Id,
-                        Subject = s.Question.Subject,
                         Text = s.Question.Text,
                         DateTime = s.Question.Updated,
                         Vote = new VoteDto()
