@@ -28,9 +28,6 @@ export default {
     voiceConfirmation: () => {
         return connectivityModule.http.post("/sms/call");
     },
-    getAccountNum: () => {
-        return connectivityModule.http.post("/Register/password");
-    },
     getLocalCode: () => {
         return connectivityModule.http.get("/sms/code");
     },
