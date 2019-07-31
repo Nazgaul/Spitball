@@ -92,14 +92,19 @@ export default {
         },
         closeDocument() {
             this.clearDocument();
-            this.$router.go(-1);
+            let routeStackLength = this.getRouteStack.length;
+            if(routeStackLength > 1){
+                this.$router.back();
+            }else{
+                this.$router.push({path: '/note'})
+            }
         },
         goToNote(){
             this.$router.push({path: '/note'});
         }
     },
     computed: {
-        ...mapGetters(['getBtnLoading', 'accountUser']),
+        ...mapGetters(['getBtnLoading', 'accountUser', 'getRouteStack']),
 
         getCourse() {
             if(this.document.details && this.document.details.course) {
