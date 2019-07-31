@@ -11,6 +11,7 @@ var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 //const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 //const CleanWebpackPlugin = require("clean-webpack-plugin");
 const WebpackRTLPlugin = require("webpack-rtl-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 
 module.exports = (env) => {
@@ -201,7 +202,12 @@ module.exports = (env) => {
             new webpack.DllReferencePlugin({
                 context: __dirname,
                 manifest: require("./wwwroot/dist/vendor-manifest.json")
-            })
+            }),
+            // new BundleAnalyzerPlugin({
+            //     analyzerMode: 'disabled',
+            //     generateStatsFile: true,
+            //     statsOptions: { source: false }
+            //   }),
         ].concat(isDevBuild
             ? [
 
