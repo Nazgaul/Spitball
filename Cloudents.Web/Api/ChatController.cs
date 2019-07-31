@@ -52,6 +52,12 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        /// <summary>
+        /// Get User info - Used in StudyRoom
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="token"></param>
+        /// <returns>list of courses for a user</returns>
         [HttpGet("conversation/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
