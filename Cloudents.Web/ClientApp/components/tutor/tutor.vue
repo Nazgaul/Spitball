@@ -5,7 +5,7 @@
     :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
     :class="{'gridBackground': $route.name === 'tutoring', 'mobile-no-support': isMobile}"
   >
-    <div v-show="isMobile" class="mobile-no-support-container">
+    <div v-if="isMobile" class="mobile-no-support-container">
       <noSupportTop></noSupportTop>
       <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
       <div class="no-support-button">
@@ -13,7 +13,7 @@
       </div>
       <noSupportBottom></noSupportBottom>
     </div>
-    <div v-show="!isMobile">
+    <div v-else>
       <v-flex>
         <nav class="tutoring-navigation">
           <div class="logo-nav-wrap">
