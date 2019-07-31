@@ -30,12 +30,10 @@ namespace Cloudents.Query.Tutor
         internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, IEnumerable<TutorCardDto>>
         {
             private readonly IStatelessSession _session;
-            private readonly IRegularUserRepository _userRepository;
 
-            public TutorListQueryHandler(QuerySession session, IRegularUserRepository userRepository)
+            public TutorListQueryHandler(QuerySession session)
             {
                 _session = session.StatelessSession;
-                _userRepository = userRepository;
             }
 
             //TODO: review query 
@@ -47,7 +45,6 @@ namespace Cloudents.Query.Tutor
                 UserCourse userCourseAlias = null;
                 Course courseAlias = null;
 
-                var user = await _userRepository.LoadAsync(query.UserId, token);
 
                 var listOfQueries = new List<IQueryOver<ViewTutor, ViewTutor>>();
                 IQueryOver<ViewTutor, ViewTutor> futureCourse = _session.QueryOver(() => viewTutorAlias).Where(w => w.Id != query.UserId);
@@ -61,17 +58,26 @@ namespace Cloudents.Query.Tutor
 
 
 
-                if (query.UserId > 0 && user.UserCourses.Count > 0)
+                if (query.UserId > 0)
                 {
-                    futureCourse.Where(w => w.Id != query.UserId);
+                    var WithCountryOnlyDetachedQuery = futureCourse.Clone();
+                   
+                    //futureCourse.Where(w => w.Id != query.UserId);
 
                     var detachedQuery = QueryOver.Of(() => tutorAlias)
                         .JoinEntityAlias(() => userCourseAlias, () => userCourseAlias.User.Id == tutorAlias.Id)
                         .Where(() => userCourseAlias.CanTeach)
                         .And(() => tutorAlias.State == ItemState.Ok)
+                     
+
+          
                         .WithSubquery.WhereProperty(() => userCourseAlias.Course.Id).In(
+
                             QueryOver.Of<UserCourse>()
-                                .Where(w => w.User.Id == query.UserId).Select(s => s.Course.Id))
+                                .Where(w => w.User.Id == query.UserId).Select(s => s.Course.Id)
+
+                                )
+                        
                         .Select(s => s.Id);
 
 
@@ -93,6 +99,7 @@ namespace Cloudents.Query.Tutor
 
                     futureCourse.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery);
                     futureCourse2.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery2);
+                    listOfQueries.Add(WithCountryOnlyDetachedQuery);
                 }
 
                 var futureResult = listOfQueries.Select(s => BuildSelectStatement(s, query.Page)).ToList();
