@@ -1,11 +1,11 @@
 <template>
-    <div class="user-image-wrap" :class="{'hide-block': hideImageBlock}">
-        <div v-if="getProfileImageLoading" class="loader-wrap align-center justify-center">
-            <v-progress-circular indeterminate v-bind:size="50" color="#514f7d"></v-progress-circular>
+    <div class="user-image-wrap">
+        <div v-if="!profileImage" class="loader-wrap align-center justify-center">
+            <v-progress-circular indeterminate v-bind:size="50" color="#514f7d"/>
         </div>
         <img v-else class="user-picture" style="height: 240px; width: 214px;"
-             :src="profileImage" @error="onImageLoadError" :alt="userName" :title="userName">
-        <div class="bottom-section" v-if="isTutorProfile">
+             :src="profileImage" @error="onImageLoadError" :alt="userName" :title="userName"/>
+        <div class="bottom-section" v-if="isTutorProfile && profileImage">
             <user-rating :size="'20'" :rating="tutorRank" :readonly="true" class="px-4 line-height-1"></user-rating>
             <span class="reviews-quantity">
                     <span>{{reviewCount}}</span>
@@ -39,7 +39,6 @@
         data() {
             return {
                 hover: false,
-                hideImageBlock: true
             }
         },
         props: {
@@ -98,12 +97,6 @@
                 }
             }
         },
-        mounted(){
-            let imageElm = document.querySelector(".user-picture");
-            imageElm.addEventListener('load', ()=>{
-                this.hideImageBlock = false;
-            });
-        }
     }
 </script>
 
