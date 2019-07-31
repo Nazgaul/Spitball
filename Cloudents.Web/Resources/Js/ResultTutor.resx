@@ -154,7 +154,7 @@
     <value>Courses:</value>
   </data>
   <data name="hours_completed" xml:space="preserve">
-    <value>Lesson hours completed</value>
+    <value>Lessons completed</value>
   </data>
   <data name="send_button" xml:space="preserve">
     <value>Send {1} message</value>
@@ -167,5 +167,11 @@
   </data>
   <data name="read_more" xml:space="preserve">
     <value>Read more</value>
+  </data>
+  <data name="subtitle" xml:space="preserve">
+    <value>Teacher</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>Teachers</value>
   </data>
 </root>

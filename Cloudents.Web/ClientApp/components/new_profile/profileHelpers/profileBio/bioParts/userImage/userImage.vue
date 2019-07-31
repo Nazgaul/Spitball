@@ -1,6 +1,6 @@
 <template>
     <div class="user-image-wrap">
-        <div v-if="!profileImage" class="loader-wrap align-center justify-center">
+        <div v-if="!profileImage || getProfileImageLoading" class="loader-wrap align-center justify-center">
             <v-progress-circular indeterminate v-bind:size="50" color="#514f7d"/>
         </div>
         <img v-else class="user-picture" style="height: 240px; width: 214px;"
@@ -32,7 +32,6 @@
     import userOnlineStatus from '../../../../../helpers/userOnlineStatus/userOnlineStatus.vue';
     import utilitiesService from '../../../../../../services/utilities/utilitiesService';
 
-
     export default {
         components: {userRating, uploadImage, userOnlineStatus},
         name: "userImage",
@@ -53,7 +52,7 @@
             }
         },
         computed: {
-            ...mapGetters(['getProfile', 'isTutorProfile', 'getProfileImageLoading']),
+            ...mapGetters(['getProfile', 'isTutorProfile','getProfileImageLoading']),
             userName(){
                 return (this.getProfile && this.getProfile.user.name)? this.getProfile.user.name : '';
             },

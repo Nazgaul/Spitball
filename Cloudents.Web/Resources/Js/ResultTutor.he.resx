@@ -154,7 +154,7 @@
     <value>קורסים:</value>
   </data>
   <data name="hours_completed" xml:space="preserve">
-    <value>שעות שיעור הושלמו</value>
+    <value>שיעורים הושלמו</value>
   </data>
   <data name="send_button" xml:space="preserve">
     <value>שלחו ל{1} הודעה</value>
@@ -167,5 +167,11 @@
   </data>
   <data name="read_more" xml:space="preserve">
     <value>קרא עוד</value>
+  </data>
+  <data name="subtitle" xml:space="preserve">
+    <value>מורה פרטי/ת</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>מורים פרטיים</value>
   </data>
 </root>
