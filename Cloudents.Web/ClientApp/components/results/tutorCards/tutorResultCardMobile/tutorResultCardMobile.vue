@@ -85,21 +85,6 @@ export default {
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
       }
     },
-    openRequestDialog(ev ,tutorData) {
-      let userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
-      if(this.fromLandingPage){
-           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_landing_page', `userId:${userId}`);
-      }else{
-           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_tutor_page', `userId:${userId}`);
-      };
-      ev.stopImmediatePropagation()
-      this.updateCurrTutor(tutorData)
-      this.setTutorRequestAnalyticsOpenedFrom({
-          component: 'tutorCard',
-          path: this.$route.path
-      });
-      this.updateRequestDialog(true);
-    },
     onImageLoadError(event) {
       event.target.src = "./images/placeholder-profile.png";
     },
@@ -110,6 +95,10 @@ export default {
       if (this.accountUser == null) {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
           this.updateCurrTutor(user);
+          this.setTutorRequestAnalyticsOpenedFrom({
+            component: 'tutorCard',
+            path: this.$route.path
+          });
           this.updateRequestDialog(true);
       } else {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
