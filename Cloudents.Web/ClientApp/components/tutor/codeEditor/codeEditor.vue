@@ -8,7 +8,6 @@
 <script>
     import debounce from "lodash/debounce";
     import { codemirror } from 'vue-codemirror';
-    // import "codemirror/lib/codemirror.css";
     import "codemirror/addon/display/autorefresh.js";
     
     // languages:
@@ -82,13 +81,7 @@
     import 'codemirror/addon/scroll/annotatescrollbar.js' // ?
     import 'codemirror/addon/search/matchesonscrollbar.js' // ?
     import 'codemirror/addon/search/matchesonscrollbar.css' // ?
-
-    // themes:
-    // import "codemirror/theme/base16-dark.css"; // dark theme
-    // import "codemirror/theme/base16-light.css"; // light theme
     import 'codemirror/addon/dialog/dialog.css'; // for dialog  
-
-    
 
     import { mapGetters,mapActions } from 'vuex';
 
@@ -124,7 +117,6 @@
                     indentWithTabs: true,
                     smartIndent: true,
                     autofocus: true,
-                    // highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true}
                 }
             }
         },
@@ -190,9 +182,8 @@
 <style lang="less">
 
 @import './helperStyles/codeMirror.less';
-   @import '../codeEditorNew/themes/vscode-dark.css';
-    @import '../codeEditorNew/themes/coda.css';
- 
+@import './themes/vscode-dark.css';
+@import './themes/coda.css';
 
 .code-editor-wrap {
     height: ~"calc(100vh - 108px)";
@@ -210,10 +201,6 @@
    
     .CodeMirror{
         height: 100%;
-     
-        //height: 88vh !important;
-      
-        //width: 164.9vh !important;
         font-size: 16px;
         //Same as iframe
     }
