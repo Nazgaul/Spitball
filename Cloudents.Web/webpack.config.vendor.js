@@ -3,7 +3,6 @@ const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-var Visualizer = require("webpack-visualizer-plugin");
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 //var t = require("./webpack.global.js");
 const merge = require('webpack-merge');
@@ -169,9 +168,7 @@ module.exports = (env) => {
                 })
             ].concat(isDevBuild ? [
                 new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
-                new Visualizer({
-                    filename: "./statistics-vendor.html"
-                }),
+                
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:

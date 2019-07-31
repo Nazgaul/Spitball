@@ -83,6 +83,8 @@
     import 'codemirror/addon/search/matchesonscrollbar.css' // ?
     import 'codemirror/addon/dialog/dialog.css'; // for dialog  
 
+
+    //STORE
     import { mapGetters,mapActions } from 'vuex';
 
     export default {

@@ -32,7 +32,7 @@ import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
 import signalRStore from './signalRStore';
-import studyRoomStore from './studyRoomStore/index';
+// import studyRoomStore from './studyRoomStore/index';
 import loginRegister from './loginRegister';
 import routeStore from './routeStore';
 
@@ -70,7 +70,7 @@ const store = new Vuex.Store({
         userOnlineStatus,
         requestTutor,
         signalRStore,
-        ...studyRoomStore,
+        // ...studyRoomStore,
         loginRegister,
         routeStore,
     }

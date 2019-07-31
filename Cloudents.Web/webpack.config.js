@@ -5,7 +5,6 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const merge = require('webpack-merge');
 //const serverConfig = require("./webpack.config.server.js");
-//var Visualizer = require("webpack-visualizer-plugin");
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 //var t = require("./webpack.global.js");
 //const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
@@ -203,17 +202,14 @@ module.exports = (env) => {
                 context: __dirname,
                 manifest: require("./wwwroot/dist/vendor-manifest.json")
             }),
-            // new BundleAnalyzerPlugin({
-            //     analyzerMode: 'disabled',
-            //     generateStatsFile: true,
-            //     statsOptions: { source: false }
-            //   }),
+            
         ].concat(isDevBuild
             ? [
-
-                //new Visualizer({
-                //    filename: "./statistics.html"
-                //}),
+                new BundleAnalyzerPlugin({
+                    analyzerMode: 'disabled',
+                    generateStatsFile: true,
+                    statsOptions: { source: false }
+                }),
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:
