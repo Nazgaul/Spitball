@@ -29,7 +29,6 @@ namespace Cloudents.Query
                 {
                     Id = s.Id,
                     User = new UserDto(s.User.Id, s.User.Name, s.User.Score, s.User.Image),
-                    Subject = s.Subject,
                     Text = s.Text,
                     Files = s.Attachments,
                     Answers = s.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),

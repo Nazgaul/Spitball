@@ -54,7 +54,7 @@ namespace Cloudents.Command.CommandHandler
 
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
 
-            var question = new Question(message.SubjectId,
+            var question = new Question(
                 message.Text,  message.Files?.Count() ?? 0,
                 user, textLanguage, course, user.University);
 

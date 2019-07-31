@@ -9,11 +9,6 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailDto
     {
-
-        
-
-        public QuestionSubject? Subject { get; set; }
-
         public long Id { get; set; }
 
         public string Text { get; set; }
@@ -29,8 +24,6 @@ namespace Cloudents.Core.DTOs
         public Guid? CorrectAnswerId { get; set; }
 
         public bool IsRtl { get; set; }
-
-        
 
         public VoteDto Vote { get; set; }
     }

@@ -132,9 +132,6 @@
   <data name="QuestionFlood" xml:space="preserve">
     <value>יש להמתין לפני שאילת שאלה חדשה</value>
   </data>
-  <data name="SubjectTypeTitle" xml:space="preserve">
-    <value>נושא</value>
-  </data>
   <data name="VoteCantVote" xml:space="preserve">
     <value>לא ניתן להצביע בעד / נגד השאלה שלך</value>
   </data>

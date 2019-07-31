@@ -28,13 +28,13 @@ namespace Cloudents.Core.DTOs.SearchSync
             get
             {
                 var arr = new List<string>();
-                if (Subject.HasValue)
-                {
-                    if (System.Enum.IsDefined(typeof(QuestionSubject), Subject.Value))
-                    {
-                        arr.AddRange(Subject.GetEnumLocalizationAllValues());
-                    }
-                }
+                //if (Subject.HasValue)
+                //{
+                //    if (System.Enum.IsDefined(typeof(QuestionSubject), Subject.Value))
+                //    {
+                //        arr.AddRange(Subject.GetEnumLocalizationAllValues());
+                //    }
+                //}
 
                 if (!string.IsNullOrEmpty(Text))
                 {
@@ -59,7 +59,7 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string Course { get; set; }
 
 
-        public QuestionSubject? Subject { get; set; } // facetable readonly
+        //public QuestionSubject? Subject { get; set; } // facetable readonly
         public QuestionFilter? State { get; set; }
         public string UniversityName { get; set; }
         public string[] Tags { get; set; }

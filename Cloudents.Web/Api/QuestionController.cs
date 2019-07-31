@@ -76,7 +76,7 @@ namespace Cloudents.Web.Api
             var toasterMessage = _localizer["PostedQuestionToasterOk"];
             try
             {
-                var command = new CreateQuestionCommand(model.SubjectId, model.Text,
+                var command = new CreateQuestionCommand(model.Text,
                     userId, model.Files, model.Course);
                 await _commandBus.DispatchAsync(command, token);
             }
@@ -108,13 +108,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpGet("subject"), AllowAnonymous]
-        [ResponseCache(Duration = TimeConst.Day, VaryByQueryKeys = new[] { "*" })]
-        public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
-        {
-            var values = QuestionSubjectMethod.GetValues();
-            return values.Select(s => new QuestionSubjectResponse(s.ToString("G"), s.GetEnumLocalization()));
-        }
+       
 
         [HttpPut("correct")]
         public async Task<IActionResult> MarkAsCorrectAsync([FromBody]MarkAsCorrectRequest model, CancellationToken token)
@@ -201,7 +195,7 @@ namespace Cloudents.Web.Api
             [FromServices] IQueryBus queryBus,
            CancellationToken token)
         {
-            var query = new QuestionsQuery(model.Term, model.Course, model.NeedUniversity, model.Source,
+            var query = new QuestionsQuery(model.Term, model.Course, model.NeedUniversity, 
                 model.Filter?.Where(w => w.HasValue).Select(s => s.Value), profile.Country, profile.UniversityId)
             {
                 Page = model.Page
@@ -249,10 +243,7 @@ namespace Cloudents.Web.Api
                 {
                     new Filters<string>(nameof(QuestionsRequest.Filter),_localizer["FilterTypeTitle"],
                         result.FacetState.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization()))),
-
-                    new Filters<string>(nameof(QuestionsRequest.Source),_localizer["SubjectTypeTitle"],
-                        QuestionSubjectMethod.GetValues(result.FacetSubject)
-                            .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
+                  
                 },
                 NextPageLink = nextPageLink
             };

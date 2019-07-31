@@ -45,12 +45,11 @@ namespace Cloudents.Infrastructure.Search.Question
 
             if (string.IsNullOrEmpty(query.Term))
             {
-                retVal.FacetSubject = EnumExtension.GetValues<QuestionSubject>();
+               // retVal.FacetSubject = EnumExtension.GetValues<QuestionSubject>();
                 retVal.FacetState = EnumExtension.GetValues<QuestionFilter>().Where(w => w.GetAttributeValue<PublicValueAttribute>() != null);
             }
             else
             {
-                retVal.FacetSubject = searchResult.facetSubject;
                 retVal.FacetState = searchResult.facetFilter;
             }
 

@@ -85,6 +85,11 @@ namespace Cloudents.Search.Question
             index.Fields.Add(new Field("HasCorrectAnswer", DataType.Boolean));
             index.Fields.Add(new Field("Price", DataType.Double));
             index.Fields.Add(new Field("Color", DataType.Int32));
+            index.Fields.Add(new Field("Subject", DataType.Int32)
+            {
+                IsFacetable = true,
+                IsFilterable = true
+            });
             index.Fields.Add(new Field("UserId", DataType.Int64)
                 {
                     IsFilterable = true
