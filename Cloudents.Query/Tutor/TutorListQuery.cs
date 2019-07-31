@@ -9,6 +9,7 @@ using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Tutor
 {
@@ -29,14 +30,16 @@ namespace Cloudents.Query.Tutor
         internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, IEnumerable<TutorCardDto>>
         {
             private readonly IStatelessSession _session;
+            private readonly IRegularUserRepository _userRepository;
 
-            public TutorListQueryHandler(QuerySession session)
+            public TutorListQueryHandler(QuerySession session, IRegularUserRepository userRepository)
             {
                 _session = session.StatelessSession;
+                _userRepository = userRepository;
             }
 
             //TODO: review query 
-            public Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
+            public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
                 User userAlias = null;
                 ViewTutor viewTutorAlias = null;
@@ -44,9 +47,10 @@ namespace Cloudents.Query.Tutor
                 UserCourse userCourseAlias = null;
                 Course courseAlias = null;
 
+                var user = await _userRepository.LoadAsync(query.UserId, token);
 
                 var listOfQueries = new List<IQueryOver<ViewTutor, ViewTutor>>();
-                IQueryOver<ViewTutor, ViewTutor> futureCourse = _session.QueryOver(() => viewTutorAlias);
+                IQueryOver<ViewTutor, ViewTutor> futureCourse = _session.QueryOver(() => viewTutorAlias).Where(w => w.Id != query.UserId);
 
                 listOfQueries.Add(futureCourse);
                 if (!string.IsNullOrEmpty(query.Country))
@@ -57,7 +61,7 @@ namespace Cloudents.Query.Tutor
 
 
 
-                if (query.UserId > 0)
+                if (query.UserId > 0 && user.UserCourses.Count > 0)
                 {
                     futureCourse.Where(w => w.Id != query.UserId);
 
@@ -95,7 +99,7 @@ namespace Cloudents.Query.Tutor
 
 
                 IEnumerable<TutorCardDto> retVal = futureResult.Select(async s => await s.GetEnumerableAsync(token)).SelectMany(s => s.Result).Distinct(TutorCardDto.UserIdComparer).Take(20).ToList();
-                return Task.FromResult(retVal);
+                return retVal;
             }
 
             private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ViewTutor, ViewTutor> futureCourse, int page)
