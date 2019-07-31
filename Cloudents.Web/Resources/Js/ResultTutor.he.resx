@@ -168,4 +168,10 @@
   <data name="read_more" xml:space="preserve">
     <value>קרא עוד</value>
   </data>
+  <data name="subtitle" xml:space="preserve">
+    <value>מורה פרטי/ת</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>מורים פרטיים</value>
+  </data>
 </root>
