@@ -67,7 +67,7 @@ namespace Cloudents.Persistence
 
             if (value == null)
             {
-                parameter.Value = null;
+                parameter.Value = DBNull.Value;
             }
             else
             {
