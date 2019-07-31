@@ -49,7 +49,7 @@
         },
         methods:{
             onImageLoadError(event) {
-                event.target.src = '../../images/placeholder-profile.png';
+                event.target.src = '../../../../../images/placeholder-profile.png';
             }
         },
         computed: {
@@ -63,7 +63,7 @@
                         let url = utilitiesService.proccessImageURL(this.getProfile.user.image, 214,240);
                         return url;
                     } else {
-                        return '../../images/placeholder-profile.png'
+                        return '../../../../../images/placeholder-profile.png';
                     }
                 }
             },
