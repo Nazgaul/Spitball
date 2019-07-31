@@ -3,7 +3,9 @@
         <div id="canvas-wrapper" class="canvas-wrapper" style="position:relative; overflow: auto;" :style="`width:${windowWidth}px;height:${windowHeight}px;`">
             <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
 
-        
+            <v-progress-circular v-if="getImgLoader" class="loader-img-canvas light-blue" 
+                indeterminate
+                :rotate="3" :size="100" :width="3" color="info"></v-progress-circular>
         <svg class="helper" width="100%" height="100%" v-if="helperShow">
             <rect v-if="selectedOptionString === enumOptions.rectangle || selectedOptionString === enumOptions.select"
                   :x="helperStyle.x"
@@ -140,6 +142,11 @@
             &.select-object {
                 cursor: pointer;
             }
+        }
+        .loader-img-canvas{
+            position: absolute;
+            top: 36%;
+            left: 47%;
         }
         .helper {
             position: fixed;

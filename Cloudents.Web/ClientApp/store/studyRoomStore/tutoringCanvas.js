@@ -62,6 +62,7 @@ const state = {
         id: 'tab-0'
     },
     tabIndicator: 'tab-0',
+    imgLoader: false
 };
 const getters = {
     getDragData: state => state.dragData[state.currentSelectedTab.id],
@@ -84,6 +85,7 @@ const getters = {
         }
     },
     getTabIndicator:state => state.tabIndicator,
+    getImgLoader:state => state.imgLoader,
 };
 
 const mutations = {
@@ -164,6 +166,9 @@ const mutations = {
     },
     setTab(state,{tabId}){
         state.tabIndicator = tabId
+    },
+    setImgLoader(state,val){
+        state.imgLoader = val
     }
 };
 
@@ -238,6 +243,9 @@ const actions = {
     updateTab({commit},updateTabObj){
         commit('setTabName',updateTabObj)
     },
+    updateImgLoader({commit},val){
+        commit('setImgLoader',val)
+    }
 };
 export default {
     state,
