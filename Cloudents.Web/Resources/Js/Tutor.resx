@@ -328,4 +328,13 @@ Try connecting from a computer browser</value>
   <data name="tooltip_video_resume" xml:space="preserve">
     <value>Resume</value>
   </data>
+  <data name="tooltip_code_langauge" xml:space="preserve">
+    <value>Choose Languages</value>
+  </data>
+  <data name="tooltip_code_theme" xml:space="preserve">
+    <value>Choose Theme</value>
+  </data>
+  <data name="tooltip_code_theme_switch" xml:space="preserve">
+    <value>Light Theme</value>
+  </data>
 </root>

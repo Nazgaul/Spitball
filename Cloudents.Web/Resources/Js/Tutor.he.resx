@@ -282,6 +282,12 @@
   <data name="tooltip_clearAll" xml:space="preserve">
     <value>נקה הכל</value>
   </data>
+  <data name="tooltip_code_langauge" xml:space="preserve">
+    <value>בחר שפה</value>
+  </data>
+  <data name="tooltip_code_theme" xml:space="preserve">
+    <value>בחר רקע</value>
+  </data>
   <data name="tooltip_color" xml:space="preserve">
     <value>בחירת צבע</value>
   </data>
