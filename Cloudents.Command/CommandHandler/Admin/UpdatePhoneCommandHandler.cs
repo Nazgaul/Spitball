@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Exceptions;
@@ -20,6 +21,11 @@ namespace Cloudents.Command.CommandHandler.Admin
             if (user == null)
             {
                 throw new NotFoundException();
+            }
+
+            if (string.IsNullOrEmpty(user.Country))
+            {
+                throw new NullReferenceException();
             }
             user.PhoneNumber = message.NewPhone;
             await _repository.UpdateAsync(user, token);

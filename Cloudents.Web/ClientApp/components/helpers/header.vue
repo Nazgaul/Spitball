@@ -13,7 +13,7 @@
                             </v-toolbar-title>
                             <v-toolbar-items>
                                 <search-input v-if="$vuetify.breakpoint.smAndUp && !hideSearch" :user-text="userText"
-                                              :placeholder="this.$options.placeholders['all']"
+                                              :placeholder="this.$options.placeholders[path]"
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
@@ -55,7 +55,7 @@
                         </v-layout>
                     </v-flex>
                     <v-flex v-if="$vuetify.breakpoint.xsOnly && !hideSearch" class="line search-wrapper">
-                        <search-input :user-text="userText" :placeholder="this.$options.placeholders['all']"
+                        <search-input :user-text="userText" :placeholder="this.$options.placeholders[path]"
                                       :submit-route="submitRoute"></search-input>
                     </v-flex>
                     <slot name="extraHeader"></slot>
@@ -99,6 +99,7 @@
         },
         data() {
             return {
+                path: '',
                 notRegMenu,
                 clickOnce: false,
                 drawer: false,
@@ -168,6 +169,13 @@
                 }else{
                     document.body.removeAttribute("class","noscroll");
                 }
+            },
+            '$route': function(val){
+                if(val.name === 'tutors'){
+                    this.path = 'tutor';
+                } else{
+                    this.path = val.name
+                }
             }
 
         },
@@ -218,6 +226,12 @@
             }
         },
         created() {
+            if(this.$route.name === 'tutors'){
+                this.path = 'tutor';
+            } else{
+                this.path = this.$route.name
+            }
+
             this.$root.$on("closeDrawer", ()=>{
                 this.$nextTick(() => {
                     this.closeDrawer();
