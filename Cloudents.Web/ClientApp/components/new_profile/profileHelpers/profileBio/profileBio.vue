@@ -44,7 +44,6 @@
                 >{{university}}</h2>
               </v-flex>
               <div class="tutor-price mr-3">
-                <!--<span class="subheading" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">₪</span>-->
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
                   ₪{{showStriked ? discountedPrice : tutorPrice}}
                   <span class="tutor-price small-text">
@@ -60,7 +59,6 @@
                 </span>
               </div>
               <div v-if="showStriked && $vuetify.breakpoint.smAndUp" class="tutor-price strike-through mr-3">
-                <!--<span class="subheading" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">₪</span>-->
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
                   ₪{{tutorPrice}}
                   <span class="tutor-price small-text">
@@ -84,7 +82,6 @@
             <span class="tutor-price">
               {{showStriked ? discountedPrice : tutorPrice}}
               <span class="tutor-price small-text">
-                <!--<span v-language:inner>app_currency_dynamic</span>-->
                 <span>/</span>
                 <span v-language:inner>profile_points_hour</span>
               </span>
@@ -102,8 +99,6 @@
             <span class="tutor-price">
               {{tutorPrice}}
               <span class="tutor-price small-text">
-                <!--<span v-language:inner>app_currency_dynamic</span>-->
-                <span>/</span>
                 <span v-language:inner>profile_points_hour</span>
               </span>
             </span>
@@ -295,7 +290,7 @@ export default {
         top: 50%;
         z-index: 1;
         @media (max-width: @screen-xs) {
-          top: 65%
+          top: 30%
         }
       }
     }
