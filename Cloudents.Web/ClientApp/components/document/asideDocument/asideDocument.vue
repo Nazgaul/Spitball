@@ -64,7 +64,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import asideDocumentTutors from './asideDocumentTutors.vue';
-import studentCard from '../studentCard.vue';
 import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import tutorResultCardOther from '../../../components/results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue';
 import myCourses from '../../../font-icon/my-courses-image.svg';
@@ -72,7 +71,6 @@ import myCourses from '../../../font-icon/my-courses-image.svg';
 export default {
     components: {
         myCourses,
-        studentCard,
         tutorResultCardMobile,
         tutorResultCardOther,
         asideDocumentTutors
@@ -92,14 +90,19 @@ export default {
         },
         closeDocument() {
             this.clearDocument();
-            this.$router.go(-1);
+            let routeStackLength = this.getRouteStack.length;
+            if(routeStackLength > 1){
+                this.$router.back();
+            }else{
+                this.$router.push({path: '/note'})
+            }
         },
         goToNote(){
             this.$router.push({path: '/note'});
         }
     },
     computed: {
-        ...mapGetters(['getBtnLoading', 'accountUser']),
+        ...mapGetters(['getBtnLoading', 'accountUser', 'getRouteStack']),
 
         getCourse() {
             if(this.document.details && this.document.details.course) {

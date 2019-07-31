@@ -160,7 +160,7 @@
     <value>Send {1} message</value>
   </data>
   <data name="study-area" xml:space="preserve">
-    <value>Study area</value>
+    <value>Study area:</value>
   </data>
   <data name="private_tutor" xml:space="preserve">
     <value>Private teacher {1}</value>

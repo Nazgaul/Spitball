@@ -22,7 +22,6 @@ export default {
         return {
             isEdit: false,
             currentTabId: null,
-            showWelcomeHelper: true,
             canvasWidth: 2800,
             canvasHeight: 850,
             windowWidth: global.innerWidth, // 10 stands for the scroll offset
@@ -76,7 +75,9 @@ export default {
             'undoClicked', 
             'addImage',
             'clearAllClicked',
-            'getTabIndicator']),
+            'getTabIndicator',
+            'getImgLoader',
+            'getShowBoxHelper']),
         equationSizeX(){
             return (window.innerWidth / 2) - 300
         },
@@ -139,7 +140,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface']),
+        ...mapActions(['updateShowBoxHelper','updateImgLoader','resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface']),
         ...mapMutations(['setTabName']),
         renameTab() {
             console.log("Rename Tab");
@@ -183,7 +184,7 @@ export default {
             inputImgElm.click();
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
             this.setSelectedOptionString(this.enumOptions.select);
-            this.showWelcomeHelper = false
+            this.updateShowBoxHelper(false)
         },
         finishEquation(){
             let mouseEvent = new MouseEvent("mousedown", {});
@@ -215,6 +216,9 @@ export default {
                 this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
                 this.setSelectedOptionString(this.enumOptions.select);
             } else{
+                if(dragObj.type === 'imageDraw'){
+                    this.updateImgLoader(false)
+                }
                 let dragUpdate = {
                     tab: this.getCurrentSelectedTab,
                     data: dragObj
@@ -242,7 +246,8 @@ export default {
                     this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
                     this.setSelectedOptionString(this.enumOptions.select);
                 }
-                this.showWelcomeHelper = false
+                
+                this.updateShowBoxHelper(false)
             }
         },
         undo() {
@@ -345,12 +350,12 @@ export default {
             }, false)
             dropArea.addEventListener('dragover', (e) =>{
                 e.preventDefault();
-
+                
             }, false)
             global.addEventListener('drop', (e) =>{
                 e.preventDefault();
                 imageDraw.handleImage(e,true)
-                self.showWelcomeHelper = false
+                self.updateShowBoxHelper(false)
                 self.setSelectedOptionString(self.enumOptions.select);
             }, false)
             canvas.addEventListener('mousedown', (e) => {
@@ -360,8 +365,7 @@ export default {
                         self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
                     }
                 }
-                self.showWelcomeHelper = false
-
+                self.updateShowBoxHelper(false)
             });
             canvas.addEventListener('mouseup', (e) => {
                 if (e.button == 0) {

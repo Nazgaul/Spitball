@@ -137,7 +137,7 @@ export default {
           return reviews === 0 ? reviews.toString() : reviews;
         },
         onImageLoadError(event) {
-            event.target.src = "./images/placeholder-profile.png";
+            event.target.src = "../../../images/placeholder-profile.png";
         },
         showStriked(price) {
             return price > this.minimumPrice;

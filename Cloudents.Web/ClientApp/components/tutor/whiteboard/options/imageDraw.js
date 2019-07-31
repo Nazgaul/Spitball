@@ -63,9 +63,11 @@ const liveDraw = function (imgObj) {
 };
 
 const handleImage = function (e,isDragged) {
-
+    
     if(e.target.value === "" && !isDragged) return;
 
+    store.dispatch("updateShowBoxHelper", false);
+    store.dispatch("updateImgLoader", true);
     let formData = new FormData();
     let fileData;
     if(!isDragged){
