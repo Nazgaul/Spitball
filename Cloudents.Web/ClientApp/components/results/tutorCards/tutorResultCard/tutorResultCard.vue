@@ -96,10 +96,6 @@ export default {
       }else{
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
       };
-      this.setTutorRequestAnalyticsOpenedFrom({
-          component: 'tutorCard',
-          path: this.$route.path
-      });
     },
     onImageLoadError(event) {
       event.target.src = "./images/placeholder-profile.png";
@@ -111,6 +107,10 @@ export default {
       if (this.accountUser == null) {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
           this.updateCurrTutor(user);
+          this.setTutorRequestAnalyticsOpenedFrom({
+            component: 'tutorCard',
+            path: this.$route.path
+          });
           this.updateRequestDialog(true);
       } else {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);

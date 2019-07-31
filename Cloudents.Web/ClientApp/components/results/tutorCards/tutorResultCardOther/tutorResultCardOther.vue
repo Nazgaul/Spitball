@@ -120,7 +120,7 @@ export default {
     },
     methods: {
         ...mapGetters(['getProfile']),
-        ...mapActions(['setActiveConversationObj', 'openChatInterface','updateRequestDialog','updateCurrTutor']),
+        ...mapActions(['setActiveConversationObj', 'openChatInterface','updateRequestDialog','updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
         loaded() {
           this.isLoaded = true;
         },
@@ -147,6 +147,10 @@ export default {
             if (this.accountUser == null) {
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
                 this.updateCurrTutor(user);
+                this.setTutorRequestAnalyticsOpenedFrom({
+                    component: 'tutorCard',
+                    path: this.$route.path
+                });
                 this.updateRequestDialog(true);
             } else {
                 analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);

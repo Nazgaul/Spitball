@@ -4,18 +4,9 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
-    //public class QuestionFeedWithFacetDto
-    //{
-    //    public IEnumerable<QuestionFeedDto> Result { get; set; }
-    //    //public IEnumerable<QuestionSubject?> Facet { get; set; }
-    //}
     public class QuestionFeedDto
     {
-       // private bool _isRtl;
-
-       
         public long Id { get; set; }
-        public QuestionSubject? Subject { get; set; }
         public string Text { get; set; }
         public int Files { get; set; }
         public int Answers { get; set; }
