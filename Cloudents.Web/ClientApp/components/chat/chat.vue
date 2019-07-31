@@ -243,7 +243,7 @@ export default {
       }
     }
     .chat-header-name, .other-side {
-      align-self: center
+      align-self: center;
     }
     .chat-header-btn {
       button {

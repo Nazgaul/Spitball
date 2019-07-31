@@ -1,15 +1,18 @@
 <template>
 <div class="message-wrapper" :class="{'myMessage': isMine}">
-    <span class="message-date" :class="{'myMessage': isMine}">{{date}}</span>
-    <div class="message" :class="{'myMessage': isMine, 'imgMessage': message.type === 'file'}" v-html="$chatMessage(message)"></div>
+    <div class="message" :class="{'myMessage': isMine, 'imgMessage': message.type === 'file'}" v-html="$chatMessage(message, date)"></div>
 </div>
     
 </template>
 
 <script>
 import {mapGetters, mapActions} from 'vuex';
+import checkMark from '../../../../font-icon/checkmark.svg';
 import utilitiesService from '../../../../services/utilities/utilitiesService';
 export default {
+    components: {
+        checkMark
+    },
     props:{
         message:{
             type:Object
@@ -44,7 +47,7 @@ export default {
     margin-left: auto;
     margin-right: unset;
     border-radius: 8px 8px 0 8px;
-    background-color: #f5f5f5;
+    background-color: #d4d2fe;
     padding: 10px;
     word-break: break-all; //firefox fallback
     word-break: break-word;
@@ -55,11 +58,30 @@ export default {
         margin: 5px 0;
         margin-left: unset;
         margin-right: auto;
-        background-color: #dfdeff;
+        background-color: #dfe1ed;
         border-radius: 8px 8px 8px 0;
     }
     &.imgMessage{
-        height: 160px;
+        // height: 160px;
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        border-radius: 3px;
+        a {
+            img {
+               border: 2px solid #dcdbe1;
+               border-radius: 4px;
+            }
+        }
+    }
+    .chat-checkmark {
+        display: inline-block;
+        transform: rotate(45deg);
+        height: 12px;
+        width: 6px;
+        border-bottom: 2px solid blue;
+        margin: 2px 0 0 10px;
+        border-right: 2px solid blue;
     }
 }
     .message-date{
