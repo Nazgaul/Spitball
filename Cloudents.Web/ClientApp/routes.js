@@ -19,7 +19,6 @@ const viewQuestion = () => import("./components/question/question-details/questi
 const wallet = () => import("./components/wallet/wallet.vue");
 const newProfile = () => import("./components/new_profile/new_profile.vue");
 const profilePageHeader = () => import("./components/new_profile/header/header.vue");
-const login = () => import("./components/new_registration/login.vue");
 
 // course section
 const setCourse = () => import("./components/courses/courses.vue");
