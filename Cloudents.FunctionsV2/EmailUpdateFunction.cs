@@ -72,7 +72,6 @@ namespace Cloudents.FunctionsV2
             [ActivityTrigger] UpdateUserEmailDto user,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
             [Inject] IQueryBus queryBus,
-            ILogger log,
             [Inject] IUrlBuilder urlBuilder,
             [Inject] IBinarySerializer binarySerializer,
             [Inject] IDocumentDirectoryBlobProvider blobProvider,
@@ -207,6 +206,11 @@ namespace Cloudents.FunctionsV2
                     log.LogInformation($"{instanceName} is in status {existingInstance.RuntimeStatus}");
                     return;
                 }
+            }
+
+            if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Pending)
+            {
+                return;
             }
             await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
         }
