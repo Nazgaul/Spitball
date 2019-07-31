@@ -413,22 +413,6 @@ let routes2 = [
         },
         name: "registration",
         beforeEnter: (to, from, next) => {
-            //prevent entering if loged in
-            if(global.isAuth) {
-                next(false);
-            } else {
-                next();
-            }
-        }
-    },
-    {
-        path: "/registerPageNEW",
-        components: {
-            default: registerPage,
-        },
-        name: "registerPageNEW",
-        beforeEnter: (to, from, next) => {
-            //prevent entering if loged in
             if(global.isAuth) {
                 next(false);
             } else {
