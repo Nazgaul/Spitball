@@ -119,8 +119,8 @@
         </v-layout>
         <div class="document-wrap">
         <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
-                <v-lazy-image 
-                    class="document-wrap-content mb-4" 
+                <v-lazy-image :style="`height:${imgHeight}px;`"
+                    class="document-wrap-content mb-4"
                     :src="page"
                     :src-placeholder="require('./doc-preview-animation.gif')"
                     v-if="page"
@@ -178,6 +178,7 @@ export default {
     },
     data() {
         return {
+            imgHeight: 0,
             showMenu: false,
             currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
             itemId: 0,
@@ -272,7 +273,8 @@ export default {
                 if (this.$vuetify.breakpoint.width === 375) {
                     width = 375
                 }           
-                let height = width / 0.707;               
+                let height = width / 0.707;   
+                this.imgHeight = height;            
                 let result = this.document.preview.map(preview => {                    
                     return utillitiesService.proccessImageURL(preview, width, Math.ceil(height), 'pad')
                 })
