@@ -53,7 +53,7 @@ for (let i in nav) {
     verticalsName.push(i);
     names.push({'id': item.id, 'name': item.name});
     if(!!item.visible){
-        let isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
+        let isRtl = global.isRtl;// document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
         let isMobile = global.innerWidth < 600;
         let navObj = {
             'id': item.id,

@@ -202,8 +202,7 @@
   </v-layout>
 </template>
 <script>
-//import codeEditorNEW from './codeEditorNew/codeEditorNew.vue';
-import codeEditorTools from './codeEditorNew/codeEditorTools.vue';
+import codeEditorTools from './codeEditor/codeEditorTools.vue';
 import initSignalRService from "../../services/signalR/signalrEventService";
 import { mapActions, mapGetters } from "vuex";
 import videoStream from "./videoStream/videoStream.vue";

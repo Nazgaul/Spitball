@@ -5,37 +5,37 @@
                     <v-btn v-on="on" flat @click="show = !show" class="selected-lang nav-action"  id="languagesListPop" >
                         <div class="name_img">
                         <img style="width: 24px; margin-right: 5px;" :src="getLangImg(currentLang.langIcon)" >
-                            {{currentLang.langName}}
+                            {{rtlLang(currentLang.langName)}}
                         </div>
                         <v-icon>{{ show ? 'sbf-arrow-up' : 'sbf-arrow-down' }}</v-icon>
                     </v-btn>
                </template>
-               <!--TODO RESOURCE-->
-                <span>Choose Languages</span>
+                <span v-language:inner="'tutor_tooltip_code_langauge'"/>
             </v-tooltip>
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" class="nav-action" >
-                        <!--TODO RESOURCE-->
-                        <v-switch class="switch" color="primary" v-model="themeMode" label="Light Theme" hide-details />
+                        <v-switch class="switch" color="primary" v-model="themeMode" :label="switchThemeResx" hide-details />
                     </button>
                 </template>
-                <span>Choose Theme</span>
+                <span v-language:inner="'tutor_tooltip_code_theme'"/>
             </v-tooltip>
             <v-card v-if="show" class="list-lang-cont" id="languagesListPop">
                 <div v-for="lang in languagesList" :key="lang.langName" class="list-lang" @click="selectLang(lang)"> 
                     <img style="width: 24px; margin-right: 5px;" v-if="lang.langIcon" :src="getLangImg(lang.langIcon)">
-                    {{lang.langName}}
+                    {{rtlLang(lang.langName)}}
                 </div>
             </v-card>
         </div>
 </template>
 
 <script>
+import {LanguageService} from '../../../services/language/languageService.js'
 import {mapGetters, mapActions} from 'vuex';
 export default {
     data() {
         return {
+            switchThemeResx: LanguageService.getValueByKey("tutor_tooltip_code_theme_switch"),
             show:false,
             languagesList: [
                 {langName: 'C', langMode: 'text/x-c++src', langIcon:'./images/c.png'},
@@ -76,6 +76,9 @@ export default {
             if(!isInside){
                 this.show = false
             }
+        },
+        rtlLang(langName){
+            return global.isRtl? langName.split('').reverse().join('') : langName;
         }
     },
     computed:{
