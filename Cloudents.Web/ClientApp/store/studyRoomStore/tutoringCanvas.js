@@ -62,7 +62,8 @@ const state = {
         id: 'tab-0'
     },
     tabIndicator: 'tab-0',
-    imgLoader: false
+    imgLoader: false,
+    showBoxHelper: true,
 };
 const getters = {
     getDragData: state => state.dragData[state.currentSelectedTab.id],
@@ -86,6 +87,7 @@ const getters = {
     },
     getTabIndicator:state => state.tabIndicator,
     getImgLoader:state => state.imgLoader,
+    getShowBoxHelper:state => state.showBoxHelper,
 };
 
 const mutations = {
@@ -169,6 +171,9 @@ const mutations = {
     },
     setImgLoader(state,val){
         state.imgLoader = val
+    },
+    setShowBoxHelper(state,val){
+        state.showBoxHelper = val
     }
 };
 
@@ -245,6 +250,9 @@ const actions = {
     },
     updateImgLoader({commit},val){
         commit('setImgLoader',val)
+    },
+    updateShowBoxHelper({commit},val){
+        commit('setShowBoxHelper',val)
     }
 };
 export default {
