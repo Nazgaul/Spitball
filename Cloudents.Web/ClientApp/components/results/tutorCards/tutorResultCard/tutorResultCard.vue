@@ -226,9 +226,6 @@ export default {
         .widthMinMax(400px);
         display: flex;  
         flex-direction: column;
-        .tutor-name {
-          .heightMinMax(18px);
-        }
         .university-hidden {
           visibility: hidden;
         }
@@ -244,10 +241,12 @@ export default {
             visibility: hidden;
           }
         }
-
-          .study-area-hidden {
+        .tutor-name {
+          overflow: unset !important;
+        }
+        .study-area-hidden {
           visibility: hidden;
-          }
+        }
         .courses {
           display: flex;
           white-space: nowrap;
