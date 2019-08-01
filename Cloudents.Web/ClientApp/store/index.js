@@ -15,7 +15,7 @@ import document from './document'
 import notification from "./notification";
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
-import homeLanding from "./homeLanding"
+// import homeLanding from "./homeLanding"
 import homeworkHelpStore from './homeworkHelp_store'
 import studyDocumentsStore from './studyDocuments_store';
 import tutorsStore from './tutors_store';
@@ -33,7 +33,7 @@ import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
 import signalRStore from './signalRStore';
 // import studyRoomStore from './studyRoomStore/index';
-import loginRegister from './loginRegister';
+// import loginRegister from './loginRegister';
 import routeStore from './routeStore';
 
 
@@ -53,7 +53,7 @@ const store = new Vuex.Store({
         University,
         uploadFiles,
         document,
-        homeLanding,
+        // homeLanding,
         homeworkHelpStore,
         studyDocumentsStore,
         tutorsStore,
@@ -71,7 +71,7 @@ const store = new Vuex.Store({
         requestTutor,
         signalRStore,
         // ...studyRoomStore,
-        loginRegister,
+        // loginRegister,
         routeStore,
     }
 });

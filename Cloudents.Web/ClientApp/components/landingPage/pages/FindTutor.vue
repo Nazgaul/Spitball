@@ -48,9 +48,6 @@ export default {
     FindTutorCarouselSection,
     FindTutorSubfooterSection,
   },
-  computed:{
-    ...mapGetters(['accountUser'])
-    },
     beforeRouteEnter (to, from, next) {
       let isLogoClicked = from.name !== null; 
       //makes sure an auth user won't see this page!
