@@ -116,7 +116,7 @@
                     </v-card>
                 </sb-dialog>
             </div>
-        </v-layout>
+        </v-layout> 
         <div class="document-wrap">
             <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
                 <v-lazy-image :style="`height:${imgHeight}px; width:${imgWidth}px`"
