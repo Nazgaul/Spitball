@@ -6,7 +6,7 @@
             <div class="main-card justify-space-between">
                 <h3 class="title font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
                 <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
-                <div class="user-bio mb-4 overflow-hidden" :class="{'user-bio-hidden': !tutorData.bio}" v-html="ellipsizeTextBox(tutorData.bio)"></div>
+                <div class="user-bio mb-4" :class="{'user-bio-hidden': !tutorData.bio}" v-html="ellipsizeTextBox(tutorData.bio)"></div>
                 <div class="study-area mb-2" :class="{'study-area-hidden': !isSubjects}">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
                   <span class="text-truncate">{{subjects}}</span>
