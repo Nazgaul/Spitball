@@ -38,20 +38,17 @@
                 <user-rating :rating="tutorData.rating" :showRateNumber="false" />
                 <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
               </div>
-              <div v-else class="user-rank mt-3 mb-2"></div>
+              <div v-else class="user-rank mt-3 mb-2 align-center">
+                <star/>
+                <span class="no-reviews font-weight-bold caption" v-language:inner="'resultTutor_no_reviews'"></span>
+              </div>
             </template>
             
-            <template>
-
-              <div class="classes-hours align-center mb-4 mt-1" v-if="tutorData.lessons > 0">
-                <clock />
-                <span class="ml-2 font-weight-bold caption">{{tutorData.lessons}}</span>
-                <span class="ml-2 font-weight-bold caption" v-language:inner="'resultTutor_hours_completed'"></span>
-              </div>
-
-              <div class="classes-hours mb-4 mt-1" v-else></div>
-
-            </template>
+            <div class="classes-hours align-center mb-4 mt-1">
+              <clock />
+              <span class="font-weight-bold caption ml-2" v-if="tutorData.lessons > 0">{{tutorData.lessons}}</span>
+              <span class="font-weight-bold caption no-classes" v-language:inner="'resultTutor_hours_completed'"></span>
+            </div>                
 
             <div class="send-btn">
                 <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
@@ -73,12 +70,13 @@ import { mapActions, mapGetters } from "vuex";
 import { LanguageService } from "../../../../services/language/languageService.js";
 import clock from './clock.svg';
 import iconChat from '../tutorResultCardOther/icon-chat.svg';
-
+import star from '../stars-copy.svg';
 export default {
   name: "tutorResultCard",
   components: {
     userRating,
     clock,
+    star,
     iconChat
   },
   data() {
@@ -291,7 +289,11 @@ export default {
         }
       }
       .classes-hours {
+        margin-left: 3px;
         display: flex;
+        .no-classes {
+          margin-left: 8px;
+        }
       }
       .user-rank {
         display: inline-flex;
@@ -300,6 +302,10 @@ export default {
         }
         .reviews {
           color: #4452fc;
+        }
+        .no-reviews {
+          margin-left: 5px;
+          color: #43425d;
         }
       }
       .send-btn {
