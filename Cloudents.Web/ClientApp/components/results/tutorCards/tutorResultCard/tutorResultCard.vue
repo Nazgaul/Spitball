@@ -56,7 +56,7 @@
 
             <div class="send-btn">
                 <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
-                  <iconChat class="chat-icon mr-2" />
+                  <iconChat class="chat-icon-btn" />
                   <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
                 </v-btn>
             </div>
@@ -317,9 +317,15 @@ export default {
         min-width: 100%;
         max-width: 0;
         .btn-chat {
+          position: relative;
           margin: 0 auto;
           text-transform: inherit;
           .v-btn__content {
+            .chat-icon-btn{
+              position: absolute;
+              top: 0;
+              left: -10px;
+            }
             svg {
               width: 40px;
             }
