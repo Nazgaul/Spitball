@@ -270,6 +270,8 @@ export default {
                     color: #4452fc;
                 }
                 .user-bio {
+                    .giveEllipsisUpdated(11px, normal, 3, 45px);
+                    min-height: 45px;
                     text-align: left;
                     color: @purple;
                     position: relative;
