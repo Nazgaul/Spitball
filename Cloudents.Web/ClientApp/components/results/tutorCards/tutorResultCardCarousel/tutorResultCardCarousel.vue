@@ -154,8 +154,7 @@ export default {
             let showBlock = text.length > maxChars;
             let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
             let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-            let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: inline-block' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
-            return `${newText} ${readMore} ${hideText}`;
+            return `${newText} ${hideText}`;
         },
         setCardsCarousel() {
             // calculate cards on screen
@@ -270,6 +269,9 @@ export default {
                     color: #4452fc;
                 }
                 .user-bio {
+                    font-family: Open Sans,sans-serif;
+                    .giveEllipsisUpdated(11px, normal, 3, 45px);
+                    min-height: 45px;
                     text-align: left;
                     color: @purple;
                     position: relative;

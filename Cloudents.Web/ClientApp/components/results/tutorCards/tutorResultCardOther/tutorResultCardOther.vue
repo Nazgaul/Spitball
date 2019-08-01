@@ -20,7 +20,7 @@
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
 
-                    <v-layout column align-center class="user-rates" v-if="isReviews" :class="{'mr-5': isReviews}">
+                    <v-layout column align-center class="user-rates" v-if="isReviews" :class="{'mr-5': !isReviews}">
                         <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" />
                         <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>
                     </v-layout>
@@ -212,6 +212,9 @@ export default {
             display: flex;
             font-size: 12px;
         }
+        .user-rates {
+            padding: 0 !important;
+        }
     }
     .ab-cardA {
         display: flex;
@@ -272,6 +275,7 @@ export default {
             }
         }
         .user-rates {
+            padding: 0 38px 0 0;
             .reviews {
                 color: #4452fc;
             }
@@ -293,7 +297,7 @@ export default {
         color: @purple;
         .read-more {
             position: absolute;
-            left: 7px;
+            // left: 7px;
             color: #4452fc;
         }
     }
