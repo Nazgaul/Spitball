@@ -135,7 +135,7 @@
   <data name="review_one" xml:space="preserve">
     <value>Review</value>
   </data>
-  <data name="no_reviews" xml:space="preserve">
+  <data name="no_reviews_mobile" xml:space="preserve">
     <value>Collecting reviews</value>
   </data>
   <data name="contact_me" xml:space="preserve">
@@ -170,5 +170,11 @@
   </data>
   <data name="title" xml:space="preserve">
     <value>Teachers</value>
+  </data>
+  <data name="no_hours_completed" xml:space="preserve">
+    <value>Lessons coming soon</value>
+  </data>
+  <data name="no_reviews" xml:space="preserve">
+    <value>Still Collecting reviews</value>
   </data>
 </root>
