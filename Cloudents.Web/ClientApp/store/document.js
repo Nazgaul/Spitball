@@ -35,9 +35,6 @@ const mutations = {
     setDocument(state, payload) {
         state.document = payload;        
     },
-    clearDocumentItem(state) {
-        state.document = {};
-    },
     setTutorsList(state, payload) {
         state.tutorList = payload;
     },
@@ -103,9 +100,6 @@ const actions = {
         searchService.activateFunction.getTutors(courseName).then(res => {
             commit('setTutorsList', res)
         })
-    },
-    clearDocument({commit}) {
-        commit('clearDocumentItem')
     },
     setNewDocumentPrice({ commit }, price) {
         if(!!state.document && !!state.document.details){

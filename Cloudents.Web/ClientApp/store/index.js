@@ -11,12 +11,12 @@ import Toaster from "./Toaster";
 import MarketingCampaign from './marketingCampaigns'
 import loginDialog from './loginDialog'
 import newQuestionDialog from './newQuestionDialog'
-import document from './document'
+// import document from './document';
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
 // import homeLanding from "./homeLanding"
 // import homeworkHelpStore from './homeworkHelp_store';
-import studyDocumentsStore from './studyDocuments_store';
+// import studyDocumentsStore from './studyDocuments_store';
 import tutorsStore from './tutors_store';
 import marketingBox from './marketingBox'
 //import leaderBoard from './leaderBoard'
@@ -50,10 +50,10 @@ const store = new Vuex.Store({
         newQuestionDialog,
         University,
         uploadFiles,
-        document,
+        // document,
         // homeLanding,
         // homeworkHelpStore,
-        studyDocumentsStore,
+        // studyDocumentsStore,
         tutorsStore,
         marketingBox,
         //leaderBoard,

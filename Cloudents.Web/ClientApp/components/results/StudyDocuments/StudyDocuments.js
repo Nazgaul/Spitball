@@ -23,7 +23,10 @@ import resultFilter from '../helpers/resultFilter/resultFilter.vue'
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 import requestBox from '../../requestActions/requestActions.vue'
 
-//const ACADEMIC_VERTICALS = ['note', 'tutor'];
+
+//store
+import storeService from '../../../services/store/storeService';
+import studyDocumentsStore from '../../../store/studyDocuments_store';
 
 //The vue functionality for result page
 export default {
@@ -312,8 +315,11 @@ export default {
             this.updateRequestDialog(true);
         }
     },
-
+    beforeDestroy(){
+    },
     created() {
+        storeService.lazyRegisterModule(this.$store,'studyDocumentsStore',studyDocumentsStore);
+
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);

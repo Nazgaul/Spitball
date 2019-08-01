@@ -81,7 +81,7 @@ export default {
         document: {},
     },
     methods: {
-        ...mapActions(['downloadDocument', 'clearDocument','updatePurchaseConfirmation']),
+        ...mapActions(['downloadDocument', 'updatePurchaseConfirmation']),
         downloadDoc() {
             let item = {
                 url: `${this.$route.path}/download`,
@@ -91,7 +91,6 @@ export default {
             this.downloadDocument(item)
         },
         closeDocument() {
-            this.clearDocument();
             let routeStackLength = this.getRouteStack.length;
             if(routeStackLength > 1){
                 this.$router.back();

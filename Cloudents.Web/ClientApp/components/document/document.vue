@@ -12,6 +12,11 @@ import mainDocument from './mainDocument/mainDocument.vue';
 import asideDocument from './asideDocument/asideDocument.vue';
 import asideDocumentTutors from './asideDocument/asideDocumentTutors.vue';
 
+//store
+import storeService from '../../services/store/storeService';
+import document from '../../store/document';
+import studyDocumentsStore from '../../store/studyDocuments_store';
+
 export default {
     components: {
         mainDocument,
@@ -33,7 +38,12 @@ export default {
             return this.getDocumentDetails
         },
     },
-    created() {      
+    beforeDestroy(){
+        storeService.unregisterModule(this.$store,'document');
+    },
+    created() {     
+        storeService.lazyRegisterModule(this.$store,'studyDocumentsStore',studyDocumentsStore); 
+        storeService.registerModule(this.$store,'document', document);
         this.documentRequest(this.id)
     }
 }

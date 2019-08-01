@@ -318,7 +318,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['clearDocument','updatePurchaseConfirmation', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState', 'downloadDocument']),
+        ...mapActions(['updatePurchaseConfirmation', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState', 'downloadDocument']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         unlockDocument() {
                 let item = {id: this.document.details.id, price: this.document.details.price}
@@ -328,7 +328,6 @@ export default {
                 }
         },
         closeDocument() {
-            this.clearDocument();
             this.UPDATE_SEARCH_LOADING(true);
             let routeStackLength = this.getRouteStack.length;
             if(routeStackLength > 1){
@@ -424,7 +423,6 @@ export default {
         },
     },
     beforeDestroy() {
-        this.clearDocument();
     },
     mounted(){
         this.docWrap = document.querySelector('.document-wrap');        

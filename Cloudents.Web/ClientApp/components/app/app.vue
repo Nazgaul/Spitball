@@ -59,11 +59,6 @@
                        :content-class="'tutor-request-dialog'">
                 <tutor-request></tutor-request>
             </sb-dialog>
-            <!-- <sb-dialog :showDialog="newIsraeliUser"
-                       :popUpType="'newIsraeliUserDialog'"
-                       :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
-                <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
-            </sb-dialog> -->
             <sb-dialog :showDialog="getDialogState"
                        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                        :popUpType="'uploadDialog'"
@@ -158,13 +153,10 @@ export default {
       "showMarketingBox",
       "showLeaderBoard",
       "showMobileFeed",
-      "HomeworkHelp_isDataLoaded",
-      "StudyDocuments_isDataLoaded",
       "getShowBuyDialog",
       "getCurrentStep",
       "becomeTutorDialog",
       "getRequestTutorDialog"
-
     ]),
     isMobile(){
       return this.$vuetify.breakpoint.smAndDown;
