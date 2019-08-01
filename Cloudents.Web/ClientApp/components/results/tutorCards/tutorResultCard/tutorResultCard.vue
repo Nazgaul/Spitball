@@ -304,11 +304,15 @@ export default {
       }
       .send-btn {
         width: 100%;
+        min-width: 100%;
+        max-width: 0;
         .btn-chat {
           margin: 0 auto;
           text-transform: inherit;
           .v-btn__content {
-            padding: 0 20px;
+            svg {
+              width: 40px;
+            }
           }
           .chat-icon {
             margin: 0 auto 0 0;
