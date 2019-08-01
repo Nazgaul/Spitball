@@ -18,9 +18,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.Storage;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using static Cloudents.Core.TimeConst;
 
@@ -155,69 +157,76 @@ namespace Cloudents.FunctionsV2
                 }
             }
 
-            if (!await blob.ExistsAsync())
+            try
             {
+                using (var sr = await blob.OpenReadAsync())
+                {
+                    return ProcessImage(sr, mode, width, height, properties.Blur);
+                }
+            }
+            catch (ImageFormatException ex)
+            {
+                logger.LogError(ex, hash);
+                return new RedirectResult(blob.Uri.AbsoluteUri);
+            }
+            catch (StorageException e)
+            {
+                if (e.RequestInformation.HttpStatusCode != (int)HttpStatusCode.NotFound) throw;
                 if (string.Equals(blob.Container.Name, StorageContainer.File.Name,
                     StringComparison.OrdinalIgnoreCase))
                 {
-                    var t1 =  collectorSearch.AddAsync(
-                        blob.Parent.Prefix.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries).Last(), token);
+                    var t1 = collectorSearch.AddAsync(
+                        blob.Parent.Prefix.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries).Last(), token);
                     const string blobPath = "spitball-user/DefaultThumbnail/doc-preview-empty.png";
-                    var t2 =  binder.BindAsync<CloudBlockBlob>(new BlobAttribute(blobPath, FileAccess.Read),
+                    var t2 = binder.BindAsync<Stream>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
                     await Task.WhenAll(t1, t2);
-                    blob = t2.Result;
-                }
-            }
-
-            using (var sr = await blob.OpenReadAsync())
-            {
-                try
-                {
-                    var image = Image.Load<Rgba32>(sr);
-
-
-                    image.Mutate(x => x.Resize(new ResizeOptions()
+                    using (t2.Result)
                     {
-                        Mode = mode,
-                        Size = new Size(width, height),
-                    }));
-                    switch (properties.Blur.GetValueOrDefault())
-                    {
-                        case ImageProperties.BlurEffect.None:
-                            break;
-                        case ImageProperties.BlurEffect.Part:
-                            image.Mutate(x => x.BoxBlur(5, new Rectangle(0, height / 2, width, height / 2)));
-                            break;
-                        case ImageProperties.BlurEffect.All:
-                            image.Mutate(x => x.BoxBlur(5));
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
+                        return ProcessImage(t2.Result, mode, width, height, properties.Blur);
                     }
-                    image.Mutate(x => x.AutoOrient());
-                    image.Mutate(x => x.BackgroundColor(Rgba32.White));
-                    return new FileCallbackResult("image/jpg", (stream, context) =>
-                    {
-                        context.HttpContext.Response.Headers.Add("Cache-Control",
-                            $"public, max-age={Year}, s-max-age={Year}");
-                        image.SaveAsJpeg(stream);
-                        image?.Dispose();
-                        return Task.CompletedTask;
-                    });
+
 
                 }
-                catch (ImageFormatException ex)
-                {
-                    logger.LogError(ex, hash);
-                    return new RedirectResult(blob.Uri.AbsoluteUri);
-                }
+
+                throw;
             }
         }
 
+        private static IActionResult ProcessImage(Stream sr, ResizeMode mode, int width, int height, ImageProperties.BlurEffect? effect)
+        {
+            var image = Image.Load<Rgba32>(sr);
 
 
+            image.Mutate(x => x.Resize(new ResizeOptions()
+            {
+                Mode = mode,
+                Size = new Size(width, height),
+            }));
+            switch (effect.GetValueOrDefault())
+            {
+                case ImageProperties.BlurEffect.None:
+                    break;
+                case ImageProperties.BlurEffect.Part:
+                    image.Mutate(x => x.BoxBlur(5, new Rectangle(0, height / 2, width, height / 2)));
+                    break;
+                case ImageProperties.BlurEffect.All:
+                    image.Mutate(x => x.BoxBlur(5));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
-
+            image.Mutate(x => x.AutoOrient());
+            image.Mutate(x => x.BackgroundColor(Rgba32.White));
+            return new FileCallbackResult("image/jpg", (stream, context) =>
+            {
+                context.HttpContext.Response.Headers.Add("Cache-Control",
+                    $"public, max-age={Year}, s-max-age={Year}");
+                image.SaveAsJpeg(stream);
+                image?.Dispose();
+                return Task.CompletedTask;
+            });
+        }
     }
 }
