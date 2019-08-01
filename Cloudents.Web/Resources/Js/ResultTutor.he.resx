@@ -157,13 +157,13 @@
     <value>שיעורים הושלמו</value>
   </data>
   <data name="send_button" xml:space="preserve">
-    <value>שלחו ל{1} הודעה</value>
+    <value>שלחו ל-{1} הודעה</value>
   </data>
   <data name="study-area" xml:space="preserve">
     <value>תחומי לימוד:</value>
   </data>
   <data name="private_tutor" xml:space="preserve">
-    <value>מורה פרטי {1}</value>
+    <value>מורה פרטי/ת {1}</value>
   </data>
   <data name="read_more" xml:space="preserve">
     <value>קרא עוד</value>

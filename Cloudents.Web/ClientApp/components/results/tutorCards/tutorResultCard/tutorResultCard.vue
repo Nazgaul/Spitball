@@ -4,10 +4,10 @@
         <v-flex row class="user-details">
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div class="main-card justify-space-between">
-                <h3 class="title font-weight-bold tutor-name text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-                <h4 class="mb-4 text-truncate" v-if="isUniversity">{{university}}</h4>
-                <div class="user-bio mb-5 overflow-hidden" v-html="ellipsizeTextBox(tutorData.bio)"></div>
-                <div class="study-area mb-2" v-if="isSubjects">
+                <h3 class="title font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
+                <div class="user-bio mb-4 overflow-hidden" :class="{'user-bio-hidden': !tutorData.bio}" v-html="ellipsizeTextBox(tutorData.bio)"></div>
+                <div class="study-area mb-2" v-if="isSubjects" :class="{'study-area-hidden': !isSubjects}">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
                   <span class="text-truncate">{{subjects}}</span>
                 </div>
@@ -21,30 +21,42 @@
         <v-divider vertical class="mx-3"></v-divider>
 
         <div class="user-rates">
-            <div class="title price font-weight-bold mb-1">
+            <div class=" price font-weight-bold mb-1">
               <template>
-                  <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                  <span class="title font-weight-bold" v-else>&#8362;{{tutorData.price}}</span>
+                  <span v-if="showStriked" class="headline font-weight-bold">&#8362;{{discountedPrice}}</span>
+                  <span class="headline font-weight-bold" v-else>&#8362;{{tutorData.price}}</span>
               </template>
               <span class="caption">
                 /<span v-language:inner="'resultTutor_hour'"></span>
                 <div v-if="!showStriked" class="price-default-height"></div>
               </span>
+              <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
             </div>
-            <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
-            <div class="user-rank mt-3 mb-2 align-center">
-              <user-rating :rating="tutorData.rating" :showRateNumber="false" />
-              <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
-            </div>
-            <div class="classes-hours align-center mb-4 mt-1">
+
+            <template>
+              <div class="user-rank mt-3 mb-2 align-center" v-if="isReviews">
+                <user-rating :rating="tutorData.rating" :showRateNumber="false" />
+                <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
+              </div>
+              <div v-else class="user-rank mt-3 mb-2"></div>
+            </template>
+            
+            <template>
+
+              <div class="classes-hours align-center mb-4 mt-1" v-if="tutorData.lessons > 0">
                 <clock />
                 <span class="ml-2 font-weight-bold caption">{{tutorData.lessons}}</span>
                 <span class="ml-2 font-weight-bold caption" v-language:inner="'resultTutor_hours_completed'"></span>
-            </div>
+              </div>
+
+              <div class="classes-hours mb-4 mt-1" v-else></div>
+
+            </template>
+
             <div class="send-btn">
                 <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
                   <iconChat class="chat-icon mr-2" />
-                  <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)" ></div>
+                  <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
                 </v-btn>
             </div>
         </div>
@@ -131,7 +143,7 @@ export default {
       let showBlock = text.length > maxChars;
       let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
       let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-      let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: inline-block' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
+      let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: inline-block;position:absolute' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
       return `${newText} ${readMore} ${hideText}`;
     }
   },
@@ -149,9 +161,6 @@ export default {
     },
     isUserImage() {
       return this.isTutorData && this.tutorData.image ? true : false;
-    },
-    isUniversity() {
-      return (this.tutorData && this.tutorData.university) ? true : false;
     },
     isSubjects() {
       return this.isTutorData && this.tutorData.subjects.length > 0 ? true : false;
@@ -185,6 +194,12 @@ export default {
     },
     subjects() {
       return this.tutorData.subjects.toString();
+    },
+    showFirstName() {
+      return this.tutorData.name.split(' ')[0];
+    },
+    isReviews() {
+      return this.tutorData.reviews > 0 ? true : false;
     }
   }
 };
@@ -196,6 +211,7 @@ export default {
 @purple: #43425d;
 
   .tutor-result-card-desktop {
+    .heightMinMax(214px);
     border-radius: 4px;
     background: #fff;
     width: 100%;
@@ -210,19 +226,28 @@ export default {
         .widthMinMax(400px);
         display: flex;  
         flex-direction: column;
-        h4 {
-          .heightMinMax(14px);
+        .tutor-name {
+          .heightMinMax(18px);
+        }
+        .university-hidden {
+          visibility: hidden;
         }
         .user-bio {
           display: inline-block;
           word-wrap: break-word;
-          .heightMinMax(48px);
-          line-height: 1.2em;
-          text-align: justify;
+          .heightMinMax(60px);
+          line-height: 1.5em;
           .read-more {
             color: #4452fc;
           }
+          &.user-bio-hidden {
+            visibility: hidden;
+          }
         }
+
+          .study-area-hidden {
+          visibility: hidden;
+          }
         .courses {
           display: flex;
           white-space: nowrap;
@@ -281,14 +306,14 @@ export default {
       .send-btn {
         width: 100%;
         .btn-chat {
-          max-width: 220px;
-          min-width: 100%;
-          text-transform: lowercase;
+          .widthMinMax(190px);
+          margin: 0 auto;
+          text-transform: inherit;
+          .v-btn__content {
+            padding: 0 20px;
+          }
           .chat-icon {
             margin: 0 auto 0 0;
-          }
-          div {
-            margin: 0 auto;
           }
         }
       }

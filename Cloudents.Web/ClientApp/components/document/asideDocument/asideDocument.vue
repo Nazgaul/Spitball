@@ -51,7 +51,7 @@
                     <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getType}}</h3></td>
                 </tr>
             </table>
-            <tutor-result-card-other :tutorData="ownTutor" v-if="isTutor && ownTutor" />
+            <tutor-result-card-other :tutorData="ownTutor" :uploader="true"  v-if="isTutor && ownTutor" />
         </div>
 
         <aside-document-tutors v-if="!$vuetify.breakpoint.smAndDown"/>
