@@ -23,7 +23,9 @@ import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResu
 import requestBox from '../../requestActions/requestActions.vue'
 
 
-//const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
+//store
+import storeService from '../../../services/store/storeService';
+import tutorsStore from '../../../store/tutors_store';
 
 //The vue functionality for result page
 export default {
@@ -299,8 +301,12 @@ export default {
             this.updateRequestDialog(true);
         }
     },
-
+    beforeDestroy(){
+        storeService.unregisterModule(this.$store,'tutorsStore');
+    },
     created() {
+        storeService.registerModule(this.$store,'tutorsStore',tutorsStore);
+
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
