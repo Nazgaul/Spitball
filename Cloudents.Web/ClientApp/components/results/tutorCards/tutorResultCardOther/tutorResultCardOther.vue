@@ -332,17 +332,4 @@ export default {
     }
 }
 
-:lang(en) {
-    .tutor-bio {
-        .heightMinMax(40px);
-        .giveEllipsisUpdated(13px, normal, 2, 40px);
-    }
-}
-:lang(he) {
-    .tutor-bio {
-        .heightMinMax(32px);
-        .giveEllipsisUpdated(13px, normal, 2, 32px);
-    }
-}
-
 </style>
