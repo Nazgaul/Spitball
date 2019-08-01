@@ -135,7 +135,7 @@ export default {
     },
     userImageUrl() {
       if (this.tutorData.image) {
-        let size = [67, 87];
+        let size = [67, 95];
         return utilitiesService.proccessImageURL(
           this.tutorData.image,
           ...size,
