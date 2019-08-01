@@ -1,6 +1,6 @@
 <template>
   <router-link class="tutor-result-card-mobile pa-2 ma-2 pr-4 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
-      <div class="card-mobile-header mb-3">
+      <div class="card-mobile-header mb-4">
           <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
           <div>
               <h3 class="text-truncate subheading font-weight-bold mb-2" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
@@ -25,18 +25,18 @@
           </div>
       </div>
 
-      <div class="card-mobile-center mb-4" v-html="ellipsizeTextBox(tutorData.bio)">{{tutorData.bio}}</div>
+      <div class="card-mobile-center" v-html="ellipsizeTextBox(tutorData.bio)">{{tutorData.bio}}</div>
 
       <div class="card-mobile-footer mt-2">
           <v-btn class="btn-chat white--text text-truncate my-0" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
-                <iconChat class="chat-icon" />
+                <iconChat class="chat-icon-btn"/>
                 <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
-          <div class="price ml-3 align-center" >
+          <div class="price ml-4 align-center" >
               <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
               <template>
-                <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
+                <span v-if="showStriked" class="price-title font-weight-bold">&#8362;{{discountedPrice}}/</span>
+                <span v-else class="price-title font-weight-bold">&#8362;{{tutorData.price}}/</span>
               </template>
               <span class="caption" v-language:inner="'resultTutor_hour'"></span>
           </div>
@@ -128,8 +128,7 @@ export default {
       let showBlock = text.length > maxChars;
       let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
       let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-      let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: block' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
-      return `${newText} ${readMore} ${hideText}`;
+      return `${newText} ${hideText}`;
     }
   },
   computed: {
@@ -144,7 +143,7 @@ export default {
     },
     userImageUrl() {
       if (this.tutorData.image) {
-        let size = [80, 87];
+        let size = [67, 87];
         return utilitiesService.proccessImageURL(
           this.tutorData.image,
           ...size,
@@ -214,7 +213,10 @@ export default {
         .user-rate {
             display: inline-flex;
             .reviews {
-              color: #4452fc;
+                font-size: 12px;
+                font-weight: bold;
+                letter-spacing: normal;
+                color: #43425d;
             }
         }
         .courses {
@@ -226,7 +228,8 @@ export default {
         }
     }
     .card-mobile-center {
-      .giveEllipsisUpdated(14px, 1.28, 2, 90px);
+      margin-bottom: 20px;
+      .giveEllipsisUpdated(14px, 1.38, 2, 90px);
       .heightMinMax(34px);
       .read-more {
         position: absolute;
@@ -238,6 +241,14 @@ export default {
     .card-mobile-footer {
         display: inherit;
         .btn-chat {
+          .v-btn__content{
+            .chat-icon-btn{
+              position: absolute;
+              top: 0;
+              left: 10px;
+            }
+          }
+          position: relative;
           .widthMinMax(220px);
           text-transform: inherit;
           border-radius: 7.5px;
@@ -249,12 +260,17 @@ export default {
         }
         .price {
           align-self: flex-end;
+          .price-title{
+              font-size: 22px;
+              font-weight: bold;
+              color: #43425d;
+          }
           .striked {
               max-width: max-content;
               position: relative;
               color: @colorBlackNew;
               font-size: 14px;
-              font-weight: 100;
+              font-weight: normal;
               &:after {
                   content: "";
                   width: 100%;
