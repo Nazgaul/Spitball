@@ -15,7 +15,6 @@ import document from './document'
 import notification from "./notification";
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
-import homeLanding from "./homeLanding"
 import homeworkHelpStore from './homeworkHelp_store'
 import studyDocumentsStore from './studyDocuments_store';
 import tutorsStore from './tutors_store';
@@ -53,7 +52,6 @@ const store = new Vuex.Store({
         University,
         uploadFiles,
         document,
-        homeLanding,
         homeworkHelpStore,
         studyDocumentsStore,
         tutorsStore,
