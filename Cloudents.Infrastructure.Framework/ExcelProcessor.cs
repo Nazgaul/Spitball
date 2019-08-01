@@ -40,6 +40,11 @@ namespace Cloudents.Infrastructure.Framework
             _excel = new Lazy<Workbook>(() => new Workbook(stream()));
         }
 
+        public void Init(Func<string> stream)
+        {
+            _excel = new Lazy<Workbook>(() => new Workbook(stream()));
+        }
+
         public (string text, int pagesCount) ExtractMetaContent()
         {
             

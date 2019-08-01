@@ -20,6 +20,11 @@ namespace Cloudents.Infrastructure.Framework
             _sr = stream();
         }
 
+        public void Init(Func<string> stream)
+        {
+            _sr = File.Open(stream(), FileMode.Open);
+        }
+
         public (string text, int pagesCount) ExtractMetaContent()
         {
 

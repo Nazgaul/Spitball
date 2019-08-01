@@ -21,7 +21,7 @@
                 </template>
 
                 </div>
-                <div class="user-price mb-2">
+                <div class="user-price mb-3">
                     <img :class="[isUserImage(tutor.image) ? '' : 'tutor-no-img']" class="user-image" @error="onImageLoadError" @load="loaded" :src="getImgUrl(tutor.image)" :alt="tutor.name">
                     <div class="">
                         <div class="striked" v-if="showStriked(tutor.price)"> &#8362;{{tutor.price}}</div>
@@ -212,7 +212,7 @@ export default {
             .tutor-carousel-card {
                 border-radius: 4px;
                 background: #fff;
-                .heightMinMax(254px);
+                .heightMinMax(248px);
                 h3,h4 {
                     color: @purple;
                 }
@@ -270,16 +270,17 @@ export default {
                 }
                 .user-bio {
                     font-family: Open Sans,sans-serif;
-                    .giveEllipsisUpdated(11px, normal, 3, 45px);
-                    min-height: 45px;
+                    .giveEllipsisUpdated(11px, normal, 3,38px);
+                    line-height: 1.2 !important;
+                    min-height: 38px;
                     text-align: left;
                     color: @purple;
                     position: relative;
                     font-size: 11px;
                 }
                 .btn-chat {
-                    margin-top: 10px;
-                    font-size: 10px;
+                    margin-top: 14px;
+                    font-size: 12px;
                     button {
                         text-transform: inherit;
                     }

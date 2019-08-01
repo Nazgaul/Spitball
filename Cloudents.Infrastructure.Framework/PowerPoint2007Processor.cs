@@ -68,6 +68,14 @@ namespace Cloudents.Infrastructure.Framework
             }));
             
         }
+        public void Init(Func<string> stream)
+        {
+            _pptx = new Lazy<Presentation>(() => new Presentation(stream(), new LoadOptions()
+            {
+                OnlyLoadDocumentProperties = true
+            }));
+
+        }
 
         public (string text, int pagesCount) ExtractMetaContent()
         {

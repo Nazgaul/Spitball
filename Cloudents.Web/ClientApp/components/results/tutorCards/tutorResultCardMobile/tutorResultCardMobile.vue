@@ -133,14 +133,6 @@ export default {
   },
   computed: {
     ...mapGetters(['accountUser']),
-    courses(){
-      let query = this.$route.query.term
-      if(query) {
-        return `${LanguageService.getValueByKey("resultTutor_teaching")}${query}`
-      } else {
-        return `${this.tutorData.courses}`
-      }
-    },
     userImageUrl() {
       if (this.tutorData.image) {
         let size = [67, 87];
@@ -166,7 +158,7 @@ export default {
     },
     courses() {
       if (this.tutorData.courses) {
-        return `${LanguageService.getValueByKey("resultTutor_teaching")} ${this.tutorData.courses}`
+        return `${this.tutorData.courses}`
       }
       return '';
     },
