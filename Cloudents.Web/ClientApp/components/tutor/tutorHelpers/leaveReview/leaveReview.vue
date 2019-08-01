@@ -20,7 +20,8 @@
             </v-layout>
             <v-layout align-center justify-center row wrap class="middle-layout-wrapper py-2 border-grey mx-5" :class="{'ltr-style': isRtl}">
                 <v-flex xs12 sm1  shrink class="text-xs-center d-inline-flex image-container py-3 mr-4">
-                    <user-avatar class="tutor-img-wrap" size="54" :userImageUrl="tutorImg" :user-name="nameTutor" :user-id="tutorId"/>
+                    <v-progress-circular v-if="!tutorImg" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
+                    <user-avatar v-else class="tutor-img-wrap" size="54" :userImageUrl="tutorImg" :user-name="nameTutor" :user-id="tutorId"/>
                 </v-flex>
                 <v-flex xs12 sm4  shrink>
                     <userRating :rating="rating"

@@ -196,9 +196,7 @@ export default {
           this.getProfile.user &&
           this.getProfile.user.tutorData
         ) {
-          return `${this.getProfile.user.tutorData.firstName} ${
-            this.getProfile.user.tutorData.lastName
-          }`;
+          return `${this.getProfile.user.tutorData.firstName} ${this.getProfile.user.tutorData.lastName}`;
         }
       } else {
         if (this.getProfile && this.getProfile.user) {

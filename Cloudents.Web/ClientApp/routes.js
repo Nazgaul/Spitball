@@ -19,7 +19,6 @@ const viewQuestion = () => import("./components/question/question-details/questi
 const wallet = () => import("./components/wallet/wallet.vue");
 const newProfile = () => import("./components/new_profile/new_profile.vue");
 const profilePageHeader = () => import("./components/new_profile/header/header.vue");
-const login = () => import("./components/new_registration/login.vue");
 
 // course section
 const setCourse = () => import("./components/courses/courses.vue");
@@ -414,22 +413,6 @@ let routes2 = [
         },
         name: "registration",
         beforeEnter: (to, from, next) => {
-            //prevent entering if loged in
-            if(global.isAuth) {
-                next(false);
-            } else {
-                next();
-            }
-        }
-    },
-    {
-        path: "/registerPageNEW",
-        components: {
-            default: registerPage,
-        },
-        name: "registerPageNEW",
-        beforeEnter: (to, from, next) => {
-            //prevent entering if loged in
             if(global.isAuth) {
                 next(false);
             } else {

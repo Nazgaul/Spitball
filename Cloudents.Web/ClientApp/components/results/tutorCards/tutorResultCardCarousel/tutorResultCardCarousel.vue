@@ -13,17 +13,20 @@
                     <h4 class="caption font-weight-bold mb-1" v-language:inner="'resultTutor_subtitle'"/>
                     <h3 class="body-2 font-weight-bold">{{tutor.name}}</h3>
                 
-                <div class="user-rank mt-3 mb-2 align-center">
-                    <user-rating :rating="tutor.rating" :showRateNumber="false" />
-                    <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"></div>
+                <template>
+                    <div class="user-rank mt-1 mb-2 align-center" :class="{'user-rank-hidden': tutor.reviews === 0}">
+                        <user-rating :size="'16'" :rating="tutor.rating" :showRateNumber="false" />
+                        <div class="reviews caption ml-1" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"></div>
+                    </div>
+                </template>
+
                 </div>
-                </div>
-                <div class="user-price mb-3">
-                    <img :class="[isUserImage(tutor.image) ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="getImgUrl(tutor.image)" :alt="tutor.name">
+                <div class="user-price mb-2">
+                    <img :class="[isUserImage(tutor.image) ? '' : 'tutor-no-img']" class="user-image" @error="onImageLoadError" @load="loaded" :src="getImgUrl(tutor.image)" :alt="tutor.name">
                     <div class="">
                         <div class="striked" v-if="showStriked(tutor.price)"> &#8362;{{tutor.price}}</div>
                         <div>
-                            <span v-if="showStriked(tutor.price)" class="title font-weight-bold">&#8362;{{discountedPrice(tutor.price)}}</span>
+                            <span v-if="showStriked(tutor.price)" class="price font-weight-bold">&#8362;{{discountedPrice(tutor.price)}}</span>
                             <span class="price font-weight-bold" v-else>&#8362;{{tutor.price}}</span>
                             <div class="caption hour" v-language:inner="'resultTutor_hour'"></div>
                         </div>
@@ -151,8 +154,7 @@ export default {
             let showBlock = text.length > maxChars;
             let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
             let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-            let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: inline-block' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
-            return `${newText} ${readMore} ${hideText}`;
+            return `${newText} ${hideText}`;
         },
         setCardsCarousel() {
             // calculate cards on screen
@@ -210,32 +212,32 @@ export default {
             .tutor-carousel-card {
                 border-radius: 4px;
                 background: #fff;
-                .heightMinMax(248px);
+                .heightMinMax(254px);
                 h3,h4 {
                     color: @purple;
                 }
                 .user-rank {
-                    display: flex;
-                    .rating-container {
-                        i {
-                            font-size: 14px !important;
-                        }
+                    display: inline-flex;
+                    &.user-rank-hidden {
+                        visibility: hidden;
                     }
                 }
                 .user-price {
                     display: flex;
                     color: @purple;
                     .user-image {
+                        margin-right: 10px;
                         border-radius: 4px;
                     }
                     div {
                         display: flex;
                         flex-direction: column;
                         justify-content: flex-end;
-                         .striked {
-                        max-width: max-content;
-                        position: relative;
-                        color: @colorBlackNew;
+                        .striked {
+                            font-size: 12px;
+                            max-width: max-content;
+                            position: relative;
+                            color: @colorBlackNew;
                             &:after {
                                 content: "";
                                 width: 100%;
@@ -260,21 +262,27 @@ export default {
                     }
                 }
                 .tutor-no-img {
-                    width: 64px;
-                    height: auto;
+                    width: 66px;
+                    height: 74px;
                 }
                 .reviews {
                     color: #4452fc;
-
                 }
                 .user-bio {
+                    font-family: Open Sans,sans-serif;
+                    .giveEllipsisUpdated(11px, normal, 3, 45px);
+                    min-height: 45px;
+                    text-align: left;
                     color: @purple;
                     position: relative;
                     font-size: 11px;
-                    .heightMinMax(38px);
                 }
                 .btn-chat {
+                    margin-top: 10px;
                     font-size: 10px;
+                    button {
+                        text-transform: inherit;
+                    }
                 }
             }
         }
