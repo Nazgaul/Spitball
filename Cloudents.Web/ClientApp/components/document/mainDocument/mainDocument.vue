@@ -118,7 +118,7 @@
             </div>
         </v-layout>
         <div class="document-wrap">
-        <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
+            <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
                 <v-lazy-image :style="`height:${imgHeight}px; width:${imgWidth}px`"
                     class="document-wrap-content mb-4"
                     :src="page"
@@ -128,10 +128,13 @@
                 
                 <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)"/>
             </div>
-            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
-                <p class="text-xs-center" v-language:inner="'documentPage_unlock_document'"></p>
-                <div class="aside-top-btn align-center" v-if="!isLoading">
+            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased || !accountUser" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
+                <p class="text-xs-center" v-language:inner="!accountUser? 'documentPage_unlock_document_unregister' :'documentPage_unlock_document'"></p>
+                <div class="aside-top-btn align-center" v-if="!isLoading && accountUser">
                     <span class="font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
+                    <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
+                </div>
+                <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser">
                     <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
                 <v-progress-circular
@@ -141,13 +144,12 @@
                     color="#4452fc"
                 ></v-progress-circular>
             </div>
-            <a 
-                class="btn-download justify-center elevation-5" 
+            <a  class="btn-download justify-center elevation-5" 
                 :href="`${$route.path}/download`" 
                 target="_blank" 
                 @click="downloadDoc" 
                 :class="{'mt-2': !isShowPurchased}" 
-                v-if="!isShowPurchased && !isLoading && !isSmAndDown">
+                v-if="!isShowPurchased && !isLoading && !isSmAndDown && accountUser">
                     <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
                     <span class="white--text py-4 font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
             </a>
@@ -524,6 +526,23 @@ export default {
                     padding: 0 0 30px 0;
                     margin: 0;
                     font-size: 19px;
+                }
+                .aside-top-btn-not{
+                    display: flex;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    margin: 0 auto;
+                    width: 60%;
+                    line-height: 20px;
+                    font-size: 15px;
+                    @media (max-width: @screen-sm) {
+                         width: auto;
+                    }
+                    span{
+                        width: 100%;
+                        background-color: #4452fc;
+                        border-radius: 0 4px 4px 0
+                    }
                 }
                 .aside-top-btn {
                     display: flex;

@@ -162,4 +162,7 @@
   <data name="unlock_document" xml:space="preserve">
     <value>Credit the uploader with points to unlock</value>
   </data>
+  <data name="unlock_document_unregister" xml:space="preserve">
+    <value>To unlock this document, please register</value>
+  </data>
 </root>
