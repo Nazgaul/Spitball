@@ -234,7 +234,7 @@ export default {
         .user-bio {
           display: inline-block;
           word-wrap: break-word;
-          .heightMinMax(60px);
+          .heightMinMax(62px);
           line-height: 1.5em;
           .read-more {
             color: #4452fc;
