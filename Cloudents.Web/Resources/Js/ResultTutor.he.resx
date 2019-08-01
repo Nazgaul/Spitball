@@ -141,9 +141,6 @@
   <data name="contact_me" xml:space="preserve">
     <value>צור קשר</value>
   </data>
-  <data name="teaching" xml:space="preserve">
-    <value>שיעורים פרטיים ב-</value>
-  </data>
   <data name="btn_more_doc" xml:space="preserve">
     <value>עוד מסמכים שלי</value>
   </data>
