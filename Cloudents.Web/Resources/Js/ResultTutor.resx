@@ -136,13 +136,10 @@
     <value>Review</value>
   </data>
   <data name="no_reviews" xml:space="preserve">
-    <value>No reviews yet</value>
+    <value>Collecting reviews</value>
   </data>
   <data name="contact_me" xml:space="preserve">
     <value>Contact Me</value>
-  </data>
-  <data name="teaching" xml:space="preserve">
-    <value></value>
   </data>
   <data name="btn_more_doc" xml:space="preserve">
     <value>More documents</value>

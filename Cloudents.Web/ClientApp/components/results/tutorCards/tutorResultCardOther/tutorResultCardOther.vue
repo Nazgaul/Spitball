@@ -20,9 +20,15 @@
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
 
-                    <v-layout column align-center class="user-rates" v-if="isReviews" :class="{'mr-5': !isReviews}">
-                        <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" />
-                        <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>
+                    <v-layout column align-center class="user-rates">
+                        <div v-if="isReviews" :class="{'mr-5': !isReviews}">
+                            <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" />
+                            <div class="caption text-xs-center reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
+                        </div>
+                        <div v-else class="no-reviews">
+                            <star />
+                            <span class="caption" :class="{'font-weight-bold': uploader}" v-language:inner="'resultTutor_no_reviews'"></span>
+                        </div>
                     </v-layout>
                     
                     <template>
@@ -32,7 +38,7 @@
                         </v-btn>
 
                         <!-- card-b -->
-                        <v-layout column align-center class="ab-cardB user-classes">
+                        <v-layout column align-center class="ab-cardB user-classes" :class="{'user-classes-hidden': tutorData.lessons > 0}">
                             <div>{{tutorData.lessons}}</div>
                             <div v-language:inner="'resultTutor_classes'"></div>
                         </v-layout>
@@ -42,7 +48,7 @@
             </div>
         </div>
 
-        <v-layout class="tutor-bio mb-3" v-html="ellipsizeTextBox">{{tutorData.bio}}</v-layout>
+        <v-layout class="tutor-bio mb-2" v-html="ellipsizeTextBox">{{tutorData.bio}}</v-layout>
 
         <v-layout row class="btn-footer ab-cardB">
             <div class="send-msg text-xs-center text-truncate" :class="{'no-uploader': !uploader}">
@@ -73,11 +79,13 @@ import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/
 import iconChat from './icon-chat.svg';
 import chatService from '../../../../services/chatService';
 import {mapActions, mapGetters} from 'vuex';
+import star from '../stars-copy.svg';
 
 export default {
     components: {
         userRating,
-        iconChat
+        iconChat,
+        star
     },
     props: {
         tutorData: {},
@@ -271,7 +279,7 @@ export default {
         }
         .rating-holder {
             div {
-                margin: 0 !important; //vuetify
+                margin: 0 !important;
             }
         }
         .user-rates {
@@ -279,6 +287,17 @@ export default {
             .reviews {
                 color: #4452fc;
             }
+            .no-reviews {
+                display: flex;
+                flex-direction: column;
+                margin-top: -4px;
+                svg {
+                    margin: 0 auto;
+                }
+            }
+        }
+        .user-classes-hidden {
+            visibility: hidden;
         }
     }
     .btn-chat {
