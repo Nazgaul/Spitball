@@ -32,6 +32,11 @@ namespace Cloudents.Infrastructure.Framework
             _doc = new Lazy<Document>(() => new Document(stream()));
         }
 
+        public void Init(Func<string> stream)
+        {
+            _doc = new Lazy<Document>(() => new Document(stream()));
+        }
+
         public (string text, int pagesCount) ExtractMetaContent()
         {
             var t = _doc.Value;

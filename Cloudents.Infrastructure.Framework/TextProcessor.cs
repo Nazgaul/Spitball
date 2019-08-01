@@ -30,6 +30,11 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
+        public void Init(Func<string> stream)
+        {
+            _text = File.ReadAllText(stream());
+        }
+
         private static Encoding GetEncoding(Stream sr)
         {
             // Read the BOM
