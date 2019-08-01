@@ -199,8 +199,8 @@ export default {
             border-radius: 4px;
         }
         .tutor-no-img {
-            width: 80px;
-            height: auto;
+            width: 67px;
+            height: 95px;
         }
         .user-rate {
             display: inline-flex;
