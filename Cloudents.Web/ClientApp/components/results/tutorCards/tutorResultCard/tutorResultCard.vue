@@ -5,13 +5,13 @@
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div class="main-card justify-space-between">
                 <h3 class="title font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-                <h4 class="mb-1 text-truncate">{{university}}</h4>
-                <div class="user-bio mb-4 overflow-hidden" v-html="ellipsizeTextBox(tutorData.bio)"></div>
-                <div class="study-area mb-2" v-if="isSubjects">
+                <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
+                <div class="user-bio mb-4 overflow-hidden" :class="{'user-bio-hidden': !tutorData.bio}" v-html="ellipsizeTextBox(tutorData.bio)"></div>
+                <div class="study-area mb-2" v-if="isSubjects" :class="{'study-area-hidden': !isSubjects}">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
                   <span class="text-truncate">{{subjects}}</span>
                 </div>
-                <div class="study-area mb-2" v-if="!isSubjects"></div>
+                <!-- <div class="study-area mb-2" v-if="!isSubjects"></div> -->
                 <div class="courses" v-if="isCourses">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
                   <span class="text-truncate">{{courses}}</span> 
@@ -230,8 +230,8 @@ export default {
         .tutor-name {
           .heightMinMax(18px);
         }
-        h4 {
-          .heightMinMax(18px);
+        .university-hidden {
+          visibility: hidden;
         }
         .user-bio {
           display: inline-block;
@@ -241,10 +241,14 @@ export default {
           .read-more {
             color: #4452fc;
           }
+          &.user-bio-hidden {
+            visibility: hidden;
+          }
         }
-        .study-area {
-          .heightMinMax(19px);
-        }
+
+          .study-area-hidden {
+          visibility: hidden;
+          }
         .courses {
           display: flex;
           white-space: nowrap;

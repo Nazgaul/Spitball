@@ -222,7 +222,6 @@ export default {
     .top-card {
         display: flex;
         width: 100%;
-        // image stretching
         max-height: 78px; 
         min-height: 78px;
         .top-card-wrap {
