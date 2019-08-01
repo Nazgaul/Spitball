@@ -285,17 +285,4 @@ export default {
             }
         }
     }
-    :lang(en) {
-        .user-bio {
-            .giveEllipsisUpdated(11px,normal,3,45px);
-            .heightMinMax(45px);
-        }
-        
-    }
-    :lang(he) {
-        .user-bio {
-            .giveEllipsisUpdated(11px,normal,3,38px);
-            .heightMinMax(38px);
-        }
-    }
 </style>

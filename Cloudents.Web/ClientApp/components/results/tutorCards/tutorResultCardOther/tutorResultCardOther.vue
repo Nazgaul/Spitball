@@ -222,7 +222,6 @@ export default {
     .top-card {
         display: flex;
         width: 100%;
-        // image stretching
         max-height: 78px; 
         min-height: 78px;
         .top-card-wrap {
@@ -329,19 +328,6 @@ export default {
                 .widthMinMax(120px);
             }
         }
-    }
-}
-
-:lang(en) {
-    .tutor-bio {
-        .heightMinMax(40px);
-        .giveEllipsisUpdated(13px, normal, 2, 40px);
-    }
-}
-:lang(he) {
-    .tutor-bio {
-        .heightMinMax(32px);
-        .giveEllipsisUpdated(13px, normal, 2, 32px);
     }
 }
 
