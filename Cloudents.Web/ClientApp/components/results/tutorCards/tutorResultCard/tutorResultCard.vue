@@ -305,7 +305,6 @@ export default {
       .send-btn {
         width: 100%;
         .btn-chat {
-          .widthMinMax(190px);
           margin: 0 auto;
           text-transform: inherit;
           .v-btn__content {
