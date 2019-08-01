@@ -121,7 +121,7 @@
     <value>Login</value>
   </data>
   <data name="placeholder_ask" xml:space="preserve">
-    <value>Search questions</value>
+    <value>Search in questions...</value>
   </data>
   <data name="sbl" xml:space="preserve">
     <value>Pts</value>
@@ -130,7 +130,7 @@
     <value>Sign Up</value>
   </data>
   <data name="placeholder_note" xml:space="preserve">
-    <value>Find study documents in...</value>
+    <value>Find study documents...</value>
   </data>
   <data name="placeholder_tutor" xml:space="preserve">
     <value>Find a tutor...</value>

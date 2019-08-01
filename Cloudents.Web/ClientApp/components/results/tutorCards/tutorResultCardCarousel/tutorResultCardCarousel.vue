@@ -1,6 +1,6 @@
 <template>
     <div class="tutor-carousel-slider-wrapper mb-4">
-        <h3 class="subtitle-1 mb-4">מורים פרטיים</h3>
+        <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
         <div class="tutor-carousel-slider-container"
             v-touch="{
             left: () => moveCarousel('left'),
@@ -10,7 +10,7 @@
 
             <div v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card pa-2">
                 <div>
-                    <h4 class="caption font-weight-bold mb-1" v-language:inner="''">מורה פרטי</h4>
+                    <h4 class="caption font-weight-bold mb-1" v-language:inner="'resultTutor_subtitle'"/>
                     <h3 class="body-2 font-weight-bold">{{tutor.name}}</h3>
                 
                 <div class="user-rank mt-1 mb-2 align-center">

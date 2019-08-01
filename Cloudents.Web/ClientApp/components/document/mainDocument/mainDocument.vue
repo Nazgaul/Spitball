@@ -119,8 +119,8 @@
         </v-layout>
         <div class="document-wrap">
         <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
-                <v-lazy-image 
-                    class="document-wrap-content mb-4" 
+                <v-lazy-image :style="`height:${imgHeight}px; width:${imgWidth}px`"
+                    class="document-wrap-content mb-4"
                     :src="page"
                     :src-placeholder="require('./doc-preview-animation.gif')"
                     v-if="page"
@@ -178,6 +178,8 @@ export default {
     },
     data() {
         return {
+            imgHeight: 0,
+            imgWidth: 0,
             showMenu: false,
             currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
             itemId: 0,
@@ -251,30 +253,29 @@ export default {
             }
         },
         docPreview() {
-            // TODO temporary calculated width container
+               // TODO temporary calculated width container
             if(this.document.preview && this.docWrap) {
-                let width;
                 if (this.$vuetify.breakpoint.xl) {
-                    width = 960
+                    this.imgWidth = 960
                 }
                 if (this.$vuetify.breakpoint.lg) {
-                    width = 880
+                    this.imgWidth = 880
                 }
                 if (this.$vuetify.breakpoint.md) {
-                    width = 560
+                    this.imgWidth = 560
                 }
                 if (this.$vuetify.breakpoint.sm) {
-                    width = 730
+                    this.imgWidth = 730
                 }
                 if (this.$vuetify.breakpoint.xs) {
-                    width = 400
+                    this.imgWidth = 400
                 } 
                 if (this.$vuetify.breakpoint.width === 375) {
-                    width = 375
+                    this.imgWidth = 375
                 }           
-                let height = width / 0.707;               
+                this.imgHeight = this.imgWidth / 0.707;        
                 let result = this.document.preview.map(preview => {                    
-                    return utillitiesService.proccessImageURL(preview, width, Math.ceil(height), 'pad')
+                    return utillitiesService.proccessImageURL(preview, this.imgWidth, Math.ceil(this.imgHeight), 'pad')
                 })
                 return result;
             }
