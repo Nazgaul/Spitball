@@ -84,12 +84,12 @@ namespace Cloudents.Search
         }
 
 
-        protected async Task DeleteOldDataAsync(string filterName, DateTime timeToDelete, CancellationToken token)
+        public async Task DeleteOldDataAsync(string filterName, DateTime timeToDelete, CancellationToken token)
         {
             const int top = 1000;
             var parameters = new SearchParameters
             {
-                Filter = $"{filterName} lt {timeToDelete.ToUniversalTime():yyyy-MM-dd'T'hh:mm:ss'Z'}'",
+                Filter = $"{filterName} lt {timeToDelete.ToUniversalTime():yyyy-MM-dd'T'hh:mm:ss'Z'}",
                 Select = new[] { nameof(ISearchObject.Id) },
                 Top = top
             };

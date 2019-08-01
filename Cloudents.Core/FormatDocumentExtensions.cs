@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Cloudents.Core
@@ -17,20 +18,10 @@ namespace Cloudents.Core
         public static IEnumerable<string> GetFormats()
         {
             // return Enum.GetValues(typeof(StorageContainer)).Cast<StorageContainer>();
-            foreach (var field in typeof(FormatDocumentExtensions).GetFields(BindingFlags.Public | BindingFlags.Static))
-            {
-                if (field.IsLiteral)
-                {
-                    continue;
-                }
-
-
-                var d =  (string[])field.GetValue(null);
-                foreach (var s in d)
-                {
-                    yield return s;
-                }
-            }
+            return 
+                from field in typeof(FormatDocumentExtensions).GetFields(BindingFlags.Public | BindingFlags.Static)
+                where !field.IsLiteral
+                from s in (string[])field.GetValue(null) select s;
         }
     }
 }

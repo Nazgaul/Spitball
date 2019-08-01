@@ -62,7 +62,7 @@ namespace Cloudents.Search.Tutor
                     s.Document.Data.Courses).Take(3).Distinct(StringComparer.OrdinalIgnoreCase);
 
                 s.Document.Data.Courses = courses;
-                s.Document.Data.Subjects = s.Document.Data.Subjects.Take(3);
+                s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
                 return s.Document.Data;
 
                 //return new TutorCardDto
