@@ -10,7 +10,10 @@
                     <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="mr-2" />
                     <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
-                  <div v-else class="user-rate"></div>
+                  <div class="user-rate align-center" v-else>
+                    <star class="mr-2" />
+                    <span class="reviews" v-html="$Ph(`resultTutor_no_reviews`, reviewsPlaceHolder(tutorData.reviews))"></span>
+                  </div>
               </template>
 
               <template>
@@ -54,13 +57,15 @@ import analyticsService from "../../../../services/analytics.service";
 import { mapActions, mapGetters } from "vuex";
 import commentSVG from './commentSVG.svg';
 import iconChat from '../tutorResultCardOther/icon-chat.svg';
+import star from '../stars-copy.svg';
 
 export default {
   name: "tutorCard",
   components: {
     userRating,
     commentSVG,
-    iconChat
+    iconChat,
+    star
   },
   data() {
     return {

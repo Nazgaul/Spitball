@@ -47,7 +47,11 @@
             <div class="classes-hours align-center mb-4 mt-1">
               <clock />
               <span class="font-weight-bold caption ml-2" v-if="tutorData.lessons > 0">{{tutorData.lessons}}</span>
-              <span class="font-weight-bold caption no-classes" v-language:inner="'resultTutor_hours_completed'"></span>
+              
+              <template>
+                <span class="font-weight-bold caption no-classes" v-language:inner="'resultTutor_no_hours_completed'" v-if="tutorData.lessons === 0"></span>
+                <span class="font-weight-bold caption no-classes" v-language:inner="'resultTutor_hours_completed'" v-else></span>    
+              </template>
             </div>                
 
             <div class="send-btn">
