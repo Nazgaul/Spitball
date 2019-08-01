@@ -4,7 +4,7 @@ import Vuex from "vuex";
 
 import Search from "./search";
 import User from "./User";
-import Question from "./question";
+// import Question from "./question";
 import LuisData from "./luisData";
 import Account from "./account";
 import Toaster from "./Toaster";
@@ -15,7 +15,7 @@ import document from './document'
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
 // import homeLanding from "./homeLanding"
-import homeworkHelpStore from './homeworkHelp_store'
+// import homeworkHelpStore from './homeworkHelp_store';
 import studyDocumentsStore from './studyDocuments_store';
 import tutorsStore from './tutors_store';
 import marketingBox from './marketingBox'
@@ -43,7 +43,7 @@ const store = new Vuex.Store({
         User,
         LuisData,
         Account,
-        Question,
+        // Question,
         Toaster,
         MarketingCampaign,
         loginDialog,
@@ -52,7 +52,7 @@ const store = new Vuex.Store({
         uploadFiles,
         document,
         // homeLanding,
-        homeworkHelpStore,
+        // homeworkHelpStore,
         studyDocumentsStore,
         tutorsStore,
         marketingBox,

@@ -11,7 +11,7 @@ const schoolBlock = () => import('./components/schoolBlock/schoolBlock.vue');
 const verticalsTabs = () => import('./components/header/verticalsTabs.vue');
 import { staticRoutes } from "./components/satellite/satellite-routes";
 
-const showItem = () => import("./components/preview/Item.vue");
+// const showItem = () => import("./components/preview/Item.vue");
 const document = () => import("./components/document/document.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 //const previewHeader = () => import("./components/helpers/header.vue");
@@ -19,7 +19,7 @@ const viewQuestion = () => import("./components/question/question-details/questi
 const wallet = () => import("./components/wallet/wallet.vue");
 const newProfile = () => import("./components/new_profile/new_profile.vue");
 const profilePageHeader = () => import("./components/new_profile/header/header.vue");
-const login = () => import("./components/new_registration/login.vue");
+// const login = () => import("./components/new_registration/login.vue");
 
 // course section
 const setCourse = () => import("./components/courses/courses.vue");

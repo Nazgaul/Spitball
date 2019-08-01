@@ -235,6 +235,7 @@ import insightService from '../../services/insightService.js';
 import paymentDialog from './tutorHelpers/paymentDIalog/paymentDIalog.vue'
 
 //store
+import storeService from "../../services/store/storeService";
 import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
 import tutoringMain from '../../store/studyRoomStore/tutoringMain.js';
 import studyRoomTracks_store from '../../store/studyRoomStore/studyRoomTracks_store.js';
@@ -488,16 +489,16 @@ export default {
   },
   beforeDestroy(){
     document.removeEventListener('fullscreenchange',this.closeFullScreen);
-    this.$store.unregisterModule('tutoringCanvas');
-    this.$store.unregisterModule('tutoringMain');
-    this.$store.unregisterModule('studyRoomTracks_store');
-    this.$store.unregisterModule('codeEditor_store');
+    storeService.unregisterModule(this.$store,'tutoringCanvas');
+    storeService.unregisterModule(this.$store,'tutoringMain');
+    storeService.unregisterModule(this.$store,'studyRoomTracks_store');
+    storeService.unregisterModule(this.$store,'codeEditor_store');
   },
   created() {
-    this.$store.registerModule('tutoringCanvas', tutoringCanvas);
-    this.$store.registerModule('tutoringMain', tutoringMain);
-    this.$store.registerModule('studyRoomTracks_store', studyRoomTracks_store);
-    this.$store.registerModule('codeEditor_store', codeEditor_store);
+    storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
+    storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
+    storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
+    storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
     
     if (!this.isBrowserSupport()) {
       this.$nextTick(()=>{
