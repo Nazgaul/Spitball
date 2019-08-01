@@ -35,8 +35,8 @@
           <div class="price ml-4 align-center" >
               <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
               <template>
-                <span v-if="showStriked" class="price-title font-weight-bold">&#8362;{{discountedPrice}}/</span>
-                <span v-else class="price-title font-weight-bold">&#8362;{{tutorData.price}}/</span>
+                <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
+                <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
               </template>
               <span class="caption" v-language:inner="'resultTutor_hour'"></span>
           </div>
@@ -260,11 +260,6 @@ export default {
         }
         .price {
           align-self: flex-end;
-          .price-title{
-              font-size: 22px;
-              font-weight: bold;
-              color: #43425d;
-          }
           .striked {
               max-width: max-content;
               position: relative;
