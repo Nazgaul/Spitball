@@ -11,7 +11,6 @@ import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
 import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
 import faqBlock from '../helpers/faq-block/faq-block.vue'
-import notificationCenter from '../../notificationCenter/notificationCenter.vue'
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 import resultFilter from '../helpers/resultFilter/resultFilter.vue'
@@ -28,7 +27,6 @@ export default {
         faqBlock,
         sbDialog,
         loginToAnswer,
-        notificationCenter,
         askQuestionBtn,
         ResultAsk,
         setUniClass,

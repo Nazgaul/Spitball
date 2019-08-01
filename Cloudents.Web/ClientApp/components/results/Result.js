@@ -13,7 +13,6 @@ import { LanguageService } from '../../services/language/languageService'
 import setUniClass from './helpers/setUniClassItem/setUniClass.vue'
 import schoolBlock from '../schoolBlock/schoolBlock.vue'
 import faqBlock from './helpers/faq-block/faq-block.vue'
-import notificationCenter from '../notificationCenter/notificationCenter.vue'
 import resultFilter from './helpers/resultFilter/resultFilter.vue'
 import askQuestionBtn from './helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "./helpers/uploadFilesBtn/uploadFilesBtn.vue"
@@ -32,7 +31,6 @@ export default {
         faqBlock,
         sbDialog,
         loginToAnswer,
-        notificationCenter,
         uploadFilesBtn,
         askQuestionBtn,
       

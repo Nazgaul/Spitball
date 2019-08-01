@@ -13,7 +13,6 @@ import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
 import analyticsService from '../../../services/analytics.service'
 
 import faqBlock from '../helpers/faq-block/faq-block.vue'
-import notificationCenter from '../../notificationCenter/notificationCenter.vue'
 
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "../helpers/uploadFilesBtn/uploadFilesBtn.vue"
@@ -38,7 +37,6 @@ export default {
         faqBlock,
         sbDialog,
         loginToAnswer,
-        notificationCenter,
         uploadFilesBtn,
         askQuestionBtn,
         

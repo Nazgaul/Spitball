@@ -12,7 +12,6 @@ import MarketingCampaign from './marketingCampaigns'
 import loginDialog from './loginDialog'
 import newQuestionDialog from './newQuestionDialog'
 import document from './document'
-import notification from "./notification";
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
 // import homeLanding from "./homeLanding"
@@ -49,7 +48,6 @@ const store = new Vuex.Store({
         MarketingCampaign,
         loginDialog,
         newQuestionDialog,
-        notification,
         University,
         uploadFiles,
         document,
