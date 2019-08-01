@@ -11,7 +11,6 @@
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
                   <span class="text-truncate">{{subjects}}</span>
                 </div>
-                <!-- <div class="study-area mb-2" v-if="!isSubjects"></div> -->
                 <div class="courses" v-if="isCourses">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
                   <span class="text-truncate">{{courses}}</span> 
@@ -310,6 +309,9 @@ export default {
           .widthMinMax(190px);
           margin: 0 auto;
           text-transform: inherit;
+          .v-btn__content {
+            padding: 0 20px;
+          }
           .chat-icon {
             margin: 0 auto 0 0;
           }
