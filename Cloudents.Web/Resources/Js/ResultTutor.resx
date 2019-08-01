@@ -124,7 +124,7 @@
     <value>$</value>
   </data>
   <data name="hour" xml:space="preserve">
-    <value>/hour</value>
+    <value>hour</value>
   </data>
   <data name="online_lessons" xml:space="preserve">
     <value>Offers online lessons</value>

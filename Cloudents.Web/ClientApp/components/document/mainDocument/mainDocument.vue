@@ -436,7 +436,7 @@ export default {
 
     .mainDocument-container {
         margin-bottom: 80px;
-        flex: 4;
+        flex: 5;
         @media (max-width: @screen-sm) {
             order: 2;
         }

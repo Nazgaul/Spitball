@@ -4,15 +4,23 @@
           <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
           <div>
               <h3 class="text-truncate subheading font-weight-bold mb-2" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-              <div class="user-rate align-center">
-                  <user-rating :rating="tutorData.rating" :showRateNumber="false" class="mr-2" />
-                  <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
-              </div>
               
-              <h4 class="text-truncate mb-1 font-weight-light university" v-if="isUniversity">{{university}}</h4>
+              <template>
+                  <div class="user-rate align-center" v-if="tutorData.reviews > 0">
+                    <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="mr-2" />
+                    <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
+                  </div>
+                  <div v-else class="user-rate"></div>
+              </template>
+
+              <template>
+                  <h4 class="text-truncate mb-1 font-weight-light university" v-if="isUniversity">{{university}}</h4>
+                  <h4 class="text-truncate mb-1 font-weight-light university" v-else></h4>
+              </template>
+              
               <div class="courses text-truncate">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
-                  <span class="text-truncate">{{courses}}</span> 
+                  <span class="text-truncate">{{courses}}</span>
               </div>
           </div>
       </div>
@@ -20,19 +28,20 @@
       <div class="card-mobile-center mb-4" v-html="ellipsizeTextBox(tutorData.bio)">{{tutorData.bio}}</div>
 
       <div class="card-mobile-footer">
-          <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
+          <v-btn class="btn-chat white--text text-truncate my-0" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
                 <iconChat class="chat-icon" />
-                <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', tutorData.name)"></div>
+                <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
-          <div class="price ml-4 align-center" :class="{'mt-3': !showStriked}">
+          <div class="price ml-3 align-center" >
               <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
               <template>
-                <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}/</span>
-                <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}/</span>
+                <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
+                <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
               </template>
               <span class="caption" v-language:inner="'resultTutor_hour'"></span>
           </div>
       </div>
+
   </router-link>
 </template>
 
@@ -173,6 +182,9 @@ export default {
     },
     university() {
       return this.tutorData.university;
+    },
+    showFirstName() {
+      return this.tutorData.name.split(' ')[0];
     }
   }
 };
@@ -201,9 +213,6 @@ export default {
         }
         .user-rate {
             display: inline-flex;
-            i {
-                font-size: 16px !important; //vuetify
-            }
             .reviews {
               color: #4452fc;
             }
@@ -229,20 +238,17 @@ export default {
     .card-mobile-footer {
         display: inherit;
         .btn-chat {
-          text-transform: lowercase;
+          .widthMinMax(220px);
+          text-transform: inherit;
           border-radius: 7.5px;
-          .chat-icon {
-            margin: 0 auto 0 0;
-          }
           div {
-            margin: 0 auto 0 0;
             div {
-              max-width: 175px;
               padding-left: 10px;
             }
           }
         }
         .price {
+          align-self: flex-end;
           .striked {
               max-width: max-content;
               position: relative;

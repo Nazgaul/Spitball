@@ -163,7 +163,7 @@
     <value>תחומי לימוד:</value>
   </data>
   <data name="private_tutor" xml:space="preserve">
-    <value>מורה פרטי {1}</value>
+    <value>מורה פרטי/ת {1}</value>
   </data>
   <data name="read_more" xml:space="preserve">
     <value>קרא עוד</value>
