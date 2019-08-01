@@ -1,9 +1,9 @@
 <template>
-    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden " @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden ab-default-card" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
         <div class="mb-3 top-card justify-space-between">
             <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div class="top-card-wrap">
-                <h3 class="subheading font-weight-bold tutor-name text-truncate mb-2">{{tutorData.name}}</h3>
+                <h3 class="subheading font-weight-bold tutor-name text-truncate mb-2" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
                 <template>
                     <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
@@ -20,7 +20,7 @@
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
 
-                    <v-layout column align-center class="user-rates" v-if="!isReviews" :class="{'mr-5': !isReviews}">
+                    <v-layout column align-center class="user-rates" v-if="isReviews" :class="{'mr-5': isReviews}">
                         <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" />
                         <div class="caption reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>
                     </v-layout>
@@ -289,9 +289,7 @@ export default {
         }
     }
     .tutor-bio {
-        .heightMinMax(35px);
         font-size: 13px;
-        .giveMeEllipsis(2, 16px);
         display: block;
         color: @purple;
         .read-more {
@@ -319,6 +317,7 @@ export default {
                     .widthMinMax(170px);
                 }
             }
+
         }
         .more-documents {
             button {
@@ -330,6 +329,19 @@ export default {
                 .widthMinMax(120px);
             }
         }
+    }
+}
+
+:lang(en) {
+    .tutor-bio {
+        .heightMinMax(40px);
+        .giveEllipsisUpdated(13px, normal, 2, 40px);
+    }
+}
+:lang(he) {
+    .tutor-bio {
+        .heightMinMax(32px);
+        .giveEllipsisUpdated(13px, normal, 2, 32px);
     }
 }
 

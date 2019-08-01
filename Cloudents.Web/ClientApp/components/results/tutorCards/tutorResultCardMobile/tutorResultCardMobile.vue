@@ -19,7 +19,7 @@
               </template>
               
               <div class="courses text-truncate">
-                  <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
+                  <span class="font-weight-bold mr-1" v-language:inner="'resultTutor_courses'"></span>
                   <span class="text-truncate">{{courses}}</span>
               </div>
           </div>
@@ -27,7 +27,7 @@
 
       <div class="card-mobile-center mb-4" v-html="ellipsizeTextBox(tutorData.bio)">{{tutorData.bio}}</div>
 
-      <div class="card-mobile-footer">
+      <div class="card-mobile-footer mt-2">
           <v-btn class="btn-chat white--text text-truncate my-0" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
                 <iconChat class="chat-icon" />
                 <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
@@ -144,7 +144,7 @@ export default {
     },
     userImageUrl() {
       if (this.tutorData.image) {
-        let size = [67, 87];
+        let size = [80, 87];
         return utilitiesService.proccessImageURL(
           this.tutorData.image,
           ...size,
@@ -208,7 +208,7 @@ export default {
             border-radius: 4px;
         }
         .tutor-no-img {
-            width: 67px;
+            width: 80px;
             height: auto;
         }
         .user-rate {
@@ -230,7 +230,7 @@ export default {
       .heightMinMax(34px);
       .read-more {
         position: absolute;
-        bottom: 70px;
+        bottom: 68px;
         color: #4452fc;
       }
     }

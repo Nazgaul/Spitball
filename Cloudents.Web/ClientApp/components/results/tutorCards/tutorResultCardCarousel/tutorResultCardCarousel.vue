@@ -13,10 +13,13 @@
                     <h4 class="caption font-weight-bold mb-1" v-language:inner="'resultTutor_subtitle'"/>
                     <h3 class="body-2 font-weight-bold">{{tutor.name}}</h3>
                 
-                <div class="user-rank mt-1 mb-2 align-center">
-                    <user-rating :size="'16'" :rating="tutor.rating" :showRateNumber="false" />
-                    <div class="reviews caption ml-1" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"></div>
-                </div>
+                <template>
+                    <div class="user-rank mt-1 mb-2 align-center" :class="{'user-rank-hidden': tutor.reviews === 0}">
+                        <user-rating :size="'16'" :rating="tutor.rating" :showRateNumber="false" />
+                        <div class="reviews caption ml-1" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"></div>
+                    </div>
+                </template>
+
                 </div>
                 <div class="user-price mb-2">
                     <img :class="[isUserImage(tutor.image) ? '' : 'tutor-no-img']" class="user-image" @error="onImageLoadError" @load="loaded" :src="getImgUrl(tutor.image)" :alt="tutor.name">
@@ -210,12 +213,15 @@ export default {
             .tutor-carousel-card {
                 border-radius: 4px;
                 background: #fff;
-                .heightMinMax(250px);
+                .heightMinMax(254px);
                 h3,h4 {
                     color: @purple;
                 }
                 .user-rank {
                     display: inline-flex;
+                    &.user-rank-hidden {
+                        visibility: hidden;
+                    }
                 }
                 .user-price {
                     display: flex;
@@ -264,12 +270,10 @@ export default {
                     color: #4452fc;
                 }
                 .user-bio {
-                    color: @purple;
                     text-align: left;
+                    color: @purple;
                     position: relative;
                     font-size: 11px;
-                    .giveEllipsisUpdated(11px,normal,3,45px);
-                    .heightMinMax(45px);
                 }
                 .btn-chat {
                     margin-top: 10px;
@@ -279,6 +283,19 @@ export default {
                     }
                 }
             }
+        }
+    }
+    :lang(en) {
+        .user-bio {
+            .giveEllipsisUpdated(11px,normal,3,45px);
+            .heightMinMax(45px);
+        }
+        
+    }
+    :lang(he) {
+        .user-bio {
+            .giveEllipsisUpdated(11px,normal,3,38px);
+            .heightMinMax(38px);
         }
     }
 </style>
