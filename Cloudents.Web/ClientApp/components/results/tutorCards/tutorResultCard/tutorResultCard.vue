@@ -140,7 +140,7 @@ export default {
 
     courses() {
       if (this.tutorData.courses) {
-        return `${LanguageService.getValueByKey("resultTutor_teaching")} ${this.tutorData.courses}`
+        return `${this.tutorData.courses}`
       }
       return '';
     },
