@@ -149,10 +149,22 @@ namespace ConsoleApp
 
             //var v = dictionary.OrderBy(d => d.Value);
 
-            await UpdateMethod();
-            var queryBus = _container.Resolve<IQueryBus>();
-            var query = new TutorSyncAzureSearchQuery(0,null);
-            var z =await  queryBus.QueryAsync(query, default);
+            var c = _container.Resolve<TutorSearchWrite>();
+            await c.DeleteOldDataAsync("InsertDate", DateTime.UtcNow.AddDays(-15),default);
+
+            Stream sr = null;
+            var ppt = new PowerPoint2007Processor();
+            ppt.Init(() =>
+            {
+                sr = File.Open(@"C:\Users\Ram\Downloads\file-79433161-8697-4777-83de-8e430a524fcb-231615.pptm", FileMode.Open);
+                return sr;
+            });
+            var result = ppt.ExtractMetaContent();
+            
+            //await UpdateMethod();
+            //var queryBus = _container.Resolve<IQueryBus>();
+            //var query = new TutorSyncAzureSearchQuery(0,null);
+            //var z =await  queryBus.QueryAsync(query, default);
             //var result = await queryBus.NeedToSendMoreTutorsAsync(638, default);
             //var query = new DocumentById(29173, 638);
             //var z = queryBus.QueryAsync(query, default);

@@ -222,7 +222,6 @@ const actions = {
                 dispatch('getChatById', message.conversationId).then(({data})=>{
                     let ConversationObj = chatService.createConversation(data);
                     commit('addConversation', ConversationObj);
-                    commit('addConversationUnread', message)
                     commit('updateTotalUnread', 1);
                 })
             }

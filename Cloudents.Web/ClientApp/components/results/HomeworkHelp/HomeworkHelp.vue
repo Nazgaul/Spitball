@@ -69,7 +69,6 @@
         <template slot="rightSide">
             <slot name="rightSide">
                 <faq-block :isAsk="true" :isNotes="false" :name="currentSuggest" :text="userText"></faq-block>
-                <!--<notificationCenter v-else :isAsk="name==='ask'"></notificationCenter>-->
             </slot>
         </template>
             <v-flex class="result-cell mb-2 xs-12 order-xs3">

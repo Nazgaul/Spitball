@@ -124,7 +124,7 @@
     <value>$</value>
   </data>
   <data name="hour" xml:space="preserve">
-    <value>/hour</value>
+    <value>hour</value>
   </data>
   <data name="online_lessons" xml:space="preserve">
     <value>Offers online lessons</value>
@@ -135,14 +135,11 @@
   <data name="review_one" xml:space="preserve">
     <value>Review</value>
   </data>
-  <data name="no_reviews" xml:space="preserve">
-    <value>No reviews yet</value>
+  <data name="no_reviews_mobile" xml:space="preserve">
+    <value>Collecting reviews</value>
   </data>
   <data name="contact_me" xml:space="preserve">
     <value>Contact Me</value>
-  </data>
-  <data name="teaching" xml:space="preserve">
-    <value>Teaching :</value>
   </data>
   <data name="btn_more_doc" xml:space="preserve">
     <value>More documents</value>
@@ -154,18 +151,30 @@
     <value>Courses:</value>
   </data>
   <data name="hours_completed" xml:space="preserve">
-    <value>Lesson hours completed</value>
+    <value>Lessons completed</value>
   </data>
   <data name="send_button" xml:space="preserve">
-    <value>Send {1} message</value>
+    <value>Send {1} a message</value>
   </data>
   <data name="study-area" xml:space="preserve">
-    <value>Study area</value>
+    <value>Study area:</value>
   </data>
   <data name="private_tutor" xml:space="preserve">
     <value>Private teacher {1}</value>
   </data>
   <data name="read_more" xml:space="preserve">
     <value>Read more</value>
+  </data>
+  <data name="subtitle" xml:space="preserve">
+    <value>Teacher</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>Teachers</value>
+  </data>
+  <data name="no_hours_completed" xml:space="preserve">
+    <value>Lessons coming soon</value>
+  </data>
+  <data name="no_reviews" xml:space="preserve">
+    <value>Still Collecting reviews</value>
   </data>
 </root>

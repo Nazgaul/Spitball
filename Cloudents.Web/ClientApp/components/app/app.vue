@@ -59,11 +59,6 @@
                        :content-class="'tutor-request-dialog'">
                 <tutor-request></tutor-request>
             </sb-dialog>
-            <!-- <sb-dialog :showDialog="newIsraeliUser"
-                       :popUpType="'newIsraeliUserDialog'"
-                       :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
-                <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
-            </sb-dialog> -->
             <sb-dialog :showDialog="getDialogState"
                        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                        :popUpType="'uploadDialog'"
@@ -86,24 +81,6 @@
             <become-tutor v-if="becomeTutorDialog"></become-tutor>
         </sb-dialog>
 
-
-
-            <!-- <sb-dialog :showDialog="getOnBoardState"
-                       :popUpType="'onBoardGuide'"
-                       :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
-                       :maxWidth="'1280px'"
-                       :isPersistent="$vuetify.breakpoint.smAndUp">
-                <board-guide></board-guide>
-            </sb-dialog> -->
-
-            <sb-dialog :showDialog="newBallerDialog"
-                       :popUpType="'newBallerDialog'"
-                       :content-class="'new-baller'"
-                       :maxWidth="'700px'"
-                       :isPersistent="$vuetify.breakpoint.smAndUp">
-                <new-baller></new-baller>
-            </sb-dialog>
-
             <sb-dialog :showDialog="getShowBuyDialog"
                        :popUpType="'buyTokens'"
                        :content-class="'buy-tokens-popup'"
@@ -124,21 +101,13 @@
 import { mapGetters, mapActions } from "vuex";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
-// import AddQuestion from "../question/addQuestion/addQuestion.vue";
 import AddQuestion from "../question/askQuestion/askQuestion.vue";
 import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
-import newBaller from "../helpers/newBaller/newBaller.vue";
 import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
-//import tourService from "../../services/tourService";
 import walletService from "../../services/walletService";
-//import uniSelectPop from "../helpers/uni-select-popup/uniSelectPop.vue";
-// import uniSelect from "../helpers/uni-select-popup/uniSelect.vue";
-//import newIsraeliPop from "../dialogs/israeli-pop/newIsraeliPop.vue";
 import reportItem from "../results/helpers/reportItem/reportItem.vue";
 import mobileFooter from "../footer/mobileFooter/mobileFooter.vue";
 import marketingBox from "../helpers/marketingBox/marketingBox.vue";
-//import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
-//import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
 import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
@@ -149,39 +118,22 @@ export default {
     AddQuestion,
     sbDialog,
     loginToAnswer,
-    //uniSelectPop,
-    // uniSelect,
     chatComponent,
-    //newIsraeliPop,
     reportItem,
     mobileFooter,
     marketingBox,
-    //leadersBoard,
-    //boardGuide,
     uploadMultipleFiles,
     buyTokens,
-    newBaller,
     becomeTutor,
         tutorList,
         tutorRequest
   },
   data() {
     return {
-     // acceptIsraeli: true,
       isRtl: global.isRtl,
-      //toasterTimeout: 5000,
       hideFooter: false,
-     // showOnBoardGuide: true,
       showBuyTokensDialog: false,
       toasterTimeoutObj: null,
-      // tourObject: {
-      //   region: global.country.toLocaleLowerCase() === "il" ? "ilTours" : "usTours",
-      //   tourCallbacks: {
-      //     onStop: this.tourClosed
-      //   },
-      //   toursOptions: tourService.toursOptions,
-      //   tourSteps: []
-      // }
     };
   },
   computed: {
@@ -201,14 +153,10 @@ export default {
       "showMarketingBox",
       "showLeaderBoard",
       "showMobileFeed",
-      "HomeworkHelp_isDataLoaded",
-      "StudyDocuments_isDataLoaded",
       "getShowBuyDialog",
       "getCurrentStep",
-      "newBallerDialog",
       "becomeTutorDialog",
       "getRequestTutorDialog"
-
     ]),
     isMobile(){
       return this.$vuetify.breakpoint.smAndDown;
@@ -367,11 +315,6 @@ export default {
     });
 
     this.acceptedCookies = this.getCookieAccepted();
-    // this.$nextTick(() => {
-    //   setTimeout(() => {
-    //     this.acceptIsraeli = !!global.localStorage.getItem("sb-newIsraei");
-    //   }, 130);
-    // });
     if (global.isMobileAgent) {
       global.addEventListener("resize", event => {
           if (
@@ -404,5 +347,4 @@ export default {
 };
 </script>
 <style lang="less" src="./app.less"></style>
-<!--<style lang="less" src="./main.less"></style>-->
 

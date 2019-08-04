@@ -15,6 +15,7 @@ namespace Cloudents.Infrastructure.Framework
 {
     public class PowerPoint2007Processor : IPreviewProvider2, IDisposable
     {
+        
         public PowerPoint2007Processor()
         {
             SetLicense();
@@ -61,8 +62,19 @@ namespace Cloudents.Infrastructure.Framework
 
         public void Init(Func<Stream> stream)
         {
-            _pptx = new Lazy<Presentation>(() =>  new Presentation(stream()));
+            _pptx = new Lazy<Presentation>(() =>  new Presentation(stream(),new LoadOptions()
+            {
+                OnlyLoadDocumentProperties = true
+            }));
             
+        }
+        public void Init(Func<string> stream)
+        {
+            _pptx = new Lazy<Presentation>(() => new Presentation(stream(), new LoadOptions()
+            {
+                OnlyLoadDocumentProperties = true
+            }));
+
         }
 
         public (string text, int pagesCount) ExtractMetaContent()

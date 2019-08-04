@@ -54,6 +54,9 @@ import setPassword from '../components/setPassword.vue'
 import forgotPass from '../components/forgotPass.vue'
 import resetPassword from '../components/resetPassword.vue'
 
+//STORE
+import storeService from '../../../services/store/storeService';
+import loginRegister from '../../../store/loginRegister';
 
 export default {
     data() {
@@ -95,7 +98,11 @@ export default {
             }
         }
     },
+    beforeDestroy(){
+        storeService.unregisterModule(this.$store, 'loginRegister');
+    },
     created() {
+        storeService.registerModule(this.$store, 'loginRegister', loginRegister);
         global.onpopstate = (event) => {
             this.goBackStep()
         }; 

@@ -1,6 +1,4 @@
-// V14 do we still need this ?
-import ResultItem from '../ResultItem.vue'; //
-//import ResultTutor from "../ResultTutor.vue";
+import ResultItem from '../ResultItem.vue'; 
 import { verticalsName, verticalsNavbar } from "../../../services/navigation/vertical-navigation/nav";
 import SuggestCard from '../suggestCard.vue'
 import emptyState from "../svg/no-match-icon.svg";
@@ -13,7 +11,6 @@ import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
 import analyticsService from '../../../services/analytics.service'
 
 import faqBlock from '../helpers/faq-block/faq-block.vue'
-import notificationCenter from '../../notificationCenter/notificationCenter.vue'
 
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "../helpers/uploadFilesBtn/uploadFilesBtn.vue"
@@ -26,19 +23,19 @@ import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResu
 import requestBox from '../../requestActions/requestActions.vue'
 
 
-//const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
+//store
+import storeService from '../../../services/store/storeService';
+import tutorsStore from '../../../store/tutors_store';
 
 //The vue functionality for result page
 export default {
     components: {
         emptyState,
         ResultItem,
-      //  ResultTutor,
         SuggestCard,
         faqBlock,
         sbDialog,
         loginToAnswer,
-        notificationCenter,
         uploadFilesBtn,
         askQuestionBtn,
         
@@ -304,8 +301,12 @@ export default {
             this.updateRequestDialog(true);
         }
     },
-
+    beforeDestroy(){
+        storeService.unregisterModule(this.$store,'tutorsStore');
+    },
     created() {
+        storeService.registerModule(this.$store,'tutorsStore',tutorsStore);
+
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);

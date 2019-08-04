@@ -107,6 +107,14 @@
                 <login-to-answer></login-to-answer>
         </sb-dialog>
 
+        <sb-dialog :showDialog="newBallerDialog"
+                       :popUpType="'newBallerDialog'"
+                       :content-class="'new-baller'"
+                       :maxWidth="'700px'"
+                       :isPersistent="$vuetify.breakpoint.smAndUp">
+                <new-baller></new-baller>
+        </sb-dialog>
+
     </div>
 </transition>
 </template>

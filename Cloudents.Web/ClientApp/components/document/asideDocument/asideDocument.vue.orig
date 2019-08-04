@@ -89,6 +89,10 @@ export default {
             this.downloadDocument(item)
         },
         closeDocument() {
+<<<<<<< HEAD
+=======
+            this.clearDocument();
+>>>>>>> release-v53
             let routeStackLength = this.getRouteStack.length;
             if(routeStackLength > 1){
                 this.$router.back();
@@ -98,7 +102,7 @@ export default {
         },
         goToNote(){
             this.$router.push({path: '/note'});
-        },
+        }
     },
     computed: {
         ...mapGetters(['getBtnLoading', 'accountUser', 'getRouteStack']),

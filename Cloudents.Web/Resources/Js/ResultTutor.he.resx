@@ -141,9 +141,6 @@
   <data name="contact_me" xml:space="preserve">
     <value>צור קשר</value>
   </data>
-  <data name="teaching" xml:space="preserve">
-    <value>שיעורים פרטיים ב-</value>
-  </data>
   <data name="btn_more_doc" xml:space="preserve">
     <value>עוד מסמכים שלי</value>
   </data>
@@ -154,7 +151,7 @@
     <value>קורסים:</value>
   </data>
   <data name="hours_completed" xml:space="preserve">
-    <value>שעות שיעור הושלמו</value>
+    <value>שיעורים הושלמו</value>
   </data>
   <data name="send_button" xml:space="preserve">
     <value>שלחו ל{1} הודעה</value>
@@ -163,9 +160,18 @@
     <value>תחומי לימוד:</value>
   </data>
   <data name="private_tutor" xml:space="preserve">
-    <value>מורה פרטי {1}</value>
+    <value>מורה פרטי/ת {1}</value>
   </data>
   <data name="read_more" xml:space="preserve">
     <value>קרא עוד</value>
+  </data>
+  <data name="subtitle" xml:space="preserve">
+    <value>מורה פרטי/ת</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>מורים פרטיים</value>
+  </data>
+  <data name="no_hours_completed" xml:space="preserve">
+    <value>שיעורים יתקיימו בקרוב</value>
   </data>
 </root>

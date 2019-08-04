@@ -202,12 +202,14 @@
   </v-layout>
 </template>
 <script>
-import codeEditorTools from './codeEditor/codeEditorTools.vue';
+
 import initSignalRService from "../../services/signalR/signalrEventService";
 import { mapActions, mapGetters } from "vuex";
 import videoStream from "./videoStream/videoStream.vue";
 import whiteBoard from "./whiteboard/WhiteBoard.vue";
-import codeEditor from "./codeEditor/codeEditor.vue";
+import codeEditorTools from './codeEditor/codeEditorTools.vue';
+const codeEditor = () => import("./codeEditor/codeEditor.vue");
+
 import qualityValidation from "./tutorHelpers/qualityValidation/qualityValidation.vue";
 import sharedDocument from "./sharedDocument/sharedDocument.vue";
 import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
@@ -231,6 +233,13 @@ import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfir
 import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
 import paymentDialog from './tutorHelpers/paymentDIalog/paymentDIalog.vue'
+
+//store
+import storeService from "../../services/store/storeService";
+import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
+import tutoringMain from '../../store/studyRoomStore/tutoringMain.js';
+import studyRoomTracks_store from '../../store/studyRoomStore/studyRoomTracks_store.js';
+import codeEditor_store from '../../store/studyRoomStore/codeEditor_store.js';
 
 export default {
   components: {
@@ -296,9 +305,7 @@ export default {
   props: {
     id: ""
   },
-  mounted() {
-    document.addEventListener("fullscreenchange",this.closeFullScreen);
-  },
+  
   computed: {
     ...mapGetters([
       "qualityDialog",
@@ -477,10 +484,22 @@ export default {
       return agent.match(/Firefox|Chrome|Safari/);
     }
   },
+  mounted() {
+    document.addEventListener("fullscreenchange",this.closeFullScreen);
+  },
   beforeDestroy(){
     document.removeEventListener('fullscreenchange',this.closeFullScreen);
+    storeService.unregisterModule(this.$store,'tutoringCanvas');
+    storeService.unregisterModule(this.$store,'tutoringMain');
+    storeService.unregisterModule(this.$store,'studyRoomTracks_store');
+    storeService.unregisterModule(this.$store,'codeEditor_store');
   },
   created() {
+    storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
+    storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
+    storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
+    storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
+    
     if (!this.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)

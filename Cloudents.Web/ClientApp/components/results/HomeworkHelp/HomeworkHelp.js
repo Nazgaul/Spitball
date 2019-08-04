@@ -11,7 +11,6 @@ import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
 import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
 import faqBlock from '../helpers/faq-block/faq-block.vue'
-import notificationCenter from '../../notificationCenter/notificationCenter.vue'
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 import resultFilter from '../helpers/resultFilter/resultFilter.vue'
@@ -20,6 +19,11 @@ import requestBox from '../../requestActions/requestActions.vue'
 
 import emptyState from "../svg/no-match-icon.svg";
 import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
+
+//STORE
+import storeService from "../../../services/store/storeService";
+import homeworkHelpStore from '../../../store/homeworkHelp_store';
+
 //The vue functionality for result page
 export default {
     components: {
@@ -28,7 +32,6 @@ export default {
         faqBlock,
         sbDialog,
         loginToAnswer,
-        notificationCenter,
         askQuestionBtn,
         ResultAsk,
         setUniClass,
@@ -147,14 +150,6 @@ export default {
     },
 
     watch: {
-        //update the course list of filters if have in page while the course list changes
-        // myCourses(val) {
-        //     if (this.filterObject) {
-        //         const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
-        //         if (courseIndex > -1)
-        //             this.filterObject[courseIndex].data = val;
-        //     }
-        // }
         getSchoolName(){
             console.log("school name changed")
             if(this.getResultLockForSchoolNameChange()){
@@ -286,21 +281,7 @@ export default {
         $_showSelectedFilter({value, key}) {
             return value;
         },
-        /*watchinNowStyle(item){
-            let sameUser = false;
-            let userId = this.accountUser ? this.accountUser.id : -1;
-            if(!!item.user){
-                sameUser = userId === item.user.id;
-            }
-            if(!item.color){
-                //if item color is undefined set it to default so the color wont be white
-                item.color = "default";
-            }
-        return {
-            'color': item.color !== 'default' ? 'white' : '',
-            //'bottom' : sameUser ? '15px' : ''
-            }
-        },*/
+
         openRequestTutor() {
             analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
             this.setTutorRequestAnalyticsOpenedFrom({
@@ -310,8 +291,16 @@ export default {
             this.updateRequestDialog(true);
         }
     },
-
+    beforeDestroy(){
+        
+    },
     created() {
+        //register homeworkHelp Store
+        // this.$store.unregisterModule('homeworkHelpStore');
+        storeService.lazyRegisterModule(this.$store, 'homeworkHelpStore', homeworkHelpStore);
+        
+
+
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);

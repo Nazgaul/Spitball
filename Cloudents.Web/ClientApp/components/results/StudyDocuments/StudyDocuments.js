@@ -15,7 +15,6 @@ import analyticsService from '../../../services/analytics.service'
 
 
 import faqBlock from '../helpers/faq-block/faq-block.vue'
-import notificationCenter from '../../notificationCenter/notificationCenter.vue'
 
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "../helpers/uploadFilesBtn/uploadFilesBtn.vue"
@@ -24,7 +23,10 @@ import resultFilter from '../helpers/resultFilter/resultFilter.vue'
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 import requestBox from '../../requestActions/requestActions.vue'
 
-//const ACADEMIC_VERTICALS = ['note', 'tutor'];
+
+//store
+import storeService from '../../../services/store/storeService';
+import studyDocumentsStore from '../../../store/studyDocuments_store';
 
 //The vue functionality for result page
 export default {
@@ -36,7 +38,6 @@ export default {
         faqBlock,
         sbDialog,
         loginToAnswer,
-        notificationCenter,
         uploadFilesBtn,
         askQuestionBtn,
         
@@ -314,8 +315,11 @@ export default {
             this.updateRequestDialog(true);
         }
     },
-
+    beforeDestroy(){
+    },
     created() {
+        storeService.lazyRegisterModule(this.$store,'studyDocumentsStore',studyDocumentsStore);
+
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);

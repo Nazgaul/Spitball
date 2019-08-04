@@ -30,6 +30,8 @@ import {mapMutations} from 'vuex'
     border: solid 1px @colorBlue;
     background-color: transparent!important;
     color: @colorBlue!important;
-
+    span{
+        font-size: 14px!important;
+    }
 }
 </style>

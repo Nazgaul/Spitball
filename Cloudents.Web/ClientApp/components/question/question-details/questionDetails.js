@@ -12,10 +12,15 @@ import { sendEventList } from '../../../services/signalR/signalREventSender'
 import { LanguageService } from "../../../services/language/languageService";
 import analyticsService from '../../../services/analytics.service';
 import searchService from '../../../services/searchService'
+import newBaller from "../../helpers/newBaller/newBaller.vue";
+
+import homeworkHelpStore from '../../../store/homeworkHelp_store';
+import Question from "../../../store/question";
+import storeService from "../../../services/store/storeService";
 
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, answerCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
+    components: {questionThread, questionCard, answerCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer, newBaller},
     props: {
         id: {Number}, // got it from route
         questionId: {Number}
@@ -134,7 +139,7 @@ export default {
             if(this.accountUser ){
                 let score = this.accountUser.score;
                 let supressed = global.localStorage.getItem("sb-newBaller-suppresed");
-                if(score === 0 &&  !supressed){
+                if(score < 150 && !supressed){
                     this.updateNewBallerDialogState(true);
                 }
             }
@@ -159,7 +164,7 @@ export default {
         '$route': 'getData'
     },
     computed: {
-        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner"]),
+        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner", "newBallerDialog",]),
         questionData(){
             return this.getQuestion();
         },
@@ -183,7 +188,13 @@ export default {
             sendEventList.question.removeViewer(this.cahceQuestion);
         },
     },
+    beforeDestroy(){
+        storeService.unregisterModule(this.$store, 'Question', Question);
+    },
     created() {
+        storeService.registerModule(this.$store, 'Question', Question);
+        storeService.lazyRegisterModule(this.$store, 'homeworkHelpStore', homeworkHelpStore);
+        
         global.addEventListener('beforeunload', () => {
             if(!!this.removeViewer){
                 this.removeViewer();

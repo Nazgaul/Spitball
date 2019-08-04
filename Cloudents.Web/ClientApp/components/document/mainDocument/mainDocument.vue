@@ -116,11 +116,11 @@
                     </v-card>
                 </sb-dialog>
             </div>
-        </v-layout>
+        </v-layout> 
         <div class="document-wrap">
-        <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
-                <v-lazy-image 
-                    class="document-wrap-content mb-4" 
+            <div class=" text-xs-center" v-for="(page, index) in docPreview" :key="index">
+                <v-lazy-image :style="`height:${imgHeight}px; width:${imgWidth}px`"
+                    class="document-wrap-content mb-4"
                     :src="page"
                     :src-placeholder="require('./doc-preview-animation.gif')"
                     v-if="page"
@@ -128,10 +128,13 @@
                 
                 <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)"/>
             </div>
-            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
-                <p class="text-xs-center" v-language:inner="'documentPage_unlock_document'"></p>
-                <div class="aside-top-btn align-center" v-if="!isLoading">
+            <div class="unlockBox headline hidden-sm-and-down" v-if="isShowPurchased || !accountUser" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
+                <p class="text-xs-center" v-language:inner="!accountUser? 'documentPage_unlock_document_unregister' :'documentPage_unlock_document'"></p>
+                <div class="aside-top-btn align-center" v-if="!isLoading && accountUser">
                     <span class="font-weight-bold text-xs-center disabled" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
+                    <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
+                </div>
+                <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser">
                     <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
                 <v-progress-circular
@@ -141,13 +144,12 @@
                     color="#4452fc"
                 ></v-progress-circular>
             </div>
-            <a 
-                class="btn-download justify-center elevation-5" 
+            <a  class="btn-download justify-center elevation-5" 
                 :href="`${$route.path}/download`" 
                 target="_blank" 
                 @click="downloadDoc" 
                 :class="{'mt-2': !isShowPurchased}" 
-                v-if="!isShowPurchased && !isLoading && !isSmAndDown">
+                v-if="!isShowPurchased && !isLoading && !isSmAndDown && accountUser">
                     <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
                     <span class="white--text py-4 font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
             </a>
@@ -178,6 +180,8 @@ export default {
     },
     data() {
         return {
+            imgHeight: 0,
+            imgWidth: 0,
             showMenu: false,
             currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
             itemId: 0,
@@ -251,30 +255,29 @@ export default {
             }
         },
         docPreview() {
-            // TODO temporary calculated width container
+               // TODO temporary calculated width container
             if(this.document.preview && this.docWrap) {
-                let width;
                 if (this.$vuetify.breakpoint.xl) {
-                    width = 960
+                    this.imgWidth = 960
                 }
                 if (this.$vuetify.breakpoint.lg) {
-                    width = 880
+                    this.imgWidth = 880
                 }
                 if (this.$vuetify.breakpoint.md) {
-                    width = 560
+                    this.imgWidth = 560
                 }
                 if (this.$vuetify.breakpoint.sm) {
-                    width = 730
+                    this.imgWidth = 730
                 }
                 if (this.$vuetify.breakpoint.xs) {
-                    width = 400
+                    this.imgWidth = 400
                 } 
                 if (this.$vuetify.breakpoint.width === 375) {
-                    width = 375
+                    this.imgWidth = 375
                 }           
-                let height = width / 0.707;               
+                this.imgHeight = this.imgWidth / 0.707;        
                 let result = this.document.preview.map(preview => {                    
-                    return utillitiesService.proccessImageURL(preview, width, Math.ceil(height), 'pad')
+                    return utillitiesService.proccessImageURL(preview, this.imgWidth, Math.ceil(this.imgHeight), 'pad')
                 })
                 return result;
             }
@@ -318,7 +321,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['clearDocument','updatePurchaseConfirmation', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState', 'downloadDocument']),
+        ...mapActions(['updatePurchaseConfirmation', 'purchaseDocument', 'updateToasterParams', 'setNewDocumentPrice','updateLoginDialogState', 'downloadDocument']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         unlockDocument() {
                 let item = {id: this.document.details.id, price: this.document.details.price}
@@ -328,7 +331,6 @@ export default {
                 }
         },
         closeDocument() {
-            this.clearDocument();
             this.UPDATE_SEARCH_LOADING(true);
             let routeStackLength = this.getRouteStack.length;
             if(routeStackLength > 1){
@@ -424,7 +426,6 @@ export default {
         },
     },
     beforeDestroy() {
-        this.clearDocument();
     },
     mounted(){
         this.docWrap = document.querySelector('.document-wrap');        
@@ -436,7 +437,7 @@ export default {
 
     .mainDocument-container {
         margin-bottom: 80px;
-        flex: 4;
+        flex: 5;
         @media (max-width: @screen-sm) {
             order: 2;
         }
@@ -523,6 +524,23 @@ export default {
                     padding: 0 0 30px 0;
                     margin: 0;
                     font-size: 19px;
+                }
+                .aside-top-btn-not{
+                    display: flex;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    margin: 0 auto;
+                    width: 60%;
+                    line-height: 20px;
+                    font-size: 15px;
+                    @media (max-width: @screen-sm) {
+                         width: auto;
+                    }
+                    span{
+                        width: 100%;
+                        background-color: #4452fc;
+                        border-radius: 0 4px 4px 0
+                    }
                 }
                 .aside-top-btn {
                     display: flex;

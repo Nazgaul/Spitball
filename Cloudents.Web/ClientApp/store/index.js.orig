@@ -14,10 +14,16 @@ import newQuestionDialog from './newQuestionDialog'
 // import document from './document';
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
+<<<<<<< HEAD
 // import homeLanding from "./homeLanding"
 // import homeworkHelpStore from './homeworkHelp_store';
 // import studyDocumentsStore from './studyDocuments_store';
 // import tutorsStore from './tutors_store';
+=======
+import homeworkHelpStore from './homeworkHelp_store'
+import studyDocumentsStore from './studyDocuments_store';
+import tutorsStore from './tutors_store';
+>>>>>>> release-v53
 import marketingBox from './marketingBox'
 //import leaderBoard from './leaderBoard'
 import mobileFooter from './mobileFooter';
@@ -50,11 +56,18 @@ const store = new Vuex.Store({
         newQuestionDialog,
         University,
         uploadFiles,
+<<<<<<< HEAD
         // document,
         // homeLanding,
         // homeworkHelpStore,
         // studyDocumentsStore,
         // tutorsStore,
+=======
+        document,
+        homeworkHelpStore,
+        studyDocumentsStore,
+        tutorsStore,
+>>>>>>> release-v53
         marketingBox,
         //leaderBoard,
         mobileFooter,

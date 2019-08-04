@@ -112,7 +112,6 @@
         <template slot="rightSide">
             <slot name="rightSide">
                 <faq-block :isAsk="name==='ask'" :isNotes="name ==='note'" :name="currentSuggest" :text="userText"></faq-block>
-                <!--<notificationCenter v-else :isAsk="name==='ask'"></notificationCenter>-->
             </slot>
 
         </template>

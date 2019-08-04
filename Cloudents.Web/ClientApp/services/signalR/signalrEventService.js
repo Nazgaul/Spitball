@@ -116,10 +116,11 @@ export default function init(connString = '/sbHub') {
 
 export function NotifyServer(connection, message, data) {
     let mainConnectionInstance = signalRConnectionPool[0];
+    let SRConnection = connection.connection;
     if (mainConnectionInstance.isConnected) {
-        return connectivityModule.sr.invoke(connection, message, data)
+        return connectivityModule.sr.invoke(SRConnection, message, data)
     } else {
-        mainConnectionInstance.connectionQue.push(new ConnectionQue(connection, message, data))
+        mainConnectionInstance.connectionQue.push(new ConnectionQue(SRConnection, message, data))
     }
 }
 
