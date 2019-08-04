@@ -95,11 +95,10 @@ export default {
             }else{
                 this.$router.push({path: '/note'})
             }
-            }
         },
         goToNote(){
             this.$router.push({path: '/note'});
-        }
+        },
     },
     computed: {
         ...mapGetters(['getBtnLoading', 'accountUser', 'getRouteStack']),
