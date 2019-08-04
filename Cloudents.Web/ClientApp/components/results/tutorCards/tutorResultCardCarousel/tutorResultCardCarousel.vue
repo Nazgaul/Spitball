@@ -22,7 +22,10 @@
 
                 </div>
                 <div class="user-price mb-3">
-                    <img :class="[isUserImage(tutor.image) ? '' : 'tutor-no-img']" class="user-image" @error="onImageLoadError" @load="loaded" :src="getImgUrl(tutor.image)" :alt="tutor.name">
+                    <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
+                        <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
+                    </div>
+                    <img v-show="isLoaded" class="user-image" @error="onImageLoadError" @load="loaded" :src="getImgUrl(tutor.image)" :alt="tutor.name">
                     <div class="">
                         <div class="striked" v-if="showStriked(tutor.price)"> &#8362;{{tutor.price}}</div>
                         <div>
@@ -228,6 +231,13 @@ export default {
                     .user-image {
                         margin-right: 10px;
                         border-radius: 4px;
+                         width: 66px;
+                        height: 74px;
+                    }
+                    .tutor-card-loader {
+                        display: flex;
+                        justify-content: center;
+                        align-content: center;
                     }
                     div {
                         display: flex;
@@ -261,10 +271,7 @@ export default {
                         }
                     }
                 }
-                .tutor-no-img {
-                    width: 66px;
-                    height: 74px;
-                }
+
                 .reviews {
                     color: #4452fc;
                 }
