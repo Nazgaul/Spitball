@@ -268,7 +268,7 @@ export default {
     }
     .user-image {
       border-radius: 4px;
-      width: 142px;
+      width: 148px;
       height: auto;
     }
     
