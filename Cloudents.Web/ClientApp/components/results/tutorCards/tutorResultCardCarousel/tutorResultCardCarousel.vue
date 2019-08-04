@@ -218,6 +218,7 @@ export default {
         }
         .tutor-carousel-slider-container {
             display: flex;
+            overflow: hidden;
             transition: transform 150ms ease-out;
             .tutor-carousel-card {
                 border-radius: 4px;
