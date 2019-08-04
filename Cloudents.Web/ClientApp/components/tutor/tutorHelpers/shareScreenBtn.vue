@@ -174,7 +174,10 @@
                         self.isSharing = false;
                     });
             }
-        }
+        },
+        created() {
+            console.log(navigator.userAgent.indexOf("Safari"),'sdfasjkhfjksdhfjksadhfjksasd fkjhsdkjfhskjhfkjsdhf')
+        },
     };
 </script>
 
