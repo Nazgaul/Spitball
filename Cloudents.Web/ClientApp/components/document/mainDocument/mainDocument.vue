@@ -275,7 +275,8 @@ export default {
                 if (this.$vuetify.breakpoint.width === 375) {
                     this.imgWidth = 375
                 }           
-                this.imgHeight = this.imgWidth / 0.707;        
+                //this.imgHeight = this.imgWidth / 0.707;        
+                this.imgHeight = 1100;
                 let result = this.document.preview.map(preview => {                    
                     return utillitiesService.proccessImageURL(preview, this.imgWidth, Math.ceil(this.imgHeight), 'pad')
                 })
