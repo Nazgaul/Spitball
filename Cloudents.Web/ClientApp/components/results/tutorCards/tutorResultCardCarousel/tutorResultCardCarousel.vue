@@ -6,10 +6,10 @@
         <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
         <div class="tutor-carousel-slider-container" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
 
-            <div v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card pa-2">
+            <div v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card pt-1 pr-1 pl-1">
                 <div>
                     <h4 class="caption font-weight-bold mb-1" v-language:inner="'resultTutor_subtitle'"/>
-                    <h3 class="body-2 font-weight-bold">{{tutor.name}}</h3>
+                    <h3 class="body-2 font-weight-bold tutor-name-restriction">{{tutor.name}}</h3>
                 <template>
                     <div class="user-rank mt-1 mb-2 align-center" v-if="tutor.reviews > 0">
                         <user-rating :size="'16'" :rating="tutor.rating" :showRateNumber="false" />
@@ -167,9 +167,9 @@ export default {
                 let cardsDisplayed = 2;
                 let totalCardWidth = document.querySelector('.tutor-carousel-slider-wrapper').offsetWidth / cardsDisplayed;
                 let mobileCards = document.querySelectorAll('.tutor-carousel-card');
-                let cardWidth = (totalCardWidth * 90) /100;
-                let marginCardLeft = (totalCardWidth * 5) /100;
-                let marginCardRight = (totalCardWidth * 5) /100;
+                let cardWidth = (totalCardWidth * 95) /100;
+                let marginCardLeft = (totalCardWidth * 2.5) /100;
+                let marginCardRight = (totalCardWidth * 2.5) /100;
                 mobileCards.forEach((card)=>{
                     card.style.minWidth = `${cardWidth}px`;
                     card.style.marginLeft = `${marginCardLeft}px`;
@@ -212,6 +212,7 @@ export default {
     .tutor-carousel-slider-wrapper {
         width: 100%;
         overflow: hidden;
+        height:315px;
         h3 {
             color: @purple;
         }
@@ -221,12 +222,18 @@ export default {
             .tutor-carousel-card {
                 border-radius: 4px;
                 background: #fff;
-                .heightMinMax(248px);
+                // .heightMinMax(248px);
                 h3,h4 {
                     color: @purple;
                 }
+                .tutor-name-restriction{
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
                 .user-rank {
                     display: inline-flex;
+                    flex-direction: column;
                     svg {
                         width: 16px;
                         height: 16px;
@@ -286,6 +293,7 @@ export default {
                 .no-reviews {
                     display: flex;
                     justify-content: center;
+                    margin-top: 2px;
                 }
                 .user-bio {
                     font-family: Open Sans,sans-serif;
