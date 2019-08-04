@@ -1,5 +1,5 @@
 <template>
-    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden ab-default-card" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
         <div class="mb-3 top-card justify-space-between">
             <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
               <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
@@ -149,7 +149,7 @@ export default {
             let showBlock = text.length > maxChars;
             let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
             let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-            let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: inline-block' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
+            let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: contents' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
             return `${newText} ${readMore} ${hideText}`;
         }
     },
@@ -322,7 +322,6 @@ export default {
         color: @purple;
         .read-more {
             position: absolute;
-            // left: 7px;
             color: #4452fc;
         }
     }

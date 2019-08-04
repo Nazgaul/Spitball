@@ -12,16 +12,19 @@
                 <div>
                     <h4 class="caption font-weight-bold mb-1" v-language:inner="'resultTutor_subtitle'"/>
                     <h3 class="body-2 font-weight-bold">{{tutor.name}}</h3>
-                
                 <template>
-                    <div class="user-rank mt-1 mb-2 align-center" :class="{'user-rank-hidden': tutor.reviews === 0}">
+                    <div class="user-rank mt-1 mb-2 align-center" v-if="tutor.reviews > 0">
                         <user-rating :size="'16'" :rating="tutor.rating" :showRateNumber="false" />
                         <div class="reviews caption ml-1" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"></div>
+                    </div>
+                    <div v-else class="user-rank mt-1 mb-2 align-center">
+                        <star />
+                        <span class="no-reviews font-weight-bold caption ml-1" v-language:inner="'resultTutor_no_reviews_mobile'"></span>
                     </div>
                 </template>
 
                 </div>
-                <div class="user-price mb-3">
+                <div class="user-price mb-2">
                     <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
                         <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
                     </div>
@@ -40,7 +43,7 @@
                 <div class="user-bio overflow-hidden" v-html="ellipsizeTextBox(tutor.bio)"></div>
 
                 <v-btn class="btn-chat white--text text-truncate" small round block color="#4452fc" @click.prevent="sendMessage(tutor)">
-                    <div class="text-truncate" v-html="$Ph('resultTutor_send_button', tutor.name)" ></div>
+                    <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName(tutor.name))" ></div>
                 </v-btn>
             </div>
 
@@ -52,12 +55,13 @@
 import { mapGetters, mapActions } from 'vuex';
 import utilitiesService from '../../../../services/utilities/utilitiesService';
 import { LanguageService } from "../../../../services/language/languageService.js";
-
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
+import star from '../stars-copy.svg';
 
 export default {
     components: {
-        userRating
+        userRating,
+        star
     },
     data() {
         return {
@@ -190,6 +194,9 @@ export default {
         isUserImage(img) {
             return img ? true : false;
         },
+        showFirstName(name) {
+            return name.split(' ')[0];
+        }
     },
     created() {
         if(this.$vuetify.breakpoint.smAndDown) {
@@ -221,8 +228,9 @@ export default {
                 }
                 .user-rank {
                     display: inline-flex;
-                    &.user-rank-hidden {
-                        visibility: hidden;
+                    svg {
+                        width: 16px;
+                        height: 16px;
                     }
                 }
                 .user-price {
@@ -263,6 +271,7 @@ export default {
                             flex-direction: column;
                             justify-content: flex-end;
                             .price {
+                                font-family: Arial;
                                 font-size: 22px;
                             }
                             .hour {
@@ -275,11 +284,15 @@ export default {
                 .reviews {
                     color: #4452fc;
                 }
+                .no-reviews {
+                    display: flex;
+                    justify-content: center;
+                }
                 .user-bio {
                     font-family: Open Sans,sans-serif;
-                    .giveEllipsisUpdated(11px, normal, 3,38px);
+                    .giveEllipsisUpdated(11px, normal, 3, 40px);
                     line-height: 1.2 !important;
-                    min-height: 38px;
+                    min-height: 40px;
                     text-align: left;
                     color: @purple;
                     position: relative;
@@ -288,6 +301,7 @@ export default {
                 .btn-chat {
                     margin-top: 14px;
                     font-size: 12px;
+                    text-transform: inherit;
                     button {
                         text-transform: inherit;
                     }
