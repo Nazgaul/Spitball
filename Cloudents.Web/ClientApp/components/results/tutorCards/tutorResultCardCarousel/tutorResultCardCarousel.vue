@@ -271,6 +271,7 @@ export default {
                             flex-direction: column;
                             justify-content: flex-end;
                             .price {
+                                font-family: Arial;
                                 font-size: 22px;
                             }
                             .hour {
@@ -289,9 +290,9 @@ export default {
                 }
                 .user-bio {
                     font-family: Open Sans,sans-serif;
-                    .giveEllipsisUpdated(11px, normal, 3,38px);
+                    .giveEllipsisUpdated(11px, normal, 3, 40px);
                     line-height: 1.2 !important;
-                    min-height: 38px;
+                    min-height: 40px;
                     text-align: left;
                     color: @purple;
                     position: relative;
