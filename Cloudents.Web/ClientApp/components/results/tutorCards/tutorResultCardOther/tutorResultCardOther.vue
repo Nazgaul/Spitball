@@ -30,7 +30,7 @@
                         </div>
                         <div v-else class="no-reviews">
                             <star />
-                            <span class="caption" :class="{'font-weight-bold': uploader}" v-language:inner="'resultTutor_no_reviews'"></span>
+                            <span class="caption" :class="{'font-weight-bold': uploader}" v-language:inner="$route.name === 'document' ? 'resultTutor_no_reviews_mobile' : 'resultTutor_no_reviews'"></span>
                         </div>
                     </v-layout>
                     
@@ -289,7 +289,7 @@ export default {
             }
         }
         .user-rates {
-            padding: 0 38px 0 0;
+            padding: 0 42px 0 0;
             .reviews {
                 color: #4452fc;
             }
