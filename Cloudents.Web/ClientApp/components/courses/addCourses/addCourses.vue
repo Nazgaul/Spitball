@@ -311,7 +311,7 @@
                 this.addToCachedClasses(className);
                 setTimeout(() => {
                     let inputElm = this.$refs.classInput;
-                    inputElm.value = "";
+                    // inputElm.value = "";
                     inputElm.focus();
                 }, 200);
                 this.checkAsSelected(className, this.classes);

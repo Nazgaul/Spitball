@@ -9,7 +9,7 @@
         <div class="mb-1 user-search-text-container" v-show="!userText">
           <span v-language:inner>result_no_result_found</span>
         </div>
-        <v-flex class="empty-state-content">
+        <v-flex :class="['empty-state-content',isCourse? 'visible-hidden':'']">
           <div>
             <ul>
               <li v-language:inner>result_spelling</li>
@@ -38,7 +38,8 @@
 export default {
     data() {
         return {
-            isRtl: global.isRtl
+            isRtl: global.isRtl,
+            isCourse: false,
         };
     },
   props: {
@@ -50,7 +51,12 @@ export default {
       type: Function,
       default:null
     }
-  }
+  },
+  created() {
+    if(this.$route.query && this.$route.query.Course){
+      this.isCourse = true
+    }
+  },
 };
 </script>
 
