@@ -64,6 +64,10 @@ namespace Cloudents.Search.Document
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             string json = (string)reader.Value;
+            if (json == null)
+            {
+                return null;
+            }
             var result = JsonConvert.DeserializeObject(json, objectType, _jsonSerializerSettings);
             return result;
         }
