@@ -467,7 +467,7 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
             var repo = _container.Resolve<ITutorRepository>();
-            var test = await repo.GetTutorsByCourseAsync("פיזיקה 2", 161238, default);
+            var test = await repo.GetTutorsByCourseAsync("פיזיקה 2", 161238, "IL", default);
             //ResourcesMaintenance.GetOrphanedResources();
             //var queryBus = _container.Resolve<IQueryBus>();
             //var query = new TutorListQuery(159039, "IL",0);

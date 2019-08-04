@@ -15,20 +15,28 @@ namespace Cloudents.Persistence.Repositories
         {
         }
 
-        public async Task<IList<long>> GetTutorsByCourseAsync(string course, long userId, CancellationToken token)
+        public async Task<IList<long>> GetTutorsByCourseAsync(string course, long userId, string country, CancellationToken token)
         {
             const string sql = @"with cte as
 (
-select uc.UserId
-from sb.UsersCourses uc	
-WHERE uc.CourseId = :Course and CanTeach = 1 
+select distinct uc.UserId, case when uc.CourseId = @Course then 1 else 0 end as IsMatch
+from sb.Course c
+join sb.UsersCourses uc
+	on uc.CourseId = c.Name
+		WHERE (c.SubjectId in (select SubjectId from sb.Course where Name = @Course) or c.Name = @Course) and CanTeach = 1 
 			and exists (
 						SELECT uc1.CanTeach
 						FROM sb.UsersCourses uc1
 						inner join sb.[Course] c 
 						on uc1.CourseId=c.Name 
 						WHERE uc1.CanTeach = 1 and c.[State] = 'Ok' 
-						and (c.Name = :Course or c.SubjectId = (SELECT c1.SubjectId as y0_ FROM sb.[Course] c1 WHERE c1.Name = :Course))
+						and (
+							c.Name = @Course 
+							or c.SubjectId = (SELECT c1.SubjectId as y0_ 
+												FROM sb.[Course] c1 
+												WHERE c1.Name =  @Course)
+						)
+						
 					) 
 		and not exists (
 						SELECT uc1.Id 
@@ -40,17 +48,19 @@ WHERE uc.CourseId = :Course and CanTeach = 1
 												) 
 		and (uc1.UserId != :UserId) 
 		)
+
 )
 
-select ts.Id
+select ts.Id, IsMatch , case when cte.UserId is null then 0 else 1 end
 from sb.vTutorSearch ts
-left join cte on cte.UserId = ts.Id and cte.UserId != :UserId
+left join cte on cte.UserId = ts.Id
 
-order by case when cte.UserId is null then 0 else 1 end desc, 
-ts.ResponseTimeScore + ts.LessonsDoneScore + ts.LastOnlineScore + case when ts.Country = 'IL' then 0 else -5 end + RateScore + ManualBoost desc
+order by IsMatch desc, case when cte.UserId is null then 0 else 1 end desc,
+ts.ResponseTimeScore + ts.LessonsDoneScore + ts.LastOnlineScore + case when ts.Country = :Country then 0 else -5 end + RateScore + ManualBoost desc
 OFFSET 0 ROWS FETCH FIRST 3 ROWS ONLY";
 
-var res =  await Session.CreateSQLQuery(sql).SetParameter("UserId", userId).SetParameter("Course", course).ListAsync<long>(token);
+var res =  await Session.CreateSQLQuery(sql).SetParameter("UserId", userId).SetParameter("Course", course)
+                .SetParameter("Country", country).ListAsync<long>(token);
 return res;
             /*
              * Select * from sb.[tutor] t

@@ -58,7 +58,7 @@ namespace Cloudents.Command.CommandHandler
             var tutorsIds = new List<long>();
             if (needToSendToMoreTutors)
             {
-                var t = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, token);
+                var t = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, user.Country, token);
                 tutorsIds.AddRange(t);
             }
 
