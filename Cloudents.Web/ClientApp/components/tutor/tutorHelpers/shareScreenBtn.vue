@@ -6,6 +6,7 @@
                     <template v-slot:activator="{on}">
                         <!--keep this div, due to tooltip not appearing on disabled btn bug of vuetify-->
                         <div v-on="on" >
+                            {{isSafari}}
                             <button @click="showScreen" class="outline-btn-share" :disabled="!roomIsActive">
                                 <castIcon class="cast-icon"></castIcon>
                                 <span v-language:inner="'tutor_btn_share_screen'"></span>
@@ -64,6 +65,7 @@
         components: {castIcon},
         data() {
             return {
+                isSafari: false,
                 isSharing: false,
                 extensionDialog: false,
                 extensionLink: `https://chrome.google.com/webstore/detail/${
@@ -176,7 +178,7 @@
             }
         },
         created() {
-            console.log(navigator.userAgent.indexOf("Safari"),'sdfasjkhfjksdhfjksadhfjksasd fkjhsdkjfhskjhfkjsdhf')
+            this.isSafari = navigator.userAgent.indexOf("Safari")
         },
     };
 </script>
