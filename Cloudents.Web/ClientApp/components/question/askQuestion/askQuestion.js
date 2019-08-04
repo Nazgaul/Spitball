@@ -194,5 +194,10 @@ export default {
                 }
             }
         }
-    }
+    },
+    created() {
+        if(this.$route.query && this.$route.query.Course){
+            this.questionCourse = this.$route.query.Course
+        }
+    },
 };

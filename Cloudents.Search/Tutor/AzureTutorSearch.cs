@@ -56,14 +56,14 @@ namespace Cloudents.Search.Tutor
                 searchParams.Filter = $"{nameof(Entities.Tutor.Country)} eq '{query.Country.ToUpperInvariant()}'";
             }
             var result = await _client.Documents.SearchAsync<Entities.Tutor>(query.Term, searchParams, cancellationToken: token);
-            return result.Results.Select(s =>
-            {
-                var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
-                    s.Document.Data.Courses).Take(3).Distinct(StringComparer.OrdinalIgnoreCase);
+            return result.Results.Where(w => w.Document.Data != null).Select(s =>
+              {
+                  var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
+                      s.Document.Data.Courses).Take(3).Distinct(StringComparer.OrdinalIgnoreCase);
 
-                s.Document.Data.Courses = courses;
-                s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
-                return s.Document.Data;
+                  s.Document.Data.Courses = courses;
+                  s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
+                  return s.Document.Data;
 
                 //return new TutorCardDto
                 //{
