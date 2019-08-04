@@ -1,12 +1,10 @@
 <template>
-    <div class="tutor-carousel-slider-wrapper mb-4">
-        <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
-        <div class="tutor-carousel-slider-container"
-            v-touch="{
+    <div v-touch="{
             left: () => moveCarousel('left'),
             right: () => moveCarousel('right')
-            }"
-            :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
+            }" class="tutor-carousel-slider-wrapper mb-4">
+        <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
+        <div class="tutor-carousel-slider-container" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
 
             <div v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card pa-2">
                 <div>
@@ -86,9 +84,9 @@ export default {
 
         atEndOfList() {     
             if(this.isRtl){
-                return (this.currentOffset >= this.paginationFactor * 1 * (this.getTutorList.length - this.windowSize));
+                return (this.currentOffset >= this.paginationFactor * 1 * ((this.getTutorList.length - 1) - this.windowSize));
             } else{
-                return (this.currentOffset <= this.paginationFactor * -1 * (this.getTutorList.length - this.windowSize));
+                return (this.currentOffset <= this.paginationFactor * -1 * ((this.getTutorList.length - 1) - this.windowSize));
             }
         },
         atHeadOfList() {
@@ -111,18 +109,18 @@ export default {
             let self = this;
             let direction = dir === "left" ? 1 : -1;
             if (self.isRtl) {
-                direction = direction*-1;
-                if (direction === 1 && !self.atEndOfList) {
-                    self.currentOffset += self.paginationFactor;
-                } else if (direction === -1 && !self.atHeadOfList) {
-                    self.currentOffset -= self.paginationFactor;
-                }
+            direction = direction*-1;
+            if (direction === 1 && !self.atEndOfList) {
+                self.currentOffset += self.paginationFactor;
+            } else if (direction === -1 && !self.atHeadOfList) {
+                self.currentOffset -= self.paginationFactor;
+            }
             } else {
-                if (direction === 1 && !self.atEndOfList) {
-                    self.currentOffset -= self.paginationFactor;
-                } else if (direction === -1 && !self.atHeadOfList) {
-                    self.currentOffset += self.paginationFactor;
-                }
+            if (direction === 1 && !self.atEndOfList) {
+                self.currentOffset -= self.paginationFactor;
+            } else if (direction === -1 && !self.atHeadOfList) {
+                self.currentOffset += self.paginationFactor;
+            }
             }
         },
         moveCarouselClick(direction) { 
