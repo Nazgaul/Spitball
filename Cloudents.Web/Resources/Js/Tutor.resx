@@ -337,4 +337,7 @@ Try connecting from a computer browser</value>
   <data name="tooltip_code_theme_switch" xml:space="preserve">
     <value>Light Theme</value>
   </data>
+  <data name="browser_not" xml:space="preserve">
+    <value>Browser not supported</value>
+  </data>
 </root>
