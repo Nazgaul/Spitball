@@ -12,16 +12,19 @@
                 <div>
                     <h4 class="caption font-weight-bold mb-1" v-language:inner="'resultTutor_subtitle'"/>
                     <h3 class="body-2 font-weight-bold">{{tutor.name}}</h3>
-                
                 <template>
-                    <div class="user-rank mt-1 mb-2 align-center" :class="{'user-rank-hidden': tutor.reviews === 0}">
+                    <div class="user-rank mt-1 mb-2 align-center" v-if="tutor.reviews > 0">
                         <user-rating :size="'16'" :rating="tutor.rating" :showRateNumber="false" />
                         <div class="reviews caption ml-1" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"></div>
+                    </div>
+                    <div v-else class="user-rank mt-1 mb-2 align-center">
+                        <star />
+                        <span class="no-reviews font-weight-bold caption ml-1" v-language:inner="'resultTutor_no_reviews_mobile'"></span>
                     </div>
                 </template>
 
                 </div>
-                <div class="user-price mb-3">
+                <div class="user-price mb-2">
                     <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
                         <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
                     </div>
@@ -52,12 +55,13 @@
 import { mapGetters, mapActions } from 'vuex';
 import utilitiesService from '../../../../services/utilities/utilitiesService';
 import { LanguageService } from "../../../../services/language/languageService.js";
-
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
+import star from '../stars-copy.svg';
 
 export default {
     components: {
-        userRating
+        userRating,
+        star
     },
     data() {
         return {
@@ -221,8 +225,9 @@ export default {
                 }
                 .user-rank {
                     display: inline-flex;
-                    &.user-rank-hidden {
-                        visibility: hidden;
+                    svg {
+                        width: 16px;
+                        height: 16px;
                     }
                 }
                 .user-price {
@@ -274,6 +279,10 @@ export default {
 
                 .reviews {
                     color: #4452fc;
+                }
+                .no-reviews {
+                    display: flex;
+                    justify-content: center;
                 }
                 .user-bio {
                     font-family: Open Sans,sans-serif;
