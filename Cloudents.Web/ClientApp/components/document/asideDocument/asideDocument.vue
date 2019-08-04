@@ -57,7 +57,7 @@
         <aside-document-tutors v-if="!$vuetify.breakpoint.smAndDown"/>
 
         <v-flex class="footer-holder text-xs-center mb-5" v-if="!$vuetify.breakpoint.smAndDown">
-            <router-link to="/tutor" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
+            <router-link :to="{name: 'tutors',query:{Course:$route.params.courseName.replace(/-/g, ' ')}}" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
         </v-flex>
     </div>
 </template>
