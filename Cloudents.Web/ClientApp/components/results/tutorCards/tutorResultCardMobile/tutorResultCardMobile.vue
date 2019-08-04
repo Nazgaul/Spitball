@@ -227,7 +227,7 @@ export default {
     .card-mobile-center {
       margin-bottom: 20px;
       .giveEllipsisUpdated(14px, 1.38, 2, 90px);
-      .heightMinMax(34px);
+      // .heightMinMax(34px);
       .read-more {
         position: absolute;
         bottom: 68px;
