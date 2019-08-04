@@ -154,7 +154,7 @@
     <value>Lessons completed</value>
   </data>
   <data name="send_button" xml:space="preserve">
-    <value>Send {1} message</value>
+    <value>Send {1} a message</value>
   </data>
   <data name="study-area" xml:space="preserve">
     <value>Study area:</value>
