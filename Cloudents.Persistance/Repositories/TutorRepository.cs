@@ -53,7 +53,7 @@ join sb.UsersCourses uc
 
 select ts.Id, IsMatch , case when cte.UserId is null then 0 else 1 end
 from sb.vTutorSearch ts
-left join cte on cte.UserId = ts.Id
+join cte on cte.UserId = ts.Id
 
 order by IsMatch desc, case when cte.UserId is null then 0 else 1 end desc,
 ts.ResponseTimeScore + ts.LessonsDoneScore + ts.LastOnlineScore + case when ts.Country = :Country then 0 else -5 end + RateScore + ManualBoost desc
