@@ -149,6 +149,9 @@ export default {
     },
 
     created() {
+        if(this.$route.query && this.$route.query.Course){
+            this.tutorCourse = this.$route.query.Course
+        }
         this.sendAnalyticEvent(true);
         this.isProfile = this.$route.name === 'profile'? true : false;
         let captchaLangCode = global.lang === 'he' ? 'iw' : 'en';
