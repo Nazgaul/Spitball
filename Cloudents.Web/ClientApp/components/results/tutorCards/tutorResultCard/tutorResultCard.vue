@@ -271,12 +271,9 @@ export default {
       width: 142px;
       height: auto;
     }
-    // .tutor-no-img {
-    //   width: 142px;
-    //   height: auto;
-    // }
     
     .user-rates {
+      .widthMinMax(255px);
       display: flex;
       flex-direction: column;
       align-items: baseline;
