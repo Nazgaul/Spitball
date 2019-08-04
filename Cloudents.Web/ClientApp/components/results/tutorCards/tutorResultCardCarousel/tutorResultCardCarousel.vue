@@ -213,12 +213,12 @@ export default {
 
     .tutor-carousel-slider-wrapper {
         width: 100%;
+        overflow: hidden;
         h3 {
             color: @purple;
         }
         .tutor-carousel-slider-container {
-            display: flex;
-            overflow: hidden;
+            display: flex;            
             transition: transform 150ms ease-out;
             .tutor-carousel-card {
                 border-radius: 4px;
