@@ -21,7 +21,8 @@ namespace Cloudents.Search.Entities
             Country = dto.Country?.ToUpperInvariant();
 
             Language = dto.Language?.ToLowerInvariant();
-            Course = dto.Course;
+            Course = dto.Course?.ToUpperInvariant();
+            //Subject = dto.Subject;
             State = dto.State;
             UniversityName = dto.UniversityName;
             Tags = dto.Tags;
