@@ -30,7 +30,7 @@
                         </div>
                         <div v-else class="no-reviews">
                             <star />
-                            <span class="caption" :class="{'font-weight-bold': uploader}" v-language:inner="$route.name === 'document' ? 'resultTutor_no_reviews_mobile' : 'resultTutor_no_reviews'"></span>
+                            <span class="caption" :class="{'font-weight-bold': uploader}" v-language:inner="'resultTutor_no_reviews_mobile'"></span>
                         </div>
                     </v-layout>
                     
