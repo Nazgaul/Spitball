@@ -29,7 +29,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['documentRequest']),
+        ...mapActions(['documentRequest', 'clearDocument']),
     },
     computed: {
         ...mapGetters(['getDocumentDetails']),
@@ -39,6 +39,7 @@ export default {
         },
     },
     beforeDestroy(){
+        this.clearDocument();
         storeService.unregisterModule(this.$store,'document');
     },
     created() {     

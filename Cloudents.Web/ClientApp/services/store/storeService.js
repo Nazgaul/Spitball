@@ -2,7 +2,7 @@ const registerModule = function(store, moduleName, moduleObj){
     store.registerModule(moduleName, moduleObj);
 }
 const unregisterModule = function(store, moduleName){
-    store.unregisterModule(moduleName);
+    return store.unregisterModule(moduleName);
 }
 const lazyRegisterModule = function(store, moduleName, moduleObj){
     //wil register the module and keep it alive

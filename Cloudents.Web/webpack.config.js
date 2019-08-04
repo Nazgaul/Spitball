@@ -205,11 +205,11 @@ module.exports = (env) => {
             
         ].concat(isDevBuild
             ? [
-                new BundleAnalyzerPlugin({
-                    analyzerMode: 'disabled',
-                    generateStatsFile: true,
-                    statsOptions: { source: false }
-                }),
+                // new BundleAnalyzerPlugin({
+                //     analyzerMode: 'disabled',
+                //     generateStatsFile: true,
+                //     statsOptions: { source: false }
+                // }),
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:

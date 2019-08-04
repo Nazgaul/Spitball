@@ -29,6 +29,12 @@ const getters = {
 };
 
 const mutations = {
+    resetState(state){
+        state.document = {};
+        state.tutorList.length = 0;
+        state.btnLoading = false;
+        state.showPurchaseConfirmation = false;
+    },
     setPurchaseConfirmation(state,val){
         state.showPurchaseConfirmation = val
     },
@@ -105,6 +111,9 @@ const actions = {
         if(!!state.document && !!state.document.details){
             commit('setNewDocumentPrice', price);
         }
+    },
+    clearDocument({commit}){
+        commit('resetState');
     }
 };
 
