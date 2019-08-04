@@ -2,7 +2,10 @@
     <router-link class="tutor-result-card-desktop pa-3 mb-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
 
         <v-flex row class="user-details">
-            <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+            <div v-if="!isLoaded" class="mr-3 user-image tutor-card-loader">
+              <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
+            </div>
+            <img v-show="isLoaded" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div class="main-card justify-space-between">
                 <h3 class="title font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
                 <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
@@ -258,13 +261,20 @@ export default {
     div:nth-child(2) {
       flex-basis: auto;
     }
+    .tutor-card-loader{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .user-image {
       border-radius: 4px;
-    }
-    .tutor-no-img {
       width: 142px;
       height: auto;
     }
+    // .tutor-no-img {
+    //   width: 142px;
+    //   height: auto;
+    // }
     
     .user-rates {
       display: flex;

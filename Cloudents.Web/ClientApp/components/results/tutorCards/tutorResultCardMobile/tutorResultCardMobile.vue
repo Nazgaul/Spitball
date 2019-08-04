@@ -1,7 +1,10 @@
 <template>
   <router-link class="tutor-result-card-mobile pa-2 ma-2 pr-4 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
       <div class="card-mobile-header mb-4">
-          <img :class="[isUserImage ? '' : 'tutor-no-img']" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+        <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
+              <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
+            </div>
+          <img v-show="isLoaded" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
           <div>
               <h3 class="text-truncate subheading font-weight-bold mb-2" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
               
@@ -200,10 +203,13 @@ export default {
     }
     .card-mobile-header {
         display: flex;
-        .user-image, .tutor-no-img {
-            border-radius: 4px;
+        .tutor-card-loader{
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
-        .tutor-no-img {
+        .user-image{
+            border-radius: 4px;
             width: 67px;
             height: 95px;
         }
