@@ -567,6 +567,7 @@ export default {
                 @media (max-width: @screen-sm) {
                          width: 100%;
                          height:unset !important;
+                         max-width: 100%;
                     }
             }
             .unlock_progress {
