@@ -43,7 +43,7 @@
                 <div class="user-bio overflow-hidden" v-html="ellipsizeTextBox(tutor.bio)"></div>
 
                 <v-btn class="btn-chat white--text text-truncate" small round block color="#4452fc" @click.prevent="sendMessage(tutor)">
-                    <div class="text-truncate" v-html="$Ph('resultTutor_send_button', tutor.name)" ></div>
+                    <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName(tutor.name))" ></div>
                 </v-btn>
             </div>
 
@@ -194,6 +194,9 @@ export default {
         isUserImage(img) {
             return img ? true : false;
         },
+        showFirstName(name) {
+            return name.split(' ')[0];
+        }
     },
     created() {
         if(this.$vuetify.breakpoint.smAndDown) {
@@ -297,6 +300,7 @@ export default {
                 .btn-chat {
                     margin-top: 14px;
                     font-size: 12px;
+                    text-transform: inherit;
                     button {
                         text-transform: inherit;
                     }
