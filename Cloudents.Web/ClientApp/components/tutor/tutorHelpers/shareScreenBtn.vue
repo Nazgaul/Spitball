@@ -12,7 +12,7 @@
                             </button>
                         </div>
                     </template>
-                    <span v-language:inner="isSafari? 'tutor_browser_not':'tutor_start_to_share'">tutor_start_to_share</span>
+                    <span v-language:inner="isSafari? 'tutor_browser_not':'tutor_start_to_share'"/>
                 </v-tooltip>
             </div>
             <button class="outline-btn-share" v-else @click="stopSharing" :disabled="!localVideoTrack">
