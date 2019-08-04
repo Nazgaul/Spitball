@@ -6,14 +6,13 @@
                     <template v-slot:activator="{on}">
                         <!--keep this div, due to tooltip not appearing on disabled btn bug of vuetify-->
                         <div v-on="on" >
-                            {{isSafari}}
-                            <button @click="showScreen" class="outline-btn-share" :disabled="!roomIsActive">
+                            <button @click="showScreen" class="outline-btn-share" :disabled="(!roomIsActive && !isSafari) || (!roomIsActive && isSafari)">
                                 <castIcon class="cast-icon"></castIcon>
                                 <span v-language:inner="'tutor_btn_share_screen'"></span>
                             </button>
                         </div>
                     </template>
-                    <span v-language:inner>tutor_start_to_share</span>
+                    <span v-language:inner="isSafari? 'tutor_browser_not':'tutor_start_to_share'"/>
                 </v-tooltip>
             </div>
             <button class="outline-btn-share" v-else @click="stopSharing" :disabled="!localVideoTrack">
@@ -136,10 +135,10 @@
                         }
                         if(error === "notBrowser") {
                             self.updateToasterParams({
-                                                         toasterText: "Browser not supported",
-                                                         showToaster: true,
-                                                         toasterType: "error-toaster" //c
-                                                     });
+                                toasterText: "Browser not supported",
+                                showToaster: true,
+                                toasterType: "error-toaster" //c
+                            });
                             return;
                         }
                         if(error.name === "NotAllowedError") {
@@ -178,7 +177,7 @@
             }
         },
         created() {
-            this.isSafari = navigator.userAgent.indexOf("Safari")
+            this.isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
         },
     };
 </script>
