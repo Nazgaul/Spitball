@@ -5,12 +5,14 @@ using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.Storage;
 
 namespace Cloudents.Functions
 {
@@ -31,10 +33,10 @@ namespace Cloudents.Functions
 
         [FunctionName("BlobPreview-Queue")]
         public static async Task BlobPreviewQueueRun(
+            //[QueueTrigger("generate-blob-preview", Connection = "LocalStorage")] string id,
             [QueueTrigger("generate-blob-preview")] string id,
             [Inject] IFactoryProcessor factory,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
-            //[Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
             [Queue("generate-search-preview")] IAsyncCollector<string> collectorSearch,
             TraceWriter log, CancellationToken token)
 
@@ -48,14 +50,27 @@ namespace Cloudents.Functions
                 {
                     return;
                 }
+
+                //var leaseId = Guid.NewGuid().ToString();
+                //TimeSpan? leaseTime = TimeSpan.FromMinutes(10);
+                //await myBlob.AcquireLeaseAsync(leaseTime);
                 var name = myBlob.Name.Split('-').Last();
 
                 myBlob.FetchAttributes();
-                if (myBlob.Metadata.TryGetValue("CantProcess2", out var s) && bool.TryParse(s, out var b) && b)
+                const string cantProcess = "CantProcess2";
+                //const string timeProcess = "TimeProcess";
+                if (myBlob.Metadata.TryGetValue(cantProcess, out var s) && bool.TryParse(s, out var b) && b)
                 {
                     log.Error($"aborting process CantProcess attribute - {id}");
                     return;
                 }
+
+                //if (myBlob.Metadata.TryGetValue(timeProcess, out var s1) &&
+                //    DateTime.TryParse(s1, CultureInfo.InvariantCulture,DateTimeStyles.None,out var b1) && b1 > DateTime.UtcNow.AddMinutes(-10))
+                //{
+                //    log.Error($"aborting process TimeProcess attribute - {id}");
+                //    return;
+                //}
 
 
                 const string contentType = "text/plain";
@@ -77,7 +92,8 @@ namespace Cloudents.Functions
                 }
 
                 log.Info($"Going to process - {id}");
-
+             //   myBlob.Metadata[timeProcess] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+              //  await myBlob.SetMetadataAsync(token);
 
 
                 var f = factory.PreviewFactory(name);
@@ -95,8 +111,6 @@ namespace Cloudents.Functions
                             Stream sr = null;
                             try
                             {
-                               
-
                                 f.Init(() =>
                                 {
                                     myBlob.DownloadToFile(z, FileMode.Create);
@@ -116,7 +130,7 @@ namespace Cloudents.Functions
                                 }
                                 if (pageCount == 0)
                                 {
-                                    log.Info("Need to extract text and get page count");
+                                    log.Info($"Need to extract text and get page count for id:{id}");
                                     var (text, pagesCount) = f.ExtractMetaContent();
                                     var blob = directory.GetBlockBlobReference(blobTextName);
                                     blob.Properties.ContentType = contentType;
@@ -129,7 +143,7 @@ namespace Cloudents.Functions
 
                                 if (pageCount != previewDelta.Count || previewDelta.Count == 0)
                                 {
-                                    log.Info("Processing images");
+                                    log.Info($"Processing images for id:{id}");
                                     await f.ProcessFilesAsync(previewDelta, (stream, previewName) =>
                                     {
                                         workHasBeenDone = true;
@@ -149,10 +163,11 @@ namespace Cloudents.Functions
                                     ex.Source.StartsWith("aspose",
                                         StringComparison.OrdinalIgnoreCase))
                                 {
-                                    myBlob.Metadata["CantProcess2"] = true.ToString();
-                                    myBlob.Metadata["ErrorProcess"] = ex.Message;
-                                    await myBlob.SetMetadataAsync(token);
+                                    myBlob.Metadata[cantProcess] = true.ToString();
+                                    
                                 }
+                                myBlob.Metadata["ErrorProcess"] = ex.Message;
+                                await myBlob.SetMetadataAsync(token);
                                 log.Error($"did not process id:{id}", ex);
                                 wait.Set();
                             }
@@ -173,7 +188,7 @@ namespace Cloudents.Functions
                             work.Abort();
                             if (!workHasBeenDone)
                             {
-                                myBlob.Metadata["CantProcess2"] = true.ToString();
+                                myBlob.Metadata[cantProcess] = true.ToString();
                                 await myBlob.SetMetadataAsync(token);
                             }
 
@@ -182,7 +197,10 @@ namespace Cloudents.Functions
                     }
                 }
 
-               
+                //await myBlob.ReleaseLeaseAsync(new AccessCondition()
+                //{
+                //    LeaseId = leaseId
+                //});
                 log.Info("C# Blob trigger function Processed");
 
             }

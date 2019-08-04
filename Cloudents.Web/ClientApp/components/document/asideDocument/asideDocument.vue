@@ -51,7 +51,7 @@
                     <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getType}}</h3></td>
                 </tr>
             </table>
-            <tutor-result-card-other :tutorData="ownTutor" v-if="isTutor && ownTutor" />
+            <tutor-result-card-other :tutorData="ownTutor" :uploader="true"  v-if="isTutor && ownTutor" />
         </div>
 
         <aside-document-tutors v-if="!$vuetify.breakpoint.smAndDown"/>
@@ -64,7 +64,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import asideDocumentTutors from './asideDocumentTutors.vue';
-import studentCard from '../studentCard.vue';
 import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import tutorResultCardOther from '../../../components/results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue';
 import myCourses from '../../../font-icon/my-courses-image.svg';
@@ -72,7 +71,6 @@ import myCourses from '../../../font-icon/my-courses-image.svg';
 export default {
     components: {
         myCourses,
-        studentCard,
         tutorResultCardMobile,
         tutorResultCardOther,
         asideDocumentTutors
@@ -96,6 +94,7 @@ export default {
                 this.$router.back();
             }else{
                 this.$router.push({path: '/note'})
+            }
             }
         },
         goToNote(){

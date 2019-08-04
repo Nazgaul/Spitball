@@ -1,13 +1,14 @@
 <template>
     <div class="tutor-start-wrap pb-5">
         <v-layout row class="pt-2">
-            <v-flex xs12   class="text-xs-right px-3">
+            <v-flex xs12 class="text-xs-right px-3">
                 <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
     <v-layout column align-center>
-        <v-flex xs12   class="pt-2">
-            <userAvatar :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'"></userAvatar>
+        <v-flex xs12 class="pt-2">
+            <v-progress-circular v-if="!studentImage" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
+            <userAvatar v-else :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'"/>
         </v-flex>
         <v-flex xs12   class="pt-12">
             <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
@@ -36,9 +37,6 @@
     export default {
         name: "startSession-popUp-tutor",
         components: {userAvatar, timerIcon},
-        data() {
-            return {};
-        },
         props: {
             id: {
                 required:true
@@ -64,7 +62,6 @@
             startSession(){
                 videoStreamService.enterRoom();
             }
-
         },
         beforeDestroy(){
             this.setSesionClickedOnce(false);

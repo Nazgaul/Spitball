@@ -27,8 +27,8 @@ function createIsTutorState(str){
      this.price= objInit.price || 0;
      this.rate = objInit.rate || 0;
      this.reviewCount = objInit.reviewCount || 0;
-     this.firstName = objInit.firstName;
-     this.lastName = objInit.lastName;
+     this.firstName = objInit.firstName || '';
+     this.lastName = objInit.lastName  || '';
  }
 
  function createTutorData(objInit) {
@@ -39,7 +39,7 @@ function createIsTutorState(str){
  }
 function ProfilePersonalData(objInit){
     this.id = objInit.id;
-    this.name = objInit.name;
+    this.name = objInit.name  || '';
     this.description = objInit.description || '';
     this.score = objInit.score;
     this.image = objInit.image || '';

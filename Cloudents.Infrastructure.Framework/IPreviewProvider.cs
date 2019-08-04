@@ -10,6 +10,7 @@ namespace Cloudents.Infrastructure.Framework
     {
 
         void Init(Func<Stream> stream);
+        void Init(Func<string> file);
        // void Init(Func<string> path);
         (string text, int pagesCount) ExtractMetaContent();
 

@@ -32,6 +32,11 @@ namespace Cloudents.Infrastructure.Framework
             _image = (TiffImage)Image.Load(stream());
         }
 
+        public void Init(Func<string> stream)
+        {
+            _image = (TiffImage)Image.Load(stream());
+        }
+
         public (string text, int pagesCount) ExtractMetaContent()
         {
             return (null, _image.Frames.Length);

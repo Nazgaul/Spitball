@@ -1,11 +1,11 @@
 <template>
-    <div class="user-image-wrap" :class="{'hide-block': hideImageBlock}">
-        <div v-if="getProfileImageLoading" class="loader-wrap align-center justify-center">
-            <v-progress-circular indeterminate v-bind:size="50" color="#514f7d"></v-progress-circular>
+    <div class="user-image-wrap">
+        <div v-if="!profileImage || getProfileImageLoading" class="loader-wrap align-center justify-center">
+            <v-progress-circular indeterminate v-bind:size="50" color="#514f7d"/>
         </div>
         <img v-else class="user-picture" style="height: 240px; width: 214px;"
-             :src="profileImage" @error="onImageLoadError" :alt="userName" :title="userName">
-        <div class="bottom-section" v-if="isTutorProfile">
+             :src="profileImage" @error="onImageLoadError" :alt="userName" :title="userName"/>
+        <div class="bottom-section" v-if="isTutorProfile && profileImage">
             <user-rating :size="'20'" :rating="tutorRank" :readonly="true" class="px-4 line-height-1"></user-rating>
             <span class="reviews-quantity">
                     <span>{{reviewCount}}</span>
@@ -32,14 +32,12 @@
     import userOnlineStatus from '../../../../../helpers/userOnlineStatus/userOnlineStatus.vue';
     import utilitiesService from '../../../../../../services/utilities/utilitiesService';
 
-
     export default {
         components: {userRating, uploadImage, userOnlineStatus},
         name: "userImage",
         data() {
             return {
                 hover: false,
-                hideImageBlock: true
             }
         },
         props: {
@@ -50,11 +48,11 @@
         },
         methods:{
             onImageLoadError(event) {
-                event.target.src = '../../images/placeholder-profile.png';
+                event.target.src = '../../../../../images/placeholder-profile.png';
             }
         },
         computed: {
-            ...mapGetters(['getProfile', 'isTutorProfile', 'getProfileImageLoading']),
+            ...mapGetters(['getProfile', 'isTutorProfile','getProfileImageLoading']),
             userName(){
                 return (this.getProfile && this.getProfile.user.name)? this.getProfile.user.name : '';
             },
@@ -64,7 +62,7 @@
                         let url = utilitiesService.proccessImageURL(this.getProfile.user.image, 214,240);
                         return url;
                     } else {
-                        return '../../images/placeholder-profile.png'
+                        return '../../../../../images/placeholder-profile.png';
                     }
                 }
             },
@@ -98,12 +96,6 @@
                 }
             }
         },
-        mounted(){
-            let imageElm = document.querySelector(".user-picture");
-            imageElm.addEventListener('load', ()=>{
-                this.hideImageBlock = false;
-            });
-        }
     }
 </script>
 
