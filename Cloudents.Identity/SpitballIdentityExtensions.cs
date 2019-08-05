@@ -11,6 +11,9 @@ namespace Cloudents.Identity
         {
             services.AddScoped<SignInManager<User>, SbSignInManager>();
             services.AddScoped<UserManager<User>, SbUserManager>();
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
+            services.AddScoped<IUserStore<User>, UserStore>();
+
 
             //RoleStore
             services.AddDefaultIdentity<User>(options =>

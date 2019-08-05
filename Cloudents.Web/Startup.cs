@@ -171,8 +171,6 @@ namespace Cloudents.Web
 
 
             //TODO: not sure we need those
-            services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
-            services.AddScoped<IUserStore<User>, UserStore>();
             //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();
