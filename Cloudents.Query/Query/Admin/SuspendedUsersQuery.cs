@@ -28,14 +28,19 @@ namespace Cloudents.Query.Query.Admin
             public async Task<IEnumerable<SuspendedUsersDto>> GetAsync(SuspendedUsersQuery query, CancellationToken token)
             {
                 var suspendDto = _session.Query<User>()
-                    .Where(w => w.LockoutEnd != null && w.Country == query.Country)
-                    .Select(s => new SuspendedUsersDto
+                    .Where(w => w.LockoutEnd != null);
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    suspendDto = suspendDto.Where(w => w.Country == query.Country);
+                }
+
+                var res = suspendDto.Select(s => new SuspendedUsersDto
                     {
                         UserId = s.Id,
                         UserEmail = s.Email,
                         LockoutEnd = s.LockoutEnd
                     });
-                return await suspendDto.ToListAsync(cancellationToken: token);
+                return await res.ToListAsync(cancellationToken: token);
             }
         }
     }

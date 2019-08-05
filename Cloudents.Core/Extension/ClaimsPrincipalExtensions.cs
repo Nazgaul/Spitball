@@ -10,7 +10,8 @@ namespace Cloudents.Core.Extension
 
         public static string GetCountryClaim(this ClaimsPrincipal principal)
         {
-            return principal.Claims.First(w => string.Equals(w.Type, ClaimCountry, StringComparison.OrdinalIgnoreCase)).Value;
+            var country = principal.Claims.First(w => string.Equals(w.Type, ClaimCountry, StringComparison.OrdinalIgnoreCase)).Value;
+            return country != "None" ? country : null;
         }
 
     }

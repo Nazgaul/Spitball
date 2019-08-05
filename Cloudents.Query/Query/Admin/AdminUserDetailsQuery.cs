@@ -28,7 +28,7 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<UserDetailsDto> GetAsync(AdminUserDetailsQuery query, CancellationToken token)
             {
-                const string sql = @"select U.Id, U.Name, Email, PhoneNumberHash as PhoneNumber, Un.Name as University, U.Country, U.Score, U.FraudScore, 
+                string sql = @"select U.Id, U.Name, Email, PhoneNumberHash as PhoneNumber, Un.Name as University, U.Country, U.Score, U.FraudScore, 
 		(select count(1) from sb.[Transaction] T where  U.Id = T.[User_id] and T.[Action] = 'ReferringUser')  as ReferredCount,
 		U.Balance, 
 	        case when U.LockOutEnd is null or U.LockOutEnd < getUtcDate() then 1
@@ -47,8 +47,12 @@ t.state as TutorState
 	                        on U.UniversityId2 = Un.Id
 						left join sb.Tutor T
 							on U.Id = T.Id
-                        where (U.Id = @Id or U.Email = @Email or U.PhoneNumberHash = @Email) and u.Country = @Country;";
+                        where (U.Id = @Id or U.Email = @Email or U.PhoneNumberHash = @Email)";
 
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    sql += " and u.Country = @Country;";
+                }
                 using (var connection = _dapper.OpenConnection())
                 {
                     long.TryParse(query.UserId, out var tmpId);

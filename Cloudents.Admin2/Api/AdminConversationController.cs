@@ -35,35 +35,35 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet]
-        [Authorize(Policy = Policy.IsraelUser)]
+        //[Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<ConversationDto>> ConversationAsync([FromQuery] ConversationDetailsRequest request
             , CancellationToken token)
         {
-            //var country = User.Claims.Where(w => w.Type == "Country").First();
             ChatRoomStatus p = null;
             if (request.Status.HasValue)
             {
                 p = Enumeration.FromValue<ChatRoomStatus>(request.Status.Value);
             }
 
-            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page,
+            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page, User.GetCountryClaim(),
                 p, request.AssignTo, request.AutoStatus);
             return await _queryBus.QueryAsync(query, token);
         }
 
         [HttpGet("{identifier}/details")]
-        [Authorize(Policy = Policy.IsraelUser)]
+        //[Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<ConversationDetailsDto>> ConversationDetailAsync(
            [FromRoute] string identifier,
             CancellationToken token)
         {
-            var query = new AdminConversationDetailsQuery(identifier);
+
+            var query = new AdminConversationDetailsQuery(identifier, User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
 
         [HttpGet("{identifier}")]
-        [Authorize(Policy = Policy.IsraelUser)]
+        //[Authorize(Policy = Policy.IsraelUser)]
         //        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
         public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
             CancellationToken token)
