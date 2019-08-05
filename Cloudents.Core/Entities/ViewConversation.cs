@@ -16,6 +16,7 @@ namespace Cloudents.Core.Entities
         public virtual string UserEmail { get; set; }
         public virtual long UserId { get; set; }
         public virtual string TutorName { get; set; }
+        public virtual string Country { get; set; }
         public virtual string TutorPhoneNumber { get; set; }
         public virtual string TutorEmail { get; set; }
         public virtual long TutorId { get; set; }
