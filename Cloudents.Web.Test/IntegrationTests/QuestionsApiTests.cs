@@ -46,11 +46,11 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var filters = d["filters"]?.Value<JArray>();
             var type = filters[0]["data"]?.Value<JArray>();
-            var subject = filters[1]["data"]?.Value<JArray>();
+            //var subject = filters[1]["data"]?.Value<JArray>();
 
-            filters.Should().HaveCount(2);
+            filters.Should().HaveCount(1);
             type.Should().HaveCount(3);
-            subject.Should().HaveCount(24);
+            //subject.Should().HaveCount(24);
         }
 
         [Theory]
