@@ -71,7 +71,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface ITutorRepository : IRepository<Tutor>
     {
-        Task<IList<long>> GetTutorsByCourseAsync(string course, long userId, CancellationToken token);
+        Task<IList<long>> GetTutorsByCourseAsync(string course, long userId, string country, CancellationToken token);
         Task DeleteTutorAsync(long tutorId, CancellationToken token);
     }
 

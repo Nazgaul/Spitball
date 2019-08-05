@@ -10,17 +10,20 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminConversationsQuery : IQuery<IEnumerable<ConversationDto>>
+    public class AdminConversationsQuery : IQueryAdmin<IEnumerable<ConversationDto>>
     {
         private int Page { get; }
+        public string Country { get; }
         private ChatRoomStatus Status { get; }
         private ChatRoomAssign? AssignTo { get; }
         private WaitingFor? ConversationStatus { get; }
+        
 
-        public AdminConversationsQuery(long userId, int page, ChatRoomStatus status, ChatRoomAssign? assignTo, WaitingFor? conversationStatus)
+        public AdminConversationsQuery(long userId, int page, string country, ChatRoomStatus status, ChatRoomAssign? assignTo, WaitingFor? conversationStatus)
         {
             UserId = userId;
             Page = page;
+            Country = country;
             Status = status;
             AssignTo = assignTo;
             ConversationStatus = conversationStatus;
@@ -39,8 +42,12 @@ namespace Cloudents.Query.Query.Admin
             public async Task<IEnumerable<ConversationDto>> GetAsync(AdminConversationsQuery query, CancellationToken token)
             {
 
-                var p = _statelessSession.Query<ViewConversation>()
-;
+                var p = _statelessSession.Query<ViewConversation>();
+                    
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    p = p.Where(w => w.Country == query.Country);
+                }
 
                 switch (query.AssignTo)
                 {

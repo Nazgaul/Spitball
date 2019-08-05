@@ -30,14 +30,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminConversationDetailsQuery_Ok()
         {
-            var query = new AdminConversationDetailsQuery("638_159039");
+            var query = new AdminConversationDetailsQuery("638_159039", null);
             await fixture.QueryBus.QueryAsync(query, default);
         }
         [Fact]
         public async Task AdminConversationsQuery_Ok()
         {
-            var query1 = new AdminConversationsQuery(159039, 0, null, null,null);
-            var query2 = new AdminConversationsQuery(159039, 0, ChatRoomStatus.SessionScheduled, ChatRoomAssign.Unassigned,WaitingFor.All);
+            var query1 = new AdminConversationsQuery(159039, 0, null, null, null,null);
+            var query2 = new AdminConversationsQuery(159039, 0, null, ChatRoomStatus.SessionScheduled, ChatRoomAssign.Unassigned,WaitingFor.All);
 
             var task1 = fixture.QueryBus.QueryAsync(query1, default);
             var task2 = fixture.QueryBus.QueryAsync(query2, default);
@@ -47,7 +47,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminCoursesQuery_Ok()
         {
-            var query = new AdminConversationDetailsQuery("638_159039");
+            var query = new AdminConversationDetailsQuery("638_159039", null);
             await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -181,7 +181,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminAllUniversitiesEmptyQuery_Ok()
         {
-            var query = new AdminAllUniversitiesEmptyQuery();
+            var query = new AdminAllUniversitiesQuery("IL");
             await fixture.QueryBus.QueryAsync(query, default);
         }
 

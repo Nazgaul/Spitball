@@ -3,6 +3,7 @@ using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +28,10 @@ namespace Cloudents.Admin2.Api
             _queryBus = queryBus;
         }
         [HttpGet]
-        [Authorize(Policy = Policy.IsraelUser)]
+        //[Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<LeadDto>> LeadAsync([FromQuery] ItemState? status, CancellationToken token)
         {
-            var query = new AdminLeadsQuery(status);
+            var query = new AdminLeadsQuery(status, User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
         [HttpPost("status")]

@@ -1,8 +1,10 @@
 ﻿using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Dapper;
-using System;
+using NHibernate;
+using NHibernate.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,34 +24,48 @@ namespace Cloudents.Query.Query.Admin
     internal class AdminPendingUniversitiesQueryHandler : IQueryHandler<AdminUniversitiesQuery, IList<PendingUniversitiesDto>>
     {
 
-        private readonly IDapperRepository _dapper;
+        private readonly IStatelessSession _session;
 
 
-        public AdminPendingUniversitiesQueryHandler(IDapperRepository dapper)
+        public AdminPendingUniversitiesQueryHandler(QuerySession session)
         {
-            _dapper = dapper;
+            _session = session.StatelessSession;
         }
 
         public async Task<IList<PendingUniversitiesDto>> GetAsync(AdminUniversitiesQuery query, CancellationToken token)
         {
-            var sql = $@"select Id, Name, CreationTime as Created from sb.University where State = @state";
-
+            var q = _session.Query<University>()
+                .Where(w => w.State == query.State);
             if (!string.IsNullOrEmpty(query.Country))
             {
-                if (query.Country.Equals("il", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sql += " and country = 'il'";
-                }
-                else if (query.Country.Equals("us", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sql += " and country = 'us'";
-                }
+                q = q.Where(w => w.Country == query.Country);
             }
-            using (var connection = _dapper.OpenConnection())
+            return await q.Select(s => new PendingUniversitiesDto
             {
-                var res = await connection.QueryAsync<PendingUniversitiesDto>(sql, new { state = query.State.ToString() });
-                return res.AsList();
-            }
+                Id = s.Id,
+                Name = s.Name,
+                Created = s.RowDetail.CreationTime
+            }).ToListAsync(token);
+            //var sql = $@"select Id, Name, CreationTime as Created from sb.University where State = @state";
+
+            //if (!string.IsNullOrEmpty(query.Country))
+            //{
+            //    sql += $" and country = @country";
+            //    //if (query.Country.Equals("il", StringComparison.InvariantCultureIgnoreCase))
+            //    //{
+            //    //    sql += " and country = 'il'";
+            //    //}
+            //    //else if (query.Country.Equals("us", StringComparison.InvariantCultureIgnoreCase))
+            //    //{
+            //    //    sql += " and country = 'us'";
+            //    //}
+
+            //}
+            //using (var connection = _dapper.OpenConnection())
+            //{
+            //    var res = await connection.QueryAsync<PendingUniversitiesDto>(sql, new { state = query.State.ToString() });
+            //    return res.AsList();
+            //}
         }
     }
 }
