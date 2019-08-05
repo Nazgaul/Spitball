@@ -41,7 +41,7 @@
                         </v-btn>
 
                         <!-- card-b -->
-                        <v-layout column align-center class="ab-cardB user-classes" :class="{'user-classes-hidden': tutorData.lessons > 0}">
+                        <v-layout column align-center class="ab-cardB user-classes" :class="{'user-classes-hidden': tutorData.lessons === 0}">
                             <div>{{tutorData.lessons}}</div>
                             <div v-language:inner="'resultTutor_classes'"></div>
                         </v-layout>

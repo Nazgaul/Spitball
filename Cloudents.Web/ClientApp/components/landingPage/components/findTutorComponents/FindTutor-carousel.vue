@@ -4,14 +4,12 @@
       <img class="leftButton" :class="{'rtlButton': isRtl}" src="./images/FindTutor_next-btn.png">
     </v-flex>
 
-    <div class="landing-carousel-slider-container">
-
-      <div
-        v-touch="{
+    <div v-touch="{
           left: () => moveCarousel('left'),
           right: () => moveCarousel('right')
-        }"
-        class="landing-carousel-slider"
+        }" class="landing-carousel-slider-container">
+
+      <div class="landing-carousel-slider"
         :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}"
       >
         <div v-for="(card, index) in cards" :key="index" class="landing-carousel-card">

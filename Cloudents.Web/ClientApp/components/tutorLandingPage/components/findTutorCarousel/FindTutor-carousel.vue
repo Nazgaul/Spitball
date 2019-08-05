@@ -3,13 +3,11 @@
     <v-flex class="tutor-carousel-arrows" :class="{'disabled': atHeadOfList}" @click="moveCarouselClick(-1)" :disabled="atHeadOfList">
       <img class="left-img-arrow-btn" :class="{'switchSide':isRtl}" src="./images/arrow.png">
     </v-flex>
-  <div class="tutor-carousel-slider-wrapper">
-     <div class="tutor-carousel-slider-container"
-        v-touch="{
+  <div v-touch="{
           left: () => moveCarousel('left'),
           right: () => moveCarousel('right')
-        }"
-        :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
+        }" class="tutor-carousel-slider-wrapper">
+     <div class="tutor-carousel-slider-container" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
       <div v-for="(card, index) in cards" :key="index" class="tutor-carousel-card">
             <div class="tutor-carousel-card-top pb-4">
               <p v-line-clamp:16="'3'">{{card.text}}</p>
