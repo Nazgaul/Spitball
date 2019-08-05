@@ -84,7 +84,8 @@
             <sb-dialog :showDialog="getShowBuyDialog"
                        :popUpType="'buyTokens'"
                        :content-class="'buy-tokens-popup'"
-                       :onclosefn="closeSblToken">
+                       :onclosefn="closeSblToken"
+                       maxWidth='840px'>
                 <buy-tokens></buy-tokens>
             </sb-dialog>
 
