@@ -136,13 +136,13 @@
     <value>$</value>
   </data>
   <data name="earn_answer" xml:space="preserve">
-    <value>Earn points by answering studen questions</value>
+    <value>Provide correct answers</value>
   </data>
   <data name="earn_invite" xml:space="preserve">
-    <value>Earn points by answering studen questions</value>
+    <value>Invite your friends &amp; classmates</value>
   </data>
   <data name="earn_upload" xml:space="preserve">
-    <value>Upload Study Documents. Earn from every download</value>
+    <value>Upload your resources</value>
   </data>
   <data name="failed_transaction" xml:space="preserve">
     <value>Transaction failed please refresh the page!</value>
