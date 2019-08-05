@@ -42,11 +42,18 @@ namespace Cloudents.Query.Query.Admin
             Question questionAlias = null;
             BaseUser userAlias = null;
 
-            var questions = await _session.QueryOver(() => questionAlias)
-                .JoinAlias(x => x.User, () => userAlias)
-                .Where(w => w.CorrectAnswer == null)
-                .Where(w => w.Status.State == ItemState.Ok && userAlias.Country == query.Country)
-                .WithSubquery.WhereExists(QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
+                var questionsQuery = _session.QueryOver(() => questionAlias)
+                    .JoinAlias(x => x.User, () => userAlias)
+                    .Where(w => w.CorrectAnswer == null)
+                    .Where(w => w.Status.State == ItemState.Ok);
+
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    questionsQuery = questionsQuery.Where(w => userAlias.Country == query.Country);
+                }
+
+
+                var questions = await questionsQuery.WithSubquery.WhereExists(QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
                     .And(x => x.Status.State == ItemState.Ok)
                     .Select(s => s.Id))
                 .And(Restrictions.Or(

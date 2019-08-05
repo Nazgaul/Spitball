@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.DTOs;
-using Dapper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -9,7 +8,6 @@ using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Tutor
 {
@@ -37,7 +35,7 @@ namespace Cloudents.Query.Tutor
             }
 
             //TODO: review query 
-            public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
+            public Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
                 User userAlias = null;
                 ViewTutor viewTutorAlias = null;
@@ -60,7 +58,7 @@ namespace Cloudents.Query.Tutor
 
                 if (query.UserId > 0)
                 {
-                    var WithCountryOnlyDetachedQuery = futureCourse.Clone();
+                    var withCountryOnlyDetachedQuery = futureCourse.Clone();
                    
                     //futureCourse.Where(w => w.Id != query.UserId);
 
@@ -99,14 +97,14 @@ namespace Cloudents.Query.Tutor
 
                     futureCourse.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery);
                     futureCourse2.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery2);
-                    listOfQueries.Add(WithCountryOnlyDetachedQuery);
+                    listOfQueries.Add(withCountryOnlyDetachedQuery);
                 }
 
                 var futureResult = listOfQueries.Select(s => BuildSelectStatement(s, query.Page)).ToList();
 
 
                 IEnumerable<TutorCardDto> retVal = futureResult.Select(async s => await s.GetEnumerableAsync(token)).SelectMany(s => s.Result).Distinct(TutorCardDto.UserIdComparer).Take(20).ToList();
-                return retVal;
+                return Task.FromResult(retVal);
             }
 
             private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ViewTutor, ViewTutor> futureCourse, int page)

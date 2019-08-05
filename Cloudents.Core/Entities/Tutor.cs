@@ -78,6 +78,7 @@ namespace Cloudents.Core.Entities
         public virtual string SellerKey { get; set; }
         public virtual ItemState State { get; protected set; }
         public virtual DateTime Created { get; protected set; }
+        public virtual DateTime ManualBoost { get; protected set; }
         //protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
 
 

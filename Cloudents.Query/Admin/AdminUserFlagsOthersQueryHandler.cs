@@ -24,7 +24,7 @@ namespace Cloudents.Query.Admin
                                 where (select count(1) from sb.Document where FlaggedUserId = U.Id) + 
 			                                (select count(1) from sb.Question where FlaggedUserId = U.Id) +
 			                                (select count(1) from sb.Answer where FlaggedUserId = U.Id) > @Flags
-                                    and U.Country = @Country
+                                    and (U.Country = @Country or @Country is null)
                                 order by 3 desc
                                 OFFSET @pageSize * @PageNumber ROWS
                                 FETCH NEXT @pageSize ROWS ONLY;";
@@ -40,7 +40,7 @@ namespace Cloudents.Query.Admin
                             where (select count(1) from sb.Document where FlaggedUserId = U.Id) + 
 			                            (select count(1) from sb.Question where FlaggedUserId = U.Id) +
 			                            (select count(1) from sb.Answer where FlaggedUserId = U.Id) > @Flags
-                                and U.Country = @Country
+                                and (U.Country = @Country or @Country is null)
                             ) A;";
             }
 
