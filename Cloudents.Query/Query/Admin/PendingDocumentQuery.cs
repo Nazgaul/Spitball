@@ -33,8 +33,13 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IList<PendingDocumentDto>> GetAsync(PendingDocumentQuery query, CancellationToken token)
             {
-                var dbQuery =   _session.Query<Document>()
-                    .Where(w => w.Status.State == ItemState.Pending && w.User.Country == query.Country);
+                var dbQuery = _session.Query<Document>()
+                    .Where(w => w.Status.State == ItemState.Pending);
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    dbQuery = dbQuery.Where(w => w.User.Country == query.Country);
+                }
+                    
                 if (query.DocumentId.HasValue)
                 {
                     dbQuery.Where(w => w.Id < query.DocumentId.Value);

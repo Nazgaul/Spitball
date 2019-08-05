@@ -50,7 +50,7 @@ x.*
 cross apply (select avg(Rate) as Rate, count(1) as ReviewsCount from sb.TutorReview where TutorId = T.Id) as x
 where (t.Id <> @UserId or @UserId = 0) 
                         and T.State = 'Ok'
-                        and (U.Country = @Country or @Country is null) 
+                        and (@Country is null or U.Country = @Country) 
 order by t desc, Rate desc
 OFFSET 0 ROWS
 FETCH NEXT 20 ROWS ONLY;";

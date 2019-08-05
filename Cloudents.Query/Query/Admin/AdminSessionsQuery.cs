@@ -28,7 +28,7 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<SessionDto>> GetAsync(AdminSessionsQuery query, CancellationToken token)
             {
-                const string sql = @"select cast (S.created as date) as Created,
+                string sql = @"select cast (S.created as date) as Created,
 		                                    sum (datediff(minute, S.[Created],S.ended)) as Duration,
 		                                    T.Name as Tutor,
 		                                    U.Name as Student
@@ -41,10 +41,14 @@ namespace Cloudents.Query.Query.Admin
 	                                    on sru.StudyRoomId = R.Id and sru.UserId != T.Id
                                     join sb.[user] u
 	                                    on sru.UserId = U.Id
-                                    where S.Ended is not null and u.Country = @Country
-                                    group by cast (S.created as date),T.Name,
-		                                    U.Name
-                                    order by cast (S.created as date) desc;";
+                                    where S.Ended is not null";
+
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    sql += " and u.Country = @Country";
+                }
+                sql += @" group by cast (S.created as date),T.Name,U.Name
+                                    order by cast(S.created as date) desc;";
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<SessionDto>(sql, new { query.UserId, query.Country});

@@ -28,9 +28,7 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<CashOutDto>> GetAsync(AdminCashOutQuery query, CancellationToken token)
             {
-                using (var conn = _session.OpenConnection())
-                {
-                    var result = await conn.QueryAsync<CashOutDto>(@"select t.User_id as userId,
+                var sql = @"select t.User_id as userId,
 t.price as CashoutPrice,
 u.Email as UserEmail,
 t.created as CashOutTime,
@@ -52,9 +50,15 @@ t.id as TransactionId,
 from sb.[Transaction] t
 join sb.[User] u 
 on t.User_id = u.Id 
-where t.TransactionType='CashOut' and t.Action='CashOut' and t.Approved is null
-and t.Created>@date and u.Country = @Country
-order by t.id desc", new { date = DateTime.UtcNow.AddMonths(-1), query.Country });
+where t.TransactionType='CashOut' and t.Action='CashOut' and t.Approved is null and t.Created>@date";
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    sql += " and u.Country = @Country";
+                }
+                sql += " order by t.id desc";
+                using (var conn = _session.OpenConnection())
+                {
+                    var result = await conn.QueryAsync<CashOutDto>(sql, new { date = DateTime.UtcNow.AddMonths(-1), query.Country });
                     return result;
                 }
 

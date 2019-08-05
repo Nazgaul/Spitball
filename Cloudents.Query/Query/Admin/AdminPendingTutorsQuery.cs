@@ -27,7 +27,7 @@ namespace Cloudents.Query.Query.Admin
             public async Task<IEnumerable<PendingTutorsDto>> GetAsync(AdminPendingTutorsQuery query, CancellationToken token)
             {
                 
-                const string sql = @"select u.Id, u.FirstName, u.LastName,
+                string sql = @"select u.Id, u.FirstName, u.LastName,
 u.Email, t.Bio, t.Price, t.Created, 
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt 
@@ -36,7 +36,11 @@ u.image
 from sb.[User] u
 join sb.Tutor t
 	on u.Id = t.Id
-where t.State = 'Pending' and u.Country = @Country";
+where t.State = 'Pending'";
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    sql += " and (u.Country = @Country)";
+                }
                 using (var connection = _dapper.OpenConnection())
                 {
                     var res = await connection.QueryAsync<PendingTutorsDto>(sql, new { query.Country });

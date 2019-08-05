@@ -41,8 +41,12 @@ namespace Cloudents.Query.Query.Admin
                         on c.Name = uc.CourseId
                      join sb.[User] u
                         on uc.UserId = u.Id
-                    where c.State = @State and u.Country = @Country";
+                    where c.State = @State";
 
+            if (!string.IsNullOrEmpty(query.Country))
+            {
+                sql += " and u.Country = @Country";
+            }
             if (!string.IsNullOrEmpty(query.Language))
             {
                 if (query.Language.Equals("he", StringComparison.OrdinalIgnoreCase))

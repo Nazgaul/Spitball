@@ -43,11 +43,14 @@ namespace Cloudents.Query.Query.Admin
 	                            on sru.UserId = U.Id
                             where U.email not like '%cloudents%'
                             and U.email not like '%spitball%'
-                            and U.Country = @Country
-							and (datediff(minute, S.[Created],S.ended) != 0 or datediff(minute, S.[Created],S.ended) is null)
-                            order by S.created desc, S.Id";
+							and (datediff(minute, S.[Created],S.ended) != 0 or datediff(minute, S.[Created],S.ended) is null)";
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    sql += " and U.Country = @Country";
+                }
+                sql += " order by S.created desc, S.Id";
 
-                using (var connection = _dapper.OpenConnection())
+                    using (var connection = _dapper.OpenConnection())
                 {
                     return await connection.QueryAsync<StudyRoomDto>(sql, new { query.Country });
                     //return res.AsList();
