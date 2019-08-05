@@ -91,7 +91,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
-        [Authorize(Policy = Policy.IsraelUser)]
+        //[Authorize(Policy = Policy.IsraelUser)]
         public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {

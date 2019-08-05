@@ -65,9 +65,9 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] UniversitiesRequest model
             , CancellationToken token)
         {
-            if (User.GetCountryClaim() == model.Country || User.IsInRole(Roles.Admin))
+            if (User.GetCountryClaim() == model.Country || string.IsNullOrEmpty(User.GetCountryClaim()))
             {
-                var query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
+                var query = new AdminUniversitiesQuery(User.GetCountryClaim(), model.State.GetValueOrDefault(ItemState.Pending));
                 var retVal = await _queryBus.QueryAsync(query, token);
                 return retVal;
             }
@@ -81,7 +81,7 @@ namespace Cloudents.Admin2.Api
         [Authorize(Policy = "IsraelUser")]
         public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
         {
-            var query = new AdminAllUniversitiesEmptyQuery();
+            var query = new AdminAllUniversitiesQuery(User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
