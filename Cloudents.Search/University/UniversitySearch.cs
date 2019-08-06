@@ -64,7 +64,7 @@ namespace Cloudents.Search.University
                     ToDto(s.Document)));
             }
 
-            if (page == 0)
+            if (page == 0 && !string.IsNullOrEmpty(term))
             {
                 var suggestParams = new SuggestParameters()
                 {
