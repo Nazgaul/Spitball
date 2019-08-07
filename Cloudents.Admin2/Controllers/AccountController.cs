@@ -55,7 +55,7 @@ namespace Cloudents.Admin2.Controllers
             var result = await _queryBus.QueryAsync(query, cancellationToken);
             if (result == null)
             {
-                return BadRequest();
+                return Unauthorized();
             }
             var claims = new List<Claim>
             {

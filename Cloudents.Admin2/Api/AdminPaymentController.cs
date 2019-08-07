@@ -15,8 +15,8 @@ namespace Cloudents.Admin2.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Roles = Roles.Admin)]
-    [Authorize(Policy = "IsraelUser")]
+    [Authorize(/*Roles = Roles.Admin*/)]
+    //[Authorize(Policy = Policy.IsraelUser)]
     public class AdminPaymentController : Controller
     {
         private readonly ICommandBus _commandBus;

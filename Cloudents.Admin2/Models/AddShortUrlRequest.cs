@@ -15,12 +15,12 @@ namespace Cloudents.Admin2.Models
 
     public static class Roles
     {
-        public const string Admin = "Admin";
+     //   public const string Admin = "Admin";
     }
 
     public static class Policy
     {
-        public const string IsraelUser = "IsraelUser";
-        public const string IndiaUser = "IndiaUser";
+       // public const string IsraelUser = "IsraelUser";
+       // public const string IndiaUser = "IndiaUser";
     }
 }

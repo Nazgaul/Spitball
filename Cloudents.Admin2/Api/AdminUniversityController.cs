@@ -81,7 +81,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("allUniversities")]
-        [Authorize(Policy = "IsraelUser")]
+        [Authorize(/*Policy = IsraelUser*/)]
         public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
         {
             var query = new AdminAllUniversitiesQuery(User.GetCountryClaim());
@@ -98,7 +98,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>list of universities</returns>
         [Route("search")]
         [HttpGet]
-        [Authorize(Policy = "IsraelUser")]
+        [Authorize(/*Policy = IsraelUser*/)]
         public async Task<UniversitySearchDto> GetAsync([FromQuery(Name = "university")]string university,
             CancellationToken token)
         {
@@ -120,7 +120,7 @@ namespace Cloudents.Admin2.Api
 
         //TODO: Fix this and make it work in proper CQRS architecture 
         [HttpDelete("{id}")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<IActionResult> ApproveCourse(Guid id,
                 CancellationToken token)
         {

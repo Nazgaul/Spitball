@@ -38,7 +38,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<ActionResult> DeleteAnswerAsync([FromQuery(Name = "id")] IEnumerable<Guid> ids, CancellationToken token)
         {
             foreach (var id in ids)

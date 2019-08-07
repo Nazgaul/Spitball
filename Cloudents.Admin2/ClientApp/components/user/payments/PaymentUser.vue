@@ -114,7 +114,7 @@
                     { text: 'User Name', value: 'userName' },
                     { text: 'Date', value: 'created' },
                     { text: 'Duration (min)', value: 'duration' },
-                    { text: 'Price', value: 'price' },
+                    { text: 'Lesson Price', value: 'price' },
                     { text: 'Price After Subsidizing', value: 'subsidizing' },
 
                     { text: 'Approve', value: '' }
