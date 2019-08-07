@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,6 +44,15 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
             var command = new PaymentCommand(model.UserKey, model.TutorKey, model.Amount, model.StudyRoomSessionId);
+            await _commandBus.DispatchAsync(command, token);
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeclinePay(Guid studyRoomSessionId, CancellationToken token)
+        {
+            var command = new DeclinePaymentCommand(studyRoomSessionId);
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();

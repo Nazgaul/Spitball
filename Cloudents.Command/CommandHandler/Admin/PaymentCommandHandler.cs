@@ -27,4 +27,21 @@ namespace Cloudents.Command.CommandHandler.Admin
             session.SetReceipt(response.PaymeSaleId);
         }
     }
+
+    public class DeclinePaymentCommandHandler: ICommandHandler<DeclinePaymentCommand>
+    {
+        private readonly IRepository<StudyRoomSession> _studyRoomSessionRepository;
+
+        public DeclinePaymentCommandHandler(IRepository<StudyRoomSession> studyRoomSessionRepository)
+        {
+            _studyRoomSessionRepository = studyRoomSessionRepository;
+        }
+
+        public async Task ExecuteAsync(DeclinePaymentCommand message, CancellationToken token)
+        {
+            var session = await _studyRoomSessionRepository.LoadAsync(message.StudyRoomSessionId, token);
+            session.SetReceipt("No Pay");
+            await _studyRoomSessionRepository.UpdateAsync(session, token);
+        }
+    }
 }

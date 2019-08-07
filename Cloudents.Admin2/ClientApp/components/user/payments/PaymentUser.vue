@@ -17,6 +17,7 @@
                 <td>{{ props.item.duration }}</td>
                
                 <td>{{ props.item.price }}</td>
+                <td>{{ props.item.totalPrice }}</td>
                  <td>{{ props.item.subsidizing }}</td>
                 <td >
                     <span  @click="editItem(props.item)">
@@ -39,13 +40,6 @@
                 <v-card-text>
                     <v-container grid-list-md>
                         <v-layout wrap>
-                            <v-flex xs6>
-                                 Study Room Session Id:
-                            </v-flex>
-                            <v-flex xs6>
-                                {{editedItem.studyRoomSessionId}}
-                                
-                            </v-flex>
                              <v-flex xs6>
                                  User Name:
                             </v-flex>
@@ -62,23 +56,25 @@
                                      <v-text-field
             label="Payment Key" v-model="editedItem.paymentKey"
           ></v-text-field>
-                                
+                            </v-flex>
+                            <v-flex xs12>
+                                  <v-text-field
+            label="Seller Key" v-model="editedItem.sellerKey"
+          ></v-text-field>
                             </v-flex>
                             
+                           <v-flex xs4>
+                               <v-text-field label="Duration in minutes" v-model="editedItem.duration"></v-text-field>
+                           </v-flex>
+                           <v-flex xs4>
+                               <v-text-field readonly="" label="Session Total Price" v-model="editedItem.price"></v-text-field>
+                           </v-flex>
+                           <v-flex xs4>
+                               <v-text-field readonly="" label="Session Price After discount" v-model="editedItem.subsidizing"></v-text-field>
+                           </v-flex>
                            
-                            <v-flex xs12>
-                                  <v-text-field
-            label="Seller Key" v-model="editedItem.sellerKe"
-          ></v-text-field>
-                               
-                            </v-flex>
-                           
-                            <v-flex xs12>
-                                  <v-text-field
-            label="Price" v-model="editedItem.price"
-          ></v-text-field>
-                        
-                            </v-flex>
+                          
+                            
                             
                         </v-layout>
                     </v-container>
@@ -86,8 +82,11 @@
 
                 <v-card-actions>
                     <v-spacer></v-spacer>
+                     <v-btn color="red darken-1" flat @click="decline()">
+                        No Pay
+                    </v-btn>
                     <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-                    <v-btn color="red darken-1" flat @click="approve()">
+                    <v-btn color="green darken-1" flat @click="approve()">
                         Done
                     </v-btn>
                 </v-card-actions>
@@ -97,9 +96,22 @@
 </template>
 
 <script>
-    import { getPaymentRequests, approvePayment } from './PaymentUserService'
+    import { getPaymentRequests, approvePayment,subsidizingPrice } from './PaymentUserService'
 
     export default {
+       
+        computed: {
+    durationX() {
+      return this.editedItem.duration;
+    }
+  },
+  watch: {
+    durationX() {
+    this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
+    this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
+      
+    }
+  },
         data() {
             return {
                 editedIndex: -1,
@@ -114,7 +126,8 @@
                     { text: 'User Name', value: 'userName' },
                     { text: 'Date', value: 'created' },
                     { text: 'Duration (min)', value: 'duration' },
-                    { text: 'Lesson Price', value: 'price' },
+                    { text: 'Tutor Price', value: 'price' },
+                    { text: 'Lessons Price', value: 'totalPrice' },
                     { text: 'Price After Subsidizing', value: 'subsidizing' },
 
                     { text: 'Approve', value: '' }
@@ -124,6 +137,7 @@
         methods: {
             editItem(item) {
                 this.editedIndex = this.paymentRequestsList.indexOf(item);
+                console.log(item);
                 this.dialog = true;
                 this.editedItem = {
                     "studyRoomSessionId": item.studyRoomSessionId,
@@ -131,7 +145,10 @@
                     "paymentKey": item.paymentKey,
                     "tutorName": item.tutorName,
                     "sellerKey": item.sellerKey,
-                    "price": item.subsidizing
+                    tutorPrice: item.price,
+                    duration: item.duration,
+                    subsidizing : item.subsidizing,
+                    "price": item.totalPrice
                 };
             },
             approve() {
@@ -139,7 +156,6 @@
                 const index = this.editedIndex;
                 const item = this.paymentRequestsList[index];
                 approvePayment(itemToSubmit).then((resp) => {
-                    console.log('got payment resp success')
 
                     this.$toaster.success(`User ${item.userName} pay to Tutor ${item.tutorName}`);
                     this.paymentRequestsList.splice(index, 1);
@@ -151,6 +167,15 @@
                         this.$toaster.error(`Error can't approve the payment`);
                     }
                 )
+            },
+            decline() {
+                var result = confirm("Are you sure?");
+                if (result) {
+                    this.paymentRequestsList.splice(index, 1);
+                    this.dialog = false;
+                    this.editedItem = {};
+                    this.editedIndex = -1;
+                }
             },
             close() {
                 this.dialog = false;

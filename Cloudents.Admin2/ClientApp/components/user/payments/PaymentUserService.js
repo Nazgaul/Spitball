@@ -12,10 +12,26 @@ function PaymentRequestItem(objInit) {
     this.studyRoomSessionId = objInit.studyRoomSessionId;
     this.created = new Date(objInit.created).toLocaleString();
     this.duration = objInit.duration;
-    this.subsidizing = objInit.subsidizing.toFixed(2);
+    this.totalPrice = this.price*this.duration/60;
+    this.subsidizing = (subsidizingPrice(this.price)*this.duration/60).toFixed(2);
 }
 function createPaymentRequestItem(objInit) {
     return new PaymentRequestItem(objInit);
+}
+
+const subsidizingPrice = function(price) {
+    if (price < 55)
+    {
+        return price;
+    }
+
+    var subsidizingPrice = price - 70;
+    if (subsidizingPrice < 55)
+    {
+        return 55;
+    }
+
+    return subsidizingPrice;
 }
 
 const path = 'AdminPayment/';
@@ -53,5 +69,6 @@ const approvePayment = function (item) {
 
 export {
     getPaymentRequests,
-    approvePayment
+    approvePayment,
+    subsidizingPrice
 };

@@ -11,9 +11,19 @@ namespace Cloudents.Command.Command.Admin
             Amount = amount;
             StudyRoomSessionId = studyRoomSessionId;
         }
-        public string UserKey { get; set; }
-        public string TutorKey { get; set; }
-        public decimal Amount { get; set; }
-        public Guid StudyRoomSessionId { get; set; }
+        public string UserKey { get;  }
+        public string TutorKey { get;}
+        public decimal Amount { get;  }
+        public Guid StudyRoomSessionId { get;  }
+    }
+
+    public class DeclinePaymentCommand : ICommand
+    {
+        public DeclinePaymentCommand(Guid studyRoomSessionId)
+        {
+            StudyRoomSessionId = studyRoomSessionId;
+        }
+
+        public Guid StudyRoomSessionId { get; }
     }
 }

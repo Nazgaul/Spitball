@@ -22,6 +22,10 @@ namespace Cloudents.Core.DTOs.Admin
         public string UserName { get; set; }
         public DateTime Created { get; set; }
         public int Duration { get; set; }
-        public decimal Subsidizing { get; set; }
+       // public decimal SubsidizingPrice => Tutor.PriceAfterDiscount(Price);
+
+        //public decimal Price { get; set; }
+
+        
     }
 }

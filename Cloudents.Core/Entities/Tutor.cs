@@ -42,6 +42,26 @@ namespace Cloudents.Core.Entities
                 State = ItemState.Ok;
             }
         }
+
+
+        public static decimal PriceAfterDiscount(decimal price)
+        {
+            //var price2 = price - 70;
+
+            //Maybe we can do it with min max
+            if (price < 55)
+            {
+                return price;
+            }
+
+            var subsidizingPrice = price - 70;
+            if (subsidizingPrice < 55)
+            {
+                return 55;
+            }
+
+            return subsidizingPrice;
+        }
         //public virtual bool Equals(Tutor other)
         //{
         //    if (ReferenceEquals(null, other)) return false;
