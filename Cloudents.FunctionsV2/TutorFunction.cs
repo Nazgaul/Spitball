@@ -49,7 +49,7 @@ namespace Cloudents.FunctionsV2
                     updateOccur = true;
                     var courses = update.Courses?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ??
                                   new string[0];
-                    var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ?? new string[0]; 
+                    var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray() ?? new string[0]; 
                     await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {
                         Item = new Tutor
