@@ -59,6 +59,7 @@ namespace Cloudents.FunctionsV2
                             Name = update.Name,
                             Courses = courses.ToArray(),
                             Rate = update.Rate,
+
                             InsertDate = DateTime.UtcNow,
                             Prefix = courses.Union(subjects).Union(new[] { update.Name })
                                 .Distinct(StringComparer.OrdinalIgnoreCase).ToArray(),
