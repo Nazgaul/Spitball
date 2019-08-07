@@ -3,12 +3,13 @@
 
 function PaymentRequestItem(objInit) {
     this.price = objInit.price.toFixed(2);
-    this.sellerKey = objInit.sellerKey;
-    this.paymentKey = objInit.paymentKey;
+    //this.sellerKey = objInit.sellerKey;
+    //this.paymentKey = objInit.paymentKey;
     this.tutorId = objInit.tutorId;
     this.tutorName = objInit.tutorName;
     this.userId = objInit.userId;
     this.userName = objInit.userName;
+    this.tutorPayme = objInit.cantPay || true; 
     this.studyRoomSessionId = objInit.studyRoomSessionId;
     this.created = new Date(objInit.created).toLocaleString();
     this.duration = objInit.duration;
@@ -51,24 +52,23 @@ const getPaymentRequests = function () {
 };
 
 
-const approvePayment = function (item) {
+const approvePayment = function (item,spitballPay) {
     return connectivityModule.http.post(`${path}`, {
-        "UserKey": item.paymentKey,
-        "TutorKey": item.sellerKey,
-        "Amount": item.price,
-        "StudyRoomSessionId": item.studyRoomSessionId
-    })
-        .then((resp) => {
-            console.log(resp, 'post doc success');
-            return Promise.resolve(resp);
-        }, (error) => {
-            console.log(error, 'error post doc');
-            return Promise.reject(error);
-        });
+       studentPay : item.subsidizing,
+       spitballPay: spitballPay,
+       userId: item.userId,
+       tutorId: item.tutorId,
+       StudyRoomSessionId: item.studyRoomSessionId
+    });
+};
+
+const declinePayment = function (item) {
+    return connectivityModule.http.delete(`${path}?StudyRoomSessionId=${item.studyRoomSessionId}`);
 };
 
 export {
     getPaymentRequests,
     approvePayment,
-    subsidizingPrice
+    subsidizingPrice,
+    declinePayment
 };

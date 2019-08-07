@@ -4,16 +4,20 @@ namespace Cloudents.Command.Command.Admin
 {
     public class PaymentCommand: ICommand
     {
-        public PaymentCommand(string userKey, string tutorKey, decimal amount, Guid studyRoomSessionId)
+        public PaymentCommand(long userId, long tutorId, decimal studentPay, decimal spitballPay, Guid studyRoomSessionId)
         {
-            UserKey = userKey;
-            TutorKey = tutorKey;
-            Amount = amount;
+            UserId = userId;
+            TutorId = tutorId;
+            StudentPay = studentPay;
+            SpitballPay = spitballPay;
             StudyRoomSessionId = studyRoomSessionId;
         }
-        public string UserKey { get;  }
-        public string TutorKey { get;}
-        public decimal Amount { get;  }
+
+        public long UserId { get;  }
+        public long TutorId { get;}
+        public decimal StudentPay { get;  }
+        public decimal SpitballPay { get;  }
+
         public Guid StudyRoomSessionId { get;  }
     }
 

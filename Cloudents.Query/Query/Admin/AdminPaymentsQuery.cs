@@ -22,8 +22,7 @@ namespace Cloudents.Query.Query.Admin
                 //This query will not work in case there will be more then one student in a room.
                 const string sql = @"select srs.Id as StudyRoomSessionId,
                     t.Price as Price, 
-		                        t.SellerKey, 
-		                        u.PaymentKey, 
+		             case when t.SellerKey is null then 1 else 0 end as cantPay,
 		                        t.Id as TutorId, 
 		                        tu.Name as TutorName, 
 		                        u.Id as UserId,

@@ -39,39 +39,42 @@
             <v-card>
                 <v-card-text>
                     <v-container grid-list-md>
+                        <v-alert v-model="editedItem.tutorPayme" :type="warning" class="mb-4"> This payment can't be processed because seller is not on payme</v-alert>
                         <v-layout wrap>
-                             <v-flex xs6>
-                                 User Name:
+                             <v-flex xs12>
+                                 User Name:  <b>{{editedItem.userName}}</b>
                             </v-flex>
-                            <v-flex xs6>
-                                {{editedItem.userName}}
+                           
+                              <v-flex xs12>
+                                Tutor Name:  <b>{{editedItem.tutorName}}</b>
                             </v-flex>
-                              <v-flex xs6>
-                                Tutor Name:
+
+                               <v-flex xs12>
+                               
+                                 <v-text-field label=" Tutor Price per hour:" v-model="editedItem.tutorPrice"></v-text-field>
+                                  
                             </v-flex>
-                            <v-flex xs6>
-                                {{editedItem.tutorName}}
-                            </v-flex>
-                            <v-flex xs12>
-                                     <v-text-field
-            label="Payment Key" v-model="editedItem.paymentKey"
-          ></v-text-field>
-                            </v-flex>
-                            <v-flex xs12>
-                                  <v-text-field
-            label="Seller Key" v-model="editedItem.sellerKey"
-          ></v-text-field>
-                            </v-flex>
+                            <br>
+                            <br>
+                             <br>
+                              <br>
                             
-                           <v-flex xs4>
+                            
+                           <v-flex xs3>
                                <v-text-field label="Duration in minutes" v-model="editedItem.duration"></v-text-field>
                            </v-flex>
-                           <v-flex xs4>
+                           <v-flex xs3>
                                <v-text-field readonly="" label="Session Total Price" v-model="editedItem.price"></v-text-field>
                            </v-flex>
-                           <v-flex xs4>
-                               <v-text-field readonly="" label="Session Price After discount" v-model="editedItem.subsidizing"></v-text-field>
+                           <v-flex xs3>
+                               <v-text-field label="Student Pay" v-model="editedItem.subsidizing"></v-text-field>
                            </v-flex>
+                           <v-flex xs3>
+                               <v-text-field readonly="" label="Spitball Pay" v-model="spitballPay"></v-text-field>
+                           </v-flex>
+                           <!-- <v-flex xs4>
+                               <v-text-field readonly="" label="Session Price After discount" v-model="editedItem.subsidizing"></v-text-field>
+                           </v-flex> -->
                            
                           
                             
@@ -86,8 +89,8 @@
                         No Pay
                     </v-btn>
                     <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-                    <v-btn color="green darken-1" flat @click="approve()">
-                        Done
+                    <v-btn color="green darken-1" :disabled="editedItem.tutorPayme" flat @click="approve()">
+                        Pay
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -96,13 +99,19 @@
 </template>
 
 <script>
-    import { getPaymentRequests, approvePayment,subsidizingPrice } from './PaymentUserService'
+    import { getPaymentRequests, approvePayment,subsidizingPrice,declinePayment } from './PaymentUserService'
 
     export default {
        
         computed: {
     durationX() {
       return this.editedItem.duration;
+    },
+    tutorPriceX() {
+        return this.editedItem.tutorPrice;
+    },
+    spitballPay() {
+        return (this.editedItem.price-this.editedItem.subsidizing).toFixed(2)
     }
   },
   watch: {
@@ -110,6 +119,10 @@
     this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
     this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
       
+    },
+    tutorPriceX() {
+         this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
+    this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
     }
   },
         data() {
@@ -142,9 +155,10 @@
                 this.editedItem = {
                     "studyRoomSessionId": item.studyRoomSessionId,
                     "userName": item.userName,
-                    "paymentKey": item.paymentKey,
+                   // "paymentKey": item.paymentKey,
                     "tutorName": item.tutorName,
-                    "sellerKey": item.sellerKey,
+                    tutorPayme: item.tutorPayme,
+                    //"sellerKey": item.sellerKey,
                     tutorPrice: item.price,
                     duration: item.duration,
                     subsidizing : item.subsidizing,
@@ -155,7 +169,7 @@
                 var itemToSubmit = this.editedItem;
                 const index = this.editedIndex;
                 const item = this.paymentRequestsList[index];
-                approvePayment(itemToSubmit).then((resp) => {
+                approvePayment(itemToSubmit, this.subsidizing).then((resp) => {
 
                     this.$toaster.success(`User ${item.userName} pay to Tutor ${item.tutorName}`);
                     this.paymentRequestsList.splice(index, 1);
@@ -169,12 +183,24 @@
                 )
             },
             decline() {
+                 var itemToSubmit = this.editedItem;
+                const index = this.editedIndex;
+                const item = this.paymentRequestsList[index];
                 var result = confirm("Are you sure?");
                 if (result) {
+                    declinePayment(itemToSubmit).then((resp) => {
+
+                    this.$toaster.success(`Payment removed`);
                     this.paymentRequestsList.splice(index, 1);
                     this.dialog = false;
                     this.editedItem = {};
                     this.editedIndex = -1;
+                },
+                    (error) => {
+                        this.$toaster.error(`Error can't approve the payment`);
+                    }
+                )
+                 
                 }
             },
             close() {
