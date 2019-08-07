@@ -192,7 +192,7 @@ export default {
     discountedPrice() {
       let price = this.tutorData.price;
       let discountedAmount = price - this.discountAmount;
-      return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
+      return discountedAmount >  this.minimumPrice ? discountedAmount.toFixed(0) : this.minimumPrice.toFixed(0);
     },
     university() {
       return this.tutorData.university;
