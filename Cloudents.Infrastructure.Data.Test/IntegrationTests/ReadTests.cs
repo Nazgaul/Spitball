@@ -9,6 +9,7 @@ using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
 using FluentAssertions;
 using Xunit;
+using Cloudents.Query.SearchSync;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -37,6 +38,18 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
 
         //}
+
+        [Fact]
+        public async Task TutorSyncAzureSearchQuery_Ok()
+        {
+            var query = new TutorSyncAzureSearchQuery(0, new byte[] { 0 });
+            var query2 = new TutorSyncAzureSearchQuery(0x000000000295F0D6, new byte[] { 1 });
+
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            _ = await fixture.QueryBus.QueryAsync(query2, default);
+
+
+        }
 
         [Fact]
         public async Task DocumentAggregateQuery_Ok()
