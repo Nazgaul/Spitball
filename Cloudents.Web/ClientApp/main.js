@@ -277,13 +277,18 @@ Vue.prototype.$Ph = function (key, placeholders) {
     return LanguageService.changePlaceHolders(rawKey, argumentsToSend)
 }
 
-Vue.prototype.$chatMessage = function (message, date) {
-    let dateText = `<div class="message-date">${date}<span class="chat-checkmark"></span></div>`;
+Vue.prototype.$chatMessage = function (message, date, myMsg) {
+    let dateText;
     if(message.type === 'text'){
         //text and convert links to url's
         let linkTest = /(ftp:\/\/|www\.|https?:\/\/){1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\S*)/g;
         let modifiedText = message.text;
         let matchedResults = modifiedText.match(linkTest);
+        let uniqueClassForMyMessages = `${message.conversationId}-my-messages`;
+        let showCheckMark = myMsg ? `<span class="${uniqueClassForMyMessages} ${!global.isRtl ? 'chat-checkmark' : 'chat-checkmark checkmark-rtl'}${message.unread ? ' unread-message':''}"></span>` : '';
+
+        dateText = `<div class="message-text-date">${date}${showCheckMark}</div>`;
+        
         if(!!matchedResults){
             matchedResults.forEach(result=>{
                 let prefix = result.toLowerCase().indexOf('http') === -1 &&
@@ -294,6 +299,7 @@ Vue.prototype.$chatMessage = function (message, date) {
         return modifiedText + dateText;
     }else{
         let src = utilitiesService.proccessImageURL(message.src, 190, 140, 'crop');
+        dateText = `<div class="message-file-date">${date}</div>`;
         return `<a href="${message.href}" target="_blank"><img src="${src}" />${dateText}</a>`;
     }
 }

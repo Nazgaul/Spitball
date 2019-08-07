@@ -18,8 +18,9 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex';
-import conversationComp from './conversationComponents/conversation.vue'
-import chatService from '../../../services/chatService'
+import conversationComp from './conversationComponents/conversation.vue';
+import chatService from '../../../services/chatService';
+
 export default {
     components:{
         conversationComp

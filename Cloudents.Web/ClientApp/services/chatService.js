@@ -29,6 +29,7 @@ function TextMessage(objInit, id, fromSignalR){
     this.name = objInit.name;
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
+    this.unread = objInit.unread;
 }
 function FileMessage(objInit, id, fromSignalR){
     this.userId= objInit.userId;
@@ -40,6 +41,7 @@ function FileMessage(objInit, id, fromSignalR){
     this.name = objInit.name;
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
+    this.unread = objInit.unread;
 }
 
 function activeConversationObj(objInit){

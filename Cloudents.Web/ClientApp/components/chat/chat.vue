@@ -13,27 +13,14 @@
         @click.stop="OriginalChatState"
       >{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
 
-      <template v-if="state === 'messages'">
-        <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
-        <div class="chat-header-name pl-3">{{activeConversationObj.name}}</div>
-        <span class="other-side">
-          <v-btn-toggle class="chat-header-btn" active-class="chat-btns">
-            <v-btn text>
-              <v-icon
-                v-show="!isMobile"
-                @click.stop="toggleMinimizeChat"
-              >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}
-              </v-icon>
-            </v-btn>
-            <v-btn text>
-              <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
-            </v-btn>
-          </v-btn-toggle>
-        </span>
-      </template>
-
-      <template v-else>
-        <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
+        <template v-if="state === 'messages'">
+          <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
+          <div class="chat-header-name pl-3">{{activeConversationObj.name}}</div>
+        </template>
+        <template v-else>
+            <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
+        </template>
+        
         <span class="other-side">
           <v-icon
             v-show="!isMobile"
@@ -41,7 +28,6 @@
           >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
           <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
         </span>
-      </template>
 
     </v-layout>
 
@@ -148,11 +134,10 @@ export default {
       "updateChatState",
       "toggleChatMinimize",
       "closeChat",
-      "openChatInterface"
+      "openChatInterface",
     ]),
     ...mapGetters(["getEnumChatState"]),
     OriginalChatState() {
-      console.log("vslkjnavesjklnvjklragvnklj");
       if (!this.isLocked) {
         this.updateChatState(this.enumChatState.conversation);
         if (this.isMinimized) {
@@ -205,11 +190,13 @@ export default {
     height: unset;
   }
   .chat-header {
-    background-color: #43425d;
+    align-items: center;
+    background-color: #393850;
     border-radius: 4px 4px 0 0;
-    padding: 10px;
+    padding: 6px;
     color: #fff;
     z-index: 1;
+    .heightMinMax(44px);
     transition: background-color 0.2s ease-in-out;
     -moz-transition: background-color 0.2s ease-in-out;
     -webkit-transition: background-color 0.2s ease-in-out;
@@ -222,8 +209,7 @@ export default {
     }
     .chat-header-text {
       font-family: @fontOpenSans;
-      font-size: 12px;
-      font-weight: bold;
+      font-size: 14px;
       color: #ffffff;
       word-break: break-all;
       text-overflow: ellipsis;
@@ -233,10 +219,13 @@ export default {
     }
     i {
       color: #ffffff;
-      font-size: 16px;
-      margin-right: 14px;
+      font-size: 18px;
+      margin: 4px 10px 0 4px;
       z-index: 2;
       &.sbf-arrow-back-chat {
+        width: 24px;
+        height: 24px;
+        display: flex;
         &.rtl {
           transform: rotate(180deg);
         }
@@ -245,35 +234,20 @@ export default {
     .chat-header-name, .other-side {
       align-self: center;
     }
-    .chat-header-btn {
-      button {
-        background: #393850 !important; // vuetify
-        height: 20px;
-        vertical-align: text-top;
-        width: 30px;
-        align-self: center;
-        color: #fff;
-        opacity: 1;
-        padding-right: 22px;
-        box-shadow: none;
-      }
-      :hover {
-          background: transparent !important;
-        }
-    }
     .other-side {
+      display: flex;
       margin-left: auto;
       i {
         margin-right: 0;
         margin-left: 14px;
       }
       .theme--light.v-btn-toggle {
-        background: transparent !important;
+        background: #393850 !important;
       }
     }
   }
   .general-chat-style {
-    height: 92%;
+    height: 90%;
     width: 100%;
     @media (max-width: @screen-xs) {
      //Not sure why we need height in mobile but if not ios gets fucked up

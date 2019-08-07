@@ -6,7 +6,7 @@
     </v-flex>
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
-        <v-flex>
+        <v-flex class="top-detail-container-wrap">
           <span class="conversation-name pb-2" v-html="conversation.name"></span>
           <span class="conversation-desc text-truncate" v-html="conversation.lastMessage"></span>
         </v-flex>
@@ -59,9 +59,6 @@ export default {
     position:relative;
     flex-grow: 0;
     margin-left: 12px;
-    .user-avatar {
-
-    }
     .user-status{
       bottom: 2px;
       position: absolute;
@@ -69,15 +66,15 @@ export default {
     }
   }
   .user-detail-container {
-    // padding: 12px;
-    // border-bottom: solid 2px rgba(67, 66, 93, 0.17);
     border-bottom: solid 1px #dfdfe4;
-    // padding: 16px 12px 16px 12px;
-    padding: 12px 0; // idan
-    margin: 0 10px; // idan
+    padding: 12px 0;
+    margin: 0 10px;
     .top-detail-container {
       display: flex;
       justify-content: space-between;
+      .top-detail-container-wrap {
+        max-width: 150px;
+      }
       .conversation-name{
         display: flex;
         font-size: 14px;
@@ -103,7 +100,6 @@ export default {
         .conversation-date{
           font-size: 12px;
           color: #919095;
-          
         }
         .conversation-unread{
           background: #5158af;
@@ -116,10 +112,8 @@ export default {
           text-align: center;
           vertical-align: middle;
           font-size: 11px;
-          // margin-top: 3px;
         }
       }
-      
     }
   }
 }

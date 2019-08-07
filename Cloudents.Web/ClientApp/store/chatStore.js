@@ -18,7 +18,7 @@ const state = {
     chatLocked: false,
     chatLoader: false,
     emptyState: [],
-    isSyncing: true,
+    isSyncing: true
 };
 const getters = {
     getFileError: state => state.fileError,
@@ -159,7 +159,7 @@ const mutations = {
         },
     setSyncStatus:(state, val)=>{
         state.isSyncing = val;
-    }
+    },
 };
 
 const actions = {
@@ -171,7 +171,7 @@ const actions = {
     },
     updateChatUploadLoading({commit}, val){
         commit('activateLoader', val);
-},
+    },
     addMessage:({commit, state, dispatch}, message)=>{
         //check if inside conversation
         let isInConversation = state.chatState == state.enumChatState.messages;
@@ -346,6 +346,7 @@ const actions = {
             dateTime: new Date().toISOString(),
             fromSignalR:true,
             image: state.activeConversationObj.image,
+            unread: 0
         }
         localMessageObj = chatService.createMessage(localMessageObj, id);
         dispatch('addMessage', localMessageObj)
@@ -375,8 +376,21 @@ const actions = {
     },
     lockChat:({commit})=>{
         commit('lockChat');
+    },
+    checkUnreadMessageFromSignalR({commit, dispatch, state}, obj) {
+        let currentConversation = state.activeConversationObj.conversationId === obj.conversationId
+        if(currentConversation) {
+            let nodeArray = document.getElementsByClassName(`${obj.conversationId}-my-messages`);
+            let messages = state.messages[obj.conversationId];
+            Array.from(nodeArray).forEach((node, i) => {
+                if(!messages[i].unread) {
+                    node.classList.remove('unread-message');
+                }                        
+            })
+        }
     }
 };
+
 export default {
     state,
     mutations,

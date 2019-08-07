@@ -1,6 +1,6 @@
 <template>
 <div class="message-wrapper" :class="{'myMessage': isMine}">
-    <div class="message" :class="{'myMessage': isMine, 'imgMessage': message.type === 'file'}" v-html="$chatMessage(message, date)"></div>
+    <div class="message" :class="{'myMessage': isMine, 'imgMessage': message.type === 'file'}" v-html="$chatMessage(message, date, isMine)"></div>
 </div>
     
 </template>
@@ -9,6 +9,8 @@
 import {mapGetters, mapActions} from 'vuex';
 import checkMark from '../../../../font-icon/checkmark.svg';
 import utilitiesService from '../../../../services/utilities/utilitiesService';
+import timeago from 'timeago.js';
+
 export default {
     components: {
         checkMark
@@ -24,7 +26,7 @@ export default {
             return this.accountUser.id === this.message.userId
         },
         date() {
-            return utilitiesService.dateFormater(this.message.dateTime);
+            return timeago().format(new Date(this.message.dateTime));
         }
     }
 }
@@ -53,6 +55,7 @@ export default {
     word-break: break-word;
     display: flex;
     flex-direction: column;
+    color: #1d1d21;
     &.myMessage{
         text-align: left;
         margin: 5px 0;
@@ -62,7 +65,7 @@ export default {
         border-radius: 8px 8px 8px 0;
     }
     &.imgMessage{
-        // height: 160px;
+        position: relative;
         background: transparent;
         padding: 0;
         margin: 0;
@@ -82,17 +85,33 @@ export default {
         border-bottom: 2px solid blue;
         margin: 2px 0 0 10px;
         border-right: 2px solid blue;
+        &.checkmark-rtl {
+            transform: rotate(-45deg);
+            border-left: 2px solid blue;
+            border-right: 0;
+        }
     }
 }
-    .message-date{
+    .message-text-date {
         color: rgba(0, 0, 0, 0.38);
+        font-size: 12px;
         display: flex;
-        font-size: 11px;
         padding-top: 7px;
         justify-content: flex-end;
         &.myMessage{
             justify-content: flex-start;
         }
+        .unread-message {
+            visibility: hidden;
+        }
+    }
+    .message-file-date {
+       color: rgba(0, 0, 0, 0.38);
+       font-size: 12px;
+       position: absolute;
+       bottom: 10px;
+       right: 10px;
+       color: #fff;
     }
 }
 
