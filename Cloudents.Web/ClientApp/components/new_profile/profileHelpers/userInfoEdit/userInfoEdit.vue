@@ -1,6 +1,6 @@
 <template>
     <v-card class="user-edit-wrap pb-3">
-        <v-form v-model="validUserForm" ref="formUser">
+        <v-form v-model="validUserForm" ref="formUser" @submit.prevent>
         <v-layout class="header pa-3 mb-3">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
