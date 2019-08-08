@@ -41,7 +41,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> PayAsync(PaymentRequest model,
+        public async Task<IActionResult> PayAsync([FromBody]PaymentRequest model,
             [FromServices] PayMeCredentials payMeCredentials,
             CancellationToken token)
         {

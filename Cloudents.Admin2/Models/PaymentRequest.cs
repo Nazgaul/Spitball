@@ -8,7 +8,9 @@ namespace Cloudents.Admin2.Models
         //[Required]
         //[StringLength(255)]
         //public string UserKey { get; set; }
+        [Range(5, 50000)]
         public decimal StudentPay { get; set; }
+        [Range(5, 50000)]
         public decimal SpitballPay { get; set; }
 
         public long UserId { get; set; }

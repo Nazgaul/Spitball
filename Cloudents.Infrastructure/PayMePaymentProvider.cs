@@ -83,7 +83,7 @@ namespace Cloudents.Infrastructure
                 return new GenerateSale()
                 {
                     SellerPaymeId = sellerId,
-                    SalePrice = (int)price * 100,
+                    SalePrice = (int)(price * 100),
                     BuyerKey = buyerId
                 };
             }

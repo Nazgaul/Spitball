@@ -39,14 +39,17 @@
             <v-card>
                 <v-card-text>
                     <v-container grid-list-md>
-                        <v-alert v-model="editedItem.tutorPayme" :type="warning" class="mb-4"> This payment can't be processed because seller is not on payme</v-alert>
+                        <v-alert v-model="editedItem.tutorPayme" type="error" class="mb-4"> This payment can't be processed because seller is not on payme</v-alert>
                         <v-layout wrap>
                              <v-flex xs12>
                                  User Name:  <b>{{editedItem.userName}}</b>
                             </v-flex>
                            
-                              <v-flex xs12>
+                            <v-flex xs12>
                                 Tutor Name:  <b>{{editedItem.tutorName}}</b>
+                            </v-flex>
+                            <v-flex xs12 v-if="editedItem.tutorPayme">
+                                Tutor Id:  <b>{{editedItem.tutorId}}</b>
                             </v-flex>
 
                                <v-flex xs12>
@@ -155,13 +158,13 @@
                 this.editedItem = {
                     "studyRoomSessionId": item.studyRoomSessionId,
                     "userName": item.userName,
-                   // "paymentKey": item.paymentKey,
                     "tutorName": item.tutorName,
-                    tutorPayme: item.tutorPayme,
-                    //"sellerKey": item.sellerKey,
+                    tutorId: item.tutorId,
+                    tutorPayme: item.cantPay,
                     tutorPrice: item.price,
                     duration: item.duration,
                     subsidizing : item.subsidizing,
+                    userId: item.userId,
                     "price": item.totalPrice
                 };
             },
@@ -169,7 +172,7 @@
                 var itemToSubmit = this.editedItem;
                 const index = this.editedIndex;
                 const item = this.paymentRequestsList[index];
-                approvePayment(itemToSubmit, this.subsidizing).then((resp) => {
+                approvePayment(itemToSubmit, this.spitballPay).then((resp) => {
 
                     this.$toaster.success(`User ${item.userName} pay to Tutor ${item.tutorName}`);
                     this.paymentRequestsList.splice(index, 1);
