@@ -8,8 +8,9 @@
                       :items="paymentRequestsList"
                      
                       disable-initial-sort>
-            <template slot="items" slot-scope="props">
-                <td >{{ props.item.tutorId }}</td>
+            <template slot="items" slot-scope="props" >
+
+                <td :class="{ 'no-pay': props.item.tutorPayme }" >{{ props.item.tutorId }}</td>
                 <td >{{ props.item.tutorName }}</td>
                 <td >{{ props.item.userId }}</td>
                 <td >{{ props.item.userName }}</td>
@@ -235,6 +236,9 @@
     }*/
     input {
     width: 300px;
+    }
+    .no-pay {
+        background: red;
     }
   
 </style>

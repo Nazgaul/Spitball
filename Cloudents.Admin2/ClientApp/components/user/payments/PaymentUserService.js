@@ -9,7 +9,6 @@ function PaymentRequestItem(objInit) {
     this.tutorName = objInit.tutorName;
     this.userId = objInit.userId;
     this.userName = objInit.userName;
-    console.log(objInit.cantPay)
     this.tutorPayme = objInit.cantPay; 
     this.studyRoomSessionId = objInit.studyRoomSessionId;
     this.created = new Date(objInit.created).toLocaleString();
