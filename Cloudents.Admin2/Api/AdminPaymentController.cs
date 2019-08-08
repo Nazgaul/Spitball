@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
@@ -41,9 +42,10 @@ namespace Cloudents.Admin2.Api
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> PayAsync(PaymentRequest model,
+            [FromServices] PayMeCredentials payMeCredentials,
             CancellationToken token)
         {
-            var command = new PaymentCommand(model.UserId,model.TutorId,model.StudentPay,model.SpitballPay,model.StudyRoomSessionId);
+            var command = new PaymentCommand(model.UserId,model.TutorId,model.StudentPay,model.SpitballPay,model.StudyRoomSessionId, payMeCredentials.BuyerKey);
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();

@@ -30,7 +30,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             var response = await _payment.TransferPaymentAsync(tutor.SellerKey, 
                 user.BuyerPayment.PaymentKey, message.StudentPay, token);
             await _payment.TransferPaymentAsync(tutor.SellerKey,
-                "MPL15627-63639KKV-JHFYQUQ0-EUEGLVFI", message.SpitballPay, token);
+                message.SpitballBuyerKey, message.SpitballPay, token);
 
             session.SetReceipt(response.PaymeSaleId);
             await _studyRoomSessionRepository.UpdateAsync(session, token);
