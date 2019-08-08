@@ -199,13 +199,13 @@ export default {
             }
             .messages-body{
                 flex :2;
-                padding: 15px 10px 0 10px;
+                padding: 15px 10px 20px 10px;
                 margin: 0 0 4px 0;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
                 //flex-grow: 1;
             }
-            .messages-body-disabled{
+            .messages-body-disabled {
                 padding: 15px 10px 0 10px;
                 margin: 22px 0 4px 0;
                 overflow: auto;

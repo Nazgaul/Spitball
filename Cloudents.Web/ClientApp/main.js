@@ -285,7 +285,7 @@ Vue.prototype.$chatMessage = function (message, date, myMsg) {
         let modifiedText = message.text;
         let matchedResults = modifiedText.match(linkTest);
         let uniqueClassForMyMessages = `${message.conversationId}-my-messages`;
-        let showCheckMark = myMsg ? `<span class="${uniqueClassForMyMessages} ${!global.isRtl ? 'chat-checkmark' : 'chat-checkmark checkmark-rtl'}${message.unread ? ' unread-message':''}"></span>` : '';
+        let showCheckMark = myMsg ? `<span class="${uniqueClassForMyMessages} ${!global.isRtl ? 'chat-checkmark' : 'chat-checkmark checkmark-rtl'}${message.unreadMessage ? ' unread-message':''}"></span>` : '';
 
         dateText = `<div class="message-text-date">${date}${showCheckMark}</div>`;
         

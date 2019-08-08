@@ -8,7 +8,9 @@
       <v-flex class="top-detail-container">
         <v-flex class="top-detail-container-wrap">
           <span class="conversation-name pb-2" v-html="conversation.name"></span>
-          <span class="conversation-desc text-truncate" v-html="conversation.lastMessage"></span>
+          <template>
+            <span class="conversation-desc text-truncate" v-html="conversation.lastMessage"></span>
+          </template>
         </v-flex>
         <v-flex class="date-unread-container">
           <span class="conversation-date pb-2">{{date}}</span>
@@ -91,7 +93,11 @@ export default {
         font-size: 12px;
         width: 180px;
         color: #919095;
-        display: block;
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 8px;
+        }
       }
       .date-unread-container{
         display: flex;

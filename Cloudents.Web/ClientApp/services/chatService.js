@@ -1,5 +1,9 @@
 import { connectivityModule } from "./connectivity.module"
 
+function createLastImageMsg() {
+    return `<img src="${require('../components/chat/pages/messageComponents/photo-camera-small.png')}" /><span>PHOTO</span>`
+}
+
 function createConversationId(arrIds){
     return arrIds.sort((a, b) => a - b).join('_');
 }
@@ -13,7 +17,7 @@ function Conversation(objInit){
     this.dateTime = objInit.dateTime || new Date().toISOString();
     this.image = objInit.image;
     this.studyRoomId = objInit.studyRoomId;
-    this.lastMessage = objInit.lastMessage || objInit.text
+    this.lastMessage = objInit.lastMessage || createLastImageMsg();
 }
 
 function createConversation(objInit){
@@ -29,7 +33,7 @@ function TextMessage(objInit, id, fromSignalR){
     this.name = objInit.name;
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
-    this.unread = objInit.unread;
+    this.unreadMessage = objInit.unreadMessage;
 }
 function FileMessage(objInit, id, fromSignalR){
     this.userId= objInit.userId;
@@ -41,7 +45,7 @@ function FileMessage(objInit, id, fromSignalR){
     this.name = objInit.name;
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
-    this.unread = objInit.unread;
+    this.unreadMessage = objInit.unreadMessage;
 }
 
 function activeConversationObj(objInit){
@@ -106,5 +110,6 @@ export default {
     createServerMessageObj,
     clearUnread,
     createActiveConversationObj,
-    createConversationId
+    createConversationId,
+    createLastImageMsg
 }

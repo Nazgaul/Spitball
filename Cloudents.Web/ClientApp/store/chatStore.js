@@ -1,5 +1,6 @@
 import chatService from '../services/chatService';
-import { LanguageService } from '../services/language/languageService'
+import { LanguageService } from '../services/language/languageService';
+import { createLastImageMsg } from '../services/chatService';
 
 const state = {
     fileError: false,
@@ -106,6 +107,8 @@ const mutations = {
         state.messages[id].push(message);
         if(message.type === 'text'){
             state.conversations[id].lastMessage = message.text;
+        } else if(message.type === 'file') {
+            state.conversations[id].lastMessage = createLastImageMsg();
         }
         state.conversations[id].dateTime = message.dateTime;
     },
@@ -346,7 +349,7 @@ const actions = {
             dateTime: new Date().toISOString(),
             fromSignalR:true,
             image: state.activeConversationObj.image,
-            unread: 0
+            unreadMessage: true
         }
         localMessageObj = chatService.createMessage(localMessageObj, id);
         dispatch('addMessage', localMessageObj)

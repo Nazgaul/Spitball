@@ -3,7 +3,9 @@
         <!--Upload Image-->
         <div class="chat-input-container align-center justify-center column" v-show="!typing">
             <template>
+                
                 <button class="chat-camera" v-if="$vuetify.breakpoint.xsOnly">
+                    <input type="file" accept="image/*" capture="camera" />
                     <photo-camera />
                 </button>
 
