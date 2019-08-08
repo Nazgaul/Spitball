@@ -111,19 +111,7 @@ cTable.SYS_CHANGE_VERSION,
 cTable.Id,
 u.UniversityId2,
 sr.lessonsCount
-having (
-      SELECT Max(v)
-       FROM (VALUES (Max(t.version)),(Max(u.Version)),(Max(tc.Version)),(Max(c.Version)),(Max(cs.Version)),
-	   (Max(tr.Version))) AS value(v)
-   ) > @RowVersion or
- (
-      SELECT Max(v)
-       FROM (VALUES (Max(t.version)),(Max(u.Version)),(Max(tc.Version)),(Max(c.Version)),(Max(cs.Version)),
-	   (Max(tr.Version))) AS value(v)
-   ) is null
-order by version
-offset @pageSize * @PageNumber rows
-fetch next @pageSize Rows only";
+order by version";
 
 
                 const string secondQuery = @"with cte as(

@@ -70,7 +70,7 @@ namespace Cloudents.FunctionsV2
                                 UserId = update.UserId,
                                 Name = update.Name,
                                 Courses = courses.Take(3),
-                                Subjects = update.Subjects,
+                                Subjects = subjects.OrderBy(o=>o).Take(3),
                                 ReviewsCount = update.ReviewsCount,
                                 Rate = (float)update.Rate,
                                 University = update.University, 

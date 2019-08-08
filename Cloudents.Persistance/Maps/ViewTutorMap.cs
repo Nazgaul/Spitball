@@ -24,7 +24,7 @@ namespace Cloudents.Persistence.Maps
             SchemaAction.Validate();
         }
 
-        /*CREATE or alter   view [sb].[vTutorRead] as
+        /*alter     view [sb].[vTutorRead] as
 
 Select 
 t.id as id,
@@ -36,7 +36,9 @@ u.image,
 	select  c.SubjectId from sb.Course c where c.SubjectId <> 39 
 	and c.Name in (
 	select uc.CourseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
-	) for json PATH) as subjects,
+	) 
+	order by name
+	for json PATH) as subjects,
 (Select top 3 uc.courseid as 'name' 
    from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id for json PATH) as Courses,
 t.Price,
