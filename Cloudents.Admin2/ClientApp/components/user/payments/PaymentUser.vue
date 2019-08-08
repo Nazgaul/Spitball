@@ -160,7 +160,7 @@
                     "userName": item.userName,
                     "tutorName": item.tutorName,
                     tutorId: item.tutorId,
-                    tutorPayme: item.cantPay,
+                    tutorPayme: item.tutorPayme,
                     tutorPrice: item.price,
                     duration: item.duration,
                     subsidizing : item.subsidizing,

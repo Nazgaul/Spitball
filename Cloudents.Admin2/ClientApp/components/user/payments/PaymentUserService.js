@@ -10,7 +10,7 @@ function PaymentRequestItem(objInit) {
     this.userId = objInit.userId;
     this.userName = objInit.userName;
     console.log(objInit.cantPay)
-    this.tutorPayme = objInit.cantPay || true; 
+    this.tutorPayme = objInit.cantPay; 
     this.studyRoomSessionId = objInit.studyRoomSessionId;
     this.created = new Date(objInit.created).toLocaleString();
     this.duration = objInit.duration;
@@ -46,7 +46,7 @@ const getPaymentRequests = function () {
                 arrPaymentRequestsList.push(createPaymentRequestItem(pr));
             });
         }
-        return Promise.resolve(arrPaymentRequestsList);
+        return arrPaymentRequestsList;
     }, (err) => {
         return Promise.reject(err);
     });
