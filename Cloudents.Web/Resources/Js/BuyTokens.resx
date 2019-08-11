@@ -120,6 +120,12 @@
   <data name="answer" xml:space="preserve">
     <value>Answer</value>
   </data>
+  <data name="bottom_1" xml:space="preserve">
+    <value>Please note, private lessons can not be paid with points.</value>
+  </data>
+  <data name="bottom_2" xml:space="preserve">
+    <value>Purchasing of points is solely to access documents on the Spitball platform.</value>
+  </data>
   <data name="buy_points_button" xml:space="preserve">
     <value>GET POINTS</value>
   </data>
@@ -151,7 +157,7 @@
     <value>MOST POPULAR</value>
   </data>
   <data name="need_points" xml:space="preserve">
-    <value>Need more points?</value>
+    <value>Need points now?</value>
   </data>
   <data name="per_point" xml:space="preserve">
     <value>/ point</value>

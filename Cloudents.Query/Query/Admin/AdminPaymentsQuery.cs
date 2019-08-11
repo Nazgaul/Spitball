@@ -21,18 +21,15 @@ namespace Cloudents.Query.Query.Admin
             {
                 //This query will not work in case there will be more then one student in a room.
                 const string sql = @"select srs.Id as StudyRoomSessionId,
-t.Price*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60 as Price, 
-		                        t.SellerKey, 
-		                        u.PaymentKey, 
+                    t.Price as Price, 
+		             case when t.SellerKey is null then 1 else 0 end as cantPay,
 		                        t.Id as TutorId, 
 		                        tu.Name as TutorName, 
 		                        u.Id as UserId,
 		                        u.Name as UserName,
 								srs.Created,
-								DATEDIFF(MINUTE, srs.Created, srs.Ended) as Duration,
-								case when t.Price < 55 then cast(t.Price as float)*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60
-								when t.Price - 70 <= 55 then cast(55 as float)*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60
-								when t.Price - 70 > 55 then cast((t.Price - 70) as float)*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60 end as 'Subsidizing'
+								DATEDIFF(MINUTE, srs.Created, srs.Ended) as Duration
+								
                         from [sb].[StudyRoomSession] srs
                         join sb.StudyRoom sr
 	                        on srs.StudyRoomId = sr.Id
@@ -44,8 +41,8 @@ t.Price*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60 as Price,
 	                        on u.id = sru.UserId
                         join sb.[User] tu
 	                        on t.Id = tu.Id
-                        where Receipt is null and srs.Ended is not null
-                            and t.Price*DATEDIFF(MINUTE, srs.Created, srs.Ended)/60 > 10
+                        where Receipt is null
+                            and DATEDIFF(MINUTE, srs.Created, srs.Ended) > 10
 						    and u.PaymentKey is not null";
                 using (var conn = _repository.OpenConnection())
                 {

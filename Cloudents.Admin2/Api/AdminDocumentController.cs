@@ -98,7 +98,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<IActionResult> Delete(long id, CancellationToken token)
         {
             var command = new DeleteDocumentCommand(id);

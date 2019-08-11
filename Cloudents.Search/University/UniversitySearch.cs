@@ -36,7 +36,7 @@ namespace Cloudents.Search.University
         {
             string CountryFilter(string country1)
             {
-                return $"{nameof(Entities.University.Country)} eq '{country1}'";
+                return $"{nameof(Entities.University.Country)} eq '{country1.ToUpperInvariant()}'";
             }
 
             var searchParameter = new SearchParameters
@@ -64,7 +64,7 @@ namespace Cloudents.Search.University
                     ToDto(s.Document)));
             }
 
-            if (page == 0)
+            if (page == 0 && !string.IsNullOrEmpty(term))
             {
                 var suggestParams = new SuggestParameters()
                 {

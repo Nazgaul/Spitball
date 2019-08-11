@@ -68,9 +68,9 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] UniversitiesRequest model
             , CancellationToken token)
         {
-            if (User.GetCountryClaim() == model.Country || User.IsInRole(Roles.Admin))
+            if (User.GetCountryClaim() == model.Country || string.IsNullOrEmpty(User.GetCountryClaim()))
             {
-                var query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
+                var query = new AdminUniversitiesQuery(User.GetCountryClaim(), model.State.GetValueOrDefault(ItemState.Pending));
                 var retVal = await _queryBus.QueryAsync(query, token);
                 return retVal;
             }
@@ -81,10 +81,10 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("allUniversities")]
-        [Authorize(Policy = "IsraelUser")]
+        [Authorize(/*Policy = IsraelUser*/)]
         public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
         {
-            var query = new AdminAllUniversitiesEmptyQuery();
+            var query = new AdminAllUniversitiesQuery(User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
@@ -98,7 +98,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>list of universities</returns>
         [Route("search")]
         [HttpGet]
-        [Authorize(Policy = "IsraelUser")]
+        [Authorize(/*Policy = IsraelUser*/)]
         public async Task<UniversitySearchDto> GetAsync([FromQuery(Name = "university")]string university,
             CancellationToken token)
         {
@@ -120,7 +120,7 @@ namespace Cloudents.Admin2.Api
 
         //TODO: Fix this and make it work in proper CQRS architecture 
         [HttpDelete("{id}")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<IActionResult> ApproveCourse(Guid id,
                 CancellationToken token)
         {

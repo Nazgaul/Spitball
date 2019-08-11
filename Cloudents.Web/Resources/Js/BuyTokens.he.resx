@@ -120,6 +120,12 @@
   <data name="answer" xml:space="preserve">
     <value>תשובה</value>
   </data>
+  <data name="bottom_1" xml:space="preserve">
+    <value>שים לב, לא ניתן לשלם בנקודות לשיעורים פרטיים.</value>
+  </data>
+  <data name="bottom_2" xml:space="preserve">
+    <value>רכישת נקודות היא אך ורק עבור גישה למסמכי לימוד באתר ספיטבול.</value>
+  </data>
   <data name="buy_points_button" xml:space="preserve">
     <value>קבל נקודות</value>
   </data>

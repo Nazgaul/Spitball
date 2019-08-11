@@ -8,11 +8,12 @@ namespace Cloudents.Persistence.Maps
         public AdminUserMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(x => x.Email).Not.Nullable();
-            Map(x => x.Country).Not.Nullable();
+            Map(x => x.Email).Not.Nullable().Unique();
+            Map(x => x.Country).Nullable();
             HasMany(x => x.Roles).AsSet();
 
             ReadOnly();
+            
         }
     }
 

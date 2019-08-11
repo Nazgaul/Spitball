@@ -12,28 +12,33 @@
                     </v-flex>
                 </v-layout>
                 <v-layout pt-4 ml-2 mr-2 :class="{'column': $vuetify.breakpoint.xsOnly}">
-                    <v-flex text-xs-center column xs4 :class="$vuetify.breakpoint.xsOnly ? 'pl-5 pr-5' : 'pl-4 pr-4'">
+                    <v-flex class="flex-buy-tokens" text-xs-center column xs4 :class="$vuetify.breakpoint.xsOnly ? 'pl-5 pr-5' : 'pl-4 pr-4'">
                         <div class="buy-tokens-icon">
                             <v-icon>sbf-answer-icon</v-icon>
                         </div>
                         <div class="buy-tokens-bold-text mt-3" v-language:inner>buyTokens_answer</div>
                         <div class="buy-tokens-normal-text mt-1" v-language:inner>buyTokens_earn_answer</div>
+                        <div class="line-buy-tokens"></div>
                     </v-flex>
-                    <v-flex text-xs-center column xs4 pl-4 pr-4
+                    <v-flex class="flex-buy-tokens" text-xs-center column xs4 pl-4 pr-4
                             :class="$vuetify.breakpoint.xsOnly ? 'mt-5 pl-5 pr-5' : 'pl-4 pr-4'">
                         <div class="buy-tokens-icon">
                             <v-icon>sbf-upload-icon</v-icon>
                         </div>
                         <div class="buy-tokens-bold-text mt-3" v-language:inner>buyTokens_upload</div>
                         <div class="buy-tokens-normal-text mt-1" v-language:inner>buyTokens_earn_upload</div>
+                        <div class="line-buy-tokens"></div>
+
                     </v-flex>
-                    <v-flex text-xs-center column xs4 pl-4 pr-4
+                    <v-flex class="flex-buy-tokens" text-xs-center column xs4 pl-4 pr-4
                             :class="$vuetify.breakpoint.xsOnly ? 'mt-5 pl-5 pr-5' : 'pl-4 pr-4'">
                         <div class="buy-tokens-icon">
                             <v-icon>sbf-invite-icon</v-icon>
                         </div>
                         <div class="buy-tokens-bold-text mt-3" v-language:inner>buyTokens_invite</div>
                         <div class="buy-tokens-normal-text mt-1" v-language:inner>buyTokens_earn_invite</div>
+                        <div class="line-buy-tokens"></div>
+
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -113,12 +118,23 @@
                         </div>
                     </v-flex>
                 </v-layout>
-                <v-layout pt-4>
-                    <v-flex text-xs-center mt-3>
+                 <v-layout justify-center class="buy-tokens-price-container2">
+                    <v-flex class="buy-tokens-details-container">
+                        <img class="img-warning" src="./img/warning.png" alt=""/>
+                        <div class="txt-buy-tokens">
+                            <p style="color:red;" v-language:inner="'buyTokens_bottom_1'"/>
+                            <p v-language:inner="'buyTokens_bottom_2'"/>
+                        </div>
+                            </v-flex>
+                 </v-layout>
+                
+     
+                <v-layout class="paypalbtn">
+                    <v-flex text-xs-center>
                         <div class="paypal-button" id="paypal-button">
-              <span>
-                <v-icon style="font-size: 20px;">sbf-lock-icon</v-icon>
-              </span>
+                        <span>
+                            <v-icon style="font-size: 20px;">sbf-lock-icon</v-icon>
+                        </span>
                             <span v-language:inner>buyTokens_secure_payment</span>
                             <img src="./img/paypal-icon.png" style="vertical-align: middle; pointer-events: none;">
                         </div>

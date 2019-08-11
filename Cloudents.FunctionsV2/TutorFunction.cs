@@ -49,7 +49,7 @@ namespace Cloudents.FunctionsV2
                     updateOccur = true;
                     var courses = update.Courses?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ??
                                   new string[0];
-                    var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ?? new string[0]; 
+                    var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray() ?? new string[0]; 
                     await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {
                         Item = new Tutor
@@ -59,6 +59,7 @@ namespace Cloudents.FunctionsV2
                             Name = update.Name,
                             Courses = courses.ToArray(),
                             Rate = update.Rate,
+
                             InsertDate = DateTime.UtcNow,
                             Prefix = courses.Union(subjects).Union(new[] { update.Name })
                                 .Distinct(StringComparer.OrdinalIgnoreCase).ToArray(),
@@ -69,7 +70,7 @@ namespace Cloudents.FunctionsV2
                                 UserId = update.UserId,
                                 Name = update.Name,
                                 Courses = courses.Take(3),
-                                Subjects = update.Subjects,
+                                Subjects = subjects.OrderBy(o=>o).Take(3),
                                 ReviewsCount = update.ReviewsCount,
                                 Rate = (float)update.Rate,
                                 University = update.University, 

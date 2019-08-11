@@ -127,7 +127,7 @@
     <value>העתק קישור</value>
   </data>
   <data name="dialog_bottom_text" xml:space="preserve">
-    <value>ככל שתשיג יותר חברים בספיטבול, ככה הציונים של כולם יהיו יותר טובים!</value>
+    <value>ככל שתשיגו יותר חברים בספיטבול, ככה הציונים של כולם יהיו יותר טובים!</value>
   </data>
   <data name="dialog_bottom_text2" xml:space="preserve">
     <value>מוגבל לחמש הזמנות</value>
@@ -136,34 +136,34 @@
     <value> חברים שהוזמנו הצטרפו</value>
   </data>
   <data name="dialog_subtitle" xml:space="preserve">
-    <value>תרוויח 10 נקודות עבור כל אחד שיצטרף</value>
+    <value>תרוויחו 10 נקודות עבור כל אחד שיצטרף</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
     <value>הפיצו את השמועה ב- </value>
   </data>
   <data name="get_document_text" xml:space="preserve">
-    <value>! לחץ על הלינק הזה כדי להעיף מבט, אני בטוח שזה יחסוך לך זמן ויעזור לך בלימודים</value>
+    <value>! לחצו על הלינק הזה כדי להעיף מבט, אני בטוח/ה שזה יחסוך לכם זמן ויעזור לכם בלימודים</value>
   </data>
   <data name="get_your_homework" xml:space="preserve">
     <value>קבל תשובות לשאלות שיעורי הבית תוך דקות והרווח כסף בלענות לשאלות של סטודנטים אחרים. קבל 150 נקודות בחינם אם תירשם באמצעות קישור זה:</value>
   </data>
   <data name="get_your_homework_twitter" xml:space="preserve">
-    <value>קבל תשובות לשאלות שיעורי הבית תוך דקות והרווח כסף בלענות לשאלות של סטודנטים אחרים. קבל 150 נקודות בחינם אם תירשם באמצעות קישור זה</value>
+    <value>קבלו תשובות לשאלות שיעורי הבית תוך דקות והרוויחו כסף ע"י כתיבת תשובות לשאלות של סטודנטים אחרים. קבלו 150 נקודות בחינם אם תירשמו באמצעות קישור זה</value>
   </data>
   <data name="join_me" xml:space="preserve">
     <value>הצטרפו אלי לספיטבול</value>
   </data>
   <data name="ref_placeholder" xml:space="preserve">
-    <value>בחר מסמך לשיתוף</value>
+    <value>בחרו מסמך לשיתוף</value>
   </data>
   <data name="share_facebook" xml:space="preserve">
-    <value>שתף</value>
+    <value>שתפו</value>
   </data>
   <data name="share_google" xml:space="preserve">
     <value>אימייל</value>
   </data>
   <data name="share_tweeter" xml:space="preserve">
-    <value>צייץ</value>
+    <value>לצייץ</value>
   </data>
   <data name="share_whatsup" xml:space="preserve">
     <value>טקסט</value>

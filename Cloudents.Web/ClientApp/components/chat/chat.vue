@@ -23,6 +23,7 @@
     <v-layout v-show="!isMinimized" class="general-chat-style">
       <component :is="`chat-${state}`"></component>
     </v-layout>
+    
   </v-container>
 </template>
 

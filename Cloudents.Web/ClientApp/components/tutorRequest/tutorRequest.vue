@@ -33,18 +33,9 @@
                     :placeholder="guestPhoneNumberPlaceHolder"
                     autocomplete="off"/>
               </v-flex>
-
-              <v-flex xs12 v-if="!isAuthUser">
-                  <v-textarea  
-                    rows="3"
-                    name="add-request-textarea"
-                    :label="topicPlaceholder"
-                    :rules="[rules.required, rules.maximumChars]"
-                    v-model="tutorRequestText"/>
-            </v-flex>
-            <v-flex xs12 v-else>
+            <v-flex xs12>
                   <v-textarea 
-                    rows="2"
+                    :rows="isAuthUser? 1 : 3"
                     name="add-request-textarea"
                     :label="topicPlaceholder"
                     :rules="[rules.required, rules.maximumChars]"
@@ -52,30 +43,28 @@
             </v-flex>
 
               <v-flex xs12 md6 v-if="!isAuthUser" >
-                  <v-autocomplete
+                <v-combobox
                     @keyup="searchCourses"
-                    flat
-                    hide-no-data
-                    :append-icon="''"
-                    :menu-props="{contentClass:'courses-select-list'}"
-                    v-model="tutorCourse"
-                    :items="suggestsCourses"
-                    :placeholder="coursePlaceholder"
-                    :rules="[rules.required]"                  
-                  ></v-autocomplete>
+                  flat
+                  hide-no-data
+                  :append-icon="''"
+                  :menu-props="{contentClass:'courses-select-list'}"
+                  v-model="tutorCourse"
+                  :items="suggestsCourses"
+                  :placeholder="coursePlaceholder"
+                  :rules="[rules.required]"/>
               </v-flex>
               <v-flex xs12 v-else>
-                  <v-autocomplete
-                    @keyup="searchCourses"
-                    flat
-                    hide-no-data
-                    :append-icon="''"
-                    :menu-props="{contentClass:'courses-select-list'}"
-                    v-model="tutorCourse"
-                    :items="suggestsCourses"
-                    :placeholder="coursePlaceholder"
-                    :rules="[rules.required]"  
-                  ></v-autocomplete>
+                <v-combobox
+                  @keyup="searchCourses"
+                  flat
+                  hide-no-data
+                  :append-icon="''"
+                  :menu-props="{contentClass:'courses-select-list'}"
+                  v-model="tutorCourse"
+                  :items="suggestsCourses"
+                  :placeholder="coursePlaceholder"
+                  :rules="[rules.required]"/>
               </v-flex>
               
               <v-flex xs12 md6 v-if="!isAuthUser">

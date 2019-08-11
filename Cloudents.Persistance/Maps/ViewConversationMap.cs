@@ -24,6 +24,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.ConversationStatus);
             Map(x => x.StudyRoomExists);
             Map(x => x.HoursFromLastMessage);
+            Map(x => x.Country);
             SchemaAction.Validate();
             Table("vAdminConversation");
             ReadOnly();

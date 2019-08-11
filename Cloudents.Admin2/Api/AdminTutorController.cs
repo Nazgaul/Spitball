@@ -47,7 +47,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<IActionResult> DeleteTutor(long id,
                 CancellationToken token)
         {

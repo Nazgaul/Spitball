@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
@@ -15,8 +17,8 @@ namespace Cloudents.Admin2.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Roles = Roles.Admin)]
-    [Authorize(Policy = "IsraelUser")]
+    [Authorize(/*Roles = Roles.Admin*/)]
+    //[Authorize(Policy = Policy.IsraelUser)]
     public class AdminPaymentController : Controller
     {
         private readonly ICommandBus _commandBus;
@@ -39,10 +41,20 @@ namespace Cloudents.Admin2.Api
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> PayAsync(PaymentRequest model,
+        public async Task<IActionResult> PayAsync([FromBody]PaymentRequest model,
+            [FromServices] PayMeCredentials payMeCredentials,
             CancellationToken token)
         {
-            var command = new PaymentCommand(model.UserKey, model.TutorKey, model.Amount, model.StudyRoomSessionId);
+            var command = new PaymentCommand(model.UserId,model.TutorId,model.StudentPay,model.SpitballPay,model.StudyRoomSessionId, payMeCredentials.BuyerKey);
+            await _commandBus.DispatchAsync(command, token);
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeclinePay(Guid studyRoomSessionId, CancellationToken token)
+        {
+            var command = new DeclinePaymentCommand(studyRoomSessionId);
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();

@@ -8,8 +8,9 @@
                       :items="paymentRequestsList"
                      
                       disable-initial-sort>
-            <template slot="items" slot-scope="props">
-                <td >{{ props.item.tutorId }}</td>
+            <template slot="items" slot-scope="props" >
+
+                <td :class="{ 'no-pay': props.item.tutorPayme }" >{{ props.item.tutorId }}</td>
                 <td >{{ props.item.tutorName }}</td>
                 <td >{{ props.item.userId }}</td>
                 <td >{{ props.item.userName }}</td>
@@ -17,6 +18,7 @@
                 <td>{{ props.item.duration }}</td>
                
                 <td>{{ props.item.price }}</td>
+                <td>{{ props.item.totalPrice }}</td>
                  <td>{{ props.item.subsidizing }}</td>
                 <td >
                     <span  @click="editItem(props.item)">
@@ -38,47 +40,48 @@
             <v-card>
                 <v-card-text>
                     <v-container grid-list-md>
+                        <v-alert v-model="editedItem.tutorPayme" type="error" class="mb-4"> This payment can't be processed because seller is not on payme</v-alert>
                         <v-layout wrap>
-                            <v-flex xs6>
-                                 Study Room Session Id:
+                             <v-flex xs12>
+                                 User Name:  <b>{{editedItem.userName}}</b>
                             </v-flex>
-                            <v-flex xs6>
-                                {{editedItem.studyRoomSessionId}}
-                                
-                            </v-flex>
-                             <v-flex xs6>
-                                 User Name:
-                            </v-flex>
-                            <v-flex xs6>
-                                {{editedItem.userName}}
-                            </v-flex>
-                              <v-flex xs6>
-                                Tutor Name:
-                            </v-flex>
-                            <v-flex xs6>
-                                {{editedItem.tutorName}}
-                            </v-flex>
-                            <v-flex xs12>
-                                     <v-text-field
-            label="Payment Key" v-model="editedItem.paymentKey"
-          ></v-text-field>
-                                
-                            </v-flex>
-                            
                            
                             <v-flex xs12>
-                                  <v-text-field
-            label="Seller Key" v-model="editedItem.sellerKe"
-          ></v-text-field>
+                                Tutor Name:  <b>{{editedItem.tutorName}}</b>
+                            </v-flex>
+                            <v-flex xs12 v-if="editedItem.tutorPayme">
+                                Tutor Id:  <b>{{editedItem.tutorId}}</b>
+                            </v-flex>
+
+                               <v-flex xs12>
                                
+                                 <v-text-field label=" Tutor Price per hour:" v-model="editedItem.tutorPrice"></v-text-field>
+                                  
                             </v-flex>
+                            <br>
+                            <br>
+                             <br>
+                              <br>
+                            
+                            
+                           <v-flex xs3>
+                               <v-text-field label="Duration in minutes" v-model="editedItem.duration"></v-text-field>
+                           </v-flex>
+                           <v-flex xs3>
+                               <v-text-field readonly="" label="Session Total Price" v-model="editedItem.price"></v-text-field>
+                           </v-flex>
+                           <v-flex xs3>
+                               <v-text-field label="Student Pay" v-model="editedItem.subsidizing"></v-text-field>
+                           </v-flex>
+                           <v-flex xs3>
+                               <v-text-field readonly="" label="Spitball Pay" v-model="spitballPay"></v-text-field>
+                           </v-flex>
+                           <!-- <v-flex xs4>
+                               <v-text-field readonly="" label="Session Price After discount" v-model="editedItem.subsidizing"></v-text-field>
+                           </v-flex> -->
                            
-                            <v-flex xs12>
-                                  <v-text-field
-            label="Price" v-model="editedItem.price"
-          ></v-text-field>
-                        
-                            </v-flex>
+                          
+                            
                             
                         </v-layout>
                     </v-container>
@@ -86,9 +89,12 @@
 
                 <v-card-actions>
                     <v-spacer></v-spacer>
+                     <v-btn color="red darken-1" flat @click="decline()">
+                        No Pay
+                    </v-btn>
                     <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-                    <v-btn color="red darken-1" flat @click="approve()">
-                        Done
+                    <v-btn color="green darken-1" :disabled="editedItem.tutorPayme" flat @click="approve()">
+                        Pay
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -97,9 +103,32 @@
 </template>
 
 <script>
-    import { getPaymentRequests, approvePayment } from './PaymentUserService'
+    import { getPaymentRequests, approvePayment,subsidizingPrice,declinePayment } from './PaymentUserService'
 
     export default {
+       
+        computed: {
+    durationX() {
+      return this.editedItem.duration;
+    },
+    tutorPriceX() {
+        return this.editedItem.tutorPrice;
+    },
+    spitballPay() {
+        return (this.editedItem.price-this.editedItem.subsidizing).toFixed(2)
+    }
+  },
+  watch: {
+    durationX() {
+    this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
+    this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
+      
+    },
+    tutorPriceX() {
+         this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
+    this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
+    }
+  },
         data() {
             return {
                 editedIndex: -1,
@@ -114,7 +143,8 @@
                     { text: 'User Name', value: 'userName' },
                     { text: 'Date', value: 'created' },
                     { text: 'Duration (min)', value: 'duration' },
-                    { text: 'Price', value: 'price' },
+                    { text: 'Tutor Price', value: 'price' },
+                    { text: 'Lessons Price', value: 'totalPrice' },
                     { text: 'Price After Subsidizing', value: 'subsidizing' },
 
                     { text: 'Approve', value: '' }
@@ -124,22 +154,26 @@
         methods: {
             editItem(item) {
                 this.editedIndex = this.paymentRequestsList.indexOf(item);
+                console.log(item);
                 this.dialog = true;
                 this.editedItem = {
                     "studyRoomSessionId": item.studyRoomSessionId,
                     "userName": item.userName,
-                    "paymentKey": item.paymentKey,
                     "tutorName": item.tutorName,
-                    "sellerKey": item.sellerKey,
-                    "price": item.subsidizing
+                    tutorId: item.tutorId,
+                    tutorPayme: item.tutorPayme,
+                    tutorPrice: item.price,
+                    duration: item.duration,
+                    subsidizing : item.subsidizing,
+                    userId: item.userId,
+                    "price": item.totalPrice
                 };
             },
             approve() {
                 var itemToSubmit = this.editedItem;
                 const index = this.editedIndex;
                 const item = this.paymentRequestsList[index];
-                approvePayment(itemToSubmit).then((resp) => {
-                    console.log('got payment resp success')
+                approvePayment(itemToSubmit, this.spitballPay).then((resp) => {
 
                     this.$toaster.success(`User ${item.userName} pay to Tutor ${item.tutorName}`);
                     this.paymentRequestsList.splice(index, 1);
@@ -151,6 +185,27 @@
                         this.$toaster.error(`Error can't approve the payment`);
                     }
                 )
+            },
+            decline() {
+                 var itemToSubmit = this.editedItem;
+                const index = this.editedIndex;
+                const item = this.paymentRequestsList[index];
+                var result = confirm("Are you sure?");
+                if (result) {
+                    declinePayment(itemToSubmit).then((resp) => {
+
+                    this.$toaster.success(`Payment removed`);
+                    this.paymentRequestsList.splice(index, 1);
+                    this.dialog = false;
+                    this.editedItem = {};
+                    this.editedIndex = -1;
+                },
+                    (error) => {
+                        this.$toaster.error(`Error can't approve the payment`);
+                    }
+                )
+                 
+                }
             },
             close() {
                 this.dialog = false;
@@ -181,6 +236,9 @@
     }*/
     input {
     width: 300px;
+    }
+    .no-pay {
+        background: red;
     }
   
 </style>

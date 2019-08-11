@@ -9,7 +9,7 @@
         </div>
         
         <v-flex class="footer-holder text-xs-center mt-2 mb-5" v-if="$vuetify.breakpoint.smAndDown">
-            <router-link to="/tutor" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
+            <router-link :to="{name: 'tutors',query:{Course:$route.params.courseName.replace(/-/g, ' ')}}" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
         </v-flex>
     </v-layout>
 </template>

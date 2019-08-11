@@ -46,7 +46,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost("sendTokens")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<IActionResult> Post(SendTokenRequest model, CancellationToken token)
         {
             var command = new DistributeTokensCommand(model.UserId, model.Tokens);
@@ -56,7 +56,7 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpPost("cashOut/approve")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<IActionResult> ApprovePost(ApproveCashOutRequest model, CancellationToken token)
         {
             var command = new ApproveCashOutCommand(model.TransactionId);
@@ -65,7 +65,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("cashOut/decline")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<IActionResult> DeclinePost(DeclineCashOutRequest model, CancellationToken token)
         {
             var command = new DeclineCashOutCommand(model.TransactionId, model.Reason);
@@ -79,7 +79,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("cashOut")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<IEnumerable<CashOutDto>> Get(CancellationToken token)
         {
             var query = new AdminCashOutQuery(User.GetCountryClaim());
@@ -96,7 +96,7 @@ namespace Cloudents.Admin2.Api
         /// <response code="200">The User email</response>
         /// <returns>the user email to show on the ui</returns>
         [HttpPost("suspend")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         [ProducesResponseType(200)]
 
         public async Task<SuspendUserResponse> SuspendUserAsync(SuspendUserRequest model,
@@ -153,7 +153,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>the user email to show on the ui</returns>
         [HttpPost("unSuspend")]
         [ProducesResponseType(200)]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<UnSuspendUserResponse> UnSuspendUserAsync(UnSuspendUserRequest model,
             CancellationToken token)
         {
@@ -168,7 +168,7 @@ namespace Cloudents.Admin2.Api
 
         [HttpPost("country")]
         [ProducesResponseType(200)]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task ChangeCountryAsync(ChangeCountryRequest model,
             CancellationToken token)
         {
@@ -182,7 +182,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("verify")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize(/*Roles = Roles.Admin*/)]
         public async Task<IActionResult> VerifySmsAsync(PhoneConfirmRequest model,
             CancellationToken token)
         {

@@ -82,10 +82,13 @@ namespace Cloudents.Core
         {
             EndPoint = "https://preprod.paymeservice.com/api/";
             SellerId = "MPL15546-31186SKB-53ES24ZG-WGVCBKO2";
+            BuyerKey = "BUYER156-4564629H-GXBKSW7B-T3H2FF2F";
         }
         public string EndPoint { get; set; }
 
         public string SellerId { get; set; }
+
+        public string BuyerKey { get; set; }
     }
 
     public class TwilioCredentials

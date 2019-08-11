@@ -29,10 +29,16 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<PendingQuestionDto>> GetAsync(AdminPendingQuestionsQuery query, CancellationToken token)
             {
-                return await _session.Query<Question>()
+                var questions = _session.Query<Question>()
                     .Fetch(f => f.User)
-                    .Where(w => w.User is User && w.Status.State == ItemState.Pending && w.User.Country == query.Country)
-                    .Select(s => new PendingQuestionDto
+                    .Where(w => w.User is User && w.Status.State == ItemState.Pending);
+
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    questions = questions.Where(w => w.User.Country == query.Country);
+                }
+                    
+                return await questions.Select(s => new PendingQuestionDto
                     {
                         Id = s.Id,
                         Text = s.Text,
