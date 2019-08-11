@@ -135,6 +135,9 @@
   <data name="messages" xml:space="preserve">
     <value>הודעות</value>
   </data>
+  <data name="photo" xml:space="preserve">
+    <value>תמונה</value>
+  </data>
   <data name="room_created" xml:space="preserve">
     <value>החדר נפתח</value>
   </data>

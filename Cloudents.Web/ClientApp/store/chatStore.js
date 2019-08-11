@@ -1,6 +1,5 @@
 import chatService from '../services/chatService';
 import { LanguageService } from '../services/language/languageService';
-import { createLastImageMsg } from '../services/chatService';
 
 const state = {
     fileError: false,
@@ -108,7 +107,7 @@ const mutations = {
         if(message.type === 'text'){
             state.conversations[id].lastMessage = message.text;
         } else if(message.type === 'file') {
-            state.conversations[id].lastMessage = createLastImageMsg();
+            state.conversations[id].lastMessage = chatService.createLastImageMsg();
         }
         state.conversations[id].dateTime = message.dateTime;
     },
@@ -391,6 +390,9 @@ const actions = {
                 }                        
             })
         }
+    },
+    uploadCapturedImage(context, formData){
+       return chatService.uploadCapturedImage(formData);
     }
 };
 

@@ -104,6 +104,7 @@ export default {
         scrollToEnd: function() {
             this.$nextTick(function(){
                 let container = document.querySelector(".messages-body");
+                
                 if(container){
                     container.scrollTop = container.scrollHeight;
                 }
@@ -245,16 +246,6 @@ export default {
                         /*rtl:append:transform: rotateY(180deg);*/;
                     }
                 }
-                .v-input__slot{
-                    box-shadow: none !important;
-                    padding: 0 40px 0 12px;
-                    textarea{
-                        //override vuetify stupid logic
-                        margin-top:0;
-                        max-height: 150px;
-                        overflow: auto;
-                    }
-                }
                 &.messages-input-disabled{
                     background: #b9b9b9;
                     border-radius: 0;
@@ -269,8 +260,16 @@ export default {
                     .v-input__control {
                         min-height: 30px;
                         .v-input__slot {
+                            box-shadow: none !important;
+                            padding: 0 40px 0 12px;
                             border: solid 1px #d8d9e5;
                             border-radius: 20px;
+                            textarea{
+                                margin-top:0;
+                                max-height: 150px;
+                                overflow: auto;
+                                line-height: 16px;
+                            }
                       }
                     }
                 }

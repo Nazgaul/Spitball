@@ -74,6 +74,7 @@ export default {
             img {
                border: 2px solid #dcdbe1;
                border-radius: 4px;
+               height: 144px;
             }
         }
     }

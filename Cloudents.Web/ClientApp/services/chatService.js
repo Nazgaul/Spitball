@@ -1,7 +1,8 @@
 import { connectivityModule } from "./connectivity.module"
+import { LanguageService } from './language/languageService';
 
 function createLastImageMsg() {
-    return `<img src="${require('../components/chat/pages/messageComponents/photo-camera-small.png')}" /><span>PHOTO</span>`
+    return `<img src="${require('../components/chat/pages/messageComponents/photo-camera-small.png')}" /><span>${LanguageService.getValueByKey('chat_photo')}</span>`
 }
 
 function createConversationId(arrIds){
@@ -100,6 +101,10 @@ const clearUnread = (otherUserId) => {
     return connectivityModule.http.post(`Chat/read`, serverObj);
 }
 
+const uploadCapturedImage = (formData)=>{
+    return connectivityModule.http.post(`/chat/upload`, formData);
+}
+
 export default {
     getAllConversations,
     getChatById,
@@ -111,5 +116,6 @@ export default {
     clearUnread,
     createActiveConversationObj,
     createConversationId,
-    createLastImageMsg
+    createLastImageMsg,
+    uploadCapturedImage
 }

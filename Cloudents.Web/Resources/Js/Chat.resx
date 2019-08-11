@@ -147,4 +147,7 @@
   <data name="file_error" xml:space="preserve">
     <value>File is not supported</value>
   </data>
+  <data name="photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
 </root>

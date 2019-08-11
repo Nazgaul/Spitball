@@ -3,11 +3,11 @@
         <!--Upload Image-->
         <div class="chat-input-container align-center justify-center column" v-show="!typing">
             <template>
-                
-                <button class="chat-camera" v-if="$vuetify.breakpoint.xsOnly">
-                    <input type="file" accept="image/*" capture="camera" />
+
+                <label for="photo" class="chat-camera" v-if="$vuetify.breakpoint.xsOnly">
+                    <input id="photo" type="file" accept="image/*" capture="camera" @change="captruephoto" />
                     <photo-camera />
-                </button>
+                </label>
 
                 <label for="chat-image" class="chat-upload-image" v-else>
                     <chat-image class="chat-photo"></chat-image>
@@ -83,7 +83,7 @@
             }
         },
         methods: {
-            ...mapActions(['uploadChatFile', 'updateChatUploadLoading','updateFileError']),
+            ...mapActions(['uploadChatFile', 'updateChatUploadLoading','updateFileError','uploadCapturedImage']),
             inputFile: function (newFile, oldFile) {
                 let self = this;
                 if (self.uploadedFiles && self.uploadedFiles.length > 1) {
@@ -134,6 +134,20 @@
                         newFile.blob = URL.createObjectURL(newFile.file);
                     }
                 }
+            },
+            captruephoto(e) {
+                let file = e.target.files[0];
+
+                if (!/\.(jpeg|jpe|jpg|gif|png)$/i.test(file.name)) {
+                    this.updateFileError(true)
+                    return;
+                }
+
+                let formData = new FormData();
+                formData.append("file", file);
+                this.uploadCapturedImage(formData).then(()=>{
+                    console.log('uploaded!!!');
+                })
             }
         },
         computed:{
@@ -155,10 +169,15 @@
             .chat-camera {
                 position: absolute;
                 .responsive-property(right, 36px, null, 40px);
+                input {
+                    display: none;
+                    outline: 0;
+                    width: 22px;
+                }
             }
             .chat-upload-image {
                 position: absolute;
-                z-index: 5;
+                width: 22px;
                 cursor: pointer;
                 .responsive-property(right, 36px, null, 40px);
                 .file-uploads {
