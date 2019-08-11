@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
@@ -8,8 +9,10 @@ using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Extension;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,12 +46,22 @@ namespace Cloudents.Admin2.Api
         [ProducesResponseType(400)]
         public async Task<IActionResult> PayAsync([FromBody]PaymentRequest model,
             [FromServices] PayMeCredentials payMeCredentials,
+            [FromServices] TelemetryClient client,
             CancellationToken token)
         {
-            var command = new PaymentCommand(model.UserId,model.TutorId,model.StudentPay,model.SpitballPay,model.StudyRoomSessionId, payMeCredentials.BuyerKey);
-            await _commandBus.DispatchAsync(command, token);
+            try
+            {
+                var command = new PaymentCommand(model.UserId, model.TutorId, model.StudentPay, model.SpitballPay,
+                    model.StudyRoomSessionId, payMeCredentials.BuyerKey);
+                await _commandBus.DispatchAsync(command, token);
 
-            return Ok();
+                return Ok();
+            }
+            catch (HttpRequestException ex)
+            {
+                client.TrackException(ex,model.AsDictionary());
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]

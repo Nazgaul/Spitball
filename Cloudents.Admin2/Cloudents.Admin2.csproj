@@ -8,9 +8,12 @@
     <NoWarn>$(NoWarn);1591</NoWarn>
     <AssemblyVersion>19.3.12.2</AssemblyVersion>
     <UserSecretsId>c7287bd7-40f9-4313-80be-15164120e460</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/3b3c3105-0178-45af-a7b8-9876894fc161/resourcegroups/Zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/3b3c3105-0178-45af-a7b8-9876894fc161/resourcegroups/Zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureStorage" Version="2.2.0" />
     <PackageReference Include="Autofac" Version="4.9.3" />
@@ -28,6 +31,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

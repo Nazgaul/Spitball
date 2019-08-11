@@ -182,7 +182,8 @@
                     this.editedIndex = -1;
                 },
                     (error) => {
-                        this.$toaster.error(`Error can't approve the payment`);
+                        debugger;
+                        this.$toaster.error(`Error can't approve the payment ${error.response.data}`);
                     }
                 )
             },

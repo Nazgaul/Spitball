@@ -14,7 +14,7 @@ Vue.component('file-upload', VueUploadComponent);
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
-Vue.use(Toaster, {timeout: 5000});
+Vue.use(Toaster);
 Vue.use(Vuetify,
     {
         theme: {

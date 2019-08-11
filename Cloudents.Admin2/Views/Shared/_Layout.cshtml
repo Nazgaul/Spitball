@@ -1,4 +1,5 @@
-﻿@using System.Reflection
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+@using System.Reflection
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,7 @@
         <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
     </environment>
     @RenderSection("head",required:false)
+    @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
     @RenderBody()
