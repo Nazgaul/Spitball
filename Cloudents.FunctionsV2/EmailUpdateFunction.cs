@@ -29,7 +29,7 @@ namespace Cloudents.FunctionsV2
             [OrchestrationTrigger] DurableOrchestrationContext context,
             CancellationToken token)
         {
-            var timeSince = DateTime.UtcNow.AddDays(-1);
+            var timeSince = DateTime.UtcNow.AddDays(-30);
             bool needToContinue;
             int page = 0;
             do
@@ -82,8 +82,15 @@ namespace Cloudents.FunctionsV2
 
             var questionNvc = new NameValueCollection()
             {
-                ["width"] = "64",
-                ["height"] = "64",
+                ["width"] = "86",
+                ["height"] = "96",
+                ["mode"] = "crop"
+            };
+
+            var userImageNvc = new NameValueCollection()
+            {
+                ["width"] = "34",
+                ["height"] = "34",
                 ["mode"] = "crop"
             };
 
@@ -91,7 +98,7 @@ namespace Cloudents.FunctionsV2
             var q = new GetUpdatesEmailByUserQuery(user.UserId, user.Since);
             var result = (await queryBus.QueryAsync(q, token)).ToList();
 
-            var courses = result.GroupBy(g => g.Course).Select(s =>
+            var courses = result.GroupBy(g => g.Course).Take(3).Select(s =>
             {
                 var emailUpdates = s.Take(4).ToList();
                 return new Course()
@@ -102,23 +109,25 @@ namespace Cloudents.FunctionsV2
                     Documents = emailUpdates.OfType<DocumentUpdateEmailDto>().Select(document =>
                     {
                         var previewUri = blobProvider.GetPreviewImageLink(document.Id, 0);
-                        var properties = new ImageProperties(previewUri);
-                        var byteHash = binarySerializer.Serialize(properties);
-                        var hash = Base64UrlTextEncoder.Encode(byteHash);
-
+                        var hash = BuildHash(binarySerializer, previewUri);
 
                         var uriBuilder = new UriBuilder(new Uri(uri))
                         {
                             Path = $"api/image/{hash}",
                         };
-                        uriBuilder.AddQuery(questionNvc);
+                        var uriBuilderImage = new UriBuilder(new Uri(uri))
+                        {
+                            Path = $"api/image/{document.UserImage}",
+                        };
+                        uriBuilderImage.AddQuery(userImageNvc);
 
                         return new Document()
                         {
                             Url = urlBuilder.BuildDocumentEndPoint(document.Id),
                             Name = document.Name,
                             UserName = document.UserName,
-                            DocumentPreview = uriBuilder.ToString()
+                            DocumentPreview = uriBuilder.ToString(),
+                            UserImage = uriBuilderImage.ToString()
                         };
                     }),
                     Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question =>
@@ -127,13 +136,15 @@ namespace Cloudents.FunctionsV2
                         {
                             Path = $"api/image/{question.UserImage}",
                         };
-                        uriBuilder.AddQuery(questionNvc);
+
+                        uriBuilder.AddQuery(userImageNvc);
                         return new Question()
                         {
                             QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId),
                             QuestionText = question.QuestionText,
                             UserImage = uriBuilder.ToString(),
-                            UserName = question.UserName
+                            UserName = question.UserName,
+                            AnswerText = question.AnswerText
                         };
                     })
                 };
@@ -176,10 +187,18 @@ namespace Cloudents.FunctionsV2
                     Enable = true
                 }
             };
-            message.AddTo(user.ToEmailAddress);
-            //message.AddTo("ram@cloudents.com");
+            //message.AddTo(user.ToEmailAddress);
+            message.AddTo("ram@cloudents.com");
             await emailProvider.AddAsync(message, token);
             await emailProvider.FlushAsync(token);
+        }
+
+        private static string BuildHash(IBinarySerializer binarySerializer, Uri previewUri)
+        {
+            var properties = new ImageProperties(previewUri);
+            var byteHash = binarySerializer.Serialize(properties);
+            var hash = Base64UrlTextEncoder.Encode(byteHash);
+            return hash;
         }
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
@@ -228,6 +247,8 @@ namespace Cloudents.FunctionsV2
             [JsonProperty("numUpdates")]
             public int TotalUpdates => QuestionCountUpdate.GetValueOrDefault() + DocumentCountUpdate.GetValueOrDefault();
 
+            [JsonProperty("oneUpdate")] public bool OneUpdate => TotalUpdates == 1;
+
             [JsonProperty("xQuestions")]
             public int? QuestionCountUpdate
             {
@@ -235,12 +256,17 @@ namespace Cloudents.FunctionsV2
                 set => _questionCountUpdate = value.GetValueOrDefault();
             }
 
+            [JsonProperty("oneQuestion")] public bool OneQuestion => QuestionCountUpdate == 1;
+
+            
             [JsonProperty("xNewItems")]
             public int? DocumentCountUpdate
             {
                 get => _documentCountUpdate == 0 ? (int?)null : _documentCountUpdate;
                 set => _documentCountUpdate = value.GetValueOrDefault();
             }
+
+            [JsonProperty("oneItem")] public bool OneItem => DocumentCountUpdate == 1;
 
             [JsonProperty("to")]
             public string To { get; set; }
@@ -292,6 +318,8 @@ namespace Cloudents.FunctionsV2
         public string UserName { get; set; }
         [JsonProperty("questionTxt")]
         public string QuestionText { get; set; }
+        [JsonProperty("answerText")]
+        public string AnswerText { get; set; } //NEW
     }
 
     internal class Document : Item
@@ -304,5 +332,7 @@ namespace Cloudents.FunctionsV2
         public string UserName { get; set; }
         [JsonProperty("imgSource")]
         public string DocumentPreview { get; set; }
+
+        [JsonProperty("uploaderImage")] public string UserImage { get; set; }
     }
 }

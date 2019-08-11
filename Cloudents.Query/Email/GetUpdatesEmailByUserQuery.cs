@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Dapper;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
@@ -35,15 +34,22 @@ namespace Cloudents.Query.Email
             public async Task<IEnumerable<UpdateEmailDto>> GetAsync(GetUpdatesEmailByUserQuery query, CancellationToken token)
             {
                 User userAlias = null;
+                Question questionAlias = null;
                 QuestionUpdateEmailDto questionEmailDtoAlias = null;
 
                 var queryCourse = QueryOver.Of<UserCourse>().Where(w => w.User.Id == query.UserId)
                     .Select(s => s.Course.Id);
 
+                var firstAnswer = QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
+                    .Where(w => w.Status.State == ItemState.Ok)
+                    .Select(s => s.Text)
+                    .Take(1);
+                    
+
                 var queryUniversity = QueryOver.Of<User>().Where(w => w.Id == query.UserId)
                     .Select(s => s.University.Id);
 
-                var questionFuture = _session.QueryOver<Question>()
+                var questionFuture = _session.QueryOver(() => questionAlias)
                      .JoinAlias(x => x.User, () => userAlias)
                      .Where(x => x.Created > query.Since)
                      .And(x => x.Status.State == ItemState.Ok)
@@ -60,6 +66,7 @@ namespace Cloudents.Query.Email
                          sl.Select(() => userAlias.Name).WithAlias(() => questionEmailDtoAlias.UserName);
                          sl.Select(() => userAlias.Image).WithAlias(() => questionEmailDtoAlias.UserImage);
                          sl.Select(x => x.Course.Id).WithAlias(() => questionEmailDtoAlias.Course);
+                         sl.SelectSubQuery(firstAnswer).WithAlias(() => questionEmailDtoAlias.AnswerText);
                          return sl;
                      }).TransformUsing(Transformers.AliasToBean<QuestionUpdateEmailDto>())
                      .Future<QuestionUpdateEmailDto>();
@@ -82,6 +89,7 @@ namespace Cloudents.Query.Email
                         sl.Select(x => x.Name).WithAlias(() => documentEmailDtoAlias.Name);
                         sl.Select(() => userAlias.Name).WithAlias(() => documentEmailDtoAlias.UserName);
                         sl.Select(x => x.Course.Id).WithAlias(() => documentEmailDtoAlias.Course);
+                        sl.Select(() => userAlias.Image).WithAlias(() => documentEmailDtoAlias.UserImage);
 
                         return sl;
                     }).TransformUsing(Transformers.AliasToBean<DocumentUpdateEmailDto>())
