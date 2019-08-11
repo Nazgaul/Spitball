@@ -46,9 +46,9 @@ join sb.UsersCourses uc
 													FROM sb.[ChatUser] chu 
 													WHERE chu.UserId = :UserId
 												) 
-		and (uc1.UserId != :UserId) 
+		and uc1.UserId != :UserId 
 		)
-
+    and uc.UserId != :UserId 
 )
 
 select ts.Id--, IsMatch , case when cte.UserId is null then 0 else 1 end
