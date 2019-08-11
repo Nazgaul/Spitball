@@ -19,11 +19,11 @@ namespace Cloudents.Persistence.Repositories
         {
             const string sql = @"with cte as
 (
-select distinct uc.UserId, case when uc.CourseId = @Course then 1 else 0 end as IsMatch
+select distinct uc.UserId, case when uc.UserId in (select UserId from sb.UsersCourses where CourseId = :Course and CanTeach = 1) then 1 else 0 end as IsMatch
 from sb.Course c
 join sb.UsersCourses uc
 	on uc.CourseId = c.Name
-		WHERE (c.SubjectId in (select SubjectId from sb.Course where Name = @Course) or c.Name = @Course) and CanTeach = 1 
+		WHERE (c.SubjectId in (select SubjectId from sb.Course where Name = :Course) or c.Name = :Course) and CanTeach = 1 
 			and exists (
 						SELECT uc1.CanTeach
 						FROM sb.UsersCourses uc1
@@ -31,30 +31,29 @@ join sb.UsersCourses uc
 						on uc1.CourseId=c.Name 
 						WHERE uc1.CanTeach = 1 and c.[State] = 'Ok' 
 						and (
-							c.Name = @Course 
+							c.Name = :Course 
 							or c.SubjectId = (SELECT c1.SubjectId as y0_ 
 												FROM sb.[Course] c1 
-												WHERE c1.Name =  @Course)
+												WHERE c1.Name =  :Course)
 						)
 						
 					) 
-		and not exists (
-						SELECT uc1.Id 
+		and uc.UserId not in (
+						SELECT uc1.UserId 
 						FROM sb.[ChatUser] uc1 
 						WHERE uc1.ChatRoomId in (
 													SELECT chu.ChatRoomId 
 													FROM sb.[ChatUser] chu 
 													WHERE chu.UserId = :UserId
 												) 
-		and (uc1.UserId != :UserId) 
+		and uc1.UserId != :UserId 
 		)
-
+    and uc.UserId != :UserId 
 )
 
-select ts.Id, IsMatch , case when cte.UserId is null then 0 else 1 end
+select ts.Id--, IsMatch , case when cte.UserId is null then 0 else 1 end
 from sb.vTutorSearch ts
 join cte on cte.UserId = ts.Id
-
 order by IsMatch desc, case when cte.UserId is null then 0 else 1 end desc,
 ts.ResponseTimeScore + ts.LessonsDoneScore + ts.LastOnlineScore + case when ts.Country = :Country then 0 else -5 end + RateScore + ManualBoost desc
 OFFSET 0 ROWS FETCH FIRST 3 ROWS ONLY";
@@ -67,15 +66,15 @@ return res;
 join sb.[user] u on t.id = u.Id
 where exists (select uc.* from sb.UsersCourses uc 
 join sb.Course c on uc.CourseId = c.Name and c.State = 'Ok'
-where u.Id = uc.UserId and uc.CanTeach = 1 and uc.CourseId = @CourseId
+where u.Id = uc.UserId and uc.CanTeach = 1 and uc.CourseId = :CourseId
 						union 
 						select uc.* from sb.UsersCourses uc 
 						join sb.Course c on uc.CourseId = c.Name and c.State = 'Ok'
-						and c.SubjectId = (Select subjectId from sb.Course where Name = @CourseId)
+						and c.SubjectId = (Select subjectId from sb.Course where Name = :CourseId)
 						where u.Id = uc.UserId and uc.CanTeach = 1)
 and not exists (select * from sb.ChatUser cu where cu.ChatRoomId in
-(select ChatRoomId from sb.ChatUser where userid = @userid)
-and not cu.UserId = @userid
+(select ChatRoomId from sb.ChatUser where userid = :UserId)
+and not cu.UserId = :UserId
 and cu.UserId = u.Id
 )
 and T.State = 'Ok'

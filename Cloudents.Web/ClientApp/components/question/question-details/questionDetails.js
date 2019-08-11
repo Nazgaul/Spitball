@@ -189,10 +189,10 @@ export default {
         },
     },
     beforeDestroy(){
-        storeService.unregisterModule(this.$store, 'Question', Question);
+        // storeService.unregisterModule(this.$store, 'Question', Question);
     },
     created() {
-        storeService.registerModule(this.$store, 'Question', Question);
+        // storeService.registerModule(this.$store, 'Question', Question);
         storeService.lazyRegisterModule(this.$store, 'homeworkHelpStore', homeworkHelpStore);
         
         global.addEventListener('beforeunload', () => {

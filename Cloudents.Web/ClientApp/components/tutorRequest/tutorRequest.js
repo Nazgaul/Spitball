@@ -90,7 +90,7 @@ export default {
                     name: (self.guestName)? self.guestName : null,
                     email: (self.guestMail)? self.guestMail : null,
                     phone: (self.guestPhone)? self.guestPhone : null,
-                    course: (self.tutorCourse)? self.tutorCourse : null,
+                    course: (self.tutorCourse)? self.tutorCourse.text || self.tutorCourse : null,
                     university: (self.guestUniversity.id)? self.guestUniversity.id : null,
                     tutorId: tutorId
                 };
@@ -110,7 +110,9 @@ export default {
                                         })
                                   }).finally(() => {
                                       self.btnRequestLoading = false
-                                      self.$refs['recaptcha'].reset();
+                                      if(self.$refs['recaptcha']){
+                                        self.$refs['recaptcha'].reset();
+                                      }
                                     });
             }
         },

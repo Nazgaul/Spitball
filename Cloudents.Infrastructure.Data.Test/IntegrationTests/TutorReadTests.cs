@@ -40,9 +40,27 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
+        
+  
+    }
 
+    [Collection("Database collection2")]
+    public class TutorRepositoryReadTests
+    {
+        private readonly DatabaseFixture2 _fixture;
 
+        public TutorRepositoryReadTests(DatabaseFixture2 fixture)
+        {
+            _fixture = fixture;
+            // _autoMock = AutoMock.GetLoose();
 
-       
+        }
+
+        [Fact]
+        public async Task GetTutorsByCourseAsync_Ok()
+        {
+            var res = await _fixture.TutorRepository.GetTutorsByCourseAsync("פיזיקה 2", 161238, "IL", default);
+            res.Should().NotBeEmpty();
+        }
     }
 }
