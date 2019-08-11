@@ -1,4 +1,5 @@
-﻿using Cloudents.Command.Command.Admin;
+﻿using System;
+using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
@@ -27,12 +28,21 @@ namespace Cloudents.Command.CommandHandler.Admin
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            var response = await _payment.TransferPaymentAsync(tutor.SellerKey, 
-                user.BuyerPayment.PaymentKey, message.StudentPay, token);
-            await _payment.TransferPaymentAsync(tutor.SellerKey,
-                message.SpitballBuyerKey, message.SpitballPay, token);
+            var receipt = $"Payed in {DateTime.UtcNow}";
+            if (message.StudentPay != 0)
+            {
+                var response = await _payment.TransferPaymentAsync(tutor.SellerKey,
+                    user.BuyerPayment.PaymentKey, message.StudentPay, token);
+                receipt = response.PaymeSaleId;
+            }
 
-            session.SetReceipt(response.PaymeSaleId);
+            if (message.SpitballPay != 0)
+            {
+                await _payment.TransferPaymentAsync(tutor.SellerKey,
+                    message.SpitballBuyerKey, message.SpitballPay, token);
+            }
+
+            session.SetReceipt(receipt);
             await _studyRoomSessionRepository.UpdateAsync(session, token);
         }
     }

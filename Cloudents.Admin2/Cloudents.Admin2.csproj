@@ -30,6 +30,7 @@
     <ProjectReference Include="..\Cloudents.Search\Cloudents.Search.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Connected Services\Application Insights\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
