@@ -122,7 +122,7 @@
                     <v-flex class="buy-tokens-details-container">
                         <img class="img-warning" src="./img/warning.png" alt=""/>
                         <div class="txt-buy-tokens">
-                            <p v-language:inner="'buyTokens_bottom_1'"/>
+                            <p style="color:red;" v-language:inner="'buyTokens_bottom_1'"/>
                             <p v-language:inner="'buyTokens_bottom_2'"/>
                         </div>
                             </v-flex>
