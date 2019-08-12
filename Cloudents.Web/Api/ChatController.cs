@@ -155,5 +155,20 @@ namespace Cloudents.Web.Api
         {
             return $"file-{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}-1{Path.GetExtension(name)}";
         }
+
+        [HttpPost("uploadForm")]
+        public async Task<ActionResult<UploadStartResponse>> UploadSingleFile(IFormFile file, CancellationToken token)
+        {
+            var extension = Path.GetExtension(file.FileName);
+
+            if (!GetSupportedExtensions().Contains(extension, StringComparer.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException();
+            }
+
+            var blobName = BlobFileName(Guid.NewGuid(), file.FileName);
+            await  BlobProvider.UploadStreamAsync(blobName, file.OpenReadStream(), token: token);
+            return new UploadStartResponse(blobName);
+        }
     }
 }
