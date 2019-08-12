@@ -12,7 +12,7 @@ namespace Cloudents.Query.SearchSync
     public class TutorSyncAzureSearchQuery : IQuery<SearchWrapperDto<TutorSearchDto>>
 
     {
-        public const int PageSize = 50;
+        public const int PageSize = 200;
         public TutorSyncAzureSearchQuery(long version, byte[] rowVersion)
         {
             Version = version;
@@ -111,7 +111,9 @@ cTable.SYS_CHANGE_VERSION,
 cTable.Id,
 u.UniversityId2,
 sr.lessonsCount
-order by version";
+order by version
+offset @pageSize * @PageNumber rows
+fetch next @pageSize Rows only";
 
 
                 const string secondQuery = @"with cte as(
