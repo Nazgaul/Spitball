@@ -17,13 +17,13 @@ namespace Cloudents.Core.Entities
         protected Course()
         {
         }
-        
+
         public Course(string name)
         {
             Id = name.Trim();//.Replace("+", string.Empty);
             if (Id.Length > MaxLength || Id.Length < MinLength)
             {
-                throw new ArgumentException($"Name is {Id}",nameof(Id));
+                throw new ArgumentException($"Name is {Id}", nameof(Id));
             }
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
@@ -42,7 +42,7 @@ namespace Cloudents.Core.Entities
             return Equals((Course)obj);
         }
 
-        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode" , Justification = "Nhibernate")]
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode", Justification = "Nhibernate")]
         public override int GetHashCode()
         {
             return Id != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Id) : 0;
@@ -74,11 +74,11 @@ namespace Cloudents.Core.Entities
             Subject = subject;
         }
 
-        public virtual int Count { get;protected internal set; }
+        public virtual int Count { get; protected internal set; }
 
 
 
-        public virtual DateTime Created { get;protected set; }
+        public virtual DateTime Created { get; protected set; }
 
         private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
         public virtual IEnumerable<UserCourse> Users => _users;

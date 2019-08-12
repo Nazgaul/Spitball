@@ -20,6 +20,8 @@ namespace Cloudents.Core.Message.Email
         public string Link { get; private set; }
 
         public override string Campaign => "Confirm Email";
+        public override UnsubscribeGroup UnsubscribeGroup => UnsubscribeGroup.System;
+
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
             { Language.Hebrew,"85cd5e1c-241c-4a19-9410-7e4c4ca21cbf"},

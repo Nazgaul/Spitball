@@ -43,7 +43,7 @@ namespace Cloudents.FunctionsV2.Sync
                 needContinue = true;
                 await syncService.AddAsync(new AzureSearchSyncOutput()
                 {
-                    Item = new Question(questionUpdate),
+                    Item = new Cloudents.Search.Entities.Question(questionUpdate),
                     Insert = true
 
                 }, token);
@@ -54,7 +54,7 @@ namespace Cloudents.FunctionsV2.Sync
                 needContinue = true;
                 await syncService.AddAsync(new AzureSearchSyncOutput()
                 {
-                    Item = new Question(questionDelete),
+                    Item = new Cloudents.Search.Entities.Question(questionDelete),
                     Insert = false
 
                 }, token);

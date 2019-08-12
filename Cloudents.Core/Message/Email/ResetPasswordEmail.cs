@@ -25,6 +25,8 @@ namespace Cloudents.Core.Message.Email
         }
 
         public override string Campaign => "Password Recovery";
+        public override UnsubscribeGroup UnsubscribeGroup => UnsubscribeGroup.System;
+
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
             { Language.Hebrew,"e4334fe9-b71d-466f-80ea-737bf16d9c81"},

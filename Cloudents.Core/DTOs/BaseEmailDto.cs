@@ -1,6 +1,8 @@
-﻿using Cloudents.Core.Attributes;
+﻿using System;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
+using System.Globalization;
 
 namespace Cloudents.Core.DTOs
 {
@@ -11,7 +13,7 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.Language))]
         public string Language { get; set; }
 
-        
+
         [EntityBind(nameof(User.Id))]
         public long UserId { get; set; }
     }
@@ -51,5 +53,45 @@ namespace Cloudents.Core.DTOs
         //public decimal Tokens { get; set; }
     }
 
+    public class UpdateUserEmailDto
+    {
+        [EntityBind(nameof(User.Name))]
+        public string UserName { get; set; }
 
+        [EntityBind(nameof(User.Email))]
+        public string ToEmailAddress { get; set; }
+        [EntityBind(nameof(User.Language))]
+        public CultureInfo Language { get; set; }
+
+        [EntityBind(nameof(User.Id))]
+        public long UserId { get; set; }
+
+        public DateTime Since { get; set; }
+    }
+
+    public class QuestionUpdateEmailDto : UpdateEmailDto
+    {
+        public long UserId { get; set; }
+        public long QuestionId { get; set; }
+        public string UserImage { get; set; }
+        public string UserName { get; set; }
+        public string QuestionText { get; set; }
+        public string AnswerText { get; set; }
+
+    }
+    public class DocumentUpdateEmailDto : UpdateEmailDto
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string UserName { get; set; }
+        public string UserImage { get; set; }
+
+        //public string Image { get; set; }
+       
+    }
+
+    public abstract class UpdateEmailDto
+    {
+        public string Course { get; set; }
+    }
 }
