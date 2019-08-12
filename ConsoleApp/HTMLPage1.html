@@ -555,10 +555,6 @@
 
 </head>
 <body>
-    <!--*|IF:MC_PREVIEW_TEXT|*-->
-    <!--[if !gte mso 9]><!---->
-    <span class="mcnPreviewText" style="display: none; font-size: 0px; line-height: 0px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; visibility: hidden; mso-hide: all;">*|MC_PREVIEW_TEXT|*</span><!--<![endif]-->
-    <!--*|END:IF|*-->
     <center>
             <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
                 <tr>
@@ -583,15 +579,7 @@
 				<!--[if mso]>
 				<td valign="top" width="600" style="width:600px;">
 				<![endif]-->
-                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
-                    <tbody><tr>
-                        
-                        <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; text-align: center;">
-                        
-                            <a href="*|ARCHIVE|*" target="_blank">View this email in your browser</a>
-                        </td>
-                    </tr>
-                </tbody></table>
+              
 				<!--[if mso]>
 				</td>
 				<![endif]-->
@@ -750,8 +738,9 @@
                     <tbody><tr>
                         
                         <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-                        
-                            <strong><span style="font-size:20px"><span style="color:#4452fc">{{this.courseName}}</span></span></strong>
+                        <a href="{{this.courseUrl}}" style="text-decoration: none;">
+                        <strong><span style="font-size:20px"><span style="color:#4452fc; text-decoration: none;">{{this.courseName}}</span></span></strong>
+                        </a>
                         </td>
                     </tr>
                     </tbody>
@@ -796,14 +785,18 @@
                                             <tbody>
                                             <tr>
                                                 <td align="center">
-                                                    <img src="{{this.imgSource}}" height="96" width="86" style="border: solid 1px #979797;background-color: #d8d8d8; margin:24px" class="mcnImage">
+                                                    <a href="{{this.fileUrl}}">
+                                                        <img src="{{this.imgSource}}" height="96" width="86" style="border: solid 1px #979797; background-color: #d8d8d8; margin: 24px" class="mcnImage">
+                                                    </a>
                                                 </td>
                                                 <td height="100%" width="500px">
                                                     <table bgcolor="#fff" border="0" cellpadding="0" cellspacing="0" style="margin:0;padding:0" width="100%">
                                                         <tbody>
                                                         <tr>
                                                             <td height="100%" width="500px" colspan="2">
-                                                                <p style="font-size: 16px;font-weight: bold;font-style: normal;font-stretch: normal;line-height: normal;letter-spacing: normal; color: #4452fc; margin-top:0">{{this.fileName}}</p>
+                                                                <a href="{{this.fileUrl}}" style="text-decoration: none;">
+                                                                    <p style="text-decoration: none; font-size: 16px; font-weight: bold; font-style: normal; font-stretch: normal; line-height: normal; letter-spacing: normal; color: #4452fc; margin-top: 0">{{this.fileName}}</p>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -834,20 +827,24 @@
                 <table bgcolor="#fff" border="0" cellpadding="0" cellspacing="0" style="margin:0;padding:0" width="100%" class="mcnTextContent">
 	<tbody>
 		<tr>
-        	<td valign="top" align="center">
-					<img src="https://zboxstorage.blob.core.windows.net/test/group-3.png" height="96" width="86" style="margin:0 24px 24px 24px" class="mcnImage">
-			</td>
+            <td valign="top" align="center">
+                <a href="{{this.questionUrl}}">
+                <img src="https://zboxstorage.blob.core.windows.net/test/group-3.png" height="96" width="86" style="margin: 0 24px 24px 24px" class="mcnImage">
+                </a>
+            </td>
             <td height="100%" width="100%">
             	<table bgcolor="#fff" border="0" cellpadding="0" cellspacing="0" style="margin:0;padding:0" width="100%">
                 	<tbody>
                 		<tr>
-                        	<td height="100%" width="500px" colspan="2">
-                            	<p style="font-size: 14px;font-weight: bold;font-style: normal;font-stretch: normal;line-height: normal;letter-spacing: normal; color: #43425d; margin-top:0">{{this.questionTxt}}</p>
-                        	</td>
+                            <td height="100%" width="500px" colspan="2">
+                                <a href="{{this.questionUrl}}" style="text-decoration: none;">
+                                <p style="text-decoration: none; font-size: 14px; font-weight: bold; font-style: normal; font-stretch: normal; line-height: normal; letter-spacing: normal; color: #43425d; margin-top: 0">{{this.questionTxt}}</p>
+                                </a>
+                            </td>
 						</tr>
                         <tr>
                         	<td height="100%" width="70px" ;="">
-                            	<img src="{{this.userPicture}}" alt="jaci holsted" height="34" width="34" style="border-radius:50%;vertical-align: middle;">
+                            	<img src="{{this.userPicture}}" height="34" width="34" style="border-radius:50%;vertical-align: middle;">
                         	</td>
                             <td height="100%" width="100%" align="left" style="font-size: 14px;font-weight: normal;color: #43425d;">
                             	<p style="margin-left: 9px;">{{this.asker}}</p>
@@ -893,7 +890,7 @@
                         
                                                 <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #4452FC;font-size: 14px;font-style: normal;font-weight: bold;">
                         
-                                                    <strong><a href="#4452fc" target="_blank"><span style="color:#4452fc">See all</span></a></strong>
+                                                    <strong><a href="{{this.courseUrl}}" target="_blank"><span style="color:#4452fc">See all</span></a></strong>
                                                 </td>
                                             </tr>
                                             </tbody></table>

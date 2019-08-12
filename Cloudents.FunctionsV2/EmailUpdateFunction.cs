@@ -29,7 +29,7 @@ namespace Cloudents.FunctionsV2
             [OrchestrationTrigger] DurableOrchestrationContext context,
             CancellationToken token)
         {
-            var timeSince = DateTime.UtcNow.AddDays(-30);
+            var timeSince = DateTime.UtcNow.AddDays(-1);
             bool needToContinue;
             int page = 0;
             do
@@ -51,8 +51,9 @@ namespace Cloudents.FunctionsV2
                 }
 
             } while (needToContinue);
-
         }
+
+        
 
         [FunctionName("EmailUpdateFunction_UserQuery")]
         public static async Task<IEnumerable<UpdateUserEmailDto>> GetUserQuery(
@@ -87,12 +88,7 @@ namespace Cloudents.FunctionsV2
                 ["mode"] = "crop"
             };
 
-            var userImageNvc = new NameValueCollection()
-            {
-                ["width"] = "34",
-                ["height"] = "34",
-                ["mode"] = "crop"
-            };
+           
 
 
             var q = new GetUpdatesEmailByUserQuery(user.UserId, user.Since);
@@ -115,11 +111,7 @@ namespace Cloudents.FunctionsV2
                         {
                             Path = $"api/image/{hash}",
                         };
-                        var uriBuilderImage = new UriBuilder(new Uri(uri))
-                        {
-                            Path = $"api/image/{document.UserImage}",
-                        };
-                        uriBuilderImage.AddQuery(userImageNvc);
+                        uriBuilder.AddQuery(questionNvc);
 
                         return new Document()
                         {
@@ -127,22 +119,16 @@ namespace Cloudents.FunctionsV2
                             Name = document.Name,
                             UserName = document.UserName,
                             DocumentPreview = uriBuilder.ToString(),
-                            UserImage = uriBuilderImage.ToString()
+                            UserImage = BuildUserImage(document.UserImage)
                         };
                     }),
                     Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question =>
                     {
-                        var uriBuilder = new UriBuilder(new Uri(uri))
-                        {
-                            Path = $"api/image/{question.UserImage}",
-                        };
-
-                        uriBuilder.AddQuery(userImageNvc);
                         return new Question()
                         {
                             QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId),
                             QuestionText = question.QuestionText,
-                            UserImage = uriBuilder.ToString(),
+                            UserImage = BuildUserImage(question.UserImage),
                             UserName = question.UserName,
                             AnswerText = question.AnswerText
                         };
@@ -188,9 +174,30 @@ namespace Cloudents.FunctionsV2
                 }
             };
             //message.AddTo(user.ToEmailAddress);
-            message.AddTo("ram@cloudents.com");
+            message.AddTo("elad@cloudents.com");
             await emailProvider.AddAsync(message, token);
             await emailProvider.FlushAsync(token);
+        }
+
+        private static string BuildUserImage(string image)
+        {
+            if (string.IsNullOrEmpty(image))
+            {
+                return "https://zboxstorage.blob.core.windows.net/spitball-user/DefaultThumbnail/placeholder-profile.png";
+            }
+            var uri = CommunicationFunction.GetHostUri();
+            var uriBuilderImage = new UriBuilder(new Uri(uri))
+            {
+                Path = $"api/{image}",
+            };
+            var userImageNvc = new NameValueCollection()
+            {
+                ["width"] = "34",
+                ["height"] = "34",
+                ["mode"] = "crop"
+            };
+            uriBuilderImage.AddQuery(userImageNvc);
+            return uriBuilderImage.ToString();
         }
 
         private static string BuildHash(IBinarySerializer binarySerializer, Uri previewUri)
@@ -203,7 +210,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
         public static async Task TimerStart(
-            [TimerTrigger("0 0 10 * * *", RunOnStartup = true)] TimerInfo myTimer,
+            [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
             [OrchestrationClient]DurableOrchestrationClient starter,
             ILogger log)
         {
@@ -214,11 +221,13 @@ namespace Cloudents.FunctionsV2
                 await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
                 return;
             }
-            if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Running)
+
+            var types = new[] {OrchestrationRuntimeStatus.Running, OrchestrationRuntimeStatus.Pending};
+            if (types.Contains(existingInstance.RuntimeStatus))
             {
                 if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-6))
                 {
-                    await starter.TerminateAsync(instanceName, $"Taking too long ");
+                    await starter.TerminateAsync(instanceName, "Taking too long ");
                 }
                 else
                 {
@@ -227,10 +236,7 @@ namespace Cloudents.FunctionsV2
                 }
             }
 
-            if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Pending)
-            {
-                return;
-            }
+           
             await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
         }
 
