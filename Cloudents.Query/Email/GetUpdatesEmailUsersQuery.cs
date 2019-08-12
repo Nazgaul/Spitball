@@ -22,9 +22,9 @@ namespace Cloudents.Query.Email
 
         internal sealed class GetUpdatesEmailUsersQueryHandler : IQueryHandler<GetUpdatesEmailUsersQuery, IEnumerable<UpdateUserEmailDto>>
         {
-            private readonly DapperRepository _session;
+            private readonly IDapperRepository _session;
 
-            public GetUpdatesEmailUsersQueryHandler(DapperRepository querySession)
+            public GetUpdatesEmailUsersQueryHandler(IDapperRepository querySession)
             {
                 _session = querySession;
             }
