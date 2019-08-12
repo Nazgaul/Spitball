@@ -12,7 +12,13 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string Bio { get; set; } 
         public string Image { get; set; } 
         public double Price { get; set; } 
-        public double Rate { get; set; } 
+        public double Rate { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(UserId)}: {UserId}";
+        }
+
         public int ReviewsCount { get; set; } 
         public byte[] Version { get; set; } 
         public IEnumerable<string> Courses { get; set; } 
