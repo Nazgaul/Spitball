@@ -4,6 +4,7 @@ import classIcon from "./img/search-class-icon.svg";
 import universityIcon from "./img/search-university-icon.svg";
 import spitballIcon from "./img/search-spitball-icon.svg";
 import { LanguageService } from "../../../services/language/languageService";
+import analyticsService from '../../../services/analytics.service';
 
 export default {
     name: "search-input",
@@ -57,9 +58,7 @@ export default {
         ]
     }),
     computed: {
-        ...mapGetters({
-                          'globalTerm': 'currentText'
-                      }),
+        ...mapGetters({'globalTerm': 'currentText'}),
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
         isSearchActive() {
             if(this.$vuetify.breakpoint.xsOnly) {
@@ -143,10 +142,19 @@ export default {
             let query = this.prepareQuery(id);
             let sameRoute = this.isRouteDuplication(this.submitRoute, query);
             this.$router.push({
-                                  path: this.submitRoute,
-                                  query
-                              });
-
+                path: this.submitRoute,
+                query
+            });
+            if(this.msg) {
+                let suggestOptions;
+                let setSuggestion = (words) => {
+                    let word = words.split(" ");
+                    return word[word.length - 1];
+                }
+                suggestOptions = this.suggestOptions[id-1].name || 'Spitball';
+                suggestOptions = setSuggestion(suggestOptions);
+                analyticsService.sb_unitedEvent('global_search', suggestOptions, this.msg);
+            }
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
