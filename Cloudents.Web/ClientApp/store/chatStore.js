@@ -43,7 +43,7 @@ const getters = {
                 return messages;
             }else{
                 if(!state.isSyncing){
-                    let messageObjct = chatService.createMessage({
+                    let messageObject = chatService.createMessage({
                         dateTime: null,
                         fromSignalR: false,
                         name: state.activeConversationObj.name,
@@ -51,8 +51,8 @@ const getters = {
                         type: "text",
                         userId: state.activeConversationObj.userId
                     }, state.activeConversationObj.conversationId)
-                    state.emptyState.push(messageObjct);
-                    messageObjct = chatService.createMessage({
+                    state.emptyState.push(messageObject);
+                    messageObject = chatService.createMessage({
                         dateTime: null,
                         fromSignalR: false,
                         name: state.activeConversationObj.name,
@@ -60,7 +60,7 @@ const getters = {
                         type: "text",
                         userId: state.activeConversationObj.userId
                     }, state.activeConversationObj.conversationId)
-                    state.emptyState.push(messageObjct);
+                    state.emptyState.push(messageObject);
                     return state.emptyState;
                 }
             }
@@ -83,7 +83,7 @@ const getters = {
     },
     getActiveConversationObj:state=>state.activeConversationObj,
     getTotalUnread: state=>state.totalUnread,
-    getIsChatLocked: state=>state.chatLocked,
+    getIsChatLocked: state=>state.chatLocked
 };
 
 const mutations = {
@@ -161,7 +161,7 @@ const mutations = {
         },
     setSyncStatus:(state, val)=>{
         state.isSyncing = val;
-    },
+    }
 };
 
 const actions = {
@@ -243,7 +243,9 @@ const actions = {
         }
         if(state.conversations[conversationId]){
             let otherUserId = state.conversations[conversationId].userId;
-            chatService.clearUnread(otherUserId);
+            if(state.totalUnread > 0) {
+                chatService.clearUnread(otherUserId);
+            }
             let unreadNumber = state.conversations[conversationId].unread * -1;
             commit('updateTotalUnread', unreadNumber);
             commit('clearUnreadFromConversation', conversationId);
@@ -337,7 +339,7 @@ const actions = {
         });
         chatService.sendChatMessage(messageObj);
 
-        //add message localy
+        //add message locally
         let id = state.activeConversationObj.conversationId;
         let userId = getters.accountUser.id;
         let localMessageObj = {
@@ -382,17 +384,14 @@ const actions = {
     checkUnreadMessageFromSignalR({commit, dispatch, state}, obj) {
         let currentConversation = state.activeConversationObj.conversationId === obj.conversationId
         if(currentConversation) {
-            let nodeArray = document.getElementsByClassName(`${obj.conversationId}-my-messages`);
             let messages = state.messages[obj.conversationId];
-            Array.from(nodeArray).forEach((node, i) => {
-                if(!messages[i].unread) {
-                    node.classList.remove('unread-message');
-                }                        
+            messages.forEach((message) => {
+                message.unreadMessage = false;   
             })
         }
     },
-    uploadCapturedImage(context, formData){
-       return chatService.uploadCapturedImage(formData);
+    uploadCapturedImage(context, formData) {
+        return chatService.uploadCapturedImage(formData)
     }
 };
 

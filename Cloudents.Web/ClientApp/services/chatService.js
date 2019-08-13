@@ -1,4 +1,4 @@
-import { connectivityModule } from "./connectivity.module"
+import { connectivityModule } from "./connectivity.module";
 import { LanguageService } from './language/languageService';
 
 function createLastImageMsg() {
@@ -34,7 +34,7 @@ function TextMessage(objInit, id, fromSignalR){
     this.name = objInit.name;
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
-    this.unreadMessage = objInit.unreadMessage;
+    this.unreadMessage = objInit.unreadMessage || objInit.unread;
 }
 function FileMessage(objInit, id, fromSignalR){
     this.userId= objInit.userId;
@@ -46,7 +46,7 @@ function FileMessage(objInit, id, fromSignalR){
     this.name = objInit.name;
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
-    this.unreadMessage = objInit.unreadMessage;
+    this.unreadMessage = objInit.unreadMessage || objInit.unread;
 }
 
 function activeConversationObj(objInit){
@@ -102,7 +102,7 @@ const clearUnread = (otherUserId) => {
 }
 
 const uploadCapturedImage = (formData)=>{
-    return connectivityModule.http.post(`/chat/upload`, formData);
+    return connectivityModule.http.post(`Chat/uploadForm`, formData);
 }
 
 export default {

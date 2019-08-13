@@ -1,8 +1,13 @@
 <template>
 <div class="message-wrapper" :class="{'myMessage': isMine}">
-    <div class="message" :class="{'myMessage': isMine, 'imgMessage': message.type === 'file'}" v-html="$chatMessage(message, date, isMine)"></div>
+    <div class="message" :class="{'myMessage': isMine, 'imgMessage': message.type === 'file'}" >
+        <div v-html="$chatMessage(message, date, isMine)"></div>
+        <span class="message-text-date" v-if="message.type === 'text'">
+            {{date}}
+            <span v-show="isMine" :class="[`${!rtl ? 'chat-checkmark' : 'chat-checkmark checkmark-rtl'}${message.unreadMessage ? ' unread-message':''}`]"></span>
+        </span>
+    </div>
 </div>
-    
 </template>
 
 <script>
@@ -17,7 +22,12 @@ export default {
     },
     props:{
         message:{
-            type:Object
+            type: Object
+        }
+    },
+    data() {
+        return {
+            rtl: global.isRtl
         }
     },
     computed:{
@@ -30,6 +40,7 @@ export default {
         }
     }
 }
+
 </script>
 
 <style lang='less'>

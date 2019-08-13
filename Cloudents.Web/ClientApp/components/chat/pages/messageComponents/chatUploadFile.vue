@@ -20,10 +20,10 @@
                             OtherUser: otherUserId
                         }}"
                         id="chat-image"
-                        :input-id="componentUniqueId"
-                        ref="upload"
+                        :input-id="componentUniqueIdImage"
+                        ref="uploadImage"
                         :drop="false"
-                        v-model="uploadedFiles"
+                        v-model="uploadedImages"
                         :multiple="false"
                         :post-action="uploadUrl"
                         @input-file="inputFile"
@@ -44,8 +44,8 @@
                         OtherUser: otherUserId
                     }}"
                     id="file-input"
-                    :input-id="componentUniqueId"
-                    ref="upload"
+                    :input-id="componentUniqueIdFile"
+                    ref="uploadFile"
                     :drop="false"
                     v-model="uploadedFiles"
                     :multiple="false"
@@ -76,22 +76,24 @@
         },
         data() {
             return {
-                componentUniqueId: `instance-${this._uid}`,
+                componentUniqueIdFile: `instance-${this._uid}`,
+                componentUniqueIdImage: `instance-${this._uid}-image`,
                 uploadUrl: "/api/chat/upload",
                 uploadedFiles: [],
-                uploadedFileNames: [],
+                uploadedImages: [],
             }
         },
         methods: {
-            ...mapActions(['uploadChatFile', 'updateChatUploadLoading','updateFileError','uploadCapturedImage']),
+            ...mapActions(['updateChatUploadLoading','updateFileError','uploadCapturedImage']),
             inputFile: function (newFile, oldFile) {
                 let self = this;
-                if (self.uploadedFiles && self.uploadedFiles.length > 1) {
+                if (self.uploadedFiles && self.uploadedFiles.length > 1 || self.uploadedImages && self.uploadedImages.length > 1) {
                     return
                 }
                 if (newFile && oldFile && !newFile.active && oldFile.active) {
                     console.log('upload Complete');
                     self.uploadedFiles.length = 0;
+                    self.uploadedImages.length = 0;
                     this.updateChatUploadLoading(false);
                 }
                 // Uploaded successfully
@@ -105,10 +107,13 @@
                     this.updateChatUploadLoading(false);
                 }
                 if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
-                    if (!this.$refs.upload.active) {
-                        this.$refs.upload.active = true;
-                        this.updateChatUploadLoading(true);
+                    if (this.$refs.uploadFile && !this.$refs.uploadFile.active) {
+                        this.$refs.uploadFile.active = true;
                     }
+                    if (this.$refs.uploadImage && !this.$refs.uploadImage.active) {
+                        this.$refs.uploadImage.active = true;
+                    }
+                    this.updateChatUploadLoading(true);
                 }
             },
             inputFilter: function (newFile, oldFile, prevent) {
@@ -137,16 +142,22 @@
             },
             captruephoto(e) {
                 let file = e.target.files[0];
-
+                this.updateChatUploadLoading(true);
                 if (!/\.(jpeg|jpe|jpg|gif|png)$/i.test(file.name)) {
                     this.updateFileError(true)
+                    this.updateChatUploadLoading(false);
                     return;
                 }
 
                 let formData = new FormData();
                 formData.append("file", file);
-                this.uploadCapturedImage(formData).then(()=>{
-                    console.log('uploaded!!!');
+                formData.append('otherUser', this.otherUserId)
+                this.uploadCapturedImage(formData).then(()=> {
+                    
+                }).catch(ex => {
+                   
+                }).finally(() => {
+                    this.updateChatUploadLoading(false)
                 })
             }
         },

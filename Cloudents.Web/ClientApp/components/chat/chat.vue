@@ -6,7 +6,6 @@
     class="sb-chat-container"
     :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]"
   >
-
     <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
       <v-icon
         :class="{'rtl':isRtl}"
