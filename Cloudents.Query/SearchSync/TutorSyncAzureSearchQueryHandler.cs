@@ -138,7 +138,7 @@ cte.rateCount as ReviewsCount,
 	   (Max(tr.Version))) AS value(v)
    ) as version,
 cTable.SYS_CHANGE_VERSION,
-null as SYS_CHANGE_OPERATION,
+cTable.SYS_CHANGE_OPERATION,
 cTable.Id,
 
 (select dt.CourseId as CourseId
@@ -201,7 +201,8 @@ fetch next @pageSize Rows only";
 
                 using (var conn = _dapperRepository.OpenConnection())
                 {
-                    var result = (await conn.QueryAsync<TutorSearchDto>(query.Version == 0? firstQuery: secondQuery,
+                    var sql = query.Version == 0 ? firstQuery : secondQuery;
+                    var result = (await conn.QueryAsync<TutorSearchDto>(sql,
                          new
                          {
                              query.Version,
@@ -216,7 +217,7 @@ fetch next @pageSize Rows only";
                     return new SearchWrapperDto<TutorSearchDto>()
                     {
                         Update = lookUp[false],
-                        Delete = lookUp[true].Select(s => s.UserId.ToString()),
+                        Delete = lookUp[true].Select(s => s.Id.ToString()),
                         Version = result.Count > 0 ? result.Max(x=>x.SYS_CHANGE_VERSION) : 0
 
                     };
