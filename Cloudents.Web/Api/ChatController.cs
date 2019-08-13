@@ -36,7 +36,7 @@ namespace Cloudents.Web.Api
             IChatDirectoryBlobProvider blobProvider,
             ITempDataDictionaryFactory tempDataDictionaryFactory,
             IStringLocalizer<UploadControllerBase> localizer)
-        : base(blobProvider, tempDataDictionaryFactory,localizer)
+        : base(blobProvider, tempDataDictionaryFactory, localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
@@ -106,7 +106,7 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
-            var command = new SendChatTextMessageCommand(model.Message, userId,model.OtherUser );
+            var command = new SendChatTextMessageCommand(model.Message, userId, model.OtherUser);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -157,17 +157,21 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("uploadForm")]
-        public async Task<ActionResult<UploadStartResponse>> UploadSingleFile(IFormFile file, CancellationToken token)
+        public async Task<ActionResult<UploadStartResponse>> UploadSingleFile(
+            [FromForm] long otherUser,
+            IFormFile file, CancellationToken token)
         {
             var extension = Path.GetExtension(file.FileName);
-
+            var userId = _userManager.GetLongUserId(User);
             if (!GetSupportedExtensions().Contains(extension, StringComparer.OrdinalIgnoreCase))
             {
                 throw new ArgumentException();
             }
 
             var blobName = BlobFileName(Guid.NewGuid(), file.FileName);
-            await  BlobProvider.UploadStreamAsync(blobName, file.OpenReadStream(), token: token);
+            await BlobProvider.UploadStreamAsync(blobName, file.OpenReadStream(), token: token);
+            var command = new SendChatFileMessageCommand(blobName, userId, new[] { otherUser });
+            await _commandBus.DispatchAsync(command, token);
             return new UploadStartResponse(blobName);
         }
     }
