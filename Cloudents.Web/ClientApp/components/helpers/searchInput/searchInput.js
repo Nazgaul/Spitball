@@ -43,16 +43,19 @@ export default {
             {
                 name: LanguageService.getValueByKey("searchInput_class_search"),
                 icon: "classIcon",
+                analyticName: 'Class',
                 id: 1
             },
             {
                 name: LanguageService.getValueByKey("searchInput_university_search"),
                 icon: "universityIcon",
+                analyticName: 'University',
                 id: 2
             },
             {
                 name: LanguageService.getValueByKey("searchInput_spitball_search"),
                 icon: "spitballIcon",
+                analyticName: 'Spitball',
                 id: 3
             }
         ]
@@ -119,7 +122,7 @@ export default {
             //this.msg = item.text;
             //this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ?
             // this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
-            this.search(item.id);
+            this.search(item);
             this.closeSuggestions();
         },
         courseSelected() {
@@ -128,7 +131,8 @@ export default {
         isRouteDuplication(newRoute, query){
             return this.$router.currentRoute.path === newRoute && JSON.stringify(query) === JSON.stringify(this.$router.currentRoute.query);
         },
-        search(id) {
+        search(item) {
+            let id = item? item.id : undefined;
             //prevent search empty string when no term is in search ATM
             if(!this.$route.query.term) {
                 if(!this.msg) {
@@ -147,12 +151,15 @@ export default {
             });
             if(this.msg) {
                 let suggestOptions;
-                let setSuggestion = (words) => {
-                    let word = words.split(" ");
-                    return word[word.length - 1];
+                if(id) {
+                    suggestOptions = item.analyticName;
+                } else {
+                    if(this.courseSelected()){
+                        suggestOptions = 'Class'
+                    }else{
+                        suggestOptions = 'Spitball'
+                    }
                 }
-                suggestOptions = this.suggestOptions[id-1].name || 'Spitball';
-                suggestOptions = setSuggestion(suggestOptions);
                 analyticsService.sb_unitedEvent('global_search', suggestOptions, this.msg);
             }
             this.closeSuggestions();
