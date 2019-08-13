@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure
             }
 
             var result =
-                await _client.DetectLanguageAsync(true, b, cancellationToken: token);
+                await _client.DetectLanguageBatchAsync(b, cancellationToken: token);
 
 
 
