@@ -51,30 +51,7 @@ namespace Cloudents.FunctionsV2
 
             log.LogInformation("finish sending email");
         }
-
-        //[FunctionName("FunctionEmailTest")]
-        //public static async Task EmailFunctionTimerAsync(
-        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
-        //    IAsyncCollector<SendGridMessage> emailProvider,
-
-        //    [Inject] ILifetimeScope lifetimeScope,
-        //    IBinder binder,
-        //    ILogger log,
-        //    CancellationToken token)
-        //{
-
-
-        //    var message = new DocumentPurchasedMessage(Guid.Parse("9D4463F7-CD2C-4091-87AA-A9C8008D922E"));
-
-        //    var handlerType =
-        //        typeof(ISystemOperation<>).MakeGenericType(message.GetType());
-        //    using (var child = lifetimeScope.BeginLifetimeScope())
-        //    {
-        //        dynamic operation = child.Resolve(handlerType);
-        //        await operation.DoOperationAsync((dynamic)message, binder, token);
-        //    }
-        //}
+      
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
@@ -87,7 +64,7 @@ namespace Cloudents.FunctionsV2
             {
                 message.Asm = new ASM
                 {
-                    GroupId = 10926
+                    GroupId = topicMessage.UnsubscribeGroup
                 };
                 message.TemplateId = topicMessage.TemplateId;
                 message.Subject = topicMessage.Subject;
@@ -174,21 +151,12 @@ namespace Cloudents.FunctionsV2
         [FunctionName("FunctionPhoneServiceBus")]
         public static async Task CallServiceBusAsync(
             [ServiceBusTrigger("communication", "call", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
-            [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options,
-            ILogger log
-            )
+            [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options)
         {
             var from = new PhoneNumber("+1 203-347-4577");
             var to = new PhoneNumber(msg.PhoneNumber);
 
-
-            var hostName2 = string.Format("http://{0}.azurewebsites.net", Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%"));
-            if (hostName2.Contains("localhost", StringComparison.OrdinalIgnoreCase))
-            {
-                hostName2 = "https://spitball-function-dev2.azurewebsites.net";
-            }
-
-            hostName2 = hostName2.TrimEnd('/');
+            var hostName2 = GetHostUri();
 
             var uriBuilder = new UriBuilder(new Uri(hostName2))
             {
@@ -205,6 +173,20 @@ namespace Cloudents.FunctionsV2
             };
             await options.AddAsync(call);
 
+        }
+
+        public static string GetHostUri()
+        {
+            var hostName2 = Environment.ExpandEnvironmentVariables("%WEBSITE_HOSTNAME%");
+            //var hostName2 = string.Format("http://{0}.azurewebsites.net",
+            //    Environment.ExpandEnvironmentVariables("%WEBSITE_HOSTNAME%"));
+            if (hostName2.Contains("localhost", StringComparison.OrdinalIgnoreCase))
+            {
+                hostName2 = "https://spitball-function-dev2.azurewebsites.net";
+            }
+
+            return hostName2.TrimEnd('/');
+            //return hostName2;
         }
 
         [FunctionName("TwilioMessage")]

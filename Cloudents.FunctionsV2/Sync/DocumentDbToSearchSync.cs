@@ -43,7 +43,7 @@ namespace Cloudents.FunctionsV2.Sync
                 needContinue = true;
                 await syncService.AddAsync(new AzureSearchSyncOutput
                 {
-                    Item = Document.FromDto(document),
+                    Item = Cloudents.Search.Entities.Document.FromDto(document),
                     Insert = true
 
                 }, token);
@@ -54,7 +54,7 @@ namespace Cloudents.FunctionsV2.Sync
                 needContinue = true;
                 await syncService.AddAsync(new AzureSearchSyncOutput
                 {
-                    Item = new Document()
+                    Item = new Cloudents.Search.Entities.Document()
                     {
                         Id = document
                     },

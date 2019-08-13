@@ -9,16 +9,15 @@ namespace Cloudents.Core.Interfaces
         string BuildWalletEndPoint(string token);
         string BuildShareEndPoint(string token);
 
+        string BuildCourseEndPoint(string courseName);
+
         string BuildQuestionEndPoint(long id, object parameters = null);
        // string BuildPayMeBuyerEndPoint(string token);
 
         Uri BuildChatEndpoint(string token, object parameters = null);
 
         Uri BuildShortUrlEndpoint(string identifier);
+        string BuildDocumentEndPoint(long id, object parameters = null);
     }
 
-    //public interface IUrlRedirectBuilder
-    //{
-    //    IEnumerable<T> BuildUrl<T>(IEnumerable<T> result, int page = 0, int sizeOfPage = 0) where T : IUrlRedirect;
-    //}
 }

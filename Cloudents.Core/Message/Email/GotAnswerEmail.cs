@@ -29,6 +29,8 @@ namespace Cloudents.Core.Message.Email
         }
 
         public override string Campaign => "You got an answer";
+        public override UnsubscribeGroup UnsubscribeGroup =>UnsubscribeGroup.Update;
+
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
             { Language.Hebrew,"63d3a53b-1836-403e-9a29-90e937c33616"},
