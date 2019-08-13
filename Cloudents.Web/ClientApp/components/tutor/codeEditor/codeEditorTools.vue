@@ -5,7 +5,7 @@
                     <v-btn v-on="on" flat @click="show = !show" class="selected-lang nav-action"  id="languagesListPop" >
                         <div class="name_img">
                         <img style="width: 24px; margin-right: 5px;" :src="getLangImg(currentLang.langIcon)" >
-                            {{rtlLang(currentLang.langName)}}
+                            {{currentLang.langName}}
                         </div>
                         <v-icon>{{ show ? 'sbf-arrow-up' : 'sbf-arrow-down' }}</v-icon>
                     </v-btn>
@@ -23,7 +23,7 @@
             <v-card v-if="show" class="list-lang-cont" id="languagesListPop">
                 <div v-for="lang in languagesList" :key="lang.langName" class="list-lang" @click="selectLang(lang)"> 
                     <img style="width: 24px; margin-right: 5px;" v-if="lang.langIcon" :src="getLangImg(lang.langIcon)">
-                    {{rtlLang(lang.langName)}}
+                    {{lang.langName}}
                 </div>
             </v-card>
         </div>
