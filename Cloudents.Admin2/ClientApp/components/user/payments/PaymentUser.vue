@@ -6,7 +6,7 @@
         <span v-if="showNoResult">NO RESULTS!</span>
         <v-data-table :headers="headers"
                       :items="paymentRequestsList"
-                     
+                     :custom-sort="customSort"
                       disable-initial-sort>
             <template slot="items" slot-scope="props" >
 
@@ -152,6 +152,16 @@
             }
         },
         methods: {
+            customSort(items, index, isDesc) {
+                items.sort((a, b) => {
+                    if (!isDesc) {
+                        return a[index] < b[index] ? -1 : 1;
+                    } else {
+                        return b[index] < a[index] ? -1 : 1;                    
+                    }
+                });
+                return items;
+            },
             editItem(item) {
                 this.editedIndex = this.paymentRequestsList.indexOf(item);
                 console.log(item);
