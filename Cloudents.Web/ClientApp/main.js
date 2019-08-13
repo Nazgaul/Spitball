@@ -277,7 +277,7 @@ Vue.prototype.$Ph = function (key, placeholders) {
     return LanguageService.changePlaceHolders(rawKey, argumentsToSend)
 }
 
-Vue.prototype.$chatMessage = function (message, date, myMsg) {
+Vue.prototype.$chatMessage = function (message, date) {
     if(message.type === 'text'){
         //text and convert links to url's
         let linkTest = /(ftp:\/\/|www\.|https?:\/\/){1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\S*)/g;
