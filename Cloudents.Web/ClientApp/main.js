@@ -278,23 +278,25 @@ Vue.prototype.$Ph = function (key, placeholders) {
     return LanguageService.changePlaceHolders(rawKey, argumentsToSend)
 }
 
-Vue.prototype.$chatMessage = function (message) {
+Vue.prototype.$chatMessage = function (message, date) {
     if(message.type === 'text'){
         //text and convert links to url's
         let linkTest = /(ftp:\/\/|www\.|https?:\/\/){1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\S*)/g;
         let modifiedText = message.text;
         let matchedResults = modifiedText.match(linkTest);
+
         if(!!matchedResults){
             matchedResults.forEach(result=>{
                 let prefix = result.toLowerCase().indexOf('http') === -1 &&
                 result.toLowerCase().indexOf('ftp') === -1 ? '//' : ''
                 modifiedText = modifiedText.replace(result, `<a href="${prefix}${result}" target="_blank">${result}</a>`);
             })
-        }
+        } 
         return modifiedText;
     }else{
         let src = utilitiesService.proccessImageURL(message.src, 190, 140, 'crop');
-        return `<a href="${message.href}" target="_blank"><img src="${src}" /></a>`;
+        let dateText = `<div class="message-file-date">${date}</div>`;
+        return `<a href="${message.href}" target="_blank"><img src="${src}" />${dateText}</a>`;
     }
 }
 
@@ -328,15 +330,10 @@ router.beforeEach((to, from, next) => {
         if (!!from.query && !!from.query.university) {
             store.dispatch('closeSelectUniFromNav')
         }
-    }
+    } 
 
-    // if (!!to.query && Object.keys(to.query).length > 0) {
-    //     for (let prop in to.query) {
-    //         if (constants.regExXSSCheck.test(to.query[prop])) {
-    //             to.query[prop] = "";
-    //         }
-    //     }
-    // }
+    store.dispatch('sendQueryToAnalytic', to)
+
     if (global.innerWidth < 600) {
         intercomSettings.hide_default_launcher = true;
     }

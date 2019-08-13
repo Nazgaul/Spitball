@@ -1,25 +1,24 @@
 <template>
   <div class="conversation-container">
     <v-flex class="avatar-container">
-      <user-avatar :userImageUrl="conversation.image" :user-name="conversation.name"/>
+      <user-avatar :size="'46'" :userImageUrl="userImg" :user-name="conversation.name"/>
       <userOnlineStatus class="user-status" :userId="conversation.userId"></userOnlineStatus>
     </v-flex>
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
-        <v-flex>
-          <span class="conversation-name" v-html="conversation.name"></span>
-          <span class="conversation-desc text-truncate" v-html="conversation.lastMessage"></span>
-      </v-flex>
+        <v-flex class="top-detail-container-wrap">
+          <span class="conversation-name pb-2" v-html="conversation.name"></span>
+          <template>
+            <span class="conversation-desc text-truncate" v-html="conversation.lastMessage"></span>
+          </template>
+        </v-flex>
         <v-flex class="date-unread-container">
-          <span class="conversation-date">{{date}}</span>
+          <span class="conversation-date pb-2">{{date}}</span>
           <div>
             <span v-show="conversation.unread > 0" class="conversation-unread">{{conversation.unread}}</span>
           </div>
-          
         </v-flex>
-        
       </v-flex>
-      
     </v-flex>
   </div>
 </template>
@@ -27,7 +26,8 @@
 <script>
 import UserAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import utilitiesService from "../../../../services/utilities/utilitiesService";
-import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue"
+import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue";
+
 export default {
   components: {
     UserAvatar,
@@ -41,6 +41,9 @@ export default {
   computed: {
     date() {
       return utilitiesService.dateFormater(this.conversation.dateTime);
+    },
+    userImg() {
+      return utilitiesService.proccessImageURL(this.conversation.image, 46, 46);
     }
   }
 };
@@ -59,22 +62,24 @@ export default {
     flex-grow: 0;
     margin-left: 12px;
     .user-status{
-      bottom: 0;
+      bottom: 2px;
       position: absolute;
-      right: -2px;
+      right: 0;
     }
   }
   .user-detail-container {
-    padding: 12px;
-    border-bottom: solid 2px rgba(67, 66, 93, 0.17);
-    padding: 16px 12px 16px 12px;
-    
+    border-bottom: solid 1px #dfdfe4;
+    padding: 12px 0;
+    margin: 0 10px;
     .top-detail-container {
       display: flex;
       justify-content: space-between;
+      .top-detail-container-wrap {
+        max-width: 150px;
+      }
       .conversation-name{
         display: flex;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: bold;
         color: #43425d;
         align-items: center;
@@ -87,32 +92,34 @@ export default {
       .conversation-desc{
         font-size: 12px;
         width: 180px;
-        display: block;
+        color: #919095;
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 8px;
+        }
       }
       .date-unread-container{
         display: flex;
         flex-direction: column;
         text-align: right;
         .conversation-date{
-          font-size: 11px;
-          color: rgba(0, 0, 0, 0.38);
-          
+          font-size: 12px;
+          color: #919095;
         }
         .conversation-unread{
-          background: #33cea9;
+          background: #5158af;
           color: #fff;
           border-radius: 50%;
-          height: 16px;
-          width: 16px;
-          line-height: 16px;
+          height: 20px;
+          width: 20px;
+          line-height: 20px;
           display: inline-block;
           text-align: center;
           vertical-align: middle;
           font-size: 11px;
-          margin-top: 3px;
         }
       }
-      
     }
   }
 }

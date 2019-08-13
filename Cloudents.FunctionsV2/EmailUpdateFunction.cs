@@ -12,8 +12,11 @@ using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Email;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
@@ -107,7 +110,7 @@ namespace Cloudents.FunctionsV2
                         var previewUri = blobProvider.GetPreviewImageLink(document.Id, 0);
                         var hash = BuildHash(binarySerializer, previewUri);
 
-                        var uriBuilder = new UriBuilder(new Uri(uri))
+                        var uriBuilder = new UriBuilder(uri)
                         {
                             Path = $"api/image/{hash}",
                         };
@@ -186,9 +189,9 @@ namespace Cloudents.FunctionsV2
                 return "https://zboxstorage.blob.core.windows.net/spitball-user/DefaultThumbnail/placeholder-profile.png";
             }
             var uri = CommunicationFunction.GetHostUri();
-            var uriBuilderImage = new UriBuilder(new Uri(uri))
+            var uriBuilderImage = new UriBuilder(uri)
             {
-                Path = $"api/{image}",
+                Path = $"api/{image}"
             };
             var userImageNvc = new NameValueCollection()
             {
@@ -238,6 +241,17 @@ namespace Cloudents.FunctionsV2
 
            
             await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
+        }
+
+
+        [FunctionName("TestHtml")]
+        public static IActionResult RunTest(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test")]
+            HttpRequest req)
+        {
+            var uri = CommunicationFunction.GetHostUri();
+
+            return new OkObjectResult(uri);
         }
 
 

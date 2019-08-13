@@ -158,7 +158,7 @@ namespace Cloudents.FunctionsV2
 
             var hostName2 = GetHostUri();
 
-            var uriBuilder = new UriBuilder(new Uri(hostName2))
+            var uriBuilder = new UriBuilder(hostName2)
             {
                 Path = "/api/twilio",
             };
@@ -175,7 +175,7 @@ namespace Cloudents.FunctionsV2
 
         }
 
-        public static string GetHostUri()
+        public static Uri GetHostUri()
         {
             var hostName2 = Environment.ExpandEnvironmentVariables("%WEBSITE_HOSTNAME%");
             //var hostName2 = string.Format("http://{0}.azurewebsites.net",
@@ -185,7 +185,10 @@ namespace Cloudents.FunctionsV2
                 hostName2 = "https://spitball-function-dev2.azurewebsites.net";
             }
 
-            return hostName2.TrimEnd('/');
+            var uri = new UriBuilder("https", hostName2.TrimEnd('/'));
+            return uri.Uri;
+
+
             //return hostName2;
         }
 

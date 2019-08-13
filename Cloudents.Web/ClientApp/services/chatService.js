@@ -1,4 +1,9 @@
-import { connectivityModule } from "./connectivity.module"
+import { connectivityModule } from "./connectivity.module";
+import { LanguageService } from './language/languageService';
+
+function createLastImageMsg() {
+    return `<img src="${require('../components/chat/pages/messageComponents/photo-camera-small.png')}" /><span>${LanguageService.getValueByKey('chat_photo')}</span>`
+}
 
 function createConversationId(arrIds){
     return arrIds.sort((a, b) => a - b).join('_');
@@ -13,7 +18,7 @@ function Conversation(objInit){
     this.dateTime = objInit.dateTime || new Date().toISOString();
     this.image = objInit.image;
     this.studyRoomId = objInit.studyRoomId;
-    this.lastMessage = objInit.lastMessage || objInit.text
+    this.lastMessage = objInit.lastMessage || createLastImageMsg();
 }
 
 function createConversation(objInit){
@@ -29,6 +34,7 @@ function TextMessage(objInit, id, fromSignalR){
     this.name = objInit.name;
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
+    this.unreadMessage = objInit.unreadMessage || objInit.unread;
 }
 function FileMessage(objInit, id, fromSignalR){
     this.userId= objInit.userId;
@@ -40,6 +46,7 @@ function FileMessage(objInit, id, fromSignalR){
     this.name = objInit.name;
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
+    this.unreadMessage = objInit.unreadMessage || objInit.unread;
 }
 
 function activeConversationObj(objInit){
@@ -94,6 +101,10 @@ const clearUnread = (otherUserId) => {
     return connectivityModule.http.post(`Chat/read`, serverObj);
 }
 
+const uploadCapturedImage = (formData)=>{
+    return connectivityModule.http.post(`Chat/uploadForm`, formData);
+}
+
 export default {
     getAllConversations,
     getChatById,
@@ -104,5 +115,7 @@ export default {
     createServerMessageObj,
     clearUnread,
     createActiveConversationObj,
-    createConversationId
+    createConversationId,
+    createLastImageMsg,
+    uploadCapturedImage
 }

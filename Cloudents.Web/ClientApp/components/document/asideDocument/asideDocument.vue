@@ -36,7 +36,7 @@
             <table class="pa-2 pb-2">
                 <tr v-if="isName">
                     <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_uploaded'"></td>
-                    <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{name: 'profile', params: {id: getUserId, name: getUploaderName} }">{{getUploaderName}}</router-link></h3></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/profile', name: 'profile', params: {id: getUserId, name: getUploaderName} }">{{getUploaderName}}</router-link></h3></td>
                 </tr>
                 <tr v-if="isCourse">
                     <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_course'"></td>
@@ -125,7 +125,7 @@ export default {
         },
         getUserId() {
             if(this.document.details && this.document.details.user) {
-                return this.document.details.user.userId;
+                return this.document.details.user.userId || this.document.details.user.id;
             }
         },
         isPurchased() {

@@ -6,20 +6,21 @@
         row
         v-for="conversation in converations"
         :key="conversation.conversationId">
-        <conversation-comp :conversation="conversation"></conversation-comp>
+            <conversation-comp :conversation="conversation"></conversation-comp>
         </v-layout>
     </div>
     <div v-else>
         <v-layout>
-            <span class="conversations-empty-state" v-language:inner>chat_conversations_empty_state</span>
+            <span class="conversations-empty-state" v-language:inner="'chat_conversations_empty_state'"></span>
         </v-layout>
     </div>
 </template>
 
 <script>
 import {mapGetters, mapActions} from 'vuex';
-import conversationComp from './conversationComponents/conversation.vue'
-import chatService from '../../../services/chatService'
+import conversationComp from './conversationComponents/conversation.vue';
+import chatService from '../../../services/chatService';
+
 export default {
     components:{
         conversationComp

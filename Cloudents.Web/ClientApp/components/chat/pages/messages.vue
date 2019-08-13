@@ -1,35 +1,36 @@
 <template>
     <div class="messages-container">
-        <div ml-2 class="avatar-container">
-            <user-avatar :size="'40'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/>
-            <userOnlineStatus class="user-status" :userId="activeConversationObj.userId"></userOnlineStatus>
-        </div>
         <v-layout column class="messages-wrapper">
+
             <div class="messages-header">
-                <div class="messages-study-room" v-if="showStudyRoomInteraction" @click="createRoom">
+                <div class="messages-study-room" :class="{'join-room': studyRoomExists, 'create-room': !studyRoomExists && isRoomTutor}" v-if="showStudyRoomInteraction" @click="createRoom">
                     <button v-show="studyRoomExists">
                         <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
                     <v-btn flat class="white--text messages-study-room-btn-create" v-show="!studyRoomExists && isRoomTutor" :loading="loader">
-                        <v-icon style="font-size:10px; transform: rotate(45deg); margin: 0 4px 0 0; color:#fff;">sbf-close</v-icon>&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
+                        <add-circle />&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
                     </v-btn>
                 </div>
             </div>
+
             <div class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
             </div>
-                <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
+
+            <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
+
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
-                <span class="messages-mobile-button hidden-sm-and-up" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
-                <chat-upload-file></chat-upload-file>
-                <v-textarea rows="1" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText"  v-language:placeholder @keydown.enter.prevent="sendMessage" v-model="messageText" auto-grow></v-textarea>
+                <span class="messages-mobile-button" v-show="typing" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
+                <chat-upload-file :typing="typing"></chat-upload-file>
+                <v-textarea rows="1" class="pa-2 messages-textarea" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText" v-language:placeholder @keydown.enter.prevent="sendMessage" v-model="messageText" auto-grow></v-textarea>
                 <v-layout align-center justify center class="chat-upload-loader" v-if="getChatLoader" >
                    <v-flex class="text-xs-center">
                        <v-progress-circular indeterminate v-bind:size="25" color="#43425d"></v-progress-circular>
                    </v-flex>
                 </v-layout>
             </div>
+
         </v-layout>
     </div>
 </template>
@@ -42,9 +43,12 @@ import chatUploadFile from './messageComponents/chatUploadFile.vue';
 import {mapGetters, mapActions} from 'vuex';
 import { LanguageService } from '../../../services/language/languageService';
 import chatService from '../../../services/chatService';
+import addCircle from './messageComponents/add-circle-outline.svg';
+
 export default {
     components:{
         message,
+        addCircle,
         UserAvatar,
         chatUploadFile,
         userOnlineStatus
@@ -55,7 +59,7 @@ export default {
             placeHolderText: LanguageService.getValueByKey("chat_type_message"),
             emptyStateMessages: [],
             alreadyCreated: false,
-            loader: false
+            loader: false,
         }
     },
     computed:{
@@ -83,11 +87,14 @@ export default {
         },
         isRoomTutor(){
             return this.isTutor && this.messages &&  this.messages.length > 0 && this.messages[0].userId !== this.accountUser.id;
+        },
+        typing() {
+           return !!this.messageText;
         }
     },
     methods:{
         ...mapActions(['sendChatMessage', 'createStudyRoom']),
-        sendMessage(){            
+        sendMessage(){      
             let messageToSend = this.messageText.trim();
             if(messageToSend !== ''){
                 this.sendChatMessage(this.messageText);
@@ -97,6 +104,7 @@ export default {
         scrollToEnd: function() {
             this.$nextTick(function(){
                 let container = document.querySelector(".messages-body");
+                
                 if(container){
                     container.scrollTop = container.scrollHeight;
                 }
@@ -122,7 +130,7 @@ export default {
                     this.alreadyCreated = true;
                 }
             }
-        }
+        },
     }
 }
 </script>
@@ -154,23 +162,33 @@ export default {
             .messages-header{
                 display:flex;
                 justify-content: flex-end;
-                background-color: #f7f7f7;
-                // padding: 8px 10px 8px 8px ;
-                max-height: 34px;
-                min-height: 34px;
                 .messages-study-room{
-                        background: #2ec293;
+                        padding: 2px 0;
+                        width: 100%;
                         color: #FFF;
                         text-align: center;
                         display: flex;
-                        button{
+                        &.join-room {
+                            background: #2ec293;
+                        }
+                        &.create-room {
+                            background: #4452fc;
+                        }
+                        button {
+                            display: flex;
+                            align-items: center;
                             padding: 5px 10px;
-                            font-size: 12px;
+                            margin: 0 auto;
+                            font-weight: bold;
+                            font-size: 14px;
                             outline: none;
                         }
                         .messages-study-room-btn-create {
+                           font-size: 14px;
+                           font-weight: bold;
+                           margin: 0 auto;
                            height: auto;
-                           padding: 0 10px;
+                           padding: 5px 10px;
                            text-transform: capitalize;
                         }
                         .messages-study-room-btn-create::before {
@@ -182,14 +200,13 @@ export default {
             }
             .messages-body{
                 flex :2;
-
-                padding: 15px 10px 0 10px;
-                margin: 22px 0 4px 0;
+                padding: 15px 10px 20px 10px;
+                margin: 0 0 4px 0;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
                 //flex-grow: 1;
             }
-            .messages-body-disabled{
+            .messages-body-disabled {
                 padding: 15px 10px 0 10px;
                 margin: 22px 0 4px 0;
                 overflow: auto;
@@ -206,43 +223,29 @@ export default {
                 display: flex;
                 flex-direction: row-reverse;
                 box-shadow: 0px -3px 0px 0px rgba(240,240,247,1);
-                border-radius: 0 0 16px 16px;
-              //  max-height: 48px;
-               // min-height: 48px;
-               //flex-grow: 0;
-               //flex-shrink: 1;
-                padding-right: 20px;
-
+                background: #efefef;
+                top: 6px;
+                // padding-right: 54px;
+                .responsive-property(padding-right, 54px, null, 64px);                
                 position: relative;
                 .messages-mobile-button {
-                        display: flex;
-                        align-items: center;
+                        position: absolute;
+                        z-index: 5;
+                        top: 10px;
+                        right: 14px;
                     i { 
                         //Do not put it last because then the remark are gone
                         transform: rotateY(0deg)/*rtl:rotateY(180deg)*/; 
                         color: #FFF;
-                        font-size: 14px;
+                        font-size: 12px;
                         background-color: #4452fc;
                         padding: 10px;
                         border-radius: 70%;
-                        width: 32px;
-                        height: 32px;
-                        
+                        width: 30px;
+                        height: 30px;
                         /*rtl:append:transform: rotateY(180deg);*/;
-                            
                     }
                 }
-                .v-input__slot{
-                    box-shadow: none !important;
-                    padding: 0 40px 0 12px;
-                    textarea{
-                        //override vuetify stupid logic
-                        margin-top:0;
-                        max-height: 150px;
-                        overflow: auto;
-                    }
-                }
-
                 &.messages-input-disabled{
                     background: #b9b9b9;
                     border-radius: 0;
@@ -252,8 +255,29 @@ export default {
                         }
                     }
                 }
-                textarea {
-                    line-height: 14px;
+                .messages-textarea {
+                    font-size: 14px;
+                    .v-input__control {
+                        min-height: 30px;
+                        .v-input__slot {
+                            box-shadow: none !important;
+                            padding: 0 40px 0 12px;
+                            border: solid 1px #d8d9e5;
+                            border-radius: 20px;
+                            textarea{
+                                margin-top:0;
+                                max-height: 150px;
+                                overflow: auto;
+                                line-height: 16px;
+                            }
+                      }
+                    }
+                }
+                @media(max-width: @screen-xs) {
+                    position: absolute;
+                    bottom: 0;
+                    top: auto;
+                    width: 100%;
                 }
             }
         }

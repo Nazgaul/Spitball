@@ -1,5 +1,5 @@
 import chatService from '../services/chatService';
-import { LanguageService } from '../services/language/languageService'
+import { LanguageService } from '../services/language/languageService';
 
 const state = {
     fileError: false,
@@ -18,7 +18,7 @@ const state = {
     chatLocked: false,
     chatLoader: false,
     emptyState: [],
-    isSyncing: true,
+    isSyncing: true
 };
 const getters = {
     getFileError: state => state.fileError,
@@ -43,7 +43,7 @@ const getters = {
                 return messages;
             }else{
                 if(!state.isSyncing){
-                    let messageObjct = chatService.createMessage({
+                    let messageObject = chatService.createMessage({
                         dateTime: null,
                         fromSignalR: false,
                         name: state.activeConversationObj.name,
@@ -51,8 +51,8 @@ const getters = {
                         type: "text",
                         userId: state.activeConversationObj.userId
                     }, state.activeConversationObj.conversationId)
-                    state.emptyState.push(messageObjct);
-                    messageObjct = chatService.createMessage({
+                    state.emptyState.push(messageObject);
+                    messageObject = chatService.createMessage({
                         dateTime: null,
                         fromSignalR: false,
                         name: state.activeConversationObj.name,
@@ -60,7 +60,7 @@ const getters = {
                         type: "text",
                         userId: state.activeConversationObj.userId
                     }, state.activeConversationObj.conversationId)
-                    state.emptyState.push(messageObjct);
+                    state.emptyState.push(messageObject);
                     return state.emptyState;
                 }
             }
@@ -83,7 +83,7 @@ const getters = {
     },
     getActiveConversationObj:state=>state.activeConversationObj,
     getTotalUnread: state=>state.totalUnread,
-    getIsChatLocked: state=>state.chatLocked,
+    getIsChatLocked: state=>state.chatLocked
 };
 
 const mutations = {
@@ -106,6 +106,8 @@ const mutations = {
         state.messages[id].push(message);
         if(message.type === 'text'){
             state.conversations[id].lastMessage = message.text;
+        } else if(message.type === 'file') {
+            state.conversations[id].lastMessage = chatService.createLastImageMsg();
         }
         state.conversations[id].dateTime = message.dateTime;
     },
@@ -171,7 +173,7 @@ const actions = {
     },
     updateChatUploadLoading({commit}, val){
         commit('activateLoader', val);
-},
+    },
     addMessage:({commit, state, dispatch}, message)=>{
         //check if inside conversation
         let isInConversation = state.chatState == state.enumChatState.messages;
@@ -240,7 +242,9 @@ const actions = {
         }
         if(state.conversations[conversationId]){
             let otherUserId = state.conversations[conversationId].userId;
-            chatService.clearUnread(otherUserId);
+            if(state.totalUnread > 0) {
+                chatService.clearUnread(otherUserId);
+            }
             let unreadNumber = state.conversations[conversationId].unread * -1;
             commit('updateTotalUnread', unreadNumber);
             commit('clearUnreadFromConversation', conversationId);
@@ -334,7 +338,7 @@ const actions = {
         });
         chatService.sendChatMessage(messageObj);
 
-        //add message localy
+        //add message locally
         let id = state.activeConversationObj.conversationId;
         let userId = getters.accountUser.id;
         let localMessageObj = {
@@ -345,6 +349,7 @@ const actions = {
             dateTime: new Date().toISOString(),
             fromSignalR:true,
             image: state.activeConversationObj.image,
+            unreadMessage: true
         }
         localMessageObj = chatService.createMessage(localMessageObj, id);
         dispatch('addMessage', localMessageObj)
@@ -374,8 +379,21 @@ const actions = {
     },
     lockChat:({commit})=>{
         commit('lockChat');
+    },
+    checkUnreadMessageFromSignalR({commit, dispatch, state}, obj) {
+        let currentConversation = state.activeConversationObj.conversationId === obj.conversationId
+        if(currentConversation) {
+            let messages = state.messages[obj.conversationId];
+            messages.forEach((message) => {
+                message.unreadMessage = false;   
+            })
+        }
+    },
+    uploadCapturedImage(context, formData) {
+        return chatService.uploadCapturedImage(formData)
     }
 };
+
 export default {
     state,
     mutations,

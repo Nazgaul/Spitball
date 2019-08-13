@@ -4,6 +4,7 @@ import classIcon from "./img/search-class-icon.svg";
 import universityIcon from "./img/search-university-icon.svg";
 import spitballIcon from "./img/search-spitball-icon.svg";
 import { LanguageService } from "../../../services/language/languageService";
+import analyticsService from '../../../services/analytics.service';
 
 export default {
     name: "search-input",
@@ -42,24 +43,25 @@ export default {
             {
                 name: LanguageService.getValueByKey("searchInput_class_search"),
                 icon: "classIcon",
+                analyticName: 'Class',
                 id: 1
             },
             {
                 name: LanguageService.getValueByKey("searchInput_university_search"),
                 icon: "universityIcon",
+                analyticName: 'University',
                 id: 2
             },
             {
                 name: LanguageService.getValueByKey("searchInput_spitball_search"),
                 icon: "spitballIcon",
+                analyticName: 'Spitball',
                 id: 3
             }
         ]
     }),
     computed: {
-        ...mapGetters({
-                          'globalTerm': 'currentText'
-                      }),
+        ...mapGetters({'globalTerm': 'currentText'}),
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
         isSearchActive() {
             if(this.$vuetify.breakpoint.xsOnly) {
@@ -120,7 +122,7 @@ export default {
             //this.msg = item.text;
             //this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ?
             // this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
-            this.search(item.id);
+            this.search(item);
             this.closeSuggestions();
         },
         courseSelected() {
@@ -129,7 +131,8 @@ export default {
         isRouteDuplication(newRoute, query){
             return this.$router.currentRoute.path === newRoute && JSON.stringify(query) === JSON.stringify(this.$router.currentRoute.query);
         },
-        search(id) {
+        search(item) {
+            let id = item? item.id : undefined;
             //prevent search empty string when no term is in search ATM
             if(!this.$route.query.term) {
                 if(!this.msg) {
@@ -143,10 +146,22 @@ export default {
             let query = this.prepareQuery(id);
             let sameRoute = this.isRouteDuplication(this.submitRoute, query);
             this.$router.push({
-                                  path: this.submitRoute,
-                                  query
-                              });
-
+                path: this.submitRoute,
+                query
+            });
+            if(this.msg) {
+                let suggestOptions;
+                if(id) {
+                    suggestOptions = item.analyticName;
+                } else {
+                    if(this.courseSelected()){
+                        suggestOptions = 'Class'
+                    }else{
+                        suggestOptions = 'Spitball'
+                    }
+                }
+                analyticsService.sb_unitedEvent('global_search', suggestOptions, this.msg);
+            }
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
