@@ -328,15 +328,10 @@ router.beforeEach((to, from, next) => {
         if (!!from.query && !!from.query.university) {
             store.dispatch('closeSelectUniFromNav')
         }
-    }
+    } 
 
-    // if (!!to.query && Object.keys(to.query).length > 0) {
-    //     for (let prop in to.query) {
-    //         if (constants.regExXSSCheck.test(to.query[prop])) {
-    //             to.query[prop] = "";
-    //         }
-    //     }
-    // }
+    store.dispatch('sendQueryToAnalytic', to)
+
     if (global.innerWidth < 600) {
         intercomSettings.hide_default_launcher = true;
     }
