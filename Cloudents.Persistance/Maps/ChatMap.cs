@@ -37,6 +37,8 @@ namespace Cloudents.Persistence.Maps
             References(x => x.User)
                 .Not.Nullable().Column("UserId")
                 .ForeignKey("fChatUserUser");
+            DynamicUpdate();
+            OptimisticLock.Version();
             Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
         }
     }

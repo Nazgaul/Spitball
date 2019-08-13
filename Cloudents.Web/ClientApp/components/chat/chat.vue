@@ -11,15 +11,25 @@
         :class="{'rtl':isRtl}"
         @click.stop="OriginalChatState"
       >{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
-      <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
-      <span class="other-side">
-        <v-icon
-          v-show="!isMobile"
-          @click.stop="toggleMinimizeChat"
-        >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
-        <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
-      </span>
+
+        <template v-if="state === 'messages'">
+          <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
+          <div class="chat-header-name pl-3">{{activeConversationObj.name}}</div>
+        </template>
+        <template v-else>
+            <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
+        </template>
+        
+        <span class="other-side">
+          <v-icon
+            v-show="!isMobile"
+            @click.stop="toggleMinimizeChat"
+          >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
+          <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
+        </span>
+
     </v-layout>
+
     <v-layout v-show="!isMinimized" class="general-chat-style">
       <component :is="`chat-${state}`"></component>
     </v-layout>
@@ -31,12 +41,14 @@
 <script>
 import chatConversation from "./pages/conversations.vue";
 import chatMessages from "./pages/messages.vue";
+import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 export default {
   components: {
     chatConversation,
-    chatMessages
+    chatMessages,
+    UserAvatar
   },
   data() {
     return {
@@ -112,14 +124,17 @@ export default {
     },
     hasUnread() {
       return this.getTotalUnread > 0;
-    }
+    },
+    activeConversationObj(){
+      return this.getActiveConversationObj;
+    },
   },
   methods: {
     ...mapActions([
       "updateChatState",
       "toggleChatMinimize",
       "closeChat",
-      "openChatInterface"
+      "openChatInterface",
     ]),
     ...mapGetters(["getEnumChatState"]),
     OriginalChatState() {
@@ -175,11 +190,13 @@ export default {
     height: unset;
   }
   .chat-header {
-    background-color: #43425d;
+    align-items: center;
+    background-color: #393850;
     border-radius: 4px 4px 0 0;
-    padding: 10px;
+    padding: 6px;
     color: #fff;
     z-index: 1;
+    .heightMinMax(44px);
     transition: background-color 0.2s ease-in-out;
     -moz-transition: background-color 0.2s ease-in-out;
     -webkit-transition: background-color 0.2s ease-in-out;
@@ -192,8 +209,7 @@ export default {
     }
     .chat-header-text {
       font-family: @fontOpenSans;
-      font-size: 12px;
-      font-weight: bold;
+      font-size: 14px;
       color: #ffffff;
       word-break: break-all;
       text-overflow: ellipsis;
@@ -203,25 +219,35 @@ export default {
     }
     i {
       color: #ffffff;
-      font-size: 16px;
-      margin-right: 14px;
+      font-size: 18px;
+      margin: 4px 10px 0 4px;
       z-index: 2;
       &.sbf-arrow-back-chat {
+        width: 24px;
+        height: 24px;
+        display: flex;
         &.rtl {
           transform: rotate(180deg);
         }
       }
     }
+    .chat-header-name, .other-side {
+      align-self: center;
+    }
     .other-side {
+      display: flex;
       margin-left: auto;
       i {
         margin-right: 0;
         margin-left: 14px;
       }
+      .theme--light.v-btn-toggle {
+        background: #393850 !important;
+      }
     }
   }
   .general-chat-style {
-    height: 92%;
+    height: 90%;
     width: 100%;
     @media (max-width: @screen-xs) {
      //Not sure why we need height in mobile but if not ios gets fucked up

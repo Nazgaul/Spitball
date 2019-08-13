@@ -34,11 +34,16 @@ namespace Cloudents.Query.Chat
                     var result = new List<ChatMessageDto>();
                     var reader = await conn.ExecuteReaderAsync(@"
 Select
-messageType as discriminator, userId,message as Text,creationTime as DateTime , blob as Attachment,
-cm.id as id, cr.Id as chatRoomId, u.Image, u.Name
-from sb.ChatMessage cm join sb.ChatRoom cr on cm.ChatRoomId = cr.Id
+messageType as discriminator, cm.userId,message as Text,creationTime as DateTime , blob as Attachment,
+cm.id as id, cr.Id as chatRoomId, u.Image, u.Name,
+case when cu.Unread >= ROW_NUMBER() OVER(PARTITION BY cm.userId ORDER BY cm.Id desc) then 1 else 0 end as Unread
+from sb.ChatMessage cm 
+join sb.ChatRoom cr 
+	on cm.ChatRoomId = cr.Id
 join sb.[user] u
 	on cm.UserId = u.Id
+join sb.ChatUser cu
+	on cu.ChatRoomId = cr.Id and cu.UserId != cm.UserId
 where cr.Identifier = @Id
 order by cm.Id desc
 OFFSET @PageSize * @PageNumber ROWS 

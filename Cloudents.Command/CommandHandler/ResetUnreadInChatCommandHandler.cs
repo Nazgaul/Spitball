@@ -32,7 +32,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new NullReferenceException("no such room");
             }
             var user = chatRoom.Users.First(f => f.User.Id == message.UserSendingId);
-            user.Unread = 0;
+            user.ResetUnread();
             await _chatUserRepository.UpdateAsync(user, token);
         }
        

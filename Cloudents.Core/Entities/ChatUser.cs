@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -20,7 +21,18 @@ namespace Cloudents.Core.Entities
         public virtual User User { get; protected set; }
 
 
-        public virtual int Unread { get;  set; }
+        public virtual int Unread { get; protected set; }
+
+        public virtual void ResetUnread()
+        {
+            Unread = 0;
+            AddEvent(new ChatReadEvent(this));
+        }
+
+        public virtual void UnreadMessage()
+        {
+            Unread++;
+        }
 
 
         public virtual byte[] Version { get; protected set; }

@@ -151,6 +151,11 @@ export const signlaREvents = {
                 store.dispatch("signalRAddMessage", chatMessageToAdd);
             });
         },
+        update: function(arrEventObj){
+            arrEventObj.forEach((conversationObj)=>{
+                store.dispatch("checkUnreadMessageFromSignalR", conversationObj);
+            });
+        }
     },
     studyroom:{
         add:function(arrEventObj){

@@ -36,7 +36,7 @@ namespace Cloudents.Web.Api
             IChatDirectoryBlobProvider blobProvider,
             ITempDataDictionaryFactory tempDataDictionaryFactory,
             IStringLocalizer<UploadControllerBase> localizer)
-        : base(blobProvider, tempDataDictionaryFactory,localizer)
+        : base(blobProvider, tempDataDictionaryFactory, localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
@@ -52,6 +52,12 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        /// <summary>
+        /// Get User info - Used in StudyRoom
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="token"></param>
+        /// <returns>list of courses for a user</returns>
         [HttpGet("conversation/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -100,7 +106,7 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
-            var command = new SendChatTextMessageCommand(model.Message, userId,model.OtherUser );
+            var command = new SendChatTextMessageCommand(model.Message, userId, model.OtherUser);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -148,6 +154,25 @@ namespace Cloudents.Web.Api
         protected override string BlobFileName(Guid sessionId, string name)
         {
             return $"file-{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}-1{Path.GetExtension(name)}";
+        }
+
+        [HttpPost("uploadForm")]
+        public async Task<ActionResult<UploadStartResponse>> UploadSingleFile(
+            [FromForm] long otherUser,
+            IFormFile file, CancellationToken token)
+        {
+            var extension = Path.GetExtension(file.FileName);
+            var userId = _userManager.GetLongUserId(User);
+            if (!GetSupportedExtensions().Contains(extension, StringComparer.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException();
+            }
+
+            var blobName = BlobFileName(Guid.NewGuid(), file.FileName);
+            await BlobProvider.UploadStreamAsync(blobName, file.OpenReadStream(), token: token);
+            var command = new SendChatFileMessageCommand(blobName, userId, new[] { otherUser });
+            await _commandBus.DispatchAsync(command, token);
+            return new UploadStartResponse(blobName);
         }
     }
 }

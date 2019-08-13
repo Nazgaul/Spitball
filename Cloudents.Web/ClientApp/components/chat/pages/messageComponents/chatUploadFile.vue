@@ -1,11 +1,41 @@
 <template>
     <div class="chat-upload-wrap">
         <!--Upload Image-->
-        <div class="chat-input-container align-center justify-center column">
-            <label for="chat-file">
-                <!--<v-icon class="chat-attach-icon">sbf-attach</v-icon>-->
-                    <add-file-img style="opacity: 0.38;"></add-file-img>
+        <div class="chat-input-container align-center justify-center column" v-show="!typing">
+            <template>
+
+                <label for="photo" class="chat-camera" v-if="$vuetify.breakpoint.xsOnly">
+                    <input id="photo" type="file" accept="image/*" capture="camera" @change="captruephoto" />
+                    <photo-camera />
+                </label>
+
+                <label for="chat-image" class="chat-upload-image" v-else>
+                    <chat-image class="chat-photo"></chat-image>
                     <file-upload  chunk-enabled
+                        :chunk="{
+                            action: uploadUrl,
+                            minSize: 1,
+                            maxRetries: 5,
+                            finishBody : {
+                            OtherUser: otherUserId
+                        }}"
+                        id="chat-image"
+                        :input-id="componentUniqueIdImage"
+                        ref="uploadImage"
+                        :drop="false"
+                        v-model="uploadedImages"
+                        :multiple="false"
+                        :post-action="uploadUrl"
+                        @input-file="inputFile"
+                        @input-filter="inputFilter"
+                    ></file-upload>
+                </label>
+            </template>
+            
+            <label for="chat-file" class="chat-upload-file">
+                <!--<v-icon class="chat-attach-icon">sbf-attach</v-icon>-->
+                <add-file-img class="chat-attach-file"></add-file-img>
+                <file-upload  chunk-enabled
                     :chunk="{
                         action: uploadUrl,
                         minSize: 1,
@@ -14,13 +44,12 @@
                         OtherUser: otherUserId
                     }}"
                     id="file-input"
-                    :input-id="componentUniqueId"
-                    ref="upload"
+                    :input-id="componentUniqueIdFile"
+                    ref="uploadFile"
                     :drop="false"
                     v-model="uploadedFiles"
                     :multiple="false"
                     :post-action="uploadUrl"
-
                     @input-file="inputFile"
                     @input-filter="inputFilter"
                 ></file-upload>
@@ -32,71 +61,105 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import addFileImg from '../../../../font-icon/attach.svg';
+    import chatImage from './outline-insert-photo.svg';
     import FileUpload from 'vue-upload-component/src';
+    import photoCamera from '../messageComponents/photo-camera.svg';
+
     export default {
         name: "chatUploadFile",
-        components: { FileUpload, addFileImg },
+        components: { FileUpload, addFileImg, chatImage, photoCamera },
+        props: {
+            typing: {
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
             return {
-                componentUniqueId: `instance-${this._uid}`,
+                componentUniqueIdFile: `instance-${this._uid}`,
+                componentUniqueIdImage: `instance-${this._uid}-image`,
                 uploadUrl: "/api/chat/upload",
                 uploadedFiles: [],
-                uploadedFileNames: [],
+                uploadedImages: [],
             }
         },
         methods: {
-            ...mapActions(['uploadChatFile', 'updateChatUploadLoading','updateFileError']),
-        inputFile: function (newFile, oldFile) {
-            let self = this;
-            if (self.uploadedFiles && self.uploadedFiles.length > 1) {
-                return
-            }
-            if (newFile && oldFile && !newFile.active && oldFile.active) {
-                console.log('upload Complete');
-                self.uploadedFiles.length = 0;
-                this.updateChatUploadLoading(false);
-            }
-            // Uploaded successfully
-            if (newFile && !!newFile.success) {
-                console.log('success upload', newFile, newFile);
-            }
-            if (newFile && newFile.error && !oldFile.error) {
-                // error
-                //TODO ADD ERROR HANDLER Gaby?
-                //release loader in case of errror
-                this.updateChatUploadLoading(false);
-            }
-            if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
-                if (!this.$refs.upload.active) {
-                    this.$refs.upload.active = true;
+            ...mapActions(['updateChatUploadLoading','updateFileError','uploadCapturedImage']),
+            inputFile: function (newFile, oldFile) {
+                let self = this;
+                if (self.uploadedFiles && self.uploadedFiles.length > 1 || self.uploadedImages && self.uploadedImages.length > 1) {
+                    return
+                }
+                if (newFile && oldFile && !newFile.active && oldFile.active) {
+                    console.log('upload Complete');
+                    self.uploadedFiles.length = 0;
+                    self.uploadedImages.length = 0;
+                    this.updateChatUploadLoading(false);
+                }
+                // Uploaded successfully
+                if (newFile && !!newFile.success) {
+                    console.log('success upload', newFile, newFile);
+                }
+                if (newFile && newFile.error && !oldFile.error) {
+                    // error
+                    //TODO ADD ERROR HANDLER Gaby?
+                    //release loader in case of errror
+                    this.updateChatUploadLoading(false);
+                }
+                if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
+                    if (this.$refs.uploadFile && !this.$refs.uploadFile.active) {
+                        this.$refs.uploadFile.active = true;
+                    }
+                    if (this.$refs.uploadImage && !this.$refs.uploadImage.active) {
+                        this.$refs.uploadImage.active = true;
+                    }
                     this.updateChatUploadLoading(true);
                 }
-            }
-        },
-        inputFilter: function (newFile, oldFile, prevent) {
-            if (newFile && !oldFile) {
-                //prevent adding new files if maximum reached
-                if (this.uploadedFiles.length >= 1) {
-                    return prevent()
+            },
+            inputFilter: function (newFile, oldFile, prevent) {
+                if (newFile && !oldFile) {
+                    //prevent adding new files if maximum reached
+                    if (this.uploadedFiles.length >= 1) {
+                        return prevent()
+                    }
+                    if (!/\.(jpeg|jpe|jpg|gif|png|webp|doc|docx|xls|xlsx|PDF|ppt|pptx|tiff|tif|bmp)$/i.test(newFile.name)) {
+                        this.updateFileError(true)
+                        return prevent()
+                    }
+
+                    if (newFile && newFile.size === 0) {
+                        return prevent()
+                    }
                 }
-                if (!/\.(jpeg|jpe|jpg|gif|png|webp|doc|docx|xls|xlsx|PDF|ppt|pptx|tiff|tif|bmp)$/i.test(newFile.name)) {
+                if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+                    // Create a blob field
+                    newFile.blob = '';
+                    let URL = window.URL || window.webkitURL;
+                    if (URL && URL.createObjectURL) {
+                        newFile.blob = URL.createObjectURL(newFile.file);
+                    }
+                }
+            },
+            captruephoto(e) {
+                let file = e.target.files[0];
+                this.updateChatUploadLoading(true);
+                if (!/\.(jpeg|jpe|jpg|gif|png)$/i.test(file.name)) {
                     this.updateFileError(true)
-                    return prevent()
+                    this.updateChatUploadLoading(false);
+                    return;
                 }
 
-                if (newFile && newFile.size === 0) {
-                    return prevent()
-                }
+                let formData = new FormData();
+                formData.append("file", file);
+                formData.append('otherUser', this.otherUserId)
+                this.uploadCapturedImage(formData).then(()=> {
+                    
+                }).catch(ex => {
+                   
+                }).finally(() => {
+                    this.updateChatUploadLoading(false)
+                })
             }
-            if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
-                // Create a blob field
-                newFile.blob = '';
-                let URL = window.URL || window.webkitURL;
-                if (URL && URL.createObjectURL) {
-                    newFile.blob = URL.createObjectURL(newFile.file);
-                }
-            }
-        }
         },
         computed:{
             ...mapGetters(['getActiveConversationObj']),
@@ -114,10 +177,37 @@
         display: flex;
         .chat-input-container{
             display: flex;
-            label{
+            .chat-camera {
+                position: absolute;
+                .responsive-property(right, 36px, null, 40px);
+                input {
+                    display: none;
+                    outline: 0;
+                    width: 22px;
+                }
+            }
+            .chat-upload-image {
+                position: absolute;
+                width: 22px;
+                cursor: pointer;
+                .responsive-property(right, 36px, null, 40px);
+                .file-uploads {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    label{
+                        cursor:pointer;
+                    }
+                }
+            }
+            .chat-upload-file  {
                 position: absolute;
                 z-index: 5;
-                .responsive-property(right, 15px, null, 65px);
+                transform: rotate(90deg);
+                width: 22px;
+                .responsive-property(right, 6px, null, 6px);
                 .file-uploads{
                     position: absolute;
                     top: 0;
@@ -127,6 +217,9 @@
                     label{
                         cursor:pointer;
                     }
+                }
+                svg {
+                    fill: #848bbc;
                 }
             }
             svg{

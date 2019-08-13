@@ -51,11 +51,11 @@ namespace Cloudents.Core.Entities
             {
                 if (userInChat.User != message.User)
                 {
-                    userInChat.Unread++;
+                    userInChat.UnreadMessage();
                 }
                 else
                 {
-                    userInChat.Unread = 0;
+                    userInChat.ResetUnread();
                 }
             }
 
