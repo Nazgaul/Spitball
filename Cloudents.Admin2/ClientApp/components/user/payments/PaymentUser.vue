@@ -154,13 +154,25 @@
         methods: {
             customSort(items, index, isDesc) {
                 items.sort((a, b) => {
+                    if (index === "created") {
+                        if (!isDesc) {
+                            a = new Date(a.created);
+                            b = new Date(b.created);
+                            return a>b ? -1 : a<b ? 1 : 0;
+                        } else {
+                            a = new Date(a.created);
+                            b = new Date(b.created);
+                            return a>b ? 1 : a<b ? -1 : 0;
+                        }
+                    } else {
                     if (!isDesc) {
                         return a[index] < b[index] ? -1 : 1;
                     } else {
-                        return b[index] < a[index] ? -1 : 1;                    
+                        return b[index] < a[index] ? -1 : 1;
                     }
-                });
-                return items;
+                    }
+            });
+            return items;
             },
             editItem(item) {
                 this.editedIndex = this.paymentRequestsList.indexOf(item);
