@@ -41,7 +41,11 @@ export default {
   },
   computed: {
     date() {
-        return timeago().format(new Date(this.conversation.dateTime));
+      if (this.conversation.dateTime) {
+          return this.$options.filters.fullMonthDate(this.conversation.dateTime);
+      } else {
+          return "";
+      }
     },
     userImg() {
       return utilitiesService.proccessImageURL(this.conversation.image, 46, 46);
