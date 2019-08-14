@@ -204,6 +204,9 @@ export default {
                 margin: 0 0 4px 0;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
+                .message_wrap:last-child {
+                    margin-bottom: 20px;
+                }
             }
             .messages-body-disabled {
                 padding: 15px 10px 0 10px;
