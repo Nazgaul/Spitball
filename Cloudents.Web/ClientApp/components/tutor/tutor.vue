@@ -537,12 +537,12 @@ export default {
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
   },
-  async created() {
+  created() {
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
     storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
-    let ready = await this.initDevicesToStore();
+    let ready = this.initDevicesToStore();
     
     if (!this.isBrowserSupport()) {
       this.$nextTick(()=>{
