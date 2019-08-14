@@ -53,6 +53,8 @@
 import { mapGetters, mapActions } from 'vuex';
 import utilitiesService from '../../../../services/utilities/utilitiesService';
 import { LanguageService } from "../../../../services/language/languageService.js";
+import analyticsService from "../../../../services/analytics.service";
+import chatService from '../../../../services/chatService';
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import star from '../stars-copy.svg';
 
@@ -80,7 +82,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getTutorList']),
+        ...mapGetters(['getTutorList', 'accountUser']),
 
         atEndOfList() {     
             if(this.isRtl){
@@ -100,7 +102,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getTutorListCourse']),
+        ...mapActions(['getTutorListCourse', 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'updateRequestDialog', 'setActiveConversationObj','openChatInterface']),
 
         loaded() {
             this.isLoaded = true;
@@ -194,7 +196,30 @@ export default {
         },
         showFirstName(name) {
             return name.split(' ')[0];
-        }
+        },
+        sendMessage(user) {
+            if (this.accountUser == null) {
+                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+                this.updateCurrTutor(user);
+                this.setTutorRequestAnalyticsOpenedFrom({
+                    component: 'tutorCard',
+                    path: this.$route.path
+                });
+                this.updateRequestDialog(true);
+            } else {
+                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
+                let conversationObj = {
+                    userId: user.userId,
+                    image: user.image,
+                    name: user.name,
+                    conversationId: chatService.createConversationId([user.userId, this.accountUser.id]),
+                }
+                let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
+                this.setActiveConversationObj(currentConversationObj);
+                let isMobile = this.$vuetify.breakpoint.smAndDown;
+                this.openChatInterface();                    
+            }
+        },
     },
     created() {
         if(this.$vuetify.breakpoint.smAndDown) {
