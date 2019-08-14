@@ -239,6 +239,7 @@ namespace Cloudents.FunctionsV2
                 Mode = mutation.Mode,
                 Size = new Size(mutation.Width, mutation.Height),
             }));
+
             switch (mutation.BlurEffect)
             {
                 case ImageProperties.BlurEffect.None:
