@@ -103,6 +103,43 @@ namespace Cloudents.FunctionsV2
             public static ImageExtensionConvert Word = new ImageExtensionConvert("Icons_720_doc.png", FormatDocumentExtensions.Word, nameof(Word));
         }
 
+        [FunctionName("ImageFunctionUser")]
+        public static async Task<IActionResult> RunUserImageAsync(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/user/{id}/{file}")]
+            HttpRequest req, long id,string file,
+            [Blob("spitball-user/profile/{id}/{file}")]CloudBlockBlob blob,
+            IBinder binder,
+            Microsoft.Extensions.Logging.ILogger logger,
+            CancellationToken token
+        )
+        {
+            //directory.GetBlockBlobReference($"{file}.jpg")
+            //var blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(properties.Path, FileAccess.Read),
+            // token);
+
+            var mutation = ImageMutation.FromQueryString(req.Query);
+            try
+            {
+                using (var sr = await blob.OpenReadAsync())
+                {
+                    return ProcessImage(sr, mutation);
+                }
+            }
+            catch (ImageFormatException ex)
+            {
+                logger.LogError(ex, $"id: {id} file {file}");
+                return new RedirectResult(blob.Uri.AbsoluteUri);
+            }
+            catch (StorageException e)
+            {
+                if (e.RequestInformation.HttpStatusCode == (int) HttpStatusCode.NotFound)
+                {
+                    return new NotFoundResult();
+                };
+
+                throw;
+            }
+        }
 
 
         [FunctionName("ImageFunction")]
@@ -156,12 +193,12 @@ namespace Cloudents.FunctionsV2
                     mode = ResizeMode.BoxPad;
                 }
             }
-
+            var mutation = new ImageMutation(width,height,mode,properties.Blur.GetValueOrDefault());
             try
             {
                 using (var sr = await blob.OpenReadAsync())
                 {
-                    return ProcessImage(sr, mode, width, height, properties.Blur);
+                    return ProcessImage(sr, mutation);
                 }
             }
             catch (ImageFormatException ex)
@@ -183,7 +220,7 @@ namespace Cloudents.FunctionsV2
                     await Task.WhenAll(t1, t2);
                     using (t2.Result)
                     {
-                        return ProcessImage(t2.Result, mode, width, height, properties.Blur);
+                        return ProcessImage(t2.Result, mutation);
                     }
 
 
@@ -193,22 +230,21 @@ namespace Cloudents.FunctionsV2
             }
         }
 
-        private static IActionResult ProcessImage(Stream sr, ResizeMode mode, int width, int height, ImageProperties.BlurEffect? effect)
+        private static IActionResult ProcessImage(Stream sr, ImageMutation mutation)
         {
             var image = Image.Load<Rgba32>(sr);
-
-
+            image.Mutate(x => x.AutoOrient());
             image.Mutate(x => x.Resize(new ResizeOptions()
             {
-                Mode = mode,
-                Size = new Size(width, height),
+                Mode = mutation.Mode,
+                Size = new Size(mutation.Width, mutation.Height),
             }));
-            switch (effect.GetValueOrDefault())
+            switch (mutation.BlurEffect)
             {
                 case ImageProperties.BlurEffect.None:
                     break;
                 case ImageProperties.BlurEffect.Part:
-                    image.Mutate(x => x.BoxBlur(5, new Rectangle(0, height / 2, width, height / 2)));
+                    image.Mutate(x => x.BoxBlur(5, new Rectangle(0, mutation.Height / 2, mutation.Width, mutation.Height / 2)));
                     break;
                 case ImageProperties.BlurEffect.All:
                     image.Mutate(x => x.BoxBlur(5));
@@ -217,7 +253,6 @@ namespace Cloudents.FunctionsV2
                     throw new ArgumentOutOfRangeException();
             }
 
-            image.Mutate(x => x.AutoOrient());
             image.Mutate(x => x.BackgroundColor(Rgba32.White));
             return new FileCallbackResult("image/jpg", (stream, context) =>
             {
@@ -228,5 +263,55 @@ namespace Cloudents.FunctionsV2
                 return Task.CompletedTask;
             });
         }
+
+
+
+    }
+
+    public class ImageMutation
+    {
+        public static ImageMutation FromQueryString(IQueryCollection query)
+        {
+            int.TryParse(query["width"], out var width);
+            int.TryParse(query["height"], out var height);
+            if (!Enum.TryParse(query["mode"], true, out ResizeMode mode))
+            {
+                mode = ResizeMode.Crop;
+            }
+
+            if (width == 0)
+            {
+                width = 50;
+            }
+
+            if (height == 0)
+            {
+                height = 50;
+            }
+
+            return new ImageMutation(width,height,mode);
+        }
+
+        private ImageMutation(int width, int height, ResizeMode mode)
+        {
+            Width = width;
+            Height = height;
+            Mode = mode;
+        }
+
+        public ImageMutation(int width, int height, ResizeMode mode, ImageProperties.BlurEffect blurEffect)
+        {
+            Width = width;
+            Height = height;
+            Mode = mode;
+            BlurEffect = blurEffect;
+        }
+
+        public int Width { get;  }
+        public int Height { get;  }
+
+        public ResizeMode Mode { get;  }
+
+        public ImageProperties.BlurEffect BlurEffect { get;  }
     }
 }
