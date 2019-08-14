@@ -154,13 +154,14 @@ export default {
     closeChatWindow() {
       this.OriginalChatState();
       this.closeChat();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less">
 @import "../../styles/mixin.less";
 .sb-chat-container {
+  .scrollBarStyle(6px, #43425d);
   position: fixed;
   bottom: 0;
   right: 130px;
