@@ -205,7 +205,9 @@ export default {
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
                 .message_wrap:last-child {
-                    margin-bottom: 20px;
+                    @media(max-width: @screen-xs) {
+                        margin-bottom: 40px;
+                    }
                 }
             }
             .messages-body-disabled {
