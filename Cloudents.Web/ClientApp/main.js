@@ -295,8 +295,8 @@ Vue.prototype.$chatMessage = function (message, date) {
         return modifiedText;
     }else{
         let src = utilitiesService.proccessImageURL(message.src, 190, 140, 'crop');
-        let dateText = `<div class="message-file-date">${date}</div>`;
-        return `<a href="${message.href}" target="_blank"><img src="${src}" />${dateText}</a>`;
+        // let dateText = `<div class="message-file-date">${date}</div>`;
+        return `<a href="${message.href}" target="_blank"><img src="${src}" /></a>`;
     }
 }
 
