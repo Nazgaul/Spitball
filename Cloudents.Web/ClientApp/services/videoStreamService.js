@@ -93,7 +93,7 @@ let availableDevices = [];
     }
 
    async function addDevicesTotrack(){
-        let self = this;
+        availableDevices.length = 0;
         if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
             console.log("enumerateDevices() not supported.");
             return;
