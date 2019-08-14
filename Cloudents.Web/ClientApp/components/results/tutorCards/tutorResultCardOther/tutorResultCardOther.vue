@@ -29,7 +29,7 @@
                             <div class="caption text-xs-center reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
                         </div>
                         <div v-else class="no-reviews">
-                            <star />
+                            <star class="rating-holder" />
                             <span class="caption" :class="{'font-weight-bold': uploader}" v-language:inner="'resultTutor_no_reviews_mobile'"></span>
                         </div>
                     </v-layout>
@@ -51,7 +51,8 @@
             </div>
         </div>
 
-        <v-layout class="tutor-bio mb-2" v-html="ellipsizeTextBox">{{tutorData.bio}}</v-layout>
+        <!-- <v-layout class="tutor-bio mb-2" v-html="ellipsizeTextBox">{{tutorData.bio}}</v-layout> -->
+        <v-layout class="tutor-bio mb-2">{{tutorData.bio}}</v-layout>
 
         <v-layout row class="btn-footer ab-cardB">
             <div class="send-msg text-xs-center text-truncate" :class="{'no-uploader': !uploader}">
@@ -143,15 +144,15 @@ export default {
         showFirstName() {
             return this.tutorData.name.split(' ')[0];
         },
-        ellipsizeTextBox() {
-            let text = this.tutorData.bio;
-            let maxChars = 105;
-            let showBlock = text.length > maxChars;
-            let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
-            let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-            let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: contents' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
-            return `${newText} ${readMore} ${hideText}`;
-        }
+        // ellipsizeTextBox() {
+        //     let text = this.tutorData.bio;
+        //     let maxChars = 105;
+        //     let showBlock = text.length > maxChars;
+        //     let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
+        //     let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
+        //     let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: contents' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
+        //     return `${newText} ${readMore} ${hideText}`;
+        // }
     },
     methods: {
         ...mapGetters(['getProfile']),
@@ -326,6 +327,8 @@ export default {
         font-size: 13px;
         display: block;
         color: @purple;
+        .giveMeEllipsis(2,20px);
+        .heightMinMax(40px);
         .read-more {
             position: absolute;
             color: #4452fc;
