@@ -92,7 +92,7 @@ let availableDevices = [];
         });
     }
 
-   async function addDevicesTotrack(){
+   function addDevicesTotrack(){
         let self = this;
         if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
             console.log("enumerateDevices() not supported.");
@@ -117,9 +117,16 @@ let availableDevices = [];
             video: availableDevices.includes('videoinput'),
             name: videoTrackName
         };
-        let audioDevice = await navigator.mediaDevices.getUserMedia({ audio: true }).then(y => audioSetObj, z => false);
-        let videoDevice = await navigator.mediaDevices.getUserMedia({ video: true }).then(y => videoSetObj, z => false);
-       createTwillioTracks(audioDevice, videoDevice);
+        let constraint = {
+            video: videoSetObj.video ? true : false, 
+            audio: audioSetObj.audio ? true : false
+        }
+        navigator.mediaDevices.getUserMedia(constraint).then(() => {
+            let audioDevice = audioSetObj.audio ? audioSetObj : false;
+            let videoDevice = videoSetObj.video ? videoSetObj : false;
+            createTwillioTracks(audioDevice, videoDevice);
+        })
+
     }
 
     //get try to get share stream via chrome extension
