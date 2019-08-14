@@ -204,7 +204,10 @@ export default {
         scrollFunc() {
             this.scrollBehaviour.isLoading = true;
             let nextPageUrl = this.StudyDocuments_getNextPageUrl();
-            if (this.name !== this.pageData.vertical) return;
+            if (this.name !== this.pageData.vertical) {
+                this.scrollBehaviour.isLoading = false;
+                return
+            };
             this.StudyDocuments_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {
                     if (res.data && res.data.length) {
