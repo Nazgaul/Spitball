@@ -6,7 +6,7 @@
         <v-layout mt-3 class="study-rooms-cards-container">
             <study-card xs6 v-for="(card, index) in studyRooms" :key="index" :card="card"></study-card>
             <v-spacer style="max-width:170px;" xs6 v-show="studyRooms.length % 2 !== 0 && $vuetify.breakpoint.xsOnly"></v-spacer>
-            <study-card-tutor  v-if="!isTutor"></study-card-tutor>
+            <study-card-tutor v-if="!isTutor && isTutorPending"></study-card-tutor>
         </v-layout>
     </v-container>
 
@@ -31,8 +31,13 @@ export default {
             return this.getStudyRooms;
         },
         isTutor(){
-            return this.accountUser.isTutor;
+            if(this.accountUser) {
+                return this.accountUser.isTutor;
+            }
         },
+        isTutorPending() {
+            return this.accountUser.isTutorState !== 'pending' ? true : false;
+        }
     },
     methods:{
         ...mapActions(['fetchStudyRooms']),
