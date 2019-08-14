@@ -153,7 +153,7 @@ export default {
         .messages-wrapper{
             height: 100%;
             .error-file-span{
-                padding: 30px 10px;
+                padding: 10px 10px 40px;
                 opacity: 0.8;
                 background-color: red;
                 color: white;

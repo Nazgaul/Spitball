@@ -33,7 +33,6 @@
             </template>
             
             <label for="chat-file" class="chat-upload-file">
-                <!--<v-icon class="chat-attach-icon">sbf-attach</v-icon>-->
                 <add-file-img class="chat-attach-file"></add-file-img>
                 <file-upload  chunk-enabled
                     :chunk="{
@@ -101,10 +100,9 @@
                     console.log('success upload', newFile, newFile);
                 }
                 if (newFile && newFile.error && !oldFile.error) {
-                    // error
-                    //TODO ADD ERROR HANDLER Gaby?
-                    //release loader in case of errror
+                    this.updateFileError(true)
                     this.updateChatUploadLoading(false);
+                    return;
                 }
                 if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
                     if (this.$refs.uploadFile && !this.$refs.uploadFile.active) {
@@ -122,10 +120,6 @@
                     if (this.uploadedFiles.length >= 1) {
                         return prevent()
                     }
-                    if (!/\.(jpeg|jpe|jpg|gif|png|webp|doc|docx|xls|xlsx|PDF|ppt|pptx|tiff|tif|bmp)$/i.test(newFile.name)) {
-                        this.updateFileError(true)
-                        return prevent()
-                    }
 
                     if (newFile && newFile.size === 0) {
                         return prevent()
@@ -141,21 +135,17 @@
                 }
             },
             captruephoto(e) {
-                let file = e.target.files[0];
                 this.updateChatUploadLoading(true);
-                if (!/\.(jpeg|jpe|jpg|gif|png)$/i.test(file.name)) {
-                    this.updateFileError(true)
-                    this.updateChatUploadLoading(false);
-                    return;
-                }
-
+                let file = e.target.files[0];
                 let formData = new FormData();
+
                 formData.append("file", file);
                 formData.append('otherUser', this.otherUserId)
+
                 this.uploadCapturedImage(formData).then(()=> {
                     
                 }).catch(ex => {
-                   
+                    this.updateFileError(true)
                 }).finally(() => {
                     this.updateChatUploadLoading(false)
                 })
