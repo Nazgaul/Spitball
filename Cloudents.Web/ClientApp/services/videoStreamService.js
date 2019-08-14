@@ -92,7 +92,7 @@ let availableDevices = [];
         });
     }
 
-   function addDevicesTotrack(){
+   async function addDevicesTotrack(){
         let self = this;
         if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
             console.log("enumerateDevices() not supported.");
