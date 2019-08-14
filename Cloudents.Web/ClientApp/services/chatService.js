@@ -46,6 +46,7 @@ function FileMessage(objInit, id, fromSignalR){
     this.name = objInit.name;
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
+    console.log(objInit)
     this.unreadMessage = objInit.unreadMessage || objInit.unread;
 }
 

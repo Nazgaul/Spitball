@@ -190,7 +190,7 @@
                 position: absolute;
                 width: 22px;
                 cursor: pointer;
-                .responsive-property(right, 36px, null, 40px);
+                .responsive-property(right, 32px, null, 40px);
                 .file-uploads {
                     position: absolute;
                     top: 0;

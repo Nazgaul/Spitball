@@ -251,6 +251,9 @@ const actions = {
         }
     },
     signalRAddMessage({dispatch}, messageObj){
+        if(messageObj.message.type === 'file') {
+            messageObj.message.unread = true;
+        }
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId, true);
         dispatch('addMessage', MessageObj);
         dispatch('openChatInterface');

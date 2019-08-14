@@ -278,7 +278,7 @@ Vue.prototype.$Ph = function (key, placeholders) {
     return LanguageService.changePlaceHolders(rawKey, argumentsToSend)
 }
 
-Vue.prototype.$chatMessage = function (message, date) {
+Vue.prototype.$chatMessage = function (message) {
     if(message.type === 'text'){
         //text and convert links to url's
         let linkTest = /(ftp:\/\/|www\.|https?:\/\/){1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\S*)/g;
@@ -294,9 +294,9 @@ Vue.prototype.$chatMessage = function (message, date) {
         } 
         return modifiedText;
     }else{
+        console.log(message)
         let src = utilitiesService.proccessImageURL(message.src, 190, 140, 'crop');
-        let dateText = `<div class="message-file-date">${date}</div>`;
-        return `<a href="${message.href}" target="_blank"><img src="${src}" />${dateText}</a>`;
+        return `<a href="${message.href}" target="_blank"><img src="${src}"/></a>`;
     }
 }
 

@@ -17,8 +17,8 @@
                 <v-layout row class="moreDetails" align-center>
                     <div column class="price-box column mr-2">
                         <template>
-                            <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                            <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
+                            <span v-if="showStriked" class="font-weight-bold"><span class="price-sign">&#8362;</span>{{discountedPrice}}</span>
+                            <span v-else class="font-weight-bold"><span class="price-sign">&#8362;</span>{{tutorData.price}}</span>
                         </template>
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
@@ -43,7 +43,7 @@
                         <!-- card-b -->
                         <v-layout column align-center class="ab-cardB user-classes" :class="{'user-classes-hidden': tutorData.lessons === 0}">
                             <div>{{tutorData.lessons}}</div>
-                            <div v-language:inner="'resultTutor_classes'"></div>
+                            <div class="user-classes-text" v-language:inner="'resultTutor_classes'"></div>
                         </v-layout>
                     </template>
 
@@ -221,7 +221,6 @@ export default {
         }
         .ab-cardB {
             display: flex;
-            font-size: 12px;
         }
         .user-rates {
             padding: 0 !important;
@@ -282,8 +281,12 @@ export default {
         .price-box {
             line-height: 15px;
             font-size: 22px;
+            .price-sign {
+                font-size: 16px;
+            }
         }
         .rating-holder {
+            padding-bottom: 2px;
             div {
                 margin: 0 !important;
             }
@@ -301,6 +304,9 @@ export default {
                     margin: 0 auto;
                 }
             }
+        }
+        .user-classes-text {
+            font-size: 12px;
         }
         .user-classes-hidden {
             visibility: hidden;
@@ -336,6 +342,7 @@ export default {
                 margin-left: 0;
                 .widthMinMax(200px);
                 &.tutor-btn {
+                    font-weight: 600;
                     .widthMinMax(132px);
                 }
             }

@@ -27,6 +27,7 @@
 import UserAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue";
+import timeago from 'timeago.js';
 
 export default {
   components: {
@@ -40,7 +41,7 @@ export default {
   },
   computed: {
     date() {
-      return utilitiesService.dateFormater(this.conversation.dateTime);
+        return timeago().format(new Date(this.conversation.dateTime));
     },
     userImg() {
       return utilitiesService.proccessImageURL(this.conversation.image, 46, 46);
