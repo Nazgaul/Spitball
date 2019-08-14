@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -15,17 +16,19 @@ namespace Cloudents.Command.CommandHandler
             _userRepository = userRepository;
         }
 
-        public async Task ExecuteAsync(AddSellerTokenCommand message, CancellationToken token)
+        public async Task ExecuteAsync([NotNull] AddSellerTokenCommand message, CancellationToken token)
         {
+            if (message == null) throw new ArgumentNullException(nameof(message));
+            if (string.IsNullOrEmpty(message.Token)) throw new ArgumentNullException(nameof(message));
             var user = await _userRepository.GetUserByEmailAsync(message.UserEmail, token);
             if (user == null)
             {
                 throw new NullReferenceException($"{message.UserEmail} does not exists");
             }
-            if (user.Tutor.SellerKey != null)
-            {
-                throw new ArgumentException();
-            }
+            //if (user.Tutor.SellerKey != null)
+            //{
+            //    throw new ArgumentException();
+            //}
             user.Tutor.SellerKey = message.Token;
         }
     }

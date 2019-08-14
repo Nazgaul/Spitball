@@ -38,7 +38,11 @@ export default {
             return this.accountUser.id === this.message.userId
         },
         date() {
-            return timeago().format(new Date(this.message.dateTime));
+            if (this.message.dateTime) {
+                return this.$options.filters.fullMonthDate(this.message.dateTime);
+            } else {
+                return "";
+            }
         },
     }
 }
