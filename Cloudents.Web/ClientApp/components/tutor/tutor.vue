@@ -514,12 +514,17 @@ export default {
             video: videoSetObj.video ? true : false, 
             audio: audioSetObj.audio ? true : false
         }
-        navigator.mediaDevices.getUserMedia(constraint).then(() => {
+        let ready = await navigator.mediaDevices.getUserMedia(constraint).then(() => {
             let audioDevice = audioSetObj.audio ? audioSetObj : false;
             let videoDevice = videoSetObj.video ? videoSetObj : false;
             this.setVideoDevice(videoDevice);
             this.setAudioDevice(audioDevice);
+            return true;
+        }, err=>{
+          return false;
         })
+
+        return ready;
     }
   },
   mounted() {
@@ -532,12 +537,12 @@ export default {
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
   },
-  created() {
-    this.initDevicesToStore();
-    storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
-    storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
+  async created() {
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
+    storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
+    storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
+    let ready = await this.initDevicesToStore();
     
     if (!this.isBrowserSupport()) {
       this.$nextTick(()=>{
