@@ -26,8 +26,8 @@
                 class="white--text btn-login">
                 <span v-language:inner="'loginRegister_setpass_btn'"></span>
                 </v-btn>
-        
-        <span class="bottom" @click="goForgotPassword" v-language:inner="'loginRegister_setpass_forgot'"/>
+
+        <router-link to="" class="bottom" @click.native="goForgotPassword" v-language:inner="'loginRegister_setpass_forgot'"/>
     </form>    
 </template>
 
