@@ -240,7 +240,9 @@ export default {
         min-height: 78px;
         .top-card-wrap {
             width:100%;
-            max-height:83px;
+            display: flex;
+            flex-direction: column;
+            // max-height:83px;
         }
     }
     .tutor-card-loader{
@@ -278,6 +280,8 @@ export default {
     }
 
     .moreDetails {
+        display: flex;
+        align-items: flex-end;
         color: @purple;
         .price-box {
             line-height: 15px;
