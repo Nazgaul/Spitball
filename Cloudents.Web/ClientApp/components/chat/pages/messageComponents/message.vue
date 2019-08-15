@@ -15,7 +15,7 @@
 <script>
 import {mapGetters, mapActions} from 'vuex';
 import doubleCheck from './group-2.svg';
-import timeago from 'timeago.js';
+import {timeAgoFormat} from '../../../../services/language/timeAgoService';
 
 export default {
     components: {
@@ -38,11 +38,7 @@ export default {
             return this.accountUser.id === this.message.userId
         },
         date() {
-            if (this.message.dateTime) {
-                return this.$options.filters.fullMonthDate(this.message.dateTime);
-            } else {
-                return "";
-            }
+            return timeAgoFormat(this.message.dateTime)
         },
     }
 }
