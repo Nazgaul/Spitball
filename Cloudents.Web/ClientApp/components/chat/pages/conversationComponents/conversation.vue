@@ -27,7 +27,7 @@
 import UserAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue";
-import timeago from 'timeago.js';
+import {timeAgoFormat} from '../../../../services/language/timeAgoService';
 
 export default {
   components: {
@@ -41,11 +41,7 @@ export default {
   },
   computed: {
     date() {
-      if (this.conversation.dateTime) {
-          return this.$options.filters.fullMonthDate(this.conversation.dateTime);
-      } else {
-          return "";
-      }
+        return timeAgoFormat(this.conversation.dateTime)
     },
     userImg() {
       return utilitiesService.proccessImageURL(this.conversation.image, 46, 46);
