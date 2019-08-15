@@ -59,7 +59,7 @@
                 <v-btn 
                     round 
                     small 
-                    color="#848bbc" 
+                    color="#4452fc" 
                     depressed 
                     class="white--text caption py-3 px-2 mb-0" 
                     @click.prevent="sendMessage(tutorData)" 
@@ -341,7 +341,6 @@ export default {
         display: block;
         color: @purple;
         .giveMeEllipsis(2,18px);
-        .heightMinMax(36x);
         .read-more {
             position: absolute;
             color: #4452fc;
