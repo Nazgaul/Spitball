@@ -6,7 +6,8 @@
         <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
         <div class="tutor-carousel-slider-container" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
 
-            <div v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card pt-1 pr-1 pl-1">
+            <router-link v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card pt-1 pr-1 pl-1" 
+                @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutor.userId, name: tutor.name}}">
                 <div>
                     <h4 class="caption font-weight-bold mb-1" v-language:inner="'resultTutor_subtitle'"/>
                     <h3 class="body-2 font-weight-bold tutor-name-restriction">{{tutor.name}}</h3>
@@ -43,7 +44,7 @@
                 <v-btn class="btn-chat white--text text-truncate" small round block color="#4452fc" @click.prevent="sendMessage(tutor)">
                     <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName(tutor.name))" ></div>
                 </v-btn>
-            </div>
+            </router-link>
 
         </div>
     </div>
@@ -220,6 +221,13 @@ export default {
                 this.openChatInterface();                    
             }
         },
+        tutorCardClicked() {
+            if(this.fromLandingPage){
+                analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+            } else {
+                analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+            };
+        },
     },
     created() {
         if(this.$vuetify.breakpoint.smAndDown) {
@@ -247,7 +255,6 @@ export default {
             .tutor-carousel-card {
                 border-radius: 4px;
                 background: #fff;
-                // .heightMinMax(248px);
                 h3,h4 {
                     color: @purple;
                 }
@@ -319,6 +326,7 @@ export default {
                     display: flex;
                     justify-content: center;
                     margin-top: 2px;
+                    color: #43425d;
                 }
                 .user-bio {
                     font-family: Open Sans,sans-serif;
