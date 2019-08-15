@@ -264,6 +264,7 @@ export default {
     .striked {
         max-width: max-content;
         position: relative;
+        margin-bottom: 2px;
         font-family: arial;
         font-size: 12px;
         color: @colorBlackNew;
@@ -283,11 +284,19 @@ export default {
         display: flex;
         align-items: flex-end;
         color: @purple;
+        margin-bottom: -2px;
         .price-box {
             line-height: 15px;
             font-size: 22px;
+            span {
+                font-family: Arial;
+                font-size: 22px;
+            }
             .price-sign {
                 font-size: 16px;
+            }
+            .caption {
+                margin-top: 1px;
             }
         }
         .rating-holder {
@@ -331,8 +340,8 @@ export default {
         font-size: 13px;
         display: block;
         color: @purple;
-        .giveMeEllipsis(2,20px);
-        .heightMinMax(40px);
+        .giveMeEllipsis(2,18px);
+        .heightMinMax(36x);
         .read-more {
             position: absolute;
             color: #4452fc;

@@ -6,7 +6,7 @@
         <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
         <div class="tutor-carousel-slider-container" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
 
-            <router-link v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card pt-1 pr-1 pl-1" 
+            <router-link v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card" 
                 @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutor.userId, name: tutor.name}}">
                 <div>
                     <h4 class="caption font-weight-bold mb-1" v-language:inner="'resultTutor_subtitle'"/>
@@ -23,23 +23,25 @@
                 </template>
 
                 </div>
-                <div class="user-price mb-2">
+                <div class="user-price">
                     <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
                         <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
                     </div>
                     <img v-show="isLoaded" class="user-image" @error="onImageLoadError" @load="loaded" :src="getImgUrl(tutor.image)" :alt="tutor.name">
-                    <div class="">
+                    <div>
                         <div class="striked" v-if="showStriked(tutor.price)"> &#8362;{{tutor.price}}</div>
                         <div>
-                            <span v-if="showStriked(tutor.price)" class="price font-weight-bold">&#8362;{{discountedPrice(tutor.price)}}</span>
-                            <span class="price font-weight-bold" v-else>&#8362;{{tutor.price}}</span>
+                            <span v-if="showStriked(tutor.price)" class="price font-weight-bold"><span class="price-sign">&#8362;</span>{{discountedPrice(tutor.price)}}</span>
+                            <span class="price font-weight-bold" v-else><span class="price-sign">&#8362;</span>{{tutor.price}}</span>
                             <div class="caption hour" v-language:inner="'resultTutor_hour'"></div>
                         </div>
                     </div>
                     
                 </div>
 
-                <div class="user-bio overflow-hidden" v-html="ellipsizeTextBox(tutor.bio)"></div>
+                <!-- <div class="user-bio overflow-hidden" v-html="ellipsizeTextBox(tutor.bio)"></div> -->
+                <div class="user-bio overflow-hidden">{{tutor.bio}}</div>
+
 
                 <v-btn class="btn-chat white--text text-truncate" small round block color="#4452fc" @click.prevent="sendMessage(tutor)">
                     <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName(tutor.name))" ></div>
@@ -142,7 +144,7 @@ export default {
             }
         },
         getImgUrl(path) {
-            return utilitiesService.proccessImageURL(path, 66, 74);
+            return utilitiesService.proccessImageURL(path, 64, 74);
         },
         reviewsPlaceHolder(reviews) {
           return reviews === 0 ? reviews.toString() : reviews;
@@ -157,13 +159,13 @@ export default {
             let discountedAmount = price - this.discountAmount;
             return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
         },
-        ellipsizeTextBox(text) {
-            let maxChars = 105;
-            let showBlock = text.length > maxChars;
-            let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
-            let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-            return `${newText} ${hideText}`;
-        },
+        // ellipsizeTextBox(text) {
+        //     let maxChars = 105;
+        //     let showBlock = text.length > maxChars;
+        //     let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
+        //     let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
+        //     return `${newText} ${hideText}`;
+        // },
         setCardsCarousel() {
             // calculate cards on screen
             this.$nextTick(()=>{
@@ -253,6 +255,7 @@ export default {
             display: flex;            
             transition: transform 150ms ease-out;
             .tutor-carousel-card {
+                padding: 8px;
                 border-radius: 4px;
                 background: #fff;
                 h3,h4 {
@@ -265,7 +268,7 @@ export default {
                 }
                 .user-rank {
                     display: inline-flex;
-                    flex-direction: column;
+                    // flex-direction: column;
                     svg {
                         width: 16px;
                         height: 16px;
@@ -274,6 +277,7 @@ export default {
                 .user-price {
                     display: flex;
                     color: @purple;
+                    margin-bottom: 12px;
                     .user-image {
                         margin-right: 10px;
                         border-radius: 4px;
@@ -311,6 +315,9 @@ export default {
                             .price {
                                 font-family: Arial;
                                 font-size: 22px;
+                                .price-sign {
+                                    font-size: 16px;
+                                }
                             }
                             .hour {
                                 align-items: end;
@@ -330,13 +337,12 @@ export default {
                 }
                 .user-bio {
                     font-family: Open Sans,sans-serif;
-                    .giveEllipsisUpdated(11px, normal, 3, 40px);
-                    line-height: 1.2 !important;
+                    .giveMeEllipsis(3,40px);
                     min-height: 40px;
+                    line-height: 14px;
                     text-align: left;
                     color: @purple;
-                    position: relative;
-                    font-size: 11px;
+                    font-size: 12px;
                 }
                 .btn-chat {
                     margin-top: 14px;
