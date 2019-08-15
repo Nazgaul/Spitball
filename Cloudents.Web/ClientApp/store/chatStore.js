@@ -111,6 +111,9 @@ const mutations = {
         }
         state.conversations[id].dateTime = message.dateTime;
     },
+    resetMessagesById:(state, id)=>{
+        state.messages[id].length = 0;
+    },
     setActiveConversationObj(state, obj){
         if(!!state.conversations[obj.conversationId]){
             state.activeConversationObj = chatService.createConversation(state.conversations[obj.conversationId]);
@@ -213,7 +216,11 @@ const actions = {
                 }else{
                     // message here will be sent by remote user
                     dispatch('getChatById', message.conversationId).then(({data})=>{
-                        let ConversationObj = chatService.createConversation(data);
+                        let newData;
+                        if(message.type === 'text') {
+                            newData = {...data, lastMessage:message.text}
+                        }
+                        let ConversationObj = chatService.createConversation(newData);
                         commit('addConversation', ConversationObj);
                         commit('addConversationUnread', message)
                         commit('updateTotalUnread', 1);
@@ -222,7 +229,11 @@ const actions = {
             }else{
                 //conversationId should be added to the current conversation
                 dispatch('getChatById', message.conversationId).then(({data})=>{
-                    let ConversationObj = chatService.createConversation(data);
+                    let newData;
+                    if(message.type === 'text') {
+                        newData = {...data, lastMessage:message.text}
+                    }
+                    let ConversationObj = chatService.createConversation(newData);
                     commit('addConversation', ConversationObj);
                     commit('updateTotalUnread', 1);
                 })
@@ -317,9 +328,20 @@ const actions = {
             id = state.activeConversationObj.conversationId;
         }
 
-        if(!!id && (!state.messages[id] || (!!state.conversations[id] && state.conversations[id].unread > 0))){
+        if(!!id && !state.messages[id]){
             chatService.getMessageById(id).then(({data})=>{
                 if(!data) return;
+                data.reverse().forEach(message => {
+                    let MessageObj = chatService.createMessage(message, id);
+                    dispatch('addMessage', MessageObj);
+                })
+                commit('setSyncStatus', false);
+            })
+        }else if(state.messages[id] && (!!state.conversations[id] && state.conversations[id].unread > 0)){
+            // clean messages before getting all messages from server 
+            chatService.getMessageById(id).then(({data})=>{
+                if(!data) return;
+                commit('resetMessagesById', id);
                 data.reverse().forEach(message => {
                     let MessageObj = chatService.createMessage(message, id);
                     dispatch('addMessage', MessageObj);
