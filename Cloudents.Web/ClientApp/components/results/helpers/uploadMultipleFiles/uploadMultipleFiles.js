@@ -174,6 +174,8 @@ export default {
 
     },
     created() {
-
+        if(this.$route.query && this.$route.query.Course){
+            this.courseSelected = this.$route.query.Course
+        }
     }
 }
