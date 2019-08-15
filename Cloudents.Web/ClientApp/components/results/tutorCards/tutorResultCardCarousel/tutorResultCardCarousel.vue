@@ -39,9 +39,7 @@
                     
                 </div>
 
-                <!-- <div class="user-bio overflow-hidden" v-html="ellipsizeTextBox(tutor.bio)"></div> -->
                 <div class="user-bio overflow-hidden">{{tutor.bio}}</div>
-
 
                 <v-btn class="btn-chat white--text text-truncate" small round block color="#4452fc" @click.prevent="sendMessage(tutor)">
                     <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName(tutor.name))" ></div>
@@ -159,13 +157,6 @@ export default {
             let discountedAmount = price - this.discountAmount;
             return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
         },
-        // ellipsizeTextBox(text) {
-        //     let maxChars = 105;
-        //     let showBlock = text.length > maxChars;
-        //     let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
-        //     let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-        //     return `${newText} ${hideText}`;
-        // },
         setCardsCarousel() {
             // calculate cards on screen
             this.$nextTick(()=>{
