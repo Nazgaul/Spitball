@@ -542,7 +542,7 @@ export default {
     storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
-    let ready = this.initDevicesToStore();
+    // let ready = this.initDevicesToStore();
     
     if (!this.isBrowserSupport()) {
       this.$nextTick(()=>{
