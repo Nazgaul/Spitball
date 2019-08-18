@@ -18,7 +18,8 @@ const state = {
     chatLocked: false,
     chatLoader: false,
     emptyState: [],
-    isSyncing: true
+    isSyncing: true,
+    otherUserId: '',
 };
 const getters = {
     getFileError: state => state.fileError,
@@ -164,7 +165,7 @@ const mutations = {
         },
     setSyncStatus:(state, val)=>{
         state.isSyncing = val;
-    }
+    },
 };
 
 const actions = {
@@ -218,7 +219,7 @@ const actions = {
                     dispatch('getChatById', message.conversationId).then(({data})=>{
                         let newData;
                         if(message.type === 'text') {
-                            newData = {...data, lastMessage:message.text}
+                            newData = {...data, lastMessage:message.text};
                         }
                         let ConversationObj = chatService.createConversation(newData);
                         commit('addConversation', ConversationObj);
@@ -231,7 +232,7 @@ const actions = {
                 dispatch('getChatById', message.conversationId).then(({data})=>{
                     let newData;
                     if(message.type === 'text') {
-                        newData = {...data, lastMessage:message.text}
+                        newData = {...data, lastMessage:message.text};
                     }
                     let ConversationObj = chatService.createConversation(newData);
                     commit('addConversation', ConversationObj);
@@ -355,11 +356,22 @@ const actions = {
     updateChatState:({commit}, val)=>{
         commit('changeChatState', val);
     },
-    sendChatMessage:({state, dispatch, getters}, message)=>{
+    sendChatMessage:({state, dispatch, commit, getters}, message)=>{
         //send message to server.
+        if(!state.otherUserId){
+            state.otherUserId = state.activeConversationObj.userId
+        } else {
+            let ids = state.activeConversationObj.conversationId.split("_");
+            if(ids[0] == getters.accountUser.id) {
+                state.otherUserId = ids[1];
+            } else {
+                state.otherUserId = ids[0];
+            }
+        }
+
         let messageObj = chatService.createServerMessageObj({
             message: message,
-            otherUser: state.activeConversationObj.userId
+            otherUser: state.otherUserId
         });
         chatService.sendChatMessage(messageObj);
 
@@ -378,6 +390,7 @@ const actions = {
         }
         localMessageObj = chatService.createMessage(localMessageObj, id);
         dispatch('addMessage', localMessageObj)
+
     },
     toggleChatMinimize:({commit, state, dispatch})=>{
         if(!state.isMinimized){
@@ -416,7 +429,7 @@ const actions = {
     },
     uploadCapturedImage(context, formData) {
         return chatService.uploadCapturedImage(formData)
-    }
+    },
 };
 
 export default {

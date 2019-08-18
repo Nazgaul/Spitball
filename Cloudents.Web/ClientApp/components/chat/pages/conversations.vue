@@ -53,7 +53,6 @@ export default {
     overflow: auto;
     .conversations-wrapper{
         cursor: pointer;
-        
     }
 }
 .conversations-empty-state{

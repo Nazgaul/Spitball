@@ -25,6 +25,6 @@ function timeAgoFormat(time) {
     return timeAgoRef.format(time, locale);    
 }
 
-export {
+export default {
     timeAgoFormat
 }
