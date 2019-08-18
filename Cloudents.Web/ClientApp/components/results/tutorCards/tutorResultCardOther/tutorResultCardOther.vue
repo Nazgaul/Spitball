@@ -1,5 +1,6 @@
 <template>
-    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden ab-default-card" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden ab-default-card" 
+    @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
         <div class="mb-3 top-card justify-space-between">
             <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
               <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
@@ -68,7 +69,7 @@
             </div>
             
             <div class="more-documents text-xs-center text-truncate card-transform" v-if="uploader">
-                <v-btn round small color="#5158af" depressed class="caption py-3 px-2" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
+                <v-btn @click.stop.prevent="goMoreDocs" round small color="#5158af" depressed class="caption py-3 px-2" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
             </div>
         </v-layout>
     </router-link>
@@ -200,6 +201,9 @@ export default {
                 let isMobile = this.$vuetify.breakpoint.smAndDown;
                 this.openChatInterface();                    
             }
+        },
+        goMoreDocs(){
+            this.$router.push({name: 'profile', params: {id: this.tutorData.userId, name: this.tutorData.name,tab:4}});
         }
     }
 }
