@@ -76,7 +76,7 @@ export default {
       display: flex;
       justify-content: space-between;
       .top-detail-container-wrap {
-        max-width: 150px;
+        max-width: 148px;
       }
       .conversation-name{
         display: flex;

@@ -6,7 +6,7 @@
             </div>
             <img v-show="isLoaded" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div class="top-card-wrap">
-                <h3 class="subheading font-weight-bold tutor-name text-truncate mb-2" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h3 class="subheading font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
                 <template>
                     <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
@@ -259,6 +259,7 @@ export default {
     .tutor-name {
         color: @purple;
         max-width: 200px; // for eplipsis purpose
+        margin-bottom: 6px;
     }
 
     .striked {

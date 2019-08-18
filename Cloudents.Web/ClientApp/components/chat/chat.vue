@@ -161,7 +161,7 @@ export default {
 <style lang="less">
 @import "../../styles/mixin.less";
 .sb-chat-container {
-  .scrollBarStyle(6px, #43425d);
+  // .scrollBarStyle(6px, #43425d);
   position: fixed;
   bottom: 0;
   right: 130px;

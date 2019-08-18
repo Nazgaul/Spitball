@@ -50,10 +50,10 @@ function FileMessage(objInit, id, fromSignalR){
 }
 
 function activeConversationObj(objInit){
-        this.userId = objInit.userId || null;
-        this.conversationId = objInit.conversationId || null;
-        this.name = objInit.name || null;
-        this.image = objInit.image || null;
+    this.userId = objInit.userId || null;
+    this.conversationId = objInit.conversationId || null;
+    this.name = objInit.name || null;
+    this.image = objInit.image || null;
 }
 
 function createActiveConversationObj(objInit){
