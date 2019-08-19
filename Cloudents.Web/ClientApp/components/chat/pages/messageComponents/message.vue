@@ -9,7 +9,7 @@
         <double-check v-show="isMine && !message.unreadMessage" />
         <span class="message-text-date">{{date}}</span>
     </div>
-    <div class="chat-loader" :class="{'my_message': isMine}" v-if="lastMsgIndex">
+    <div class="chat-loader" :class="{'my_message': isMine}" v-if="getChatLoader && lastMsgIndex">
         <v-progress-circular indeterminate v-bind:size="30" color="#43425d"></v-progress-circular>
     </div>
 </div>
