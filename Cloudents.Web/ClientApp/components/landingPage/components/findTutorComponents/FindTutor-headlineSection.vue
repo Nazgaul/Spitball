@@ -4,7 +4,7 @@
       <h2 v-language:inner="'landingPage_main_title'"></h2>
       <h3 v-language:inner="'landingPage_main_subtitle'"></h3>
       <router-link :to="'tutor-list'">
-        <button  v-language:inner="'landingPage_main_btn'"></button>
+        <button v-language:inner="'landingPage_main_btn'"></button>
       </router-link>
     </v-flex>
     <v-flex class="landing-headeline-section-img-container" hidden-md-and-down lg6>
@@ -69,6 +69,7 @@ export default {
             box-shadow: 0 3px 19px 0 rgba(0, 0, 0, 0.15);
             background-color: #27ccbb;
             padding: 12px 20px;
+            outline: none;
         }
     } 
     .landing-headeline-section-img-container{
