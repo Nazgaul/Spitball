@@ -15,7 +15,7 @@
             </div>
 
             <div class="messages-body">
-                <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
+                <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index" :lastMsgIndex="index === messages.length - 1"></message>
             </div>
 
             <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
@@ -24,11 +24,6 @@
                 <span class="messages-mobile-button" v-show="typing" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
                 <chat-upload-file :typing="typing"></chat-upload-file>
                 <v-textarea rows="1" class="pa-2 messages-textarea" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText" v-language:placeholder @keydown.enter.prevent="sendMessage" v-model="messageText" auto-grow></v-textarea>
-                <v-layout align-center justify center class="chat-upload-loader" v-if="getChatLoader" >
-                   <v-flex class="text-xs-center">
-                       <v-progress-circular indeterminate v-bind:size="25" color="#43425d"></v-progress-circular>
-                   </v-flex>
-                </v-layout>
             </div>
 
         </v-layout>
@@ -60,6 +55,7 @@ export default {
             emptyStateMessages: [],
             alreadyCreated: false,
             loader: false,
+            lastMsgIndex: null
         }
     },
     computed:{

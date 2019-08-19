@@ -9,6 +9,9 @@
         <double-check v-show="isMine && !message.unreadMessage" />
         <span class="message-text-date">{{date}}</span>
     </div>
+    <div class="chat-loader" :class="{'my_message': isMine}" v-if="lastMsgIndex">
+        <v-progress-circular indeterminate v-bind:size="30" color="#43425d"></v-progress-circular>
+    </div>
 </div>
 </template>
 
@@ -24,7 +27,8 @@ export default {
     props:{
         message:{
             type: Object
-        }
+        },
+        lastMsgIndex: {}
     },
     data() {
         return {
@@ -32,7 +36,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['accountUser']),
+        ...mapGetters(['accountUser','getChatLoader']),
 
         isMine(){
             return this.accountUser.id === this.message.userId
@@ -114,6 +118,13 @@ export default {
         }
         &.myMessage {
             justify-content: flex-start;
+        }
+    }
+    .chat-loader {
+        display: flex;
+        justify-content: flex-end;
+        &.my_message {
+            justify-content: center;
         }
     }
 }
