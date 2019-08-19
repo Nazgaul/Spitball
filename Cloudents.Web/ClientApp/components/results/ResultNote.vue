@@ -1,5 +1,5 @@
 <template>
-  <router-link class="d-block note-block" :to="url">
+  <router-link v-if="url" class="d-block note-block" :to="url">
     <!-- <v-container
       class="pa-0"
       @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)"
