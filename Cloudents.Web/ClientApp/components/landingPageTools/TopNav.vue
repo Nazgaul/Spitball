@@ -7,19 +7,22 @@
                 </router-link>
                 <v-icon @click="handleMenuToggle()" class="tutor-list-header-left-menu hidden-md-and-up">sbf-menu</v-icon>
             </v-flex>
-            <v-flex class="tutor-list-header-right hidden-sm-and-down" >
-              <button
-                class="tutor-list-header-right-login mr-2"
-                @click="$router.push('../signin')"
-                v-language:inner="'tutorListLanding_topnav_btn_login'"
-              >
-              </button>
-              <button
-                class="tutor-list-header-right-signup mr-3"
-                @click="$router.push('../register')"
-                v-language:inner="'tutorListLanding_topnav_btn_signup'"
-              >
-              </button>
+            <v-flex class="tutor-list-header-right hidden-sm-and-down">
+              <template  v-if="!loggedIn">
+                  <button
+                    class="tutor-list-header-right-login mr-2"
+                    @click="$router.push('../signin')"
+                    v-language:inner="'tutorListLanding_topnav_btn_login'"
+                  >
+                  </button>
+                  <button
+                    class="tutor-list-header-right-signup mr-3"
+                    @click="$router.push('../register')"
+                    v-language:inner="'tutorListLanding_topnav_btn_signup'"
+                  >
+                  </button>
+
+              </template>
               <a @click="changeLanguage()">
                 {{currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''}}
               </a>
@@ -106,6 +109,7 @@ export default {
     max-width: 1500px; 
     margin: 0 auto;
     .tutor-list-header-left {
+      padding: 10px 0;
       display: flex;
       @media (max-width: @screen-sm) {
           justify-content: space-between
