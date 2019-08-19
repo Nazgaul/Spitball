@@ -27,7 +27,7 @@
                     >sbf-face-icon</v-icon>
                     <h1 v-line-clamp:22="'1'"
                       class="subheading font-weight-bold"
-                      style="word-break: break-all; max-width: 180px;"
+                      :style="[{wordBreak: 'break-all'},{maxWidth: $vuetify.breakpoint.xsOnly? '180px':'inherit'}]"
                     >{{userName}}</h1>
                     <v-icon
                       @click="openEditInfo()"
