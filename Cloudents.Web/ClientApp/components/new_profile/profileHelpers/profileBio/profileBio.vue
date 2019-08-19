@@ -27,12 +27,12 @@
                     >sbf-face-icon</v-icon>
                     <h1 v-line-clamp:22="'1'"
                       class="subheading font-weight-bold"
-                      style="word-break: break-all;"
+                      style="word-break: break-all; max-width: 180px;"
                     >{{userName}}</h1>
                     <v-icon
                       @click="openEditInfo()"
                       v-if="$vuetify.breakpoint.xsOnly && isMyProfile"
-                      class="edit-profile-action ml-2"
+                      class="edit-profile-action ml-2 "
                     >sbf-edit-icon</v-icon>
                   </div>
                   <div class="d-flex align-start" v-if="$vuetify.breakpoint.smAndUp">
