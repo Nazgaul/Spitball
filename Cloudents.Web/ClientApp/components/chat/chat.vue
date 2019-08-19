@@ -39,8 +39,8 @@
 
 
 <script>
-import chatConversation from "./pages/conversations.vue";
-import chatMessages from "./pages/messages.vue";
+import chatConversation from "./components/conversations.vue";
+import chatMessages from "./components/messages.vue";
 import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
@@ -81,7 +81,6 @@ export default {
       "getIsSignalRConnected"
     ]),
     isLocked() {
-      // return this.getIsChatLocked;
       return false;
     },
     isMobile() {
@@ -161,7 +160,6 @@ export default {
 <style lang="less">
 @import "../../styles/mixin.less";
 .sb-chat-container {
-  // .scrollBarStyle(6px, #43425d);
   position: fixed;
   bottom: 0;
   right: 130px;
@@ -250,7 +248,6 @@ export default {
     height: 90%;
     width: 100%;
     @media (max-width: @screen-xs) {
-     //Not sure why we need height in mobile but if not ios gets fucked up
       flex:2;
     }
   }

@@ -32,13 +32,16 @@
 
 <script>
 import message from "./messageComponents/message.vue"
+import chatUploadFile from './messageComponents/chatUploadFile.vue';
+
 import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
 import userOnlineStatus from '../../helpers/userOnlineStatus/userOnlineStatus.vue';
-import chatUploadFile from './messageComponents/chatUploadFile.vue';
+
 import {mapGetters, mapActions} from 'vuex';
 import { LanguageService } from '../../../services/language/languageService';
 import chatService from '../../../services/chatService';
-import addCircle from './messageComponents/add-circle-outline.svg';
+import addCircle from '../images/add-circle-outline.svg';
+
 
 export default {
     components:{

@@ -1,6 +1,5 @@
 <template>
     <div class="chat-upload-wrap">
-        <!--Upload Image-->
         <div class="chat-input-container align-center justify-center column" v-show="!typing">
             <template>
 
@@ -28,6 +27,7 @@
                         :post-action="uploadUrl"
                         @input-file="inputFile"
                         @input-filter="inputFilter"
+                        accept="image/*"
                     ></file-upload>
                 </label>
             </template>
@@ -51,6 +51,7 @@
                     :post-action="uploadUrl"
                     @input-file="inputFile"
                     @input-filter="inputFilter"
+                    :accept="filesSupported"
                 ></file-upload>
             </label>
         </div>
@@ -60,9 +61,10 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import addFileImg from '../../../../font-icon/attach.svg';
-    import chatImage from './outline-insert-photo.svg';
+    import chatImage from '../../images/outline-insert-photo.svg';
     import FileUpload from 'vue-upload-component/src';
-    import photoCamera from '../messageComponents/photo-camera.svg';
+    import photoCamera from '../../images/photo-camera.svg';
+    import filesTypeList from '../../data/filesType.js'
 
     export default {
         name: "chatUploadFile",
@@ -155,6 +157,12 @@
             ...mapGetters(['getActiveConversationObj']),
             otherUserId(){
                 return this.getActiveConversationObj.userId
+            },
+            filesSupported(){
+                let types = filesTypeList;
+                if(types){
+                    return types
+                }
             }
         }
     }

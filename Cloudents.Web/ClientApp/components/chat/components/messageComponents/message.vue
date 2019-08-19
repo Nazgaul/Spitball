@@ -17,7 +17,7 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex';
-import doubleCheck from './group-2.svg';
+import doubleCheck from '../../images/group-2.svg';
 import timeAgoService from '../../../../services/language/timeAgoService';
 
 export default {
