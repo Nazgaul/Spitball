@@ -18,8 +18,7 @@ const state = {
     chatLocked: false,
     chatLoader: false,
     emptyState: [],
-    isSyncing: true,
-    otherUserId: '',
+    isSyncing: true
 };
 const getters = {
     getFileError: state => state.fileError,
@@ -212,6 +211,7 @@ const actions = {
                     // message here will be sent by local user
                     //if in conversation and is the first message then create a conversation before adding the message
                     let ConversationObj = chatService.createConversation(message);
+                    ConversationObj.userId = state.activeConversationObj.userId
                     commit('addConversation', ConversationObj);
                     commit('addMessage', message)
                 }else{
@@ -358,20 +358,9 @@ const actions = {
     },
     sendChatMessage:({state, dispatch, commit, getters}, message)=>{
         //send message to server.
-        if(!state.otherUserId){
-            state.otherUserId = state.activeConversationObj.userId
-        } else {
-            let ids = state.activeConversationObj.conversationId.split("_");
-            if(ids[0] == getters.accountUser.id) {
-                state.otherUserId = ids[1];
-            } else {
-                state.otherUserId = ids[0];
-            }
-        }
-
         let messageObj = chatService.createServerMessageObj({
             message: message,
-            otherUser: state.otherUserId
+            otherUser: state.activeConversationObj.userId
         });
         chatService.sendChatMessage(messageObj);
 
