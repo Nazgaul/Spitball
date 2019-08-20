@@ -246,9 +246,6 @@ export default {
             visibility: hidden;
           }
         }
-        .tutor-name {
-          overflow: unset !important;
-        }
         .study-area-hidden {
           visibility: hidden;
         }
