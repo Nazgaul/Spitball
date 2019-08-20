@@ -153,7 +153,7 @@ export default {
     padding: 0;
   }
   .carousel-arrow-disable {
-    opacity: .5;
+    opacity: .2;
   }
   .landing-carousel-arrows {
     flex-basis: 0;
