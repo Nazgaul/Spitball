@@ -7,7 +7,7 @@
         </v-layout>
     <v-layout column align-center>
         <v-flex xs12 class="pt-2">
-            <v-progress-circular v-if="!studentImage" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
+            <v-progress-circular v-if="isStudentImage && studentImage" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
             <userAvatar v-else :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'"/>
         </v-flex>
         <v-flex xs12   class="pt-12">
@@ -46,6 +46,9 @@
             ...mapGetters(['getStudyRoomData', 'getSessionStartClickedOnce']),
             studentName() {
                 return this.getStudyRoomData.studentName;
+            },
+            isStudentImage() {
+                return (this.getStudyRoomData && this.getStudyRoomData.studentImage) ? false : true;
             },
             studentImage(){
                 return this.getStudyRoomData.studentImage;
