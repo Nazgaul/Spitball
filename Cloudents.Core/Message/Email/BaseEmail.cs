@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Cloudents.Core.Entities;
 using JetBrains.Annotations;
@@ -67,6 +68,12 @@ namespace Cloudents.Core.Message.Email
         private UnsubscribeGroup(int groupId)
         {
             GroupId = groupId;
+        }
+
+        [SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "Need for deserialize")]
+        private UnsubscribeGroup()
+        {
+            
         }
 
         public int  GroupId { get; private set; }

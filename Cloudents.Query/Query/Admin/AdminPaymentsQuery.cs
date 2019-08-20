@@ -21,29 +21,30 @@ namespace Cloudents.Query.Query.Admin
             {
                 //This query will not work in case there will be more then one student in a room.
                 const string sql = @"select srs.Id as StudyRoomSessionId,
-                    t.Price as Price, 
-		             case when t.SellerKey is null then 1 else 0 end as cantPay,
-		                        t.Id as TutorId, 
-		                        tu.Name as TutorName, 
-		                        u.Id as UserId,
-		                        u.Name as UserName,
-								srs.Created,
-								DATEDIFF(MINUTE, srs.Created, srs.Ended) as Duration
-								
-                        from [sb].[StudyRoomSession] srs
-                        join sb.StudyRoom sr
-	                        on srs.StudyRoomId = sr.Id
-                        join sb.Tutor t
-	                        on sr.TutorId = t.Id
-                        join sb.StudyRoomUser sru
-	                        on srs.StudyRoomId = sru.StudyRoomId and sru.userId != t.Id
-                        join sb.[user] u
-	                        on u.id = sru.UserId
-                        join sb.[User] tu
-	                        on t.Id = tu.Id
-                        where Receipt is null
-                            and DATEDIFF(MINUTE, srs.Created, srs.Ended) > 10
-						    and u.PaymentKey is not null";
+                    case when t.Price is null then tr.Price else t.Price end as Price,
+                    case when tr.SellerKey is null then 1 else 0 end as cantPay,
+		                    tr.Id as TutorId, 
+		                    tu.Name as TutorName, 
+		                    u.Id as UserId,
+		                    u.Name as UserName,
+		                    srs.Created,
+		                    DATEDIFF(MINUTE, srs.Created, srs.Ended) as Duration
+                    from [sb].[StudyRoomSession] srs
+                    join sb.StudyRoom sr
+	                    on srs.StudyRoomId = sr.Id
+                    left join sb.TutorHistory t
+	                    on sr.TutorId = t.Id and srs.Created between t.BeginDate and t.EndDate
+                    join sb.Tutor tr
+	                    on tr.Id = sr.TutorId
+                    join sb.StudyRoomUser sru
+	                    on srs.StudyRoomId = sru.StudyRoomId and sru.userId != tr.Id
+                    join sb.[user] u
+	                    on u.id = sru.UserId
+                    join sb.[User] tu
+	                    on tr.Id = tu.Id
+                    where Receipt is null
+                        and DATEDIFF(MINUTE, srs.Created, srs.Ended) > 10
+	                    and u.PaymentKey is not null";
                 using (var conn = _repository.OpenConnection())
                 {
                     return await conn.QueryAsync<PaymentDto>(sql);
