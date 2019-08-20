@@ -6,7 +6,8 @@
         <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
         <div class="tutor-carousel-slider-container" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
 
-            <div v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card pt-1 pr-1 pl-1">
+            <router-link v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card" 
+                @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutor.userId, name: tutor.name}}">
                 <div>
                     <h4 class="caption font-weight-bold mb-1" v-language:inner="'resultTutor_subtitle'"/>
                     <h3 class="body-2 font-weight-bold tutor-name-restriction">{{tutor.name}}</h3>
@@ -22,28 +23,28 @@
                 </template>
 
                 </div>
-                <div class="user-price mb-2">
+                <div class="user-price">
                     <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
                         <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
                     </div>
                     <img v-show="isLoaded" class="user-image" @error="onImageLoadError" @load="loaded" :src="getImgUrl(tutor.image)" :alt="tutor.name">
-                    <div class="">
+                    <div>
                         <div class="striked" v-if="showStriked(tutor.price)"> &#8362;{{tutor.price}}</div>
                         <div>
-                            <span v-if="showStriked(tutor.price)" class="price font-weight-bold">&#8362;{{discountedPrice(tutor.price)}}</span>
-                            <span class="price font-weight-bold" v-else>&#8362;{{tutor.price}}</span>
+                            <span v-if="showStriked(tutor.price)" class="price font-weight-bold"><span class="price-sign">&#8362;</span>{{discountedPrice(tutor.price)}}</span>
+                            <span class="price font-weight-bold" v-else><span class="price-sign">&#8362;</span>{{tutor.price}}</span>
                             <div class="caption hour" v-language:inner="'resultTutor_hour'"></div>
                         </div>
                     </div>
                     
                 </div>
 
-                <div class="user-bio overflow-hidden" v-html="ellipsizeTextBox(tutor.bio)"></div>
+                <div class="user-bio overflow-hidden">{{tutor.bio}}</div>
 
                 <v-btn class="btn-chat white--text text-truncate" small round block color="#4452fc" @click.prevent="sendMessage(tutor)">
                     <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName(tutor.name))" ></div>
                 </v-btn>
-            </div>
+            </router-link>
 
         </div>
     </div>
@@ -53,6 +54,8 @@
 import { mapGetters, mapActions } from 'vuex';
 import utilitiesService from '../../../../services/utilities/utilitiesService';
 import { LanguageService } from "../../../../services/language/languageService.js";
+import analyticsService from "../../../../services/analytics.service";
+import chatService from '../../../../services/chatService';
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import star from '../stars-copy.svg';
 
@@ -80,7 +83,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getTutorList']),
+        ...mapGetters(['getTutorList', 'accountUser']),
 
         atEndOfList() {     
             if(this.isRtl){
@@ -100,7 +103,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getTutorListCourse']),
+        ...mapActions(['getTutorListCourse', 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'updateRequestDialog', 'setActiveConversationObj','openChatInterface']),
 
         loaded() {
             this.isLoaded = true;
@@ -139,7 +142,7 @@ export default {
             }
         },
         getImgUrl(path) {
-            return utilitiesService.proccessImageURL(path, 66, 74);
+            return utilitiesService.proccessImageURL(path, 64, 74);
         },
         reviewsPlaceHolder(reviews) {
           return reviews === 0 ? reviews.toString() : reviews;
@@ -153,13 +156,6 @@ export default {
         discountedPrice(price) {
             let discountedAmount = price - this.discountAmount;
             return discountedAmount >  this.minimumPrice ? discountedAmount : this.minimumPrice;
-        },
-        ellipsizeTextBox(text) {
-            let maxChars = 105;
-            let showBlock = text.length > maxChars;
-            let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
-            let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-            return `${newText} ${hideText}`;
         },
         setCardsCarousel() {
             // calculate cards on screen
@@ -194,7 +190,37 @@ export default {
         },
         showFirstName(name) {
             return name.split(' ')[0];
-        }
+        },
+        sendMessage(user) {
+            if (this.accountUser == null) {
+                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+                this.updateCurrTutor(user);
+                this.setTutorRequestAnalyticsOpenedFrom({
+                    component: 'tutorCard',
+                    path: this.$route.path
+                });
+                this.updateRequestDialog(true);
+            } else {
+                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
+                let conversationObj = {
+                    userId: user.userId,
+                    image: user.image,
+                    name: user.name,
+                    conversationId: chatService.createConversationId([user.userId, this.accountUser.id]),
+                }
+                let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
+                this.setActiveConversationObj(currentConversationObj);
+                let isMobile = this.$vuetify.breakpoint.smAndDown;
+                this.openChatInterface();                    
+            }
+        },
+        tutorCardClicked() {
+            if(this.fromLandingPage){
+                analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+            } else {
+                analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+            };
+        },
     },
     created() {
         if(this.$vuetify.breakpoint.smAndDown) {
@@ -220,9 +246,9 @@ export default {
             display: flex;            
             transition: transform 150ms ease-out;
             .tutor-carousel-card {
+                padding: 8px;
                 border-radius: 4px;
                 background: #fff;
-                // .heightMinMax(248px);
                 h3,h4 {
                     color: @purple;
                 }
@@ -233,7 +259,7 @@ export default {
                 }
                 .user-rank {
                     display: inline-flex;
-                    flex-direction: column;
+                    // flex-direction: column;
                     svg {
                         width: 16px;
                         height: 16px;
@@ -242,6 +268,7 @@ export default {
                 .user-price {
                     display: flex;
                     color: @purple;
+                    margin-bottom: 12px;
                     .user-image {
                         margin-right: 10px;
                         border-radius: 4px;
@@ -279,6 +306,9 @@ export default {
                             .price {
                                 font-family: Arial;
                                 font-size: 22px;
+                                .price-sign {
+                                    font-size: 16px;
+                                }
                             }
                             .hour {
                                 align-items: end;
@@ -294,16 +324,16 @@ export default {
                     display: flex;
                     justify-content: center;
                     margin-top: 2px;
+                    color: #43425d;
                 }
                 .user-bio {
                     font-family: Open Sans,sans-serif;
-                    .giveEllipsisUpdated(11px, normal, 3, 40px);
-                    line-height: 1.2 !important;
+                    .giveMeEllipsis(3,40px);
                     min-height: 40px;
+                    line-height: 14px;
                     text-align: left;
                     color: @purple;
-                    position: relative;
-                    font-size: 11px;
+                    font-size: 12px;
                 }
                 .btn-chat {
                     margin-top: 14px;

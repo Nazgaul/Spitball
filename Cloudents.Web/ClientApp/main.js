@@ -255,7 +255,7 @@ Vue.filter('fullMonthDate', function (value) {
     }
 // request a weekday along with a long month
     let options = {year: 'numeric', month: 'short', day: '2-digit'};
-    let languageDate = global.lang.toLowerCase() === 'he' ? 'he-IL' : 'en-US';
+    let languageDate = `${global.lang.toLowerCase()}-${global.country.toUpperCase()}`;
     return date.toLocaleDateString(languageDate, options);
 });
 
@@ -278,7 +278,7 @@ Vue.prototype.$Ph = function (key, placeholders) {
     return LanguageService.changePlaceHolders(rawKey, argumentsToSend)
 }
 
-Vue.prototype.$chatMessage = function (message, date) {
+Vue.prototype.$chatMessage = function (message) {
     if(message.type === 'text'){
         //text and convert links to url's
         let linkTest = /(ftp:\/\/|www\.|https?:\/\/){1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\S*)/g;
@@ -295,8 +295,7 @@ Vue.prototype.$chatMessage = function (message, date) {
         return modifiedText;
     }else{
         let src = utilitiesService.proccessImageURL(message.src, 190, 140, 'crop');
-        let dateText = `<div class="message-file-date">${date}</div>`;
-        return `<a href="${message.href}" target="_blank"><img src="${src}" />${dateText}</a>`;
+        return `<a href="${message.href}" target="_blank"><img src="${src}"/></a>`;
     }
 }
 
@@ -360,7 +359,6 @@ const app = new Vue({
     store,
 
 });
-
 
 function checkUserStatus(to, next) {
     store.dispatch('userStatus', {isRequire: to.meta.requiresAuth, to})

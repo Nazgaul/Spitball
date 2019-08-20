@@ -7,7 +7,7 @@
             </div>
             <img v-show="isLoaded" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
             <div class="top-card-wrap">
-                <h3 class="subheading font-weight-bold tutor-name text-truncate mb-2" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h3 class="subheading font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
                 <template>
                     <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
@@ -18,8 +18,8 @@
                 <v-layout row class="moreDetails" align-center>
                     <div column class="price-box column mr-2">
                         <template>
-                            <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                            <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
+                            <span v-if="showStriked" class="font-weight-bold"><span class="price-sign">&#8362;</span>{{discountedPrice}}</span>
+                            <span v-else class="font-weight-bold"><span class="price-sign">&#8362;</span>{{tutorData.price}}</span>
                         </template>
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
@@ -30,7 +30,7 @@
                             <div class="caption text-xs-center reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
                         </div>
                         <div v-else class="no-reviews">
-                            <star />
+                            <star class="rating-holder" />
                             <span class="caption" :class="{'font-weight-bold': uploader}" v-language:inner="'resultTutor_no_reviews_mobile'"></span>
                         </div>
                     </v-layout>
@@ -44,7 +44,7 @@
                         <!-- card-b -->
                         <v-layout column align-center class="ab-cardB user-classes" :class="{'user-classes-hidden': tutorData.lessons === 0}">
                             <div>{{tutorData.lessons}}</div>
-                            <div v-language:inner="'resultTutor_classes'"></div>
+                            <div class="user-classes-text" v-language:inner="'resultTutor_classes'"></div>
                         </v-layout>
                     </template>
 
@@ -52,14 +52,15 @@
             </div>
         </div>
 
-        <v-layout class="tutor-bio mb-2" v-html="ellipsizeTextBox">{{tutorData.bio}}</v-layout>
+        <!-- <v-layout class="tutor-bio mb-2" v-html="ellipsizeTextBox">{{tutorData.bio}}</v-layout> -->
+        <v-layout class="tutor-bio mb-2">{{tutorData.bio}}</v-layout>
 
         <v-layout row class="btn-footer ab-cardB">
             <div class="send-msg text-xs-center text-truncate" :class="{'no-uploader': !uploader}">
                 <v-btn 
                     round 
                     small 
-                    color="#848bbc" 
+                    color="#4452fc" 
                     depressed 
                     class="white--text caption py-3 px-2 mb-0" 
                     @click.prevent="sendMessage(tutorData)" 
@@ -144,15 +145,15 @@ export default {
         showFirstName() {
             return this.tutorData.name.split(' ')[0];
         },
-        ellipsizeTextBox() {
-            let text = this.tutorData.bio;
-            let maxChars = 105;
-            let showBlock = text.length > maxChars;
-            let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
-            let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-            let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: contents' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
-            return `${newText} ${readMore} ${hideText}`;
-        }
+        // ellipsizeTextBox() {
+        //     let text = this.tutorData.bio;
+        //     let maxChars = 105;
+        //     let showBlock = text.length > maxChars;
+        //     let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
+        //     let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
+        //     let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: contents' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
+        //     return `${newText} ${readMore} ${hideText}`;
+        // }
     },
     methods: {
         ...mapGetters(['getProfile']),
@@ -225,7 +226,6 @@ export default {
         }
         .ab-cardB {
             display: flex;
-            font-size: 12px;
         }
         .user-rates {
             padding: 0 !important;
@@ -244,7 +244,9 @@ export default {
         min-height: 78px;
         .top-card-wrap {
             width:100%;
-            max-height:83px;
+            display: flex;
+            flex-direction: column;
+            // max-height:83px;
         }
     }
     .tutor-card-loader{
@@ -261,11 +263,13 @@ export default {
     .tutor-name {
         color: @purple;
         max-width: 200px; // for eplipsis purpose
+        margin-bottom: 6px;
     }
 
     .striked {
         max-width: max-content;
         position: relative;
+        margin-bottom: 2px;
         font-family: arial;
         font-size: 12px;
         color: @colorBlackNew;
@@ -282,12 +286,26 @@ export default {
     }
 
     .moreDetails {
+        display: flex;
+        align-items: flex-end;
         color: @purple;
+        margin-bottom: -2px;
         .price-box {
             line-height: 15px;
             font-size: 22px;
+            span {
+                font-family: Arial;
+                font-size: 22px;
+            }
+            .price-sign {
+                font-size: 16px;
+            }
+            .caption {
+                margin-top: 1px;
+            }
         }
         .rating-holder {
+            padding-bottom: 2px;
             div {
                 margin: 0 !important;
             }
@@ -305,6 +323,9 @@ export default {
                     margin: 0 auto;
                 }
             }
+        }
+        .user-classes-text {
+            font-size: 12px;
         }
         .user-classes-hidden {
             visibility: hidden;
@@ -324,6 +345,7 @@ export default {
         font-size: 13px;
         display: block;
         color: @purple;
+        .giveMeEllipsis(2,18px);
         .read-more {
             position: absolute;
             color: #4452fc;
@@ -340,6 +362,7 @@ export default {
                 margin-left: 0;
                 .widthMinMax(200px);
                 &.tutor-btn {
+                    font-weight: 600;
                     .widthMinMax(132px);
                 }
             }
