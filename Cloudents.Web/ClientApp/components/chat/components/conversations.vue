@@ -51,6 +51,7 @@ export default {
 .conversations-container{
     width:100%;
     overflow: auto;
+    overscroll-behavior: none;
     .conversations-wrapper{
         cursor: pointer;
     }

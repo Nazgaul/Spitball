@@ -203,6 +203,7 @@ export default {
                 margin: 0 0 4px 0;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
+                overscroll-behavior: none;
                 .message_wrap:last-child {
                     @media(max-width: @screen-xs) {
                         margin-bottom: 40px;
