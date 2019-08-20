@@ -4,7 +4,7 @@
             <template>
 
                 <label for="photo" class="chat-camera" v-if="$vuetify.breakpoint.xsOnly">
-                    <input id="photo" type="file" accept="image/*" capture="camera" @change="captruephoto" />
+                    <input id="photo" type="file" accept="image/*" capture="camera" @change="capturePhoto" />
                     <photo-camera />
                 </label>
 
@@ -136,7 +136,7 @@
                     }
                 }
             },
-            captruephoto(e) {
+            capturePhoto(e) {
                 this.updateChatUploadLoading(true);
                 let file = e.target.files[0];
                 let formData = new FormData();

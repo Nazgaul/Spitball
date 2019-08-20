@@ -28,27 +28,21 @@
                                     @input-file="inputFile"
                                     @input-filter="inputFilter">
                             </file-upload>
-                            <!--<input id="file-input" type="file" multiple accept="image/*"/>-->
                         </li>
                     </ul>
-                    <!--<v-divider v-if="actionType ==='question'" vertical></v-divider>-->
+                    <span class="error-file-span" v-if="uploadFileError" v-language:inner="'chat_file_error'"></span>
                 </div>
             </div>
         </div>
         <transition name="slide-fade">
             <div class="files pt-3 pb-2" v-if="files.length" >
-                <ul class="preview-list" v-if="files.length">
-                    <li v-if="files.length" v-for="(file, index) in files" :key="index">
+                <ul class="preview-list">
+                    <li v-for="(file, index) in files" :key="index">
                         <button class="hover-trash" @click="deletePreview(file, index)">
                             <v-icon>sbf-close</v-icon>
                         </button>
                         <img :src="file.blob"/>
                     </li>
-                    <!--<li class="add-file" v-show="previewList.length < uploadLimit">-->
-                    <!--<label for="file-input">-->
-                    <!--<v-icon>sbf-close</v-icon>-->
-                    <!--</label>-->
-                    <!--</li>-->
                 </ul>
             </div>
         </transition>

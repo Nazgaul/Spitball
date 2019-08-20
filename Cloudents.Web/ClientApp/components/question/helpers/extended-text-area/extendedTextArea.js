@@ -1,6 +1,5 @@
 import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 
-
 export default {
     props: {
         value: {type: String},
@@ -24,10 +23,10 @@ export default {
             isFirefox: global.isFirefox,
             files: [],
             extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp', 'bmp'],
-            componentUniqueId: `instance-${this._uid}`
+            componentUniqueId: `instance-${this._uid}`,
+            uploadFileError: false
         }
     },
-
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
@@ -96,6 +95,10 @@ export default {
                 let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
                 let isSupported = this.extensions.includes(ext);
                 if (!isSupported) {
+                    this.uploadFileError = true;
+                    setTimeout(() => {
+                        this.uploadFileError = false;
+                    }, 3000);
                     return prevent()
                 }
                 if (newFile && newFile.size === 0) {
