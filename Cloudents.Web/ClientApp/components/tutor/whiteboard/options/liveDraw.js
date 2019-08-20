@@ -82,12 +82,10 @@ const defineEndPosition = function(e){
 
 
 const mouseup = function(e){
-    console.log('mouseUp')
     defineEndPosition.bind(this, e)()
 }
 
 const mouseleave = function(e){
-    console.log('mouseLeave')
     defineEndPosition.bind(this, e)()
 }
 

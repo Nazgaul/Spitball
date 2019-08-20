@@ -76,7 +76,7 @@ namespace Cloudents.Web.Api
         {
             term = term ?? string.Empty;
             course = course ?? string.Empty;
-            term = $"{term} {course}";
+            term = $"{term} {course}".Trim();
             //TODO make it better
             if (string.IsNullOrWhiteSpace(term))
             {

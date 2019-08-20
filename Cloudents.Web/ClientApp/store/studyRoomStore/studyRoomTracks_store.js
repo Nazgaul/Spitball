@@ -19,7 +19,9 @@ const state = {
     localVideoTrack: null,
     localAudioTrack: null,
     isRemote: false,
-    lastActiveLocalVideoTrack: null
+    lastActiveLocalVideoTrack: null,
+    videoDevice: null,
+    audioDevice: null
 };
 
 const getters = {
@@ -28,7 +30,9 @@ const getters = {
     getLocalVideoTrack:state => state.localVideoTrack,
     getLocalAudioTrack:state => state.localAudioTrack,
     getIsRemote:state => state.isRemote,
-    getLastActiveLocalVideoTrack: state => state.lastActiveLocalVideoTrack
+    getLastActiveLocalVideoTrack: state => state.lastActiveLocalVideoTrack,
+    getVideoDevice:state => state.videoDevice,
+    getAudioDevice:state => state.audioDevice,
 };
 
 const mutations = {
@@ -49,6 +53,12 @@ const mutations = {
     },
     setIsRemote(state,val){
         state.isRemote = val
+    },
+    setVideoDevice(state,val){
+        state.videoDevice = val
+    },
+    setAudioDevice(state,val){
+        state.audioDevice = val
     }
 };
 
@@ -161,6 +171,12 @@ const actions = {
         } else{
             dispatch('createLocalAudioTrack')   
         } 
+    },
+    setVideoDevice({commit},val){
+        commit('setVideoDevice', val)
+    },
+    setAudioDevice({commit},val){
+        commit('setAudioDevice', val)
     }
 };
 

@@ -4,18 +4,18 @@
 
             <div class="messages-header">
                 <div class="messages-study-room" :class="{'join-room': studyRoomExists, 'create-room': !studyRoomExists && isRoomTutor}" v-if="showStudyRoomInteraction" @click="createRoom">
-                    <button v-show="studyRoomExists">
+                    <button v-if="studyRoomExists">
                         <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
-                    <v-btn flat class="white--text messages-study-room-btn-create" v-show="!studyRoomExists && isRoomTutor" :loading="loader">
+                    <v-btn flat class="white--text messages-study-room-btn-create" v-if="!studyRoomExists && isRoomTutor" :loading="loader">
                         <add-circle />&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
                     </v-btn>
                 </div>
             </div>
 
             <div class="messages-body">
-                <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index"></message>
+                <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index" :lastMsgIndex="index === messages.length - 1"></message>
             </div>
 
             <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
@@ -24,11 +24,6 @@
                 <span class="messages-mobile-button" v-show="typing" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
                 <chat-upload-file :typing="typing"></chat-upload-file>
                 <v-textarea rows="1" class="pa-2 messages-textarea" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText" v-language:placeholder @keydown.enter.prevent="sendMessage" v-model="messageText" auto-grow></v-textarea>
-                <v-layout align-center justify center class="chat-upload-loader" v-if="getChatLoader" >
-                   <v-flex class="text-xs-center">
-                       <v-progress-circular indeterminate v-bind:size="25" color="#43425d"></v-progress-circular>
-                   </v-flex>
-                </v-layout>
             </div>
 
         </v-layout>
@@ -37,13 +32,16 @@
 
 <script>
 import message from "./messageComponents/message.vue"
+import chatUploadFile from './messageComponents/chatUploadFile.vue';
+
 import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
 import userOnlineStatus from '../../helpers/userOnlineStatus/userOnlineStatus.vue';
-import chatUploadFile from './messageComponents/chatUploadFile.vue';
+
 import {mapGetters, mapActions} from 'vuex';
 import { LanguageService } from '../../../services/language/languageService';
 import chatService from '../../../services/chatService';
-import addCircle from './messageComponents/add-circle-outline.svg';
+import addCircle from '../images/add-circle-outline.svg';
+
 
 export default {
     components:{
@@ -60,6 +58,7 @@ export default {
             emptyStateMessages: [],
             alreadyCreated: false,
             loader: false,
+            lastMsgIndex: null
         }
     },
     computed:{
@@ -153,7 +152,7 @@ export default {
         .messages-wrapper{
             height: 100%;
             .error-file-span{
-                padding: 30px 10px;
+                padding: 10px 10px 40px;
                 opacity: 0.8;
                 background-color: red;
                 color: white;
@@ -200,11 +199,15 @@ export default {
             }
             .messages-body{
                 flex :2;
-                padding: 15px 10px 20px 10px;
+                padding: 12px 10px 20px 10px;
                 margin: 0 0 4px 0;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
-                //flex-grow: 1;
+                .message_wrap:last-child {
+                    @media(max-width: @screen-xs) {
+                        margin-bottom: 40px;
+                    }
+                }
             }
             .messages-body-disabled {
                 padding: 15px 10px 0 10px;

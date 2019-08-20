@@ -111,6 +111,9 @@ const mutations = {
         }
         state.conversations[id].dateTime = message.dateTime;
     },
+    resetMessagesById:(state, id)=>{
+        state.messages[id].length = 0;
+    },
     setActiveConversationObj(state, obj){
         if(!!state.conversations[obj.conversationId]){
             state.activeConversationObj = chatService.createConversation(state.conversations[obj.conversationId]);
@@ -161,7 +164,7 @@ const mutations = {
         },
     setSyncStatus:(state, val)=>{
         state.isSyncing = val;
-    }
+    },
 };
 
 const actions = {
@@ -208,12 +211,17 @@ const actions = {
                     // message here will be sent by local user
                     //if in conversation and is the first message then create a conversation before adding the message
                     let ConversationObj = chatService.createConversation(message);
+                    ConversationObj.userId = state.activeConversationObj.userId
                     commit('addConversation', ConversationObj);
                     commit('addMessage', message)
                 }else{
                     // message here will be sent by remote user
                     dispatch('getChatById', message.conversationId).then(({data})=>{
-                        let ConversationObj = chatService.createConversation(data);
+                        let newData;
+                        if(message.type === 'text') {
+                            newData = {...data, lastMessage:message.text};
+                        }
+                        let ConversationObj = chatService.createConversation(newData);
                         commit('addConversation', ConversationObj);
                         commit('addConversationUnread', message)
                         commit('updateTotalUnread', 1);
@@ -222,7 +230,11 @@ const actions = {
             }else{
                 //conversationId should be added to the current conversation
                 dispatch('getChatById', message.conversationId).then(({data})=>{
-                    let ConversationObj = chatService.createConversation(data);
+                    let newData;
+                    if(message.type === 'text') {
+                        newData = {...data, lastMessage:message.text};
+                    }
+                    let ConversationObj = chatService.createConversation(newData);
                     commit('addConversation', ConversationObj);
                     commit('updateTotalUnread', 1);
                 })
@@ -251,6 +263,9 @@ const actions = {
         }
     },
     signalRAddMessage({dispatch}, messageObj){
+        if(messageObj.message.type === 'file') {
+            messageObj.message.unread = true;
+        }
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId, true);
         dispatch('addMessage', MessageObj);
         dispatch('openChatInterface');
@@ -314,9 +329,20 @@ const actions = {
             id = state.activeConversationObj.conversationId;
         }
 
-        if(!!id && (!state.messages[id] || (!!state.conversations[id] && state.conversations[id].unread > 0))){
+        if(!!id && !state.messages[id]){
             chatService.getMessageById(id).then(({data})=>{
                 if(!data) return;
+                data.reverse().forEach(message => {
+                    let MessageObj = chatService.createMessage(message, id);
+                    dispatch('addMessage', MessageObj);
+                })
+                commit('setSyncStatus', false);
+            })
+        }else if(state.messages[id] && (!!state.conversations[id] && state.conversations[id].unread > 0)){
+            // clean messages before getting all messages from server 
+            chatService.getMessageById(id).then(({data})=>{
+                if(!data) return;
+                commit('resetMessagesById', id);
                 data.reverse().forEach(message => {
                     let MessageObj = chatService.createMessage(message, id);
                     dispatch('addMessage', MessageObj);
@@ -330,7 +356,7 @@ const actions = {
     updateChatState:({commit}, val)=>{
         commit('changeChatState', val);
     },
-    sendChatMessage:({state, dispatch, getters}, message)=>{
+    sendChatMessage:({state, dispatch, commit, getters}, message)=>{
         //send message to server.
         let messageObj = chatService.createServerMessageObj({
             message: message,
@@ -353,6 +379,7 @@ const actions = {
         }
         localMessageObj = chatService.createMessage(localMessageObj, id);
         dispatch('addMessage', localMessageObj)
+
     },
     toggleChatMinimize:({commit, state, dispatch})=>{
         if(!state.isMinimized){
@@ -391,7 +418,7 @@ const actions = {
     },
     uploadCapturedImage(context, formData) {
         return chatService.uploadCapturedImage(formData)
-    }
+    },
 };
 
 export default {

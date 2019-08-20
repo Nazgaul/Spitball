@@ -7,7 +7,7 @@
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
         <v-flex class="top-detail-container-wrap">
-          <span class="conversation-name pb-2" v-html="conversation.name"></span>
+          <div class="conversation-name pb-2 text-truncate">{{conversation.name}}</div>
           <template>
             <span class="conversation-desc text-truncate" v-html="conversation.lastMessage"></span>
           </template>
@@ -27,6 +27,7 @@
 import UserAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue";
+import timeAgoService from '../../../../services/language/timeAgoService';
 
 export default {
   components: {
@@ -40,7 +41,7 @@ export default {
   },
   computed: {
     date() {
-      return utilitiesService.dateFormater(this.conversation.dateTime);
+        return timeAgoService.timeAgoFormat(this.conversation.dateTime)
     },
     userImg() {
       return utilitiesService.proccessImageURL(this.conversation.image, 46, 46);
@@ -75,17 +76,15 @@ export default {
       display: flex;
       justify-content: space-between;
       .top-detail-container-wrap {
-        max-width: 150px;
+        max-width: 148px;
       }
       .conversation-name{
-        display: flex;
         font-size: 14px;
         font-weight: bold;
         color: #43425d;
         align-items: center;
         word-break: break-all;
         text-overflow: ellipsis;
-        width: 180px;
         white-space: nowrap;
         overflow: hidden;
       }

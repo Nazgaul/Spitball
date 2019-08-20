@@ -42,11 +42,7 @@ export default {
         }
     },
     mounted(){
-        console.log("mounted");
         this.$forceUpdate();
-    },
-    beforeDestroy() {
-        console.log("destroy")
     }
 }
 </script>
@@ -57,7 +53,6 @@ export default {
     overflow: auto;
     .conversations-wrapper{
         cursor: pointer;
-        
     }
 }
 .conversations-empty-state{

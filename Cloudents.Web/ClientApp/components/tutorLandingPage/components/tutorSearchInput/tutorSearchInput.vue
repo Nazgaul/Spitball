@@ -3,7 +3,9 @@
         <div class="search-b-wrapper">
             <v-text-field class="search-b" type="text" solo
                           :class="{'white-background': showSuggestions}"
-                          @keyup.enter="search()" autocomplete="off"
+                          @keyup.enter="search()" autocomplete="off" 
+                          @keydown.down="arrowNavigation(1)"
+                          @keydown.up="arrowNavigation(-1)"
                           id="tutorSearchInput"
                           clearable
                           clear-icon="sbf-close"
@@ -12,10 +14,10 @@
                           :placeholder="placeholder"
                           prepend-icon="sbf-search">
             </v-text-field>
-            <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
+            <!-- <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div> -->
                 <v-list class="search-menu" v-show="showSuggestions">
                     <template v-for="(item, index) in suggests">
-                        <v-list-tile class="suggestion" @click="selectors(item)" :key="index">
+                        <v-list-tile class="suggestion" @click="selectors(item)" :key="index" :class="{'list__tile--highlighted': index === focusedIndex}">
                             <v-list-tile-content>
                                 <v-list-tile-title>{{item.text}}</v-list-tile-title>
                             </v-list-tile-content>

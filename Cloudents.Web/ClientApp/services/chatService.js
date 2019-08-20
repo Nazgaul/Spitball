@@ -2,7 +2,7 @@ import { connectivityModule } from "./connectivity.module";
 import { LanguageService } from './language/languageService';
 
 function createLastImageMsg() {
-    return `<img src="${require('../components/chat/pages/messageComponents/photo-camera-small.png')}" /><span>${LanguageService.getValueByKey('chat_photo')}</span>`
+    return `<img src="${require('../components/chat/images/photo-camera-small.png')}" /><span>${LanguageService.getValueByKey('chat_photo')}</span>`
 }
 
 function createConversationId(arrIds){
@@ -50,10 +50,10 @@ function FileMessage(objInit, id, fromSignalR){
 }
 
 function activeConversationObj(objInit){
-        this.userId = objInit.userId || null;
-        this.conversationId = objInit.conversationId || null;
-        this.name = objInit.name || null;
-        this.image = objInit.image || null;
+    this.userId = objInit.userId || null;
+    this.conversationId = objInit.conversationId || null;
+    this.name = objInit.name || null;
+    this.image = objInit.image || null;
 }
 
 function createActiveConversationObj(objInit){

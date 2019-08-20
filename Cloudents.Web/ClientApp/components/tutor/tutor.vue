@@ -387,7 +387,9 @@ export default {
       "openChatInterface",
       "updateEndDialog",
       "setBrowserSupportDialog",
-      "setRoomId"
+      "setRoomId",
+      "setVideoDevice",
+      "setAudioDevice",
     ]),
     closeFullScreen(e){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
@@ -482,6 +484,47 @@ export default {
         return false;
       }
       return agent.match(/Firefox|Chrome|Safari/);
+    },
+    async initDevicesToStore(){
+        let availableDevices = [];
+        if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+            console.log("enumerateDevices() not supported.");
+            return;
+        }
+
+        // List cameras and microphones.
+        let devices = await navigator.mediaDevices.enumerateDevices();
+        devices.forEach(function (device) {
+            console.log(device.kind + ": " + device.label +
+                " id = " + device.deviceId);
+            availableDevices.push(device.kind);
+        });
+        //create local track with custom names
+        let audioTrackName = `audio_${this.isTutor ? 'tutor' : 'student'}_${this.accountUser.id}`;
+        let videoTrackName = `video_${this.isTutor ? 'tutor' : 'student'}_${this.accountUser.id}`;
+        let audioSetObj = {
+            audio: availableDevices.includes('audioinput'),
+            name: audioTrackName
+        };
+        let videoSetObj = {
+            video: availableDevices.includes('videoinput'),
+            name: videoTrackName
+        };
+        let constraint = {
+            video: videoSetObj.video ? true : false, 
+            audio: audioSetObj.audio ? true : false
+        }
+        let ready = await navigator.mediaDevices.getUserMedia(constraint).then(() => {
+            let audioDevice = audioSetObj.audio ? audioSetObj : false;
+            let videoDevice = videoSetObj.video ? videoSetObj : false;
+            this.setVideoDevice(videoDevice);
+            this.setAudioDevice(audioDevice);
+            return true;
+        }, err=>{
+          return false;
+        })
+
+        return ready;
     }
   },
   mounted() {
@@ -495,10 +538,11 @@ export default {
     storeService.unregisterModule(this.$store,'codeEditor_store');
   },
   created() {
-    storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
-    storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
+    storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
+    storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
+    // let ready = this.initDevicesToStore();
     
     if (!this.isBrowserSupport()) {
       this.$nextTick(()=>{

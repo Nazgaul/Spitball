@@ -256,6 +256,14 @@ export default {
     },
     created() {
         this.fetchData();
-    }
+    },
+    mounted() {
+        if(this.$route.params && this.$route.params.tab){
+            let tabNumber = this.$route.params.tab
+            setTimeout(()=>{
+                document.getElementById(`tab-${tabNumber}`).lastChild.click()
+            },200)
+        }
+    },
 }
 
