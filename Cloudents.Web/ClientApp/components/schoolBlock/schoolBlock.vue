@@ -2,7 +2,7 @@
     <v-navigation-drawer touchless
                          class="school-block"
                          width="260"
-                         v-model="getShowSchoolBlock"
+                         :value="getShowSchoolBlock"
                          @input="updateDrawerValue"
                          :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
       <v-list>
