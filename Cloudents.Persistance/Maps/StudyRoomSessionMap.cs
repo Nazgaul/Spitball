@@ -15,10 +15,10 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Ended);
             Map(x => x.RejoinCount);
             Map(x => x.Duration);
+            Map(x => x.DurationInMinutes).CustomType<MinuteTimeSpanType>();
             Map(x => x.SessionId).Not.Nullable();
             Map(x => x.Receipt);
             Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
-
         }
     }
 }
