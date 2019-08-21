@@ -6,18 +6,21 @@
     </v-flex>
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
+
         <v-flex class="top-detail-container-wrap">
-          <div class="conversation-name pb-2 text-truncate">{{conversation.name}}</div>
-          <template>
-            <div class="conversation-desc text-truncate" v-html="conversation.lastMessage"></div>
-          </template>
+          <div class="conversation-name text-truncate">{{conversation.name}}</div>
+          <span class="conversation-date">{{date}}</span>
         </v-flex>
+
         <v-flex class="date-unread-container">
-          <span class="conversation-date pb-2">{{date}}</span>
+          <template>
+            <div class="conversation-desc" v-html="conversation.lastMessage"></div>
+          </template>
           <div>
             <span v-show="conversation.unread > 0" class="conversation-unread">{{conversation.unread}}</span>
           </div>
         </v-flex>
+        
       </v-flex>
     </v-flex>
   </div>
@@ -51,6 +54,8 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin.less';
+
 .conversation-container {
   display: flex;
   width: 100%;
@@ -70,41 +75,47 @@ export default {
   }
   .user-detail-container {
     border-bottom: solid 1px #dfdfe4;
-    padding: 12px 0;
+    padding: 6px 0;
     margin: 0 10px;
     .top-detail-container {
-      display: flex;
-      justify-content: space-between;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100%;
       .top-detail-container-wrap {
-        max-width: 148px;
-      }
-      .conversation-name{
-        font-size: 14px;
-        font-weight: bold;
-        color: #43425d;
+        justify-content: space-between;
+        display: flex;
         align-items: center;
-        word-break: break-all;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        font-family: sans-serif;
-      }
-      .conversation-desc{
-        font-size: 12px;
-        color: #919095;
-        align-items: center;
-        img {
-          margin-right: 8px;
-          margin-bottom: -2px;
+        .conversation-name{
+          max-width: 60%;
+          font-size: 14px;
+          font-weight: bold;
+          color: #43425d;
+          align-items: center;
+          word-break: break-all;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          font-family: sans-serif;
+        }
+        .conversation-date{
+          font-size: 12px;
+          color: #919095;
         }
       }
       .date-unread-container{
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
         text-align: right;
-        .conversation-date{
+        max-height: 50px;
+        min-height: 36px;
+        align-items: center;
+        .conversation-desc{
+          .giveMeEllipsis(2, 18);
+          text-align: left;
           font-size: 12px;
           color: #919095;
+          align-items: center;
         }
         .conversation-unread{
           background: #5158af;
