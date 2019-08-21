@@ -44,7 +44,7 @@ namespace Cloudents.Core.Enum
         private const string CDelete = "Delete";
 
         //public static ChatRoomStatus All = new ChatRoomStatus("All","All");
-        public static ChatRoomStatus New = new ChatRoomStatus(1, "New", CNew);
+        public static readonly ChatRoomStatus New = new ChatRoomStatus(1, "New", CNew);
 
         public static readonly ChatRoomStatus NeedDocs = new ChatRoomStatus(2, "Need docs", CActive);
         public static readonly ChatRoomStatus ReceivedDocs = new ChatRoomStatus(3, "Received docs", CActive);
@@ -73,10 +73,8 @@ namespace Cloudents.Core.Enum
         {
             return GetAll<ChatRoomStatus>().Where(w => w.Group == CActive || w.Group == CNew);
         }
-
-       
-
         
+
     }
 
    

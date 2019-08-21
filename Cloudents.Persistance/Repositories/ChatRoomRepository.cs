@@ -1,7 +1,9 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -41,6 +43,21 @@ namespace Cloudents.Persistence.Repositories
             return await Session.Query<ChatRoom>()
                 .Where(t => t.Identifier == identifier).SingleOrDefaultAsync(token);
         }
+
+        public async Task UpdateNonDayOldConversationToActiveAsync(CancellationToken token)
+        {
+            var t = await Session.Query<ChatRoomAdmin>()
+                .Where(w=> (Session.Query<ChatRoom>()
+                    .Where(w2=>w2.UpdateTime > DateTime.UtcNow.AddDays(-1)).Select(s=>s.Id).Contains(w.Id)))
+                //.Fetch(f => f.ChatRoom)
+                //.Where(w => w.ChatRoom.UpdateTime > DateTime.UtcNow.AddDays(-1))
+            //    .ToListAsync();
+            // .UpdateBuilder()
+            //.Set(x => x.ChatRoom.UpdateTime, v => v.ChatRoom.UpdateTime)
+            .UpdateAsync(x => new { Status = ChatRoomStatus.New }, token);
+
+        }
+
 
     }
 }

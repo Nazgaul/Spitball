@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -67,6 +68,7 @@ namespace Cloudents.Core.Interfaces
 
         Task<ChatRoom> GetOrAddChatRoomAsync(IList<long> userIds , CancellationToken token);
         Task<ChatRoom> GetChatRoomAsync(string identifier, CancellationToken token);
+        Task UpdateNonDayOldConversationToActiveAsync(CancellationToken token);
     }
 
     public interface ITutorRepository : IRepository<Tutor>

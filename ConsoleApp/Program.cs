@@ -149,17 +149,10 @@ namespace ConsoleApp
 
             //var v = dictionary.OrderBy(d => d.Value);
 
-            var c = _container.Resolve<TutorSearchWrite>();
-            await c.DeleteOldDataAsync("InsertDate", DateTime.UtcNow.AddDays(-15),default);
+            var c = _container.Resolve<IChatRoomRepository>();
+         await   c.UpdateNonDayOldConversationToActiveAsync(default);
 
-            Stream sr = null;
-            var ppt = new PowerPoint2007Processor();
-            ppt.Init(() =>
-            {
-                sr = File.Open(@"C:\Users\Ram\Downloads\file-79433161-8697-4777-83de-8e430a524fcb-231615.pptm", FileMode.Open);
-                return sr;
-            });
-            var result = ppt.ExtractMetaContent();
+
             
             //await UpdateMethod();
             //var queryBus = _container.Resolve<IQueryBus>();

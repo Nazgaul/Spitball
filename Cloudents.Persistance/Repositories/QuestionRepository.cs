@@ -19,15 +19,6 @@ namespace Cloudents.Persistence.Repositories
         {
         }
 
-        //public async Task<IList<Question>> GetAllQuestionsAsync(int page)
-        //{
-        //    return await Session.Query<Question>()
-        //        .Where(w => w.Language == null)
-        //        .Take(100).OrderBy(o => o.Id).ToListAsync();
-        //}
-
-
-
         public async Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token)
         {
             //TODO: we can do this better maybe
@@ -37,13 +28,6 @@ namespace Cloudents.Persistence.Repositories
                                 .FirstOrDefault(x => x.Question.Id == w.Id) == null && w.Status.State == ItemState.Ok)
                 .ToListAsync(token);
         }
-
-        //public Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token)
-        //{
-        //    return Session.Query<Question>().Where(w => w.User.Id == userId).OrderByDescending(o => o.Id).Take(1)
-        //        .SingleOrDefaultAsync(cancellationToken: token);
-        //}
-
 
         public Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token)
         {
