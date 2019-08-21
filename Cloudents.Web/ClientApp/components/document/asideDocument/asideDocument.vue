@@ -54,10 +54,9 @@
             <tutor-result-card-other :tutorData="ownTutor" :uploader="true"  v-if="isTutor && ownTutor" />
         </div>
 
-        <aside-document-tutors v-if="!$vuetify.breakpoint.smAndDown"/>
-
-        <v-flex class="footer-holder text-xs-center mb-5" v-if="!$vuetify.breakpoint.smAndDown">
-            <router-link :to="{name: 'tutors',query:{Course:$route.params.courseName.replace(/-/g, ' ')}}" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
+        <aside-document-tutors :courseName="getCourse" v-if="!$vuetify.breakpoint.smAndDown && getCourse"/>
+        <v-flex class="footer-holder text-xs-center mb-5" v-if="!$vuetify.breakpoint.smAndDown && getCourse">
+            <router-link :to="{name: 'tutors',query:{Course:getCourse}}" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
         </v-flex>
     </div>
 </template>

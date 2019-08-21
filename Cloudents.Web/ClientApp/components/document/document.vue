@@ -10,7 +10,6 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import mainDocument from './mainDocument/mainDocument.vue';
 import asideDocument from './asideDocument/asideDocument.vue';
-import asideDocumentTutors from './asideDocument/asideDocumentTutors.vue';
 
 //store
 import storeService from '../../services/store/storeService';
@@ -21,7 +20,6 @@ export default {
     components: {
         mainDocument,
         asideDocument,
-        asideDocumentTutors
     },
     props: {
         id: {
