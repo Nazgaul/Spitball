@@ -16,6 +16,7 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -52,6 +53,7 @@ namespace Cloudents.FunctionsV2
 
 
 
+        [SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "Using reflection")]
         private class ImageExtensionConvert
         {
             protected bool Equals(ImageExtensionConvert other)
@@ -113,10 +115,6 @@ namespace Cloudents.FunctionsV2
             CancellationToken token
         )
         {
-            //directory.GetBlockBlobReference($"{file}.jpg")
-            //var blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(properties.Path, FileAccess.Read),
-            // token);
-
             var mutation = ImageMutation.FromQueryString(req.Query);
             try
             {
@@ -190,7 +188,7 @@ namespace Cloudents.FunctionsV2
                     var blobPath = $"spitball-user/DefaultThumbnail/{val.DefaultThumbnail}";
                     blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
-                    mode = ResizeMode.BoxPad;
+                    //mode = ResizeMode.BoxPad;
                 }
             }
             var mutation = new ImageMutation(width,height,mode,properties.Blur.GetValueOrDefault());
