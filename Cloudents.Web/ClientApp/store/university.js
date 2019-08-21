@@ -11,7 +11,7 @@ const state = {
     resultLockForClassesChange: false,
     selectForTheFirstTime: false,
     reflectChangeToPage: 0,
-    showSchoolBlock: global.innerWidth > 599 ? true : false,
+    showSchoolBlock: false,
     createDialog: false,
     creationVerified: false,
     createUniDialog: false,
