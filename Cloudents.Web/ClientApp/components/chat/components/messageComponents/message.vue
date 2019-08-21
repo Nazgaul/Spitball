@@ -83,6 +83,9 @@ export default {
                 margin-right: auto;
                 background-color: #dfe1ed;
                 border-radius: 8px 8px 8px 0;
+                div {
+                    white-space: pre-wrap;
+                }
             }
             &.imgMessage{
                 position: relative;
