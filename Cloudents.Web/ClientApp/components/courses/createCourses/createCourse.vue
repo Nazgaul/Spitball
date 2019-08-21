@@ -38,7 +38,7 @@
         </v-layout>
         <v-layout align-center justify-center shrink class="pb-5 pt-4">
             <v-flex shrink class="text-xs-center">
-                <button @click="createNewCourse()" :disabled="!courseName"
+                <button @click="createNewCourse()" :disabled="!validCourseForm"
                         class="cursor-pointer create-btn min-width solid d-flex align-center justify-center py-2 px-3">
                     <span class="font-weight-bold text-uppercase btn-text" v-language:inner>courses_create_course</span>
                 </button>
@@ -60,7 +60,7 @@
                 validCourseForm:false,
                 newCourseRules: [
                     v => !!v || LanguageService.getValueByKey("formErrors_required"),
-                    v => (v && v.length >= 4) || LanguageService.getValueByKey("formErrors_longer_4"),
+                    v => (v.trim() && v.length >= 4) || LanguageService.getValueByKey("formErrors_longer_4"),
                 ],
                 newCoursePlaceholder: LanguageService.getValueByKey("courses_new_placeholder")
             };
@@ -70,7 +70,7 @@
             createNewCourse() {
                 if (this.$refs.courseForm.validate()) {
                     let self = this;
-                    let course = {name: self.courseName};
+                    let course = {name: self.courseName.trim()};
                     self.createCourse(course).then((success) => {
                         self.$root.$emit('courseCreated', self.courseName);
                     });
@@ -80,7 +80,7 @@
                 this.changeCreateDialogState(false);
                 this.$root.$emit('courseDialogClosed', true);
             }
-        },
+        }
     };
 </script>
 

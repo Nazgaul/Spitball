@@ -51,7 +51,6 @@
                     :post-action="uploadUrl"
                     @input-file="inputFile"
                     @input-filter="inputFilter"
-                    :accept="filesSupported"
                 ></file-upload>
             </label>
         </div>
@@ -64,7 +63,6 @@
     import chatImage from '../../images/outline-insert-photo.svg';
     import FileUpload from 'vue-upload-component/src';
     import photoCamera from '../../images/photo-camera.svg';
-    import filesTypeList from '../../data/filesType.js'
 
     export default {
         name: "chatUploadFile",
@@ -157,12 +155,6 @@
             ...mapGetters(['getActiveConversationObj']),
             otherUserId(){
                 return this.getActiveConversationObj.userId
-            },
-            filesSupported(){
-                let types = filesTypeList;
-                if(types){
-                    return types
-                }
             }
         }
     }
