@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +8,6 @@ using Cloudents.Query;
 using Cloudents.Query.SearchSync;
 using Cloudents.Search.Entities;
 using Cloudents.Search.Tutor;
-using FluentNHibernate.Utils;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -75,7 +73,7 @@ namespace Cloudents.FunctionsV2
                                 ReviewsCount = update.ReviewsCount,
                                 Rate = (float)update.Rate,
                                 University = update.University,
-                                Lessons = update.LessonsCount,
+                                Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
                                 Price = (decimal)update.Price,
                                 Image = update.Image,
@@ -109,29 +107,13 @@ namespace Cloudents.FunctionsV2
                 }
 
                 await indexInstance.FlushAsync(token);
-                //if (updateOccur)
-                //{
-                //    var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
-                //    if (versionElement != null)
-                //    {
-                //        var nextVersion = new TutorSyncAzureSearchQuery(result.Version,
-                //            versionElement.Version);
-                //        var jsonStr = JsonConvert.SerializeObject(nextVersion);
-                //        await blob.UploadTextAsync(jsonStr);
-                //    }
-                //}
+              
             } while (updateOccur);
 
             if (query.Page > 0)
             {
-                //var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
-                // if (versionElement != null)
-                //{
-                //  var nextVersion = new TutorSyncAzureSearchQuery(result.Version,
-                //     versionElement.Version);
                 var jsonStr = JsonConvert.SerializeObject(nextQuery);
                 await blob.UploadTextAsync(jsonStr);
-                // }
             }
 
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
