@@ -3,26 +3,24 @@
         <div class="justify-space-between more-tutors">
             <div class="font-weight-bold mb-2" v-language:inner="'documentPage_more_tutors'"></div>
         </div>
-
         <div v-for="(tutor, index) in tutorList" :key="index">
             <tutor-result-card-other :tutorData="tutor" />
         </div>
-        
-        <v-flex class="footer-holder text-xs-center mt-2 mb-5" v-if="$vuetify.breakpoint.smAndDown">
-            <router-link :to="{name: 'tutors',query:{Course:$route.params.courseName.replace(/-/g, ' ')}}" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
-        </v-flex>
     </v-layout>
 </template>
 
 <script>
-import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import tutorResultCardOther from '../../../components/results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue';
-
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
+    props:{
+        courseName:{
+            type:String,
+            required:true
+        }
+    },
     components: {
-        tutorResultCardMobile,
         tutorResultCardOther
     },
     methods:{
@@ -30,20 +28,19 @@ export default {
     },
     computed: {
         ...mapGetters(['getTutorList']),
-
         tutorList() {
             return this.getTutorList;           
         },
     },
     created() {
         if(this.$vuetify.breakpoint.mdAndUp) {
-            let course = this.$route.params.courseName.replace(/-/g, ' '); 
-            this.getTutorListCourse(course)
+            this.getTutorListCourse(this.courseName)
         }
     }
 }
 </script>
 <style lang="less">
+@import '../../../styles/mixin.less';
     .aside-bottom {
         order: 3;
         .more-tutors {
@@ -53,17 +50,8 @@ export default {
 
             div {
                 font-size: 18px;
-                color: #43425d;
+                color: @global-purple;
             }
-            .seeAll {
-                color: #4452fc;
-            }
-        }
-        .footer-holder {
-            a {
-                color: #4452fc;
-            }
-            
         }
     }
 </style>
