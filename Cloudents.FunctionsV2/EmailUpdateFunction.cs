@@ -176,8 +176,7 @@ namespace Cloudents.FunctionsV2
                     Enable = true
                 }
             };
-            //message.AddTo(user.ToEmailAddress);
-            message.AddTo("elad@cloudents.com");
+            message.AddTo(user.ToEmailAddress);
             await emailProvider.AddAsync(message, token);
             await emailProvider.FlushAsync(token);
         }
@@ -244,15 +243,7 @@ namespace Cloudents.FunctionsV2
         }
 
 
-        [FunctionName("TestHtml")]
-        public static IActionResult RunTest(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test")]
-            HttpRequest req)
-        {
-            var uri = CommunicationFunction.GetHostUri();
-
-            return new OkObjectResult(uri);
-        }
+       
 
 
 
