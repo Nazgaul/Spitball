@@ -126,9 +126,8 @@ namespace Cloudents.Core.Entities
 
         public virtual void AddPayment(string token, DateTime expiration, string buyerCardMask)
         {
-            
+            PaymentExists = PaymentStatus.Done;
             BuyerPayment = new BuyerPayment(token, expiration, buyerCardMask);
-            //AddEvent(new StudentPaymentReceivedEvent(this));
         }
       
         
