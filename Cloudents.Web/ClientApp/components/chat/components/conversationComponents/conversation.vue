@@ -87,6 +87,7 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        font-family: sans-serif;
       }
       .conversation-desc{
         font-size: 12px;
