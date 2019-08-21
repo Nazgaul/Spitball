@@ -213,7 +213,7 @@
           }
           .v-text-field__details {
             .v-messages__message{
-             line-height: 1.4;
+             line-height: normal !important; // vuetify
             }
           }
         }
@@ -305,6 +305,9 @@
       margin-left: 4px;
       margin-right: 4px;
       border-top: solid 1px @Dividers;
+      .v-messages__message{
+        line-height: normal !important; // vuetify
+       }
     }
     .question-textarea-container {
       display: flex;
