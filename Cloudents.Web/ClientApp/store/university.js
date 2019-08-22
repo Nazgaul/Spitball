@@ -16,7 +16,8 @@ const state = {
     creationVerified: false,
     createUniDialog: false,
     uniCreationVerified: false,
-    lock_selectedClass:true
+    lock_selectedClass:true,
+    searchedCourse: '',
 };
 
 const getters = {
@@ -37,7 +38,8 @@ const getters = {
     creationVerified: state => state.creationVerified,
     getCreateDialogVisibility: state => state.createUniDialog,
     uniCreationVerified: state => state.uniCreationVerified,
-    getIsSelectedClassLocked: state => state.lock_selectedClass
+    getIsSelectedClassLocked: state => state.lock_selectedClass,
+    getSearchedCourse: state => state.searchedCourse,
 };
 
 const mutations = {
@@ -136,6 +138,9 @@ const mutations = {
     },
     setLock_selectedClass(state, val){
         state.lock_selectedClass = val;
+    },
+    setSearchedCourse(state,val){
+        state.searchedCourse = val
     }
 };
 
