@@ -238,19 +238,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("NoCard")]
-        public async Task<IActionResult> NoCardAsync(NoCardRequest model,
-            [FromServices]  IHubContext<StudyRoomHub> studyRoomHubContext, CancellationToken token)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            user.PaymentExists = PaymentStatus.Later;
-            await _userManager.UpdateAsync(user);
-            var message = new SignalRTransportType(SignalRType.User,
-                SignalREventAction.PaymentReceived, new object());
-
-            await studyRoomHubContext.Clients.Group(model.StudyRoomId.ToString()).SendAsync(SbHub.MethodName, message, token);
-            return Ok();
-        }
+        
 
         //[HttpPost("Money")]
         //public async Task<IActionResult> PayMeCallbackAsync([FromServices] IPayment payment,

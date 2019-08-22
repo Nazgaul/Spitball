@@ -41,6 +41,7 @@ namespace Cloudents.Persistence.Repositories
         public async Task<ChatRoom> GetChatRoomAsync(string identifier, CancellationToken token)
         {
             return await Session.Query<ChatRoom>()
+                .Fetch(f=>f.Extra)
                 .Where(t => t.Identifier == identifier).SingleOrDefaultAsync(token);
         }
 

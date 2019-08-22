@@ -25,7 +25,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.Question)
                 //.UniqueKey("uq_VotesUserQuestion")
                 .Column("QuestionId").Nullable().ForeignKey("Votes_Question");
-            Map(x => x.VoteType).CustomType<int>().Not.Nullable();
+            Map(x => x.VoteType).CustomType<VoteType>().Not.Nullable();
             Component(x => x.TimeStamp);
 
             SchemaAction.Validate();

@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
 
@@ -52,7 +53,7 @@ namespace Cloudents.Persistence.Maps
                 y.Map(z => z.CreditCardMask);
 
             });
-            Map(z => z.PaymentExists).CustomType<int>();
+            Map(z => z.PaymentExists).CustomType<PaymentStatus>();
             //HasManyToMany(x => x.Courses)
             //    .ParentKeyColumn("UserId")
             //    .ChildKeyColumn("CourseId")

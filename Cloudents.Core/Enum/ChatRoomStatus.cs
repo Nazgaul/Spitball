@@ -8,7 +8,7 @@ namespace Cloudents.Core.Enum
     {
         None,
         Done,
-        Later
+        //Later
 
     }
     //public enum ChatRoomStatus

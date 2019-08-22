@@ -149,8 +149,10 @@ namespace ConsoleApp
 
             //var v = dictionary.OrderBy(d => d.Value);
 
-            var c = _container.Resolve<IChatRoomRepository>();
-         await   c.UpdateNonDayOldConversationToActiveAsync(default);
+            var c = _container.Resolve<ICommandBus>();
+            var command = new SendChatTextMessageCommand("hi",638, 160105);
+            await c.DispatchAsync(command, default);
+         //await   c.UpdateNonDayOldConversationToActiveAsync(default);
 
 
             
