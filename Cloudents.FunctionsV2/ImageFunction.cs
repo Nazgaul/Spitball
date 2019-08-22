@@ -110,9 +110,7 @@ namespace Cloudents.FunctionsV2
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/user/{id}/{file}")]
             HttpRequest req, long id,string file,
             [Blob("spitball-user/profile/{id}/{file}")]CloudBlockBlob blob,
-            IBinder binder,
-            Microsoft.Extensions.Logging.ILogger logger,
-            CancellationToken token
+            Microsoft.Extensions.Logging.ILogger logger
         )
         {
             var mutation = ImageMutation.FromQueryString(req.Query);
@@ -133,7 +131,7 @@ namespace Cloudents.FunctionsV2
                 if (e.RequestInformation.HttpStatusCode == (int) HttpStatusCode.NotFound)
                 {
                     return new NotFoundResult();
-                };
+                }
 
                 throw;
             }
@@ -159,22 +157,8 @@ namespace Cloudents.FunctionsV2
             var hashBytes = Base64UrlTextEncoder.Decode(hash);
 
             var properties = serializer.Deserialize<ImageProperties>(hashBytes);
-            int.TryParse(req.Query["width"], out var width);
-            int.TryParse(req.Query["height"], out var height);
-            if (!Enum.TryParse(req.Query["mode"], true, out ResizeMode mode))
-            {
-                mode = ResizeMode.Crop;
-            }
 
-            if (width == 0)
-            {
-                width = 50;
-            }
-
-            if (height == 0)
-            {
-                height = 50;
-            }
+            var mutation = ImageMutation.FromQueryString(req.Query);
 
 
             var blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(properties.Path, FileAccess.Read),
@@ -191,7 +175,9 @@ namespace Cloudents.FunctionsV2
                     //mode = ResizeMode.BoxPad;
                 }
             }
-            var mutation = new ImageMutation(width,height,mode,properties.Blur.GetValueOrDefault());
+
+            mutation.BlurEffect = properties.Blur.GetValueOrDefault();
+            //var mutation = new ImageMutation(width,height,mode,properties.Blur.GetValueOrDefault());
             try
             {
                 using (var sr = await blob.OpenReadAsync())
@@ -236,6 +222,7 @@ namespace Cloudents.FunctionsV2
             {
                 Mode = mutation.Mode,
                 Size = new Size(mutation.Width, mutation.Height),
+                Position = mutation.Position
             }));
 
             switch (mutation.BlurEffect)
@@ -278,6 +265,8 @@ namespace Cloudents.FunctionsV2
                 mode = ResizeMode.Crop;
             }
 
+            Enum.TryParse(query["anchorPosition"], true, out AnchorPositionMode position);
+
             if (width == 0)
             {
                 width = 50;
@@ -288,29 +277,32 @@ namespace Cloudents.FunctionsV2
                 height = 50;
             }
 
-            return new ImageMutation(width,height,mode);
+            return new ImageMutation(width,height,mode, position);
         }
 
-        private ImageMutation(int width, int height, ResizeMode mode)
+        private ImageMutation(int width, int height, ResizeMode mode, AnchorPositionMode position)
         {
             Width = width;
             Height = height;
             Mode = mode;
+            Position = position;
         }
 
-        public ImageMutation(int width, int height, ResizeMode mode, ImageProperties.BlurEffect blurEffect)
-        {
-            Width = width;
-            Height = height;
-            Mode = mode;
-            BlurEffect = blurEffect;
-        }
+        //public ImageMutation(int width, int height, ResizeMode mode, ImageProperties.BlurEffect blurEffect, AnchorPositionMode position)
+        //{
+        //    Width = width;
+        //    Height = height;
+        //    Mode = mode;
+        //    BlurEffect = blurEffect;
+        //    Position = position;
+        //}
 
         public int Width { get;  }
         public int Height { get;  }
 
         public ResizeMode Mode { get;  }
 
-        public ImageProperties.BlurEffect BlurEffect { get;  }
+        public ImageProperties.BlurEffect BlurEffect { get; set; }
+        public AnchorPositionMode Position { get; }
     }
 }

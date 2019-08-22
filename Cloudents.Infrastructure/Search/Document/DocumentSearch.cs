@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Search.Document
             var searchResult = await _client.SearchAsync(query, query.UserProfile, token);
             var documentResult = searchResult.result.ToList();
             var ids = documentResult.Select(s => s.Id);
-            var queryDb = new IdsQuery<long>(ids);
+            var queryDb = new IdsDocumentsQuery<long>(ids);
             var dbResult = await _queryBus.QueryAsync<IList<DocumentFeedDto>>(queryDb, token);
             var dic = dbResult.ToDictionary(x => x.Id);
 

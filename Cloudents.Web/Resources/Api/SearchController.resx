@@ -119,6 +119,7 @@
   </resheader>
   <data name="CoursesFilterTitle" xml:space="preserve">
     <value>Courses</value>
+    <comment>Duplicate</comment>
   </data>
   <data name="Sources" xml:space="preserve">
     <value>Sources</value>

@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Search.Question
         {
             var searchResult = await _questionSearch.SearchAsync(query, token);
             var ids = searchResult.result.ToList();
-            var queryDb = new IdsQuery<long>(ids);
+            var queryDb = new IdsQuestionsQuery<long>(ids);
             var dbResult = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(queryDb, token);
             var dic = dbResult.ToDictionary(x => x.Id);
 

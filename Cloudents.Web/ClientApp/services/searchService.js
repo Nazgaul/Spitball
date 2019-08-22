@@ -86,20 +86,26 @@ function TutorItem(objInit) {
     this.subjects = objInit.subjects || [];
     this.isTutor = true;
 }
+function DocumentItemUser(objInit){
+    this.id = objInit.id;
+    this.image = objInit.image || '';
+    this.name = objInit.name || '';
+    this.score = objInit.score || 0;
+    this.isTutor = objInit.isTutor || false;
+}
 
+// only in feed
 function DocumentItem(objInit) {
     this.id = objInit.id || 1;
     this.course = objInit.course;
     this.dateTime = objInit.dateTime;
     this.downloads = objInit.downloads;
-    this.professor = objInit.professor;
     this.snippet = objInit.snippet;
     this.source = objInit.source;
     this.title = objInit.title;
-    this.type = objInit.type;
     this.university = objInit.university;
     this.url = objInit.url;
-    this.user = objInit.user;
+    this.user = createDocumentItemUser(objInit.user);
     this.views = objInit.views;
     this.template = 'note';
     this.price = objInit.price;
@@ -107,6 +113,7 @@ function DocumentItem(objInit) {
     this.votes = !!objInit.vote ? objInit.vote.votes : null;
     this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
     this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
+    this.preview = objInit.preview;
 }
 
 
@@ -117,6 +124,9 @@ function createTutorItem(objInit) {
     return new TutorItem(objInit);
 }
 
+function createDocumentItemUser(objInit) {
+    return new DocumentItemUser(objInit)
+}
 
 let transferResultAsk = response => {
     let res = response.data;

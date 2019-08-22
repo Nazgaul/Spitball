@@ -50,8 +50,6 @@ select ds.Id
 	,ds.University
 	,ds.Course
 	,ds.Snippet
-	,ds.Professor
-	,ds.Type
 	,ds.Title
 	,ds.User_Id
 	,ds.User_Name
@@ -63,6 +61,8 @@ select ds.Id
 	,ds.Vote_Votes
 	,(select v.VoteType from sb.Vote v where v.DocumentId = ds.Id and v.UserId = cte.userid) as Vote_Vote
 	,ds.Price
+    ,ds.User_IsTutor
+    ,ds.Purchased
 from sb.iv_DocumentSearch ds
 ,cte
 where ds.Course = :course

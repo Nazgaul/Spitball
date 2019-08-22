@@ -192,19 +192,27 @@ namespace Cloudents.Web.Api
 
             var query = new DocumentAggregateQuery(userId, page, request.Filter, profile.Country);
             var result = await _queryBus.QueryAsync(query, token);
-
-
             return GenerateResult(result, new
             {
                 page = ++page,
                 filter = request.Filter
             });
         }
-
+        
         private WebResponseWithFacet<DocumentFeedDto> GenerateResult(
             DocumentFeedWithFacetDto result, object nextPageParams)
         {
-            var p = result.Result.ToList();
+            var p = result.Result.Select(s =>
+            {
+                var uri = _blobProvider.GetPreviewImageLink(s.Id, 0);
+                var effect = ImageProperties.BlurEffect.None;
+                var properties = new ImageProperties(uri, effect);
+                var url = Url.ImageUrl(properties);
+                s.Preview = url;
+                return s;
+            }).ToList();
+
+
             string nextPageLink = null;
             if (p.Count > 0)
             {
@@ -277,8 +285,8 @@ namespace Cloudents.Web.Api
             }
 
             await System.Threading.Tasks.Task.WhenAll(resultTask, votesTask);
-            var result = resultTask.Result;
-            return GenerateResult(result, new
+            
+            return GenerateResult(resultTask.Result, new
             {
                 page = ++request.Page,
                 request.Course,
@@ -319,8 +327,7 @@ namespace Cloudents.Web.Api
             }
 
             await System.Threading.Tasks.Task.WhenAll(resultTask, votesTask);
-            var result = resultTask.Result;
-            return GenerateResult(result, new
+            return GenerateResult(resultTask.Result, new
             {
                 page = ++request.Page,
                 request.Term,

@@ -21,29 +21,32 @@ namespace Cloudents.Query
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(UserDataPagingByIdQuery query, CancellationToken token)
         {
-            return await _session.Query<Document>()
-                .Fetch(f => f.University)
-                .Fetch(f => f.User)
-                .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
+            return await _session.Query<ViewDocumentSearch>()
+                .Where(w => w.UserId == query.Id)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
-                    User = new UserDto(s.User.Id, s.User.Name, s.User.Score, s.User.Image),
-                    DateTime = s.TimeStamp.UpdateTime,
-                    Course = s.Course.Id,
-                    Type = s.Type,
-                    Professor = s.Professor,
-                    Title = s.Name,
+                    User = new DocumentUserDto
+                    {
+                        Id = s.UserId,
+                        Name = s.UserName,
+                        Score = s.UserScore,
+                        Image = s.UserImage,
+                        IsTutor = s.IsTutor
+                    },
+                    DateTime = s.DateTime,
+                    Course = s.Course,
+                    Title = s.Title,
                     //Source = "Cloudents",
                     Views = s.Views,
                     Downloads = s.Downloads,
-                    University = s.University.Name,
-                    Snippet = s.MetaContent,
+                    University = s.University,
+                    Snippet = s.Snippet,
                     Price = s.Price,
                     Vote = new VoteDto
                     {
-                        Votes = s.VoteCount
+                        Votes = s.Votes
                     }
 
                 }

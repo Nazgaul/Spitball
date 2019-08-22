@@ -119,7 +119,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             {
                 9077L,
             };
-            var query = new IdsQuery<long>(ids);
+            var query = new IdsQuestionsQuery<long>(ids);
 
             var _ = await fixture.QueryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
         }

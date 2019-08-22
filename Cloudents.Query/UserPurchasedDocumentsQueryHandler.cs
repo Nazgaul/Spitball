@@ -23,28 +23,25 @@ namespace Cloudents.Query
         {
             using (var connection = _dapper.OpenConnection())
             {
-                return await connection.QueryAsync<DocumentFeedDto, UserDto, VoteDto, DocumentFeedDto>(@"select
+                return await connection.QueryAsync<DocumentFeedDto, DocumentUserDto, VoteDto, DocumentFeedDto>(@"select
 d.Id as id,
-u.Name as University,
-d.CourseName as 'Course',
-d.MetaContent as snippet,
-d.Name as Title,
-d.Professor,
-d.Type as 'Type',
+d.University as University,
+d.Course as 'Course',
+d.Snippet as snippet,
+d.Title as Title,
 d.Views,
 d.Downloads,
 'Cloudents' as Source,
-d.UpdateTime as 'DateTime',
+d.[DateTime] as 'DateTime',
 d.Price,
-u2.id as Id,
-u2.Name as Name,
-u2.Score as Score,
-u2.image as Image,
-d.VoteCount as Votes
+d.User_id as Id,
+d.User_Name as Name,
+d.User_Score as Score,
+d.User_image as Image,
+d.User_IsTutor as IsTutor,
+d.Vote_Votes as Votes
  from sb.[Transaction] t
-Join sb.Document d on t.DocumentId = d.Id and d.state = 'ok' and t.action='PurchaseDocument'
-join sb.University u on u.Id = d.UniversityId
-join sb.[User] u2 on u2.Id = d.UserId
+Join [sb].[iv_DocumentSearch] d on t.DocumentId = d.Id and t.action='PurchaseDocument'
 where t.User_id = @userId", (dto, userDto, arg3) =>
                 {
                     dto.User = userDto;

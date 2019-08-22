@@ -84,12 +84,16 @@ namespace Cloudents.Core.Entities
         public virtual ItemStatus Status { get; protected set; }
 
         private readonly ICollection<Vote> _votes = new List<Vote>();
-        public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
+        public virtual IEnumerable<Vote> Votes => _votes;
 
         public virtual int VoteCount { get; protected set; }
 
         public virtual void Vote(VoteType type, User user)
         {
+            if (type == VoteType.Down)
+            {
+                throw new NotSupportedException();
+            }
             if (Status != Public)
             {
                 throw new NotFoundException();
@@ -97,23 +101,21 @@ namespace Cloudents.Core.Entities
 
             if (User == user)
             {
-                throw new UnauthorizedAccessException("you cannot vote you own answer");
+                throw new UnauthorizedAccessException("you cannot vote you own document");
             }
 
-            var vote = Votes.FirstOrDefault(w => w.User == user);
+            var vote = Votes.AsQueryable().FirstOrDefault(w => w.User == user);
             if (vote == null)
             {
                 vote = new Vote(user, this, type);
                 _votes.Add(vote);
-
             }
-
             vote.VoteType = type;
             VoteCount = Votes.Sum(s => (int)s.VoteType);
-            if (VoteCount < VoteCountToFlag)
-            {
-                Status = Status.Flag(TooManyVotesReason, user);
-            }
+            //if (VoteCount < VoteCountToFlag)
+            //{
+            //    Status = Status.Flag(TooManyVotesReason, user);
+            //}
         }
 
         public virtual void MakePublic()

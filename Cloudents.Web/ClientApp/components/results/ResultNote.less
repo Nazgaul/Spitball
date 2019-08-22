@@ -136,27 +136,23 @@
       display: flex;
       width: 90%;
       flex-grow: 1;
-      .rank-date-container {
+      align-items: end;
+
+      .document-header-name-container {
         display: flex;
-        @media (max-width: @screen-xs) {
-          flex-direction: column-reverse;
-          margin-left: 12px;
-          margin-top: -12px;
-          line-height: 2;
-          align-items: start;
-        }
-        .rank-area {
-          margin: 12px 12px;
-          @media (max-width: @screen-xs) {
-            margin-left:0px;
-          }
+        flex-direction: column;
+        margin-left: 12px;
+        .document-header-name {
+          line-height: normal;
+            font-size: 14px;
+            color: @global-purple;
+            text-transform: capitalize;
         }
         .date-area {
+          line-height: normal;
           font-family: @fontOpenSans;
           font-size: 13px;
-          width: 96px;
-          color: rgba(0, 0, 0, 0.38);
-          vertical-align: middle;
+          color: #a0a0a0;
         }
       }
       .sold-area {
@@ -188,19 +184,23 @@
     }
     .document-header-small-sagment {
       display: flex;
+      align-items: baseline;
+      margin-top: -16px;
       .price-area {
-        color: @color-blue-new;
-        font-family: @fontOpenSans;
-        font-size: 16px;
-        font-weight: 600;
+          font-size: 18px;
+          font-weight: bold;
+          color: #5158af;
+          margin-right: -10px;
         &.sold {
           color: rgba(0, 0, 0, 0.38);
         }
       
       }
       .menu-area {
-        margin-top: -10px;
-        width: 30px;
+        width: 20px;
+        @media (max-width: @screen-xs) {
+          width: 24px;
+        }
         i {
           font-size: 16px;
           color: @colorTypeDocDefault;
@@ -208,49 +208,93 @@
       }
     }
   }
-  //.wrapper {
+  .bottom-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #848bbc;
+    padding-top: 6px;
+    @media (max-width: @screen-xs) {
+      justify-content: initial;
+      align-items: flex-end;
+    }
+    .left{
+      .views-cont{
+        margin-right: 22px;
+        .views{
+          margin-left: 4px;
+        }
+      }
+      .downloads{
+        margin-left: 4px;
+      @media (max-width: @screen-xs) {
+        margin-right: 22px;
+      }
+      }
+    }
+    .right{
+      display: flex;
+      align-items: flex-end;
+      .likeSVG{
+        margin-right: 4px;
+        width: 18px;
+        height: 18px;
+      }
+      
+    }
+    .price-area {
+      @media (max-width: @screen-xs) {
+        font-size: 16px;
+        font-weight: bold;
+        color: #5158af;
+        margin-right: -2px;
+      }
+    &.sold {
+      color: rgba(0, 0, 0, 0.38);
+    }
+  
+  }
+  }
     .top-row {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
-      padding-top: 12px;
-
-      .upvotes-counter {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 80px;
-        padding-left: 8px;
-        .document-reputation {
-          font-size: 12px;
-          font-family: @fontOpenSans;
-          font-weight: bold;
-          text-align: center;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+      padding-top: 18px;
+      @media (max-width: @screen-xs) {
+        flex-direction: column-reverse;
+        align-items: center;
+        padding-top: 12px;
+      }
+      .document-body-card{
+        @media (max-width: @screen-xs) {
+          padding-top: 12px;
+          width: 100%;
         }
-        .upvote-arrow {
-          i {
-            color: @color-blue-new;
+        .document-body-card-img{
+          width: 164px;
+          height: 130px;
+          object-fit: cover;
+          border: 1px solid #d8d8d8;
+          @media (max-width: @screen-xs) {
+            width: 100%;
+            height: 108px;
+            object-position: top;
           }
-        }
-        .document-score {
-          color: @color-blue-new;
-        }
-        .downvote-arrow {
-          opacity: 0.36;
-          i {
-            color: @color-blue-new;
-          }
+            
         }
       }
-
       .type-wrap {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
         padding-left: 12px;
+        @media (max-width: @screen-xs) {
+          width: 100%;
+          padding-left: 0;
+        }
       }
     }
     .details-row {
@@ -273,25 +317,47 @@
         }
       }
     }
-
     .data-row {
       display: flex;
-      flex-direction: row;
-      align-items: center;
+      flex-direction: column;
       height: 100%;
-      margin: 6px 0 8px 0;
+      .doc-snippet{
+          font-size: 14px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.57;
+          letter-spacing: normal;
+          color:@global-purple;
+      }
       .content-wrap {
-        padding: 12px 8px;
-        background: @colorContentBackground;
         display: flex;
         flex-direction: column;
-        width: 100%;
-        height: auto;
-        border-radius: 4px;
-        @media(max-width: @screen-xs){
-          align-items: stretch;
-        }
+        max-width: 420px;
+        span{
+          color: @global-purple;
+          font-size: 14px;
+          @media (max-width: @screen-xs) {
+            font-size: 12px;
+          }
+          &.item-title{
+            font-size: 16px;
+            font-weight: bold;
+          }
+          &.item-course{
+            line-height: 1.8;
+            @media (max-width: @screen-xs) {
+              line-height: 1.9; 
+            }
 
+          }
+          &.item-university{
+            line-height: 1.4;
+            @media (max-width: @screen-xs) {
+              line-height: 1.5;
+            }
+          }
+        }
         &.type-lecture {
           background: fade(@colorTypeLecture, 12%)
         }
@@ -375,3 +441,4 @@
 
   //}
 }
+

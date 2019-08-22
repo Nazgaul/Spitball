@@ -17,10 +17,7 @@ namespace Cloudents.Core.DTOs
         public string Course { get; set; }
         public string Snippet { get; set; }
         public string Title { get; set; }
-        public string Professor { get; set; }
-
-        public string Type { get; set; }
-        public UserDto User { get; set; }
+        public DocumentUserDto User { get; set; }
         public int? Views { get; set; }
 
         public int? Downloads { get; set; }
@@ -34,7 +31,19 @@ namespace Cloudents.Core.DTOs
          public VoteDto Vote { get; set; }
 
         public decimal? Price { get; set; }
+        public string Preview { get; set; }
+        public int Purchased { get; set; }
 
+    }
+
+    public class DocumentUserDto
+    {
+
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public int Score { get; set; }
+        public bool IsTutor { get; set; }
     }
 
     public class VoteDto

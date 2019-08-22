@@ -9,7 +9,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Query
 {
     [UsedImplicitly]
-    public class QuestionsQueryHandler : IQueryHandler<IdsQuery<long>, IEnumerable<QuestionFeedDto>>
+    public class QuestionsQueryHandler : IQueryHandler<IdsQuestionsQuery<long>, IEnumerable<QuestionFeedDto>>
     {
         private readonly IDapperRepository _dapperRepository;
 
@@ -18,7 +18,7 @@ namespace Cloudents.Query
             _dapperRepository = dapperRepository;
         }
 
-        public async Task<IEnumerable<QuestionFeedDto>> GetAsync(IdsQuery<long> query, CancellationToken token)
+        public async Task<IEnumerable<QuestionFeedDto>> GetAsync(IdsQuestionsQuery<long> query, CancellationToken token)
         {
 
             const string sql = @"SELECT  q.Id as Id,

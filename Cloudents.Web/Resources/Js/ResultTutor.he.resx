@@ -168,9 +168,6 @@
   <data name="send_button" xml:space="preserve">
     <value>שלחו ל{1} הודעה</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="study-area" xml:space="preserve">
     <value>תחומי לימוד:</value>
   </data>

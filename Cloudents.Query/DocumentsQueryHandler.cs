@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query
 {
-    public class DocumentsQueryHandler : IQueryHandler<IdsQuery<long>, IList<DocumentFeedDto>>
+    public class DocumentsQueryHandler : IQueryHandler<IdsDocumentsQuery<long>, IList<DocumentFeedDto>>
     {
         private readonly IStatelessSession _session;
 
@@ -20,43 +21,39 @@ namespace Cloudents.Query
             _session = session.StatelessSession;
         }
 
-        public async Task<IList<DocumentFeedDto>> GetAsync(IdsQuery<long> query, CancellationToken token)
+        public async Task<IList<DocumentFeedDto>> GetAsync(IdsDocumentsQuery<long> query, CancellationToken token)
         {
-            var ids = query.QuestionIds.ToList();
-
-            var z = await _session.Query<Document>()
-                .Fetch(f => f.User)
-                .Fetch(f => f.University)
-                .Where(w => ids.Contains(w.Id) && w.Status.State == ItemState.Ok)
+            var ids = query.DocumentIds.ToList();
+          
+            var z = await _session.Query<ViewDocumentSearch>()
+                .Where(w => ids.Contains(w.Id))
                 .Select(s => new DocumentFeedDto
                 {
                     Id = s.Id,
-                    User = new UserDto
+                    User = new DocumentUserDto
                     {
-                        Id = s.User.Id,
-                        Name = s.User.Name,
-                        Score = s.User.Score,
-                        Image = s.User.Image
+                        Id = s.UserId,
+                        Name = s.UserName,
+                        Score = s.UserScore,
+                        Image = s.UserImage,
+                        IsTutor = s.IsTutor
                     },
-                    DateTime = s.TimeStamp.UpdateTime,
-                    Course = s.Course.Id,
-                    Type = s.Type,
-                    Professor = s.Professor,
-                    Title = s.Name,
-                    Snippet = s.MetaContent,
+                    DateTime = s.DateTime,
+                    Course = s.Course,
+                    Title = s.Title,
+                    Snippet = s.Snippet,
                     Views = s.Views,
                     Downloads = s.Downloads,
-                    University = s.University.Name,
+                    University = s.University,
                     Price = s.Price,
+                    Purchased = s.Purchased,
                     Vote = new VoteDto()
                     {
-                        Votes = s.VoteCount
+                        Votes = s.Votes
                     }
                 })
                 .ToListAsync(token);
-
             return z;
-
         }
     }
 }

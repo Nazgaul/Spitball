@@ -37,7 +37,7 @@
                                     <set-uni-class class="cell"></set-uni-class>
                                 </v-flex>
                                 
-                                <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
+                                <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component :id="index == 1 ? 'tour_vote' : ''" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
                                 </v-flex>

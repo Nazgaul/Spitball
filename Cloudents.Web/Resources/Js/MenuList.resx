@@ -167,6 +167,7 @@
   </data>
   <data name="changeCourse" xml:space="preserve">
     <value>Courses</value>
+    <comment>Duplicate</comment>
   </data>
   <data name="changeUniversity" xml:space="preserve">
     <value>University</value>

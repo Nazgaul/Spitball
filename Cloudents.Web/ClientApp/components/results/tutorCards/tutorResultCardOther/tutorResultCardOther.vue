@@ -264,6 +264,7 @@ export default {
         color: @purple;
         max-width: 200px; // for eplipsis purpose
         margin-bottom: 6px;
+            .flexSameSize();
     }
 
     .striked {

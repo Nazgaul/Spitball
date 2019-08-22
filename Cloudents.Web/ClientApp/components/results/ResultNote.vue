@@ -1,101 +1,86 @@
 <template>
   <router-link v-if="url" class="d-block note-block" :to="url">
-    <!-- <v-container
-      class="pa-0"
-      @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)"
-    > -->
-      <!-- <v-flex class="wrapper"> -->
         <div class="document-header-container">
           <div class="document-header-large-sagment">
-              <user-avatar
-                v-if="authorName"
-                :userImageUrl="userImageUrl"
-                :user-name="authorName"
-                :user-id="authorId"
-              />
-            <div class="rank-date-container">
-             
-                <user-rank class="rank-area" :score="userRank"></user-rank>
-             
-              <div class="date-area">{{uploadDate}}</div>
+              <user-avatar size="34" v-if="authorName" :userImageUrl="userImageUrl" :user-name="authorName" :user-id="authorId"/>
+            <div class="document-header-name-container">
+              <span class="document-header-name"> 
+                <span v-if="isTutor" v-language:inner="'resultNote_privet'"/>
+                <span>{{authorName}}</span>     
+              </span>
+              <span class="date-area">{{uploadDate}}</span>
             </div>
           </div>
           <div class="document-header-small-sagment">
-            <div v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
-              <bdi>
-                {{item.price ? item.price.toFixed(2): ''}}
-                <span
-                  v-language:inner
-                >app_currency_dynamic</span>
-              </bdi>
+            <div v-if="!isMobile" v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
+                {{item.price ? item.price.toFixed(0): ''}}
+                <span v-language:inner>app_currency_dynamic</span>
             </div>
+            
               <v-menu class="menu-area" lazy bottom left content-class="card-user-actions" v-model="showMenu">
-                <v-btn
-                  :depressed="true"
-                  @click.native.stop.prevent="showReportOptions()"
-                  slot="activator"
-                  icon
-                >
+                <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()" slot="activator" icon>
                   <v-icon>sbf-3-dot</v-icon>
                 </v-btn>
                 <v-list>
-                  <v-list-tile
-                    v-show="item.isVisible(item.visible)"
-                    :disabled="item.isDisabled()"
-                    v-for="(item, i) in actions"
-                    :key="i"
-                  >
+                  <v-list-tile v-show="item.isVisible(item.visible)" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
                     <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                   </v-list-tile>
                 </v-list>
               </v-menu>
-            
           </div>
         </div>
+
         <v-flex grow class="top-row">
-          <div class="upvotes-counter" v-if="item.votes !== null">
-            <span class="document-reputation upvote-arrow" @click.stop.prevent="upvoteDocument()">
-              <v-icon :class="{'voted': item.upvoted}">sbf-arrow-up</v-icon>
-            </span>
-            <span
-              class="document-reputation document-score"
-              :dir="isRtl ? `ltr` : ''"
-            >{{item.votes}}</span>
-            <span
-              class="document-reputation downvote-arrow"
-              @click.stop.prevent="downvoteDocument()"
-            >
-              <v-icon :class="{'voted': item.downvoted}">sbf-arrow-down</v-icon>
-            </span>
+
+          <div class="document-body-card">
+            <img class="document-body-card-img" :src="docPreviewImg(item.preview)" alt="">
           </div>
+
           <div class="type-wrap">
             <v-flex grow class="data-row">
-              <div class="content-wrap" >
-                <div class="title-wrap">
-                  <p class="doc-title"
-                    v-line-clamp:20="$vuetify.breakpoint.xsOnly ? 2 : 2 "
-                  >{{item.title}}</p>
-                  <v-icon class="doc">sbf-document-note</v-icon>
-                </div>
-                <div class="content-text" v-show="item.snippet">
-                  <span v-line-clamp="2">{{item.snippet}}</span>
-                </div>
+              <div class="content-wrap">
+                <span class="item-title text-truncate">{{item.title}}</span>
+                <span class="item-course text-truncate">
+                  <span v-language:inner="'resultNote_course'"/> 
+                  <span>{{item.course}}</span>
+                </span>
+                <span class="item-university text-truncate">
+                  <span v-language:inner="'resultNote_university'"/> 
+                  <span>{{item.university}}</span> 
+                </span>
+              </div>
+              <v-divider v-if="item.snippet && !isMobile" class="my-2"></v-divider>
+              <div class="doc-snippet" v-if="item.snippet && !isMobile">
+                <span v-line-clamp="2">{{item.snippet}}</span>
               </div>
             </v-flex>
-            <document-details :item="item" class="document-details"></document-details>
           </div>
         </v-flex>
 
-        <v-flex grow class="doc-details doc-actions-info">
-         
-            <span class="doc-type-text mr-3">{{type}}</span>
-            <v-icon class="sb-doc-icon mr-1">sbf-download-cloud</v-icon>
-            <span class="sb-doc-info downloads">{{docDownloads}}</span>
-            <v-icon class="sb-doc-icon mr-1">sbf-views</v-icon>
-            <span class="sb-doc-info views">{{docViews}}</span>
+        <v-flex grow class="bottom-row">
+          <div class="left">
+            <span v-if="docViews" class="views-cont">
+              <span>{{docViews}}</span>
+              <span class="views" v-language:inner="'resultNote_views'"/> 
+            </span>
+            <span v-if="docDownloads">
+              <span>{{docDownloads}}</span>
+              <span class="downloads" v-language:inner="item.price? 'resultNote_purchased' : 'resultNote_download'"/> 
+            </span>
+          </div>
+            <span class="right">
+              <likeFilledSVG v-if="isLiked" @click.native.stop.prevent="upvoteDocument" class="likeSVG"/>
+              <likeSVG v-if="!isLiked"  @click.native.stop.prevent="upvoteDocument" class="likeSVG"/> 
+              <span v-if="item.votes>0">{{item.votes}}</span>
+            </span>
+            <v-spacer v-if="isMobile"></v-spacer>
+            <div v-if="isMobile" v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
+                {{item.price ? item.price.toFixed(0): ''}}
+                <span v-language:inner>app_currency_dynamic</span>
+            </div>
         </v-flex>
-      <!-- </v-flex> -->
-    <!-- </v-container> -->
+
+
     <sb-dialog
       :showDialog="showReport"
       :maxWidth="'438px'"
@@ -111,8 +96,7 @@
       :onclosefn="closeNewPriceDialog"
       :activateOverlay="true"
       :isPersistent="true"
-      :content-class="`priceUpdate ${isRtl? 'rtl': ''}`"
-    >
+      :content-class="`priceUpdate ${isRtl? 'rtl': ''}`">
       <v-card class="price-change-wrap">
         <v-flex align-center justify-center class="relative-pos">
           <div class="title-wrap">
@@ -153,26 +137,28 @@
 </template>
 <script>
 import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
-import userRank from "../helpers/UserRank/UserRank.vue";
-import documentDetails from "./helpers/documentDetails/documentDetails.vue";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "./helpers/reportItem/reportItem.vue";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 import SbInput from "../question/helpers/sbInput/sbInput";
 import documentService from "../../services/documentService";
+import likeSVG from './img//like.svg';
+import likeFilledSVG from './img/like-filled.svg';
+import utilitiesService from '../../services/utilities/utilitiesService.js'
 
 export default {
   components: {
     SbInput,
-    documentDetails,
     sbDialog,
     reportItem,
     userAvatar,
-    userRank
+    likeSVG,
+    likeFilledSVG
   },
   data() {
     return {
+      isLiked: false,
       isFirefox: global.isFirefox,
       currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
       actions: [
@@ -227,17 +213,10 @@ export default {
     isProfile() {
       return this.$route.name === "profile";
     },
-    userRank() {
-      if (!!this.item.user) {
-        return this.item.user.score;
-      }
-    },
     isPurchased() {
       return this.item.isPurchased;
     },
-    type() {
-      return this.item.type || "";
-    },
+
     authorName() {
       if (!!this.item.user) {
         return this.item.user.name;
@@ -274,6 +253,14 @@ export default {
         ours = this.item.source.toLowerCase().includes("cloudents");
       }
       return ours;
+    },
+    isTutor(){
+      if (!!this.item) {
+        return this.item.user.isTutor;
+      }
+    },
+    isMobile(){
+      return this.$vuetify.breakpoint.xs;
     }
   },
   methods: {
@@ -282,13 +269,20 @@ export default {
       updateSearchLoading: "UPDATE_SEARCH_LOADING"
     }),
     ...mapActions([
-      "documentVote",
       "updateLoginDialogState",
       "updateToasterParams",
       "removeItemFromProfile",
-      "syncProfile"
+      "syncProfile",
+      "documentVote"
     ]),
     ...mapGetters(["accountUser"]),
+    docPreviewImg(imgUrl){
+      if(this.isMobile){
+        return utilitiesService.proccessImageURL(imgUrl, 500, 108,'crop&anchorPosition=top');
+      } else{
+        return utilitiesService.proccessImageURL(imgUrl, 164, 130,'crop&anchorPosition=top');
+      }
+    },
     cardOwner() {
       let userAccount = this.accountUser();
       if (userAccount && this.item.user) {
@@ -384,11 +378,17 @@ export default {
       }
       return true;
     },
-    upvoteDocument() {
+    upvoteDocument(e) {
+      
+      e.stopImmediatePropagation();
+
       if (this.isAuthUser()) {
+        this.isLiked = true;
         let type = "up";
         if (!!this.item.upvoted) {
           type = "none";
+          this.isLiked = false;
+          
         }
         let data = {
           type,
@@ -397,20 +397,10 @@ export default {
         this.documentVote(data);
       }
     },
-    downvoteDocument() {
-      if (this.isAuthUser()) {
-        let type = "down";
-        if (!!this.item.downvoted) {
-          type = "none";
-        }
-        let data = {
-          type,
-          id: this.item.id
-        };
-        this.documentVote(data);
-      }
-    }
-  }
+  },
+  created() {
+    this.isLiked = this.item.upvoted;
+  },
 };
 </script>
 <style src="./ResultNote.less" lang="less"></style>

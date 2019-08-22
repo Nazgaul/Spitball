@@ -146,6 +146,7 @@
   </data>
   <data name="table_course" xml:space="preserve">
     <value>Course:</value>
+    <comment>Duplicate</comment>
   </data>
   <data name="table_type" xml:space="preserve">
     <value>Type:</value>

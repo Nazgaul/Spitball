@@ -362,9 +362,6 @@ best study tools and
 tutors</value>
     <comment>1</comment>
   </data>
-  <data name="getstarted_subtitle_login" xml:space="preserve">
-    <value />
-  </data>
   <data name="getstarted_title_login" xml:space="preserve">
     <value>Welcome back. Please login</value>
   </data>
