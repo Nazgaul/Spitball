@@ -23,6 +23,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime? Ended { get; protected set; }
         public virtual TimeSpan? Duration { get; protected set; }
+        public virtual TimeSpan? DurationInMinutes { get; protected set; }
 
         public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
@@ -40,6 +41,7 @@ namespace Cloudents.Core.Entities
             }
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
+            DurationInMinutes = Ended - Created;
             return true;
         }
 

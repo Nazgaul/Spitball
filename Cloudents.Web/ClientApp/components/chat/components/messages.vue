@@ -21,9 +21,19 @@
             <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
 
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
-                <span class="messages-mobile-button" v-show="typing" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
+                <span class="messages-mobile-button" v-if="typing" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
                 <chat-upload-file :typing="typing"></chat-upload-file>
-                <v-textarea rows="1" class="pa-2 messages-textarea" solo type="text" hide-details :disabled="!getIsSignalRConnected" :placeholder="placeHolderText" v-language:placeholder @keydown.enter.prevent="sendMessage" v-model="messageText" auto-grow></v-textarea>
+                <v-textarea 
+                    rows="1" 
+                    class="pa-2 messages-textarea" solo 
+                    type="text" hide-details 
+                    :disabled="!getIsSignalRConnected" 
+                    :placeholder="placeHolderText" 
+                    v-language:placeholder
+                    @keydown.enter.prevent="sendMessage" 
+                    ref="chatTextArea"
+                    v-model="messageText" auto-grow>
+                </v-textarea>
             </div>
 
         </v-layout>
@@ -88,16 +98,17 @@ export default {
             return this.isTutor && this.messages &&  this.messages.length > 0 && this.messages[0].userId !== this.accountUser.id;
         },
         typing() {
-           return !!this.messageText;
+            return !!this.messageText;
         }
     },
     methods:{
         ...mapActions(['sendChatMessage', 'createStudyRoom']),
-        sendMessage(){      
+        sendMessage(){     
             let messageToSend = this.messageText.trim();
             if(messageToSend !== ''){
                 this.sendChatMessage(this.messageText);
                 this.messageText = "";
+                this.$refs.chatTextArea.$el.querySelector('textarea').style.height = "32px";
             }
         },
         scrollToEnd: function() {
@@ -129,7 +140,7 @@ export default {
                     this.alreadyCreated = true;
                 }
             }
-        },
+        }
     }
 }
 </script>

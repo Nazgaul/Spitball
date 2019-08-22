@@ -30,7 +30,7 @@
           class="group-items"
           :to="{name: $route.name}"
           v-for="(item, i) in getSelectedClasses"
-          :class="{'active': item.text ? item.text.toLowerCase() === selectedCourse : item === selectedCourse}"
+          :class="{'active': item.text ? item.text.toLowerCase() === selectedCourse.toLowerCase() : item === selectedCourse}"
           :key="i"
           event
           @click.native.prevent="selectCourse(item)">

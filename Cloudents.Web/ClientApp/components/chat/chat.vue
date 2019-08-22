@@ -194,7 +194,7 @@ export default {
     padding: 6px;
     color: #fff;
     z-index: 1;
-    .heightMinMax(44px);
+    .heightMinMax(48px);
     transition: background-color 0.2s ease-in-out;
     -moz-transition: background-color 0.2s ease-in-out;
     -webkit-transition: background-color 0.2s ease-in-out;
