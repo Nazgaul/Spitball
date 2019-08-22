@@ -53,14 +53,14 @@ export default {
 .message_wrap{
     margin-bottom: 14px;
     .message-wrapper{
-        max-width:211px;
+        max-width: 70%;
         width: max-content; // firefox fallback
         width: fit-content;
-        margin-left: auto;
-        margin-right: unset;
+        margin-left: unset;
+        margin-right: auto;
         &.myMessage{
-            margin-left: unset;
-            margin-right: auto;
+            margin-right: unset;
+            margin-left: auto;
         }
         .message{
             text-align: right;
@@ -107,7 +107,7 @@ export default {
     .time_wrapper {
         margin-top: -2px;
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
         align-items: center;
         .message-text-date {
             color: rgba(0, 0, 0, 0.38);
@@ -116,11 +116,11 @@ export default {
             margin-left: 6px;
             margin-top: 2px;
             &.myMessage{
-                justify-content: flex-start;
+                justify-content: flex-end;
             }
         }
         &.myMessage {
-            justify-content: flex-start;
+            justify-content: flex-end;
         }
     }
     .chat-loader {

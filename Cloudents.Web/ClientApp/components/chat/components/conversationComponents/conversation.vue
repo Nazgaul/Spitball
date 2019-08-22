@@ -87,7 +87,7 @@ export default {
         display: flex;
         align-items: center;
         .conversation-name{
-          max-width: 60%;
+          max-width: 170px;
           font-size: 14px;
           font-weight: bold;
           color: #43425d;
@@ -97,6 +97,15 @@ export default {
           white-space: nowrap;
           overflow: hidden;
           font-family: sans-serif;
+          @media (max-width: 425px) {
+            max-width: 200px;
+          }
+          @media (max-width: 375px) {
+            max-width: 180px;
+          }
+          @media (max-width: 320px) {
+            max-width: 150px;
+          }
         }
         .conversation-date{
           font-size: 12px;
@@ -112,10 +121,22 @@ export default {
         align-items: center;
         .conversation-desc{
           .giveMeEllipsis(2, 18);
+          display: block;
           text-align: left;
           font-size: 12px;
           color: #919095;
           align-items: center;
+          width: 200px;
+          @media (max-width: @screen-xs) {
+            width: 300px;
+          }
+          @media (max-width: @screen-xss) {
+            width: 220px;
+          }
+          img {
+            margin-right: 4px;
+            vertical-align: middle;
+          }
         }
         .conversation-unread{
           background: #5158af;
