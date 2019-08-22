@@ -12,11 +12,8 @@ using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Email;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
@@ -91,9 +88,6 @@ namespace Cloudents.FunctionsV2
                 ["mode"] = "crop"
             };
 
-           
-
-
             var q = new GetUpdatesEmailByUserQuery(user.UserId, user.Since);
             var result = (await queryBus.QueryAsync(q, token)).ToList();
 
@@ -138,9 +132,6 @@ namespace Cloudents.FunctionsV2
                     })
                 };
             });
-
-
-
 
             var templateData = new UpdateEmail(user.UserName, user.ToEmailAddress)
             {

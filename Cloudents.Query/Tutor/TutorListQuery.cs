@@ -54,8 +54,6 @@ namespace Cloudents.Query.Tutor
                     futureCourse.Where(() => userAlias.Country == query.Country);
                 }
 
-
-
                 if (query.UserId > 0)
                 {
                     var withCountryOnlyDetachedQuery = futureCourse.Clone();
@@ -75,6 +73,7 @@ namespace Cloudents.Query.Tutor
                                 .Where(w => w.User.Id == query.UserId).Select(s => s.Course.Id)
 
                                 )
+
                         
                         .Select(s => s.Id);
 
@@ -101,7 +100,6 @@ namespace Cloudents.Query.Tutor
                 }
 
                 var futureResult = listOfQueries.Select(s => BuildSelectStatement(s, query.Page)).ToList();
-
 
                 IEnumerable<TutorCardDto> retVal = futureResult.Select(async s => await s.GetEnumerableAsync(token)).SelectMany(s => s.Result).Distinct(TutorCardDto.UserIdComparer).Take(20).ToList();
                 return Task.FromResult(retVal);
