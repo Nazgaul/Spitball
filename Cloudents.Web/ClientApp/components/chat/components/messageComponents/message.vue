@@ -63,7 +63,6 @@ export default {
             margin-left: auto;
         }
         .message{
-            text-align: right;
             margin: 5px 0;
             margin-left: auto;
             margin-right: unset;
@@ -75,17 +74,17 @@ export default {
             display: flex;
             flex-direction: column;
             color: #1d1d21;
+            text-align: left;
+            div {
+                    white-space: pre-wrap;
+                }
             &.myMessage{
-                text-align: left;
                 margin: 5px 0;
                 padding: 4px 8px 6px 8px;
                 margin-left: unset;
                 margin-right: auto;
                 background-color: #dfe1ed;
                 border-radius: 8px 8px 8px 0;
-                div {
-                    white-space: pre-wrap;
-                }
             }
             &.imgMessage{
                 position: relative;
