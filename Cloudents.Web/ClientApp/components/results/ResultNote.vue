@@ -33,7 +33,8 @@
         <v-flex grow class="top-row">
 
           <div class="document-body-card">
-            <img class="document-body-card-img" :src="docPreviewImg(item.preview)" alt="">
+            <v-progress-circular v-if="!item.preview" class="document-body-card-img" :style="isMobile? 'height:108px; width:100%;' : 'height:130px'"  indeterminate v-bind:size="164" width="2" color="#514f7d"/>
+            <img v-else class="document-body-card-img" :src="docPreviewImg(item.preview)" alt="">
           </div>
 
           <div class="type-wrap">
