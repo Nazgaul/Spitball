@@ -12,8 +12,6 @@
                           @focus="openSuggestions"
                           name="q"
                           id="transcript"
-                          clearable
-                          clear-icon="sbf-close"
                           v-model="msg"
                           :placeholder="placeholder"
                           prepend-icon="sbf-search"
