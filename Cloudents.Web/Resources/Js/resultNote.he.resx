@@ -139,7 +139,7 @@
     <value>המסמך נמחק</value>
   </data>
   <data name="download" xml:space="preserve">
-    <value>הורד</value>
+    <value>הורדות</value>
   </data>
   <data name="error_delete" xml:space="preserve">
     <value>לא ניתן למחוק מסמך, נסה שנית מאוחר יותר</value>

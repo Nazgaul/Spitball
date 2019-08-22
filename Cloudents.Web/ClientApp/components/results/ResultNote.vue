@@ -5,7 +5,9 @@
               <user-avatar size="34" v-if="authorName" :userImageUrl="userImageUrl" :user-name="authorName" :user-id="authorId"/>
             <div class="document-header-name-container">
               <span class="document-header-name"> 
-                <span v-if="isTutor" v-language:inner="'resultNote_privet'"/>
+                <span v-if="isTutor">
+                  <span v-language:inner="'resultNote_privet'"/>&nbsp;
+                </span>
                 <span>{{authorName}}</span>     
               </span>
               <span class="date-area">{{uploadDate}}</span>
@@ -33,7 +35,8 @@
         <v-flex grow class="top-row">
 
           <div class="document-body-card">
-            <img class="document-body-card-img" :src="docPreviewImg(item.preview)" alt="">
+            <v-progress-circular v-if="!item.preview" class="document-body-card-img" :style="isMobile? 'height:108px; width:100%;' : 'height:130px'"  indeterminate v-bind:size="164" width="2" color="#514f7d"/>
+            <img v-else class="document-body-card-img" :src="docPreviewImg(item.preview)" alt="">
           </div>
 
           <div class="type-wrap">
@@ -41,11 +44,11 @@
               <div class="content-wrap">
                 <span class="item-title text-truncate">{{item.title}}</span>
                 <span class="item-course text-truncate">
-                  <span v-language:inner="'resultNote_course'"/> 
+                  <span v-language:inner="'resultNote_course'"/>&nbsp;
                   <span>{{item.course}}</span>
                 </span>
                 <span class="item-university text-truncate">
-                  <span v-language:inner="'resultNote_university'"/> 
+                  <span v-language:inner="'resultNote_university'"/>&nbsp;
                   <span>{{item.university}}</span> 
                 </span>
               </div>
