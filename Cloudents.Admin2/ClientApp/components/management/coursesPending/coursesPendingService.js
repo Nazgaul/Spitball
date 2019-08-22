@@ -13,15 +13,11 @@ const path = 'AdminCourse/';
 
 const getSubjects = function () {
     return connectivityModule.http.get(`${path}subject`).then((subjects) => {
-        let arrCourseList = [];
-        if (subjects.length > 0) {
+        let arrCourseList = ["N/A"];
             subjects.forEach((ci) => {
                 arrCourseList.push(ci);
             });
-        }
-        return Promise.resolve(arrCourseList);
-    }, (err) => {
-        return Promise.reject(err);
+        return arrCourseList;
     });
 };
 
@@ -51,7 +47,7 @@ const migrateCourses = function (newCourse, oldCourse) {
 };
 
 const approve = function (course) {
-    return connectivityModule.http.post(`${path}approve`, { "Course": course.name.name, "Subject": course.subject })
+    return connectivityModule.http.post(`${path}approve`, { "Course": course.name.name, "Subject": course.subject != "N/A" ? course.subject : null })
         .then((resp) => {
             console.log(resp, 'post doc success');
             return Promise.resolve(resp);
