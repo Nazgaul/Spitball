@@ -31,10 +31,6 @@
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <!--<v-flex v-show="!showSkelaton && showSelectUni" class="result-cell mb-3 empty-state-tutor" xs-12>-->
-                                    <!--<set-uni-class class="cell"></set-uni-class>-->
-                                <!--</v-flex>-->
-                                
                                 <v-flex class="result-cell" xs-12 v-for="(item, index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component v-if="showSkeleton" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
@@ -51,7 +47,7 @@
                     </v-container>
                 </scroll-list>
                 <div v-else>
-                    <empty-state-card :userText="userText"></empty-state-card>
+                    <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>
                 </div>
             </div>
         </div>
@@ -65,13 +61,6 @@
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
             </component>
         </template>
-
-        <!--<template slot="rightSide">-->
-            <!--<slot name="rightSide">-->
-                <!--<faq-block :isAsk="false" :isNotes="false" :name="currentSuggest" :text="userText"></faq-block>-->
-
-            <!--</slot>-->
-        <!--</template>-->>
             <v-flex class="result-cell mb-2 xs-12 order-xs3">
                 <suggest-card @click.native="openRequestTutor()" :name="currentSuggest"></suggest-card>   
             </v-flex>
