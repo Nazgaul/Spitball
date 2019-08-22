@@ -19,7 +19,8 @@
         </v-layout>
         <scroll-list :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete" class="layout column tutor-landing-page-body" >
             <v-flex class="tutor-landing-page-empty-state">
-                <empty-state-card v-if="items.length === 0 && query.term && showEmptyState" style="margin: 0 auto;" :userText="query.term"></empty-state-card>
+                <suggest-card v-if="items.length === 0 && query.term && showEmptyState" 
+                @click.native="openRequestTutor()" :name="'tutor-list'"></suggest-card>  
             </v-flex>
             <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
                 <tutor-result-card v-if="!isMobile" class="mb-3 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
@@ -45,14 +46,18 @@ import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput
 import tutorLandingPageService from './tutorLandingPageService';
 import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
 import findTutorCarousel from './components/findTutorCarousel/FindTutor-carousel.vue'
+import SuggestCard from '../results/suggestCard.vue'
+import analyticsService from '../../services/analytics.service.js'
 
+import { mapActions } from 'vuex'
 export default {
     components:{
         tutorResultCard,
         tutorResultCardMobile,
         tutorSearchComponent,
         emptyStateCard,
-        findTutorCarousel
+        findTutorCarousel,
+        SuggestCard
     },
     data(){
         return {
@@ -94,6 +99,7 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['setTutorRequestAnalyticsOpenedFrom','updateRequestDialog']),
         updateList(){
             this.showEmptyState = false;
             tutorLandingPageService.getTutorList(this.query).then(data=>{
@@ -118,6 +124,14 @@ export default {
         },
         setTopOffset(){
             this.topOffset = window.pageYOffset || document.documentElement.scrollTop;
+        },
+        openRequestTutor() {
+            analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
+            this.setTutorRequestAnalyticsOpenedFrom({
+                component: 'suggestCard',
+                path: this.$route.path
+            });
+            this.updateRequestDialog(true);
         }
     },
     created(){
@@ -215,9 +229,12 @@ export default {
         .responsive-property(margin-top, 15px, null, 0px);
 
         .tutor-landing-page-empty-state{
-            margin: 35px 0;
+            max-width: 920px; 
+            width:100%;
+            margin: 35px auto;
             @media (max-width: @screen-xs) {
-                margin: 25px 0;
+                margin: 25px 16px;
+                max-width: 94%;
             }
         }
         .tutor-landing-card-container{

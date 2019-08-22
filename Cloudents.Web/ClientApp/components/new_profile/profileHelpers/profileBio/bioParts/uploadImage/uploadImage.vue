@@ -18,22 +18,26 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import { LanguageService } from '../../../../../../services/language/languageService';
 
     export default {
         name: "uploadImage",
-        data() {
-            return {
-            }
-        },
         methods: {
-            ...mapActions(['uploadAccountImage', 'updateProfileImageLoader']),
+            ...mapActions(['uploadAccountImage', 'updateProfileImageLoader', 'updateToasterParams']),
             uploadProfilePicture() {
                 let self = this;
                 self.updateProfileImageLoader(true);
                 let formData = new FormData();
                 let file = self.$refs.profileImage.files[0];
                 formData.append("file", file);
-                self.uploadAccountImage(formData);
+                self.uploadAccountImage(formData).then((res) => {
+                    if(!res) {
+                        this.updateToasterParams({
+                            toasterText: LanguageService.getValueByKey("chat_file_error"),
+                            showToaster: true
+                        });
+                    }
+                })
             }
         },
     }
