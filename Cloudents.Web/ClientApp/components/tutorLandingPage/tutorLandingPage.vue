@@ -117,7 +117,6 @@ export default {
             this.updateList();
         },
         setTopOffset(){
-            console.log(this.query.page)
             this.topOffset = window.pageYOffset || document.documentElement.scrollTop;
         }
     },
