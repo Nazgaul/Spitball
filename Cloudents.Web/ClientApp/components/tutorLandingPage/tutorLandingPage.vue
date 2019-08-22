@@ -65,7 +65,7 @@ export default {
             scrollBehaviour:{
                 isLoading: false,
                 isComplete: false,
-                MAX_ITEMS: 25
+                MAX_ITEMS: 20
             },
             topOffset: 0
         }
@@ -95,8 +95,8 @@ export default {
     },
     methods:{
         updateList(){
-                this.showEmptyState = false;
-                tutorLandingPageService.getTutorList(this.query).then(data=>{
+            this.showEmptyState = false;
+            tutorLandingPageService.getTutorList(this.query).then(data=>{
                 if(data.length < this.scrollBehaviour.MAX_ITEMS){
                     this.scrollBehaviour.isComplete = true;
                 }
@@ -117,6 +117,7 @@ export default {
             this.updateList();
         },
         setTopOffset(){
+            console.log(this.query.page)
             this.topOffset = window.pageYOffset || document.documentElement.scrollTop;
         }
     },
