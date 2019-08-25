@@ -262,6 +262,9 @@ export default {
 
         },
         clearCanvas(){
+            this.resetDragData(this.getCurrentSelectedTab);
+            whiteBoardService.redraw(this.canvasData)
+
             let transferDataObj = {
                 type: "clearCanvas",
                 data: this.canvasData,
@@ -452,8 +455,5 @@ export default {
         canvasFinder.trackTransforms(this.canvasData.context);
         this.registerCanvasEvents(canvas, canvasWrapper);
         global.document.addEventListener("keydown", this.keyPressed);
-
-
-
     }
 }
