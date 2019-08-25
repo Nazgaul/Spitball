@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
@@ -18,12 +19,14 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
+        private readonly IDocumentDirectoryBlobProvider _blobProvider;
 
 
-        public ProfileController(IQueryBus queryBus, UserManager<User> userManager)
+        public ProfileController(IQueryBus queryBus, UserManager<User> userManager, IDocumentDirectoryBlobProvider blobProvider)
         {
             _queryBus = queryBus;
             _userManager = userManager;
+            _blobProvider = blobProvider;
         }
 
         // GET
@@ -106,7 +109,10 @@ namespace Cloudents.Web.Api
         [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]
 
-        public async Task<IEnumerable<DocumentFeedDto>> GetDocumentsAsync(long id, int page, CancellationToken token)
+        public async Task<IEnumerable<DocumentFeedDto>> GetDocumentsAsync(
+            long id, int page,
+            
+            CancellationToken token)
         {
             var query = new UserDataPagingByIdQuery(id, page);
             var retValTask = _queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, token);
@@ -125,7 +131,11 @@ namespace Cloudents.Web.Api
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
-
+                var uri = _blobProvider.GetPreviewImageLink(s.Id, 0);
+                var effect = ImageProperties.BlurEffect.None;
+                var properties = new ImageProperties(uri, effect);
+                var url = Url.ImageUrl(properties);
+                s.Preview = url;
                 if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                 {
                     s.Vote.Vote = p;
@@ -157,7 +167,11 @@ namespace Cloudents.Web.Api
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
-
+                var uri = _blobProvider.GetPreviewImageLink(s.Id, 0);
+                var effect = ImageProperties.BlurEffect.None;
+                var properties = new ImageProperties(uri, effect);
+                var url = Url.ImageUrl(properties);
+                s.Preview = url;
                 if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                 {
                     s.Vote.Vote = p;
