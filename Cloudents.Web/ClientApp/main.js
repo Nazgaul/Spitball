@@ -261,6 +261,9 @@ Vue.filter('fullMonthDate', function (value) {
     }
 // request a weekday along with a long month
     let options = {year: 'numeric', month: 'short', day: '2-digit'};
+    if(global.isRtl){
+        options.month = 'long'
+    }
     let languageDate = `${global.lang.toLowerCase()}-${global.country.toUpperCase()}`;
     let commaIndex = date.toLocaleDateString(languageDate, options).length - 5
     return date.toLocaleDateString(languageDate, options).insert(commaIndex,',');
