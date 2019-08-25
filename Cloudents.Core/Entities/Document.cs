@@ -68,7 +68,7 @@ namespace Cloudents.Core.Entities
 
         public virtual int Views { get; protected set; }
         public virtual int Downloads { get; protected set; }
-        public virtual int Purchased { get; protected set; }
+        //public virtual int Purchased { get; protected set; }
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; protected set; }
 
