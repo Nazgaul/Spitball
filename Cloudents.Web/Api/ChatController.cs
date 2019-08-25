@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -159,7 +160,7 @@ namespace Cloudents.Web.Api
         [HttpPost("uploadForm")]
         public async Task<ActionResult<UploadStartResponse>> UploadSingleFile(
             [FromForm] long otherUser,
-            IFormFile file, CancellationToken token)
+            [Required] IFormFile file, CancellationToken token)
         {
             var extension = Path.GetExtension(file.FileName);
             var userId = _userManager.GetLongUserId(User);
