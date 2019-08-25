@@ -9,22 +9,18 @@
                 <div v-if="!isLoaded ">
                     <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
                 </div>
-                <button v-show="!userImage" class="upload-btn font-weight-bold" :class="[errorUpload ?  'error-upload': '']">
-                    <span class="font-weight-bold"></span>
-                    <input class="become-upload"
-                           type="file" name="File Upload"
-                           @change="uploadImage"
-                           id="tutor-picture"
-                           accept="image/*"
-                           ref="tutorImage" v-show="false"/>
-                    <label for="tutor-picture">
-                        <span class="image-edit-text" v-language:inner>becomeTutor_upload_image</span>
-                    </label>
-                </button>
-
-
+                <label for="tutor-picture" v-show="!userImage" class="upload-btn font-weight-bold" :class="[errorUpload ?  'error-upload': '']">
+                <input class="become-upload"
+                        type="file" name="File Upload"
+                        @change="uploadImage"
+                        id="tutor-picture"
+                        accept="image/*"
+                        ref="tutorImage" v-show="false"/>
+                
+                    <span class="image-edit-text" v-language:inner="'becomeTutor_upload_image'"></span>
+                </label>
             </v-flex>
-            <v-flex xs12 sm6  class="inputs-wrap" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
+            <v-flex xs12 sm6 class="inputs-wrap" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
                 <v-layout column shrink justify-start>
                     <v-form v-model="validBecomeFirst" ref="becomeFormFirst">
                         <v-flex xs12 shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-3']">
@@ -118,7 +114,7 @@
 
         },
         methods: {
-            ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog']),
+            ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog', 'updateToasterParams']),
             loaded() {
                 this.isLoaded = true;
             },
@@ -128,12 +124,17 @@
                 let file = self.$refs.tutorImage.files[0];
                 formData.append("file", file);
                 self.uploadAccountImage(formData).then((done) => {
-                                                           self.imageAdded = true;
-                                                       },
-                                                       (error) => {
-                                                           self.imageAdded = false;
-                                                       }
-                );
+                    if(!done) {
+                        this.updateToasterParams({
+                            toasterText: LanguageService.getValueByKey("chat_file_error"),
+                            showToaster: true
+                        });
+                        return;
+                    }
+                    self.imageAdded = true;
+                    }).catch((error) => {
+                        self.imageAdded = false;
+                    });
             },
             nextStep() {
                 if(!this.imageAdded && !this.userImage ){
@@ -202,6 +203,7 @@
             font-weight: bold;
             color: @profileTextColor;
             padding: 12px 18px;
+            cursor: pointer;
         }
         .user-image {
             max-width: 214px;

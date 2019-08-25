@@ -6,9 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using static Cloudents.Core.Entities.ItemStatus;
-using static Cloudents.Core.Entities.Vote;
 
-//[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 
 namespace Cloudents.Core.Entities
 {
@@ -99,10 +97,7 @@ namespace Cloudents.Core.Entities
                 throw new NotFoundException();
             }
 
-            if (User == user)
-            {
-                throw new UnauthorizedAccessException("you cannot vote you own document");
-            }
+           
 
             var vote = Votes.AsQueryable().FirstOrDefault(w => w.User == user);
             if (vote == null)

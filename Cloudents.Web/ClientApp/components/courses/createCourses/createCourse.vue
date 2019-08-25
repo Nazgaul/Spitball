@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import { LanguageService } from "../../../services/language/languageService";
 
     export default {
@@ -80,6 +80,15 @@
                 this.changeCreateDialogState(false);
                 this.$root.$emit('courseDialogClosed', true);
             }
+        },
+        computed: {
+            ...mapGetters(['getSearchedCourse']),
+            course(){
+                return this.getSearchedCourse
+            }
+        },
+        created(){
+            this.courseName = this.course
         }
     };
 </script>
