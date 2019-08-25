@@ -262,6 +262,9 @@ export default {
 
         },
         clearCanvas(){
+            this.resetDragData(this.getCurrentSelectedTab);
+            whiteBoardService.redraw(this.canvasData)
+
             let transferDataObj = {
                 type: "clearCanvas",
                 data: this.canvasData,
@@ -270,6 +273,7 @@ export default {
             let normalizedData = JSON.stringify(transferDataObj);
             tutorService.dataTrack.send(normalizedData);
             whiteBoardService.clearData(this.canvasData, this.getCurrentSelectedTab);
+            helperUtil.HelperObj.isActive = false;
         },
         keyPressed(e) {
             let isPressedF10 = this.keyCodeChecker(e,121);
@@ -451,8 +455,5 @@ export default {
         canvasFinder.trackTransforms(this.canvasData.context);
         this.registerCanvasEvents(canvas, canvasWrapper);
         global.document.addEventListener("keydown", this.keyPressed);
-
-
-
     }
 }
