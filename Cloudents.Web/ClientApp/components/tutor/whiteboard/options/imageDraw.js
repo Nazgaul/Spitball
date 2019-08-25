@@ -116,6 +116,8 @@ const handleImage = function (e,isDragged) {
             // self.methods.addShape(localShape, clearLocalShape);
         };
         img.src = url;
+    },err=>{
+        store.dispatch("updateImgLoader", false);
     });
     //reset the element to allow same image to be uploaded
     e.target.value = "";
