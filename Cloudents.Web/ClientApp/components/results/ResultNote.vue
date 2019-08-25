@@ -5,10 +5,8 @@
               <user-avatar size="34" v-if="authorName" :userImageUrl="userImageUrl" :user-name="authorName" :user-id="authorId"/>
             <div class="document-header-name-container">
               <span class="document-header-name"> 
-                <span v-if="isTutor">
-                  <span v-language:inner="'resultNote_privet'"/>&nbsp;
-                </span>
-                <span>{{authorName}}</span>     
+                <span v-if="isTutor" v-html="$Ph('resultNote_privet',[authorName])"/>
+                <span v-else>{{authorName}}</span> 
               </span>
               <span class="date-area">{{uploadDate}}</span>
             </div>
@@ -41,16 +39,10 @@
 
           <div class="type-wrap">
             <v-flex grow class="data-row">
-              <div class="content-wrap">
+               <div class="content-wrap">
                 <span class="item-title text-truncate">{{item.title}}</span>
-                <span class="item-course text-truncate">
-                  <span v-language:inner="'resultNote_course'"/>&nbsp;
-                  <span>{{item.course}}</span>
-                </span>
-                <span class="item-university text-truncate">
-                  <span v-language:inner="'resultNote_university'"/>&nbsp;
-                  <span>{{item.university}}</span> 
-                </span>
+                <span class="item-course text-truncate" v-html="$Ph('resultNote_course',[item.course])"/>
+                <span class="item-university text-truncate" v-html="$Ph('resultNote_university',[item.university])"/>
               </div>
               <v-divider v-if="item.snippet && !isMobile" class="my-2"></v-divider>
               <div class="doc-snippet" v-if="item.snippet && !isMobile">
@@ -66,11 +58,11 @@
               <span>{{docViews}}</span>
               <span class="views" v-language:inner="'resultNote_views'"/> 
             </span>
-            <span v-if="docDownloads">
+            <span v-if="docDownloads && !item.price">
               <span>{{docDownloads}}</span>
-              <span class="downloads" v-language:inner="'resultNote_download'"/> 
+              <span class="downloads" v-language:inner="item.price? 'resultNote_purchased':'resultNote_download'"/> 
             </span>
-            <span v-if="docPurchased">
+            <span v-if="docPurchased && item.price">
               <span>{{docPurchased}}</span>
               <span class="downloads" v-language:inner="'resultNote_purchased'"/> 
             </span>

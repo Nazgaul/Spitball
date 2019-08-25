@@ -5,6 +5,7 @@ import {
 import whiteBoardService from '../whiteBoardService';
 import canvasFinder from '../utils/canvasFinder';
 import store from '../../../../store/index';
+import {LanguageService} from '../../../../services/language/languageService.js'
 
 const OPTION_TYPE = 'imageDraw';
 
@@ -63,11 +64,8 @@ const liveDraw = function (imgObj) {
 };
 
 const handleImage = function (e,isDragged) {
-    
     if(e.target.value === "" && !isDragged) return;
 
-    store.dispatch("updateShowBoxHelper", false);
-    store.dispatch("updateImgLoader", true);
     let formData = new FormData();
     let fileData;
     if(!isDragged){
@@ -75,6 +73,10 @@ const handleImage = function (e,isDragged) {
     } else{
         fileData = e.dataTransfer.files[0];
     }
+
+    if(!fileData) return 
+    store.dispatch("updateShowBoxHelper", false);
+    store.dispatch("updateImgLoader", true);
     formData.append("file", fileData);
     let self = this;
     //apiCall
@@ -116,6 +118,13 @@ const handleImage = function (e,isDragged) {
             // self.methods.addShape(localShape, clearLocalShape);
         };
         img.src = url;
+    },err=>{
+        store.dispatch("updateImgLoader", false);
+        store.dispatch('updateToasterParams', {
+            toasterText: LanguageService.getValueByKey("upload_multiple_error_extension_title"),
+            showToaster: true,
+            toasterType: 'error-toaster'
+        });
     });
     //reset the element to allow same image to be uploaded
     e.target.value = "";

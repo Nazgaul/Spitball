@@ -100,6 +100,7 @@ function DocumentItem(objInit) {
     this.course = objInit.course;
     this.dateTime = objInit.dateTime;
     this.downloads = objInit.downloads;
+    this.purchased = objInit.purchased;
     this.snippet = objInit.snippet;
     this.source = objInit.source;
     this.title = objInit.title;

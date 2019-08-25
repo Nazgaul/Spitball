@@ -18,7 +18,9 @@
         <nav class="tutoring-navigation">
           <div class="logo-nav-wrap">
             <span class="logo-container">
-              <AppLogo></AppLogo>
+              <a @click="resetItems()" class="logo-link">
+                <AppLogo></AppLogo>
+              </a> 
             </span>
             <div
               class="tutor-nav-item cursor-pointer"
@@ -35,6 +37,17 @@
             style="display: flex; align-items: center; max-height: 48px; justify-content: space-between;"
           >
             <startEndSessionBtn :id="id"></startEndSessionBtn>
+            
+            <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
+            
+            <div class="d-flex">
+              <v-btn flat icon @click="showIntercom">
+                <intercomSVG class="network-icon"/>
+              </v-btn>
+            </div> 
+            
+            <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
+
             <v-menu bottom origin="center center" transition="scale-transition">
               <template v-slot:activator="{ on }">
                 <v-btn flat icon v-on="on">
@@ -42,6 +55,7 @@
                 </v-btn>
                 <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
               </template>
+
               <v-list>
                 <v-list-tile @click="changeQualityDialogState(true)">
                   <v-list-tile-action>
@@ -56,9 +70,6 @@
               </v-list>
             </v-menu>
 
-            <!-- <div class="d-flex pr-4">
-              <networkLevel class="network-icon ml-3" :signalLevel="localNetworkQuality"></networkLevel>
-            </div> -->
           </div>
         </nav>
         <v-flex xs12   class="study-tools-wrapper">
@@ -233,6 +244,7 @@ import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfir
 import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
 import paymentDialog from './tutorHelpers/paymentDIalog/paymentDIalog.vue'
+import intercomSVG from './images/icon-1-2.svg'
 
 //store
 import storeService from "../../services/store/storeService";
@@ -265,7 +277,8 @@ export default {
     endSessionConfirm,
     browserSupport,
     paymentDialog,
-    codeEditorTools
+    codeEditorTools,
+    intercomSVG
   },
   name: "tutor",
   data() {
@@ -390,6 +403,7 @@ export default {
       "setRoomId",
       "setVideoDevice",
       "setAudioDevice",
+      "UPDATE_SEARCH_LOADING"
     ]),
     closeFullScreen(e){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
@@ -525,6 +539,17 @@ export default {
         })
 
         return ready;
+    },
+    resetItems(){
+      let isExit = confirm(LanguageService.getValueByKey("login_are_you_sure_you_want_to_exit"),)
+      if(isExit){
+        this.UPDATE_SEARCH_LOADING(true);
+        this.$router.push('/');
+      }
+    },
+    showIntercom(){
+      global.Intercom('show')
+      intercomSettings.hide_default_launcher = false;
     }
   },
   mounted() {
@@ -536,6 +561,7 @@ export default {
     storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
+    
   },
   created() {
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
