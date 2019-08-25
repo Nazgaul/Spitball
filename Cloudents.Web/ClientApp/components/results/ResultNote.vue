@@ -68,7 +68,11 @@
             </span>
             <span v-if="docDownloads">
               <span>{{docDownloads}}</span>
-              <span class="downloads" v-language:inner="item.price? 'resultNote_purchased' : 'resultNote_download'"/> 
+              <span class="downloads" v-language:inner="'resultNote_download'"/> 
+            </span>
+            <span v-if="docPurchased">
+              <span>{{docPurchased}}</span>
+              <span class="downloads" v-language:inner="'resultNote_purchased'"/> 
             </span>
           </div>
             <span class="right">
@@ -238,6 +242,11 @@ export default {
     docDownloads() {
       if (this.item) {
         return this.item.downloads;
+      }
+    },
+    docPurchased(){
+      if(this.item){
+        return this.item.purchased;
       }
     },
     uploadDate() {
