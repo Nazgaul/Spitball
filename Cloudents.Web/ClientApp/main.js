@@ -246,6 +246,12 @@ Vue.filter('dateFromISO', function (value) {
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
 
+String.prototype.insert = function (index, string) {
+    if (index > 0)
+      return this.substring(0, index) + string + this.substring(index, this.length);
+  
+    return string + this;
+  };
 // Nov 14, 2018 :: MDN Global_Objects/Date/toLocaleDateString
 Vue.filter('fullMonthDate', function (value) {
     let date = new Date(value);
@@ -256,7 +262,8 @@ Vue.filter('fullMonthDate', function (value) {
 // request a weekday along with a long month
     let options = {year: 'numeric', month: 'short', day: '2-digit'};
     let languageDate = `${global.lang.toLowerCase()}-${global.country.toUpperCase()}`;
-    return date.toLocaleDateString(languageDate, options);
+    let commaIndex = date.toLocaleDateString(languageDate, options).length - 5
+    return date.toLocaleDateString(languageDate, options).insert(commaIndex,',');
 });
 
 
