@@ -270,6 +270,7 @@ export default {
             let normalizedData = JSON.stringify(transferDataObj);
             tutorService.dataTrack.send(normalizedData);
             whiteBoardService.clearData(this.canvasData, this.getCurrentSelectedTab);
+            helperUtil.HelperObj.isActive = false;
         },
         keyPressed(e) {
             let isPressedF10 = this.keyCodeChecker(e,121);
