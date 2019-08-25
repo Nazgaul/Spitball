@@ -5,6 +5,7 @@ import {
 import whiteBoardService from '../whiteBoardService';
 import canvasFinder from '../utils/canvasFinder';
 import store from '../../../../store/index';
+import {LanguageService} from '../../../../services/language/languageService.js'
 
 const OPTION_TYPE = 'imageDraw';
 
@@ -118,6 +119,11 @@ const handleImage = function (e,isDragged) {
         img.src = url;
     },err=>{
         store.dispatch("updateImgLoader", false);
+        store.dispatch('updateToasterParams', {
+            toasterText: LanguageService.getValueByKey("upload_multiple_error_extension_title"),
+            showToaster: true,
+            toasterType: 'error-toaster'
+        });
     });
     //reset the element to allow same image to be uploaded
     e.target.value = "";
