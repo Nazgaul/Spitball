@@ -149,7 +149,7 @@
     <value>Free</value>
   </data>
   <data name="privet" xml:space="preserve">
-    <value>Tutor</value>
+    <value>Tutor {1}</value>
   </data>
   <data name="purchased" xml:space="preserve">
     <value>Purchases</value>

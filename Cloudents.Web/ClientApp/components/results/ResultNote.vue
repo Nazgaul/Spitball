@@ -5,10 +5,8 @@
               <user-avatar size="34" v-if="authorName" :userImageUrl="userImageUrl" :user-name="authorName" :user-id="authorId"/>
             <div class="document-header-name-container">
               <span class="document-header-name"> 
-                <span v-if="isTutor">
-                  <span v-language:inner="'resultNote_privet'"/>&nbsp;
-                </span>
-                <span>{{authorName}}</span>     
+                <span v-if="isTutor" v-html="$Ph('resultNote_privet',[authorName])"/>
+                <span v-else>{{authorName}}</span> 
               </span>
               <span class="date-area">{{uploadDate}}</span>
             </div>
