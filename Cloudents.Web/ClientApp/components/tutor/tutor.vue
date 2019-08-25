@@ -18,7 +18,10 @@
         <nav class="tutoring-navigation">
           <div class="logo-nav-wrap">
             <span class="logo-container">
+              <a @click="resetItems()" class="logo-link">
               <AppLogo></AppLogo>
+                                    <!-- <app-logo class="logo"></app-logo> -->
+                                </a> 
             </span>
             <div
               class="tutor-nav-item cursor-pointer"
@@ -390,6 +393,7 @@ export default {
       "setRoomId",
       "setVideoDevice",
       "setAudioDevice",
+      "UPDATE_SEARCH_LOADING"
     ]),
     closeFullScreen(e){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
@@ -525,7 +529,14 @@ export default {
         })
 
         return ready;
-    }
+    },
+    resetItems(){
+      let isExit = confirm(LanguageService.getValueByKey("login_are_you_sure_you_want_to_exit"),)
+      if(isExit){
+        this.UPDATE_SEARCH_LOADING(true);
+        this.$router.push('/');
+      }
+    },
   },
   mounted() {
     document.addEventListener("fullscreenchange",this.closeFullScreen);
