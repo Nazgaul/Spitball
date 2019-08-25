@@ -224,12 +224,14 @@ namespace Cloudents.FunctionsV2
                 Size = new Size(mutation.Width, mutation.Height),
                 Position = mutation.Position
             }));
-
+            image.Mutate(x => x.BackgroundColor(Rgba32.White));
             switch (mutation.BlurEffect)
             {
                 case ImageProperties.BlurEffect.None:
                     break;
                 case ImageProperties.BlurEffect.Part:
+                    //image.Mutate(x => x.BoxBlur(5));
+
                     image.Mutate(x => x.BoxBlur(5, new Rectangle(0, mutation.Height / 2, mutation.Width, mutation.Height / 2)));
                     break;
                 case ImageProperties.BlurEffect.All:
@@ -239,7 +241,7 @@ namespace Cloudents.FunctionsV2
                     throw new ArgumentOutOfRangeException();
             }
 
-            image.Mutate(x => x.BackgroundColor(Rgba32.White));
+           //
             return new FileCallbackResult("image/jpg", (stream, context) =>
             {
                 context.HttpContext.Response.Headers.Add("Cache-Control",
