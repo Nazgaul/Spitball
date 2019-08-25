@@ -58,15 +58,14 @@
               <span>{{docViews}}</span>
               <span class="views" v-language:inner="'resultNote_views'"/> 
             </span>
-
-            <span v-if="docDownloads">
+            <span v-if="docDownloads && !item.price">
               <span>{{docDownloads}}</span>
               <span class="downloads" v-language:inner="item.price? 'resultNote_purchased':'resultNote_download'"/> 
             </span>
-            <!-- <span v-if="docPurchased">
+            <span v-if="docPurchased && item.price">
               <span>{{docPurchased}}</span>
               <span class="downloads" v-language:inner="'resultNote_purchased'"/> 
-            </span> -->
+            </span>
           </div>
             <span class="right">
               <likeFilledSVG v-if="isLiked" @click.native.stop.prevent="upvoteDocument" class="likeSVG"/>
