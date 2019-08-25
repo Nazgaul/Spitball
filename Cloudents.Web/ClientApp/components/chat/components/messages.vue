@@ -253,7 +253,7 @@ export default {
                         transform: rotateY(0deg)/*rtl:rotateY(180deg)*/; 
                         color: #FFF;
                         font-size: 12px;
-                        background-color: #4452fc;
+                        background-color: @global-blue;
                         padding: 10px;
                         border-radius: 70%;
                         width: 30px;

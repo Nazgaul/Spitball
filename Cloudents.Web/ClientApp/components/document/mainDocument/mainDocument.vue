@@ -467,7 +467,7 @@ export default {
                 }
                 .courseName {
                     font-size: 18px;
-                    color: #43425d;
+                    color: @global-purple;
                     line-height: initial !important;
                     max-width: 0;
                     min-width: 60%;
@@ -559,7 +559,7 @@ export default {
                     }
                     span:nth-child(2) {
                         flex: 1;
-                        background-color: #4452fc;
+                        background-color: @global-blue;
                         border-radius: 0 4px 4px 0
                     }
                 }
@@ -581,7 +581,7 @@ export default {
                 left: 50%;
                 padding: 14px 72px;
                 border-radius: 5.5px;
-                background-color: #4452fc;
+                background-color: @global-blue;
                 z-index: 9;
                 margin-left: -340px;
                 i {

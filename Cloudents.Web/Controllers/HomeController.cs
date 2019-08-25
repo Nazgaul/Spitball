@@ -143,6 +143,11 @@ namespace Cloudents.Web.Controllers
             return View("Processing", model);
         }
 
+        public IActionResult GoogleTest()
+        {
+            return View();
+        }
+
 
     }
 }

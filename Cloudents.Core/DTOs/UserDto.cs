@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -43,7 +44,7 @@ namespace Cloudents.Core.DTOs
         public string Description { get; set; }
         [EntityBind(nameof(User.Online))]
         public bool Online { get; set; }
-
+        public bool CalendarShared { get; set; }
         //[EntityBind(nameof(Tutor.Id))]
         public UserTutorProfileDto Tutor { get; set; }
     }

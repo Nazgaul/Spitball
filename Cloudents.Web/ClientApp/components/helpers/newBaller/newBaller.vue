@@ -94,7 +94,7 @@
             display: flex;
         }
         .new-baller-header {
-            background-color: @purpleNewColor;
+            background-color: @global-purple;
         }
         .new-baller-btn{
             &.v-btn {
@@ -107,7 +107,7 @@
                 height: 32px;
                 text-transform: capitalize;
                 &.sb-background{
-                    background-color: @purpleNewColor;
+                    background-color: @global-purple;
 
 
                 }
@@ -134,7 +134,7 @@
             height: 43px;
             font-family: @fontOpenSans;
             font-size: 32px;
-            color: @purpleNewColor;
+            color: @global-purple;
             @media(max-width: @screen-xs){
                 font-size: 20px;
                 height: 30px;
@@ -158,7 +158,7 @@
                 font-weight: bold;
                 line-height: 1.38;
                 letter-spacing: -0.1px;
-                color: @purpleNewColor;
+                color: @global-purple;
             }
         }
         .new-baller-action-section {

@@ -1,0 +1,179 @@
+<template>
+    <div class="calendar-step-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
+        <img class="cal-img" src="../images/calImgNew.png" alt="">
+        <v-layout column wrap align-center justify-center class="calendar-step-wrap-cont">
+            <img src="../images/calendar.png" alt="">
+            <p v-language:inner="'becomeTutor_cal_step'"/>
+            <v-btn  color="#4452FC"
+                    round
+                    :loading='isLoading'
+                    class="white-text elevation-0 calbtnshare"
+                    @click="shareCalendar()">
+                <span v-language:inner="'becomeTutor_btn_cal_connect'"/>
+            </v-btn>
+        </v-layout>
+
+        <v-layout class="px-1 btns-cal-step"
+                  :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
+            <v-btn @click="goToPreviousStep()" class="cancel-btn elevation-0" round outline flat>
+                <span v-language:inner="'becomeTutor_btn_back'"/>
+            </v-btn>
+            <v-btn  color="#4452FC"
+                    round
+                    class="white-text elevation-0"
+                    @click="submit()">
+                <span v-language:inner="'becomeTutor_btn_done'"/>
+            </v-btn>
+
+        </v-layout>
+    </div>
+</template>
+
+<script>
+    import { mapActions, mapGetters } from 'vuex';
+    import { LanguageService } from "../../../services/language/languageService";
+    export default {
+        name: "calendarStep",
+        data() {
+            return {
+                isLoading: false
+            }
+        },
+        methods: {
+            ...mapActions(['updateTutorDialog',
+                            'gapiLoad',
+                            'gapiSignIn',
+                            'sendBecomeTutorData',
+                            'updateAccountUserToTutor',
+                            'updateToasterParams',
+                            'updateTeachingClasses'
+                            ]),
+            goToPreviousStep() {
+                this.$root.$emit('becomeTutorStep', 2);
+            },
+            shareCalendar(){
+                this.isLoading = true;
+                let self = this
+                this.gapiSignIn().then((res)=>{
+                    self.submit()
+                })
+            },
+            submit(){
+                let self = this
+                this.sendBecomeTutorData().then(
+                    (resp) => {
+                        self.$root.$emit('becomeTutorStep', 4);
+                        self.updateAccountUserToTutor(true);
+                        self.updateToasterParams({
+                            toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                            showToaster: true,
+                            toasterTimeout: 5000
+                        });
+                        self.updateTeachingClasses();
+                    },(error) => {
+                        let isConflict = error.response.status === 409;
+                        if(isConflict) {
+                            self.updateToasterParams({
+                                toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                                showToaster: true,
+                                toasterTimeout: 5000
+                            });
+                            self.updateTutorDialog(false);
+                        }
+                    }).finally(() => {                      
+                        self.isLoading = false;
+                });
+            }
+        },
+        created() {
+            let self = this;
+            this.$loadScript("https://apis.google.com/js/api.js").then(() => {
+                setTimeout(() => {
+                    self.gapiLoad();
+                },);
+            })
+        },
+    };
+</script>
+
+<style lang="less">
+    @import '../../../styles/mixin.less';
+
+    .calendar-step-wrap {
+                @media (max-width: @screen-xs) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 !important;
+            overflow: hidden;
+            justify-content: space-between;
+            height: inherit
+        }
+        position: relative;
+        .cal-img{
+            position: absolute;
+            bottom: -14px;
+            left: -24px;
+        }
+        .calendar-step-wrap-cont{
+                @media (max-width: @screen-xs) {
+                    display: flex;
+        justify-content: start;
+
+                }
+
+            img{
+                padding-bottom: 22px;
+                @media (max-width: @screen-xs) {
+                    padding-top: 16px;
+                    padding-bottom: 32px;
+                }
+            }
+            p{
+                margin: 0;
+                font-size: 20px;
+                line-height: 1.5;
+                letter-spacing: -0.51px;
+                color: @global-purple;
+                padding: 0 150px;
+                padding-bottom: 16px;
+                text-align: center;
+                @media (max-width: @screen-xs) {
+                    padding: 0 0 20px;
+
+                }
+
+            }
+            .v-btn{
+                @media (max-width: @screen-xs) {
+                  height: 46px;
+              }  
+            .v-btn__content{
+                span{
+                    letter-spacing: -0.42px;
+                    text-transform: none;
+                    font-size: 16px;
+                }
+            }
+            }
+        }
+        .blue-text {
+            color: @global-blue;
+        }
+        .v-input__slot .v-text-field__slot label {
+            color: @global-purple;
+        }
+        .btns-cal-step{
+            margin-top: 150px;
+                @media (max-width: @screen-xs) {
+                    margin-top: 0;
+                    align-items: flex-end;
+                }
+                .v-btn{
+                    @media (max-width: @screen-xs) {
+                        text-transform: capitalize;
+                    }
+                }
+        }
+    }
+</style>

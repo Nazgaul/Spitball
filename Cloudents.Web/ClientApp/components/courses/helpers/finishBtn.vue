@@ -27,9 +27,9 @@ import {mapMutations} from 'vuex'
     @import '../../../styles/mixin.less';
 .sb-outline{
     border-radius: 36px;
-    border: solid 1px @colorBlue;
+    border: solid 1px @global-blue;
     background-color: transparent!important;
-    color: @colorBlue!important;
+    color: @global-blue!important;
     span{
         font-size: 14px!important;
     }

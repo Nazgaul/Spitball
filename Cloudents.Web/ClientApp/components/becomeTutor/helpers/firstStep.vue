@@ -1,7 +1,8 @@
 <template>
     <div class="become-first-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
-        <v-layout row wrap align-start justify-center>
-            <v-flex xs12 sm4  shrink class="image-wrap text-xs-center">
+        <span class="become-first-span">Sharing your information and you will get more response from students</span>
+        <v-layout row wrap align-start class="become-first-cont">
+            <v-flex xs12 sm4 shrink class="image-wrap text-xs-center">
                 <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image"
                      @load="loaded">
                 <img v-show="!userImage" class="user-image" src="../images/placeholder-image.png" alt="upload image"
@@ -27,37 +28,51 @@
             <v-flex xs12 sm6  class="inputs-wrap" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
                 <v-layout column shrink justify-start>
                     <v-form v-model="validBecomeFirst" ref="becomeFormFirst">
-                        <v-flex xs12 shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-3']">
-                            <v-text-field outline
-                                          v-model="firstName"
-                                          :rules="[rules.required, rules.notSpaces]"
-                                          :placeholder="placeFirstName"
-                                          :label="placeFirstName"></v-text-field>
+                        <v-flex xs12 shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : '']">
+                            <v-text-field
+                            v-model="firstName"
+                            :rules="[rules.required, rules.notSpaces]"
+                            :placeholder="placeFirstName" 
+                            :label="placeFirstName"/>
                         </v-flex>
                         <v-flex xs12 :class="[$vuetify.breakpoint.smAndUp ? 'mb-4' : 'mb-3']">
-                            <v-text-field outline
-                                          v-model="lastName"
-                                          :rules="[rules.required, rules.notSpaces]"
-                                          :placeholder="placeLastName"
-                                          :label="placeLastName"></v-text-field>
-
+                            <v-text-field
+                                        v-model="lastName"
+                                        :rules="[rules.required, rules.notSpaces]"
+                                        :placeholder="placeLastName" 
+                                        :label="placeLastName"/>
                         </v-flex>
-                        <v-flex xs12 class="mt-2">
-                            <v-text-field outline class="font-weight-bold price-input"
-                                          :rules="[rules.required, rules.minimum, rules.maximum]"
-                                          v-model="price"
-                                          type="number"
-                                          :label="placePrice"></v-text-field>
+                        <v-flex xs12 class="mt-2 first-selects">
+                            <v-text-field 
+                                class="font-weight-bold price-input"
+                                :rules="[rules.required, rules.minimum, rules.maximum]"
+                                v-model="price"
+                                type="number"
+                                :label="placePrice"/>
+
+
+
+
+                            <!-- <v-select
+                                v-model="gender"
+                                :items="genderItems"
+                                class="font-weight-bold price-input"
+                                :rules="[rules.required]"
+                                :label="selectGender"
+                                :append-icon="'sbf-arrow-down'">
+                            </v-select> -->
                         </v-flex>
                     </v-form>
                 </v-layout>
             </v-flex>
         </v-layout>
-        <v-layout class="mt-5 px-1"
+        <v-layout class="mt-4 px-1 btns-first"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
+
             <v-btn @click="closeDialog()" class="cancel-btn elevation-0" round outline flat>
                 <span v-language:inner>becomeTutor_btn_cancel</span>
             </v-btn>
+
             <v-btn
                     color="#4452FC"
                     round
@@ -84,6 +99,7 @@
                 placeFirstName: LanguageService.getValueByKey("becomeTutor_placeholder_first_name"),
                 placeLastName: LanguageService.getValueByKey("becomeTutor_placeholder_last_name"),
                 placePrice: LanguageService.getValueByKey("becomeTutor_placeholder_price"),
+                selectGender: LanguageService.getValueByKey("becomeTutor_placeholder_select_gender"),
                 firstName: '',
                 lastName: '',
                 price: 50,
@@ -96,7 +112,9 @@
                     maximum: (value) => validationRules.maxVal(value, 200),
                     notSpaces: (value) => validationRules.notSpaces(value),
                 },
-                isLoaded: false
+                isLoaded: false,
+                gender: LanguageService.getValueByKey("becomeTutor_gender_male"),
+                genderItems:[LanguageService.getValueByKey("becomeTutor_gender_male"),LanguageService.getValueByKey("becomeTutor_gender_female")]
             };
         },
         computed: {
@@ -164,6 +182,53 @@
     @import '../../../styles/mixin.less';
 
     .become-first-wrap {
+        .btns-first{
+                        @media (max-width: @screen-xs) {
+                    align-items: flex-end;
+                }
+            .v-btn {
+              @media (max-width: @screen-xs) {
+                  height: 40px;
+                  padding: 0 20px;
+                  text-transform: capitalize;
+              }  
+            }
+        }
+
+        @media (max-width: @screen-xs) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+        .become-first-span{
+            padding-left: 30px;
+            font-size: 18px;        
+            letter-spacing: -0.51px;
+            color: @global-purple;
+            @media (max-width: @screen-xs) {
+                padding-left: 0;
+                text-align: center;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 1.5;
+                    letter-spacing: 0.3px;
+            }
+        }
+        .become-first-cont{
+            padding-left: 30px;
+            padding-top: 30px;
+            @media (max-width: @screen-xs) {
+                padding-left: 0;
+                flex-direction: column-reverse;
+                align-items: center;
+                width: 100%;
+                padding-top: 8px;
+            }
+            .first-selects{
+                display: flex;
+                justify-content: space-between;
+            }
+        }
         .error-upload{
             color: red!important;
         }
@@ -172,15 +237,26 @@
         }
         .image-wrap {
             position: relative;
-            min-width: 214px;
-            max-width: 214px;
+            min-width: 220px;
+            max-width: 220px;
+            @media (max-width: @screen-xs) {
+                padding-top: 6px;
+                padding-bottom: 12px;
+            }
         }
         .price-input {
             color: @textColor;
+            width: 40%;
+                max-width: 40%;
+            @media (max-width: @screen-xs) {
+                width: 100%;
+            }
         }
         .inputs-wrap {
-            margin-left: 20px;
+            margin-left: 35px;
+            min-width: 60%;
             @media (max-width: @screen-xs) {
+                width: 100%;
                 margin-left: unset;
             }
         }
@@ -200,20 +276,41 @@
             border: solid 1px rgba(67, 66, 93, 0.56);
             font-size: 12px;
             font-weight: bold;
-            color: @profileTextColor;
+            color: @global-purple;
             padding: 12px 18px;
         }
         .user-image {
-            max-width: 214px;
-            min-height: 240px;
-            border-radius: 4px;
+            max-width: 220px;
+            min-height: 270px;
+                object-fit: cover;
+            @media (max-width: @screen-xs) {
+            max-width: 136px;
+            min-height: 166px;
+            }
+            border-radius: 6px;
             border: 1px solid #f0f0f7;
         }
         .blue-text {
-            color: @colorBlue;
+            color: @global-blue;
         }
         .v-input__slot .v-text-field__slot label {
-            color: @profileTextColor;
+            color: @global-purple;
+            font-size: 18px;
+        }
+        .v-input{
+            input{
+                height: 50px;
+                max-height: 50px;
+            @media (max-width: @screen-xs) {
+                max-height: 44px;
+            }
+
+            }
+        } 
+        .v-text-field{
+            input{
+                font-size: 20px;
+            }
         }
         .v-text-field--outline > .v-input__control > .v-input__slot {
             border: solid 1px rgba(0, 0, 0, 0.19);

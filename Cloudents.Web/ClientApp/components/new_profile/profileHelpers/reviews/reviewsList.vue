@@ -41,7 +41,7 @@
         font-size: 22px;
         font-weight: 600;
         line-height: 0.77;
-        color: @profileTextColor;
+        color: @global-purple;
 
     }
     .single-review{

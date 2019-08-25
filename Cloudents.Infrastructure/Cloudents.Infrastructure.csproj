@@ -8,11 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="calendar.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Google\calendar.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.3" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.5.0" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.2.0" />
     <PackageReference Include="Dapper" Version="1.60.6" />
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.40.2.1643" />
     <PackageReference Include="Google.Apis.Docs.v1" Version="1.40.2.1670" />
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.40.2.1649" />
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
@@ -31,5 +40,11 @@
     <ProjectReference Include="..\Cloudents.Command\Cloudents.Command.csproj" />
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
     <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Google\Resources\CalendarResources.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

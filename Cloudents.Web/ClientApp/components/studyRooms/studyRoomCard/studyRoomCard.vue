@@ -166,7 +166,7 @@ export default {
                     color: #fff;
                     height: 32px;
                     width: 32px;
-                    background-color: #43425d;
+                    background-color: @global-purple;
                     border-radius: 50%;
                     margin: 0 auto;
                     display: flex;

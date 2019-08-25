@@ -74,17 +74,17 @@ import analyticsService from '../../../../services/analytics.service';
                 cursor: pointer;
                 color: lighten(#ffca54, 10%);
                 .btn-text{
-                    color: lighten(@profileTextColor, 10%);
+                    color: lighten(@global-purple, 10%);
                 }
             }
         }
         .btn-text{
             font-size: 16px;
             font-weight: bold;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .ct-btn-icon{
-            color: @profileTextColor;
+            color: @global-purple;
             font-size: 19px;
             padding-top: 5px;
         }

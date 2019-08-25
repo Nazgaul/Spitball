@@ -229,7 +229,6 @@
 <style lang="less">
     @import "../../../../../styles/mixin.less";
 
-    @purpleNewColor: #43425d;
     .upload-component-wrap {
         max-height: 200px;
         background-color: transparent;
@@ -243,7 +242,7 @@
             min-height: unset;
         }
         .col-blue {
-            color: @purpleNewColor;
+            color: @global-purple;
         }
         .c-pointer {
             cursor: pointer;
@@ -289,7 +288,7 @@
             font-family: @fontOpenSans;
             font-size: 18px;
             font-weight: 600;
-            color: @purpleNewColor;
+            color: @global-purple;
         }
         .upload-options {
             display: flex;

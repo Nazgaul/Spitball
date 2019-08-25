@@ -96,7 +96,7 @@
     @import '../../../styles/mixin.less';
     .course-created-wrap {
         .blue-text{
-            color: @colorBlue;
+            color: @global-blue;
         }
         .bottom-image{
             max-width: 266px;
@@ -111,7 +111,7 @@
         .solid {
             outline: none;
             border-radius: 24px;
-            background-color: @profileTextColor;
+            background-color: @global-purple;
             min-width: 168px;
             height: 48px;
             padding-right: 32px;

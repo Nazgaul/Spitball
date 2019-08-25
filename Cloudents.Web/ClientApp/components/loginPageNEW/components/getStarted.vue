@@ -195,7 +195,7 @@ export default {
                     font-weight: initial;
                     &.terms{
                     cursor: pointer;
-                    color: @color-login-text-link; 
+                    color: @global-blue; 
                     letter-spacing: -0.28px;
                     text-decoration: underline;
                     }
@@ -244,11 +244,11 @@ export default {
                     width: 32px;
                     height: 32px;
                 }
-                color: @color-login-text-link;
+                color: @global-blue;
                 span{
                     
                     margin: 0 34px 0 13px;
-                    color: @color-login-text-link;
+                    color: @global-blue;
                     font-size: 16px;
                     font-weight: normal;
                 }
@@ -270,7 +270,7 @@ export default {
             &.link{                
                 cursor: pointer;
                 letter-spacing: -0.37px;
-                color: @color-login-text-link;
+                color: @global-blue;
             }
         }
     }

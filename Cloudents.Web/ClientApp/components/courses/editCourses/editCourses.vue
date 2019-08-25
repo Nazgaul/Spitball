@@ -262,7 +262,7 @@
             }
         }
         .add-item {
-            color: @colorBlue;
+            color: @global-blue;
         }
     }
 

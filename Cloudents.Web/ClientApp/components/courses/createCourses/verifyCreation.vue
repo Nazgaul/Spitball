@@ -69,8 +69,8 @@
         }
         .outline{
             border-radius: 16px;
-            border: solid 1px @profileTextColor;
-            color: @profileTextColor;
+            border: solid 1px @global-purple;
+            color: @global-purple;
             background-color: transparent;
         }
         .min-width{
@@ -82,7 +82,7 @@
         .solid{
             border-radius: 16px;
             color: @color-white;
-            background-color: @profileTextColor;
+            background-color: @global-purple;
         }
     }
 

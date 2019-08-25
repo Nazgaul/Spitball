@@ -197,7 +197,7 @@
             color: @color-white;
         }
         .blue-text {
-            color: @colorBlue;
+            color: @global-blue;
         }
         .middle-layout-wrapper{
             &.ltr-style{
@@ -229,12 +229,12 @@
             height: 46px;
             background-color: @systemBackgroundColor;
             .heading-text {
-                color: @profileTextColor;
+                color: @global-purple;
             }
         }
         .review-title {
             font-size: 18px;
-            color: @profileTextColor;
+            color: @global-purple;
         }
     }
 

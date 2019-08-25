@@ -75,7 +75,7 @@ export default {
         p{
             margin: 5px 0 0;
             font-size: 14px;
-            color: @color-login-text-link;
+            color: @global-blue;
             cursor: pointer;
         }
     }
@@ -91,7 +91,7 @@ export default {
         line-height: 25px;
         .link{
             cursor: pointer;
-            color: @color-login-text-link;
+            color: @global-blue;
         }
         div{
         .responsive-property(margin-top, inherit, null, 36px);

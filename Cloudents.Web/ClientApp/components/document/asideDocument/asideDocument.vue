@@ -193,13 +193,13 @@ export default {
             }
             p:nth-child(2) {
                 font-size: 15px;
-                color: #43425d;
+                color: @global-purple;
             }
             p:nth-child(3) {
-                color: #43425d;
+                color: @global-purple;
             }
             p:nth-child(5) {
-                color: #4452fc;
+                color: @global-blue;
             }
             .get-online{
                 margin-bottom: 10px;
@@ -234,13 +234,13 @@ export default {
                     }
                     span:nth-child(2) {
                         flex: 1;
-                        background-color: #4452fc;
+                        background-color: @global-blue;
                         border-radius: 0 4px 4px 0
                     }
                 }
                 &.btn-download {
                     height: 70px;
-                    background-color: #4452fc;
+                    background-color: @global-blue;
                     i {
                         font-size: 26px;     
                     }

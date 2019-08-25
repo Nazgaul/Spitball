@@ -176,7 +176,7 @@
             background-color: #f0f0f7;
             width: 100%;
             max-height: 50px;
-            color: @profileTextColor;
+            color: @global-purple;
             font-family: @fontOpenSans;
             font-size: 18px;
             font-weight: bold;
@@ -186,10 +186,10 @@
             font-size: 16px;
             font-weight: bold;
             letter-spacing: -0.3px;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .edit-icon{
-            color: @profileTextColor;
+            color: @global-purple;
             font-size: 18px;
         }
         .v-text-field--outline > .v-input__control > .v-input__slot {

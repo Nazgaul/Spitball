@@ -36,14 +36,16 @@ namespace Cloudents.Query.Query
                     
                     var t =  await conn.QueryAsync<UserProfileDto, UserTutorProfileDto, UserProfileDto>(@"
 select u.id,u.Image,u.Name,u2.name as universityName, u.Score, u.description,u.online,
+case when gt.Id is null then cast(0 as bit) else cast(1 as bit) end as CalendarShared,
 t.price as price, u.FirstName,u.LastName,
-
 (Select avg(rate) from sb.tutorReview where tutorId = t.Id) as rate,
 (Select count(*) from sb.tutorReview where tutorId = t.Id) as ReviewCount
 from sb.[user] u 
 left join sb.[University] u2 on u.UniversityId2 = u2.Id
 left join sb.Tutor t 
 	on U.Id = t.Id and t.State = 'Ok'
+left join sb.GoogleTokens gt
+	on u.Id = gt.Id
 where u.id = @Id
 and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())
 ", (dto, profileDto) =>

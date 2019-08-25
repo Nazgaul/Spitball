@@ -11,82 +11,52 @@
             <p v-language:inner="'payme_bottom'"/>
             <img src="./images/card.png" alt="">
         </div>
-        <v-dialog v-if="confirmExit"
-        v-model="confirmExit"
-        content-class="payme-popup-exit"
-        :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
-
-
-        <v-layout align-center column class="payme-popup-exit">
-            <div class="payme-popup-exit-top">
-                <span v-language:inner="'payme_confirm-exit'"/>
-            </div>
-            <div class="payme-popup-exit-btns pb-3">
-                <v-btn depressed @click="confirmExit=false" v-language:inner="'payme_confirm-cancel'"/>
-                <v-btn depressed color="info" @click="setConfirmExit" v-language:inner="'payme_confirm-yes'"/>
-            </div>
-        </v-layout>
-
-      </v-dialog>
     </v-layout>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-import studyRoomService from '../../../../services/studyRoomsService.js'
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'paymentDIalog',
     data() {
         return {
-            confirmExit: false
+            tutorName: ''
         }
     },
     computed: {
-        ...mapGetters(['getPaymentUrl','getStudyRoomData','getIsRoomFull']),
-        tutorName(){
-            let studyRoomData = this.getStudyRoomData
-            if(studyRoomData){
-                return studyRoomData.tutorName
-            }
-        },
+        ...mapGetters(['getPaymentURL','getProfile','getStudyRoomData']),
+        // tutorName(){
+            // let studyRoomData = this.getStudyRoomData
+            // if(!!studyRoomData){
+            //     return studyRoomData.tutorName
+            // }else{
+            //     return this.getProfile.user.tutorData.firstName
+            // }
+        // },
         paymentUrl(){
-            return this.getPaymentUrl
+            return this.getPaymentURL
         }
     },
     methods: {
         ...mapActions(['updatePaymentDialog']),
         closePaymentDialog(){
-            // this.confirmExit = true;
             this.updatePaymentDialog(false)
         },
-        // setConfirmExit(){ 
-        // // if(this.getIsRoomFull){
-        // //     studyRoomService.skipNeedPayment({studyRoomId:this.getStudyRoomData.roomId })
-        // // }
-        //    this.updatePaymentDialog(false)
-        // }
+    },
+    created() {
+        if(this.$route.name === 'profile'){
+            this.tutorName = this.getProfile.user.tutorData.firstName
+        } else{
+            this.tutorName = this.getStudyRoomData.tutorName
+        }
+
     },
 }
 </script>
 
 <style lang="less">
-.payme-popup-exit{
-    width: 600px;
-    border-radius: 4px;
-    background-color: #ffffff;
-        .payme-popup-exit-top{
-        padding: 15px;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 1.5;
-        color: #43425d;
-        text-align: center;
-        }
-        .payme-popup-exit-btns{
-
-        }
-    }
+@import '../../../../styles/mixin.less';
 .payme-popup{
     position: relative;
     max-width: 800px;
@@ -108,7 +78,7 @@ export default {
         font-size: 18px;
         font-weight: 700;
         line-height: 1.5;
-        color: #43425d;
+        color: @global-purple;
     }
     .payme-popup-bottom{
         display: flex;

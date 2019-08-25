@@ -76,7 +76,7 @@
         .theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat) {
             &.sb-yellow-btn {
                 background-color: @yellowColor;
-                color: @profileTextColor;
+                color: @global-purple;
             }
             &.wide-btn {
                 width: 162px;

@@ -3,8 +3,8 @@
         <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="{'back-image': isLastStep}">
             <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
                 <v-flex xs12 sm12  class="text-xs-center mt-1">
-                    <v-icon class="become-title face-icon mr-2">sbf-face-icon</v-icon>
-                    <span class="subheading font-weight-bold become-title" v-language:inner>becomeTutor_title_become</span>
+                    <v-icon class="face-icon mr-2">sbf-face-icon</v-icon>
+                    <span class="become-title" v-language:inner>becomeTutor_title_become</span>
                 </v-flex>
             </v-layout>
             <v-stepper-header class="sb-box" v-show="!isLastStep">
@@ -14,14 +14,19 @@
                                 :complete-icon="'sbf-checkmark'" step="1">
                     <span v-language:inner>becomeTutor_personal_details</span>
                 </v-stepper-step>
-                <v-stepper-step class="step-control justify-center" color="#4452FC"
+                <v-stepper-step class="step-control justify-center who" color="#4452FC"
                                 :complete="currentStep > 2"
                                 :complete-icon="'sbf-checkmark'" step="2">
                     <span v-language:inner>becomeTutor_who</span>
                 </v-stepper-step>
+                <v-stepper-step class="step-control justify-center" color="#4452FC"
+                                :complete="currentStep > 3"
+                                :complete-icon="'sbf-checkmark'" step="3">
+                    <span v-language:inner>becomeTutor_calendar</span>
+                </v-stepper-step>
             </v-stepper-header>
             <v-stepper-items>
-                <v-stepper-content v-for="n in steps" class="mt-3"
+                <v-stepper-content v-for="n in steps" 
                                    :key="`step_${n}`"
                                    :step="n">
                     <keep-alive>
@@ -36,14 +41,15 @@
 <script>
     import step_1 from './helpers/firstStep.vue';
     import step_2 from './helpers/secondStep.vue';
-    import step_3 from './helpers/finalStep.vue';
+    import step_3 from './helpers/calendarStep.vue'
+    import step_4 from './helpers/finalStep.vue';
 
     export default {
         name: "becomeTutor",
-        components: {step_1, step_2, step_3},
+        components: {step_1, step_2, step_3,step_4},
         data() {
             return {
-                steps: 3,
+                steps: 4,
                 currentStep: 1,
             };
         },
@@ -71,7 +77,7 @@
 
     .v-dialog {
         &.become-tutor {
-            border-radius: 4px;
+            border-radius: 6px;
             box-shadow: 0 3px 13px 0 rgba(0, 0, 0, 0.22);
         }
     }
@@ -96,12 +102,21 @@
             }
         }
         .cancel-btn {
-            border: solid 1px @colorBlue;
-            color: @colorBlue;
+            border: solid 1px @global-blue;
+            color: @global-blue;
         }
+          
         .step-control {
-            padding: 0 80px;
-            width: 50%;
+            padding: 0 20px;
+            width: 33%;
+            justify-content: start;
+            @media(max-width: @screen-xs){
+                padding: 0 18px;
+                justify-content: center;
+            }
+
+        }
+        .who{
             @media(max-width: @screen-xs){
                 padding: 0 24px;
             }
@@ -110,28 +125,85 @@
             color: @color-white;
         }
         .become-header {
-            background-color: @systemBackgroundColor;
-            padding:6px 0;
+            height: 56px;
+            border-bottom: solid 1px #dddddd;
+
+            @media(max-width: @screen-xs){
+                height: 54px;
+            }
+        }
+        .v-stepper__step{
+            @media(max-width: @screen-xs){
+                flex-direction: column;
+            }      
+            
         }
         .v-stepper__step--active {
-            border-bottom: solid 2px @colorBlue;
+            border-bottom: solid 6px @global-blue;
         }
-        .sb-box {
-            box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-            height:  48px;
-        }
-        .v-stepper:not(.v-stepper--vertical) .v-stepper__label{
-            display: flex;
-            padding-left: 12px;
+
+        .v-stepper__items{
             @media(max-width: @screen-xs){
-                padding-left: 6px;
+                height: calc(~"100% - 150px");
+                overflow: auto;
+                .v-stepper__content{
+                    height: 100%;
+                    .v-stepper__wrapper{
+                       height: 100%;
+                       overflow: initial;
+                    }
+                }
+            } 
+        }
+        
+        
+        .sb-box {
+            border-bottom: solid 1px #dddddd;
+            height: 62px;
+            box-shadow: none;
+            @media(max-width: @screen-xs){
+                height: 96px;
+            }
+        }
+        .v-stepper__step__step{
+            height: 30px;
+            width: 30px;
+            font-size: 16px;
+        }
+        .v-stepper__step--complete{
+            .v-stepper__step__step{
+                background-color: #2ec293 !important;
+                .v-icon{
+                    font-size: 24px;
+                }
+            }
+        }
+
+        .v-stepper:not(.v-stepper--vertical) .v-stepper__label{
+            font-size: 16px;
+            letter-spacing: -0.3px;
+            color: @global-purple;
+            display: flex;
+            padding-left: 6px;
+            @media(max-width: @screen-xs){
+                padding-left: 0;
+                font-size: 14px;
+                text-align: center;
+                padding-top: 8px;
             }
         }
         .become-title {
-            color: @profileTextColor;
+            color: @global-purple;
+            font-size: 20px;
+            font-weight: bold;
         }
         .face-icon {
-            vertical-align: middle;
+            vertical-align: bottom;
+            color: @global-purple;
+            
+        }
+        .v-btn__content{
+            padding: 0 20px;
         }
 
     }

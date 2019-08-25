@@ -111,7 +111,7 @@
         .about-title{
             height: 18px;
              line-height: 1;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .read-more-action{
             text-align: center;

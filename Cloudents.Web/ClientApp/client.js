@@ -4,6 +4,7 @@ import analyticsService from './services/analytics.service'
 // get dictionary before we load the website
 global.lang = document.getElementsByTagName("html")[0].getAttribute("lang");
 global.mainCdn = true;
+global.client_id = '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com';
 
 //TODO change this fix to something else
 /*makes sure user have the latest client version temporary solution*/
@@ -22,9 +23,20 @@ let minute = 60000;
 window.setInterval(versionCheck, minute * 30);
 versionCheck();
 
+function errorHandling(err) {
+    let body = document.body;
+    var errJson = JSON.stringify(err);
+    console.error(err);
+    //for (let prop in err) {
+        let el = document.createElement('div');
+        el.innerHTML = errJson
+        body.appendChild(el);  
+}
 GetDictionary().then(() => {
     function getComponent() {
-        return import("./main").catch(error => error);
+        return import("./main").catch(err => {
+            errorHandling(err);
+        });
     }
 
     // dynamic import the main component
@@ -40,12 +52,7 @@ GetDictionary().then(() => {
             });
         }
         catch (err) {
-            let appEl = document.getElementById("app");
-            for (let prop in err) {
-                let el = document.createElement('div');
-                el.innerHTML = err[prop];
-                appEl.appendChild(el);
-            }
+            errorHandling(err);
         }
     });
 });

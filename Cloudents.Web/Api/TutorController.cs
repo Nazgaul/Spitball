@@ -26,6 +26,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using Google.Apis.Auth.OAuth2.Responses;
 using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
@@ -152,7 +156,7 @@ namespace Cloudents.Web.Api
             [FromHeader(Name = "referer")] Uri referer,
             CancellationToken token)
         {
-            
+
             if (_userManager.TryGetLongUserId(User, out var userId))
             {
                 var query = new UserEmailInfoQuery(userId);
@@ -246,7 +250,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError("error", _stringLocalizer["Invalid Course"]);
                 return BadRequest(ModelState);
             }
-            
+
             return Ok();
         }
 
@@ -256,6 +260,52 @@ namespace Cloudents.Web.Api
             var query = new AboutTutorQuery();
             var retValTask = await _queryBus.QueryAsync(query, token);
             return retValTask;
+        }
+
+
+        [HttpPost("calendar/Access"), Authorize]
+        public async Task<IActionResult> AccessCalendarAsync([FromBody] GoogleCalendarAuth model,
+            [FromServices] ICalendarService calendarService,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var url = Request.GetUri();
+            var baseUrl = $"{url.Scheme}://{url.Authority}{Url.Content("~")}";
+
+            await calendarService.SaveTokenAsync(model.Code, userId, baseUrl, token);
+            return Ok();
+        }
+
+        [HttpGet("calendar/events"),Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), 555)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<IEnumerable<CalendarEventDto>>> GetTutorCalendarAsync(
+            [FromQuery]CalendarEventRequest model,
+            [FromServices] ICalendarService calendarService,
+            CancellationToken token)
+        {
+            try
+            {
+                var res = await calendarService.ReadCalendarEventsAsync(model.TutorId, model.From, model.To, token);
+                return Ok(res);
+            }
+            catch(TokenResponseException e)
+            {
+                return StatusCode(555, new { massege = "site do not have permissions to user calendar" });
+            }
+        }
+
+
+        [HttpPost("calendar/events"), Authorize]
+        public async Task<IActionResult> SetTutorCalendarAsync(
+            [FromBody]CalendarEventRequest model,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From, model.To);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
     }
 }

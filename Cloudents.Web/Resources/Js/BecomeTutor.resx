@@ -126,6 +126,9 @@
   <data name="btn_back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="btn_cal_connect" xml:space="preserve">
+    <value>Connect your Google Calendar</value>
+  </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -134,6 +137,12 @@
   </data>
   <data name="btn_next" xml:space="preserve">
     <value>Next</value>
+  </data>
+  <data name="calendar" xml:space="preserve">
+    <value>Connect your Calendar</value>
+  </data>
+  <data name="cal_step" xml:space="preserve">
+    <value>To show your avalability you must connect your Google Calendar</value>
   </data>
   <data name="label_bio" xml:space="preserve">
     <value>Bio</value>
@@ -176,5 +185,14 @@
   </data>
   <data name="who" xml:space="preserve">
     <value>Who are you</value>
+  </data>
+  <data name="gender_female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="gender_male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="placeholder_select_gender" xml:space="preserve">
+    <value>Select gender</value>
   </data>
 </root>

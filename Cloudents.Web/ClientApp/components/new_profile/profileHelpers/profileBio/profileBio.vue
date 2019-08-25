@@ -239,13 +239,13 @@ export default {
     font-size: 18px;
     font-weight: bold;
     letter-spacing: -0.4px;
-    color: @profileTextColor;
+    color: @global-purple;
     @media (max-width: @screen-xs) {
       justify-content: center;
     }
     .face-icon {
       font-size: 18px;
-      color: @profileTextColor;
+      color: @global-purple;
     }
   }
   .tutor-price {
@@ -253,7 +253,7 @@ export default {
     font-weight: bold;
     font-size: 20px;
     flex-shrink: 0;
-    color: @profileTextColor;
+    color: @global-purple;
     @media (max-width: @screen-xs) {
       font-size: 26px;
     }

@@ -101,7 +101,6 @@ namespace Cloudents.Core.Entities
         public virtual DateTime ManualBoost { get; protected set; }
         //protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
 
-
         public virtual byte[] Version { get; protected set; }
         public virtual void AddReview(string review, float rate, User user)
         {

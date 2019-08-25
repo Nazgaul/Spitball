@@ -122,7 +122,7 @@
             }
         }
         .courses-title {
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .border{
             border-top: 1px solid #f0f0f7;
@@ -132,7 +132,7 @@
             .giveMeEllipsisOne();
             font-weight: 100;
             font-size: 14px;
-            color: @linkColor;
+            color: @global-blue;
             
             cursor: pointer;
         }
