@@ -129,6 +129,9 @@
   <data name="email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="invalid" xml:space="preserve">
+    <value>Invalid course name</value>
+  </data>
   <data name="label_add" xml:space="preserve">
     <value>Add</value>
   </data>

@@ -29,6 +29,7 @@ export default {
                 required: (value) => validationRules.required(value),
                 maximumChars: (value) => validationRules.maximumChars(value, 255),
                 email: (value) => validationRules.email(value),
+                matchCourse:() => (this.suggestsCourses.length && this.suggestsCourses.some(course=>course.text === this.tutorCourse.text)) || LanguageService.getValueByKey("tutorRequest_invalid")
             },
             btnSubmitPlaceholder: LanguageService.getValueByKey("tutorRequest_btn_submit"),
             btnClosePlaceholder: LanguageService.getValueByKey("tutorRequest_btn_close"),
@@ -38,7 +39,7 @@ export default {
             guestNamePlaceHolder : LanguageService.getValueByKey("tutorRequest_name"),
             guestEmailPlaceHolder : LanguageService.getValueByKey("tutorRequest_email"),
             guestPhoneNumberPlaceHolder : LanguageService.getValueByKey("tutorRequest_phoneNumber"),
-            universityPlaceHolder : LanguageService.getValueByKey("tutorRequest_university"),
+            universityPlaceHolder : LanguageService.getValueByKey("tutorRequest_university")
         };
     },
     computed: {

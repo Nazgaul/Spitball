@@ -52,7 +52,7 @@
                   v-model="tutorCourse"
                   :items="suggestsCourses"
                   :placeholder="coursePlaceholder"
-                  :rules="[rules.required]"/>
+                  :rules="[rules.required,rules.matchCourse]"/>
               </v-flex>
               <v-flex xs12 v-else>
                 <v-combobox
@@ -64,7 +64,7 @@
                   v-model="tutorCourse"
                   :items="suggestsCourses"
                   :placeholder="coursePlaceholder"
-                  :rules="[rules.required]"/>
+                  :rules="[rules.required,rules.matchCourse]"/>
               </v-flex>
               
               <v-flex xs12 md6 v-if="!isAuthUser">
