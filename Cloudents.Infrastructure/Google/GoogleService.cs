@@ -116,7 +116,7 @@ namespace Cloudents.Infrastructure.Google
                 return webLink;
             }
         }
-        
+
 
         public async Task<IEnumerable<CalendarEventDto>> ReadCalendarEventsAsync(long userId,
             DateTime from, DateTime max,
@@ -163,12 +163,13 @@ namespace Cloudents.Infrastructure.Google
             UserCredential credential;
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json"))
+            using (var child = _container.BeginLifetimeScope())
             {
                 var initializer = new GoogleAuthorizationCodeFlow.Initializer
                 {
                     ClientSecrets = GoogleClientSecrets.Load(stream).Secrets,
                     Scopes = new[] { CalendarService.Scope.CalendarReadonly },
-                    DataStore = _container.Resolve<GoogleDataStore>()
+                    DataStore = child.Resolve<GoogleDataStore>()
                 };
                 //TODO: need to find solution We can't dispose the flow because we are using it in the code 
                 var flow = new GoogleAuthorizationCodeFlow(initializer);
@@ -192,7 +193,7 @@ namespace Cloudents.Infrastructure.Google
 
             }.FromPrivateKey("-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC6j5Wb+58PaIlE\nlWeitrRDKWo7gDgw3BgKCK1MA9IZd7nI5gAQDoE6X/UTFt2PHD4QtQU5juNVSS+1\nhgppSAZIHlCKiUKnNg4X5FmODk3XlrZSWsTINLosVl3W9f1tntnL2ll518NTfsv5\nCSf0D/X6+wwJ/QbgTeX2miyCfZlOsU7ARlYeXMQgPiizebVQZ4OKFETbPBf694U3\nHm7aheRPMBYb2ZKNuzJVGvi8P6IWsTgAdWb9VwrBDWgWTju2x08ux2mnmgL09ZAw\ni2KD3dQ9KfeLv/XIWcHPCRLJsnpcHABuBlr83XUrMKMt//VvN60NgmIbnZc19b4P\nwyZr8qgTAgMBAAECggEACBY8RSWBmMCOdAoeksI6YHpARXGtPd+fLSQreug5fcAf\nrgfbndaQdHrUsUNO+aqe6B4oqqeOeX5xfSa2dyeCRN2yM7x3xq7EVUshNKlbEiAm\n1BK6L/bVJncx8c+k8NEEyN40qGBEHRpEdjhBjUX52Ct0s07Osv9oG1SbNFGEc+bk\nTHTZVXYGSJRkyo3BNLohXo+pFgIdWrzD5zaURCQwxNJPJRHA3GRSVDIaQ7ik9PXK\nqm/8+rrQAv4oAifbYxF0KWI7Sj2q9JLFCfXJXmIIMq/n4l5NcpVKJstvGWe7qYFT\ne4uCn8ItVxpTJWBRDv8oL6NUsgZog0eK82/PKYucuQKBgQDylaw4zXykUzLnGh9G\nadnAVNFnxA8Yh3PwAL5V+qRXMbIWxqeOFxMeg3UDjEaUXAmn0J3Y038xm7Bsp+FY\nmJDWi77aCNvZKOs227tmLTFOEZZ1BDvgaNU+gT7XXRQWABc+5YxR/bLHan6vDnYP\nyh21BEiruUQTbdmn1kumA/QuqQKBgQDE4MUeNEMMPJrKQyPBYw/CRk4dW1/R2gX7\nEttcSk9g9UObNizXlqVPHNcDfISreuBPFq+sE6npxkraobKSYdulLtsFxw7MSBe4\niA7mppltdYknwms+VyVJL//cGQXOqG/IcEBoIiJN4DSNUIjC8ArMVYF5OXkzm6X0\nw4suwrrCWwKBgQDmR+keXwr0XzqSIb0QtckNCDdlXrvJ2EPZ0IreybkaQMXDUz+Z\n5hOzQq1g+dfCXICZ+rLtMxCqghX/f3qvBN1xnWVGS2SQCIUJJZwHCd2lM5L1cFh6\n1mmgFUcXYHeBzwJCJdyHtOLy5Qhvm7W9lWuP/AoUYiHao8wbxJU5esVhSQKBgQCO\nf43NBdC9q6Px39SiZZwDZrWlY/yfvGl1x7lEPHjl2b/cOMMOK/hsoZgy6s5v+5kd\nRXNTXkwua5rEUiMY9oFvNtHKhcB9NXUN2FTIty733gmu4HaVAah4J6jOWsIsSRfX\ngP/tHz+rFCuVWQQT7IA0U3NKFcJXC0J8PYihCMr6XwKBgH6NQiVYrg6Z6E1+T2+K\nWwfKem7uwDMi1FSi1IG9++nN92eO7ZZka4YEZ7runa4DS9a1oA6kIipT1JxAAQzi\nwhODOWc47SrdWlj9TwZm1ky8SAHvaxvECDJenWr+ooXzmdAiApnEHxQt4VsxuYhz\neLf0iFOJEWE47mX1CjBYuiSA\n-----END PRIVATE KEY-----\n"));
             var x = new System.Resources.ResourceManager(typeof(CalendarResources));
-            var eventName =  x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture);
+            var eventName = x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture);
 
             using (var service = new CalendarService(new BaseClientService.Initializer()
             {
@@ -221,19 +222,20 @@ namespace Cloudents.Infrastructure.Google
                 event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
                 await event2.ExecuteAsync(cancellationToken);
             }
-            
+
         }
 
-        public async Task SaveTokenAsync(string token, long userId,string uri,
+        public async Task SaveTokenAsync(string token, long userId, string uri,
             CancellationToken cancellationToken)
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json"))
+            using (var child = _container.BeginLifetimeScope())
             {
                 var initializer = new GoogleAuthorizationCodeFlow.Initializer
                 {
                     ClientSecrets = GoogleClientSecrets.Load(stream).Secrets,
                     Scopes = new[] { CalendarService.Scope.CalendarReadonly },
-                    DataStore = _container.Resolve<GoogleDataStore>()
+                    DataStore = child.Resolve<GoogleDataStore>()
 
                 };
 
@@ -245,7 +247,7 @@ namespace Cloudents.Infrastructure.Google
                 }
             }
 
-            
+
         }
     }
 }
