@@ -139,6 +139,6 @@
     <value>Thank you!</value>
   </data>
   <data name="add_event_title" xml:space="preserve">
-    <value>Schedueling an online tutoring session with</value>
+    <value>Schedueling an online tutoring session with {1}</value>
   </data>
 </root>
