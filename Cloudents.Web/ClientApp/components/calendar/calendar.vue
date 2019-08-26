@@ -24,10 +24,7 @@
           <v-card v-if="addEventDialog" class="addEventDialog" id="addEventDialog">
             <div :class="['event-dialog-title',{'event-dialog-title-send':!isEventSent,'event-dialog-title-done':isEventSent}]">
               <span v-if="isNeedPayment && !isEventSent" v-language:inner="'calendar_add_event_payment'"/>
-              <span v-if="!isEventSent && !isNeedPayment">
-                <span v-language:inner="'calendar_add_event_title'"/>
-                <span>{{tutorName}}</span>
-              </span>
+              <span v-if="!isEventSent && !isNeedPayment" v-html="$Ph('calendar_add_event_title',[tutorName])"/>
               <span v-if="isEventSent && !isNeedPayment" v-language:inner="'calendar_add_event_thank'"/>
             </div>
 

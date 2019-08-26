@@ -45,7 +45,7 @@
                         </v-flex>
                         <v-flex>
                             <v-text-field 
-                                          :rules="[rules.required, rules.minimum, rules.maximum]"
+                                          :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
                                           :label="priceLabel"
                                           v-model="price"
                                           outline
@@ -126,7 +126,8 @@
                     required: (value) => validationRules.required(value),
                     minimum: (value) => validationRules.minVal(value, 50),
                     maximum: (value) => validationRules.maxVal(value, 1000),
-                    maximumChars: (value) => validationRules.maximumChars(value, 1000)
+                    maximumChars: (value) => validationRules.maximumChars(value, 1000),
+                    integer: (value) => validationRules.integer(value)
                 },
                 valid: false,
                 btnLoading: false
@@ -213,8 +214,7 @@
             },
             closeDialog() {
                 this.closeCallback ? this.closeCallback() : '';
-            },
-
+            }
         },
         created() {
             this.editedBio = this.getProfile.about.bio || '';
