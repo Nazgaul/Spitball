@@ -127,6 +127,6 @@
     <value>סוגי מסמכים</value>
   </data>
   <data name="VoteCantVote" xml:space="preserve">
-    <value>לא ניתן להצביע בעד / נגד המסמך שלך</value>
+    <value>לא ניתן להצביע בעד המסמך שלך</value>
   </data>
 </root>

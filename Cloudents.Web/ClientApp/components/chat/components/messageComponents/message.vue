@@ -6,8 +6,8 @@
         </div>
     </div>
     <div class="time_wrapper" :class="{'myMessage': isMine}">
-        <double-check v-show="isMine && !message.unreadMessage" />
         <span class="message-text-date">{{date}}</span>
+        <double-check v-show="isMine && !message.unreadMessage" />
     </div>
     <div class="chat-loader" :class="{'my_message': isMine}" v-if="getChatLoader && lastMsgIndex">
         <v-progress-circular indeterminate v-bind:size="30" color="#43425d"></v-progress-circular>
@@ -66,7 +66,7 @@ export default {
             margin: 5px 0;
             margin-left: auto;
             margin-right: unset;
-            border-radius: 8px 8px 0 8px;
+            border-radius: 8px 8px 8px 0;
             background-color: #d4d2fe;
             padding: 4px 8px 6px 8px;
             word-break: break-all; //firefox fallback
@@ -84,7 +84,7 @@ export default {
                 margin-left: unset;
                 margin-right: auto;
                 background-color: #dfe1ed;
-                border-radius: 8px 8px 8px 0;
+                border-radius: 8px 8px 0px 8px;
             }
             &.imgMessage{
                 position: relative;
@@ -112,7 +112,7 @@ export default {
             color: rgba(0, 0, 0, 0.38);
             font-size: 11px;
             display: flex;
-            margin-left: 6px;
+            margin-right: 6px;
             margin-top: 2px;
             &.myMessage{
                 justify-content: flex-end;

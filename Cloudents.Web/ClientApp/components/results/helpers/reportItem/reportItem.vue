@@ -248,6 +248,7 @@
         }
         .report-submit {
             .sb-rounded-medium-btn();
+            box-shadow: none;
             min-width: 180px;
             justify-content: center;
             font-size: 16px;

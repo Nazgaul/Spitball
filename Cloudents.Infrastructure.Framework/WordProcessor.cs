@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Framework
 
         public void Init(Func<Stream> stream)
         {
-            _word = new Lazy<Document>(()=> new Document(stream()));
+            _word = new Lazy<Document>(() => new Document(stream()));
         }
         public (string text, int pagesCount) ExtractMetaContent()
         {
@@ -50,36 +50,45 @@ namespace Cloudents.Infrastructure.Framework
             return (txt, t.PageCount);
         }
 
-       
+
 
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
-            
-            var t = new List<Task>();
-            var svgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
+            try
             {
-                JpegQuality = 90,
-                Scale = 1.2F,
-                PageCount = 1
-            };
-            var word = _word.Value;
-            var diff = Enumerable.Range(0, word.PageCount);
-            diff = diff.Except(previewDelta);
-            foreach (var item in diff)
-            {
-                if (token.IsCancellationRequested)
+                var t = new List<Task>();
+                var svgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
                 {
-                    break;
+                    JpegQuality = 90,
+                    Scale = 1.2F,
+                    PageCount = 1,
+                };
+                
+                var word = _word.Value;
+                var diff = Enumerable.Range(0, word.PageCount);
+                diff = diff.Except(previewDelta);
+                foreach (var item in diff)
+                {
+                    if (token.IsCancellationRequested)
+                    {
+                        break;
+                    }
+
+                    svgOptions.PageIndex = item;
+                    var ms = new MemoryStream();
+                    word.Save(ms, svgOptions);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    t.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
                 }
-                svgOptions.PageIndex = item;
-                var ms = new MemoryStream();
-                word.Save(ms, svgOptions);
-                ms.Seek(0, SeekOrigin.Begin);
-                t.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
+
+                await Task.WhenAll(t);
             }
 
-            await Task.WhenAll(t);
+            catch (Exception e) when (e is OverflowException || e is OutOfMemoryException)
+            {
+                throw new PreviewFailedException(e.Message, e);
+            }
 
         }
 

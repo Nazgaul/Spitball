@@ -62,7 +62,7 @@
                     small 
                     color="#4452fc" 
                     depressed 
-                    class="white--text caption py-3 px-2 mb-0" 
+                    class="white--text caption py-3 px-3 mb-0" 
                     @click.prevent="sendMessage(tutorData)" 
                     :class="{'tutor-btn': isTutor}" 
                     v-html="$Ph('resultTutor_send_button', showFirstName)">
@@ -361,15 +361,15 @@ export default {
                 color: @purple;
                 text-transform: inherit;
                 margin-left: 0;
-                .widthMinMax(200px);
+                // .widthMinMax(200px);
                 &.tutor-btn {
                     font-weight: 600;
-                    .widthMinMax(132px);
+                    // .widthMinMax(132px);
                 }
             }
             &.no-uploader {
                 button {
-                    .widthMinMax(170px);
+                    // .widthMinMax(170px);
                 }
             }
 
@@ -381,7 +381,7 @@ export default {
                 line-height: 0;
                 text-transform: inherit;
                 margin: 6px 0;
-                .widthMinMax(120px);
+                // .widthMinMax(120px);
             }
         }
     }

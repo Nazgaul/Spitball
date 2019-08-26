@@ -100,12 +100,13 @@ function DocumentItem(objInit) {
     this.course = objInit.course;
     this.dateTime = objInit.dateTime;
     this.downloads = objInit.downloads;
+    this.purchased = objInit.purchased;
     this.snippet = objInit.snippet;
     this.source = objInit.source;
     this.title = objInit.title;
     this.university = objInit.university;
     this.url = objInit.url;
-    this.user = createDocumentItemUser(objInit.user);
+    this.user = objInit.user ? createDocumentItemUser(objInit.user) : '';
     this.views = objInit.views;
     this.template = 'note';
     this.price = objInit.price;

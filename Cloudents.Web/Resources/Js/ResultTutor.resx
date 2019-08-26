@@ -167,10 +167,10 @@
     <value>Read more</value>
   </data>
   <data name="subtitle" xml:space="preserve">
-    <value>Teacher</value>
+    <value>Tutor</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>Teachers</value>
+    <value>Tutors</value>
   </data>
   <data name="no_hours_completed" xml:space="preserve">
     <value>Lessons coming soon</value>

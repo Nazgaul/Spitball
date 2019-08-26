@@ -3,7 +3,7 @@
         <div class="getStarted-actions">
             <div class="getStarted-top">
                 <p v-language:inner="isRegisterPath? 'loginRegister_getstarted_title':'loginRegister_getstarted_title_login'"/>
-                <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_subtitle': 'loginRegister_getstarted_subtitle_login' "/>
+                <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_subtitle': '' "/>
             </div>
             <div class="getStarted-form">
                 <div v-if="isRegisterPath" class="getStarted-terms">

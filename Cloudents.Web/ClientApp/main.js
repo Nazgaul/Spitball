@@ -258,7 +258,7 @@ Vue.filter('fullMonthDate', function (value) {
         return ''
     }
 // request a weekday along with a long month
-    let options = {year: 'numeric', month: 'short', day: '2-digit'};
+    let options = {year: 'numeric', month: 'short', day: 'numeric'};
     let languageDate = `${global.lang.toLowerCase()}-${global.country.toUpperCase()}`;
     return date.toLocaleDateString(languageDate, options);
 });

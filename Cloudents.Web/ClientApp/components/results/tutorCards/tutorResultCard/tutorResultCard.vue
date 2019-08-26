@@ -228,6 +228,9 @@ export default {
       display: flex;
       .widthMinMax(600px);
       .main-card {
+        h3{
+          line-height: 1.1 !important;
+        }
         .widthMinMax(400px);
         display: flex;  
         flex-direction: column;

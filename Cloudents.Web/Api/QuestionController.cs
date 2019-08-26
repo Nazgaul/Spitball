@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -307,7 +308,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("ask"), Consumes("multipart/form-data")]
-        public async Task<UploadAskFileResponse> UploadFileAsync(IFormFile file,
+        public async Task<UploadAskFileResponse> UploadFileAsync([Required]IFormFile file,
         CancellationToken token)
         {
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };

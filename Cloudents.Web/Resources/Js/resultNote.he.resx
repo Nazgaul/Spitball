@@ -133,13 +133,13 @@
     <value>שנה מחיר</value>
   </data>
   <data name="course" xml:space="preserve">
-    <value>קורס:</value>
+    <value>קורס: {1}</value>
   </data>
   <data name="deleted_success" xml:space="preserve">
     <value>המסמך נמחק</value>
   </data>
   <data name="download" xml:space="preserve">
-    <value>הורד</value>
+    <value>הורדות</value>
   </data>
   <data name="error_delete" xml:space="preserve">
     <value>לא ניתן למחוק מסמך, נסה שנית מאוחר יותר</value>
@@ -148,13 +148,13 @@
     <value>חינם</value>
   </data>
   <data name="privet" xml:space="preserve">
-    <value>מורה פרטי/ת</value>
+    <value>מורה פרטי/ת {1}</value>
   </data>
   <data name="purchased" xml:space="preserve">
-    <value>נרכש</value>
+    <value>רכישות</value>
   </data>
   <data name="university" xml:space="preserve">
-    <value>אוניברסיטה:</value>
+    <value>אוניברסיטה: {1}</value>
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
     <value>אין לך מספיק נקודות</value>

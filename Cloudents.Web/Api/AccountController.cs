@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -138,30 +139,14 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("image")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> UploadImageAsync(IFormFile file,
+        public async Task<IActionResult> UploadImageAsync([Required] IFormFile file,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
-            if (file == null)
-            {
-                ModelState.AddModelError("x", "no file");
-                return BadRequest(ModelState);
-            }
-
-      
-
-
-            //var extension = Path.GetExtension(file.FileName);
-
-            //if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
-            //{
-            //    ModelState.AddModelError("x", "not an image");
-            //    return BadRequest(ModelState);
-            //}
             try
             {
                 using (var _ = Image.FromStream(file.OpenReadStream()))

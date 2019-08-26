@@ -98,7 +98,7 @@
                     </div>
                     <!--create new course-->
                     <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
-                            @click="changeCreateDialogState(true)">
+                            @click="openCreateDialog(true)">
                         <span v-language:inner>courses_cant_find</span>
                         <span class="pl-1 add-item" v-language:inner>courses_create_new</span>
                     </v-flex>
@@ -207,7 +207,11 @@
                               "clearClassesCahce"
                           ]),
             ...mapGetters(["getClasses"]),
-            ...mapMutations(['UPDATE_SEARCH_LOADING']),
+            ...mapMutations(['UPDATE_SEARCH_LOADING','setSearchedCourse']),
+            openCreateDialog(val){
+                this.setSearchedCourse(this.search)
+                this.changeCreateDialogState(val)
+            },
             goToEditCourses() {
                 if(this.getSelectedClasses.length === 0 && this.quantatySelected === 0){
                     this.UPDATE_SEARCH_LOADING(true);

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -104,8 +105,7 @@ namespace Cloudents.Web.Api
         //}
 
         [HttpPost("upload"), AllowAnonymous]
-        public async Task<IActionResult> UploadAsync(IFormFile file,
-            [FromHeader(Name = "referer")] Uri referer,
+        public async Task<IActionResult> UploadAsync([Required] IFormFile file,
             [FromServices] IDocumentDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
