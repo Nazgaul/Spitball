@@ -51,8 +51,19 @@ namespace Cloudents.Persistence
 
         public void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)
         {
-            throw new NotImplementedException();
+            if (value == null)
+            {
+                NHibernateUtil.String.NullSafeSet(cmd, null, index, session);
+                return;
+            }
+            if (value is IEnumerable<string> p)
+            {
+            var data = JsonConvert.SerializeObject(p.Select(s=> new { name = s }));
+            NHibernateUtil.String.NullSafeSet(cmd, data, index, session);
+            }
         }
+
+      
 
         public object DeepCopy(object value)
         {

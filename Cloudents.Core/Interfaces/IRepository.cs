@@ -94,4 +94,10 @@ namespace Cloudents.Core.Interfaces
     {
         Task<bool> NeedToSendMoreTutorsAsync(long userId, CancellationToken token);
     }
+
+    public interface IReadTutorRepository : IRepository<ReadTutor>
+    {
+        Task<ReadTutor> GetReadTutorAsync(long userId, CancellationToken token);
+        void UpdateReadTutorRating(CancellationToken token);
+    }
 }
