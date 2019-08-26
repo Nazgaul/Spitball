@@ -41,7 +41,7 @@
                         <v-flex xs12 class="mt-2 first-selects">
                             <v-text-field 
                                 class="font-weight-bold price-input"
-                                :rules="[rules.required, rules.minimum, rules.maximum]"
+                                :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
                                 v-model="price"
                                 type="number"
                                 :label="placePrice"/>
@@ -107,6 +107,7 @@
                     minimum: (value) => validationRules.minVal(value,50),
                     maximum: (value) => validationRules.maxVal(value, 200),
                     notSpaces: (value) => validationRules.notSpaces(value),
+                    integer: (value) => validationRules.integer(value)
                 },
                 isLoaded: false,
                 gender: LanguageService.getValueByKey("becomeTutor_gender_male"),
