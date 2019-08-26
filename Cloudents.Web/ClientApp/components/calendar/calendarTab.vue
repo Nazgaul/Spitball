@@ -2,8 +2,10 @@
         <v-layout class="calendar-section mt-3" >
             <v-flex xs12>
                 <v-card class="elevation-0 caltab">
-                    <calendar v-if="isCalendar || showCalendar"/>
-                    <calendarEmptyState @updateCalendarStatus="update" v-if="showEmptyState"/>
+                    <calendarEmptyState @updateCalendarStatus="update"/>
+
+                    <!-- <calendar v-if="isCalendar || showCalendar"/>
+                    <calendarEmptyState @updateCalendarStatus="update" v-if="showEmptyState"/> -->
                 </v-card>
             </v-flex>
         </v-layout>
