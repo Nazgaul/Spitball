@@ -66,7 +66,7 @@ export default {
             margin: 5px 0;
             margin-left: auto;
             margin-right: unset;
-            border-radius: 8px 8px 0 8px;
+            border-radius: 8px 8px 8px 0;
             background-color: #d4d2fe;
             padding: 4px 8px 6px 8px;
             word-break: break-all; //firefox fallback
@@ -84,7 +84,7 @@ export default {
                 margin-left: unset;
                 margin-right: auto;
                 background-color: #dfe1ed;
-                border-radius: 8px 8px 8px 0;
+                border-radius: 8px 8px 0px 8px;
             }
             &.imgMessage{
                 position: relative;
