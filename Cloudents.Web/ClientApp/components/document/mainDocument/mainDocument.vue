@@ -587,6 +587,7 @@ export default {
       text-align: center;
       z-index: 5;
       .inner {
+          
         min-width: 450px;
         padding: 20px;
         box-shadow: 0 3px 55px -1px rgba(0, 0, 0, 0.2),
