@@ -30,6 +30,8 @@
                 let self = this
                 this.gapiSignIn().then((res)=>{
                     this.$emit('updateCalendarStatus')
+                },(err)=>{
+                    this.isLoading = false;
                 })
             },
         },
