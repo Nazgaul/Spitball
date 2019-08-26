@@ -88,7 +88,8 @@ namespace Cloudents.Query.Tutor
                                 .JoinQueryOver(x => x.Users)
                                 .Where(w => w.User.Id == query.UserId).Select(s => s.Subject.Id))
                         .Select(s => s.Id);
-                    var futureCourse2 = futureCourse.Clone();
+                    var futureCourse2 = futureCourse.Clone().WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery)
+                        .WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery2);
 
                     listOfQueries.Add(futureCourse2);
 
