@@ -3,7 +3,7 @@
     public class UpdateUserSettingsCommand: ICommand
     {
         public UpdateUserSettingsCommand(long userId, string firstName, string lastName, string description, 
-            string bio, decimal? price)
+            string bio, int? price)
         {
             UserId = userId;
             FirstName = firstName;
@@ -18,6 +18,6 @@
         public string Description { get; }
 
         public string Bio { get; }
-        public decimal? Price { get; }
+        public int? Price { get; }
     }
 }

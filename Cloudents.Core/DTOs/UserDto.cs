@@ -51,7 +51,7 @@ namespace Cloudents.Core.DTOs
 
     public class UserTutorProfileDto
     {
-        public decimal Price { get; set; }
+        public int Price { get; set; }
 
         public float Rate { get; set; }
         public int ReviewCount { get; set; }

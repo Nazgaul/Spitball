@@ -9,7 +9,7 @@ namespace Cloudents.Core.DTOs
        public string Image { get; set; }
        public IEnumerable<string> Courses { get; set; } 
        public IEnumerable<string> Subjects { get; set; }
-       public decimal Price { get; set; }
+       public int Price { get; set; }
        
        public float? Rate { get; set; }
        public int ReviewsCount { get; set; }
