@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_event_btn" xml:space="preserve">
-    <value>Book now</value>
+    <value>שריין עכשיו</value>
   </data>
   <data name="add_event_cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>ביטול</value>
   </data>
   <data name="add_event_done" xml:space="preserve">
-    <value>Ok</value>
+    <value>אישור</value>
   </data>
   <data name="add_event_ok" xml:space="preserve">
-    <value>Ok</value>
+    <value>אישור</value>
   </data>
   <data name="add_event_payment" xml:space="preserve">
-    <value>In order to book a lesson, you need to add a payment method</value>
+    <value>כדי לשריין את השיעור, עליך להוסיף אמצעי תשלום</value>
   </data>
   <data name="add_event_sent" xml:space="preserve">
-    <value>A request was sent to the tutor. Please check your Email for the tutor update.</value>
+    <value>בקשתך נשלחה למורה. בדוק את האימייל שלך לעידכונים.</value>
   </data>
   <data name="add_event_thank" xml:space="preserve">
-    <value>Thank you!</value>
+    <value>תודה !</value>
   </data>
   <data name="add_event_title" xml:space="preserve">
-    <value>Schedueling an online tutoring session with</value>
+    <value>קבע שיעור עם</value>
   </data>
 </root>
