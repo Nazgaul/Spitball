@@ -6,8 +6,8 @@
         </div>
     </div>
     <div class="time_wrapper" :class="{'myMessage': isMine}">
-        <double-check v-show="isMine && !message.unreadMessage" />
         <span class="message-text-date">{{date}}</span>
+        <double-check v-show="isMine && !message.unreadMessage" />
     </div>
     <div class="chat-loader" :class="{'my_message': isMine}" v-if="getChatLoader && lastMsgIndex">
         <v-progress-circular indeterminate v-bind:size="30" color="#43425d"></v-progress-circular>
@@ -112,7 +112,7 @@ export default {
             color: rgba(0, 0, 0, 0.38);
             font-size: 11px;
             display: flex;
-            margin-left: 6px;
+            margin-right: 6px;
             margin-top: 2px;
             &.myMessage{
                 justify-content: flex-end;
