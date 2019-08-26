@@ -106,7 +106,7 @@ function DocumentItem(objInit) {
     this.title = objInit.title;
     this.university = objInit.university;
     this.url = objInit.url;
-    this.user = createDocumentItemUser(objInit.user);
+    this.user = objInit.user ? createDocumentItemUser(objInit.user) : '';
     this.views = objInit.views;
     this.template = 'note';
     this.price = objInit.price;

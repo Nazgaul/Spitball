@@ -18,7 +18,8 @@ const state = {
     chatLocked: false,
     chatLoader: false,
     emptyState: [],
-    isSyncing: true
+    isSyncing: true,
+    showStudentStudyRoom: false,
 };
 const getters = {
     getFileError: state => state.fileError,
@@ -83,7 +84,8 @@ const getters = {
     },
     getActiveConversationObj:state=>state.activeConversationObj,
     getTotalUnread: state=>state.totalUnread,
-    getIsChatLocked: state=>state.chatLocked
+    getIsChatLocked: state=>state.chatLocked,
+    getshowStudentStudyRoom: state => state.showStudentStudyRoom,
 };
 
 const mutations = {
@@ -165,6 +167,9 @@ const mutations = {
     setSyncStatus:(state, val)=>{
         state.isSyncing = val;
     },
+    setShowStudentStudyRoom(state){
+        state.showStudentStudyRoom = true
+    }
 };
 
 const actions = {
@@ -271,6 +276,7 @@ const actions = {
         dispatch('openChatInterface');
     },
     signalRAddRoomInformationMessage({commit, dispatch, state}, roomInfo){
+        console.log('yesssss in studentd')
         let messageObj ={
             message: {
                 userId: roomInfo.userId,
@@ -283,6 +289,7 @@ const actions = {
         let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
         dispatch('addMessage', MessageObj);
         commit('setActiveConversationStudyRoom', roomInfo.id);
+        commit('setShowStudentStudyRoom')
     },
     setActiveConversationObj:({commit, dispatch, state}, Obj)=>{
         commit('setSyncStatus', true);

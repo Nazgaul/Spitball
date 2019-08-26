@@ -70,6 +70,7 @@ import analyticsService from '../../../../services/analytics.service';
             border-radius: 24px;
             box-shadow: 0 3px 13px 0 rgba(0, 0, 0, 0.15);
             outline: none;
+            white-space: pre;
             &:hover{
                 cursor: pointer;
                 color: lighten(#ffca54, 10%);
