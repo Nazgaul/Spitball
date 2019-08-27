@@ -208,6 +208,9 @@ export default {
           })
         },
         addEvent(ev,date,time){
+          if((!!this.getProfile && !!this.accountUser) 
+          && this.getProfile.user.id == this.accountUser.id) return
+
           ev.stopImmediatePropagation();
           this.selectedTime = time;
           this.selectedDate = date;
