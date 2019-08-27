@@ -270,11 +270,9 @@ export default {
       } else {
         this.intervals.height = 36
       }
-      this.$loadScript("https://apis.google.com/js/api.js").then(() => {
-        setTimeout(() => {
-          self.initCalendar(tutorId);
-        },);
-      })
+      setTimeout(() => {
+        self.initCalendar(tutorId);
+      },);
       this.updateNeedPayment(this.accountUser.needPayment)
     },
 };
@@ -406,6 +404,7 @@ export default {
     }
 
       .v-btn{
+        min-width: 140px;
         height: 40px !important;
         padding: 0px 32px !important;
       }

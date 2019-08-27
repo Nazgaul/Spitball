@@ -26,10 +26,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authorization;
-using Google.Apis.Auth.OAuth2.Responses;
 using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
@@ -276,9 +274,16 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="calendarService"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpGet("calendar/events"),Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), 555)]
+        [ProducesResponseType(555)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<CalendarEventDto>>> GetTutorCalendarAsync(
             [FromQuery]CalendarEventRequest model,
@@ -288,7 +293,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var res = await calendarService.ReadCalendarEventsAsync(model.TutorId, model.From, model.To, token);
-                return Ok(res);
+                return Ok(res.Item1);
             }
             catch(NotFoundException)
             {

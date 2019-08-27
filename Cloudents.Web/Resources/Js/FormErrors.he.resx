@@ -120,6 +120,9 @@
   <data name="email" xml:space="preserve">
     <value>כתובת הדואר האלקטרוני אינה חוקית</value>
   </data>
+  <data name="integer" xml:space="preserve">
+    <value>מספרים שלמים בלבד</value>
+  </data>
   <data name="longer_10" xml:space="preserve">
     <value>חייב להיות ארוך יותר מעשרה תווים</value>
   </data>
