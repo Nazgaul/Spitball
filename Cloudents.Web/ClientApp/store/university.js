@@ -24,7 +24,8 @@ const getters = {
     getUniversities: state => state.universities,
     getSchoolName: state => state.schoolName,
     getClasses: state => state.classes,
-    getSelectedClasses: state => state.selectedClasses.sort((a, b) => a.text.toLowerCase() > b.text.toLowerCase() ? 1 : -1),
+    // the sorting is moved to the cmp
+    getSelectedClasses: state => state.selectedClasses,
     getSelectedClassesCache: state => state.selectedClassesCache,
     getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
     getAllSteps: state => state.stepsEnum,

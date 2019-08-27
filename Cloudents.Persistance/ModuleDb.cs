@@ -22,12 +22,7 @@ namespace Cloudents.Persistence
             builder.Register(c =>
                 {
                     return c.Resolve<UnitOfWorkFactorySpitball>().OpenSession();
-                })
-                .OnRelease(x =>
-                {
-                    Debug.Write("In Here");
-                })
-                .InstancePerLifetimeScope();
+                }).InstancePerLifetimeScope();
 
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
                 .InstancePerLifetimeScope();

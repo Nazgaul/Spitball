@@ -1,18 +1,19 @@
 <template>
-        <v-layout class="calendar-section mt-3" >
+        <v-layout class="calendar-section mt-3">
             <v-flex xs12>
-                <v-card class="elevation-0 caltab">
-                    <calendar v-if="isCalendar || showCalendar"/>
-                    <calendarEmptyState @updateCalendarStatus="update" v-if="showEmptyState"/>
+                <v-card class="elevation-0 caltab" v-if="isReady">
+                    <calendar v-if="getShowCalendar"/>
+                    <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
                 </v-card>
             </v-flex>
         </v-layout>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import calendar from './calendar.vue'
 import calendarEmptyState from './calendarEmptyState.vue'
+import {LanguageService} from '../../services/language/languageService.js'
 export default {
     components:{
         calendar,
@@ -20,16 +21,12 @@ export default {
     },
     data() {
         return {
+            isReady: false,
             showCalendar: this.isCalendar
         }
     },
     computed: {
-        ...mapGetters(['getProfile','accountUser']),
-        isCalendar(){
-            if(!!this.getProfile && this.getProfile.user){
-                return this.getProfile.user.calendarShared;
-            }
-        },
+        ...mapGetters(['getProfile','accountUser','getShowCalendar']),
         isMyProfile(){
             if(!!this.getProfile && !!this.accountUser){
                 return (this.getProfile.user.id == this.accountUser.id)
@@ -37,14 +34,27 @@ export default {
                return false;
         },
         showEmptyState(){
-            return (this.isMyProfile && (!this.isCalendar && !this.showCalendar))
-        }
+            return (this.isMyProfile && !this.getShowCalendar)
+        },
     },
     methods: {
-        update(){
-            this.showCalendar = true;
-        }
-    }
+        ...mapActions(['updateCalendarStatus','updateToasterParams'])
+    },
+    created() {
+        let self = this;
+        this.$loadScript("https://apis.google.com/js/api.js").then(() => {
+            self.updateCalendarStatus().then(()=>{
+            },()=>{
+                this.updateToasterParams({
+                    toasterText: LanguageService.getValueByKey("put some error"),
+                        showToaster: true,
+                        toasterType: 'error-toaster'
+                })
+            }).finally(()=>{
+                self.isReady = true
+            })
+        })
+    },
 }
 </script>
 

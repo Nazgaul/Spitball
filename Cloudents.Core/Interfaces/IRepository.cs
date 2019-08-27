@@ -98,6 +98,6 @@ namespace Cloudents.Core.Interfaces
     public interface IReadTutorRepository : IRepository<ReadTutor>
     {
         Task<ReadTutor> GetReadTutorAsync(long userId, CancellationToken token);
-        void UpdateReadTutorRating(CancellationToken token);
+        Task UpdateReadTutorRating(CancellationToken token);
     }
 }
