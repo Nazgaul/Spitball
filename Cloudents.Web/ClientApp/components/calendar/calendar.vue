@@ -406,6 +406,7 @@ export default {
     }
 
       .v-btn{
+        min-width: 140px;
         height: 40px !important;
         padding: 0px 32px !important;
       }
