@@ -274,9 +274,16 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="calendarService"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpGet("calendar/events"),Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), 555)]
+        [ProducesResponseType(555)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<CalendarEventDto>>> GetTutorCalendarAsync(
             [FromQuery]CalendarEventRequest model,

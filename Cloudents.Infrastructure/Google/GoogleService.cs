@@ -176,8 +176,17 @@ namespace Cloudents.Infrastructure.Google
                        {
                            if (s.Start.DateTime.HasValue)
                            {
-                               return new CalendarEventDto(s.Start.DateTime.GetValueOrDefault(),
-                                   s.End.DateTime.GetValueOrDefault());
+                               var startAppointmentTime = s.Start.DateTime.Value;
+                               startAppointmentTime = startAppointmentTime.AddMinutes(-s.Start.DateTime.Value.Minute);
+                               var endAppointmentTime = s.End.DateTime.GetValueOrDefault();
+                               if (endAppointmentTime.Minute > 0)
+                               {
+                                   endAppointmentTime = endAppointmentTime.AddHours(1)
+                                       .AddMinutes(-endAppointmentTime.Minute);
+                               }
+
+                               return new CalendarEventDto(startAppointmentTime,
+                                   endAppointmentTime);
                            }
 
                            var start = DateTime.ParseExact(s.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
