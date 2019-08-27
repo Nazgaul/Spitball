@@ -130,11 +130,13 @@ export default {
             return `${global.lang}-${global.country}`.toLowerCase()
         },
         calendarEvents(){
+          console.log(this.getCalendarEvents)
             return this.getCalendarEvents
         },
         eventsMap () {
         const map = {}
         this.calendarEvents.forEach(e => (map[e.date] = map[e.date] || []).push(e))
+        console.log(map)
         return map
       },
       calendarMonth(){
@@ -201,7 +203,8 @@ export default {
             time: this.selectedTime,
           }
           this.insertEvent(paramObj).then(()=>{
-            this.isEventSent = true
+              this.isEventSent = true
+              this.calendarEvents.push(paramObj)
           })
         },
         addEvent(ev,date,time){
