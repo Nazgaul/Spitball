@@ -290,7 +290,7 @@ namespace Cloudents.Web.Api
                 var res = await calendarService.ReadCalendarEventsAsync(model.TutorId, model.From, model.To, token);
                 return Ok(res);
             }
-            catch(NotFoundException e)
+            catch(NotFoundException)
             {
                 return StatusCode(555, new { massege = "permission denied" });
             }
