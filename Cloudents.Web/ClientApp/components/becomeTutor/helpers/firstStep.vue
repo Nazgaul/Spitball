@@ -72,7 +72,7 @@
             <v-btn
                     color="#4452FC"
                     round
-                    class="white-text elevation-0"
+                    class="white-text elevation-0 btn-first_next-btn"
                     :disabled="btnDisabled"
                     @click="nextStep()">
                 <span v-language:inner>becomeTutor_btn_next</span>
@@ -185,15 +185,18 @@
 
     .become-first-wrap {
         .btns-first{
-                        @media (max-width: @screen-xs) {
-                    align-items: flex-end;
-                }
+            @media (max-width: @screen-xs) {
+                align-items: flex-end;
+            }
             .v-btn {
               @media (max-width: @screen-xs) {
                   height: 40px;
                   padding: 0 20px;
                   text-transform: capitalize;
               }  
+            }
+            .btn-first_next-btn {
+                padding: 0 26px;
             }
         }
 

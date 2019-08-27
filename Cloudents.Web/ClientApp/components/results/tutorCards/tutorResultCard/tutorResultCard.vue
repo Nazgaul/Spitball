@@ -9,7 +9,10 @@
             <div class="main-card justify-space-between">
                 <h3 class="title font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
                 <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
-                <div class="user-bio mb-4" :class="{'user-bio-hidden': !tutorData.bio}" v-html="ellipsizeTextBox(tutorData.bio)"></div>
+                <div class="user-bio-wrapper">
+                  <div class="user-bio mb-4">{{tutorData.bio}}</div>
+                  <div class="read-more" v-show="isOverflow" v-language:inner="'resultTutor_read_more'"></div>
+                </div>
                 <div class="study-area mb-2" :class="{'study-area-hidden': !isSubjects}">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
                   <span class="text-truncate">{{subjects}}</span>
@@ -90,7 +93,8 @@ export default {
     return {
       isLoaded: false,
       minimumPrice: 55,
-      discountAmount: 70
+      discountAmount: 70,
+      isMounted: false
     };
   },
   props: {
@@ -142,14 +146,6 @@ export default {
           let isMobile = this.$vuetify.breakpoint.smAndDown;
           this.openChatInterface();                    
       }
-    },
-    ellipsizeTextBox(text) {
-      let maxChars = 176;
-      let showBlock = text.length > maxChars;
-      let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
-      let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-      let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: inline-block;position:absolute' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
-      return `${newText} ${readMore} ${hideText}`;
     }
   },
   computed: {
@@ -205,7 +201,17 @@ export default {
     },
     isReviews() {
       return this.tutorData.reviews > 0 ? true : false;
-    }
+    },
+    isOverflow() {
+      if(this.isMounted){
+        let currentDiv = this.$el.querySelector('.user-bio')
+        return currentDiv.scrollHeight > currentDiv.clientHeight || currentDiv.scrollWidth > currentDiv.clientWidth;
+      }
+      return false;
+    },
+  },
+  mounted(){
+    this.isMounted = true;
   }
 };
 </script>
@@ -237,16 +243,15 @@ export default {
         .university-hidden {
           visibility: hidden;
         }
-        .user-bio {
-          display: inline-block;
-          word-wrap: break-word;
-          .heightMinMax(62px);
-          line-height: 1.5em;
-          .read-more {
-            color: #4452fc;
+        .user-bio-wrapper {
+          position: relative;
+          .user-bio {
+            .giveMeEllipsis(3, 20px);
           }
-          &.user-bio-hidden {
-            visibility: hidden;
+          .read-more {
+            position: absolute;
+            bottom: 4px;
+            color: #4452fc;
           }
         }
         .study-area-hidden {
