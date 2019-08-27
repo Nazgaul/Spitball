@@ -25,6 +25,8 @@ namespace Cloudents.Query.Query
 
             public async Task<IEnumerable<CourseDto>> GetAsync(UserCoursesQuery query, CancellationToken token)
             {
+
+                //We use Students, IsPending and IsTeaching in "My Courses" when a user edit his courses list
                 const string sql = @"select CourseId as [Name], 
                         c.count as Students,
                         case when c.State = 'Pending' then 1 else null end as IsPending,
