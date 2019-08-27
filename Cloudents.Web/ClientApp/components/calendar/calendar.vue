@@ -270,11 +270,9 @@ export default {
       } else {
         this.intervals.height = 36
       }
-      this.$loadScript("https://apis.google.com/js/api.js").then(() => {
-        setTimeout(() => {
-          self.initCalendar(tutorId);
-        },);
-      })
+      setTimeout(() => {
+        self.initCalendar(tutorId);
+      },);
       this.updateNeedPayment(this.accountUser.needPayment)
     },
 };

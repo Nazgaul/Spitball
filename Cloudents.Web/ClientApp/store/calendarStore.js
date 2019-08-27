@@ -1,5 +1,6 @@
 import calendarService from "../services/calendarService";
 import utilitiesService from '../services/utilities/utilitiesService.js'
+import {router} from '../main.js';
 
 const state = {
     scope: 'profile https://www.googleapis.com/auth/calendar.readonly',
@@ -8,6 +9,7 @@ const state = {
     fromDate: new Date().toISOString(),
     toDate: null,
     needPayment: true,
+    showCalendar: false,
 }
 
 const mutations ={
@@ -22,27 +24,36 @@ const mutations ={
     },
     setNeedPayment(state,val){
         state.needPayment = val
+    },
+    setShowCalendar(state,val){
+        state.showCalendar = val
     }
 }
 
 const getters ={
     getCalendarEvents:state => state.calendarEvents,
     getNeedPayment:state => state.needPayment,
+    getShowCalendar:state => state.showCalendar,
 }
 
 const actions ={
     initCalendar({state,commit,dispatch},tutorId){
         commit('setTutorId',tutorId)
         commit('setToDate',utilitiesService.IsoStringDateWithOffset(60))
-        dispatch('gapiLoad',state.scope).then(()=>{
+       return dispatch('gapiLoad',state.scope).then(()=>{
             let paramsObj = {
                 from: state.fromDate,
                 to: state.toDate,
                 tutorId: state.tutorId
             }
-            calendarService.getEvents(paramsObj).then(response=>{
+            return calendarService.getEvents(paramsObj).then(response=>{
                 commit('setCalendarEvents',response)
+                commit('setShowCalendar',true)
+                return Promise.resolve(response)
             },err=>{
+                commit('setShowCalendar',false)
+
+                return Promise.reject(err)
             })
         })
     },
@@ -76,6 +87,17 @@ const actions ={
     },
     updateNeedPayment({commit},val){
         commit('setNeedPayment',val)
+    },
+    updateCalendarStatus({commit,getters,dispatch}){
+        let isSharedCalendar = getters.getProfile.user.calendarShared
+        if(isSharedCalendar){
+            let tutorId = router.history.current.params.id;
+           return dispatch('initCalendar',tutorId).then(()=>{
+                return Promise.resolve()
+            },(err)=>{
+                return Promise.reject(err)
+            })
+        }
     }
 }
 
