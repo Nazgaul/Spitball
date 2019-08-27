@@ -1,12 +1,13 @@
-﻿using Cloudents.Core.Event;
+﻿using System;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
-    public class UpdateTutorReadRatingEventHandler : IEventHandler<TutorAddReviewEvent>,
-        IEventHandler<EndSessionEvent>
+    public sealed class UpdateTutorReadRatingEventHandler : IEventHandler<TutorAddReviewEvent>,
+        IEventHandler<EndSessionEvent>, IDisposable
     {
         private readonly IReadTutorRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -19,14 +20,20 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(TutorAddReviewEvent eventMessage, CancellationToken token)
         {
-            _repository.UpdateReadTutorRating(token);
+            await _repository.UpdateReadTutorRating(token);
             await _unitOfWork.CommitAsync(CancellationToken.None);
         }
 
         public async Task HandleAsync(EndSessionEvent eventMessage, CancellationToken token)
         {
-            _repository.UpdateReadTutorRating(token);
+            await _repository.UpdateReadTutorRating(token);
             await _unitOfWork.CommitAsync(CancellationToken.None);
+        }
+
+        public void Dispose()
+        {
+            _repository.Dispose();
+            _unitOfWork.Dispose();
         }
     }
 }
