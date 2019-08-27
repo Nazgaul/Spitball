@@ -3,7 +3,7 @@
     public class BecomeTutorCommand : ICommand
     {
         public BecomeTutorCommand(long userId, string firstName, string lastName,
-            string description, string bio, int price)
+            string description, string bio, decimal price)
         {
             UserId = userId;
             FirstName = firstName;
@@ -19,7 +19,7 @@
         public string Description { get; }
 
         public string Bio { get;  }
-        public int Price { get;  }
+        public decimal Price { get;  }
     }
    
 }

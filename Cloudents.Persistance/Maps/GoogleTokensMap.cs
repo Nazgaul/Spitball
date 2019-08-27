@@ -11,7 +11,7 @@ namespace Cloudents.Persistence.Maps
         {
             Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.Value).Length(8000);
-
+            
         }
     }
 }

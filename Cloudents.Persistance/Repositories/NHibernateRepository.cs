@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,6 +55,21 @@ namespace Cloudents.Persistence.Repositories
         public Task UpdateAsync(T entity, CancellationToken token)
         {
             return Session.UpdateAsync(entity, token);
+        }
+
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Session.Dispose();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

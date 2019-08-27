@@ -17,7 +17,11 @@ const actions = {
     },
     gapiSignIn({dispatch}){
         return auth2.grantOfflineAccess().then(authResult=>{
-            return dispatch('signInCalendar',authResult)
+            return dispatch('signInCalendar',authResult).then(res=>{
+                return Promise.resolve(res)
+            },err=>{
+                return Promise.reject(err)
+            })
         })
     },
 }
