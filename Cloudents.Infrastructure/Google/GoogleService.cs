@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
+using Cloudents.Core.Exceptions;
 using Cloudents.Infrastructure.Google.Resources;
 using Document = Google.Apis.Docs.v1.Data.Document;
 using Google.Apis.Auth.OAuth2.Responses;
@@ -25,7 +26,10 @@ using Google.Apis.Auth.OAuth2.Responses;
 namespace Cloudents.Infrastructure.Google
 {
     [UsedImplicitly]
-    public sealed class GoogleService : IGoogleAuth, IGoogleDocument, ICalendarService
+    public sealed class GoogleService : 
+        IGoogleAuth,
+        IGoogleDocument,
+        ICalendarService
     {
         //TODO: Temp solution need to figure out.
         //private readonly GoogleDataStore _googleDataStore;
@@ -122,7 +126,27 @@ namespace Cloudents.Infrastructure.Google
             DateTime from, DateTime max,
             CancellationToken cancellationToken)
         {
-            var credential = await LoadUserTokenAsync(userId, cancellationToken);
+            UserCredential credential;
+            var googleDataStore = _container.Resolve<GoogleDataStore>();
+            using (var stream = Assembly.GetExecutingAssembly()
+                .GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json"))
+            {
+                var initializer = new GoogleAuthorizationCodeFlow.Initializer
+                {
+                    ClientSecrets = GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes = new[] { CalendarService.Scope.CalendarReadonly },
+                    DataStore = googleDataStore
+                };
+                //TODO: need to find solution We can't dispose the flow because we are using it in the code 
+                var flow = new GoogleAuthorizationCodeFlow(initializer);
+
+                var gToken = await flow.LoadTokenAsync(userId.ToString(), cancellationToken);
+                credential = new UserCredential(flow, userId.ToString(), gToken);
+
+            }
+
+            
+            // var credential = await LoadUserTokenAsync(userId, cancellationToken);
             using (var service = new CalendarService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential
@@ -143,7 +167,7 @@ namespace Cloudents.Infrastructure.Google
                 }
                 catch (TokenResponseException e)
                 {
-                    throw e;
+                    throw new NotFoundException("Google token invalid",e);
                 }
 
                 return result.Items.Select(s => new CalendarEventDto()
@@ -158,29 +182,7 @@ namespace Cloudents.Infrastructure.Google
 
         }
 
-        private async Task<UserCredential> LoadUserTokenAsync(long userId, CancellationToken cancellationToken)
-        {
-            UserCredential credential;
-            using (var stream = Assembly.GetExecutingAssembly()
-                .GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json"))
-            using (var child = _container.BeginLifetimeScope())
-            {
-                var initializer = new GoogleAuthorizationCodeFlow.Initializer
-                {
-                    ClientSecrets = GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes = new[] { CalendarService.Scope.CalendarReadonly },
-                    DataStore = child.Resolve<GoogleDataStore>()
-                };
-                //TODO: need to find solution We can't dispose the flow because we are using it in the code 
-                var flow = new GoogleAuthorizationCodeFlow(initializer);
-
-                var gToken = await flow.LoadTokenAsync(userId.ToString(), cancellationToken);
-                credential = new UserCredential(flow, userId.ToString(), gToken);
-
-            }
-
-            return credential;
-        }
+       
 
         public async Task BookCalendarEventAsync(
             IEnumerable<Core.Entities.User> users, DateTime from, DateTime to,
@@ -228,14 +230,15 @@ namespace Cloudents.Infrastructure.Google
         public async Task SaveTokenAsync(string token, long userId, string uri,
             CancellationToken cancellationToken)
         {
+            var googleDataStore = _container.Resolve<GoogleDataStore>();
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json"))
-            using (var child = _container.BeginLifetimeScope())
+           
             {
                 var initializer = new GoogleAuthorizationCodeFlow.Initializer
                 {
                     ClientSecrets = GoogleClientSecrets.Load(stream).Secrets,
                     Scopes = new[] { CalendarService.Scope.CalendarReadonly },
-                    DataStore = child.Resolve<GoogleDataStore>()
+                    DataStore = googleDataStore
 
                 };
 
