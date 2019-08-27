@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import { mapActions} from 'vuex';
+    import { mapActions, mapMutations} from 'vuex';
     import {LanguageService} from '../../services/language/languageService.js'
     export default {
         name: "calendarEmptyState",
@@ -26,11 +26,12 @@
         },
         methods: {
             ...mapActions(['gapiLoad','gapiSignIn','updateToasterParams']),
+            ...mapMutations(['setShowCalendar']),
             shareCalendar(){
                 this.isLoading = true;
                 let self = this
                 this.gapiSignIn().then((res)=>{
-                    this.$emit('updateCalendarStatus')
+                    this.setShowCalendar(true)
                     this.isLoading = false;
 
                 },(err)=>{
@@ -46,11 +47,9 @@
         },
         created() {
             let self = this;
-            this.$loadScript("https://apis.google.com/js/api.js").then(() => {
-                setTimeout(() => {
-                    self.gapiLoad();
-                },);
-            })
+            setTimeout(() => {
+                self.gapiLoad();
+            },);
         },
     };
 </script>
