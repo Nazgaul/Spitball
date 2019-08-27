@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using Autofac;
 using Cloudents.Core.Interfaces;
 using Cloudents.Persistence.Repositories;
@@ -21,8 +22,7 @@ namespace Cloudents.Persistence
             builder.Register(c =>
                 {
                     return c.Resolve<UnitOfWorkFactorySpitball>().OpenSession();
-                })
-                .InstancePerLifetimeScope();
+                }).InstancePerLifetimeScope();
 
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
                 .InstancePerLifetimeScope();

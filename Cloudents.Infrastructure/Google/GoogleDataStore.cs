@@ -8,7 +8,7 @@ using Google.Apis.Util.Store;
 
 namespace Cloudents.Infrastructure.Google
 {
-    public class GoogleDataStore : IDataStore
+    public sealed class GoogleDataStore : IDataStore, IDisposable
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<GoogleTokens> _googleTokenRepository;
@@ -51,7 +51,9 @@ namespace Cloudents.Infrastructure.Google
             if (entity != null)
             {
                 await _googleTokenRepository.DeleteAsync(entity, CancellationToken.None);
+                await _unitOfWork.CommitAsync(CancellationToken.None);
             }
+            
         }
 
         public async Task<T> GetAsync<T>(string key)
@@ -73,6 +75,12 @@ namespace Cloudents.Infrastructure.Google
         public Task ClearAsync()
         {
             return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            _unitOfWork?.Dispose();
+            _googleTokenRepository?.Dispose();
         }
     }
 }

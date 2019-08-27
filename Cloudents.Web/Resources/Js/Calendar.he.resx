@@ -139,6 +139,6 @@
     <value>תודה !</value>
   </data>
   <data name="add_event_title" xml:space="preserve">
-    <value>קבע שיעור עם</value>
+    <value>קבע שיעור עם {1}</value>
   </data>
 </root>
