@@ -16,6 +16,7 @@
 
 <script>
     import { mapActions} from 'vuex';
+    import {LanguageService} from '../../services/language/languageService.js'
     export default {
         name: "calendarEmptyState",
         data() {
@@ -24,14 +25,22 @@
             }
         },
         methods: {
-            ...mapActions(['gapiLoad','gapiSignIn',]),
+            ...mapActions(['gapiLoad','gapiSignIn','updateToasterParams']),
             shareCalendar(){
                 this.isLoading = true;
                 let self = this
                 this.gapiSignIn().then((res)=>{
                     this.$emit('updateCalendarStatus')
+                    this.isLoading = false;
+
                 },(err)=>{
                     this.isLoading = false;
+                    if(err.error) return 
+                    this.updateToasterParams({
+                        toasterText: LanguageService.getValueByKey("tutorRequest_request_error"),
+                        showToaster: true,
+                        toasterType: "error-toaster"
+                    });
                 })
             },
         },

@@ -51,10 +51,10 @@ const actions ={
             let serverObj = {code:authResult['code']}
             return calendarService.signIn(serverObj).then(
                 (response)=>{
-                    return response
+                    return Promise.resolve(response)
                 },
                 (error)=>{
-                    return error
+                    return Promise.reject(error)
                 });
         } else {}
     },

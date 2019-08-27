@@ -2,9 +2,9 @@ import { connectivityModule } from "./connectivity.module";
 
 function signIn(signInData){
     return connectivityModule.http.post(`Tutor/calendar/Access`,signInData).then((response)=>{
-        return response
-      },(err)=>{
-          return err
+        return Promise.resolve(response)
+      },(error)=>{
+          return Promise.reject(error)
       });
 }
 function getEvents(params){
