@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core.Exceptions;
 using Cloudents.Infrastructure.Google.Resources;
+using Google.Apis;
 using Document = Google.Apis.Docs.v1.Data.Document;
 using Google.Apis.Auth.OAuth2.Responses;
 
@@ -31,8 +32,6 @@ namespace Cloudents.Infrastructure.Google
         IGoogleDocument,
         ICalendarService
     {
-        //TODO: Temp solution need to figure out.
-        //private readonly GoogleDataStore _googleDataStore;
         private readonly ILifetimeScope _container;
 
         public GoogleService(ILifetimeScope container)
@@ -121,63 +120,78 @@ namespace Cloudents.Infrastructure.Google
             }
         }
 
-
-        public async Task<IEnumerable<CalendarEventDto>> ReadCalendarEventsAsync(long userId,
-            DateTime from, DateTime max,
-            CancellationToken cancellationToken)
+        private static GoogleClientSecrets GetGoogleClientSecrets()
         {
-            UserCredential credential;
-            //var googleDataStore = _container.Resolve<GoogleDataStore>();
-            using (var child = _container.BeginLifetimeScope())
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json"))
             {
+                return GoogleClientSecrets.Load(stream);
+            }
+        }
+
+
+
+
+        public async Task<(IEnumerable<CalendarEventDto>, string etag)> ReadCalendarEventsAsync(long userId,
+            DateTime from, DateTime max,
+            CancellationToken cancellationToken)
+        {
+            //var googleDataStore = _container.Resolve<GoogleDataStore>();
+            using (var child = _container.BeginLifetimeScope())
+            {
                 var initializer = new GoogleAuthorizationCodeFlow.Initializer
                 {
-                    ClientSecrets = GoogleClientSecrets.Load(stream).Secrets,
+                    ClientSecrets = GetGoogleClientSecrets().Secrets,
                     Scopes = new[] { CalendarService.Scope.CalendarReadonly },
                     DataStore = child.Resolve<GoogleDataStore>()
-            };
+                };
                 //TODO: need to find solution We can't dispose the flow because we are using it in the code 
                 var flow = new GoogleAuthorizationCodeFlow(initializer);
 
                 var gToken = await flow.LoadTokenAsync(userId.ToString(), cancellationToken);
                 if (gToken == null) throw new NotFoundException(nameof(gToken));
-                credential = new UserCredential(flow, userId.ToString(), gToken);
-
-            }
+                var credential = new UserCredential(flow, userId.ToString(), gToken);
 
 
-            // var credential = await LoadUserTokenAsync(userId, cancellationToken);
-            using (var service = new CalendarService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential
 
-            }))
-            {
-                var request = service.Events.List("primary");
-                if (from < DateTime.UtcNow)
+
+                // var credential = await LoadUserTokenAsync(userId, cancellationToken);
+                using (var service = new CalendarService(new BaseClientService.Initializer()
                 {
-                    from = DateTime.UtcNow;
-                }
-                request.TimeMin = from;
-                request.TimeMax = max;
-                try
+                    HttpClientInitializer = credential
+
+                }))
                 {
-                    var result = await request.ExecuteAsync(cancellationToken);
-                    return result.Items.Select(s => new CalendarEventDto()
+                    var request = service.Events.List("primary");
+                    if (from < DateTime.UtcNow)
                     {
+                        from = DateTime.UtcNow;
+                    }
+                    request.TimeMin = from;
+                    request.TimeMax = max;
+                    try
+                    {
+                        var result = await request.ExecuteAsync(cancellationToken);
+                        return (result.Items.Select(s =>
+                       {
+                           if (s.Start.DateTime.HasValue)
+                           {
+                               return new CalendarEventDto(s.Start.DateTime.GetValueOrDefault(),
+                                   s.End.DateTime.GetValueOrDefault());
+                           }
 
-                        From = s.Start.DateTime,
-                        To = s.End.DateTime
-                    });
-                }
-                catch (TokenResponseException e)
-                {
-                    throw new NotFoundException("Google token invalid", e);
+                           var start = DateTime.ParseExact(s.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                           var end = DateTime.ParseExact(s.End.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                           return new CalendarEventDto(start, end);
+
+                       }), result.ETag);
+                    }
+                    catch (TokenResponseException e)
+                    {
+                        throw new NotFoundException("Google token invalid", e);
+                    }
                 }
             }
-
         }
 
 
@@ -229,12 +243,11 @@ namespace Cloudents.Infrastructure.Google
             CancellationToken cancellationToken)
         {
             using (var child = _container.BeginLifetimeScope())
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json"))
             {
 
                 var initializer = new GoogleAuthorizationCodeFlow.Initializer
                 {
-                    ClientSecrets = GoogleClientSecrets.Load(stream).Secrets,
+                    ClientSecrets = GetGoogleClientSecrets().Secrets,
                     Scopes = new[] { CalendarService.Scope.CalendarReadonly },
                     DataStore = child.Resolve<GoogleDataStore>()
 
