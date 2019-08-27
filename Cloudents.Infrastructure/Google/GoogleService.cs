@@ -167,6 +167,8 @@ namespace Cloudents.Infrastructure.Google
                     {
                         from = DateTime.UtcNow;
                     }
+
+                    request.SingleEvents = true;
                     request.TimeMin = from;
                     request.TimeMax = max;
                     try
