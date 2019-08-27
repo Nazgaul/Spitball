@@ -48,7 +48,7 @@ reviews.sumCount as RateCount,
 t.bio as Bio,
 u2.Name as University,
 iif(sr.lessonsCount < reviews.sumCount, reviews.sumCount, sr.lessonsCount) as Lessons,
-((isnull(reviews.Rate, 0) * reviews.sumCount) + ((select AVG(Rate) from sb.TutorReview) * 12) + 
+((isnull(reviews.Rate, 0) * reviews.sumCount) + ((select isnull(AVG(Rate),0) from sb.TutorReview) * 12) + 
 (case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end * isnull(reviews.Rate, 0))) / 
 (reviews.sumCount + 12 + case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end)as Rating
 from sb.tutor t
@@ -75,7 +75,7 @@ where t.State = 'Ok' and t.Id = :UserId";
         public async Task UpdateReadTutorRating(CancellationToken token)
         {
             const string sql = @"update rt
-                            set Rating = (select ((isnull(reviews.Rate, 0) * reviews.sumCount) + ((select AVG(Rate) from sb.TutorReview) * 12) + 
+                            set Rating = (select ((isnull(reviews.Rate, 0) * reviews.sumCount) + ((select isnull(AVG(Rate),0) from sb.TutorReview) * 12) + 
                             (case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end * isnull(reviews.Rate, 0))) / 
                             (reviews.sumCount + 12 + case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end) as Rating
 				                            from sb.Tutor t 
