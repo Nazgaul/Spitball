@@ -45,7 +45,6 @@
                     class="white-text elevation-0"
                     round
                     :loading="btnLoading"
-                    :disabled="btnDisabled"
                     @click="submitData()">
                 <span v-language:inner>becomeTutor_btn_next</span>
             </v-btn>
