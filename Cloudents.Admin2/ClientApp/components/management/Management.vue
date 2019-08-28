@@ -11,7 +11,7 @@
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .document-nav {
         display: flex;
         justify-content: center;

@@ -65,7 +65,7 @@
 
 <script src="./flaggedAnswers.js"></script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .v-list__tile__sub-title{
         &.answer-subtitle-reason{
             color: #3f51b5!important;

@@ -44,7 +44,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .delete-user-container {
         display: flex;
         flex-direction: column;

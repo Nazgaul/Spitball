@@ -15,12 +15,12 @@
         components: { navigation }
     }
 </script>
-<style lang="scss">
+<style lang="less">
     body {
          font-family: 'Roboto', Helvetica, Arial, sans-serif;
     }
     </style>
-    <!-- <style lang="scss" >
+    <!-- <style lang="less" >
     html, body {
         //breaks scroll, cannot listen scroll if parent is scrolling
         /*height: 100%;*/

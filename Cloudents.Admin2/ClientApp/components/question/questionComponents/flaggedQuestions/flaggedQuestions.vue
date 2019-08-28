@@ -59,7 +59,7 @@
 
 <script src="./flaggedQuestions.js"></script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
   .user-email, .question-id{
     cursor: pointer;
   }

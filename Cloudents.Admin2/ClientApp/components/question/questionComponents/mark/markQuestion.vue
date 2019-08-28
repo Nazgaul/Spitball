@@ -82,7 +82,7 @@
 
 <script src="./markQuestion.js"></script>
 
-<style lang="scss">
+<style lang="less">
     .v-icon {
         &.font-size-16 {
             font-size: 16px;

@@ -41,7 +41,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="less">
 tr{
     &.student {
         background-color: lightblue;

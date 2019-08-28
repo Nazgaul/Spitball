@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .change-country-container{
     display: flex;
     flex-direction: column;

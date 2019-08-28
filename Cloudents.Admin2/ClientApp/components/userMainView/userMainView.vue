@@ -189,7 +189,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="less">
 
 .table-odd {
     background: #B2DFDB;

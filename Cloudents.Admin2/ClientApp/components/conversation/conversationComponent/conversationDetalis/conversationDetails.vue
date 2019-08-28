@@ -424,7 +424,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="less">
 .v-menu__content.theme--light.menuable__content__active {
   .v-list__tile.v-list__tile--link.theme--light {
     padding: 0 10px;

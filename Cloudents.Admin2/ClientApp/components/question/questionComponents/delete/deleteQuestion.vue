@@ -70,7 +70,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .delete-question-container{
         margin: 0 auto;
     .input-wrap {

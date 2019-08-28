@@ -28,8 +28,7 @@ module.exports = (env) => {
                                    
                                 }
                             },
-                                scss: ['vue-style-loader', 'css-loader', 'sass-loader'],
-                                sass: ['vue-style-loader', 'css-loader', 'sass-loader']
+                                less: ['vue-style-loader', 'css-loader', 'less-loader'],
                             }
                     }
                 },
@@ -37,7 +36,7 @@ module.exports = (env) => {
                     test: /\.js$/,
                     loader: 'babel-loader'
                 },
-                { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+                { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },
                 { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : [MiniCssExtractPlugin.loader, 'css-loader'] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]

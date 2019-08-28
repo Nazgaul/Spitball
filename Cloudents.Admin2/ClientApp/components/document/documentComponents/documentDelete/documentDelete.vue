@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .input-container{
         width:250px;
         margin: 0 auto;

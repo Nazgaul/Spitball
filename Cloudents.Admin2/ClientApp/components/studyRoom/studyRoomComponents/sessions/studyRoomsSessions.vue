@@ -60,7 +60,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="less">
     .elevation-1 {
         width: 100%
     }

@@ -7,6 +7,7 @@
         <v-data-table :headers="headers"
                       :items="paymentRequestsList"
                      :custom-sort="customSort"
+                     :pagination.sync="rows"
                       disable-initial-sort>
             <template slot="items" slot-scope="props" >
 
@@ -132,6 +133,7 @@
         data() {
             return {
                 editedIndex: -1,
+                rows: 10,
                 dialog: false,
                 showLoading: true,
                 showNoResult: false,

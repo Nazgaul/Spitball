@@ -151,7 +151,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="less">
     .drawer {
         z-index: 2
     }

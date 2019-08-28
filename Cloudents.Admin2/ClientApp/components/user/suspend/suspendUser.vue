@@ -115,7 +115,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .suspend-container{
     .suspend-input-container{
         justify-content: center;

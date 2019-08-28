@@ -63,7 +63,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .input-wrap {
         display: flex;
         flex-direction: column;

@@ -14,7 +14,7 @@ export default {
 
 
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .user-nav{
         display:flex;
         justify-content: center;

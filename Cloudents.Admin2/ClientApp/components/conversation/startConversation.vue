@@ -68,7 +68,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="less">
   .dialogLayout {
     background-color: #fff;
   }

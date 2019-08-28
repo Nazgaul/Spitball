@@ -61,7 +61,7 @@
 
 </script>
 
-<style  lang="scss">
+<style  lang="less">
     .item-wrap{
         .session-toolbar{
             max-width: 100%;

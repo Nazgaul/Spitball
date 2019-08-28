@@ -45,7 +45,7 @@
 
 <script src="./pendingQuestions.js"></script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .user-id, .user-email {
         cursor: pointer;
     }
