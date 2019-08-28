@@ -3,7 +3,7 @@
         <v-layout row wrap>
             <v-form v-model="validBecomeSecond" ref="becomeFormSecond" class="become-second-form">
                 <v-flex xs12 class="mb-4 span-cont">
-                    <span class="sharing-text" v-language:inner>becomeTutor_sharing</span>
+                    <span class="sharing-text" v-language:inner="'becomeTutor_sharing_step_2'"></span>
                 </v-flex>
                 <v-flex xs12 :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
                     <v-textarea
@@ -45,7 +45,6 @@
                     class="white-text elevation-0"
                     round
                     :loading="btnLoading"
-                    :disabled="btnDisabled"
                     @click="submitData()">
                 <span v-language:inner>becomeTutor_btn_next</span>
             </v-btn>

@@ -47,8 +47,8 @@ export default {
             },()=>{
                 this.updateToasterParams({
                     toasterText: LanguageService.getValueByKey("put some error"),
-                        showToaster: true,
-                        toasterType: 'error-toaster'
+                    showToaster: true,
+                    toasterType: 'error-toaster'
                 })
             }).finally(()=>{
                 self.isReady = true

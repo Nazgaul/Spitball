@@ -1,6 +1,6 @@
 <template>
     <div class="become-first-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
-        <span class="become-first-span">Sharing your information and you will get more response from students</span>
+        <span class="become-first-span" v-language:inner="'becomeTutor_sharing_step_1'"></span>
         <v-layout row wrap align-start class="become-first-cont">
             <v-flex xs12 sm4 shrink class="image-wrap text-xs-center">
                 <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image"
@@ -72,7 +72,7 @@
             <v-btn
                     color="#4452FC"
                     round
-                    class="white-text elevation-0"
+                    class="white-text elevation-0 btn-first_next-btn"
                     :disabled="btnDisabled"
                     @click="nextStep()">
                 <span v-language:inner>becomeTutor_btn_next</span>
@@ -185,15 +185,18 @@
 
     .become-first-wrap {
         .btns-first{
-                        @media (max-width: @screen-xs) {
-                    align-items: flex-end;
-                }
+            @media (max-width: @screen-xs) {
+                align-items: flex-end;
+            }
             .v-btn {
               @media (max-width: @screen-xs) {
                   height: 40px;
                   padding: 0 20px;
                   text-transform: capitalize;
               }  
+            }
+            .btn-first_next-btn {
+                padding: 0 26px;
             }
         }
 

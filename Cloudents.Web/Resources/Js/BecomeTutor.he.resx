@@ -126,6 +126,9 @@
   <data name="btn_back" xml:space="preserve">
     <value>חזור</value>
   </data>
+  <data name="btn_cal_connect" xml:space="preserve">
+    <value>התחבר ליומן גוגל</value>
+  </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>בטל</value>
   </data>
@@ -134,6 +137,12 @@
   </data>
   <data name="btn_next" xml:space="preserve">
     <value>הבא</value>
+  </data>
+  <data name="calendar" xml:space="preserve">
+    <value>התחבר ללוח השנה</value>
+  </data>
+  <data name="cal_step" xml:space="preserve">
+    <value>התחבר ליומן גוגל על מנת להראות את הזמינות שלך</value>
   </data>
   <data name="label_bio" xml:space="preserve">
     <value>קצת עלי</value>
@@ -162,7 +171,7 @@
   <data name="placeholder_price" xml:space="preserve">
     <value>מחיר לשעה ב- ₪</value>
   </data>
-  <data name="sharing" xml:space="preserve">
+  <data name="sharing_step_2" xml:space="preserve">
     <value>שיתוף המידע והרקע שלך ישיג יותר תגובות מסטודנטים</value>
   </data>
   <data name="title_become" xml:space="preserve">
