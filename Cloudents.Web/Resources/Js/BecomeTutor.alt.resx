@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,82 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="already_submitted" xml:space="preserve">
-    <value>Your profile is pending approval, once approved students can approach you</value>
-  </data>
-  <data name="btn_add_courses_teach" xml:space="preserve">
-    <value>Add courses to teach</value>
-  </data>
-  <data name="btn_back" xml:space="preserve">
-    <value>Back</value>
-  </data>
-  <data name="btn_cal_connect" xml:space="preserve">
-    <value>Connect your Google Calendar</value>
-  </data>
-  <data name="btn_cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="btn_done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="btn_next" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="calendar" xml:space="preserve">
-    <value>Connect your Calendar</value>
-  </data>
-  <data name="cal_step" xml:space="preserve">
-    <value>To show your availability, you must Connect your Google Calendar</value>
-  </data>
-  <data name="label_bio" xml:space="preserve">
-    <value>Bio</value>
-  </data>
-  <data name="label_description" xml:space="preserve">
-    <value>Opening sentence</value>
-  </data>
-  <data name="oh" xml:space="preserve">
-    <value>Oh Yeah!!</value>
-  </data>
-  <data name="personal_details" xml:space="preserve">
-    <value>Personal details</value>
-  </data>
-  <data name="placeholder_bio" xml:space="preserve">
-    <value>Type a short paragraph about your background and who you are</value>
-  </data>
-  <data name="placeholder_description" xml:space="preserve">
-    <value>Type a Key sentence about yourself</value>
-  </data>
-  <data name="placeholder_first_name" xml:space="preserve">
-    <value>First Name</value>
-  </data>
-  <data name="placeholder_last_name" xml:space="preserve">
-    <value>Last Name</value>
-  </data>
-  <data name="placeholder_price" xml:space="preserve">
-    <value>Price per hour (₪)</value>
-  </data>
-  <data name="sharing" xml:space="preserve">
-    <value>Sharing Your information and background will get more response from students</value>
-  </data>
-  <data name="title_become" xml:space="preserve">
-    <value>Become a tutor</value>
-  </data>
-  <data name="tutor_now" xml:space="preserve">
-    <value>You are a tutor now</value>
-  </data>
-  <data name="upload_image" xml:space="preserve">
-    <value>Upload Your Photo</value>
-  </data>
-  <data name="who" xml:space="preserve">
-    <value>Who are you</value>
-  </data>
-  <data name="gender_female" xml:space="preserve">
-    <value>Female</value>
-  </data>
-  <data name="gender_male" xml:space="preserve">
-    <value>Male</value>
-  </data>
-  <data name="placeholder_select_gender" xml:space="preserve">
-    <value>Select gender</value>
-  </data>
 </root>
