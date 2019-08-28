@@ -171,7 +171,7 @@ export default {
         this.getProfile.user &&
         this.getProfile.user.tutorData
       ) {
-        return this.getProfile.user.tutorData.price.toFixed(2);
+        return this.getProfile.user.tutorData.price.toFixed(0);
       }
       return 0;
     },
@@ -182,7 +182,7 @@ export default {
     discountedPrice(){
       let price = this.tutorPrice;
       let discountedAmount = price - this.discountAmount;
-      return discountedAmount >  this.minimumPrice ? discountedAmount.toFixed(2) : this.minimumPrice.toFixed(2);
+      return discountedAmount > this.minimumPrice ? discountedAmount.toFixed(0) : this.minimumPrice.toFixed(0);
     },
     university() {
       if (this.getProfile && this.getProfile.user) {

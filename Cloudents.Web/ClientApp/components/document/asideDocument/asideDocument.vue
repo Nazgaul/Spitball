@@ -295,5 +295,8 @@ export default {
                 color: #4452fc;
             }
         }
+        .align-switch-r {
+            text-align: right !important;
+        }
     }
 </style>

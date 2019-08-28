@@ -56,6 +56,8 @@
                 let self = this
                 this.gapiSignIn().then((res)=>{
                     self.submit()
+                },err=>{
+                    this.isLoading = false;
                 })
             },
             submit(){

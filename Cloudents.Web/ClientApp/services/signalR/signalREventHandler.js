@@ -92,9 +92,6 @@ export const signlaREvents = {
                 userActions[action.type](action.data);
             });
         },
-        paymentreceived:function(){
-            
-        },
     },
     notification: {
         add: function(arrEventObj){

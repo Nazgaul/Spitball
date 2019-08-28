@@ -16,7 +16,7 @@
             <v-icon>sbf-arrow-left-carousel</v-icon>
           </v-btn>
           <span class="title-calendar">{{calendarMonth}}</span>
-          <v-btn small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.next()">
+          <v-btn :disabled="isGoNext" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.next()">
             <v-icon dark>sbf-arrow-right-carousel</v-icon>
           </v-btn>
         </div>
@@ -32,7 +32,7 @@
               <img v-if="isNeedPayment && !isEventSent" src="./images/group-2.png" alt="group-2.png">
               <div v-if="!isEventSent && !isNeedPayment">
                 <p>{{formatDateString()}}</p>
-                <p>{{formatTimeString()}}</p>
+                <p dir="ltr">{{formatTimeString()}}</p>
               </div>
               <span v-if="isEventSent && !isNeedPayment" v-language:inner="'calendar_add_event_sent'"/>
             </div>
@@ -130,11 +130,13 @@ export default {
             return `${global.lang}-${global.country}`.toLowerCase()
         },
         calendarEvents(){
+          console.log(this.getCalendarEvents)
             return this.getCalendarEvents
         },
         eventsMap () {
         const map = {}
         this.calendarEvents.forEach(e => (map[e.date] = map[e.date] || []).push(e))
+        console.log(map)
         return map
       },
       calendarMonth(){
@@ -189,7 +191,7 @@ export default {
       }
     },
     methods: {
-        ...mapActions(['initCalendar','btnClicked','insertEvent','requestPaymentURL','updateNeedPayment']),
+        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment']),
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
@@ -201,10 +203,14 @@ export default {
             time: this.selectedTime,
           }
           this.insertEvent(paramObj).then(()=>{
-            this.isEventSent = true
+              this.isEventSent = true
+              this.calendarEvents.push(paramObj)
           })
         },
         addEvent(ev,date,time){
+          if((!!this.getProfile && !!this.accountUser) 
+          && this.getProfile.user.id == this.accountUser.id) return
+
           ev.stopImmediatePropagation();
           this.selectedTime = time;
           this.selectedDate = date;
@@ -214,9 +220,16 @@ export default {
           return (this.eventsMap[date] && this.eventsMap[date].find(e =>e.time === time))? '': time;
         },
         formatDateString(){
-          let dateStr = new Date(this.selectedDate).toDateString().split(' ');
-          let dayNumber = new Date(this.selectedDate).getDate()
-          return `${dateStr[0]}, ${dateStr[1]} ${dayNumber}`
+          if(global.isRtl){
+            let options = { weekday: 'long', month: 'short', day: 'numeric' };
+            let dateStr = new Date(this.selectedDate).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ')
+            let dayNumber = new Date(this.selectedDate).getDate()
+            return `${dateStr[0]} ${dateStr[1]} ${dayNumber} ${dateStr[3]}`
+          } else{
+            let dateStr = new Date(this.selectedDate).toDateString().split(' ');
+            let dayNumber = new Date(this.selectedDate).getDate()
+            return `${dateStr[0]}, ${dateStr[1]} ${dayNumber}`
+          }
         },
         formatTimeString(){
           let endTime = new Date(`${this.selectedDate} ${this.selectedTime}`).getHours()+1;
@@ -263,16 +276,9 @@ export default {
       }
     },
     created() {
-      let tutorId = this.$route.params.id
-      let self = this;
-      if(this.isMobile){
-        this.intervals.height = 56;
-      } else {
-        this.intervals.height = 36
-      }
-      setTimeout(() => {
-        self.initCalendar(tutorId);
-      },);
+      if(this.isMobile){this.intervals.height = 56} 
+      else{this.intervals.height = 36}
+      if(this.getCalendarEvents){this.isReady = true}
       this.updateNeedPayment(this.accountUser.needPayment)
     },
 };
@@ -352,6 +358,14 @@ export default {
     z-index: 10;
     top: 26%;
     left: 26%;
+    
+
+display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+
+
     @media (max-width: @screen-xs) {
       position: fixed;
       height: initial;
