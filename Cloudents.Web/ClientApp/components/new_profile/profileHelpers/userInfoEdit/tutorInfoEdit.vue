@@ -50,6 +50,7 @@
                                           v-model="price"
                                           outline
                                           prefix="₪"
+                                          class="tutor-edit-pricing"
                                           type="number"
                                           :hide-details="$vuetify.breakpoint.xsOnly"
                             ></v-text-field>
@@ -160,7 +161,7 @@
             },
             price: {
                 get() {
-                    return +this.getProfile.user.tutorData.price.toFixed(2)
+                    return +this.getProfile.user.tutorData.price.toFixed(0)
                 },
                 set(newVal) {
                     this.editedPrice = +newVal
@@ -279,6 +280,11 @@
             border: 1px solid rgba(0, 0, 0, 0.19);
             &:hover {
                 border: 1px solid rgba(0, 0, 0, 0.19) !important;
+            }
+        }
+        .tutor-edit-pricing {
+            .v-messages__message {
+                line-height: normal;
             }
         }
     }
