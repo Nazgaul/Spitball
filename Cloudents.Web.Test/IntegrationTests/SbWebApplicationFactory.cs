@@ -66,7 +66,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             {
                 var user = new TestUser
                 {
-                    Email = "elad@cloudents.com",
+                    Email = "elad13@cloudents.com",
                     Password = "123456789",
                     FingerPrint = "string"
                 };
