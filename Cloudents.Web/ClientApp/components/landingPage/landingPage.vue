@@ -20,5 +20,3 @@ import Footer from '../landingPageTools/Footer.vue';
         
 }
 </script>
-
-<style src="./LandingPage.less" lang="less"></style>
