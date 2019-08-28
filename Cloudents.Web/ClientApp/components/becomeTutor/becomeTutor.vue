@@ -114,6 +114,10 @@
                 padding: 0 18px;
                 justify-content: center;
             }
+            @media(max-width: @screen-xss){
+                padding: 0 6px;
+                justify-content: center;
+            }
 
         }
         .who{
