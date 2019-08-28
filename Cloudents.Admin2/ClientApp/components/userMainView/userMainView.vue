@@ -10,9 +10,7 @@
                                   type="text"
                                   required
                                   :rules="requiredRules"
-                                  placeholder="Insert user identifier..." 
-                                  @keyup.enter="submitUserData()"/>
-                                  
+                                  placeholder="Insert user identifier..."/>
                     <v-btn color="success" @click="submitUserData()">
                         Get User
                     </v-btn>
