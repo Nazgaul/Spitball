@@ -171,6 +171,9 @@
   <data name="placeholder_price" xml:space="preserve">
     <value>מחיר לשעה ב- ₪</value>
   </data>
+  <data name="sharing_step_1" xml:space="preserve">
+    <value>שיתוף המידע שלך ישיג יותר תגובות מסטודנטים</value>
+  </data>
   <data name="sharing_step_2" xml:space="preserve">
     <value>שיתוף המידע והרקע שלך ישיג יותר תגובות מסטודנטים</value>
   </data>
