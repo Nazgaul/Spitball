@@ -11,7 +11,7 @@
                 <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
                 <div class="user-bio-wrapper">
                   <div class="user-bio mb-4">{{tutorData.bio}}</div>
-                  <div class="read-more" v-show="isOverflow" v-language:inner="'resultTutor_read_more'"></div>
+                  <!-- <div class="read-more" v-show="isOverflow" v-language:inner="'resultTutor_read_more'"></div> -->
                 </div>
                 <div class="study-area mb-2" :class="{'study-area-hidden': !isSubjects}">
                   <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
@@ -248,11 +248,11 @@ export default {
           .user-bio {
             .giveMeEllipsis(3, 20px);
           }
-          .read-more {
-            position: absolute;
-            bottom: 4px;
-            color: #4452fc;
-          }
+          // .read-more {
+          //   position: absolute;
+          //   bottom: 4px;
+          //   color: #4452fc;
+          // }
         }
         .study-area-hidden {
           visibility: hidden;
