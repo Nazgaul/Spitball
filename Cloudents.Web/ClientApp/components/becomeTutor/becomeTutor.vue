@@ -135,6 +135,8 @@
         .v-stepper__step{
             @media(max-width: @screen-xs){
                 flex-direction: column;
+                justify-content: start;
+                margin-top: 8px;
             }      
             
         }
