@@ -303,14 +303,25 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("calendar/events"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> SetTutorCalendarAsync(
             [FromBody]CalendarEventRequest model,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From, model.To);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From, model.To);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                ModelState.AddModelError("x","slot taken");
+                return BadRequest(ModelState);
+            }
         }
     }
 }
