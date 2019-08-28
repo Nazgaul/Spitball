@@ -171,7 +171,7 @@
   <data name="placeholder_price" xml:space="preserve">
     <value>Price per hour (₪)</value>
   </data>
-  <data name="sharing" xml:space="preserve">
+  <data name="sharing_step_2" xml:space="preserve">
     <value>Sharing Your information and background will get more response from students</value>
   </data>
   <data name="title_become" xml:space="preserve">
@@ -194,5 +194,8 @@
   </data>
   <data name="placeholder_select_gender" xml:space="preserve">
     <value>Select gender</value>
+  </data>
+  <data name="sharing_step_1" xml:space="preserve">
+    <value>Sharing your information and you will get more response from students</value>
   </data>
 </root>

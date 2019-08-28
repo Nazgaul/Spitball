@@ -49,7 +49,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-let auth2;
+// let auth2;
 
 export default {
     name: 'getStarted',
@@ -61,7 +61,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateStep','googleSigning']),
+        ...mapActions(['updateStep','googleSigning','gapiLoad']),
         checkBoxConfirm(){
             if(this.isTermsAgree){
                 this.showError = false
@@ -111,13 +111,15 @@ export default {
         }
     },
     mounted() {
+        let self = this;
         this.$nextTick(function () {
             this.$loadScript("https://apis.google.com/js/client:platform.js").then(()=>{
-                gapi.load('auth2', function () {
-                    auth2 = gapi.auth2.init({
-                    client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
-                    });
-                });
+                self.gapiLoad();
+                // gapi.load('auth2', function () {
+                //     auth2 = gapi.auth2.init({
+                //     client_id: global.client_id,
+                //     });
+                // });
             })
         });
     },

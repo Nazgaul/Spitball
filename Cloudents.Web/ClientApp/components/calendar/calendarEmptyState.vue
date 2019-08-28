@@ -47,9 +47,11 @@
         },
         created() {
             let self = this;
-            setTimeout(() => {
-                self.gapiLoad();
-            },);
+            this.$loadScript("https://apis.google.com/js/api.js").then(() => {
+                setTimeout(() => {
+                    self.gapiLoad();
+                },);
+        })
         },
     };
 </script>
