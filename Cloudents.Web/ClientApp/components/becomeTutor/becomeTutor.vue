@@ -114,6 +114,10 @@
                 padding: 0 18px;
                 justify-content: center;
             }
+            @media(max-width: @screen-xss){
+                padding: 0 6px;
+                justify-content: center;
+            }
 
         }
         .who{
@@ -135,6 +139,8 @@
         .v-stepper__step{
             @media(max-width: @screen-xs){
                 flex-direction: column;
+                justify-content: start;
+                margin-top: 8px;
             }      
             
         }

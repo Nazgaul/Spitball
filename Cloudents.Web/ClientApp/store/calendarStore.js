@@ -81,9 +81,12 @@ const actions ={
             tutorId: state.tutorId
         }
         
-        return calendarService.addEvent(insertEventObj).then(res=>{
-            return res
-        })  
+        return calendarService.addEvent(insertEventObj).then(
+            (response)=>{
+                return Promise.resolve(response)
+            },(error)=>{
+                return Promise.reject(error)
+            }) 
     },
     updateNeedPayment({commit},val){
         commit('setNeedPayment',val)

@@ -92,6 +92,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+import {LanguageService} from '../../services/language/languageService.js'
 export default {
     components:{
       paymentDialog,
@@ -130,13 +131,11 @@ export default {
             return `${global.lang}-${global.country}`.toLowerCase()
         },
         calendarEvents(){
-          console.log(this.getCalendarEvents)
             return this.getCalendarEvents
         },
         eventsMap () {
         const map = {}
         this.calendarEvents.forEach(e => (map[e.date] = map[e.date] || []).push(e))
-        console.log(map)
         return map
       },
       calendarMonth(){
@@ -191,7 +190,7 @@ export default {
       }
     },
     methods: {
-        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment']),
+        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment','updateToasterParams']),
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
@@ -205,6 +204,13 @@ export default {
           this.insertEvent(paramObj).then(()=>{
               this.isEventSent = true
               this.calendarEvents.push(paramObj)
+          },err=>{
+            this.addEventDialog = false;
+            this.updateToasterParams({
+                    toasterText: LanguageService.getValueByKey("put some error"),
+                    showToaster: true,
+                    toasterType: 'error-toaster'
+                })
           })
         },
         addEvent(ev,date,time){
