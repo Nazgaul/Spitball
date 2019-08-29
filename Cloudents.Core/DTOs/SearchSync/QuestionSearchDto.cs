@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {

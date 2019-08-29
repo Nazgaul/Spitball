@@ -1,4 +1,4 @@
-let uint = number =>  Math.sqrt(Math.pow(number, 2));
+//let uint = number =>  Math.sqrt(Math.pow(number, 2));
 
 const inBox = function(x0, y0, rect) {
     let x1 = Math.min(rect.startX, rect.startX + rect.w);
@@ -6,32 +6,32 @@ const inBox = function(x0, y0, rect) {
     let y1 = Math.min(rect.startY, rect.startY + rect.h);
     let y2 = Math.max(rect.startY, rect.startY + rect.h);
     return (x1 <= x0 && x0 <= x2 && y1 <= y0 && y0 <= y2);
-}
+};
 
 const findLiveDraw = function(pointX, pointY, shapeObj, ctx){
     let result = false;
     let acceptedOffset = 15;
     let pathPoints = shapeObj.points;
-    let boundries = getBoundriesPoints(shapeObj.points)
+    let boundries = getBoundriesPoints(shapeObj.points);
     let rect = {
         startX: boundries.startX,
         startY: boundries.startY,
         w: boundries.endX - boundries.startX,
         h: boundries.endY - boundries.startY,
-    }
+    };
     if(inBox(pointX, pointY, rect)){
         console.log(`x ${pointX}, y: ${pointY}`);
         pathPoints.forEach(pointObj=>{
-            let leftOffset = (pointX > pointObj.mouseX - acceptedOffset) && (pointX < pointObj.mouseX + acceptedOffset)
-            let topOffset = (pointY > pointObj.mouseY - acceptedOffset) && (pointY < pointObj.mouseY + acceptedOffset)
+            let leftOffset = (pointX > pointObj.mouseX - acceptedOffset) && (pointX < pointObj.mouseX + acceptedOffset);
+            let topOffset = (pointY > pointObj.mouseY - acceptedOffset) && (pointY < pointObj.mouseY + acceptedOffset);
             if(leftOffset && topOffset){
                 result = true;
             }
-        })
+        });
     }
     
     return result;
-}
+};
 
 
 const findLineDraw = function(pointX, pointY, shapeObj, ctx){
@@ -43,7 +43,7 @@ const findLineDraw = function(pointX, pointY, shapeObj, ctx){
         startY: shapeObj.points[0].mouseY,
         w: shapeObj.points[1].mouseX - shapeObj.points[0].mouseX,
         h: shapeObj.points[1].mouseY - shapeObj.points[0].mouseY,
-    }
+    };
     if(inBox(pointX, pointY, rect)){
         let x1 = shapeObj.points[0].mouseX;
         let x2 = shapeObj.points[1].mouseX;
@@ -57,41 +57,41 @@ const findLineDraw = function(pointX, pointY, shapeObj, ctx){
         }
     }
     return result;
-}
+};
 
 const findRectangleDraw = function(pointX, pointY, shapeObj, ctx){
     let boundries= {
         startX: shapeObj.points[0].mouseX,
         startY: shapeObj.points[0].mouseY,
-    }
-    
+    };
+
     let rect = {
         startX: boundries.startX,
         startY: boundries.startY,
         w: shapeObj.points[1].mouseX - shapeObj.points[0].mouseX,
         h: shapeObj.points[1].mouseY - shapeObj.points[0].mouseY,
-    }
+    };
     return inBox(pointX, pointY, rect);
     // let path = new Path2D(shapeObj.path.stroke);
     // return ctx.isPointInStroke(path, pointX, pointY);
-}
+};
 
 const findEllipseDraw = function(pointX, pointY, shapeObj, ctx){
     let boundries= {
         startX: shapeObj.points[0].mouseX,
         startY: shapeObj.points[0].mouseY,
-    }
-    
+    };
+
     let rect = {
         startX: boundries.startX,
         startY: boundries.startY,
         w: shapeObj.points[1].mouseX - shapeObj.points[0].mouseX,
         h: shapeObj.points[1].mouseY - shapeObj.points[0].mouseY,
-    }
+    };
     return inBox(pointX, pointY, rect);
     //let path = new Path2D(shapeObj.path.stroke);
     // return ctx.isPointInStroke(path, pointX, pointY);
-}
+};
 
 const findImageDraw = function(pointX, pointY, shapeObj){
     let boundries= {
@@ -99,15 +99,15 @@ const findImageDraw = function(pointX, pointY, shapeObj){
         startY: shapeObj.points[0].mouseY,
         endX: shapeObj.points[0].width,
         endY: shapeObj.points[0].height
-    }
+    };
     let rect = {
         startX: boundries.startX,
         startY: boundries.startY,
         w: boundries.endX,
         h: boundries.endY,
-    }
+    };
     return inBox(pointX, pointY, rect);
-}
+};
 
 const findTextDraw = function(pointX, pointY, shapeObj){
     let boundries= {
@@ -115,17 +115,17 @@ const findTextDraw = function(pointX, pointY, shapeObj){
         startY: shapeObj.points[0].mouseY - shapeObj.points[0].yOffset,
         endX: shapeObj.points[0].width + shapeObj.points[0].mouseX,
         endY: (shapeObj.points[0].height + shapeObj.points[0].mouseY) - shapeObj.points[0].yOffset
-    }
+    };
     let rect = {
         startX: boundries.startX,
         startY: boundries.startY,
         w: shapeObj.points[0].width,
         h: shapeObj.points[0].height,
-    }
+    };
     rect.startX = rect.startX < 0 ? 0 : rect.startX;
     rect.startY = rect.startY < 0 ? 0 : rect.startY;
     return inBox(pointX, pointY, rect);
-}
+};
 
 const clickSearchShapeByType = {
     liveDraw: findLiveDraw,
@@ -136,7 +136,7 @@ const clickSearchShapeByType = {
     eraser: function(){},
     textDraw: findTextDraw,
     equationDraw: findImageDraw
-}
+};
 
 
 const getShapeByPoint = function(x, y, globalObj, dragData){
@@ -148,15 +148,15 @@ const getShapeByPoint = function(x, y, globalObj, dragData){
         shapes.forEach((shape, index)=>{
             if(shape.isGhost || !shape.visible) return;
             console.log(shape.type);
-                let isShapeFound = clickSearchShapeByType[shape.type](x, y, shape, ctx)
+                let isShapeFound = clickSearchShapeByType[shape.type](x, y, shape, ctx);
                 if(isShapeFound){
                     selectedShape[shape.id] = shape;
                     return;
                 }
-        })
+        });
     }
     return selectedShape;
-}
+};
 
 const getShapesByRectangle = function(globalObj, helperBoundries, dragData){
     let shapes = dragData;
@@ -165,15 +165,15 @@ const getShapesByRectangle = function(globalObj, helperBoundries, dragData){
         shapes.forEach((shape)=>{
             if(shape.isGhost || !shape.visible) return;
             shape.points.forEach(dragObj=> {
-                let isShapeFound = inBox(dragObj.mouseX, dragObj.mouseY, helperBoundries)
+                let isShapeFound = inBox(dragObj.mouseX, dragObj.mouseY, helperBoundries);
                 if(isShapeFound){
                     selectedShape[shape.id] = shape;
                 }
-            })
-        })
+            });
+        });
     }
     return selectedShape;
-}
+};
 
 
 const getBoundriesPoints = function(points){
@@ -219,17 +219,17 @@ const getBoundriesPoints = function(points){
             }
         }
         
-    })
-    
+    });
+
     return {
         startX,
         startY,
         endX,
         endY
-    }
-}
+    };
+};
 
-    // Adds ctx.getTransform() - returns an SVGMatrix
+// Adds ctx.getTransform() - returns an SVGMatrix
 	// Adds ctx.transformedPoint(x,y) - returns an SVGPoint
 	function trackTransforms(ctx){
         let svg = document.createElementNS("http://www.w3.org/2000/svg",'svg');
@@ -290,13 +290,13 @@ const getBoundriesPoints = function(points){
         ctx.transformedPoint = function(x,y){
             pt.x=x; pt.y=y;
             return pt.matrixTransform(xform.inverse());
-        }
-      }
+        };
+    }
 
       const getRelativeMousePoints = function(ctx, mouseX, mouseY){
         let pt = ctx.transformedPoint(mouseX, mouseY);
-        return {mouseX: pt.x, mouseY: pt.y}
-      }
+        return {mouseX: pt.x, mouseY: pt.y};
+      };
 
 export default{
     getShapeByPoint,

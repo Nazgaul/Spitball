@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Dapper;
 using NHibernate;
 using NHibernate.Linq;
 using System.Collections.Generic;

@@ -8,10 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Query.Query.Sync;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
-using Cloudents.Command;
-using Cloudents.Query;
-using Cloudents.Query.Chat;
-using Cloudents.Command.Command;
 
 namespace Cloudents.FunctionsV2
 {

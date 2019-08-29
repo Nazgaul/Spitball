@@ -137,7 +137,7 @@ const router = new VueRouter({
     scrollBehavior(to, from, savedPosition) {
         return new Promise((resolve, reject) => {
             if(to.hash){
-                resolve({selector: to.hash})
+                resolve({selector: to.hash});
             }
             if (savedPosition) {
                 resolve({x: savedPosition.x, y: savedPosition.y});
@@ -209,9 +209,9 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 }
 
 Vue.filter('ellipsis',
-    function (value, characters, datailedView) {
+    function (value, characters, detailedView) {
         value = value || '';
-        if (value.length <= characters || datailedView || !global.isFirefox) {
+        if (value.length <= characters || detailedView || !global.isFirefox) {
             return value;
         } else {
             return value.substr(0, characters) + '...';
@@ -222,10 +222,10 @@ Vue.filter('bolder',
     function (value, query) {
         if (query.length) {
             query.map((item) => {
-                value = value.replace(item, '<span class="bolder">' + item + '</span>')
+                value = value.replace(item, '<span class="bolder">' + item + '</span>');
             });
         }
-        return value
+        return value;
     });
 
 Vue.filter('fixedPoints', function (value) {
@@ -255,7 +255,7 @@ Vue.filter('fullMonthDate', function (value) {
     let date = new Date(value);
     //return load if no data
     if (!value) {
-        return ''
+        return '';
     }
 // request a weekday along with a long month
     let options = {year: 'numeric', month: 'short', day: 'numeric'};
@@ -269,7 +269,7 @@ Vue.prototype.$Ph = function (key, placeholders) {
     //if no placeholders return the Key without the replace
     if (!placeholders) {
         //console.error(`${key} have no placeholders to replace`)
-        return rawKey
+        return rawKey;
     }
 
     let argumentsToSend = [];
@@ -279,8 +279,8 @@ Vue.prototype.$Ph = function (key, placeholders) {
     } else {
         argumentsToSend = [placeholders];
     }
-    return LanguageService.changePlaceHolders(rawKey, argumentsToSend)
-}
+    return LanguageService.changePlaceHolders(rawKey, argumentsToSend);
+};
 
 Vue.prototype.$chatMessage = function (message) {
     if(message.type === 'text'){
@@ -292,16 +292,16 @@ Vue.prototype.$chatMessage = function (message) {
         if(!!matchedResults){
             matchedResults.forEach(result=>{
                 let prefix = result.toLowerCase().indexOf('http') === -1 &&
-                result.toLowerCase().indexOf('ftp') === -1 ? '//' : ''
+                result.toLowerCase().indexOf('ftp') === -1 ? '//' : '';
                 modifiedText = modifiedText.replace(result, `<a href="${prefix}${result}" target="_blank">${result}</a>`);
-            })
+            });
         } 
         return modifiedText;
     }else{
         let src = utilitiesService.proccessImageURL(message.src, 190, 140, 'crop');
         return `<a href="${message.href}" target="_blank"><img src="${src}"/></a>`;
     }
-}
+};
 
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
 Vue.filter('currencyLocalyFilter', function (value, hideCurrrency) {
@@ -312,10 +312,10 @@ Vue.filter('currencyLocalyFilter', function (value, hideCurrrency) {
         maximumFractionDigits: 2
     }) || '0';
     if (hideCurrrency) {
-        return result
+        return result;
     } else {
         if (amount < 0 && global.isRtl) {
-          return `${result.substr(1,result.length)}${result.slice(0,1)} ${sblCurrency}`
+          return `${result.substr(1,result.length)}${result.slice(0,1)} ${sblCurrency}`;
         }
         return result + " " + sblCurrency;
     }
@@ -331,11 +331,11 @@ router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
     if (!to.query || !to.query.university) {
         if (!!from.query && !!from.query.university) {
-            store.dispatch('closeSelectUniFromNav')
+            store.dispatch('closeSelectUniFromNav');
         }
     } 
 
-    store.dispatch('sendQueryToAnalytic', to)
+    store.dispatch('sendQueryToAnalytic', to);
 
     if (global.innerWidth < 600) {
         intercomSettings.hide_default_launcher = true;
@@ -365,7 +365,7 @@ const app = new Vue({
 });
 
 function checkUserStatus(to, next) {
-    store.dispatch('userStatus', {isRequire: to.meta.requiresAuth, to})
+    store.dispatch('userStatus', {isRequire: to.meta.requiresAuth, to});
     if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
         next("/signin");
     } else {

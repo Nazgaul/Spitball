@@ -48,7 +48,7 @@ export default {
             return !!this.accountUser;
         },
         dialogTitle(){
-            if(!this.getCurrTutor) return LanguageService.getValueByKey('tutorRequest_title')
+            if(!this.getCurrTutor) return LanguageService.getValueByKey('tutorRequest_title');
             let currTutor = this.getCurrTutor;
             let message = this.isProfile || currTutor.name ? LanguageService.getValueByKey('tutorRequest_title_tutor_list'): LanguageService.getValueByKey('tutorRequest_title');
             let name = currTutor.name ? currTutor.name : '';
@@ -60,13 +60,13 @@ export default {
         searchCourses: debounce(function(ev){
             let term = ev.target.value.trim();
             if(!term) {
-                this.tutorCourse = ''
-                return 
+                this.tutorCourse = '';
+                return;
             }
             if(!!term){
                 universityService.getCourse({term, page:0}).then(data=>{
                     this.suggestsCourses = data;
-                })
+                });
             }
         },300),
         searchUniversities: debounce(function(ev){
@@ -74,14 +74,14 @@ export default {
             if(!!term){
                 universityService.getUni({term, page:0}).then(data=>{
                     this.suggestsUniversities = data;
-                })
+                });
             }
         },300),
         sendRequest() {
             let self = this;
-            let tutorId = null
+            let tutorId = null;
             if(this.getCurrTutor) {
-                tutorId = this.getCurrTutor.userId || this.getCurrTutor.id
+                tutorId = this.getCurrTutor.userId || this.getCurrTutor.id;
             }
             if(self.$refs.tutorRequestForm.validate()) {
                 self.btnRequestLoading = true;
@@ -102,15 +102,15 @@ export default {
                                         self.updateToasterParams({
                                         toasterText: LanguageService.getValueByKey("tutorRequest_request_received"),
                                         showToaster: true,
-                                      })
-                                    }).catch((err)=>{
+                                      });
+                            }).catch((err)=>{
                                         self.updateToasterParams({
                                           toasterText: !!err.response.data.error ? err.response.data.error[0] : LanguageService.getValueByKey("tutorRequest_request_error"),
                                           showToaster: true,
                                           toasterType: 'error-toaster'
-                                        })
-                                  }).finally(() => {
-                                      self.btnRequestLoading = false
+                                        });
+                            }).finally(() => {
+                                      self.btnRequestLoading = false;
                                       if(self.$refs['recaptcha']){
                                         self.$refs['recaptcha'].reset();
                                       }
@@ -122,7 +122,7 @@ export default {
         },
         onVerify(response) {
             this.recaptcha = response;
-            this.sendRequest()
+            this.sendRequest();
             this.$refs['recaptcha'].reset();
         },
         onExpired() {
@@ -131,7 +131,7 @@ export default {
         },
         submit(guest){
             if(guest){
-                this.$refs['recaptcha'].execute()
+                this.$refs['recaptcha'].execute();
             }else{
                 this.sendRequest();
             }
@@ -142,7 +142,7 @@ export default {
                 course: this.tutorCourse,
                 fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
                 fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
-            }
+            };
             if(beforeSubmit){
                 analyticsService.sb_unitedEvent('Request Tutor Dialog Opened', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
             }else{
@@ -153,7 +153,7 @@ export default {
 
     created() {
         if(this.$route.query && this.$route.query.Course){
-            this.tutorCourse = this.$route.query.Course
+            this.tutorCourse = this.$route.query.Course;
         }
         this.sendAnalyticEvent(true);
         this.isProfile = this.$route.name === 'profile'? true : false;

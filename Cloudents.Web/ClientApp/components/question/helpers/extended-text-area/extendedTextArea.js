@@ -25,18 +25,18 @@ export default {
             extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp', 'bmp'],
             componentUniqueId: `instance-${this._uid}`,
             uploadFileError: false
-        }
+        };
     },
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
         },
         togglePreview: function () {
-            this.fullPreview = !this.fullPreview
+            this.fullPreview = !this.fullPreview;
         },
         //will remove from files[]
         remove(file) {
-            this.$refs.upload.remove(file)
+            this.$refs.upload.remove(file);
         },
         deletePreview: function (file, index) {
             this.remove(file); //remove from files[]
@@ -46,7 +46,7 @@ export default {
         inputFile: function (newFile, oldFile) {
             let self = this;
             if (self.files && self.files.length > 4) {
-                return
+                return;
             }
             if (newFile && newFile.progress) {
                 // console.log('progress', newFile.progress, newFile)
@@ -79,7 +79,7 @@ export default {
             }
             if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
                 if (!this.$refs.upload.active) {
-                    this.$refs.upload.active = true
+                    this.$refs.upload.active = true;
                 }
             }
         },
@@ -88,7 +88,7 @@ export default {
             if (newFile && !oldFile) {
                 //prevent adding new files if maximum reached
                 if (this.files.length >= 4) {
-                    return prevent()
+                    return prevent();
                 }
                 // Filter non-supported extensions  both lower and upper case
                 let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
@@ -99,10 +99,10 @@ export default {
                     setTimeout(() => {
                         this.uploadFileError = false;
                     }, 3000);
-                    return prevent()
+                    return prevent();
                 }
-                if (newFile && newFile.size === 0) {
-                    return prevent()
+                if (newFile.size === 0) {
+                    return prevent();
                 }
             }
             if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
@@ -126,6 +126,6 @@ export default {
 
     },
     created() {
-        console.log(`Oneeee!! !!!router path: ${this.$route.fullPath} component`, this)
+        console.log(`Oneeee!! !!!router path: ${this.$route.fullPath} component`, this);
     }
 }

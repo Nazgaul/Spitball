@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {

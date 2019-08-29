@@ -5,7 +5,6 @@ using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Query;
 using Cloudents.Query.Query.Sync;
-using Cloudents.Search.Entities;
 using Cloudents.Search.Question;
 using Microsoft.Azure.WebJobs;
 

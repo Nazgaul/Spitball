@@ -2,7 +2,6 @@
 using NHibernate.Dialect;
 using NHibernate.Dialect.Function;
 using NHibernate.Hql.Ast;
-using NHibernate.Linq;
 using NHibernate.Linq.Functions;
 using NHibernate.Linq.Visitors;
 using System;

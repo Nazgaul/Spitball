@@ -31,7 +31,7 @@ function setIntercomSettings(data) {
         email: user_email,
         phoneNumber: user_phoneNumber,
         alignment: alignment,
-        language_override: global.lang,
+        language_override: global.lang
     };
 
     global.Intercom('boot', {intercomSettings});
@@ -200,7 +200,7 @@ const mutations = {
 
 const getters = {
     getProfileImageLoading: state =>{
-       return state.profileImageLoading
+       return state.profileImageLoading;
     },
     isTutorProfile: state => {
         if(state.profile && state.profile.user && state.profile.user.isTutor) {
@@ -239,13 +239,13 @@ const getters = {
 
 const actions = {
     updateProfileImageLoader(context, val){
-        context.commit('setProfileImageLoading', val)
+        context.commit('setProfileImageLoading', val);
     },
     updateIsTutorState(context, val){
-        context.commit('setIsTutorState', val)
+        context.commit('setIsTutorState', val);
     },
     updateEditDialog(context, val){
-        context.commit('setEditDialog', val)
+        context.commit('setEditDialog', val);
     },
     updateUniExists(context, val){
         context.commit("setUniExists", val);
@@ -258,7 +258,7 @@ const actions = {
                                                  let imageUrl = resp.data;
                                                  context.commit('setProfilePicture', imageUrl);
                                                        context.commit('setProfileImageLoading', false);
-                                                 return true
+                                                 return true;
                                              },
                                              (error) => {
                                                  context.commit('setProfileImageLoading', false);
@@ -351,7 +351,7 @@ const actions = {
                     //create answer Object and push it to the state
                     let answerToPush = {
                         ...answer,
-                        filesNum: answer.files,
+                        filesNum: answer.files
                     };
                     context.state.profile.answers.push(answerToPush);
                 });
@@ -374,7 +374,7 @@ const actions = {
                     let questionToPush = {
                         ...question,
                         user: user,
-                        filesNum: question.files,
+                        filesNum: question.files
                     };
                     context.state.profile.questions.push(questionToPush);
                 });
@@ -385,46 +385,46 @@ const actions = {
             return false;
         });
     },
-    getDocuments(context, DocumentsInfo) {
-        let id = DocumentsInfo.id;
-        let page = DocumentsInfo.page;
-        let user = DocumentsInfo.user;
+    getDocuments(context, documentsInfo) {
+        let id = documentsInfo.id;
+        let page = documentsInfo.page;
+        let user = documentsInfo.user;
         return accountService.getProfileDocuments(id, page).then(({data}) => {
-            let maximumElementsRecivedFromServer = 50;
+            let maximumElementsReceivedFromServer = 50;
             if(data.length > 0) {
                 data.forEach(document => {
                     //create answer Object and push it to the state
                     let documentToPush = {
                         ...document,
-                        user: user,
+                        user: user
                     };
                     context.state.profile.documents.push(documentToPush);
                 });
             }
             //return true if we can call to the server
-            return data.length === maximumElementsRecivedFromServer;
+            return data.length === maximumElementsReceivedFromServer;
         }, (err) => {
             return false;
         });
     },
-    getPurchasedDocuments(context, DocumentsInfo) {
-        let id = DocumentsInfo.id;
-        let page = DocumentsInfo.page;
-        let user = DocumentsInfo.user;
+    getPurchasedDocuments(context, documentsInfo) {
+        let id = documentsInfo.id;
+        let page = documentsInfo.page;
+        let user = documentsInfo.user;
         return accountService.getProfilePurchasedDocuments(id, page).then(({data}) => {
-            let maximumElementsRecivedFromServer = 50;
+            let maximumElementsReceivedFromServer = 50;
             if(data.length > 0) {
                 data.forEach(document => {
                     //create answer Object and push it to the state
                     let documentToPush = {
                         ...document,
-                        user: user,
+                        user: user
                     };
                     context.state.profile.purchasedDocuments.push(documentToPush);
                 });
             }
             //return true if we can call to the server
-            return data.length === maximumElementsRecivedFromServer;
+            return data.length === maximumElementsReceivedFromServer;
         }, (err) => {
             return false;
         });
@@ -445,20 +445,19 @@ const actions = {
         commit("setLastActiveRoute", route);
     },
     userStatus({dispatch, commit, getters, rootState}, {isRequire, to}) {
-        const $this = this;
         commit("changeLoginStatus", global.isAuth);
         if(getters.isUser) {
             return;
         }
         if(global.isAuth) {
-            accountService.getAccount().then((UserAccount) => {
-                setIntercomeData(UserAccount);
+            accountService.getAccount().then((userAccount) => {
+                setIntercomeData(userAccount);
                 commit("changeLoginStatus", true);
-                commit("updateUser", UserAccount);
+                commit("updateUser", userAccount);
                 dispatch("syncUniData");
                 dispatch("getAllConversations");
-                analyticsService.sb_setUserId(UserAccount.id);
-                insightService.authenticate.set(UserAccount.id);
+                analyticsService.sb_setUserId(userAccount.id);
+                insightService.authenticate.set(userAccount.id);
                 initSignalRService();
             }, err=>{
                 setIntercomeData();

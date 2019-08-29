@@ -6,7 +6,6 @@ using Cloudents.FunctionsV2.Binders;
 using Cloudents.Query;
 using Cloudents.Query.Query.Sync;
 using Cloudents.Search.Document;
-using Cloudents.Search.Entities;
 using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2.Sync

@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Dapper;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.SqlCommand;
 using NHibernate.Transform;
 
 namespace Cloudents.Query.Tutor
