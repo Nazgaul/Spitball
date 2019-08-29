@@ -149,7 +149,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['accountUser']),
+    ...mapGetters(['accountUser', 'getActivateTutorDiscounts']),
 
     courses() {
       if (this.tutorData.courses) {
@@ -182,6 +182,7 @@ export default {
       }
     },
     showStriked() {
+      if(!this.getActivateTutorDiscounts) return false;
       let price = this.tutorData.price;
       return price > this.minimumPrice;
     },
