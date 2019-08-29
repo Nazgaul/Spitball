@@ -19,11 +19,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core.Exceptions;
+using Cloudents.Core.Extension;
 using Cloudents.Infrastructure.Google.Resources;
-using Google.Apis;
 using Document = Google.Apis.Docs.v1.Data.Document;
 using Google.Apis.Auth.OAuth2.Responses;
-using Channel = Google.Apis.Calendar.v3.Data.Channel;
+using User = Cloudents.Core.Entities.User;
 
 namespace Cloudents.Infrastructure.Google
 {
@@ -134,7 +134,7 @@ namespace Cloudents.Infrastructure.Google
 
 
 
-        public async Task<(IEnumerable<CalendarEventDto>, string etag)> ReadCalendarEventsAsync(long userId,
+        public async Task<(IEnumerable<DateTime>, string etag)> ReadCalendarEventsAsync(long userId,
             DateTime from, DateTime max,
             CancellationToken cancellationToken)
         {
@@ -176,6 +176,7 @@ namespace Cloudents.Infrastructure.Google
                     try
                     {
                         var result = await request.ExecuteAsync(cancellationToken);
+
                         return (result.Items.Select(s =>
                        {
                            if (s.Start.DateTime.HasValue)
@@ -189,15 +190,18 @@ namespace Cloudents.Infrastructure.Google
                                        .AddMinutes(-endAppointmentTime.Minute);
                                }
 
-                               return new CalendarEventDto(startAppointmentTime,
-                                   endAppointmentTime);
+                               return DateTimeHelpers.EachHour(startAppointmentTime, endAppointmentTime);
+                               //return new CalendarEventDto(startAppointmentTime,
+                               //endAppointmentTime);
                            }
+
 
                            var start = DateTime.ParseExact(s.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                            var end = DateTime.ParseExact(s.End.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                           return new CalendarEventDto(start, end);
+                           return DateTimeHelpers.EachHour(start, end);
+                           //return new CalendarEventDto(start, end);
 
-                       }), result.ETag);
+                       }).SelectMany(s => s), result.ETag);
                     }
                     catch (TokenResponseException e)
                     {
@@ -209,20 +213,20 @@ namespace Cloudents.Infrastructure.Google
 
 
 
-        public async Task BookCalendarEventAsync(
-            IEnumerable<Core.Entities.User> users, DateTime from, DateTime to,
+        public async Task BookCalendarEventAsync(User tutor, User student,
+             DateTime from, DateTime to,
             CancellationToken cancellationToken)
         {
             var cred = SpitballCalendarCred;
             var x = new System.Resources.ResourceManager(typeof(CalendarResources));
-            var eventName = x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture);
-
+            var eventName = x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
+            eventName = string.Format(eventName, tutor.Name, student.Name);
             using (var service = new CalendarService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = cred
             }))
             {
-                var attendees = users.Select(s => new EventAttendee()
+                var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
                 {
                     Email = s.Email
 
@@ -231,7 +235,6 @@ namespace Cloudents.Infrastructure.Google
 
                 var event2 = service.Events.Insert(new Event()
                 {
-
                     Attendees = attendees,
                     Summary = eventName,
                     Start = new EventDateTime()
@@ -263,6 +266,33 @@ namespace Cloudents.Infrastructure.Google
             }
         }
 
+        public async Task DeleteDeclinedEventCalendarAsync(CancellationToken cancellationToken)
+        {
+            using (var service = new CalendarService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = SpitballCalendarCred
+
+            }))
+            {
+                var request = service.Events.List(PrimaryGoogleCalendarId);
+                request.TimeMin = DateTime.UtcNow;
+                request.TimeMax = DateTime.UtcNow.AddMonths(1);
+                request.MaxResults = 2500;
+                request.SingleEvents = true;
+                var result = await request.ExecuteAsync(cancellationToken);
+                var declinedEvent = result.Items.Where(w => w.Attendees.Any(w2 => w2.ResponseStatus == "declined"));//.Select(s => s.Id);
+                var tasks = declinedEvent.Select(s =>
+                {
+                    // ReSharper disable once AccessToDisposedClosure There is await in using
+                    var request2 = service.Events.Delete(PrimaryGoogleCalendarId, s.Id);
+                    request2.SendUpdates = EventsResource.DeleteRequest.SendUpdatesEnum.All;
+                    return request2.ExecuteAsync(cancellationToken);
+
+                });
+                await Task.WhenAll(tasks);
+            }
+        }
+
         public async Task SaveTokenAsync(string token, long userId, string uri,
             CancellationToken cancellationToken)
         {
@@ -288,21 +318,21 @@ namespace Cloudents.Infrastructure.Google
 
         }
 
-        public async Task CreateWatch()
-        {
-            var cred = SpitballCalendarCred;
+        //public async Task CreateWatch()
+        //{
+        //    var cred = SpitballCalendarCred;
 
-            using (var service = new CalendarService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = cred
-            }))
-            {
-                var result = await service.Events.Watch(new Channel
-                {
-                    Type = "web_hook",
-                    Address = "https://spitball-function-dev2.azurewebsites.net/api/google/notifications"
-                },PrimaryGoogleCalendarId).ExecuteAsync();
-            }
-        }
+        //    using (var service = new CalendarService(new BaseClientService.Initializer()
+        //    {
+        //        HttpClientInitializer = cred
+        //    }))
+        //    {
+        //        var result = await service.Events.Watch(new Channel
+        //        {
+        //            Type = "web_hook",
+        //            Address = "https://spitball-function-dev2.azurewebsites.net/api/google/notifications"
+        //        }, PrimaryGoogleCalendarId).ExecuteAsync();
+        //    }
+        //}
     }
 }
