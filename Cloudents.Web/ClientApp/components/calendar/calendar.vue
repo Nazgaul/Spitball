@@ -218,6 +218,7 @@ export default {
           && this.getProfile.user.id == this.accountUser.id) return
 
           ev.stopImmediatePropagation();
+          if(this.addEventDialog)return
           this.selectedTime = time;
           this.selectedDate = date;
           this.addEventDialog = true;
@@ -251,23 +252,12 @@ export default {
           this.isEventSent = false;
           this.isLoading = false;
         },
-        outsideClickDialog(event) {
-          if(!this.addEventDialog) return;
-          let isInside = event.path.some(el=>el.id === 'addEventDialog')
-          if(!isInside){
-            this.closeDialog()
-          }
-        },
         goPayment(){
           this.requestPaymentURL()
         }
     },
     mounted() {
        this.$refs.calendar.scrollToTime('06:00')
-       document.addEventListener('click',this.outsideClickDialog)
-    },
-    beforeDestroy(){
-       document.removeEventListener('click',this.outsideClickDialog)
     },
     watch: {
       getCalendarEvents:function(val){

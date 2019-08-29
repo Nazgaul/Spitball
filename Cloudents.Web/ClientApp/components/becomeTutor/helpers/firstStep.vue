@@ -27,16 +27,18 @@
                         <v-flex xs12 shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : '']">
                             <v-text-field
                             v-model="firstName"
-                            :rules="[rules.required, rules.notSpaces]"
+                            :rules="[rules.required, rules.notSpaces, rules.minimumChars]"
+                            class="become-tutor-edit-firstname"
                             :placeholder="placeFirstName" 
                             :label="placeFirstName"/>
                         </v-flex>
                         <v-flex xs12 :class="[$vuetify.breakpoint.smAndUp ? 'mb-4' : 'mb-3']">
                             <v-text-field
-                                        v-model="lastName"
-                                        :rules="[rules.required, rules.notSpaces]"
-                                        :placeholder="placeLastName" 
-                                        :label="placeLastName"/>
+                                v-model="lastName"
+                                :rules="[rules.required, rules.notSpaces, rules.minimumChars]"
+                                class="become-tutor-edit-lastname"
+                                :placeholder="placeLastName" 
+                                :label="placeLastName"/>
                         </v-flex>
                         <v-flex xs12 class="mt-2 first-selects">
                             <v-text-field 
@@ -45,9 +47,6 @@
                                 v-model="price"
                                 type="number"
                                 :label="placePrice"/>
-
-
-
 
                             <!-- <v-select
                                 v-model="gender"
@@ -106,6 +105,7 @@
                     required: (value) => validationRules.required(value),
                     minimum: (value) => validationRules.minVal(value,50),
                     maximum: (value) => validationRules.maxVal(value, 200),
+                    minimumChars: (value) => validationRules.minimumChars(value, 2),
                     notSpaces: (value) => validationRules.notSpaces(value),
                     integer: (value) => validationRules.integer(value)
                 },
@@ -263,6 +263,11 @@
             @media (max-width: @screen-xs) {
                 width: 100%;
                 margin-left: unset;
+            }
+            .become-tutor-edit-firstname, .become-tutor-edit-lastname {
+                .v-messages__message {
+                    line-height: normal;
+                }
             }
         }
         label[for=tutor-picture] {

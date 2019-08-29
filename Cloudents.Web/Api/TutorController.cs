@@ -285,7 +285,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(555)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<IEnumerable<CalendarEventDto>>> GetTutorCalendarAsync(
+        public async Task<ActionResult<IEnumerable<DateTime>>> GetTutorCalendarAsync(
             [FromQuery]CalendarEventRequest model,
             [FromServices] ICalendarService calendarService,
             CancellationToken token)
@@ -293,7 +293,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var res = await calendarService.ReadCalendarEventsAsync(model.TutorId, model.From, model.To, token);
-                return Ok(res.Item1);
+                return res.Item1.ToList();
             }
             catch(NotFoundException)
             {

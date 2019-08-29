@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TutorCalendarMessage" xml:space="preserve">
-    <value>שעת שעור פרטי בספיטבול</value>
+    <value>שעת שעור פרטי בספיטבול בן {0} ל {1}</value>
   </data>
 </root>
