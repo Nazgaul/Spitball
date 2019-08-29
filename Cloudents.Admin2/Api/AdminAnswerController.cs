@@ -10,7 +10,6 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api

@@ -161,7 +161,7 @@ export default {
                         self.$router.push({name: 'userConversations', params: {userId: data.id.value}});
                     }
                 }, () => {
-                    if(id > 0 || this.userIdentifier != '') {
+                    if(id > 0 || this.userIdentifier !== '') {
                         self.$toaster.error(`Error can't find user with given identifier`);
                     }
                 });

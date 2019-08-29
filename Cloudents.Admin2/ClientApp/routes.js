@@ -325,30 +325,6 @@ export const routes = [
             }
             ]
     },
-
-     {
-      path: '/dev',
-      name: 'dev',
-      component: dev,
-      children: [
-        {
-          path: '',
-          redirect: 'change-country'
-        },
-        {
-          path:'change-country',
-          component: uChangeCountry
-        },
-        {
-          path:'delete-user',
-          component: uDelete
-        },
-        {
-          path: '*',
-          redirect: 'change-country'
-        }
-      ]
-    },
     {
       path: '/leads',
       name: 'leads',
