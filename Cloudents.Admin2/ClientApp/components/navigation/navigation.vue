@@ -135,16 +135,7 @@
                             title: 'Leads',
                             path: '/leads',
                         },
-                    },
-                    {
-                        setting: {
-                            title: 'Dev Actions',
-                            path: '/dev'
-                        },
-                        childrens: [
-                            { name: 'Management', link: '', icon: 'people_outline' },
-                        ]
-                    },
+                    }
                 ]
             }
         },
