@@ -61,9 +61,9 @@
             </div>                
 
             <div class="send-btn">
-                <v-btn class="btn-chat white--text text-truncate" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
+                <v-btn class="btn-chat white--text" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
                   <iconChat class="chat-icon-btn" />
-                  <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
+                  <div class="font-weight-bold" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
                 </v-btn>
             </div>
         </div>
@@ -197,7 +197,12 @@ export default {
       return this.tutorData.subjects.toString();
     },
     showFirstName() {
-      return this.tutorData.name.split(' ')[0];
+      let maxChar = 5;
+      let name = this.tutorData.name.split(' ')[0];
+      if(name.length > maxChar) {
+        return 'me';
+      }
+      return name;
     },
     isReviews() {
       return this.tutorData.reviews > 0 ? true : false;

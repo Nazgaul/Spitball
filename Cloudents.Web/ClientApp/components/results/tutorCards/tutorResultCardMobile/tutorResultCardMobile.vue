@@ -183,8 +183,13 @@ export default {
       return this.tutorData.university;
     },
     showFirstName() {
-      return this.tutorData.name.split(' ')[0];
-    }
+      let maxChar = 5;
+      let name = this.tutorData.name.split(' ')[0];
+      if(name.length > maxChar) {
+        return 'me';
+      }
+      return name;
+    },
   }
 };
 </script>
