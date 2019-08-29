@@ -83,7 +83,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getTutorList', 'accountUser']),
+        ...mapGetters(['getTutorList', 'accountUser', 'getActivateTutorDiscounts']),
 
         atEndOfList() {     
             if(this.isRtl){
@@ -151,6 +151,7 @@ export default {
             event.target.src = "../../../images/placeholder-profile.png";
         },
         showStriked(price) {
+            if(!this.getActivateTutorDiscounts) return false;
             return price > this.minimumPrice;
         },
         discountedPrice(price) {

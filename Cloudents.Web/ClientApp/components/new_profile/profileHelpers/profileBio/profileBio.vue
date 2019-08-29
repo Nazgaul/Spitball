@@ -157,7 +157,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getProfile", "isTutorProfile", "getShowEditDataDialog"]),
+    ...mapGetters(["getProfile", "isTutorProfile", "getShowEditDataDialog", "getActivateTutorDiscounts"]),
     xsColumn() {
       const xsColumn = {};
       if (this.$vuetify.breakpoint.xsOnly) {
@@ -176,6 +176,7 @@ export default {
       return 0;
     },
     showStriked(){
+      if(!this.getActivateTutorDiscounts) return false;
       let price = this.tutorPrice;
       return price > this.minimumPrice;
     },

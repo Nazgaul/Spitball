@@ -140,7 +140,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['accountUser']),
+    ...mapGetters(['accountUser', 'getActivateTutorDiscounts']),
     userImageUrl() {
       if (this.tutorData.image) {
         let size = [67, 87];
@@ -154,6 +154,7 @@ export default {
       }
     },
     showStriked() {
+      if(!this.getActivateTutorDiscounts) return false;
       let price = this.tutorData.price;
       return price > this.minimumPrice;
     },
