@@ -15,8 +15,9 @@
                         </v-flex>
                         <v-flex xs12>
                             <v-text-field
-                                    :rules="[rules.required]"
+                                    :rules="[rules.required, rules.minimumChars]"
                                     :label="firstNameLabel"
+                                    class="tutor-edit-firstname"
                                     v-model.trim="firstName"
                                     outline
                             ></v-text-field>
@@ -30,8 +31,9 @@
                         </v-flex>
                         <v-flex>
                             <v-text-field
-                                    :rules="[rules.required]"
+                                    :rules="[rules.required, rules.minimumChars]"
                                     :label="lastNameLabel"
+                                    class="tutor-edit-lastname"
                                     v-model.trim="lastName"
                                     outline
                             ></v-text-field>
@@ -68,7 +70,8 @@
                             rows="2"
                             outline
                             v-model="description"
-                            :rules="[rules.maximumChars]"
+                            :rules="[rules.maximumChars, rules.descriptionMinChars]"
+                            class="tutor-edit-description"
                             name="input-about"
                             :label="titleLabel"
                     ></v-textarea>
@@ -128,6 +131,8 @@
                     minimum: (value) => validationRules.minVal(value, 50),
                     maximum: (value) => validationRules.maxVal(value, 1000),
                     maximumChars: (value) => validationRules.maximumChars(value, 1000),
+                    minimumChars: (value) => validationRules.minimumChars(value, 2),
+                    descriptionMinChars: (value) => validationRules.minimumChars(value, 15),
                     integer: (value) => validationRules.integer(value)
                 },
                 valid: false,
@@ -282,7 +287,7 @@
                 border: 1px solid rgba(0, 0, 0, 0.19) !important;
             }
         }
-        .tutor-edit-pricing {
+        .tutor-edit-pricing, .tutor-edit-firstname, .tutor-edit-lastname, .tutor-edit-description {
             .v-messages__message {
                 line-height: normal;
             }

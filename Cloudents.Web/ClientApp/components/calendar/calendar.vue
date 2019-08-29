@@ -92,6 +92,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+import {LanguageService} from '../../services/language/languageService.js'
 export default {
     components:{
       paymentDialog,
@@ -130,13 +131,11 @@ export default {
             return `${global.lang}-${global.country}`.toLowerCase()
         },
         calendarEvents(){
-          console.log(this.getCalendarEvents)
             return this.getCalendarEvents
         },
         eventsMap () {
         const map = {}
         this.calendarEvents.forEach(e => (map[e.date] = map[e.date] || []).push(e))
-        console.log(map)
         return map
       },
       calendarMonth(){
@@ -191,7 +190,7 @@ export default {
       }
     },
     methods: {
-        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment']),
+        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment','updateToasterParams']),
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
@@ -205,6 +204,13 @@ export default {
           this.insertEvent(paramObj).then(()=>{
               this.isEventSent = true
               this.calendarEvents.push(paramObj)
+          },err=>{
+            this.addEventDialog = false;
+            this.updateToasterParams({
+                    toasterText: LanguageService.getValueByKey("put some error"),
+                    showToaster: true,
+                    toasterType: 'error-toaster'
+                })
           })
         },
         addEvent(ev,date,time){
@@ -212,6 +218,7 @@ export default {
           && this.getProfile.user.id == this.accountUser.id) return
 
           ev.stopImmediatePropagation();
+          if(this.addEventDialog)return
           this.selectedTime = time;
           this.selectedDate = date;
           this.addEventDialog = true;
@@ -245,23 +252,12 @@ export default {
           this.isEventSent = false;
           this.isLoading = false;
         },
-        outsideClickDialog(event) {
-          if(!this.addEventDialog) return;
-          let isInside = event.path.some(el=>el.id === 'addEventDialog')
-          if(!isInside){
-            this.closeDialog()
-          }
-        },
         goPayment(){
           this.requestPaymentURL()
         }
     },
     mounted() {
        this.$refs.calendar.scrollToTime('06:00')
-       document.addEventListener('click',this.outsideClickDialog)
-    },
-    beforeDestroy(){
-       document.removeEventListener('click',this.outsideClickDialog)
     },
     watch: {
       getCalendarEvents:function(val){
