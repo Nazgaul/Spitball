@@ -150,7 +150,6 @@ const actions = {
     },
 
     removeDocumentItemAction({commit}, notificationQuestionObject) {
-        debugger
         // ??? there is no data and no need to create obj in order to delete by ID line below do we need ?
        let documentObj = searchService.createDocumentItem(notificationQuestionObject);
         // let documentObj = notificationQuestionObject;
@@ -166,8 +165,8 @@ const actions = {
         })
     },
     removeItemFromList({state, commit, dispatch}, itemId) {
-        let items = state.items.data.filter(item => item.id !== itemId);
-        commit('StudyDocuments_filterDocument', items);
+        let docToRemove = { id: itemId }
+        dispatch('removeDocumentItemAction', docToRemove);
     }
 };
 
