@@ -1,6 +1,7 @@
 <template>
         <v-layout class="calendar-section mt-3">
             <v-flex xs12>
+                <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"></v-progress-circular>
                 <v-card class="elevation-0 caltab" v-if="isReady">
                     <calendar v-if="getShowCalendar"/>
                     <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
@@ -68,6 +69,13 @@ export default {
             border-radius: 4px;
             
         }
+          position: relative;
+  .progress-calendar{
+    position: absolute;
+    z-index: 5;
+    top: 38%;
+    left: 38%;
+  }
         .caltab{
             padding: 22px;
             @media (max-width: @screen-xs) {
