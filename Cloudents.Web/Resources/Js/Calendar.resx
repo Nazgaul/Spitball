@@ -141,4 +141,10 @@
   <data name="add_event_title" xml:space="preserve">
     <value>Schedueling an online tutoring session with {1}</value>
   </data>
+  <data name="empty_state_student" xml:space="preserve">
+    <value>need empty state to student</value>
+  </data>
+  <data name="error_create_event" xml:space="preserve">
+    <value>failed to create event</value>
+  </data>
 </root>

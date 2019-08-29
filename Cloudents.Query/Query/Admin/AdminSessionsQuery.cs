@@ -41,7 +41,7 @@ namespace Cloudents.Query.Query.Admin
 	                                    on sru.StudyRoomId = R.Id and sru.UserId != T.Id
                                     join sb.[user] u
 	                                    on sru.UserId = U.Id
-                                    where S.Ended is not null";
+                                    where S.Ended is not null and u.Id = @UserId";
 
                 if (!string.IsNullOrEmpty(query.Country))
                 {

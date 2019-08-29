@@ -14,7 +14,7 @@
                             no-resize
                             v-model="description"
                             name="input-about"
-                            :rules="[rules.maximumChars]"
+                            :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             :placeholder="placeDescription"
                             :label="labelDescription"
                     ></v-textarea>
@@ -26,7 +26,7 @@
                             class="sb-text-area"
                             rows="5"
                             outline
-                            :rules="[rules.maximumChars]"
+                            :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             v-model="bio"
                             name="input-bio"
                             :placeholder="placeBio"
@@ -72,7 +72,7 @@
                 errorFromServer: '',
                 rules: {
                     maximumChars: (value) => validationRules.maximumChars(value, 1000),
-
+                    descriptionMinChars: (value) => validationRules.minimumChars(value, 15),
                 },
             };
         },
@@ -129,6 +129,9 @@
             textarea {
                 padding: 16px 0 8px;
             }
+                    .v-messages__message {
+                        line-height: normal;
+                    }
         }
         .v-input {
             .v-label{

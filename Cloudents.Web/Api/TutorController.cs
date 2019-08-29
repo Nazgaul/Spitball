@@ -285,7 +285,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(555)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<IEnumerable<CalendarEventDto>>> GetTutorCalendarAsync(
+        public async Task<ActionResult<IEnumerable<DateTime>>> GetTutorCalendarAsync(
             [FromQuery]CalendarEventRequest model,
             [FromServices] ICalendarService calendarService,
             CancellationToken token)
@@ -293,7 +293,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var res = await calendarService.ReadCalendarEventsAsync(model.TutorId, model.From, model.To, token);
-                return Ok(res.Item1);
+                return res.Item1.ToList();
             }
             catch(NotFoundException)
             {
@@ -303,14 +303,25 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("calendar/events"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> SetTutorCalendarAsync(
             [FromBody]CalendarEventRequest model,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From, model.To);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From, model.To);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                ModelState.AddModelError("x","slot taken");
+                return BadRequest(ModelState);
+            }
         }
     }
 }

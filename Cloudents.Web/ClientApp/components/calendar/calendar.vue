@@ -8,8 +8,6 @@
                    >
           <paymentDialog/> 
         </sb-dialog>
-      <v-progress-circular class="progress-calendar" v-if="!isReady" indeterminate :size="150" width="3" color="info"></v-progress-circular>
-      
       <v-flex :class="{'sheet-loading':!isReady}">
         <div class="navigation-btns-calendar">
           <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.prev()">
@@ -92,6 +90,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+import {LanguageService} from '../../services/language/languageService.js'
 export default {
     components:{
       paymentDialog,
@@ -130,13 +129,11 @@ export default {
             return `${global.lang}-${global.country}`.toLowerCase()
         },
         calendarEvents(){
-          console.log(this.getCalendarEvents)
             return this.getCalendarEvents
         },
         eventsMap () {
         const map = {}
         this.calendarEvents.forEach(e => (map[e.date] = map[e.date] || []).push(e))
-        console.log(map)
         return map
       },
       calendarMonth(){
@@ -191,7 +188,7 @@ export default {
       }
     },
     methods: {
-        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment']),
+        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment','updateToasterParams']),
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
@@ -205,6 +202,15 @@ export default {
           this.insertEvent(paramObj).then(()=>{
               this.isEventSent = true
               this.calendarEvents.push(paramObj)
+              this.isLoading = false;
+          },err=>{
+            this.addEventDialog = false;
+            this.isLoading = false;
+            this.updateToasterParams({
+                    toasterText: LanguageService.getValueByKey("calendar_error_create_event"),
+                    showToaster: true,
+                    toasterType: 'error-toaster'
+                })
           })
         },
         addEvent(ev,date,time){
@@ -212,6 +218,7 @@ export default {
           && this.getProfile.user.id == this.accountUser.id) return
 
           ev.stopImmediatePropagation();
+          if(this.addEventDialog)return
           this.selectedTime = time;
           this.selectedDate = date;
           this.addEventDialog = true;
@@ -245,23 +252,12 @@ export default {
           this.isEventSent = false;
           this.isLoading = false;
         },
-        outsideClickDialog(event) {
-          if(!this.addEventDialog) return;
-          let isInside = event.path.some(el=>el.id === 'addEventDialog')
-          if(!isInside){
-            this.closeDialog()
-          }
-        },
         goPayment(){
           this.requestPaymentURL()
         }
     },
     mounted() {
        this.$refs.calendar.scrollToTime('06:00')
-       document.addEventListener('click',this.outsideClickDialog)
-    },
-    beforeDestroy(){
-       document.removeEventListener('click',this.outsideClickDialog)
     },
     watch: {
       getCalendarEvents:function(val){
@@ -278,8 +274,12 @@ export default {
     created() {
       if(this.isMobile){this.intervals.height = 56} 
       else{this.intervals.height = 36}
-      if(this.getCalendarEvents){this.isReady = true}
       this.updateNeedPayment(this.accountUser.needPayment)
+      this.$nextTick(()=>{
+        if(this.getCalendarEvents){
+        this.isReady = true
+      }
+      })
     },
 };
 </script>
@@ -292,13 +292,6 @@ export default {
   width: 620px;
   margin:0 auto;
   overflow:auto;
-  position: relative;
-  .progress-calendar{
-    position: absolute;
-    z-index: 5;
-    top: 38%;
-    left: 38%;
-  }
   .sheet-loading{
     opacity: 0.2;
   }
