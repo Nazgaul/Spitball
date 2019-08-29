@@ -142,9 +142,9 @@
     <value>Schedueling an online tutoring session with {1}</value>
   </data>
   <data name="empty_state_student" xml:space="preserve">
-    <value>need empty state to student</value>
+    <value>My calendar is not available at the moment. Massage me directly to schedule a session.</value>
   </data>
   <data name="error_create_event" xml:space="preserve">
-    <value>failed to create event</value>
+    <value>Sorry, I am teaching at those hours. Maybe another time?</value>
   </data>
 </root>

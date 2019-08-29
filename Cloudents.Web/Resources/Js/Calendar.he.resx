@@ -141,4 +141,10 @@
   <data name="add_event_title" xml:space="preserve">
     <value>קבע שיעור פרטי עם {1}</value>
   </data>
+  <data name="empty_state_student" xml:space="preserve">
+    <value>היומן שלי לא זמין כעת, צור איתי קשר בהודעה ונתאם מועד לשיעור פרטי.</value>
+  </data>
+  <data name="error_create_event" xml:space="preserve">
+    <value>תודה שבחרת בי! אני מלמד בשעה הזו, אולי תנסה לקבוע בזמן אחר?</value>
+  </data>
 </root>
