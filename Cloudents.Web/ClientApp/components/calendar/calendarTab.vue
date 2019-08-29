@@ -5,6 +5,9 @@
                     <calendar v-if="getShowCalendar"/>
                     <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
                 </v-card>
+                <v-card class="elevation-0 caltab safdsfsfd" v-show="studentEmptyState">
+                    <span v-language:inner="'calendar_empty_state_student'"></span>
+                </v-card>
             </v-flex>
         </v-layout>
 </template>
@@ -22,7 +25,8 @@ export default {
     data() {
         return {
             isReady: false,
-            showCalendar: this.isCalendar
+            showCalendar: this.isCalendar,
+            studentEmptyState: false,
         }
     },
     computed: {
@@ -44,14 +48,12 @@ export default {
         let self = this;
         this.$loadScript("https://apis.google.com/js/api.js").then(() => {
             self.updateCalendarStatus().then(()=>{
-            },()=>{
-                // this.updateToasterParams({
-                //     toasterText: LanguageService.getValueByKey("put some error"),
-                //     showToaster: true,
-                //     toasterType: 'error-toaster'
-                // })
-            }).finally(()=>{
+                debugger
                 self.isReady = true
+            },()=>{
+                if(!self.isMyProfile){
+                    self.studentEmptyState = true;
+                }
             })
         })
     },
