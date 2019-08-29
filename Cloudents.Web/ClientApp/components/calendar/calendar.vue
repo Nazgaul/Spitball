@@ -274,8 +274,12 @@ export default {
     created() {
       if(this.isMobile){this.intervals.height = 56} 
       else{this.intervals.height = 36}
-      if(this.getCalendarEvents){this.isReady = true}
       this.updateNeedPayment(this.accountUser.needPayment)
+      this.$nextTick(()=>{
+        if(this.getCalendarEvents){
+        this.isReady = true
+      }
+      })
     },
 };
 </script>
