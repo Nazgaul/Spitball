@@ -144,4 +144,7 @@
   <data name="empty_state_student" xml:space="preserve">
     <value>need empty state to student</value>
   </data>
+  <data name="error_create_event" xml:space="preserve">
+    <value>failed to create event</value>
+  </data>
 </root>

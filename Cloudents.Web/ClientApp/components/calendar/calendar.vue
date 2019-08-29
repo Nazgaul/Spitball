@@ -204,10 +204,12 @@ export default {
           this.insertEvent(paramObj).then(()=>{
               this.isEventSent = true
               this.calendarEvents.push(paramObj)
+              this.isLoading = false;
           },err=>{
             this.addEventDialog = false;
+            this.isLoading = false;
             this.updateToasterParams({
-                    toasterText: LanguageService.getValueByKey("put some error"),
+                    toasterText: LanguageService.getValueByKey("calendar_error_create_event"),
                     showToaster: true,
                     toasterType: 'error-toaster'
                 })
