@@ -44,12 +44,13 @@ export default {
         let self = this;
         this.$loadScript("https://apis.google.com/js/api.js").then(() => {
             self.updateCalendarStatus().then(()=>{
-            },()=>{
+            },(err)=>{
                 this.updateToasterParams({
                     toasterText: LanguageService.getValueByKey("put some error"),
                     showToaster: true,
                     toasterType: 'error-toaster'
-                })
+                });
+                console.error(err);
             }).finally(()=>{
                 self.isReady = true
             })
