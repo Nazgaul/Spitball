@@ -10,6 +10,9 @@ const state = {
 };
 
 const mutations = {
+    StudyDocuments_filterDocument(state, data) {
+        state.items.data = data
+    },
     StudyDocuments_setItems(state, data) {
         state.items = data;
     },
@@ -58,7 +61,7 @@ const mutations = {
             }
         }
     },
-
+    
 };
 
 const getters = {
@@ -162,6 +165,10 @@ const actions = {
             dispatch('removeItemFromProfile', objToRemove);
         })
     },
+    removeItemFromList({state, commit, dispatch}, itemId) {
+        let items = state.items.data.filter(item => item.id !== itemId);
+        commit('StudyDocuments_filterDocument', items);
+    }
 };
 
 export default {
