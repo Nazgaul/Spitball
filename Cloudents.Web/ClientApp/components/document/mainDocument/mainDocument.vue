@@ -388,6 +388,7 @@ export default {
       "downloadDocument"
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING"]),
+    
     unlockDocument() {
       let item = {
         id: this.document.details.id,
