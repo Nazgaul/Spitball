@@ -32,7 +32,7 @@ namespace Cloudents.Command.CommandHandler
 
             var user = await _userRepository.LoadAsync(message.UserId,token);
 
-            await _calendarService.BookCalendarEventAsync(new[] {user, tutor.User}, 
+            await _calendarService.BookCalendarEventAsync(tutor.User,user, 
                 message.From, message.To, token);
             
         }

@@ -26,7 +26,8 @@ namespace Cloudents.Core.Interfaces
 
         Task<(IEnumerable<CalendarEventDto>, string etag)> ReadCalendarEventsAsync(long userId, DateTime @from,
             DateTime to, CancellationToken cancellationToken);
-        Task BookCalendarEventAsync(IEnumerable<User> users, DateTime from, DateTime to, CancellationToken cancellationToken);
+        Task BookCalendarEventAsync(User tutor, User student, DateTime from, DateTime to, CancellationToken cancellationToken);
+        Task DeleteDeclinedEventCalendarAsync(CancellationToken cancellationToken);
     }
 
 
