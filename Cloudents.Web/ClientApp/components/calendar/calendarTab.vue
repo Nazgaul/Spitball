@@ -1,9 +1,13 @@
 <template>
         <v-layout class="calendar-section mt-3">
             <v-flex xs12>
+                <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"></v-progress-circular>
                 <v-card class="elevation-0 caltab" v-if="isReady">
                     <calendar v-if="getShowCalendar"/>
                     <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
+                </v-card>
+                <v-card class="elevation-0 caltab safdsfsfd" v-show="studentEmptyState">
+                    <span v-language:inner="'calendar_empty_state_student'"></span>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -22,7 +26,8 @@ export default {
     data() {
         return {
             isReady: false,
-            showCalendar: this.isCalendar
+            showCalendar: this.isCalendar,
+            studentEmptyState: false,
         }
     },
     computed: {
@@ -44,14 +49,12 @@ export default {
         let self = this;
         this.$loadScript("https://apis.google.com/js/api.js").then(() => {
             self.updateCalendarStatus().then(()=>{
-            },()=>{
-                // this.updateToasterParams({
-                //     toasterText: LanguageService.getValueByKey("put some error"),
-                //     showToaster: true,
-                //     toasterType: 'error-toaster'
-                // })
-            }).finally(()=>{
+                debugger
                 self.isReady = true
+            },()=>{
+                if(!self.isMyProfile){
+                    self.studentEmptyState = true;
+                }
             })
         })
     },
@@ -66,6 +69,13 @@ export default {
             border-radius: 4px;
             
         }
+          position: relative;
+  .progress-calendar{
+    position: absolute;
+    z-index: 5;
+    top: 38%;
+    left: 38%;
+  }
         .caltab{
             padding: 22px;
             @media (max-width: @screen-xs) {

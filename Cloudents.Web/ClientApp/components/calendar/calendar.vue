@@ -8,8 +8,6 @@
                    >
           <paymentDialog/> 
         </sb-dialog>
-      <v-progress-circular class="progress-calendar" v-if="!isReady" indeterminate :size="150" width="3" color="info"></v-progress-circular>
-      
       <v-flex :class="{'sheet-loading':!isReady}">
         <div class="navigation-btns-calendar">
           <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.prev()">
@@ -204,10 +202,12 @@ export default {
           this.insertEvent(paramObj).then(()=>{
               this.isEventSent = true
               this.calendarEvents.push(paramObj)
+              this.isLoading = false;
           },err=>{
             this.addEventDialog = false;
+            this.isLoading = false;
             this.updateToasterParams({
-                    toasterText: LanguageService.getValueByKey("put some error"),
+                    toasterText: LanguageService.getValueByKey("calendar_error_create_event"),
                     showToaster: true,
                     toasterType: 'error-toaster'
                 })
@@ -292,13 +292,6 @@ export default {
   width: 620px;
   margin:0 auto;
   overflow:auto;
-  position: relative;
-  .progress-calendar{
-    position: absolute;
-    z-index: 5;
-    top: 38%;
-    left: 38%;
-  }
   .sheet-loading{
     opacity: 0.2;
   }
