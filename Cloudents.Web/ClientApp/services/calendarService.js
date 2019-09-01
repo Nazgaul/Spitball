@@ -41,7 +41,7 @@ function CalendarEvent(objInit){
 
     var date = new Date(objInit);
     this.needToAdd = function() {
-        return date.getHours() >7 && date.getHours() < 18;
+        return date.getHours() >7 && date.getHours() <= 23;
     };
     
     this.date = calendarDate(date);

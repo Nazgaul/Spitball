@@ -109,7 +109,7 @@ export default {
           intervals:{
             first: 8,
             minutes: 60,
-            count: 10,
+            count: 16,
             height:  36,
           },
         }
