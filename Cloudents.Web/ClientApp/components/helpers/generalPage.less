@@ -2,7 +2,11 @@
 .main-container{
   background-color: @systemBackgroundColor;
   .p-result {    
-    .limited-width();
+    // .limited-width();
+    margin-left: 48px;
+    @media(max-width: @screen-md) {
+      margin-left: 10px;
+    }
     .first-grid {
       .flexSameSize();
     }
