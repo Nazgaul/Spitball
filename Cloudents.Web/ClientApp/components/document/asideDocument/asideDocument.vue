@@ -78,7 +78,7 @@ export default {
         document: {},
     },
     methods: {
-        ...mapActions(['downloadDocument', 'updatePurchaseConfirmation']),
+        ...mapActions(['downloadDocument', 'updatePurchaseConfirmation','updateLoginDialogState']),
         downloadDoc(e) {
             if(!this.accountUser){
                 e.preventDefault();
