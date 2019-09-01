@@ -2,10 +2,13 @@
     <router-link class="tutor-result-card-desktop pa-3 mb-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
 
         <v-flex row class="user-details">
-            <div v-if="!isLoaded" class="mr-3 user-image tutor-card-loader">
-              <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
-            </div>
-            <img v-show="isLoaded" class="mr-3 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+            <user-avatar-rect 
+              :userName="tutorData.name" 
+              :userImageUrl="tutorData.image" 
+              class="mr-3 user-avatar-rect" 
+              :userId="tutorData.userId" 
+              :width="148" 
+              :height="182" />
             <div class="main-card justify-space-between">
                 <h3 class="title font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
                 <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
@@ -70,7 +73,6 @@
 
 <script>
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
-import utilitiesService from "../../../../services/utilities/utilitiesService";
 import analyticsService from "../../../../services/analytics.service";
 import chatService from '../../../../services/chatService';
 import { mapActions, mapGetters } from "vuex";
@@ -78,17 +80,19 @@ import { LanguageService } from "../../../../services/language/languageService.j
 import clock from './clock.svg';
 import iconChat from '../tutorResultCardOther/icon-chat.svg';
 import star from '../stars-copy.svg';
+import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
+
 export default {
   name: "tutorResultCard",
   components: {
     userRating,
     clock,
     star,
-    iconChat
+    iconChat,
+    userAvatarRect
   },
   data() {
     return {
-      isLoaded: false,
       minimumPrice: 55,
       discountAmount: 70
     };
@@ -103,19 +107,12 @@ export default {
   methods: {
     ...mapActions(["updateRequestDialog",'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom','openChatInterface','setActiveConversationObj']),
 
-
-    loaded() {
-      this.isLoaded = true;
-    },
     tutorCardClicked(e) {
       if(this.fromLandingPage){
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
       }else{
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
       };
-    },
-    onImageLoadError(event) {
-      event.target.src = "../../../images/placeholder-profile.png";
     },
     reviewsPlaceHolder(reviews) {
       return reviews === 0 ? reviews.toString() : reviews
@@ -161,29 +158,11 @@ export default {
       }
       return '';
     },
-    isTutorData() {
-      return this.tutorData ? true : false;
-    },
-    isUserImage() {
-      return this.isTutorData && this.tutorData.image ? true : false;
-    },
     isSubjects() {
-      return this.isTutorData && this.tutorData.subjects.length > 0 ? true : false;
+      return this.tutorData && this.tutorData.subjects.length > 0 ? true : false;
     },
     isCourses() {
-      return this.isTutorData && this.tutorData.courses.length > 0 ? true : false;
-    },
-    userImageUrl() {
-      if (this.tutorData.image) {
-        let size = [148, 182];
-        return utilitiesService.proccessImageURL(
-          this.tutorData.image,
-          ...size,
-          "crop"
-        );
-      } else {
-        return "../../../images/placeholder-profile.png";
-      }
+      return this.tutorData && this.tutorData.courses.length > 0 ? true : false;
     },
     showStriked() {
       let price = this.tutorData.price;
@@ -213,7 +192,7 @@ export default {
 <style lang="less">
 @import "../../../../styles/mixin.less";
 
-@purple: #43425d;
+  @purple: #43425d;
 
   .tutor-result-card-desktop {
     .heightMinMax(214px);
@@ -261,17 +240,6 @@ export default {
     div:nth-child(2) {
       flex-basis: auto;
     }
-    .tutor-card-loader{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .user-image {
-      border-radius: 4px;
-      width: 148px;
-      height: auto;
-    }
-    
     .user-rates {
       .widthMinMax(255px);
       display: flex;
