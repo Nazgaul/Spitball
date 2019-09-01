@@ -34,12 +34,6 @@ namespace Cloudents.Core.Entities
         public virtual University University { get; protected  set; }
 
 
-        public virtual void SetUniversity(University university)
-        {
-            University = university;
-            University.UsersCount++;
-        }
-
         public virtual bool TwoFactorEnabled { get; set; }
 
         public virtual string AuthenticatorKey { get; set; }

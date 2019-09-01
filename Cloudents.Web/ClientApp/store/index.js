@@ -34,6 +34,9 @@ import signalRStore from './signalRStore';
 // import studyRoomStore from './studyRoomStore/index';
 // import loginRegister from './loginRegister';
 import routeStore from './routeStore';
+import calendarStore from './calendarStore'
+import gapiStore from './gapiStore';
+import paymetStore from './paymetStore.js'
 
 
 Vue.use(Vuex);
@@ -71,6 +74,9 @@ const store = new Vuex.Store({
         // ...studyRoomStore,
         // loginRegister,
         routeStore,
+        calendarStore,
+        gapiStore,
+        paymetStore
     }
 });
 

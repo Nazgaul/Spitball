@@ -145,7 +145,7 @@ export default {
 		font-size: 14px;
 		letter-spacing: -0.37px;
 		text-align: center;
-		color: @color-login-text-link;
+		color: @global-blue;
 		.top{
 			margin-bottom: 12px;
 		}

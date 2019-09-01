@@ -10,6 +10,9 @@ const state = {
 };
 
 const mutations = {
+    StudyDocuments_filterDocument(state, data) {
+        state.items.data = data
+    },
     StudyDocuments_setItems(state, data) {
         state.items = data;
     },
@@ -58,7 +61,7 @@ const mutations = {
             }
         }
     },
-
+    
 };
 
 const getters = {
@@ -147,7 +150,6 @@ const actions = {
     },
 
     removeDocumentItemAction({commit}, notificationQuestionObject) {
-        debugger
         // ??? there is no data and no need to create obj in order to delete by ID line below do we need ?
        let documentObj = searchService.createDocumentItem(notificationQuestionObject);
         // let documentObj = notificationQuestionObject;
@@ -162,6 +164,10 @@ const actions = {
             dispatch('removeItemFromProfile', objToRemove);
         })
     },
+    removeItemFromList({state, commit, dispatch}, itemId) {
+        let docToRemove = { id: itemId }
+        dispatch('removeDocumentItemAction', docToRemove);
+    }
 };
 
 export default {

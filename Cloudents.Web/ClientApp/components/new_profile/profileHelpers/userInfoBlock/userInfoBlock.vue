@@ -84,7 +84,7 @@ export default {
 
   .box-title {
     font-size: 30px;
-    color: @profileTextColor;
+    color: @global-purple;
   }
   .user-info-card {
     display: flex;
@@ -130,7 +130,7 @@ export default {
   .tutoring-info-heading {
     margin-top: 12px;
     font-style: italic;
-    color: @profileTextColor;
+    color: @global-purple;
   }
   .tutoring-info-label {
     font-size: 14px;
@@ -144,7 +144,7 @@ export default {
     font-size: 14px;
     font-weight: 600;
     line-height: 1.46;
-    color: @profileTextColor;
+    color: @global-purple;
   }
 }
 </style>

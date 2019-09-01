@@ -1,30 +1,32 @@
 <template>
-    <div class="become-second-wrap">
+    <div class="become-second-wrap pl-4">
         <v-layout row wrap>
             <v-form v-model="validBecomeSecond" ref="becomeFormSecond" class="become-second-form">
-                <v-flex xs12 class="text-xs-center mb-4">
-                    <span class="sharing-text" v-language:inner>becomeTutor_sharing</span>
+                <v-flex xs12 class="mb-4 span-cont">
+                    <span class="sharing-text" v-language:inner="'becomeTutor_sharing_step_2'"></span>
                 </v-flex>
                 <v-flex xs12 :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
                     <v-textarea
+                            :height="$vuetify.breakpoint.xsOnly? 134 :100"
                             rows="2"
                             class="sb-text-area"
                             outline
                             no-resize
                             v-model="description"
                             name="input-about"
-                            :rules="[rules.maximumChars]"
+                            :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             :placeholder="placeDescription"
                             :label="labelDescription"
                     ></v-textarea>
                 </v-flex>
                 <v-flex xsw12>
                     <v-textarea
+                            :height="$vuetify.breakpoint.xsOnly? 176:156"
                             no-resize
                             class="sb-text-area"
                             rows="5"
                             outline
-                            :rules="[rules.maximumChars]"
+                            :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             v-model="bio"
                             name="input-bio"
                             :placeholder="placeBio"
@@ -33,19 +35,18 @@
                 </v-flex>
             </v-form>
         </v-layout>
-        <v-layout class="mt-2 px-1"
+        <v-layout class="mt-2 px-1 btns-second"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
             <v-btn @click="goToPreviousStep()" class="cancel-btn elevation-0" round outline flat>
                 <span v-language:inner>becomeTutor_btn_back</span>
             </v-btn>
             <v-btn
                     color="#4452FC"
-                    class="white-text"
+                    class="white-text elevation-0"
                     round
                     :loading="btnLoading"
-                    :disabled="btnDisabled"
                     @click="submitData()">
-                <span v-language:inner>becomeTutor_btn_done</span>
+                <span v-language:inner>becomeTutor_btn_next</span>
             </v-btn>
         </v-layout>
     </div>
@@ -71,7 +72,7 @@
                 errorFromServer: '',
                 rules: {
                     maximumChars: (value) => validationRules.maximumChars(value, 1000),
-
+                    descriptionMinChars: (value) => validationRules.minimumChars(value, 15),
                 },
             };
         },
@@ -82,51 +83,17 @@
             }
         },
         methods: {
-            ...mapActions([
-                              'updateTutorInfo',
-                              'sendBecomeTutorData',
-                              'updateTutorDialog',
-                              'updateAccountUserToTutor',
-                              'updateToasterParams',
-                              'updateTeachingClasses'
-                          ]),
+            ...mapActions(['updateTutorInfo']),
             goToPreviousStep() {
                 this.$root.$emit('becomeTutorStep', 1);
             },
             submitData() {
                 if(this.$refs.becomeFormSecond.validate()) {
-                    let self = this;
-                    let descriptionAbout = {bio: self.bio, description: self.description};
+                    let descriptionAbout = {bio: this.bio, description: this.description};
                     let data = {...this.becomeTutorData, ...descriptionAbout};
-                    self.updateTutorInfo(data);
-                    self.btnLoading = true;
-                    self.sendBecomeTutorData()
-                        .then((resp) => {
-                            self.$root.$emit('becomeTutorStep', 3);
-                            self.updateAccountUserToTutor(true);
-                            self.updateToasterParams({
-                                                         toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
-                                                         showToaster: true,
-                                                         toasterTimeout: 5000
-                                                     });
-                            //set all courses as teaching
-                            self.updateTeachingClasses();
-                        }, (error) => {
-                            let isConflict = error.response.status === 409;
-                            if(isConflict) {
-                                console.log('Conflict become');
-                                self.updateToasterParams({
-                                                             toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
-                                                             showToaster: true,
-                                                             toasterTimeout: 50000000
-                                                         });
-                                self.updateTutorDialog(false);
-                            }
-                        }).finally(() => {
-                        self.btnLoading = false;
-                    });
+                    this.updateTutorInfo(data);
+                    this.$root.$emit('becomeTutorStep', 3);
                 }
-
             }
         },
     };
@@ -134,22 +101,81 @@
 
 <style lang="less">
     @import '../../../styles/mixin.less';
-
     .become-second-wrap {
+        @media (max-width: @screen-xs) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 !important;
+            height: 100%;
+        }
+        
+        .btns-second{
+            @media (max-width: @screen-xs) {
+                    align-items: flex-end;
+                }
+            .v-btn {
+                @media (max-width: @screen-xs) {
+                  height: 40px;
+                  padding: 0 20px;
+                  text-transform: capitalize;
+              }  
+            }
+        }
         .become-second-form {
             width: 100%;
         }
         .sb-text-area {
             textarea {
-                padding: 12px 0 8px;
+                padding: 16px 0 8px;
+            }
+                    .v-messages__message {
+                        line-height: normal;
+                    }
+        }
+        .v-input {
+            .v-label{
+                height: 22px;
             }
         }
-        .sharing-text {
-            font-size: 14px;
-            color: @textColor;
+        
+        .v-input__slot{
+            .v-text-field__slot label{
+                font-size: 18px;
+                color: @global-purple;
+            }
+            textarea::placeholder{
+                    font-size: 16px;
+                    letter-spacing: -0.3px;
+                    color: #848bbc;
+                }
         }
+        .span-cont{
+            @media (max-width: @screen-xs) {
+                text-align: center;
+            }
+            .sharing-text {
+                font-size: 18px;        
+                letter-spacing: -0.51px;
+                color: @global-purple;
+                @media (max-width: @screen-xs) {
+                    font-size: 16px;
+                    font-weight: 600;
+                    line-height: 1.5;
+                    letter-spacing: 0.3px;
+                }
+            }
+        }
+        .v-text-field--enclosed {
+            .v-text-field__details{
+                @media (max-width: @screen-xs) {
+                    margin: 0
+                }
+            }
+        } 
         .v-text-field--outline > .v-input__control > .v-input__slot {
-            border: solid 1px rgba(0, 0, 0, 0.19);
+            border-radius: 6px;
+            border: solid 1px rgba(67, 66, 93, 0.39);
             &:hover {
                 border: 1px solid rgba(0, 0, 0, 0.19) !important;
             }

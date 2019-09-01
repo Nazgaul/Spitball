@@ -17,6 +17,7 @@ import tutorInfoBlock from './profileHelpers/tutoringInfo/tutorInfoBlock.vue';
 import userInfoBlock from './profileHelpers/userInfoBlock/userInfoBlock.vue';
 import ctaBlock from './profileHelpers/ctaBlock/ctaBlock.vue';
 import courseEmptyState from './profileHelpers/courseEmptyState/courseEmptyState.vue';
+import calendarTab from '../calendar/calendarTab.vue';
 
 //new
 export default {
@@ -33,7 +34,8 @@ export default {
         tutorInfoBlock,
         userInfoBlock,
         ctaBlock,
-        courseEmptyState
+        courseEmptyState,
+        calendarTab
     },
     props: {
         id: {
@@ -63,6 +65,11 @@ export default {
                 page: 1
             },
             purchasedDocuments: {
+                isLoading: false,
+                isComplete: false,
+                page: 1
+            },
+            calendar: {
                 isLoading: false,
                 isComplete: false,
                 page: 1
@@ -191,7 +198,6 @@ export default {
             }
             return xsColumn;
         },
-
         profileData() {
             if (!!this.getProfile) {
                 return this.getProfile;
@@ -240,6 +246,13 @@ export default {
                 return answers;
             } else if (this.activeTab === 4) {
                 return documents;
+            }
+        },
+        showCalendar(){
+            if(!this.getProfile) return
+            let isTutorSharedCalendar = this.getProfile.user.calendarShared;
+            if(this.isTutorProfile && (this.isMyProfile || isTutorSharedCalendar)){
+                return true
             }
         }
     },

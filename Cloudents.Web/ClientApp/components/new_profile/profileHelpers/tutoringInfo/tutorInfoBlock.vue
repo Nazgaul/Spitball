@@ -121,7 +121,7 @@
             font-size: 14px;
             font-weight: 500;
             font-style: italic;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .tutoring-info-label {
             font-size: 12px;
@@ -139,7 +139,7 @@
             font-size: 13px;
             font-weight: 600;
             line-height: 1.46;
-            color: @profileTextColor;
+            color: @global-purple;
             @media (max-width: @screen-xs) {
                 padding-bottom: 20px;
 

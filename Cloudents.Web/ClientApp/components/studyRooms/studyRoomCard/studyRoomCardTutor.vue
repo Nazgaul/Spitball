@@ -75,7 +75,7 @@ export default {
                 i{
                     margin: 0 2px;
                     font-size:31px;
-                    color:#43425d;
+                    color:@global-purple;
                 }
             }
             .tutor-button-container{
@@ -84,7 +84,7 @@ export default {
                     display: flex;
                     flex-direction: column;
                 .tutor-button{
-                    background-color: #43425d;
+                    background-color: @global-purple;
                     color: white;
                     border-radius: 22.5px;
                     padding: 14px 24px;

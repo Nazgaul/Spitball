@@ -95,6 +95,21 @@ namespace Cloudents.Core.Entities
             {
                 userCourse.CanTeach = true;
             }
+            AddEvent(new CanTeachCourseEvent(Id));
+        }
+
+        public virtual void CanTeachCourse(UserCourse course)
+        {
+            var c = _userCourses.First(w => w.Course.Id == course.Course.Id);
+            c.CanTeach = !c.CanTeach;
+            AddEvent(new CanTeachCourseEvent(Id));
+        }
+
+        public virtual void SetUniversity(University university)
+        {
+            University = university;
+            University.UsersCount++;
+            AddEvent(new SetUniversityEvent(Id));
         }
 
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
@@ -116,7 +131,7 @@ namespace Cloudents.Core.Entities
         public virtual BuyerPayment BuyerPayment { get; protected set; }
 
 
-        public virtual PaymentStatus PaymentExists { get; set; }
+        public virtual PaymentStatus PaymentExists { get; protected set; }
 
         public virtual void CreditCardReceived()
         {
@@ -180,6 +195,12 @@ namespace Cloudents.Core.Entities
         public virtual void UpdateUserBalance(decimal balance, int score)
         {
             Transactions.UpdateBalance(balance, score);
+        }
+
+        public virtual void UpdateImage(string image)
+        {
+            Image = image;
+            AddEvent(new UpdateImageEvent(Id));
         }
 
         public override string ToString()

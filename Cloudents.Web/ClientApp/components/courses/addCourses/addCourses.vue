@@ -410,9 +410,9 @@
             font-size: 28px;
         }
         .done-btn {
-            color: @colorBlue;
+            color: @global-blue;
             border-radius: 36px;
-            border: solid 1px @colorBlue;
+            border: solid 1px @global-blue;
             background-color: transparent !important;
             &.v-btn--disabled{
                 border:none;
@@ -475,7 +475,7 @@
             min-height: 48px;
         }
         .add-item {
-            color: @colorBlue;
+            color: @global-blue;
         }
         .sbf-close {
             font-size: 8px !important;

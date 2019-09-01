@@ -66,6 +66,8 @@ import {
     VRating,
     VForm,
     VAutocomplete,
+    VSheet,
+    VCalendar,
     Vuetify
 } from "vuetify";
 import * as route from "./routes";
@@ -108,7 +110,9 @@ const vuetifyComponents = {
     VTextarea,
     VRating,
     VForm,
-    VAutocomplete
+    VAutocomplete,
+    VSheet,
+    VCalendar
 };
 
 

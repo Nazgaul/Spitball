@@ -52,11 +52,11 @@
         .courses-empty-title{
             font-size: 18px;
             font-weight: bold;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .empty-course-icon{
             font-size: 28px;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .empty-text{
             font-family: @fontOpenSans;
@@ -65,7 +65,7 @@
         }
         .select-btn{
             font-size: 12px;
-            color: @profileTextColor;
+            color: @global-purple;
             font-weight: 600;
         }
     }

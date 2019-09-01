@@ -345,7 +345,8 @@ namespace Cloudents.Web
                 );
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action}/{id?}");
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index" });
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new

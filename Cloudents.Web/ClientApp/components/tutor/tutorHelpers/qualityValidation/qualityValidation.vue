@@ -193,6 +193,7 @@
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin.less';
     .quality-test-container {
         border-radius: 4px;
         .step-indicator {
@@ -205,7 +206,7 @@
             align-items: center;
             justify-content: flex-start;
             height: 32px;
-            background-color: #43425d;
+            background-color: @global-purple;
             font-size: 16px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.87);
@@ -223,7 +224,7 @@
             padding: 5px 10px;
             border-radius: 4px;
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.16);
-            border: solid 1px #43425d;
+            border: solid 1px @global-purple;
             color: rgba(67, 66, 93, 0.87);
             font-size: 14px;
             font-weight: 600;

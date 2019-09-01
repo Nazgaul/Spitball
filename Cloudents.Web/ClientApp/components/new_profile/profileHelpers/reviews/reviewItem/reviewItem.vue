@@ -91,7 +91,7 @@
     .user-review-name {
         font-size: 12px;
         font-weight: bold;
-        color: @profileTextColor;
+        color: @global-purple;
     }
 
     .name-rank-wrap {
@@ -107,7 +107,7 @@
     .review-text {
         font-size: 14px;
         line-height: 1.4;
-        color: @profileTextColor;
+        color: @global-purple;
 
         @media(max-width: @screen-xs) {
             font-size: 14px;
@@ -117,7 +117,7 @@
     .review-date {
         font-size: 11px;
         font-weight: bold;
-        color: @profileTextColor;
+        color: @global-purple;
     }
     }
 </style>

@@ -188,8 +188,8 @@ export default {
     height: unset;
   }
   .chat-header {
+    background-color: @global-purple;
     align-items: center;
-    background-color: #393850;
     border-radius: 4px 4px 0 0;
     padding: 6px;
     color: #fff;

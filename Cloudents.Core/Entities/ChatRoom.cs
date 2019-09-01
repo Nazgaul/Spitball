@@ -49,7 +49,7 @@ namespace Cloudents.Core.Entities
             UpdateTime = DateTime.UtcNow;
             foreach (var userInChat in Users)
             {
-                if (userInChat.User != message.User)
+                if (userInChat.User.Id != message.User.Id)
                 {
                     userInChat.UnreadMessage();
                 }

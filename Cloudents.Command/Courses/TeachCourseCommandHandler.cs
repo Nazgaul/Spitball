@@ -18,7 +18,8 @@ namespace Cloudents.Command.Courses
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
             var course = user.UserCourses.First(w => w.Course.Id == message.Name);
-            course.CanTeach = !course.CanTeach;
+            //course.CanTeach = !course.CanTeach;
+            user.CanTeachCourse(course);
             await _userRepository.UpdateAsync(user, token);
         }
     }

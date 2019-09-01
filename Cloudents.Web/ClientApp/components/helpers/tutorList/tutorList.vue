@@ -83,7 +83,7 @@
         padding: 10px 12px;
     }
     .tutors-title{
-        color: @profileTextColor;
+        color: @global-purple;
         vertical-align: middle;
         line-height: 42px;
         cursor: pointer;

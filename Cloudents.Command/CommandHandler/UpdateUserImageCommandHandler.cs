@@ -17,7 +17,8 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(UpdateUserImageCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId,token);
-            user.Image = message.ImagePath;
+            user.UpdateImage(message.ImagePath);
+           // user.Image = message.ImagePath;
             await _userRepository.UpdateAsync(user, token);
         }
     }

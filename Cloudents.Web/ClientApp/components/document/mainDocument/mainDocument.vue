@@ -148,7 +148,7 @@
           :alt="document.content"
         />
 
-        <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" />
+        <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
       </div>
       <div
         class="unlockBox headline hidden-sm-and-down"
@@ -276,6 +276,11 @@ export default {
         return this.document.details.user.name;
       }
     },
+    courseType() {
+      if (this.document.details && this.document.details.name) {
+        return this.document.details.course;
+      }
+    },
     courseName() {
       if (this.document.details && this.document.details.name) {
         return this.document.details.name;
@@ -388,6 +393,7 @@ export default {
       "downloadDocument"
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING"]),
+    
     unlockDocument() {
       let item = {
         id: this.document.details.id,
@@ -535,7 +541,7 @@ export default {
       }
       .courseName {
         font-size: 18px;
-        color: #43425d;
+                    color: @global-purple;
         line-height: initial !important;
         max-width: 0;
         min-width: 60%;
@@ -638,7 +644,7 @@ export default {
         }
         span:nth-child(2) {
           .flexSameSize();
-          background-color: #4452fc;
+                        background-color: @global-blue;
           border-radius: 0 4px 4px 0;
         }
       }
@@ -660,7 +666,7 @@ export default {
       left: 50%;
       padding: 14px 72px;
       border-radius: 5.5px;
-      background-color: #4452fc;
+                background-color: @global-blue;
       z-index: 9;
       margin-left: -340px;
       i {

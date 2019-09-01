@@ -3,8 +3,6 @@ import { LanguageService } from '../../services/language/languageService';
 
 const state = {
     isRoomFull: false,
-    paymentUrl: '',
-    showPaymentDialog: false,
     identity: '',
     isRoom: false,
     roomId: '',
@@ -59,8 +57,6 @@ const getters = {
     getEndDialog: state => state.endDialog,
     getSessionEndClicked: state => state.sessionEndClicked,
     getBrowserSupportDialog: state => state.browserSupportDialog,
-    getPaymentUrl: state => state.paymentUrl,
-    getPaymentDialog: state => state.showPaymentDialog,
     getActiveNavIndicator: state => state.activeNavIndicator,
 };
 
@@ -68,16 +64,9 @@ const mutations = {
     setIsRoomFull(state,val){
         state.isRoomFull = val;
     },
-    setPaymentUrl(state,url){
-        state.paymentUrl = url;
-    },
-    setPaymentDialog(state,val){
-        state.showPaymentDialog = val;
-    },
     setEndDialog(state, val) {
         state.endDialog = val;
     },
-
     updateSessionClickedOnce(state, val) {
         state.sessionStartClickedOnce = val;
     },
@@ -105,7 +94,6 @@ const mutations = {
     setNetworkQuality(state, val) {
         state.localParticipantsNetworkQuality = val;
     },
-
     setRoomStatus(state, val) {
         state.isRoom = val;
     },
@@ -155,12 +143,6 @@ const mutations = {
 };
 
 const actions = {
-    updatePaymentUrl({commit},url){
-        commit('setPaymentUrl', url);
-    },
-    updatePaymentDialog({commit},val){
-        commit('setPaymentDialog',val);
-    },
     updateEndDialog({commit, state}, val){
         commit('setEndDialog', val);
     },
@@ -319,7 +301,7 @@ const actions = {
 
         }
     },
-    signalR_ReleasePaymeStatus({dispatch, state}) {
+    releasePaymeStatus_studyRoom({dispatch,state}){
         state.studyRoomData.needPayment = false;
         let isTutor = state.studyRoomData.isTutor;
         if(isTutor) {

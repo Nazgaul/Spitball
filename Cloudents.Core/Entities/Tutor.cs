@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -18,6 +19,7 @@ namespace Cloudents.Core.Entities
             UpdateSettings(bio, price);
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
+           
         }
 
         protected Tutor()
@@ -32,6 +34,7 @@ namespace Cloudents.Core.Entities
             if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
             Price = price;
             Bio = bio;
+            AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
         public virtual void Approve()
@@ -40,7 +43,9 @@ namespace Cloudents.Core.Entities
             if (State == ItemState.Pending)
             {
                 State = ItemState.Ok;
+                AddEvent(new TutorApprovedEvent(Id));
             }
+            
         }
 
 
@@ -98,16 +103,16 @@ namespace Cloudents.Core.Entities
         public virtual string SellerKey { get; set; }
         public virtual ItemState State { get; protected set; }
         public virtual DateTime Created { get; protected set; }
-        public virtual DateTime ManualBoost { get; protected set; }
         //protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
 
-
+        public virtual DateTime ManualBoost { get; protected set; }
         public virtual byte[] Version { get; protected set; }
         public virtual void AddReview(string review, float rate, User user)
         {
             var newReview = new TutorReview(review,rate,user,this);
 
             _reviews.Add(newReview);
+            AddEvent(new TutorAddReviewEvent(Id));
         }
     }
 }

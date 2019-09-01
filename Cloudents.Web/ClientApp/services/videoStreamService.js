@@ -17,10 +17,7 @@ let availableDevices = [];
    function enterRoom(){
        if (!store.getters['sessionStartClickedOnce']) {
         if (!!store.getters['accountUser'] && store.getters['getStudyRoomData'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
-            walletService.getPaymeLink().then(({ data }) => {
-                store.dispatch('updatePaymentUrl', data.link);
-                store.dispatch('updatePaymentDialog',true)
-            });
+            store.dispatch('requestPaymentURL')
             return;
         }
         //leave this action here so that people that fills the 'pay me' wont get a loading button

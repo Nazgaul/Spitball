@@ -42,6 +42,7 @@ namespace Cloudents.Core.Entities
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
             DurationInMinutes = Ended - Created;
+            AddEvent(new EndSessionEvent(StudyRoom.Tutor.Id));
             return true;
         }
 

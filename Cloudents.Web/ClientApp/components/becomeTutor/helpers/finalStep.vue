@@ -43,17 +43,17 @@
         padding: 106px 0;
             .face-icon{
                 font-size: 44px;
-                color: @profileTextColor;
+                color: @global-purple;
             }
         .final-text{
             font-size: 20px;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat){
             &.add-btn{
                 height: 41px;
                 border-radius: 20.5px;
-                background-color: @profileTextColor!important;
+                background-color: @global-purple!important;
                 color: @color-white;
                 width: 266px;
             }

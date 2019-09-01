@@ -63,7 +63,7 @@
             font-family: @fontOpenSans;
             font-size: 30px;
             font-weight: 600;
-            color: @profileTextColor;
+            color: @global-purple;
             line-height: 1;
             align-items: flex-start;
             word-break: break-all;
@@ -80,7 +80,7 @@
             order: 2;
             i {
                 font-size: 32px;
-                color: @profileTextColor;
+                color: @global-purple;
             }
             @media (max-width: @screen-xs) {
                 order: 1;
@@ -101,14 +101,14 @@
             font-style: italic;
             line-height: 1.36;
             letter-spacing: normal;
-            color: @profileTextColor;
+            color: @global-purple;
             word-break: break-word;
             white-space: pre-line;
             @media(max-width: @screen-xs){
                 font-size: 16px;
                 font-style: italic;
                 line-height: 1.38;
-                color: @profileTextColor;
+                color: @global-purple;
             }
         }
     }

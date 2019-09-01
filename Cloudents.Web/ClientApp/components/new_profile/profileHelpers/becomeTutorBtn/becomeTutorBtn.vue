@@ -35,17 +35,17 @@
                 cursor: pointer;
                 color: lighten(#ffca54, 10%);
                 .btn-text{
-                    color: lighten(@profileTextColor, 10%);
+                    color: lighten(@global-purple, 10%);
                 }
             }
         }
         .btn-text{
             font-size: 14px;
             font-weight: bold;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .ct-btn-icon{
-            color: @profileTextColor;
+            color: @global-purple;
             font-size: 21px;
         }
     }

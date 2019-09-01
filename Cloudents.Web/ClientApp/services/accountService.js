@@ -13,6 +13,7 @@ function AccountUser(objInit){
     this.isTutorState =  createIsTutorState(objInit.isTutor);// state of become tutor request, possible options ok, pending;
     this.image = objInit.image || '';
     this.online = objInit.online || false;
+    this.needPayment = objInit.needPayment || false;
 }
 function createIsTutorState(str){
     if(str && str.toLowerCase() === 'ok'){
@@ -44,10 +45,10 @@ function ProfilePersonalData(objInit){
     this.score = objInit.score;
     this.image = objInit.image || '';
     this.universityName= objInit.universityName;
+    this.calendarShared = objInit.calendarShared || false;
     this.isTutor= objInit.hasOwnProperty('tutor') || false;
     this.tutorData = objInit.tutor ? createTutorData(objInit.tutor) : createTutorData({});
     this.online = objInit.online || false;
-
 }
 
 function ReviewItem(objInit){

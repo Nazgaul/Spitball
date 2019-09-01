@@ -333,7 +333,7 @@ export default {
       "getEndDialog",
       "getBrowserSupportDialog",
       "accountUser",
-      "getPaymentDialog",
+      "getShowPaymentDialog",
       "getStudyRoomData",
       "getIsRemote",
       "getActiveNavIndicator"
@@ -378,7 +378,7 @@ export default {
         return this.getTutorStartDialog
     },
     showPaymentDialog(){
-      return this.getPaymentDialog
+      return this.getShowPaymentDialog
     },
     isCodeEditorActive(){
       return this.activeItem === "code-editor"

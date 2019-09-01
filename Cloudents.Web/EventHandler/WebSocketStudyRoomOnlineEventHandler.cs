@@ -30,7 +30,7 @@ namespace Cloudents.Web.EventHandler
             var studyRoom = studyUser.Room;
 
             var onlineCount = studyRoom.Users.Count(f => f.Online);
-            var totalOnline = studyRoom.Users.Count;
+            var totalOnline = 2; // //studyRoom.Users.Count;
             _telemetryClient.TrackEvent($"Users in room {studyRoom.Id}",metrics: new Dictionary<string, double>()
             {
                 ["onlineCount"] = onlineCount,

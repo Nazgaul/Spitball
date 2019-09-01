@@ -42,14 +42,14 @@
     .review-submitted-wrap{
         .final-review-title{
             font-size: 18px;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .star-icon{
             font-size: 86px;
             color: #ffca54;
         }
         .blue-text{
-            color: @colorBlue;
+            color: @global-blue;
         }
     }
 </style>

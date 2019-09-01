@@ -129,6 +129,9 @@
   <data name="email" xml:space="preserve">
     <value>אימייל</value>
   </data>
+  <data name="invalid" xml:space="preserve">
+    <value>הקורס לא קיים</value>
+  </data>
   <data name="label_add" xml:space="preserve">
     <value>הוסף</value>
   </data>

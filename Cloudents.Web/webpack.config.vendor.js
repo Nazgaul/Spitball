@@ -58,7 +58,10 @@ const allModules = [
     "vuetify/es5/components/VTextarea",
     "vuetify/es5/components/VRating",
     "vuetify/es5/components/VForm",
-    "vuetify/es5/components/VAutocomplete"
+    "vuetify/es5/components/VAutocomplete",
+    "vuetify/es5/components/VSheet",
+    "vuetify/es5/components/VCalendar"
+  
 ];
 
 module.exports = (env) => {

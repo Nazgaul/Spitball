@@ -157,7 +157,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getProfile", "isTutorProfile", "getShowEditDataDialog"]),
+    ...mapGetters(["getProfile", "isTutorProfile", "getShowEditDataDialog", "getActivateTutorDiscounts"]),
     xsColumn() {
       const xsColumn = {};
       if (this.$vuetify.breakpoint.xsOnly) {
@@ -171,18 +171,19 @@ export default {
         this.getProfile.user &&
         this.getProfile.user.tutorData
       ) {
-        return this.getProfile.user.tutorData.price.toFixed(2);
+        return this.getProfile.user.tutorData.price.toFixed(0);
       }
       return 0;
     },
     showStriked(){
+      if(!this.getActivateTutorDiscounts) return false;
       let price = this.tutorPrice;
       return price > this.minimumPrice;
     },
     discountedPrice(){
       let price = this.tutorPrice;
       let discountedAmount = price - this.discountAmount;
-      return discountedAmount >  this.minimumPrice ? discountedAmount.toFixed(2) : this.minimumPrice.toFixed(2);
+      return discountedAmount > this.minimumPrice ? discountedAmount.toFixed(0) : this.minimumPrice.toFixed(0);
     },
     university() {
       if (this.getProfile && this.getProfile.user) {
@@ -239,13 +240,13 @@ export default {
     font-size: 18px;
     font-weight: bold;
     letter-spacing: -0.4px;
-    color: @profileTextColor;
+    color: @global-purple;
     @media (max-width: @screen-xs) {
       justify-content: center;
     }
     .face-icon {
       font-size: 18px;
-      color: @profileTextColor;
+      color: @global-purple;
     }
   }
   .tutor-price {
@@ -253,7 +254,7 @@ export default {
     font-weight: bold;
     font-size: 20px;
     flex-shrink: 0;
-    color: @profileTextColor;
+    color: @global-purple;
     @media (max-width: @screen-xs) {
       font-size: 26px;
     }

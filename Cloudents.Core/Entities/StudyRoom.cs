@@ -33,7 +33,7 @@ namespace Cloudents.Core.Entities
 
         private readonly ICollection<StudyRoomUser> _users = new List<StudyRoomUser>();
 
-        public virtual IReadOnlyList<StudyRoomUser> Users => _users.ToList();
+        public virtual IEnumerable<StudyRoomUser> Users => _users;
 
 
         public virtual string Identifier { get; protected set; }
@@ -55,14 +55,7 @@ namespace Cloudents.Core.Entities
         public virtual void ChangeOnlineStatus(long userId, bool isOnline)
         {
             var studyRoomUser = Users.Single(f => f.User.Id == userId);
-            if (studyRoomUser.User.PaymentExists == PaymentStatus.Later)
-            {
-                studyRoomUser.User.PaymentExists = PaymentStatus.None;
-            }
             studyRoomUser.ChangeOnlineState(isOnline);
-
-            //studyRoomUser.Online = isOnline;
-            //studyRoomUser.AddEvent(new StudyRoomOnlineChangeEvent(this));
             
         }
         

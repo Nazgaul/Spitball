@@ -1,13 +1,14 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
-using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Question;
 using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Google;
 using Cloudents.Infrastructure.Search.Document;
 using Cloudents.Query;
+using Google.Apis.Util.Store;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
@@ -26,9 +27,17 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
 
-            builder.RegisterType<GoogleService>().As<IGoogleDocument>().As<IGoogleAuth>().SingleInstance();
+            builder.RegisterType<GoogleService>().AsSelf()
+                .As<IGoogleDocument>()
+                .As<IGoogleAuth>()
+                .As<ICalendarService>().SingleInstance();
 
-           
+
+            builder.RegisterType<GoogleDataStore>()
+                .AsSelf().InstancePerDependency();
+
+
+
         }
     }
 }

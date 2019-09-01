@@ -1,0 +1,11 @@
+{
+  "web": {
+    "client_id": "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com",
+    "project_id": "bsnlp-158707",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "lSncxmb-F0cmii1OdDiKXrs-",
+    "javascript_origins": [ "https://localhost:44345", "https://dev.spitball.co", "https://www.spitball.co", "http://localhost:53216", "https://heb.spitball.co", "https://localhost:44371" ]
+  }
+}

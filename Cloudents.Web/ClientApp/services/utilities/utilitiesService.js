@@ -41,8 +41,15 @@ const dateFormater = function(dateTime){
   return new Intl.DateTimeFormat(lang, options).format(date);
 }
 
+function IsoStringDateWithOffset(days){
+  let ourDate = new Date();
+  let pastDate = ourDate.getDate() + days;
+  ourDate.setDate(pastDate);
+  return ourDate.toISOString()
+}
 export default {
     init,
     proccessImageURL,
-    dateFormater
+    dateFormater,
+    IsoStringDateWithOffset
 }

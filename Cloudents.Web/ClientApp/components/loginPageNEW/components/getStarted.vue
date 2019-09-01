@@ -49,7 +49,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-let auth2;
+// let auth2;
 
 export default {
     name: 'getStarted',
@@ -61,7 +61,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateStep','googleSigning']),
+        ...mapActions(['updateStep','googleSigning','gapiLoad']),
         checkBoxConfirm(){
             if(this.isTermsAgree){
                 this.showError = false
@@ -111,13 +111,15 @@ export default {
         }
     },
     mounted() {
+        let self = this;
         this.$nextTick(function () {
             this.$loadScript("https://apis.google.com/js/client:platform.js").then(()=>{
-                gapi.load('auth2', function () {
-                    auth2 = gapi.auth2.init({
-                    client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
-                    });
-                });
+                self.gapiLoad();
+                // gapi.load('auth2', function () {
+                //     auth2 = gapi.auth2.init({
+                //     client_id: global.client_id,
+                //     });
+                // });
             })
         });
     },
@@ -195,7 +197,7 @@ export default {
                     font-weight: initial;
                     &.terms{
                     cursor: pointer;
-                    color: @color-login-text-link; 
+                    color: @global-blue; 
                     letter-spacing: -0.28px;
                     text-decoration: underline;
                     }
@@ -244,11 +246,11 @@ export default {
                     width: 32px;
                     height: 32px;
                 }
-                color: @color-login-text-link;
+                color: @global-blue;
                 span{
                     
                     margin: 0 34px 0 13px;
-                    color: @color-login-text-link;
+                    color: @global-blue;
                     font-size: 16px;
                     font-weight: normal;
                 }
@@ -270,7 +272,7 @@ export default {
             &.link{                
                 cursor: pointer;
                 letter-spacing: -0.37px;
-                color: @color-login-text-link;
+                color: @global-blue;
             }
         }
     }

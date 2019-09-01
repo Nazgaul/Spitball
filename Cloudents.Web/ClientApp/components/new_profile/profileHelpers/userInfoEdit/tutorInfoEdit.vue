@@ -15,8 +15,9 @@
                         </v-flex>
                         <v-flex xs12>
                             <v-text-field
-                                    :rules="[rules.required]"
+                                    :rules="[rules.required, rules.minimumChars]"
                                     :label="firstNameLabel"
+                                    class="tutor-edit-firstname"
                                     v-model.trim="firstName"
                                     outline
                             ></v-text-field>
@@ -30,8 +31,9 @@
                         </v-flex>
                         <v-flex>
                             <v-text-field
-                                    :rules="[rules.required]"
+                                    :rules="[rules.required, rules.minimumChars]"
                                     :label="lastNameLabel"
+                                    class="tutor-edit-lastname"
                                     v-model.trim="lastName"
                                     outline
                             ></v-text-field>
@@ -45,11 +47,12 @@
                         </v-flex>
                         <v-flex>
                             <v-text-field 
-                                          :rules="[rules.required, rules.minimum, rules.maximum]"
+                                          :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
                                           :label="priceLabel"
                                           v-model="price"
                                           outline
                                           prefix="₪"
+                                          class="tutor-edit-pricing"
                                           type="number"
                                           :hide-details="$vuetify.breakpoint.xsOnly"
                             ></v-text-field>
@@ -67,7 +70,8 @@
                             rows="2"
                             outline
                             v-model="description"
-                            :rules="[rules.maximumChars]"
+                            :rules="[rules.maximumChars, rules.descriptionMinChars]"
+                            class="tutor-edit-description"
                             name="input-about"
                             :label="titleLabel"
                     ></v-textarea>
@@ -126,7 +130,10 @@
                     required: (value) => validationRules.required(value),
                     minimum: (value) => validationRules.minVal(value, 50),
                     maximum: (value) => validationRules.maxVal(value, 1000),
-                    maximumChars: (value) => validationRules.maximumChars(value, 1000)
+                    maximumChars: (value) => validationRules.maximumChars(value, 1000),
+                    minimumChars: (value) => validationRules.minimumChars(value, 2),
+                    descriptionMinChars: (value) => validationRules.minimumChars(value, 15),
+                    integer: (value) => validationRules.integer(value)
                 },
                 valid: false,
                 btnLoading: false
@@ -159,7 +166,7 @@
             },
             price: {
                 get() {
-                    return +this.getProfile.user.tutorData.price.toFixed(2)
+                    return +this.getProfile.user.tutorData.price.toFixed(0)
                 },
                 set(newVal) {
                     this.editedPrice = +newVal
@@ -213,8 +220,7 @@
             },
             closeDialog() {
                 this.closeCallback ? this.closeCallback() : '';
-            },
-
+            }
         },
         created() {
             this.editedBio = this.getProfile.about.bio || '';
@@ -237,7 +243,7 @@
             }
         }
         .shallow-blue {
-            border: 1px solid #4452fc;
+            border: 1px solid @global-blue;
             color: @color-blue-new;
             @media (max-width: @screen-xs) {
                 min-width: 100%;
@@ -259,7 +265,7 @@
         .header {
             background-color: #f0f0f7;
             width: 100%;
-            color: @profileTextColor;
+            color: @global-purple;
             font-family: @fontOpenSans;
             font-size: 18px;
             font-weight: bold;
@@ -269,16 +275,21 @@
             font-size: 16px;
             font-weight: bold;
             letter-spacing: -0.3px;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .edit-icon {
-            color: @profileTextColor;
+            color: @global-purple;
             font-size: 18px;
         }
         .v-text-field--outline > .v-input__control > .v-input__slot {
             border: 1px solid rgba(0, 0, 0, 0.19);
             &:hover {
                 border: 1px solid rgba(0, 0, 0, 0.19) !important;
+            }
+        }
+        .tutor-edit-pricing, .tutor-edit-firstname, .tutor-edit-lastname, .tutor-edit-description {
+            .v-messages__message {
+                line-height: normal;
             }
         }
     }

@@ -101,7 +101,7 @@
         .close-toolbar{
             height: 54px;
             width: 100%;
-            background-color: @profileTextColor;
+            background-color: @global-purple;
             .dialog-heading{
                 color: @color-white;
                 font-size: 18px;
@@ -126,14 +126,14 @@
         .solid {
             outline: none;
             border-radius: 16px;
-            background-color: @profileTextColor;
+            background-color: @global-purple;
             .btn-text {
                 color: lighten(@color-white, 87%);
             }
         }
         .create-btn {
             &:disabled {
-                background-color: lighten(@profileTextColor, 30%);
+                background-color: lighten(@global-purple, 30%);
                 color: lighten(@color-white, 30%);
             }
         }
@@ -142,7 +142,7 @@
         }
         .course-input {
             .v-input__slot {
-                border: 1px solid @profileTextColor !important;
+                border: 1px solid @global-purple !important;
                 input {
                     margin-top: 12px;
                     color: @colorBlackNew;

@@ -29,7 +29,7 @@
         <v-list-tile
           class="group-items"
           :to="{name: $route.name}"
-          v-for="(item, i) in getSelectedClasses"
+          v-for="(item, i) in selectedClasses"
           :class="{'active': item.text ? item.text.toLowerCase() === selectedCourse.toLowerCase() : item === selectedCourse}"
           :key="i"
           event
@@ -77,6 +77,10 @@ export default {
       "getShowSchoolBlock",
       "accountUser"
     ]),
+    selectedClasses(){
+      let selectedClasses = JSON.parse(JSON.stringify(this.getSelectedClasses))
+      return selectedClasses.sort((a, b) => a.text.toLowerCase() > b.text.toLowerCase() ? 1 : -1)
+    },
     schoolName() {
       return this.getSchoolName;
     },

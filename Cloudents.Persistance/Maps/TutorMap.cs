@@ -21,14 +21,6 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.SellerKey);
             HasMany(x => x.Reviews).Access.CamelCaseField(Prefix.Underscore).Cascade.AllDeleteOrphan().Inverse();
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
-            /* HasMany(x => x.Courses)
-               .Table("TutorsCourses")
-               .KeyColumn("TutorId")              
-               .LazyLoad()
-               .Inverse().Cascade.AllDeleteOrphan()
-               .AsSet();
-               */
-            //Table("Tutor");
             Map(e => e.Created).Insert().Not.Update();
             Map(x => x.ManualBoost).LazyLoad().Nullable();
             DynamicUpdate();

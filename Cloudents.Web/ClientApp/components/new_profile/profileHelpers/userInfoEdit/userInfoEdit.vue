@@ -15,7 +15,8 @@
                     </v-flex>
                     <v-flex xs12 sm6 >
                         <v-text-field
-                                :rules="[rules.required]"
+                                :rules="[rules.required, rules.minimumChars]"
+                                class="user-edit-name"
                                 :label="userNameLabel"
                                 v-model="userName"
                                 outline
@@ -33,8 +34,9 @@
                 <v-textarea
                         rows="2"
                         outline
-                        :rules="[rules.maximumChars]"
+                        :rules="[rules.maximumChars, rules.descriptionMinChars]"
                         v-model="userDescription"
+                        class="user-edit-description"
                         name="input-about"
                         :label="titleLabel"
                 ></v-textarea>
@@ -72,7 +74,9 @@
                 editedUserName: '',
                 rules: {
                     required:(value)=> validationRules.required(value),
-                    maximumChars:(value)=>  validationRules.maximumChars(value, 255)
+                    maximumChars:(value) => validationRules.maximumChars(value, 255),
+                    minimumChars: (value) => validationRules.minimumChars(value, 2),
+                    descriptionMinChars: (value) => validationRules.minimumChars(value, 15),
                 },
                 validUserForm: false,
                 btnLoading: false
@@ -143,6 +147,12 @@
             overflow-x: hidden;
         }
         .prev-grow{
+            .user-edit-name, .user-edit-description {
+                .v-messages__message {
+                    line-height: normal;
+                }
+            }
+            
             @media(max-width: @screen-xs){
                 flex-grow: 0;
             }
@@ -176,7 +186,7 @@
             background-color: #f0f0f7;
             width: 100%;
             max-height: 50px;
-            color: @profileTextColor;
+            color: @global-purple;
             font-family: @fontOpenSans;
             font-size: 18px;
             font-weight: bold;
@@ -186,10 +196,10 @@
             font-size: 16px;
             font-weight: bold;
             letter-spacing: -0.3px;
-            color: @profileTextColor;
+            color: @global-purple;
         }
         .edit-icon{
-            color: @profileTextColor;
+            color: @global-purple;
             font-size: 18px;
         }
         .v-text-field--outline > .v-input__control > .v-input__slot {

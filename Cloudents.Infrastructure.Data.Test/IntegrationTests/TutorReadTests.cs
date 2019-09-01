@@ -44,12 +44,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
   
     }
 
-    [Collection("Database collection2")]
+    [Collection("Database collection")]
     public class TutorRepositoryReadTests
     {
-        private readonly DatabaseFixture2 _fixture;
+        private readonly DatabaseFixture _fixture;
 
-        public TutorRepositoryReadTests(DatabaseFixture2 fixture)
+        public TutorRepositoryReadTests(DatabaseFixture fixture)
         {
             _fixture = fixture;
             // _autoMock = AutoMock.GetLoose();
@@ -63,4 +63,25 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             res.Should().NotBeEmpty();
         }
     }
+
+
+    [Collection("Database collection")]
+    public class ReadTutorRepositoryReadTests
+    {
+        private readonly DatabaseFixture _fixture;
+
+        public ReadTutorRepositoryReadTests(DatabaseFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
+        [Fact]
+        public async Task GetReadTutorAsync_Ok()
+        {
+            var res = await _fixture.ReadTutorRepository.GetReadTutorAsync(638, default);
+            res.Should().NotBeNull();
+        }
+    }
+
+
 }

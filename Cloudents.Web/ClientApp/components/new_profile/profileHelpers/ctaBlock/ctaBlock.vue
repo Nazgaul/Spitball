@@ -43,7 +43,7 @@
 
     .cta-section {
         .cta-title {
-            color: @profileTextColor;
+            color: @global-purple;
             line-height: 0.85;
         }
     }
