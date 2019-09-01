@@ -189,19 +189,19 @@ export default {
   },
   updated: function() {
     this.$nextTick(function() {
-      // if(!!global.dataLayer){
-      //   global.dataLayer.push({ event: "optimize.activate" });
-      // }
+      if(!!global.dataLayer){
+       this.fireOptimizeActivate();
+      }
       // Code that will run only after the
       // entire question-details has been re-rendered
     });
   },
   mounted: function() {
-    // if(!!global.dataLayer){
-    //   this.$nextTick(function() {
-    //       global.dataLayer.push({ event: "optimize.activate" });
-    //   });
-    // }
+    if(!!global.dataLayer){
+      this.$nextTick(function() {
+         this.fireOptimizeActivate();
+      });
+    }
   },
   watch: {
     getShowToaster: function(val) {
@@ -229,7 +229,12 @@ export default {
           showToaster: false
         });
       }, this.getToasterTimeout);
-    }
+    },
+    '$route'(){
+      this.$nextTick(()=>{
+        this.fireOptimizeActivate()
+      })
+    },
   },
   methods: {
     ...mapActions([
@@ -245,7 +250,8 @@ export default {
       "changeSelectUniState",
       "updateRequestDialog",
       "openChatInterface",
-      "setTutorRequestAnalyticsOpenedFrom"
+      "setTutorRequestAnalyticsOpenedFrom",
+      "fireOptimizeActivate"
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
     enterPayme(){
