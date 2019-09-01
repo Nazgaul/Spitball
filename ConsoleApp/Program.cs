@@ -17,6 +17,9 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
+using Cloudents.Persistence;
+using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Storage;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -455,12 +458,44 @@ namespace ConsoleApp
         //    }
         //}
 
+        private static async Task PopulateUsersImageName()
+        {
+            var uof = _container.Resolve<IUnitOfWork>();
+            var session = _container.Resolve<ISession>();
+            var blobProvider = _container.Resolve<IUserDirectoryBlobProvider>();
+            var repository = _container.Resolve<IRepository<BaseUser>>();
 
+            var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
+            var storageAccount = CloudStorageAccount.Parse(keyNew);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("spitball-user");
+
+
+            var userIds = await session.Query<User>().Where(w => w.Image != null).Select(s => s.Id).ToListAsync();
+
+
+            foreach (var userId in userIds)
+            {
+                var user = await repository.LoadAsync(userId, default);
+                var dir = container.GetDirectoryReference($"profile/{userId.ToString()}");
+
+                var img = dir.ListBlobs().LastOrDefault();
+                var name = img.StorageUri.PrimaryUri.AbsolutePath.Split('/').LastOrDefault();
+                if (!string.IsNullOrEmpty(name))
+                {
+                    user.UpdateUserImageName(name);
+                    await repository.UpdateAsync(user, default);
+                }
+            }
+            await uof.CommitAsync(default);
+
+        }
 
         private static async Task HadarMethod()
         {
-            var repo = _container.Resolve<ITutorRepository>();
-            var test = await repo.GetTutorsByCourseAsync("organic chemistry כימיה אורגנית", 638, "IL", default);
+            await PopulateUsersImageName();
+            //var repo = _container.Resolve<ITutorRepository>();
+            //var test = await repo.GetTutorsByCourseAsync("organic chemistry כימיה אורגנית", 638, "IL", default);
             //ResourcesMaintenance.GetOrphanedResources();
             //var queryBus = _container.Resolve<IQueryBus>();
             //var query = new TutorListQuery(159039, "IL",0);
