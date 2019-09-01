@@ -257,7 +257,12 @@ export default {
         }
     },
     watch: {
-        '$route': 'fetchData',
+        '$route': function(val){
+            this.activeTab = 1
+            document.getElementById(`tab-${1}`).lastChild.click()
+            this.fetchData()
+        },
+
         activeTab() {
             this.getInfoByTab();
         }

@@ -49,7 +49,6 @@ export default {
         let self = this;
         this.$loadScript("https://apis.google.com/js/api.js").then(() => {
             self.updateCalendarStatus().then(()=>{
-                debugger
                 self.isReady = true
             },()=>{
                 if(!self.isMyProfile){
