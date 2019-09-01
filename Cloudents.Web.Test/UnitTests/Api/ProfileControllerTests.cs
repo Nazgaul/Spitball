@@ -14,6 +14,10 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Xunit;
+using Cloudents.Core.Storage;
+using System;
+using Cloudents.Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cloudents.Web.Test.UnitTests.Api
 {
@@ -39,12 +43,12 @@ namespace Cloudents.Web.Test.UnitTests.Api
 
             using (var mock = AutoMock.GetLoose())
             {
-                var id = 1L;
+                var id = 159039L;
                 var page = 0;
                 var cancellationToken = CancellationToken.None;
                 var result = new[] {new DocumentFeedDto()
                 {
-                    Id = 1,
+                    Id = 159039,
                     University = "SOME UNIVERSITY",
                     Course = "some course",
                     Title = "some name"
@@ -61,6 +65,19 @@ namespace Cloudents.Web.Test.UnitTests.Api
 
                 
                 mockUrlHelper.Setup(o => o.RouteUrl(It.IsAny<UrlRouteContext>())).Returns("a/mock/url/for/testing");
+
+               // mockUrlHelper.SetupGet(o => o.ActionContext.HttpContext.RequestServices.GetRequiredService<IBinarySerializer>())
+                //    .Returns(new BinarySerializer(, ));
+
+
+
+
+                mock.Mock<IDocumentDirectoryBlobProvider>().Setup(o => o.GetPreviewImageLink(It.IsAny<long>(), It.IsAny<int>()))
+                        .Returns(new Uri("https://spitball.co/test"));
+
+                
+
+
                 //mockUrlHelper.Setup(x => x.Action(
                 //    It.IsAny<UrlActionContext>()
                 //)).Returns("a/mock/url/for/testing").Verifiable();
@@ -72,6 +89,7 @@ namespace Cloudents.Web.Test.UnitTests.Api
                 var sut = mock.Create<ProfileController>();
                 sut.Url = mockUrlHelper.Object;
                 sut.ControllerContext.HttpContext = new DefaultHttpContext();
+
 
                 var retVal = await sut.GetDocumentsAsync(id, page, cancellationToken);
                 mock.Mock<IQueryBus>().Verify(x => x.QueryAsync<IEnumerable<DocumentFeedDto>>(It.IsAny<UserDataPagingByIdQuery>(), cancellationToken));

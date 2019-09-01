@@ -148,7 +148,7 @@
           :alt="document.content"
         />
 
-        <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" />
+        <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
       </div>
       <div
         class="unlockBox headline hidden-sm-and-down"
@@ -276,6 +276,11 @@ export default {
         return this.document.details.user.name;
       }
     },
+    courseType() {
+      if (this.document.details && this.document.details.name) {
+        return this.document.details.course;
+      }
+    },
     courseName() {
       if (this.document.details && this.document.details.name) {
         return this.document.details.name;
@@ -388,6 +393,7 @@ export default {
       "downloadDocument"
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING"]),
+    
     unlockDocument() {
       let item = {
         id: this.document.details.id,

@@ -31,6 +31,11 @@ namespace Cloudents.Core.Entities
             return tb.Info;
         }
 
+        public override string ToString()
+        {
+            return $"{nameof(Info)}: {Info}";
+        }
+
         //public static implicit operator Language(string tb)
         //{
         //    if (SystemSupportLanguage()

@@ -117,16 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Description" xml:space="preserve">
-    <value>Un experimentado desarrollador de plataforma de nube y blockchain, Ram está a cargo de todo el proceso de desarrollo para Spitball. Ram tiene 11 años de experiencia en ingeniería de software. Ram dirige el desarrollo día a día del producto Spitball y gestiona al equipo técnico.</value>
+  <data name="add_event_btn" xml:space="preserve">
+    <value>שריין עכשיו</value>
   </data>
-  <data name="FirstName" xml:space="preserve">
-    <value>Ram</value>
+  <data name="add_event_cancel" xml:space="preserve">
+    <value>ביטול</value>
   </data>
-  <data name="LastName" xml:space="preserve">
-    <value>Yaari</value>
+  <data name="add_event_done" xml:space="preserve">
+    <value>אישור</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Arquitecto Principal y Director Técnico</value>
+  <data name="add_event_ok" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="add_event_payment" xml:space="preserve">
+    <value>כדי לשריין את השיעור, עליך להוסיף אמצעי תשלום</value>
+  </data>
+  <data name="add_event_sent" xml:space="preserve">
+    <value>בקשתך נשלחה למורה. בדוק את האימייל שלך לעידכונים.</value>
+  </data>
+  <data name="add_event_thank" xml:space="preserve">
+    <value>תודה !</value>
+  </data>
+  <data name="add_event_title" xml:space="preserve">
+    <value>קבע שיעור פרטי עם {1}</value>
+  </data>
+  <data name="empty_state_student" xml:space="preserve">
+    <value>היומן שלי לא זמין כעת, צור איתי קשר בהודעה ונתאם מועד לשיעור פרטי.</value>
+  </data>
+  <data name="error_create_event" xml:space="preserve">
+    <value>תודה שבחרת בי! אני מלמד בשעה הזו, אולי תנסה לקבוע בזמן אחר?</value>
   </data>
 </root>

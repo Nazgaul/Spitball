@@ -8,40 +8,6 @@ using Cloudents.Core.Interfaces;
 namespace Cloudents.Infrastructure.Stuff
 {
 
-    //public class EventStore : IEventStore, IEnumerable<IEvent>
-    //{
-    //    private readonly List<IEvent> _events = new List<IEvent>();
-
-
-    //    public void Add(IEvent @event)
-    //    {
-    //        _events.Add(@event);
-    //    }
-
-    //    //public IEnumerable<IEvents> Get()
-    //    //{
-    //    //    return _events.AsReadOnly().ToList();
-    //    //    System.Collections.ObjectModel.ReadOnlyCollection<IEvent> t = _events.AsReadOnly();
-    //    //    return t;
-    //    //}
-
-    //    public IEnumerator<IEvent> GetEnumerator()
-    //    {
-    //        foreach (var @event in _events.AsReadOnly())
-    //        {
-    //            yield return @event;
-    //        }
-    //    }
-
-    //    IEnumerator IEnumerable.GetEnumerator()
-    //    {
-    //        return GetEnumerator();
-    //    }
-    //}
-
-
-
-
     public class EventPublisher : IEventPublisher
     {
         private readonly ILifetimeScope _container;
@@ -51,22 +17,7 @@ namespace Cloudents.Infrastructure.Stuff
             _container = subscriptionService;
         }
 
-        //public async Task PublishAsync<T>(T eventMessage, CancellationToken token) where T : IEvent
-        //{
-        //    var handlerType = typeof(IEventHandler<>).MakeGenericType(eventMessage.GetType());
-        //    var handlerCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
-
-
-        //    var tasks = new List<Task>();
-        //    if (_container.Resolve(handlerCollectionType) is IEnumerable eventHandlers)
-        //        foreach (dynamic handler in eventHandlers)
-        //        {
-        //            var t = handler.HandleAsync((dynamic) eventMessage, token);
-        //            tasks.Add(t);
-        //        }
-
-        //    await Task.WhenAll(tasks);
-        //}
+     
 
         public async Task PublishAsync(IEvent eventMessage, CancellationToken token)
         {
@@ -75,14 +26,17 @@ namespace Cloudents.Infrastructure.Stuff
 
             
             var tasks = new List<Task>();
-            if (_container.Resolve(handlerCollectionType) is IEnumerable eventHandlers)
-                foreach (dynamic handler in eventHandlers)
-                {
-                    var t = handler.HandleAsync((dynamic)eventMessage, token);
-                    tasks.Add(t);
-                }
+            using (var child = _container.BeginLifetimeScope())
+            {
+                if (child.Resolve(handlerCollectionType) is IEnumerable eventHandlers)
+                    foreach (dynamic handler in eventHandlers)
+                    {
+                        var t = handler.HandleAsync((dynamic) eventMessage, token);
+                        tasks.Add(t);
+                    }
 
-            await Task.WhenAll(tasks);
+                await Task.WhenAll(tasks);
+            }
         }
     }
 }

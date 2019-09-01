@@ -3,7 +3,7 @@ import searchService from './searchService'
 
 function documentUserItem(ObjInit){
     this.name = ObjInit.uploaderName
-    this.id = ObjInit.uploaderId
+    this.userId = ObjInit.uploaderId
     this.isTutor = false;
 }
 

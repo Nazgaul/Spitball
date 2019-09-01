@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
     public class DatabaseFixture : IDisposable
     {
-
+        private IContainer container { get; set; }
         public DatabaseFixture()
         {
             var configuration = new ConfigurationKeys("SomeSite")
@@ -26,17 +26,22 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
             builder.RegisterType<DapperRepository>().AsSelf();
-            var container = builder.Build();
+            container = builder.Build();
             QueryBus = container.Resolve<IQueryBus>();
+            TutorRepository = container.Resolve<ITutorRepository>();
+            ReadTutorRepository = container.Resolve<IReadTutorRepository>();
 
             // ... initialize data in the test database ...
         }
 
         public void Dispose()
         {
+            container.Dispose();
             // ... clean up test data from the database ...
         }
 
         public IQueryBus QueryBus { get; private set; }
+        public ITutorRepository TutorRepository { get; private set; }
+        public IReadTutorRepository ReadTutorRepository { get; set; }
     }
 }

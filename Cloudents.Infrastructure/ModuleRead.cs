@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
 
-            builder.RegisterType<GoogleService>()
+            builder.RegisterType<GoogleService>().AsSelf()
                 .As<IGoogleDocument>()
                 .As<IGoogleAuth>()
                 .As<ICalendarService>().SingleInstance();

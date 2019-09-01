@@ -178,4 +178,8 @@
   <data name="no_reviews" xml:space="preserve">
     <value>Still Collecting reviews</value>
   </data>
+  <data name="message_me" xml:space="preserve">
+    <value>me</value>
+    <comment>זה אמור להיות אות אחת</comment>
+  </data>
 </root>
