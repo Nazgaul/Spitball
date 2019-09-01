@@ -3,7 +3,7 @@ import utilitiesService from '../services/utilities/utilitiesService.js'
 import {router} from '../main.js';
 
 const state = {
-    scope: 'profile https://www.googleapis.com/auth/calendar.readonly',
+    scope: 'calendar',
     calendarEvents: [],
     tutorId: null,
     fromDate: new Date().toISOString(),
@@ -37,6 +37,24 @@ const getters ={
 }
 
 const actions ={
+    getEvents({commit}){
+        let tutorId = router.history.current.params.id;
+        commit('setTutorId',tutorId)
+        commit('setToDate',utilitiesService.IsoStringDateWithOffset(60))
+        let paramsObj = {
+            from: state.fromDate,
+            to: state.toDate,
+            tutorId: state.tutorId
+        }
+        return calendarService.getEvents(paramsObj).then(response=>{
+            commit('setCalendarEvents',response)
+            commit('setShowCalendar',true)
+            return Promise.resolve(response)
+        },err=>{
+            commit('setShowCalendar',false)
+            return Promise.reject(err)
+        })
+    },
     initCalendar({state,commit,dispatch},tutorId){
         commit('setTutorId',tutorId)
         commit('setToDate',utilitiesService.IsoStringDateWithOffset(60))
@@ -57,11 +75,12 @@ const actions ={
             })
         })
     },
-    signInCalendar({},authResult){
+    signInCalendar({dispatch},authResult){
         if (authResult['code']) {
             let serverObj = {code:authResult['code']}
             return calendarService.signIn(serverObj).then(
                 (response)=>{
+                    dispatch('getEvents')
                     return Promise.resolve(response)
                 },
                 (error)=>{
@@ -91,7 +110,7 @@ const actions ={
     updateNeedPayment({commit},val){
         commit('setNeedPayment',val)
     },
-    updateCalendarStatus({commit,getters,dispatch}){
+    updateCalendarStatus({state,getters,dispatch}){
         let isSharedCalendar = getters.getProfile.user.calendarShared
         if(isSharedCalendar){
             let tutorId = router.history.current.params.id;
@@ -100,6 +119,8 @@ const actions ={
             },(err)=>{
                 return Promise.reject(err)
             })
+        }else{
+            dispatch('gapiLoad',state.scope);
         }
     }
 }

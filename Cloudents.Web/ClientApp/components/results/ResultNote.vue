@@ -277,7 +277,8 @@ export default {
       "updateToasterParams",
       "removeItemFromProfile",
       "syncProfile",
-      "documentVote"
+      "documentVote",
+      "removeItemFromList"
     ]),
     ...mapGetters(["accountUser"]),
     docPreviewImg(imgUrl){
@@ -355,6 +356,7 @@ export default {
             ),
             showToaster: true
           });
+          this.removeItemFromList(id);
           this.updateProfile(id);
         },
         error => {

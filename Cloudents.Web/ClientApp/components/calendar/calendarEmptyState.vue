@@ -25,15 +25,12 @@
             }
         },
         methods: {
-            ...mapActions(['gapiLoad','gapiSignIn','updateToasterParams']),
-            ...mapMutations(['setShowCalendar']),
+            ...mapActions(['gapiSignIn','updateToasterParams']),
             shareCalendar(){
                 this.isLoading = true;
                 let self = this
                 this.gapiSignIn().then((res)=>{
-                    this.setShowCalendar(true)
                     this.isLoading = false;
-
                 },(err)=>{
                     this.isLoading = false;
                     if(err.error) return 
@@ -44,14 +41,6 @@
                     });
                 })
             },
-        },
-        created() {
-            let self = this;
-            this.$loadScript("https://apis.google.com/js/api.js").then(() => {
-                setTimeout(() => {
-                    self.gapiLoad();
-                },);
-        })
         },
     };
 </script>

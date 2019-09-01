@@ -91,7 +91,7 @@
             let self = this;
             this.$loadScript("https://apis.google.com/js/api.js").then(() => {
                 setTimeout(() => {
-                    self.gapiLoad();
+                    self.gapiLoad(['calendar']);
                 },);
             })
         },
