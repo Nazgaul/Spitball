@@ -52,7 +52,7 @@ export default {
     @import "../../styles/mixin.less";
 
     .document-container {
-        padding: 40px 6%;
+        padding: 40px 10px;
         @media (max-width: @screen-sm) {
             padding: 20px 10px;
             flex-direction: column;
