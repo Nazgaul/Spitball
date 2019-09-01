@@ -148,7 +148,7 @@
           :alt="document.content"
         />
 
-        <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" />
+        <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
       </div>
       <div
         class="unlockBox headline hidden-sm-and-down"
@@ -274,6 +274,11 @@ export default {
     uploaderName() {
       if (this.document.details && this.document.details.user.name) {
         return this.document.details.user.name;
+      }
+    },
+    courseType() {
+      if (this.document.details && this.document.details.name) {
+        return this.document.details.course;
       }
     },
     courseName() {

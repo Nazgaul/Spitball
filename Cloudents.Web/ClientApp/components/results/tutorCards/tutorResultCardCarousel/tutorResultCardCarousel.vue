@@ -5,7 +5,6 @@
             }" class="tutor-carousel-slider-wrapper mb-4">
         <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
         <div class="tutor-carousel-slider-container" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
-
             <router-link v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card" 
                 @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutor.userId, name: tutor.name}}">
                 <div>
@@ -63,6 +62,11 @@ export default {
     components: {
         userRating,
         star
+    },
+    props: {
+        courseName: {
+            type: String
+        }
     },
     data() {
         return {
@@ -225,8 +229,7 @@ export default {
     },
     created() {
         if(this.$vuetify.breakpoint.smAndDown) {
-            let course = this.$route.params.courseName.replace(/-/g, ' '); 
-            this.getTutorListCourse(course);
+            this.getTutorListCourse(this.courseName);
         }
     }
 }
