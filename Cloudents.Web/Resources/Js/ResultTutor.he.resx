@@ -177,4 +177,8 @@
   <data name="title" xml:space="preserve">
     <value>מורים פרטיים</value>
   </data>
+  <data name="message_me" xml:space="preserve">
+    <value>י</value>
+    <comment>זה אמור להיות אות אחת</comment>
+  </data>
 </root>

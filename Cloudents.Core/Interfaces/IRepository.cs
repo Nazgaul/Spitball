@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> : IDisposable where T : class
     {
         Task<object> AddAsync(T entity, CancellationToken token);
         Task AddAsync(IEnumerable<T> entities, CancellationToken token);
@@ -97,6 +97,6 @@ namespace Cloudents.Core.Interfaces
     public interface IReadTutorRepository : IRepository<ReadTutor>
     {
         Task<ReadTutor> GetReadTutorAsync(long userId, CancellationToken token);
-        void UpdateReadTutorRating(CancellationToken token);
+        Task UpdateReadTutorRating(CancellationToken token);
     }
 }

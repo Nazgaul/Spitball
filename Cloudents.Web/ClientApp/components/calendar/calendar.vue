@@ -8,15 +8,13 @@
                    >
           <paymentDialog/> 
         </sb-dialog>
-      <v-progress-circular class="progress-calendar" v-if="!isReady" indeterminate :size="150" width="3" color="info"></v-progress-circular>
-      
       <v-flex :class="{'sheet-loading':!isReady}">
         <div class="navigation-btns-calendar">
           <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.prev()">
             <v-icon>sbf-arrow-left-carousel</v-icon>
           </v-btn>
           <span class="title-calendar">{{calendarMonth}}</span>
-          <v-btn small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.next()">
+          <v-btn :disabled="isGoNext" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.next()">
             <v-icon dark>sbf-arrow-right-carousel</v-icon>
           </v-btn>
         </div>
@@ -24,10 +22,7 @@
           <v-card v-if="addEventDialog" class="addEventDialog" id="addEventDialog">
             <div :class="['event-dialog-title',{'event-dialog-title-send':!isEventSent,'event-dialog-title-done':isEventSent}]">
               <span v-if="isNeedPayment && !isEventSent" v-language:inner="'calendar_add_event_payment'"/>
-              <span v-if="!isEventSent && !isNeedPayment">
-                <span v-language:inner="'calendar_add_event_title'"/>
-                <span>{{tutorName}}</span>
-              </span>
+              <span v-if="!isEventSent && !isNeedPayment" v-html="$Ph('calendar_add_event_title',[tutorName])"/>
               <span v-if="isEventSent && !isNeedPayment" v-language:inner="'calendar_add_event_thank'"/>
             </div>
 
@@ -35,7 +30,7 @@
               <img v-if="isNeedPayment && !isEventSent" src="./images/group-2.png" alt="group-2.png">
               <div v-if="!isEventSent && !isNeedPayment">
                 <p>{{formatDateString()}}</p>
-                <p>{{formatTimeString()}}</p>
+                <p dir="ltr">{{formatTimeString()}}</p>
               </div>
               <span v-if="isEventSent && !isNeedPayment" v-language:inner="'calendar_add_event_sent'"/>
             </div>
@@ -95,6 +90,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+import {LanguageService} from '../../services/language/languageService.js'
 export default {
     components:{
       paymentDialog,
@@ -192,7 +188,7 @@ export default {
       }
     },
     methods: {
-        ...mapActions(['initCalendar','btnClicked','insertEvent','requestPaymentURL','updateNeedPayment']),
+        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment','updateToasterParams']),
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
@@ -204,11 +200,25 @@ export default {
             time: this.selectedTime,
           }
           this.insertEvent(paramObj).then(()=>{
-            this.isEventSent = true
+              this.isEventSent = true
+              this.calendarEvents.push(paramObj)
+              this.isLoading = false;
+          },err=>{
+            this.addEventDialog = false;
+            this.isLoading = false;
+            this.updateToasterParams({
+                    toasterText: LanguageService.getValueByKey("calendar_error_create_event"),
+                    showToaster: true,
+                    toasterType: 'error-toaster'
+                })
           })
         },
         addEvent(ev,date,time){
+          if((!!this.getProfile && !!this.accountUser) 
+          && this.getProfile.user.id == this.accountUser.id) return
+
           ev.stopImmediatePropagation();
+          if(this.addEventDialog)return
           this.selectedTime = time;
           this.selectedDate = date;
           this.addEventDialog = true;
@@ -217,9 +227,16 @@ export default {
           return (this.eventsMap[date] && this.eventsMap[date].find(e =>e.time === time))? '': time;
         },
         formatDateString(){
-          let dateStr = new Date(this.selectedDate).toDateString().split(' ');
-          let dayNumber = new Date(this.selectedDate).getDate()
-          return `${dateStr[0]}, ${dateStr[1]} ${dayNumber}`
+          if(global.isRtl){
+            let options = { weekday: 'long', month: 'short', day: 'numeric' };
+            let dateStr = new Date(this.selectedDate).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ')
+            let dayNumber = new Date(this.selectedDate).getDate()
+            return `${dateStr[0]} ${dateStr[1]} ${dayNumber} ${dateStr[3]}`
+          } else{
+            let dateStr = new Date(this.selectedDate).toDateString().split(' ');
+            let dayNumber = new Date(this.selectedDate).getDate()
+            return `${dateStr[0]}, ${dateStr[1]} ${dayNumber}`
+          }
         },
         formatTimeString(){
           let endTime = new Date(`${this.selectedDate} ${this.selectedTime}`).getHours()+1;
@@ -235,23 +252,12 @@ export default {
           this.isEventSent = false;
           this.isLoading = false;
         },
-        outsideClickDialog(event) {
-          if(!this.addEventDialog) return;
-          let isInside = event.path.some(el=>el.id === 'addEventDialog')
-          if(!isInside){
-            this.closeDialog()
-          }
-        },
         goPayment(){
           this.requestPaymentURL()
         }
     },
     mounted() {
        this.$refs.calendar.scrollToTime('06:00')
-       document.addEventListener('click',this.outsideClickDialog)
-    },
-    beforeDestroy(){
-       document.removeEventListener('click',this.outsideClickDialog)
     },
     watch: {
       getCalendarEvents:function(val){
@@ -266,19 +272,14 @@ export default {
       }
     },
     created() {
-      let tutorId = this.$route.params.id
-      let self = this;
-      if(this.isMobile){
-        this.intervals.height = 56;
-      } else {
-        this.intervals.height = 36
-      }
-      this.$loadScript("https://apis.google.com/js/api.js").then(() => {
-        setTimeout(() => {
-          self.initCalendar(tutorId);
-        },);
-      })
+      if(this.isMobile){this.intervals.height = 56} 
+      else{this.intervals.height = 36}
       this.updateNeedPayment(this.accountUser.needPayment)
+      this.$nextTick(()=>{
+        if(this.getCalendarEvents){
+        this.isReady = true
+      }
+      })
     },
 };
 </script>
@@ -291,13 +292,6 @@ export default {
   width: 620px;
   margin:0 auto;
   overflow:auto;
-  position: relative;
-  .progress-calendar{
-    position: absolute;
-    z-index: 5;
-    top: 38%;
-    left: 38%;
-  }
   .sheet-loading{
     opacity: 0.2;
   }
@@ -357,6 +351,14 @@ export default {
     z-index: 10;
     top: 26%;
     left: 26%;
+    
+
+display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+
+
     @media (max-width: @screen-xs) {
       position: fixed;
       height: initial;
@@ -409,6 +411,7 @@ export default {
     }
 
       .v-btn{
+        min-width: 140px;
         height: 40px !important;
         padding: 0px 32px !important;
       }

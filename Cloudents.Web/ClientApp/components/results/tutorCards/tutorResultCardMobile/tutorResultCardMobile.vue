@@ -140,7 +140,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['accountUser']),
+    ...mapGetters(['accountUser', 'getActivateTutorDiscounts']),
     userImageUrl() {
       if (this.tutorData.image) {
         let size = [67, 87];
@@ -154,6 +154,7 @@ export default {
       }
     },
     showStriked() {
+      if(!this.getActivateTutorDiscounts) return false;
       let price = this.tutorData.price;
       return price > this.minimumPrice;
     },
@@ -183,8 +184,13 @@ export default {
       return this.tutorData.university;
     },
     showFirstName() {
-      return this.tutorData.name.split(' ')[0];
-    }
+      let maxChar = 5;
+      let name = this.tutorData.name.split(' ')[0];
+      if(name.length > maxChar) {
+        return LanguageService.getValueByKey('resultTutor_message_me');
+      }
+      return name;
+    },
   }
 };
 </script>

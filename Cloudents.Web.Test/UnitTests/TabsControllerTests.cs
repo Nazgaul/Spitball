@@ -36,7 +36,7 @@ namespace Cloudents.Web.Test.UnitTests
 
             response.EnsureSuccessStatusCode();
 
-            response.RequestMessage.RequestUri.Should().Be(_uri.Host + _uri.Path);
+            response.RequestMessage.RequestUri.Should().Be(_uri.Uri);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace Cloudents.Web.Test.UnitTests
 
             response.EnsureSuccessStatusCode();
 
-            response.RequestMessage.RequestUri.Should().Be(_uri.Host + _uri.Path);
+            response.RequestMessage.RequestUri.Should().Be(_uri.Uri);
         }
     }
 }

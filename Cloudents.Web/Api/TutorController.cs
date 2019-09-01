@@ -28,7 +28,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authorization;
-using Google.Apis.Auth.OAuth2.Responses;
 using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
@@ -275,11 +274,18 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="calendarService"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpGet("calendar/events"),Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), 555)]
+        [ProducesResponseType(555)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<IEnumerable<CalendarEventDto>>> GetTutorCalendarAsync(
+        public async Task<ActionResult<IEnumerable<DateTime>>> GetTutorCalendarAsync(
             [FromQuery]CalendarEventRequest model,
             [FromServices] ICalendarService calendarService,
             CancellationToken token)
@@ -287,24 +293,35 @@ namespace Cloudents.Web.Api
             try
             {
                 var res = await calendarService.ReadCalendarEventsAsync(model.TutorId, model.From, model.To, token);
-                return Ok(res);
+                return res.Item1.ToList();
             }
-            catch(TokenResponseException e)
+            catch(NotFoundException)
             {
-                return StatusCode(555, new { massege = "site do not have permissions to user calendar" });
+                return StatusCode(555, new { massege = "permission denied" });
             }
         }
 
 
         [HttpPost("calendar/events"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> SetTutorCalendarAsync(
             [FromBody]CalendarEventRequest model,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From, model.To);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From, model.To);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                ModelState.AddModelError("x","slot taken");
+                return BadRequest(ModelState);
+            }
         }
     }
 }

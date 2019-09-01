@@ -198,9 +198,6 @@ export default {
             }
             return xsColumn;
         },
-        isSharedCalendar(){
-            return this.getProfile.user.calendarShared;
-        },
         profileData() {
             if (!!this.getProfile) {
                 return this.getProfile;
@@ -252,7 +249,9 @@ export default {
             }
         },
         showCalendar(){
-            if(this.isTutorProfile && (this.isMyProfile || this.isSharedCalendar)){
+            if(!this.getProfile) return
+            let isTutorSharedCalendar = this.getProfile.user.calendarShared;
+            if(this.isTutorProfile && (this.isMyProfile || isTutorSharedCalendar)){
                 return true
             }
         }

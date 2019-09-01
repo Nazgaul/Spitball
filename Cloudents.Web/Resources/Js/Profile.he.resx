@@ -138,6 +138,9 @@
   <data name="btn_save_changes" xml:space="preserve">
     <value>שמור שינויים</value>
   </data>
+  <data name="calendar" xml:space="preserve">
+    <value>לוח שנה</value>
+  </data>
   <data name="courses_can_help" xml:space="preserve">
     <value>קורסים שאני יכול לעזור לך איתם</value>
   </data>

@@ -18,17 +18,22 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Extension;
 using Cloudents.Infrastructure.Google.Resources;
 using Document = Google.Apis.Docs.v1.Data.Document;
 using Google.Apis.Auth.OAuth2.Responses;
+using User = Cloudents.Core.Entities.User;
 
 namespace Cloudents.Infrastructure.Google
 {
     [UsedImplicitly]
-    public sealed class GoogleService : IGoogleAuth, IGoogleDocument, ICalendarService
+    public sealed class GoogleService :
+        IGoogleAuth,
+        IGoogleDocument,
+        ICalendarService
     {
-        //TODO: Temp solution need to figure out.
-        //private readonly GoogleDataStore _googleDataStore;
+        private const string PrimaryGoogleCalendarId = "primary";
         private readonly ILifetimeScope _container;
 
         public GoogleService(ILifetimeScope container)
@@ -116,97 +121,120 @@ namespace Cloudents.Infrastructure.Google
                 return webLink;
             }
         }
-        
 
-        public async Task<IEnumerable<CalendarEventDto>> ReadCalendarEventsAsync(long userId,
-            DateTime from, DateTime max,
-            CancellationToken cancellationToken)
+        private static GoogleClientSecrets GetGoogleClientSecrets()
         {
-            var credential = await LoadUserTokenAsync(userId, cancellationToken);
-            using (var service = new CalendarService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential
-
-            }))
-            {
-                var request = service.Events.List("primary");
-                if (from < DateTime.UtcNow)
-                {
-                    from = DateTime.UtcNow;
-                }
-                request.TimeMin = from;
-                request.TimeMax = max;
-                Events result = null;
-                try
-                {
-                    result = await request.ExecuteAsync(cancellationToken);
-                }
-                catch (TokenResponseException e)
-                {
-                    throw e;
-                }
-
-                return result.Items.Select(s => new CalendarEventDto()
-                {
-
-                    From = s.Start.DateTime,
-                    To = s.End.DateTime
-                });
-
-            }
-
-
-        }
-
-        private async Task<UserCredential> LoadUserTokenAsync(long userId, CancellationToken cancellationToken)
-        {
-            UserCredential credential;
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json"))
             {
+                return GoogleClientSecrets.Load(stream);
+            }
+        }
+
+
+
+
+        public async Task<(IEnumerable<DateTime>, string etag)> ReadCalendarEventsAsync(long userId,
+            DateTime from, DateTime max,
+            CancellationToken cancellationToken)
+        {
+            //var googleDataStore = _container.Resolve<GoogleDataStore>();
+            using (var child = _container.BeginLifetimeScope())
+            {
                 var initializer = new GoogleAuthorizationCodeFlow.Initializer
                 {
-                    ClientSecrets = GoogleClientSecrets.Load(stream).Secrets,
+                    ClientSecrets = GetGoogleClientSecrets().Secrets,
                     Scopes = new[] { CalendarService.Scope.CalendarReadonly },
-                    DataStore = _container.Resolve<GoogleDataStore>()
+                    DataStore = child.Resolve<GoogleDataStore>()
                 };
                 //TODO: need to find solution We can't dispose the flow because we are using it in the code 
                 var flow = new GoogleAuthorizationCodeFlow(initializer);
 
                 var gToken = await flow.LoadTokenAsync(userId.ToString(), cancellationToken);
-                credential = new UserCredential(flow, userId.ToString(), gToken);
+                if (gToken == null) throw new NotFoundException(nameof(gToken));
+                var credential = new UserCredential(flow, userId.ToString(), gToken);
 
+
+
+
+                // var credential = await LoadUserTokenAsync(userId, cancellationToken);
+                using (var service = new CalendarService(new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = credential
+
+                }))
+                {
+                    var request = service.Events.List(PrimaryGoogleCalendarId);
+                    if (from < DateTime.UtcNow)
+                    {
+                        from = DateTime.UtcNow;
+                    }
+
+                    request.SingleEvents = true;
+                    request.TimeMin = from;
+                    request.TimeMax = max;
+                    try
+                    {
+                        var result = await request.ExecuteAsync(cancellationToken);
+
+                        return (result.Items.Select(s =>
+                       {
+                           if (s.Start.DateTime.HasValue)
+                           {
+                               var startAppointmentTime = s.Start.DateTime.Value;
+                               startAppointmentTime = startAppointmentTime.AddMinutes(-s.Start.DateTime.Value.Minute);
+                               var endAppointmentTime = s.End.DateTime.GetValueOrDefault();
+                               if (endAppointmentTime.Minute > 0)
+                               {
+                                   endAppointmentTime = endAppointmentTime.AddHours(1)
+                                       .AddMinutes(-endAppointmentTime.Minute);
+                               }
+
+                               return DateTimeHelpers.EachHour(startAppointmentTime, endAppointmentTime);
+                               //return new CalendarEventDto(startAppointmentTime,
+                               //endAppointmentTime);
+                           }
+
+
+                           var start = DateTime.ParseExact(s.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                           var end = DateTime.ParseExact(s.End.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                           return DateTimeHelpers.EachHour(start, end);
+                           //return new CalendarEventDto(start, end);
+
+                       }).SelectMany(s => s), result.ETag);
+                    }
+                    catch (TokenResponseException e)
+                    {
+                        throw new NotFoundException("Google token invalid", e);
+                    }
+                }
             }
-
-            return credential;
         }
 
-        public async Task BookCalendarEventAsync(
-            IEnumerable<Core.Entities.User> users, DateTime from, DateTime to,
+
+
+        public async Task BookCalendarEventAsync(User tutor, User student,
+             DateTime from, DateTime to,
             CancellationToken cancellationToken)
         {
-            var cred = new ServiceAccountCredential(new ServiceAccountCredential.Initializer("114966733453169842650")
-            {
-                Scopes = new[] { CalendarService.Scope.Calendar },
-                User = "schedule@spitball.co"
-
-            }.FromPrivateKey("-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC6j5Wb+58PaIlE\nlWeitrRDKWo7gDgw3BgKCK1MA9IZd7nI5gAQDoE6X/UTFt2PHD4QtQU5juNVSS+1\nhgppSAZIHlCKiUKnNg4X5FmODk3XlrZSWsTINLosVl3W9f1tntnL2ll518NTfsv5\nCSf0D/X6+wwJ/QbgTeX2miyCfZlOsU7ARlYeXMQgPiizebVQZ4OKFETbPBf694U3\nHm7aheRPMBYb2ZKNuzJVGvi8P6IWsTgAdWb9VwrBDWgWTju2x08ux2mnmgL09ZAw\ni2KD3dQ9KfeLv/XIWcHPCRLJsnpcHABuBlr83XUrMKMt//VvN60NgmIbnZc19b4P\nwyZr8qgTAgMBAAECggEACBY8RSWBmMCOdAoeksI6YHpARXGtPd+fLSQreug5fcAf\nrgfbndaQdHrUsUNO+aqe6B4oqqeOeX5xfSa2dyeCRN2yM7x3xq7EVUshNKlbEiAm\n1BK6L/bVJncx8c+k8NEEyN40qGBEHRpEdjhBjUX52Ct0s07Osv9oG1SbNFGEc+bk\nTHTZVXYGSJRkyo3BNLohXo+pFgIdWrzD5zaURCQwxNJPJRHA3GRSVDIaQ7ik9PXK\nqm/8+rrQAv4oAifbYxF0KWI7Sj2q9JLFCfXJXmIIMq/n4l5NcpVKJstvGWe7qYFT\ne4uCn8ItVxpTJWBRDv8oL6NUsgZog0eK82/PKYucuQKBgQDylaw4zXykUzLnGh9G\nadnAVNFnxA8Yh3PwAL5V+qRXMbIWxqeOFxMeg3UDjEaUXAmn0J3Y038xm7Bsp+FY\nmJDWi77aCNvZKOs227tmLTFOEZZ1BDvgaNU+gT7XXRQWABc+5YxR/bLHan6vDnYP\nyh21BEiruUQTbdmn1kumA/QuqQKBgQDE4MUeNEMMPJrKQyPBYw/CRk4dW1/R2gX7\nEttcSk9g9UObNizXlqVPHNcDfISreuBPFq+sE6npxkraobKSYdulLtsFxw7MSBe4\niA7mppltdYknwms+VyVJL//cGQXOqG/IcEBoIiJN4DSNUIjC8ArMVYF5OXkzm6X0\nw4suwrrCWwKBgQDmR+keXwr0XzqSIb0QtckNCDdlXrvJ2EPZ0IreybkaQMXDUz+Z\n5hOzQq1g+dfCXICZ+rLtMxCqghX/f3qvBN1xnWVGS2SQCIUJJZwHCd2lM5L1cFh6\n1mmgFUcXYHeBzwJCJdyHtOLy5Qhvm7W9lWuP/AoUYiHao8wbxJU5esVhSQKBgQCO\nf43NBdC9q6Px39SiZZwDZrWlY/yfvGl1x7lEPHjl2b/cOMMOK/hsoZgy6s5v+5kd\nRXNTXkwua5rEUiMY9oFvNtHKhcB9NXUN2FTIty733gmu4HaVAah4J6jOWsIsSRfX\ngP/tHz+rFCuVWQQT7IA0U3NKFcJXC0J8PYihCMr6XwKBgH6NQiVYrg6Z6E1+T2+K\nWwfKem7uwDMi1FSi1IG9++nN92eO7ZZka4YEZ7runa4DS9a1oA6kIipT1JxAAQzi\nwhODOWc47SrdWlj9TwZm1ky8SAHvaxvECDJenWr+ooXzmdAiApnEHxQt4VsxuYhz\neLf0iFOJEWE47mX1CjBYuiSA\n-----END PRIVATE KEY-----\n"));
+            var cred = SpitballCalendarCred;
             var x = new System.Resources.ResourceManager(typeof(CalendarResources));
-            var eventName =  x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture);
-
+            var eventName = x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
+            eventName = string.Format(eventName, tutor.Name, student.Name);
             using (var service = new CalendarService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = cred
-
             }))
             {
-                var attendees = users.Select(s => new EventAttendee()
+                var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
                 {
                     Email = s.Email
+
                 }).ToList();
+
+
                 var event2 = service.Events.Insert(new Event()
                 {
-
                     Attendees = attendees,
                     Summary = eventName,
                     Start = new EventDateTime()
@@ -217,23 +245,65 @@ namespace Cloudents.Infrastructure.Google
                     {
                         DateTime = to
                     }
-                }, "primary");
+                }, PrimaryGoogleCalendarId);
                 event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
                 await event2.ExecuteAsync(cancellationToken);
             }
-            
+
         }
 
-        public async Task SaveTokenAsync(string token, long userId,string uri,
+        private static ServiceAccountCredential SpitballCalendarCred
+        {
+            get
+            {
+                var cred = new ServiceAccountCredential(new ServiceAccountCredential.Initializer("114966733453169842650")
+                {
+                    Scopes = new[] { CalendarService.Scope.Calendar },
+                    User = "schedule@spitball.co"
+                }.FromPrivateKey(
+                    "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC6j5Wb+58PaIlE\nlWeitrRDKWo7gDgw3BgKCK1MA9IZd7nI5gAQDoE6X/UTFt2PHD4QtQU5juNVSS+1\nhgppSAZIHlCKiUKnNg4X5FmODk3XlrZSWsTINLosVl3W9f1tntnL2ll518NTfsv5\nCSf0D/X6+wwJ/QbgTeX2miyCfZlOsU7ARlYeXMQgPiizebVQZ4OKFETbPBf694U3\nHm7aheRPMBYb2ZKNuzJVGvi8P6IWsTgAdWb9VwrBDWgWTju2x08ux2mnmgL09ZAw\ni2KD3dQ9KfeLv/XIWcHPCRLJsnpcHABuBlr83XUrMKMt//VvN60NgmIbnZc19b4P\nwyZr8qgTAgMBAAECggEACBY8RSWBmMCOdAoeksI6YHpARXGtPd+fLSQreug5fcAf\nrgfbndaQdHrUsUNO+aqe6B4oqqeOeX5xfSa2dyeCRN2yM7x3xq7EVUshNKlbEiAm\n1BK6L/bVJncx8c+k8NEEyN40qGBEHRpEdjhBjUX52Ct0s07Osv9oG1SbNFGEc+bk\nTHTZVXYGSJRkyo3BNLohXo+pFgIdWrzD5zaURCQwxNJPJRHA3GRSVDIaQ7ik9PXK\nqm/8+rrQAv4oAifbYxF0KWI7Sj2q9JLFCfXJXmIIMq/n4l5NcpVKJstvGWe7qYFT\ne4uCn8ItVxpTJWBRDv8oL6NUsgZog0eK82/PKYucuQKBgQDylaw4zXykUzLnGh9G\nadnAVNFnxA8Yh3PwAL5V+qRXMbIWxqeOFxMeg3UDjEaUXAmn0J3Y038xm7Bsp+FY\nmJDWi77aCNvZKOs227tmLTFOEZZ1BDvgaNU+gT7XXRQWABc+5YxR/bLHan6vDnYP\nyh21BEiruUQTbdmn1kumA/QuqQKBgQDE4MUeNEMMPJrKQyPBYw/CRk4dW1/R2gX7\nEttcSk9g9UObNizXlqVPHNcDfISreuBPFq+sE6npxkraobKSYdulLtsFxw7MSBe4\niA7mppltdYknwms+VyVJL//cGQXOqG/IcEBoIiJN4DSNUIjC8ArMVYF5OXkzm6X0\nw4suwrrCWwKBgQDmR+keXwr0XzqSIb0QtckNCDdlXrvJ2EPZ0IreybkaQMXDUz+Z\n5hOzQq1g+dfCXICZ+rLtMxCqghX/f3qvBN1xnWVGS2SQCIUJJZwHCd2lM5L1cFh6\n1mmgFUcXYHeBzwJCJdyHtOLy5Qhvm7W9lWuP/AoUYiHao8wbxJU5esVhSQKBgQCO\nf43NBdC9q6Px39SiZZwDZrWlY/yfvGl1x7lEPHjl2b/cOMMOK/hsoZgy6s5v+5kd\nRXNTXkwua5rEUiMY9oFvNtHKhcB9NXUN2FTIty733gmu4HaVAah4J6jOWsIsSRfX\ngP/tHz+rFCuVWQQT7IA0U3NKFcJXC0J8PYihCMr6XwKBgH6NQiVYrg6Z6E1+T2+K\nWwfKem7uwDMi1FSi1IG9++nN92eO7ZZka4YEZ7runa4DS9a1oA6kIipT1JxAAQzi\nwhODOWc47SrdWlj9TwZm1ky8SAHvaxvECDJenWr+ooXzmdAiApnEHxQt4VsxuYhz\neLf0iFOJEWE47mX1CjBYuiSA\n-----END PRIVATE KEY-----\n"));
+                return cred;
+            }
+        }
+
+        public async Task DeleteDeclinedEventCalendarAsync(CancellationToken cancellationToken)
+        {
+            using (var service = new CalendarService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = SpitballCalendarCred
+
+            }))
+            {
+                var request = service.Events.List(PrimaryGoogleCalendarId);
+                request.TimeMin = DateTime.UtcNow;
+                request.TimeMax = DateTime.UtcNow.AddMonths(1);
+                request.MaxResults = 2500;
+                request.SingleEvents = true;
+                var result = await request.ExecuteAsync(cancellationToken);
+                var declinedEvent = result.Items.Where(w => w.Attendees.Any(w2 => w2.ResponseStatus == "declined"));//.Select(s => s.Id);
+                var tasks = declinedEvent.Select(s =>
+                {
+                    // ReSharper disable once AccessToDisposedClosure There is await in using
+                    var request2 = service.Events.Delete(PrimaryGoogleCalendarId, s.Id);
+                    request2.SendUpdates = EventsResource.DeleteRequest.SendUpdatesEnum.All;
+                    return request2.ExecuteAsync(cancellationToken);
+
+                });
+                await Task.WhenAll(tasks);
+            }
+        }
+
+        public async Task SaveTokenAsync(string token, long userId, string uri,
             CancellationToken cancellationToken)
         {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json"))
+            using (var child = _container.BeginLifetimeScope())
             {
+
                 var initializer = new GoogleAuthorizationCodeFlow.Initializer
                 {
-                    ClientSecrets = GoogleClientSecrets.Load(stream).Secrets,
+                    ClientSecrets = GetGoogleClientSecrets().Secrets,
                     Scopes = new[] { CalendarService.Scope.CalendarReadonly },
-                    DataStore = _container.Resolve<GoogleDataStore>()
+                    DataStore = child.Resolve<GoogleDataStore>()
 
                 };
 
@@ -245,7 +315,24 @@ namespace Cloudents.Infrastructure.Google
                 }
             }
 
-            
+
         }
+
+        //public async Task CreateWatch()
+        //{
+        //    var cred = SpitballCalendarCred;
+
+        //    using (var service = new CalendarService(new BaseClientService.Initializer()
+        //    {
+        //        HttpClientInitializer = cred
+        //    }))
+        //    {
+        //        var result = await service.Events.Watch(new Channel
+        //        {
+        //            Type = "web_hook",
+        //            Address = "https://spitball-function-dev2.azurewebsites.net/api/google/notifications"
+        //        }, PrimaryGoogleCalendarId).ExecuteAsync();
+        //    }
+        //}
     }
 }

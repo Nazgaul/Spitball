@@ -47,11 +47,12 @@
                         </v-flex>
                         <v-flex>
                             <v-text-field 
-                                          :rules="[rules.required, rules.minimum, rules.maximum]"
+                                          :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
                                           :label="priceLabel"
                                           v-model="price"
                                           outline
                                           prefix="₪"
+                                          class="tutor-edit-pricing"
                                           type="number"
                                           :hide-details="$vuetify.breakpoint.xsOnly"
                             ></v-text-field>
@@ -165,7 +166,7 @@
             },
             price: {
                 get() {
-                    return +this.getProfile.user.tutorData.price.toFixed(2)
+                    return +this.getProfile.user.tutorData.price.toFixed(0)
                 },
                 set(newVal) {
                     this.editedPrice = +newVal
@@ -219,8 +220,7 @@
             },
             closeDialog() {
                 this.closeCallback ? this.closeCallback() : '';
-            },
-
+            }
         },
         created() {
             this.editedBio = this.getProfile.about.bio || '';

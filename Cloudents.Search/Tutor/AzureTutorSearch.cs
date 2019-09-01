@@ -20,6 +20,11 @@ namespace Cloudents.Search.Tutor
             _client = client.GetClient(TutorSearchWrite.IndexName);
 
         }
+
+        public async Task<Entities.Tutor> GetByIdAsync(long id)
+        {
+           return await _client.Documents.GetAsync<Entities.Tutor>(id.ToString());
+        }
         public async Task<IEnumerable<TutorCardDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token)
         {
             const int pageSize = 25;

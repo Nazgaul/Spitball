@@ -120,6 +120,9 @@
   <data name="email" xml:space="preserve">
     <value>E-mail must be valid</value>
   </data>
+  <data name="integer" xml:space="preserve">
+    <value>Only integer numbers</value>
+  </data>
   <data name="longer_10" xml:space="preserve">
     <value>Must be longer than 10 characters</value>
   </data>

@@ -15,7 +15,7 @@
 
         <v-layout class="px-1 btns-cal-step"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
-            <v-btn @click="goToPreviousStep()" class="cancel-btn elevation-0" round outline flat>
+            <v-btn @click="goToPreviousStep()" class="cancel-btn-step elevation-0" round outline flat>
                 <span v-language:inner="'becomeTutor_btn_back'"/>
             </v-btn>
             <v-btn  color="#4452FC"
@@ -56,6 +56,8 @@
                 let self = this
                 this.gapiSignIn().then((res)=>{
                     self.submit()
+                },err=>{
+                    this.isLoading = false;
                 })
             },
             submit(){
@@ -89,7 +91,7 @@
             let self = this;
             this.$loadScript("https://apis.google.com/js/api.js").then(() => {
                 setTimeout(() => {
-                    self.gapiLoad();
+                    self.gapiLoad(['calendar']);
                 },);
             })
         },
@@ -114,8 +116,10 @@
             position: absolute;
             bottom: -14px;
             left: -24px;
+            z-index: 0;
         }
         .calendar-step-wrap-cont{
+            z-index: 1;
                 @media (max-width: @screen-xs) {
                     display: flex;
         justify-content: start;
@@ -164,6 +168,11 @@
             color: @global-purple;
         }
         .btns-cal-step{
+            .cancel-btn-step{
+                background: white !important;;
+                border: solid 1px @global-blue;
+                color: @global-blue;
+            }
             margin-top: 150px;
                 @media (max-width: @screen-xs) {
                     margin-top: 0;

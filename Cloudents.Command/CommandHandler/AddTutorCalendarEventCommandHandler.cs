@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Interfaces;
@@ -21,9 +23,17 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AddTutorCalendarEventCommand message, CancellationToken token)
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId,token);
+
+            var appointments = await _calendarService.ReadCalendarEventsAsync(tutor.Id, message.From, message.To, token);
+            if (appointments.Item1.Any())
+            {
+                throw new ArgumentException("Slot is booked");
+            }
+
             var user = await _userRepository.LoadAsync(message.UserId,token);
 
-            await _calendarService.BookCalendarEventAsync(new[] {user, tutor.User}, message.From, message.To, token);
+            await _calendarService.BookCalendarEventAsync(tutor.User,user, 
+                message.From, message.To, token);
             
         }
     }

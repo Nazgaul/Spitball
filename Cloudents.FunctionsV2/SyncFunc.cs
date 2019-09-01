@@ -115,8 +115,13 @@ namespace Cloudents.FunctionsV2
             CancellationToken token)
         {
             log.LogInformation($"Going to sync {input}");
-            var syncObject = lifetimeScope.ResolveKeyed<IDbToSearchSync>(input.SyncType);
-            return await syncObject.DoSyncAsync(input.SyncAzureQuery, binder, token);
+            using (var child = lifetimeScope.BeginLifetimeScope())
+            {
+                var syncObject = child.ResolveKeyed<IDbToSearchSync>(input.SyncType);
+                return await syncObject.DoSyncAsync(input.SyncAzureQuery, binder, token);
+            }
+
+
         }
 
         [FunctionName(GetSyncStatusFunctionName)]
@@ -144,6 +149,6 @@ namespace Cloudents.FunctionsV2
             await blob.UploadTextAsync(searchSyncInput.SyncAzureQuery.ToString());
         }
 
-      
+
     }
 }
