@@ -23,6 +23,7 @@ using NHibernate;
 using System.Drawing;
 using Cloudents.Identity;
 using static Microsoft.AspNetCore.Http.StatusCodes;
+using System.Linq;
 
 namespace Cloudents.Web.Api
 {
@@ -178,8 +179,8 @@ namespace Cloudents.Web.Api
             }
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
-          
-            var command = new UpdateUserImageCommand(userId, url);
+            var flieName = uri.AbsolutePath.Split('/').LastOrDefault();
+            var command = new UpdateUserImageCommand(userId, url, flieName);
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
         }

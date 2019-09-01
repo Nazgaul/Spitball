@@ -28,7 +28,8 @@ namespace Cloudents.Core.Entities
         public virtual string SecurityStamp { get; set; }
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Global reserved for later use
-        public virtual string Image { get; set; }
+        public virtual string Image { get; protected set; }
+        public virtual string ImageName { get; protected set; }
 
         //TODO: should fictive user need to have university
         public virtual University University { get; protected  set; }
@@ -98,5 +99,16 @@ namespace Cloudents.Core.Entities
         }
 
         public virtual byte[] Version { get; protected set; }
+
+        public virtual void UpdateUserImage(string image, string imageName)
+        {
+            Image = image;
+            ImageName = imageName;
+        }
+
+        public virtual void UpdateUserImageName(string imageName)
+        {
+            ImageName = imageName;
+        }
     }
 }
