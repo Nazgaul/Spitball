@@ -49,6 +49,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import insightService from '../../../services/insightService';
 // let auth2;
 
 export default {
@@ -74,18 +75,17 @@ export default {
                 } else {
                     this.googleLoading = true;
                     this.googleSigning().then(res=>{},err=>{
-                        
+                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'signInWithGoogle', err);
                         this.googleLoading = false
                         })
                     }
             } else {
                 this.googleLoading = true;
                 this.googleSigning().then(res=>{},err=>{
-                        
-
+                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'signInWithGoogle', err);
                     this.googleLoading = false
                 })
-                }
+            }
         },
         goWithEmail(){
             if(this.isRegisterPath){
