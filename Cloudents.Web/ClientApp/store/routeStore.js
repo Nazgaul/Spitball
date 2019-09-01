@@ -16,7 +16,7 @@ const mutations = {
 
 const actions = {
     setRouteStack({commit}, val){
-        commit('setRouteStack', val);\
+        commit('setRouteStack', val);
     },
     sendQueryToAnalytic(context, to) {
         let queryString = '';
