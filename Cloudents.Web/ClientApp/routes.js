@@ -1,9 +1,9 @@
 import * as RouteTypes from "./routeTypes";
 
 //const resultContent = () => import('./components/results/Result.vue');
-const HomeworkHelpComponent = () => import('./components/results/HomeworkHelp/HomeworkHelp.vue');
-const StudyDocumentsComponent = () => import('./components/results/StudyDocuments/StudyDocuments.vue');
-const TutorsComponent = () => import('./components/results/Tutors/Tutors.vue');
+const homeworkHelpComponent = () => import('./components/results/HomeworkHelp/HomeworkHelp.vue');
+const studyDocumentsComponent = () => import('./components/results/StudyDocuments/StudyDocuments.vue');
+const tutorsComponent = () => import('./components/results/Tutors/Tutors.vue');
 
 const pageHeader = () => import('./components/header/header.vue');
 
@@ -34,13 +34,13 @@ const tutorComponent = () => import("./components/tutor/tutor.vue");
 const studyRoomsComponent = () => import("./components/studyRooms/studyRooms.vue");
 const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.vue");
 
-const tutorLandingPage=()=> import("./components/tutorLandingPage/tutorLandingPage.vue")
+const tutorLandingPage=()=> import("./components/tutorLandingPage/tutorLandingPage.vue");
 
 const landingPage = () => import('./components/landingPage/landingPage.vue');
-const FindTutor = () => import('./components/landingPage/pages/FindTutor.vue');
+const findTutor = () => import('./components/landingPage/pages/FindTutor.vue');
 // import HowItWorks from "./components/landingPage/pages/HowItWorks.vue";
 // import BecomeTutor from "./components/landingPage/pages/BecomeTutor.vue";
-const registerPage = () => import('./components/loginPageNEW/pages/registerPage.vue')
+const registerPage = () => import('./components/loginPageNEW/pages/registerPage.vue');
 
 
 function dynamicPropsFn(route) {
@@ -49,7 +49,7 @@ function dynamicPropsFn(route) {
     return {
         name: newName,
         query: route.query,
-        params: route.params,
+        params: route.params
     };
 }
 
@@ -79,20 +79,20 @@ const resultProps = {
     verticals: verticalResultPageFn
 };
 const homeworkHelpPage = {
-    default: HomeworkHelpComponent,
+    default: homeworkHelpComponent,
     header: pageHeader,
     schoolBlock: schoolBlock,
     verticals: verticalsTabs
 };
 const tutorPage = {
-    default: TutorsComponent,
+    default: tutorsComponent,
     header: pageHeader,
     schoolBlock: schoolBlock,
     verticals: verticalsTabs
 };
 
 const studyDocumentsPage = {
-    default: StudyDocumentsComponent,
+    default: studyDocumentsComponent,
     header: pageHeader,
     schoolBlock: schoolBlock,
     verticals: verticalsTabs
@@ -109,20 +109,20 @@ let routes2 = [
         path: "/",
         name: "landingPage",
         components: {
-            default: landingPage,
+            default: landingPage
         },
         children:[
             {
                 path: '',
-                component: FindTutor
+                component: findTutor
             },
             {
                 path: "/tutor-list",
                 name: "tutorLandingPage",
                 components: {
-                    default: tutorLandingPage,
-                },
-            },
+                    default: tutorLandingPage
+                }
+            }
             
         ]
     },
@@ -195,7 +195,7 @@ let routes2 = [
                 redirect: 'edit',
                 meta: {
                     requiresAuth: true
-                },
+                }
             },
             {
                 path: 'add',
@@ -203,7 +203,7 @@ let routes2 = [
                 component: addCourse,
                 meta: {
                     requiresAuth: true
-                },
+                }
             },
             {
                 path: 'edit',
@@ -211,24 +211,24 @@ let routes2 = [
                 component: editCourse,
                 meta: {
                     requiresAuth: true
-                },
+                }
             },
             {
                 path: '*',
                 redirect: 'edit',
                 meta: {
                     requiresAuth: true
-                },
-            },
+                }
+            }
         ],
         components: {
             default: setCourse,
             header: pageHeader,
-            schoolBlock: schoolBlock,
+            schoolBlock: schoolBlock
         },
         meta: {
             requiresAuth: true
-        },
+        }
     },
     {
         path: "/university/",
@@ -239,7 +239,7 @@ let routes2 = [
                 redirect: 'add',
                 meta: {
                     requiresAuth: true
-                },
+                }
             },
             {
                 path: 'add',
@@ -247,24 +247,24 @@ let routes2 = [
                 component: addUniversity,
                 meta: {
                     requiresAuth: true
-                },
+                }
             },
             {
                 path: '*',
                 redirect: 'add',
                 meta: {
                     requiresAuth: true
-                },
-            },
+                }
+            }
         ],
         components: {
             default: setUniversity,
             header: pageHeader,
-            schoolBlock: schoolBlock,
+            schoolBlock: schoolBlock
         },
         meta: {
             requiresAuth: true
-        },
+        }
     },
 
     {
@@ -290,10 +290,10 @@ let routes2 = [
         path: "/studyroom/:id?",
         name: 'tutoring',
         components: {
-            default: tutorComponent,
+            default: tutorComponent
         },
         header: () => ({
-            submitRoute: '/tutoring',
+            submitRoute: '/tutoring'
         }),
         props: {
             default: (route) => ({
@@ -325,15 +325,15 @@ let routes2 = [
             },
             default: (route) => ({
                 id: route.params.id
-            }),
-        },
+            })
+        }
     },
 
     {
         path: "/profile/:id/:name",
         components: {
             default: newProfile,
-            header: profilePageHeader,
+            header: profilePageHeader
         },
         name: "profile",
         // meta:{
@@ -343,7 +343,7 @@ let routes2 = [
             default: (route) => ({
                 id: route.params.id
             })
-        },
+        }
     },
     {
         path: "/student-or-tutor",
@@ -351,7 +351,7 @@ let routes2 = [
             // default: viewProfile,
             default: studentOrTutor,
             schoolBlock: schoolBlock,
-            header: pageHeader,
+            header: pageHeader
         },
         name: "studentTutor",
         meta: {
@@ -361,7 +361,7 @@ let routes2 = [
             default: (route) => ({
                 id: route.params.id
             })
-        },
+        }
     },
 
     {
@@ -378,14 +378,14 @@ let routes2 = [
             header: () => ({
                 currentSelection: "ask"
             })
-        },
+        }
     },
 
     {
         path: "/register",
         alias: ['/signin', '/resetpassword'],
         components: {
-            default: registerPage,
+            default: registerPage
         },
         name: "registration",
         beforeEnter: (to, from, next) => {
@@ -395,7 +395,7 @@ let routes2 = [
                 next();
             }
         }
-    },
+    }
 ];
 
 for (let v in staticRoutes) {

@@ -26,14 +26,14 @@ const mutations = {
         state.review.rate = val;
     },
     setAllowReview(state, val){
-        state.allowReview = val
+        state.allowReview = val;
     }
 
 };
 
 const actions = {
     updateAllowReview({commit, state}, val){
-        commit('setAllowReview', val)
+        commit('setAllowReview', val);
     },
     updateReviewDialog({commit, state}, val) {
         commit('changeReviewDialogState', val);
@@ -53,7 +53,7 @@ const actions = {
                                   },
                                   (error) => {
                                       console.log('errorsend review', error);
-                                        return error
+                                        return error;
                                   });
     }
 };

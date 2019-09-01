@@ -31,7 +31,7 @@ function ConnectionQue(connection, message, data) {
 
 function messageHandler(message) {
     //Todo create Notification Object
-    let notificationObj = new Notification(message)
+    let notificationObj = new Notification(message);
     console.log(message);
 
     //Todo fire signlaREvents correct event
@@ -43,7 +43,7 @@ function messageHandler(message) {
 }
 
 function connectionOn(connection, message, callback) {
-    connectivityModule.sr.on(connection, message, callback)
+    connectivityModule.sr.on(connection, message, callback);
 }
 
 function startConnection(connectionInstance, messageString) {
@@ -57,8 +57,8 @@ function startConnection(connectionInstance, messageString) {
         //if we have events that cought in the que, then shift them one by one
         if (connectionInstance.connectionQue.length > 0) {
             while (connectionInstance.connectionQue.length) {
-                let que = connectionInstance.connectionQue.shift()
-                NotifyServer(que.connection, que.message, que.data)
+                let que = connectionInstance.connectionQue.shift();
+                NotifyServer(que.connection, que.message, que.data);
             }
         }
     });
@@ -73,7 +73,7 @@ function createConnection(connString) {
 
 async function start(connectionInstance) {
     try {
-        await connectionInstance.connection.start()
+        await connectionInstance.connection.start();
         store.dispatch('setIsSignalRConnected', true);
         connectionInstance.connectionStartCount = 0;
         connectionInstance.isConnected = true;
@@ -82,8 +82,8 @@ async function start(connectionInstance) {
         //if we have events that cought in the que, then shift them one by one
         if(connectionInstance.connectionQue.length > 0){
             while(connectionInstance.connectionQue.length){
-                let que = connectionInstance.connectionQue.shift()
-                NotifyServer(que.connection, que.message, que.data)
+                let que = connectionInstance.connectionQue.shift();
+                NotifyServer(que.connection, que.message, que.data);
             }
         }
     } catch (err) {
@@ -100,7 +100,7 @@ async function start(connectionInstance) {
 //init function is launched from the main.js
 export default function init(connString = '/sbHub') {
     //create a signalR Connection
-    let connectionInstance = createConnection(connString)
+    let connectionInstance = createConnection(connString);
 
 
     //reconnect in case connection closes for some reason
@@ -116,11 +116,11 @@ export default function init(connString = '/sbHub') {
 
 export function NotifyServer(connection, message, data) {
     let mainConnectionInstance = signalRConnectionPool[0];
-    let SRConnection = connection.connection;
+    let srConnection = connection.connection;
     if (mainConnectionInstance.isConnected) {
-        return connectivityModule.sr.invoke(SRConnection, message, data)
+        return connectivityModule.sr.invoke(srConnection, message, data);
     } else {
-        mainConnectionInstance.connectionQue.push(new ConnectionQue(SRConnection, message, data))
+        mainConnectionInstance.connectionQue.push(new ConnectionQue(srConnection, message, data));
     }
 }
 

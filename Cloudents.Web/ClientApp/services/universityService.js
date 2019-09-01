@@ -103,8 +103,8 @@ const getProfileCourses = () => {
 };
 const deleteCourse = (name) => {
     return connectivityModule.http.delete(`course?name=${encodeURIComponent(name)}`).then((resp)=>{
-        return resp
-    })
+        return resp;
+    });
 };
 const createCourse = (course) => {
     return connectivityModule.http.post("course/create", course).then((resp) => {
@@ -119,18 +119,18 @@ const createCourse = (course) => {
     });
 };
 const createUni = (uni) => {
-    return connectivityModule.http.post("university/create", {name: uni}).then((resp) => {
+    return connectivityModule.http.post("university/create", {name: uni}).then(() => {
         // return resp
         // let createdUniversity ={
         //     name: resp.data.name,
         // };
-        return uni
+        return uni;
     });
 };
 
 const teachCourse = (course) => {
     return connectivityModule.http.post("course/teach", {name: course}).then((resp) => {
-        return resp
+        return resp;
     });
 };
 

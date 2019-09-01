@@ -22,6 +22,6 @@ export const validationRules = {
         return value.trim().length >= 1 || `Empty spaces`;
     },
     email: (value) =>{
-        return /.+@.+/.test(value) || LanguageService.getValueByKey("formErrors_email")
+        return /.+@.+/.test(value) || LanguageService.getValueByKey("formErrors_email");
     }
 };

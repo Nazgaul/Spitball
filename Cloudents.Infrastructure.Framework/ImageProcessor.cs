@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Aspose.Imaging;
 using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework

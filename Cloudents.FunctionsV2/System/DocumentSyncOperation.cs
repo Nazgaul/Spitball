@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.Message.System;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Search.Document;
-using Cloudents.Search.Entities;
 using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2.System

@@ -23,10 +23,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.Enum;
-using Cloudents.Web.Hubs;
-using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
 {

@@ -12,7 +12,7 @@ function versionCheck() {
     let inStudyRoom = global.location.pathname.indexOf('studyroom') > -1;
     if(!inStudyRoom){
         GetVersion().then(version => {
-            if(version != global.version) {
+            if(version !== global.version) {
                 analyticsService.sb_unitedEvent('VERSION_UPGRADE', `Previous_Version: ${global.version} Current_Version: ${version}`);
                 location.reload(true);
             }
@@ -29,7 +29,7 @@ function errorHandling(err) {
     console.error(err);
     //for (let prop in err) {
         let el = document.createElement('div');
-        el.innerHTML = errJson
+        el.innerHTML = errJson;
         body.appendChild(el);  
 }
 GetDictionary().then(() => {

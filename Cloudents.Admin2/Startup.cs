@@ -20,9 +20,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
 using Microsoft.Extensions.Options;
-using Cloudents.Admin2.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Cloudents.Admin2

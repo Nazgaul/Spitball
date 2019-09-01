@@ -126,7 +126,7 @@ function createTutorItem(objInit) {
 }
 
 function createDocumentItemUser(objInit) {
-    return new DocumentItemUser(objInit)
+    return new DocumentItemUser(objInit);
 }
 
 let transferResultAsk = response => {
@@ -179,8 +179,8 @@ const transferMap = {
 };
 
 const transferAnswerItem = ({ data }) => {    
-    return data.map(createTutorItem)
-}
+    return data.map(createTutorItem);
+};
 
 function FilterItem(objInit) {
     this.key = objInit.key;
@@ -225,7 +225,7 @@ export default {
             return getTutor(params).then(transferResultTutor);
         },
         getTutors(params) {
-            return getTutorsByCourse(params).then(transferAnswerItem)
+            return getTutorsByCourse(params).then(transferAnswerItem);
         }
     },
     getTutorsByCourse,
@@ -251,5 +251,5 @@ export default {
 
     createDocumentItem: (objInit) => {
         return createDocumentItem(objInit);
-    },
+    }
 }

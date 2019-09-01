@@ -10,40 +10,40 @@ const state = {
 const getters = {
     getMobileFooterState: (state, val, {route}) => {
         if(!!route.meta && route.meta.hasOwnProperty('showMobileFooter') ){
-            return true
+            return true;
         }else{
-            return false
+            return false;
         }
     },
     getIsFeedTabActive: state => {
-        return state.stater === state.statesEnum['feed']
+        return state.stater === state.statesEnum['feed'];
     },
     getFooterEnumsState: state => state.statesEnum,
     showMarketingBox: (state) => {
-        return state.stater === state.statesEnum['promotions']
+        return state.stater === state.statesEnum['promotions'];
     },
     showLeaderBoard: (state) => {
-        return state.stater === state.statesEnum['earners']
+        return state.stater === state.statesEnum['earners'];
     },
     showMobileFeed: (state) => {
-        return state.stater === state.statesEnum['feed']
+        return state.stater === state.statesEnum['feed'];
     },
     getCurrentActiveTabName:(state)=>{
-        return state.stater
+        return state.stater;
     }
 
 };
 
 const mutations = {
     changeStater(state, val) {
-        state.stater = val
+        state.stater = val;
     }
 };
 
 const actions = {
     changeFooterActiveTab({commit, state}, stateEnum) {
         if (state.statesEnum[stateEnum]) {
-            commit('changeStater', state.statesEnum[stateEnum])
+            commit('changeStater', state.statesEnum[stateEnum]);
         }
     }
 };

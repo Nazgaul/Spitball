@@ -5,8 +5,8 @@ function ChipItem(objInit) {
     this.isSelected = objInit.isSelected;
 };
 
-function createChipItem(ObjInit) {
-    return new ChipItem(ObjInit)
+function createChipItem(objInit) {
+    return new ChipItem(objInit);
 }
 
 export default {

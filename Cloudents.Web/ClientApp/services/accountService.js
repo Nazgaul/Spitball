@@ -84,14 +84,14 @@ function createAboutItem(objInit){
 }
 
 
-function profileUserData(objInit){
+function ProfileUserData(objInit){
     this.user= createUserPersonalData(objInit.data) ;
     this.questions = [];
     this.answers = [];
     this.documents = [];
     this.purchasedDocuments= [];
 }
-function profileQuestionData(arrInit){
+function ProfileQuestionData(arrInit){
     return arrInit.data.map(searchService.createQuestionItem) || [];
     // return arrInit[1].data.map(searchService.createQuestionItem).map(item => {
     //     return {
@@ -101,13 +101,13 @@ function profileQuestionData(arrInit){
     // }) || [];
 }
 
-function profileAnswerData(arrInit){
+function ProfileAnswerData(arrInit){
     return arrInit.data.map(searchService.createQuestionItem) || [];
 }
-function profileDocumentData(arrInit){
+function ProfileDocumentData(arrInit){
    return arrInit.data.map(searchService.createDocumentItem) || [];
 }
-function profileAboutData(arrInit){
+function ProfileAboutData(arrInit){
     let structuredData = createAboutItem(arrInit[0].data);
     let data = {
         bio: structuredData.bio,
@@ -161,22 +161,22 @@ export default {
         return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`);
     },
     saveTutorInfo: (data)=> {
-        let serverFormatt= {
+        let serverFormat= {
             firstName: data.name,
             description: data.description,
             lastName: data.lastName,
             bio: data.bio,
             price: data.price
         };
-        return connectivityModule.http.post("/Account/settings", serverFormatt);
+        return connectivityModule.http.post("/Account/settings", serverFormat);
     },
     saveUserInfo: (data)=> {
-        let serverFormatt= {
+        let serverFormat= {
                 firstName: data.name,
                 description: data.description
 
         };
-        return connectivityModule.http.post("/Account/settings", serverFormatt);
+        return connectivityModule.http.post("/Account/settings", serverFormat);
     },
     // createProfileData: (arrInit)=>{
     //     return new ProfileData(arrInit);
@@ -185,18 +185,18 @@ export default {
         return connectivityModule.http.post("/Account/becomeTutor", data);
     },
     createUserProfileData: (objInit)=>{
-        return new profileUserData(objInit);
+        return new ProfileUserData(objInit);
     },
     createProfileQuestionData: (arrInit)=>{
-        return new profileQuestionData(arrInit);
+        return new ProfileQuestionData(arrInit);
     },
     createProfileAnswerData: (arrInit)=>{
-        return new profileAnswerData(arrInit);
+        return new ProfileAnswerData(arrInit);
     },
     createProfileDocumentData: (arrInit)=>{
-        return new profileDocumentData(arrInit);
+        return new ProfileDocumentData(arrInit);
     },
     createProfileAbout: (arrInit)=>{
-        return new profileAboutData(arrInit);
+        return new ProfileAboutData(arrInit);
     }
 }

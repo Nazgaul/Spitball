@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {

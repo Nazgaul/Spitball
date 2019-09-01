@@ -7,8 +7,6 @@ using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Google;
 using Cloudents.Infrastructure.Search.Document;
-using Cloudents.Query;
-using Google.Apis.Util.Store;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure

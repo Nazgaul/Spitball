@@ -155,9 +155,9 @@ export default {
                     suggestOptions = item.analyticName;
                 } else {
                     if(this.courseSelected()){
-                        suggestOptions = 'Class'
+                        suggestOptions = 'Class';
                     }else{
-                        suggestOptions = 'Spitball'
+                        suggestOptions = 'Spitball';
                     }
                 }
                 analyticsService.sb_unitedEvent('global_search', suggestOptions, this.msg);

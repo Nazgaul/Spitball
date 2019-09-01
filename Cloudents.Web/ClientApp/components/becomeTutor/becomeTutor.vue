@@ -7,7 +7,7 @@
                     <span class="become-title" v-language:inner>becomeTutor_title_become</span>
                 </v-flex>
             </v-layout>
-            <v-stepper-header class="sb-box" v-show="!isLastStep">
+            <v-stepper-header class="sb-box" v-show="!isLastStep" v-if="$vuetify.breakpoint.smAndUp">
                 <v-stepper-step class="step-control justify-center"
                                 color="#4452FC"
                                 :complete="currentStep > 1"

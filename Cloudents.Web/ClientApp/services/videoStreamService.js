@@ -2,7 +2,6 @@ import tutorService from "../components/tutor/tutorService";
 const extensionId = 'jaimgihanebafnbcpckdkilkeoomkpik'; // dev && prod
 import store from '../store/index.js';
 import { createLocalTracks } from 'twilio-video';
-import walletService from "./walletService";
 let availableDevices = [];
 
   function  createVideoSession() {
@@ -17,7 +16,7 @@ let availableDevices = [];
    function enterRoom(){
        if (!store.getters['sessionStartClickedOnce']) {
         if (!!store.getters['accountUser'] && store.getters['getStudyRoomData'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
-            store.dispatch('requestPaymentURL')
+            store.dispatch('requestPaymentURL');
             return;
         }
         //leave this action here so that people that fills the 'pay me' wont get a loading button
@@ -50,10 +49,10 @@ let availableDevices = [];
         }).then((tracksCreated) => {
             for(let track of tracksCreated){
                 if(track.kind === 'audio'){
-                    store.commit('setLocalAudioTrack',track)                    
+                    store.commit('setLocalAudioTrack',track);
                 }
                 if(track.kind === 'video'){
-                    store.commit('setLocalVideoTrack',track)
+                    store.commit('setLocalVideoTrack',track);
                 }
             }
             // let localMediaContainer = document.getElementById('localTrack');
@@ -84,13 +83,13 @@ let availableDevices = [];
                 showToaster: true,
                 toasterType: 'error-toaster'
             });
-            store.dispatch('setSesionClickedOnce', false)
+            store.dispatch('setSesionClickedOnce', false);
 
         });
     }
 
    async function addDevicesTotrack(){
-    let self = this;
+    //let self = this;
         availableDevices.length = 0;
     if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
         console.log("enumerateDevices() not supported.");

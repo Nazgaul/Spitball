@@ -26,9 +26,7 @@ import approveDelete from './components/document/documentComponents/approveDelet
 import documentDelete from './components/document/documentComponents/documentDelete/documentDelete.vue';
 import flaggedDocument from './components/document/documentComponents/flaggedDocument/flaggedDocument.vue';
 
-import dev from './components/dev/dev.vue';
-import uChangeCountry from './components/dev/changeCountry/changeCountry.vue';
-import uDelete from './components/dev/deleteUser/deleteUser.vue';
+
 
 import userMain from './components/userMainView/userMainView.vue';
 import userQuestions from './components/userMainView/userQuestions/userQuestions.vue';
@@ -324,30 +322,6 @@ export const routes = [
                 component: studyRoomSession
             }
             ]
-    },
-
-     {
-      path: '/dev',
-      name: 'dev',
-      component: dev,
-      children: [
-        {
-          path: '',
-          redirect: 'change-country'
-        },
-        {
-          path:'change-country',
-          component: uChangeCountry
-        },
-        {
-          path:'delete-user',
-          component: uDelete
-        },
-        {
-          path: '*',
-          redirect: 'change-country'
-        }
-      ]
     },
     {
       path: '/leads',

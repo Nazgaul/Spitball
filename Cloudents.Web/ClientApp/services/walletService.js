@@ -6,5 +6,5 @@ export default {
     getTransactions: () => connectivityModule.http.get("/Wallet/transaction"),
     buyTokens: (data) => connectivityModule.http.post("/Wallet/buyTokens", data),
     redeem: (amount) => connectivityModule.http.post("/Wallet/redeem", {amount}),
-    getPaymeLink: () => connectivityModule.http.get("/Wallet/getPaymentLink"),
+    getPaymeLink: () => connectivityModule.http.get("/Wallet/getPaymentLink")
 }

@@ -6,7 +6,7 @@ export default {
             first: 4,
             second: 10,
             third: 20
-        }
+        };
         if (score <= scoreRange.first) {
             return 0;
         } else if (score > scoreRange.first && score <= scoreRange.second) {
@@ -24,7 +24,7 @@ export default {
             id,
             voteType
         };
-        return connectivityModule.http.post("Question/vote", data)
+        return connectivityModule.http.post("Question/vote", data);
     },
     voteAnswer:(id, voteType) => {
         //vote types can be [down, none, up]
@@ -32,7 +32,7 @@ export default {
             id,
             voteType
         };
-        return connectivityModule.http.post("Answer/vote", data)
+        return connectivityModule.http.post("Answer/vote", data);
     },
     voteDocument:(id, voteType) => {
         //vote types can be [down, none, up]
@@ -40,7 +40,7 @@ export default {
             id,
             voteType
         };
-        return connectivityModule.http.post("Document/vote", data)
+        return connectivityModule.http.post("Document/vote", data);
     },
 
     updateVoteCounter:(item, type)=>{
@@ -48,7 +48,7 @@ export default {
             if(!!item.upvoted){
                 return;
             }else if(!!item.downvoted){
-                item.votes = item.votes + 2
+                item.votes = item.votes + 2;
             }else{
                 item.votes = item.votes + 1;
             }
@@ -56,7 +56,7 @@ export default {
             item.downvoted = false;
         }else if(type === "down"){
             if(!!item.upvoted){
-                item.votes = item.votes - 2
+                item.votes = item.votes - 2;
             }else if(!!item.downvoted){
                 return;
             }else{

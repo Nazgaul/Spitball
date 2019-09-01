@@ -42,7 +42,7 @@ namespace Cloudents.Query.Query.Admin
                     
                 if (query.DocumentId.HasValue)
                 {
-                    dbQuery.Where(w => w.Id < query.DocumentId.Value);
+                    dbQuery = dbQuery.Where(w => w.Id < query.DocumentId.Value);
                 }
                 return await dbQuery.OrderByDescending(w => w.Id)
                     .Take(50)

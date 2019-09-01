@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Admin2.Models;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api

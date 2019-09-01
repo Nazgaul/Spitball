@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
