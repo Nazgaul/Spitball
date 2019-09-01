@@ -17,6 +17,9 @@ const mutations = {
 const actions = {
     setRouteStack({commit}, val){
         commit('setRouteStack', val);
+        if(!!global.dataLayer){
+            global.dataLayer.push({ event: "optimize.activate" });
+        }
     },
     sendQueryToAnalytic(context, to) {
         let queryString = '';

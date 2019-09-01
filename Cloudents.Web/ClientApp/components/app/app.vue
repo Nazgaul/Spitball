@@ -189,19 +189,19 @@ export default {
   },
   updated: function() {
     this.$nextTick(function() {
-      if(!!global.dataLayer){
-        global.dataLayer.push({ event: "optimize.activate" });
-      }
+      // if(!!global.dataLayer){
+      //   global.dataLayer.push({ event: "optimize.activate" });
+      // }
       // Code that will run only after the
       // entire question-details has been re-rendered
     });
   },
   mounted: function() {
-    if(!!global.dataLayer){
-      this.$nextTick(function() {
-          global.dataLayer.push({ event: "optimize.activate" });
-      });
-    }
+    // if(!!global.dataLayer){
+    //   this.$nextTick(function() {
+    //       global.dataLayer.push({ event: "optimize.activate" });
+    //   });
+    // }
   },
   watch: {
     getShowToaster: function(val) {
