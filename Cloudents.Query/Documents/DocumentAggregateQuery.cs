@@ -22,7 +22,7 @@ namespace Cloudents.Query.Documents
         private long UserId { get; }
         private string[] Filter { get; }
 
-        public string Country { get; private set; }
+        private string Country { get; }
 
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<DocumentAggregateQuery, DocumentFeedWithFacetDto>
@@ -30,9 +30,9 @@ namespace Cloudents.Query.Documents
 
             private readonly IStatelessSession _dapperRepository;
 
-            public DocumentAggregateQueryHandler(QuerySession dapperRepository)
+            public DocumentAggregateQueryHandler(QuerySession querySession)
             {
-                _dapperRepository = dapperRepository.StatelessSession;
+                _dapperRepository = querySession.StatelessSession;
             }
 
 
@@ -110,15 +110,6 @@ FETCH NEXT 20 ROWS ONLY";
                     Facet = filters,
                     Result = list
                 };
-                //using (var conn = _dapperRepository.OpenConnection())
-                //{
-                //    //using (var grid = await conn.QueryMultipleAsync(sql))
-                //    //{
-
-                //    //}
-                //    var result = await conn.QueryAsync<DocumentFeedDto>(sql, new { @page = query.Page, userid = query.UserId });
-                //    return result;
-                //}
             }
         }
     }
