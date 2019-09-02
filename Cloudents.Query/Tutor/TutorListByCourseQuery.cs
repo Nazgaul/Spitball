@@ -116,7 +116,7 @@ namespace Cloudents.Query.Tutor
                 var tutors = await futureCourse.GetEnumerableAsync(token);
                 var tutors2 = await futureCourse2.GetEnumerableAsync(token);
 
-                return tutors.Union(tutors2).Take(query.Count).Distinct(TutorCardDto.UserIdComparer);
+                return tutors.Union(tutors2).Take(query.Count).Distinct(TutorCardDto.UserIdComparer).ToList();
 
 
 
