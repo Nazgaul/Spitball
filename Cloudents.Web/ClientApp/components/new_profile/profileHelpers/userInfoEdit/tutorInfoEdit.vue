@@ -82,7 +82,7 @@
                     <v-textarea
                             rows="5"
                             outline
-                            :rules="[rules.maximumChars]"
+                            :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             v-model="bio"
                             name="input-bio"
                             :label="bioLabel"
