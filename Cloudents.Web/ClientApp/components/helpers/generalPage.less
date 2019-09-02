@@ -2,9 +2,8 @@
 .main-container{
   background-color: @systemBackgroundColor;
   .p-result {    
-    // .limited-width();
-    margin-left: 48px;
-    @media(max-width: @screen-md) {
+    .limited-width();
+    @media(max-width: @screen-md) and (min-width: @screen-xs) {
       margin-left: 10px;
     }
     .first-grid {
