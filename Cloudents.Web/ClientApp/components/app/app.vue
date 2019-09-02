@@ -190,7 +190,7 @@ export default {
   updated: function() {
     this.$nextTick(function() {
       if(!!global.dataLayer){
-        global.dataLayer.push({ event: "optimize.activate" });
+       this.fireOptimizeActivate();
       }
       // Code that will run only after the
       // entire question-details has been re-rendered
@@ -199,7 +199,7 @@ export default {
   mounted: function() {
     if(!!global.dataLayer){
       this.$nextTick(function() {
-          global.dataLayer.push({ event: "optimize.activate" });
+         this.fireOptimizeActivate();
       });
     }
   },
@@ -229,7 +229,12 @@ export default {
           showToaster: false
         });
       }, this.getToasterTimeout);
-    }
+    },
+    '$route'(){
+      this.$nextTick(()=>{
+        this.fireOptimizeActivate()
+      })
+    },
   },
   methods: {
     ...mapActions([
@@ -245,7 +250,8 @@ export default {
       "changeSelectUniState",
       "updateRequestDialog",
       "openChatInterface",
-      "setTutorRequestAnalyticsOpenedFrom"
+      "setTutorRequestAnalyticsOpenedFrom",
+      "fireOptimizeActivate"
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
     enterPayme(){

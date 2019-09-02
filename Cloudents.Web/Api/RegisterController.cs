@@ -20,6 +20,9 @@ using Cloudents.Identity;
 using Cloudents.Core.DTOs;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http;
+using System.Linq;
+using Cloudents.Command.Command;
+using Cloudents.Command;
 
 namespace Cloudents.Web.Api
 {
@@ -130,6 +133,7 @@ namespace Cloudents.Web.Api
             [FromServices] IGoogleAuth service,
             [FromServices] IRestClient client,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
+            [FromServices] ICommandBus _commandBus,
             [FromServices] TelemetryClient logClient,
             CancellationToken cancellationToken)
         {
@@ -173,17 +177,21 @@ namespace Cloudents.Web.Api
                     if (!string.IsNullOrEmpty(result.Picture))
                     {
                         var (stream, _) = await client.DownloadStreamAsync(new Uri(result.Picture), cancellationToken);
+                        Uri uri = null;
                         try
                         {
-                            var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, stream, token: cancellationToken);
-                            var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
-                            var url = Url.ImageUrl(imageProperties);
-                            user.Image = url;
+                            uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, stream, token: cancellationToken);
                         }
                         catch (ArgumentException)
                         {
                             
                         }
+                        var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
+                        var url = Url.ImageUrl(imageProperties);
+                        var flieName = uri.AbsolutePath.Split('/').LastOrDefault();
+                        var command = new UpdateUserImageCommand(user.Id, url, flieName);
+                        await _commandBus.DispatchAsync(command, cancellationToken);
+
                     }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
                     return await MakeDecision(user, true, null, cancellationToken);

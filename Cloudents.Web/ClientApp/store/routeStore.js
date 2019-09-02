@@ -25,6 +25,11 @@ const actions = {
             queryString += `${query}=${queries[query]}|`;
         }
         analyticsService.sb_unitedEvent('user_location', to.path, queryString);
+    },
+    fireOptimizeActivate(){
+        if(!!global.dataLayer){
+            global.dataLayer.push({ event: "optimize.activate" });
+        }
     }
 };
 export default {
