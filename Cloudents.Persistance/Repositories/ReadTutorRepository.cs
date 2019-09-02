@@ -25,7 +25,7 @@ u.image as Image,
 	(select cs.Name as 'name' 
 	from sb.CourseSubject cs where cs.Id 
 	in (
-	select top 3 c.SubjectId from sb.Course c where c.SubjectId <> 39 
+	select distinct top 3 c.SubjectId from sb.Course c where c.SubjectId <> 39 
 	and c.Name in (
 	select uc.courseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
 	) order by cs.Name for json PATH) as Subjects,
@@ -38,7 +38,7 @@ u.image as Image,
 	select uc.courseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
 	) order by cs.Name for json PATH) as AllSubjects,
 
-(Select top 3 uc.courseId as 'name' 
+(Select distinct top 3 uc.courseid as 'name' 
    from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseId for json PATH) as Courses,
 (Select uc.courseId as 'name' 
    from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseId for json PATH) as AllCourses,
@@ -48,9 +48,10 @@ reviews.sumCount as RateCount,
 t.bio as Bio,
 u2.Name as University,
 iif(sr.lessonsCount < reviews.sumCount, reviews.sumCount, sr.lessonsCount) as Lessons,
-((isnull(reviews.Rate, 0) * reviews.sumCount) + ((select isnull(AVG(Rate),0) from sb.TutorReview) * 12) + 
+((isnull(reviews.Rate, 0) * reviews.sumCount) + (isnull((select AVG(Rate) from sb.TutorReview), 0) * 12) + 
 (case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end * isnull(reviews.Rate, 0))) / 
 (reviews.sumCount + 12 + case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end)as Rating
+--,(isnull(reviews.Rate, 0) * reviews.sumCount) + (isnull((select AVG(Rate) from sb.TutorReview),0) * 12)
 from sb.tutor t
 join sb.[user] u on t.id = u.id
 left join sb.University u2 on u.UniversityId2 = u2.Id
@@ -75,7 +76,7 @@ where t.State = 'Ok' and t.Id = :UserId";
         public async Task UpdateReadTutorRating(CancellationToken token)
         {
             const string sql = @"update rt
-                            set Rating = (select ((isnull(reviews.Rate, 0) * reviews.sumCount) + ((select isnull(AVG(Rate),0) from sb.TutorReview) * 12) + 
+                            set Rating = (select ((isnull(reviews.Rate, 0) * reviews.sumCount) +  (isnull((select AVG(Rate) from sb.TutorReview), 0) * 12)  + 
                             (case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end * isnull(reviews.Rate, 0))) / 
                             (reviews.sumCount + 12 + case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end) as Rating
 				                            from sb.Tutor t 

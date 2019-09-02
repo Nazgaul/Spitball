@@ -28,6 +28,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterType<DapperRepository>().AsSelf();
             container = builder.Build();
             QueryBus = container.Resolve<IQueryBus>();
+            DapperRepository = container.Resolve<IDapperRepository>();
             TutorRepository = container.Resolve<ITutorRepository>();
             ReadTutorRepository = container.Resolve<IReadTutorRepository>();
 
@@ -41,6 +42,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         public IQueryBus QueryBus { get; private set; }
+        public IDapperRepository DapperRepository { get; }
         public ITutorRepository TutorRepository { get; private set; }
         public IReadTutorRepository ReadTutorRepository { get; set; }
     }
