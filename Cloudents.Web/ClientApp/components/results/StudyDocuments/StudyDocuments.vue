@@ -41,7 +41,7 @@
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component :id="index == 1 ? 'tour_vote' : ''" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
                                 </v-flex>
-                                <v-flex class="suggestCard result-cell mb-2 xs-12 order-xs4">
+                                <v-flex class="suggestCard result-cell mb-3 xs-12 order-xs4">
                                     <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
                                 </v-flex>
                             </slot>

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Persistence.Repositories
 {
-    public class ReadTutorRepository: NHibernateRepository<ReadTutor>, IReadTutorRepository
+    public class ReadTutorRepository : NHibernateRepository<ReadTutor>, IReadTutorRepository
     {
         public ReadTutorRepository(ISession session) : base(session)
         {
-           
+
         }
 
         public async Task<ReadTutor> GetReadTutorAsync(long userId, CancellationToken token)
@@ -27,7 +27,7 @@ u.image as Image,
 	in (
 	select distinct top 3 c.SubjectId from sb.Course c where c.SubjectId <> 39 
 	and c.Name in (
-	select uc.CourseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
+	select uc.courseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
 	) order by cs.Name for json PATH) as Subjects,
 
 	(select cs.Name as 'name' 
@@ -35,13 +35,13 @@ u.image as Image,
 	in (
 	select c.SubjectId from sb.Course c where c.SubjectId <> 39 
 	and c.Name in (
-	select uc.CourseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
+	select uc.courseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
 	) order by cs.Name for json PATH) as AllSubjects,
 
 (Select distinct top 3 uc.courseid as 'name' 
-   from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseid for json PATH) as Courses,
-(Select uc.courseid as 'name' 
-   from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseid for json PATH) as AllCourses,
+   from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseId for json PATH) as Courses,
+(Select uc.courseId as 'name' 
+   from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseId for json PATH) as AllCourses,
 t.Price,
 reviews.Rate ,
 reviews.sumCount as RateCount,
@@ -65,15 +65,15 @@ join sb.StudyRoom sr on srs.StudyRoomId  = sr.id  and srs.Duration > 6000000000 
 where t.State = 'Ok' and t.Id = :UserId";
 
             var info = await Session.CreateSQLQuery(sql)
-                .SetParameter("UserId", userId).SetResultTransformer(new JsonArrayToEnumerableTransformer<ReadTutor>()).ListAsync<ReadTutor>();
-        
+                .SetParameter("UserId", userId).SetResultTransformer(new JsonArrayToEnumerableTransformer<ReadTutor>()).ListAsync<ReadTutor>(token);
+
 
             var res = info.First();
             return res;
         }
 
 
-        public void UpdateReadTutorRating(CancellationToken token)
+        public async Task UpdateReadTutorRating(CancellationToken token)
         {
             const string sql = @"update rt
                             set Rating = (select ((isnull(reviews.Rate, 0) * reviews.sumCount) +  (isnull((select AVG(Rate) from sb.TutorReview), 0) * 12)  + 
@@ -90,14 +90,9 @@ where t.State = 'Ok' and t.Id = :UserId";
 				                            where t.Id = rt.Id
 			                            )
                             from sb.ReadTutor rt";
-            try
-            {
-                Session.CreateSQLQuery(sql).ExecuteUpdate();
-            }
-            catch(Exception e)
-            {
 
-            }
+            await Session.CreateSQLQuery(sql).ExecuteUpdateAsync(token);
+
         }
     }
 }

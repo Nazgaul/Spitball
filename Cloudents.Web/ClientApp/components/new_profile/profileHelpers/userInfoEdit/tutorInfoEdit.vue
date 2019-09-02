@@ -47,11 +47,12 @@
                         </v-flex>
                         <v-flex>
                             <v-text-field 
-                                          :rules="[rules.required, rules.minimum, rules.maximum]"
+                                          :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
                                           :label="priceLabel"
                                           v-model="price"
                                           outline
                                           prefix="₪"
+                                          class="tutor-edit-pricing"
                                           type="number"
                                           :hide-details="$vuetify.breakpoint.xsOnly"
                             ></v-text-field>
@@ -81,8 +82,9 @@
                     <v-textarea
                             rows="5"
                             outline
-                            :rules="[rules.maximumChars]"
+                            :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             v-model="bio"
+                            class="tutor-edit-bio"
                             name="input-bio"
                             :label="bioLabel"
                     ></v-textarea>
@@ -165,7 +167,7 @@
             },
             price: {
                 get() {
-                    return +this.getProfile.user.tutorData.price.toFixed(2)
+                    return +this.getProfile.user.tutorData.price.toFixed(0)
                 },
                 set(newVal) {
                     this.editedPrice = +newVal
@@ -219,8 +221,7 @@
             },
             closeDialog() {
                 this.closeCallback ? this.closeCallback() : '';
-            },
-
+            }
         },
         created() {
             this.editedBio = this.getProfile.about.bio || '';
@@ -287,7 +288,7 @@
                 border: 1px solid rgba(0, 0, 0, 0.19) !important;
             }
         }
-        .tutor-edit-pricing, .tutor-edit-firstname, .tutor-edit-lastname, .tutor-edit-description {
+        .tutor-edit-pricing, .tutor-edit-firstname, .tutor-edit-lastname, .tutor-edit-description, .tutor-edit-bio {
             .v-messages__message {
                 line-height: normal;
             }

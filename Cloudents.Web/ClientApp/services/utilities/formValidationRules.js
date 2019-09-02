@@ -23,5 +23,8 @@ export const validationRules = {
     },
     email: (value) =>{
         return /.+@.+/.test(value) || LanguageService.getValueByKey("formErrors_email");
-    }
+    },
+    integer: (value) =>{
+        return Number.isInteger(+value) || LanguageService.getValueByKey("formErrors_integer")
+    },
 };

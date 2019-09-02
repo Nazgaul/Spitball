@@ -117,69 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btn_view" xml:space="preserve">
-    <value>View Profile</value>
+  <data name="add_event_btn" xml:space="preserve">
+    <value>שריין עכשיו</value>
   </data>
-  <data name="currency" xml:space="preserve">
-    <value>$</value>
+  <data name="add_event_cancel" xml:space="preserve">
+    <value>ביטול</value>
   </data>
-  <data name="hour" xml:space="preserve">
-    <value>hour</value>
+  <data name="add_event_done" xml:space="preserve">
+    <value>אישור</value>
   </data>
-  <data name="online_lessons" xml:space="preserve">
-    <value>Offers online lessons</value>
+  <data name="add_event_ok" xml:space="preserve">
+    <value>אישור</value>
   </data>
-  <data name="reviews_many" xml:space="preserve">
-    <value>{1} Reviews</value>
+  <data name="add_event_payment" xml:space="preserve">
+    <value>כדי לשריין את השיעור, עליך להוסיף אמצעי תשלום</value>
   </data>
-  <data name="review_one" xml:space="preserve">
-    <value>Review</value>
+  <data name="add_event_sent" xml:space="preserve">
+    <value>בקשתך נשלחה למורה. בדוק את האימייל שלך לעידכונים.</value>
   </data>
-  <data name="no_reviews_mobile" xml:space="preserve">
-    <value>Still collecting</value>
+  <data name="add_event_thank" xml:space="preserve">
+    <value>תודה !</value>
   </data>
-  <data name="contact_me" xml:space="preserve">
-    <value>Contact Me</value>
+  <data name="add_event_title" xml:space="preserve">
+    <value>קבע שיעור פרטי עם {1}</value>
   </data>
-  <data name="btn_more_doc" xml:space="preserve">
-    <value>More documents</value>
+  <data name="empty_state_student" xml:space="preserve">
+    <value>היומן שלי לא זמין כעת, צור איתי קשר בהודעה ונתאם מועד לשיעור פרטי.</value>
   </data>
-  <data name="classes" xml:space="preserve">
-    <value>Classes</value>
-  </data>
-  <data name="courses" xml:space="preserve">
-    <value>Courses:</value>
-    <comment>Duplicate</comment>
-  </data>
-  <data name="hours_completed" xml:space="preserve">
-    <value>Lessons completed</value>
-  </data>
-  <data name="send_button" xml:space="preserve">
-    <value>Send {1} a message</value>
-  </data>
-  <data name="study-area" xml:space="preserve">
-    <value>Study area:</value>
-  </data>
-  <data name="private_tutor" xml:space="preserve">
-    <value>Tutor {1}</value>
-  </data>
-  <data name="read_more" xml:space="preserve">
-    <value>Read more</value>
-  </data>
-  <data name="subtitle" xml:space="preserve">
-    <value>Tutor</value>
-  </data>
-  <data name="title" xml:space="preserve">
-    <value>Tutors</value>
-  </data>
-  <data name="no_hours_completed" xml:space="preserve">
-    <value>Lessons coming soon</value>
-  </data>
-  <data name="no_reviews" xml:space="preserve">
-    <value>Still Collecting reviews</value>
-  </data>
-  <data name="message_me" xml:space="preserve">
-    <value>me</value>
-    <comment>זה אמור להיות אות אחת</comment>
+  <data name="error_create_event" xml:space="preserve">
+    <value>תודה שבחרת בי! אני מלמד בשעה הזו, אולי תנסה לקבוע בזמן אחר?</value>
   </data>
 </root>

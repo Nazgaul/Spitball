@@ -1,23 +1,47 @@
-let auth2;
 const state = {
     auth2: null,
+    scopes: {
+        calendar: 'profile https://www.googleapis.com/auth/calendar.readonly',
+    }
 }
 
 const getters = {  
+    getAuth2: state => state.auth2
+}
+const mutations = {
+    setAuth2(state,val){
+        state.auth2 = val
+    }
 }
 
 const actions = {
-    gapiLoad({state},scope){
-        return gapi.load('auth2', function() {
+    gapiLoad({commit, state, dispatch}, scopeName){
+        if(state.auth2) return 
+        return gapi.load('auth2', function() { 
+        let scopesToUse = state.scopes[scopeName];      
+        let auth2;
+        if(!!scopesToUse){
             auth2 = gapi.auth2.init({
                 client_id: global.client_id,
-                'scope': 'profile https://www.googleapis.com/auth/calendar.readonly'
+                'scope': scopesToUse
             });
-        });
+        }else{
+            auth2 = gapi.auth2.init({
+                client_id: global.client_id,
+            });
+        }
+        commit('setAuth2', auth2)
+        })
     },
-    gapiSignIn({dispatch}){
-        return auth2.grantOfflineAccess().then(authResult=>{
-            return dispatch('signInCalendar',authResult)
+    gapiSignIn({state,dispatch}){
+        return state.auth2.grantOfflineAccess({
+            'scope': state.scopes['calendar']
+        }).then(authResult=>{
+            return dispatch('signInCalendar',authResult).then(res=>{
+                return Promise.resolve(res)
+            },err=>{
+                return Promise.reject(err)
+            })
         })
     },
 }
@@ -25,5 +49,6 @@ const actions = {
 export default {
     state,
     getters,
-    actions
+    actions,
+    mutations
 }

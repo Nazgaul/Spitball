@@ -1,0 +1,79 @@
+<template>
+    <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
+        <div v-if="userImageUrl" class="user-image-wrap" :style="{width: `${width}px`, height: `${height}px`}">
+            <v-progress-circular v-if="!isLoaded" indeterminate v-bind:size="50"></v-progress-circular>
+            <img @load="loaded" @error="onImgError" :src="imageUrl" :alt="userName" class="user-avatar-rect-img">
+        </div>
+        <v-avatar v-else :tile="true" tag="v-avatar" :class="'user-avatar-rect-no-image userColor' + strToACII % 11" :style="{width: `${width}px`, height: `${height}px`}">
+            <span class="white--text">{{userName.slice(0,2).toUpperCase()}}</span>
+        </v-avatar>
+    </component>
+</template>
+<script>
+import utilitiesService from '../../../services/utilities/utilitiesService';
+
+export default {
+    props: {
+        userId: Number,
+        userName: {
+            type: String
+        },
+        userImageUrl: {
+            type: String,
+            required: false
+        },
+        width: {
+            type: Number,
+            required: false
+        },
+        height: {
+            type: Number,
+            required: false
+        }
+    },
+    data(){
+        return{
+            isLoaded: false,
+            imgError: false,
+        }
+    },
+    methods:{
+        loaded() {
+            this.isLoaded = true;
+        },
+        onImgError(){
+            this.imgError = true;
+        }
+    },
+    computed: {
+        strToACII() {
+            let sum = 0;
+            for (let i in this.userName) {
+                sum += this.userName.charCodeAt(i);
+            }
+            return sum
+        },
+        imageUrl(){
+            return utilitiesService.proccessImageURL(this.userImageUrl, this.width, this.height)
+        }
+    },
+}
+</script>
+
+<style lang="less">
+    .user-avatar-rect {
+        .user-image-wrap{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+                border-radius: 4px;
+            }
+        }
+        .user-avatar-rect-no-image {
+            border-radius: 4px;
+            font-size: 24px;
+        }
+    }
+
+</style>

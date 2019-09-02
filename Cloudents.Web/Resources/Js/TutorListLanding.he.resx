@@ -154,7 +154,7 @@
     <value>מצא מורים פרטיים עם ניסיון בלימוד הקורסים שלך אונליין</value>
   </data>
   <data name="header_get_lesson" xml:space="preserve">
-    <value>קבל שיעור פרטי עבור ₪55/שעה</value>
+    <value>קבל שיעור פרטי החל מ- ₪55/שעה</value>
   </data>
   <data name="rates" xml:space="preserve">
     <value>95%</value>

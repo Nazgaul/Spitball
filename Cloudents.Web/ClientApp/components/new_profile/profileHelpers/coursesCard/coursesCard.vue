@@ -15,13 +15,13 @@
                     </v-layout>
                     <v-layout row wrap >
                         <!--<transition-group name="fade"  tag="v-layout" style="flex-direction: row; flex-wrap: wrap;">-->
-                        <v-flex  xs12 sm6  key="one"
+                        <v-flex xs12 sm6 key="one"
                                 v-for="(course, index) in userCourses"
                                 v-if="index < showQuantity"
                                 :key="index" class="course-name">
                                 
                                 <router-link event @click.native.prevent="goToCourse(course.name)" :to="{name: 'tutors', query: {Course: course.name}}" class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}" key="two">
-                                    <h4 class="course-name">{{course.name}}</h4>
+                                    <h4 class="course-name" :class="{'mr-5': index % 2 === 0}">{{course.name}}</h4>
                                 </router-link>
                         </v-flex>
                         <!--</transition-group>-->
@@ -133,7 +133,6 @@
             font-weight: 100;
             font-size: 14px;
             color: @global-blue;
-            
             cursor: pointer;
         }
         .show-more{

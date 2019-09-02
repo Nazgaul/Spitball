@@ -15,18 +15,17 @@ namespace Cloudents.Persistence
     public sealed class UnitOfWork : IUnitOfWork
     {
         private readonly ITransaction _transaction;
-        private readonly ISession _session;
 
         public UnitOfWork(ISession session)
         {
-            _session = session;
-            _transaction = _session.BeginTransaction(IsolationLevel.ReadCommitted);
+            _transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
         }
 
         public void Dispose()
         {
             _transaction.Dispose();
-            _session.Dispose();
+            //unit of work should not dispose Session
+           // _session.Dispose();
         }
 
         public async Task CommitAsync(CancellationToken token)

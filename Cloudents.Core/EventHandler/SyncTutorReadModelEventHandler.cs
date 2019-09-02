@@ -1,18 +1,20 @@
-﻿using Cloudents.Core.Event;
+﻿using System;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
-    public class SyncTutorReadModelEventHandler : 
+    public sealed class SyncTutorReadModelEventHandler : 
         IEventHandler<TutorApprovedEvent>,
         IEventHandler<TutorAddReviewEvent>,
         IEventHandler<UpdateTutorSettingsEvent>,
         IEventHandler<CanTeachCourseEvent>,
         IEventHandler<SetUniversityEvent>,
         IEventHandler<UpdateImageEvent>,
-        IEventHandler<EndSessionEvent>
+        IEventHandler<EndSessionEvent>,
+        IDisposable
     {
         private readonly IReadTutorRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -58,18 +60,24 @@ namespace Cloudents.Core.EventHandler
             await UpdateAsync(eventMessage.UserId, token);
         }
 
-        public async Task AddAsync(long userId, CancellationToken token)
+        private async Task AddAsync(long userId, CancellationToken token)
         {
             var tutor = await _repository.GetReadTutorAsync(userId, token);
             await _repository.AddAsync(tutor, token);
             await _unitOfWork.CommitAsync(CancellationToken.None);
         }
 
-        public async Task UpdateAsync(long userId, CancellationToken token)
+        private async Task UpdateAsync(long userId, CancellationToken token)
         {
             var tutor = await _repository.GetReadTutorAsync(userId, token);
             await _repository.UpdateAsync(tutor, token);
             await _unitOfWork.CommitAsync(CancellationToken.None);
+        }
+
+        public void Dispose()
+        {
+            _repository.Dispose();
+            _unitOfWork.Dispose();
         }
     }
 }

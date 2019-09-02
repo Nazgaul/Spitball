@@ -1,13 +1,15 @@
 import calendarService from "../services/calendarService";
 import utilitiesService from '../services/utilities/utilitiesService.js'
+import {router} from '../main.js';
 
 const state = {
-    scope: 'profile https://www.googleapis.com/auth/calendar.readonly',
+    scope: 'calendar',
     calendarEvents: [],
     tutorId: null,
     fromDate: new Date().toISOString(),
     toDate: null,
     needPayment: true,
+    showCalendar: false,
 }
 
 const mutations ={
@@ -22,39 +24,67 @@ const mutations ={
     },
     setNeedPayment(state,val){
         state.needPayment = val
+    },
+    setShowCalendar(state,val){
+        state.showCalendar = val
     }
 }
 
 const getters ={
     getCalendarEvents:state => state.calendarEvents,
     getNeedPayment:state => state.needPayment,
+    getShowCalendar:state => state.showCalendar,
 }
 
 const actions ={
+    getEvents({commit}){
+        let tutorId = router.history.current.params.id;
+        commit('setTutorId',tutorId)
+        commit('setToDate',utilitiesService.IsoStringDateWithOffset(60))
+        let paramsObj = {
+            from: state.fromDate,
+            to: state.toDate,
+            tutorId: state.tutorId
+        }
+        return calendarService.getEvents(paramsObj).then(response=>{
+            commit('setCalendarEvents',response)
+            commit('setShowCalendar',true)
+            return Promise.resolve(response)
+        },err=>{
+            commit('setShowCalendar',false)
+            return Promise.reject(err)
+        })
+    },
     initCalendar({state,commit,dispatch},tutorId){
         commit('setTutorId',tutorId)
         commit('setToDate',utilitiesService.IsoStringDateWithOffset(60))
-        dispatch('gapiLoad',state.scope).then(()=>{
+       return dispatch('gapiLoad',state.scope).then(()=>{
             let paramsObj = {
                 from: state.fromDate,
                 to: state.toDate,
                 tutorId: state.tutorId
             }
-            calendarService.getEvents(paramsObj).then(response=>{
+            return calendarService.getEvents(paramsObj).then(response=>{
                 commit('setCalendarEvents',response)
+                commit('setShowCalendar',true)
+                return Promise.resolve(response)
             },err=>{
+                commit('setShowCalendar',false)
+
+                return Promise.reject(err)
             })
         })
     },
-    signInCalendar({},authResult){
+    signInCalendar({dispatch},authResult){
         if (authResult['code']) {
             let serverObj = {code:authResult['code']}
             return calendarService.signIn(serverObj).then(
                 (response)=>{
-                    return response
+                    dispatch('getEvents')
+                    return Promise.resolve(response)
                 },
                 (error)=>{
-                    return error
+                    return Promise.reject(error)
                 });
         } else {}
     },
@@ -70,12 +100,28 @@ const actions ={
             tutorId: state.tutorId
         }
         
-        return calendarService.addEvent(insertEventObj).then(res=>{
-            return res
-        })  
+        return calendarService.addEvent(insertEventObj).then(
+            (response)=>{
+                return Promise.resolve(response)
+            },(error)=>{
+                return Promise.reject(error)
+            }) 
     },
     updateNeedPayment({commit},val){
         commit('setNeedPayment',val)
+    },
+    updateCalendarStatus({state,getters,dispatch}){
+        let isSharedCalendar = getters.getProfile.user.calendarShared
+        if(isSharedCalendar){
+            let tutorId = router.history.current.params.id;
+           return dispatch('initCalendar',tutorId).then(()=>{
+                return Promise.resolve()
+            },(err)=>{
+                return Promise.reject(err)
+            })
+        }else{
+            dispatch('gapiLoad',state.scope);
+        }
     }
 }
 
