@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
 {
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Mvc Filter")]
     public class GlobalExceptionFilter : ExceptionFilterAttribute
     {
         public GlobalExceptionFilter()
@@ -28,10 +30,10 @@ namespace Cloudents.Web.Filters
                     try
                     {
                         context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-                        var sr = new StreamReader(context.HttpContext.Request.Body);
-                        //{
-                         body = await sr.ReadToEndAsync();
-                        //}
+                        using (var sr = new StreamReader(context.HttpContext.Request.Body))
+                        {
+                            body = await sr.ReadToEndAsync();
+                        }
                     }
                     catch (ObjectDisposedException)
                     {
