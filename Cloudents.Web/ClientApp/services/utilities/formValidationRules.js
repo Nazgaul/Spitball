@@ -22,7 +22,8 @@ export const validationRules = {
         return value.trim().length >= 1 || `Empty spaces`;
     },
     email: (value) =>{
-        return /.+@.+/.test(value) || LanguageService.getValueByKey("formErrors_email");
+        let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return regex.test(value) || LanguageService.getValueByKey("formErrors_email")
     },
     integer: (value) =>{
         return Number.isInteger(+value) || LanguageService.getValueByKey("formErrors_integer")

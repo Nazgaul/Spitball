@@ -162,7 +162,6 @@ namespace Cloudents.Web.Api
                 model.Phone = userInfo.PhoneNumber;
                 model.Name = userInfo.Name;
                 model.Email = userInfo.Email;
-                model.University = userInfo.University;
             }
             else
             {
@@ -210,7 +209,7 @@ namespace Cloudents.Web.Api
                     {
                         Name = model.Name,
                     };
-                    var createUserCommand = new CreateUserCommand(user, model.University, model.Course);
+                    var createUserCommand = new CreateUserCommand(user, model.Course);
                     await _commandBus.DispatchAsync(createUserCommand, token);
 
                     var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
@@ -234,7 +233,7 @@ namespace Cloudents.Web.Api
                     userId,
 
                     referer.AbsoluteUri,
-                    model.Text, model.TutorId, utmSource);
+                    model.Text, model.TutorId, utmSource, model.MoreTutors);
                 await _commandBus.DispatchAsync(command, token);
             }
             catch (ArgumentException)
@@ -274,6 +273,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpGet("calendar/events"), Authorize]
         /// <summary>
         /// 
         /// </summary>
@@ -295,6 +295,7 @@ namespace Cloudents.Web.Api
                 var res = await calendarService.ReadCalendarEventsAsync(model.TutorId, model.From, model.To, token);
                 return res.Item1.ToList();
             }
+            catch (TokenResponseException)
             catch(NotFoundException)
             {
                 return StatusCode(555, new { massege = "permission denied" });

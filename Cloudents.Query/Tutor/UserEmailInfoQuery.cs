@@ -33,7 +33,6 @@ namespace Cloudents.Query.Tutor
                     {
                         Name = s.Name,
                         Email = s.Email,
-                        University = s.University == null ? (Guid?)null : s.University.Id,
                         PhoneNumber = s.PhoneNumber
                     }).SingleOrDefaultAsync(token);
              

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="back" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="btn_attachment" xml:space="preserve">
     <value>Attachment</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="btn_submit" xml:space="preserve">
     <value>Submit Request</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="email" xml:space="preserve">
     <value>Email</value>
@@ -135,8 +141,14 @@
   <data name="label_add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="more_tutors" xml:space="preserve">
+    <value>I would like to hear from 2-3 other Tutors like {1}</value>
+  </data>
   <data name="name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Next</value>
   </data>
   <data name="no_course" xml:space="preserve">
     <value>Please add courses</value>
@@ -153,6 +165,35 @@
   <data name="select_course_placeholder" xml:space="preserve">
     <value>In what course ?</value>
   </data>
+  <data name="select_course_placeholder_mobile" xml:space="preserve">
+    <value>Please choose a course</value>
+  </data>
+  <data name="select_course_placeholder_new" xml:space="preserve">
+    <value>Please choose the course you need help with</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="send_msg_tutor" xml:space="preserve">
+    <value>Send a message to {1}</value>
+  </data>
+  <data name="send_msg_tutor_mobile" xml:space="preserve">
+    <value>Send a message to
+{1}</value>
+  </data>
+  <data name="send_msg_yaniv" xml:space="preserve">
+    <value>Yaniv from Spitball will help you find a tutor</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>Your message has been sent.
+You will be contacted as very soon.</value>
+  </data>
+  <data name="tell_tutor" xml:space="preserve">
+    <value>Tell {1} how he can reach you</value>
+  </data>
   <data name="title" xml:space="preserve">
     <value>Request a Tutor</value>
   </data>
@@ -161,6 +202,12 @@
   </data>
   <data name="topic_placeholder" xml:space="preserve">
     <value>I need help with this topic...</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Type here</value>
+  </data>
+  <data name="type_legend" xml:space="preserve">
+    <value>What can i help you with?</value>
   </data>
   <data name="university" xml:space="preserve">
     <value>University</value>
