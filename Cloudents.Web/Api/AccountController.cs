@@ -179,8 +179,8 @@ namespace Cloudents.Web.Api
             }
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
-            var flieName = uri.AbsolutePath.Split('/').LastOrDefault();
-            var command = new UpdateUserImageCommand(userId, url, flieName);
+            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+            var command = new UpdateUserImageCommand(userId, url, fileName);
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
         }

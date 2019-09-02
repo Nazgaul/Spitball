@@ -27,6 +27,8 @@
                         <img src="../images/G icon@2x.png">
                         <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
                     </v-btn>
+                        <span v-if="gmailError" class="errorMsg">{{gmailError}}</span>
+
                 <span class="hidden-xs-only or" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
 
                 <v-btn @click="goWithEmail()" 
@@ -69,23 +71,17 @@ export default {
             } else this.showError = true
         },
         goWithGoogle(){
-            if(this.isRegisterPath){
-                if(!this.isTermsAgree){
+            if(this.isRegisterPath && !this.isTermsAgree){
+                
                     this.showError = true;
-                } else {
+                    return;
+            }
                     this.googleLoading = true;
                     this.googleSigning().then(res=>{},err=>{
                         insightService.track.event(insightService.EVENT_TYPES.ERROR, 'signInWithGoogle', err);
                         this.googleLoading = false
                         })
-                    }
-            } else {
-                this.googleLoading = true;
-                this.googleSigning().then(res=>{},err=>{
-                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'signInWithGoogle', err);
-                    this.googleLoading = false
-                })
-            }
+                    
         },
         goWithEmail(){
             if(this.isRegisterPath){

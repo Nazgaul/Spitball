@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading;
@@ -23,6 +24,7 @@ using Microsoft.AspNetCore.Http;
 using System.Linq;
 using Cloudents.Command.Command;
 using Cloudents.Command;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Web.Api
 {
@@ -94,6 +96,7 @@ namespace Cloudents.Web.Api
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
+           
             if (user.PhoneNumberConfirmed)
             {
                 if (isExternal)
@@ -133,7 +136,7 @@ namespace Cloudents.Web.Api
             [FromServices] IGoogleAuth service,
             [FromServices] IRestClient client,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
-            [FromServices] ICommandBus _commandBus,
+            [FromServices] ICommandBus commandBus,
             [FromServices] TelemetryClient logClient,
             CancellationToken cancellationToken)
         {
@@ -156,7 +159,6 @@ namespace Cloudents.Web.Api
                 logClient.TrackTrace("user is locked out");
                 ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
                 return BadRequest(ModelState);
-
             }
 
             var user = await _userManager.FindByEmailAsync(result.Email);
@@ -169,34 +171,38 @@ namespace Cloudents.Web.Api
                 {
                     EmailConfirmed = true
                 };
-               
-           
+
+
                 var result3 = await _userManager.CreateAsync(user);
                 if (result3.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(result.Picture))
                     {
                         var (stream, _) = await client.DownloadStreamAsync(new Uri(result.Picture), cancellationToken);
-                        Uri uri = null;
                         try
                         {
-                            uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, stream, token: cancellationToken);
+                            var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, stream, token: cancellationToken);
+                            var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
+                            var url = Url.ImageUrl(imageProperties);
+                            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+                            var command = new UpdateUserImageCommand(user.Id, url, fileName);
+                            await commandBus.DispatchAsync(command, cancellationToken);
+
                         }
-                        catch (ArgumentException)
+                        catch (ArgumentException e)
                         {
-                            
+                            logClient.TrackException(e,new Dictionary<string, string>()
+                            {
+                                ["FromGoogle"] = result.Picture
+                            });
                         }
-                        var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
-                        var url = Url.ImageUrl(imageProperties);
-                        var flieName = uri.AbsolutePath.Split('/').LastOrDefault();
-                        var command = new UpdateUserImageCommand(user.Id, url, flieName);
-                        await _commandBus.DispatchAsync(command, cancellationToken);
+
 
                     }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
                     return await MakeDecision(user, true, null, cancellationToken);
                 }
-                logClient.TrackTrace($"failed to register {string.Join(", ",result3.Errors)}");
+                logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
 
                 ModelState.AddModelError("Google", _localizer["GoogleUserRegisteredWithEmail"]);
                 return BadRequest(ModelState);
@@ -206,12 +212,13 @@ namespace Cloudents.Web.Api
                 user.EmailConfirmed = true;
                 await _userManager.UpdateAsync(user);
             }
+            
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
             return await MakeDecision(user, true, null, cancellationToken);
         }
 
 
-       
+
 
         private async Task GenerateEmailAsync(User user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {

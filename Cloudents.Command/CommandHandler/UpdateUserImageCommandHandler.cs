@@ -18,7 +18,6 @@ namespace Cloudents.Command.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.UserId,token);
             user.UpdateUserImage(message.ImagePath, message.FileName);
-           // user.Image = message.ImagePath;
             await _userRepository.UpdateAsync(user, token);
         }
     }
