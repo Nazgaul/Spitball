@@ -14,6 +14,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
+using SixLabors.Shapes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -21,11 +22,15 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 using Microsoft.WindowsAzure.Storage;
+using SixLabors.Fonts;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using static Cloudents.Core.TimeConst;
+using Path = System.IO.Path;
 
 namespace Cloudents.FunctionsV2
 {
@@ -113,27 +118,47 @@ namespace Cloudents.FunctionsV2
             Microsoft.Extensions.Logging.ILogger logger
         )
         {
-            var mutation = ImageMutation.FromQueryString(req.Query);
-            try
-            {
-                using (var sr = await blob.OpenReadAsync())
-                {
-                    return ProcessImage(sr, mutation);
-                }
-            }
-            catch (ImageFormatException ex)
-            {
-                logger.LogError(ex, $"id: {id} file {file}");
-                return new RedirectResult(blob.Uri.AbsoluteUri);
-            }
-            catch (StorageException e)
-            {
-                if (e.RequestInformation.HttpStatusCode == (int) HttpStatusCode.NotFound)
-                {
-                    return new NotFoundResult();
-                }
 
-                throw;
+            var regex = new Regex(@"[\d]*[.]\D{3,4}");
+            var isBlob = regex.IsMatch(file);
+            var mutation = ImageMutation.FromQueryString(req.Query);
+
+            if (isBlob)
+            {
+                try
+                {
+                    using (var sr = await blob.OpenReadAsync())
+                    {
+                        return ProcessImage(sr, mutation);
+                    }
+                }
+                catch (ImageFormatException ex)
+                {
+                    logger.LogError(ex, $"id: {id} file {file}");
+                    return new RedirectResult(blob.Uri.AbsoluteUri);
+                }
+                catch (StorageException e)
+                {
+                    if (e.RequestInformation.HttpStatusCode == (int) HttpStatusCode.NotFound)
+                    {
+                        return GenerateImageFromName();
+                    }
+
+                    throw;
+                }
+            }
+            return GenerateImageFromName();
+
+            IActionResult GenerateImageFromName()
+            {
+                return new FileCallbackResult("image/jpg", (stream, context) =>
+                {
+                    context.HttpContext.Response.Headers.Add("Cache-Control",
+                        $"public, max-age={Year}, s-max-age={Year}");
+                    GenerateImage(file, new Size(mutation.Width, mutation.Height), stream);
+
+                    return Task.CompletedTask;
+                });
             }
         }
 
@@ -224,6 +249,7 @@ namespace Cloudents.FunctionsV2
                 Size = new Size(mutation.Width, mutation.Height),
                 Position = mutation.Position
             }));
+            
             image.Mutate(x => x.BackgroundColor(Rgba32.White));
             switch (mutation.BlurEffect)
             {
@@ -250,6 +276,52 @@ namespace Cloudents.FunctionsV2
                 image?.Dispose();
                 return Task.CompletedTask;
             });
+        }
+
+        private static readonly Rgba32[] Colors = {
+            Rgba32.FromHex("64A9F8"),
+            Rgba32.FromHex("ff9853"),
+            Rgba32.FromHex("e775ce"),
+            Rgba32.FromHex("10b2c1"),
+            Rgba32.FromHex("848fa6"),
+            Rgba32.FromHex("f36f6e"),
+            Rgba32.FromHex("f76446"),
+            Rgba32.FromHex("73b435"),
+            Rgba32.FromHex("a55fff"),
+            Rgba32.FromHex("a27c22"),
+            Rgba32.FromHex("4faf61"),
+        };
+
+        private static void GenerateImage(string userName, Size targetSize, Stream streamSaveLocation)
+        {
+            var fam = SystemFonts.Find("Arial");
+            var font = new Font(fam, 100); // size doesn't matter too much as we will be scaling shortly anyway
+            var style = new RendererOptions(font, 72); // again dpi doesn't overlay matter as this code genreates a vector
+
+            // this is the important line, where we render the glyphs to a vector instead of directly to the image
+            // this allows further vector manipulation (scaling, translating) etc without the expensive pixel operations.
+            var glyphs = TextBuilder.GenerateGlyphs(userName.Truncate(2), style);
+
+            var widthScale = (targetSize.Width / glyphs.Bounds.Width);
+            var heightScale = (targetSize.Height / glyphs.Bounds.Height);
+            var minScale = Math.Min(widthScale, heightScale)*.7f;
+
+            // scale so that it will fit exactly in image shape once rendered
+            glyphs = glyphs.Scale(minScale);
+
+            // move the vectorised glyph so that it touchs top and left edges 
+            // could be tweeked to center horizontaly & vertically here
+            glyphs = glyphs.Translate(-glyphs.Bounds.Location);
+            glyphs = glyphs.Translate((targetSize.Width - glyphs.Bounds.Width) / 2, (targetSize.Height - glyphs.Bounds.Height) / 2);
+
+            using (var img = new Image<Rgba32>(targetSize.Width, targetSize.Height))
+            {
+                var v = userName.Select(Convert.ToInt32).Sum() % Colors.Length;
+                img.Mutate(i=>i.BackgroundColor(Colors[v]));
+
+                img.Mutate(i => i.Fill(new GraphicsOptions(true), Rgba32.White, glyphs));
+                img.SaveAsJpeg(streamSaveLocation);
+            }
         }
 
 

@@ -64,7 +64,7 @@ namespace Cloudents.Query.Email
                          sl.Select(x => x.Id).WithAlias(() => questionEmailDtoAlias.QuestionId);
                          sl.Select(x => x.Text).WithAlias(() => questionEmailDtoAlias.QuestionText);
                          sl.Select(() => userAlias.Name).WithAlias(() => questionEmailDtoAlias.UserName);
-                         sl.Select(() => userAlias.Image).WithAlias(() => questionEmailDtoAlias.UserImage);
+                         sl.Select(() => userAlias.ImageName).WithAlias(() => questionEmailDtoAlias.UserImage);
                          sl.Select(x => x.Course.Id).WithAlias(() => questionEmailDtoAlias.Course);
                          sl.SelectSubQuery(firstAnswer).WithAlias(() => questionEmailDtoAlias.AnswerText);
                          return sl;
@@ -88,8 +88,9 @@ namespace Cloudents.Query.Email
                         sl.Select(x => x.Id).WithAlias(() => documentEmailDtoAlias.Id);
                         sl.Select(x => x.Name).WithAlias(() => documentEmailDtoAlias.Name);
                         sl.Select(() => userAlias.Name).WithAlias(() => documentEmailDtoAlias.UserName);
+                        sl.Select(() => userAlias.Id).WithAlias(() => documentEmailDtoAlias.UserId);
                         sl.Select(x => x.Course.Id).WithAlias(() => documentEmailDtoAlias.Course);
-                        sl.Select(() => userAlias.Image).WithAlias(() => documentEmailDtoAlias.UserImage);
+                        sl.Select(() => userAlias.ImageName).WithAlias(() => documentEmailDtoAlias.UserImage);
 
                         return sl;
                     }).TransformUsing(Transformers.AliasToBean<DocumentUpdateEmailDto>())

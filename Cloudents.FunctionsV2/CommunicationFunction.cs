@@ -182,7 +182,7 @@ namespace Cloudents.FunctionsV2
             //    Environment.ExpandEnvironmentVariables("%WEBSITE_HOSTNAME%"));
             if (hostName2.Contains("localhost", StringComparison.OrdinalIgnoreCase))
             {
-                hostName2 = "https://spitball-function-dev2.azurewebsites.net";
+                hostName2 = "spitball-function-dev2.azurewebsites.net";
             }
 
             var uri = new UriBuilder("https", hostName2.TrimEnd('/'));

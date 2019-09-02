@@ -18,7 +18,8 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.24" />
     <PackageReference Include="Sendgrid" Version="9.12.0" />
     <PackageReference Include="shortid" Version="2.0.0" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />
+    <PackageReference Include="SixLabors.Shapes.Text" Version="1.0.0-beta0008" />
     <PackageReference Include="Twilio" Version="5.31.4" />
     <PackageReference Include="Willezone.Azure.WebJobs.Extensions.DependencyInjection" Version="1.0.1" />
   </ItemGroup>

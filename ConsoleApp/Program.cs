@@ -16,10 +16,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Persistence;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Storage;
+using NHibernate;
+using NHibernate.Linq;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 

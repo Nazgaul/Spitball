@@ -35,7 +35,11 @@ namespace Cloudents.Query.Email
             public async Task<IEnumerable<UpdateUserEmailDto>> GetAsync(GetUpdatesEmailUsersQuery query, CancellationToken token)
             {
 
-                const string sql = @"Select distinct u.Name as UserName,u.Email as ToEmailAddress,u.Language,u.Id as UserId from sb.[user] u
+                const string sql = @"Select distinct u.Name as UserName,
+u.Email as ToEmailAddress,
+u.Language,
+u.Id as UserId 
+from sb.[user] u
 join sb.UsersCourses uc on u.id = uc.UserId
 join
  (Select d.UniversityId as UniversityId,d.CourseName  from sb.Document  d

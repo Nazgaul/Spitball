@@ -29,9 +29,9 @@ namespace Cloudents.FunctionsV2
             [OrchestrationTrigger] DurableOrchestrationContext context,
             CancellationToken token)
         {
-            var timeSince = DateTime.UtcNow.AddDays(-1);
+            var timeSince = DateTime.UtcNow.AddDays(-10);
             bool needToContinue;
-            int page = 0;
+            var page = 0;
             do
             {
                 needToContinue = false;
@@ -116,7 +116,7 @@ namespace Cloudents.FunctionsV2
                             Name = document.Name,
                             UserName = document.UserName,
                             DocumentPreview = uriBuilder.ToString(),
-                            UserImage = BuildUserImage(document.UserImage)
+                            UserImage = BuildUserImage(document.UserId,document.UserImage,document.UserName)
                         };
                     }),
                     Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question =>
@@ -125,7 +125,7 @@ namespace Cloudents.FunctionsV2
                         {
                             QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId),
                             QuestionText = question.QuestionText,
-                            UserImage = BuildUserImage(question.UserImage),
+                            UserImage = BuildUserImage(question.UserId, question.UserImage, question.UserName),
                             UserName = question.UserName,
                             AnswerText = question.AnswerText
                         };
@@ -133,7 +133,7 @@ namespace Cloudents.FunctionsV2
                 };
             });
 
-            var templateData = new UpdateEmail(user.UserName, user.ToEmailAddress)
+            var templateData = new UpdateEmail(user.UserName, user.ToEmailAddress, user.Language.TextInfo.IsRightToLeft)
             {
                 DocumentCountUpdate = result.OfType<DocumentUpdateEmailDto>().Count(),
                 QuestionCountUpdate = result.OfType<QuestionUpdateEmailDto>().Count(),
@@ -143,7 +143,8 @@ namespace Cloudents.FunctionsV2
             var message = new SendGridMessage
             {
                 Asm = new ASM { GroupId = UnsubscribeGroup.Update },
-                TemplateId = Equals(user.Language, Language.English.Info) ? "d-535f822f33c341d78253b97b3e35e853" : "d-6a6aead697824210b95c60ddd8d495c5"
+                TemplateId = Equals(user.Language, Language.Hebrew.Info) 
+                    ? "d-6a6aead697824210b95c60ddd8d495c5" : "d-535f822f33c341d78253b97b3e35e853" 
             };
             templateData.To = user.ToEmailAddress;
             var personalization = new Personalization
@@ -167,21 +168,18 @@ namespace Cloudents.FunctionsV2
                     Enable = true
                 }
             };
-            message.AddTo(user.ToEmailAddress);
+            message.AddTo("ram@cloudents.com");
             await emailProvider.AddAsync(message, token);
             await emailProvider.FlushAsync(token);
         }
 
-        private static string BuildUserImage(string image)
+        private static string BuildUserImage(long id, string image,string name)
         {
-            if (string.IsNullOrEmpty(image))
-            {
-                return "https://zboxstorage.blob.core.windows.net/spitball-user/DefaultThumbnail/placeholder-profile.png";
-            }
+           
             var uri = CommunicationFunction.GetHostUri();
             var uriBuilderImage = new UriBuilder(uri)
             {
-                Path = $"api/{image}"
+                Path = $"api/image/user/{id}/{image ?? name}"
             };
             var userImageNvc = new NameValueCollection()
             {
@@ -203,7 +201,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
         public static async Task TimerStart(
-            [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
+            [TimerTrigger("0 0 8 * * *", RunOnStartup = true)] TimerInfo myTimer,
             [OrchestrationClient]DurableOrchestrationClient starter,
             ILogger log)
         {
@@ -276,10 +274,14 @@ namespace Cloudents.FunctionsV2
             [JsonProperty("courseUpdates")]
             public IEnumerable<Course> Courses { get; set; }
 
-            public UpdateEmail(string userName, string to)
+            [JsonProperty("direction")]
+            public string Direction { get; set; }
+
+            public UpdateEmail(string userName, string to, bool isRtl)
             {
                 UserName = userName;
                 To = to;
+                Direction = isRtl ? "rtl" : "ltr";
             }
 
         }
