@@ -84,6 +84,7 @@
                             outline
                             :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             v-model="bio"
+                            class="tutor-edit-bio"
                             name="input-bio"
                             :label="bioLabel"
                     ></v-textarea>
@@ -287,7 +288,7 @@
                 border: 1px solid rgba(0, 0, 0, 0.19) !important;
             }
         }
-        .tutor-edit-pricing, .tutor-edit-firstname, .tutor-edit-lastname, .tutor-edit-description {
+        .tutor-edit-pricing, .tutor-edit-firstname, .tutor-edit-lastname, .tutor-edit-description, .tutor-edit-bio {
             .v-messages__message {
                 line-height: normal;
             }
