@@ -23,46 +23,52 @@ namespace Cloudents.Web.Test.IntegrationTests
             });
         }
 
-        [Fact]
-        public async Task GetAsync_Ask_OK()
+        [Theory]
+        [InlineData("api/question")]
+        [InlineData("api/question?page=1")]
+        public async Task GetAsync_Ask_OK(String url)
         {
-            _uri.Path = "api/question";
-
-            var response = await _client.GetAsync(_uri.Path);
+            var response = await _client.GetAsync(url);
 
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
 
-            d.Should().NotBeNull();
+            var result = d["result"]?.Value<JArray>();
+
+            result.Should().NotBeNull();
         }
 
-        [Fact]
-        public async Task GetAsync_Note_OK()
+        [Theory]
+        [InlineData("api/document")]
+        [InlineData("api/document?page=1")]
+        public async Task GetAsync_Note_OK(string url)
         {
-            _uri.Path = "api/document";
-
-            var response = await _client.GetAsync(_uri.Path);
+            var response = await _client.GetAsync(url);
 
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
 
-            d.Should().NotBeNull();
+            var result = d["result"]?.Value<JArray>();
+
+            result.Should().NotBeNull();
         }
 
-        [Fact]
-        public async Task GetAsync_Tutor_OK()
+        [Theory]
+        [InlineData("api/tutor/search")]
+        [InlineData("api/tutor/search?page=1")]
+        public async Task GetAsync_Tutor_OK(string url)
         {
-            _uri.Path = "api/tutor/search";
-
-            var response = await _client.GetAsync(_uri.Path);
+            var response = await _client.GetAsync(url);
 
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
 
-            d.Should().NotBeNull();
+            var result = d["result"]?.Value<JArray>();
+
+            result.Should().NotBeNull();
         }
     }
 }
