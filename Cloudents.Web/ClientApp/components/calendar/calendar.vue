@@ -75,7 +75,7 @@
             </template>
             
             <template v-slot:interval="{date,time,past}">
-              <div :class="['my-event',past? 'without-time-past':'without-time']">
+              <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor}]">
                 <button @click="addEvent($event, date,time)" v-html="cellTime(date,time)"></button> 
               </div>
           </template>
@@ -185,6 +185,12 @@ export default {
       },
       isNeedPayment(){
         return this.getNeedPayment
+      },
+      isSelfTutor() {
+        if((!!this.getProfile && !!this.accountUser) && this.getProfile.user.id == this.accountUser.id) {
+          return true
+        }
+        return false
       }
     },
     methods: {
@@ -214,8 +220,7 @@ export default {
           })
         },
         addEvent(ev,date,time){
-          if((!!this.getProfile && !!this.accountUser) 
-          && this.getProfile.user.id == this.accountUser.id) return
+          if(this.isSelfTutor) return
 
           ev.stopImmediatePropagation();
           if(this.addEventDialog)return
@@ -509,6 +514,9 @@ display: flex;
           }
         }
       }
+    }
+    .cursor-none {
+      pointer-events: none;
     }
   }
 
