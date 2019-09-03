@@ -27,6 +27,7 @@ namespace Cloudents.Core.Entities
         }
         public virtual string Bio { get;protected set; }
         public virtual decimal Price { get; protected set; }
+        public virtual decimal SubsidizedPrice { get; protected set; }
         public virtual User User { get; protected set; }
 
         public virtual void UpdateSettings(string bio, decimal price)
@@ -34,6 +35,7 @@ namespace Cloudents.Core.Entities
             if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
             Price = price;
             Bio = bio;
+            SubsidizedPrice = PriceAfterDiscount(price);
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 

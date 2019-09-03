@@ -28,6 +28,7 @@ namespace Cloudents.Core.Entities
         public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
         public virtual string Receipt { get; protected set; }
+        public virtual decimal? Price { get; protected set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
@@ -42,6 +43,7 @@ namespace Cloudents.Core.Entities
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
             DurationInMinutes = Ended - Created;
+            Price = (decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60 * StudyRoom.Tutor.SubsidizedPrice;
             AddEvent(new EndSessionEvent(StudyRoom.Tutor.Id));
             return true;
         }

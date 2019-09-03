@@ -18,7 +18,9 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.DurationInMinutes).CustomType<MinuteTimeSpanType>();
             Map(x => x.SessionId).Not.Nullable();
             Map(x => x.Receipt);
+            Map(x => x.Price).CustomSqlType("smallMoney").Nullable();
             Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
+            SchemaAction.Update();
         }
     }
 }
