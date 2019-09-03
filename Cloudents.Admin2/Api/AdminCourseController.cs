@@ -94,7 +94,7 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
             //TODO: fix the query to have only Admin and add country filter
-            var query = new CourseSearchQuery(0, course, 0);
+            var query = new CourseSearchWithTermQuery(0, course, 0);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {

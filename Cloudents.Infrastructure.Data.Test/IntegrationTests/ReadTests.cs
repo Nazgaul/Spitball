@@ -133,20 +133,26 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
+
+        [Fact]
+        public async Task CourseSearchQuery_Ok()
+        {
+            var query = new CourseSearchQuery(638, 0);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
         [Theory]
-        [InlineData(638,null,0)]
         [InlineData(638, "ארה\"ב",0)]
         [InlineData(638, "ממ\"",0)]
         [InlineData(638, "אלגברה ל", 0)]
-        public async Task CourseSearchQuery_Ok(long userId,string term,int page)
+        public async Task CourseSearchWithTermQuery_Ok(long userId,string term,int page)
         {
-            var query = new CourseSearchQuery(userId, term, page);
+            var query = new CourseSearchWithTermQuery(userId, term, page);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
 
             _.Should().HaveCountGreaterOrEqualTo(1);
         }
-
 
         [Fact]
         

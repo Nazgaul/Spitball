@@ -15,6 +15,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using Cloudents.Core.DTOs;
 
 namespace Cloudents.Web.Api
 {
@@ -54,8 +56,20 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new CourseSearchQuery(userId, request.Term, request.Page);
-            var result = await _queryBus.QueryAsync(query, token);
+            List<CourseDto> result = new List<CourseDto>();
+
+            if (!string.IsNullOrEmpty(request.Term))
+            {
+                var query = new CourseSearchWithTermQuery(userId, request.Term, request.Page);
+                var temp = await _queryBus.QueryAsync(query, token);
+                result = temp.ToList();
+            }
+            else
+            {
+                var query = new CourseSearchQuery(userId, request.Page);
+                var temp = await _queryBus.QueryAsync(query, token);
+                result = temp.ToList();
+            }
             return new CoursesResponse
             {
                 Courses = result
