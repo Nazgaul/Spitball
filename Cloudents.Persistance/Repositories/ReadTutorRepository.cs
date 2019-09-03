@@ -43,6 +43,9 @@ u.image as Image,
 (Select uc.courseId as 'name' 
    from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseId for json PATH) as AllCourses,
 t.Price,
+case when t.Price < 55 then t.Price
+	when t.Price - 70 < 55 then 55
+	else t.Price - 70 end as SubsidizedPrice,
 reviews.Rate ,
 reviews.sumCount as RateCount,
 t.bio as Bio,

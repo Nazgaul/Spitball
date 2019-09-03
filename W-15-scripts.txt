@@ -63,3 +63,9 @@ set SubsidizedPrice = case when Price < 55 then Price
 							else Price - 70 end
 from sb.Tutor t
 commit
+
+--update sb.ReadTutor.SubsidizedPrice
+update sb.ReadTutor
+set SubsidizedPrice = case when Price < 55 then Price
+							when Price - 70 < 55 then 55
+							else Price - 70 end 
