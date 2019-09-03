@@ -7,7 +7,7 @@
                     :rows="isMobile?6:3"
                     v-model="description"
                     :placeholder="typeAreaPlaceholder"
-                    :rules="[rules.required, rules.maximumChars]"/>
+                    :rules="[rules.required, rules.maximumChars,rules.notSpaces]"/>
             </fieldset>
             <fieldset class="fieldset-select px-2">
                 <legend v-language:inner="'tutorRequest_select_course_placeholder'"/>
@@ -24,7 +24,7 @@
                     class="text-truncate"
                     @keyup="searchCourses"
                     flat hide-no-data
-                    :append-icon="'sbf-arrow-down'"
+                    :append-icon="''"
                     v-model="tutorCourse"
                     :placeholder="coursePlaceholder"
                     :items="suggestsCourses"
@@ -59,12 +59,14 @@ import {LanguageService} from '../../../services/language/languageService.js'
 import {validationRules} from '../../../services/utilities/formValidationRules.js'
 import universityService from '../../../services/universityService.js'
 import debounce from "lodash/debounce";
+import analyticsService from '../../../services/analytics.service'
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'tutorRequestCourseInfo',
     data() {
         return {
+            isFromQuery:false,
             moreTutors:true,
             isLoading:false,
             validRequestTutorForm: false,
@@ -74,7 +76,7 @@ export default {
             suggestsCourses: [],
             rules: {
                 maximumChars: (value) => validationRules.maximumChars(value, 255),
-                minimumChars: (value) => validationRules.minimumChars(value, 15),
+                notSpaces: (value) => validationRules.notSpaces(value),
                 required: (value) => validationRules.required(value),
                 matchCourse:() => (this.suggestsCourses.length && this.suggestsCourses.some(course=>course.text === this.tutorCourse.text)) || LanguageService.getValueByKey("tutorRequest_invalid"),
                 matchTutorCourse:() => (this.currentTutorCourses.length && this.currentTutorCourses.some(course=>course.text === this.tutorCourse.text)) || LanguageService.getValueByKey("tutorRequest_invalid") 
@@ -88,7 +90,8 @@ export default {
                        'getCourseDescription',
                        'getSelectedCourse',
                        'accountUser',
-                       'getCurrTutor']),
+                       'getCurrTutor',
+                       'getTutorRequestAnalyticsOpenedFrom']),
         isLoggedIn(){
             return !!this.accountUser
         },
@@ -117,14 +120,19 @@ export default {
             this.resetRequestTutor()
         },
         searchCourses: debounce(function(ev){
-            let term = ev.target.value.trim();
+            let term = this.isFromQuery ? ev : ev.target.value.trim()
             if(!term) {
                 this.tutorCourse = ''
+                this.suggestsCourses = []
                 return 
             }
             if(!!term){
                 universityService.getCourse({term, page:0}).then(data=>{
-                    this.suggestsCourses = data;    
+                    this.suggestsCourses = data;
+                    this.suggestsCourses.forEach(course=>{
+                        if(course.text === this.tutorCourse){
+                            this.tutorCourse = course
+                        }}) 
                 })
             }
         },300),
@@ -134,6 +142,14 @@ export default {
                 this.updateSelectedCourse(this.tutorCourse)
                 this.updateMoreTutors(this.moreTutors)
                 this.updateTutorReqStep('tutorRequestUserInfo')
+
+            let analyticsObject = {
+                userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
+                course: this.tutorCourse,
+                fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
+                fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
+            };
+                analyticsService.sb_unitedEvent('Request Tutor Next', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
             }
         },
         sumbit(){
@@ -143,6 +159,13 @@ export default {
                 if(this.getCurrTutor) {
                     tutorId = this.getCurrTutor.userId || this.getCurrTutor.id
                 }
+            let analyticsObject = {
+                userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
+                course: this.tutorCourse,
+                fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
+                fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
+            };
+
                 let serverObj = {
                     captcha: null,
                     text: this.description,
@@ -153,20 +176,27 @@ export default {
                     tutorId: tutorId
                 }                    
                 this.sendTutorRequest(serverObj).finally(()=>{
-                    this.isLoading = false
+                    this.isLoading = false;
+                    analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                 })
             }
         }
     },
     mounted() {
-        if(this.$route.query && this.$route.query.Course){
-            this.tutorCourse = this.$route.query.Course
-        }
         if(this.getCourseDescription){
             this.description = this.getCourseDescription;
         }
-        if(this.getSelectedCourse){
-            this.tutorCourse = this.getSelectedCourse;
+        if((this.$route.query && this.$route.query.Course) || (!!this.getSelectedCourse && this.getSelectedCourse.text)){
+            let queryCourse;
+            if(this.$route.query && this.$route.query.Course){
+                queryCourse = this.$route.query.Course;
+            }
+            if(!!this.getSelectedCourse && this.getSelectedCourse.text){
+                queryCourse = this.getSelectedCourse.text
+            }
+            this.tutorCourse = queryCourse
+            this.isFromQuery = true;
+            this.searchCourses(queryCourse)
         }
     }
 }
@@ -224,6 +254,9 @@ export default {
         }
     .tutorRequest-bottom{
         .v-btn{
+            @media (max-width: @screen-xs) {
+              min-width: 120px;  
+            }
             min-width: 140px;
             height: 40px !important;
             padding: 0px 32px !important;

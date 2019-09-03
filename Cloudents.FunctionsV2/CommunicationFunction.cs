@@ -139,7 +139,7 @@ namespace Cloudents.FunctionsV2
 
             var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
-                Body = /*"Your code to enter into Spitball is: " +*/ msg.Message
+                Body = msg.Message
             };
             if (msg.PhoneNumber.StartsWith("+972"))
             {

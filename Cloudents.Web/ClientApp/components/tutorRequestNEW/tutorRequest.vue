@@ -7,6 +7,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import analyticsService from '../../services/analytics.service';
+
 
 // cmps:
 import tutorRequestHeader from './components/tutorRequestHeader.vue'
@@ -23,7 +25,7 @@ export default {
         tutorRequestSuccess
     },
     computed:{
-        ...mapGetters(['accountUser','getCurrentTutorReqStep']),
+        ...mapGetters(['accountUser','getCurrentTutorReqStep','getTutorRequestAnalyticsOpenedFrom']),
         isLoggedIn(){
             return !!this.accountUser
         },
@@ -33,6 +35,15 @@ export default {
         showHeader(){
             return this.currentStep === 'tutorRequestSuccess'
         }
+    },
+    created() {
+        let analyticsObject = {
+                userId: this.isAuthUser ? this.accountUser.id : 'GUEST',
+                course: '',
+                fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
+                fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
+            };
+        analyticsService.sb_unitedEvent('Request Tutor Dialog Opened', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
     },
 }
 </script>
@@ -52,7 +63,8 @@ export default {
             @media (max-width: @screen-xs) {
                 width: 100%;
                 height: 100%;
+                box-shadow: none;
             }
     }
-
+    
 </style>

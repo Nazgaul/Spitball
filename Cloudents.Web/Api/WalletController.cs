@@ -165,8 +165,6 @@ namespace Cloudents.Web.Api
                 ));
                 return Ok();
             }
-
-            return BadRequest();
         }
 
         private async Task<Uri> GenerateLinkAsync(

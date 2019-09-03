@@ -1,11 +1,11 @@
 <template>
     <div class="tutorRequest-middle-userInfo">
-        <span class="tR-span" v-html="$Ph('tutorRequest_tell_tutor',this.getCurrTutor? this.getCurrTutor.name : 'Yaniv')"/>
+        <span class="tR-span" v-html="$Ph('tutorRequest_tell_tutor',this.getCurrTutor? this.getCurrTutor.name : generalName)"/>
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm">
             <fieldset class="fieldset-user-name px-2">
                 <legend v-language:inner="'tutorRequest_name'"/>
                 <v-text-field 
-                    :rules="[rules.required]" 
+                    :rules="[rules.required,rules.notSpaces]" 
                     v-model="guestName" 
                     class="userName"
                     autocomplete="off"/>
@@ -16,7 +16,7 @@
                 <fieldset class="fieldset-user-email px-2">
                     <legend v-language:inner="'tutorRequest_email'"/>
                     <v-text-field 
-                        :rules="[rules.required, rules.email]" 
+                        :rules="[rules.required, rules.email,rules.notSpaces]" 
                         v-model="guestMail" type="email" 
                         class="userEmail"
                         autocomplete="off"/>
@@ -26,7 +26,7 @@
                     <fieldset class="fieldset-user-phone px-2">
                     <legend v-language:inner="'tutorRequest_phoneNumber'"/>
                     <v-text-field 
-                        :rules="[rules.required]"
+                        :rules="[rules.required,rules.phone,rules.notSpaces]"
                         type="tel"
                         maxlength="12"
                         autocomplete="off"
@@ -61,7 +61,7 @@ import {LanguageService} from '../../../services/language/languageService.js'
 import {validationRules} from '../../../services/utilities/formValidationRules.js'
 import { mapActions,mapGetters } from 'vuex';
 import VueRecaptcha from 'vue-recaptcha';
-
+import analyticsService from '../../../services/analytics.service'
 
 export default {
     name:'tutorRequestUserInfo',
@@ -77,12 +77,15 @@ export default {
             rules: {
                 required: (value) => validationRules.required(value),
                 email: (value) => validationRules.email(value),
+                phone: (value) => validationRules.phone(value),
+                notSpaces: (value) => validationRules.notSpaces(value),
             },
-            isLoading: false
+            isLoading: false,
+            generalName: LanguageService.getValueByKey("tutorRequest_yaniv"),
         }
     },
     computed: {
-        ...mapGetters(['getCourseDescription','getSelectedCourse','accountUser','getCurrTutor','getMoreTutors']),
+        ...mapGetters(['getTutorRequestAnalyticsOpenedFrom','getCourseDescription','getSelectedCourse','accountUser','getCurrTutor','getMoreTutors']),
         isAuthUser(){
             return !!this.accountUser;
         },
@@ -112,6 +115,15 @@ export default {
                 if(this.getCurrTutor) {
                     tutorId = this.getCurrTutor.userId || this.getCurrTutor.id
                 }
+            let analyticsObject = {
+                userId: this.isAuthUser ? this.accountUser.id : 'GUEST',
+                course: this.getSelectedCourse,
+                fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
+                fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
+            };
+
+                
+                
                 let serverObj = {
                     captcha: (self.recaptcha)? self.recaptcha : null,
                     text: (self.getCourseDescription)? self.getCourseDescription : null,
@@ -124,6 +136,7 @@ export default {
                 }
                 this.sendTutorRequest(serverObj).finally(()=>{
                     self.isLoading= false
+                    analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                   if(self.$refs['recaptcha']){
                       self.$refs['recaptcha'].reset();
                     }
@@ -201,6 +214,9 @@ export default {
         }
     .tutorRequest-bottom{
         .v-btn{
+            @media (max-width: @screen-xs) {
+              min-width: 120px;  
+            }
             min-width: 140px;
             height: 40px !important;
             padding: 0px 32px !important;

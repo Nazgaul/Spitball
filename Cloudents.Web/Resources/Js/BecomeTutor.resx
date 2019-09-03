@@ -198,4 +198,7 @@
   <data name="sharing_step_1" xml:space="preserve">
     <value>Sharing your information and you will get more response from students</value>
   </data>
+  <data name="upload_error" xml:space="preserve">
+    <value>Upload image to continue</value>
+  </data>
 </root>

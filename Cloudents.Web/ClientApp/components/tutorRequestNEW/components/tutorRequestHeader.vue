@@ -1,14 +1,12 @@
 <template>
     <div class="tutorRequest-top">
-
+        <v-progress-circular v-if="!isLoaded" indeterminate v-bind:size="66" width="3" color="info"></v-progress-circular>
         <user-avatar class="tutorRequest-img"
-                     v-if="isCurrentTutor" :size="'66'" 
-                     :user-name="getCurrTutor.name" 
-                     :user-id="getCurrTutor.userId" 
-                     :userImageUrl="getCurrTutor.image"/>
+                v-if="isCurrentTutor && isLoaded" :size="'66'" 
+                :user-name="getCurrTutor.name"  
+                :userImageUrl="getCurrTutor.image"/>
 
-        <img v-else class="tutorRequest-img" src="../images/yaniv.jpg" alt="../images/yaniv.jpg">
-
+        <img v-else v-show="isLoaded" class="tutorRequest-img" @load="loaded" src="../images/yaniv.jpg" alt="../images/yaniv.jpg">
         <p v-if="!getCurrTutor" v-language:inner="'tutorRequest_send_msg_yaniv'"/>
         <p v-else v-html="$Ph(isMobile? 'tutorRequest_send_msg_tutor_mobile' :'tutorRequest_send_msg_tutor',this.getCurrTutor.name)" />
     </div>
@@ -20,15 +18,19 @@ import userAvatar from '../../helpers/UserAvatar/UserAvatar.vue'
 
 export default {
     components:{userAvatar},
+    data() {
+        return {
+            isLoaded: false,
+        }
+    },
+    methods: {
+        loaded() {
+            this.isLoaded = true;
+        }
+    },
     computed: {
         ...mapGetters(['getCurrTutor']),
-        // currentTutorImg(){
-        //     if(!!this.getCurrTutor && this.getCurrTutor.image){
-        //         return this.getCurrTutor.image
-        //     } else{
-        //         return require('../images/yaniv.jpg')
-        //     }
-        // },
+        
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },

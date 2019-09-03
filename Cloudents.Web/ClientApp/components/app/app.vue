@@ -52,13 +52,6 @@
                        :content-class="'question-request-dialog'">
                 <Add-Question></Add-Question>
             </sb-dialog>
-            <!-- <sb-dialog :isPersistent="true"
-                       :showDialog="getRequestTutorDialog"
-                       :popUpType="'tutorRequestDialog'"
-                       :max-width="'640px'"
-                       :content-class="'tutor-request-dialog'">
-                <tutor-request></tutor-request>
-            </sb-dialog> -->
               <sb-dialog :isPersistent="true"
                        :showDialog="getRequestTutorDialog"
                        :popUpType="'tutorRequestDialog'"
@@ -121,7 +114,6 @@ import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
 import tutorList from "../helpers/tutorList/tutorList.vue";
-// import tutorRequest from '../tutorRequest/tutorRequest.vue';
 import tutorRequest from '../tutorRequestNEW/tutorRequest.vue';
 
 export default {
@@ -136,8 +128,8 @@ export default {
     uploadMultipleFiles,
     buyTokens,
     becomeTutor,
-        tutorList,
-        tutorRequest
+    tutorList,
+    tutorRequest
   },
   data() {
     return {

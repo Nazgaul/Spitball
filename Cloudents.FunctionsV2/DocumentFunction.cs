@@ -75,7 +75,7 @@ namespace Cloudents.FunctionsV2
 
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
-                    Item = new Cloudents.Search.Entities.Document
+                    Item = new Search.Entities.Document
                     {
                         Id = id,
                         Content = text.Truncate(6000)
@@ -88,7 +88,7 @@ namespace Cloudents.FunctionsV2
             {
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
-                    Item = new Cloudents.Search.Entities.Document
+                    Item = new Search.Entities.Document
                     {
                         Id = id,
                     },
@@ -127,24 +127,17 @@ namespace Cloudents.FunctionsV2
                 blobToken = files.ContinuationToken;
                 foreach (var blob in files.Results)
                 {
-                    if (blob is CloudBlobDirectory)
+                    switch (blob)
                     {
-                        continue;
-                    }
-
-                    if (blob is CloudBlockBlob b)
-                    {
-                        if (b.Properties.Created > DateTime.UtcNow.AddDays(-7))
-                        {
+                        case CloudBlobDirectory _:
+                        case CloudBlockBlob b when b.Properties.Created > DateTime.UtcNow.AddDays(-7):
                             continue;
-                        }
-
-                        if (b.Uri.Segments.Length != 4)
-                        {
+                        case CloudBlockBlob b when b.Uri.Segments.Length != 4:
                             continue;
-                        }
-                        log.LogInformation($"Delete {b.Uri}");
-                        await b.DeleteAsync();
+                        case CloudBlockBlob b:
+                            log.LogInformation($"Delete {b.Uri}");
+                            await b.DeleteAsync();
+                            break;
                     }
 
                     // await blob.DeleteAsync();

@@ -154,6 +154,7 @@ namespace Cloudents.Web.Api
             {
                 return new ReturnSignUserResponse(false);
             }
+           
             if (result2.IsLockedOut)
             {
                 logClient.TrackTrace("user is locked out");
@@ -162,7 +163,11 @@ namespace Cloudents.Web.Api
             }
 
             var user = await _userManager.FindByEmailAsync(result.Email);
-
+            if (result2.IsNotAllowed && await _userManager.IsLockedOutAsync(user))
+            {
+                ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
+                return BadRequest(ModelState);
+            }
             if (user == null)
             {
                 user = new User(result.Email,

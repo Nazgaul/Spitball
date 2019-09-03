@@ -175,8 +175,8 @@
             }
             margin-top: 150px;
                 @media (max-width: @screen-xs) {
-                    margin-top: 0;
-                    align-items: flex-end;
+                    // margin-top: 0;
+                    // align-items: flex-end;
                 }
                 .v-btn{
                     @media (max-width: @screen-xs) {

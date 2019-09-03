@@ -85,7 +85,8 @@ export default {
             'getDocuments',
             'resetProfileData',
             'getPurchasedDocuments',
-            'setProfileByActiveTab'
+            'setProfileByActiveTab',
+            'updateLoginDialogState'
         ]),
 
         changeActiveTab(tabId) {
@@ -187,6 +188,16 @@ export default {
                 () => {
                     this.purchasedDocuments.isComplete = true;
                 });
+        },
+        openCalendar() {
+            if(!this.accountUser) {
+                this.updateLoginDialogState(true);
+                setTimeout(()=>{
+                    document.getElementById(`tab-${this.activeTab}`).lastChild.click()
+                },200)
+            } else {
+                this.activeTab = 6;
+            }
         }
     },
     computed: {

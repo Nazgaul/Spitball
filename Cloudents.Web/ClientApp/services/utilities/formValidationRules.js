@@ -19,7 +19,7 @@ export const validationRules = {
         return value >= max || `${LanguageService.getValueByKey("formErrors_positive_only")} ${max}`;
     },
     notSpaces: (value) => {
-        return value.trim().length >= 1 || `Empty spaces`;
+        return value.trim().length >= 1 || LanguageService.getValueByKey("formErrors_required");
     },
     email: (value) =>{
         let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -28,4 +28,8 @@ export const validationRules = {
     integer: (value) =>{
         return Number.isInteger(+value) || LanguageService.getValueByKey("formErrors_integer")
     },
+    phone: (value) =>{
+        let regex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]{8,12}$/;
+        return regex.test(value) || LanguageService.getValueByKey("formErrors_phone")
+    }
 };

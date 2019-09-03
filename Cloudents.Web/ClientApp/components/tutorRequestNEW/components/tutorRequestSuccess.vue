@@ -64,6 +64,9 @@ export default {
         }
     .tutorRequest-success-bottom{
         .v-btn{
+            @media (max-width: @screen-xs) {
+              min-width: 120px;  
+            }
             min-width: 140px;
             height: 40px !important;
             padding: 0px 32px !important;

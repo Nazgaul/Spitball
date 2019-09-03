@@ -12,6 +12,7 @@ using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Email;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -29,7 +30,7 @@ namespace Cloudents.FunctionsV2
             [OrchestrationTrigger] DurableOrchestrationContext context,
             CancellationToken token)
         {
-            var timeSince = DateTime.UtcNow.AddDays(-10);
+            var timeSince = DateTime.UtcNow.AddDays(-1);
             bool needToContinue;
             var page = 0;
             do
@@ -76,9 +77,12 @@ namespace Cloudents.FunctionsV2
             [Inject] IUrlBuilder urlBuilder,
             [Inject] IBinarySerializer binarySerializer,
             [Inject] IDocumentDirectoryBlobProvider blobProvider,
-            CancellationToken token)
+            [Inject]  IDataProtectionProvider dataProtectProvider,
+        CancellationToken token)
         {
-
+            var dataProtector = dataProtectProvider.CreateProtector("Spitball")
+                .ToTimeLimitedDataProtector();
+            var code = dataProtector.Protect(user.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(3));
             var uri = CommunicationFunction.GetHostUri();
 
             var questionNvc = new NameValueCollection()
@@ -112,23 +116,20 @@ namespace Cloudents.FunctionsV2
 
                         return new Document()
                         {
-                            Url = urlBuilder.BuildDocumentEndPoint(document.Id),
+                            Url = urlBuilder.BuildDocumentEndPoint(document.Id, new { token = code }),
                             Name = document.Name,
                             UserName = document.UserName,
                             DocumentPreview = uriBuilder.ToString(),
                             UserImage = BuildUserImage(document.UserId,document.UserImage,document.UserName)
                         };
                     }),
-                    Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question =>
+                    Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question => new Question()
                     {
-                        return new Question()
-                        {
-                            QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId),
-                            QuestionText = question.QuestionText,
-                            UserImage = BuildUserImage(question.UserId, question.UserImage, question.UserName),
-                            UserName = question.UserName,
-                            AnswerText = question.AnswerText
-                        };
+                        QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId, new { token = code }),
+                        QuestionText = question.QuestionText,
+                        UserImage = BuildUserImage(question.UserId, question.UserImage, question.UserName),
+                        UserName = question.UserName,
+                        AnswerText = question.AnswerText
                     })
                 };
             });
@@ -168,7 +169,7 @@ namespace Cloudents.FunctionsV2
                     Enable = true
                 }
             };
-            message.AddTo("ram@cloudents.com");
+            message.AddTo(user.ToEmailAddress);
             await emailProvider.AddAsync(message, token);
             await emailProvider.FlushAsync(token);
         }

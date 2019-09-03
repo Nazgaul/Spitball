@@ -138,6 +138,9 @@
   <data name="min_chars" xml:space="preserve">
     <value>מספר התווים המינימלי הוא</value>
   </data>
+  <data name="phone" xml:space="preserve">
+    <value>יש להקיש מספר טלפון חוקי</value>
+  </data>
   <data name="positive_only" xml:space="preserve">
     <value>המחיר המינימלי הוא</value>
   </data>

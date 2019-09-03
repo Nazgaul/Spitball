@@ -189,4 +189,7 @@
   <data name="who" xml:space="preserve">
     <value>מי אתה</value>
   </data>
+  <data name="upload_error" xml:space="preserve">
+    <value>יש להעלות תמונה כדי להמשיך</value>
+  </data>
 </root>

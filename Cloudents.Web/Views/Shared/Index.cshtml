@@ -59,9 +59,4 @@
                 asp-fallback-test="window.mainCdn">
         </script>
     </environment>
-    @*@if (this.Context.Request.Path.Value.StartsWith("/studyroom", StringComparison.OrdinalIgnoreCase))
-    {
-        <partial name="_Inspectlet"/>
-    }*@
-    <partial name="_Inspectlet"/>
 }

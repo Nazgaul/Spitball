@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="back" xml:space="preserve">
+    <value>חזרה</value>
+  </data>
   <data name="btn_attachment" xml:space="preserve">
     <value>קובץ/תמונה</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="btn_submit" xml:space="preserve">
     <value>שליחת בקשה</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>ביטול</value>
   </data>
   <data name="email" xml:space="preserve">
     <value>אימייל</value>
@@ -135,8 +141,14 @@
   <data name="label_add" xml:space="preserve">
     <value>הוסף</value>
   </data>
+  <data name="more_tutors" xml:space="preserve">
+    <value>אני רוצה לשמוע מעוד 2-3 מורים כמו {1}</value>
+  </data>
   <data name="name" xml:space="preserve">
     <value>שם מלא</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>הבא</value>
   </data>
   <data name="no_course" xml:space="preserve">
     <value>הוסף קורסים</value>
@@ -153,6 +165,33 @@
   <data name="select_course_placeholder" xml:space="preserve">
     <value>עבור איזה קורס?</value>
   </data>
+  <data name="select_course_placeholder_mobile" xml:space="preserve">
+    <value>איזה קורס נלמד? </value>
+  </data>
+  <data name="select_course_placeholder_new" xml:space="preserve">
+    <value>באיזה קורס לעזור לך?</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>שליחה</value>
+  </data>
+  <data name="send_msg_tutor" xml:space="preserve">
+    <value>שליחת הודעה ל {1}</value>
+  </data>
+  <data name="send_msg_tutor_mobile" xml:space="preserve">
+    <value>שליחת הודעה ל {1}</value>
+  </data>
+  <data name="send_msg_yaniv" xml:space="preserve">
+    <value>יניב מספיטבול יסייע לך למצוא מורה פרטי</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>הודעתך נשלחה וייצרו איתך קשר בקרוב</value>
+  </data>
+  <data name="tell_tutor" xml:space="preserve">
+    <value>איך {1} יכול ליצור איתך קשר?</value>
+  </data>
   <data name="title" xml:space="preserve">
     <value>בקשה למורה פרטי</value>
   </data>
@@ -162,7 +201,16 @@
   <data name="topic_placeholder" xml:space="preserve">
     <value>רציתי לבקש מורה פרטי בנושא...</value>
   </data>
+  <data name="type" xml:space="preserve">
+    <value>כאן מקלידים</value>
+  </data>
+  <data name="type_legend" xml:space="preserve">
+    <value>במה אוכל לעזור לך?</value>
+  </data>
   <data name="university" xml:space="preserve">
     <value>אוניברסיטה</value>
+  </data>
+  <data name="yaniv" xml:space="preserve">
+    <value>יניב</value>
   </data>
 </root>

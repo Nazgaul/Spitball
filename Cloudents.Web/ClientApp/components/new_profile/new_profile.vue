@@ -41,7 +41,7 @@
                                     <span v-language:inner="'profile_purchased_documents'"/>
                                 </v-tab>
 
-                                <v-tab @click="activeTab = 6" :id="`tab-${6}`" :href="'#tab-6'" :key="6" v-if="showCalendar">
+                                <v-tab @click="openCalendar" :id="`tab-${6}`" :href="'#tab-6'" :key="6" v-if="showCalendar">
                                     <span v-language:inner="'profile_calendar'"/>
                                 </v-tab>
 

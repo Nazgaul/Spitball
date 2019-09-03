@@ -273,7 +273,6 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpGet("calendar/events"), Authorize]
         /// <summary>
         /// 
         /// </summary>

@@ -5,26 +5,26 @@
             <v-flex xs12 sm4 shrink class="image-wrap text-xs-center">
                 <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image"
                      @load="loaded">
-                <img v-show="!userImage" class="user-image" src="../images/placeholder-image.png" alt="upload image"
-                     @load="loaded">
                 <div v-if="!isLoaded ">
                     <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
                 </div>
-                <label for="tutor-picture" v-show="!userImage" class="upload-btn font-weight-bold" :class="[errorUpload ?  'error-upload': '']">
-                <input class="become-upload"
+                <label for="tutor-picture" v-show="!userImage" class="font-weight-bold" :class="[errorUpload ?  'error-upload': '']">
+                    <img v-show="!userImage" class="user-no-image" src="../images/group-copy-2.png" alt="upload image"
+                     @load="loaded">
+                    <input class="become-upload"
                         type="file" name="File Upload"
                         @change="uploadImage"
                         id="tutor-picture"
                         accept="image/*"
                         ref="tutorImage" v-show="false"/>
-                
-                    <span class="image-edit-text" v-language:inner="'becomeTutor_upload_image'"></span>
+                    <div v-if="errorUpload" v-language:inner="'becomeTutor_upload_error'"></div>
+                    <!-- <span class="image-edit-text" v-language:inner="'becomeTutor_upload_image'"></span> -->
                 </label>
             </v-flex>
-            <v-flex xs12 sm6 class="inputs-wrap" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
+            <v-flex xs12 sm6 class="inputs-wrap" :class="{'mt-2' : $vuetify.breakpoint.xsOnly}">
                 <v-layout column shrink justify-start>
                     <v-form v-model="validBecomeFirst" ref="becomeFormFirst">
-                        <v-flex xs12 shrink :class="[$vuetify.breakpoint.smAndUp ? 'mb-3' : '']">
+                        <v-flex xs12 shrink class="mb-2">
                             <v-text-field
                             v-model="firstName"
                             :rules="[rules.required, rules.notSpaces, rules.minimumChars]"
@@ -32,7 +32,7 @@
                             :placeholder="placeFirstName" 
                             :label="placeFirstName"/>
                         </v-flex>
-                        <v-flex xs12 :class="[$vuetify.breakpoint.smAndUp ? 'mb-4' : 'mb-3']">
+                        <v-flex xs12 class="mb-2">
                             <v-text-field
                                 v-model="lastName"
                                 :rules="[rules.required, rules.notSpaces, rules.minimumChars]"
@@ -121,8 +121,10 @@
                 // return !this.firstName || !this.lastName || !this.price || !this.imageExists;
             },
             userImage() {
+                let mobile = this.$vuetify.breakpoint.xsOnly;
+                let size = mobile ? [80, 80] : [190, 210];
                 if(this.accountUser && this.accountUser.image) {
-                    return utilitiesService.proccessImageURL(this.accountUser.image, 214, 240);
+                    return utilitiesService.proccessImageURL(this.accountUser.image, ...size);
                 } else {
                     return '';
                 }
@@ -184,6 +186,13 @@
     @import '../../../styles/mixin.less';
 
     .become-first-wrap {
+        @media (max-width: @screen-xs) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
         .btns-first{
             @media (max-width: @screen-xs) {
                 align-items: flex-end;
@@ -200,23 +209,20 @@
             }
         }
 
-        @media (max-width: @screen-xs) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        }
+        
         .become-first-span{
             padding-left: 30px;
-            font-size: 18px;        
+            font-size: 16px;        
             letter-spacing: -0.51px;
             color: @global-purple;
             @media (max-width: @screen-xs) {
                 padding-left: 0;
                 text-align: center;
                 font-size: 16px;
+                margin-bottom: 10px;
                 font-weight: 600;
                 line-height: 1.5;
-                    letter-spacing: 0.3px;
+                letter-spacing: 0.3px;
             }
         }
         .become-first-cont{
@@ -224,7 +230,6 @@
             padding-top: 30px;
             @media (max-width: @screen-xs) {
                 padding-left: 0;
-                flex-direction: column-reverse;
                 align-items: center;
                 width: 100%;
                 padding-top: 8px;
@@ -242,6 +247,7 @@
         }
         .image-wrap {
             position: relative;
+            margin: 0 auto;
             min-width: 220px;
             max-width: 220px;
             @media (max-width: @screen-xs) {
@@ -291,12 +297,18 @@
             cursor: pointer;
         }
         .user-image {
-            max-width: 220px;
-            min-height: 270px;
+            border-radius: 6px;
+            border: 1px solid #f0f0f7;
+        }
+        .user-no-image {
+            // max-width: 190px;
+            // min-height: 210px;
                 object-fit: cover;
             @media (max-width: @screen-xs) {
-            max-width: 136px;
-            min-height: 166px;
+            // max-width: 80px;
+            // min-height: 80px;
+            height: 90px;
+            width: 80px;
             }
             border-radius: 6px;
             border: 1px solid #f0f0f7;
@@ -306,12 +318,12 @@
         }
         .v-input__slot .v-text-field__slot label {
             color: @global-purple;
-            font-size: 18px;
+            font-size: 16px;
         }
         .v-input{
             input{
-                height: 50px;
-                max-height: 50px;
+                // height: 50px;
+                // max-height: 50px;
             @media (max-width: @screen-xs) {
                 max-height: 44px;
             }
@@ -320,7 +332,7 @@
         } 
         .v-text-field{
             input{
-                font-size: 20px;
+                font-size: 16px;
             }
         }
         .v-text-field--outline > .v-input__control > .v-input__slot {
