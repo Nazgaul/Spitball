@@ -49,3 +49,17 @@ select count(*) as lessonsCount from sb.StudyRoomSession srs
 join sb.StudyRoom sr on srs.StudyRoomId  = sr.id  and srs.Duration > 6000000000 and sr.TutorId = t.id
 ) as sr 
 where t.State = 'Ok'
+
+
+
+
+
+--update sb.Tutor.SubsidizedPrice
+begin tran
+update t
+
+set SubsidizedPrice = case when Price < 55 then Price
+							when Price - 70 < 55 then 55
+							else Price - 70 end
+from sb.Tutor t
+commit
