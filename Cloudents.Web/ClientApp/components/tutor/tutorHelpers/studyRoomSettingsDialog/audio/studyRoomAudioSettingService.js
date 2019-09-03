@@ -1,5 +1,3 @@
-import { createLocalVideoTrack, } from 'twilio-video';
-
 let audioContext, input, analyser, scriptProcessor;
 
 const createAudioContext = function (elId, myPreferredCameraDeviceId) {
@@ -66,5 +64,4 @@ const stopAudioContext = function () {
 export default {
     createAudioContext,
     stopAudioContext,
-    createLocalVideoTrack
 }

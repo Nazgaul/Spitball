@@ -15,7 +15,7 @@
                     <span v-language:inner="isSafari? 'tutor_browser_not':'tutor_start_to_share'"/>
                 </v-tooltip>
             </div>
-            <button class="outline-btn-share" v-else @click="stopSharing" :disabled="!localVideoTrack">
+            <button class="outline-btn-share" v-else @click="stopSharing" :disabled="!localVideoTrack && !activeRoom">
                 <span v-language:inner="'tutor_btn_stop_sharing'"></span>
             </button>
         </v-flex>
@@ -54,7 +54,6 @@
 
 <script>
     import { mapActions, mapGetters, mapState } from "vuex";
-    import { createLocalVideoTrack } from "twilio-video";
     import videoService from "../../../services/videoStreamService";
     import castIcon from "../images/cast.svg";
     import insightService from '../../../services/insightService';
@@ -74,8 +73,8 @@
             };
         },
         computed: {
-            ...mapState(['tutoringMain']),
-            ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack"]),
+            ...mapState(['tutoringMain', 'studyRoomTracks_store']),
+            ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack","activeRoom"]),
             localVideoTrack(){
                 return this.getLocalVideoTrack
             },
@@ -92,7 +91,7 @@
             }
         },
         methods: {
-            ...mapActions(["updateToasterParams"]),
+            ...mapActions(["updateToasterParams", 'changeVideoTrack', 'setIsVideoActive']),
             ...mapState(["Toaster"]),
             reloadPage() {
                 global.reloadPage();
@@ -107,6 +106,7 @@
                             this.accountUserID
                             }`
                     });
+                    this.setIsVideoActive(true);
                 }
             },
             unPublishTrackfromRoom(track) {
@@ -157,23 +157,9 @@
                 );
             },
             stopSharing() {
-                let self = this;
-                self.unPublishTrackfromRoom(self.screenShareTrack);
-                //create new video track
-                createLocalVideoTrack()
-                    .then(
-                        videoTrack => {
-                            store.dispatch('setLocalVideoTrack', videoTrack);
-                            self.publishTrackToRoom(videoTrack);
-                        },
-                        error => {
-                            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_createLocalVideoTrack', error, null);
-                            console.error("error creating video track", error);
-                        }
-                    )
-                    .finally(() => {
-                        self.isSharing = false;
-                    });
+                let videoDeviceId = global.localStorage.getItem(this.studyRoomTracks_store.storageENUM.video);
+                this.changeVideoTrack(videoDeviceId);
+                this.isSharing = false;
             }
         },
         created() {

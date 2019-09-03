@@ -29,7 +29,7 @@ const attachParticipantTracks = function (participant, container) {
 // Detach the Tracks from the DOM.
 const detachTracks = function (tracks) {
     tracks.forEach((track) => {
-        if (track.detach) {
+        if (!!track && track.detach) {
             track.detach().forEach((detachedElement) => {
                 detachedElement.remove();
             });
@@ -257,7 +257,7 @@ const connectToRoom = function (token, options) {
                         track,
                         container: previewContainer
                     }
-                    store.commit('setIsRemote',true)
+                    store.commit('releaseFullVideoButton',true)
                     store.dispatch('updateRemoteTrack', updateObj);
                 } else if (track.kind === 'audio') {
                     let updateObj = {
@@ -273,7 +273,9 @@ const connectToRoom = function (token, options) {
             });
             // When a Participant's Track is unsubscribed from, detach it from the DOM.
             store.getters['activeRoom'].on('trackUnsubscribed', function (track) {
-                store.commit('setIsRemote',false)
+                if(track.kind === 'video'){
+                    store.commit('releaseFullVideoButton',false)
+                }
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioTrackUnsubscribed', track, null);
                 console.log(" removed track: " + track.kind);
                 detachTracks([track]);
@@ -344,6 +346,50 @@ const createRoomProps = function (objInit) {
     return new RoomProps(objInit);
 };
 
+function DevicesObject(){
+    this.hasAudio= false,
+    this.hasVideo= false,
+    this.errors= {
+        video: [],
+        audio: []
+    }
+}
+
+function createDevicesObj(){
+    return new DevicesObject();
+}
+
+const validateUserMedia = async function(audioCheck, videoCheck) {
+    // let self = this;
+    // let devices = await navigator.mediaDevices.enumerateDevices();
+    let devicesObj = store.getters['getDevicesObj'];
+    await navigator.mediaDevices.getUserMedia({ video: true }).then((y) => {
+        console.log(y);
+        devicesObj.hasVideo = true;
+    }, err => {
+        let insightErrorObj={
+            error: err,
+            userId: this.userId
+        }
+        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_validationDialog_getUserMedia_VIDEO', insightErrorObj, null);
+        console.error(err.name + ":VIDEO!!!!!!!!!!!!!!!! " + err.message, err);
+        devicesObj.errors.video.push(err.name)
+    });
+
+    await navigator.mediaDevices.getUserMedia({ audio: true }).then((y) => {
+        console.log(y);
+        devicesObj.hasAudio = true;
+    }, err => {
+        let insightErrorObj={
+            error: err,
+            userId: this.userId
+        }
+        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_validationDialog_getUserMedia_AUDIO', insightErrorObj, null);
+        console.error(err.name + ":AUDIO!!!!!!!!!!!!!!!! " + err.message, err);
+        devicesObj.errors.audio.push(err.name)
+    });
+}
+
 export default {
     dataTrack,
     attachTracks,
@@ -353,5 +399,7 @@ export default {
     getRoomInformation,
     enterRoom,
     createRoomProps,
-    endTutoringSession
+    endTutoringSession,
+    validateUserMedia,
+    createDevicesObj
 };

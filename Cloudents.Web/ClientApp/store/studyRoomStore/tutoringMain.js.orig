@@ -59,9 +59,14 @@ const getters = {
     getEndDialog: state => state.endDialog,
     getSessionEndClicked: state => state.sessionEndClicked,
     getBrowserSupportDialog: state => state.browserSupportDialog,
+<<<<<<< HEAD
     getStudyRoomSettingsDialog: state => state.settingsDialogState,
     showDeviceValidationError: state => state.deviceValidationError,
     getDevicesObj: state=> state.DevicesObject,
+    getPaymentUrl: state => state.paymentUrl,
+    getPaymentDialog: state => state.showPaymentDialog,
+=======
+>>>>>>> origin/develop
     getActiveNavIndicator: state => state.activeNavIndicator,
 };
 

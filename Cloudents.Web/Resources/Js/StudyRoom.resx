@@ -120,6 +120,9 @@
   <data name="alone_in_room" xml:space="preserve">
     <value>Waiting for other party to join the room</value>
   </data>
+  <data name="audio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
   <data name="become_tutor" xml:space="preserve">
     <value>BECOME A TUTOR</value>
   </data>
@@ -144,6 +147,9 @@
   <data name="equation_btn" xml:space="preserve">
     <value>Add equation to the board</value>
   </data>
+  <data name="error_with" xml:space="preserve">
+    <value>Error with</value>
+  </data>
   <data name="help_others" xml:space="preserve">
     <value>Help others with what you know best</value>
   </data>
@@ -155,6 +161,12 @@
   </data>
   <data name="tutor_entered_room" xml:space="preserve">
     <value>The tutor entered the room</value>
+  </data>
+  <data name="video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="video_&amp;_audio" xml:space="preserve">
+    <value>Video &amp; Audio</value>
   </data>
   <data name="waiting_for_student_toaster" xml:space="preserve">
     <value>Waiting for student to join the session</value>
