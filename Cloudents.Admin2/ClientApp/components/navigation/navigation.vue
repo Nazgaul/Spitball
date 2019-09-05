@@ -128,6 +128,7 @@
                         childrens: [
                             { name: 'Pending Tutors', link: '/tutor/pendingTutors', icon: '' },
                             { name: 'Delete Tutor', link: '/tutor/deleteTutors', icon: 'delete_outline' },
+                            { name: 'Payment Session', link: '/tutor/paymentSession', icon: '' },
                         ]
                     },
                     {
