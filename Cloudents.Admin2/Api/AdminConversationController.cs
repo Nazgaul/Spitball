@@ -122,12 +122,12 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("params")]
-        public object GetParams()
+        public async Task<object> GetParams(CancellationToken token)
         {
             return new 
             {
                 Status = Enumeration.GetAll<ChatRoomStatus>().GroupBy(x=>x.Group).ToDictionary(x=>x.Key,y=>y),// Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
-                AssignTo = Enum.GetNames(typeof(ChatRoomAssign)).Select(s => s.ToCamelCase()),
+                AssignTo = await _queryBus.QueryAsync(new AdminAssignToQuery(), token),
                 WaitingFor = Enum.GetNames(typeof(WaitingFor)).Select(s => s.ToCamelCase())
             };
         }

@@ -79,19 +79,19 @@ namespace Cloudents.Core.Enum
 
    
 
-    public enum ChatRoomAssign
-    {
-        All,
-        Unassigned,
-        Eidan,
-        Jaron,
-        Yaniv,
-        Almog,
-        Ron,
-        Shira,
-        Gilad
+    //public enum ChatRoomAssign
+    //{
+    //    All,
+    //    Unassigned,
+    //    Eidan,
+    //    Jaron,
+    //    Yaniv,
+    //    Almog,
+    //    Ron,
+    //    Shira
+    //    Gilad
         
-    }
+    //}
 
     public enum WaitingFor
     {

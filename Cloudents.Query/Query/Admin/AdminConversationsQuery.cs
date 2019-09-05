@@ -15,11 +15,11 @@ namespace Cloudents.Query.Query.Admin
         private int Page { get; }
         public string Country { get; }
         private ChatRoomStatus Status { get; }
-        private ChatRoomAssign? AssignTo { get; }
+        private string AssignTo { get; }
         private WaitingFor? ConversationStatus { get; }
         
 
-        public AdminConversationsQuery(long userId, int page, string country, ChatRoomStatus status, ChatRoomAssign? assignTo, WaitingFor? conversationStatus)
+        public AdminConversationsQuery(long userId, int page, string country, ChatRoomStatus status, string assignTo, WaitingFor? conversationStatus)
         {
             UserId = userId;
             Page = page;
@@ -42,24 +42,24 @@ namespace Cloudents.Query.Query.Admin
             public async Task<IEnumerable<ConversationDto>> GetAsync(AdminConversationsQuery query, CancellationToken token)
             {
 
-                var p = _statelessSession.Query<ViewConversation>();
+                var p = _statelessSession.Query<ViewConversation>().Where(w => w.AssignTo == query.AssignTo);
                     
                 if (!string.IsNullOrEmpty(query.Country))
                 {
                     p = p.Where(w => w.Country == query.Country);
                 }
 
-                switch (query.AssignTo)
-                {
-                    case ChatRoomAssign.Unassigned:
-                        p = p.Where(w => w.AssignTo == null);
-                        break;
-                    case ChatRoomAssign.All:
-                        break;
-                    default:
-                        p = p.Where(w => w.AssignTo == query.AssignTo);
-                        break;
-                }
+                //switch (query.AssignTo)
+                //{
+                //    case ChatRoomAssign.Unassigned:
+                //        p = p.Where(w => w.AssignTo == null);
+                //        break;
+                //    case ChatRoomAssign.All:
+                //        break;
+                //    default:
+                //        p = p.Where(w => w.AssignTo == query.AssignTo);
+                //        break;
+                //}
 
                 //p = p.Where(w => w.Status == ChatRoomStatus2.SessionScheduled);
 

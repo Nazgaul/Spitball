@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AdminConversationsQuery_Ok()
         {
             var query1 = new AdminConversationsQuery(159039, 0, null, null, null,null);
-            var query2 = new AdminConversationsQuery(159039, 0, null, ChatRoomStatus.SessionScheduled, ChatRoomAssign.Unassigned,WaitingFor.All);
+            var query2 = new AdminConversationsQuery(159039, 0, null, ChatRoomStatus.SessionScheduled, "" ,WaitingFor.All);
 
             var task1 = _fixture.QueryBus.QueryAsync(query1, default);
             var task2 = _fixture.QueryBus.QueryAsync(query2, default);
@@ -238,6 +238,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AdminCashOutEmptyQuery_Ok()
         {
             var query = new AdminCashOutQuery("IL");
+            await _fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task AdminAssignToQuery_Ok()
+        {
+            var query = new AdminAssignToQuery();
             await _fixture.QueryBus.QueryAsync(query, default);
         }
     }

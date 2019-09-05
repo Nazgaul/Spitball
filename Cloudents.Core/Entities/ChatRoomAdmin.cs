@@ -15,7 +15,7 @@ namespace Cloudents.Core.Entities
             ChatRoom = room;
         }
         public virtual ChatRoomStatus Status { get; set; }
-        public virtual ChatRoomAssign? AssignTo { get; set; }
+        public virtual string AssignTo { get; set; }
 
         public virtual ChatRoom ChatRoom { get; protected set; }
 
