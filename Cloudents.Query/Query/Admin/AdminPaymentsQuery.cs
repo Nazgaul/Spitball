@@ -28,7 +28,7 @@ namespace Cloudents.Query.Query.Admin
 		                    u.Id as UserId,
 		                    u.Name as UserName,
 		                    srs.Created,
-		                    DATEDIFF(MINUTE, srs.Created, srs.Ended) as Duration
+							srs.DurationInMinutes as Duration
                     from [sb].[StudyRoomSession] srs
                     join sb.StudyRoom sr
 	                    on srs.StudyRoomId = sr.Id
@@ -43,7 +43,7 @@ namespace Cloudents.Query.Query.Admin
                     join sb.[User] tu
 	                    on tr.Id = tu.Id
                     where Receipt is null
-                        and DATEDIFF(MINUTE, srs.Created, srs.Ended) > 10
+                        and srs.DurationInMinutes > 10
 	                    and u.PaymentKey is not null";
                 using (var conn = _repository.OpenConnection())
                 {

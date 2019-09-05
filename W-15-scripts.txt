@@ -49,3 +49,13 @@ select count(*) as lessonsCount from sb.StudyRoomSession srs
 join sb.StudyRoom sr on srs.StudyRoomId  = sr.id  and srs.Duration > 6000000000 and sr.TutorId = t.id
 ) as sr 
 where t.State = 'Ok'
+
+
+
+
+
+
+--Populate DurationInMinutes
+update srs
+set srs.DurationInMinutes = srs.Duration / 600000000
+from sb.StudyRoomSession srs
