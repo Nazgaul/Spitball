@@ -160,7 +160,7 @@
                 overflow: auto;
                 
                 .v-stepper__content{
-                    padding: 18px 24px 0px;
+                    padding: 18px 16px 0px;
                     height: 100%;
                     .v-stepper__wrapper{
                        height: 100%;

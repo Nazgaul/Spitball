@@ -205,9 +205,6 @@ Try connecting from a computer browser</value>
   <data name="quality_btn_got" xml:space="preserve">
     <value>Got It</value>
   </data>
-  <data name="quality_camera_placeholder" xml:space="preserve">
-    <value>Please select camera</value>
-  </data>
   <data name="quality_input_title" xml:space="preserve">
     <value>Audio Input Quality Test</value>
   </data>
@@ -300,9 +297,6 @@ Try connecting from a computer browser</value>
   </data>
   <data name="end_session" xml:space="preserve">
     <value>Finished the sesson?</value>
-  </data>
-  <data name="quality_mic_placeholder" xml:space="preserve">
-    <value>Please select microphone</value>
   </data>
   <data name="tooltip_eraser" xml:space="preserve">
     <value>Eraser</value>

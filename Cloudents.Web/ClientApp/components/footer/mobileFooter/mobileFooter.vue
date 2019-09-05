@@ -76,6 +76,9 @@
             openChat(){
                 if (this.accountUser == null) {
                     this.updateLoginDialogState(true);
+                    setTimeout(()=>{ 
+                        this.changeFooterActiveTab(this.lastTab);
+                    }, 200)
                 }else{
                     this.openChatInterface();
                     setTimeout(()=>{

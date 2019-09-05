@@ -328,7 +328,7 @@ const endTutoringSession = function (roomId) {
 };
 
 function RoomProps(objInit) {
-    this.allowReview = objInit.allowReview;
+    this.allowReview = true;
     this.conversationId = objInit.conversationId || '';
     this.needPayment = objInit.needPayment;
     this.onlineDocument = objInit.onlineDocument || '';

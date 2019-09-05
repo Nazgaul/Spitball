@@ -64,6 +64,16 @@ namespace Cloudents.Admin2.Api
             }
         }
 
+        [HttpPost("deletePayment/{Id}")]
+        public async Task<IActionResult> DeletePaymentAsync([FromBody]DeletePaymentRequest model,
+            CancellationToken token)
+        {
+            var command = new DeleteUserPaymentCommand(model.UserId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+
         [HttpDelete]
         public async Task<IActionResult> DeclinePay(Guid studyRoomSessionId, CancellationToken token)
         {

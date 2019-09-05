@@ -36,7 +36,6 @@ namespace Cloudents.Web.Controllers
 
         [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
         [ApiNotFoundFilter]
-        //[Route("", Name = RootRoute)]
         public IActionResult Index(
             [FromServices] Lazy<ICrawlerResolver> crawlerResolver,
             [FromHeader(Name = "User-Agent")] string userAgent,
@@ -58,7 +57,6 @@ namespace Cloudents.Web.Controllers
             }
             catch (Exception ex)
             {
-
                 _logger.Exception(ex, new Dictionary<string, string>()
                 {
                     ["userAgent"] = userAgent
@@ -142,12 +140,5 @@ namespace Cloudents.Web.Controllers
             }
             return View("Processing", model);
         }
-
-        public IActionResult GoogleTest()
-        {
-            return View();
-        }
-
-
     }
 }

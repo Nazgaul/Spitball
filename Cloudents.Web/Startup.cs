@@ -128,7 +128,7 @@ namespace Cloudents.Web
                         return new BadRequestObjectResult(actionContext.ModelState);
                     };
                 });
-            if (HostingEnvironment.IsDevelopment())
+            if (HostingEnvironment.IsDevelopment() || HostingEnvironment.IsStaging())
             {
                 Swagger.Startup.SwaggerInitial(services);
             }
@@ -173,6 +173,7 @@ namespace Cloudents.Web
             //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();
+            services.AddSingleton<VersionService>();
             services.AddHttpClient();
             services.AddOptions();
             services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
@@ -292,7 +293,7 @@ namespace Cloudents.Web
             });
 
             app.UseWebMarkupMin();
-            if (env.IsDevelopment() /*|| env.IsStaging()*/)
+            if (env.IsDevelopment() || env.IsStaging())
             {
                 app.UseSwagger();
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.

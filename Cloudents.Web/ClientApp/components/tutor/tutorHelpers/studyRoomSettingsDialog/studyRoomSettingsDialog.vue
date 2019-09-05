@@ -7,7 +7,7 @@
           <v-list>
             <v-list-tile>
               <v-list-tile-title class="study-room-settings-nav-title">
-                <settingIcon></settingIcon>&nbsp;&nbsp;Study-Room Settings
+                <settingIcon></settingIcon>&nbsp;&nbsp;<span v-language:inner='"studyRoomSettings_title"'></span>
               </v-list-tile-title>
             </v-list-tile>
           </v-list>
@@ -46,6 +46,8 @@ import studyRoomAudioSetting from "./audio/studyRoomAudioSetting.vue";
 import {mapActions} from "vuex";
 import videoCameraImage from '../../images/video-camera.svg';
 import microphoneImage from '../../images/microphone.svg';
+import { LanguageService } from '../../../../services/language/languageService';
+
 export default {
   components: {
     settingIcon,
@@ -58,12 +60,12 @@ export default {
     return {
       items: [
         {
-          title: "Video",
+          title: LanguageService.getValueByKey("studyRoomSettings_video_title"),
           icon: "videoCameraImage",
           componentName: "studyRoomVideoSetting"
         },
         {
-          title: "Audio",
+          title: LanguageService.getValueByKey("studyRoomSettings_audio_title"),
           icon: "microphoneImage",
           componentName: "studyRoomAudioSetting"
         }
@@ -110,14 +112,20 @@ export default {
           transition: none;
         }
         .tileActive {
-          background-color: #3dc2ba;
+          background-color: #5158af;
           color: white;
           i {
             color: white;
           }
+          .v-list__tile__action{
+            svg{
+              fill: #FFF;
+            }
+          }
         }
       }
       .study-room-settings-body {
+        padding: 30px;
         height: 100%;
       }
     }

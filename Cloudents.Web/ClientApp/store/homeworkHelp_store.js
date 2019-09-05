@@ -150,7 +150,7 @@ const getters = {
             return state.items.data;
         }
     },
-    HomeworkHelp_getNextPageUrl: function (state, {getCurrentVertical}) {
+    HomeworkHelp_getNextPageUrl: function (state) {
         return state.items.nextPage
     },
     HomeworkHelp_getShowQuestionToaster: function (state) {
@@ -178,7 +178,7 @@ const actions = {
     HomeworkHelp_fetchingData(context, {name, params, page, skipLoad}) {
         let paramsList = {...context.state.search, ...params, page};
         //update box terms
-        context.dispatch('updateAITerm', {vertical: name, data: {text: paramsList.term}});
+        // context.dispatch('updateAITerm', {vertical: name, data: {text: paramsList.term}});
         context.dispatch('HomeworkHelp_updateDataLoaded', false);
         //get location if needed
         let VerticalName = 'ask';

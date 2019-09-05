@@ -181,7 +181,7 @@ export default {
             'nextPage'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
-        ...mapGetters(["getCurrentVertical", "getNextPageUrl", "getResultLockForSchoolNameChange"]),
+        ...mapGetters(["getNextPageUrl", "getResultLockForSchoolNameChange"]),
 
         loadNewQuestions() {
             this.INJECT_QUESTION();

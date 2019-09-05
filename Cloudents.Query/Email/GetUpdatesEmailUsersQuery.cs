@@ -53,7 +53,7 @@ and q.Created > @Since
 on u.UniversityId2 = t.UniversityId and t.CourseName  = uc.CourseId
 where u.EmailConfirmed = 1
 --Temp for now of emails
-and (email like '%cloudents%' or email like '%spitball%')
+and (email like '%@cloudents%' or email like '%@spitball%')
 order by id
      OFFSET @pageSize * @PageNumber ROWS
                 FETCH NEXT @pageSize ROWS ONLY;";

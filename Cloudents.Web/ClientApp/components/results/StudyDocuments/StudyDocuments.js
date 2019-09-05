@@ -190,7 +190,7 @@ export default {
             'setTutorRequestAnalyticsOpenedFrom'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING"]),
-        ...mapGetters(["getCurrentVertical", "StudyDocuments_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
+        ...mapGetters(["StudyDocuments_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
         goToAskQuestion() {
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);

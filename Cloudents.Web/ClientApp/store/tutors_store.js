@@ -51,7 +51,7 @@ const actions = {
     Tutors_fetchingData(context, { name, params, page }) {
         let paramsList = { ...context.state.search, ...params, page };
         //update box terms
-        context.dispatch('updateAITerm', { vertical: name, data: { text: paramsList.term } });
+        // context.dispatch('updateAITerm', { vertical: name, data: { text: paramsList.term } });
         context.dispatch('Tutors_updateDataLoaded', false);
         //get location if needed
         let verticalItems = context.state.items;

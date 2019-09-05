@@ -5,7 +5,7 @@ import Vuex from "vuex";
 import Search from "./search";
 import User from "./User";
 import Question from "./question";
-import LuisData from "./luisData";
+// import LuisData from "./luisData";
 import Account from "./account";
 import Toaster from "./Toaster";
 import MarketingCampaign from './marketingCampaigns'
@@ -44,7 +44,7 @@ const store = new Vuex.Store({
     modules: {
         Search,
         User,
-        LuisData,
+        // LuisData,
         Account,
         Question,
         Toaster,

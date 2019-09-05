@@ -96,7 +96,7 @@
         },
         methods: {
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
-            ...mapActions(['setCurrentVertical', 'updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState','toggleShowSchoolBlock']),
+            ...mapActions(['updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState','toggleShowSchoolBlock']),
             setNavigationDrawerState(){
                  this.toggleShowSchoolBlock()
             },
@@ -118,7 +118,7 @@
                 // if (currentItem) {
                 //     tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
                 // }
-                this.setCurrentVertical(result);
+                // this.setCurrentVertical(result);
                 
                 //if same tab do not do UPDATE_SEARCH_LOADING
                 if(this.$route.path !== `/${result}`){

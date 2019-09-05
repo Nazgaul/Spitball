@@ -1,21 +1,31 @@
 ﻿using System;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs
 {
     public class StudyRoomDto
     {
        
+        [EntityBind(nameof(StudyRoom.OnlineDocumentUrl))]
         public string OnlineDocument { get; set; }
+        [EntityBind(nameof(ChatRoom.Id))]
         public string ConversationId { get; set; }
+        [EntityBind(nameof(Tutor.Id))]
         public long TutorId { get; set; }
+        [EntityBind(nameof(User.Image))]
         public string TutorImage { get; set; }
+        [EntityBind(nameof(User.Name))]
         public string TutorName { get; set; }
+        [EntityBind(nameof(User.Id))]
         public long StudentId { get; set; }
+        [EntityBind(nameof(User.Image))]
         public string StudentImage { get; set; }
+        [EntityBind(nameof(User.Name))]
         public string StudentName { get; set; }
-        public bool AllowReview => true;
+      
 
-        public bool CardEnter { get; set; }
+        [EntityBind(nameof(User.PaymentExists),nameof(User.BuyerPayment.PaymentKeyExpiration))]
         public bool NeedPayment { get; set; }
     };
        

@@ -74,7 +74,7 @@ const getters = {
             return state.items.data;
         }
     },
-    StudyDocuments_getNextPageUrl: function (state, {getCurrentVertical}) {
+    StudyDocuments_getNextPageUrl: function (state) {
         return state.items.nextPage
     },
     StudyDocuments_isDataLoaded: function(state){
@@ -95,7 +95,7 @@ const actions = {
     StudyDocuments_fetchingData(context, {name, params, page}) {
         let paramsList = {...context.state.search, ...params, page};
         //update box terms
-        context.dispatch('updateAITerm', {vertical: name, data: {text: paramsList.term}});
+        // context.dispatch('updateAITerm', {vertical: name, data: {text: paramsList.term}});
         context.dispatch('StudyDocuments_updateDataLoaded', false);
         //get location if needed
         let verticalItems = context.state.items;

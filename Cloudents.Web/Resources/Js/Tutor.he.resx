@@ -216,14 +216,8 @@
   <data name="quality_btn_got" xml:space="preserve">
     <value>הבנתי</value>
   </data>
-  <data name="quality_camera_placeholder" xml:space="preserve">
-    <value>בחר בבקשה מצלמה</value>
-  </data>
   <data name="quality_input_title" xml:space="preserve">
     <value>בדיקת איכות הקול במיקרופון</value>
-  </data>
-  <data name="quality_mic_placeholder" xml:space="preserve">
-    <value>בבקשה בחר מיקרופון</value>
   </data>
   <data name="quality_out_title" xml:space="preserve">
     <value>בדיקת איכות הקול ברמקול</value>

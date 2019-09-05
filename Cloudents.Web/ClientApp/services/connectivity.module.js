@@ -129,7 +129,7 @@ export const connectivityModule = {
             connection.on(message, callback);
         },
         invoke: function (connection, message, data) {
-            return connection.connection.invoke(message, data).then(() => {
+            return connection.invoke(message, data).then(() => {
             }, (err) => {
                 return Promise.reject(err);
             });

@@ -19,7 +19,7 @@ namespace Cloudents.FunctionsV2
     public static class TutorFunction
     {
         [FunctionName("TutorFunction")]
-        public static async Task Run([TimerTrigger("0 */15 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        public static async Task Run([TimerTrigger("0 */15 * * * *")]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/tutor-version.txt")] CloudBlockBlob blob,
             [AzureSearchSync(TutorSearchWrite.IndexName)] IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] IQueryBus queryBus,

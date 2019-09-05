@@ -50,12 +50,16 @@ namespace Cloudents.Core.DTOs
 
     public class UpdateUserEmailDto
     {
-        [EntityBind(nameof(User.Name))] public string UserName { get; set; }
+        [EntityBind(nameof(User.Name))]
+        public string UserName { get; set; }
 
-        [EntityBind(nameof(User.Email))] public string ToEmailAddress { get; set; }
-        [EntityBind(nameof(User.Language))] public CultureInfo Language { get; set; }
+        [EntityBind(nameof(User.Email))]
+        public string ToEmailAddress { get; set; }
+        [EntityBind(nameof(User.Language))]
+        public CultureInfo Language { get; set; }
 
-        [EntityBind(nameof(User.Id))] public long UserId { get; set; }
+        [EntityBind(nameof(User.Id))]
+        public long UserId { get; set; }
 
         public DateTime Since { get; set; }
     }

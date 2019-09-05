@@ -37,7 +37,7 @@
             style="display: flex; align-items: center; max-height: 48px; justify-content: space-between;"
           >
             <startEndSessionBtn :id="id"></startEndSessionBtn>
-            <v-btn flat icon @click="changeSettingsDialogState(true)">
+            
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
             
             <div class="d-flex">
@@ -47,7 +47,8 @@
             </div> 
             
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
-
+            
+            <v-btn flat icon @click="changeSettingsDialogState(true)">
               <settingIcon class="white-btn"></settingIcon>
             </v-btn>
 

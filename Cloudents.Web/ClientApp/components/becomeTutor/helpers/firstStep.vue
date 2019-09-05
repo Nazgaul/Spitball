@@ -3,14 +3,15 @@
         <span class="become-first-span" v-language:inner="'becomeTutor_sharing_step_1'"></span>
         <v-layout row wrap align-start class="become-first-cont">
             <v-flex xs12 sm4 shrink class="image-wrap text-xs-center">
-                <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image"
-                     @load="loaded">
-                <div v-if="!isLoaded ">
-                    <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
+                <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image" @load="loaded">
+                <div v-if="!isLoaded" class="image-loader">
+                    <v-progress-circular indeterminate :size="isMobile? 70: 180" width="3" color="info"></v-progress-circular>
                 </div>
-                <label for="tutor-picture" v-show="!userImage" class="font-weight-bold" :class="[errorUpload ?  'error-upload': '']">
-                    <img v-show="!userImage" class="user-no-image" src="../images/group-copy-2.png" alt="upload image"
-                     @load="loaded">
+
+                <label for="tutor-picture" v-if="!userImage" class="font-weight-bold" :class="[errorUpload ?  'error-upload': '']">
+                    <img v-show="!userImage && isLoaded" class="user-no-image" 
+                         src="../images/group-copy-2.png" alt="upload image"
+                         @load="loaded">
                     <input class="become-upload"
                         type="file" name="File Upload"
                         @change="uploadImage"
@@ -122,17 +123,15 @@
             },
             userImage() {
                 let mobile = this.$vuetify.breakpoint.xsOnly;
-                let size = mobile ? [80, 80] : [190, 210];
+                let size = mobile ? [80, 90] : [190, 210];
                 if(this.accountUser && this.accountUser.image) {
                     return utilitiesService.proccessImageURL(this.accountUser.image, ...size);
-                } else {
-                    return '';
                 }
+                return '';
             },
-            imageExists(){
-                // return this.userImage || this.imageAdded && this.submitted
+            isMobile(){
+                return this.$vuetify.breakpoint.xsOnly;
             }
-
         },
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog', 'updateToasterParams']),
@@ -143,6 +142,7 @@
                 let self = this;
                 let formData = new FormData();
                 let file = self.$refs.tutorImage.files[0];
+                this.isLoaded = false;
                 formData.append("file", file);
                 self.uploadAccountImage(formData).then((done) => {
                     if(!done) {
@@ -246,13 +246,25 @@
             margin-top: 20px;
         }
         .image-wrap {
+            display: flex;
             position: relative;
-            margin: 0 auto;
             min-width: 220px;
             max-width: 220px;
             @media (max-width: @screen-xs) {
                 padding-top: 6px;
                 padding-bottom: 12px;
+                margin: 0 auto;
+                justify-content: center;
+            }
+            .image-loader {
+                width: 100%;
+                height: 200px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                @media (max-width: @screen-xs) {
+                    height: auto;
+                }
             }
         }
         .price-input {
@@ -264,7 +276,7 @@
             }
         }
         .inputs-wrap {
-            margin-left: 35px;
+            margin-left: 10px;
             min-width: 60%;
             @media (max-width: @screen-xs) {
                 width: 100%;
@@ -275,10 +287,6 @@
                     line-height: normal;
                 }
             }
-        }
-        label[for=tutor-picture] {
-            width: 162px;
-            height: 46px;
         }
         .upload-btn {
             position: absolute;
@@ -301,6 +309,7 @@
             border: 1px solid #f0f0f7;
         }
         .user-no-image {
+            cursor: pointer;
             // max-width: 190px;
             // min-height: 210px;
                 object-fit: cover;

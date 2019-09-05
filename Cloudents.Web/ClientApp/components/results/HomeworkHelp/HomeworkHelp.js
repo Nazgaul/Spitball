@@ -179,7 +179,7 @@ export default {
             'setTutorRequestAnalyticsOpenedFrom'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "HomeworkHelp_injectQuestion"]),
-        ...mapGetters(["getCurrentVertical", "HomeworkHelp_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
+        ...mapGetters(["HomeworkHelp_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
         loadNewQuestions(){
             this.HomeworkHelp_injectQuestion();
             console.log("new question loading");

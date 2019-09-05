@@ -61,8 +61,8 @@ export default {
         ]
     }),
     computed: {
-        ...mapGetters({'globalTerm': 'currentText'}),
-        ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
+        // ...mapGetters({'globalTerm': 'currentText'}),
+        ...mapGetters(['allHistorySet', 'getVerticalHistory']),
         isSearchActive() {
             if(this.$vuetify.breakpoint.xsOnly) {
                 return !!this.$route.query && !!this.$route.query.term;
@@ -119,9 +119,6 @@ export default {
             this.closeSuggestions();
         },
         selectors(item) {
-            //this.msg = item.text;
-            //this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ?
-            // this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
             this.search(item);
             this.closeSuggestions();
         },
@@ -245,7 +242,8 @@ export default {
     },
     created() {
         if(!this.isHome) {
-            this.msg = this.userText ? this.userText : this.globalTerm ? this.globalTerm : "";
+            // this.msg = this.userText ? this.userText : this.globalTerm ? this.globalTerm : "";
+            this.msg = this.userText || '';
         }
     }
 

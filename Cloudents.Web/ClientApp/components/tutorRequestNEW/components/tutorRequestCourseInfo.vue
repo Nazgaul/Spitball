@@ -1,44 +1,29 @@
 <template>
-    <div class="tutorRequest-middle-courseInfo">
+    <div class="tutorRequest-middle-courseInfo" v-if="isReady">
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm" :class="{'tutorProfile':isTutor}">
             <fieldset class="fieldset-textArea mb-4 px-2 py-1">
                 <legend v-language:inner="'tutorRequest_type_legend'"/>
                   <v-textarea 
                     :rows="isMobile?6:3"
                     v-model="description"
-                    :placeholder="typeAreaPlaceholder"
                     :rules="[rules.required, rules.maximumChars,rules.notSpaces]"/>
             </fieldset>
             <fieldset class="fieldset-select px-2">
                 <legend v-language:inner="'tutorRequest_select_course_placeholder'"/>
-
-                <!-- <v-combobox v-if="!!currentTutorCourses"
-                    flat hide-no-data
-                    :append-icon="'sbf-arrow-down'"
-                    v-model="tutorCourse"
-                    :placeholder="coursePlaceholder"
-                    :items="currentTutorCourses"
-                    :rules="[rules.required,rules.matchTutorCourse]"/> -->
-
                 <v-combobox 
                     class="text-truncate"
                     @keyup="searchCourses"
                     flat hide-no-data
                     :append-icon="''"
                     v-model="tutorCourse"
-                    :placeholder="coursePlaceholder"
                     :items="suggestsCourses"
                     :rules="[rules.required,rules.matchCourse]"/>
             </fieldset>
 
-            <v-checkbox v-if="isTutor"  class="checkbox-userinfo"
+            <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
                         :label="$Ph('tutorRequest_more_tutors',this.getCurrTutor.name)" 
                         v-model="moreTutors" off-icon="sbf-check-box-un" 
                         on-icon="sbf-check-box-done"/>
-            <!-- <div class="more-tutors-checkbox">
-                <input v-if="isTutor" class="checkBox-courseInfo" type="checkbox" name="checkBox" @click="moreTutors=!moreTutors" id="checkBox" v-model="moreTutors"/>
-                <label v-if="isTutor" for="checkBox" v-html="$Ph('tutorRequest_more_tutors',this.getCurrTutor.name)"/>
-            </div> -->
     </v-form>
         <div class="tutorRequest-bottom">
             <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed round>
@@ -66,6 +51,8 @@ export default {
     name: 'tutorRequestCourseInfo',
     data() {
         return {
+            isReady:false,
+            isFromMounted: false,
             isFromQuery:false,
             moreTutors:true,
             isLoading:false,
@@ -78,11 +65,13 @@ export default {
                 maximumChars: (value) => validationRules.maximumChars(value, 255),
                 notSpaces: (value) => validationRules.notSpaces(value),
                 required: (value) => validationRules.required(value),
-                matchCourse:() => (this.suggestsCourses.length && this.suggestsCourses.some(course=>course.text === this.tutorCourse.text)) || LanguageService.getValueByKey("tutorRequest_invalid"),
+                matchCourse:() => (
+                    (   this.suggestsCourses.length && 
+                        this.suggestsCourses.some(course=>course.text === this.tutorCourse.text)
+                        ) || this.isFromMounted ) 
+                    || LanguageService.getValueByKey("tutorRequest_invalid"),
                 matchTutorCourse:() => (this.currentTutorCourses.length && this.currentTutorCourses.some(course=>course.text === this.tutorCourse.text)) || LanguageService.getValueByKey("tutorRequest_invalid") 
             },
-            typeAreaPlaceholder: LanguageService.getValueByKey("tutorRequest_type"),
-            coursePlaceholder: this.isMobile? LanguageService.getValueByKey("tutorRequest_select_course_placeholder_mobile"):LanguageService.getValueByKey("tutorRequest_select_course_placeholder_new"), 
         }
     },
     computed: {
@@ -120,6 +109,7 @@ export default {
             this.resetRequestTutor()
         },
         searchCourses: debounce(function(ev){
+            this.isFromMounted = false;
             let term = this.isFromQuery ? ev : ev.target.value.trim()
             if(!term) {
                 this.tutorCourse = ''
@@ -192,11 +182,17 @@ export default {
                 queryCourse = this.$route.query.Course;
             }
             if(!!this.getSelectedCourse && this.getSelectedCourse.text){
-                queryCourse = this.getSelectedCourse.text
+                this.tutorCourse = this.getSelectedCourse;
+                this.isFromMounted = true;
+                this.isReady = true;
+                return
             }
             this.tutorCourse = queryCourse
             this.isFromQuery = true;
             this.searchCourses(queryCourse)
+            this.isReady = true;
+        } else{
+            this.isReady = true
         }
     }
 }
@@ -294,13 +290,30 @@ export default {
                 .v-input{
                     margin: 0;
                     padding: 0;
+                    .v-input__slot{
+                        @-moz-document url-prefix(){
+                            margin-bottom: 0;
+                            @media (max-width: @screen-xs) {
+                                margin-bottom: 8px;
+                            }
+                        }
+                    }
                 }
                 .v-text-field__details{
                     @media (max-width: @screen-xs) {
                         padding-top: 0;
                     }
                     padding-top: 10px;
+                    @-moz-document url-prefix(){
+                       padding-top: 0;
+                    }
                     font-weight: 600;
+                    height: -webkit-fill-available;
+                    .v-messages__message{
+                        @-moz-document url-prefix(){
+                            line-height: 1.5;
+                        }
+                    }
                 }
                 .v-text-field>.v-input__control>.v-input__slot:before {
                     border-style: none;
@@ -329,6 +342,10 @@ export default {
                 }
                 .v-text-field__details{
                     padding-top: 12px;
+                    height: -webkit-fill-available;
+                    @-moz-document url-prefix(){
+                        height: 100px;
+                    }
                 }
                 .v-text-field>.v-input__control>.v-input__slot:before {
                     border-style: none;

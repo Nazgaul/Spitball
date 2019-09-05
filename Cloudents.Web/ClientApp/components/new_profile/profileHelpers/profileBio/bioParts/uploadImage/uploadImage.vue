@@ -38,6 +38,7 @@
                         });
                     }
                 })
+                document.querySelector('#profile-picture').value = ''
             }
         },
     }

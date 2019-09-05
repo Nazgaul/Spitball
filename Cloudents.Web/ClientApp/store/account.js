@@ -16,12 +16,14 @@ function setIntercomSettings(data) {
     let user_email = null;
     let user_phoneNumber = null;
     let alignment = global.isRtl ? 'left' : 'right';
+    let is_tutor = null;
 
     if(!!data) {
         user_id = "Sb_" + data.id;
         user_name = data.name;
         user_email = data.email;
         user_phoneNumber = data.phoneNumber;
+        is_tutor = data.isTutor? data.isTutor : false
     }
     global.intercomSettings = {
         app_id,
@@ -31,7 +33,8 @@ function setIntercomSettings(data) {
         email: user_email,
         phoneNumber: user_phoneNumber,
         alignment: alignment,
-        language_override: global.lang
+        language_override: global.lang,
+        is_tutor
     };
 
     global.Intercom('boot', {intercomSettings});

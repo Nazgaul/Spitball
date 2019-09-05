@@ -41,11 +41,11 @@
     }
     .stepContainer{
       @media (max-width: @screen-sm) {
-        width: 400px;
+        min-width: 400px;
       }
     }
     .stepsSections{
-      width: 400px;
+        min-width: 400px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -67,6 +67,7 @@
             bottom: 0;
             width: 100%;
             height: 92%;
+            min-width:unset;
         }
         button{
             &.btn-login{

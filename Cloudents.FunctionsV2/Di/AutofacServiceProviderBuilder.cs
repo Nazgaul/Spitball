@@ -12,6 +12,7 @@ using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using Cloudents.FunctionsV2.Services;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Cloudents.Core.Interfaces.ILogger;
 
@@ -73,6 +74,9 @@ namespace Cloudents.FunctionsV2.Di
                 Assembly.Load("Cloudents.Infrastructure.Storage"), //We need this because of event handler in question populate
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Persistence"));
+
+            builder.RegisterType<HostUriService>().AsSelf().AsImplementedInterfaces();
+            builder.RegisterType<DataProtectionService>().As<IDataProtectionService>();
 
             builder.RegisterType<RestClient>().As<IRestClient>()
                 .SingleInstance();

@@ -255,7 +255,13 @@ namespace Cloudents.Core.Entities
         public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
 
-       
+        public virtual void DeleteUserPayment()
+        {
+            BuyerPayment = null;
+            PaymentExists = PaymentStatus.None;
+        }
+
+
     }
 
 

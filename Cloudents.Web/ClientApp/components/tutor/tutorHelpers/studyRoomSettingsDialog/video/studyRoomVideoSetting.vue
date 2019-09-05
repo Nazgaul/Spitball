@@ -1,21 +1,25 @@
 <template>
     <div class="studyRoom-video-settings-container">
-        <v-select
-            :menu-props="{contentClass:'select-direction'}"
-            v-model="singleCameraId"
-            :items="camerasList"
-            item-value="deviceId"
-            item-text="label"
-            label="Select Video"
-            hide-details
-            :prepend-icon="''"
-            @change="createVideoQualityPreview()"
-            :placeholder="placeCamera"
-            :append-icon="'sbf-arrow-down'"
-            solo
-            single-line
-            ></v-select>
-        <v-flex xs12  class="mt-3 mb-4" >
+        <div class="studyRoom-video-settings-title">
+            <h4 class="studyRoom-video-settings-label" v-language:inner='"studyRoomSettings_camera_label"'></h4>
+            <v-select
+                :menu-props="{contentClass:'select-direction'}"
+                v-model="singleCameraId"
+                :items="camerasList"
+                item-value="deviceId"
+                item-text="label"
+                :label="text.label"
+                hide-details
+                :prepend-icon="''"
+                @change="createVideoQualityPreview()"
+                :placeholder="placeCamera"
+                :append-icon="'sbf-arrow-down'"
+                solo
+                single-line
+                ></v-select>
+        </div>
+        
+        <v-flex xs12  class="mt-3 mb-4 studyRoom-video-settings-video-container">
             <div id="local-video-test-track"></div>
         </v-flex>
     </div>
@@ -35,8 +39,10 @@ export default {
             videoEl: null,
             localTrack: null,
             singleCameraId: global.localStorage.getItem('sb-videoTrackId'),
-            placeCamera: LanguageService.getValueByKey("tutor_quality_camera_placeholder"),
-            
+            placeCamera: LanguageService.getValueByKey("studyRoomSettings_camera_placeholder"),
+            text:{
+                label: LanguageService.getValueByKey("studyRoomSettings_video_select_label"),
+            }
         }
     },
     watch:{
@@ -103,12 +109,30 @@ export default {
 
 <style lang="less">
 .studyRoom-video-settings-container{
-    margin-top: 10px;
-    #local-video-test-track{
-        video{
-            width:100%;
+    margin-top: 48px;
+    .studyRoom-video-settings-title{
+        display:flex;
+        justify-content: space-between;
+        .studyRoom-video-settings-label{
+            min-width: 100px;
+        }
+        .v-input__control{
+            min-height: unset;
+            .v-select__selection{
+                font-size: 14px;
+            }
         }
     }
+    .studyRoom-video-settings-video-container{
+        height: 368px;
+        background-color: gray;
+        #local-video-test-track{
+                video{
+                    width:100%;
+                }
+            }
+    }
+    
 }
 
 </style>

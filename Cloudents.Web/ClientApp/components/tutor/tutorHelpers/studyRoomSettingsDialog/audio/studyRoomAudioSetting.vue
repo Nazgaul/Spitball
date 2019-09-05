@@ -1,16 +1,17 @@
 <template>
     <div class="studyRoom-audio-settings-container">
-        <div>
-            <h3>Audio Input:</h3>
-            <v-divider style="margin-bottom: 10px;"></v-divider>
-            <v-select
+        <div class="studyRoom-audio-settings-microphone-container">
+            <h4 class="studyRoom-audio-settings-microphone-label" v-language:inner="'studyRoomSettings_audio_input'"></h4>
+            <!-- <v-divider style="margin-bottom: 10px;"></v-divider> -->
+            <div>
+                <v-select
                 class="minimum-width"
                 :menu-props="{contentClass:'select-direction'}"
                 v-model="singleMicrophoneId"
                 :items="microphoneList"
                 item-value="deviceId"
                 item-text="label"
-                label="Select Audio"
+                :label="text.label"
                 hide-details
                 :prepend-icon="''"
                 @change="validateMicrophone()"
@@ -18,22 +19,25 @@
                 :append-icon="'sbf-arrow-down'"
                 solo
                 single-line
-            ></v-select>
-            <v-layout class="indicator-audio-meter" style="">
-                <div style="margin: 0 15px 0 0">Indicator:</div>
-                <div id="audio-input-meter"></div>
-            </v-layout>
+                ></v-select>
+                <v-layout class="indicator-audio-meter" style="">
+                    <div style="margin: 0 15px 0 0" v-language:inner='"studyRoomSettings_audio_indicator"'></div>
+                    <div id="audio-input-meter"></div>
+                </v-layout>
+            </div>
+            
         </div>
-        <div>
-            <h3>Audio Output:</h3>
-            <v-divider style="margin-bottom: 10px;"></v-divider>
-            <v-layout class="audio-output-controls">
-            <button @click="playTestSound" v-if="!isPlaying">Test Sound</button>
-            <button @click="stopSound" v-else>Stop Sound</button>
-            <v-flex v-if="isPlaying" style="margin-left: 10px; display: flex;">
-                <img class="eq-image" src="../../../images/eq.gif" alt="">
-            </v-flex>
-        </v-layout>
+        <v-divider style="margin: 20px 0;"></v-divider>
+        <div class="studyRoom-audio-settings-speaker-container">
+            <h4 class="studyRoom-audio-settings-speaker-label" v-language:inner="'studyRoomSettings_audio_output'"></h4>
+            
+            <div class="audio-output-controls">
+                <button @click="playTestSound" v-if="!isPlaying" v-language:inner='"studyRoomSettings_audio_test_sound"'></button>
+                <button @click="stopSound" v-else v-language:inner='"studyRoomSettings_audio_stop_sound"'></button>
+                <v-flex v-if="isPlaying" style="margin-left: 10px; display: flex;">
+                    <img class="eq-image" src="../../../images/eq.gif" alt="">
+                </v-flex>
+            </div>
         </div>
         
     </div>
@@ -48,10 +52,13 @@ export default {
         return{
             microphoneList: [],
             singleMicrophoneId: global.localStorage.getItem('sb-audioTrackId'),
-            micPlaceholder: LanguageService.getValueByKey("tutor_quality_mic_placeholder"),
+            micPlaceholder: LanguageService.getValueByKey("studyRoomSettings_mic_placeholder"),
             soundUrl: `https://zboxstorage.blob.core.windows.net/zboxhelp/new/music-check.mp3`,
             audio: null,
-            isPlaying: false
+            isPlaying: false,
+            text:{
+                lable: LanguageService.getValueByKey('studyRoomSettings_audio_select_label')
+            }
         }
     },
     computed:{
@@ -107,19 +114,41 @@ export default {
 
 <style lang="less">
 .studyRoom-audio-settings-container{
-    .indicator-audio-meter{
-        margin-top:10px; 
-        display:flex;
-        align-items: center;
-    }
-    .audio-output-controls{
-        button{
-            background-color: #3dc2ba;
-            padding: 5px;
-            color: #FFF;
-            border-radius: 4px;
-            outline: none;
+    margin-top: 48px;
+    .studyRoom-audio-settings-microphone-container{
+        display: flex;
+        .studyRoom-audio-settings-microphone-label{
+            min-width: 100px;
+        }
+        .indicator-audio-meter{
+                margin-top:20px; 
+                display:flex;
+                align-items: center;
+            }
+        .v-input__control{
+            min-height: unset;
+            .v-select__selection{
+                font-size: 14px;
+            }
         }
     }
+    .studyRoom-audio-settings-speaker-container{
+        display: flex;
+        margin-top: 25px;
+        .studyRoom-audio-settings-speaker-label{
+            width: 100px;
+        }
+        .audio-output-controls{
+            display: flex;
+            button{
+                background-color: #5158af;
+                padding: 5px;
+                color: #FFF;
+                border-radius: 4px;
+                outline: none;
+            }
+        }
+    }
+    
 }
 </style>

@@ -9,6 +9,7 @@
 @inject IHostingEnvironment Environment
 @inject WebPackChunkName Provider
 @inject IConfiguration Configuration
+@inject VersionService VersionService
 
 @{
     var p = Provider.GetTag("vendor");
@@ -116,7 +117,7 @@
 
 
     <script>
-    window.version = '@typeof(HomePageController).Assembly.GetName().Version.ToString(4)';
+    window.version = '@VersionService.GetVersion()'
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @isAuth.ToString().ToLower();
     window.paypalEnv = '@(Environment.IsProduction() ? "production" : "sandbox")';

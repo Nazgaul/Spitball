@@ -23,4 +23,10 @@
     <ProjectReference Include="..\Cloudents.Infrastructure.Data.Test\Cloudents.Infrastructure.Data.Test.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="WebDrivers\chromedriver.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
