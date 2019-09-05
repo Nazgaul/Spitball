@@ -6,5 +6,6 @@ namespace Cloudents.Admin2.Models
     {
         public string Language { get; set; }
         public ItemState? State { get; set; }
+        public string Filter { get; set; }
     }
 }

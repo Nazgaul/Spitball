@@ -9,20 +9,21 @@
                 <v-select :items="states"
                           label="state"
                           v-model="state"
-                          @change="getCourseList(language, state)"></v-select>
+                          @change="getCourseList(language, state, search)"></v-select>
             </v-flex>   
             <v-flex xs3 offset-xs2>
                 <v-select :items="languages"
                           label="language"
                           v-model="language"
-                          @change="getCourseList(language, state)"></v-select>
+                          @change="getCourseList(language, state, search)"></v-select>
             </v-flex>
                 <v-flex xs4 sm4 md4 offset-xs2>
                     <v-text-field v-model="search"
                                   append-icon="search"
                                   label="Search"
                                   single-line
-                                  hide-details>
+                                  hide-details
+                                  @keyup.enter.native="getCourseList(language, state, search)">
                     </v-text-field>
                 </v-flex>
 
@@ -31,8 +32,7 @@
         <v-data-table :headers="headers"
                       :items="newCourseList"
                       class="cash-out-table"
-                      disable-initial-sort
-                      :search="search">
+                      disable-initial-sort>
             <template slot="items" slot-scope="props">
                 <td class="text-xs-center">{{ props.item.name }}</td>
 
@@ -128,7 +128,7 @@
                 showNoResult: false,
                 editedIndex: -1,
                 radios: 'delete',
-                search: '',
+                search: null,
                 languages: ["All", "He", "En"],
                 language: 'All',
                 states: ["Pending", "Ok"],
@@ -245,8 +245,8 @@
                 )
             },
    
-            getCourseList(language, state) {
-                getCourseList(language, state).then((list) => {
+            getCourseList(language, state, filter) {
+                getCourseList(language, state, filter).then((list) => {
                     this.newCourseList = [];
                     if (list.length === 0) {
                         this.showNoResult = true;
@@ -260,7 +260,7 @@
             }
         },
         created() {
-            getCourseList('', 'Pending').then((list) => {
+            getCourseList('', 'Pending', this.search).then((list) => {
                 if (list.length === 0) {
                     this.showNoResult = true;
                 } else {

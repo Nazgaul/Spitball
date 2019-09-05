@@ -108,7 +108,9 @@ namespace Cloudents.Admin2.Api
                 , CancellationToken token)
         {
             
-            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending),User.GetCountryClaim());
+            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending),
+                User.GetCountryClaim(), 
+                model.Filter);
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
