@@ -24,8 +24,9 @@ namespace Cloudents.Command.CommandHandler
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId,token);
 
-            var appointments = await _calendarService.ReadCalendarEventsAsync(tutor.Id, message.From, message.To, token);
-            if (appointments.Item1.Any())
+            
+            var appointments = await _calendarService.ReadCalendarEventsAsync(tutor.Id, tutor.Calendars.Select(s => s.GoogleId), message.From, message.To, token);
+            if (appointments.BusySlot.Any())
             {
                 throw new ArgumentException("Slot is booked");
             }

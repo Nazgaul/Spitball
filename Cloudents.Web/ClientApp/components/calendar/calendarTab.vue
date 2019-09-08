@@ -1,7 +1,7 @@
 <template>
         <v-layout class="calendar-section mt-3">
             <v-flex xs12>
-                <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"></v-progress-circular>
+                <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
                 <v-card class="elevation-0 caltab" v-if="isReady">
                     <calendar v-if="getShowCalendar"/>
                     <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>

@@ -307,7 +307,6 @@ const actions = {
                 let p2 = accountService.getProfileAbout(id);
                 // return Promise.all([p1, p2]).then((vals) => {
                     return Promise.all([p2]).then((vals) => {
-                    console.log(vals);
                     let profileData = accountService.createProfileAbout(vals);
                     context.commit('setProfileAbout', profileData);
                 });

@@ -107,10 +107,7 @@ namespace Cloudents.Core.Entities
             }
             vote.VoteType = type;
             VoteCount = Votes.Sum(s => (int)s.VoteType);
-            //if (VoteCount < VoteCountToFlag)
-            //{
-            //    Status = Status.Flag(TooManyVotesReason, user);
-            //}
+          
         }
 
         public virtual void MakePublic()

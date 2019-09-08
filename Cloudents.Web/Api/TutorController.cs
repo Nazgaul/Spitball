@@ -274,27 +274,60 @@ namespace Cloudents.Web.Api
         }
 
         /// <summary>
+        /// Get user calendars from google
+        /// </summary>
+        /// <param name="calendarService"></param>
+        /// <param name="token"></param>
+        /// <returns>the names of google calendars</returns>
+        [HttpGet("calendar/list"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        public async Task<IEnumerable<CalendarDto>> GetTutorCalendarAsync(
+            [FromServices] ICalendarService calendarService,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var res = await calendarService.GetUserCalendarsAsync(userId, token);
+            return res;
+        }
+
+        [HttpPost("calendar/list"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> GetTutorCalendarAsync(
+            [FromBody] IEnumerable<SetCalendarRequest> model,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command =
+                new AddTutorCalendarsCommand(userId, model.Select(s => new AddTutorCalendarsCommand.Calendar(s.Id, s.Name)));
+            await _commandBus.DispatchAsync(command, token);
+            //var res = await calendarService.GetUserCalendarsAsync(userId, token);
+            return Ok();
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
         /// <param name="calendarService"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet("calendar/events"),Authorize]
+        [HttpGet("calendar/events"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(555)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<DateTime>>> GetTutorCalendarAsync(
             [FromQuery]CalendarEventRequest model,
-            [FromServices] ICalendarService calendarService,
             CancellationToken token)
         {
             try
             {
-                var res = await calendarService.ReadCalendarEventsAsync(model.TutorId, model.From, model.To, token);
-                return res.Item1.ToList();
+                var query = new CalendarEventsQuery(model.TutorId, model.From, model.To);
+                var res = await _queryBus.QueryAsync(query, token);
+                return res.BusySlot.Distinct().ToList();
             }
-            catch(NotFoundException)
+            catch (NotFoundException)
             {
                 return StatusCode(555, new { massege = "permission denied" });
             }
@@ -318,7 +351,7 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentException)
             {
-                ModelState.AddModelError("x","slot taken");
+                ModelState.AddModelError("x", "slot taken");
                 return BadRequest(ModelState);
             }
         }

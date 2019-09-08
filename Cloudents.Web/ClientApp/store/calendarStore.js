@@ -10,6 +10,8 @@ const state = {
     toDate: null,
     needPayment: true,
     showCalendar: false,
+    calendarsList: null,
+    selectedCalendarList:null
 }
 
 const mutations ={
@@ -27,16 +29,34 @@ const mutations ={
     },
     setShowCalendar(state,val){
         state.showCalendar = val
+    },
+    setCalendarList(state,list){
+        state.calendarsList = list
+    },
+    setSelectedCalendarList(state,selectedList){
+        state.selectedCalendarList = selectedList
     }
+    
 }
 
 const getters ={
     getCalendarEvents:state => state.calendarEvents,
     getNeedPayment:state => state.needPayment,
     getShowCalendar:state => state.showCalendar,
+    getCalendarsList: state => state.calendarsList,
+    getSelectedCalendarList: state => state.selectedCalendarList,
 }
 
 const actions ={
+    updateStateSelectedCalendarList({commit},selectedCalendarList){
+        console.log('selectedCalendarList',selectedCalendarList)
+        commit('setSelectedCalendarList',selectedCalendarList)
+    },
+    updateSelectedCalendarList({state}){
+        return calendarService.postCalendarsList(state.selectedCalendarList).then(()=>{
+            return Promise.resolve()
+        })
+    },
     getEvents({commit}){
         let tutorId = router.history.current.params.id;
         commit('setTutorId',tutorId)
@@ -75,13 +95,15 @@ const actions ={
             })
         })
     },
-    signInCalendar({dispatch},authResult){
+    signInCalendar({commit},authResult){
         if (authResult['code']) {
             let serverObj = {code:authResult['code']}
             return calendarService.signIn(serverObj).then(
-                (response)=>{
-                    dispatch('getEvents')
-                    return Promise.resolve(response)
+                ()=>{
+                    return calendarService.getCalendarsList().then(response=>{
+                        commit('setCalendarList',response.data)
+                        return Promise.resolve(response.data)
+                    })
                 },
                 (error)=>{
                     return Promise.reject(error)

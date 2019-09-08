@@ -1,25 +1,29 @@
 <template>
     <div class="calendar-step-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
-        <img class="cal-img" src="../images/calImgNew.png" alt="">
-        <v-layout column wrap align-center justify-center class="calendar-step-wrap-cont">
+        <img v-if="!isSelectCalendar && !isMobile" class="cal-img" src="../images/calImgNew.png" alt="">
+
+        <v-layout v-if="!isSelectCalendar" column wrap align-center justify-center class="calendar-step-wrap-cont">
             <img src="../images/calendar.png" alt="">
             <p v-language:inner="'becomeTutor_cal_step'"/>
             <v-btn  color="#4452FC"
                     round
-                    :loading='isLoading'
+                    :loading='isLoadingCalendar'
                     class="white-text elevation-0 calbtnshare"
                     @click="shareCalendar()">
                 <span v-language:inner="'becomeTutor_btn_cal_connect'"/>
             </v-btn>
         </v-layout>
 
+        <calendarSelect v-if="isSelectCalendar"/>
+
         <v-layout class="px-1 btns-cal-step"
-                  :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
+                  :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center',isSelectCalendar? 'resetMargin': '']">
             <v-btn @click="goToPreviousStep()" class="cancel-btn-step elevation-0" round outline flat>
                 <span v-language:inner="'becomeTutor_btn_back'"/>
             </v-btn>
             <v-btn  color="#4452FC"
                     round
+                    :loading='isLoading'
                     class="white-text elevation-0"
                     @click="submit()">
                 <span v-language:inner="'becomeTutor_btn_done'"/>
@@ -32,12 +36,21 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import { LanguageService } from "../../../services/language/languageService";
+    import calendarSelect from '../../calendar/calendarSelect.vue'
     export default {
         name: "calendarStep",
         data() {
             return {
-                isLoading: false
+                isLoading: false,
+                isLoadingCalendar:false,
+                isSelectCalendar: false,
             }
+        },
+        components:{calendarSelect},
+        computed: {
+            isMobile() {
+                return this.$vuetify.breakpoint.smAndDown;
+            },
         },
         methods: {
             ...mapActions(['updateTutorDialog',
@@ -46,22 +59,24 @@
                             'sendBecomeTutorData',
                             'updateAccountUserToTutor',
                             'updateToasterParams',
-                            'updateTeachingClasses'
+                            'updateTeachingClasses',
                             ]),
             goToPreviousStep() {
                 this.$root.$emit('becomeTutorStep', 2);
             },
             shareCalendar(){
-                this.isLoading = true;
+                this.isLoadingCalendar = true;
                 let self = this
                 this.gapiSignIn().then((res)=>{
-                    self.submit()
+                    self.isSelectCalendar = true
                 },err=>{
-                    this.isLoading = false;
+                    this.isLoadingCalendar = false;
                 })
             },
             submit(){
                 let self = this
+                this.isLoadingCalendar = false;
+                this.isLoading = true;
                 this.sendBecomeTutorData().then(
                     (resp) => {
                         self.$root.$emit('becomeTutorStep', 4);
@@ -102,17 +117,20 @@
     @import '../../../styles/mixin.less';
 
     .calendar-step-wrap {
-                @media (max-width: @screen-xs) {
+        @media (max-width: @screen-xs) {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 0 !important;
-            overflow: hidden;
+            overflow: visible;
             justify-content: space-between;
             height: inherit
         }
         position: relative;
         .cal-img{
+            @media (max-width: @screen-xs) {
+                bottom: 4px;
+            }
             position: absolute;
             bottom: -14px;
             left: -24px;
@@ -122,8 +140,7 @@
             z-index: 1;
                 @media (max-width: @screen-xs) {
                     display: flex;
-        justify-content: start;
-
+                    justify-content: start;
                 }
 
             img{
@@ -168,8 +185,11 @@
             color: @global-purple;
         }
         .btns-cal-step{
+            &.resetMargin{
+                margin-top: 0!important;
+            }
             .cancel-btn-step{
-                background: white !important;;
+                background: white !important;
                 border: solid 1px @global-blue;
                 color: @global-blue;
             }

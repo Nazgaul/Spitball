@@ -7,10 +7,11 @@ namespace Cloudents.Web.Models
         public string Code { get; set; }
     }
 
-    //public class SetCalendarRequest
-    //{
-    //    public string Calendar { get; set; }
-    //}
+    public class SetCalendarRequest
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+    }
 
     public class CalendarEventRequest
     {

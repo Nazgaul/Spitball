@@ -9,15 +9,13 @@ const state = {
         description: '',
         bio: ''
     },
-    tutorDialog: false
-
-
+    tutorDialog: false,
 };
+
 const getters = {
     becomeTutorData: state => state.becomeTutorObj,
-    becomeTutorDialog: state => state.tutorDialog
-};
-
+    becomeTutorDialog: state => state.tutorDialog,
+}
 const mutations = {
     changeDialogState(state, val) {
         state.tutorDialog = val;
@@ -34,8 +32,11 @@ const actions = {
     updateTutorInfo({commit}, val) {
         commit('assignFields', val);
     },
-    sendBecomeTutorData({commit, state}) {
-        return accountService.becomeTutor(state.becomeTutorObj);
+    sendBecomeTutorData({state,dispatch}) {
+        return accountService.becomeTutor(state.becomeTutorObj).then((res=>{
+            dispatch('updateSelectedCalendarList')
+            return Promise.resolve(res)
+        }));
     }
 };
 export default {

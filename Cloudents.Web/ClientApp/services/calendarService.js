@@ -26,7 +26,15 @@ function addEvent(params){
     })
 }
 
-
+function getCalendarsList(){
+    return connectivityModule.http.get(`Tutor/calendar/list`).then(
+        (response)=>{
+            return response
+      })
+}
+function postCalendarsList(params){
+    return connectivityModule.http.post(`Tutor/calendar/list`,params)
+}
 function calendarDate(dateTime){
     return dateTime.toISOString().substr(0, 10)
 }
@@ -67,4 +75,6 @@ export default {
     signIn,
     getEvents,
     addEvent,
+    getCalendarsList,
+    postCalendarsList
 }

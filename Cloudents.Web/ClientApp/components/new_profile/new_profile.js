@@ -86,7 +86,8 @@ export default {
             'resetProfileData',
             'getPurchasedDocuments',
             'setProfileByActiveTab',
-            'updateLoginDialogState'
+            'updateLoginDialogState',
+            'updateToasterParams'
         ]),
 
         changeActiveTab(tabId) {
@@ -269,6 +270,17 @@ export default {
     },
     watch: {
         '$route': function(val){
+            if((val.params.id == this.accountUser.id) && this.accountUser.isTutorState === "pending"){
+                this.updateToasterParams({
+                    toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                    showToaster: true,
+                    toasterTimeout: 3600000
+                });
+            }else{
+                this.updateToasterParams({
+                    showToaster: false,
+                }); 
+            }
             this.activeTab = 1
             document.getElementById(`tab-${1}`).lastChild.click()
             this.fetchData()
@@ -280,9 +292,13 @@ export default {
     },
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {
+        this.updateToasterParams({
+            showToaster: false
+        });
         this.resetProfileData();
         next();
     },
+
     created() {
         this.fetchData();
     },
@@ -293,6 +309,17 @@ export default {
                 document.getElementById(`tab-${tabNumber}`).lastChild.click()
             },200)
         }
+        setTimeout(()=>{
+            if((this.$route.params && this.$route.params.id) && 
+               (this.$route.params.id == this.accountUser.id) && 
+               this.accountUser.isTutorState === "pending"){
+                this.updateToasterParams({
+                    toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                    showToaster: true,
+                    toasterTimeout: 3600000
+                });
+            }
+        },200)
     },
 }
 
