@@ -2,8 +2,7 @@
   <div class="device-validation-container">
     <div class="header-text-wrap px-4 py-2">
       <div class="header-text 1">
-        <span v-language:inner="'studyRoom_error_with'"></span>
-        <span>{{devicesTypeWithError}}</span>
+        <span v-html="$Ph('studyRoom_error_with',[devicesTypeWithError])"/>
       </div>
     </div>
     <v-card class="elevation-0" color="grey lighten-1">

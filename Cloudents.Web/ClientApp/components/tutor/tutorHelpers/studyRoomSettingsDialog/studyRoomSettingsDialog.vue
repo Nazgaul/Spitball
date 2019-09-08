@@ -7,7 +7,7 @@
           <v-list>
             <v-list-tile>
               <v-list-tile-title class="study-room-settings-nav-title">
-                <settingIcon></settingIcon>&nbsp;&nbsp;<span v-language:inner='"studyRoomSettings_title"'></span>
+                <span v-language:inner='"studyRoomSettings_title"'></span>
               </v-list-tile-title>
             </v-list-tile>
           </v-list>
@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import settingIcon from "../../../../font-icon/settings.svg";
 import studyRoomVideoSetting from "./video/studyRoomVideoSetting.vue";
 import studyRoomAudioSetting from "./audio/studyRoomAudioSetting.vue";
 import {mapActions} from "vuex";
@@ -50,7 +49,6 @@ import { LanguageService } from '../../../../services/language/languageService';
 
 export default {
   components: {
-    settingIcon,
     studyRoomVideoSetting,
     studyRoomAudioSetting,
     videoCameraImage,
@@ -107,6 +105,7 @@ export default {
         .study-room-settings-nav-title{
             display: flex;
             align-items: center;
+            font-weight: bold;
         }
         .v-list__tile__title {
           transition: none;

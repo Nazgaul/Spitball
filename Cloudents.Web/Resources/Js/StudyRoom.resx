@@ -148,7 +148,7 @@
     <value>Add equation to the board</value>
   </data>
   <data name="error_with" xml:space="preserve">
-    <value>Error with</value>
+    <value>Error with {1}</value>
   </data>
   <data name="help_others" xml:space="preserve">
     <value>Help others with what you know best</value>

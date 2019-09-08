@@ -3,8 +3,8 @@
         <div class="studyRoom-audio-settings-microphone-container">
             <h4 class="studyRoom-audio-settings-microphone-label" v-language:inner="'studyRoomSettings_audio_input'"></h4>
             <!-- <v-divider style="margin-bottom: 10px;"></v-divider> -->
-            <div>
-                <v-select
+            <div class="audioSelect">
+                <v-select 
                 class="minimum-width"
                 :menu-props="{contentClass:'select-direction'}"
                 v-model="singleMicrophoneId"
@@ -117,6 +117,9 @@ export default {
     margin-top: 48px;
     .studyRoom-audio-settings-microphone-container{
         display: flex;
+        .audioSelect{
+            width: 100%;
+        }
         .studyRoom-audio-settings-microphone-label{
             min-width: 100px;
         }
