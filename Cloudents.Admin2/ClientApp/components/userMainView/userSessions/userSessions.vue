@@ -1,21 +1,11 @@
 <template>
-<!-- <v-container  class="item-wrap">
-    <v-layout>
-        <v-flex xs12>
-            <session-item
-                    :sessions="UserSessions"
-            ></session-item>
-        </v-flex>
-    </v-layout>
-</v-container> -->
-
 <div>
     <v-container fluid grid-list-sm>
-      <v-layout row wrap>
-        <v-flex xs12 v-for="(session, index) in userSessions" :key="index">
-          <session-item :session="session"></session-item>
-        </v-flex>
-      </v-layout>
+        <v-layout row wrap>
+            <v-flex xs12 v-for="(session, index) in userSessions" :key="index">
+                <session-item :session="session"></session-item>
+            </v-flex>
+        </v-layout>
     </v-container>
   </div>
 </template>
@@ -27,12 +17,13 @@
     export default {
         name: "userSessions",
         components: {sessionItem},
-        data() {
-            return {
-            }
-        },
         props: {
             userId: {},
+        },
+        data() {
+            return {
+                loading: false
+            }
         },
         computed: {
             ...mapGetters(["userSessions"]),
@@ -44,9 +35,7 @@
                 let self = this;
                 self.loading = true;
                 self.getUserSessions({id}).then((isComplete) => {
-                  
                     self.loading = false;
-
                 });
             }
         },

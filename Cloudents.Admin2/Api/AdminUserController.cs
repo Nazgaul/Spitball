@@ -165,18 +165,17 @@ namespace Cloudents.Admin2.Api
             }
             return new UnSuspendUserResponse();
         }
-        
-        //TODO remove the command
-        //[HttpPost("country")]
-        //[ProducesResponseType(200)]
-        //[Authorize(/*Roles = Roles.Admin*/)]
-        //public async Task ChangeCountryAsync(ChangeCountryRequest model,
-        //    CancellationToken token)
-        //{
 
-        //    var command = new ChangeCountryCommand(model.Id, model.Country);
-        //    await _commandBus.DispatchAsync(command, token);
-        //}
+        [HttpPost("country")]
+        [ProducesResponseType(200)]
+        [Authorize(/*Roles = Roles.Admin*/)]
+        public async Task ChangeCountryAsync(ChangeCountryRequest model,
+            CancellationToken token)
+        {
+
+            var command = new ChangeCountryCommand(model.Id, model.Country);
+            await _commandBus.DispatchAsync(command, token);
+        }
 
 
 

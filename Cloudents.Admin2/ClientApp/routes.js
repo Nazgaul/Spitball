@@ -20,6 +20,7 @@ import uCashout from './components/user/cashout/cashoutUser.vue';
 import uSuspend from './components/user/suspend/suspendUser.vue';
 import activeUsers from './components/user/activeUsers/activeUsers.vue';
 import payments from './components/user/payments/paymentUser.vue';
+import changeCountry from './components/user/changeCountry/changeCountry.vue';
 
 import document from './components/document/document.vue';
 import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue';
@@ -224,20 +225,25 @@ export const routes = [
             path:'suspend',
             component: uSuspend
           },
-            {
-                path:'active-users',
-                component: activeUsers
-            },
-            {
-                path: 'payments',
-                component: payments},
+          {
+            path:'active-users',
+            component: activeUsers
+          },
+          {
+            path: 'payments',
+            component: payments
+          },
+          {
+            path: 'change-country',
+            component: changeCountry
+          },
           {
             path: '*',
             redirect: 'token'
           }
         ]
-     },
-    {
+      },
+      {
         path: '/document',
         name: 'document',
         component: document,

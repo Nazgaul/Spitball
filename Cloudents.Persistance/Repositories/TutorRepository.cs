@@ -182,6 +182,7 @@ where userid = :Userid
 PRINT 'delete tutor '  
 update sb.Lead set TutorId = null where TutorId = :Userid
 delete from sb.TutorReview where TutorId = :Userid
+delete from [sb].[TutorCalendar] where TutorId = @Userid;
 delete from sb.tutor where id = :Userid;
 delete from sb.ReadTutor where id = :Userid;
 delete from sb.GoogleTokens where Id = :Userid

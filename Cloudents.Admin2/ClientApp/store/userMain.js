@@ -12,8 +12,10 @@ const state = {
     userConversations: [],
     userSessions: [],
     filterVal: 'ok',
-    loader : false
-
+    loader : false,
+    MAX_ITEMS: 25,
+    requestLock: false,
+    currentIdRequest: ''
 };
 const mutations = {
 
@@ -25,6 +27,8 @@ const mutations = {
         state.userPurchasedDocs = [];
         state.userConversations = [];
         state.userSessions = [];
+        state.requestLock = false;
+        state.currentIdRequest = '';
     },
     setShowLoader(state, val) {
         state.loader = val;
@@ -87,6 +91,12 @@ const mutations = {
     },
     setFilterStr(state, strVal) {
         state.filterVal = strVal;
+    },
+    setLockRequestCall(state, val) {
+        state.requestLock = val
+    },
+    setCurrentIdRequest(state, id) {
+        state.currentIdRequest = id;
     }
 };
 const getters = {
@@ -101,7 +111,8 @@ const getters = {
     userDocuments: (state) => state.userDocuments,
     userPurchasedDocuments: (state) => state.userPurchasedDocs,
     userConversations: (state) => state.userConversations,
-    userSessions: (state) => state.userSessions
+    userSessions: (state) => state.userSessions,
+    getRequestLock: (state) => state.requestLock
 };
 const actions = {
     updateFilterValue({commit}, val) {
@@ -207,16 +218,30 @@ const actions = {
         ).finally(() => context.commit("setShowLoader", false));
     },
     getUserDocuments(context, idPageObj) {
+        let currentDocs
         context.commit("setShowLoader", true);
         return UserMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
-                if (data && data.length !== 0) {
-                    context.commit('setUserDocuments', data);
+                if(data.length < context.state.MAX_ITEMS) {
+                    context.commit('setLockRequestCall', true);
+                } else {
+                    context.commit('setLockRequestCall', false);
                 }
+
+                if(idPageObj.id !== context.state.currentIdRequest) {
+                    context.commit('setCurrentIdRequest', idPageObj.id);
+                    currentDocs = data;
+                } else {
+                    currentDocs = [...context.state.userDocuments, ...data];
+                }
+
+                if (data && data.length !== 0) {
+                    context.commit('setUserDocuments', currentDocs);
+                }
+                
                 if (data.length < quantityPerPage) {
                     return true;
                 }
                 context.commit('setUserDocuments', data);
-
             },
             (error) => {
                 console.log(error, 'error');
@@ -242,9 +267,9 @@ const actions = {
     getUserSessions(context, idPageObj) {
         context.commit("setShowLoader", true);
         return UserMainService.getUserSessions(idPageObj.id).then((data) => {
-                if (data && data.length !== 0) {
-                    context.commit('setUserSessions', data);
-                }
+                // if (data && data.length !== 0) {
+                context.commit('setUserSessions', data);
+                // }
                 if (data.length < quantityPerPage) {
                     return true;
                 }

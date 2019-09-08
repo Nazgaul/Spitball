@@ -48,7 +48,7 @@
     },
         props: {
             session: {
-                type: Array,
+                // type: Array,
                 required: false
             },
             
