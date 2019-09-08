@@ -4,7 +4,6 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
@@ -33,6 +32,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Web.Identity;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http.Extensions;
 using WebMarkupMin.AspNetCore2;
@@ -62,6 +62,7 @@ namespace Cloudents.Web
         {
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
             services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
+
 
             services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddDataProtection(o =>

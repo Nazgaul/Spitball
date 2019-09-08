@@ -29,9 +29,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Models;
-using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Microsoft.AspNetCore.Http;
+using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Api
 {

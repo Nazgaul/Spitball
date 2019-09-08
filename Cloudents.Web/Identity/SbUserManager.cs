@@ -8,12 +8,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Cloudents.Identity
+namespace Cloudents.Web.Identity
 {
     public sealed class SbUserManager : UserManager<User>
     {
         private readonly ISmsProvider _smsProvider;
-        public SbUserManager(IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators, IEnumerable<IPasswordValidator<User>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<User>> logger, ISmsProvider smsProvider) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
+        public SbUserManager(IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor, 
+            IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators,
+            IEnumerable<IPasswordValidator<User>> passwordValidators, ILookupNormalizer keyNormalizer,
+            IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<User>> logger,
+            ISmsProvider smsProvider) :
+            base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, 
+                keyNormalizer, errors, services, logger)
         {
             _smsProvider = smsProvider;
         }

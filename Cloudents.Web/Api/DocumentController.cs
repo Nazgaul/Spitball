@@ -34,9 +34,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Identity;
 using Microsoft.ApplicationInsights;
 using Wangkanai.Detection;
+using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Api
 {

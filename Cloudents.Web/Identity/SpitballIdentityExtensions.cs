@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cloudents.Identity
+namespace Cloudents.Web.Identity
 {
     public static class SpitballIdentityExtensions {
 

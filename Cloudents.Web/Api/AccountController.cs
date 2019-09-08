@@ -21,9 +21,9 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using NHibernate;
 using System.Drawing;
-using Cloudents.Identity;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using System.Linq;
+using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Api
 {

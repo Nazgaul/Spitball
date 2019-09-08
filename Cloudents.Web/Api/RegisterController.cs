@@ -17,7 +17,6 @@ using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Identity;
 using Cloudents.Core.DTOs;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http;
@@ -25,6 +24,7 @@ using System.Linq;
 using Cloudents.Command.Command;
 using Cloudents.Command;
 using Cloudents.Core.Exceptions;
+using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
 namespace Cloudents.Web.Api
 {

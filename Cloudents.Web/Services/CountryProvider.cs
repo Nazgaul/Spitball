@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
-using Cloudents.Identity;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Http;
+using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Services
 {
@@ -26,7 +26,7 @@ namespace Cloudents.Web.Services
         public async Task<string> GetUserCountryAsync(CancellationToken token)
         {
             var cookieValue = _httpContext.HttpContext.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, AppClaimsPrincipalFactory.Country.ToString(),
+                string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
                     StringComparison.OrdinalIgnoreCase))?.Value;
             if (cookieValue == null)
             {
