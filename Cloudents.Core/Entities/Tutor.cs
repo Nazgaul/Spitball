@@ -22,6 +22,7 @@ namespace Cloudents.Core.Entities
 
         }
 
+
         protected Tutor()
         {
         }
@@ -46,6 +47,11 @@ namespace Cloudents.Core.Entities
                 AddEvent(new TutorApprovedEvent(Id));
             }
 
+        }
+
+        public virtual void Delete()
+        {
+            AddEvent(new TutorDeletedEvent(Id));
         }
 
 

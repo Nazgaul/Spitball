@@ -13,6 +13,12 @@ namespace Cloudents.Persistence.Repositories
         {
         }
 
+        public override Task DeleteAsync(Tutor entity, CancellationToken token)
+        {
+            entity.Delete();
+            return base.DeleteAsync(entity, token);
+        }
+
         public async Task<IList<long>> GetTutorsByCourseAsync(string course, long userId, string country, CancellationToken token)
         {
             const string sql = @"with cte as
@@ -120,75 +126,75 @@ and T.State = 'Ok'
             //    .ListAsync<long>(token);
         }
 
-        public async Task DeleteTutorAsync(long tutorId, CancellationToken token)
-        {
-            const string sql = @"
-begin tran
-declare @studyRoomId uniqueidentifier;
+//        public async Task DeleteTutorAsync(long tutorId, CancellationToken token)
+//        {
+//            const string sql = @"
+//begin tran
+//declare @studyRoomId uniqueidentifier;
 
-DECLARE studyroom_cursor CURSOR FOR   
-select studyRoomId  from sb.studyroomUser where UserId = :Userid;  
+//DECLARE studyroom_cursor CURSOR FOR   
+//select studyRoomId  from sb.studyroomUser where UserId = :Userid;  
 
-OPEN studyroom_cursor  
+//OPEN studyroom_cursor  
   
-FETCH NEXT FROM studyroom_cursor   
-INTO @studyRoomId
+//FETCH NEXT FROM studyroom_cursor   
+//INTO @studyRoomId
   
-WHILE @@FETCH_STATUS = 0  
-BEGIN  
-  PRINT 'Delete study rooms '  
-delete from sb.studyroomUser where studyRoomId = @studyRoomId
-delete from sb.StudyRoomSession where studyRoomId  = @studyRoomId
-delete from sb.StudyRoomSession where studyRoomId  = @studyRoomId
-delete from sb.TutorReview where RoomId = @studyRoomId
-delete from sb.studyroom where id =@studyRoomId
- FETCH NEXT FROM studyroom_cursor INTO @studyRoomId  
-END   
-CLOSE studyroom_cursor; 
-DEALLOCATE studyroom_cursor;  
+//WHILE @@FETCH_STATUS = 0  
+//BEGIN  
+//  PRINT 'Delete study rooms '  
+//delete from sb.studyroomUser where studyRoomId = @studyRoomId
+//delete from sb.StudyRoomSession where studyRoomId  = @studyRoomId
+//delete from sb.StudyRoomSession where studyRoomId  = @studyRoomId
+//delete from sb.TutorReview where RoomId = @studyRoomId
+//delete from sb.studyroom where id =@studyRoomId
+// FETCH NEXT FROM studyroom_cursor INTO @studyRoomId  
+//END   
+//CLOSE studyroom_cursor; 
+//DEALLOCATE studyroom_cursor;  
  
---delete studyrooms
+//--delete studyrooms
 
 
 
-DECLARE chat_cursor CURSOR FOR   
-select ChatRoomId  from sb.ChatUser where UserId = :Userid;  
+//DECLARE chat_cursor CURSOR FOR   
+//select ChatRoomId  from sb.ChatUser where UserId = :Userid;  
 
-OPEN chat_cursor  
+//OPEN chat_cursor  
   
-FETCH NEXT FROM chat_cursor   
-INTO @studyRoomId
+//FETCH NEXT FROM chat_cursor   
+//INTO @studyRoomId
   
-WHILE @@FETCH_STATUS = 0  
-BEGIN  
-PRINT 'Delete chats '  
-delete from sb.ChatMessage where ChatRoomId = @studyRoomId
-delete from sb.ChatUser where ChatRoomId  = @studyRoomId
-delete from sb.ChatRoomAdmin where Id  = @studyRoomId
-delete from sb.chatroom where Id  = @studyRoomId
- FETCH NEXT FROM chat_cursor INTO @studyRoomId  
-END   
-CLOSE chat_cursor; 
-DEALLOCATE chat_cursor;
+//WHILE @@FETCH_STATUS = 0  
+//BEGIN  
+//PRINT 'Delete chats '  
+//delete from sb.ChatMessage where ChatRoomId = @studyRoomId
+//delete from sb.ChatUser where ChatRoomId  = @studyRoomId
+//delete from sb.ChatRoomAdmin where Id  = @studyRoomId
+//delete from sb.chatroom where Id  = @studyRoomId
+// FETCH NEXT FROM chat_cursor INTO @studyRoomId  
+//END   
+//CLOSE chat_cursor; 
+//DEALLOCATE chat_cursor;
 
 
---delete can teach
-PRINT 'upate courses '  
-update sb.UsersCourses
-set CanTeach = 0
-where userid = :Userid
---delete tutor
+//--delete can teach
+//PRINT 'upate courses '  
+//update sb.UsersCourses
+//set CanTeach = 0
+//where userid = :Userid
+//--delete tutor
 
-PRINT 'delete tutor '  
-update sb.Lead set TutorId = null where TutorId = :Userid
-delete from sb.TutorReview where TutorId = :Userid
-delete from [sb].[TutorCalendar] where TutorId = @Userid;
-delete from sb.tutor where id = :Userid;
-delete from sb.ReadTutor where id = :Userid;
-delete from sb.GoogleTokens where Id = :Userid
-commit;";
+//PRINT 'delete tutor '  
+//update sb.Lead set TutorId = null where TutorId = :Userid
+//delete from sb.TutorReview where TutorId = :Userid
+//delete from [sb].[TutorCalendar] where TutorId = @Userid;
+//delete from sb.tutor where id = :Userid;
+//delete from sb.ReadTutor where id = :Userid;
+//delete from sb.GoogleTokens where Id = :Userid
+//commit;";
             
-           await Session.CreateSQLQuery(sql).SetParameter("Userid", tutorId).ExecuteUpdateAsync(token);
-        }
+//           await Session.CreateSQLQuery(sql).SetParameter("Userid", tutorId).ExecuteUpdateAsync(token);
+//        }
     }
 }

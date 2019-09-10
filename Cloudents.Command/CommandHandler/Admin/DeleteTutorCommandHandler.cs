@@ -1,4 +1,5 @@
 ﻿using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,8 +17,8 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteTutorCommand message, CancellationToken token)
         {
-            //var tutorToRemove = await _tutorRepository.LoadAsync(message.Id, token);
-            await _tutorRepository.DeleteTutorAsync(message.Id, token);
+            Tutor tutorToRemove = await _tutorRepository.LoadAsync(message.Id, token);
+            await _tutorRepository.DeleteAsync(tutorToRemove, token);
         }
     }
 }
