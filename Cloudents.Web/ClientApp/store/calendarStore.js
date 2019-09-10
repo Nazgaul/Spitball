@@ -11,7 +11,7 @@ const state = {
     needPayment: true,
     showCalendar: false,
     calendarsList: null,
-    selectedCalendarList:null
+    selectedCalendarList:[]
 }
 
 const mutations ={
@@ -49,13 +49,16 @@ const getters ={
 
 const actions ={
     updateStateSelectedCalendarList({commit},selectedCalendarList){
-        console.log('selectedCalendarList',selectedCalendarList)
         commit('setSelectedCalendarList',selectedCalendarList)
     },
     updateSelectedCalendarList({state}){
-        return calendarService.postCalendarsList(state.selectedCalendarList).then(()=>{
+        if(state.selectedCalendarList.length){
+            return calendarService.postCalendarsList(state.selectedCalendarList).then(()=>{
+                return Promise.resolve()
+            })
+        }else{
             return Promise.resolve()
-        })
+        }
     },
     getEvents({commit}){
         let tutorId = router.history.current.params.id;

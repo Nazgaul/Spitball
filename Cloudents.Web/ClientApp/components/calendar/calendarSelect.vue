@@ -1,6 +1,6 @@
 <template>
     <div class="calendarSelect">
-        <p v-language:inner="isMobile?'becomeTutor_select_calendar_title_mobile':'becomeTutor_select_calendar_title'"/>
+        <p class="calendarSelectP"  v-language:inner="isMobile?'becomeTutor_select_calendar_title_mobile':'becomeTutor_select_calendar_title'"/>
         <div class="calendarLines" :style="paddingScroll">
             <div v-for="calendar in calendarsList" :key="calendar.id">
                 <div class="singleCalendarLine">
@@ -67,28 +67,28 @@ export default {
     .calendarSelect{
         width: fit-content;
         margin: auto;
-        margin-top: 12px !important;
+        // margin-top: 12px !important;
         @media (max-width: @screen-xs) {
             width: 100%;
             P{
                 width: initial;
             }
         }
-        p{
-            white-space: pre-line;
-            margin: 0;
-            padding: 0;
-            font-size: 16px;
-            line-height: 1.56;
-            text-align: center;
+        .calendarSelectP{
+            margin: 0!important;
+            padding: 0 !important;
+            font-size: 16px!important;
+            line-height: 1.56!important;
+            text-align: center!important;
             color: @global-purple;
-            margin-bottom: 36px;
-            width: fit-content;
+            margin-bottom: 36px !important;
         }
         .calendarLines{
             min-height: 256px;
             max-height: 256px;
             overflow-x: hidden;
+            max-width: 410px;
+            margin: auto;
             @media (max-width: @screen-xs) {
                 min-height: inherit;
                 max-height: inherit;
@@ -102,28 +102,36 @@ export default {
             .singleCalendarLine{
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
                 .calendarLine{
                     margin-left: 8px;
+                    width: calc(~"100% - 60px");
+                    margin-bottom: 14px;
                     .svg-calendar{
                         margin-right: 8px;
                         font-size: 21px;
-                        vertical-align: sub;
+                        vertical-align: middle;
                     }
                     span{
+                        .giveMeEllipsisOne();
                         font-size: 14px;
                         line-height: 2.14;
                         letter-spacing: -0.36px;
                         color: @global-purple;
+                        line-height: normal;
+                        display: inline-block;
+                        width: calc(~"100% - 32px");
+                        vertical-align: middle;
                     }
                 }
-                .v-input--switch__thumb{
-                    color: white !important;
+                .theme--light.v-input--switch__thumb{
+                    color: white
                 }
                 .v-input--selection-controls{
                     margin: 0;
-                    padding-top: 2px;
-                    max-width: fit-content;
-                    margin-right: -4px;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+
                     .v-input__slot {
                         margin-bottom: 14px;
                         }

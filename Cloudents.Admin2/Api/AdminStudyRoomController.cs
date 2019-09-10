@@ -39,9 +39,9 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("bills")]
-        public async Task<IEnumerable<SessionBillDto>> BillsAsync(long Id, CancellationToken token)
+        public async Task<IEnumerable<SessionBillDto>> BillsAsync(long id, CancellationToken token)
         {
-            var query = new AdminTutorSessionsQuery(Id, User.GetCountryClaim());
+            var query = new AdminTutorSessionsQuery(id, User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }

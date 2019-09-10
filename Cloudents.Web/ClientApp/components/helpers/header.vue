@@ -122,7 +122,8 @@
                 'unreadMessages',
                 'showMobileFeed',
                 'getTotalUnread',
-                'getConversations'
+                'getConversations',
+                'showLeaderBoard'
             ]),
             userImageUrl(){
                 if(this.accountUser.image.length > 1){
@@ -156,6 +157,9 @@
                 return this.accountUser.balance || 0
             },
             hideSearch(){
+                if(this.isMobile && this.showLeaderBoard){
+                    return true;
+                }
                 let filteredRoutes = ['editCourse', 'addCourse', 'document', 'about', 'faq', 'partners', 'reps', 'privacy', 'terms', 'contact', 'profile', 'wallet', 'addUniversity', 'studyRooms'];
                 return filteredRoutes.indexOf(this.$route.name) > -1;
             }

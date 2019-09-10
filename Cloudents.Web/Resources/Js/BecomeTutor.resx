@@ -142,7 +142,8 @@
     <value>Connect your Calendar</value>
   </data>
   <data name="cal_step" xml:space="preserve">
-    <value>To show your availability, you must Connect your Google Calendar</value>
+    <value>To show your availability, you
+must Connect your Google Calendar</value>
   </data>
   <data name="label_bio" xml:space="preserve">
     <value>Bio</value>
@@ -203,5 +204,13 @@
   </data>
   <data name="connect_mobile" xml:space="preserve">
     <value>Connect Now</value>
+  </data>
+  <data name="select_calendar_title" xml:space="preserve">
+    <value>Please indicate which of the following calendars to connect
+with your Spitball booking system</value>
+  </data>
+  <data name="select_calendar_title_mobile" xml:space="preserve">
+    <value>Please indicate which of the following calendars to
+connect with your Spitball booking system</value>
   </data>
 </root>

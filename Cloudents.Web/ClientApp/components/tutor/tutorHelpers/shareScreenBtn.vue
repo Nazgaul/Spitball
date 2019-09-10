@@ -157,6 +157,9 @@
                 );
             },
             stopSharing() {
+                if(this.screenShareTrack){
+                    this.screenShareTrack.stop();
+                }
                 let videoDeviceId = global.localStorage.getItem(this.studyRoomTracks_store.storageENUM.video);
                 this.changeVideoTrack(videoDeviceId);
                 this.isSharing = false;

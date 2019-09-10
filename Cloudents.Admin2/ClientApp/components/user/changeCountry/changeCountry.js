@@ -8,7 +8,7 @@ function updateCountry(userObj) {
         return res;
     }, (err) => {
         return  err;
-    })  
+    });
 }
 
 export default {

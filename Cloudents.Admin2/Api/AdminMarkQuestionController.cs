@@ -1,6 +1,7 @@
 ﻿using Cloudents.Admin2.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -62,6 +63,8 @@ namespace Cloudents.Admin2.Api
         [HttpPost]
         public async Task Post([FromBody] MarkQuestionAsCorrectRequest model, CancellationToken token)
         {
+            Debug.Assert(model.QuestionId != null, "model.QuestionId != null");
+            Debug.Assert(model.AnswerId != null, "model.AnswerId != null");
             var query = new QuestionDataByIdQuery(model.QuestionId.Value);
             var questionDto = await _queryBus.QueryAsync(query, token);
             var command = new MarkAnswerAsCorrectCommand(model.AnswerId.Value, questionDto.User.Id);

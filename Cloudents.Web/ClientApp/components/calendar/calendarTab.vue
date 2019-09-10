@@ -63,6 +63,7 @@ export default {
 <style lang="less">
     @import '../../styles/mixin.less';
     .calendar-section {
+
         @media (max-width: @screen-xs) {
             box-shadow: none;
             border-radius: 4px;
@@ -76,7 +77,7 @@ export default {
     left: 38%;
   }
         .caltab{
-            padding: 22px;
+            padding: 40px 22px;
             @media (max-width: @screen-xs) {
                 padding: 10px;
                 margin-bottom: 40px;

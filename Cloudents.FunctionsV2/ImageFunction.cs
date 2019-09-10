@@ -118,11 +118,9 @@ namespace Cloudents.FunctionsV2
             Microsoft.Extensions.Logging.ILogger logger
         )
         {
-
             var regex = new Regex(@"[\d]*[.]\D{3,4}");
             var isBlob = regex.IsMatch(file);
             var mutation = ImageMutation.FromQueryString(req.Query);
-
             if (isBlob)
             {
                 try
@@ -155,7 +153,7 @@ namespace Cloudents.FunctionsV2
                 {
                     context.HttpContext.Response.Headers.Add("Cache-Control",
                         $"public, max-age={Year}, s-max-age={Year}");
-                    GenerateImage(file, new Size(mutation.Width, mutation.Height), stream);
+                    GenerateImageFromText(file, new Size(mutation.Width, mutation.Height), stream);
 
                     return Task.CompletedTask;
                 });
@@ -292,7 +290,18 @@ namespace Cloudents.FunctionsV2
             Rgba32.FromHex("4faf61"),
         };
 
-        private static void GenerateImage(string userName, Size targetSize, Stream streamSaveLocation)
+        private static string GetTwoLetters(string text)
+        {
+            var output = text.Truncate(2);
+            if (RegEx.RtlLetters.IsMatch(output))
+            {
+                return new string(output.Reverse().ToArray());
+            }
+
+            return output;
+        }
+
+        private static void GenerateImageFromText(string text, Size targetSize, Stream streamSaveLocation)
         {
             var fam = SystemFonts.Find("Arial");
             var font = new Font(fam, 100); // size doesn't matter too much as we will be scaling shortly anyway
@@ -300,11 +309,12 @@ namespace Cloudents.FunctionsV2
 
             // this is the important line, where we render the glyphs to a vector instead of directly to the image
             // this allows further vector manipulation (scaling, translating) etc without the expensive pixel operations.
-            var glyphs = TextBuilder.GenerateGlyphs(userName.Truncate(2), style);
+
+            var glyphs = TextBuilder.GenerateGlyphs(GetTwoLetters(text), style);
 
             var widthScale = (targetSize.Width / glyphs.Bounds.Width);
             var heightScale = (targetSize.Height / glyphs.Bounds.Height);
-            var minScale = Math.Min(widthScale, heightScale)*.7f;
+            var minScale = Math.Min(widthScale, heightScale)*.5f;
 
             // scale so that it will fit exactly in image shape once rendered
             glyphs = glyphs.Scale(minScale);
@@ -316,7 +326,7 @@ namespace Cloudents.FunctionsV2
 
             using (var img = new Image<Rgba32>(targetSize.Width, targetSize.Height))
             {
-                var v = userName.Select(Convert.ToInt32).Sum() % Colors.Length;
+                var v = text.Select(Convert.ToInt32).Sum() % Colors.Length;
                 img.Mutate(i=>i.BackgroundColor(Colors[v]));
 
                 img.Mutate(i => i.Fill(new GraphicsOptions(true), Rgba32.White, glyphs));

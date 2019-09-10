@@ -2,7 +2,7 @@
     <div class="calendar-step-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
         <v-layout  column wrap align-center justify-center class="calendar-step-wrap-cont">
             <img v-if="!isSelectCalendar" src="./images/calendar.png" alt="">
-            <p v-if="!isSelectCalendar" v-language:inner="'becomeTutor_cal_step'"/>
+            <p class="calendar-stepP" v-if="!isSelectCalendar" v-language:inner="'becomeTutor_cal_step'"/>
             <v-btn v-if="!isSelectCalendar" color="#4452FC"
                     round
                     :loading='isLoading'
@@ -21,7 +21,6 @@
         </v-layout>
     </div>
 </template>
-
 <script>
     import { mapActions, mapMutations} from 'vuex';
     import {LanguageService} from '../../services/language/languageService.js'
@@ -97,9 +96,9 @@
                     padding-bottom: 32px;
                 }
             }
-            p{
+            .calendar-stepP{
                 margin: 0;
-                font-size: 20px;
+                font-size: 16px;
                 line-height: 1.5;
                 letter-spacing: -0.51px;
                 color: @global-purple;
@@ -111,8 +110,9 @@
                     font-size: 16px;
                     width: 100%;
                 }
-
             }
+
+
             .v-btn{
                 @media (max-width: @screen-xs) {
                   height: 46px;

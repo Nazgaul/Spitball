@@ -38,7 +38,7 @@
                 <iconChat class="chat-icon-btn"/>
                 <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
-          <div class="price ml-4 align-center" >
+          <div class="price ml-3 align-center" >
               <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
               <template>
                 <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
@@ -269,6 +269,7 @@ export default {
         }
         .price {
           align-self: flex-end;
+          display: grid;
           .striked {
               max-width: max-content;
               position: relative;

@@ -149,13 +149,14 @@ namespace Cloudents.Infrastructure.Google
                     request.MaxResults = 250;
                     var result = await request.ExecuteAsync(cancellationToken);
 
-                    return result.Items.Select(s => new CalendarDto(s.Id, s.Summary));
+                    return result.Items.Where(w => !w.Primary.GetValueOrDefault(false) && !w.Summary.Equals("Contacts", StringComparison.OrdinalIgnoreCase))
+                        .Select(s => new CalendarDto(s.Id, s.Summary));
                 }
 
             }
         }
 
-       
+
 
         public async Task<CalendarEventDto> ReadCalendarEventsAsync(long userId, [NotNull] IEnumerable<string> calendarsIds,
             DateTime from, DateTime max,
@@ -179,46 +180,46 @@ namespace Cloudents.Infrastructure.Google
                     }
                     try
                     {
-                        var requestsTask = calendarsIds.Union(new[] {PrimaryGoogleCalendarId}).Select(s =>
-                        {
+                        var requestsTask = calendarsIds.Union(new[] { PrimaryGoogleCalendarId }).Select(s =>
+                          {
                             // ReSharper disable once AccessToDisposedClosure we await down below
-                            var request = service.Events.List(PrimaryGoogleCalendarId);
+                            var request = service.Events.List(s);
 
 
-                            request.SingleEvents = true;
-                            request.TimeMin = from;
-                            request.TimeMax = max;
+                              request.SingleEvents = true;
+                              request.TimeMin = from;
+                              request.TimeMax = max;
 
 
-                            return request.ExecuteAsync(cancellationToken);
-                        });
+                              return request.ExecuteAsync(cancellationToken);
+                          });
                         var result = await Task.WhenAll(requestsTask);
 
-                        return new CalendarEventDto(result.SelectMany(s=>s.Items).Select(s =>
-                        {
-                            if (s.Start.DateTime.HasValue)
-                            {
-                                var startAppointmentTime = s.Start.DateTime.Value;
-                                startAppointmentTime = startAppointmentTime.AddMinutes(-s.Start.DateTime.Value.Minute);
-                                var endAppointmentTime = s.End.DateTime.GetValueOrDefault();
-                                if (endAppointmentTime.Minute > 0)
-                                {
-                                    endAppointmentTime = endAppointmentTime.AddHours(1)
-                                        .AddMinutes(-endAppointmentTime.Minute);
-                                }
+                        return new CalendarEventDto(result.SelectMany(s => s.Items).Select(s =>
+                          {
+                              if (s.Start.DateTime.HasValue)
+                              {
+                                  var startAppointmentTime = s.Start.DateTime.Value;
+                                  startAppointmentTime = startAppointmentTime.AddMinutes(-s.Start.DateTime.Value.Minute);
+                                  var endAppointmentTime = s.End.DateTime.GetValueOrDefault();
+                                  if (endAppointmentTime.Minute > 0)
+                                  {
+                                      endAppointmentTime = endAppointmentTime.AddHours(1)
+                                          .AddMinutes(-endAppointmentTime.Minute);
+                                  }
 
-                                return DateTimeHelpers.EachHour(startAppointmentTime, endAppointmentTime);
-                               //return new CalendarEventDto(startAppointmentTime,
-                               //endAppointmentTime);
-                           }
+                                  return DateTimeHelpers.EachHour(startAppointmentTime, endAppointmentTime);
+                                //return new CalendarEventDto(startAppointmentTime,
+                                //endAppointmentTime);
+                              }
 
 
-                            var start = DateTime.ParseExact(s.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                            var end = DateTime.ParseExact(s.End.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                            return DateTimeHelpers.EachHour(start, end);
-                           //return new CalendarEventDto(start, end);
+                              var start = DateTime.ParseExact(s.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                              var end = DateTime.ParseExact(s.End.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                              return DateTimeHelpers.EachHour(start, end);
+                            //return new CalendarEventDto(start, end);
 
-                       }).SelectMany(s => s));
+                        }).SelectMany(s => s));
                     }
                     catch (TokenResponseException e)
                     {

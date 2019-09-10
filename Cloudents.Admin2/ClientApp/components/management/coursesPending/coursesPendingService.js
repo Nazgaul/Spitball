@@ -26,7 +26,7 @@ const getCourseList = function (language, state, filter) {
     let query = `?Language=${language}&State=${state}`;
 
     if(filter){
-        query += `&Filter=${filter}`
+        query += `&Filter=${filter}`;
     }
         return connectivityModule.http.get(`${path}newCourses${query}`).then((newCourseList) => {
             let arrCourseList = [];

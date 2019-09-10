@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -294,7 +295,7 @@ namespace Cloudents.Web.Api
         [HttpPost("calendar/list"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> GetTutorCalendarAsync(
+        public async Task<IActionResult> PostTutorCalendarAsync(
             [FromBody] IEnumerable<SetCalendarRequest> model,
             CancellationToken token)
         {
@@ -310,7 +311,6 @@ namespace Cloudents.Web.Api
         /// 
         /// </summary>
         /// <param name="model"></param>
-        /// <param name="calendarService"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("calendar/events"), Authorize]
@@ -323,7 +323,7 @@ namespace Cloudents.Web.Api
         {
             try
             {
-                var query = new CalendarEventsQuery(model.TutorId, model.From, model.To);
+                var query = new CalendarEventsQuery(model.TutorId, model.From.GetValueOrDefault(DateTime.UtcNow), model.To.GetValueOrDefault(DateTime.UtcNow.AddMonths(1)));
                 var res = await _queryBus.QueryAsync(query, token);
                 return res.BusySlot.Distinct().ToList();
             }
@@ -345,7 +345,11 @@ namespace Cloudents.Web.Api
             try
             {
                 var userId = _userManager.GetLongUserId(User);
-                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From, model.To);
+
+                Debug.Assert(model.From != null, "model.From != null");
+                Debug.Assert(model.To != null, "model.To != null");
+
+                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From.Value, model.To.Value);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }

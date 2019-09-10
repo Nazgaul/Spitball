@@ -52,6 +52,8 @@ import { LanguageService } from '../../../services/language/languageService';
 import chatService from '../../../services/chatService';
 import addCircle from '../images/add-circle-outline.svg';
 
+import analyticsService from '../../../services/analytics.service';
+
 
 export default {
     components:{
@@ -138,6 +140,7 @@ export default {
                 if(!this.alreadyCreated){
                     let userId = conversationObj.userId;
                     this.createStudyRoom(userId).then(() => {
+                      analyticsService.sb_unitedEvent('study_room', 'created', `tutorName: ${this.accountUser.name} tutorId: ${this.accountUser.id}`);
                       this.loader = false
                     });
                     this.alreadyCreated = true;

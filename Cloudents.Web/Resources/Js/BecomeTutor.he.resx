@@ -127,7 +127,7 @@
     <value>חזור</value>
   </data>
   <data name="btn_cal_connect" xml:space="preserve">
-    <value>התחבר ליומן גוגל</value>
+    <value>חבר את יומן גוגל שלך</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>בטל</value>
@@ -139,10 +139,13 @@
     <value>הבא</value>
   </data>
   <data name="calendar" xml:space="preserve">
-    <value>התחבר ללוח השנה</value>
+    <value>חבר את היומן שלך</value>
   </data>
   <data name="cal_step" xml:space="preserve">
     <value>התחבר ליומן גוגל על מנת להראות את הזמינות שלך</value>
+  </data>
+  <data name="connect_mobile" xml:space="preserve">
+    <value>חבר</value>
   </data>
   <data name="label_bio" xml:space="preserve">
     <value>קצת עלי</value>
@@ -171,6 +174,12 @@
   <data name="placeholder_price" xml:space="preserve">
     <value>מחיר לשעה ב- ₪</value>
   </data>
+  <data name="select_calendar_title" xml:space="preserve">
+    <value>בחר אילו יומנים לחבר עם מערכת זימון פגישות של ספיטבול</value>
+  </data>
+  <data name="select_calendar_title_mobile" xml:space="preserve">
+    <value>בחר אילו יומנים לחבר עם מערכת זימון פגישות של ספיטבול</value>
+  </data>
   <data name="sharing_step_1" xml:space="preserve">
     <value>שיתוף המידע שלך ישיג יותר תגובות מסטודנטים</value>
   </data>
@@ -183,13 +192,13 @@
   <data name="tutor_now" xml:space="preserve">
     <value>אתה מורה פרטי עכשיו</value>
   </data>
+  <data name="upload_error" xml:space="preserve">
+    <value>יש להעלות תמונה כדי להמשיך</value>
+  </data>
   <data name="upload_image" xml:space="preserve">
     <value>הוסף תמונה שלך</value>
   </data>
   <data name="who" xml:space="preserve">
     <value>מי אתה</value>
-  </data>
-  <data name="upload_error" xml:space="preserve">
-    <value>יש להעלות תמונה כדי להמשיך</value>
   </data>
 </root>

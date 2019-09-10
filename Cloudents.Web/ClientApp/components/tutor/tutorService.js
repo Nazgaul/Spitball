@@ -5,6 +5,7 @@ import { LanguageService } from '../../services/language/languageService';
 import store from '../../store/index.js';
 import whiteBoardService from "./whiteboard/whiteBoardService";
 import insightService from '../../services/insightService';
+import analyticsService from '../../services/analytics.service';
 
 
 
@@ -216,6 +217,9 @@ const connectToRoom = function (token, options) {
                 store.dispatch('updateRemoteStatus', false);
                 if (store.getters['getStudyRoomData'].isTutor) {
                     store.dispatch('hideRoomToasterMessage');
+                    let studentName = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentName : ''
+                    let studentId = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentId : ''
+                    analyticsService.sb_unitedEvent('study_room', 'session_started', `studentName: ${studentName} studentId: ${studentId}`);
                 }
             });
             // When a Participant adds a Track, attach it to the DOM.

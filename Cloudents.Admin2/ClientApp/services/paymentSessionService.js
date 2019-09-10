@@ -18,18 +18,18 @@ function createTutorPaymentSession(objInit) {
 function getTutorPaymentSession() {
     return connectivityModule.http.get('AdminStudyRoom/tutors').then(tutorRes => {
         return tutorRes.map(tutor => createTutorPaymentSession(tutor));
-    })
+    });
 }
 
 
 function TutorPaymentBills(objInit) {
     this.name = objInit.name;
     this.email = objInit.email;
-    this.created = objInit.created
-    this.ended = objInit.ended
-    this.minutes = objInit.minutes
-    this.cost = objInit.cost
-    this.isPayed = objInit.isPayed
+    this.created = objInit.created;
+    this.ended = objInit.ended;
+    this.minutes = objInit.minutes;
+    this.cost = objInit.cost;
+    this.isPayed = objInit.isPayed;
 }
 
 function createTutorPaymentBill(objInit) {
@@ -39,7 +39,7 @@ function createTutorPaymentBill(objInit) {
 function getTutorPaymentBills(id) {
     return connectivityModule.http.get(`AdminStudyRoom/bills?id=${id}`).then(billsRes => {
         return billsRes.map(bill => createTutorPaymentBill(bill));
-    })
+    });
 }
 
 export default {
