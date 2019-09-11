@@ -6,7 +6,7 @@ import profileService from "../services/profile/profileService";
 import reputationService from '../services/reputationService';
 import initSignalRService from '../services/signalR/signalrEventService';
 import insightService from '../services/insightService';
-
+import { LanguageService } from '../services/language/languageService';
 
 function setIntercomSettings(data) {
     let app_id = "njmpgayv";
@@ -482,8 +482,15 @@ const actions = {
         //commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
     },
 
-    signalR_SetBalance({commit, state}, newBalance) {
+    signalR_SetBalance({commit, state, dispatch}, newBalance) {
         commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
+        dispatch('updatePaymentDialogState',false);
+        dispatch('updateShowBuyDialog', false);
+        dispatch('updateToasterParams', {
+            toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
+            showToaster: true,
+            toasterTimeout: 5000
+        })
     },
     profileVote({commit}, data) {
         commit('updateProfileVote', data);

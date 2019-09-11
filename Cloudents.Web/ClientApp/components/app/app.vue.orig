@@ -123,8 +123,12 @@ import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
 import tutorList from "../helpers/tutorList/tutorList.vue";
-import tutorRequest from '../tutorRequestNEW/tutorRequest.vue';
+<<<<<<< HEAD
+import tutorRequest from '../tutorRequest/tutorRequest.vue';
 import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue';
+=======
+import tutorRequest from '../tutorRequestNEW/tutorRequest.vue';
+>>>>>>> origin/develop
 
 export default {
   components: {
@@ -139,8 +143,12 @@ export default {
     buyTokens,
     becomeTutor,
     tutorList,
+<<<<<<< HEAD
     tutorRequest,
     paymentDialog
+=======
+    tutorRequest
+>>>>>>> origin/develop
   },
   data() {
     return {
@@ -361,7 +369,7 @@ export default {
     if (failedTranscationId) {
       global.localStorage.removeItem("sb_transactionError");
       let transactionObjectError = {
-        points: failedTranscationId
+        id: failedTranscationId
       };
       this.tryBuyTokens(transactionObjectError);
     }

@@ -202,12 +202,6 @@
       >
         <startSessionStudent :id="id"></startSessionStudent>
       </sb-dialog>
-      <v-dialog v-if="showPaymentDialog"
-        v-model="showPaymentDialog"
-        content-class="payme-popup"
-        :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
-        <paymentDialog></paymentDialog>
-      </v-dialog>
     </div>
   </v-layout>
 </template>

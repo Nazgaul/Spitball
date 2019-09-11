@@ -131,10 +131,7 @@ If you are having trouble in adding your payment details, click on the Pay Later
   <data name="confirm-yes" xml:space="preserve">
     <value>Pay Later</value>
   </data>
-  <data name="title_1" xml:space="preserve">
-    <value>The payment for the tutoring session with </value>
-  </data>
-  <data name="title_2" xml:space="preserve">
-    <value> will be done after the session ends, and an invoice will be sent via email to you.</value>
+  <data name="title" xml:space="preserve">
+    <value>The payment for the tutoring session with {1}  will be done after the session ends, and an invoice will be sent via email to you.</value>
   </data>
 </root>

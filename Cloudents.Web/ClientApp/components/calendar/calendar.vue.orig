@@ -1,5 +1,18 @@
 <template>
     <v-layout class="calendar-container">
+<<<<<<< HEAD
+      <v-progress-circular class="progress-calendar" v-if="!isReady" indeterminate :size="150" width="3" color="info"></v-progress-circular>
+      
+=======
+        <sb-dialog :isPersistent="true"
+                   :fullscreen="$vuetify.breakpoint.xsOnly"
+                   :content-class="'payme-popup'"
+                   :popUpType="'payme-popup'"
+                   :showDialog="showPaymentDialog"
+                   >
+          <paymentDialog/> 
+        </sb-dialog>
+>>>>>>> origin/develop
       <v-flex :class="{'sheet-loading':!isReady}">
         <div class="navigation-btns-calendar">
           <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.prev()">
@@ -183,7 +196,11 @@ export default {
       }
     },
     methods: {
+<<<<<<< HEAD
         ...mapActions(['initCalendar','btnClicked','insertEvent','updateNeedPayment','initPayme']),
+=======
+        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment','updateToasterParams']),
+>>>>>>> origin/develop
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
@@ -246,7 +263,17 @@ export default {
           this.isEventSent = false;
           this.isLoading = false;
         },
+<<<<<<< HEAD
+        outsideClickDialog(event) {
+          if(!this.addEventDialog) return;
+          let isInside = event.path.some(el=>el.id === 'addEventDialog')
+          if(!isInside){
+            this.closeDialog()
+          }
+        },
 
+=======
+>>>>>>> origin/develop
         goPayment(){
           this.initPayme({ title: 'payme_title', name: this.tutorName });
         }

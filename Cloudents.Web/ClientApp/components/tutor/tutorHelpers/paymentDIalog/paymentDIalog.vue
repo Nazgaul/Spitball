@@ -2,9 +2,7 @@
     <v-layout column class="payme-popup">
         <v-icon class="exit-btn cursor-pointer" @click="closePaymentDialog()">sbf-close</v-icon>
         <div class="payme-popup-top">
-            <span v-language:inner="'payme_title_1'"/>
-            <span>{{tutorName}}</span>
-            <span v-language:inner="'payme_title_2'"/>
+            <span v-html="$Ph(getDictionaryTitle, getTutorName)"></span>
         </div>
         <iframe class="payment-iframe" width="100%" height="475" :src="paymentUrl"></iframe>
         <div class="payme-popup-bottom">
@@ -19,38 +17,17 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'paymentDIalog',
-    data() {
-        return {
-            tutorName: ''
-        }
-    },
     computed: {
-        ...mapGetters(['getPaymentURL','getProfile','getStudyRoomData']),
-        // tutorName(){
-            // let studyRoomData = this.getStudyRoomData
-            // if(!!studyRoomData){
-            //     return studyRoomData.tutorName
-            // }else{
-            //     return this.getProfile.user.tutorData.firstName
-            // }
-        // },
+        ...mapGetters(['getPaymentURL', 'getTutorName', 'getDictionaryTitle']),
         paymentUrl(){
             return this.getPaymentURL
         }
     },
     methods: {
-        ...mapActions(['updatePaymentDialog']),
+        ...mapActions(['updatePaymentDialogState']),
         closePaymentDialog(){
-            this.updatePaymentDialog(false)
+            this.updatePaymentDialogState(false)
         },
-    },
-    created() {
-        if(this.$route.name === 'profile'){
-            this.tutorName = this.getProfile.user.tutorData.firstName
-        } else{
-            this.tutorName = this.getStudyRoomData.tutorName
-        }
-
     },
 }
 </script>
@@ -59,7 +36,7 @@ export default {
 @import '../../../../styles/mixin.less';
 .payme-popup{
     position: relative;
-    max-width: 800px;
+    // max-width: 800px;
     border-radius: 4px;
     background-color: #ffffff;
     .exit-btn{

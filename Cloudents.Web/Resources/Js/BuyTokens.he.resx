@@ -132,8 +132,11 @@
   <data name="choose" xml:space="preserve">
     <value>בחר</value>
   </data>
-  <data name="currency" xml:space="preserve">
+  <data name="currency_dollar" xml:space="preserve">
     <value>$</value>
+  </data>
+  <data name="currency_shekel" xml:space="preserve">
+    <value>₪</value>
   </data>
   <data name="earn_answer" xml:space="preserve">
     <value>תן תשובות נכונות</value>
@@ -166,7 +169,7 @@
     <value>נק'</value>
   </data>
   <data name="secure_payment" xml:space="preserve">
-    <value> תשלום מאובטח עם </value>
+    <value>לרכישת {1} נקודות</value>
   </data>
   <data name="success_transaction" xml:space="preserve">
     <value>הקנייה הצליחה!</value>

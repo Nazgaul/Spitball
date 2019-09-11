@@ -312,7 +312,7 @@ const actions = {
         if(isTutor) {
             dispatch("updateTutorStartDialog", true);
         }else{
-            dispatch("updatePaymentDialog", false);
+            dispatch("updatePaymentDialogState", false);
         }
     },
     setRoomId({commit}, val) {

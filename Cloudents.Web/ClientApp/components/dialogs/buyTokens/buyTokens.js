@@ -6,47 +6,27 @@ import analyticsService from '../../../services/analytics.service';
 export default {
   data() {
     return {
-      selectedProduct: null,
+      selectedProduct: 'inter',
       showOverlay: false,
+      transactionId: 750,
       products:{
-          currency: LanguageService.getValueByKey('buyTokens_currency'),
-          basic:{
-              pts:100,
-              price:1.5,
-              currency: 'USD'
-          },
-          inter:{
-              pts:500,
-              price:6,
-              currency: 'USD'
-          },
-          pro:{
-              pts: 1400,
-              price: 14,
-              currency: 'USD'
-          }
-      },
-      productsForPaypal: {
-        basic: {
-          name: "100 points on Spitball",
-          description: "100 points on Spitball",
-          quantity: "1",
-          sku: "points_1"
+        currency: LanguageService.getValueByKey('buyTokens_currency_shekel'),
+        basic:{
+            pts: 250,
+            price: 10,
+            currency: 'ILS'
         },
-        inter: {
-          name: "500 points on Spitball",
-          description: "500 points on Spitball",
-          quantity: "1",
-          sku: "points_2"
+        inter:{
+            pts: 750,
+            price: 30,
+            currency: 'ILS'
         },
-        pro: {
-            name: "1400 points on Spitball",
-            description: "1400 points on Spitball",
-          quantity: "1",
-          sku: "points_3"
+        pro:{
+            pts: 1500,
+            price: 60,
+            currency: 'ILS'
         }
       },
-      paypalLoaded: false,
       user: this.accountUser()
     };
   },
@@ -63,113 +43,22 @@ export default {
   },
   methods: {
     ...mapGetters(['accountUser']),
-    ...mapActions(['updateShowBuyDialog', 'updateShowBuyDialog', 'updateToasterParams']),
+    ...mapActions(['updateShowBuyDialog', 'updateToasterParams', 'initPayme']),
+
     selectProduct(val) {
       if (this.selectedProduct !== val) {
         this.selectedProduct = val;
-        let paypalBtn = document.getElementById("paypal-button");
-        paypalBtn.innerHTML = "";
-        this.mountPaypalButton();
+        this.transactionId = this.products[val].pts;
       }
     },
     closeModal(){
       this.updateShowBuyDialog(false);
     },
-    reflectPaymentToServer(transactionId){
-        console.log(`transaction made id is ${transactionId}`);
-        let transactionObject = {
-          id: transactionId
-        };
-        walletService.buyTokens(transactionObject).then(()=>{
-          this.updateShowBuyDialog(false);
-          this.updateToasterParams({
-            toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
-            showToaster: true
-          });
-        }, (error)=>{
-          //fallback will be called on app.vue create method.
-          global.localStorage.setItem('sb_transactionError', transactionId);
-          this.updateToasterParams({
-            toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
-            showToaster: true
-          });
-          // global.location.reload();
-          console.log(error);
-        }).finally(()=>{
-            this.showOverlay = false;  
-        });
-        // window.alert("Thank you for your purchase!");
-    },
-    mountPaypalButton() {
-      if (this.paypalLoaded) {
-        analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", this.selectedProduct);
-        //set price and currency according to the locale
-        this.productsForPaypal[this.selectedProduct].price = this.products[this.selectedProduct].price;
-        this.productsForPaypal[this.selectedProduct].currency = this.products[this.selectedProduct].currency;
 
-        paypal.Button.render(
-          {
-            // Configure environment
-            env: global.paypalEnv,
-            client: {
-              sandbox: "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
-              production: "AQ_i7yH6NyGmUeJtuVfrSwK_RSb8rydP2f5zkh5rqyF_qgq_mT_gakcFZUmgY7HF-6YvneG4xQlOEz4Q"
-            },
-            // Customize button (optional)
-            locale: "en_US",
-            style: {
-              // layout: 'vertical',
-              size: "medium",
-              color: "gold",
-              shape: "pill",
-              tagline: false
-            },
-
-            // Enable Pay Now checkout flow (optional)
-            commit: true,
-
-            // Set up a payment
-            payment: (data, actions) => {
-              return actions.payment.create({
-                payer: {
-                    payment_method: "paypal"                    
-                },
-                transactions: [
-                  {
-                    amount: {
-                      total: this.productsForPaypal[this.selectedProduct].price,
-                      currency: this.productsForPaypal[this.selectedProduct].currency
-                    },
-                    item_list: {
-                      items: [this.productsForPaypal[this.selectedProduct]]
-                    }
-                  }
-                ]
-              });
-            },
-            // Execute the payment
-            onAuthorize: (data, actions)=> {
-              return actions.payment.execute().then((response)=> {
-                // Show a confirmation message to the buyer
-                let transactionId = response.id;
-                this.showOverlay = true;
-                this.reflectPaymentToServer(transactionId);
-              });
-            }
-          },
-          "#paypal-button"
-        );
-      } else {
-        console.log("error loading paypal");
-      }
+    openPaymeDialog() {
+      let transactionId = this.transactionId;
+      analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
+      this.initPayme({ transactionId });
     }
-  },
-  created() {
-    this.$loadScript("https://www.paypalobjects.com/api/checkout.js").then(
-      () => {
-        this.paypalLoaded = true;
-          this.selectProduct('inter');
-      }
-    );
   }
 };
