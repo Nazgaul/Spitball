@@ -38,7 +38,7 @@ export default {
         return this.products.inter.price / this.products.inter.pts;
     },
     proConversionRate(){
-        return (this.products.pro.price / this.products.pro.pts).toFixed(3);
+        return (this.products.pro.price / this.products.pro.pts).toFixed(2);
     }
   },
   methods: {
@@ -56,9 +56,10 @@ export default {
     },
 
     openPaymeDialog() {
+      let user = this.accountUser();
       let transactionId = this.transactionId;
       analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
-      this.initPayme({ transactionId });
+        this.initPayme({ transactionId });
     }
   }
 };

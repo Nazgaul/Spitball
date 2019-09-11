@@ -8,7 +8,10 @@
                         <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
-                    <v-btn flat class="white--text messages-study-room-btn-create" v-if="!studyRoomExists && isRoomTutor" :loading="loader">
+
+                    <v-btn v-if="(!studyRoomExists && isRoomTutor) && !isStudyRoom " 
+                           flat class="white--text messages-study-room-btn-create" 
+                           :loading="loader">
                         <add-circle />&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
                     </v-btn>
                 </div>

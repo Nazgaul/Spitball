@@ -116,7 +116,7 @@
                 <document-details :item="item"></document-details>
             </div>
         </div>
-        <sb-dialog :showDialog="confirmPurchaseDialog"
+        <sb-dialog :showDialog="true"
                    :popUpType="'purchaseConfirmation'"
                    :isPersistent="true"
                    :activateOverlay="true"
@@ -134,7 +134,7 @@
                             <span class="doc-type-text">{{docType}}</span>
                         </div>
                         <div class="doc-title">
-                            <span v-line-clamp:18="1">{{itemName  ? itemName : ''}}</span>
+                            <div>{{itemName}}</div>
                         </div>
                     </div>
                     <div class="purchase-actions">

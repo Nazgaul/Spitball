@@ -117,7 +117,7 @@
                   <span class="doc-type-text">{{itemType}}</span>
                 </div>
                 <div class="doc-title">
-                  <span v-line-clamp:18="1">{{courseName ? courseName : ''}}</span>
+                  <div class="text-truncate">{{courseName}}</div>
                 </div>
               </div>
               <div class="purchase-actions">
@@ -750,6 +750,7 @@ export default {
           text-align: center;
           font-size: 16px;
           font-weight: 600;
+          max-width: 400px;
         }
       }
       .purchase-actions {
