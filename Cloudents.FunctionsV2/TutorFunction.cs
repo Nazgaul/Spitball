@@ -75,7 +75,7 @@ namespace Cloudents.FunctionsV2
                                 University = update.University,
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
-                                Price = (decimal)update.Price,
+                                Price = (int)update.Price,
                                 Image = update.Image,
                             }
                         },

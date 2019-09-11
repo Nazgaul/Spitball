@@ -46,6 +46,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.Description);
+            
             Component(x => x.BuyerPayment, y =>
             {
                 y.Map(z => z.PaymentKey);
@@ -54,6 +55,7 @@ namespace Cloudents.Persistence.Maps
 
             });
             Map(z => z.PaymentExists).CustomType<PaymentStatus>();
+            Map(z => z.Gender).CustomType<Gender>();
             //HasManyToMany(x => x.Courses)
             //    .ParentKeyColumn("UserId")
             //    .ChildKeyColumn("CourseId")
@@ -86,7 +88,7 @@ namespace Cloudents.Persistence.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();*/
             HasOne(x => x.Tutor)/*.LazyLoad(Laziness.NoProxy).Constrained()*/.Cascade.All();
-
+            
         }
     }
 }

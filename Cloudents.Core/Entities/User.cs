@@ -130,7 +130,7 @@ namespace Cloudents.Core.Entities
 
         public virtual BuyerPayment BuyerPayment { get; protected set; }
 
-
+        public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
         public virtual void CreditCardReceived()
