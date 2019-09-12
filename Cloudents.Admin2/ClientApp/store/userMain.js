@@ -301,6 +301,13 @@ const actions = {
         () => {
             return false;
         });
+    },
+    deletePayment({commit, dispatch, state}, id) {
+        return UserMainService.deletePayment(id).then(() => {
+            state.userInfo.user.payment.value = false;
+        }).catch(ex => {
+            return ex;
+        })
     }
 };
 export default {

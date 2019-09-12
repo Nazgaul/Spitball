@@ -77,6 +77,9 @@ namespace Cloudents.Core.Entities
         private readonly ICollection<TutorReview> _reviews = new List<TutorReview>();
 
         public virtual IEnumerable<TutorReview> Reviews => _reviews;
+
+        private readonly ISet<StudyRoom> _studyRooms = new HashSet<StudyRoom>();
+        public virtual IEnumerable<StudyRoom> StudyRooms => _studyRooms;
         public virtual string SellerKey { get; set; }
         public virtual ItemState State { get; protected set; }
         public virtual DateTime Created { get; protected set; }

@@ -18,6 +18,12 @@ function UserInfo(objInit) {
         showButton: !objInit.phoneNumberConfirmed,
         buttonText: "verify Phone"
     };
+    this.payment = {
+        value: objInit.paymentExists,
+        label: 'Has Payment',
+        showButton: true,
+        buttonText: "delete"
+    };
     this.phoneNumberConfirmed = {value: objInit.phoneNumberConfirmed ? 'Yes' : 'No', label: "Phone Confirmed"};
     this.university = {value: objInit.university || '', label: 'University'};
     this.country = {value: objInit.country || '', label: 'Country'};
@@ -258,5 +264,8 @@ export default {
     },
     removeTutor: (id) => {
         return connectivityModule.http.delete(`AdminTutor/${id}`);
+    },
+    deletePayment: (id) => {
+        return connectivityModule.http.delete(`AdminPayment/deletePayment?userId=${id}`);
     }
 }

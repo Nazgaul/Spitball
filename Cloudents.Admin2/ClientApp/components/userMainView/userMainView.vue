@@ -42,7 +42,8 @@
                                 <span><b>{{infoItem.label}}:</b></span>
                                 <v-btn small color='warning' @click="openNameDialog(userInfo.name.value)" v-if="infoItem.label == 'User Name'">Edit</v-btn>
                                 <v-btn small color='warning' @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'">Edit</v-btn>
-                                <v-btn small color='red' @click="deleteTutor()" v-if="infoItem.label == 'Tutor State' && infoItem.value === 'ok'">Delete</v-btn>
+                                <v-btn small color='red' class="white--text" @click="removePayment(userInfo.id.value)" v-if="infoItem.label == 'Has Payment' && infoItem.value">Delete</v-btn>
+                                <v-btn small color='red' class="white--text" @click="deleteTutor()" v-if="infoItem.label == 'Tutor State' && infoItem.value === 'ok'">Delete</v-btn>
                                 <span>{{infoItem.value}}</span>
                             </v-layout>
                         </v-list-tile>

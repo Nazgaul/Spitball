@@ -42,8 +42,13 @@ namespace Cloudents.Query.Query.Admin
             public async Task<IEnumerable<ConversationDto>> GetAsync(AdminConversationsQuery query, CancellationToken token)
             {
 
-                var p = _statelessSession.Query<ViewConversation>().Where(w => w.AssignTo == query.AssignTo);
-                    
+                var p = _statelessSession.Query<ViewConversation>();
+
+
+                if (!string.IsNullOrEmpty(query.AssignTo))
+                {
+                    p = p.Where(w => w.AssignTo == query.AssignTo);
+                }
                 if (!string.IsNullOrEmpty(query.Country))
                 {
                     p = p.Where(w => w.Country == query.Country);

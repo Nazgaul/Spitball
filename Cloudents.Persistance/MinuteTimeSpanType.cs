@@ -3,6 +3,7 @@ using System;
 using System.Data.Common;
 using NHibernate.Engine;
 using NHibernate.Dialect;
+using NHibernate.UserTypes;
 
 namespace Cloudents.Persistence
 {
@@ -23,7 +24,7 @@ namespace Cloudents.Persistence
 
         public override void Set(DbCommand st, object value, int index, ISessionImplementor session)
         {
-            st.Parameters[index].Value = ((TimeSpan)value).Minutes;
+            st.Parameters[index].Value = ((TimeSpan)value).TotalMinutes;
         }
 
 

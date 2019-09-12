@@ -38,5 +38,6 @@ namespace Cloudents.Core.DTOs.Admin
         public ItemState? TutorState{ get; set; }
         [EntityBind(nameof(User.LockoutReason))]
         public string LockoutReason { get; set; }
+        public bool PaymentExists { get; set; }
     }
 }

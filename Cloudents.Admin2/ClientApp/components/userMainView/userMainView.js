@@ -111,7 +111,8 @@ export default {
             "setNeedPaging",
             "removeTutor",
             "updateUserPhone",
-            "updateUserName"
+            "updateUserName",
+            "deletePayment"
         ]),
        
         resetUserData() {
@@ -249,26 +250,32 @@ export default {
                 this.newPhone = '';
                 this.dialogs.phone = false;
             });
+        },
+        removePayment(id) {
+            this.deletePayment(id).then(() => {
+                this.$toaster.success(`Success: delete user payment`);
+            }).catch(() => {
+                this.$toaster.error(`Error: delete user payment`);
+            })
         }
     },
     created() {
-        console.log(this.$route);
         this.getRouteParams();
     },
     mounted() {
         let self = this;
-            window.addEventListener("scroll",() => {
-                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-                if (bottomOfWindow) {
-                    self.needScroll = true;
-                }
-                else {
-                    self.needScroll = false;
-                }
-            });
+        window.addEventListener("scroll",() => {
+            let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+            if (bottomOfWindow) {
+                self.needScroll = true;
+            }
+            else {
+                self.needScroll = false;
+            }
+        });
     },
-        beforeDestroy() {
-            //let containerElm = document.querySelector('.item-wrap');
-            window.removeEventListener('scroll', this.handleScroll);
-        }
+    beforeDestroy() {
+        //let containerElm = document.querySelector('.item-wrap');
+        window.removeEventListener('scroll', this.handleScroll);
+    }
 }
