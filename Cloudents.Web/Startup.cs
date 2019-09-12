@@ -174,7 +174,7 @@ namespace Cloudents.Web
             //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();
-            services.AddSingleton<VersionService>();
+            services.AddSingleton<ConfigurationService>();
             services.AddHttpClient();
             services.AddOptions();
             services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));

@@ -10,9 +10,9 @@ namespace Cloudents.Web.Api
     public class HomePageController : ControllerBase
     {
 
-        private readonly VersionService _versionService;
+        private readonly ConfigurationService _versionService;
 
-        public HomePageController(VersionService versionService)
+        public HomePageController(ConfigurationService versionService)
         {
             _versionService = versionService;
         }

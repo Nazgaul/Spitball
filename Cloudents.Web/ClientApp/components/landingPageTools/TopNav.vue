@@ -3,7 +3,7 @@
         <v-layout align-center justify-center justify-space-between class="tutor-list-header" tag="header">
             <v-flex class="tutor-list-header-left">
                 <router-link class="tutor-list-header-logo ml-1" to="/">
-                    <LogoSvg></LogoSvg>
+                    <logoComponent></logoComponent>
                 </router-link>
                 <v-icon @click="handleMenuToggle()" class="tutor-list-header-left-menu hidden-md-and-up">sbf-menu</v-icon>
             </v-flex>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import logoComponent from '../app/logo/logo.vue';
 import LogoSvg from "../../../wwwroot/Images/logo-spitball.svg";
 import languagesLocales from "../../services/language/localeLanguage";
 import { LanguageChange } from "../../services/language/languageService";
@@ -52,7 +53,8 @@ import { mapGetters } from 'vuex';
 export default {
   components: {
     LogoSvg,
-    menuList
+    menuList,
+    logoComponent
   },
   name: "TopNav",
   data() {
@@ -115,10 +117,12 @@ export default {
           justify-content: space-between
       }
       .tutor-list-header-logo {
-        svg {
-          vertical-align: -webkit-baseline-middle;
-          fill: #1B2441
-        }
+        div{
+          svg {
+            vertical-align: -webkit-baseline-middle;
+            fill: #1B2441
+          }
+        } 
       }
       .tutor-list-header-left-menu {
         color: #000;

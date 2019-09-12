@@ -8,7 +8,7 @@
                         <v-layout row>
                             <v-toolbar-title>
                                  <a @click="resetItems()" class="logo-link">
-                                    <app-logo class="logo"></app-logo>
+                                     <logoComponent></logoComponent>
                                 </a> 
                             </v-toolbar-title>
                             <v-toolbar-items>
@@ -79,17 +79,17 @@
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
     import {mapActions, mapGetters, mapMutations} from 'vuex';
-    import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
+    import logoComponent from '../app/logo/logo.vue';
 
     import {LanguageService } from "../../services/language/languageService";
     import analyticsService from "../../services/analytics.service";
 
     export default {
         components: {
-            AppLogo,
             SearchInput,
             UserAvatar,
             menuList,
+            logoComponent
         },
         placeholders: {
             all: LanguageService.getValueByKey("header_Search"),
@@ -123,7 +123,7 @@
                 'showMobileFeed',
                 'getTotalUnread',
                 'getConversations',
-                'showLeaderBoard'
+                'showLeaderBoard',
             ]),
             userImageUrl(){
                 if(this.accountUser.image.length > 1){

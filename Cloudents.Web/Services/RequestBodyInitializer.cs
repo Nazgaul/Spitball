@@ -1,4 +1,5 @@
-﻿using Microsoft.ApplicationInsights.Channel;
+﻿using System;
+using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Http;
@@ -30,14 +31,24 @@ namespace Cloudents.Web.Services
             }
 
             //Allows re-usage of the stream
-            _httpContextAccessor.HttpContext.Request.EnableRewind();
+            try
+            {
+                _httpContextAccessor.HttpContext.Request.EnableRewind();
 
-            var stream = new StreamReader(_httpContextAccessor.HttpContext.Request.Body);
-            var body = stream.ReadToEnd();
-
-            //Reset the stream so data is not lost
-            _httpContextAccessor.HttpContext.Request.Body.Position = 0;
-            requestTelemetry.Properties.Add(jsonBody, body);
+                if (_httpContextAccessor.HttpContext.Request.Body.CanRead)
+                {
+                    using (var stream = new StreamReader(_httpContextAccessor.HttpContext.Request.Body))
+                    {
+                        var body = stream.ReadToEnd();
+                        _httpContextAccessor.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
+                        requestTelemetry.Properties.Add(jsonBody, body);
+                    }
+                }
+            }
+            catch (ObjectDisposedException)
+            {
+               //Do nothing
+            }
         }
     }
 }

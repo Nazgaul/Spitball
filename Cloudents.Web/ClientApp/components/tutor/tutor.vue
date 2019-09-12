@@ -19,7 +19,7 @@
           <div class="logo-nav-wrap">
             <span class="logo-container">
               <a @click="resetItems()" class="logo-link">
-                <AppLogo></AppLogo>
+                <logoComponent></logoComponent>
               </a> 
             </span>
             <div
@@ -216,7 +216,7 @@ const codeEditor = () => import("./codeEditor/codeEditor.vue");
 
 import sharedDocument from "./sharedDocument/sharedDocument.vue";
 import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
-import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
+import logoComponent from '../app/logo/logo.vue';
 import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
 import settingIcon from "../../font-icon/settings.svg";
@@ -254,7 +254,7 @@ export default {
     codeEditor,
     sharedDocument,
     shareScreenBtn,
-    AppLogo,
+    logoComponent,
     testIcon,
     chatIcon,
     settingIcon,
