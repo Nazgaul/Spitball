@@ -15,7 +15,7 @@ import walletService from "./walletService";
    function enterRoom(){
        if (!store.getters['sessionStartClickedOnce']) {
         if (!!store.getters['accountUser'] && store.getters['getStudyRoomData'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
-            store.dispatch('initPayme', {title: 'payme_title', name: store.getters.getStudyRoomData.tutorName});
+            store.dispatch('requestPaymentURL', {title: 'payme_title', name: store.getters.getStudyRoomData.tutorName});
             return;
         }
         //leave this action here so that people that fills the 'pay me' wont get a loading button

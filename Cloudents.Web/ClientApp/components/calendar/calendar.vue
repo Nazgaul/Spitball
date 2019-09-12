@@ -183,7 +183,7 @@ export default {
       }
     },
     methods: {
-        ...mapActions(['initCalendar','btnClicked','insertEvent','updateNeedPayment','initPayme']),
+        ...mapActions(['initCalendar','btnClicked','insertEvent','updateNeedPayment','requestPaymentURL']),
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
@@ -248,7 +248,7 @@ export default {
         },
 
         goPayment(){
-          this.initPayme({ title: 'payme_title', name: this.tutorName });
+          this.requestPaymentURL({ title: 'payme_title', name: this.tutorName });
         }
     },
     mounted() {

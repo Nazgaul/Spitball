@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     ...mapGetters(['accountUser']),
-    ...mapActions(['updateShowBuyDialog', 'updateToasterParams', 'initPayme']),
+    ...mapActions(['updateShowBuyDialog', 'updateToasterParams', 'buyToken']),
 
     selectProduct(val) {
       if (this.selectedProduct !== val) {
@@ -59,7 +59,7 @@ export default {
       let user = this.accountUser();
       let transactionId = this.transactionId;
       analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
-        this.initPayme({ transactionId });
+        this.buyToken({points : transactionId});
     }
   }
 };

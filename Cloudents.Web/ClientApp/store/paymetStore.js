@@ -36,18 +36,7 @@ const getters = {
 }
 
 const actions = {
-    initPayme({commit, dispatch, getters}, paymeObj) {
-        let dictionaryTitle = paymeObj.title || '';
-        let transactionId = paymeObj.transactionId || '';
-        let name = paymeObj.name || ''
-    
-        dispatch('updateIdTransaction', transactionId);
-        dispatch('updateDictionaryTitle', dictionaryTitle);
-        dispatch('updateTutorName', name);
-        dispatch('requestPaymentURL');
-    },
-    requestPaymentURL({commit,dispatch, getters}, transactionPts){
-        let points = { points: getters.getTransactionId }
+    buyToken({commit, dispatch, getters}, points) {
         walletService.buyTokens(points).then(({ data }) => {
             commit('setPaymentURL',data.link);
             dispatch('updatePaymentDialogState',true);
@@ -59,6 +48,21 @@ const actions = {
             })
             dispatch('updatePaymentDialogState',false);
             global.localStorage.setItem("sb_transactionError", points);
+        })
+    },
+    requestPaymentURL({commit,dispatch, getters}, paymeObj ){
+        dispatch('updateTutorName', paymeObj.name);
+        dispatch('updateDictionaryTitle', paymeObj.title);
+        walletService.getPaymeLink().then(({ data }) => {
+            commit('setPaymentURL',data.link);
+            dispatch('updatePaymentDialogState',true);
+        }).catch(() => {
+            dispatch('updateToasterParams', {
+                toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
+                showToaster: true,
+                toasterTimeout: 5000
+            })
+            dispatch('updatePaymentDialogState',false);
         })
     },
     updatePaymentDialogState({commit}, val){
@@ -74,11 +78,12 @@ const actions = {
         commit('setIdTransaction', id);
     },
     signalR_ReleasePaymeStatus({getters,dispatch}){
+        debugger
         let isStudyRoom = getters.getStudyRoomData
         if(!!isStudyRoom){
             dispatch('releasePaymeStatus_studyRoom')
         } else{
-            dispatch('updatePaymentDialog',false)
+            dispatch('updatePaymentDialogState',false)
             dispatch('updateNeedPayment',false)
         }
     }
