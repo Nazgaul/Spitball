@@ -148,18 +148,18 @@ namespace Cloudents.Web.Api
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
-            try
-            {
-                using (var _ = Image.FromStream(file.OpenReadStream()))
-                {
+            //try
+            //{
+            //    using (var _ = Image.FromStream(file.OpenReadStream()))
+            //    {
 
-                }
-            }
-            catch
-            {
-                ModelState.AddModelError("x", "unsupported format");
-                return BadRequest(ModelState);
-            }
+            //    }
+            //}
+            //catch
+            //{
+            //    ModelState.AddModelError("x", "unsupported format");
+            //    return BadRequest(ModelState);
+            //}
             var userId = userManager.GetLongUserId(User);
             Uri uri;
             try

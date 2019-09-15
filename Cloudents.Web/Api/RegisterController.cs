@@ -23,7 +23,7 @@ using Microsoft.AspNetCore.Http;
 using System.Linq;
 using Cloudents.Command.Command;
 using Cloudents.Command;
-using Cloudents.Core.Exceptions;
+using Microsoft.AspNetCore.DataProtection;
 using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
 namespace Cloudents.Web.Api
@@ -137,7 +137,9 @@ namespace Cloudents.Web.Api
             [FromServices] IRestClient client,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
             [FromServices] ICommandBus commandBus,
+            [FromHeader(Name="user-agent")] string userAgent,
             [FromServices] TelemetryClient logClient,
+            [FromServices]IDataProtectionProvider dataProtectProvider,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken);
@@ -152,6 +154,19 @@ namespace Cloudents.Web.Api
             var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
             if (result2.Succeeded)
             {
+                // For india mobile - temp solution
+                if (string.Equals(userAgent, "Spitball-Android", StringComparison.OrdinalIgnoreCase))
+                {
+                    var user2 = await _userManager.FindByEmailAsync(result.Email);
+                    var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
+                    var code = dataProtector.Protect(user2.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+
+                    return Ok(new
+                    {
+                        code
+                    });
+                }
+
                 return new ReturnSignUserResponse(false);
             }
            
