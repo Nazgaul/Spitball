@@ -117,142 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="about" xml:space="preserve">
-    <value>אודות</value>
+  <data name="audio_indicator" xml:space="preserve">
+    <value>חיווי שמע</value>
   </data>
-  <data name="aboutme" xml:space="preserve">
-    <value>קצת עלי</value>
+  <data name="audio_input" xml:space="preserve">
+    <value>מיקרופון:</value>
   </data>
-  <data name="Answers" xml:space="preserve">
-    <value>תשובות</value>
+  <data name="audio_output" xml:space="preserve">
+    <value>רמקול:</value>
   </data>
-  <data name="become_tutor_btn" xml:space="preserve">
-    <value>הירשם כמורה פרטי</value>
+  <data name="audio_select_label" xml:space="preserve">
+    <value>בחר שמע:</value>
   </data>
-  <data name="bio_label" xml:space="preserve">
-    <value>הניסיון שלי</value>
+  <data name="audio_stop_sound" xml:space="preserve">
+    <value>עצור בדיקה</value>
   </data>
-  <data name="btn_cancel" xml:space="preserve">
-    <value>ביטול</value>
+  <data name="audio_test_sound" xml:space="preserve">
+    <value>בדיקת שמע</value>
   </data>
-  <data name="btn_save_changes" xml:space="preserve">
-    <value>שמור שינויים</value>
+  <data name="audio_title" xml:space="preserve">
+    <value>שמע</value>
   </data>
-  <data name="calendar" xml:space="preserve">
-    <value>יומן פגישות</value>
+  <data name="camera_label" xml:space="preserve">
+    <value>מצלמה:</value>
   </data>
-  <data name="courses_can_help" xml:space="preserve">
-    <value>קורסים שאני יכול לעזור לך איתם</value>
+  <data name="camera_placeholder" xml:space="preserve">
+    <value>בחירת מצלמה</value>
   </data>
-  <data name="courses_empty_btn" xml:space="preserve">
-    <value>בחירת הקורסים שלי</value>
+  <data name="mic_placeholder" xml:space="preserve">
+    <value>בחירת מיקרופון</value>
   </data>
-  <data name="courses_empty_select_courses" xml:space="preserve">
-    <value>בחירת הקורסים שלך תעזור ליצור חומרי לימוד ומרצים מתאימים לצרכיך</value>
+  <data name="title" xml:space="preserve">
+    <value>הגדרות</value>
   </data>
-  <data name="courses_empty_state_title" xml:space="preserve">
-    <value>הקורסים שלי</value>
+  <data name="video_select_label" xml:space="preserve">
+    <value>בחר וידיאו</value>
   </data>
-  <data name="cta_section_title" xml:space="preserve">
-    <value>השג תוצאות במהירות!</value>
-  </data>
-  <data name="description_label" xml:space="preserve">
-    <value>כותרת</value>
-  </data>
-  <data name="documents" xml:space="preserve">
-    <value>מסמכים שהועלו</value>
-  </data>
-  <data name="edit_image_text" xml:space="preserve">
-    <value>ערוך</value>
-  </data>
-  <data name="edit_tutor_title" xml:space="preserve">
-    <value>ערוך את פרופיל המרצה שלך</value>
-  </data>
-  <data name="edit_user_profile_title" xml:space="preserve">
-    <value>ערוך את הפרופיל שלך</value>
-  </data>
-  <data name="emptyState_answers_btnText" xml:space="preserve">
-    <value>ענה על שאלות</value>
-  </data>
-  <data name="emptyState_answers_text" xml:space="preserve">
-    <value>רוצה להרוויח קצת כסף? עזור לאחרים על ידי מענה על שאלות משיעורי הבית שלהם.</value>
-  </data>
-  <data name="emptyState_documents_btnText" xml:space="preserve">
-    <value>העלה מסמך</value>
-  </data>
-  <data name="emptyState_documents_text" xml:space="preserve">
-    <value>שתף את מסמכי הלימוד שלך</value>
-  </data>
-  <data name="emptyState_questions_btnText" xml:space="preserve">
-    <value>שאל שאלה</value>
-  </data>
-  <data name="emptyState_questions_text" xml:space="preserve">
-    <value>יש לך שאלה לגבי שיעורי הבית?</value>
-  </data>
-  <data name="expand_less" xml:space="preserve">
-    <value>הצג פחות</value>
-  </data>
-  <data name="expand_more_courses" xml:space="preserve">
-    <value>קורסים נוספים</value>
-  </data>
-  <data name="expand_more_single_course" xml:space="preserve">
-    <value>קורס נוסף</value>
-  </data>
-  <data name="firstName_label" xml:space="preserve">
-    <value>שם פרטי</value>
-  </data>
-  <data name="hey_there" xml:space="preserve">
-    <value>שלום, אני</value>
-  </data>
-  <data name="lastName_label" xml:space="preserve">
-    <value>שם משפחה</value>
-  </data>
-  <data name="personal_details" xml:space="preserve">
-    <value>פרטים אישיים</value>
-  </data>
-  <data name="points_hour" xml:space="preserve">
-    <value>שעה</value>
-  </data>
-  <data name="price_label" xml:space="preserve">
-    <value>מחיר לשעה</value>
-  </data>
-  <data name="pricing" xml:space="preserve">
-    <value>תמחור</value>
-  </data>
-  <data name="purchased_documents" xml:space="preserve">
-    <value>מסמכים שנרכשו</value>
-  </data>
-  <data name="Questions" xml:space="preserve">
-    <value>שאלות</value>
-  </data>
-  <data name="read_more" xml:space="preserve">
-    <value>קרא עוד ...</value>
-  </data>
-  <data name="reviews" xml:space="preserve">
-    <value>חוות דעת</value>
-  </data>
-  <data name="single_review" xml:space="preserve">
-    <value>חוות דעת</value>
-  </data>
-  <data name="subjects" xml:space="preserve">
-    <value>נושאים</value>
-  </data>
-  <data name="tutor_contact_btn" xml:space="preserve">
-    <value>צור איתי קשר</value>
-  </data>
-  <data name="tutor_sidebar_title" xml:space="preserve">
-    <value>ספר לי מה אתה צריך ואשמח לעזור לך</value>
-  </data>
-  <data name="user_name_label" xml:space="preserve">
-    <value>שם משתמש</value>
-  </data>
-  <data name="user_sidebar_text" xml:space="preserve">
-    <value>עזור לאחרים באמצעות הידע שלך</value>
-  </data>
-  <data name="user_sidebar_title" xml:space="preserve">
-    <value>בוא להרוויח</value>
-  </data>
-  <data name="who_am_i" xml:space="preserve">
-    <value>הניסיון שלי</value>
+  <data name="video_title" xml:space="preserve">
+    <value>וידיאו</value>
   </data>
 </root>
