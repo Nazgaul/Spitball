@@ -22,20 +22,24 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(AddTutorCalendarEventCommand message, CancellationToken token)
         {
-            var tutor = await _tutorRepository.LoadAsync(message.TutorId,token);
+            var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
 
-            
+            if (tutor.TutorHours.Any(a => a.WeekDay == message.From.DayOfWeek && a.From < message.From.TimeOfDay && message.To.TimeOfDay < a.To))
+            {
+                throw new ArgumentException("Slot is booked");
+            }
+            // Tutor hours
             var appointments = await _calendarService.ReadCalendarEventsAsync(tutor.Id, tutor.Calendars.Select(s => s.GoogleId), message.From, message.To, token);
-            if (appointments.BusySlot.Any())
+            if (appointments.Any(a => a.From < message.From || a.To > message.To))
             {
                 throw new ArgumentException("Slot is booked");
             }
 
-            var user = await _userRepository.LoadAsync(message.UserId,token);
+            var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            await _calendarService.BookCalendarEventAsync(tutor.User,user, 
+            await _calendarService.BookCalendarEventAsync(tutor.User, user,
                 message.From, message.To, token);
-            
+
         }
     }
 }

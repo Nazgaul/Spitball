@@ -99,7 +99,7 @@ export default {
           selectedTime: '',
           today: new Date().toISOString().substr(0, 10),
           intervals:{
-            first: 8,
+            first: this.getIntervalFirst || 8,
             minutes: 60,
             count: 16,
             height:  36,
@@ -107,7 +107,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getCalendarType','getCalendarEvents','getProfile','accountUser','getNeedPayment']),
+        ...mapGetters(['getIntervalFirst','getCalendarType','getCalendarEvents','getProfile','accountUser','getNeedPayment']),
         tutorName(){
           return this.getProfile.user.tutorData.firstName.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
         },

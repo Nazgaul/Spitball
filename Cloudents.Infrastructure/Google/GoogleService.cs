@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
+using Cloudents.Core;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Infrastructure.Google.Resources;
@@ -158,7 +159,7 @@ namespace Cloudents.Infrastructure.Google
 
 
 
-        public async Task<CalendarEventDto> ReadCalendarEventsAsync(long userId, [NotNull] IEnumerable<string> calendarsIds,
+        public async Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, [NotNull] IEnumerable<string> calendarsIds,
             DateTime from, DateTime max,
             CancellationToken cancellationToken)
         {
@@ -182,8 +183,8 @@ namespace Cloudents.Infrastructure.Google
                     {
                         var requestsTask = calendarsIds.Union(new[] { PrimaryGoogleCalendarId }).Select(s =>
                           {
-                            // ReSharper disable once AccessToDisposedClosure we await down below
-                            var request = service.Events.List(s);
+                              // ReSharper disable once AccessToDisposedClosure we await down below
+                              var request = service.Events.List(s);
 
 
                               request.SingleEvents = true;
@@ -195,31 +196,43 @@ namespace Cloudents.Infrastructure.Google
                           });
                         var result = await Task.WhenAll(requestsTask);
 
-                        return new CalendarEventDto(result.SelectMany(s => s.Items).Select(s =>
-                          {
-                              if (s.Start.DateTime.HasValue)
-                              {
-                                  var startAppointmentTime = s.Start.DateTime.Value;
-                                  startAppointmentTime = startAppointmentTime.AddMinutes(-s.Start.DateTime.Value.Minute);
-                                  var endAppointmentTime = s.End.DateTime.GetValueOrDefault();
-                                  if (endAppointmentTime.Minute > 0)
-                                  {
-                                      endAppointmentTime = endAppointmentTime.AddHours(1)
-                                          .AddMinutes(-endAppointmentTime.Minute);
-                                  }
+                        return result.SelectMany(s => s.Items).Select(s =>
+                        {
+                             if (s.Start.DateTime.HasValue)
+                             {
+                                 var startAppointmentTime = s.Start.DateTime.Value;
+                                 startAppointmentTime = startAppointmentTime.AddMinutes(-s.Start.DateTime.Value.Minute);
+                                 var endAppointmentTime = s.End.DateTime.GetValueOrDefault();
+                                 if (endAppointmentTime.Minute > 0)
+                                 {
+                                     endAppointmentTime = endAppointmentTime.AddHours(1)
+                                         .AddMinutes(-endAppointmentTime.Minute);
+                                 }
 
-                                  return DateTimeHelpers.EachHour(startAppointmentTime, endAppointmentTime);
-                                //return new CalendarEventDto(startAppointmentTime,
-                                //endAppointmentTime);
-                              }
+                                 return new GoogleAppointmentDto
+                                 {
+                                     From = startAppointmentTime,
+                                     To = endAppointmentTime
+                                 };
+
+                                 // return DateTimeHelpers.EachHour(startAppointmentTime, endAppointmentTime);
+                                 //return new CalendarEventDto(startAppointmentTime,
+                                 //endAppointmentTime);
+                             }
 
 
-                              var start = DateTime.ParseExact(s.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                              var end = DateTime.ParseExact(s.End.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                              return DateTimeHelpers.EachHour(start, end);
-                            //return new CalendarEventDto(start, end);
+                             var start = DateTime.ParseExact(s.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                             var end = DateTime.ParseExact(s.End.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-                        }).SelectMany(s => s));
+                             return new GoogleAppointmentDto
+                             {
+                                 From = start,
+                                 To = end
+                             };
+                             //return DateTimeHelpers.EachHour(start, end);
+                             //return new CalendarEventDto(start, end);
+
+                         }); //.SelectMany(s => s));
                     }
                     catch (TokenResponseException e)
                     {

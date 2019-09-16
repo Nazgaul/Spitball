@@ -1,35 +1,39 @@
 <template>
     <div class="calendar-step-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
-        <img v-if="!isSelectCalendar && !isMobile" class="cal-img" src="../images/calImgNew.png" alt="">
+        <img v-if="(!isSelectCalendar && !isSelectHours) && !isMobile" class="cal-img" src="../images/calImgNew.png" alt="">
 
-        <v-layout v-if="!isSelectCalendar" column wrap align-center justify-center class="calendar-step-wrap-cont">
-            <img src="../images/calendar.png" alt="">
-            <p v-language:inner="'becomeTutor_cal_step'"/>
-            <v-btn  color="#4452FC"
-                    round
-                    :loading='isLoadingCalendar'
-                    class="white-text elevation-0 calbtnshare"
-                    @click="shareCalendar()">
-                <span v-language:inner="'becomeTutor_btn_cal_connect'"/>
-            </v-btn>
-        </v-layout>
+        <template v-if="!isSelectCalendar && !isSelectHours">
+            <v-layout column wrap align-center justify-center class="calendar-step-wrap-cont">
+                <img src="../images/calendar.png" alt="">
+                <p v-language:inner="'becomeTutor_cal_step'"/>
+                <v-btn  color="#4452FC"
+                        round
+                        :loading='isLoadingCalendar'
+                        class="white-text elevation-0 calbtnshare"
+                        @click="shareCalendar()">
+                    <span v-language:inner="'becomeTutor_btn_cal_connect'"/>
+                </v-btn>
+            </v-layout>
+        </template>
 
-        <calendarSelect v-if="isSelectCalendar"/>
+        <calendarSelect v-if="isSelectCalendar && !isSelectHours"/>
+        <calendarHours v-if="!isSelectCalendar && isSelectHours"/>
 
-        <v-layout class="px-1 btns-cal-step"
-                  :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center',isSelectCalendar? 'resetMargin': '']">
-            <v-btn @click="goToPreviousStep()" class="cancel-btn-step elevation-0" round outline flat>
-                <span v-language:inner="'becomeTutor_btn_back'"/>
-            </v-btn>
-            <v-btn  color="#4452FC"
-                    round
-                    :loading='isLoading'
-                    class="white-text elevation-0"
-                    @click="submit()">
-                <span v-language:inner="'becomeTutor_btn_done'"/>
-            </v-btn>
-
-        </v-layout>
+        <template>
+            <v-layout class="px-1 btns-cal-step"
+                        :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center',isSelectCalendar || isSelectHours? 'resetMargin': '']">
+                <v-btn @click="goToPreviousStep()" class="cancel-btn-step elevation-0" round outline flat>
+                    <span v-language:inner="'becomeTutor_btn_back'"/>
+                </v-btn>
+                <v-btn  color="#4452FC"
+                        round
+                        :loading='isLoading'
+                        class="white-text elevation-0"
+                        @click="btnDoneNextFunc">
+                    <span v-language:inner="btnDoneNextLang"/>
+                </v-btn>
+            </v-layout>
+        </template>
     </div>
 </template>
 
@@ -37,6 +41,7 @@
     import { mapActions, mapGetters } from 'vuex';
     import { LanguageService } from "../../../services/language/languageService";
     import calendarSelect from '../../calendar/calendarSelect.vue'
+    import calendarHours from '../../calendar/calendarHours.vue'
     export default {
         name: "calendarStep",
         data() {
@@ -44,12 +49,20 @@
                 isLoading: false,
                 isLoadingCalendar:false,
                 isSelectCalendar: false,
+                isSelectHours:false,
             }
         },
-        components:{calendarSelect},
+        components:{calendarSelect,calendarHours},
         computed: {
             isMobile() {
                 return this.$vuetify.breakpoint.smAndDown;
+            },
+            btnDoneNextLang(){
+                if((!this.isSelectCalendar && !this.isSelectHours) || this.isSelectHours){
+                    return 'becomeTutor_btn_done'
+                } else if(this.isSelectCalendar && !this.isSelectHours){
+                    return 'becomeTutor_btn_next'
+                }
             },
         },
         methods: {
@@ -100,6 +113,19 @@
                     }).finally(() => {                      
                         self.isLoading = false;
                 });
+            },
+            btnDoneNextFunc(){
+                if((!this.isSelectCalendar && !this.isSelectHours) || this.isSelectHours){
+                    this.submit()
+                } else if(this.isSelectCalendar && !this.isSelectHours){
+                    this.goSelectHour()
+                }
+            },
+            goSelectHour(){
+                this.isSelectCalendar = false;
+                this.isSelectHours = true;
+                this.isLoading = false;
+                this.isLoadingCalendar = false;
             }
         },
         created() {

@@ -24,7 +24,7 @@ namespace Cloudents.Core.Interfaces
     {
         Task SaveTokenAsync(string token, long userId, string baseUrl, CancellationToken cancellationToken);
 
-        Task<CalendarEventDto> ReadCalendarEventsAsync(long userId,IEnumerable<string> calendars, DateTime @from,
+        Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, IEnumerable<string> calendars, DateTime @from,
             DateTime to, CancellationToken cancellationToken);
         Task BookCalendarEventAsync(User tutor, User student, DateTime from, DateTime to, CancellationToken cancellationToken);
         Task DeleteDeclinedEventCalendarAsync(CancellationToken cancellationToken);

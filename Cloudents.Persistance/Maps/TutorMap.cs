@@ -22,6 +22,8 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Reviews).Access.CamelCaseField(Prefix.Underscore).Cascade.AllDeleteOrphan().Inverse();
             HasMany(x => x.Calendars).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan().Inverse().AsSet();
+            HasMany(x => x.TutorHours).Access.CamelCaseField(Prefix.Underscore)
+                .Inverse().Cascade.All().AsSet();
 
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan().Inverse().AsSet();

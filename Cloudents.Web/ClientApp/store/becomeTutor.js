@@ -35,6 +35,7 @@ const actions = {
     sendBecomeTutorData({state,dispatch}) {
         return accountService.becomeTutor(state.becomeTutorObj).then((res=>{
             dispatch('updateSelectedCalendarList')
+            dispatch('updateAvailabilityCalendar')
             return Promise.resolve(res)
         }));
     }

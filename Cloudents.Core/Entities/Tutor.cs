@@ -95,9 +95,20 @@ namespace Cloudents.Core.Entities
             AddEvent(new TutorAddReviewEvent(Id));
         }
 
+        public virtual void AddTutorHours(DayOfWeek weekDay, TimeSpan from, TimeSpan to)
+        {
+            _tutorHours.Add(new TutorHours(this, weekDay, from, to));
+        }
+
+
         // ReSharper disable once InconsistentNaming Need to have due to mapping
-        private readonly ISet<TutorCalendar> _calendars = new HashSet<TutorCalendar>();
+        private readonly ICollection<TutorCalendar> _calendars = new List<TutorCalendar>();
         public virtual IEnumerable<TutorCalendar> Calendars => _calendars;
+
+
+        private readonly ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
+        public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
+
 
         public virtual void AddCalendar(string id, string name)
         {
@@ -150,7 +161,7 @@ namespace Cloudents.Core.Entities
         //}
         protected bool Equals(TutorCalendar other)
         {
-            return  string.Equals(GoogleId, other.GoogleId, StringComparison.OrdinalIgnoreCase) && Tutor.Id.Equals(other.Tutor.Id);
+            return string.Equals(GoogleId, other.GoogleId, StringComparison.OrdinalIgnoreCase) && Tutor.Id.Equals(other.Tutor.Id);
         }
 
         public override bool Equals(object obj)
@@ -158,15 +169,15 @@ namespace Cloudents.Core.Entities
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((TutorCalendar) obj);
+            return Equals((TutorCalendar)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-               
-               var hashCode = StringComparer.OrdinalIgnoreCase.GetHashCode(GoogleId);
+
+                var hashCode = StringComparer.OrdinalIgnoreCase.GetHashCode(GoogleId);
                 hashCode = (hashCode * 397) ^ Tutor.Id.GetHashCode();
                 return hashCode;
             }

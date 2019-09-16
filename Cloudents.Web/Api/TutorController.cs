@@ -359,5 +359,20 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
         }
+
+        [HttpPost("calendar/hours"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> SetTutorHoursAsync(
+            [FromBody] TutorHoursRequest model,
+            CancellationToken token)
+        {
+           
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetTutorHoursCommand(userId, model.TutorDailyHours.Select(s=> new SetTutorHoursCommand.TutorDailyHours(s.Day,s.From,s.To)));
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }

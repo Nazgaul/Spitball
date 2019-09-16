@@ -1,4 +1,6 @@
-﻿namespace Cloudents.Core.DTOs
+﻿using System;
+
+namespace Cloudents.Core.DTOs
 {
     public class CalendarDto
     {
@@ -10,5 +12,11 @@
 
         public string Id { get;  }
         public string Name { get; }
+    }
+
+    public class GoogleAppointmentDto
+    {
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
     }
 }

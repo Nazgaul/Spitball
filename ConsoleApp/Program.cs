@@ -23,6 +23,8 @@ using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Storage;
 using NHibernate;
 using NHibernate.Linq;
+using Cloudents.Query;
+using Cloudents.Query.Tutor;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -496,7 +498,10 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            await PopulateUsersImageName();
+            var queryBus = _container.Resolve<IQueryBus>();
+            var query = new CalendarEventsQuery(162085L, new DateTime(2019, 9, 15, 17, 0, 0), new DateTime(2019, 9, 22, 17, 0, 0));
+            var t = await queryBus.QueryAsync(query, default);
+            //await PopulateUsersImageName();
             //var repo = _container.Resolve<ITutorRepository>();
             //var test = await repo.GetTutorsByCourseAsync("organic chemistry כימיה אורגנית", 638, "IL", default);
             //ResourcesMaintenance.GetOrphanedResources();

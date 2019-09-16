@@ -141,10 +141,31 @@
   <data name="add_event_title" xml:space="preserve">
     <value>Schedueling an online tutoring session with {1}</value>
   </data>
+  <data name="add_time" xml:space="preserve">
+    <value>+ Add time slot</value>
+  </data>
+  <data name="add_time_mobile" xml:space="preserve">
+    <value>+ Add</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="calendar_hour_subtitle" xml:space="preserve">
+    <value>Selection of specific dates should be done on your google calendar</value>
+  </data>
+  <data name="calendar_hour_title" xml:space="preserve">
+    <value>Set your general working time slots</value>
+  </data>
+  <data name="day_off" xml:space="preserve">
+    <value>Off - Not working all day</value>
+  </data>
   <data name="empty_state_student" xml:space="preserve">
     <value>My calendar is not available at the moment. Massage me directly to schedule a session.</value>
   </data>
   <data name="error_create_event" xml:space="preserve">
     <value>Sorry, I am teaching at those hours. Maybe another time?</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>to</value>
   </data>
 </root>

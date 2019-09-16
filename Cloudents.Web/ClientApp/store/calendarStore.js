@@ -3,6 +3,7 @@ import utilitiesService from '../services/utilities/utilitiesService.js'
 import {router} from '../main.js';
 
 const state = {
+    intervalFirst: 8,
     scope: 'calendar',
     calendarEvents: [],
     tutorId: null,
@@ -11,7 +12,10 @@ const state = {
     needPayment: true,
     showCalendar: false,
     calendarsList: null,
-    selectedCalendarList:[]
+    selectedCalendarList:[],
+    availabilityCalendar: {
+        tutorDailyHours:[]
+    }
 }
 
 const mutations ={
@@ -35,8 +39,36 @@ const mutations ={
     },
     setSelectedCalendarList(state,selectedList){
         state.selectedCalendarList = selectedList
+    },
+    setAvailabilityCalendar(state,dayAvailabilityObj){
+        if(state.availabilityCalendar.tutorDailyHours.length){
+            let self = this;
+            let dayIndex;
+            let isContain = state.availabilityCalendar.tutorDailyHours.some(
+                (dayObj,index)=>{
+                    if(dayObj.day === dayAvailabilityObj.day){
+                        self.dayIndex = index;
+                        return true
+                    }
+                })
+
+            if(isContain){
+                if(dayAvailabilityObj.timeFrames.length){
+                    state.availabilityCalendar.tutorDailyHours.forEach((element) => {
+                        if(element.day === dayAvailabilityObj.day){
+                            state.availabilityCalendar.tutorDailyHours[self.dayIndex] = dayAvailabilityObj
+                        }
+                    });
+                }else{
+                    state.availabilityCalendar.tutorDailyHours.splice(self.dayIndex,1)
+                }
+            }else{
+                state.availabilityCalendar.tutorDailyHours.push(dayAvailabilityObj) 
+            }
+        } else{
+            state.availabilityCalendar.tutorDailyHours.push(dayAvailabilityObj)
+        }
     }
-    
 }
 
 const getters ={
@@ -45,20 +77,25 @@ const getters ={
     getShowCalendar:state => state.showCalendar,
     getCalendarsList: state => state.calendarsList,
     getSelectedCalendarList: state => state.selectedCalendarList,
+    getIntervalFirst: state => state.intervalFirst,
 }
 
 const actions ={
+    updateStateAvailabilityCalendar({commit},dayAvailability){
+        commit('setAvailabilityCalendar',dayAvailability)
+    },
     updateStateSelectedCalendarList({commit},selectedCalendarList){
         commit('setSelectedCalendarList',selectedCalendarList)
     },
     updateSelectedCalendarList({state}){
         if(state.selectedCalendarList.length){
-            return calendarService.postCalendarsList(state.selectedCalendarList).then(()=>{
-                return Promise.resolve()
-            })
+            return calendarService.postCalendarsList(state.selectedCalendarList)
         }else{
             return Promise.resolve()
         }
+    },
+    updateAvailabilityCalendar({state}){
+        return calendarService.postCalendarAvailability(state.availabilityCalendar)
     },
     getEvents({commit}){
         let tutorId = router.history.current.params.id;
