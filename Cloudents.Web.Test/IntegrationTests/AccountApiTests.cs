@@ -9,16 +9,25 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class AccountControllerTests //: IClassFixture<SbWebApplicationFactory>
+    public class AccountApiTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
+
+        private object settings = new
+        {
+            firstName = "Skyler",
+            description = "Nice to meet you",
+            lastName = "White",
+            bio = "I have a lot of experience",
+            price = 55
+        };
 
         private readonly UriBuilder _uri = new UriBuilder()
         {
             Path = "api/account"
         };
 
-        public AccountControllerTests(SbWebApplicationFactory factory)
+        public AccountApiTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
             _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
@@ -75,22 +84,13 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             _uri.Path = "api/account/settings";
 
-            object settings = new
-            {
-                firstName = "Elad",
-                description = "Nice to meet you",
-                lastName = "Levavi",
-                bio = "I have a lot of experience",
-                price = 55
-            };
-
             await _client.LogInAsync();
 
             var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(settings));
 
             response.EnsureSuccessStatusCode();
 
-            _uri.Path = "api/profile/159039";
+            _uri.Path = "api/profile/159489";
 
             response = await _client.GetAsync(_uri.Path);
 
@@ -102,14 +102,10 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var firstName = tutor["firstName"]?.Value<String>();
             var lastName = tutor["lastName"]?.Value<String>();
-            var description = d["description"]?.Value<String>();
-            //var bio = tutor["bio"]?.Value<String>();
             var price = tutor["price"]?.Value<Decimal>();
 
-            firstName.Should().Be("Elad");
-            lastName.Should().Be("Levavi");
-            description.Should().Be("Nice to meet you");
-            //bio.Should().Be("I have a lot of experience");
+            firstName.Should().Be("Skyler");
+            lastName.Should().Be("White");
             price.Should().Be(55M);
 
             response.EnsureSuccessStatusCode();
