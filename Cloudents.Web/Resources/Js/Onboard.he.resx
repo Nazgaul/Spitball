@@ -117,34 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btn_continue" xml:space="preserve">
-    <value>הבא</value>
-  </data>
   <data name="btn_finish" xml:space="preserve">
     <value>סיים</value>
-  </data>
-  <data name="btn_skip" xml:space="preserve">
-    <value>דלג</value>
-  </data>
-  <data name="final_added" xml:space="preserve">
-    <value>יש לך </value>
-  </data>
-  <data name="final_bottom_text" xml:space="preserve">
-    <value>גש למסמכים של סטודנטים מעולים מהכיתה שלך עכשיו</value>
   </data>
   <data name="final_title" xml:space="preserve">
     <value>בואו נתחיל!</value>
   </data>
-  <data name="how_text" xml:space="preserve">
-    <value>כל סטודנט יכול להציע חומר לימוד לסטודנטים אחרים בחינם או בתשלום.</value>
-  </data>
-  <data name="how_title" xml:space="preserve">
-    <value>איך זה עובד?</value>
-  </data>
-  <data name="welcome_text" xml:space="preserve">
-    <value>הקהילה בה הסטודנטים מקבלים גישה לחומרי לימוד ועוזרים אחד לשני.</value>
-  </data>
-  <data name="welcome_title" xml:space="preserve">
-    <value>ברוכים הבאים לספיטבול</value>
-    </data>
 </root>

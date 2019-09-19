@@ -138,7 +138,7 @@
     <value>This question have correct answer</value>
   </data>
   <data name="VoteCantVote" xml:space="preserve">
-    <value>You can not upvote / downvote your own answer</value>
+    <value>You can not up-vote / down-vote your own answer</value>
   </data>
   <data name="You exceed your quota of answers" xml:space="preserve">
     <value>You already submitted 3 answers to other questions.

@@ -147,9 +147,6 @@
   <data name="multiple_confirm_text" xml:space="preserve">
     <value>האם אתה בטוח שברצונך לבטל תהליך העלאת המסמך?</value>
   </data>
-  <data name="multiple_error_extensions_support" xml:space="preserve">
-    <value>קבצים נתמכים:</value>
-  </data>
   <data name="multiple_error_extension_title" xml:space="preserve">
     <value>אופס! סוג קובץ לא נתמך</value>
   </data>
@@ -197,9 +194,6 @@
   </data>
   <data name="multiple_legal two_terms_conditions" xml:space="preserve">
     <value>תנאי השירות של ספיטבול</value>
-  </data>
-  <data name="multiple_legal_text" xml:space="preserve">
-    <value>העלאת מסמכי לימוד כרוכה בהסכמה לתנאי השירות שלנו</value>
   </data>
   <data name="multiple_or_browse_label" xml:space="preserve">
     <value>בחר קובץ</value>

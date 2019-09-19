@@ -15,7 +15,8 @@ namespace Cloudents.Query.Tutor
     {
         public CalendarEventsQuery(long id, DateTime @from, DateTime to)
         {
-            From = @from;
+            From = new DateTime(@from.Year, @from.Month, @from.Day,
+                @from.Hour, 0, 0, @from.Kind);
             To = to;
             Id = id;
         }
@@ -48,60 +49,29 @@ namespace Cloudents.Query.Tutor
                     .ToFuture();
 
                 var calendars = await calendarsFuture.GetEnumerableAsync(token);
-                var googleBusySlot = await _calendarService.ReadCalendarEventsAsync(query.Id, calendars, query.From, query.To, token);
+                var googleBusySlot = (await _calendarService.ReadCalendarEventsAsync(query.Id, calendars, query.From, query.To, token)).ToList();
 
                 var available = (await availableFuture.GetEnumerableAsync(token)).ToList();
 
                 var result = DateTimeHelpers.EachHour(query.From, query.To).Where(w =>
                 {
-                    var busySlots = available.Where(w2 => w.DayOfWeek == w2.WeekDay);
+                    var freeSlot = available.Where(w2 => w.DayOfWeek == w2.WeekDay);
 
+                    if (googleBusySlot.Any(a => a.From <= w && w < a.To))
+                    {
+                        return true;
+                    }
                     //if (busySlots.Count >0)
-                    if (busySlots.Any(a => a.From < w.TimeOfDay && w.TimeOfDay < a.To))
+                    if (freeSlot.Any(a => a.From < w.TimeOfDay && w.TimeOfDay < a.To))
                     {
-                        // Im busy
-                        return true;
+                      
+                        // Im not busy busy
+                        return false;
                     }
-
-                    if (googleBusySlot.Any(a => a.From <= w && w <= a.To))
-                    {
-                        return true;
-                    }
-                    return false;
+                    return true;
 
 
                 });
-                //List<DateTime> res = new List<DateTime>();
-                //var date = query.From;
-        
-                //while (date < query.To)
-                //{
-                //    if (date.Date != date.AddHours(-1).Date)
-                //    {
-                //        available = await _statelessSession.Query<TutorHours>()
-                //        .Where(w => w.Tutor.Id == query.Id)
-                //        .Where(w => w.WeekDay == date.DayOfWeek)
-                //        .ToListAsync();
-                //    }
-                //    if (available != null)
-                //    {
-                //        foreach (var item in available)
-                //        {
-                //            if (date.Hour < item.From.Hours || date.Hour > item.To.Hours
-                //                || googleBusySlot.BusySlot.Contains(date))
-                //            {
-                //                res.Add(date);
-                //            }
-                //        }
-                //    }
-                //    else
-                //    {
-                //        res.Add(date);
-                //    }
-                //    date = date.AddHours(1);
-
-                //}
-
                 return new CalendarEventDto(result);
             }
         }

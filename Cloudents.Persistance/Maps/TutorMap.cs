@@ -28,6 +28,9 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan().Inverse().AsSet();
 
+            HasMany(x => x.Leads).Access.CamelCaseField(Prefix.Underscore)
+                .Cascade.AllDeleteOrphan().Inverse().AsSet();
+
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             Map(e => e.Created).Insert().Not.Update();
             Map(x => x.ManualBoost).LazyLoad().Nullable();

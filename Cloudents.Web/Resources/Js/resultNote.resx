@@ -140,6 +140,9 @@
     <value>Document deleted</value>
   </data>
   <data name="download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="downloads" xml:space="preserve">
     <value>Downloads</value>
   </data>
   <data name="error_delete" xml:space="preserve">
@@ -152,6 +155,9 @@
     <value>Tutor {1}</value>
   </data>
   <data name="purchased" xml:space="preserve">
+    <value>Purchase</value>
+  </data>
+  <data name="purchaseds" xml:space="preserve">
     <value>Purchases</value>
   </data>
   <data name="university" xml:space="preserve">
@@ -159,6 +165,9 @@
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
     <value>You do not have sufficient points</value>
+  </data>
+  <data name="view" xml:space="preserve">
+    <value>View</value>
   </data>
   <data name="views" xml:space="preserve">
     <value>Views</value>

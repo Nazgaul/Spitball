@@ -20,7 +20,6 @@
                
                 <td>{{ props.item.price }}</td>
                 <td>{{ props.item.totalPrice }}</td>
-                 <td>{{ props.item.subsidizing }}</td>
                 <td >
                     <span  @click="editItem(props.item)">
                         <v-icon small
@@ -71,12 +70,7 @@
                            <v-flex xs3>
                                <v-text-field readonly="" label="Session Total Price" v-model="editedItem.price"></v-text-field>
                            </v-flex>
-                           <v-flex xs3>
-                               <v-text-field label="Student Pay" v-model="editedItem.subsidizing"></v-text-field>
-                           </v-flex>
-                           <v-flex xs3>
-                               <v-text-field readonly="" label="Spitball Pay" v-model="spitballPay"></v-text-field>
-                           </v-flex>
+                         
                            <!-- <v-flex xs4>
                                <v-text-field readonly="" label="Session Price After discount" v-model="editedItem.subsidizing"></v-text-field>
                            </v-flex> -->
@@ -104,30 +98,24 @@
 </template>
 
 <script>
-    import { getPaymentRequests, approvePayment,subsidizingPrice,declinePayment } from './PaymentUserService'
+    import { getPaymentRequests, approvePayment, declinePayment } from './PaymentUserService'
 
     export default {
        
-        computed: {
+    computed: {
     durationX() {
       return this.editedItem.duration;
     },
     tutorPriceX() {
         return this.editedItem.tutorPrice;
-    },
-    spitballPay() {
-        return (this.editedItem.price-this.editedItem.subsidizing).toFixed(2)
     }
   },
   watch: {
     durationX() {
-    this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
-    this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
-      
+    this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);      
     },
     tutorPriceX() {
          this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
-    this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
     }
   },
         data() {
@@ -147,8 +135,6 @@
                     { text: 'Duration (min)', value: 'duration' },
                     { text: 'Tutor Price', value: 'price' },
                     { text: 'Lessons Price', value: 'totalPrice' },
-                    { text: 'Price After Subsidizing', value: 'subsidizing' },
-
                     { text: 'Approve', value: '' }
                 ]
             }
@@ -188,7 +174,6 @@
                     tutorPayme: item.tutorPayme,
                     tutorPrice: item.price,
                     duration: item.duration,
-                    subsidizing : item.subsidizing,
                     userId: item.userId,
                     "price": item.totalPrice
                 };
@@ -197,7 +182,7 @@
                 var itemToSubmit = this.editedItem;
                 const index = this.editedIndex;
                 const item = this.paymentRequestsList[index];
-                approvePayment(itemToSubmit, this.spitballPay).then((resp) => {
+                approvePayment(itemToSubmit).then((resp) => {
 
                     this.$toaster.success(`User ${item.userName} pay to Tutor ${item.tutorName}`);
                     this.paymentRequestsList.splice(index, 1);

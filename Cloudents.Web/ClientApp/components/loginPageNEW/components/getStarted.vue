@@ -8,8 +8,11 @@
             <div class="getStarted-form">
                 <div v-if="isRegisterPath" class="getStarted-terms">
                         <div class="line-terms">
-                            <input type="checkbox" name="checkBox" id="checkBox" @click="checkBoxConfirm" v-model="isTermsAgree" />
-                            <label for="checkBox">&nbsp;
+
+            <v-checkbox @click="checkBoxConfirm" :ripple="false" class="checkbox-userinfo" 
+                        v-model="isTermsAgree" off-icon="sbf-check-box-un" 
+                        on-icon="sbf-check-box-done" name="checkBox" id="checkBox"/>
+                            <label for="checkBox">
                                 <span>
                                     <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
                                     <span class="terms padding-helper" @click.prevent="redirectTo('terms')" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
@@ -174,6 +177,18 @@ export default {
                         letter-spacing: -0.36px;
                     }
             .line-terms{
+                .checkbox-userinfo{
+                .v-input__slot{
+                display: flex;
+                align-items: unset;
+                    .v-icon{
+                        color: @global-blue !important;
+                    }
+                    .v-messages{
+                        display: none;
+                    }
+                }
+            }
                 display: flex;
                 align-items: inherit;
                 input{

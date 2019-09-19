@@ -13,9 +13,7 @@ const state = {
     showCalendar: false,
     calendarsList: null,
     selectedCalendarList:[],
-    availabilityCalendar: {
-        tutorDailyHours:[]
-    }
+    tutorDailyHours:[]
 }
 
 const mutations ={
@@ -41,10 +39,10 @@ const mutations ={
         state.selectedCalendarList = selectedList
     },
     setAvailabilityCalendar(state,dayAvailabilityObj){
-        if(state.availabilityCalendar.tutorDailyHours.length){
+        if(state.tutorDailyHours.length){
             let self = this;
             let dayIndex;
-            let isContain = state.availabilityCalendar.tutorDailyHours.some(
+            let isContain = state.tutorDailyHours.some(
                 (dayObj,index)=>{
                     if(dayObj.day === dayAvailabilityObj.day){
                         self.dayIndex = index;
@@ -54,19 +52,21 @@ const mutations ={
 
             if(isContain){
                 if(dayAvailabilityObj.timeFrames.length){
-                    state.availabilityCalendar.tutorDailyHours.forEach((element) => {
+                    state.tutorDailyHours.forEach((element) => {
                         if(element.day === dayAvailabilityObj.day){
-                            state.availabilityCalendar.tutorDailyHours[self.dayIndex] = dayAvailabilityObj
+                            state.tutorDailyHours[self.dayIndex] = dayAvailabilityObj
                         }
                     });
                 }else{
-                    state.availabilityCalendar.tutorDailyHours.splice(self.dayIndex,1)
+                    state.tutorDailyHours.splice(self.dayIndex,1)
                 }
             }else{
-                state.availabilityCalendar.tutorDailyHours.push(dayAvailabilityObj) 
+                if(dayAvailabilityObj.timeFrames.length){
+                    state.tutorDailyHours.push(dayAvailabilityObj) 
+                }
             }
         } else{
-            state.availabilityCalendar.tutorDailyHours.push(dayAvailabilityObj)
+            state.tutorDailyHours.push(dayAvailabilityObj)
         }
     }
 }
@@ -95,7 +95,7 @@ const actions ={
         }
     },
     updateAvailabilityCalendar({state}){
-        return calendarService.postCalendarAvailability(state.availabilityCalendar)
+        return calendarService.postCalendarAvailability(state.tutorDailyHours)
     },
     getEvents({commit}){
         let tutorId = router.history.current.params.id;

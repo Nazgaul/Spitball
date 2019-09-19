@@ -126,9 +126,6 @@
   <data name="btn_close" xml:space="preserve">
     <value>סגירה</value>
   </data>
-  <data name="btn_submit" xml:space="preserve">
-    <value>שליחת בקשה</value>
-  </data>
   <data name="cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
@@ -159,17 +156,8 @@
   <data name="request_error" xml:space="preserve">
     <value>אופסס... משהו השתבש - נסה שוב</value>
   </data>
-  <data name="request_received" xml:space="preserve">
-    <value>בקשתך לתרגול נקלטה בהצלחה, מתרגלים ייצרו איתך קשר בהקדם</value>
-  </data>
   <data name="select_course_placeholder" xml:space="preserve">
     <value>עבור איזה קורס?</value>
-  </data>
-  <data name="select_course_placeholder_mobile" xml:space="preserve">
-    <value>איזה קורס נלמד? </value>
-  </data>
-  <data name="select_course_placeholder_new" xml:space="preserve">
-    <value>באיזה קורס לעזור לך?</value>
   </data>
   <data name="send" xml:space="preserve">
     <value>שליחה</value>
@@ -194,12 +182,6 @@
   </data>
   <data name="title" xml:space="preserve">
     <value>בקשה למורה פרטי</value>
-  </data>
-  <data name="title_tutor_list" xml:space="preserve">
-    <value>שלח הודעה ל</value>
-  </data>
-  <data name="topic_placeholder" xml:space="preserve">
-    <value>רציתי לבקש מורה פרטי בנושא...</value>
   </data>
   <data name="type" xml:space="preserve">
     <value>כאן מקלידים</value>

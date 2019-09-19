@@ -120,17 +120,6 @@
   <data name="bottom" xml:space="preserve">
     <value>אנחנו לא שומרים בשרתים שלנו פרטי כרטיס אשראי של לקוחות. כרטיס אשראי מוזן ישירות במערכת PayMe המתמחה בתחום, שם הם נשמרים. כאשר יסתיים השיעור, אנחנו מורים לחברת PayMe לחייב את כרטיס האשראי (בלי לדעת את פרטי הכרטיס).</value>
   </data>
-  <data name="confirm-cancel" xml:space="preserve">
-    <value>חזרה לטופס אמצעי תשלום</value>
-  </data>
-  <data name="confirm-exit" xml:space="preserve">
-    <value>הודעת תשלום&lt;br&gt;&lt;br&gt;
-אנחנו ממליצים לעדכן מראש את טופס אמצעי התשלום. אל דאגה- אנחנו לא נחייב אותך לפני תום השיעור.&lt;br&gt;&lt;br&gt;
-אם נתקלת בבעיה במילוי טופס התשלום, לחץ על הכפתור 'שלם אחר כך', ונציג מטעמנו יצור איתך קשר לקבלת פרטי האשראי</value>
-  </data>
-  <data name="confirm-yes" xml:space="preserve">
-    <value>שלם אחר כך</value>
-  </data>
   <data name="title" xml:space="preserve">
     <value>התשלום עבור שיעור פרטי עם המורה {1}  יבוצע לאחר השיעור, חשבונית תשלח לאימייל שבו נרשמת למערכת.</value>
   </data>

@@ -117,23 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btn_view" xml:space="preserve">
-    <value>View Profile</value>
-  </data>
   <data name="currency" xml:space="preserve">
     <value>$</value>
   </data>
   <data name="hour" xml:space="preserve">
     <value>hour</value>
   </data>
-  <data name="online_lessons" xml:space="preserve">
-    <value>Offers online lessons</value>
-  </data>
   <data name="reviews_many" xml:space="preserve">
     <value>{1} Reviews</value>
   </data>
   <data name="review_one" xml:space="preserve">
-    <value>Review</value>
+    <value>{1} Review</value>
   </data>
   <data name="no_reviews_mobile" xml:space="preserve">
     <value>Still collecting</value>
@@ -181,5 +175,11 @@
   <data name="message_me" xml:space="preserve">
     <value>me</value>
     <comment>זה אמור להיות אות אחת</comment>
+  </data>
+  <data name="class" xml:space="preserve">
+    <value>Class</value>
+  </data>
+  <data name="hour_completed" xml:space="preserve">
+    <value>Lesson completed</value>
   </data>
 </root>

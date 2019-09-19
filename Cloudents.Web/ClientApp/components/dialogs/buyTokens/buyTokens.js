@@ -10,7 +10,7 @@ export default {
       showOverlay: false,
       transactionId: 750,
       products:{
-        currency: LanguageService.getValueByKey('buyTokens_currency_shekel'),
+        currency: '₪',
         basic:{
             pts: 250,
             price: 10,

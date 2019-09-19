@@ -12,6 +12,7 @@ namespace Cloudents.Core.Entities
             WeekDay = weekDay;
             From = from;
             To = to;
+            CreateTime = DateTime.UtcNow;
         }
 
         protected TutorHours()
@@ -23,7 +24,7 @@ namespace Cloudents.Core.Entities
         public virtual TimeSpan From { get; protected set; }
         public virtual TimeSpan To { get; protected set; }
 
- 
+        public virtual DateTime CreateTime { get; protected set; }
 
         protected bool Equals(TutorHours other)
         {

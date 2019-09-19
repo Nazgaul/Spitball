@@ -126,9 +126,6 @@
   <data name="from" xml:space="preserve">
     <value>ממוסד הלימודים</value>
   </data>
-  <data name="keep_typing" xml:space="preserve">
-    <value>המשך להקליד אנו מחפשים בשבילך</value>
-  </data>
   <data name="next" xml:space="preserve">
     <value>הבא</value>
   </data>
@@ -149,8 +146,5 @@
   </data>
   <data name="select_school_placeholder" xml:space="preserve">
     <value>בחר את מוסד הלימודים שלך</value>
-  </data>
-  <data name="show_all_schools" xml:space="preserve">
-    <value>הצג את כל מוסדות הלימודים</value>
   </data>
 </root>

@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>צפה בפרופיל של {0} מ-{1} ב-Spitball, פלטפורמה המיועדת למורים וסטודנטים שמאפשרת לשתף ידע אקדמי, למצוא סיכומים אקדמאיים ומורים פרטיים במגוון נושאים.</value>
+    <value>צפה בפרופיל של {0} מ-{1} ב-Spitball, פלטפורמה המיועדת למורים וסטודנטים שמאפשרת לשתף ידע אקדמי, למצוא סיכומים אקדמאים ומורים פרטיים במגוון נושאים.</value>
     <comment>At the moment we focus on hebrew seo</comment>
   </data>
   <data name="DescriptionNoUniversity" xml:space="preserve">
-    <value>צפה בפרופיל של {0} ב-Spitball, פלטפורמה המיועדת למורים וסטודנטים שמאפשרת לשתף ידע אקדמי, למצוא סיכומים אקדמאיים ומורים פרטיים במגוון נושאים.</value>
+    <value>צפה בפרופיל של {0} ב-Spitball, פלטפורמה המיועדת למורים וסטודנטים שמאפשרת לשתף ידע אקדמי, למצוא סיכומים אקדמאים ומורים פרטיים במגוון נושאים.</value>
     <comment>At the moment we focus on hebrew seo</comment>
   </data>
   <data name="Title" xml:space="preserve">

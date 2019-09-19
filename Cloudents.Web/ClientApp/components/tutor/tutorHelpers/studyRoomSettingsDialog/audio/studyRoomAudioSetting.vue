@@ -34,7 +34,7 @@
             <div class="audio-output-controls">
                 <button @click="playTestSound" v-if="!isPlaying" v-language:inner='"studyRoomSettings_audio_test_sound"'></button>
                 <button @click="stopSound" v-else v-language:inner='"studyRoomSettings_audio_stop_sound"'></button>
-                <v-flex v-if="isPlaying" style="margin-left: 10px; display: flex;">
+                <v-flex v-if="isPlaying" class="eq-image-container">
                     <img class="eq-image" src="../../../images/eq.gif" alt="">
                 </v-flex>
             </div>
@@ -149,6 +149,10 @@ export default {
                 color: #FFF;
                 border-radius: 4px;
                 outline: none;
+            }
+            .eq-image-container{
+                margin-left: 10px;
+                display: flex;
             }
         }
     }

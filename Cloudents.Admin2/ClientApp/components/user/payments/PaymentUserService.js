@@ -14,25 +14,9 @@ function PaymentRequestItem(objInit) {
     this.created = new Date(objInit.created).toLocaleString();
     this.duration = objInit.duration;
     this.totalPrice = this.price*this.duration/60;
-    this.subsidizing = (subsidizingPrice(this.price)*this.duration/60).toFixed(2);
 }
 function createPaymentRequestItem(objInit) {
     return new PaymentRequestItem(objInit);
-}
-
-const subsidizingPrice = function(price) {
-    if (price < 55)
-    {
-        return price;
-    }
-
-    var subsidizingPrice = price - 70;
-    if (subsidizingPrice < 55)
-    {
-        return 55;
-    }
-
-    return subsidizingPrice;
 }
 
 const path = 'AdminPayment/';
@@ -52,10 +36,9 @@ const getPaymentRequests = function () {
 };
 
 
-const approvePayment = function (item,spitballPay) {
+const approvePayment = function (item) {
     return connectivityModule.http.post(`${path}`, {
-       studentPay : item.subsidizing,
-       spitballPay: spitballPay,
+       studentPay : item.totalPrice,
        userId: item.userId,
        tutorId: item.tutorId,
        StudyRoomSessionId: item.studyRoomSessionId
@@ -69,6 +52,5 @@ const declinePayment = function (item) {
 export {
     getPaymentRequests,
     approvePayment,
-    subsidizingPrice,
     declinePayment
 };

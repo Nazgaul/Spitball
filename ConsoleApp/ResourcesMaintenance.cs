@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -6,37 +7,40 @@ using System.Xml;
 
 namespace ConsoleApp
 {
-    public class ResourcesMaintenance
+    public static class ResourcesMaintenance
     {
-        public static void GetOrphanedResources()
+        private static readonly Dictionary<string, string[]> _fileContentCache = new Dictionary<string, string[]>();
+        public static void DeleteUnusedResources()
         {
             //TODO: :// we need to think about landing page and other instances of resources string interpolation!
             //TODO :// maybe some performance tweaks and thats it.
             Console.WriteLine(Directory.GetCurrentDirectory());
             
-            var dir = Directory.GetCurrentDirectory();
-            var s = Directory.GetParent(dir);
-            while (Path.GetFileName(s.ToString()) != "Zbox")
+            var directoryName = Directory.GetCurrentDirectory();
+            //var s = Directory.GetParent(directoryName);
+            while (!Directory.GetFiles(directoryName, "*.sln").Any())
             {
-                s = Directory.GetParent(s.ToString());
+                directoryName = Directory.GetParent(directoryName).ToString();
             }
-            string[] files =
-                Directory.GetFiles($@"{s}\Cloudents.Web\Resources\Js\",
+            string[] resourceFiles =
+                Directory.GetFiles($@"{directoryName}\Cloudents.Web\Resources\Js\",
                 "*.resx", SearchOption.AllDirectories);
-            string[] jsFiles = Directory.GetFiles($@"{s}\Cloudents.Web\ClientApp",
+            string[] jsFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp",
                 "*", SearchOption.AllDirectories);
-            
+
             //var dic = new Dictionary<string,string[]>();
-            foreach (var f in files)
+            for (int j = resourceFiles.Length - 1; j >= 0; j--)
             {
+                var resourceFile = resourceFiles[j];
                 string content;
-                using (StreamReader streamReader = new StreamReader(f, Encoding.UTF8))
+                using (StreamReader streamReader = new StreamReader(resourceFile, Encoding.UTF8))
                 {
                     content = streamReader.ReadToEnd();
                 }
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.LoadXml(content);
                 XmlNodeList dataElement = xmlDoc.GetElementsByTagName("data");
+                
 
                 //foreach (XmlNode element in dataElement)
                 for (int i = dataElement.Count - 1; i >= 0; i--)
@@ -45,12 +49,12 @@ namespace ConsoleApp
                     string firstOccurrence = null;
                     foreach (string file in jsFiles)
                     {
-                        //if (!dic.TryGetValue(file, out var lines))
-                        //{
-                        //    lines = File.ReadAllLines(file);
-                        //    dic[file] = lines;
-                        //}
-                        string[] lines = File.ReadAllLines(file); 
+                        if (!_fileContentCache.TryGetValue(file, out var lines))
+                        {
+                            lines = File.ReadAllLines(file);
+                            _fileContentCache[file] = lines;
+                        }
+                        //string[] lines = File.ReadAllLines(file); 
                         firstOccurrence = lines.FirstOrDefault(l => l.Contains(name));
                         if (!string.IsNullOrEmpty(firstOccurrence))
                         {
@@ -59,7 +63,7 @@ namespace ConsoleApp
                     }
                     if (string.IsNullOrEmpty(firstOccurrence))
                     {
-                        Console.WriteLine($"file path: {f}");
+                        Console.WriteLine($"file path: {resourceFile}");
                         Console.WriteLine($"element name: {name}");
                         Console.WriteLine("-----------------------");
 
@@ -67,7 +71,15 @@ namespace ConsoleApp
                         p.RemoveChild(dataElement[i]);
                     }
                 }
-                xmlDoc.Save(f);
+                xmlDoc.Save(resourceFile);
+                dataElement = xmlDoc.GetElementsByTagName("data");
+                if (dataElement.Count == 0)
+                {
+                    var file = new FileInfo(resourceFile);
+                    file.Delete();
+
+                    //Need to remove the file
+                }
             }
         }
     }

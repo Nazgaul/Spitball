@@ -143,7 +143,7 @@
           :style="`height:${imgHeight}px; width:${imgWidth}px`"
           class="document-wrap-content mb-4"
           :src="page"
-          :src-placeholder="require('./doc-preview-animation.gif')"
+          :src-placeholder="isObserver(page)"
           v-if="page"
           :alt="document.content"
         />
@@ -499,6 +499,13 @@ export default {
         id: this.document.details.id
       };
       this.downloadDocument(item);
+    },
+    isObserver(page) {
+      if("IntersectionObserver" in window) {
+        return require('./doc-preview-animation.gif');
+      } else {
+        return page;
+      }
     }
   },
   beforeDestroy() {},

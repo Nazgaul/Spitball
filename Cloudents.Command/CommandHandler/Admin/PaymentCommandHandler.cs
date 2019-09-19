@@ -36,11 +36,11 @@ namespace Cloudents.Command.CommandHandler.Admin
                 receipt = response.PaymeSaleId;
             }
 
-            if (message.SpitballPay != 0)
-            {
-                await _payment.TransferPaymentAsync(tutor.SellerKey,
-                    message.SpitballBuyerKey, message.SpitballPay, token);
-            }
+            //if (message.SpitballPay != 0)
+            //{
+            //    await _payment.TransferPaymentAsync(tutor.SellerKey,
+            //        message.SpitballBuyerKey, message.SpitballPay, token);
+            //}
 
             session.SetReceipt(receipt);
             await _studyRoomSessionRepository.UpdateAsync(session, token);

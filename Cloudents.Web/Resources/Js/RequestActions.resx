@@ -124,7 +124,7 @@
     <value>Ask</value>
   </data>
   <data name="btn_tutor" xml:space="preserve">
-    <value>Tutor requets</value>
+    <value>Request a tutor</value>
   </data>
   <data name="btn_tutor_mob" xml:space="preserve">
     <value>Tutor req.</value>

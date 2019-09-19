@@ -1,5 +1,4 @@
 ﻿import { mapActions, mapGetters, mapMutations } from 'vuex';
-import * as consts from '../consts';
 import classIcon from "./img/search-class-icon.svg";
 import universityIcon from "./img/search-university-icon.svg";
 import spitballIcon from "./img/search-spitball-icon.svg";
@@ -86,9 +85,6 @@ export default {
         isHome() {
             return this.$route.name === 'home';
         },
-        maxResults() {
-            return this.isHome ? consts.HOME_MAX_SUGGEST_NUM : consts.VERTICAL_MAX_SUGGEST_NUM;
-        }
     },
     watch: {
         userText(val) {

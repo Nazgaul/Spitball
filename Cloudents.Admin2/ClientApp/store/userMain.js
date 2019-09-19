@@ -154,9 +154,8 @@ const actions = {
     removeTutor(context, id) {
         return UserMainService.removeTutor(id)
         .then(() => {
-                    context.commit('updateTutorSate', null);
-                
-            });
+            context.commit('updateTutorSate', 'Not a tutor');
+        });
     },
 
     deleteQuestionItem({commit}, index) {
@@ -304,7 +303,7 @@ const actions = {
     },
     deletePayment({commit, dispatch, state}, id) {
         return UserMainService.deletePayment(id).then(() => {
-            state.userInfo.user.payment.value = false;
+            state.userInfo.payment.value = false;
         }).catch(ex => {
             return ex;
         })

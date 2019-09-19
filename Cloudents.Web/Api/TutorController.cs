@@ -312,7 +312,7 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <param name="model"></param>
         /// <param name="token"></param>
-        /// <returns></returns>
+        /// <returns>Return the busy date time</returns>
         [HttpGet("calendar/events"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(555)]
@@ -325,7 +325,7 @@ namespace Cloudents.Web.Api
             {
                 var query = new CalendarEventsQuery(model.TutorId, model.From.GetValueOrDefault(DateTime.UtcNow), model.To.GetValueOrDefault(DateTime.UtcNow.AddMonths(1)));
                 var res = await _queryBus.QueryAsync(query, token);
-                return res.BusySlot.Distinct().ToList();
+                return res.BusySlot.ToList();
             }
             catch (NotFoundException)
             {

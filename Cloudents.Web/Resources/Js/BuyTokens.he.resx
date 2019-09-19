@@ -132,12 +132,6 @@
   <data name="choose" xml:space="preserve">
     <value>בחר</value>
   </data>
-  <data name="currency_dollar" xml:space="preserve">
-    <value>$</value>
-  </data>
-  <data name="currency_shekel" xml:space="preserve">
-    <value>₪</value>
-  </data>
   <data name="earn_answer" xml:space="preserve">
     <value>תן תשובות נכונות</value>
   </data>

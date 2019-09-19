@@ -139,7 +139,7 @@
     <value>Thank you!</value>
   </data>
   <data name="add_event_title" xml:space="preserve">
-    <value>Schedueling an online tutoring session with {1}</value>
+    <value>Scheduling an online tutoring session with {1}</value>
   </data>
   <data name="add_time" xml:space="preserve">
     <value>+ Add time slot</value>
@@ -157,7 +157,7 @@
     <value>Set your general working time slots</value>
   </data>
   <data name="day_off" xml:space="preserve">
-    <value>Off - Not working all day</value>
+    <value>Day Off</value>
   </data>
   <data name="empty_state_student" xml:space="preserve">
     <value>My calendar is not available at the moment. Massage me directly to schedule a session.</value>
@@ -165,6 +165,15 @@
   <data name="error_create_event" xml:space="preserve">
     <value>Sorry, I am teaching at those hours. Maybe another time?</value>
   </data>
+  <data name="header" xml:space="preserve">
+    <value>Book a lesson with me</value>
+  </data>
+  <data name="time" xml:space="preserve">
+    <value>Times are shown in your local time zone</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>Choose the time the best suits you!</value>
+    </data>
   <data name="to" xml:space="preserve">
     <value>to</value>
   </data>

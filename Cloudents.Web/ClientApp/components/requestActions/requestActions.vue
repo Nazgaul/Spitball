@@ -13,7 +13,7 @@
                 </span>
             </v-flex>
         </v-layout>
-        <v-layout align-space-between class="pt-3 pb-3" justify-space-between>
+        <v-layout align-space-between class="pt-3 pb-3 buttons-layout" justify-space-between>
             <v-flex sm4  class="btn-wrap text-xs-left" shrink>
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openAskQuestion()">
                     <v-icon class="light-btn-icon  mr-2">sbf-message-icon-new</v-icon>
@@ -141,6 +141,15 @@
         // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
         background-color: @color-white;
         border-radius: 4px;
+        .buttons-layout{
+            @media (max-width: 344px) {
+               display:flex;
+               flex-direction: column;
+               div{
+                   margin-bottom: 4px;
+               }
+            }
+        }
         .request-box-title {
             color: @textColor;
             letter-spacing: -0.4px;

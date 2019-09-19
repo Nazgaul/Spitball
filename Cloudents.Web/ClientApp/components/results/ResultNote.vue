@@ -56,15 +56,15 @@
           <div class="left">
             <span v-if="docViews" class="views-cont">
               <span>{{docViews}}</span>
-              <span class="views" v-language:inner="'resultNote_views'"/> 
+              <span class="views" v-language:inner="docViews > 1 ? 'resultNote_views' : 'resultNote_view'"/> 
             </span>
             <span v-if="docDownloads && !item.price">
               <span>{{docDownloads}}</span>
-              <span class="downloads" v-language:inner="item.price? 'resultNote_purchased':'resultNote_download'"/> 
+              <span class="downloads" v-language:inner="docDownloads > 1 ? 'resultNote_downloads' : 'resultNote_download'"/> 
             </span>
             <span v-if="docPurchased && item.price">
               <span>{{docPurchased}}</span>
-              <span class="downloads" v-language:inner="'resultNote_purchased'"/> 
+              <span class="downloads" v-language:inner="docPurchased > 1 ? 'resultNote_purchaseds' : 'resultNote_purchased'"/> 
             </span>
           </div>
             <span class="right">

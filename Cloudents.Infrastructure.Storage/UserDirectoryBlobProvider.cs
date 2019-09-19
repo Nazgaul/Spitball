@@ -18,8 +18,8 @@ namespace Cloudents.Infrastructure.Storage
                          Stream stream, string contentType, CancellationToken token)
         {
             var extension = Path.GetExtension(file);
-            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
-            if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+            string[] supportedImages = { "image/jpg", "image/png", "image/gif", "image/jpeg", "image/bmp" };
+            if (!supportedImages.Contains(contentType, StringComparer.OrdinalIgnoreCase))
             {
                 throw new ArgumentException();
             }

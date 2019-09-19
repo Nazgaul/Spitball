@@ -131,9 +131,6 @@
     <value>F</value>
     <comment>Front</comment>
   </data>
-  <data name="Front" xml:space="preserve">
-    <value>Front</value>
-  </data>
   <data name="K" xml:space="preserve">
     <value>K</value>
     <comment>Back</comment>

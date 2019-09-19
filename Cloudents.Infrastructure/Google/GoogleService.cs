@@ -200,9 +200,9 @@ namespace Cloudents.Infrastructure.Google
                         {
                              if (s.Start.DateTime.HasValue)
                              {
-                                 var startAppointmentTime = s.Start.DateTime.Value;
+                                 var startAppointmentTime = s.Start.DateTime.Value.ToUniversalTime();
                                  startAppointmentTime = startAppointmentTime.AddMinutes(-s.Start.DateTime.Value.Minute);
-                                 var endAppointmentTime = s.End.DateTime.GetValueOrDefault();
+                                 var endAppointmentTime = s.End.DateTime.GetValueOrDefault().ToUniversalTime();
                                  if (endAppointmentTime.Minute > 0)
                                  {
                                      endAppointmentTime = endAppointmentTime.AddHours(1)

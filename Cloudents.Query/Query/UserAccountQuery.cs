@@ -32,8 +32,8 @@ namespace Cloudents.Query.Query
                           u.Score, u.PhoneNumberHash,
                           t.State as IsTutor,
                             coalesce(
-                                iif(u.Country != 'IL', 0 , null),
-                                iif(u.PaymentExists != 0 and u.PaymentKeyExpiration > GetUtcDate(), 0, null),
+                                iif(u.PaymentExists != 0 , 0, null),
+								iif(u.Country != 'IL', 0 , null),
                                 1
                             )as NeedPayment
                       from sb.[user] u

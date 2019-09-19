@@ -26,8 +26,8 @@
 
                     <v-layout column align-center class="user-rates">
                         <div v-if="isReviews" :class="{'mr-5': !isReviews}">
-                            <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" />
-                            <div class="caption text-xs-center reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
+                            <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" color="#ffca54"/>
+                            <div class="caption text-xs-center reviews" v-html="$Ph(tutorData.reviews === 1 ? `resultTutor_review_one` : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
                         </div>
                         <div v-else class="no-reviews">
                             <star class="rating-holder" />
@@ -44,7 +44,7 @@
                         <!-- card-b -->
                         <v-layout column align-center class="ab-cardB user-classes" :class="{'user-classes-hidden': tutorData.lessons === 0}">
                             <div>{{tutorData.lessons}}</div>
-                            <div class="user-classes-text" v-language:inner="'resultTutor_classes'"></div>
+                            <div class="user-classes-text" v-language:inner="tutorData.lessons !== 1 ? 'resultTutor_classes' : 'resultTutor_class'"></div>
                         </v-layout>
                     </template>
 
@@ -293,7 +293,7 @@ export default {
         color: @purple;
         margin-bottom: -2px;
         .price-box {
-            line-height: 15px;
+            line-height: 14px;
             font-size: 22px;
             span {
                 font-family: Arial;

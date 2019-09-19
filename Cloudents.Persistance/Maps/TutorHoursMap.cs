@@ -17,6 +17,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.To).Not.Nullable().CustomType<NHibernate.Type.TimeAsTimeSpanType>().UniqueKey("tutor_day");
             //HasMany(x => x.TimeFrames).Access.CamelCaseField(Prefix.Underscore)
             //        .Cascade.AllDeleteOrphan().Inverse().AsSet();
+            Map(x => x.CreateTime).Not.Update();
             Table("TutorHours");
             SchemaAction.Update();
         }

@@ -45,7 +45,7 @@
             <template>
               <div class="user-rank mt-3 mb-2 align-center" v-if="isReviews">
                 <user-rating :rating="tutorData.rating" :showRateNumber="false" />
-                <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
+                <div class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
               </div>
               <div v-else class="user-rank mt-3 mb-2 align-center">
                 <star/>
@@ -59,7 +59,7 @@
               
               <template>
                 <span class="font-weight-bold caption no-classes" v-language:inner="'resultTutor_no_hours_completed'" v-if="tutorData.lessons === 0"></span>
-                <span class="font-weight-bold caption no-classes" v-language:inner="'resultTutor_hours_completed'" v-else></span>    
+                <span class="font-weight-bold caption no-classes" v-language:inner="tutorData.lessons === 1 ? 'resultTutor_hour_completed' : 'resultTutor_hours_completed' " v-else></span>    
               </template>
             </div>                
 

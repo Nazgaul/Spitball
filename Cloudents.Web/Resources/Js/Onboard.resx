@@ -117,34 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btn_continue" xml:space="preserve">
-    <value>Continue</value>
-  </data>
   <data name="btn_finish" xml:space="preserve">
     <value>Finish</value>
   </data>
-  <data name="btn_skip" xml:space="preserve">
-    <value>Skip</value>
-  </data>
-  <data name="final_added" xml:space="preserve">
-    <value>You got</value>
-  </data>
-  <data name="final_bottom_text" xml:space="preserve">
-    <value>Start and access documents from your class</value>
-  </data>
   <data name="final_title" xml:space="preserve">
     <value>Jump right in!</value>
-  </data>
-  <data name="how_text" xml:space="preserve">
-    <value>Every student can offer study resources to other students for free or for a fee.</value>
-  </data>
-  <data name="how_title" xml:space="preserve">
-    <value>How does it work?</value>
-  </data>
-  <data name="welcome_text" xml:space="preserve">
-    <value>The community where students access study resources and learn from each other.</value>
-  </data>
-  <data name="welcome_title" xml:space="preserve">
-    <value>Welcome to Spitball</value>
   </data>
 </root>

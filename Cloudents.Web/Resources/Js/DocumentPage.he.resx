@@ -132,17 +132,8 @@
   <data name="online_tutor" xml:space="preserve">
     <value>השג מורים פרטיים אונליין ואת כל חומרי הלימוד כדי להצליח</value>
   </data>
-  <data name="see_all" xml:space="preserve">
-    <value>צפה בהכל</value>
-  </data>
   <data name="student_learn" xml:space="preserve">
     <value>סטודנטים לומדים מסטודנטים</value>
-  </data>
-  <data name="student_uploaded" xml:space="preserve">
-    <value>הועלה על ידי הסטודנט</value>
-  </data>
-  <data name="student_views_documents" xml:space="preserve">
-    <value>צפה בכל המסמכים שהועלו</value>
   </data>
   <data name="table_course" xml:space="preserve">
     <value>קורס:</value>

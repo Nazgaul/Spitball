@@ -1,63 +1,58 @@
 <template>
         <tr>
-            <td class="tdDayName">
-                <p class="pDayName" v-html="dayName"/>
-            </td>
+            <td class="tdDayName"><p class="pDayName" v-html="dayName"/></td>
             
-
             <td class="tdDayHourSelect">
-                    <v-select :class="['select-cal',{'dayOff':isDayOff}]"
-                            v-model="selectedHourFrom" 
-                            height="30" dense
+                <v-select :class="['select-cal',{'dayOff':isDayOff}]"
+                        v-model="selectedHourFrom" 
+                        height="30" dense
+                        :append-icon="'sbf-arrow-down'" 
+                        :items="hoursList" outline>
+                    <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
+                    <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
+                </v-select>
+
+                <span v-if="!isDayOff" class="dividers" v-language:inner="'calendar_to'"/>
+
+                <v-select v-if="!isDayOff" class="select-cal" height="30" dense tag="span"
+                            v-model="selectedHourTo"
                             :append-icon="'sbf-arrow-down'" 
-                            :items="hoursList" outline>
-                        <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
-                        <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
-                    </v-select>
+                            :items="hoursToList" outline>
+                    <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
+                    <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
+                </v-select>
+                
+                <span v-if="!isDayOff && (selectedHourTo < 23 && !isAddTimeSlot)"
+                      @click="isAddTimeSlot = true" class="addTime"
+                      v-language:inner="isMobile?'calendar_add_time_mobile':'calendar_add_time'"/>
 
-                    <span v-if="!isDayOff" class="dividers" v-language:inner="'calendar_to'"/>
+                    <span class="dividersAnd" 
+                           v-language:inner="'calendar_and'"
+                           v-show="isMobile &&(!isDayOff && isAddTimeSlot)"/>
 
-                    <v-select v-if="!isDayOff" class="select-cal" height="30" dense tag="span"
-                                v-model="selectedHourTo"
+                    <span class="dividers" v-language:inner="'calendar_and'" 
+                          v-show="!isMobile &&(!isDayOff && isAddTimeSlot)"/>
+                <div :style="{'display':isMobile?'':'inline-block'}" :class="!showAdditional || isDayOff?'additionalHoursDisplay':''" > 
+                        <v-select class="select-cal" height="30" dense
+                                v-model="selectedAdditionalHourFrom"
                                 :append-icon="'sbf-arrow-down'" 
-                                :items="hoursToList" outline>
-                        <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
-                        <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
-                    </v-select>
-                    <span v-if="(!isMobile && !isDayOff) && (selectedHourTo < 23 && !isAddTimeSlot)" 
-                            @click="isAddTimeSlot = true" class="addTime" 
-                            v-language:inner="'calendar_add_time'"/>
+                                :items="hoursAdditionaFromList" outline>
+                            <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
+                            <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
+                        </v-select>
 
-                    <span v-if="(isMobile && !isDayOff) && (selectedHourTo < 23 && !isAddTimeSlot)" 
-                            @click="isAddTimeSlot = true" class="addTime" 
-                            v-language:inner="'calendar_add_time_mobile'"/>
+                        <span class="dividers" v-language:inner="'calendar_to'"/>
 
-                    <span :class="[isMobile?'dividersAnd':'dividers']" 
-                            v-show="(!isDayOff && isAddTimeSlot)"
-                            v-language:inner="'calendar_and'"/>
-
-                    <v-select v-if="!isDayOff && showAdditional" class="select-cal" height="30" dense
-                            v-model="selectedAdditionalHourFrom"
-                            :append-icon="'sbf-arrow-down'" 
-                            :items="hoursAdditionaFromList" outline>
-                        <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
-                        <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
-                    </v-select>
-
-                    <span v-if="!isDayOff && showAdditional" class="dividers" 
-                          v-language:inner="'calendar_to'"/>
-
-                    <v-select v-if="!isDayOff && showAdditional" :class="['select-cal',{'mt-3':isMobile}]" height="30" dense
-                            v-model="selectedAdditionalHourTo"
-                            :append-icon="'sbf-arrow-down'" 
-                            :items="hoursAdditionaToList" outline>
-                        <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
-                        <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
-                    </v-select>
-
-                    <removeTimeSVG v-if="!isDayOff && showAdditional" 
-                                   @click.native="closeAdditionalTime" 
-                                   class="removeTime"/> 
+                        <v-select :class="['select-cal',{'mt-3':isMobile}]" height="30" dense
+                                v-model="selectedAdditionalHourTo"
+                                :append-icon="'sbf-arrow-down'" 
+                                :items="hoursAdditionaToList" outline>
+                            <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
+                            <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
+                        </v-select>
+                    
+                        <removeTimeSVG @click.native="closeAdditionalTime" class="removeTime"/> 
+                </div>
             </td>
         </tr>
 </template>
@@ -94,7 +89,7 @@ export default {
         ...mapGetters(['getIntervalFirst']),
         dayName(){
             let options = { weekday: this.isMobile? 'short':'long' }
-            let dayDate = new Date(`01-0${this.day+1}-2017`)
+            let dayDate = new Date(`2017-01-0${this.day+1}`)
             return dayDate.toLocaleString(`${global.lang}-${global.country}`,options )
         },
         isMobile(){
@@ -145,6 +140,9 @@ export default {
                 return (time < 10) ? `0${time}:00` : `${time}:00`;
             }
         },
+        timeFormatISO(time){
+            return new Date(`2019-09-18 ${this.timeFormat(time)}`).toISOString().slice(11,19)
+        },
         closeAdditionalTime(){
             this.isAddTimeSlot = false;
             this.selectedAdditionalHourFrom = ''
@@ -152,14 +150,14 @@ export default {
         },
         updateAvailability(){
             let timeFrames = [
-                    `${this.timeFormat(this.selectedHourFrom)}:00`,
-                    `${this.timeFormat(this.selectedHourTo)}:00`
+                    this.timeFormatISO(this.selectedHourFrom-1),
+                    this.timeFormatISO(this.selectedHourTo)
                 ]
 
             if(this.isAddTimeSlot){
                 let additionalHourTimeFrames = [
-                    `${this.timeFormat(this.selectedAdditionalHourFrom)}:00`,
-                    `${this.timeFormat(this.selectedAdditionalHourTo)}:00`
+                    this.timeFormatISO(this.selectedAdditionalHourFrom-1),
+                    this.timeFormatISO(this.selectedAdditionalHourTo)
                 ]
                 timeFrames = [...timeFrames,...additionalHourTimeFrames]
             }
@@ -192,7 +190,11 @@ export default {
         
     },
     created() {
-        this.selectedHourFrom = this.getIntervalFirst
+        if(this.day === 6){
+            this.selectedHourFrom = this.hoursList[0]
+        } else{
+            this.selectedHourFrom = this.getIntervalFirst;
+        }
     },
     mounted() {
         this.runUpdate()
@@ -208,13 +210,13 @@ export default {
 
 <style lang="less">
     @import '../../styles/mixin.less';
-    table{
-        tr td:first-child{
-            padding-right: 6px;
-            white-space:nowrap;
-            vertical-align: baseline;
-            padding-top: 4px;
-        }
+    // table{
+        // tr td:first-child{
+        //     padding-right: 6px;
+        //     white-space:nowrap;
+        //     vertical-align: baseline;
+        //     padding-top: 4px;
+        // }
         td{
             &.tdDayName{
                 .pDayName{
@@ -239,7 +241,17 @@ export default {
      
                     }
                 }
+                .additionalHoursDisplay{
+                    // display:inline-block;
+                    visibility: hidden;
+                    @media (max-width: @screen-xs) {
+                        display: none;
+                    }
+                }
                 .dividers{
+                    @media (max-width: 374px) {
+                       padding: 0 8px; 
+                    }
                     padding: 0 10px;
                 }
                 .dividersAnd{
@@ -301,6 +313,6 @@ export default {
                 }
             }
             }
-    }
+    // }
 
 </style>

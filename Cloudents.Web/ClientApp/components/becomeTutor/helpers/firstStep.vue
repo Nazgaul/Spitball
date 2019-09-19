@@ -143,6 +143,7 @@
                 let formData = new FormData();
                 let file = self.$refs.tutorImage.files[0];
                 this.isLoaded = false;
+                this.errorUpload = false;
                 formData.append("file", file);
                 self.uploadAccountImage(formData).then((done) => {
                     if(!done) {
@@ -155,6 +156,7 @@
                     self.imageAdded = true;
                     }).catch((error) => {
                         self.imageAdded = false;
+                        self.errorUpload = true;
                     });
             },
             nextStep() {

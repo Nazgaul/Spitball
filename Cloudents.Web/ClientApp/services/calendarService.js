@@ -12,17 +12,11 @@ function getEvents(params){
         (response)=>{
             let events = [];
             return calendarEvents(response.data);
-            // response.data.forEach(e =>{
-            //     if(Object.keys(e).length === 0) return;
-            //     events.push(calendarEvent(e))
-            // })
-            return events
       })
 }
 
 function addEvent(params){
     return connectivityModule.http.post(`Tutor/calendar/events`,params).then(response=>{
-
     })
 }
 
@@ -35,7 +29,8 @@ function getCalendarsList(){
 function postCalendarsList(params){
     return connectivityModule.http.post(`Tutor/calendar/list`,params)
 }
-function postCalendarAvailability(params){
+function postCalendarAvailability(paramsObj){
+    let params = createCalendarHours(paramsObj)
     return connectivityModule.http.post(`Tutor/calendar/hours`,params)
 }
 
@@ -58,23 +53,44 @@ function CalendarEvent(objInit){
     
     this.date = calendarDate(date);
     this.time = calendarTime(date);
-
-    
-
 }
 function calendarEvents(objInit){
     let events = [];
     objInit.forEach(e =>{
-                 //if(Object.keys(e).length === 0) return;
-                let event = new CalendarEvent(e);
-                if (event.needToAdd()) {
-                    events.push(event);
-                }
-                 //events.push(calendarEvent(e))
-             });
-    return events;//
+        let event = new CalendarEvent(e);
+        if (event.needToAdd()) {events.push(event);}
+    });
+    return events;
 }
-
+function CalendarHours(day,from,to){
+    this.day = day;
+    this.from = from;
+    this.to = to;
+}
+function createCalendarHours(objInit){
+    let tutorDailyHoursObj = {
+        tutorDailyHours:[]
+    }
+    objInit.forEach(day=>{
+        let dayIndex = day.day
+        if(day.timeFrames.length > 2){
+            let from = day.timeFrames[0];
+            let to = day.timeFrames[1];
+            let fromAdditional = day.timeFrames[2];
+            let toAdditional = day.timeFrames[3];
+            let dayObject = new CalendarHours(dayIndex,from,to);
+            let dayObjectAdditional = new CalendarHours(dayIndex,fromAdditional,toAdditional);
+            tutorDailyHoursObj.tutorDailyHours.push(dayObject)
+            tutorDailyHoursObj.tutorDailyHours.push(dayObjectAdditional)
+        }else{
+            let from = day.timeFrames[0];
+            let to = day.timeFrames[1];
+            let dayObject = new CalendarHours(dayIndex,from,to);
+            tutorDailyHoursObj.tutorDailyHours.push(dayObject)
+        }
+    })
+    return tutorDailyHoursObj;
+}
 export default {
     signIn,
     getEvents,

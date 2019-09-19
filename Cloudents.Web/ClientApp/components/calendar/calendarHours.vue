@@ -33,7 +33,7 @@ export default {
         table {
         width:100%; 
         border-collapse: separate;  
-        border-spacing: 0 16px;
+        border-spacing: 0 10px;
             @media (max-width: @screen-xs) {
                 width: 300px;
                 margin: 0 auto;
@@ -41,13 +41,19 @@ export default {
             @media (max-width: 374px) {
                 width: 100%;
             }
+            tr td:first-child{
+            padding-right: 6px;
+            white-space:nowrap;
+            vertical-align: baseline;
+            padding-top: 4px;
+            }
         }
         color: @global-purple;
         display: flex;
         flex-direction: column;
         align-items: center;
         .calendarHoursTitle{
-            margin-bottom: 28px;
+            margin-bottom: 16px;
             h1{
                 font-size: 16px;
                 font-weight: 600;

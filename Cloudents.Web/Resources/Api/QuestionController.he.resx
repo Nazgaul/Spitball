@@ -124,7 +124,7 @@
     <value>אין לך מספיק נקודות,  קבל עוד נקודות על ידי מתן תשובות לשאלות.</value>
   </data>
   <data name="PostedQuestionToasterOk" xml:space="preserve">
-    <value>תודה, נעדכן אותך מייד ברגע שתתקבל תשובה</value>
+    <value>תודה, נעדכן אותך מיד ברגע שתתקבל תשובה</value>
   </data>
   <data name="PostedQuestionToasterPending" xml:space="preserve">
     <value>השאלה שלך ממתינה לאישור, נא לא לשלוח שאלה זו שוב.</value>

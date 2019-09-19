@@ -159,9 +159,6 @@
   <data name="forgot_btn" xml:space="preserve">
     <value>שנה סיסמא</value>
   </data>
-  <data name="forgot_input" xml:space="preserve">
-    <value>אימייל </value>
-  </data>
   <data name="forgot_remember" xml:space="preserve">
     <value>נזכרתי</value>
   </data>

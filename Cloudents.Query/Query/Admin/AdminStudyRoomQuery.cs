@@ -29,7 +29,7 @@ namespace Cloudents.Query.Query.Admin
                 var sql = @"Select	T.[name] TutorName, 
 		                            U.[Name] UserName, 
 		                            S.created Created, 
-		                            isnull(cast(S.DurationInMinutes as nvarchar(15)), 'OnGoing') Duration,
+		                            isnull(cast(DATEDIFF(minute, s.Created, s.Ended) as nvarchar(10)), 'OnGoing') Duration,
 		                            R.TutorId,
                                     U.Id as UserId
                             from [sb].[StudyRoomSession] S 
@@ -43,7 +43,7 @@ namespace Cloudents.Query.Query.Admin
 	                            on sru.UserId = U.Id
                             where U.email not like '%cloudents%'
                             and U.email not like '%spitball%'
-                            and (S.DurationInMinutes != 0 or S.DurationInMinutes is null)";
+                            and (DATEDIFF(minute, s.Created, s.Ended) != 0 or DATEDIFF(minute, s.Created, s.Ended) is null)";
                 if (!string.IsNullOrEmpty(query.Country))
                 {
                     sql += " and U.Country = @Country";

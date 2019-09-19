@@ -51,7 +51,7 @@ export default {
         ...mapState(['studyRoomTracks_store']),
     },
     methods:{
-        ...mapActions(['changeVideoTrack']),
+        ...mapActions(['changeVideoTrack', 'setIsVideoActive']),
         getVideoInputdevices() {
             let self = this;
             navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
@@ -88,6 +88,7 @@ export default {
 
                         global.localStorage.setItem(self.studyRoomTracks_store.storageENUM.video, self.singleCameraId);
                         self.changeVideoTrack(self.singleCameraId);
+                        self.setIsVideoActive(true); // Gaby: requested by idan
                     }, (err)=>{
                 insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
                 console.error(err);

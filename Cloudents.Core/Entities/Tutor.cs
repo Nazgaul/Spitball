@@ -80,6 +80,9 @@ namespace Cloudents.Core.Entities
 
         private readonly ISet<StudyRoom> _studyRooms = new HashSet<StudyRoom>();
         public virtual IEnumerable<StudyRoom> StudyRooms => _studyRooms;
+
+        private readonly ISet<Lead> _leads = new HashSet<Lead>();
+        public virtual IEnumerable<Lead> Leads => _leads;
         public virtual string SellerKey { get; set; }
         public virtual ItemState State { get; protected set; }
         public virtual DateTime Created { get; protected set; }
