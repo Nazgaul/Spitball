@@ -144,7 +144,12 @@ export default {
             return price > this.minimumPrice;
         },
         showFirstName() {
-            return this.tutorData.name.split(' ')[0];
+            let maxChar = 5;
+            let name = this.tutorData.name.split(' ')[0];
+            if(name.length > maxChar) {
+                return LanguageService.getValueByKey('resultTutor_message_me');
+            }
+            return name;
         },
         // ellipsizeTextBox() {
         //     let text = this.tutorData.bio;
