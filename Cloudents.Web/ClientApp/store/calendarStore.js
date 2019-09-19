@@ -60,7 +60,7 @@ const mutations ={
                 }else{
                     state.tutorDailyHours.splice(self.dayIndex,1)
                 }
-            }else{
+            }else{ 
                 if(dayAvailabilityObj.timeFrames.length){
                     state.tutorDailyHours.push(dayAvailabilityObj) 
                 }

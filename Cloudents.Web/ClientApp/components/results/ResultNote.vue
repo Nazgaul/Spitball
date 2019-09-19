@@ -4,7 +4,7 @@
           <div class="document-header-large-sagment">
               <user-avatar size="34" v-if="authorName" :userImageUrl="userImageUrl" :user-name="authorName" :user-id="authorId"/>
             <div class="document-header-name-container">
-              <span class="document-header-name"> 
+              <span class="document-header-name text-truncate"> 
                 <span v-if="isTutor" v-html="$Ph('resultNote_privet',[authorName])"/>
                 <span v-else>{{authorName}}</span> 
               </span>
@@ -44,8 +44,8 @@
                 <span class="item-course text-truncate" v-html="$Ph('resultNote_course',[item.course])"/>
                 <span class="item-university text-truncate" v-html="$Ph('resultNote_university',[item.university])"/>
               </div>
-              <v-divider v-if="item.snippet && !isMobile" class="my-2"></v-divider>
-              <div class="doc-snippet" v-if="item.snippet && !isMobile">
+              <v-divider v-if="item.snippet" class="my-2"></v-divider>
+              <div class="doc-snippet" v-if="item.snippet">
                 <span v-line-clamp="2">{{item.snippet}}</span>
               </div>
             </v-flex>
@@ -283,7 +283,7 @@ export default {
     ...mapGetters(["accountUser"]),
     docPreviewImg(imgUrl){
       if(this.isMobile){
-        return utilitiesService.proccessImageURL(imgUrl, 500, 108,'crop&anchorPosition=top');
+        return utilitiesService.proccessImageURL(imgUrl, 100, 106,'crop&anchorPosition=top');
       } else{
         return utilitiesService.proccessImageURL(imgUrl, 164, 130,'crop&anchorPosition=top');
       }
