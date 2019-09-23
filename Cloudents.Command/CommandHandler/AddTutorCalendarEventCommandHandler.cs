@@ -22,17 +22,33 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(AddTutorCalendarEventCommand message, CancellationToken token)
         {
+            //TODO : need to check universal time in all the process in here
+            //TODO : need to check only one hour is booked
+            //TODO : need to check if user have payment detail
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
-
-            if (tutor.TutorHours.Any(a => a.WeekDay == message.From.DayOfWeek && a.From < message.From.TimeOfDay && message.To.TimeOfDay < a.To))
+            if (!tutor.TutorHours.Any(a => a.WeekDay == message.From.DayOfWeek
+                                           && a.From < message.From.TimeOfDay
+                                           && message.To.TimeOfDay < a.To))
             {
                 throw new ArgumentException("Slot is booked");
             }
             // Tutor hours
-            var appointments = await _calendarService.ReadCalendarEventsAsync(tutor.Id, tutor.Calendars.Select(s => s.GoogleId), message.From, message.To, token);
-            if (appointments.Any(a => a.From < message.From || a.To > message.To))
+            var appointments = await _calendarService.ReadCalendarEventsAsync(tutor.Id, tutor.Calendars.Select(s => s.GoogleId), message.From.AddHours(-1), message.To.AddHours(1), token);
+            if (appointments.Any(a =>
             {
-                throw new ArgumentException("Slot is booked");
+                if (IsBetween(message.From, a.From, a.To))
+                {
+                    return true;
+                }
+                if (IsBetween(message.To, a.From, a.To))
+                {
+                    return true;
+                }
+
+                return false;
+            }))
+            {
+                throw new ArgumentException("Google Slot is booked");
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
@@ -40,6 +56,11 @@ namespace Cloudents.Command.CommandHandler
             await _calendarService.BookCalendarEventAsync(tutor.User, user,
                 message.From, message.To, token);
 
+        }
+
+        private static bool IsBetween(DateTime dateToCheck, DateTime startDate, DateTime endDate)
+        {
+            return dateToCheck > startDate && dateToCheck < endDate;
         }
     }
 }

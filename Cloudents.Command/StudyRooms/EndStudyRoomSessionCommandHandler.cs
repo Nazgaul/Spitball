@@ -25,11 +25,15 @@ namespace Cloudents.Command.StudyRooms
                 throw new ArgumentException();
             }
 
-            var session = room.Sessions.Last();
+            var session = room.Sessions.AsQueryable().Single(w => w.Ended == null);
+            //foreach (var session in sessions)
+            //{
             if (session.EndSession())
             {
-                await _videoProvider.CloseRoomAsync(session.SessionId);
+                  await _videoProvider.CloseRoomAsync(session.SessionId);
             }
+            //}
+
 
         }
     }
@@ -48,7 +52,7 @@ namespace Cloudents.Command.StudyRooms
         {
             var room = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
             var sessionEnded = room.Sessions.AsQueryable().FirstOrDefault(w => w.SessionId == message.StudyRoomSessionId);
-            
+
             sessionEnded?.EndSession();
 
         }
