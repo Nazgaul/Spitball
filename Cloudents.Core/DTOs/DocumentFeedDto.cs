@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs
@@ -24,7 +25,6 @@ namespace Cloudents.Core.DTOs
 
         public string Url { get; set; }
 
-        //public string Source { get; set; }
 
         public DateTime? DateTime { get; set; }
 
@@ -34,15 +34,23 @@ namespace Cloudents.Core.DTOs
         public string Preview { get; set; }
         public int Purchased { get; set; }
 
+        public DocumentType DocumentType{ get; set; }
+        public TimeSpan? Duration { get; set; }
+
     }
 
     public class DocumentUserDto
     {
 
+        [EntityBind(nameof(ViewDocumentSearch.UserId))]
         public long Id { get; set; }
+        [EntityBind(nameof(ViewDocumentSearch.UserName))]
         public string Name { get; set; }
+        [EntityBind(nameof(ViewDocumentSearch.UserImage))]
         public string Image { get; set; }
+        [EntityBind(nameof(ViewDocumentSearch.UserScore))]
         public int Score { get; set; }
+        [EntityBind(nameof(ViewDocumentSearch.IsTutor))]
         public bool IsTutor { get; set; }
     }
 

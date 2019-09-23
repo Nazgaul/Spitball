@@ -17,10 +17,11 @@ namespace Cloudents.Core.Storage
             string mimeType = null, TimeSpan? cacheControlTime = null, CancellationToken token = default);
 
         Task UploadBlockFileAsync(string blobName, Stream fileContent, int index, CancellationToken token);
-        Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token);
+        //Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token);
         Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, CancellationToken token);
 
 
+        
 
 
         Uri GetBlobUrl(string blobName, bool cdn = false);
@@ -30,8 +31,6 @@ namespace Cloudents.Core.Storage
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
 
-
-        Task<string> DownloadTextAsync(string name, string directory, CancellationToken token);
         /// <summary>
         /// Used to check if a blob exists - used in ico site
         /// </summary>
@@ -46,6 +45,7 @@ namespace Cloudents.Core.Storage
     public interface IDocumentDirectoryBlobProvider : IBlobProvider
     {
         Uri GetPreviewImageLink(long id, int i);
+        Task<string> DownloadTextAsync(string name, string directory, CancellationToken token);
     }
 
     public interface IQuestionsDirectoryBlobProvider : IBlobProvider
@@ -58,11 +58,6 @@ namespace Cloudents.Core.Storage
         Task<Uri> UploadImageAsync(long userId, string file,
             Stream stream, string contentType, CancellationToken token = default);
     }
-
-    //public interface IRequestTutorDirectoryBlobProvider : IBlobProvider
-    //{
-
-    //}
 
     public interface IChatDirectoryBlobProvider : IBlobProvider
     {

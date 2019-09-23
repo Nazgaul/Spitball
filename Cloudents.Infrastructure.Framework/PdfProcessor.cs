@@ -13,7 +13,7 @@ using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class PdfProcessor : IPreviewProvider2, IDisposable //: Processor, IPreviewProvider
+    public class PdfProcessor : IPreviewProvider, IDisposable //: Processor, IPreviewProvider
     {
 
         public PdfProcessor()
@@ -99,7 +99,7 @@ namespace Cloudents.Infrastructure.Framework
 
         public void Dispose()
         {
-            if (_doc.IsValueCreated)
+            if (_doc != null && _doc.IsValueCreated)
             {
                 _doc?.Value?.Dispose();
             }

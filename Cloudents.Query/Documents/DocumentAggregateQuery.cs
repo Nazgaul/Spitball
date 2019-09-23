@@ -4,6 +4,7 @@ using NHibernate;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Documents
 {
@@ -28,11 +29,11 @@ namespace Cloudents.Query.Documents
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<DocumentAggregateQuery, DocumentFeedWithFacetDto>
         {
 
-            private readonly IStatelessSession _dapperRepository;
+            private readonly IStatelessSession _statelessSession;
 
             public DocumentAggregateQueryHandler(QuerySession querySession)
             {
-                _dapperRepository = querySession.StatelessSession;
+                _statelessSession = querySession.StatelessSession;
             }
 
 
@@ -48,7 +49,7 @@ select top 1 * from (select 1 as o, u2.Id as UniversityId, COALESCE(u2.country,u
   order by o
 )
 select ds.Id
-	,ds.University
+,ds.University
 	,ds.Course
 	,ds.Snippet
 	,ds.Title
@@ -62,8 +63,9 @@ select ds.Id
 	,ds.Vote_Votes
 	,(select v.VoteType from sb.Vote v where v.DocumentId = ds.Id and v.UserId = cte.userid) as Vote_Vote
 	,ds.Price
-    ,ds.User_IsTutor
     ,ds.Purchased
+,ds.DocumentType as documentType
+,ds.duration as Duration
 from sb.iv_DocumentSearch ds
 ,cte
 where 
@@ -85,19 +87,20 @@ FETCH NEXT 20 ROWS ONLY";
      (:typeFilterCount = 0  or ds.Type in (:typefilter))";
 
 
-                var sqlQuery = _dapperRepository.CreateSQLQuery(sql);
+                var sqlQuery = _statelessSession.CreateSQLQuery(sql);
+                
                 sqlQuery.SetInt32("page", query.Page);
                 sqlQuery.SetInt64("userid", query.UserId);
                 sqlQuery.SetString("country", query.Country);
                 sqlQuery.SetInt32("typeFilterCount", query.Filter?.Length ?? 0);
                 sqlQuery.SetParameterList("typefilter", query.Filter ?? Enumerable.Repeat("x",1));
                 
-
-                sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_'));
+                sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_',new SbAliasToBeanResultTransformer<DocumentFeedDto>()));
+                //var list = await sqlQuery.ListAsync<DocumentFeedDto>();
                 var future = sqlQuery.Future<DocumentFeedDto>();
 
 
-                var filterQuery = _dapperRepository.CreateSQLQuery(filter);
+                var filterQuery = _statelessSession.CreateSQLQuery(filter);
                 filterQuery.SetInt32("typeFilterCount", query.Filter?.Length ?? 0);
                 filterQuery.SetParameterList("typefilter", query.Filter ?? Enumerable.Repeat("x", 1));
                 var filtersFuture = filterQuery.Future<string>();
@@ -114,3 +117,5 @@ FETCH NEXT 20 ROWS ONLY";
         }
     }
 }
+
+/*	*/

@@ -9,9 +9,12 @@
     <PackageReference Include="Dapper" Version="2.0.4" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.37.0.1478" />
     <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.0" />
     <PackageReference Include="SimMetrics" Version="1.1.4118.23231" />
     <!--Do not remove this-->
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <!--<PackageReference Include="windowsazure.mediaservices.extensions" Version="4.2.0" />-->
+    <PackageReference Include="Microsoft.Azure.Management.Media" Version="2.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -28,6 +31,18 @@
     <ProjectReference Include="..\Cloudents.Persistance\Cloudents.Persistence.csproj" />
     <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
     <ProjectReference Include="..\Cloudents.Search\Cloudents.Search.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="thumbnailJob.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="videoThumbnail.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   

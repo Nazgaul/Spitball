@@ -1,11 +1,19 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Cloudents.Core.Interfaces;
 using Cloudents.Persistence.Maps;
 using FluentNHibernate.Cfg;
-using FluentNHibernate.Conventions.Helpers;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Dialect;
+using NHibernate.Engine;
 using NHibernate.Event;
+using NHibernate.Mapping;
 using NHibernate.Tool.hbm2ddl;
+using NHibernate.Util;
+using ForeignKey = FluentNHibernate.Conventions.Helpers.ForeignKey;
 
 namespace Cloudents.Persistence
 {
@@ -31,6 +39,7 @@ namespace Cloudents.Persistence
             {
                 m.FluentMappings.AddFromAssemblyOf<UserMap>()
                     .Conventions.Add(ForeignKey.EndsWith("Id"));
+                
             });
 
 
@@ -79,6 +88,15 @@ namespace Cloudents.Persistence
             config.SetListener(ListenerType.PostCollectionUpdate, _publisher);
 
 
+            foreach (var t in Assembly
+                .GetExecutingAssembly()
+                .GetTypes()
+                .Where(t => typeof(AbstractAuxiliaryDatabaseObject).IsAssignableFrom(t)))
+            {
+                config.AddAuxiliaryDatabaseObject(Activator.CreateInstance(t) as IAuxiliaryDatabaseObject);
+            }
+
+
             //var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
             //enversConf.Audit<Document>()
             //    .Exclude(x => x.Transactions)
@@ -96,7 +114,7 @@ namespace Cloudents.Persistence
             //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
             //config.Properties.Add("cache.default_expiration",$"{TimeConst.Day}");
             //config.Properties.Add("cache.use_sliding_expiration",bool.TrueString.ToLowerInvariant());
-            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+           // config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
         }
     }
 }

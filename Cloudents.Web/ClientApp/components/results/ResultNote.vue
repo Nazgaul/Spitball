@@ -33,6 +33,12 @@
         <v-flex grow class="top-row">
 
           <div class="document-body-card">
+
+            <span v-if="isVideo && item.itemDuration" class="videoType">
+              <vidSVG class="vidSvg"/>
+              <span class="vidTime">{{item.itemDuration}}</span>
+            </span>
+
             <v-progress-circular v-if="!item.preview" class="document-body-card-img" :style="isMobile? 'height:108px; width:100%;' : 'height:130px'"  indeterminate v-bind:size="164" width="2" color="#514f7d"/>
             <img v-else class="document-body-card-img" :src="docPreviewImg(item.preview)" alt="">
           </div>
@@ -145,6 +151,7 @@ import documentService from "../../services/documentService";
 import likeSVG from './img//like.svg';
 import likeFilledSVG from './img/like-filled.svg';
 import utilitiesService from '../../services/utilities/utilitiesService.js'
+import vidSVG from './svg/vid.svg';
 
 export default {
   components: {
@@ -153,7 +160,8 @@ export default {
     reportItem,
     userAvatar,
     likeSVG,
-    likeFilledSVG
+    likeFilledSVG,
+    vidSVG
   },
   data() {
     return {
@@ -199,6 +207,9 @@ export default {
 
   props: { item: { type: Object, required: true }, index: { Number } },
   computed: {
+    isVideo(){
+      return (this.item.documentType === 'Video')
+    },
     userImageUrl() {
       if (
         this.item.user &&

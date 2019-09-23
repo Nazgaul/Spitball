@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public interface IPreviewProvider2
+    public interface IPreviewProvider
     {
-
         void Init(Func<Stream> stream);
         void Init(Func<string> file);
-       // void Init(Func<string> path);
         (string text, int pagesCount) ExtractMetaContent();
 
         /// <summary>
@@ -24,13 +22,5 @@ namespace Cloudents.Infrastructure.Framework
         Task ProcessFilesAsync(IEnumerable<int> previewDelta,
             Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token);
-
     }
-
-    //public interface IBlurProcessor
-    //{
-    //    Task ProcessBlurPreviewAsync(Stream stream, bool firstPage,
-    //        Func<Stream, Task> pagePreviewCallback,
-    //        CancellationToken token);
-    //}
 }

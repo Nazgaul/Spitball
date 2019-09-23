@@ -32,6 +32,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure.Video;
 using Cloudents.Web.Identity;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -222,6 +223,10 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
 
+
+            containerBuilder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
+
+
             containerBuilder.RegisterType<SeoDocumentBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Document);
             containerBuilder.RegisterType<SeoTutorBuilder>()
@@ -230,6 +235,13 @@ namespace Cloudents.Web
                 .Keyed<IBuildSeo>(SeoType.Static);
             containerBuilder.RegisterType<SeoQuestionBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Question);
+
+
+            containerBuilder.RegisterType<VideoServiceGenerator>()
+                .Keyed<IDocumentGenerator>(DocumentType.Video);
+            containerBuilder.RegisterType<DocumentPreviewGenerator>()
+                .Keyed<IDocumentGenerator>(DocumentType.Document);
+
             containerBuilder.Register(c =>
             {
                 var z = c.Resolve<IHttpClientFactory>();

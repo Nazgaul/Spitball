@@ -11,7 +11,7 @@ using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class TextProcessor : IPreviewProvider2
+    public class TextProcessor : IPreviewProvider
     {
 
         public static readonly string[] Extensions = FormatDocumentExtensions.Text;
@@ -63,9 +63,9 @@ namespace Cloudents.Infrastructure.Framework
             //first, create a dummy bitmap just to get a graphics object
             using (Image img = new Bitmap(1, 1))
             {
-                using (Graphics drawing = Graphics.FromImage(img))
+                using (var drawing = Graphics.FromImage(img))
+                using (var font = new Font(FontFamily.GenericSansSerif, 12))
                 {
-                    var font = new Font(FontFamily.GenericSansSerif, 12);
                     var i = 0;
                     foreach (var splitInPart in SplitInParts(_text, 1000))
                     {
@@ -73,7 +73,7 @@ namespace Cloudents.Infrastructure.Framework
                         {
                             continue;
                         }
-                        SizeF textSize = drawing.MeasureString(splitInPart, font);
+                        var textSize = drawing.MeasureString(splitInPart, font);
                         using (var img2 = new Bitmap((int)textSize.Width, (int)textSize.Height))
                         {
 
@@ -106,9 +106,7 @@ namespace Cloudents.Infrastructure.Framework
                 }
             }
 
-            //create a new image of the right size
 
-            //return img;
         }
 
 

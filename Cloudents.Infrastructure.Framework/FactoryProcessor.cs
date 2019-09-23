@@ -9,15 +9,23 @@ namespace Cloudents.Infrastructure.Framework
     public class FileFactoryProcessor : IFactoryProcessor
     {
 
-        private readonly IEnumerable<Meta<Func<string, IPreviewProvider2>>> _providers;
+        readonly IEnumerable<Meta<Lazy<IPreviewProvider>>> _providers;
 
-        public FileFactoryProcessor(
-            IEnumerable<Meta<Func<string, IPreviewProvider2>>> providers)
+        public FileFactoryProcessor(IEnumerable<Meta<Lazy<IPreviewProvider>>> appenders)
         {
-            _providers = providers;
+            _providers = appenders;
         }
 
-        public IPreviewProvider2 PreviewFactory(string blobName)
+
+        //private readonly IEnumerable<Meta<Func<string, IPreviewProvider>>> _providers;
+
+        //public FileFactoryProcessor(
+        //    IEnumerable<Meta<Func<string, IPreviewProvider>>> providers)
+        //{
+        //    _providers = providers;
+        //}
+
+        public IPreviewProvider PreviewFactory(string blobName)
         {
             var process = _providers.FirstOrDefault(f =>
             {
@@ -27,7 +35,8 @@ namespace Cloudents.Infrastructure.Framework
                 }
                 return false;
             });
-            return process?.Value(blobName);
+            return process?.Value.Value;
+            //return process?.Value(blobName);
         }
     }
 }

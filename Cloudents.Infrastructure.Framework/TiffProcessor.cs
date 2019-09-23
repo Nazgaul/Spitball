@@ -14,7 +14,7 @@ using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class TiffProcessor : IPreviewProvider2, IDisposable
+    public class TiffProcessor : IPreviewProvider, IDisposable
     {
         public TiffProcessor()
 

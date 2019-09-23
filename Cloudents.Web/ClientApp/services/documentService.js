@@ -42,12 +42,19 @@ function createDocumentContentType(itemPreview){
     let postfix = arrPreview[0].split('?')[0].split('.');
     return postfix[postfix.length - 1];
 }
-
+function createVideoPreview(objInit){
+    return new VideoPreview(objInit)
+}
+function VideoPreview(objInit){
+    this.locator = objInit.locator;
+    this.poster = objInit.poster;
+}
 function DocumentObject(objInit){
     this.details = createDocumentItem(objInit.details);
-    this.preview = createDocumentPreview(objInit.preview);
+    this.preview = objInit.details.documentType === 'Video'? createVideoPreview(objInit.preview):createDocumentPreview(objInit.preview);
     this.content = objInit.content || '';
-    this.contentType = createDocumentContentType(objInit.preview);
+    this.contentType = objInit.details.documentType === 'Video'? '': createDocumentContentType(objInit.preview);
+    this.documentType = objInit.details.documentType || '';
 }
 
 function createDocumentObj(ObjInit) {

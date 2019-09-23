@@ -9,9 +9,11 @@
 
   <ItemGroup>
     <None Remove="calendar.json" />
+    <None Remove="Video\appsettings-dev.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Video\appsettings-dev.json" />
     <EmbeddedResource Include="Google\calendar.json" />
   </ItemGroup>
 
@@ -29,6 +31,9 @@
     <PackageReference Include="protobuf-net" Version="2.4.0" />
     <PackageReference Include="Twilio" Version="5.32.0" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
+    <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.0" />
+    <PackageReference Include="Microsoft.Azure.Management.Media" Version="2.0.3" />
+    <PackageReference Include="Nito.AsyncEx.Coordination" Version="5.0.0" />
     <!--We have a problem with redis nuget packages.-->
     <!--<PackageReference Include="NHibernate.Caches.CoreDistributedCache.Redis" Version="5.5.1" />-->
     

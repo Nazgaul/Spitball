@@ -49,11 +49,11 @@ namespace Cloudents.Core.Entities
         }
 
         // public virtual long Id { get; set; }
-        public virtual string Name { get; set; }
+        public virtual string Name { get; protected set; }
 
-        public virtual University University { get; set; }
+        public virtual University University { get; protected set; }
 
-        public virtual Course Course { get; set; }
+        public virtual Course Course { get; protected set; }
 
         public virtual string Type { get; protected set; }
 
@@ -68,7 +68,8 @@ namespace Cloudents.Core.Entities
 
         public virtual int Views { get; protected set; }
         public virtual int Downloads { get; protected set; }
-        //public virtual int Purchased { get; protected set; }
+
+        //this is only for document
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; protected set; }
 
@@ -162,5 +163,16 @@ namespace Cloudents.Core.Entities
             TimeStamp.UpdateTime = DateTime.UtcNow;
 
         }
+
+        public virtual DocumentType DocumentType { get; set; }
+
+        //This is only for video
+        public virtual TimeSpan? Duration { get; set; }
+    }
+
+    public enum DocumentType
+    {
+        Document,
+        Video
     }
 }

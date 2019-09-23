@@ -36,79 +36,89 @@ namespace Cloudents.FunctionsV2
 {
     public static class ImageFunction
     {
-        private static readonly Dictionary<string, ImageExtensionConvert> Extension;
+        private static readonly Dictionary<string, string> ExtensionToDefaultImage;
         static ImageFunction()
         {
-            Extension = GetContainers().SelectMany(s => s.FileExtension, (convert, s) => new { convert, s })
-                .ToDictionary(x => x.s, y => y.convert);
-        }
+            //ExtensionToDefaultImage = GetContainers().SelectMany(s => s.FileExtension, (convert, s) => new { convert, s })
+            //    .ToDictionary(x => x.s, y => y.convert);
 
-        private static IEnumerable<ImageExtensionConvert> GetContainers()
-        {
-            // return Enum.GetValues(typeof(StorageContainer)).Cast<StorageContainer>();
-            foreach (var field in typeof(ImageExtensionConvert).GetFields(BindingFlags.Public | BindingFlags.Static))
+            ExtensionToDefaultImage = FormatDocumentExtensions.GetTypes().Select(s => new
             {
-                if (field.IsLiteral)
-                {
-                    continue;
-                }
-                yield return (ImageExtensionConvert)field.GetValue(null);
-            }
+                extensions = (string[]) s.GetValue(null),
+                thumbnail = s.GetCustomAttribute<DefaultThumbnailAttribute>()?.Name ?? "doc-preview-empty.png"
+            }).SelectMany(v =>v.extensions, (parent,child) => new
+            {
+                extension = child, parent.thumbnail
+            }).ToDictionary(x => x.extension, z => z.thumbnail);
+            //})
         }
 
+        //private static IEnumerable<ImageExtensionConvert> GetContainers()
+        //{
+        //    // return Enum.GetValues(typeof(StorageContainer)).Cast<StorageContainer>();
+        //    foreach (var field in typeof(ImageExtensionConvert).GetFields(BindingFlags.Public | BindingFlags.Static))
+        //    {
+        //        if (field.IsLiteral)
+        //        {
+        //            continue;
+        //        }
+        //        yield return (ImageExtensionConvert)field.GetValue(null);
+        //    }
+        //}
 
 
         [SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "Using reflection")]
-        private class ImageExtensionConvert
-        {
-            protected bool Equals(ImageExtensionConvert other)
-            {
-                return string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase);
-            }
 
-            public override bool Equals(object obj)
-            {
-                if (ReferenceEquals(null, obj)) return false;
-                if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != GetType()) return false;
-                return Equals((ImageExtensionConvert)obj);
-            }
+        //private class ImageExtensionConvert
+        //{
+        //    protected bool Equals(ImageExtensionConvert other)
+        //    {
+        //        return string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase);
+        //    }
 
-            public override int GetHashCode()
-            {
-                return StringComparer.OrdinalIgnoreCase.GetHashCode(Name);
-            }
+        //    public override bool Equals(object obj)
+        //    {
+        //        if (ReferenceEquals(null, obj)) return false;
+        //        if (ReferenceEquals(this, obj)) return true;
+        //        if (obj.GetType() != GetType()) return false;
+        //        return Equals((ImageExtensionConvert)obj);
+        //    }
 
-            public static bool operator ==(ImageExtensionConvert left, ImageExtensionConvert right)
-            {
-                return Equals(left, right);
-            }
+        //    public override int GetHashCode()
+        //    {
+        //        return StringComparer.OrdinalIgnoreCase.GetHashCode(Name);
+        //    }
 
-            public static bool operator !=(ImageExtensionConvert left, ImageExtensionConvert right)
-            {
-                return !Equals(left, right);
-            }
+        //    public static bool operator ==(ImageExtensionConvert left, ImageExtensionConvert right)
+        //    {
+        //        return Equals(left, right);
+        //    }
 
-            public string DefaultThumbnail { get; }
-            public string Name { get; }
+        //    public static bool operator !=(ImageExtensionConvert left, ImageExtensionConvert right)
+        //    {
+        //        return !Equals(left, right);
+        //    }
 
-            public string[] FileExtension { get; }
+        //    public string DefaultThumbnail { get; }
+        //    public string Name { get; }
 
-            private ImageExtensionConvert(string defaultThumbnail, string[] extension, string name)
-            {
-                DefaultThumbnail = defaultThumbnail;
-                FileExtension = extension;
-                Name = name;
-            }
+        //    public string[] FileExtension { get; }
 
-            public static ImageExtensionConvert Text = new ImageExtensionConvert("Icons_720_txt.png", FormatDocumentExtensions.Text, nameof(Text));
-            public static ImageExtensionConvert Excel = new ImageExtensionConvert("Icons_720_excel.png", FormatDocumentExtensions.Excel, nameof(Excel));
-            public static ImageExtensionConvert Image = new ImageExtensionConvert("Icons_720_image.png", FormatDocumentExtensions.Image, nameof(Image));
-            public static ImageExtensionConvert Pdf = new ImageExtensionConvert("Icons_720_pdf.png", FormatDocumentExtensions.Pdf, nameof(Pdf));
-            public static ImageExtensionConvert PowerPoint = new ImageExtensionConvert("Icons_720_power.png", FormatDocumentExtensions.PowerPoint, nameof(PowerPoint));
-            public static ImageExtensionConvert Tiff = new ImageExtensionConvert("Icons_720_image.png", FormatDocumentExtensions.Tiff, nameof(Tiff));
-            public static ImageExtensionConvert Word = new ImageExtensionConvert("Icons_720_doc.png", FormatDocumentExtensions.Word, nameof(Word));
-        }
+        //    private ImageExtensionConvert(string defaultThumbnail, string[] extension, string name)
+        //    {
+        //        DefaultThumbnail = defaultThumbnail;
+        //        FileExtension = extension;
+        //        Name = name;
+        //    }
+
+        //    public static ImageExtensionConvert Text = new ImageExtensionConvert("Icons_720_txt.png", FormatDocumentExtensions.Text, nameof(Text));
+        //    public static ImageExtensionConvert Excel = new ImageExtensionConvert("Icons_720_excel.png", FormatDocumentExtensions.Excel, nameof(Excel));
+        //    public static ImageExtensionConvert Image = new ImageExtensionConvert("Icons_720_image.png", FormatDocumentExtensions.Image, nameof(Image));
+        //    public static ImageExtensionConvert Pdf = new ImageExtensionConvert("Icons_720_pdf.png", FormatDocumentExtensions.Pdf, nameof(Pdf));
+        //    public static ImageExtensionConvert PowerPoint = new ImageExtensionConvert("Icons_720_power.png", FormatDocumentExtensions.PowerPoint, nameof(PowerPoint));
+        //    public static ImageExtensionConvert Tiff = new ImageExtensionConvert("Icons_720_image.png", FormatDocumentExtensions.Tiff, nameof(Tiff));
+        //    public static ImageExtensionConvert Word = new ImageExtensionConvert("Icons_720_doc.png", FormatDocumentExtensions.Word, nameof(Word));
+        //}
 
         [FunctionName("ImageFunctionUser")]
         public static async Task<IActionResult> RunUserImageAsync(
@@ -127,7 +137,7 @@ namespace Cloudents.FunctionsV2
                 {
                     using (var sr = await blob.OpenReadAsync())
                     {
-                        return ProcessImage(sr, mutation);
+                        return ProcessImage(sr,false, mutation);
                     }
                 }
                 catch (ImageFormatException ex)
@@ -187,12 +197,13 @@ namespace Cloudents.FunctionsV2
             var blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(properties.Path, FileAccess.Read),
                 token);
 
-            var path = Path.GetExtension(blob.Name)?.ToLower();
-            if (path != null && Extension.TryGetValue(path, out var val))
+            var blobExtension = Path.GetExtension(blob.Name)?.ToLower();
+            //if (path != null && !FormatDocumentExtensions.Image.Contains(path))
+            if (blobExtension != null && ExtensionToDefaultImage.TryGetValue(blobExtension, out var val))
             {
-                if (val != ImageExtensionConvert.Image)
+                if (val != FormatDocumentExtensions.ImageDefaultImage)
                 {
-                    var blobPath = $"spitball-user/DefaultThumbnail/{val.DefaultThumbnail}";
+                    var blobPath = $"spitball-user/DefaultThumbnail/{val}";
                     blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
                     //mode = ResizeMode.BoxPad;
@@ -205,7 +216,7 @@ namespace Cloudents.FunctionsV2
             {
                 using (var sr = await blob.OpenReadAsync())
                 {
-                    return ProcessImage(sr, mutation);
+                    return ProcessImage(sr,false, mutation);
                 }
             }
             catch (ImageFormatException ex)
@@ -227,7 +238,7 @@ namespace Cloudents.FunctionsV2
                     await Task.WhenAll(t1, t2);
                     using (t2.Result)
                     {
-                        return ProcessImage(t2.Result, mutation);
+                        return ProcessImage(t2.Result,true, mutation);
                     }
 
 
@@ -237,7 +248,7 @@ namespace Cloudents.FunctionsV2
             }
         }
 
-        private static IActionResult ProcessImage(Stream sr, ImageMutation mutation)
+        private static IActionResult ProcessImage(Stream sr, bool isDefault, ImageMutation mutation)
         {
             var image = Image.Load<Rgba32>(sr);
             image.Mutate(x => x.AutoOrient());
@@ -268,8 +279,17 @@ namespace Cloudents.FunctionsV2
            //
             return new FileCallbackResult("image/jpg", (stream, context) =>
             {
-                context.HttpContext.Response.Headers.Add("Cache-Control",
-                    $"public, max-age={Year}, s-max-age={Year}");
+                if (!isDefault)
+                {
+                    context.HttpContext.Response.Headers.Add("Cache-Control",
+                        $"public, max-age={Year}, s-max-age={Year}");
+                }
+                else 
+                {
+                    context.HttpContext.Response.Headers.Add("Cache-Control",
+                        $"public, max-age={Hour}, s-max-age={Hour}");
+                }
+
                 image.SaveAsJpeg(stream);
                 image?.Dispose();
                 return Task.CompletedTask;

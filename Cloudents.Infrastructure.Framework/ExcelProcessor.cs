@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class ExcelProcessor : IPreviewProvider2
+    public class ExcelProcessor : IPreviewProvider
     {
         public ExcelProcessor()
 

@@ -4,6 +4,8 @@ using System.Linq;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
+using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
@@ -51,31 +53,42 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-        [Fact]
-        public async Task DocumentAggregateQuery_Ok()
+        [Theory]
+        [InlineData(638, 0, null, "IL")]
+        [InlineData(638, 0, new[] { "x", "y" }, "IL")]
+        [InlineData(0, 0, new[] { "x", "y" }, "IL")]
+        public async Task DocumentAggregateQuery_Ok(long userId, int page, string[] filter, string country)
         {
-            var query = new DocumentAggregateQuery(638, 0, null, "IL");
+            var query = new DocumentAggregateQuery(userId, page, filter, country);
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+
+            var dictionary = new Dictionary<string,bool>();
+            foreach (var x in result.Result)
+            {
+                var values = x.AsDictionary();
+                foreach (var value in values)
+                {
+                    
+                    if (value.Value == default)
+                    {
+                        dictionary.TryAdd(value.Key, true);
+                        //dictionary.Add(value.Key,true);
+
+                        //resultOfTest = true;
+                    }
+                }
+            }
+
+            var resultTests = dictionary.Where(w => w.Value).Select(s => s.Key).ToList();
+            resultTests.Should().BeEmpty();
+
+
+
 
 
         }
 
-        [Fact]
-        public async Task DocumentAggregateQuery_WithFilter_Ok()
-        {
-            var query = new DocumentAggregateQuery(638, 0, new[] { "x", "y" }, "IL");
-
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
-
-        [Fact]
-        public async Task DocumentAggregateQuery_NoUser_Ok()
-        {
-            var query = new DocumentAggregateQuery(0, 0, new[] { "x", "y" }, "IL");
-
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
 
         [Fact]
         public async Task DocumentCourseQuery_Ok()
@@ -89,7 +102,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentCourseQuery_Filter_Ok()
         {
-            var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" },"IL");
+            var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" }, "IL");
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
@@ -109,6 +122,21 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new UserProfileAboutQuery(638);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task UserDocumentsQueryHandler_Ok()
+        {
+            var query = new UserDataPagingByIdQuery(638, 0);
+            var _ = await fixture.QueryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, default);
+        }
+
+        [Fact]
+        public async Task DocumentsQueryHandler_Ok()
+        {
+            var query = new IdsDocumentsQuery<long>(new[] { 1L });
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+
         }
 
 
@@ -142,10 +170,10 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638, "ארה\"ב",0)]
-        [InlineData(638, "ממ\"",0)]
+        [InlineData(638, "ארה\"ב", 0)]
+        [InlineData(638, "ממ\"", 0)]
         [InlineData(638, "אלגברה ל", 0)]
-        public async Task CourseSearchWithTermQuery_Ok(long userId,string term,int page)
+        public async Task CourseSearchWithTermQuery_Ok(long userId, string term, int page)
         {
             var query = new CourseSearchWithTermQuery(userId, term, page);
 
@@ -155,7 +183,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Fact]
-        
+
         public async Task UserProfileQuery_Ok()
         {
             var query = new UserProfileQuery(638);
@@ -179,7 +207,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
 
             query = new UserUnreadMessageQuery(result.First().Version);
-            var  _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
     }

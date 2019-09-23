@@ -1,6 +1,7 @@
 ﻿using NHibernate.Type;
 using System;
 using System.Data.Common;
+using System.Globalization;
 using NHibernate.Engine;
 using NHibernate.Dialect;
 using NHibernate.UserTypes;
@@ -27,16 +28,36 @@ namespace Cloudents.Persistence
             st.Parameters[index].Value = ((TimeSpan)value).TotalMinutes;
         }
 
-
-        public override object Seed(ISessionImplementor session)
+        public override object Get(DbDataReader rs, int index, ISessionImplementor session)
         {
-            return new TimeSpan(DateTime.Now.Minute);
+            try
+            {
+                
+                return TimeSpan.FromMinutes(Convert.ToInt64(rs[index]));
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException(string.Format("Input string '{0}' was not in the correct format.", rs[index]), ex);
+            }
+        }
+
+        public override object Get(DbDataReader rs, string name, ISessionImplementor session)
+        {
+            try
+            {
+                return TimeSpan.FromMinutes(Convert.ToInt64(rs[name]));
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException(string.Format("Input string '{0}' was not in the correct format.", rs[name]), ex);
+            }
         }
 
         public override string ObjectToSQLString(object value, Dialect dialect)
         {
-            return '\'' + ((TimeSpan)value).Minutes.ToString() + '\'';
+            return '\'' + ((TimeSpan)value).TotalMinutes.ToString(CultureInfo.InvariantCulture) + '\'';
         }
-
     }
+
+
 }

@@ -34,6 +34,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Features.Indexed;
+using Cloudents.Web.Services;
 using Microsoft.ApplicationInsights;
 using Wangkanai.Detection;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
@@ -53,11 +55,11 @@ namespace Cloudents.Web.Api
         private static readonly Task<string> Task = System.Threading.Tasks.Task.FromResult<string>(null);
 
         public DocumentController(IQueryBus queryBus,
-             ICommandBus commandBus, UserManager<User> userManager,
-             IDocumentDirectoryBlobProvider blobProvider,
+            ICommandBus commandBus, UserManager<User> userManager,
+            IDocumentDirectoryBlobProvider blobProvider,
             IStringLocalizer<DocumentController> localizer,
             ITempDataDictionaryFactory tempDataDictionaryFactory,
-             IStringLocalizer<UploadControllerBase> localizer2)
+            IStringLocalizer<UploadControllerBase> localizer2)
         : base(blobProvider, tempDataDictionaryFactory, localizer2)
         {
             _queryBus = queryBus;
@@ -74,7 +76,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] ICrawlerResolver crawlerResolver,
-            [FromServices] TelemetryClient telemetryClient,
+            [FromServices] IIndex<DocumentType,IDocumentGenerator> generatorIndex,
             CancellationToken token)
         {
             long? userId = null;
@@ -91,66 +93,15 @@ namespace Cloudents.Web.Api
                 return NotFound();
             }
 
-
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
-           
             var textTask = Task;
             if (crawlerResolver.Crawler != null)
             {
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
 
-            var files = Enumerable.Range(0, model.Pages).Select(i =>
-            {
-                var uri = _blobProvider.GetPreviewImageLink(query.Id, i);
-                var effect = ImageProperties.BlurEffect.None;
-                if (!model.IsPurchased)
-                {
-                    effect = ImageProperties.BlurEffect.All;
-                    if (i == 0)
-                    {
-                        effect = ImageProperties.BlurEffect.Part;
-                    }
-
-                }
-
-                var properties = new ImageProperties(uri, effect);
-                var url = Url.ImageUrl(properties);
-                return url;
-            }).ToList();
-
-
-            //var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token).ContinueWith(
-            //    result =>
-            //    {
-            //      return  result.Result.OrderBy(o => o, new OrderPreviewComparer()).Select((s,i) =>
-            //      {
-            //          var effect = ImageProperties.BlurEffect.None;
-            //          if (!model.IsPurchased)
-            //          {
-            //              effect = ImageProperties.BlurEffect.All;
-            //              if (i == 0)
-            //              {
-            //                  effect = ImageProperties.BlurEffect.Part;
-            //              }
-
-            //          }
-            //          var properties = new ImageProperties(s, effect);
-            //          var url = Url.ImageUrl(properties);
-            //          return url;
-            //      });
-            //    }, token);
-
+            var files = await generatorIndex[model.DocumentType].GeneratePreview(model,token);
             await System.Threading.Tasks.Task.WhenAll(tQueue,  textTask);
-            //var files = filesTask.Result.ToList();
-            if (!files.Any())
-            {
-                telemetryClient.TrackTrace("Document No Preview", new Dictionary<string, string>()
-                {
-                    ["Id"] = id.ToString()
-                });
-                await queueProvider.InsertBlobReprocessAsync(id);
-            }
             return new DocumentPreviewResponse(model, files, textTask.Result);
         }
 

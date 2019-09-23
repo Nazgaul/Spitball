@@ -138,17 +138,31 @@
       </div>
     </v-layout>
     <div class="document-wrap">
-      <div class="text-xs-center" v-for="(page, index) in docPreview" :key="index">
-        <v-lazy-image
-          :style="`height:${imgHeight}px; width:${imgWidth}px`"
-          class="document-wrap-content mb-4"
-          :src="page"
+      
+      <div style="margin: 0 auto;background:black;" class="text-xs-center main-header-wrapper" v-if="isVideo">
+        <sbVideoPlayer :height="videoHeight" 
+                       :width="videoWidth" 
+                       style="margin: 0 auto" 
+                       :isResponsive="true" 
+                       :src="document.preview.locator"
+                       :title="courseName"
+                       :poster="`${document.preview.poster}?width=${videoWidth}&height=${videoHeight}`"
+                       />
+      </div>
+           
+      <div v-else>
+        <div class="text-xs-center" v-for="(page, index) in docPreview" :key="index">
+          <v-lazy-image 
+            v-if="page"
+            :style="`height:${imgHeight}px; width:${imgWidth}px`"
+            class="document-wrap-content mb-4"
+            :src="page"
           :src-placeholder="isObserver(page)"
-          v-if="page"
-          :alt="document.content"
-        />
+            :alt="document.content"
+          />
 
-        <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
+          <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
+        </div>
       </div>
       <div
         class="unlockBox headline hidden-sm-and-down"
@@ -209,13 +223,15 @@ import reportItem from "../../results/helpers/reportItem/reportItem.vue";
 import utillitiesService from "../../../services/utilities/utilitiesService";
 import documentService from "../../../services/documentService";
 import tutorResultCardCarousel from "../../../components/results/tutorCards/tutorResultCardCarousel/tutorResultCardCarousel.vue";
+import sbVideoPlayer from '../../sbVideoPlayer/sbVideoPlayer.vue';
 
 export default {
   name: "mainDocument",
   components: {
     reportItem,
     sbDialog,
-    tutorResultCardCarousel
+    tutorResultCardCarousel,
+    sbVideoPlayer
   },
   props: {
     document: {
@@ -268,6 +284,12 @@ export default {
       "getPurchaseConfirmation",
       "getRouteStack"
     ]),
+    isVideo(){
+      return this.document.documentType === 'Video' 
+    },
+    videoHeight(){
+       return Math.floor((this.videoWidth/16)*9); 
+    },
     showPurchaseConfirmation() {
       return this.getPurchaseConfirmation;
     },
@@ -312,27 +334,13 @@ export default {
         return this.document.details.price.toFixed(2);
       }
     },
+    videoWidth(){
+      return this.calculateWidthByScreenSize()
+    },
     docPreview() {
       // TODO temporary calculated width container
       if (this.document.preview && this.docWrap) {
-        if (this.$vuetify.breakpoint.xl) {
-          this.imgWidth = 960;
-        }
-        if (this.$vuetify.breakpoint.lg) {
-          this.imgWidth = 880;
-        }
-        if (this.$vuetify.breakpoint.md) {
-          this.imgWidth = 560;
-        }
-        if (this.$vuetify.breakpoint.sm) {
-          this.imgWidth = 730;
-        }
-        if (this.$vuetify.breakpoint.xs) {
-          this.imgWidth = 400;
-        }
-        if (this.$vuetify.breakpoint.width === 375) {
-          this.imgWidth = 375;
-        }
+        this.imgWidth = this.calculateWidthByScreenSize()
         this.imgHeight = this.imgWidth / 0.707;
         let result = this.document.preview.map(preview => {
           return utillitiesService.proccessImageURL(
@@ -393,7 +401,28 @@ export default {
       "downloadDocument"
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING"]),
-    
+    calculateWidthByScreenSize(){
+      let width = 0;
+      if (this.$vuetify.breakpoint.xl) {
+          width = 960;
+        }
+        if (this.$vuetify.breakpoint.lg) {
+          width = 880;
+        }
+        if (this.$vuetify.breakpoint.md) {
+          width = 560;
+        }
+        if (this.$vuetify.breakpoint.sm) {
+          width = 730;
+        }
+        if (this.$vuetify.breakpoint.xs) {
+          width = 400;
+        }
+        if (this.$vuetify.breakpoint.width === 375) {
+          width = 375;
+        }
+        return width;
+    },
     unlockDocument() {
       let item = {
         id: this.document.details.id,
@@ -508,10 +537,9 @@ export default {
       }
     }
   },
-  beforeDestroy() {},
   mounted() {
     this.docWrap = document.querySelector(".document-wrap");
-  }
+  },
 };
 </script>
 <style lang="less">
@@ -525,7 +553,8 @@ export default {
   }
   .mainDocument-header {
     justify-content: center;
-    .main-header-wrapper {
+  }
+  .main-header-wrapper {
       display: flex;
       width: 100%;
       align-items: center;
@@ -588,7 +617,6 @@ export default {
         font-size: 14px;
       }
     }
-  }
   .document-wrap {
     // position: relative;
     .unlockBox {

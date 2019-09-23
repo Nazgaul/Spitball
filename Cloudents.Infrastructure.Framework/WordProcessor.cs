@@ -11,7 +11,7 @@ using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class WordProcessor : IPreviewProvider2
+    public class WordProcessor : IPreviewProvider
     {
         public WordProcessor()
         {

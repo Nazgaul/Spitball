@@ -12,7 +12,9 @@ using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using Cloudents.FunctionsV2.FileProcessor;
 using Cloudents.FunctionsV2.Services;
+using Cloudents.Infrastructure.Video;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Cloudents.Core.Interfaces.ILogger;
 
@@ -92,6 +94,12 @@ namespace Cloudents.FunctionsV2.Di
                 .Keyed<IDbToSearchSync>(SyncType.Document).SingleInstance();
 
 
+            builder.RegisterType<FileProcessorFactory>().AsImplementedInterfaces();
+            builder.RegisterType<VideoProcessor>().AsSelf().As<IFileProcessor>()
+                .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+                    FormatDocumentExtensions.Video));
+
+            builder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
 
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())

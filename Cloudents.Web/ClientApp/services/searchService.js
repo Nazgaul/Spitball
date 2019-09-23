@@ -115,6 +115,8 @@ function DocumentItem(objInit) {
     this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
     this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
     this.preview = objInit.preview;
+    this.documentType = objInit.documentType;
+    this.itemDuration = objInit.duration;
 }
 
 

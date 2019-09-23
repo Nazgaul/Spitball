@@ -11,6 +11,8 @@
     <PackageReference Include="FluentAssertions" Version="5.9.0" />
     
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="77.0.3865.4000" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
@@ -21,12 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Infrastructure.Data.Test\Cloudents.Infrastructure.Data.Test.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="WebDrivers\chromedriver.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

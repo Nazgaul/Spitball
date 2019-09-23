@@ -13,7 +13,7 @@ using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class PowerPoint2007Processor : IPreviewProvider2, IDisposable
+    public class PowerPoint2007Processor : IPreviewProvider, IDisposable
     {
         
         public PowerPoint2007Processor()
@@ -112,7 +112,7 @@ namespace Cloudents.Infrastructure.Framework
 
         public void Dispose()
         {
-            if (_pptx.IsValueCreated)
+            if (_pptx != null && _pptx.IsValueCreated)
             {
                 _pptx?.Value?.Dispose();
             }

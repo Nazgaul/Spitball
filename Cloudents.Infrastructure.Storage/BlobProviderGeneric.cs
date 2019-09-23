@@ -14,11 +14,8 @@ using Cloudents.Core.Storage;
 namespace Cloudents.Infrastructure.Storage
 {
     public class BlobProviderContainer : IBlobProvider,
-        
         IQuestionsDirectoryBlobProvider,
         IChatDirectoryBlobProvider
-        
-
     {
         protected readonly CloudBlobDirectory _blobDirectory;
         private readonly CloudBlobContainer _cloudContainer;
@@ -30,9 +27,6 @@ namespace Cloudents.Infrastructure.Storage
         public BlobProviderContainer(ICloudStorageProvider storageProvider)
         {
             _client = storageProvider.GetBlobClient();
-            //_cloudContainer = client.GetContainerReference(_container.Container.Name.ToLowerInvariant());
-
-            //_blobDirectory = _cloudContainer.GetDirectoryReference(_container.Container.RelativePath ?? string.Empty);
         }
 
         public BlobProviderContainer(ICloudStorageProvider storageProvider, StorageContainer container)
@@ -59,7 +53,7 @@ namespace Cloudents.Infrastructure.Storage
 
         private CloudBlockBlob GetBlob(Uri blobUrl)
         {
-            
+
             return new CloudBlockBlob(blobUrl, _client.Credentials);
         }
 
@@ -137,27 +131,27 @@ namespace Cloudents.Infrastructure.Storage
         }
 
 
-       
 
 
-        public async Task<string> DownloadTextAsync(string name, string directory, CancellationToken token)
-        {
-            try
-            {
-                var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
-                var blob = destinationDirectory.GetBlockBlobReference(name);
 
-                return await blob.DownloadTextAsync();
-            }
-            catch (StorageException e)
-            {
-                if (e.RequestInformation.HttpStatusCode == (int) HttpStatusCode.NotFound)
-                {
-                    return null;
-                }
-                throw;
-            }
-        }
+        //public async Task<string> DownloadTextAsync(string name, string directory, CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
+        //        var blob = destinationDirectory.GetBlockBlobReference(name);
+
+        //        return await blob.DownloadTextAsync();
+        //    }
+        //    catch (StorageException e)
+        //    {
+        //        if (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+        //        {
+        //            return null;
+        //        }
+        //        throw;
+        //    }
+        //}
 
         public Task<bool> ExistsAsync(string blobName, CancellationToken token)
         {
@@ -183,7 +177,25 @@ namespace Cloudents.Infrastructure.Storage
             await sourceBlob.DeleteAsync();
         }
 
-        public async Task DeleteDirectoryAsync(string id,CancellationToken token)
+
+        //public async Task MoveBlobAsync(MoveBlob source, MoveBlob destination, CancellationToken token)
+        //{
+        //    var sourceContainer = _client.GetContainerReference(source.ContainerName);
+        //    var sourceBlob = sourceContainer.GetBlockBlobReference(source.FileName);
+        //    var link = this.GenerateDownloadLink(sourceBlob.Uri, TimeSpan.FromDays(1));
+
+        //    var destinationContainer = _client.GetContainerReference(destination.ContainerName);
+        //    var destinationBlob = destinationContainer.GetBlockBlobReference(destination.FileName);
+
+        //    await destinationBlob.StartCopyAsync(link);
+        //    while (destinationBlob.CopyState.Status != CopyStatus.Success)
+        //    {
+        //        await Task.Delay(TimeSpan.FromSeconds(0.2), token);
+        //        await destinationBlob.ExistsAsync();
+        //    }
+        //}
+
+        public async Task DeleteDirectoryAsync(string id, CancellationToken token)
         {
             var directory = _blobDirectory.GetDirectoryReference(id);
             var blobs = await directory.ListBlobsSegmentedAsync(null);
@@ -195,7 +207,7 @@ namespace Cloudents.Infrastructure.Storage
                 if (blob is CloudBlockBlob p)
                 {
 
-                    var t = p.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots,AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
+                    var t = p.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots, AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
                     l.Add(t);
                 }
             }
@@ -218,23 +230,12 @@ namespace Cloudents.Infrastructure.Storage
         public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token)
         {
             var path = $"{_container.RelativePath}/{directory}/{prefix}";
-            var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true, 
+            var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true,
                 BlobListingDetails.None, 1000, null, null, null, token);
             return result.Results.Select(s => s.Uri);
         }
 
-        //public async Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token)
-        //{
-        //    var blob = GetBlob(blobUrl);
-        //    var ms = new MemoryStream();
-        //    await blob.DownloadToStreamAsync(ms);
-        //    ms.Seek(0, SeekOrigin.Begin);
-        //    return ms;
-        //}
-
-
-
-        public Uri GeneratePreviewLink(Uri blobUrl, TimeSpan expirationTime)
+       public Uri GeneratePreviewLink(Uri blobUrl, TimeSpan expirationTime)
         {
             var blob = GetBlob(blobUrl);
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
@@ -267,5 +268,28 @@ namespace Cloudents.Infrastructure.Storage
             return url;
         }
 
+    }
+
+    public class MoveBlob
+    {
+        public string ContainerName { get; set; }
+        public string FileName { get; set; }
+    }
+
+
+    public static class BlockBlobExtensions
+    {
+        public static Uri GetDownloadLink(this CloudBlockBlob blob, TimeSpan expirationTime)
+        {
+            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessExpiryTime = DateTimeOffset.UtcNow + expirationTime
+
+            });
+            var url = new Uri(blob.Uri, signedUrl);
+            return url;
+        }
     }
 }

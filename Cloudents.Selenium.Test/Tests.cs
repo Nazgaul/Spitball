@@ -14,7 +14,7 @@ namespace Cloudents.Selenium.Test
     [Collection("Database collection")]
     public class Tests : IDisposable
     {
-        private readonly IWebDriver _driver = new ChromeDriver(Path.Combine(Directory.GetCurrentDirectory(), "WebDrivers"));
+        private readonly IWebDriver _driver = new ChromeDriver(Directory.GetCurrentDirectory());
 
         private readonly DatabaseFixture _fixture;
 
@@ -98,22 +98,22 @@ namespace Cloudents.Selenium.Test
                     body.ToString().Should().NotContain("###");
                 }
             }
+        }
 
-            //for (int i = 0; i < 19; i++)
-            //{
 
-            //}
+        [Fact]
+        public void MissingResourceAsk()
+        {
+            var url = "https://dev.spitball.co/question/2208";
 
-            //driver.Navigate().GoToUrl(SitePages[0]);
-            //var language = driver.FindElement(By.XPath("//*[@class='flex tutor-list-header-right hidden-sm-and-down']//a"));
-            //language.Click();
+            _driver.Navigate().GoToUrl(url);
 
-            //for (int i = 0; i < 19; i++)
-            //{
-            //    driver.Navigate().GoToUrl(SitePages[i]);
-            //    var body = driver.FindElement(By.TagName("body"));
-            //    Assert.False(body.Text.Contains("###"));
-            //}
+            var htmlAttr = _driver.FindElement(By.TagName("html"));
+            var v = _driver.Manage().Timeouts().PageLoad;
+            var langValue = htmlAttr.GetAttribute("lang");
+            //langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
+            var body = _driver.FindElement(By.TagName("body"));
+
         }
 
         //[TearDown]

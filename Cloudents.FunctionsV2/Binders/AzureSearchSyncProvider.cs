@@ -21,7 +21,7 @@ namespace Cloudents.FunctionsV2.Binders
         }
 
 
-        private IAsyncCollector<AzureSearchSyncOutput> CreateCollector(AzureSearchSyncAttribute attribute)
+        private static IAsyncCollector<AzureSearchSyncOutput> CreateCollector(AzureSearchSyncAttribute attribute)
         {
             if (_client == null)
             {

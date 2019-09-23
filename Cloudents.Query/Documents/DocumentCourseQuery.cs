@@ -61,7 +61,6 @@ select ds.Id
 	,ds.Vote_Votes
 	,(select v.VoteType from sb.Vote v where v.DocumentId = ds.Id and v.UserId = cte.userid) as Vote_Vote
 	,ds.Price
-    ,ds.User_IsTutor
     ,ds.Purchased
 from sb.iv_DocumentSearch ds
 ,cte

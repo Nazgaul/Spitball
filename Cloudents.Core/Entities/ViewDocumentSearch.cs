@@ -29,5 +29,8 @@ namespace Cloudents.Core.Entities
         public virtual string Country { get; set; }
         public virtual bool IsTutor { get; set; }
         public virtual int Purchased { get; set; }
+
+        public virtual TimeSpan Duration  { get; set; }
+        public virtual DocumentType DocumentType  { get; set; }
     }
 }
