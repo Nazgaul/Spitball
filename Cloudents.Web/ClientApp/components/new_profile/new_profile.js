@@ -309,6 +309,13 @@ export default {
                 document.getElementById(`tab-${tabNumber}`).lastChild.click()
             },200)
         }
+        if((this.$route.query && this.$route.query.calendar)){
+            setTimeout(()=>{
+                if(this.getProfile.user.calendarShared){
+                    document.getElementById(`tab-6`).lastChild.click()
+                }
+            },200)
+        }
         setTimeout(()=>{
             if((this.$route.params && this.$route.params.id) && 
                (this.$route.params.id == this.accountUser.id) && 
