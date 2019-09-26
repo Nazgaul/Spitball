@@ -61,8 +61,8 @@ namespace Cloudents.Core.Entities
       
 
         // ReSharper disable once CollectionNeverUpdated.Local Nhibernate
-        private readonly IList<Question> _questions = new List<Question>();
-        public virtual IReadOnlyList<Question> Questions => _questions.ToList();
+        private readonly ICollection<Question> _questions = new List<Question>();
+        public virtual IEnumerable<Question> Questions => _questions;
 
 
       

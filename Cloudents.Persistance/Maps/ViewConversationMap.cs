@@ -1,33 +1,55 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using FluentNHibernate.Mapping;
+//using FluentNHibernate.Mapping;
+using NHibernate.Mapping.ByCode.Conformist;
 
 namespace Cloudents.Persistence.Maps
 {
-    public class ViewConversationMap :ClassMap<ViewConversation>
+    public class ViewConversationMap : ClassMapping<ViewConversation>
     {
         public ViewConversationMap()
         {
             Id(x => x.Id);
-            Map(x => x.LastMessage);
-            Map(x => x.UserName);
-            Map(x => x.UserPhoneNumber);
-            Map(x => x.UserEmail);
-            Map(x => x.UserId);
-            Map(x => x.TutorName);
-            Map(x => x.TutorPhoneNumber);
-            Map(x => x.TutorEmail);
-            Map(x => x.TutorId);
-            Map(x => x.Status).CustomType<EnumerationType<ChatRoomStatus>>();
-            Map(x => x.AssignTo);
-            Map(x => x.RequestFor);
-            Map(x => x.ConversationStatus);
-            Map(x => x.StudyRoomExists);
-            Map(x => x.HoursFromLastMessage);
-            Map(x => x.Country);
-            SchemaAction.Validate();
+            //Id(x => x.Id);
+            Property(x => x.LastMessage);
+            //Map(x => x.LastMessage);
+            Property(x => x.UserName);
+            //Map(x => x.UserName);
+            Property(x => x.UserPhoneNumber);
+            //Map(x => x.UserPhoneNumber);
+            Property(x => x.UserEmail);
+            //Map(x => x.UserEmail);
+            Property(x => x.UserId);
+            //Map(x => x.UserId);
+            Property(x => x.TutorName);
+            //Map(x => x.TutorName);
+            Property(x => x.TutorPhoneNumber);
+            //Map(x => x.TutorPhoneNumber);
+            Property(x => x.TutorEmail);
+            //Map(x => x.TutorEmail);
+            Property(x => x.TutorId);
+            //Map(x => x.TutorId);
+            Property(x => x.Status, c => c.Type<EnumerationType<ChatRoomStatus>>());
+            //Map(x => x.Status).CustomType<EnumerationType<ChatRoomStatus>>();
+            Property(x => x.AssignTo);
+            //Map(x => x.AssignTo);
+            Property(x => x.RequestFor);
+            //Map(x => x.RequestFor);
+            Property(x => x.ConversationStatus);
+            //Map(x => x.ConversationStatus);
+            Property(x => x.StudyRoomExists, c => c.Column(cl => cl.SqlType("int")));
+            //Map(x => x.StudyRoomExists);
+            Property(x => x.HoursFromLastMessage);
+            //Map(x => x.HoursFromLastMessage);
+            Property(x => x.Country);
+            //Map(x => x.Country);
+            SchemaAction(NHibernate.Mapping.ByCode.SchemaAction.Validate);
+            //SchemaAction.Validate();
             Table("vAdminConversation");
-            ReadOnly();
+            //Table("vAdminConversation");
+            Mutable(false);
+            //ReadOnly();
+
 
             /*
            alter VIEW [sb].[vAdminConversation] 

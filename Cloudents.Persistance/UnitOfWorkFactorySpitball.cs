@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Cloudents.Persistence.Maps;
 using FluentNHibernate.Cfg;
+using FluentNHibernate.Conventions.Helpers;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
-using NHibernate.Engine;
 using NHibernate.Event;
-using NHibernate.Mapping;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
-using NHibernate.Util;
-using ForeignKey = FluentNHibernate.Conventions.Helpers.ForeignKey;
+using System.Reflection;
 
 namespace Cloudents.Persistence
 {
@@ -25,22 +21,35 @@ namespace Cloudents.Persistence
         public UnitOfWorkFactorySpitball(PublishEventsListener publisher, IConfigurationKeys connectionString)
         {
             _publisher = publisher;
-            var configuration = Fluently.Configure()
-                .Database(
-                    FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db.Db)
-                        .DefaultSchema("sb").Dialect<SbDialect>()
+//            var configuration = Fluently.Configure()
+//                .Database(
+//                    FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db.Db)
+//                        .DefaultSchema("sb").Dialect<SbDialect>()
 
-#if DEBUG
-                        .ShowSql()
-#endif
-                ).ExposeConfiguration(BuildSchema);
+//#if DEBUG
+//                        .ShowSql()
+//#endif
+//                ).ExposeConfiguration(BuildSchema);
 
-            configuration.Mappings(m =>
-            {
-                m.FluentMappings.AddFromAssemblyOf<UserMap>()
-                    .Conventions.Add(ForeignKey.EndsWith("Id"));
-                
-            });
+//            configuration.Mappings(m =>
+//            {
+//                m.FluentMappings.AddFromAssemblyOf<UserMap>()
+//                    .Conventions.Add(ForeignKey.EndsWith("Id"));
+//            });
+
+            Configuration configuration = new Configuration()
+             .DataBaseIntegration(db =>
+             {
+                 db.ConnectionString = connectionString.Db.Db;
+                 db.Dialect<SbDialect>();
+             }).SetProperty("default_schema", "sb");
+            /* Add the mapping we defined: */
+            var mapper = new ModelMapper();
+            mapper.AddMappings(Assembly.GetExecutingAssembly().GetExportedTypes());
+            
+            HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
+
+            configuration.AddMapping(mapping);
 
 
 
@@ -52,7 +61,7 @@ namespace Cloudents.Persistence
             //    c.UseSecondLevelCache().RegionPrefix("nhibernate")
             //        .UseQueryCache().ProviderClass<CoreDistributedCacheProvider>();
             //});
-
+            configuration.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
             _factory = configuration.BuildSessionFactory();
 
         }
@@ -88,15 +97,6 @@ namespace Cloudents.Persistence
             config.SetListener(ListenerType.PostCollectionUpdate, _publisher);
 
 
-            foreach (var t in Assembly
-                .GetExecutingAssembly()
-                .GetTypes()
-                .Where(t => typeof(AbstractAuxiliaryDatabaseObject).IsAssignableFrom(t)))
-            {
-                config.AddAuxiliaryDatabaseObject(Activator.CreateInstance(t) as IAuxiliaryDatabaseObject);
-            }
-
-
             //var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
             //enversConf.Audit<Document>()
             //    .Exclude(x => x.Transactions)
@@ -114,7 +114,7 @@ namespace Cloudents.Persistence
             //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
             //config.Properties.Add("cache.default_expiration",$"{TimeConst.Day}");
             //config.Properties.Add("cache.use_sliding_expiration",bool.TrueString.ToLowerInvariant());
-           // config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+            //config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
         }
     }
 }

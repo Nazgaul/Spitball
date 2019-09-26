@@ -25,6 +25,8 @@ using NHibernate;
 using NHibernate.Linq;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
+using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Chat;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -117,7 +119,6 @@ namespace ConsoleApp
             }
             else
             {
-
                 await HadarMethod();
             }
 
@@ -134,7 +135,6 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            ResourcesMaintenance.DeleteUnusedResources();
             //var t = new GuidCombGenerator();
 
             //var dictionary = new Dictionary<int, Guid>();
@@ -144,9 +144,9 @@ namespace ConsoleApp
 
             //var v = dictionary.OrderBy(d => d.Value);
 
-         //   var c = _container.Resolve<ICommandBus>();
-          //  var command = new SendChatTextMessageCommand("hi",638, 160105);
-         //   await c.DispatchAsync(command, default);
+            var c = _container.Resolve<ICommandBus>();
+            var command = new SendChatTextMessageCommand("hi",638, 160105);
+            await c.DispatchAsync(command, default);
          //await   c.UpdateNonDayOldConversationToActiveAsync(default);
 
 
@@ -499,10 +499,16 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            var queryBus = _container.Resolve<IQueryBus>();
-           
-            var query = new CalendarEventsQuery(161755L, new DateTime(2019, 9, 16, 17, 0, 0), new DateTime(2019, 9, 22, 17, 0, 0));
-            var t = await queryBus.QueryAsync(query, default);
+            var commandBus = _container.Resolve<ICommandBus>();
+            var command = new UpdateUserSettingsCommand(162107, "ddddd", "xxx",
+                "vsddflsierj8ior", ",hjdfgbxgdfbjgdfcbjk", 100);
+            await commandBus.DispatchAsync(command, default);
+            //var _ = _container.Resolve<IUnitOfWork>();
+            //var queryBus = _container.Resolve<IQueryBus>();
+            //var query = new TutorListQuery(638, null, 0);
+            //var result = await queryBus.QueryAsync(query, default);
+            //var query = new CalendarEventsQuery(162085L, new DateTime(2019, 9, 15, 17, 0, 0), new DateTime(2019, 9, 22, 17, 0, 0));
+            //var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();
             //var repo = _container.Resolve<ITutorRepository>();
             //var test = await repo.GetTutorsByCourseAsync("organic chemistry כימיה אורגנית", 638, "IL", default);

@@ -32,7 +32,7 @@ namespace Cloudents.Query.Admin
             {
               var result =   await _session.StatelessSession.Query<AdminUser>()
                     .Where(w => w.Email == query.Email)
-                    .Fetch(f => f.Roles)
+                    //.Fetch(f => f.Roles)
                     .SingleOrDefaultAsync(token);
               if (result == null)
               {
@@ -40,7 +40,7 @@ namespace Cloudents.Query.Admin
               }
               return new UserRolesDto()
               {
-                  Roles = result.Roles.Select(s => s.Role),
+                  //Roles = result.Roles.Select(s => s.Role),
                   Country = result.Country
               };
             }
@@ -49,7 +49,7 @@ namespace Cloudents.Query.Admin
 
     public class UserRolesDto
     {
-        public IEnumerable<string> Roles { get; set; }
+       // public IEnumerable<string> Roles { get; set; }
         public string Country { get; set; }
     }
 }

@@ -66,8 +66,8 @@ namespace Cloudents.Web.Test.IntegrationTests
             {
                 var user = new TestUser
                 {
-                    Email = "elad13@cloudents.com",
-                    Password = "123456789",
+                    Email = "hadarkeidar90@gmail.com",
+                    Password = "Cloudents69",
                     FingerPrint = "string"
                 };
                 return JsonConvert.SerializeObject(user);

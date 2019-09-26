@@ -6,11 +6,11 @@ namespace Cloudents.Core.Entities
 {
     public sealed class ItemStatus : ValueObject
     {
-        public ItemState State { get; }
-        public DateTime? DeletedOn { get; }
+        public ItemState State { get; private set; }
+        public DateTime? DeletedOn { get; private set; }
 
-        public string FlagReason { get; }
-        public BaseUser FlaggedUser { get; }
+        public string FlagReason { get; private set; }
+        public BaseUser FlaggedUser { get; private set; }
 
 
         private const int MaxReasonLength = 255;

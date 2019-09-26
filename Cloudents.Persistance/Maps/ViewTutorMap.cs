@@ -1,27 +1,43 @@
 ﻿using Cloudents.Core.Entities;
-using FluentNHibernate.Mapping;
+//using FluentNHibernate.Mapping;
+using NHibernate.Mapping.ByCode.Conformist;
 
 namespace Cloudents.Persistence.Maps
 {
-    public class ViewTutorMap : ClassMap<ViewTutor>
+    public class ViewTutorMap : ClassMapping<ViewTutor>
     {
         public ViewTutorMap()
         {
             Id(x => x.Id);
-            Map(x => x.Name);
-            Map(x => x.Image);
-            Map(x => x.Subjects).CustomType<StringAggMapping>();
-            Map(x => x.Courses).CustomType<StringAggMapping>();
-            //Map(x => x.CourseCount);
-            Map(x => x.Price);
-            Map(x => x.Rate);
-            Map(x => x.SumRate);
-            Map(x => x.Bio);
-            Map(x => x.University);
-            Map(x => x.Lessons);
-            ReadOnly();
+            //Id(x => x.Id);
+            Property(x => x.Name);
+            //Map(x => x.Name);
+            Property(x => x.Image);
+            //Map(x => x.Image);
+            Property(x => x.Subjects, c => c.Type<StringAggMapping>());
+            //Map(x => x.Subjects).CustomType<StringAggMapping>();
+            Property(x => x.Courses, c => c.Type<StringAggMapping>());
+            //Map(x => x.Courses).CustomType<StringAggMapping>();
+
+            ////Map(x => x.CourseCount);
+            Property(x => x.Price, c => c.Column(cl => cl.SqlType("smallmoney")));
+            //Map(x => x.Price);
+            Property(x => x.Rate, c => c.Column(cl => cl.SqlType("float")));
+            //Map(x => x.Rate);
+            Property(x => x.SumRate);
+            //Map(x => x.SumRate);
+            Property(x => x.Bio);
+            //Map(x => x.Bio);
+            Property(x => x.University);
+            //Map(x => x.University);
+            Property(x => x.Lessons);
+            //Map(x => x.Lessons);
+            Mutable(false);
+            //ReadOnly();
             Table("vTutorRead");
-            SchemaAction.Validate();
+            //Table("vTutorRead");
+            SchemaAction(NHibernate.Mapping.ByCode.SchemaAction.Validate);
+            //SchemaAction.Validate();
         }
 
         /*alter     view [sb].[vTutorRead] as

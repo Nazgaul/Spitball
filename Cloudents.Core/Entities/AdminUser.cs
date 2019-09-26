@@ -11,15 +11,15 @@ namespace Cloudents.Core.Entities
 
         public virtual string Country { get; set; }
 
-        public virtual ISet<AdminUserRoles> Roles { get; set; }
+       // public virtual ISet<AdminUserRoles> Roles { get; set; }
     }
 
-    public class AdminUserRoles
-    {
-        public virtual Guid Id { get; set; }
+    //public class AdminUserRoles
+    //{
+    //    public virtual Guid Id { get; set; }
 
-        public virtual string Role { get; set; }
-    }
+    //    public virtual string Role { get; set; }
+    //}
 
     //public class AdminRoles : Enumeration
     //{
