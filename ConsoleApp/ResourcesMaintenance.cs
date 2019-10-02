@@ -15,7 +15,7 @@ namespace ConsoleApp
             //TODO: :// we need to think about landing page and other instances of resources string interpolation!
             //TODO :// maybe some performance tweaks and thats it.
             Console.WriteLine(Directory.GetCurrentDirectory());
-            
+
             var directoryName = Directory.GetCurrentDirectory();
             //var s = Directory.GetParent(directoryName);
             while (!Directory.GetFiles(directoryName, "*.sln").Any())
@@ -40,7 +40,7 @@ namespace ConsoleApp
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.LoadXml(content);
                 XmlNodeList dataElement = xmlDoc.GetElementsByTagName("data");
-                
+
 
                 //foreach (XmlNode element in dataElement)
                 for (int i = dataElement.Count - 1; i >= 0; i--)
@@ -80,6 +80,69 @@ namespace ConsoleApp
 
                     //Need to remove the file
                 }
+            }
+        }
+
+
+        public static void DeleteUnusedSvg()
+        {
+            //TODO: :// we need to think about landing page and other instances of resources string interpolation!
+            //TODO :// maybe some performance tweaks and thats it.
+            Console.WriteLine(Directory.GetCurrentDirectory());
+
+            var directoryName = Directory.GetCurrentDirectory();
+            //var s = Directory.GetParent(directoryName);
+            while (!Directory.GetFiles(directoryName, "*.sln").Any())
+            {
+                directoryName = Directory.GetParent(directoryName).ToString();
+            }
+            string[] svgFiles =
+                Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp\font-icon\",
+                "*.*", SearchOption.AllDirectories);
+            string[] jsFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp",
+                "*", SearchOption.AllDirectories);
+
+            //var dic = new Dictionary<string,string[]>();
+            for (int j = svgFiles.Length - 1; j >= 0; j--)
+            {
+                var svgFile = svgFiles[j];
+                var svgFileInfo = new FileInfo(svgFile);
+                var exists = false;
+                foreach (string file in jsFiles)
+                {
+                    if (!_fileContentCache.TryGetValue(file, out var lines))
+                    {
+                        lines = File.ReadAllLines(file);
+                        _fileContentCache[file] = lines;
+                    }
+                    //string[] lines = File.ReadAllLines(file); 
+                    if (lines.Any(l => l.Contains($"sbf-{Path.GetFileNameWithoutExtension(svgFileInfo.Name)}")))
+                    {
+                        Console.WriteLine($"{svgFileInfo.Name} was found");
+                        exists = true;
+                        break;
+
+                    }
+
+                    if (lines.Any(l => l.Contains($"{svgFileInfo.Name}")))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"{svgFileInfo.Name} uses inline svg");
+                        Console.ResetColor();
+                        exists = true;
+                        break;
+
+                    }
+                }
+
+
+                if (!exists)
+                {
+                    svgFileInfo.Delete();
+                }
+
+                //Need to remove the file
+
             }
         }
     }

@@ -134,7 +134,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            ResourcesMaintenance.DeleteUnusedResources();
+            ResourcesMaintenance.DeleteUnusedSvg();
             //var t = new GuidCombGenerator();
 
             //var dictionary = new Dictionary<int, Guid>();
